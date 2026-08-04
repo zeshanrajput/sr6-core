@@ -1,0 +1,22 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "sr6-core"
+version = "0.1.0"
+description = "Core rules engine, character creation auditor, multi-format exporter, and multi-character dashboard for Shadowrun 6th Edition"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "pydantic>=2.0.0",
+    "pyyaml>=6.0",
+    "python-fasthtml>=0.14.11",
+    "python-dotenv>=1.0.0"
+]
+
+[project.scripts]
+sr6 = "sr6core.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["sr6core"]
