@@ -230,11 +230,13 @@ class RulesDB:
             except Exception:
                 pass
 
-        vault_rule = self.query_rule(clean_target)
+        vault_rule = self.query_rule(norm_target) or self.query_rule(clean_target)
         if not vault_rule:
-            matches = self.search_rules(clean_target, limit=1)
-            if matches:
-                vault_rule = self.query_rule(matches[0]["id"])
+            matches = self.search_rules(clean_target, limit=5)
+            for m in matches:
+                if m.get("topic", "").lower() == clean_target.lower() or m.get("id", "").lower() == norm_target:
+                    vault_rule = self.query_rule(m["id"])
+                    break
 
         if not dataset_info and not vault_rule:
             return None

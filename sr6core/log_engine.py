@@ -22,6 +22,8 @@ _GLOBAL_LOG_STATE: Dict[str, Any] = {
     "Missions": []
 }
 
+state = _GLOBAL_LOG_STATE
+
 
 def reset_log_state():
     global _GLOBAL_LOG_STATE
@@ -47,6 +49,12 @@ def inc(resource: str, amount: int) -> int:
     if res == "Karma" and amount > 0:
         _GLOBAL_LOG_STATE["Lifetime_Karma"] = _GLOBAL_LOG_STATE.get("Lifetime_Karma", 0) + amount
     return _GLOBAL_LOG_STATE[res]
+
+
+def assign(name: str, value: Any) -> Any:
+    global _GLOBAL_LOG_STATE
+    _GLOBAL_LOG_STATE[name] = value
+    return value
 
 
 def inc_many(*pairs: Tuple[str, int]):
@@ -76,13 +84,19 @@ def add_rep(faction: str, points: int) -> Dict[str, int]:
     return rep
 
 
-def add_sprite(name: str, rating: int, sprite_type: str = "Registered", autosofts: str = "") -> Dict[str, Any]:
+def add_sprite(name: str, rating: int = 7, sprite_type: str = "Registered", autosofts: str = "", is_ally: bool = False, level: Optional[int] = None, type_name: Optional[str] = None, details: str = "") -> Dict[str, Any]:
     global _GLOBAL_LOG_STATE
+    eff_rating = level if level is not None else rating
+    eff_type = type_name if type_name is not None else sprite_type
+    eff_details = details if details else autosofts
     s_info = {
         "name": name,
-        "rating": rating,
-        "type": sprite_type,
-        "autosofts": autosofts,
+        "rating": eff_rating,
+        "level": eff_rating,
+        "type": eff_type,
+        "autosofts": eff_details,
+        "details": eff_details,
+        "is_ally": is_ally,
         "status": "Active"
     }
     _GLOBAL_LOG_STATE["Sprites"].append(s_info)
@@ -216,15 +230,21 @@ def get_log_totals(log_path: Optional[Any] = None) -> Dict[str, Any]:
             "nuyen": nuyen_val
         })
 
+    rep_dict = _GLOBAL_LOG_STATE.get("Reputation", {})
+    total_rep = sum(rep_dict.values()) if isinstance(rep_dict, dict) else 0
+    active_sprites = get_active_sprites()
+
     return {
         "Karma": final_karma,
         "Lifetime_Karma": final_lifetime_karma,
         "Nuyen": final_nuyen,
         "Heat": _GLOBAL_LOG_STATE.get("Heat", 0),
         "Submersion_Grade": _GLOBAL_LOG_STATE.get("Submersion_Grade", 0),
-        "Reputation": _GLOBAL_LOG_STATE.get("Reputation", {}),
+        "Reputation": rep_dict,
+        "Total_Reputation": total_rep,
         "Sprites": _GLOBAL_LOG_STATE.get("Sprites", []),
-        "Active_Sprites": get_active_sprites(),
+        "Active_Sprites": active_sprites,
+        "Active_Sprite_Count": len(active_sprites),
         "Contacts": _GLOBAL_LOG_STATE.get("Contacts", {}),
         "Missions": _GLOBAL_LOG_STATE.get("Missions", []),
         "Session_Logs": session_logs

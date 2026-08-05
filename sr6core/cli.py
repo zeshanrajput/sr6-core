@@ -66,14 +66,24 @@ def run_sync_all():
         if generate_character_dossier_appendix(cid, appendix_path):
             print(f"  [4/5] Quarto Dossier Appendix : Generated {appendix_path}")
 
-        # 5. Prose Linter
+        # 5. Expand Quarto Shortcodes in Chapter Files
         chap_dir = os.path.join(repo_dir, "chapters")
         linter_count = 0
         if os.path.exists(chap_dir):
             for f in os.listdir(chap_dir):
                 if f.endswith(".qmd") or f.endswith(".md"):
                     linter_count += 1
-        print(f"  [5/5] Chapter Files Scanned   : {linter_count} chapters in {chap_dir}\n")
+                    fpath = os.path.join(chap_dir, f)
+                    try:
+                        with open(fpath, "r", encoding="utf-8") as file:
+                            txt = file.read()
+                        expanded = expand_quarto_shortcodes(txt)
+                        if expanded != txt:
+                            with open(fpath, "w", encoding="utf-8") as file:
+                                file.write(expanded)
+                    except Exception:
+                        pass
+        print(f"  [5/5] Chapter Shortcodes & Files : Processed {linter_count} chapters in {chap_dir}\n")
 
     print("============================================================")
     print("      SR6 ECOSYSTEM SYNC COMPLETED SUCCESSFULLY!")
