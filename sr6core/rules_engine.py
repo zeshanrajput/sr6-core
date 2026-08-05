@@ -35,13 +35,16 @@ def get_weapon_stats(item_id: str, db_path: str = DEFAULT_DB_PATH) -> Optional[D
     Returns dictionary with id, name, dv, ar (list of int/None), mode, ammo, source.
     """
     import xml.etree.ElementTree as ET
-    db = RulesDB(db_path=db_path)
-    cursor = db.conn.cursor()
+    try:
+        db = RulesDB(db_path=db_path)
+        cursor = db.conn.cursor()
 
-    row = cursor.execute(
-        "SELECT id, name, category, source, raw_xml FROM ref_gear WHERE id = ? OR lower(id) = ?",
-        (item_id, item_id.lower())
-    ).fetchone()
+        row = cursor.execute(
+            "SELECT id, name, category, source, raw_xml FROM ref_gear WHERE id = ? OR lower(id) = ?",
+            (item_id, item_id.lower())
+        ).fetchone()
+    except Exception:
+        return None
 
     if not row:
         return None
