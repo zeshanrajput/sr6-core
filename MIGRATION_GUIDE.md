@@ -34,9 +34,33 @@ Previously, Quarto session logs often defined their own Python state functions o
 
 `sr6core.log_engine` automatically handles all state evaluation, Karma math, Nuyen running totals, and active sprite counts across all files!
 
+### 2.1 Submersion Grade & Echo Rules in Log Files
+- **Base Submersion Grade**: Initialize baseline Submersion Grade at chargen using `assign("Submersion_Grade", 2)` (or character starting grade).
+- **Stream Path Powers**: Do NOT increment Submersion Grade for path powers gained through stream advancement (e.g. *Hybrid Sprites* from Technoshaman stream).
+- **Earned Echoes**: Increment Submersion Grade only when logging earned submersions:
+  ```markdown
+  * *Submersion - Living Network:* `{python} inc_many(('Karma', -11-Submersion_Grade), ('Submersion_Grade', 1))`
+  ```
+
 ---
 
-## 3. CommLink6 GUI Player Save Sync & Dual-Ledger Workflow
+## 3. GitHub Pages CI/CD & `pyproject.toml` Git Dependency
+
+When publishing character Quarto books via GitHub Actions (`publish.yml`), relative workspace dependencies (`path = "../sr6-core"`) fail on CI runners because sibling repositories are not checked out.
+
+### Resolution:
+Configure `pyproject.toml` in character repositories to pull directly from the master Git branch:
+
+```toml
+[tool.uv.sources]
+sr6-core = { git = "https://github.com/zeshanrajput/sr6-core.git", branch = "master" }
+```
+
+Running `uv sync` locally and on GitHub Actions seamlessly builds `sr6-core` from Git without requiring relative directory pathing.
+
+---
+
+## 4. CommLink6 GUI Player Save Sync & Dual-Ledger Workflow
 
 `sr6-core` provides automatic two-way roundtrips with CommLink6:
 

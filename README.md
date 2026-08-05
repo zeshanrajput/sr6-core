@@ -17,9 +17,11 @@ The master engine, dataset compiler, and CLI portfolio manager for Shadowrun 6th
 - **Interactive Character Advancement & Shopping Wizard**: CLI wizard to search items/qualities, calculate transaction prices, and record purchases into character dossiers.
 - **Multi-Format Exporters**: Generates Roll20 JSON, Plain-Text VTT, and 100% CommLink6 / Genesis-compliant XML character sheets.
 - **Quarto Story Book Engine**:
+  - `log_engine`: In-memory evaluation tracking of global Karma, Lifetime Karma, Nuyen ledgers, Submersion echo grades, active registered sprite expiration (3-mission limit), and heat across multi-file Quarto story books (`character_log.qmd`, `character_purchases.qmd`).
   - `shortcodes`: Expands `{{< rule "Topic" >}}` and `{{< quality "id" >}}` into styled HTML callout boxes with stat blocks and book citations.
   - `dossier appendix`: Auto-generates dynamic `dossier_appendix.qmd` files in character repositories.
   - `prose linter`: Scans chapters for banned AI buzzwords, cognitive buffer verbs, and markdownlint formatting.
+- **CI/CD & GitHub Pages Integration**: Native `pyproject.toml` Git dependency specifications (`[tool.uv.sources] sr6-core = { git = "...", branch = "master" }`) enabling headless `uv run quarto render` builds on remote GitHub Actions runners without requiring relative directory pathing.
 - **Ecosystem Sync (`sr6 sync-all`)**: Single-command workspace synchronizer that audits portfolios, regenerates VTT/JSON/XML sheets into `output/` folders, patches CommLink6 GUI player saves, and updates Quarto book dossier appendices across all character repos.
 
 ---
