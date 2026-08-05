@@ -41,7 +41,7 @@ def reset_log_state():
     }
 
 
-def inc(resource: str, amount: int) -> int:
+def inc(resource: str, amount: int) -> str:
     global _GLOBAL_LOG_STATE
     raw_res = resource.strip()
     if raw_res in _GLOBAL_LOG_STATE:
@@ -53,7 +53,8 @@ def inc(resource: str, amount: int) -> int:
     _GLOBAL_LOG_STATE[res] = current + amount
     if res == "Karma" and amount > 0:
         _GLOBAL_LOG_STATE["Lifetime_Karma"] = _GLOBAL_LOG_STATE.get("Lifetime_Karma", 0) + amount
-    return _GLOBAL_LOG_STATE[res]
+    op = "+=" if amount >= 0 else "-="
+    return f"{res} {op} {abs(amount)}"
 
 
 def assign(name: str, value: Any) -> Any:
@@ -62,9 +63,22 @@ def assign(name: str, value: Any) -> Any:
     return value
 
 
-def inc_many(*pairs: Tuple[str, int]):
-    for resource, amount in pairs:
-        inc(resource, amount)
+def inc_many(*args: Any) -> str:
+    if len(args) == 1 and isinstance(args[0], (list, tuple)):
+        pairs = args[0]
+    elif len(args) > 0 and isinstance(args[0], (list, tuple)):
+        pairs = args
+    elif len(args) % 2 == 0 and all(isinstance(a, (str, int)) for a in args):
+        pairs = [(args[i], args[i+1]) for i in range(0, len(args), 2)]
+    else:
+        pairs = args
+
+    res = []
+    for item in pairs:
+        if isinstance(item, (list, tuple)) and len(item) == 2:
+            r, a = item
+            res.append(inc(r, a))
+    return ", ".join(res)
 
 
 def contact(name: str, connection: int = 1, loyalty: int = 1, fp: int = 1, type_name: str = "", region: str = "", notes: str = "") -> Dict[str, Any]:
