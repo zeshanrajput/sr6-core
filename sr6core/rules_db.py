@@ -8,15 +8,17 @@ import re
 import sqlite3
 from typing import Dict, Any, List, Optional, Tuple
 
-DEFAULT_DB_PATH = os.path.expanduser(r"~\.sr6\rules_index.db")
-DEFAULT_VAULT_DIR = os.path.expanduser(r"~\OneDrive\Desktop\SR6\ebooks\shadowrun_rules_vault")
+DEFAULT_DB_PATH = os.path.join(os.path.expanduser("~"), ".sr6", "rules_index.db")
+DEFAULT_VAULT_DIR = os.path.join(os.path.expanduser("~"), "OneDrive", "Desktop", "SR6", "ebooks", "shadowrun_rules_vault")
 
 
 class RulesDB:
     def __init__(self, db_path: str = DEFAULT_DB_PATH, vault_dir: str = DEFAULT_VAULT_DIR):
         self.db_path = os.environ.get("SR6_RULES_DB_PATH", db_path)
         self.vault_dir = os.environ.get("SR6_RULES_VAULT_DIR", vault_dir)
-        os.makedirs(os.path.dirname(self.db_path), exist_ok=True)
+        dirname = os.path.dirname(self.db_path)
+        if dirname:
+            os.makedirs(dirname, exist_ok=True)
         self.conn = sqlite3.connect(self.db_path)
         self.conn.row_factory = sqlite3.Row
         self._init_db()

@@ -110,7 +110,9 @@ def compile_commlink_datasets(jar_path: Optional[str] = None, db_path: str = DEF
     if not jar_path or not os.path.exists(jar_path):
         return False, f"CommLink6 JAR file not found at: {jar_path or COMMLINK_DEFAULT_DIR}"
 
-    os.makedirs(os.path.dirname(db_path), exist_ok=True)
+    dirname = os.path.dirname(db_path)
+    if dirname:
+        os.makedirs(dirname, exist_ok=True)
     conn = sqlite3.connect(db_path)
     init_dataset_tables(conn)
     cursor = conn.cursor()

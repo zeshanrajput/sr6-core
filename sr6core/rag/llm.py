@@ -63,7 +63,7 @@ def load_environment():
         "C:\\GitHub\\sr6yuriko\\.env",
         "C:\\GitHub\\.env",
         os.path.join(os.getcwd(), ".env"),
-        os.path.expanduser("~\\.env")
+        os.path.join(os.path.expanduser("~"), ".env")
     ]
     for path in search_paths:
         if os.path.exists(path):
