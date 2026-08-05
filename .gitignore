@@ -9,3 +9,5 @@ build/
 *.egg-info/
 .rules_cache.json
 .sesskey
+kokoro-en-v0_19/
+kokoro-multi-lang-v1_0/

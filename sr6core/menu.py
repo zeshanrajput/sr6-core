@@ -144,21 +144,69 @@ def rules_search_menu(db: RulesDB):
 
 
 def rules_rag_menu(rag_engine: RAGEngine):
-    prompt = input("\nEnter rules question / RAG prompt: ").strip()
-    if not prompt:
-        return
-    
-    print(f"\nProcessing RAG query: '{prompt}'...")
-    res = rag_engine.query(prompt, use_ai=True)
+    print("\n=== RULES RAG AI ASSISTANT INTERACTIVE SESSION ===")
+    print("Available commands:")
+    print("  /clear       : Clear current conversation thread history")
+    print("  /model <m>   : Set model (e.g. flash-latest, flash-light-latest)")
+    print("  /effort <e>  : Set effort level (high, medium, low)")
+    print("  /help        : Show slash command help")
+    print("  /exit or B   : Return to main menu")
 
-    if res.get("ai_response"):
-        print("\n=== RAG AI Assistant Answer ===")
-        print(res["ai_response"])
-    else:
-        if res.get("error"):
-            print(f"\n[AI Notice] {res['error']}")
-        print("\n=== Retrieved Vault Context ===")
-        print(res["context"])
+    while True:
+        status_line = f"[Model: {rag_engine.session.model_name} | Effort: {rag_engine.session.effort_level or 'default'}]"
+        prompt = input(f"\n{status_line} RAG Prompt > ").strip()
+        if not prompt:
+            continue
+
+        if prompt.lower() in ['b', '/exit', '/quit', '/back']:
+            break
+
+        if prompt.lower() == '/clear':
+            rag_engine.session.clear_history()
+            print("[+] Conversation thread history cleared.")
+            continue
+
+        if prompt.lower() in ['/help', '?']:
+            print("\nSlash Commands:")
+            print("  /clear                 : Reset active chat memory")
+            print("  /model flash-latest    : Switch to Gemini Flash Latest")
+            print("  /model flash-light-latest : Switch to Gemini Flash Lite Latest")
+            print("  /effort high|medium|low: Adjust thinking budget")
+            print("  /exit                  : Back to main menu")
+            continue
+
+        if prompt.lower().startswith('/model'):
+            parts = prompt.split(maxsplit=1)
+            if len(parts) > 1:
+                new_model = parts[1].strip()
+                rag_engine.session.set_model(new_model)
+                print(f"[+] Model updated to '{rag_engine.session.model_name}'.")
+            else:
+                print(f"Current model: {rag_engine.session.model_name}")
+            continue
+
+        if prompt.lower().startswith('/effort'):
+            parts = prompt.split(maxsplit=1)
+            if len(parts) > 1:
+                new_effort = parts[1].strip()
+                rag_engine.session.set_effort(new_effort)
+                print(f"[+] Effort level updated to '{rag_engine.session.effort_level}'.")
+            else:
+                print(f"Current effort level: {rag_engine.session.effort_level}")
+            continue
+
+        print(f"\nProcessing RAG query: '{prompt}'...")
+        res = rag_engine.query(prompt, use_ai=True, use_session=True)
+
+        if res.get("ai_response"):
+            print("\n=== RAG AI Assistant Answer ===")
+            print(res["ai_response"])
+        else:
+            if res.get("error"):
+                print(f"\n[AI Notice] {res['error']}")
+            print("\n=== Retrieved Vault Context ===")
+            print(res["context"])
+
 
 
 def lint_prose_menu():

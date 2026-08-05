@@ -4,7 +4,7 @@ Enforces 4-Level Authority Hierarchy and exact [Book, Page] source citations.
 """
 
 import os
-from typing import Optional, Tuple
+from typing import Optional, Tuple, Any, List, Dict
 from dotenv import load_dotenv
 
 SYSTEM_INSTRUCTION = """ROLE: Table-side Rules Reference Assistant for Shadowrun Missions (SRM) campaigns.
@@ -31,17 +31,47 @@ Every response statement or cost breakdown must be verified back to physical pag
 """
 
 
+MODEL_ALIASES = {
+    "flash-latest": "gemini-flash-latest",
+    "flash-light-latest": "gemini-flash-lite-latest",
+    "flash-lite-latest": "gemini-flash-lite-latest",
+    "flash-light": "gemini-flash-lite-latest",
+    "flash": "gemini-flash-latest",
+    "pro": "gemini-2.5-pro",
+}
+
+EFFORT_BUDGETS = {
+    "high": 2048,
+    "medium": 1024,
+    "low": 512,
+}
+
+
+def resolve_model_name(model_name: str) -> str:
+    """Normalizes model names and aliases."""
+    normalized = model_name.strip().lower()
+    return MODEL_ALIASES.get(normalized, model_name)
+
+
 def load_environment():
-    """Loads GEMINI_API_KEY from environment or .env file."""
+    """Loads GEMINI_API_KEY from environment or .env file across standard project locations."""
+    base_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
     search_paths = [
-        os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), ".env"),
+        os.path.join(base_dir, ".env"),
+        os.path.join(os.path.dirname(base_dir), "sr6yuriko", ".env"),
+        "C:\\GitHub\\sr6-core\\.env",
+        "C:\\GitHub\\sr6yuriko\\.env",
         "C:\\GitHub\\.env",
-        ".env",
+        os.path.join(os.getcwd(), ".env"),
         os.path.expanduser("~\\.env")
     ]
     for path in search_paths:
         if os.path.exists(path):
-            load_dotenv(path, override=False)
+            load_dotenv(path, override=True)
+            key = os.getenv("GEMINI_API_KEY")
+            if key and key.strip():
+                os.environ["GEMINI_API_KEY"] = key.strip().strip('"').strip("'")
+                return
 
     if not os.getenv("GEMINI_API_KEY"):
         for path in search_paths:
@@ -52,15 +82,23 @@ def load_environment():
                             line = line.strip()
                             if line and not line.startswith("#") and "GEMINI_API_KEY" in line:
                                 parts = line.split("=", 1)
-                                os.environ["GEMINI_API_KEY"] = parts[1].strip().strip('"').strip("'")
-                                break
+                                val = parts[1].strip().strip('"').strip("'")
+                                if val:
+                                    os.environ["GEMINI_API_KEY"] = val
+                                    return
                 except Exception:
                     pass
 
 
-def query_gemini(user_query: str, context_str: str, model_name: str = "gemini-2.5-flash") -> Tuple[Optional[str], Optional[str]]:
+def query_gemini(
+    user_query: str,
+    context_str: str,
+    model_name: str = "flash-latest",
+    effort_level: Optional[str] = None,
+    chat_session: Optional[Any] = None
+) -> Tuple[Optional[str], Optional[str]]:
     """
-    Queries Gemini API with system instructions and retrieved rules context.
+    Queries Gemini API with system instructions, retrieved rules context, selected model, and effort level.
     """
     load_environment()
     api_key = os.getenv("GEMINI_API_KEY")
@@ -69,11 +107,14 @@ def query_gemini(user_query: str, context_str: str, model_name: str = "gemini-2.
 
     try:
         from google import genai
+        from google.genai import types
         client = genai.Client(api_key=api_key)
     except ImportError:
         return None, "google-genai library not installed."
     except Exception as e:
         return None, f"Failed to initialize Gemini client: {e}"
+
+    target_model = resolve_model_name(model_name)
 
     full_prompt = (
         f"{SYSTEM_INSTRUCTION}\n\n"
@@ -81,11 +122,89 @@ def query_gemini(user_query: str, context_str: str, model_name: str = "gemini-2.
         f"### USER QUERY:\n{user_query}"
     )
 
+    config = None
+    if effort_level:
+        budget = EFFORT_BUDGETS.get(effort_level.lower())
+        if budget is not None:
+            config = types.GenerateContentConfig(
+                thinking_config=types.ThinkingConfig(thinking_budget=budget)
+            )
+
     try:
-        response = client.models.generate_content(
-            model=model_name,
-            contents=full_prompt
-        )
+        if chat_session:
+            response = chat_session.send_message(full_prompt, config=config, model=target_model)
+        else:
+            response = client.models.generate_content(
+                model=target_model,
+                contents=full_prompt,
+                config=config
+            )
         return response.text, None
     except Exception as e:
         return None, f"Gemini generation error: {e}"
+
+
+class RAGChatSession:
+    """
+    Interactive conversation session manager supporting model switching, effort levels, and thread clearing.
+    """
+    def __init__(self, model_name: str = "flash-latest", effort_level: Optional[str] = "medium"):
+        self.model_name = resolve_model_name(model_name)
+        self.effort_level = effort_level
+        self.history: List[Dict[str, str]] = []
+        self._client = None
+        self._chat = None
+
+    def _ensure_client(self):
+        load_environment()
+        api_key = os.getenv("GEMINI_API_KEY")
+        if not api_key:
+            raise ValueError("GEMINI_API_KEY not found in environment or .env files.")
+        from google import genai
+        self._client = genai.Client(api_key=api_key)
+        if not self._chat:
+            self._chat = self._client.chats.create(model=self.model_name)
+
+    def set_model(self, model_name: str):
+        self.model_name = resolve_model_name(model_name)
+        self._chat = None
+
+    def set_effort(self, effort_level: Optional[str]):
+        if effort_level and effort_level.lower() in EFFORT_BUDGETS:
+            self.effort_level = effort_level.lower()
+        elif not effort_level or effort_level.lower() in ["none", "off"]:
+            self.effort_level = None
+
+    def clear_history(self):
+        self.history.clear()
+        self._chat = None
+
+    def send_query(self, user_query: str, context_str: str) -> Tuple[Optional[str], Optional[str]]:
+        self._ensure_client()
+        from google.genai import types
+
+        target_model = resolve_model_name(self.model_name)
+        prompt = (
+            f"{SYSTEM_INSTRUCTION}\n\n"
+            f"### RETRIEVED RULES CONTEXT:\n{context_str}\n\n"
+            f"### USER QUERY:\n{user_query}"
+        )
+
+        config = None
+        if self.effort_level:
+            budget = EFFORT_BUDGETS.get(self.effort_level.lower())
+            if budget is not None:
+                config = types.GenerateContentConfig(
+                    thinking_config=types.ThinkingConfig(thinking_budget=budget)
+                )
+
+        try:
+            if not self._chat:
+                self._chat = self._client.chats.create(model=target_model)
+            res = self._chat.send_message(prompt, config=config)
+            text = res.text
+            self.history.append({"user": user_query, "assistant": text})
+            return text, None
+        except Exception as e:
+            return None, f"Gemini chat error: {e}"
+

@@ -14,6 +14,25 @@ MODEL_URL = "https://github.com/k2-fsa/sherpa-onnx/releases/download/tts-models/
 MODEL_DIR = "kokoro-multi-lang-v1_0"
 
 
+def find_kokoro_model_dir() -> Optional[str]:
+    """Resolves local directory path for Kokoro TTS models."""
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    search_dirs = [
+        os.path.join(base_dir, "kokoro-multi-lang-v1_0"),
+        os.path.join(base_dir, "kokoro-en-v0_19"),
+        os.path.join(os.getcwd(), "kokoro-multi-lang-v1_0"),
+        os.path.join(os.getcwd(), "kokoro-en-v0_19"),
+        r"C:\GitHub\sr6-core\kokoro-multi-lang-v1_0",
+        r"C:\GitHub\sr6-core\kokoro-en-v0_19",
+        r"C:\GitHub\sr6yuriko\kokoro-multi-lang-v1_0",
+        r"C:\GitHub\sr6yuriko\kokoro-en-v0_19",
+    ]
+    for candidate in search_dirs:
+        if os.path.exists(candidate) and os.path.exists(os.path.join(candidate, "model.onnx")):
+            return candidate
+    return None
+
+
 def clean_pronunciation(text: str) -> str:
     """Applies pronunciation corrections for Shadowrun terms."""
     text = re.sub(r'\br31-?k0\b', 'Rayko', text, flags=re.IGNORECASE)
@@ -68,6 +87,10 @@ def generate_narration(file_path: str, output_mp3: Optional[str] = None) -> Tupl
     if not os.path.exists(file_path):
         return None, f"Chapter file '{file_path}' not found."
 
+    model_dir = find_kokoro_model_dir()
+    if not model_dir:
+        return None, f"Kokoro model directory not found. Expected in sr6-core root ('kokoro-multi-lang-v1_0' or 'kokoro-en-v0_19')."
+
     try:
         import sherpa_onnx
         import numpy as np
@@ -86,5 +109,7 @@ def generate_narration(file_path: str, output_mp3: Optional[str] = None) -> Tupl
     clean_prose = clean_pronunciation(prose)
     chunks = split_into_narration_chunks(clean_prose)
 
+    print(f"[*] Found Kokoro TTS model at: {model_dir}")
     print(f"[*] Prepared {len(chunks)} speech chunks for narration rendering -> {output_mp3}")
     return output_mp3, None
+

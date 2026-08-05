@@ -43,7 +43,12 @@ def reset_log_state():
 
 def inc(resource: str, amount: int) -> int:
     global _GLOBAL_LOG_STATE
-    res = resource.strip().title()
+    raw_res = resource.strip()
+    if raw_res in _GLOBAL_LOG_STATE:
+        res = raw_res
+    else:
+        title_res = raw_res.title()
+        res = title_res if title_res in _GLOBAL_LOG_STATE else raw_res
     current = _GLOBAL_LOG_STATE.get(res, 0)
     _GLOBAL_LOG_STATE[res] = current + amount
     if res == "Karma" and amount > 0:
@@ -89,6 +94,8 @@ def add_sprite(name: str, rating: int = 7, sprite_type: str = "Registered", auto
     eff_rating = level if level is not None else rating
     eff_type = type_name if type_name is not None else sprite_type
     eff_details = details if details else autosofts
+    curr_m_idx = len(_GLOBAL_LOG_STATE.get("Missions", []))
+    m_name = _GLOBAL_LOG_STATE["Missions"][-1] if curr_m_idx > 0 else "Character Creation"
     s_info = {
         "name": name,
         "rating": eff_rating,
@@ -97,6 +104,8 @@ def add_sprite(name: str, rating: int = 7, sprite_type: str = "Registered", auto
         "autosofts": eff_details,
         "details": eff_details,
         "is_ally": is_ally,
+        "registered_mission": curr_m_idx,
+        "registered_mission_name": m_name,
         "status": "Active"
     }
     _GLOBAL_LOG_STATE["Sprites"].append(s_info)
@@ -110,7 +119,19 @@ def start_mission(code: str):
 
 def get_active_sprites() -> List[Dict[str, Any]]:
     global _GLOBAL_LOG_STATE
-    return [s for s in _GLOBAL_LOG_STATE.get("Sprites", []) if s.get("status") == "Active"]
+    curr_m_idx = len(_GLOBAL_LOG_STATE.get("Missions", []))
+    active = []
+    for s in _GLOBAL_LOG_STATE.get("Sprites", []):
+        if s.get("is_ally"):
+            active.append(s)
+        else:
+            reg_m = s.get("registered_mission", 0)
+            elapsed = curr_m_idx - reg_m
+            if elapsed <= 3:
+                active.append(s)
+            else:
+                s["status"] = "Expired"
+    return active
 
 
 def create_quarto_eval_env() -> Dict[str, Any]:
@@ -129,6 +150,7 @@ def create_quarto_eval_env() -> Dict[str, Any]:
         "Lifetime_Karma": 0,
         "Nuyen": 0,
         "Heat": 0,
+        "Submersion_Grade": 0,
         "Reputation": {},
         "Sprites": [],
         "Contacts": {},
@@ -138,7 +160,13 @@ def create_quarto_eval_env() -> Dict[str, Any]:
 
 def get_log_totals(log_path: Optional[Any] = None) -> Dict[str, Any]:
     if log_path is None:
-        files = []
+        # Default fallback: search current directory and parent directory for chapters/character_log.qmd
+        possible_paths = [
+            "chapters/character_log.qmd",
+            "character_log.qmd",
+            "../chapters/character_log.qmd"
+        ]
+        files = [p for p in possible_paths if os.path.exists(p)][:1]
     elif isinstance(log_path, list):
         files = [p for p in log_path if os.path.exists(p)]
     elif isinstance(log_path, str) and os.path.isdir(log_path):
@@ -147,8 +175,19 @@ def get_log_totals(log_path: Optional[Any] = None) -> Dict[str, Any]:
             os.path.join(log_path, "chapters", "character_purchases.qmd")
         ]
         files = [p for p in target_files if os.path.exists(p)]
-    elif isinstance(log_path, str) and os.path.exists(log_path):
-        files = [log_path]
+    elif isinstance(log_path, str):
+        if os.path.exists(log_path):
+            files = [log_path]
+        else:
+            # Try resolving relative to parent directory if rendering from inside subfolder (e.g. chapters/)
+            alt_path = os.path.normpath(os.path.join(os.getcwd(), "..", log_path))
+            alt_path2 = os.path.normpath(os.path.join(os.getcwd(), log_path.replace("chapters/", "")))
+            if os.path.exists(alt_path):
+                files = [alt_path]
+            elif os.path.exists(alt_path2):
+                files = [alt_path2]
+            else:
+                files = []
     else:
         files = []
 
@@ -165,23 +204,24 @@ def get_log_totals(log_path: Optional[Any] = None) -> Dict[str, Any]:
         block = match.group(1)
         inline = match.group(2)
         if block is not None:
-            clean_lines = [line for line in block.splitlines() if not line.strip().startswith('#|')]
+            clean_lines = [line.strip() for line in block.splitlines() if not line.strip().startswith('#|')]
             try:
                 exec("\n".join(clean_lines), env)
             except Exception:
                 pass
         elif inline is not None:
+            code_str = inline.strip()
             try:
-                eval(inline.strip(), env)
+                eval(code_str, env)
             except Exception:
                 try:
-                    exec(inline.strip(), env)
+                    exec(code_str, env)
                 except Exception:
                     pass
 
-    final_karma = env.get("Karma", _GLOBAL_LOG_STATE.get("Karma", 0))
-    final_lifetime_karma = env.get("Lifetime_Karma", _GLOBAL_LOG_STATE.get("Lifetime_Karma", final_karma))
-    final_nuyen = env.get("Nuyen", _GLOBAL_LOG_STATE.get("Nuyen", 0))
+    final_karma = _GLOBAL_LOG_STATE.get("Karma", 0)
+    final_lifetime_karma = _GLOBAL_LOG_STATE.get("Lifetime_Karma", final_karma)
+    final_nuyen = _GLOBAL_LOG_STATE.get("Nuyen", 0)
 
     session_sections = re.split(r'\n(?=###\s+\*\*)', content)
     session_logs = []

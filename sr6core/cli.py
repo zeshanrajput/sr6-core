@@ -146,6 +146,8 @@ def main():
     rag_query_parser = rag_sub.add_parser("query", help="Query rules AI reference assistant")
     rag_query_parser.add_argument("prompt", type=str, help="Rules question / prompt")
     rag_query_parser.add_argument("--no-ai", action="store_true", help="Retrieve context only without AI response")
+    rag_query_parser.add_argument("--model", type=str, default="flash-latest", help="Model choice (flash-latest, flash-light-latest, gemini-2.5-flash)")
+    rag_query_parser.add_argument("--effort", type=str, choices=["high", "medium", "low"], default=None, help="Thinking effort level")
     rag_search_parser = rag_sub.add_parser("search", help="Perform FTS rules search with authority ranking")
     rag_search_parser.add_argument("query", type=str, help="Search terms")
 
@@ -278,8 +280,10 @@ def main():
         elif args.subcommand == "query" or hasattr(args, "prompt"):
             prompt = getattr(args, "prompt", "")
             use_ai = not getattr(args, "no_ai", False)
-            print(f"\nProcessing RAG query: '{prompt}'...")
-            res = rag_engine.query(prompt, use_ai=use_ai)
+            model_choice = getattr(args, "model", "flash-latest")
+            effort_choice = getattr(args, "effort", None)
+            print(f"\nProcessing RAG query: '{prompt}' (Model: {model_choice}, Effort: {effort_choice or 'default'})...")
+            res = rag_engine.query(prompt, use_ai=use_ai, model_name=model_choice, effort_level=effort_choice)
             
             if res.get("ai_response"):
                 print("\n=== RAG AI Assistant Answer ===")
@@ -292,6 +296,7 @@ def main():
                 print("\n=== Retrieved Context ===")
                 print(res["context"])
             print()
+
 
 
 if __name__ == "__main__":
