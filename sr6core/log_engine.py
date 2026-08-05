@@ -6,6 +6,8 @@ Exposes standard Quarto tracking helpers so character logs can import sr6core.lo
 
 import os
 import re
+import io
+import contextlib
 from typing import Dict, Any, List, Optional, Tuple, Union
 
 # Global state dictionary for Quarto rendering scope
@@ -246,24 +248,25 @@ def get_log_totals(log_path: Optional[Any] = None) -> Dict[str, Any]:
     env = create_quarto_eval_env()
 
     pattern = re.compile(r'```\{python\}(.*?)```|`\{python\}\s*(.*?)`', re.DOTALL)
-    for match in pattern.finditer(content):
-        block = match.group(1)
-        inline = match.group(2)
-        if block is not None:
-            clean_lines = [line.strip() for line in block.splitlines() if not line.strip().startswith('#|')]
-            try:
-                exec("\n".join(clean_lines), env)
-            except Exception:
-                pass
-        elif inline is not None:
-            code_str = inline.strip()
-            try:
-                eval(code_str, env)
-            except Exception:
+    with contextlib.redirect_stdout(io.StringIO()):
+        for match in pattern.finditer(content):
+            block = match.group(1)
+            inline = match.group(2)
+            if block is not None:
+                clean_lines = [line.strip() for line in block.splitlines() if not line.strip().startswith('#|')]
                 try:
-                    exec(code_str, env)
+                    exec("\n".join(clean_lines), env)
                 except Exception:
                     pass
+            elif inline is not None:
+                code_str = inline.strip()
+                try:
+                    eval(code_str, env)
+                except Exception:
+                    try:
+                        exec(code_str, env)
+                    except Exception:
+                        pass
 
     final_karma = _GLOBAL_LOG_STATE.get("Karma", 0)
     final_lifetime_karma = _GLOBAL_LOG_STATE.get("Lifetime_Karma", final_karma)
