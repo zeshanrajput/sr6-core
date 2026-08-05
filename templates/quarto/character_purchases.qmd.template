@@ -1,0 +1,11 @@
+---
+title: "Transaction & Purchases Ledger"
+format: html
+---
+
+# Transaction Ledger
+
+| Date | Item / Purchase | Base Price | Actual Price | Notes / Modifiers |
+| :--- | :--- | :--- | :--- | :--- |
+| 2026-08-04 | Cyberjack (Rating 2) | 12,000¥ | 14,400¥ | Contact Fixer Markup (x1.2) |
+| 2026-08-04 | Ares Alpha Mod | 2,400¥ | 1,200¥ | DIY Rigger Discount (50%) |

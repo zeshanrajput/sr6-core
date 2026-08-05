@@ -1,6 +1,6 @@
 """
 Compact SQLite Rules Vault Engine for Shadowrun 6th Edition.
-Replaces 500MB+ JSON dumps with a lightweight, indexed ~30-50MB SQLite database.
+Provides rules search and cross-referencing between CommLink6 XML datasets, SRM contacts, and Rules Vault text.
 """
 
 import os
@@ -21,6 +21,13 @@ class RulesDB:
         self.conn.row_factory = sqlite3.Row
         self._init_db()
 
+    def _get_rules_columns(self) -> List[str]:
+        cursor = self.conn.cursor()
+        try:
+            return [row[1] for row in cursor.execute("PRAGMA table_info(rules)").fetchall()]
+        except Exception:
+            return ["id", "topic", "chapter", "source", "content"]
+
     def _init_db(self):
         with self.conn:
             self.conn.execute("""
@@ -30,6 +37,7 @@ class RulesDB:
                     chapter TEXT,
                     source TEXT,
                     page TEXT,
+                    authority_level INTEGER DEFAULT 3,
                     tags TEXT,
                     content TEXT
                 )
@@ -52,6 +60,18 @@ class RulesDB:
             except sqlite3.OperationalError:
                 pass
 
+            cols = [row[1] for row in self.conn.execute("PRAGMA table_info(rules)").fetchall()]
+            if "page" not in cols:
+                try:
+                    self.conn.execute("ALTER TABLE rules ADD COLUMN page TEXT")
+                except Exception:
+                    pass
+            if "authority_level" not in cols:
+                try:
+                    self.conn.execute("ALTER TABLE rules ADD COLUMN authority_level INTEGER DEFAULT 3")
+                except Exception:
+                    pass
+
     def compile_vault(self, force: bool = False) -> Tuple[int, str]:
         """Scans vault markdown files and indexes them into SQLite."""
         if not os.path.exists(self.vault_dir):
@@ -69,6 +89,10 @@ class RulesDB:
             cursor.execute("DELETE FROM rules_fts")
         except sqlite3.OperationalError:
             pass
+
+        cols = self._get_rules_columns()
+        has_page = "page" in cols
+        has_auth = "authority_level" in cols
 
         indexed_count = 0
         for filename in os.listdir(self.vault_dir):
@@ -88,12 +112,25 @@ class RulesDB:
             chapter = str(fm.get("chapter", ""))
             source = str(fm.get("source", ""))
             page = str(fm.get("page", ""))
+            auth_level = int(fm.get("authority_level", 3)) if str(fm.get("authority_level", "")).isdigit() else 3
             tags = ",".join(fm.get("tags", [])) if isinstance(fm.get("tags"), list) else str(fm.get("tags", ""))
 
-            cursor.execute(
-                "INSERT OR REPLACE INTO rules (id, topic, chapter, source, page, tags, content) VALUES (?, ?, ?, ?, ?, ?, ?)",
-                (rule_id, topic, chapter, source, page, tags, content)
-            )
+            if has_page and has_auth:
+                cursor.execute(
+                    "INSERT OR REPLACE INTO rules (id, topic, chapter, source, page, authority_level, tags, content) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                    (rule_id, topic, chapter, source, page, auth_level, tags, content)
+                )
+            elif has_auth:
+                cursor.execute(
+                    "INSERT OR REPLACE INTO rules (id, topic, chapter, source, authority_level, tags, content) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                    (rule_id, topic, chapter, source, auth_level, tags, content)
+                )
+            else:
+                cursor.execute(
+                    "INSERT OR REPLACE INTO rules (id, topic, chapter, source, tags, content) VALUES (?, ?, ?, ?, ?, ?)",
+                    (rule_id, topic, chapter, source, tags, content)
+                )
+
             try:
                 cursor.execute(
                     "INSERT INTO rules_fts (id, topic, chapter, tags, content) VALUES (?, ?, ?, ?, ?)",
@@ -105,7 +142,12 @@ class RulesDB:
             indexed_count += 1
 
         self.conn.commit()
-        return indexed_count, f"Successfully compiled {indexed_count} rules into SQLite."
+
+        # Re-populate official SRM contacts table
+        from sr6core.srm_contacts import populate_srm_contacts_table
+        populate_srm_contacts_table(self.db_path)
+
+        return indexed_count, f"Successfully compiled {indexed_count} rules from '{self.vault_dir}' into SQLite."
 
     def query_rule(self, rule_id: str) -> Optional[Dict[str, Any]]:
         """Fast O(1) lookup of a rule by ID."""
@@ -124,11 +166,16 @@ class RulesDB:
         if not clean_q:
             return []
 
+        cols = self._get_rules_columns()
+        select_clause = ", ".join([c for c in cols if c in ["id", "topic", "chapter", "source", "page", "authority_level", "content"]])
+        if not select_clause:
+            select_clause = "*"
+
         cursor = self.conn.cursor()
         try:
             rows = cursor.execute(
-                """
-                SELECT r.id, r.topic, r.chapter, r.source, r.page 
+                f"""
+                SELECT {select_clause} 
                 FROM rules r 
                 JOIN rules_fts fts ON r.id = fts.id 
                 WHERE rules_fts MATCH ? 
@@ -142,10 +189,66 @@ class RulesDB:
             pass
 
         rows = cursor.execute(
-            "SELECT id, topic, chapter, source, page FROM rules WHERE content LIKE ? OR topic LIKE ? LIMIT ?",
+            f"SELECT {select_clause} FROM rules WHERE content LIKE ? OR topic LIKE ? LIMIT ?",
             (f"%{clean_q}%", f"%{clean_q}%", limit)
         ).fetchall()
         return [dict(r) for r in rows]
+
+    def get_enriched_item(self, target: str) -> Optional[Dict[str, Any]]:
+        """
+        Cross-references CommLink6 XML dataset tables and official SRM contacts with Rules Vault text.
+        """
+        if not target or not target.strip():
+            return None
+
+        clean_target = target.strip()
+        norm_target = clean_target.lower().replace(" ", "_")
+
+        cursor = self.conn.cursor()
+        dataset_info = None
+        item_type = "unknown"
+
+        tables = [
+            ("ref_contacts", "srm_contact"),
+            ("ref_qualities", "quality"),
+            ("ref_spells", "spell"),
+            ("ref_complex_forms", "complex_form"),
+            ("ref_gear", "gear"),
+            ("ref_metatypes", "metatype")
+        ]
+
+        for tbl, t_label in tables:
+            try:
+                row = cursor.execute(
+                    f"SELECT * FROM {tbl} WHERE id = ? OR lower(id) = ? OR lower(name) = ?",
+                    (clean_target, norm_target, clean_target.lower())
+                ).fetchone()
+                if row:
+                    dataset_info = dict(row)
+                    item_type = t_label
+                    break
+            except Exception:
+                pass
+
+        vault_rule = self.query_rule(clean_target)
+        if not vault_rule:
+            matches = self.search_rules(clean_target, limit=1)
+            if matches:
+                vault_rule = self.query_rule(matches[0]["id"])
+
+        if not dataset_info and not vault_rule:
+            return None
+
+        name = (dataset_info.get("name") if dataset_info else None) or (vault_rule.get("topic") if vault_rule else clean_target.title())
+        item_id = (dataset_info.get("id") if dataset_info else None) or (vault_rule.get("id") if vault_rule else norm_target)
+
+        return {
+            "id": item_id,
+            "name": name,
+            "item_type": item_type,
+            "commlink_data": dataset_info,
+            "rules_vault": vault_rule
+        }
 
     def _parse_frontmatter(self, content: str) -> Optional[Dict[str, Any]]:
         if not content.startswith("---"):

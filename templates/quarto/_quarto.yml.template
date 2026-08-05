@@ -1,0 +1,26 @@
+project:
+  type: book
+  output-dir: _build
+
+book:
+  title: "Shadowrun 6e Campaign: Character Portfolio"
+  author: "SR6 Campaign Engine"
+  date: "2026-08-04"
+  sidebar:
+    style: "docked"
+    search: true
+
+  chapters:
+    - chapters/index.qmd
+    - chapters/twenty_questions.qmd
+    - chapters/character_log.qmd
+    - chapters/character_purchases.qmd
+    - chapters/dossier_appendix.qmd
+
+format:
+  html:
+    theme: dark
+    code-fold: true
+    toc: true
+    toc-depth: 3
+    number-sections: false

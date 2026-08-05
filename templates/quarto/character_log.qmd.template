@@ -1,0 +1,25 @@
+---
+title: "Campaign Session & Story Log"
+format: html
+---
+
+```{python}
+#| echo: false
+from sr6core.log_engine import inc, inc_many, contact, add_sprite, add_rep, start_mission
+```
+
+# Chapter 1: The First Run
+
+## Operation Summary
+[Narrative prose description of the shadowrun mission]
+
+## Rule Citations & Enriched Stats
+{{< rule "Fading" >}}
+
+{{< quality "augmentation_acclimation" >}}
+
+## Session Earnings
+* **Rewards:** `{python} inc('Nuyen', 12000)`, `{python} inc('Karma', 5)`
+* **Reputation:** `{python} add_rep('Shadowrunners', 1)`
+* **Contacts:**
+  * `{python} contact("Mr. Johnson", connection=4, loyalty=2, type_name="Fixer")`

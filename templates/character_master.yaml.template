@@ -1,0 +1,55 @@
+# Standard Master Character Dossier Template for SR6
+identity:
+  handle: "Handle"
+  real_name: "John Doe"
+  metatype: "human"
+  gender: "MALE"
+  role: "Street Samurai"
+
+creation_budget:
+  method: "priority"  # priority or point_buy
+  priorities:
+    metatype: "D"
+    attributes: "A"
+    skills: "B"
+    magic_resonance: "E"
+    resources: "C"
+
+attributes:
+  body: 4
+  agility: 5
+  reaction: 4
+  strength: 3
+  willpower: 4
+  logic: 3
+  intuition: 4
+  charisma: 3
+  edge: 2
+  magic: 0
+  resonance: 0
+
+qualities:
+  positive:
+    - name: "Ambidextrous"
+      ref: "ambidextrous"
+      karma: 4
+  negative:
+    - name: "Sinner"
+      ref: "sinner"
+      karma: 8
+
+skills:
+  - name: "Firearms"
+    id: "firearms"
+    rating: 6
+    specialization: "Assault Rifles"
+  - name: "Athletics"
+    id: "athletics"
+    rating: 4
+
+gear:
+  - name: "Ares Alpha"
+    ref: "ares_alpha"
+    base_cost: 2400
+    actual_cost: 2400
+    transaction_note: "Standard Book Price"
