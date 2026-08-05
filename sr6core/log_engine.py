@@ -134,6 +134,37 @@ def get_active_sprites() -> List[Dict[str, Any]]:
     return active
 
 
+def print_contacts_summary(contacts: Optional[Dict[str, Any]] = None):
+    """Renders formatted markdown contact tables grouped by region."""
+    global _GLOBAL_LOG_STATE
+    targets = contacts if contacts is not None else _GLOBAL_LOG_STATE.get("Contacts", {})
+
+    region_names = {
+        "SEA": "Seattle (SEA)",
+        "NOLA": "New Orleans (NOLA)",
+        "AMS": "Amsterdam / UNL (AMS)",
+        "KY": "Kentucky (KY)",
+        "DW": "Desert Wars (DW)",
+        "GEN": "General / Matrix / Other (GEN)"
+    }
+
+    grouped: Dict[str, List[Dict[str, Any]]] = {}
+    for name, c in targets.items():
+        reg = c.get("region", "GEN") or "GEN"
+        grouped.setdefault(reg, []).append(c)
+
+    for reg in ["SEA", "NOLA", "AMS", "KY", "DW", "GEN"]:
+        if reg in grouped:
+            print(f"#### {region_names.get(reg, reg)}\n")
+            print("| Contact Name | Connection | Loyalty | Favors | Type / Archetype | Notes |")
+            print("|---|:---:|:---:|:---:|---|---|")
+            for c in grouped[reg]:
+                c_type = c.get("type", "") or c.get("archetype", "")
+                c_notes = c.get("notes", "") or c.get("description", "")
+                print(f"| {c['name']} | {c['connection']} | {c['loyalty']} | {c.get('favors', 0)} | {c_type} | {c_notes} |")
+            print("\n")
+
+
 def create_quarto_eval_env() -> Dict[str, Any]:
     """Returns an execution environment pre-populated with standard SR6 log helpers."""
     reset_log_state()
@@ -145,6 +176,7 @@ def create_quarto_eval_env() -> Dict[str, Any]:
         "add_sprite": add_sprite,
         "start_mission": start_mission,
         "get_active_sprites": get_active_sprites,
+        "print_contacts_summary": print_contacts_summary,
         "state": _GLOBAL_LOG_STATE,
         "Karma": 0,
         "Lifetime_Karma": 0,
