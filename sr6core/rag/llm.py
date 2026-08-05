@@ -161,13 +161,16 @@ class RAGChatSession:
         if not api_key:
             raise ValueError("GEMINI_API_KEY not found in environment or .env files.")
         from google import genai
-        self._client = genai.Client(api_key=api_key)
+        if self._client is None:
+            self._client = genai.Client(api_key=api_key)
         if not self._chat:
             self._chat = self._client.chats.create(model=self.model_name)
 
     def set_model(self, model_name: str):
-        self.model_name = resolve_model_name(model_name)
-        self._chat = None
+        normalized = resolve_model_name(model_name)
+        if normalized != self.model_name:
+            self.model_name = normalized
+            self._chat = None
 
     def set_effort(self, effort_level: Optional[str]):
         if effort_level and effort_level.lower() in EFFORT_BUDGETS:
@@ -180,7 +183,11 @@ class RAGChatSession:
         self._chat = None
 
     def send_query(self, user_query: str, context_str: str) -> Tuple[Optional[str], Optional[str]]:
-        self._ensure_client()
+        try:
+            self._ensure_client()
+        except Exception as e:
+            return None, f"Gemini client initialization error: {e}"
+
         from google.genai import types
 
         target_model = resolve_model_name(self.model_name)
@@ -206,5 +213,10 @@ class RAGChatSession:
             self.history.append({"user": user_query, "assistant": text})
             return text, None
         except Exception as e:
+            err_msg = str(e)
+            if "client has been closed" in err_msg.lower() or "closed" in err_msg.lower():
+                self._client = None
+                self._chat = None
             return None, f"Gemini chat error: {e}"
+
 
