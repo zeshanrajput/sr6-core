@@ -19,10 +19,9 @@ The master engine, dataset compiler, and CLI portfolio manager for Shadowrun 6th
 - **Quarto Story Book Engine**:
   - `log_engine`: In-memory evaluation tracking of global Karma, Lifetime Karma, Nuyen ledgers, Submersion echo grades, active registered sprite expiration (3-mission limit), and heat across multi-file Quarto story books (`character_log.qmd`, `character_purchases.qmd`).
   - `shortcodes`: Expands `{{< rule "Topic" >}}` and `{{< quality "id" >}}` into styled HTML callout boxes with stat blocks and book citations.
-  - `dossier appendix`: Auto-generates dynamic `dossier_appendix.qmd` files in character repositories.
   - `prose linter`: Scans chapters for banned AI buzzwords, cognitive buffer verbs, and markdownlint formatting.
 - **CI/CD & GitHub Pages Integration**: Native `pyproject.toml` Git dependency specifications (`[tool.uv.sources] sr6-core = { git = "...", branch = "master" }`) enabling headless `uv run quarto render` builds on remote GitHub Actions runners without requiring relative directory pathing.
-- **Ecosystem Sync (`sr6 sync-all`)**: Single-command workspace synchronizer that audits portfolios, regenerates VTT/JSON/XML sheets into `output/` folders, patches CommLink6 GUI player saves, and updates Quarto book dossier appendices across all character repos.
+- **Ecosystem Sync (`sr6 sync-all`)**: Single-command workspace synchronizer that audits portfolios, regenerates VTT/JSON/XML sheets into `output/` folders, and patches CommLink6 GUI player saves across all character repos.
 
 ---
 
@@ -82,7 +81,6 @@ When updating individual character repositories (`sr6yuriko`, `sr6velvet`, `sr6u
 ### 2. File Placement & Structure
 - [x] **Master Dossier File**: Ensure `*_master.yaml` exists at the root of the character repository (e.g. `c:\GitHub\sr6yuriko\yuriko_master.yaml`).
 - [x] **Quarto Book Structure**: Ensure narrative files live inside `chapters/` (e.g., `chapters/index.qmd`, `chapters/character_log.qmd`, `chapters/twenty_questions.qmd`).
-- [x] **Quarto Book Config**: Include `- chapters/dossier_appendix.qmd` in `_quarto.yml` under `book.chapters`.
 
 ### 3. Agent Instructions
 - [x] **Update `.agents/AGENTS.md`**: Update character repo instructions to use `sr6` CLI subcommands:
@@ -92,7 +90,7 @@ When updating individual character repositories (`sr6yuriko`, `sr6velvet`, `sr6u
   - Sheet Exporters: `sr6 export <char_id> --format=xml|vtt|roll20`
 
 ### 4. Verification
-- [x] **Run Ecosystem Sync**: Execute `uv run sr6 sync-all` from `sr6-core` to perform deep audits, regenerate `output/` sheets, patch active CommLink6 GUI saves, and build the dynamic Quarto dossier appendix for the character repository.
+- [x] **Run Ecosystem Sync**: Execute `uv run sr6 sync-all` from `sr6-core` to perform deep audits, regenerate `output/` sheets, and patch active CommLink6 GUI saves for character repositories.
 
 ---
 
@@ -107,8 +105,7 @@ sr6<char_id>/
 │   ├── index.qmd             # Book introduction & character background
 │   ├── twenty_questions.qmd  # Shadowrun 20 Questions backstory questionnaire
 │   ├── character_log.qmd     # Campaign narrative chapters & session logs
-│   ├── character_purchases.qmd # Nuyen/Karma transactions ledger
-│   └── dossier_appendix.qmd  # Live auto-generated dossier appendix (from sr6 sync-all)
+│   └── character_purchases.qmd # Nuyen/Karma transactions ledger
 ├── output/                   # Auto-generated exports (from sr6 sync-all)
 │   ├── <char_id>_sheet.json  # Roll20 JSON sheet
 │   ├── <char_id>_sheet.txt   # Plain-text VTT sheet

@@ -98,8 +98,7 @@ sr6<char_id>/
 │   ├── index.qmd             # Book intro & character background
 │   ├── twenty_questions.qmd  # Shadowrun 20 Questions backstory questionnaire
 │   ├── character_log.qmd     # Campaign narrative chapters & session logs
-│   ├── character_purchases.qmd # Transaction ledgers
-│   └── dossier_appendix.qmd  # Live auto-generated dossier appendix (from sr6 sync-all)
+│   └── character_purchases.qmd # Transaction ledgers
 ├── output/                   # Auto-generated exports (from sr6 sync-all)
 │   ├── <char_id>_sheet.json  # Roll20 JSON sheet
 │   ├── <char_id>_sheet.txt   # Plain-text VTT sheet
@@ -111,7 +110,7 @@ sr6<char_id>/
 
 ## 6. Quarto Book Configuration (`_quarto.yml`)
 
-Update `_quarto.yml` under `book.chapters` to include the dynamic dossier appendix:
+Update `_quarto.yml` under `book.chapters`:
 
 ```yaml
 book:
@@ -121,7 +120,6 @@ book:
     - chapters/twenty_questions.qmd
     - chapters/character_log.qmd
     - chapters/character_purchases.qmd
-    - chapters/dossier_appendix.qmd
 ```
 
 ---

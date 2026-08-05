@@ -61,12 +61,7 @@ def run_sync_all():
         cl_status = "OK" if ok else "SKIPPED"
         print(f"  [3/5] CommLink6 GUI Save Sync : {cl_status} ({msg})")
 
-        # 4. Quarto Dossier Appendix
-        appendix_path = os.path.join(repo_dir, "chapters", "dossier_appendix.qmd")
-        if generate_character_dossier_appendix(cid, appendix_path):
-            print(f"  [4/5] Quarto Dossier Appendix : Generated {appendix_path}")
-
-        # 5. Expand Quarto Shortcodes in Chapter Files
+        # 4. Expand Quarto Shortcodes in Chapter Files
         chap_dir = os.path.join(repo_dir, "chapters")
         linter_count = 0
         if os.path.exists(chap_dir):
