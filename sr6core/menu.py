@@ -67,6 +67,7 @@ def character_actions_menu(cm: CharacterManager, char_id: str):
         print(" [4] Export Roll20 JSON")
         print(" [5] Export Plain-Text VTT")
         print(" [6] Export Genesis / CommLink6 Compliant XML")
+        print(" [7] Export Reference Cards Deck (Markdown & HTML)")
         print(" [B] Back to Character Selection")
 
         choice = input("\nAction choice: ").strip()
@@ -126,6 +127,11 @@ def character_actions_menu(cm: CharacterManager, char_id: str):
             print(f"\n--- CommLink6 Compliant XML Export ({char_id}) ---")
             print(out)
 
+        elif choice == '7':
+            out = cm.export_character(char_id, fmt="cards")
+            print(f"\n--- Reference Cards Deck Export ({char_id}) ---")
+            print(out)
+
         else:
             print("Invalid option.")
 
@@ -143,17 +149,38 @@ def rules_search_menu(db: RulesDB):
         print(f"- [{r.get('id')}] {r.get('topic', 'N/A')} ({r.get('source', 'SR6')} p.{r.get('page', '')})")
 
 
+def card_lookup_menu():
+    cat = input("\nEnter category (quality, spell, complex_form, weapon, cyberware, vehicle, program, gear): ").strip()
+    if not cat:
+        return
+    item_id = input("Enter item ID or name (e.g. ambidextrous, ares_predator_vi, heal): ").strip()
+    if not item_id:
+        return
+    from sr6core.cards import get_item_card
+    card = get_item_card(cat, item_id)
+    print(f"\n{card['markdown']}\n")
+
+
 def rules_rag_menu(rag_engine: RAGEngine):
+    active_char = None
     print("\n=== RULES RAG AI ASSISTANT INTERACTIVE SESSION ===")
     print("Available commands:")
-    print("  /clear       : Clear current conversation thread history")
-    print("  /model <m>   : Set model (e.g. flash-latest, flash-light-latest)")
-    print("  /effort <e>  : Set effort level (high, medium, low)")
-    print("  /help        : Show slash command help")
-    print("  /exit or B   : Return to main menu")
+    print("  /provider <p> : Set provider (gemini or llama/local)")
+    print("  /model <m>    : Set model (e.g. flash-latest, gemma-2-9b-it)")
+    print("  /url <u>      : Set local llama.cpp endpoint URL")
+    print("  /char <c>     : Bind runner dossier context (yuriko, velvet, union, or off)")
+    print("  /effort <e>   : Set effort level (high, medium, low)")
+    print("  /clear        : Clear current conversation thread history")
+    print("  /help         : Show slash command help")
+    print("  /exit or B    : Return to main menu")
 
     while True:
-        status_line = f"[Model: {rag_engine.session.model_name} | Effort: {rag_engine.session.effort_level or 'default'}]"
+        prov = rag_engine.session.provider_name
+        mod = rag_engine.session.model_name
+        eff = rag_engine.session.effort_level or 'default'
+        char_lbl = f" | Char: {active_char}" if active_char else ""
+        status_line = f"[{prov.upper()} | Model: {mod} | Effort: {eff}{char_lbl}]"
+
         prompt = input(f"\n{status_line} RAG Prompt > ").strip()
         if not prompt:
             continue
@@ -168,11 +195,42 @@ def rules_rag_menu(rag_engine: RAGEngine):
 
         if prompt.lower() in ['/help', '?']:
             print("\nSlash Commands:")
-            print("  /clear                 : Reset active chat memory")
-            print("  /model flash-latest    : Switch to Gemini Flash Latest")
-            print("  /model flash-light-latest : Switch to Gemini Flash Lite Latest")
+            print("  /provider gemini|llama  : Switch LLM provider")
+            print("  /model <name>          : Switch model name")
+            print("  /url http://localhost:8080/v1 : Set local llama.cpp endpoint URL")
+            print("  /char yuriko|velvet|union|off : Bind active runner context")
             print("  /effort high|medium|low: Adjust thinking budget")
+            print("  /clear                 : Reset active chat memory")
             print("  /exit                  : Back to main menu")
+            continue
+
+        if prompt.lower().startswith('/provider'):
+            parts = prompt.split(maxsplit=1)
+            if len(parts) > 1:
+                new_prov = parts[1].strip()
+                rag_engine.session.set_provider(new_prov)
+                print(f"[+] Provider set to '{rag_engine.session.provider_name}'.")
+            else:
+                print(f"Current provider: {rag_engine.session.provider_name}")
+            continue
+
+        if prompt.lower().startswith('/url'):
+            parts = prompt.split(maxsplit=1)
+            if len(parts) > 1:
+                rag_engine.session.llama_url = parts[1].strip()
+                print(f"[+] Local llama.cpp URL set to '{rag_engine.session.llama_url}'.")
+            else:
+                print(f"Current llama URL: {rag_engine.session.llama_url}")
+            continue
+
+        if prompt.lower().startswith('/char'):
+            parts = prompt.split(maxsplit=1)
+            if len(parts) > 1:
+                c_val = parts[1].strip().lower()
+                active_char = None if c_val in ['off', 'none', 'clear'] else c_val
+                print(f"[+] Active character context: '{active_char or 'None'}'.")
+            else:
+                print(f"Current character context: {active_char or 'None'}")
             continue
 
         if prompt.lower().startswith('/model'):
@@ -195,8 +253,14 @@ def rules_rag_menu(rag_engine: RAGEngine):
                 print(f"Current effort level: {rag_engine.session.effort_level}")
             continue
 
-        print(f"\nProcessing RAG query: '{prompt}'...")
-        res = rag_engine.query(prompt, use_ai=True, use_session=True)
+        ctx_msg = f" (Character: {active_char})" if active_char else ""
+        print(f"\nProcessing RAG query{ctx_msg}: '{prompt}'...")
+        res = rag_engine.query(
+            prompt,
+            use_ai=True,
+            use_session=True,
+            char_id=active_char
+        )
 
         if res.get("ai_response"):
             print("\n=== RAG AI Assistant Answer ===")
@@ -206,7 +270,6 @@ def rules_rag_menu(rag_engine: RAGEngine):
                 print(f"\n[AI Notice] {res['error']}")
             print("\n=== Retrieved Vault Context ===")
             print(res["context"])
-
 
 
 def lint_prose_menu():
@@ -288,17 +351,18 @@ def run_interactive_menu():
         print_banner()
         print(" [1] Manage Character Portfolios (Yuriko, Velvet, Union)")
         print(" [2] Quick Rules Search (FTS5 Keyword Search)")
-        print(" [3] Rules RAG AI Reference Assistant (Gemini / Context)")
-        print(" [4] View Portfolio & Database Configuration Info")
-        print(" [5] Lint Quarto Chapter Prose (Anti-Slop Audit)")
-        print(" [6] Check Campaign Story Continuity")
-        print(" [7] Generate Audio TTS Narration")
-        print(" [8] Run Full Ecosystem Sync (sync-all)")
-        print(" [9] Import / Update CommLink6 Datasets")
-        print(" [10] Re-index Shadowrun Rules Vault Markdown Files")
-        print(" [11] Exit")
+        print(" [3] Rules RAG AI Reference Assistant (Gemini / llama.cpp)")
+        print(" [4] Inspect Reference Item Card (Quality, Weapon, Spell, Cyberware)")
+        print(" [5] View Portfolio & Database Configuration Info")
+        print(" [6] Lint Quarto Chapter Prose (Anti-Slop Audit)")
+        print(" [7] Check Campaign Story Continuity")
+        print(" [8] Generate Audio TTS Narration")
+        print(" [9] Run Full Ecosystem Sync (sync-all)")
+        print(" [10] Import / Update CommLink6 Datasets")
+        print(" [11] Re-index Shadowrun Rules Vault Markdown Files")
+        print(" [12] Exit")
 
-        choice = input("\nSelect menu option [1-11]: ").strip()
+        choice = input("\nSelect menu option [1-12]: ").strip()
 
         if choice == '1':
             manage_characters_menu(cm)
@@ -307,21 +371,23 @@ def run_interactive_menu():
         elif choice == '3':
             rules_rag_menu(rag_engine)
         elif choice == '4':
-            show_config_info(cm)
+            card_lookup_menu()
         elif choice == '5':
-            lint_prose_menu()
+            show_config_info(cm)
         elif choice == '6':
-            continuity_menu()
+            lint_prose_menu()
         elif choice == '7':
-            narration_menu()
+            continuity_menu()
         elif choice == '8':
-            run_sync_all()
+            narration_menu()
         elif choice == '9':
-            commlink_import_menu()
+            run_sync_all()
         elif choice == '10':
+            commlink_import_menu()
+        elif choice == '11':
             vault_compile_menu(db)
-        elif choice == '11' or choice.lower() == 'q':
+        elif choice == '12' or choice.lower() == 'q':
             print("\nExiting SR6 Core CLI. Good chummer!")
             sys.exit(0)
         else:
-            print("Invalid choice. Please select [1-11].")
+            print("Invalid choice. Please select [1-12].")

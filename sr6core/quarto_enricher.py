@@ -15,38 +15,47 @@ from sr6core.character_manager import CharacterManager
 
 def expand_quarto_shortcodes(content: str, db_path: str = DEFAULT_DB_PATH) -> str:
     db = RulesDB(db_path=db_path)
+    from sr6core.cards import get_item_card
 
     def shortcode_replacer(match: re.Match) -> str:
         s_type = match.group(1).lower().strip()
-        target = match.group(2).strip().strip("'\"")
+        arg1 = match.group(2).strip().strip("'\"")
+        arg2 = match.group(3).strip().strip("'\"") if match.group(3) else None
 
-        enriched = db.get_enriched_item(target)
-        if not enriched:
-            return match.group(0)
+        if s_type == "card" and arg2:
+            category = arg1
+            target = arg2
+        elif s_type == "card":
+            category = "item"
+            target = arg1
+        else:
+            category = s_type
+            target = arg1
 
-        name = enriched["name"]
-        item_type = enriched["item_type"].upper()
-        cdata = enriched.get("commlink_data") or {}
-        vdata = enriched.get("rules_vault") or {}
+        card_info = get_item_card(category, target, db_path=db_path)
+        name = card_info["name"]
+        cat_title = category.replace("_", " ").upper()
+        stats = card_info.get("stats", {})
+        vault_text = card_info.get("vault_text", "")
+        citation = card_info.get("citation", "*SR6 Core Rules*")
 
         stats_lines = []
-        for k, v in cdata.items():
-            if k not in ["raw_xml"] and v is not None:
-                stats_lines.append(f"**{k.title()}**: {v}")
+        for k, v in stats.items():
+            if k not in ["raw_xml", "id", "name"] and v not in [None, "", "-"]:
+                stats_lines.append(f"**{k.replace('_', ' ').title()}**: {v}")
 
         stat_str = " | ".join(stats_lines) if stats_lines else "N/A"
-        book_citation = f"*{vdata.get('source', 'SR6')} (p. {vdata.get('page', 'N/A')})*" if vdata else "*SR6 Core Rules*"
 
         callout = (
-            f"\n::: {{.callout-note icon=false title=\"{name} [{item_type}]\"}}\n"
+            f"\n::: {{.callout-note icon=false title=\"🃏 {name} [{cat_title}]\"}}\n"
             f"**Stats**: {stat_str}  \n"
-            f"**Citation**: {book_citation}  \n\n"
-            f"{vdata.get('content', '').strip()}\n"
+            f"**Citation**: {citation}  \n\n"
+            f"{vault_text.strip()}\n"
             f":::\n"
         )
         return callout
 
-    pattern = r"\{\{\<\s*(rule|quality|spell|gear)\s+[\"']?([^\"'>]+)[\"']?\s*\>\}\}"
+    pattern = r"\{\{\<\s*(rule|quality|spell|gear|weapon|complex_form|cyberware|card)\s+[\"']?([^\"'>\s]+)[\"']?(?:\s+[\"']?([^\"'>\s]+)[\"']?)?\s*\>\}\}"
     return re.sub(pattern, shortcode_replacer, content)
 
 

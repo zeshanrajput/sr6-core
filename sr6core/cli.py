@@ -46,14 +46,23 @@ def run_sync_all():
         out_dir = os.path.join(repo_dir, "output")
         os.makedirs(out_dir, exist_ok=True)
 
-        for fmt, ext in [("roll20", ".json"), ("vtt", ".txt"), ("xml", ".xml")]:
+        for fmt, ext in [("roll20", ".json"), ("vtt", ".txt"), ("xml", ".xml"), ("cards", "_cards.md")]:
             try:
                 content = cm.export_character(cid, fmt=fmt)
-                target_file = os.path.join(out_dir, f"{cid}_sheet{ext}")
+                target_file = os.path.join(out_dir, f"{cid}_sheet{ext}" if fmt != "cards" else f"{cid}_cards.md")
                 with open(target_file, "w", encoding="utf-8") as f:
                     f.write(content)
             except Exception as e:
                 print(f"         +-- Export {fmt.upper()} error: {e}")
+
+        try:
+            from sr6core.cards import export_character_card_deck
+            _, html_deck = export_character_card_deck(cid)
+            with open(os.path.join(out_dir, f"{cid}_cards.html"), "w", encoding="utf-8") as f:
+                f.write(html_deck)
+        except Exception as e:
+            print(f"         +-- Export Cards HTML error: {e}")
+
         print(f"  [2/5] Regenerated Exports     : Saved to {out_dir}")
 
         # 3. CommLink6 GUI Save Sync
@@ -86,6 +95,12 @@ def run_sync_all():
 
 
 def main():
+    if hasattr(sys.stdout, "reconfigure"):
+        try:
+            sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+        except Exception:
+            pass
+
     parser = argparse.ArgumentParser(description="SR6 Core Master Project & Portfolio Manager CLI")
     subparsers = parser.add_subparsers(dest="command", help="Sub-command to execute")
 
@@ -99,6 +114,11 @@ def main():
     search_parser = subparsers.add_parser("search", help="Search the rules vault database")
     search_parser.add_argument("query", type=str, help="Search query string")
 
+    # card subcommand
+    card_parser = subparsers.add_parser("card", help="Display item reference card")
+    card_parser.add_argument("category", type=str, help="Item category (quality, spell, complex_form, weapon, cyberware, vehicle, program, gear)")
+    card_parser.add_argument("item_id", type=str, help="Item reference ID or name")
+
     # characters subcommand
     char_parser = subparsers.add_parser("characters", help="Manage character portfolios (yuriko, velvet, union)")
     char_sub = char_parser.add_subparsers(dest="subcommand", help="Action to perform")
@@ -110,9 +130,9 @@ def main():
     adv_parser.add_argument("item_ref", type=str, help="CommLink6 item reference ID")
 
     # export subcommand
-    export_parser = subparsers.add_parser("export", help="Export character to Roll20 JSON, VTT Text, or Genesis XML")
+    export_parser = subparsers.add_parser("export", help="Export character to Roll20 JSON, VTT Text, Genesis XML, or Cards Deck")
     export_parser.add_argument("char_id", type=str, help="Character ID (yuriko, velvet, union)")
-    export_parser.add_argument("--format", type=str, choices=["roll20", "vtt", "xml"], default="roll20", help="Export format")
+    export_parser.add_argument("--format", type=str, choices=["roll20", "vtt", "xml", "cards"], default="roll20", help="Export format")
 
     # lint subcommand
     lint_parser = subparsers.add_parser("lint", help="Lint Quarto chapter prose for style and AI buzzwords")
@@ -141,7 +161,10 @@ def main():
     rag_query_parser = rag_sub.add_parser("query", help="Query rules AI reference assistant")
     rag_query_parser.add_argument("prompt", type=str, help="Rules question / prompt")
     rag_query_parser.add_argument("--no-ai", action="store_true", help="Retrieve context only without AI response")
-    rag_query_parser.add_argument("--model", type=str, default="flash-latest", help="Model choice (flash-latest, flash-light-latest, gemini-2.5-flash)")
+    rag_query_parser.add_argument("--provider", type=str, choices=["gemini", "llama"], default="gemini", help="LLM Provider (gemini or llama)")
+    rag_query_parser.add_argument("--model", type=str, default="flash-latest", help="Model choice (flash-latest, gemma-2-9b-it)")
+    rag_query_parser.add_argument("--url", type=str, default=None, help="Local llama.cpp URL")
+    rag_query_parser.add_argument("--char", type=str, default=None, help="Active character dossier context ID (yuriko, velvet, union)")
     rag_query_parser.add_argument("--effort", type=str, choices=["high", "medium", "low"], default=None, help="Thinking effort level")
     rag_search_parser = rag_sub.add_parser("search", help="Perform FTS rules search with authority ranking")
     rag_search_parser.add_argument("query", type=str, help="Search terms")
@@ -175,6 +198,11 @@ def main():
             print(f"Rules search results for '{args.query}':")
             for r in results:
                 print(f"- [{r.get('id')}] {r.get('topic')} ({r.get('source')} p.{r.get('page')})")
+
+    elif args.command == "card":
+        from sr6core.cards import get_item_card
+        card_info = get_item_card(args.category, args.item_id)
+        print(f"\n{card_info['markdown']}\n")
 
     elif args.command == "characters":
         if args.subcommand == "list" or not args.subcommand:
@@ -275,10 +303,23 @@ def main():
         elif args.subcommand == "query" or hasattr(args, "prompt"):
             prompt = getattr(args, "prompt", "")
             use_ai = not getattr(args, "no_ai", False)
+            provider_choice = getattr(args, "provider", "gemini")
             model_choice = getattr(args, "model", "flash-latest")
+            llama_url = getattr(args, "url", None)
+            char_choice = getattr(args, "char", None)
             effort_choice = getattr(args, "effort", None)
-            print(f"\nProcessing RAG query: '{prompt}' (Model: {model_choice}, Effort: {effort_choice or 'default'})...")
-            res = rag_engine.query(prompt, use_ai=use_ai, model_name=model_choice, effort_level=effort_choice)
+
+            ctx_label = f" (Character: {char_choice})" if char_choice else ""
+            print(f"\nProcessing RAG query{ctx_label}: '{prompt}' (Provider: {provider_choice}, Model: {model_choice})...")
+            res = rag_engine.query(
+                prompt,
+                use_ai=use_ai,
+                provider_name=provider_choice,
+                model_name=model_choice,
+                llama_url=llama_url,
+                char_id=char_choice,
+                effort_level=effort_choice
+            )
             
             if res.get("ai_response"):
                 print("\n=== RAG AI Assistant Answer ===")
@@ -291,7 +332,6 @@ def main():
                 print("\n=== Retrieved Context ===")
                 print(res["context"])
             print()
-
 
 
 if __name__ == "__main__":

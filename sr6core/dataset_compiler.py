@@ -95,6 +95,73 @@ def init_dataset_tables(conn: sqlite3.Connection):
             )
         """)
         conn.execute("""
+            CREATE TABLE IF NOT EXISTS ref_weapons (
+                id TEXT PRIMARY KEY,
+                name TEXT,
+                category TEXT,
+                damage TEXT,
+                ap TEXT,
+                attack_rating TEXT,
+                modes TEXT,
+                ammo TEXT,
+                cost INTEGER,
+                avail TEXT,
+                source TEXT,
+                raw_xml TEXT
+            )
+        """)
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS ref_cyberware (
+                id TEXT PRIMARY KEY,
+                name TEXT,
+                category TEXT,
+                essence REAL,
+                capacity TEXT,
+                cost INTEGER,
+                avail TEXT,
+                source TEXT,
+                raw_xml TEXT
+            )
+        """)
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS ref_adept_powers (
+                id TEXT PRIMARY KEY,
+                name TEXT,
+                cost REAL,
+                max_rating INTEGER,
+                source TEXT,
+                raw_xml TEXT
+            )
+        """)
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS ref_vehicles (
+                id TEXT PRIMARY KEY,
+                name TEXT,
+                category TEXT,
+                handling TEXT,
+                speed TEXT,
+                accel TEXT,
+                body INTEGER,
+                armor INTEGER,
+                sensor INTEGER,
+                seats INTEGER,
+                cost INTEGER,
+                avail TEXT,
+                source TEXT,
+                raw_xml TEXT
+            )
+        """)
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS ref_programs (
+                id TEXT PRIMARY KEY,
+                name TEXT,
+                category TEXT,
+                cost INTEGER,
+                source TEXT,
+                raw_xml TEXT
+            )
+        """)
+        conn.execute("""
             CREATE TABLE IF NOT EXISTS ref_metatypes (
                 id TEXT PRIMARY KEY,
                 name TEXT,
@@ -124,6 +191,11 @@ def compile_commlink_datasets(jar_path: Optional[str] = None, db_path: str = DEF
         "spells": 0,
         "complex_forms": 0,
         "gear": 0,
+        "weapons": 0,
+        "cyberware": 0,
+        "adept_powers": 0,
+        "vehicles": 0,
+        "programs": 0,
         "metatypes": 0
     }
 
@@ -134,6 +206,7 @@ def compile_commlink_datasets(jar_path: Optional[str] = None, db_path: str = DEF
 
             for df in data_files:
                 parts = df.split("/")
+                fname = parts[-1].lower()
                 source_set = parts[4] if len(parts) > 4 else "core"
 
                 try:
@@ -143,15 +216,15 @@ def compile_commlink_datasets(jar_path: Optional[str] = None, db_path: str = DEF
                     continue
 
                 # 1. Qualities
-                if "qualities" in df or root.tag == "qualities":
+                if "qualities" in fname or root.tag == "qualities":
                     for q in root.findall(".//quality"):
                         qid = q.get("id")
                         if not qid:
                             continue
-                        karma = int(q.get("karma", 0))
+                        karma = int(q.get("karma", 0)) if q.get("karma", "").isdigit() else 0
                         pos = q.get("pos", "true").lower() == "true"
                         qtype = "positive" if pos else "negative"
-                        max_r = int(q.get("max", 1))
+                        max_r = int(q.get("max", 1)) if q.get("max", "").isdigit() else 1
                         name = q.get("name", qid.replace("_", " ").title())
                         raw_xml = ET.tostring(q, encoding="utf-8").decode("utf-8")
 
@@ -162,7 +235,7 @@ def compile_commlink_datasets(jar_path: Optional[str] = None, db_path: str = DEF
                         stats["qualities"] += 1
 
                 # 2. Spells
-                elif "spells" in df or root.tag == "spells":
+                elif "spells" in fname or root.tag == "spells":
                     for s in root.findall(".//spell"):
                         sid = s.get("id")
                         if not sid:
@@ -181,7 +254,7 @@ def compile_commlink_datasets(jar_path: Optional[str] = None, db_path: str = DEF
                         stats["spells"] += 1
 
                 # 3. Complex Forms
-                elif "complex" in df or root.tag == "complexforms":
+                elif "complex" in fname or root.tag == "complexforms":
                     for cf in root.findall(".//complexform"):
                         cid = cf.get("id")
                         if not cid:
@@ -198,8 +271,25 @@ def compile_commlink_datasets(jar_path: Optional[str] = None, db_path: str = DEF
                         )
                         stats["complex_forms"] += 1
 
-                # 4. Gear, Weapons, Armor, Vehicles, Augmentations
-                elif "gear" in df or "augment" in df or root.tag in ["items", "gears"]:
+                # 4. Adept Powers
+                elif "power" in fname or root.tag == "powers":
+                    for pow_elem in root.findall(".//power"):
+                        pid = pow_elem.get("id")
+                        if not pid:
+                            continue
+                        name = pow_elem.get("name", pid.replace("_", " ").title())
+                        cost = float(pow_elem.get("cost", 0.5)) if pow_elem.get("cost", "").replace(".", "").isdigit() else 0.5
+                        max_r = int(pow_elem.get("max", 1)) if pow_elem.get("max", "").isdigit() else 1
+                        raw_xml = ET.tostring(pow_elem, encoding="utf-8").decode("utf-8")
+
+                        cursor.execute(
+                            "INSERT OR REPLACE INTO ref_adept_powers VALUES (?, ?, ?, ?, ?, ?)",
+                            (pid, name, cost, max_r, source_set, raw_xml)
+                        )
+                        stats["adept_powers"] += 1
+
+                # 5. Gear, Weapons, Vehicles, Augmentations, Programs
+                elif "gear" in fname or "weapon" in fname or "augment" in fname or "vehicle" in fname or "pack" in fname or root.tag in ["items", "gears", "weapons", "vehicles"]:
                     for item in root.findall(".//*"):
                         iid = item.get("id")
                         if not iid or item.tag in ["requires", "modifications"]:
@@ -209,14 +299,66 @@ def compile_commlink_datasets(jar_path: Optional[str] = None, db_path: str = DEF
                         avail = item.get("avail", "1")
                         raw_xml = ET.tostring(item, encoding="utf-8").decode("utf-8")
 
-                        cursor.execute(
-                            "INSERT OR REPLACE INTO ref_gear VALUES (?, ?, ?, ?, ?, ?, ?)",
-                            (iid, name, item.tag, cost, avail, source_set, raw_xml)
-                        )
-                        stats["gear"] += 1
+                        is_weapon = any(w in fname for w in ["firearm", "weapon", "melee", "underbarrel"]) or item.get("damage") or item.get("attack")
+                        is_cyber = any(c in fname for c in ["cyberware", "bioware", "headware", "bodyware", "eyeware", "earware", "cyberlimb", "geneware", "nanoware"])
+                        is_vehicle = any(v in fname for v in ["vehicle", "drone"])
+                        is_program = "software" in fname or "program" in fname
 
-                # 5. Metatypes
-                elif "metatypes" in df or root.tag == "metatypes":
+                        if is_weapon:
+                            dmg = item.get("damage", "-")
+                            ap = item.get("ap", "0")
+                            ar = item.get("ar", item.get("attack", "-"))
+                            modes = item.get("mode", item.get("modes", "-"))
+                            ammo = item.get("ammo", "-")
+                            cat = item.get("category", fname.replace("gear_", "").replace(".xml", "").title())
+                            cursor.execute(
+                                "INSERT OR REPLACE INTO ref_weapons VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                                (iid, name, cat, dmg, ap, ar, modes, ammo, cost, avail, source_set, raw_xml)
+                            )
+                            stats["weapons"] += 1
+
+                        elif is_cyber:
+                            ess = float(item.get("ess", item.get("essence", 0.0))) if item.get("ess", "").replace(".", "").isdigit() else 0.0
+                            cap = item.get("capacity", item.get("cap", "-"))
+                            cat = item.get("category", fname.replace("gear_", "").replace(".xml", "").title())
+                            cursor.execute(
+                                "INSERT OR REPLACE INTO ref_cyberware VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                                (iid, name, cat, ess, cap, cost, avail, source_set, raw_xml)
+                            )
+                            stats["cyberware"] += 1
+
+                        elif is_vehicle:
+                            hnd = item.get("handling", "-")
+                            spd = item.get("speed", "-")
+                            acc = item.get("accel", "-")
+                            bod = int(item.get("body", 0)) if item.get("body", "").isdigit() else 0
+                            arm = int(item.get("armor", 0)) if item.get("armor", "").isdigit() else 0
+                            sens = int(item.get("sensor", 0)) if item.get("sensor", "").isdigit() else 0
+                            seats = int(item.get("seats", 1)) if item.get("seats", "").isdigit() else 1
+                            cat = item.get("category", fname.replace("gear_", "").replace(".xml", "").title())
+                            cursor.execute(
+                                "INSERT OR REPLACE INTO ref_vehicles VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                                (iid, name, cat, hnd, spd, acc, bod, arm, sens, seats, cost, avail, source_set, raw_xml)
+                            )
+                            stats["vehicles"] += 1
+
+                        elif is_program:
+                            cat = item.get("category", "Cyberdeck Program")
+                            cursor.execute(
+                                "INSERT OR REPLACE INTO ref_programs VALUES (?, ?, ?, ?, ?, ?)",
+                                (iid, name, cat, cost, source_set, raw_xml)
+                            )
+                            stats["programs"] += 1
+
+                        else:
+                            cursor.execute(
+                                "INSERT OR REPLACE INTO ref_gear VALUES (?, ?, ?, ?, ?, ?, ?)",
+                                (iid, name, item.tag, cost, avail, source_set, raw_xml)
+                            )
+                            stats["gear"] += 1
+
+                # 6. Metatypes
+                elif "metatypes" in fname or root.tag == "metatypes":
                     for meta in root.findall(".//metatype"):
                         mid = meta.get("id")
                         if not mid:
@@ -244,6 +386,11 @@ def compile_commlink_datasets(jar_path: Optional[str] = None, db_path: str = DEF
             f"  - Qualities: {stats['qualities']}\n"
             f"  - Spells: {stats['spells']}\n"
             f"  - Complex Forms: {stats['complex_forms']}\n"
+            f"  - Weapons: {stats['weapons']}\n"
+            f"  - Cyberware/Bioware: {stats['cyberware']}\n"
+            f"  - Adept Powers: {stats['adept_powers']}\n"
+            f"  - Vehicles/Drones: {stats['vehicles']}\n"
+            f"  - Matrix Programs: {stats['programs']}\n"
             f"  - Gear & Items: {stats['gear']}\n"
             f"  - Metatypes: {stats['metatypes']}"
         )
@@ -272,7 +419,11 @@ def get_dataset_info(db_path: str = DEFAULT_DB_PATH) -> Dict[str, Any]:
         pass
 
     counts = {}
-    for table in ["ref_contacts", "ref_qualities", "ref_spells", "ref_complex_forms", "ref_gear", "ref_metatypes"]:
+    for table in [
+        "ref_contacts", "ref_qualities", "ref_spells", "ref_complex_forms",
+        "ref_weapons", "ref_cyberware", "ref_adept_powers", "ref_vehicles",
+        "ref_programs", "ref_gear", "ref_metatypes"
+    ]:
         try:
             cnt = cursor.execute(f"SELECT COUNT(*) FROM {table}").fetchone()[0]
             counts[table] = cnt

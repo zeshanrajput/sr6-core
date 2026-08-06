@@ -128,6 +128,9 @@ class CharacterManager:
             "warnings": p_warns + pb_warns
         }
 
+    def load_character(self, char_id: str) -> Optional[Dict[str, Any]]:
+        return self.get_character(char_id)
+
     def export_character(self, char_id: str, fmt: str = "xml") -> str:
         data = self.get_character_data(char_id)
         if not data:
@@ -139,6 +142,10 @@ class CharacterManager:
             return export_roll20_json(data)
         elif fmt == "vtt" or fmt == "txt":
             return export_vtt_text(data)
+        elif fmt == "cards":
+            from sr6core.cards import export_character_card_deck
+            md_deck, _ = export_character_card_deck(char_id)
+            return md_deck
         elif fmt == "xml" or fmt == "genesis":
             return export_genesis_xml(data, char_repo_path=repo_path)
         else:

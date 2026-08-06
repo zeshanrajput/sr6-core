@@ -66,6 +66,9 @@ characters:
 Override default paths without modifying source code:
 - **`SR6_WORKSPACE_ROOT`** (or `GITHUB_ROOT`): Root directory containing character repositories (defaults to parent directory or `C:\GitHub`).
 - **`COMMLINK_PLAYER_DIR`** (or `SR6_COMMLINK_DIR`): Path to CommLink6 player saves (defaults to `~/CommLink6/player/myself/shadowrun6`).
+- **`SR6_LLAMA_URL`**: Base URL of local `llama.cpp` server (defaults to `http://localhost:8080/v1`).
+- **`SR6_LLAMA_BIN`**: Path to `llama-server.exe` for auto-launching local model server.
+- **`SR6_LLAMA_MODEL_PATH`**: Path to local `.gguf` model file for auto-launching.
 
 ---
 
@@ -168,8 +171,18 @@ sr6 db compile-vault
 # Search rules and display enriched stat + citation cards
 sr6 search "augmentation_acclimation"
 
-# Query Rules RAG AI Assistant
+# Inspect specific item reference card (quality, weapon, spell, cyberware, vehicle, program)
+sr6 card quality ambidextrous
+sr6 card weapon ares_predator_vi
+
+# Query Rules RAG AI Assistant (Gemini API)
 sr6 rag query "How can I heal fading damage?"
+
+# Query Local llama.cpp / Gemma instance
+sr6 rag query "How does fading healing work?" --provider llama --model gemma-2-9b-it
+
+# Query RAG with Active Runner Dossier Context
+sr6 rag query "What matrix actions can I take?" --char yuriko --provider llama
 ```
 
 ### Portfolio & Character Management
@@ -183,8 +196,8 @@ sr6 characters audit union
 # Interactively purchase gear/qualities for character
 sr6 characters advance union cyberjack
 
-# Export character sheet (Roll20 JSON, VTT Text, Genesis XML)
-sr6 export velvet --format=xml
+# Export character sheet (Roll20 JSON, VTT Text, Genesis XML, Cards Deck)
+sr6 export velvet --format=cards
 ```
 
 ### Campaign & Quarto Prose Tools

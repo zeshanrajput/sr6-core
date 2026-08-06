@@ -23,7 +23,10 @@ STOP_WORDS = {
     "under", "until", "up", "very", "was", "wasnt", "we", "wed", "well", "were", "weve", "werent",
     "what", "whats", "when", "whens", "where", "wheres", "which", "while", "who", "whos", "whom",
     "why", "whys", "with", "wont", "would", "wouldnt", "you", "youd", "youll", "youre", "youve",
-    "your", "yours", "yourself", "yourselves", "rules", "rule", "game", "shadowrun"
+    "your", "yours", "yourself", "yourselves", "rules", "rule", "game", "shadowrun",
+    "given", "current", "capabilities", "capability", "valuable", "value", "next", "take",
+    "good", "best", "recommend", "recommendation", "option", "options", "choice", "choices",
+    "character", "characters", "char", "runner"
 }
 
 
@@ -149,11 +152,13 @@ def format_authority_label(level: int) -> str:
     return labels.get(level, f"Level {level}")
 
 
-def format_context_for_llm(rules: List[Dict[str, Any]]) -> str:
+def format_context_for_llm(rules: List[Dict[str, Any]], max_chars: int = 12000) -> str:
     if not rules:
         return "No relevant rules retrieved from the vault."
 
     context_blocks = []
+    total_len = 0
+
     for r in rules:
         dataset_str = ""
         cdata = r.get("commlink_data")
@@ -164,6 +169,13 @@ def format_context_for_llm(rules: List[Dict[str, Any]]) -> str:
                     stats.append(f"{k}: {v}")
             dataset_str = f"COMMLINK6 STAT BLOCK: {', '.join(stats)}\n"
 
+        content_body = r.get("content", "")
+        # Remove yaml frontmatter if present
+        if content_body.startswith("---"):
+            parts = content_body.split("---", 2)
+            if len(parts) >= 3:
+                content_body = parts[2].strip()
+
         block = (
             f"---\n"
             f"RULE ID: {r['id']}\n"
@@ -173,8 +185,14 @@ def format_context_for_llm(rules: List[Dict[str, Any]]) -> str:
             f"AUTHORITY: {format_authority_label(r.get('authority_level', 3))}\n"
             f"{dataset_str}"
             f"CONTENT:\n"
-            f"{r.get('content', '')}\n"
+            f"{content_body}\n"
             f"---"
         )
+
+        if total_len + len(block) > max_chars and context_blocks:
+            break
+
         context_blocks.append(block)
+        total_len += len(block)
+
     return "\n\n".join(context_blocks)
