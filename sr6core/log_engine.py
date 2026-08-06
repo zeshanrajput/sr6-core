@@ -181,10 +181,22 @@ def print_contacts_summary(contacts: Optional[Dict[str, Any]] = None):
             print("\n")
 
 
+class QuartoEvalEnv(dict):
+    def __getitem__(self, key):
+        if key in _GLOBAL_LOG_STATE:
+            return _GLOBAL_LOG_STATE[key]
+        return super().__getitem__(key)
+
+    def get(self, key, default=None):
+        if key in _GLOBAL_LOG_STATE:
+            return _GLOBAL_LOG_STATE[key]
+        return super().get(key, default)
+
+
 def create_quarto_eval_env() -> Dict[str, Any]:
     """Returns an execution environment pre-populated with standard SR6 log helpers."""
     reset_log_state()
-    return {
+    return QuartoEvalEnv({
         "inc": inc,
         "inc_many": inc_many,
         "contact": contact,
@@ -193,17 +205,9 @@ def create_quarto_eval_env() -> Dict[str, Any]:
         "start_mission": start_mission,
         "get_active_sprites": get_active_sprites,
         "print_contacts_summary": print_contacts_summary,
+        "assign": assign,
         "state": _GLOBAL_LOG_STATE,
-        "Karma": 0,
-        "Lifetime_Karma": 0,
-        "Nuyen": 0,
-        "Heat": 0,
-        "Submersion_Grade": 0,
-        "Reputation": {},
-        "Sprites": [],
-        "Contacts": {},
-        "Missions": []
-    }
+    })
 
 
 def get_log_totals(log_path: Optional[Any] = None) -> Dict[str, Any]:
