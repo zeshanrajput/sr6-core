@@ -210,6 +210,21 @@ def create_quarto_eval_env() -> Dict[str, Any]:
     })
 
 
+def resolve_existing_path(p: str) -> Optional[str]:
+    if os.path.exists(p):
+        return p
+    candidates = [
+        os.path.normpath(os.path.join(os.getcwd(), "..", p)),
+        os.path.normpath(p.replace("chapters/", "")),
+        os.path.normpath(os.path.join("chapters", p)),
+        os.path.normpath(os.path.join("..", p))
+    ]
+    for cand in candidates:
+        if os.path.exists(cand):
+            return cand
+    return None
+
+
 def get_log_totals(log_path: Optional[Any] = None) -> Dict[str, Any]:
     if log_path is None:
         # Default fallback: search current directory and parent directory for chapters/character_log.qmd
@@ -220,7 +235,11 @@ def get_log_totals(log_path: Optional[Any] = None) -> Dict[str, Any]:
         ]
         files = [p for p in possible_paths if os.path.exists(p)][:1]
     elif isinstance(log_path, list):
-        files = [p for p in log_path if os.path.exists(p)]
+        files = []
+        for p in log_path:
+            res = resolve_existing_path(p)
+            if res:
+                files.append(res)
     elif isinstance(log_path, str) and os.path.isdir(log_path):
         target_files = [
             os.path.join(log_path, "chapters", "character_log.qmd"),
@@ -228,18 +247,8 @@ def get_log_totals(log_path: Optional[Any] = None) -> Dict[str, Any]:
         ]
         files = [p for p in target_files if os.path.exists(p)]
     elif isinstance(log_path, str):
-        if os.path.exists(log_path):
-            files = [log_path]
-        else:
-            # Try resolving relative to parent directory if rendering from inside subfolder (e.g. chapters/)
-            alt_path = os.path.normpath(os.path.join(os.getcwd(), "..", log_path))
-            alt_path2 = os.path.normpath(os.path.join(os.getcwd(), log_path.replace("chapters/", "")))
-            if os.path.exists(alt_path):
-                files = [alt_path]
-            elif os.path.exists(alt_path2):
-                files = [alt_path2]
-            else:
-                files = []
+        res = resolve_existing_path(log_path)
+        files = [res] if res else []
     else:
         files = []
 
