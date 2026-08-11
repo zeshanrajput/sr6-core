@@ -289,16 +289,13 @@ def main():
             print(f"[OK] Audio narration output target: {out_file}")
 
     elif args.command == "rag":
+        from sr6core.rag import print_search_results_rich, render_rag_result_rich
         rag_engine = RAGEngine()
 
         if args.subcommand == "search" or (not args.subcommand and hasattr(args, "query")):
             q = getattr(args, "query", "")
             results = rag_engine.search(q, limit=10)
-            print(f"\n=== RAG Rules Vault Search Results for '{q}' ===")
-            for r in results:
-                ds_label = f" [CommLink6: {r['commlink_data']['name']}]" if r.get("commlink_data") else ""
-                print(f"- [{r['id']}] {r.get('topic', 'N/A')} ({r.get('source', 'SR6')} p.{r.get('page', '')}) [Auth Level {r.get('authority_level', 3)}]{ds_label}")
-            print()
+            print_search_results_rich(q, results)
 
         elif args.subcommand == "query" or hasattr(args, "prompt"):
             prompt = getattr(args, "prompt", "")
@@ -309,8 +306,6 @@ def main():
             char_choice = getattr(args, "char", None)
             effort_choice = getattr(args, "effort", None)
 
-            ctx_label = f" (Character: {char_choice})" if char_choice else ""
-            print(f"\nProcessing RAG query{ctx_label}: '{prompt}' (Provider: {provider_choice}, Model: {model_choice})...")
             res = rag_engine.query(
                 prompt,
                 use_ai=use_ai,
@@ -320,18 +315,7 @@ def main():
                 char_id=char_choice,
                 effort_level=effort_choice
             )
-            
-            if res.get("ai_response"):
-                print("\n=== RAG AI Assistant Answer ===")
-                print(res["ai_response"])
-            elif res.get("error"):
-                print(f"\n[AI Notice] {res['error']}")
-                print("\n=== Retrieved Context ===")
-                print(res["context"])
-            else:
-                print("\n=== Retrieved Context ===")
-                print(res["context"])
-            print()
+            render_rag_result_rich(res, show_context=True)
 
 
 if __name__ == "__main__":

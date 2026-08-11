@@ -328,13 +328,23 @@ def compile_commlink_datasets(jar_path: Optional[str] = None, db_path: str = DEF
                             stats["cyberware"] += 1
 
                         elif is_vehicle:
-                            hnd = item.get("handling", "-")
-                            spd = item.get("speed", "-")
-                            acc = item.get("accel", "-")
-                            bod = int(item.get("body", 0)) if item.get("body", "").isdigit() else 0
-                            arm = int(item.get("armor", 0)) if item.get("armor", "").isdigit() else 0
-                            sens = int(item.get("sensor", 0)) if item.get("sensor", "").isdigit() else 0
-                            seats = int(item.get("seats", 1)) if item.get("seats", "").isdigit() else 1
+                            v_elem = item.find("vehicle")
+                            if v_elem is not None:
+                                hnd = v_elem.get("han", item.get("handling", "-"))
+                                spd = v_elem.get("tspd", v_elem.get("spdi", item.get("speed", "-")))
+                                acc = v_elem.get("acc", item.get("accel", "-"))
+                                bod = int(v_elem.get("bod", 0)) if v_elem.get("bod", "").isdigit() else (int(item.get("body", 0)) if item.get("body", "").isdigit() else 0)
+                                arm = int(v_elem.get("arm", 0)) if v_elem.get("arm", "").isdigit() else (int(item.get("armor", 0)) if item.get("armor", "").isdigit() else 0)
+                                sens = int(v_elem.get("sen", 0)) if v_elem.get("sen", "").isdigit() else (int(item.get("sensor", 0)) if item.get("sensor", "").isdigit() else 0)
+                                seats = int(v_elem.get("sea", 1)) if v_elem.get("sea", "").isdigit() else (int(item.get("seats", 1)) if item.get("seats", "").isdigit() else 1)
+                            else:
+                                hnd = item.get("handling", "-")
+                                spd = item.get("speed", "-")
+                                acc = item.get("accel", "-")
+                                bod = int(item.get("body", 0)) if item.get("body", "").isdigit() else 0
+                                arm = int(item.get("armor", 0)) if item.get("armor", "").isdigit() else 0
+                                sens = int(item.get("sensor", 0)) if item.get("sensor", "").isdigit() else 0
+                                seats = int(item.get("seats", 1)) if item.get("seats", "").isdigit() else 1
                             cat = item.get("category", fname.replace("gear_", "").replace(".xml", "").title())
                             cursor.execute(
                                 "INSERT OR REPLACE INTO ref_vehicles VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",

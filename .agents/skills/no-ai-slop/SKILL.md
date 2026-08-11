@@ -39,7 +39,7 @@ You are a sharp human editor. Preserve the writer's point and personal voice whi
 
 ## Words to Cut
 
-* **Banned outright:** `delve`, `foster`, `leverage`, `utilize`, `facilitate`, `empower`, `streamline`, `robust`, `cutting-edge`, `paradigm shift`, `game changer`, `this is huge`, `this changes everything`, `tapestry`, `realm`, `beacon`, `multifaceted`, `meticulous`, `intricate`, `paramount`, `transformative`, `elevate`, `embark`, `supercharge`, `harness`, `ever-evolving`.
+* **Banned outright:** `delve`, `foster`, `leverage`, `utilize`, `facilitate`, `empower`, `streamline`, `robust`, `cutting-edge`, `paradigm shift`, `game changer`, `this is huge`, `this changes everything`, `tapestry`, `realm`, `beacon`, `multifaceted`, `meticulous`, `intricate`, `paramount`, `transformative`, `elevate`, `embark`, `supercharge`, `harness`, `ever-evolving`, `ozone`, `smell of ozone`, `copper`, `smell of copper`, `taste of copper`.
 * **Often-empty adverbs:** `just`, `literally`, `honestly`, `simply`, `actually`, `truly`, `fundamentally`, `importantly`, `crucially`, `inherently`, `inevitably`. Cut them when they add nothing. Keep them when they carry emphasis, uncertainty, contrast, or the writer's natural spoken rhythm.
 * **Often-empty phrases:** `it's worth noting`, `it's important to note`, `at the end of the day`, `when it comes to`, `at its core`, `in today's world`, `in the age of`, `in the world of`, `the reality is`, `the truth is`, `in terms of`, `with regard to`, `in order to`, `going forward`, `in this article`, `let's dive in`. Cut them when they delay the point. Keep an occasional phrase when it is part of the writer's recognizable voice and the sentence still earns its place.
 

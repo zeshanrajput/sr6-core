@@ -74,9 +74,12 @@ def deep_audit_character(char_id: str, db_path: str = DEFAULT_DB_PATH) -> Dict[s
     for q in pos_qualities:
         q_ref = q.get("ref", q.get("name", "").lower().replace(" ", "_"))
         row = cursor.execute("SELECT * FROM ref_qualities WHERE id = ? OR lower(name) = ?", (q_ref, q.get("name", "").lower())).fetchone()
-        expected_k = int(row["karma"]) if row else 5
-        rating = q.get("rating", 1)
-        actual_k = expected_k * rating
+        if "karma" in q:
+            actual_k = q["karma"]
+        else:
+            expected_k = int(row["karma"]) if row else 5
+            rating = q.get("rating", 1)
+            actual_k = expected_k * rating
         total_pos_karma += actual_k
         audit_details.append({
             "category": "Quality (Positive)",
@@ -89,10 +92,15 @@ def deep_audit_character(char_id: str, db_path: str = DEFAULT_DB_PATH) -> Dict[s
     for q in neg_qualities:
         q_ref = q.get("ref", q.get("name", "").lower().replace(" ", "_"))
         row = cursor.execute("SELECT * FROM ref_qualities WHERE id = ? OR lower(name) = ?", (q_ref, q.get("name", "").lower())).fetchone()
-        expected_k = int(row["karma"]) if row else 5
-        rating = q.get("rating", 1)
-        actual_k = expected_k * rating
+        if "karma" in q:
+            actual_k = q["karma"]
+        else:
+            expected_k = int(row["karma"]) if row else 5
+            rating = q.get("rating", 1)
+            actual_k = expected_k * rating
         total_neg_karma += actual_k
+
+
         audit_details.append({
             "category": "Quality (Negative)",
             "name": q.get("name"),

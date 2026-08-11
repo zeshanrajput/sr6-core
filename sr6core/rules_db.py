@@ -160,11 +160,11 @@ class RulesDB:
         return None
 
     def search_rules(self, query: str, limit: int = 10) -> List[Dict[str, Any]]:
-        """Full-text search across rules vault."""
+        """Full-text search across rules vault with topic ranking and TOC filtering."""
         if not query or not query.strip():
             return []
             
-        clean_q = re.sub(r"[^\w\s]", "", query).strip()
+        clean_q = re.sub(r"[^\w\s]", " ", query).strip()
         if not clean_q:
             return []
 
@@ -174,24 +174,53 @@ class RulesDB:
             select_clause = "*"
 
         cursor = self.conn.cursor()
+        norm_q = clean_q.lower()
+
+        ignore_clause = """
+            lower(topic) NOT LIKE '%content%' 
+            AND lower(topic) NOT LIKE 'index%' 
+            AND lower(topic) NOT LIKE '%game concepts%'
+            AND lower(topic) NOT LIKE '%credits%'
+        """
+
+        # 1. Exact topic match
+        rows = cursor.execute(
+            f"SELECT {select_clause} FROM rules WHERE lower(topic) = ? AND {ignore_clause} LIMIT ?",
+            (norm_q, limit)
+        ).fetchall()
+        if rows:
+            return [dict(r) for r in rows]
+
+        # 2. Topic prefix / title containment match
+        rows = cursor.execute(
+            f"SELECT {select_clause} FROM rules WHERE (lower(topic) LIKE ? OR lower(topic) LIKE ? OR lower(topic) LIKE ?) AND {ignore_clause} LIMIT ?",
+            (f"{norm_q}%", f"anthro - {norm_q}%", f"% {norm_q}%", limit)
+        ).fetchall()
+        if rows:
+            return [dict(r) for r in rows]
+
+        # 3. FTS search excluding TOC/Index
         try:
+            fts_q = f'"{clean_q}"'
             rows = cursor.execute(
                 f"""
                 SELECT {select_clause} 
                 FROM rules r 
                 JOIN rules_fts fts ON r.id = fts.id 
                 WHERE rules_fts MATCH ? 
+                AND {ignore_clause}
                 LIMIT ?
                 """,
-                (f'"{clean_q}"', limit)
+                (fts_q, limit)
             ).fetchall()
             if rows:
                 return [dict(r) for r in rows]
         except Exception:
             pass
 
+        # 4. Fallback content/topic LIKE query
         rows = cursor.execute(
-            f"SELECT {select_clause} FROM rules WHERE content LIKE ? OR topic LIKE ? LIMIT ?",
+            f"SELECT {select_clause} FROM rules WHERE (topic LIKE ? OR content LIKE ?) AND {ignore_clause} LIMIT ?",
             (f"%{clean_q}%", f"%{clean_q}%", limit)
         ).fetchall()
         return [dict(r) for r in rows]

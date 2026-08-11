@@ -65,6 +65,24 @@ def assign(name: str, value: Any) -> Any:
     return value
 
 
+def initiate(echo_or_power: str = "", coven_loyalty: int = 0) -> str:
+    """
+    Calculates Initiation cost based on formula (10 + current_grade)
+    minus Coven/Group Loyalty discount, increments Initiation_Grade by 1,
+    and deducts Karma.
+    """
+    global _GLOBAL_LOG_STATE
+    curr_grade = _GLOBAL_LOG_STATE.get("Initiation_Grade", 0)
+    target_grade = curr_grade + 1
+    base_cost = 10 + curr_grade
+    final_cost = max(1, base_cost - coven_loyalty)
+    _GLOBAL_LOG_STATE["Initiation_Grade"] = target_grade
+    inc("Karma", -final_cost)
+    return f"Initiation Grade {target_grade} ({echo_or_power}): -{final_cost} Karma"
+
+
+
+
 def inc_many(*args: Any) -> str:
     if len(args) == 1 and isinstance(args[0], (list, tuple)):
         pairs = args[0]
