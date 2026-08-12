@@ -9,6 +9,7 @@ import os
 import re
 import sys
 from typing import List, Tuple, Optional
+import numpy as np
 
 
 
@@ -20,7 +21,7 @@ def clean_markdown_for_tts(text: str) -> str:
     text = text.replace('‘', "'").replace('’', "'")
     text = text.replace('—', ' -- ').replace('–', ' -- ')
     text = text.replace('…', '...')
-    text = text.replace('"', '').replace("'", '')
+    text = text.replace('"', '')
     
     # 1. Remove Markdown image embeds completely: ![alt](path)
     text = re.sub(r'!\[.*?\]\(.*?\)', '', text)
@@ -42,7 +43,7 @@ def clean_markdown_for_tts(text: str) -> str:
     lines = []
     for line in text.splitlines():
         stripped = line.strip()
-        if re.match(r'^(---|\*\*\*|___|===\s*)+$', stripped):
+        if re.match(r'^(---|[*]{3}|___|===\s*)+$', stripped):
             lines.append("<SCENE_PAUSE>")
             continue
         # Strip header markers (# Title -> Title)
@@ -74,21 +75,31 @@ def clean_markdown_for_tts(text: str) -> str:
 
 def clean_pronunciation(text: str) -> str:
     """Applies comprehensive pronunciation corrections for Shadowrun terms, currency, acronyms, honorifics, and hyphenated compound words."""
-    # 1. Corporate Designation (R-31-K-0 -> R 31 K 0) vs Chosen Name (Reiko -> Rayko)
-    text = re.sub(r'\bR[-_\s]*31[-_\s]*K[-_\s]*0\b', 'R 31 K 0', text, flags=re.IGNORECASE)
-    text = re.sub(r'\br31-?k0\b', 'R 31 K 0', text, flags=re.IGNORECASE)
-    text = re.sub(r'\breiko\b', 'Rayko', text, flags=re.IGNORECASE)
-    text = text.replace('T@z', 'Taz').replace('t@z', 'taz')
+    # 0. Dialogue machine/spirit code formatting (e.g. AGENT_OF_ORDER / SANITIZE_INPUT -> AGENT OF ORDER. SANITIZE INPUT.)
+    def _clean_spirit_code(m):
+        raw = m.group(0)
+        cleaned = raw.replace('_', ' ').replace(' / ', '. ').replace('/', '. ')
+        return cleaned
+    text = re.sub(r'\b[A-Z0-9_]{3,}(?:\s*/\s*[A-Z0-9_]{3,})+\b', _clean_spirit_code, text)
+
+    # 1. Contraction / Phonetic Fixes (wasn't -> was not)
+    text = re.sub(r"\bwasn't\b", "was not", text, flags=re.IGNORECASE)
+
+    # 2. Corporate Designation (R-31-K-0 -> R 31 K 0) vs Chosen Name (Reiko -> Rayko)
+    text = re.sub(r'\bR[-_\s]*31[-_\s]*K[-_\s]*0(\'s)?\b', r'R 31 K 0\1', text, flags=re.IGNORECASE)
+    text = re.sub(r'\br31-?k0(\'s)?\b', r'R 31 K 0\1', text, flags=re.IGNORECASE)
+    text = re.sub(r'\breiko(\'s)?\b', r'Rayko\1', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bT@z(\'s)?\b', r'Taz\1', text)
+    text = re.sub(r'\bt@z(\'s)?\b', r'taz\1', text)
     text = text.replace('SINner', 'sinner').replace('SINners', 'sinners')
-    text = re.sub(r'\br3sP@wn\b', 'respawn', text, flags=re.IGNORECASE)
-    text = re.sub(r'\br3sp@wn\b', 'respawn', text, flags=re.IGNORECASE)
-    
-    # 2. Currency & Symbols (¥500 -> 500 new yen)
+    text = re.sub(r'\br3sP@wn(\'s)?\b', r'respawn\1', text, flags=re.IGNORECASE)
+
+    # 3. Currency & Symbols (¥500 -> 500 new yen)
     text = re.sub(r'¥\s*(\d[\d,.]*)', r'\1 new yen', text)
     text = text.replace('¥', ' new yen ')
     text = re.sub(r'\bnuyens?\b', 'new yen', text, flags=re.IGNORECASE)
 
-    # 3. Shadowrun Acronyms & Jargon (IC -> Ice, ARO -> A R O, APDS -> A P D S)
+    # 4. Shadowrun Acronyms & Jargon (IC -> Ice, ARO -> A R O, APDS -> A P D S)
     text = re.sub(r'\bIC\b', 'Ice', text)
     text = re.sub(r'\bICE\b', 'Ice', text)
     text = re.sub(r'\bARO\b', 'A R O', text)
@@ -98,33 +109,35 @@ def clean_pronunciation(text: str) -> str:
     text = re.sub(r'\bSINless\b', 'sinless', text, flags=re.IGNORECASE)
     text = re.sub(r'\bSIN\b', 'sin', text)
 
-    # 4. Japanese Honorifics & Names (Remove hyphens)
+    # 5. Japanese Honorifics & Names (-chan -> chahn, -san -> sahn)
     text = re.sub(r'\bAh-Mei\b', 'Ah Mei', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bEndo-san\b', 'Endo san', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bRei-chan\b', 'Rei chan', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bYuri-chan\b', 'Yuri chan', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bYuriko-san\b', 'Yooreeko san', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bEndo[- ]san\b', 'Endo sahn', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bRei[- ]chan\b', 'Rei chahn', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bYuri[- ]chan\b', 'Yuri chahn', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bYuriko[- ]san\b', 'Yooreeko sahn', text, flags=re.IGNORECASE)
+    text = re.sub(r'(\b[A-Za-z]+)-chan\b', r'\1 chahn', text, flags=re.IGNORECASE)
+    text = re.sub(r'(\b[A-Za-z]+)-san\b', r'\1 sahn', text, flags=re.IGNORECASE)
     text = re.sub(r'\bNeo-Tokyo\b', 'Neo Tokyo', text, flags=re.IGNORECASE)
     text = re.sub(r'\bNeo-Kyoto\b', 'Neo Kyoto', text, flags=re.IGNORECASE)
 
-    # 5. Megacorps & Proper Nouns (Phonetic spelling without hyphens)
+    # 6. Megacorps & Proper Nouns (Phonetic spelling without hyphens)
     text = re.sub(r'\bRenraku\b', 'Renraku', text, flags=re.IGNORECASE)
     text = re.sub(r'\bShiawase\b', 'Sheeahwahsay', text, flags=re.IGNORECASE)
     text = re.sub(r'\bSaeder-Krupp\b', 'Sayder Krupp', text, flags=re.IGNORECASE)
     text = re.sub(r'\bMitsuhama\b', 'Meetsoohahmah', text, flags=re.IGNORECASE)
     text = re.sub(r'\bAztechnology\b', 'Aztechnology', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bYuriko\b', 'Yooreeko', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bYuriko(\'s)?\b', r'Yooreeko\1', text, flags=re.IGNORECASE)
     text = re.sub(r'\bdronomancer\b', 'dronomancer', text, flags=re.IGNORECASE)
     text = re.sub(r'\bdronomancy\b', 'dronomancy', text, flags=re.IGNORECASE)
     text = re.sub(r'\bcyberdeck\b', 'cyberdeck', text, flags=re.IGNORECASE)
     text = re.sub(r'\bgridlink\b', 'gridlink', text, flags=re.IGNORECASE)
 
-    # 6. De-hyphenate compound words (soy-burger -> soyburger, matte-gray -> matte gray)
+    # 7. De-hyphenate compound words (soy-burger -> soyburger, matte-gray -> matte gray)
     text = re.sub(r'\bsoy-burgers?\b', 'soyburger', text, flags=re.IGNORECASE)
     text = re.sub(r'\bblack-market\b', 'black market', text, flags=re.IGNORECASE)
     text = re.sub(r'(\b[a-zA-Z]+)-([a-zA-Z]+\b)', r'\1 \2', text)
 
-    # 7. Loan words
+    # 8. Loan words
     text = re.sub(r'\bamuse-?bouche\b', 'ahmyooz boosh', text, flags=re.IGNORECASE)
     text = re.sub(r'\bqipao\b', 'cheepow', text, flags=re.IGNORECASE)
     text = re.sub(r'\bcheongsam\b', 'chongsahm', text, flags=re.IGNORECASE)

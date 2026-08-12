@@ -23,12 +23,15 @@ class TestNarrationEngine(unittest.TestCase):
         self.assertNotIn("# Chapter", cleaned)
 
     def test_clean_pronunciation(self):
-        raw = "R-31-K-0 paid ¥500 for IC in Neo-Tokyo with Renraku."
+        raw = "Reiko's deck at r3sP@wn's grid wasn't working with Rei-chan and Yuriko-san. AGENT_OF_ORDER / SANITIZE_INPUT. I'll be fine."
         cleaned = clean_pronunciation(raw)
-        self.assertIn("R 31 K 0", cleaned)
-        self.assertIn("500 new yen", cleaned)
-        self.assertIn("Ice", cleaned)
-        self.assertIn("Neo Tokyo", cleaned)
+        self.assertIn("Rayko's", cleaned)
+        self.assertIn("respawn's", cleaned)
+        self.assertIn("was not", cleaned)
+        self.assertIn("Rei chahn", cleaned)
+        self.assertIn("Yooreeko sahn", cleaned)
+        self.assertIn("AGENT OF ORDER. SANITIZE INPUT.", cleaned)
+        self.assertIn("I'll", cleaned)
 
     def test_normalize_dialogue_cadence(self):
         raw = "Wait -- what is -- that?"
@@ -36,12 +39,14 @@ class TestNarrationEngine(unittest.TestCase):
         self.assertNotIn("--", normalized)
 
     def test_split_into_narration_chunks(self):
-        text = "First sentence. Second sentence.\n\nSecond paragraph."
+        text = "First sentence. Second sentence.\n\n<SCENE_PAUSE>\n\nSecond paragraph."
         chunks = split_into_narration_chunks(text, pacing="balanced")
-        self.assertEqual(len(chunks), 3)
+        self.assertEqual(len(chunks), 4)
         self.assertEqual(chunks[0][0], "First sentence.")
         self.assertEqual(chunks[1][0], "Second sentence.")
-        self.assertEqual(chunks[2][0], "Second paragraph.")
+        self.assertEqual(chunks[2][0], "")
+        self.assertEqual(chunks[2][1], 1.0)
+        self.assertEqual(chunks[3][0], "Second paragraph.")
 
     def test_is_narrative_chapter(self):
         self.assertTrue(is_narrative_chapter("01 The Weight of Zero.md"))
