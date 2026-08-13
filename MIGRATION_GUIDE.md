@@ -8,7 +8,7 @@ This guide outlines the complete steps to clean up, refactor, and decouple deriv
 
 To eliminate redundancy across character repositories, delete the following:
 
-- 🗑️ **`.agents/skills/`**: Delete local duplicate skills (`sr6-rules`, `no-ai-slop`, `literary-analysis`, `continuity-tracker`). All skills are now centrally executed from `c:\GitHub\sr6-core\.agents\skills\`.
+- 🗑️ **`.agents/skills/`**: Delete local duplicate skills (`sr6-rules`, `no-ai-slop`, `literary-analysis`, `continuity-tracker`, `axis-*`). All skills are centrally executed from `c:\GitHub\sr6-core\.agents\skills\`.
 - 🗑️ **Local `shadowrun_rules.db` / `rules_vault/`**: Remove any local copy of the rules database or rules vault files. The rules database is now centralized at `~/.sr6/rules_index.db`.
 - 🗑️ **Legacy Python Engines**: Delete local Python helper scripts (`linter.py`, `log_engine.py`, `continuity_engine.py`, `rules_engine.py`, `narration.py`). Use `sr6` CLI subcommands instead.
 
@@ -38,9 +38,9 @@ Previously, Quarto session logs often defined their own Python state functions o
 - **Base Submersion Grade**: Initialize baseline Submersion Grade at chargen using `assign("Submersion_Grade", 2)` (or character starting grade).
 - **Stream Path Powers**: Do NOT increment Submersion Grade for path powers gained through stream advancement (e.g. *Hybrid Sprites* from Technoshaman stream).
 - **Earned Echoes**: Increment Submersion Grade only when logging earned submersions:
-  ```markdown
-  * *Submersion - Living Network:* `{python} inc_many(('Karma', -11-Submersion_Grade), ('Submersion_Grade', 1))`
-  ```
+   ```markdown
+   * *Submersion - Living Network:* `{python} inc_many(('Karma', -11-Submersion_Grade), ('Submersion_Grade', 1))`
+   ```
 
 ---
 
@@ -76,7 +76,7 @@ Running `uv sync` locally and on GitHub Actions seamlessly builds `sr6-core` fro
 
 ---
 
-## 4. User Environment & Path Customization
+## 5. User Environment & Path Customization
 
 Users running `sr6-core` on different machines or with custom character rosters can easily configure paths via environment variables or `characters.yaml`:
 
@@ -87,13 +87,15 @@ Users running `sr6-core` on different machines or with custom character rosters 
 
 ---
 
-## 5. Directory Structure Verification
+## 6. Directory Structure Verification
 
 Ensure the character repository matches the standard layout:
 
 ```text
 sr6<char_id>/
 ├── <char_id>_master.yaml     # Master character dossier (authoritative YAML)
+├── reference/                # Local project reference docs
+│   └── voice_spec.md         # Character voice spec (extends sr6-core/reference/default_voice_spec.md)
 ├── chapters/                 # Quarto narrative story book
 │   ├── index.qmd             # Book intro & character background
 │   ├── twenty_questions.qmd  # Shadowrun 20 Questions backstory questionnaire
@@ -108,7 +110,24 @@ sr6<char_id>/
 
 ---
 
-## 6. Quarto Book Configuration (`_quarto.yml`)
+## 7. Instantiating Character Voice Specifications (`reference/voice_spec.md`)
+
+Each character repository MUST instantiate its own local voice specification at `reference/voice_spec.md`:
+
+1. **Copy Starter Template**: Copy `sr6-core/templates/reference/voice_spec.md.template` into `reference/voice_spec.md` (or adapt from existing character repos like `sr6yuriko/reference/voice_spec.md`).
+2. **Inheritance Header**: Ensure the top of the file explicitly declares inheritance:
+   ```markdown
+   Extends: sr6-core/reference/default_voice_spec.md
+   ```
+3. **Define Voice Schema**: Fill out the `voice_schema` block covering narrative POV, cognitive bias, vocabulary register & metaphor domains, primary/secondary sensory lens, emotional baseline/stress triggers, and syntax cadence.
+4. **Define Chronological Growth Arcs (`arc_chronology`)**: Break character evolution into narrative eras to prevent retrospective flattening (e.g. early solitary survival vs mid-game alliances vs late-game stewardship).
+5. **Define Chapter Tiers (`chapter_tiers`)**: Map chapters to Tier 1 Keystones (9.0/10 passing threshold), Tier 2 Narrative Evolution (8.5/10), and Tier 3 Atmospheric Bridges (8.0/10).
+6. **Define Domain Vocabulary Rules**: Specify context-specific vocabulary rules for internal consciousness, mechanical action, and dialogue.
+7. **Audio Narration & TTS Readability**: Enforce an ellipses ceiling of $\le 0.6$ per 300 words and natural spoken dialogue rhythm.
+
+---
+
+## 8. Quarto Book Configuration (`_quarto.yml`)
 
 Update `_quarto.yml` under `book.chapters`:
 
@@ -124,9 +143,9 @@ book:
 
 ---
 
-## 7. Agent Instructions (`.agents/AGENTS.md`)
+## 9. Agent Instructions (`.agents/AGENTS.md`)
 
-Update instructions in `.agents/AGENTS.md` to reference `sr6` CLI subcommands:
+Update instructions in `.agents/AGENTS.md` to reference `sr6` CLI subcommands and orchestrator workflow:
 
 ```markdown
 - Rules Verification: Run `sr6 rag query "<query>"` or `sr6 search "<item>"`
@@ -134,11 +153,12 @@ Update instructions in `.agents/AGENTS.md` to reference `sr6` CLI subcommands:
 - Story Continuity Audit: Run `sr6 continuity .`
 - Export Sheets: Run `sr6 export <char_id> --format=xml|vtt|roll20`
 - CommLink GUI Save Sync: Run `sr6 db sync-commlink`
+- Narrative Production: Invoke `narrative-director` orchestrator for 7-sub-agent drafting & self-correction
 ```
 
 ---
 
-## 8. Final Ecosystem Synchronization
+## 10. Final Ecosystem Synchronization
 
 From `sr6-core`, run the ecosystem synchronizer:
 

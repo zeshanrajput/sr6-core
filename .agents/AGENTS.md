@@ -1,36 +1,105 @@
-# Master Workspace Agent Instructions: SR6 Core (`sr6-core`)
+# Master Workspace Agent Instructions: SR6 Core (`sr6-core`) & Portfolio Pipeline
 
-## Shadowrun 6e Rules & Mechanics Verification
+This document defines the routing logic, sub-agent capabilities, narrative standards, and the **Primary Master Orchestrator (`narrative-director`)** for the Shadowrun 6e multi-agent narrative production framework across `sr6-core` and character repositories (`sr6yuriko`, `sr6velvet`, `sr6union`, etc.).
 
-When answering rules questions, updating character dossier files (`*_master.yaml`), auditing Karma/Nuyen ledgers, or verifying matrix/drone combat mechanics:
-- Trigger the `sr6-rules` skill or run `sr6 rag query "<query>"` to consult the authoritative Shadowrun 6e Gemini RAG vault.
-- Ensure all rules assertions follow the SRM 4-level authority hierarchy (Level 1 SRM Exception > Level 2 Supplements > Level 3 Core > Level 4 Homebrew).
-- Provide explicit book and page citations wherever applicable (`[Book Name, Page Number]`).
+---
 
-## Writing & Narrative Anti-Slop (No AI Slop)
+## 1. Master Orchestrator: `narrative-director`
 
-When writing or editing prose, narrative chapters (`chapters/*.md` / `chapters/*.qmd`), character questionnaire answers (`twenty_questions.qmd`), or user-facing summaries:
-- Trigger or adhere to the `no-ai-slop` skill instructions (`.agents/skills/no-ai-slop/SKILL.md`).
-- Avoid banned words (`delve`, `foster`, `leverage`, `robust`, `tapestry`, `realm`, `beacon`, `multifaceted`, `paradigm shift`, `cutting-edge`, `ever-evolving`).
-- Eliminate AI writing patterns: binary contrasts ("not X, but Y"), colon reveals, fake-profound kickers, summary recaps, and throat-clearing openers.
-- Run `sr6 lint <file>` to verify formatting, em-dash density, and style.
-- **Walkthrough Metrics Logging:** Whenever `no-ai-slop` is invoked (for audits or editing), record the full performance metrics (banned word count, cognitive verb count, throat-clearing count, binary contrast count, em-dash density) in the run's `walkthrough.md` artifact.
+The `narrative-director` is the primary autonomous orchestrator responsible for end-to-end narrative generation, multi-agent evaluation, iterative self-correction, and state tracking.
 
-## Literary Analysis & Prose Refactoring
+```
+                      +-----------------------------+
+                      |   1. CONTEXT INGESTION      |
+                      | Outline, Voice Spec, Dossier|
+                      +--------------+--------------+
+                                     |
+                                     v
+                      +-----------------------------+
+                      |   2. INITIAL DRAFT (v1)     |
+                      +--------------+--------------+
+                                     |
+                                     v
+         +-------------------------------------------------------+
+         |            3. PARALLEL SUB-AGENT AUDIT PANEL          |
+         |  - axis-voice-internality   - axis-pacing-structure   |
+         |  - axis-agency-motivation   - axis-worldbuilding-grit |
+         |  - no-ai-slop               - continuity-tracker      |
+         |  - sr6-rules                                          |
+         +---------------------------+---------------------------+
+                                     |
+                                     v
+                      +-----------------------------+
+                      | 4. SYNTHESIS & SELF-CORRECT |  <-- (Fails threshold?
+                      |  Passes all 7 thresholds?   |       Re-draft v2, v3)
+                      +--------------+--------------+
+                                     | Passes
+                                     v
+                      +-----------------------------+
+                      |  5. PUBLISH & STATE TRACK   |
+                      |  Output .qmd & YAML diffs   |
+                      +-----------------------------+
+```
 
-When evaluating, scoring, or refactoring narrative chapters:
-- Trigger the `literary-analysis` skill (`.agents/skills/literary-analysis/SKILL.md`).
-- Execute sub-skills as required:
-  1. `stage1_thematic_centering` for moral axis, SRM lore alignment, and exploring "the spaces between" (human condition via digital/spiritual phenomenology).
-  2. `stage2_quality_benchmarking` for 1-10 literary scoring & artistic elevation of Shadowrun mechanics.
-  3. `five_dimensional_scoring_matrix` for 1-100 metric evaluation across Concept, Prose, Characterization, Structure, and Meatspace/Matrix friction.
-  4. `apply_prose_chisel` for line-level techno-poetic refactoring.
-- **Walkthrough Metrics Logging:** Whenever `literary-analysis` is invoked, capture and record all scores, sub-skill metrics, and the 5D scoring matrix breakdown in the run's `walkthrough.md` artifact.
+---
 
-## Master Portfolio & Campaign Diagnostic Utilities
+## 2. Six-Stage Execution Workflow
 
-Before completing edits or reviewing narrative/character updates, run the corresponding CLI utilities:
-- **Prose & Markdown Linter:** Run `sr6 lint "chapters/<file>.qmd"` to get instant diagnostics on markdownlint syntax formatting, em-dash density, cognitive verbs, banned words, and sentence length cadence.
-- **Continuity Engine:** Run `sr6 continuity <repo_path>` or trigger `continuity-tracker` to index character relationships, sprite states, locations, and narrative heatmaps.
-- **Character Creation Auditor:** Run `sr6 characters audit [char_id]` to verify Karma/Nuyen balance consistency and creation budget compliance across Yuriko, Velvet, and Union.
-- **Multi-Format Sheet Exporters:** Run `sr6 export <char_id> --format=roll20|vtt|xml` to generate VTT sheets.
+### Stage 1: Context Ingestion
+Before drafting or editing, `narrative-director` ingests:
+1. **Scene Outline / Prompt**: User-provided beat sheet, plot points, or target goals.
+2. **Global Narrative Standards**: Reads [`sr6-core/reference/narrative_standards.md`](file:///c:/GitHub/sr6-core/reference/narrative_standards.md).
+3. **Character Voice Specification**: Loads local character repository `reference/voice_spec.md` (e.g., `sr6yuriko/reference/voice_spec.md`, `sr6velvet/reference/voice_spec.md`), which inherits/extends [`sr6-core/reference/default_voice_spec.md`](file:///c:/GitHub/sr6-core/reference/default_voice_spec.md).
+4. **Master Character Dossier**: Reads `character_master.yaml` (attributes, inventory, ammo, nuyen, debt, qualities, spells, cyberware).
+5. **RAG Story Continuity & Rules**: Queries recent chapter logs via `sr6 continuity` and rule queries via `sr6-rules`.
+
+### Stage 2: Initial Draft Generation (`v1`)
+`narrative-director` invokes the drafting sub-agent to generate Scene Draft `v1`, adhering to:
+* POV, active era from `arc_chronology`, and cognitive bias from `voice_spec.md`.
+* 4-beat scene structure (Inciting Friction -> Escalation -> Climax -> Aftermath) from `narrative_standards.md`.
+* Mechanical reality constraints from `character_master.yaml`.
+* Audio narration and TTS readability guidelines (ellipses ceiling $\le 0.6$ per 300 words).
+
+### Stage 3: Parallel Sub-Agent Audit Panel
+Draft `v1` is dispatched simultaneously to all **7 sub-agent evaluators**:
+
+| Sub-Agent Skill | Focus Dimension | Passing Threshold |
+| :--- | :--- | :--- |
+| **`axis-voice-internality`** | Character voice, POV integrity, vocabulary matrix, sensory lens, era calibration | **8.0 / 10** *(Calibrated to Tier)* |
+| **`axis-pacing-structure`** | 4-beat structure, entry/exit discipline, action-to-exposition (80/20) | **8.0 / 10** *(Calibrated to Tier)* |
+| **`axis-agency-motivation`** | Protagonist proactive choice, consequential stakes, drive alignment | **8.0 / 10** *(Calibrated to Tier)* |
+| **`axis-worldbuilding-grit`** | Dystopian texture, corporate omnipresence, AR clutter, zero info-dumps | **8.0 / 10** *(Calibrated to Tier)* |
+| **`no-ai-slop`** | Anti-slop pattern detection, forbidden terms list, redline removal, TTS fluency | **8.5 / 10** |
+| **`continuity-tracker`** | Ammo/nuyen balances, damage tracks, contacts, state diff generation | **8.5 / 10** |
+| **`sr6-rules`** | SR6 mechanics (Edge, Matrix actions, spell drain, modifiers) accuracy | **8.5 / 10** |
+
+#### Chapter Tier Threshold Calibration
+* **Tier 1 (Keystones)**: Passing threshold **9.0 / 10** (Existential breakthroughs, initiation/submersion milestones, foundational pivots).
+* **Tier 2 (Narrative Evolution)**: Passing threshold **8.5 / 10** (Mission runs, relationship deepening, regional texture, evolutionary steps).
+* **Tier 3 (Atmospheric Bridges)**: Passing threshold **8.0 / 10** (Slice-of-life downtime, procedural mechanics, affectionately grounded banter).
+
+### Stage 4: Synthesis & Automated Self-Correction Loop
+1. `narrative-director` collates the audit reports into a unified **Revision Matrix**.
+2. If any sub-agent score falls below its passing threshold, `narrative-director` automatically formulates a targeted re-draft prompt combining all redline fixes.
+3. The re-draft cycle (`v1` -> `v2` -> `v3`) repeats autonomously until **all 7 sub-agents pass threshold standards**.
+
+### Stage 5: Publishing & State Tracking
+Upon successful panel approval:
+1. **Narrative Output**: Emits the final polished prose as a clean Quarto markdown file (`.qmd`) in `chapters/` (e.g., `chapters/chapter_04.qmd`).
+2. **State Diff Proposal**: Emits an explicit YAML patch proposing updates to `character_master.yaml` for changes in nuyen, ammunition, physical/stun damage, Karma, or contact relationships.
+
+### Stage 6: Refinement Mode for Existing `.qmd` Files
+When requested to refine an existing chapter (`.qmd`):
+1. Load and dispatch the existing file directly to the 7-sub-agent audit panel.
+2. Synthesize feedback and execute line-level prose chisel refactoring.
+3. Write the revised content **directly to the target `.qmd` file** so changes can be inspected instantly using the native IDE side-by-side git diff view.
+
+---
+
+## 3. CLI Diagnostic Utilities
+
+Before completing edits or reviewing narrative/character updates, run corresponding CLI commands:
+* **Prose & Markdown Linter**: `sr6 lint "chapters/<file>.qmd"`
+* **Continuity Engine**: `sr6 continuity <repo_path>`
+* **Character Creation Auditor**: `sr6 characters audit [char_id]`
+* **Multi-Format Exporters**: `sr6 export <char_id> --format=roll20|vtt|xml`

@@ -1,26 +1,55 @@
 ---
 name: continuity-tracker
-description: Audit story continuity, active sprite status, character foil relationships (Jax, Taz, Brynne), locations, and timeline events across the 20+ chapter narrative anthology.
+description: Cross-checks gear, ammunition, spell drain, damage state, nuyen balances, and contact locations against character_master.yaml and past log context. Proposes explicit YAML state diffs.
 ---
 
-# Story Continuity & Relationship Graph Skill
+# Story Continuity & State Tracker Skill (`continuity-tracker`)
 
-Use this skill whenever you need to check narrative continuity, audit recurring character relationships (Jax, Brynne, Indomitable Will, River People), check active sprite rosters (Taz, Sprite-M19 to M22), or verify location anchors across the 20+ story chapters.
+Use this skill to audit narrative drafts for state consistency against the character's `*_master.yaml` dossier (e.g., `yuriko_master.yaml`, `velvet_master.yaml`) and prior chapter log context.
 
-## Quick Execution
+---
 
-To generate or inspect the updated continuity index, run:
+## Evaluation Workflow
 
-```powershell
-python scripts/continuity_engine.py
+1. **State Baseline Ingestion**:
+   - Locate and read the target character's dossier (`*_master.yaml`).
+   - Query recent chapter log context via `sr6 continuity <repo_path>` or narrative index.
+
+2. **State & Inventory Audit Criteria**:
+   - **Resource Ledger**: Track ammunition consumed, grenades thrown, reagents used, nuyen spent/received, and Karma earned.
+   - **Physical & Matrix Health**: Track Physical damage boxes, Stun damage, Matrix persona damage, sprite fading, and spell drain suffered in the scene.
+   - **Gear & Cyberware**: Verify that weapons, armor, active drones, decks, and foci used in prose are actually present in `*_master.yaml`.
+   - **Contacts & Locations**: Verify contact names, locations, and relationship states match established continuity.
+
+3. **Sub-Agent Audit Report & State Diff Generation**:
+   - **Continuity Score**: Rate from **1 to 10** (Pass threshold: **8.5+**).
+   - **State Diff Output**: Generate an explicit YAML patch/diff for `*_master.yaml` summarizing state changes.
+
+---
+
+## Audit Report Format
+
+```markdown
+### Axis: Continuity & State Tracking Evaluation
+* **Master Dossier Referenced**: [Path to *_master.yaml]
+* **Continuity Score**: [Score]/10 (Threshold: 8.5)
+
+#### State & Inventory Discrepancies
+- **Ammunition & Consumables**: [Pass / Discrepancy details]
+- **Damage & Spell Drain**: [Pass / Discrepancy details]
+- **Gear & Implant Verification**: [Pass / Discrepancy details]
+- **Contact & Location Anchors**: [Pass / Discrepancy details]
+
+#### Proposed `*_master.yaml` State Diff
+```yaml
+# Proposed Updates to character_master.yaml
+nuyen:
+  current: 12450 # -350 Nuyen spent on bribe at Club Inferno
+damage_track:
+  physical: 2    # +2 Physical damage boxes from heavy pistol shot
+  stun: 1        # +1 Stun damage box from spell drain
+inventory:
+  ammo:
+    heavy_pistol_regular: 42 # -6 rounds fired in scene
 ```
-
-This updates [reference/story_continuity.md](file:///c:/github/sr6yuriko/reference/story_continuity.md) with word counts, entity mention heatmaps, and active entity states.
-
-## Key Tracked Entities & Anchors
-
-1. **Taz:** Rating 7 Ally Crack Sprite (Primary Guardian & Permanent Resonant Companion).
-2. **Jax:** Decker foil; clinical corporate decker whose utilitarian approach contrasts with Reiko's technoshamanism.
-3. **Brynne:** Fixer and SINner debt creditor; anchors Reiko's legal identity to physical nuyen obligations.
-4. **r3sP@wn:** Secret virtual garden sanctuary built in the Deep Matrix to shelter rescued emergent AIs and wild spirits.
-5. **The Reflecting Pool & Tombstones:** The threshold in the Deep Matrix where systemic logic frays into raw Resonance over unallocated metadata silt.
+```

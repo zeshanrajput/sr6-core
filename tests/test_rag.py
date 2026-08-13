@@ -25,7 +25,8 @@ class TestRAGChatSession(unittest.TestCase):
         mock_chat_instance.send_message.return_value = mock_response
 
         with patch.dict("sys.modules", {"google.genai": mock_genai_module, "google.genai.types": MagicMock()}):
-            session = RAGChatSession(model_name="flash-latest")
+            session = RAGChatSession()
+            self.assertEqual(session.model_name, "gemini-flash-latest")
 
             # First query
             text1, err1 = session.send_query("What is fading?", "Context 1")
@@ -39,10 +40,18 @@ class TestRAGChatSession(unittest.TestCase):
 
             # genai.Client should only be called ONCE across both queries
             self.assertEqual(mock_genai_module.Client.call_count, 1)
-            # chats.create should only be called ONCE
+            # chats.create should only be called ONCE with model='gemini-flash-latest'
             self.assertEqual(mock_client_instance.chats.create.call_count, 1)
+            mock_client_instance.chats.create.assert_called_with(model="gemini-flash-latest")
             # send_message should be called TWICE on the same chat object
             self.assertEqual(mock_chat_instance.send_message.call_count, 2)
+
+    def test_alias_resolution(self):
+        from sr6core.rag.llm import resolve_model_name
+        self.assertEqual(resolve_model_name("flash-latest"), "gemini-flash-latest")
+        self.assertEqual(resolve_model_name("flash"), "gemini-flash-latest")
+        self.assertEqual(resolve_model_name("3.7-flash"), "gemini-flash-latest")
+        self.assertEqual(resolve_model_name("gemini-3.7-flash"), "gemini-flash-latest")
 
 
 if __name__ == "__main__":

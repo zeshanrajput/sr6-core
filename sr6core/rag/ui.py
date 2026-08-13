@@ -81,7 +81,7 @@ def render_rag_result_rich(res: Dict[str, Any], show_context: bool = False):
     console = Console()
     prompt = res.get("query", "")
     provider = res.get("provider_name", "gemini").upper()
-    model = res.get("model_name", "flash-latest")
+    model = res.get("model_name", "gemini-flash-latest")
     effort = res.get("effort_level") or "default"
     char_id = res.get("char_id")
     char_str = f" | Runner: [bold gold1]{char_id.upper()}[/bold gold1]" if char_id else ""
@@ -140,7 +140,7 @@ def run_interactive_rag_session_rich(rag_engine: Any):
         "[dim]Interactive Rules Reference & Character Dossier Engine[/dim]\n\n"
         "[bold yellow]Slash Commands:[/bold yellow]\n"
         "  [cyan]/provider <gemini|llama>[/cyan] : Switch LLM Provider\n"
-        "  [cyan]/model <name>[/cyan]          : Switch Model (e.g. flash-latest, gemma-2-9b-it)\n"
+        "  [cyan]/model <name>[/cyan]          : Switch Model (e.g. gemini-flash-latest, gemma-2-9b-it)\n"
         "  [cyan]/url <endpoint>[/cyan]        : Set local llama.cpp endpoint URL\n"
         "  [cyan]/char <yuriko|velvet|union|off>[/cyan] : Bind active runner dossier context\n"
         "  [cyan]/effort <high|medium|low>[/cyan] : Set thinking effort budget\n"
@@ -181,7 +181,7 @@ def run_interactive_rag_session_rich(rag_engine: Any):
         if prompt.lower() in ['/help', '?']:
             console.print("\n[bold yellow]Available Slash Commands:[/bold yellow]")
             console.print("  /provider gemini|llama  : Switch LLM provider")
-            console.print("  /model <name>          : Switch model name (e.g. flash-latest, pro, gemma)")
+            console.print("  /model <name>          : Switch model name (e.g. gemini-flash-latest, pro, gemma)")
             console.print("  /url <endpoint>        : Set local llama.cpp endpoint URL")
             console.print("  /char yuriko|velvet|union|off : Bind active runner dossier context")
             console.print("  /effort high|medium|low: Adjust thinking budget")

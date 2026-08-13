@@ -1,11 +1,17 @@
 # SR6 Core (`sr6-core`)
 
-The master engine, dataset compiler, and CLI portfolio manager for Shadowrun 6th Edition character portfolios (**Yuriko**, **Velvet**, **Union**), campaign narrative engines, creation auditing, multi-format exporters, and RAG rules assistance.
+The master engine, dataset compiler, and CLI portfolio manager for Shadowrun 6th Edition character portfolios (**Yuriko**, **Velvet**, **Union**), multi-agent narrative orchestration, campaign narrative engines, creation auditing, multi-format exporters, and RAG rules assistance.
 
 ---
 
 ## 🌟 Features
 
+- **Multi-Agent Narrative Production Framework (`narrative-director`)**:
+  - Autonomous 6-stage drafting, evaluation, and self-correction loop.
+  - 7-Sub-Agent Parallel Audit Panel: `axis-voice-internality`, `axis-pacing-structure`, `axis-agency-motivation`, `axis-worldbuilding-grit`, `no-ai-slop`, `continuity-tracker`, and `sr6-rules`.
+  - **Era-Aware Voice Specs (`arc_chronology`)**: Prevents retrospective flattening by scoring against active developmental eras.
+  - **Tiered Chapter Architecture (`chapter_tiers`)**: Calibrates thresholds across Tier 1 Keystones (9.0/10), Tier 2 Narrative Evolution (8.5/10), and Tier 3 Atmospheric Bridges (8.0/10).
+  - **Audio Narration & TTS Fluency Discipline**: Strict ellipses density budget ($\le 0.6$ per 300 words), dialogue stitching, and elimination of sensory shortcuts.
 - **CommLink6 XML Dataset Compiler**: Automatically indexes 7,500+ official XML dataset records (`ref_qualities`, `ref_spells`, `ref_complex_forms`, `ref_gear`, `ref_metatypes`) extracted directly from `CommLink6` JAR releases into SQLite.
 - **CommLink6 GUI Automated Roundtrip Sync**: Scans player save directories (`~/CommLink6/player/myself/shadowrun6/`) and automatically patches character XML save files in place with live campaign Quarto totals (Karma, Nuyen, Reputation), standardized SRM contacts, and full ISO-8601 timestamps.
 - **Rules Vault & RAG Subsystem**: Full-text FTS5 search and Gemini AI rules reference assistant enforcing the SRM 4-Level Authority hierarchy with physical book citations (`[Book, Page]`).
@@ -19,7 +25,7 @@ The master engine, dataset compiler, and CLI portfolio manager for Shadowrun 6th
 - **Quarto Story Book Engine**:
   - `log_engine`: In-memory evaluation tracking of global Karma, Lifetime Karma, Nuyen ledgers, Submersion echo grades, active registered sprite expiration (3-mission limit), and heat across multi-file Quarto story books (`character_log.qmd`, `character_purchases.qmd`).
   - `shortcodes`: Expands `{{< rule "Topic" >}}` and `{{< quality "id" >}}` into styled HTML callout boxes with stat blocks and book citations.
-  - `prose linter`: Scans chapters for banned AI buzzwords, cognitive buffer verbs, and markdownlint formatting.
+  - `prose linter`: Scans chapters for banned AI buzzwords, cognitive buffer verbs, ellipses density, and markdownlint formatting.
 - **CI/CD & GitHub Pages Integration**: Native `pyproject.toml` Git dependency specifications (`[tool.uv.sources] sr6-core = { git = "...", branch = "master" }`) enabling headless `uv run quarto render` builds on remote GitHub Actions runners without requiring relative directory pathing.
 - **Ecosystem Sync (`sr6 sync-all`)**: Single-command workspace synchronizer that audits portfolios, regenerates VTT/JSON/XML sheets into `output/` folders, and patches CommLink6 GUI player saves across all character repos.
 
@@ -56,44 +62,75 @@ characters:
     repo_path: "C:\\GitHub\\sr6yuriko"
     master_yaml: "yuriko_master.yaml"
 
-  my_runner:
-    name: "Ghost"
-    repo: "sr6ghost"
-    master_yaml: "ghost_master.yaml"
+  velvet:
+    name: "Velvet"
+    repo: "sr6velvet"
+    repo_path: "C:\\GitHub\\sr6velvet"
+    master_yaml: "velvet_master.yaml"
+
+  union:
+    name: "Union"
+    repo: "sr6union"
+    repo_path: "C:\\GitHub\\sr6union"
+    master_yaml: "union_master.yaml"
 ```
 
 ### 2. Environment Variables
 Override default paths without modifying source code:
 - **`SR6_WORKSPACE_ROOT`** (or `GITHUB_ROOT`): Root directory containing character repositories (defaults to parent directory or `C:\GitHub`).
 - **`COMMLINK_PLAYER_DIR`** (or `SR6_COMMLINK_DIR`): Path to CommLink6 player saves (defaults to `~/CommLink6/player/myself/shadowrun6`).
+- **`SR6_DEFAULT_MODEL`**: Default LLM model identifier (defaults to `gemini-flash-latest`).
 - **`SR6_LLAMA_URL`**: Base URL of local `llama.cpp` server (defaults to `http://localhost:8080/v1`).
 - **`SR6_LLAMA_BIN`**: Path to `llama-server.exe` for auto-launching local model server.
 - **`SR6_LLAMA_MODEL_PATH`**: Path to local `.gguf` model file for auto-launching.
 
 ---
 
-## 🧹 Migration & Refactoring Checklist for Character Projects
+## 🎭 Multi-Agent Narrative Production Architecture
 
-When updating individual character repositories (`sr6yuriko`, `sr6velvet`, `sr6union`) to integrate with `sr6-core`:
+`sr6-core` powers autonomous narrative drafting and refinement across character books via the `narrative-director` orchestrator:
 
-### 1. Safe Deletions (Redundant Code & Skill Folders)
-- [x] **Delete `.agents/skills/`**: Remove duplicate skill folders (`sr6-rules`, `no-ai-slop`, `literary-analysis`, `continuity-tracker`). These are now centrally managed in `c:\GitHub\sr6-core\.agents\skills\`.
-- [x] **Delete Local Rules Vaults / Databases**: Remove any local `shadowrun_rules.db` or local `rules_vault/` copies. All rules queries now target the master database at `~/.sr6/rules_index.db`.
-- [x] **Delete Redundant Python Scripts**: Remove local duplicate scripts (`linter.py`, `log_engine.py`, `continuity_engine.py`, `rules_engine.py`, `narration.py`). Use `sr6` CLI subcommands instead.
+```
+                      +-----------------------------+
+                      |   1. CONTEXT INGESTION      |
+                      | Outline, Voice Spec, Dossier|
+                      +--------------+--------------+
+                                     |
+                                     v
+                      +-----------------------------+
+                      |   2. INITIAL DRAFT (v1)     |
+                      +--------------+--------------+
+                                     |
+                                     v
+         +-------------------------------------------------------+
+         |            3. PARALLEL SUB-AGENT AUDIT PANEL          |
+         |  - axis-voice-internality   - axis-pacing-structure   |
+         |  - axis-agency-motivation   - axis-worldbuilding-grit |
+         |  - no-ai-slop               - continuity-tracker      |
+         |  - sr6-rules                                          |
+         +---------------------------+---------------------------+
+                                     |
+                                     v
+                      +-----------------------------+
+                      | 4. SYNTHESIS & SELF-CORRECT |  <-- (Fails threshold?
+                      |  Passes all 7 thresholds?   |       Re-draft v2, v3)
+                      +--------------+--------------+
+                                     | Passes
+                                     v
+                      +-----------------------------+
+                      |  5. PUBLISH & STATE TRACK   |
+                      |  Output .qmd & YAML diffs   |
+                      +-----------------------------+
+```
 
-### 2. File Placement & Structure
-- [x] **Master Dossier File**: Ensure `*_master.yaml` exists at the root of the character repository (e.g. `c:\GitHub\sr6yuriko\yuriko_master.yaml`).
-- [x] **Quarto Book Structure**: Ensure narrative files live inside `chapters/` (e.g., `chapters/index.qmd`, `chapters/character_log.qmd`, `chapters/twenty_questions.qmd`).
-
-### 3. Agent Instructions
-- [x] **Update `.agents/AGENTS.md`**: Update character repo instructions to use `sr6` CLI subcommands:
-  - Rules Lookup: `sr6 rag query "<query>"` or `sr6 search "<item>"`
-  - Prose Linter: `sr6 lint chapters/<file>.qmd`
-  - Continuity Audit: `sr6 continuity .`
-  - Sheet Exporters: `sr6 export <char_id> --format=xml|vtt|roll20`
-
-### 4. Verification
-- [x] **Run Ecosystem Sync**: Execute `uv run sr6 sync-all` from `sr6-core` to perform deep audits, regenerate `output/` sheets, and patch active CommLink6 GUI saves for character repositories.
+### 7-Sub-Agent Evaluation Panel
+1. **`axis-voice-internality`**: Audits character voice, POV, internal monologue, and era calibration against `reference/voice_spec.md`.
+2. **`axis-pacing-structure`**: Enforces 4-beat structure (Inciting Friction -> Escalation -> Climax -> Aftermath) and 80/20 action-to-exposition ratio.
+3. **`axis-agency-motivation`**: Verifies protagonist proactive choice, consequential stakes, and arc alignment.
+4. **`axis-worldbuilding-grit`**: Injects dystopian texture, corporate omnipresence, and AR noise with zero info-dumps.
+5. **`no-ai-slop`**: Redlines AI clichés, banned phrases, binary contrasts, and excessive ellipses ($\le 0.6 / 300\text{ words}$).
+6. **`continuity-tracker`**: Cross-checks ammo, nuyen, damage tracks, and gear against `character_master.yaml` and logs.
+7. **`sr6-rules`**: Verifies authentic SR6 mechanics, spell drain, Matrix actions, and Edge expenditures via Gemini RAG.
 
 ---
 
@@ -104,6 +141,8 @@ Each character managed by `sr6-core` (e.g. `sr6yuriko`, `sr6velvet`, `sr6union`)
 ```text
 sr6<char_id>/
 ├── <char_id>_master.yaml     # Master character dossier (authoritative sheet data)
+├── reference/                # Local project reference docs
+│   └── voice_spec.md         # Character voice spec (extends sr6-core/reference/default_voice_spec.md)
 ├── chapters/                 # Quarto narrative story book
 │   ├── index.qmd             # Book introduction & character background
 │   ├── twenty_questions.qmd  # Shadowrun 20 Questions backstory questionnaire
@@ -120,6 +159,7 @@ sr6<char_id>/
 
 `sr6-core` provides starter templates for bootstrapping new character portfolio projects:
 - `templates/character_master.yaml.template`: Master YAML sheet template.
+- `templates/reference/voice_spec.md.template`: Starter character voice specification template with era arcs and chapter tiers.
 - `templates/quarto/_quarto.yml.template`: Starter Quarto book YAML configuration.
 - `templates/quarto/index.qmd.template`: Character overview & background.
 - `templates/quarto/twenty_questions.qmd.template`: 20 Questions backstory questionnaire.
@@ -192,6 +232,7 @@ sr6 characters list
 
 # Run deep item-by-item audit on character portfolio
 sr6 characters audit union
+sr6 characters audit velvet
 
 # Interactively purchase gear/qualities for character
 sr6 characters advance union cyberjack
@@ -202,7 +243,7 @@ sr6 export velvet --format=cards
 
 ### Campaign & Quarto Prose Tools
 ```bash
-# Lint Quarto chapter prose for style and AI buzzwords
+# Lint Quarto chapter prose for style, ellipses density, and AI buzzwords
 sr6 lint C:\GitHub\sr6yuriko\chapters\character_log.qmd
 
 # Run campaign story continuity audit

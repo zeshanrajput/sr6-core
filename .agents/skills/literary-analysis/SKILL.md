@@ -101,7 +101,12 @@ matrix_score:
 2. **Replace Generic Sci-Fi Verbs:**
    * `"flared" / "shuddered" / "jittered"` -> `"strobbed" / "dilated" / "stuttered" / "dereferenced"`
 
-3. **Translate Dry TTRPG Math -> Techno-Poetic Shadowrun Fiction:**
+3. **Enforce Sensory Restraint (Banned Shortcuts & Replacement Vectors):**
+   * ❌ **Banned Electrical Scent:** *"smell of ozone," "burnt copper," "hot solder," "chemical tang of processing"* -> Ground internal AI perspective through thermal shifts (flash-frost, localized pressure drops, sun-baked heat, vacuum).
+   * ❌ **Banned Data-Trash:** *"puddles of stale encryption," "decaying logic in the gutters"* -> Ground through acoustic/resonance frequencies (sub-bass vibrations, ringing pitch of strained glass, dead silences, harmonic hums).
+   * ❌ **Banned Generic Redline:** *"systems redlining," "logic loops in her head," "processing at 600%"* -> Ground through tactile/haptic weight (coarse callouses, physical inertia, raw friction of silk on carbon) or visual/geometrical de-familiarization (refraction, light leaching into bruised violet/amber, fracturing spatial geometries).
+
+4. **Translate Dry TTRPG Math -> Techno-Poetic Shadowrun Fiction:**
    * `"rolled Matrix Perception"` -> `"plucked the hidden chords of the underlying wire, listening for corporate traffic"`
    * `"took 3 boxes of Fading damage"` -> `"pathways scorched with a solar golden fever as the Resonance claimed its toll"`
    * `"entered the Nissan Samurai drone"` -> `"squeezing her vast indigo light into the cold, low-bitrate grey-scale caricature of a two-legged warform"`

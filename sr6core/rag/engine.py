@@ -8,7 +8,7 @@ from typing import Dict, Any, List, Optional
 
 from sr6core.rules_db import DEFAULT_DB_PATH
 from sr6core.rag.search import search_rules_db, deduplicate_and_resolve_conflicts, format_context_for_llm
-from sr6core.rag.llm import query_gemini, RAGChatSession, DEFAULT_LLAMA_URL
+from sr6core.rag.llm import query_gemini, RAGChatSession, DEFAULT_LLAMA_URL, DEFAULT_MODEL
 from sr6core.character_manager import CharacterManager
 
 
@@ -16,7 +16,7 @@ class RAGEngine:
     def __init__(
         self,
         db_path: Optional[str] = None,
-        model_name: str = "flash-latest",
+        model_name: str = DEFAULT_MODEL,
         effort_level: Optional[str] = "medium",
         provider_name: str = "gemini",
         llama_url: str = DEFAULT_LLAMA_URL

@@ -1,0 +1,137 @@
+# <Character Name> Voice Specification
+
+**Extends**: `sr6-core/reference/default_voice_spec.md`  
+**Character**: <Character Name> (<Real Name>)  
+**Archetype**: <Archetype / Metatype / Tradition>  
+**Repository Target**: `sr6<char_id>/reference/voice_spec.md`
+
+---
+
+## 1. Identity & Core Cognitive Bias
+
+Define the protagonist's primary mental filter, world interpretation, and psychological baseline:
+* **Cognitive Bias & Worldview**: [Primary lens through which character interprets events, e.g., tactical calculation, street leverage, astral spirit flow]
+* **Emotional Baseline**: [Default affect, stoicism vs volatile emotion under pressure]
+* **Core Philosophy / Code**: [Personal code, loyalties, or survival instincts]
+
+---
+
+## 2. Chronological Growth Arcs & Era-Aware Voice Calibration
+
+Evaluators (`axis-voice-internality` and `axis-agency-motivation`) evaluate chapters according to their place in the narrative timeline to avoid retrospective flattening:
+
+```yaml
+arc_chronology:
+  arc_1:
+    chapters: "01 – 09"
+    narrative_state: "<Primary campaign context & stakes>"
+    expressivity: "<Masks / filters vs authentic expression>"
+    cognitive_bias: "<Perspective limitations, trauma, active biases>"
+    visual_palette: "<Color themes, sensory contrast>"
+    mechanical_state: "<Chargen baseline, gear, essence/submersion/initiation grade>"
+
+  arc_2:
+    chapters: "10 – 18"
+    narrative_state: "<Mid-campaign evolution, team/faction integration>"
+    expressivity: "<Evolving trust & rapport>"
+    cognitive_bias: "<Expanded worldview / strategic capability>"
+    visual_palette: "<Maturing aesthetic palette>"
+    mechanical_state: "<Initiation/Submersion Grade 1, expanded assets>"
+```
+
+---
+
+## 3. Tiered Chapter Architecture & Evaluation Benchmarks
+
+The anthology employs a tiered structural rhythm. Evaluators calibrate expectations to the active chapter tier:
+
+```yaml
+chapter_tiers:
+  tier_1_keystones:
+    passing_threshold: "9.0 / 10"
+    role: "Existential breakthroughs, initiation/submersion milestones, major turning points"
+    chapters:
+      - "01_<chapter_name>"
+
+  tier_2_narrative_evolution:
+    passing_threshold: "8.5 / 10"
+    role: "Mission runs, relationship deepening, regional texture, evolutionary steps"
+    chapters:
+      - "02_<chapter_name>"
+
+  tier_3_atmospheric_bridges:
+    passing_threshold: "8.0 / 10"
+    role: "Slice-of-life downtime, procedural mechanics, affectionately grounded banter"
+    chapters:
+      - "03_<chapter_name>"
+```
+
+---
+
+## 4. Voice Schema Overrides
+
+```yaml
+voice_schema:
+  character_id: "<char_id>"
+  narrative_pov: "First Person Limited" # or "Third Person Deep Limited"
+  cognitive_bias: "<Cognitive Bias Description>"
+  vocabulary_matrix:
+    register: "<Formal, Street, Tactical, Corporate, Metaphysical, etc.>"
+    jargon_density: "<Low | Medium | High>"
+    forbidden_tropes:
+      - "<Phrase or behavior character would never use>"
+    metaphor_domains:
+      - "<Metaphor Domain 1, e.g., firearms, code, fashion, spirit threads>"
+      - "<Metaphor Domain 2>"
+  sensory_lens:
+    primary_sense: "<AR Overlay, Thermal, Astral Aura, Auditory, Tactile>"
+    secondary_sense: "<Secondary Sensory Focus>"
+    blind_spots: "<What character misses or ignores>"
+  emotional_baseline:
+    default_affect: "<Affect Style>"
+    stress_triggers:
+      - "<Trigger 1>"
+      - "<Trigger 2>"
+    defense_mechanisms:
+      - "<Defense Behavior 1>"
+  syntax_cadence:
+    sentence_length: "<Short & clipped, Rhythmic, Analytical>"
+    paragraph_flow: "<Observation -> Action -> Evaluation>"
+    internal_monologue: "<Internal Thought Style>"
+```
+
+---
+
+## 5. Technical Vocabulary & Domain Rules
+
+Define operational domains for sub-agent scoring (`axis-voice-internality` and `no-ai-slop`):
+
+```yaml
+domain_vocabulary_rules:
+  domain_1_core_perception:
+    context: "<Internal monologue / sensory perception>"
+    rule: "<Guideline on imagery and forbidden clichés>"
+    approved_terms:
+      - "<Term 1>"
+    banned_cliches:
+      - "<Cliché 1>"
+
+  domain_2_mechanical_action:
+    context: "<Combat, rigging, decking, spellcasting, or social engineering>"
+    rule: "<Guideline on precision and sensory grounding>"
+    approved_terms:
+      - "<Approved technical/tactical term>"
+
+  domain_3_dialogue:
+    context: "<Spoken dialogue and street banter>"
+    rule: "<Guideline on authentic slang and registers>"
+    approved_terms:
+      - "<Slang / Street terminology>"
+```
+
+---
+
+## 6. Audio Narration & TTS Fluency Discipline
+
+- **Ellipses Density**: $\le 0.6$ per 300 words.
+- **Natural Spoken Delivery**: Eliminate fragmented dialogue hesitations that disrupt speech synthesis.

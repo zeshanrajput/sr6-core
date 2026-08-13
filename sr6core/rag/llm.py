@@ -39,12 +39,18 @@ Every response statement or cost breakdown must be verified back to physical pag
 """
 
 
+DEFAULT_MODEL = os.environ.get("SR6_DEFAULT_MODEL", "gemini-flash-latest")
+
 MODEL_ALIASES = {
     "flash-latest": "gemini-flash-latest",
+    "gemini-flash-latest": "gemini-flash-latest",
     "flash-light-latest": "gemini-flash-lite-latest",
     "flash-lite-latest": "gemini-flash-lite-latest",
     "flash-light": "gemini-flash-lite-latest",
     "flash": "gemini-flash-latest",
+    "3.7-flash": "gemini-flash-latest",
+    "3.7": "gemini-flash-latest",
+    "gemini-3.7-flash": "gemini-flash-latest",
     "pro": "gemini-2.5-pro",
     "gemma": "gemma-2-9b-it",
     "llama": "gemma-2-9b-it",
@@ -217,7 +223,7 @@ class BaseLLMProvider:
 
 class GeminiProvider(BaseLLMProvider):
     """Google Gemini Client Provider."""
-    def __init__(self, model_name: str = "flash-latest", effort_level: Optional[str] = None):
+    def __init__(self, model_name: str = DEFAULT_MODEL, effort_level: Optional[str] = None):
         self.model_name = resolve_model_name(model_name)
         self.effort_level = effort_level
         self._client = None
@@ -347,7 +353,7 @@ class LlamaCppProvider(BaseLLMProvider):
 
 def get_llm_provider(
     provider_name: str = "gemini",
-    model_name: str = "flash-latest",
+    model_name: str = DEFAULT_MODEL,
     effort_level: Optional[str] = None,
     llama_url: str = DEFAULT_LLAMA_URL
 ) -> BaseLLMProvider:
@@ -363,7 +369,7 @@ def get_llm_provider(
 def query_gemini(
     user_query: str,
     context_str: str,
-    model_name: str = "flash-latest",
+    model_name: str = DEFAULT_MODEL,
     effort_level: Optional[str] = None,
     chat_session: Optional[Any] = None,
     provider_name: str = "gemini",
@@ -388,7 +394,7 @@ class RAGChatSession:
     """
     def __init__(
         self,
-        model_name: str = "flash-latest",
+        model_name: str = DEFAULT_MODEL,
         effort_level: Optional[str] = "medium",
         provider_name: str = "gemini",
         llama_url: str = DEFAULT_LLAMA_URL
