@@ -89,18 +89,78 @@ def analyze_prose(file_path: str) -> Tuple[Optional[Dict[str, Any]], Optional[st
 
     binary_patterns = [
         r'\bnot\b.*?\bbut\b',
-        r'\bno longer\b.*?\bit was\b',
-        r'\bthere was no\b.*?\bthere was only\b'
+        r'\bno longer\b.*?\b(?:it was|instead|rather)\b',
+        r'\bthere was no\b.*?\bthere was only\b',
+        r'\b(?:did not|was not|were not|could not|would not|had not|is not|are not|refused to|never)\b.*?\b(?:instead|rather)\b',
+        r'\b(?:not because|not out of|not for|not to)\b.*?\b(?:but because|but out of|but for|but as|but to)\b',
+        r'\bnot a\b.*?\b(?:not a|not an)\b.*?\ba\b'
     ]
     binary_matches = []
     for line_idx, line in enumerate(lines, 1):
-        if line.strip().startswith("#") or line.strip().startswith("<"):
+        if line.strip().startswith("#") or line.strip().startswith("<") or line.strip().startswith("```"):
             continue
         line_lower = line.lower()
         for pat in binary_patterns:
             if re.search(pat, line_lower):
                 binary_matches.append((line_idx, line.strip()))
                 break
+
+    # Multi-line & cross-sentence sliding window detection
+    non_blank_lines = []
+    for line_idx, line in enumerate(lines, 1):
+        s = line.strip()
+        if not s or s.startswith("#") or s.startswith("<") or s.startswith("```") or s.startswith("---"):
+            continue
+        non_blank_lines.append((line_idx, s))
+
+    negation_starters = [
+        r"^\s*(?:she|he|it|they|her\s+\w+|his\s+\w+|their\s+\w+|the\s+\w+)\s+(?:was not|were not|did not|could not|had not|is not|are not)\b",
+        r"^\s*(?:there was no|there were no)\b",
+        r"^\s*(?:it was not|this was not)\b",
+    ]
+
+    for i in range(len(non_blank_lines) - 1):
+        prev_idx, prev_text = non_blank_lines[i]
+        curr_idx, curr_text = non_blank_lines[i + 1]
+
+        if curr_idx - prev_idx <= 3:
+            combined = f"{prev_text} {curr_text}"
+            combined_lower = combined.lower()
+
+            negation_patterns = [
+                r'\bdid not\b', r'\bwas not\b', r'\bwere not\b', r'\bcould not\b',
+                r'\bwould not\b', r'\bhad not\b', r'\bnever\b', r'\bno longer\b',
+                r'\bthere was no\b', r'\brefused to\b'
+            ]
+            pivot_patterns = [
+                r'^\s*instead\b', r'^\s*rather\b', r'\binstead,\b', r'\brather,\b'
+            ]
+
+            has_negation = any(re.search(np, prev_text.lower()) for np in negation_patterns)
+            has_pivot = any(re.search(pp, curr_text.lower()) for pp in pivot_patterns)
+
+            if has_negation and has_pivot:
+                already_reported = any(m[0] == prev_idx or m[0] == curr_idx for m in binary_matches)
+                if not already_reported:
+                    snippet = f"{prev_text} [Pivot:] {curr_text}"
+                    binary_matches.append((prev_idx, snippet))
+            else:
+                # Check for split negative foil (e.g. "She was not X. Her form was Y.")
+                prev_is_neg_starter = any(re.search(ns, prev_text, re.IGNORECASE) for ns in negation_starters)
+                curr_is_direct_desc = re.search(r"^\s*(?:she|he|it|they|her|his|their|the\s+\w+)\s+(?:was|were|traveled|stood|opened|surged|materialized|held|lay)\b", curr_text, re.IGNORECASE)
+
+                if prev_is_neg_starter and curr_is_direct_desc:
+                    already_reported = any(m[0] == prev_idx or m[0] == curr_idx for m in binary_matches)
+                    if not already_reported:
+                        snippet = f"{prev_text} [Split contrast:] {curr_text}"
+                        binary_matches.append((prev_idx, snippet))
+                else:
+                    for pat in binary_patterns:
+                        if re.search(pat, combined_lower):
+                            already_reported = any(m[0] == prev_idx or m[0] == curr_idx for m in binary_matches)
+                            if not already_reported:
+                                binary_matches.append((prev_idx, combined))
+                                break
 
     sentences = [s.strip() for s in re.split(r'[.!?]+', clean_prose) if s.strip()]
     sentence_lengths = [len(re.findall(r'\b\w+\b', s)) for s in sentences if len(re.findall(r'\b\w+\b', s)) > 0]

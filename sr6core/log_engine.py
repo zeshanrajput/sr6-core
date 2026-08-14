@@ -224,6 +224,7 @@ def create_quarto_eval_env() -> Dict[str, Any]:
         "get_active_sprites": get_active_sprites,
         "print_contacts_summary": print_contacts_summary,
         "assign": assign,
+        "initiate": initiate,
         "state": _GLOBAL_LOG_STATE,
     })
 

@@ -142,6 +142,14 @@ def main():
     cont_parser = subparsers.add_parser("continuity", help="Run campaign timeline & story continuity audit")
     cont_parser.add_argument("repo_path", type=str, help="Repository directory path")
 
+
+    # audit subcommand
+    audit_parser = subparsers.add_parser("audit", help="Run AI sub-agent semantic narrative audit on a chapter")
+    audit_parser.add_argument("target", type=str, help="Path to chapter markdown/qmd file")
+    audit_parser.add_argument("--agent", type=str, default="no-ai-slop", choices=["no-ai-slop", "voice-internality", "pacing-structure", "panel"], help="Target sub-agent evaluator")
+    audit_parser.add_argument("--model", type=str, default="gemini-flash-latest", help="LLM Model for evaluation")
+    audit_parser.add_argument("--effort", type=str, choices=["high", "medium", "low"], default="medium", help="Thinking effort level")
+
     # narrate subcommand
     narrate_parser = subparsers.add_parser("narrate", help="Generate TTS audio narration for campaign chapter")
     narrate_parser.add_argument("target", type=str, help="Path to chapter markdown/qmd file")
@@ -280,6 +288,12 @@ def main():
             print(f"[Error] {err}")
         else:
             print_continuity_report(report)
+
+
+    elif args.command == "audit":
+        from sr6core.audit import run_semantic_audit, print_audit_report
+        res = run_semantic_audit(args.target, agent=args.agent, model=args.model, effort=args.effort)
+        print_audit_report(res)
 
     elif args.command == "narrate":
         out_file, err = generate_narration(args.target)
