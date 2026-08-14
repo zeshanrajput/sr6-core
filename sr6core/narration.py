@@ -253,8 +253,274 @@ def is_narrative_chapter(file_path: str) -> bool:
     return bool(re.match(r'^\d{2}[\s_-]+', filename))
 
 
-def generate_narration(file_path: str, output_mp3: Optional[str] = None, pacing: str = "balanced", voice: str = "af_heart") -> Tuple[Optional[str], Optional[str]]:
-    """Synthesizes TTS narration audio from Markdown chapter file using Kokoro TTS GPU Engine (af_heart voice) into high-fidelity 160kbps MP3 format."""
+def extract_chapter_metadata(file_path: str, char_id: Optional[str] = None) -> dict:
+    """Extracts rich metadata for a chapter file (character, book title, track number, chapter title, arc)."""
+    import yaml
+    from pathlib import Path
+
+    file_path = os.path.abspath(file_path)
+    filename = os.path.basename(file_path)
+    file_dir = os.path.dirname(file_path)
+
+    # 1. Parse track number and default title from filename
+    track_num = None
+    m = re.match(r'^(\d{1,3})[\s_-]+(.*)$', os.path.splitext(filename)[0])
+    if m:
+        try:
+            track_num = int(m.group(1))
+        except ValueError:
+            pass
+        title = m.group(2).replace('_', ' ').strip()
+    else:
+        title = os.path.splitext(filename)[0].replace('_', ' ').strip()
+
+    # 2. Parse title from markdown level 1 heading if available
+    try:
+        with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
+            for line in f:
+                line_s = line.strip()
+                if line_s.startswith("# ") and not line_s.startswith("##"):
+                    title = line_s[2:].strip()
+                    break
+    except Exception:
+        pass
+
+    # 3. Locate character dossier & Quarto config
+    character_info = {}
+    quarto_title = None
+    current_dir = Path(file_dir)
+    for p in [current_dir, current_dir.parent, current_dir.parent.parent]:
+        # Check _quarto.yml
+        q_yml = p / "_quarto.yml"
+        if q_yml.exists() and not quarto_title:
+            try:
+                with open(q_yml, "r", encoding="utf-8") as f:
+                    q_data = yaml.safe_load(f)
+                    quarto_title = q_data.get("book", {}).get("title") or q_data.get("project", {}).get("title")
+            except Exception:
+                pass
+
+        # Check *_master.yaml
+        if not character_info:
+            master_yamls = list(p.glob("*_master.yaml"))
+            if master_yamls:
+                try:
+                    with open(master_yamls[0], "r", encoding="utf-8") as f:
+                        c_data = yaml.safe_load(f)
+                        c_id = master_yamls[0].name.replace("_master.yaml", "")
+                        character_info = {
+                            "id": c_id,
+                            "handle": c_data.get("identity", {}).get("handle", c_id.title()),
+                            "real_name": c_data.get("identity", {}).get("real_name", "N/A"),
+                            "metatype": c_data.get("identity", {}).get("metatype", "Unknown"),
+                            "role": c_data.get("identity", {}).get("role", "Shadowrunner")
+                        }
+                except Exception:
+                    pass
+
+    # Fallback to CharacterManager if char_id is provided or character_info is missing
+    if char_id or not character_info.get("id"):
+        from sr6core.character_manager import CharacterManager
+        cm = CharacterManager()
+        if char_id:
+            c = cm.get_character(char_id)
+            if c:
+                c_data = c.get("data", {})
+                character_info = {
+                    "id": char_id,
+                    "handle": c_data.get("identity", {}).get("handle", char_id.title()),
+                    "real_name": c_data.get("identity", {}).get("real_name", "N/A"),
+                    "metatype": c_data.get("identity", {}).get("metatype", "Unknown"),
+                    "role": c_data.get("identity", {}).get("role", "Shadowrunner")
+                }
+        else:
+            repo_name = Path(file_dir).parent.name.lower()
+            for known_id in ["velvet", "yuriko", "union"]:
+                if known_id in repo_name or known_id in Path(file_dir).name.lower():
+                    c = cm.get_character(known_id)
+                    if c:
+                        c_data = c.get("data", {})
+                        character_info = {
+                            "id": known_id,
+                            "handle": c_data.get("identity", {}).get("handle", known_id.title()),
+                            "real_name": c_data.get("identity", {}).get("real_name", "N/A"),
+                            "metatype": c_data.get("identity", {}).get("metatype", "Unknown"),
+                            "role": c_data.get("identity", {}).get("role", "Shadowrunner")
+                        }
+                    break
+
+    cid = character_info.get("id", "shadowrun")
+    handle = character_info.get("handle", cid.title())
+    real_name = character_info.get("real_name", "")
+    artist = f"{handle} ({real_name})" if real_name and real_name != "N/A" else handle
+    album = quarto_title or f"Shadowrun 6e: {handle}"
+
+    return {
+        "title": title,
+        "track_num": track_num,
+        "character_id": cid,
+        "handle": handle,
+        "real_name": real_name,
+        "metatype": character_info.get("metatype", "Unknown"),
+        "role": character_info.get("role", "Shadowrunner"),
+        "artist": artist,
+        "album": album,
+        "genre": "Audiobook",
+        "date": "2026",
+        "comment": f"Shadowrun 6e Campaign Audio Narration // Character: {cid}"
+    }
+
+
+def apply_id3_metadata(mp3_path: str, meta: dict) -> bool:
+    """Applies standard ID3v2.3 tags and custom TXXX frames to an MP3 file using Mutagen."""
+    try:
+        from mutagen.id3 import ID3, ID3NoHeaderError, TIT2, TPE1, TPE2, TALB, TRCK, TCON, TDRC, COMM, TXXX
+    except ImportError:
+        print("[Warning] mutagen not installed. Skipping ID3 metadata tagging.")
+        return False
+
+    try:
+        try:
+            audio = ID3(mp3_path)
+        except ID3NoHeaderError:
+            audio = ID3()
+
+        # Standard ID3 tags
+        if meta.get("title"):
+            track_prefix = f"{meta['track_num']:02d} " if meta.get("track_num") else ""
+            audio.add(TIT2(encoding=3, text=f"{track_prefix}{meta['title']}"))
+        if meta.get("artist"):
+            audio.add(TPE1(encoding=3, text=meta["artist"]))
+        if meta.get("handle"):
+            audio.add(TPE2(encoding=3, text=meta["handle"]))
+        if meta.get("album"):
+            audio.add(TALB(encoding=3, text=meta["album"]))
+        if meta.get("track_num"):
+            audio.add(TRCK(encoding=3, text=str(meta["track_num"])))
+        if meta.get("genre"):
+            audio.add(TCON(encoding=3, text=meta["genre"]))
+        if meta.get("date"):
+            audio.add(TDRC(encoding=3, text=str(meta["date"])))
+        if meta.get("comment"):
+            audio.add(COMM(encoding=3, lang="eng", desc="Description", text=meta["comment"]))
+
+        # Custom Shadowrun TXXX tags for programmatic filtering and selection
+        audio.add(TXXX(encoding=3, desc="CHARACTER", text=meta.get("character_id", "")))
+        audio.add(TXXX(encoding=3, desc="CHARACTER_HANDLE", text=meta.get("handle", "")))
+        audio.add(TXXX(encoding=3, desc="REAL_NAME", text=meta.get("real_name", "")))
+        audio.add(TXXX(encoding=3, desc="METATYPE", text=meta.get("metatype", "")))
+        audio.add(TXXX(encoding=3, desc="ROLE", text=meta.get("role", "")))
+        audio.add(TXXX(encoding=3, desc="CAMPAIGN", text="Shadowrun 6e"))
+
+        audio.save(mp3_path, v2_version=3)
+        return True
+    except Exception as e:
+        print(f"[Warning] Failed applying ID3 tags to {mp3_path}: {e}")
+        return False
+
+
+def read_narration_metadata(mp3_path: str) -> Optional[dict]:
+    """Reads ID3 and TXXX metadata from an MP3 file."""
+    try:
+        from mutagen.id3 import ID3
+    except ImportError:
+        return None
+    try:
+        tags = ID3(mp3_path)
+        txxx = {}
+        for tag in tags.getall("TXXX"):
+            txxx[tag.desc] = tag.text[0] if tag.text else ""
+
+        return {
+            "path": mp3_path,
+            "filename": os.path.basename(mp3_path),
+            "title": str(tags.get("TIT2", "")),
+            "artist": str(tags.get("TPE1", "")),
+            "album": str(tags.get("TALB", "")),
+            "track": str(tags.get("TRCK", "")),
+            "genre": str(tags.get("TCON", "")),
+            "character_id": txxx.get("CHARACTER", ""),
+            "handle": txxx.get("CHARACTER_HANDLE", ""),
+            "real_name": txxx.get("REAL_NAME", ""),
+            "metatype": txxx.get("METATYPE", ""),
+            "role": txxx.get("ROLE", ""),
+        }
+    except Exception:
+        return None
+
+
+def retag_narratives(target_path: str = ".", char_id: Optional[str] = None) -> List[dict]:
+    """Scans and updates ID3 tags on existing MP3 narration files without re-synthesizing audio."""
+    import glob
+    results = []
+    abs_target = os.path.abspath(target_path)
+
+    if os.path.isfile(abs_target):
+        if abs_target.endswith(".mp3"):
+            # Find matching markdown file in same folder or parent
+            base = os.path.splitext(os.path.basename(abs_target))[0]
+            md_cand = os.path.join(os.path.dirname(os.path.dirname(abs_target)), base + ".md")
+            if not os.path.exists(md_cand):
+                md_cand = os.path.join(os.path.dirname(abs_target), base + ".md")
+            meta = extract_chapter_metadata(md_cand if os.path.exists(md_cand) else abs_target, char_id=char_id)
+            if apply_id3_metadata(abs_target, meta):
+                results.append(meta)
+        elif abs_target.endswith(".md") or abs_target.endswith(".qmd"):
+            meta = extract_chapter_metadata(abs_target, char_id=char_id)
+            base = os.path.splitext(os.path.basename(abs_target))[0]
+            mp3_cand = os.path.join(os.path.dirname(abs_target), "audio", base + ".mp3")
+            if os.path.exists(mp3_cand) and apply_id3_metadata(mp3_cand, meta):
+                results.append(meta)
+    else:
+        # Target is directory
+        # 1. Match markdown chapters in target_path or target_path/chapters
+        search_dirs = [abs_target, os.path.join(abs_target, "chapters")]
+        for s_dir in search_dirs:
+            if not os.path.exists(s_dir):
+                continue
+            for md_file in glob.glob(os.path.join(s_dir, "*.md")) + glob.glob(os.path.join(s_dir, "*.qmd")):
+                if not is_narrative_chapter(md_file):
+                    continue
+                meta = extract_chapter_metadata(md_file, char_id=char_id)
+                base = os.path.splitext(os.path.basename(md_file))[0]
+                mp3_cand = os.path.join(os.path.dirname(md_file), "audio", base + ".mp3")
+                if os.path.exists(mp3_cand):
+                    if apply_id3_metadata(mp3_cand, meta):
+                        meta["mp3_path"] = mp3_cand
+                        results.append(meta)
+
+    return results
+
+
+def list_narratives(target_path: str = ".", char_id: Optional[str] = None) -> List[dict]:
+    """Lists narrative MP3 files, their metadata tags, and filters by character ID if specified."""
+    import glob
+    from pathlib import Path
+    narratives = []
+    abs_target = os.path.abspath(target_path)
+
+    # Search for audio folders
+    mp3_candidates = []
+    if os.path.isfile(abs_target) and abs_target.endswith(".mp3"):
+        mp3_candidates = [abs_target]
+    else:
+        for root, dirs, files in os.walk(abs_target):
+            for file in files:
+                if file.endswith(".mp3") and ("audio" in root.lower() or "chapters" in root.lower()):
+                    mp3_candidates.append(os.path.join(root, file))
+
+    for mp3 in sorted(mp3_candidates):
+        meta = read_narration_metadata(mp3)
+        if meta:
+            if char_id and meta.get("character_id", "").lower() != char_id.lower():
+                continue
+            narratives.append(meta)
+
+    return narratives
+
+
+def generate_narration(file_path: str, output_mp3: Optional[str] = None, pacing: str = "balanced", voice: str = "af_heart", char_id: Optional[str] = None) -> Tuple[Optional[str], Optional[str]]:
+    """Synthesizes TTS narration audio from Markdown chapter file using Kokoro TTS GPU Engine (af_heart voice) into high-fidelity 160kbps MP3 format and embeds rich ID3 character metadata tags."""
     if not os.path.exists(file_path):
         return None, f"Chapter file '{file_path}' not found."
 
@@ -343,8 +609,12 @@ def generate_narration(file_path: str, output_mp3: Optional[str] = None, pacing:
     with open(output_mp3, "wb") as f:
         f.write(mp3_bytes)
 
+    # Apply rich ID3 metadata tags
+    meta = extract_chapter_metadata(file_path, char_id=char_id)
+    apply_id3_metadata(output_mp3, meta)
+
     duration_sec = len(full_pcm_int16) / sample_rate
-    print(f"[OK] Generated audio narration: {output_mp3} ({duration_sec:.1f} sec, {len(mp3_bytes)} bytes, 160kbps)")
+    print(f"[OK] Generated audio narration: {output_mp3} ({duration_sec:.1f} sec, {len(mp3_bytes)} bytes, 160kbps, tagged: {meta['handle']})")
     return output_mp3, None
 
 

@@ -12,7 +12,7 @@ from sr6core.rag import RAGEngine
 from sr6core.menu import run_interactive_menu
 from sr6core.linter import analyze_prose, print_prose_report
 from sr6core.continuity_engine import build_continuity_report, print_continuity_report
-from sr6core.narration import generate_narration
+from sr6core.narration import generate_narration, retag_narratives, list_narratives
 from sr6core.dataset_compiler import compile_commlink_datasets, get_dataset_info, find_latest_commlink_jar
 from sr6core.creation.deep_audit import deep_audit_character
 from sr6core.advancement import search_catalog, purchase_item_for_character
@@ -151,8 +151,13 @@ def main():
     audit_parser.add_argument("--effort", type=str, choices=["high", "medium", "low"], default="medium", help="Thinking effort level")
 
     # narrate subcommand
-    narrate_parser = subparsers.add_parser("narrate", help="Generate TTS audio narration for campaign chapter")
-    narrate_parser.add_argument("target", type=str, help="Path to chapter markdown/qmd file")
+    narrate_parser = subparsers.add_parser("narrate", help="Generate or manage TTS audio narration and character metadata tags")
+    narrate_parser.add_argument("target", type=str, nargs="?", default=".", help="Path to chapter file, directory, or audio file (default: .)")
+    narrate_parser.add_argument("--char", type=str, default=None, help="Character identifier (e.g. velvet, yuriko, union)")
+    narrate_parser.add_argument("--retag", action="store_true", help="Update ID3 metadata tags on existing MP3 files without re-synthesizing audio")
+    narrate_parser.add_argument("--list", action="store_true", help="List narrative audio files and their character metadata tags")
+    narrate_parser.add_argument("--voice", type=str, default="af_heart", help="Kokoro voice model identifier (default: af_heart)")
+    narrate_parser.add_argument("--pacing", type=str, choices=["tight", "balanced", "spacious"], default="balanced", help="Pause pacing profile")
 
     # db subcommand
     db_parser = subparsers.add_parser("db", help="Manage rules database & CommLink6 dataset imports")
@@ -296,11 +301,50 @@ def main():
         print_audit_report(res)
 
     elif args.command == "narrate":
-        out_file, err = generate_narration(args.target)
-        if err:
-            print(f"[Notice] {err}")
+        if args.list or args.target == "list":
+            target = "." if args.target == "list" else args.target
+            items = list_narratives(target, char_id=args.char)
+            if not items:
+                print(f"[Notice] No narrative MP3 files found in '{target}'" + (f" for character '{args.char}'" if args.char else ""))
+            else:
+                from rich.console import Console
+                from rich.table import Table
+                console = Console()
+                char_heading = f" (Character: {args.char.upper()})" if args.char else ""
+                table = Table(title=f"🎙️ Shadowrun 6e Audio Narratives ({len(items)} tracks){char_heading}")
+                table.add_column("Trk", justify="right", style="cyan")
+                table.add_column("Character", style="magenta")
+                table.add_column("Title", style="bold white")
+                table.add_column("Artist / Lead", style="green")
+                table.add_column("Album / Source", style="dim")
+                table.add_column("File", style="blue")
+
+                for it in items:
+                    table.add_row(
+                        it.get("track") or "-",
+                        it.get("character_id") or it.get("handle") or "-",
+                        it.get("title") or it.get("filename") or "-",
+                        it.get("artist") or "-",
+                        it.get("album") or "-",
+                        it.get("filename") or "-"
+                    )
+                console.print(table)
+
+        elif args.retag:
+            tagged = retag_narratives(args.target, char_id=args.char)
+            if not tagged:
+                print(f"[Notice] No audio files found to retag in '{args.target}'.")
+            else:
+                print(f"[OK] Successfully updated ID3 metadata tags on {len(tagged)} audio files:")
+                for t in tagged:
+                    print(f"  • [{t.get('character_id', 'Unknown')}] Track {t.get('track_num', '-')}: {t.get('title', 'Chapter')} -> {t.get('artist', '')} ({t.get('album', '')})")
+
         else:
-            print(f"[OK] Audio narration output target: {out_file}")
+            out_file, err = generate_narration(args.target, pacing=args.pacing, voice=args.voice, char_id=args.char)
+            if err:
+                print(f"[Notice] {err}")
+            else:
+                print(f"[OK] Audio narration output target: {out_file}")
 
     elif args.command == "rag":
         from sr6core.rag import print_search_results_rich, render_rag_result_rich
