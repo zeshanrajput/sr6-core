@@ -109,7 +109,7 @@ def clean_pronunciation(text: str) -> str:
     text = re.sub(r'\bSINless\b', 'sinless', text, flags=re.IGNORECASE)
     text = re.sub(r'\bSIN\b', 'sin', text)
 
-    # 5. Japanese Honorifics & Names (-chan -> chahn, -san -> sahn)
+    # 5. Japanese & Korean Names & Honorifics
     text = re.sub(r'\bAh-Mei\b', 'Ah Mei', text, flags=re.IGNORECASE)
     text = re.sub(r'\bEndo[- ]san\b', 'Endo sahn', text, flags=re.IGNORECASE)
     text = re.sub(r'\bRei[- ]chan\b', 'Rei chahn', text, flags=re.IGNORECASE)
@@ -119,6 +119,13 @@ def clean_pronunciation(text: str) -> str:
     text = re.sub(r'(\b[A-Za-z]+)-san\b', r'\1 sahn', text, flags=re.IGNORECASE)
     text = re.sub(r'\bNeo-Tokyo\b', 'Neo Tokyo', text, flags=re.IGNORECASE)
     text = re.sub(r'\bNeo-Kyoto\b', 'Neo Kyoto', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bNeo-Seoul\b', 'Neo Seoul', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bJin[- ]Young(\'s)?\b', r'Jin Young\1', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bJi[- ]yoo(\'s)?\b', r'Jee yoo\1', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bTanaka Ryo(\'s)?\b', r'Tanaka Ree oh\1', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bMei Jing(\'s)?\b', r'May Jing\1', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bNi Ni Xiaolu(\'s)?\b', r'Nee Nee Shee ow loo\1', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bXingfu Chaguan\b', 'Shing foo Chah gwahn', text, flags=re.IGNORECASE)
 
     # 6. Megacorps & Proper Nouns (Phonetic spelling without hyphens)
     text = re.sub(r'\bRenraku\b', 'Renraku', text, flags=re.IGNORECASE)
@@ -126,18 +133,21 @@ def clean_pronunciation(text: str) -> str:
     text = re.sub(r'\bSaeder-Krupp\b', 'Sayder Krupp', text, flags=re.IGNORECASE)
     text = re.sub(r'\bMitsuhama\b', 'Meetsoohahmah', text, flags=re.IGNORECASE)
     text = re.sub(r'\bAztechnology\b', 'Aztechnology', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bWuxing\b', 'Woo shing', text, flags=re.IGNORECASE)
     text = re.sub(r'\bYuriko(\'s)?\b', r'Yooreeko\1', text, flags=re.IGNORECASE)
     text = re.sub(r'\bdronomancer\b', 'dronomancer', text, flags=re.IGNORECASE)
     text = re.sub(r'\bdronomancy\b', 'dronomancy', text, flags=re.IGNORECASE)
     text = re.sub(r'\bcyberdeck\b', 'cyberdeck', text, flags=re.IGNORECASE)
     text = re.sub(r'\bgridlink\b', 'gridlink', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bcredsticks?\b', 'cred stick', text, flags=re.IGNORECASE)
 
     # 7. De-hyphenate compound words (soy-burger -> soyburger, matte-gray -> matte gray)
     text = re.sub(r'\bsoy-burgers?\b', 'soyburger', text, flags=re.IGNORECASE)
     text = re.sub(r'\bblack-market\b', 'black market', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bquick-mart\b', 'quick mart', text, flags=re.IGNORECASE)
     text = re.sub(r'(\b[a-zA-Z]+)-([a-zA-Z]+\b)', r'\1 \2', text)
 
-    # 8. Loan words
+    # 8. Cultural & Loan words
     text = re.sub(r'\bamuse-?bouche\b', 'ahmyooz boosh', text, flags=re.IGNORECASE)
     text = re.sub(r'\bqipao\b', 'cheepow', text, flags=re.IGNORECASE)
     text = re.sub(r'\bcheongsam\b', 'chongsahm', text, flags=re.IGNORECASE)
@@ -145,6 +155,10 @@ def clean_pronunciation(text: str) -> str:
     text = re.sub(r'\bkeiretsu\b', 'kayretsoo', text, flags=re.IGNORECASE)
     text = re.sub(r'\bkatana\b', 'kahtanah', text, flags=re.IGNORECASE)
     text = re.sub(r'\byakuza\b', 'yahkoozah', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bpalengke\b', 'pah leng kay', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bDalakitnon\b', 'Dah lah keet non', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bMusok\b', 'Moo sok', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bTieguanyin\b', 'Teegwahn yeen', text, flags=re.IGNORECASE)
 
     return text.replace('\\', '')
 
@@ -227,16 +241,16 @@ def apply_micro_fade(pcm_samples, sample_rate: int, fade_ms: float = 7.0):
     return pcm_float
 
 
-NON_NARRATIVE_FILES = {"dronomancy.md", "dronomancy.qmd", "rules_combat.qmd", "rules_matrix.qmd"}
+NON_NARRATIVE_FILES = {"dronomancy.md", "dronomancy.qmd", "rules_combat.qmd", "rules_matrix.qmd", "tasks.md", "identity_core.md"}
 
 
 def is_narrative_chapter(file_path: str) -> bool:
-    """Returns True if file_path is a narrative chapter (e.g. '01 The Weight of Zero.md'). Excludes rules/guides like 'dronomancy.md'."""
+    """Returns True if file_path is a narrative chapter (e.g. '01 The Weight of Zero.md' or '01_transaction.md'). Excludes rules/guides."""
     filename = os.path.basename(file_path).lower()
     if filename in NON_NARRATIVE_FILES:
         return False
-    # Check if filename starts with chapter number digits (e.g., '01', '19', '22')
-    return bool(re.match(r'^\d{2}\s+', filename))
+    # Check if filename starts with chapter number digits (e.g., '01', '19', '22') followed by space, underscore, or hyphen
+    return bool(re.match(r'^\d{2}[\s_-]+', filename))
 
 
 def generate_narration(file_path: str, output_mp3: Optional[str] = None, pacing: str = "balanced", voice: str = "af_heart") -> Tuple[Optional[str], Optional[str]]:
