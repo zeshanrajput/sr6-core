@@ -12,7 +12,7 @@ from sr6core.rag import RAGEngine
 from sr6core.menu import run_interactive_menu
 from sr6core.linter import analyze_prose, print_prose_report
 from sr6core.continuity_engine import build_continuity_report, print_continuity_report
-from sr6core.narration import generate_narration, retag_narratives, list_narratives
+from sr6core.narration import generate_narration, batch_generate_narrations, retag_narratives, list_narratives
 from sr6core.dataset_compiler import compile_commlink_datasets, get_dataset_info, find_latest_commlink_jar
 from sr6core.creation.deep_audit import deep_audit_character
 from sr6core.advancement import search_catalog, purchase_item_for_character
@@ -340,11 +340,17 @@ def main():
                     print(f"  • [{t.get('character_id', 'Unknown')}] Track {t.get('track_num', '-')}: {t.get('title', 'Chapter')} -> {t.get('artist', '')} ({t.get('album', '')})")
 
         else:
-            out_file, err = generate_narration(args.target, pacing=args.pacing, voice=args.voice, char_id=args.char)
-            if err:
-                print(f"[Notice] {err}")
+            abs_t = os.path.abspath(args.target)
+            if os.path.isdir(abs_t):
+                results = batch_generate_narrations(args.target, pacing=args.pacing, voice=args.voice, char_id=args.char)
+                success_cnt = sum(1 for p, err in results if not err)
+                print(f"\n[OK] Batch narration complete: {success_cnt}/{len(results)} chapters generated successfully.")
             else:
-                print(f"[OK] Audio narration output target: {out_file}")
+                out_file, err = generate_narration(args.target, pacing=args.pacing, voice=args.voice, char_id=args.char)
+                if err:
+                    print(f"[Notice] {err}")
+                else:
+                    print(f"[OK] Audio narration output target: {out_file}")
 
     elif args.command == "rag":
         from sr6core.rag import print_search_results_rich, render_rag_result_rich

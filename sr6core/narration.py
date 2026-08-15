@@ -105,11 +105,14 @@ def clean_pronunciation(text: str) -> str:
     text = re.sub(r'\bARO\b', 'A R O', text)
     text = re.sub(r'\bAROs\b', 'A R Os', text)
     text = re.sub(r'\bAPDS\b', 'A P D S', text)
+    text = re.sub(r'\bASDF\b', 'A S D F', text)
     text = re.sub(r'\bM-TOCs?\b', 'Em Toc', text, flags=re.IGNORECASE)
     text = re.sub(r'\bSINless\b', 'sinless', text, flags=re.IGNORECASE)
     text = re.sub(r'\bSIN\b', 'sin', text)
+    text = re.sub(r'\bBrynne(\'s)?\b', r'Brin\1', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bMCT\b', 'Em See Tee', text)
 
-    # 5. Japanese & Korean Names & Honorifics
+    # 5. Japanese, Korean & Chinese Names, Groups & Honorifics
     text = re.sub(r'\bAh-Mei\b', 'Ah Mei', text, flags=re.IGNORECASE)
     text = re.sub(r'\bEndo[- ]san\b', 'Endo sahn', text, flags=re.IGNORECASE)
     text = re.sub(r'\bRei[- ]chan\b', 'Rei chahn', text, flags=re.IGNORECASE)
@@ -123,9 +126,24 @@ def clean_pronunciation(text: str) -> str:
     text = re.sub(r'\bJin[- ]Young(\'s)?\b', r'Jin Young\1', text, flags=re.IGNORECASE)
     text = re.sub(r'\bJi[- ]yoo(\'s)?\b', r'Jee yoo\1', text, flags=re.IGNORECASE)
     text = re.sub(r'\bTanaka Ryo(\'s)?\b', r'Tanaka Ree oh\1', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bRyo(\'s)?\b', r'Ree oh\1', text)
+    text = re.sub(r'\bJi[- ]Hoon(\'s)?\b', r'Jee Hoon\1', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bTae[- ]Hyun(\'s)?\b', r'Tay Hyun\1', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bMin[- ]Ki(\'s)?\b', r'Min Kee\1', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bYueying(\'s)?\b', r'Yoo ay ying\1', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bTXM(\'s)?\b', r'T X M\1', text)
     text = re.sub(r'\bMei Jing(\'s)?\b', r'May Jing\1', text, flags=re.IGNORECASE)
     text = re.sub(r'\bNi Ni Xiaolu(\'s)?\b', r'Nee Nee Shee ow loo\1', text, flags=re.IGNORECASE)
     text = re.sub(r'\bXingfu Chaguan\b', 'Shing foo Chah gwahn', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bNingbo\b', 'Ning bow', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bTeddy Chin(\'s)?\b', r'Teddy Chin\1', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bDavid Gao(\'s)?\b', r'David Gow\1', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bDwight Baxter(\'s)?\b', r'Dwight Baxter\1', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bPavel(\'s)?\b', r'Pah vel\1', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bOmsk\b', 'Ahmsk', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bVory\b', 'Vor ee', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bshakuhachi\b', 'shah koo hah chee', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bdaisho\b', 'dye show', text, flags=re.IGNORECASE)
 
     # 6. Megacorps & Proper Nouns (Phonetic spelling without hyphens)
     text = re.sub(r'\bRenraku\b', 'Renraku', text, flags=re.IGNORECASE)
@@ -140,6 +158,8 @@ def clean_pronunciation(text: str) -> str:
     text = re.sub(r'\bcyberdeck\b', 'cyberdeck', text, flags=re.IGNORECASE)
     text = re.sub(r'\bgridlink\b', 'gridlink', text, flags=re.IGNORECASE)
     text = re.sub(r'\bcredsticks?\b', 'cred stick', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bNarcoject\b', 'Nahr ko jekt', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bTransys Avalon\b', 'Tran sis Av ah lon', text, flags=re.IGNORECASE)
 
     # 7. De-hyphenate compound words (soy-burger -> soyburger, matte-gray -> matte gray)
     text = re.sub(r'\bsoy-burgers?\b', 'soyburger', text, flags=re.IGNORECASE)
@@ -284,6 +304,9 @@ def extract_chapter_metadata(file_path: str, char_id: Optional[str] = None) -> d
                     break
     except Exception:
         pass
+
+    # Strip redundant leading track number from title if present
+    title = re.sub(r'^\d{1,3}[\s_.:-]+', '', title).strip()
 
     # 3. Locate character dossier & Quarto config
     character_info = {}
@@ -519,7 +542,7 @@ def list_narratives(target_path: str = ".", char_id: Optional[str] = None) -> Li
     return narratives
 
 
-def generate_narration(file_path: str, output_mp3: Optional[str] = None, pacing: str = "balanced", voice: str = "af_heart", char_id: Optional[str] = None) -> Tuple[Optional[str], Optional[str]]:
+def generate_narration(file_path: str, output_mp3: Optional[str] = None, pacing: str = "balanced", voice: str = "af_heart", char_id: Optional[str] = None, pipeline: Optional[object] = None) -> Tuple[Optional[str], Optional[str]]:
     """Synthesizes TTS narration audio from Markdown chapter file using Kokoro TTS GPU Engine (af_heart voice) into high-fidelity 160kbps MP3 format and embeds rich ID3 character metadata tags."""
     if not os.path.exists(file_path):
         return None, f"Chapter file '{file_path}' not found."
@@ -536,7 +559,6 @@ def generate_narration(file_path: str, output_mp3: Optional[str] = None, pacing:
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
     device_name = torch.cuda.get_device_name(0) if device == "cuda" else "CPU"
-    print(f"[*] Kokoro TTS Inference Device: {device.upper()} ({device_name}) [Voice: {voice}, Pacing: {pacing.upper()}]")
 
     if not output_mp3:
         output_dir = os.path.join(os.path.dirname(file_path), "audio")
@@ -557,9 +579,12 @@ def generate_narration(file_path: str, output_mp3: Optional[str] = None, pacing:
         return None, "No speakable text found in file."
 
     print(f"[*] Prepared {len(chunks)} speech chunks for Kokoro GPU narration -> {output_mp3}")
-    print(f"[*] Initializing Kokoro PyTorch pipeline (voice: '{voice}')...")
+    
+    if pipeline is None:
+        print(f"[*] Kokoro TTS Inference Device: {device.upper()} ({device_name}) [Voice: {voice}, Pacing: {pacing.upper()}]")
+        print(f"[*] Initializing Kokoro PyTorch pipeline (voice: '{voice}')...")
+        pipeline = KPipeline(lang_code='a', device=device)
 
-    pipeline = KPipeline(lang_code='a', device=device)
     sample_rate = 24000
     pcm_float_segments = []
 
@@ -616,6 +641,54 @@ def generate_narration(file_path: str, output_mp3: Optional[str] = None, pacing:
     duration_sec = len(full_pcm_int16) / sample_rate
     print(f"[OK] Generated audio narration: {output_mp3} ({duration_sec:.1f} sec, {len(mp3_bytes)} bytes, 160kbps, tagged: {meta['handle']})")
     return output_mp3, None
+
+
+def batch_generate_narrations(target_path: str = ".", pacing: str = "balanced", voice: str = "af_heart", char_id: Optional[str] = None) -> List[Tuple[str, Optional[str]]]:
+    """Batch synthesizes TTS narration audio for all numbered narrative chapters in target directory, reusing the Kokoro pipeline."""
+    import glob
+    abs_target = os.path.abspath(target_path)
+    search_dirs = [abs_target, os.path.join(abs_target, "chapters")]
+    chapter_files = []
+    seen = set()
+    for s_dir in search_dirs:
+        if not os.path.exists(s_dir):
+            continue
+        for ext in ["*.md", "*.qmd"]:
+            for f in sorted(glob.glob(os.path.join(s_dir, ext))):
+                if is_narrative_chapter(f) and f not in seen:
+                    chapter_files.append(f)
+                    seen.add(f)
+
+    # Sort chapter files numerically by leading track number
+    def _sort_key(p):
+        fname = os.path.basename(p)
+        m = re.match(r'^(\d+)', fname)
+        return int(m.group(1)) if m else 999
+    chapter_files.sort(key=_sort_key)
+
+    if not chapter_files:
+        print(f"[Notice] No narrative chapters found to synthesize in '{target_path}'.")
+        return []
+
+    try:
+        from kokoro import KPipeline
+        import torch
+    except ImportError:
+        print("[Error] Kokoro narration dependencies not installed.")
+        return []
+
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    device_name = torch.cuda.get_device_name(0) if device == "cuda" else "CPU"
+    print(f"[*] Kokoro TTS Batch Pipeline: Initializing on {device.upper()} ({device_name}) [Voice: {voice}, Pacing: {pacing.upper()}] for {len(chapter_files)} chapters...")
+    pipeline = KPipeline(lang_code='a', device=device)
+
+    results = []
+    for idx, chap in enumerate(chapter_files, 1):
+        print(f"\n[{idx}/{len(chapter_files)}] Synthesizing '{os.path.basename(chap)}'...")
+        out_mp3, err = generate_narration(chap, pacing=pacing, voice=voice, char_id=char_id, pipeline=pipeline)
+        results.append((out_mp3 or chap, err))
+
+    return results
 
 
 
