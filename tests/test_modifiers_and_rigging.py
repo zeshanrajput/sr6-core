@@ -408,5 +408,53 @@ def test_sprite_commands_table_renderer():
     assert "Teamwork rules apply" in table
 
 
+def test_magic_and_social_action_pools_and_tables():
+    """Verifies that ModifierEngine and rules_engine correctly calculate magic and social action pools for Velvet."""
+    from sr6core.character_manager import CharacterManager
+    from sr6core.modifiers import ModifierEngine
+    from sr6core.rules_engine import get_magic_action_table, get_social_action_table, get_scene_strategy_table
+
+    cm = CharacterManager()
+    char = cm.get_character_data("velvet")
+    assert char is not None
+
+    # Enhanced mode (Default)
+    magic_pools_enh = ModifierEngine.get_magic_action_pools(char, enhanced=True)
+    assert magic_pools_enh["spellcasting"].total_pool == 15  # Sorcery 6 + MAG 6 + Impr Ability R3
+    assert magic_pools_enh["drain_resistance"].total_pool == 23  # WIL 9 + CHA 14 = 23d6 (5 Hits)
+    assert magic_pools_enh["drain_resistance"].bought_hits == 5
+
+    # Baseline mode
+    magic_pools_base = ModifierEngine.get_magic_action_pools(char, enhanced=False)
+    assert magic_pools_base["drain_resistance"].total_pool == 15  # WIL 5 + CHA 10 = 15d6 (3 Hits)
+    assert magic_pools_base["drain_resistance"].bought_hits == 3
+
+    # Social Enhanced mode (Default)
+    social_pools_enh = ModifierEngine.get_social_action_pools(char, scene_mode="social_enhanced")
+    assert social_pools_enh["influence"].total_pool == 19  # Influence 5 + CHA 14 = 19d6 (4 Hits)
+    assert social_pools_enh["composure"].total_pool == 23  # WIL 9 + CHA 14 = 23d6 (5 Hits)
+    assert social_pools_enh["judge_intentions"].total_pool == 16  # INT 7 + WIL 9 = 16d6 (4 Hits)
+
+    # Social Baseline mode
+    social_pools_base = ModifierEngine.get_social_action_pools(char, scene_mode="baseline")
+    assert social_pools_base["influence"].total_pool == 15  # Influence 5 + CHA 10 = 15d6 (3 Hits)
+    assert social_pools_base["judge_intentions"].total_pool == 8  # INT 3 + WIL 5 = 8d6 (2 Hits)
+
+    # Tables
+    magic_table = get_magic_action_table("velvet")
+    assert "Spellcasting (Sorcery)" in magic_table
+    assert "**15d6**" in magic_table
+    assert "**3 Hits**" in magic_table
+
+    social_table = get_social_action_table("velvet")
+    assert "Social Negotiation" in social_table
+    assert "**19d6**" in social_table
+    assert "**4 Hits**" in social_table
+
+    strategy_table = get_scene_strategy_table("velvet")
+    assert "Social & Legwork Mode" in strategy_table
+    assert "Combat Mode" in strategy_table
+
+
 
 

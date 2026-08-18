@@ -78,10 +78,15 @@ def export_base_sheet(char_data: Dict[str, Any], char_repo_path: Optional[str] =
     handle = identity.get("handle", "Unknown").upper() if isinstance(identity, dict) else "UNKNOWN"
     real_name = identity.get("real_name", "N/A") if isinstance(identity, dict) else "N/A"
     metatype = identity.get("metatype", "Human") if isinstance(identity, dict) else "Human"
-    stream = identity.get("stream", "N/A") if isinstance(identity, dict) else "N/A"
+    stream = identity.get("stream", "") if isinstance(identity, dict) else ""
+    tradition = identity.get("tradition", identity.get("mortype", "")) if isinstance(identity, dict) else ""
     gender = identity.get("gender", "N/A") if isinstance(identity, dict) else "N/A"
     age = identity.get("age", "N/A") if isinstance(identity, dict) else "N/A"
 
+    bod = int(attrs.get("body", 1)) if isinstance(attrs, dict) else 1
+    agi = int(attrs.get("agility", 1)) if isinstance(attrs, dict) else 1
+    rea = int(attrs.get("reaction", 1)) if isinstance(attrs, dict) else 1
+    str_val = int(attrs.get("strength", 1)) if isinstance(attrs, dict) else 1
     wil = int(attrs.get("willpower", 1)) if isinstance(attrs, dict) else 1
     log_val = int(attrs.get("logic", 1)) if isinstance(attrs, dict) else 1
     int_val = int(attrs.get("intuition", 1)) if isinstance(attrs, dict) else 1
@@ -91,52 +96,89 @@ def export_base_sheet(char_data: Dict[str, Any], char_repo_path: Optional[str] =
     mag = int(attrs.get("magic", 0)) if isinstance(attrs, dict) else 0
     ess = float(attrs.get("essence", 6.0)) if isinstance(attrs, dict) else 6.0
 
-    submersion = totals.get("Submersion_Grade", 7)
+    submersion = totals.get("Submersion_Grade", 0)
+    initiation = totals.get("Initiation_Grade", 0)
     nuyen = totals.get("Nuyen", 5000)
     karma_avail = totals.get("Karma", 0)
     karma_life = totals.get("Lifetime_Karma", karma_avail)
 
-    asdf = ModifierEngine.get_living_persona_asdf(char_data)
-    mdef = ModifierEngine.get_full_matrix_defense(char_data)
-    matrix_init = ModifierEngine.get_matrix_initiative(char_data)
-
-    att_str = asdf.get("attack", 7)
-    slz_rea = asdf.get("sleaze", 9)
-    dp_agi = asdf.get("data_processing", 7)
-    fw_bod = asdf.get("firewall", 9)
-
     composure = wil + cha
     judge_intentions = int_val + wil
     memory = log_val + wil
-    phys_boxes = 8 + ((fw_bod + 1) // 2)
-    stun_boxes = 8 + ((wil + 1) // 2)
 
     lines = []
     lines.append("=" * MAX_LINE_WIDTH)
     lines.append(f" SHADOWRUN 6E DOSSIER: {handle}")
     lines.append("=" * MAX_LINE_WIDTH)
-    lines.append(f" Real Name : {real_name:<18} | Metatype : {metatype} ({stream})")
-    lines.append(f" Submersion: Grade {submersion:<12} | Gender   : {gender} (Age: {age})")
-    lines.append(f" Available Nuyen : {nuyen:,}¥ | Karma: {karma_avail} Pool ({karma_life} Lifetime)")
-    lines.append("-" * MAX_LINE_WIDTH)
-    lines.append(" ATTRIBUTES & DERIVED RATINGS:")
-    lines.append(f"  ATT (STR): {att_str:<2} | SLZ (REA): {slz_rea:<2} | DP (AGI): {dp_agi:<2} | FW (BOD): {fw_bod:<2}")
-    lines.append(f"  WIL: {wil:<2}       | LOG: {log_val:<2}       | INT: {int_val:<2}      | CHA: {cha:<2}")
-    lines.append(f"  EDG: {edg:<2}       | RES: {res:<2}       | MAG: {mag:<2}      | ESS: {ess:<3.1f}")
-    lines.append(f"  Derived Pools       : Composure [{composure}] | Judge Int [{judge_intentions}] | Memory [{memory}]")
-    lines.append(f"  Condition Monitors  : Physical [{phys_boxes} boxes] | Stun [{stun_boxes} boxes]")
-    lines.append("-" * MAX_LINE_WIDTH)
-    lines.append(" LIVING PERSONA / MATRIX STATS:")
-    lines.append(f"  ASDF Ratings        : A:{att_str} | S:{slz_rea} | D:{dp_agi} | F:{fw_bod}")
-    
-    mdef_line = f"  Full Matrix Defense : {mdef['pool']}d6 ({mdef['effective_hits']} Hits)"
-    if len(mdef_line) + len(mdef['breakdown']) + 3 <= MAX_LINE_WIDTH:
-        lines.append(f"{mdef_line} [{mdef['breakdown']}]")
-    else:
-        lines.append(mdef_line)
-        lines.extend(_wrap(f"[{mdef['breakdown']}]", initial_indent="    ", subsequent_indent="    "))
+
+    if res > 0:
+        trad_str = f" ({stream})" if stream else ""
+        lines.append(f" Real Name : {real_name:<18} | Metatype : {metatype}{trad_str}")
+        lines.append(f" Submersion: Grade {submersion:<12} | Gender   : {gender} (Age: {age})")
+        lines.append(f" Available Nuyen : {nuyen:,}¥ | Karma: {karma_avail} Pool ({karma_life} Lifetime)")
+        lines.append("-" * MAX_LINE_WIDTH)
+
+        asdf = ModifierEngine.get_living_persona_asdf(char_data)
+        mdef = ModifierEngine.get_full_matrix_defense(char_data)
+        matrix_init = ModifierEngine.get_matrix_initiative(char_data)
+
+        att_str = asdf.get("attack", 7)
+        slz_rea = asdf.get("sleaze", 9)
+        dp_agi = asdf.get("data_processing", 7)
+        fw_bod = asdf.get("firewall", 9)
+
+        phys_boxes = 8 + ((fw_bod + 1) // 2)
+        stun_boxes = 8 + ((wil + 1) // 2)
+
+        lines.append(" ATTRIBUTES & DERIVED RATINGS:")
+        lines.append(f"  ATT (STR): {att_str:<2} | SLZ (REA): {slz_rea:<2} | DP (AGI): {dp_agi:<2} | FW (BOD): {fw_bod:<2}")
+        lines.append(f"  WIL: {wil:<2}       | LOG: {log_val:<2}       | INT: {int_val:<2}      | CHA: {cha:<2}")
+        lines.append(f"  EDG: {edg:<2}       | RES: {res:<2}       | MAG: {mag:<2}      | ESS: {ess:<3.1f}")
+        lines.append(f"  Derived Pools       : Composure [{composure}] | Judge Int [{judge_intentions}] | Memory [{memory}]")
+        lines.append(f"  Condition Monitors  : Physical [{phys_boxes} boxes] | Stun [{stun_boxes} boxes]")
+        lines.append("-" * MAX_LINE_WIDTH)
+        lines.append(" LIVING PERSONA / MATRIX STATS:")
+        lines.append(f"  ASDF Ratings        : A:{att_str} | S:{slz_rea} | D:{dp_agi} | F:{fw_bod}")
         
-    lines.append(f"  Matrix Initiative   : {matrix_init}")
+        mdef_line = f"  Full Matrix Defense : {mdef['pool']}d6 ({mdef['effective_hits']} Hits)"
+        if len(mdef_line) + len(mdef['breakdown']) + 3 <= MAX_LINE_WIDTH:
+            lines.append(f"{mdef_line} [{mdef['breakdown']}]")
+        else:
+            lines.append(mdef_line)
+            lines.extend(_wrap(f"[{mdef['breakdown']}]", initial_indent="    ", subsequent_indent="    "))
+            
+        lines.append(f"  Matrix Initiative   : {matrix_init}")
+    else:
+        trad_str = f" ({tradition})" if tradition else ""
+        lines.append(f" Real Name : {real_name:<18} | Metatype : {metatype}{trad_str}")
+        if mag > 0:
+            lines.append(f" Initiation: Grade {initiation:<12} | Gender   : {gender} (Age: {age})")
+        else:
+            lines.append(f" Status    : Mundane             | Gender   : {gender} (Age: {age})")
+        lines.append(f" Available Nuyen : {nuyen:,}¥ | Karma: {karma_avail} Pool ({karma_life} Lifetime)")
+        lines.append("-" * MAX_LINE_WIDTH)
+
+        phys_boxes = 8 + ((bod + 1) // 2)
+        stun_boxes = 8 + ((wil + 1) // 2)
+
+        lines.append(" ATTRIBUTES & DERIVED RATINGS:")
+        lines.append(f"  BOD: {bod:<2}       | AGI: {agi:<2}       | REA: {rea:<2}      | STR: {str_val:<2}")
+        lines.append(f"  WIL: {wil:<2}       | LOG: {log_val:<2}       | INT: {int_val:<2}      | CHA: {cha:<2}")
+        lines.append(f"  EDG: {edg:<2}       | RES: {res:<2}       | MAG: {mag:<2}      | ESS: {ess:<3.1f}")
+        lines.append(f"  Derived Pools       : Composure [{composure}] | Judge Int [{judge_intentions}] | Memory [{memory}]")
+        lines.append(f"  Condition Monitors  : Physical [{phys_boxes} boxes] | Stun [{stun_boxes} boxes]")
+
+        if mag > 0:
+            lines.append("-" * MAX_LINE_WIDTH)
+            lines.append(" MAGICAL TRADITION & PROTOCOLS:")
+            lines.append(f"  Tradition           : {tradition or 'Hermetic / Shamanic'}")
+            drain_pool = wil + cha
+            drain_hits = drain_pool // 4
+            lines.append(f"  Drain Resistance    : {drain_pool}d6 ({drain_hits} Hits) [WIL {wil} + CHA {cha} = {drain_pool}d6]")
+            pp_val = attrs.get("power_points", 0)
+            if pp_val:
+                lines.append(f"  Adept Power Points  : {pp_val} PP")
+
     lines.append("-" * MAX_LINE_WIDTH)
     lines.append(" ACTIVE SKILLS & TABLE-RELEVANT DICE POOLS:")
     for s in skills:

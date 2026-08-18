@@ -638,3 +638,170 @@ class ModifierEngine:
             "focus_fade_res_hits": focus_fade_res_hits,
             "focus_fade_damage": focus_fade_damage
         }
+
+    @classmethod
+    def get_magic_action_pools(cls, char_data: Dict[str, Any], enhanced: bool = True) -> Dict[str, PoolOptimization]:
+        """
+        Calculates optimal dice pools and bonus strategies for Magic actions
+        (Spellcasting, Conjuring, Drain Resistance, Dispelling).
+        Supports +4 Increase Attribute sustained configurations (Focused Concentration R3).
+        """
+        attrs = char_data.get("attributes", {})
+        mag = int(attrs.get("magic", 0))
+        wil = int(attrs.get("willpower", 1))
+        cha = int(attrs.get("charisma", 1))
+
+        # Skills
+        skills = {s.get("name", ""): s for s in char_data.get("skills", []) if isinstance(s, dict)}
+        sorc_r = int(skills.get("Sorcery", {}).get("rating", 0))
+        conj_r = int(skills.get("Conjuring", {}).get("rating", 0))
+
+        # Adept powers
+        adept_powers = {p.get("name", ""): p for p in char_data.get("adept_powers", []) if isinstance(p, dict)}
+        sorc_impr = int(adept_powers.get("Improved Ability (Sorcery)", {}).get("rating", 0))
+
+        # Focus modifiers
+        focus_mods = cls.get_focus_modifiers(char_data, "magic")
+
+        # Attribute Enhancement Modifiers (Focused Concentration R3: CHA +4, WIL +4)
+        cha_mods = [PoolModifier("attribute:charisma", "spell", "Increase Attribute (+4 Sustained)", 4, is_srm_capped=True)] if enhanced else []
+        wil_mods = [PoolModifier("attribute:willpower", "spell", "Increase Attribute (+4 Sustained)", 4, is_srm_capped=True)] if enhanced else []
+
+        # 1. Spellcasting (Sorcery)
+        s_skill = PoolComponent("Sorcery", sorc_r, "skill")
+        s_attr = PoolComponent("Magic", mag, "attribute", focus_mods)
+        tact_mods = []
+        if sorc_impr:
+            tact_mods.append(PoolModifier("skill:sorcery", "adept_power", f"Improved Ability (Sorcery R{sorc_impr})", sorc_impr))
+
+        spell_opt = PoolOptimization(
+            name="Spellcasting (Sorcery)",
+            components=[s_skill, s_attr],
+            tactical_modifiers=tact_mods,
+            notes="Health, Manipulation, Combat Spells"
+        )
+
+        # 2. Shinto-Musok Drain Resistance
+        d_wil = PoolComponent("Willpower", wil, "attribute", wil_mods)
+        d_cha = PoolComponent("Charisma", cha, "attribute", cha_mods)
+        drain_opt = PoolOptimization(
+            name="Drain Resistance (Shinto / Musok)",
+            components=[d_wil, d_cha],
+            notes="Tradition: Willpower + Charisma (Enhanced: 23d6 -> 5 Hits)" if enhanced else "Tradition: Willpower + Charisma (Baseline)"
+        )
+
+        # 3. Conjuring & Summoning
+        c_skill = PoolComponent("Conjuring", conj_r, "skill")
+        c_attr = PoolComponent("Magic", mag, "attribute", focus_mods)
+        conj_opt = PoolOptimization(
+            name="Conjuring & Spirit Summoning",
+            components=[c_skill, c_attr],
+            notes="Summoning & Binding Spirits"
+        )
+
+        # 4. Counterspelling / Dispelling
+        disp_skill = PoolComponent("Sorcery", sorc_r, "skill")
+        disp_attr = PoolComponent("Magic", mag, "attribute", focus_mods)
+        disp_opt = PoolOptimization(
+            name="Counterspelling & Dispelling",
+            components=[disp_skill, disp_attr],
+            tactical_modifiers=tact_mods,
+            notes="Dispelling active magical spells & magical defense"
+        )
+
+        return {
+            "spellcasting": spell_opt,
+            "drain_resistance": drain_opt,
+            "conjuring": conj_opt,
+            "dispelling": disp_opt
+        }
+
+    @classmethod
+    def get_social_action_pools(cls, char_data: Dict[str, Any], scene_mode: str = "social_enhanced") -> Dict[str, PoolOptimization]:
+        """
+        Calculates optimal dice pools and bonus strategies for Social / Face actions
+        (Influence, Negotiation, Disguise, Inspire Competence, Composure, Judge Intentions).
+        Supports 'baseline', 'social_enhanced' (CHA +4, WIL +4, INT +4), and 'combat_enhanced' (CHA +4, WIL +4, REA/BOD +4).
+        """
+        attrs = char_data.get("attributes", {})
+        cha = int(attrs.get("charisma", 1))
+        wil = int(attrs.get("willpower", 1))
+        int_val = int(attrs.get("intuition", 1))
+
+        is_enhanced = "enhanced" in scene_mode
+
+        # Skills
+        skills = {s.get("name", ""): s for s in char_data.get("skills", []) if isinstance(s, dict)}
+        infl_r = int(skills.get("Influence", {}).get("rating", 0))
+        con_r = int(skills.get("Con", {}).get("rating", 0))
+
+        # Adept powers
+        adept_powers = {p.get("name", ""): p for p in char_data.get("adept_powers", []) if isinstance(p, dict)}
+        cosmetic_r = int(adept_powers.get("Cosmetic Control", {}).get("rating", 0))
+
+        # Attribute Enhancement Modifiers
+        cha_mods = [PoolModifier("attribute:charisma", "spell", "Increase Attribute (+4 Sustained)", 4, is_srm_capped=True)] if is_enhanced else []
+        wil_mods = [PoolModifier("attribute:willpower", "spell", "Increase Attribute (+4 Sustained)", 4, is_srm_capped=True)] if is_enhanced else []
+        int_mods = [PoolModifier("attribute:intuition", "spell", "Increase Attribute (+4 Sustained)", 4, is_srm_capped=True)] if (is_enhanced and "social" in scene_mode) else []
+
+        # 1. Influence & Social Negotiation
+        i_skill = PoolComponent("Influence", infl_r, "skill")
+        i_attr = PoolComponent("Charisma", cha, "attribute", cha_mods)
+        infl_opt = PoolOptimization(
+            name="Social Negotiation & Face Actions (Influence)",
+            components=[i_skill, i_attr],
+            action_modifiers=[
+                PoolModifier("test:social", "gear", "Ares Skinshield (Très Chic x2: +4 Social Rating)", 0)
+            ],
+            notes="Negotiating with marks, Johnsons, contacts & fixers (Enhanced: 19d6 -> 4 Hits)" if is_enhanced else "Negotiating with marks, Johnsons & fixers (Baseline)"
+        )
+
+        # 2. Inspire Competence (Teamwork Buff)
+        insp_skill = PoolComponent("Influence", infl_r, "skill")
+        insp_attr = PoolComponent("Charisma", cha, "attribute", cha_mods)
+        insp_opt = PoolOptimization(
+            name="Inspire Competence (Ally Teamwork Buff)",
+            components=[insp_skill, insp_attr],
+            notes="Teamwork test assists ally test + grants 1 free Edge (Enhanced: 19d6 -> 4 Hits)" if is_enhanced else "Teamwork test assists ally test + grants 1 free Edge (Baseline)"
+        )
+
+        # 3. Disguise & Persona Shift (Cosmetic Control)
+        c_skill = PoolComponent("Con / Disguise", con_r if con_r else 1, "skill")
+        c_attr = PoolComponent("Intuition", int_val, "attribute", int_mods)
+        c_mods = []
+        if cosmetic_r:
+            c_mods.append(PoolModifier("skill:disguise", "adept_power", f"Cosmetic Control (R{cosmetic_r})", cosmetic_r))
+        c_mods.append(PoolModifier("test:disguise", "gear", "Nanopaste Disguise / Nanocosmetics (+1 Edge)", 0))
+
+        disguise_opt = PoolOptimization(
+            name="Disguise & Persona Shift (Cosmetic Control)",
+            components=[c_skill, c_attr],
+            tactical_modifiers=c_mods,
+            notes="Shifting between Lee Ji-yoo, Tanaka Ryo, and custom identities (Enhanced: 10d6 -> 2 Hits)" if is_enhanced else "Shifting between Lee Ji-yoo, Tanaka Ryo, and custom identities (Baseline)"
+        )
+
+        # 4. Composure Test
+        comp_wil = PoolComponent("Willpower", wil, "attribute", wil_mods)
+        comp_cha = PoolComponent("Charisma", cha, "attribute", cha_mods)
+        comp_opt = PoolOptimization(
+            name="Composure (Social & Psychological Resistance)",
+            components=[comp_wil, comp_cha],
+            notes="Resisting intimidation, manipulation, pressure (Enhanced: 23d6 -> 5 Hits)" if is_enhanced else "Resisting intimidation, manipulation, pressure (Baseline)"
+        )
+
+        # 5. Judge Intentions Test
+        judge_int = PoolComponent("Intuition", int_val, "attribute", int_mods)
+        judge_wil = PoolComponent("Willpower", wil, "attribute", wil_mods)
+        judge_opt = PoolOptimization(
+            name="Judge Intentions (Micro-Expression Reading)",
+            components=[judge_int, judge_wil],
+            notes="Parsing mark deception, aura shifts, stress signals (Enhanced: 16d6 -> 4 Hits)" if is_enhanced else "Parsing mark deception, aura shifts, stress signals (Baseline)"
+        )
+
+        return {
+            "influence": infl_opt,
+            "inspire_competence": insp_opt,
+            "disguise": disguise_opt,
+            "composure": comp_opt,
+            "judge_intentions": judge_opt
+        }

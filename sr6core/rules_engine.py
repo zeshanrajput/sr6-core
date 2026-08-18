@@ -252,6 +252,90 @@ def get_matrix_action_table(char_id: str) -> str:
     return "\n".join(rows)
 
 
+def get_magic_action_table(char_id: str) -> str:
+    """
+    Renders a Markdown table of standardized Magic Action Pools with transparent
+    SRMG component breakdowns, applied modifiers math, total dice pools, and bought hits.
+    """
+    cm = CharacterManager()
+    char = cm.load_character(char_id)
+    if not char:
+        return f"*(Character '{char_id}' not found)*"
+
+    data = char["data"]
+    pools = ModifierEngine.get_magic_action_pools(data)
+
+    rows = [
+        "| Magic Action / Protocol | Base Stat + Skill | Applied Modifiers Math | Final Dice Pool | Bought Hits |",
+        "| :--- | :---: | :--- | :---: | :---: |"
+    ]
+
+    for key, opt in pools.items():
+        name_str = f"**{opt.name}**"
+        if opt.notes:
+            name_str += f"<br>*{opt.notes}*"
+
+        wild_str = f" ({opt.wild_dice} wild)" if opt.wild_dice else ""
+        pool_str = f"**{opt.total_pool}d6**{wild_str}"
+        hits_str = f"**{opt.bought_hits} Hits**"
+
+        rows.append(
+            f"| {name_str} | {opt.get_base_stat_skill_string()} | {opt.get_modifiers_breakdown_string()} | {pool_str} | {hits_str} |"
+        )
+
+    return "\n".join(rows)
+
+
+def get_social_action_table(char_id: str) -> str:
+    """
+    Renders a Markdown table of standardized Social / Face Action Pools with transparent
+    SRMG component breakdowns, applied modifiers math, total dice pools, and bought hits.
+    """
+    cm = CharacterManager()
+    char = cm.load_character(char_id)
+    if not char:
+        return f"*(Character '{char_id}' not found)*"
+
+    data = char["data"]
+    pools = ModifierEngine.get_social_action_pools(data)
+
+    rows = [
+        "| Social Action / Protocol | Base Stat + Skill | Applied Modifiers Math | Final Dice Pool | Bought Hits |",
+        "| :--- | :---: | :--- | :---: | :---: |"
+    ]
+
+    for key, opt in pools.items():
+        name_str = f"**{opt.name}**"
+        if opt.notes:
+            name_str += f"<br>*{opt.notes}*"
+
+        wild_str = f" ({opt.wild_dice} wild)" if opt.wild_dice else ""
+        pool_str = f"**{opt.total_pool}d6**{wild_str}"
+        hits_str = f"**{opt.bought_hits} Hits**"
+
+        rows.append(
+            f"| {name_str} | {opt.get_base_stat_skill_string()} | {opt.get_modifiers_breakdown_string()} | {pool_str} | {hits_str} |"
+        )
+
+    return "\n".join(rows)
+
+
+def get_scene_strategy_table(char_id: str = "velvet") -> str:
+    """
+    Renders a unified strategy table comparing Baseline vs Sustained Enhanced Attribute configurations
+    for Social/Legwork and Combat scenes under Focused Concentration R3.
+    """
+    rows = [
+        "| Operational Scene Mode | Sustained Spells (Focused Conc. R3) | Active Attributes | Primary Action Pools & Modifiers | Derived Defenses & Hits |",
+        "| :--- | :--- | :--- | :--- | :--- |",
+        "| **1. Baseline (Un-buffed)** | None (0 Sustained) | CHA 10, WIL 5, INT 3, REA 2, BOD 2 | **Spellcasting**: 15d6 (3 Hits)<br>**Influence**: 15d6 (3 Hits)<br>**Conjuring**: 7d6 (1 Hit) | **Drain Resist**: 15d6 (3 Hits)<br>**Composure**: 15d6 (3 Hits)<br>**Judge Intentions**: 8d6 (2 Hits) |",
+        "| **2. Social & Legwork Mode** | 1. *Inc. Attr (Charisma)* (+4)<br>2. *Inc. Attr (Willpower)* (+4)<br>3. *Inc. Attr (Intuition)* (+4) | **CHA 14** *(Cap)*<br>**WIL 9**<br>**INT 7** | **Social Negotiation**: **19d6** (4 Hits) *(+4 Social Rating)*<br>**Inspire Competence**: **19d6** (4 Hits)<br>**Disguise / Persona Shift**: **10d6** (2 Hits) | **Drain Resist**: **23d6** (5 Hits)<br>**Composure**: **23d6** (5 Hits)<br>**Judge Intentions**: **16d6** (4 Hits)<br>**Memory**: **12d6** (3 Hits) |",
+        "| **3. Combat Mode (Reflexes/Defense)** | 1. *Inc. Attr (Charisma)* (+4)<br>2. *Inc. Attr (Willpower)* (+4)<br>3. *Inc. Attr (Reaction)* (+4) | **CHA 14**<br>**WIL 9**<br>**REA 6** | **Spellcasting**: **15d6** (3 Hits)<br>**Counterspelling**: **15d6** (3 Hits)<br>**Physical Initiative**: **9 + 1D6** | **Drain Resist**: **23d6** (5 Hits)<br>**Defense Test (REA+INT)**: **9d6** (2 Hits)<br>**Stun Monitor**: 13 boxes |",
+        "| **4. Combat Mode (Hardened Body)** | 1. *Inc. Attr (Charisma)* (+4)<br>2. *Inc. Attr (Willpower)* (+4)<br>3. *Inc. Attr (Body)* (+4) | **CHA 14**<br>**WIL 9**<br>**BOD 6** | **Spellcasting**: **15d6** (3 Hits)<br>**Damage Soak**: **7d6** (BOD 6 + Armor 1) | **Drain Resist**: **23d6** (5 Hits)<br>**Physical Monitor**: 11 boxes<br>**Stun Monitor**: 13 boxes |"
+    ]
+    return "\n".join(rows)
+
+
 def get_sprite_action_table(char_id: str, sprite_level: int = 7) -> str:
     """
     Renders a Markdown table of Sprite Compiling, Registering, and Fading Downtime calculations.
