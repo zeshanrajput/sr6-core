@@ -131,22 +131,54 @@ class CharacterManager:
     def load_character(self, char_id: str) -> Optional[Dict[str, Any]]:
         return self.get_character(char_id)
 
-    def export_character(self, char_id: str, fmt: str = "xml") -> str:
+    def clean_output_directory(self, repo_path: str):
+        """Prunes legacy or unorganized files from the root of output/ folder."""
+        out_dir = os.path.join(repo_path, "output")
+        if not os.path.exists(out_dir):
+            return
+
+        # Legacy file patterns to clean from output root
+        for entry in os.listdir(out_dir):
+            entry_path = os.path.join(out_dir, entry)
+            if os.path.isfile(entry_path):
+                # If it is a root loose file, remove it so output is cleanly grouped in subfolders
+                try:
+                    os.remove(entry_path)
+                except Exception:
+                    pass
+
+    def export_character(self, char_id: str, fmt: str = "xml", output_path: Optional[str] = None, card_size: str = "postcard_4x5.5") -> Any:
         data = self.get_character_data(char_id)
         if not data:
             raise ValueError(f"Character data for '{char_id}' not found.")
 
         repo_path = self.get_character_repo_dir(char_id)
         fmt = fmt.lower()
-        if fmt == "roll20" or fmt == "json":
+        if fmt in ["roll20", "json"]:
             return export_roll20_json(data)
-        elif fmt == "vtt" or fmt == "txt":
+        elif fmt in ["vtt", "txt", "base"]:
             return export_vtt_text(data)
-        elif fmt == "cards":
+        elif fmt == "text_modular":
+            from sr6core.exporters.vtt_text import export_modular_text_sheets
+            return export_modular_text_sheets(data, char_id, char_repo_path=repo_path)
+        elif fmt in ["cards", "cards_md"]:
             from sr6core.cards import export_character_card_deck
             md_deck, _ = export_character_card_deck(char_id)
             return md_deck
-        elif fmt == "xml" or fmt == "genesis":
+        elif fmt in ["pdf_deck", "cards_pdf"]:
+            from sr6core.cards import export_character_card_deck_pdf
+            if not output_path:
+                output_path = os.path.join(repo_path or ".", "output", "pdf", f"{char_id}_cards_deck.pdf")
+            os.makedirs(os.path.dirname(output_path), exist_ok=True)
+            return export_character_card_deck_pdf(char_id, output_path, card_size=card_size)
+        elif fmt in ["pdf_base", "base_pdf"]:
+            from sr6core.exporters.pdf_deck import generate_pdf_base_sheet
+            if not output_path:
+                output_path = os.path.join(repo_path or ".", "output", "pdf", f"{char_id}_base_sheet.pdf")
+            os.makedirs(os.path.dirname(output_path), exist_ok=True)
+            return generate_pdf_base_sheet(data, output_path)
+        elif fmt in ["xml", "genesis"]:
             return export_genesis_xml(data, char_repo_path=repo_path)
         else:
             raise ValueError(f"Unsupported export format '{fmt}'.")
+

@@ -64,10 +64,12 @@ def character_actions_menu(cm: CharacterManager, char_id: str):
         print(" [1] View Sheet Summary & Attributes")
         print(" [2] Deep Audit (Item-by-Item & Transaction Pricing)")
         print(" [3] Advance / Shop for Gear, Qualities & Spells")
-        print(" [4] Export Roll20 JSON")
-        print(" [5] Export Plain-Text VTT")
-        print(" [6] Export Genesis / CommLink6 Compliant XML")
-        print(" [7] Export Reference Cards Deck (Markdown & HTML)")
+        print(" [4] Export Printable PDF Reference Card Stack (Postcards / Index Cards)")
+        print(" [5] Export Printable PDF 1-2 Page Base Sheet")
+        print(" [6] Export Modular Plain-Text Sheets (Base, Contacts, Combat, etc.)")
+        print(" [7] Export Roll20 JSON")
+        print(" [8] Export Genesis / CommLink6 Compliant XML")
+        print(" [9] Export Reference Cards Deck (Markdown)")
         print(" [B] Back to Character Selection")
 
         choice = input("\nAction choice: ").strip()
@@ -113,21 +115,42 @@ def character_actions_menu(cm: CharacterManager, char_id: str):
                         print(f"\n{msg}")
 
         elif choice == '4':
+            csize = input("Select Card Size (1: Postcard 4.25x5.5, 2: Index 4x6, 3: Index 3x5) [1]: ").strip()
+            size_map = {"1": "postcard_4x5.5", "2": "index_4x6", "3": "index_3x5"}
+            card_size = size_map.get(csize, "postcard_4x5.5")
+            repo_dir = cm.get_character_repo_dir(char_id) or "."
+            pdf_path = os.path.join(repo_dir, "output", "pdf", f"{char_id}_cards_deck.pdf")
+            out_file = cm.export_character(char_id, fmt="pdf_deck", output_path=pdf_path, card_size=card_size)
+            print(f"\n[OK] Generated Printable PDF Card Deck: {out_file}\n")
+
+        elif choice == '5':
+            repo_dir = cm.get_character_repo_dir(char_id) or "."
+            pdf_path = os.path.join(repo_dir, "output", "pdf", f"{char_id}_base_sheet.pdf")
+            out_file = cm.export_character(char_id, fmt="pdf_base", output_path=pdf_path)
+            print(f"\n[OK] Generated Printable PDF Base Sheet: {out_file}\n")
+
+        elif choice == '6':
+            sheets = cm.export_character(char_id, fmt="text_modular")
+            repo_dir = cm.get_character_repo_dir(char_id) or "."
+            txt_dir = os.path.join(repo_dir, "output", "text")
+            os.makedirs(txt_dir, exist_ok=True)
+            for fname, content in sheets.items():
+                target = os.path.join(txt_dir, fname)
+                with open(target, "w", encoding="utf-8") as f:
+                    f.write(content)
+            print(f"\n[OK] Generated {len(sheets)} Modular Text Sheets in {txt_dir}\n")
+
+        elif choice == '7':
             out = cm.export_character(char_id, fmt="roll20")
             print(f"\n--- Roll20 JSON Export ({char_id}) ---")
             print(out)
 
-        elif choice == '5':
-            out = cm.export_character(char_id, fmt="vtt")
-            print(f"\n--- Plain-Text VTT Export ({char_id}) ---")
-            print(out)
-
-        elif choice == '6':
+        elif choice == '8':
             out = cm.export_character(char_id, fmt="xml")
             print(f"\n--- CommLink6 Compliant XML Export ({char_id}) ---")
             print(out)
 
-        elif choice == '7':
+        elif choice == '9':
             out = cm.export_character(char_id, fmt="cards")
             print(f"\n--- Reference Cards Deck Export ({char_id}) ---")
             print(out)

@@ -37,33 +37,61 @@ def run_sync_all():
 
         # 1. Deep Audit
         audit = deep_audit_character(cid)
-        a_status = "PASS" if audit["valid"] else f"WARNINGS ({len(audit['warnings'])})"
+        warnings_list = audit.get("warnings", [])
+        a_status = "PASS" if audit.get("valid", False) else f"WARNINGS ({len(warnings_list)})"
         print(f"  [1/5] Deep Item-by-Item Audit : {a_status}")
-        for w in audit.get("warnings", []):
+        for w in warnings_list:
             print(f"         +-- {w}")
 
-        # 2. Multi-Format Exports into output/ folder
-        out_dir = os.path.join(repo_dir, "output")
-        os.makedirs(out_dir, exist_ok=True)
+        # 2. Multi-Format Exports into standardized output/ subfolders
+        cm.clean_output_directory(repo_dir)
+        pdf_dir = os.path.join(repo_dir, "output", "pdf")
+        text_dir = os.path.join(repo_dir, "output", "text")
+        cards_dir = os.path.join(repo_dir, "output", "cards")
+        vtt_dir = os.path.join(repo_dir, "output", "vtt")
+        for d in [pdf_dir, text_dir, cards_dir, vtt_dir]:
+            os.makedirs(d, exist_ok=True)
 
-        for fmt, ext in [("roll20", ".json"), ("vtt", ".txt"), ("xml", ".xml"), ("cards", "_cards.md")]:
-            try:
-                content = cm.export_character(cid, fmt=fmt)
-                target_file = os.path.join(out_dir, f"{cid}_sheet{ext}" if fmt != "cards" else f"{cid}_cards.md")
-                with open(target_file, "w", encoding="utf-8") as f:
-                    f.write(content)
-            except Exception as e:
-                print(f"         +-- Export {fmt.upper()} error: {e}")
+        # PDF Exports (Card Deck Stack + 1-2 Page Base Sheet)
+        try:
+            cm.export_character(cid, fmt="pdf_deck", output_path=os.path.join(pdf_dir, f"{cid}_cards_deck.pdf"))
+            cm.export_character(cid, fmt="pdf_base", output_path=os.path.join(pdf_dir, f"{cid}_base_sheet.pdf"))
+        except Exception as e:
+            print(f"         +-- Export PDF error: {e}")
+
+        # Modular Text Exports
+        try:
+            text_sheets = cm.export_character(cid, fmt="text_modular")
+            for filename, sheet_content in text_sheets.items():
+                with open(os.path.join(text_dir, filename), "w", encoding="utf-8") as f:
+                    f.write(sheet_content)
+        except Exception as e:
+            print(f"         +-- Export Modular Text error: {e}")
+
+        # Markdown Card Deck Export
+        try:
+            cards_md = cm.export_character(cid, fmt="cards")
+            with open(os.path.join(cards_dir, f"{cid}_cards.md"), "w", encoding="utf-8") as f:
+                f.write(cards_md)
+        except Exception as e:
+            print(f"         +-- Export Cards MD error: {e}")
+
+        # VTT Exports (Genesis XML + Roll20 JSON)
+        try:
+            xml_content = cm.export_character(cid, fmt="xml")
+            with open(os.path.join(vtt_dir, f"{cid}.xml"), "w", encoding="utf-8") as f:
+                f.write(xml_content)
+        except Exception as e:
+            print(f"         +-- Export XML error: {e}")
 
         try:
-            from sr6core.cards import export_character_card_deck
-            _, html_deck = export_character_card_deck(cid)
-            with open(os.path.join(out_dir, f"{cid}_cards.html"), "w", encoding="utf-8") as f:
-                f.write(html_deck)
+            json_content = cm.export_character(cid, fmt="roll20")
+            with open(os.path.join(vtt_dir, f"{cid}.json"), "w", encoding="utf-8") as f:
+                f.write(json_content)
         except Exception as e:
-            print(f"         +-- Export Cards HTML error: {e}")
+            print(f"         +-- Export JSON error: {e}")
 
-        print(f"  [2/5] Regenerated Exports     : Saved to {out_dir}")
+        print(f"  [2/5] Regenerated Exports     : Saved to {os.path.join(repo_dir, 'output')} (pdf, text, cards, vtt)")
 
         # 3. CommLink6 GUI Save Sync
         ok, msg = push_to_commlink(cid)
@@ -130,9 +158,11 @@ def main():
     adv_parser.add_argument("item_ref", type=str, help="CommLink6 item reference ID")
 
     # export subcommand
-    export_parser = subparsers.add_parser("export", help="Export character to Roll20 JSON, VTT Text, Genesis XML, or Cards Deck")
+    export_parser = subparsers.add_parser("export", help="Export character to PDF Deck, Base PDF, Modular Text, Roll20 JSON, Genesis XML, or Cards Deck")
     export_parser.add_argument("char_id", type=str, help="Character ID (yuriko, velvet, union)")
-    export_parser.add_argument("--format", type=str, choices=["roll20", "vtt", "xml", "cards"], default="roll20", help="Export format")
+    export_parser.add_argument("--format", type=str, choices=["pdf_deck", "pdf_base", "text_modular", "roll20", "vtt", "xml", "cards"], default="pdf_deck", help="Export format")
+    export_parser.add_argument("--card-size", type=str, choices=["postcard_4x5.5", "index_4x6", "index_3x5"], default="postcard_4x5.5", help="Card size for PDF card deck")
+    export_parser.add_argument("--output", type=str, default=None, help="Custom output filepath")
 
     # lint subcommand
     lint_parser = subparsers.add_parser("lint", help="Lint Quarto chapter prose for style and AI buzzwords")
@@ -245,9 +275,18 @@ def main():
 
     elif args.command == "export":
         try:
-            output = cm.export_character(args.char_id, fmt=args.format)
+            output = cm.export_character(
+                args.char_id,
+                fmt=args.format,
+                output_path=getattr(args, "output", None),
+                card_size=getattr(args, "card_size", "postcard_4x5.5")
+            )
             print(f"\n--- Export for '{args.char_id}' ({args.format.upper()}) ---")
-            print(output)
+            if isinstance(output, dict):
+                for fname, content in output.items():
+                    print(f"\n>>> {fname}:\n{content[:300]}...\n")
+            else:
+                print(output)
         except Exception as e:
             print(f"Export failed: {e}")
 

@@ -10,11 +10,14 @@ import io
 import contextlib
 from typing import Dict, Any, List, Optional, Tuple, Union
 
+from sr6core.contacts import is_canonical_contact, get_canonical_contact
+
 # Global state dictionary for Quarto rendering scope
 _GLOBAL_LOG_STATE: Dict[str, Any] = {
     "Karma": 0,
     "Lifetime_Karma": 0,
     "Nuyen": 0,
+    "Lifetime_Nuyen": 0,
     "Heat": 0,
     "Resonance": 6,
     "Submersion_Grade": 0,
@@ -29,10 +32,12 @@ state = _GLOBAL_LOG_STATE
 
 def reset_log_state():
     global _GLOBAL_LOG_STATE
-    _GLOBAL_LOG_STATE = {
+    _GLOBAL_LOG_STATE.clear()
+    _GLOBAL_LOG_STATE.update({
         "Karma": 0,
         "Lifetime_Karma": 0,
         "Nuyen": 0,
+        "Lifetime_Nuyen": 0,
         "Heat": 0,
         "Resonance": 6,
         "Submersion_Grade": 0,
@@ -40,10 +45,10 @@ def reset_log_state():
         "Sprites": [],
         "Contacts": {},
         "Missions": []
-    }
+    })
 
 
-def inc(resource: str, amount: int) -> str:
+def inc(resource: str, amount: Union[int, float]) -> str:
     global _GLOBAL_LOG_STATE
     raw_res = resource.strip()
     if raw_res in _GLOBAL_LOG_STATE:
@@ -55,6 +60,8 @@ def inc(resource: str, amount: int) -> str:
     _GLOBAL_LOG_STATE[res] = current + amount
     if res == "Karma" and amount > 0:
         _GLOBAL_LOG_STATE["Lifetime_Karma"] = _GLOBAL_LOG_STATE.get("Lifetime_Karma", 0) + amount
+    elif res == "Nuyen" and amount > 0:
+        _GLOBAL_LOG_STATE["Lifetime_Nuyen"] = _GLOBAL_LOG_STATE.get("Lifetime_Nuyen", 0) + amount
     op = "+=" if amount >= 0 else "-="
     return f"{res} {op} {abs(amount)}"
 
@@ -81,14 +88,12 @@ def initiate(echo_or_power: str = "", coven_loyalty: int = 0) -> str:
     return f"Initiation Grade {target_grade} ({echo_or_power}): -{final_cost} Karma"
 
 
-
-
 def inc_many(*args: Any) -> str:
     if len(args) == 1 and isinstance(args[0], (list, tuple)):
         pairs = args[0]
     elif len(args) > 0 and isinstance(args[0], (list, tuple)):
         pairs = args
-    elif len(args) % 2 == 0 and all(isinstance(a, (str, int)) for a in args):
+    elif len(args) % 2 == 0 and all(isinstance(a, (str, int, float)) for a in args):
         pairs = [(args[i], args[i+1]) for i in range(0, len(args), 2)]
     else:
         pairs = args
@@ -101,19 +106,114 @@ def inc_many(*args: Any) -> str:
     return ", ".join(res)
 
 
-def contact(name: str, connection: int = 1, loyalty: int = 1, fp: int = 1, type_name: str = "", region: str = "", notes: str = "") -> Dict[str, Any]:
+def contact(
+    name: str,
+    connection: Optional[int] = None,
+    loyalty: Optional[int] = None,
+    fp: int = 0,
+    type_name: str = "",
+    region: str = "",
+    notes: str = "",
+    event: str = ""
+) -> Dict[str, Any]:
+    """
+    Records or updates a campaign contact.
+    - Canonical SRM contacts: Connection rating is locked; description is locked to official SRM text.
+    - Non-canonical contacts: Connection and Loyalty can be raised; description fixed on first encounter.
+    - Favor points accumulate, and Loyalty automatically increases when enough favor is accumulated.
+    """
     global _GLOBAL_LOG_STATE
-    c_info = {
-        "name": name,
-        "connection": connection,
-        "loyalty": loyalty,
-        "favors": fp,
-        "type": type_name,
-        "region": region,
-        "notes": notes
-    }
-    _GLOBAL_LOG_STATE["Contacts"][name] = c_info
-    return c_info
+    name_clean = name.strip()
+    canon_info = get_canonical_contact(name_clean)
+    is_canon = canon_info is not None
+
+    contacts = _GLOBAL_LOG_STATE["Contacts"]
+    
+    # Identify mission or event context
+    curr_m_idx = len(_GLOBAL_LOG_STATE.get("Missions", []))
+    m_name = _GLOBAL_LOG_STATE["Missions"][-1] if curr_m_idx > 0 else "Character Creation"
+    event_label = event or notes or m_name
+
+    if not region:
+        for prefix in ["SEA", "NOLA", "AMS", "KY", "DW", "HK", "GEN"]:
+            if type_name.startswith(prefix) or (notes and notes.startswith(prefix)):
+                region = prefix
+                break
+
+    is_first_encounter = name_clean not in contacts
+    promoted_levels = 0
+
+    if is_first_encounter:
+        if is_canon:
+            eff_conn = canon_info["connection"]
+            eff_type = canon_info.get("job", type_name)
+            eff_region = canon_info.get("region", region or "GEN")
+            eff_desc = canon_info.get("description", "")
+        else:
+            eff_conn = connection if connection is not None else 1
+            eff_type = type_name
+            eff_region = region if region else "GEN"
+            eff_desc = notes
+
+        eff_loyalty = loyalty if loyalty is not None else 1
+        c_info = {
+            "name": name_clean,
+            "canonical_name": name_clean,
+            "is_canonical": is_canon,
+            "connection": eff_conn,
+            "loyalty": eff_loyalty,
+            "favors": fp,
+            "type": eff_type,
+            "region": eff_region,
+            "description": eff_desc,
+            "notes": eff_desc,
+            "history": [f"{event_label} (Met: C{eff_conn} L{eff_loyalty}, +{fp} FP)" if fp else f"{event_label} (Met: C{eff_conn} L{eff_loyalty})"]
+        }
+        contacts[name_clean] = c_info
+    else:
+        c_info = contacts[name_clean]
+        
+        # Connection: immutable for canonical contacts; can increase for non-canon
+        if not is_canon and connection is not None and connection > c_info["connection"]:
+            c_info["connection"] = connection
+        
+        # Loyalty: update if explicitly passed higher
+        if loyalty is not None and loyalty > c_info["loyalty"]:
+            c_info["loyalty"] = loyalty
+
+        if fp != 0:
+            c_info["favors"] += fp
+            
+        hist_entry = f"{event_label} ({'+' if fp >= 0 else ''}{fp} FP)" if fp != 0 else event_label
+        c_info["history"].append(hist_entry)
+
+    old_loyalty = c_info["loyalty"]
+
+    # Automatic Favor-to-Loyalty Upgrade:
+    # Upgrading to Loyalty L+1 costs (L+1) Favor points (capped at Loyalty 6)
+    while c_info["favors"] >= (c_info["loyalty"] + 1) and c_info["loyalty"] < 6:
+        cost = c_info["loyalty"] + 1
+        c_info["loyalty"] += 1
+        c_info["favors"] -= cost
+        promoted_levels += 1
+        c_info["history"].append(f"Auto-Promoted to Loyalty {c_info['loyalty']} (-{cost} FP)")
+
+    # Formulate clean string output for Quarto rendering
+    if is_first_encounter:
+        type_str = f" ({c_info['type']})" if c_info.get("type") else ""
+        if promoted_levels > 0:
+            return f"**{name_clean}**{type_str} [C:{c_info['connection']}] — Auto-Promoted to Loyalty {c_info['loyalty']}! ({c_info['favors']} FP remaining)"
+        elif fp > 0:
+            return f"**{name_clean}**{type_str} [C:{c_info['connection']} L:{c_info['loyalty']}] (+{fp} Favor)"
+        else:
+            return f"**{name_clean}**{type_str} [C:{c_info['connection']} L:{c_info['loyalty']}]"
+    else:
+        if promoted_levels > 0:
+            return f"**{name_clean}** (+{fp} Favor → Auto-Promoted to Loyalty {c_info['loyalty']}! [{c_info['favors']} FP remaining])"
+        elif fp != 0:
+            return f"**{name_clean}** ({'+' if fp >= 0 else ''}{fp} Favor → {c_info['favors']} FP total, Loyalty {c_info['loyalty']})"
+        else:
+            return f"**{name_clean}** [C:{c_info['connection']} L:{c_info['loyalty']}]"
 
 
 def add_rep(faction: str, points: int) -> Dict[str, int]:
@@ -303,6 +403,7 @@ def get_log_totals(log_path: Optional[Any] = None) -> Dict[str, Any]:
     final_karma = _GLOBAL_LOG_STATE.get("Karma", 0)
     final_lifetime_karma = _GLOBAL_LOG_STATE.get("Lifetime_Karma", final_karma)
     final_nuyen = _GLOBAL_LOG_STATE.get("Nuyen", 0)
+    final_lifetime_nuyen = _GLOBAL_LOG_STATE.get("Lifetime_Nuyen", final_nuyen)
 
     session_sections = re.split(r'\n(?=###\s+\*\*)', content)
     session_logs = []
@@ -359,6 +460,7 @@ def get_log_totals(log_path: Optional[Any] = None) -> Dict[str, Any]:
         "Karma": final_karma,
         "Lifetime_Karma": final_lifetime_karma,
         "Nuyen": final_nuyen,
+        "Lifetime_Nuyen": final_lifetime_nuyen,
         "Heat": _GLOBAL_LOG_STATE.get("Heat", 0),
         "Submersion_Grade": _GLOBAL_LOG_STATE.get("Submersion_Grade", 0),
         "Reputation": rep_dict,

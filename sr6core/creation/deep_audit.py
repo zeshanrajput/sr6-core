@@ -132,6 +132,45 @@ def deep_audit_character(char_id: str, db_path: str = DEFAULT_DB_PATH) -> Dict[s
 
     conn.close()
 
+    # 3. Audit Synergies, Augmentation Caps & Multi-Component Pools
+    synergies = char_data.get("synergies", {})
+    synergy_audits = []
+
+    # Check Foci
+    foci = synergies.get("foci", [])
+    for f in foci:
+        if isinstance(f, dict):
+            f_name = f.get("name", "Focus")
+            f_rating = int(f.get("rating", 1))
+            f_applies = f.get("applies_to", "")
+            if f_rating > 4:
+                warnings.append(f"Focus '{f_name}' rating ({f_rating}) exceeds standard +4 SRMG augmentation cap on {f_applies}.")
+            synergy_audits.append({
+                "type": "Focus",
+                "name": f_name,
+                "rating": f_rating,
+                "applies_to": f_applies,
+                "srm_cap_valid": f_rating <= 4
+            })
+
+    # Check Companions (Symbiosis & Powers)
+    companions = synergies.get("companions", [])
+    for comp in companions:
+        if isinstance(comp, dict):
+            c_name = comp.get("name", "Companion")
+            c_symb = int(comp.get("symbiosis_bonus", 0))
+            if c_symb > 4:
+                warnings.append(f"Companion '{c_name}' symbiosis bonus (+{c_symb}) exceeds standard +4 SRMG augmentation cap.")
+            synergy_audits.append({
+                "type": "Companion",
+                "name": c_name,
+                "symbiosis_bonus": c_symb,
+                "diagnosis_bonus": comp.get("diagnosis_bonus", 0),
+                "skills": comp.get("skills", []),
+                "autosofts": comp.get("autosofts", []),
+                "srm_cap_valid": c_symb <= 4
+            })
+
     is_valid = len(warnings) == 0
 
     return {
@@ -142,5 +181,7 @@ def deep_audit_character(char_id: str, db_path: str = DEFAULT_DB_PATH) -> Dict[s
         "total_neg_karma": total_neg_karma,
         "net_quality_karma": total_pos_karma - total_neg_karma,
         "gear_audits": gear_audits,
+        "synergy_audits": synergy_audits,
         "audit_details": audit_details
     }
+

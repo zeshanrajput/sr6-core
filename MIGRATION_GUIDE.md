@@ -158,7 +158,58 @@ Update instructions in `.agents/AGENTS.md` to reference `sr6` CLI subcommands an
 
 ---
 
-## 10. Final Ecosystem Synchronization
+## 10. SRM Canonical Contacts Registry & Advancement Ledger
+
+Character repositories should leverage `sr6core.contacts` and `sr6core.log_engine`:
+
+1. **Official SRM Appendix C Canonical Contacts**:
+   - Canonical contacts (Seattle 2081, New Orleans 2083, Kentucky Fried Shadows 2) have hardcoded, immutable Connection ratings and exact SRM Guide text descriptions.
+   - Initialized automatically via `contact("Brynne Taggart", ...)` or `yuriko_master.yaml`.
+2. **Non-Canonical Mission Contacts**:
+   - Connection and Loyalty can be raised through mission actions and downtime.
+   - Description is locked upon first naming.
+3. **Favor Points & Automatic Loyalty Progression**:
+   - Passing `fp=N` accumulates favor points on the contact.
+   - The engine automatically promotes Loyalty by +1 whenever $FP \ge \text{Loyalty} + 1$ (spending $L+1$ FP per promotion).
+4. **Inline Quarto Markdown Returns**:
+   - Inline `{python} contact(...)` calls return clean, compact Markdown strings (e.g. `**Piotr Krolik** (NOLA Vory) [C:4 L:1] (+1 Favor)` or `**Renée Martin** (+3 Favor → Auto-Promoted to Loyalty 2!)`).
+5. **Career Lifetime Ledgers**:
+   - **Lifetime Karma**: Tracks all earned in-game Karma + initial chargen carryover.
+   - **Lifetime Nuyen**: Tracks all earned in-game Nuyen + initial chargen carryover.
+   - Excludes all internal character creation point-buy allocations.
+
+---
+
+## 11. Plain-Text Modular Sheet Standards (76-Column Limit)
+
+All character text exports in `output/text/` strictly adhere to a maximum line length of **76 columns** (matching the visual divider width):
+
+- `<char_id>_base.txt`: 1-page dossier with identity, attributes, effective dice pools, and defenses.
+- `<char_id>_contacts.txt`: Regional contacts directory with canonical descriptions and history.
+- `<char_id>_combat.txt`: Weapons, firing modes, attack ratings (AR), and ballistic armor.
+- `<char_id>_inventory.txt`: Matrix devices, categorized software (Basic, Hacking, Rigging, Autosoft, Commlink), munitions, and gear.
+- `<char_id>_vehicles.txt`: Vehicles and drones with single-line abbreviations and inhabited action pools.
+- `<char_id>_powers.txt`: Complex Forms, Spells, Adept Powers, and Metamagic/Echoes.
+- `<char_id>_ledger.txt`: Financial transactions and career totals.
+
+### Software De-Duplication & Clean Autosoft Suffixes:
+- Strips redundant `"Autosoft"` suffixes from autosoft listings while displaying ratings (e.g. `Biotech R9`, `Clearsight R9`).
+- Categorizes commlink applications (`Facial Scanner`, `P-ICE Spines`, `Social HUD`, etc.) under `Commlink:` software rather than physical gear.
+
+---
+
+## 12. Dynamic Domain Rules Chapter Integration
+
+Replace static markdown tables in domain rules chapters with dynamic renderers from `sr6core.rules_engine`:
+
+1. **Combat Chapter (`rules_combat.qmd`)**: `get_weapon_attack_table(char_id)`
+2. **Matrix Chapter (`rules_matrix.qmd`)**: `get_matrix_action_table(char_id)` and `get_matrix_asdf_derivation_table(char_id)`
+3. **Drones Chapter (`rules_drones.qmd`)**: `get_drone_statblock_table(char_id, drone_name)` and `get_drone_action_table(char_id, mode)`
+4. **Sprites & Emergence Chapter (`rules_sprites.qmd`)**: `get_sprite_action_table(char_id)` and `get_sprite_commands_table(char_id)`
+
+---
+
+## 13. Final Ecosystem Synchronization
 
 From `sr6-core`, run the ecosystem synchronizer:
 
@@ -166,4 +217,4 @@ From `sr6-core`, run the ecosystem synchronizer:
 sr6 sync-all
 ```
 
-This will automatically perform deep item audits, regenerate VTT/JSON/XML sheets into `output/`, patch active CommLink6 GUI player saves, and build the live Quarto dossier appendix for each character repo!
+This will automatically perform deep item audits across all character portfolios, regenerate VTT/JSON/XML/PDF/Text sheets into `output/`, patch active CommLink6 GUI player saves, and verify live Quarto builds.

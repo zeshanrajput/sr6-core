@@ -153,15 +153,28 @@ def run_interactive_rag_session_rich(rag_engine: Any):
         border_style="magenta"
     ))
 
+    try:
+        from prompt_toolkit import PromptSession
+        from prompt_toolkit.history import InMemoryHistory
+        prompt_session = PromptSession(history=InMemoryHistory())
+        use_pt = True
+    except Exception:
+        use_pt = False
+
+    last_retrieved_rules = []
+
     while True:
         prov = rag_engine.session.provider_name.upper()
         mod = rag_engine.session.model_name
         eff = rag_engine.session.effort_level or 'default'
         char_lbl = f" | Runner: [gold1]{active_char.upper()}[/gold1]" if active_char else ""
-        prompt_status = f"[bold cyan][{prov} | {mod} | Effort: {eff}{char_lbl}][/bold cyan] RAG Prompt > "
+        prompt_status = f"[{prov} | {mod} | Effort: {eff}{char_lbl}] RAG Prompt > "
 
         try:
-            prompt = console.input(f"\n{prompt_status}").strip()
+            if use_pt:
+                prompt = prompt_session.prompt(f"\n{prompt_status}").strip()
+            else:
+                prompt = console.input(f"\n[bold cyan]{prompt_status}[/bold cyan]").strip()
         except (KeyboardInterrupt, EOFError):
             console.print("\n[dim]Exiting RAG session...[/dim]")
             break
@@ -175,11 +188,31 @@ def run_interactive_rag_session_rich(rag_engine: Any):
 
         if prompt.lower() == '/clear':
             rag_engine.session.clear_history()
+            last_retrieved_rules.clear()
             console.print("[bold green][+] Conversation thread memory cleared.[/bold green]")
+            continue
+
+        if prompt.lower() == '/sources':
+            if not last_retrieved_rules:
+                console.print("[yellow]No rules retrieved yet in this session.[/yellow]")
+            else:
+                table = Table(title="Retrieved Rules Vault Citations & Authority Breakdown", box=ROUNDED, header_style="bold magenta")
+                table.add_column("Authority Level", justify="left")
+                table.add_column("Topic / Rule Section", style="bold white")
+                table.add_column("Source Book", style="cyan")
+                table.add_column("Page", justify="right", style="yellow")
+                for r in last_retrieved_rules:
+                    auth_lvl = r.get("authority_level", 3)
+                    style, label = AUTH_LEVEL_STYLES.get(auth_lvl, ("white", f"Level {auth_lvl}"))
+                    table.add_row(Text(label, style=style), r.get("topic", r.get("id", "N/A")), r.get("source", "SR6 Core"), str(r.get("page", "N/A")))
+                console.print()
+                console.print(table)
+                console.print()
             continue
 
         if prompt.lower() in ['/help', '?']:
             console.print("\n[bold yellow]Available Slash Commands:[/bold yellow]")
+            console.print("  /sources               : Show full citations and authority levels for last query")
             console.print("  /provider gemini|llama  : Switch LLM provider")
             console.print("  /model <name>          : Switch model name (e.g. gemini-flash-latest, pro, gemma)")
             console.print("  /url <endpoint>        : Set local llama.cpp endpoint URL")
@@ -257,5 +290,6 @@ def run_interactive_rag_session_rich(rag_engine: Any):
                 use_session=True,
                 char_id=active_char
             )
+            last_retrieved_rules = res.get("rules", [])
 
         render_rag_result_rich(res, show_context=True)
