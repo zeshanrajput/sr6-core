@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "sr6-tools": {
+      "command": "python",
+      "args": ["-m", "sr6core.mcp"]
+    }
+  }
+}

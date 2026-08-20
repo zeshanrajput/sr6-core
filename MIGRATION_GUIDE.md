@@ -8,7 +8,7 @@ This guide outlines the complete steps to clean up, refactor, and decouple deriv
 
 To eliminate redundancy across character repositories, delete the following:
 
-- 🗑️ **`.agents/skills/`**: Delete local duplicate skills (`sr6-rules`, `no-ai-slop`, `literary-analysis`, `continuity-tracker`, `axis-*`). All skills are centrally executed from `c:\GitHub\sr6-core\.agents\skills\`.
+- 🗑️ **`.agents/skills/`**: Delete local duplicate skills (`sr6-rules`, `no-ai-slop`, `literary-analysis`, `continuity-tracker`, `axis-*`). Skills are now bundled in the **Antigravity Agent Plugin (`sr6-narrative-suite`)** and inherited globally (`sr6 plugin install`) or via `.agents/plugins.json` (`sr6 plugin init-repo .`).
 - 🗑️ **Local `shadowrun_rules.db` / `rules_vault/`**: Remove any local copy of the rules database or rules vault files. The rules database is now centralized at `~/.sr6/rules_index.db`.
 - 🗑️ **Legacy Python Engines**: Delete local Python helper scripts (`linter.py`, `log_engine.py`, `continuity_engine.py`, `rules_engine.py`, `narration.py`). Use `sr6` CLI subcommands instead.
 
@@ -143,11 +143,37 @@ book:
 
 ---
 
-## 9. Agent Instructions (`.agents/AGENTS.md`)
+## 9. Antigravity Agent Plugin Integration (`.agents/plugins.json`)
 
-Update instructions in `.agents/AGENTS.md` to reference `sr6` CLI subcommands and orchestrator workflow:
+To enable the complete 7-panel evaluation suite, narrative director rules, and anti-slop tools in a character repository:
 
+### Option A: Initialize Repo Plugin Configuration (Workspace Scope)
+Run the SR6 CLI tool inside your character repository:
+```powershell
+sr6 plugin init-repo .
+```
+This generates `.agents/plugins.json`:
+```json
+{
+  "inherits": [
+    {
+      "path": "../sr6-core/.agents/plugins/sr6-narrative"
+    }
+  ]
+}
+```
+
+### Option B: Machine-Wide Global Plugin
+Install the plugin globally once to enable it automatically in all Shadowrun workspaces:
+```powershell
+sr6 plugin install --symlink
+```
+
+### CLI Diagnostic Reference in Agent Workflows:
 ```markdown
+- Plugin Status: Run `sr6 plugin status`
+- 7-Axis Narrative Evaluator: Run `sr6 evaluate "chapters/<file>.qmd" --tier 2`
+- Combat Ledger & Ammo Extraction: Run `sr6 ledger parse "chapters/<file>.qmd"`
 - Rules Verification: Run `sr6 rag query "<query>"` or `sr6 search "<item>"`
 - Prose Linter: Run `sr6 lint "chapters/<file>.qmd"`
 - Story Continuity Audit: Run `sr6 continuity .`
@@ -155,6 +181,16 @@ Update instructions in `.agents/AGENTS.md` to reference `sr6` CLI subcommands an
 - CommLink GUI Save Sync: Run `sr6 db sync-commlink`
 - Narrative Production: Invoke `narrative-director` orchestrator for 7-sub-agent drafting & self-correction
 ```
+
+### Native Agent Tools via MCP (`mcp_config.json`):
+When the plugin is active, the Antigravity agent has direct access to:
+- `sr6_evaluate_draft(text_or_path, tier, char_id)`: Unified 7-axis evaluation and scorecard generation.
+- `sr6_parse_combat_ledger(text_or_path)`: Prose combat extraction and proposed YAML patches.
+- `sr6_search_rules(query)`: FTS5 rules lookups and item stat cards.
+- `sr6_query_rag(prompt, char_id)`: Rules assistant with authority ranking.
+- `sr6_lint_prose(file_path)`: Scans chapters for ellipses ceiling and buzzwords.
+- `sr6_audit_character(char_id)`: Character creation and YAML validation.
+- `sr6://` Resources: Live URI links to `sr6://characters/<char_id>/master`, `sr6://campaign/contacts`, and `sr6://rules/summary`.
 
 ---
 

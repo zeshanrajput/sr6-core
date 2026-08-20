@@ -463,8 +463,9 @@ def build_character_cards(char_id: str, db_path: str = DEFAULT_DB_PATH) -> List[
     for a in _extract_item_list(data.get("armors", data.get("armor", []))):
         cards.append(get_item_card("armor", a, db_path=db_path, char_data=data))
 
-    # 9. Cyberware / Bioware
-    for c in _extract_item_list(data.get("cyberware")):
+    # 9. Cyberware / Bioware / Augmentations
+    all_augmentations = _extract_item_list(data.get("cyberware")) + _extract_item_list(data.get("bioware")) + _extract_item_list(data.get("augmentations"))
+    for c in all_augmentations:
         cards.append(get_item_card("cyberware", c, db_path=db_path, char_data=data))
 
     # 10. Drones & Vehicles

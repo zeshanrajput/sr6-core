@@ -1,6 +1,6 @@
-# Master Workspace Agent Instructions: SR6 Core (`sr6-core`) & Portfolio Pipeline
+# Narrative Director: Master Narrative Production Orchestrator
 
-This workspace provides the core engine, CLI tools, datasets, and the **Shadowrun 6e Narrative Suite Plugin (`sr6-narrative-suite`)** located at [`.agents/plugins/sr6-narrative/`](file:///c:/GitHub/sr6-core/.agents/plugins/sr6-narrative/).
+This document defines the routing logic, sub-agent capabilities, narrative standards, and the **Primary Master Orchestrator (`narrative-director`)** for the Shadowrun 6e multi-agent narrative production framework across `sr6-core` and character repositories (`sr6yuriko`, `sr6velvet`, `sr6union`, etc.).
 
 ---
 
@@ -49,7 +49,7 @@ The `narrative-director` is the primary autonomous orchestrator responsible for 
 Before drafting or editing, `narrative-director` ingests:
 1. **Scene Outline / Prompt**: User-provided beat sheet, plot points, or target goals.
 2. **Sub-Agent Evaluation Skills**: Calibrated directly by `sr6-narrative-suite` skills (`no-ai-slop`, `axis-pacing-structure`, `axis-worldbuilding-grit`, `axis-voice-internality`, `axis-agency-motivation`, `sr6-rules`, `continuity-tracker`, `literary-analysis`).
-3. **Character Voice Specification**: Loads local character repository `reference/voice_spec.md` (e.g., `sr6yuriko/reference/voice_spec.md`, `sr6velvet/reference/voice_spec.md`), which inherits/extends [`sr6-core/reference/default_voice_spec.md`](file:///c:/GitHub/sr6-core/reference/default_voice_spec.md).
+3. **Character Voice Specification**: Loads local character repository `reference/voice_spec.md` (e.g., `sr6yuriko/reference/voice_spec.md`, `sr6velvet/reference/voice_spec.md`), which inherits/extends `sr6-core/reference/default_voice_spec.md`.
 4. **Master Character Dossier**: Reads `character_master.yaml` (attributes, inventory, ammo, nuyen, debt, qualities, spells, cyberware) as authoritative tabletop play state.
 5. **RAG Story Continuity & Rules**: Queries recent chapter logs via `sr6 continuity` and rule queries via `sr6-rules`.
 
@@ -105,4 +105,3 @@ Before completing edits or reviewing narrative/character updates, run correspond
 * **Continuity Engine**: `sr6 continuity <repo_path>`
 * **Character Creation Auditor**: `sr6 characters audit [char_id]`
 * **Multi-Format Exporters**: `sr6 export <char_id> --format=roll20|vtt|xml`
-* **Plugin Management**: `sr6 plugin install` / `sr6 plugin status`

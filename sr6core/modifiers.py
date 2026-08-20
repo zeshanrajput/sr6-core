@@ -397,12 +397,40 @@ class ModifierEngine:
 
     @staticmethod
     def get_living_persona_asdf(char_data: Dict[str, Any]) -> Dict[str, int]:
-        """Calculates active ASDF ratings (A:7 S:9 D:7 F:9)."""
+        """
+        Calculates active ASDF ratings.
+        For Technomancers: base ASDF + tuning (Attack: 7, Sleaze: 9, DP: 7, Firewall: 9).
+        For Monads (Whisper Nets p. 149): Attack=CHA, Sleaze=INT, DP=LOG, Firewall=WIL, boosted by Nanite Volume (NV).
+        """
+        attrs = char_data.get("attributes", {})
+        res = int(attrs.get("resonance", 0))
+        identity = char_data.get("identity", {})
+        mortype = str(identity.get("mortype", "")).lower()
+
         persona = char_data.get("living_persona", {})
         base_asdf = persona.get("asdf_bonuses", {}) if isinstance(persona, dict) else {}
+
+        if "monad" in mortype or res == 0:
+            # Monad Living Persona (Whisper Nets p. 149 & Collapsing Now p. 160)
+            cha = int(attrs.get("charisma", 3))
+            int_val = int(attrs.get("intuition", 4))
+            log_val = int(attrs.get("logic", 7))
+            wil = int(attrs.get("willpower", 5))
+
+            nv_att = base_asdf.get("attack", 0)
+            nv_slz = base_asdf.get("sleaze", 2)
+            nv_dp = base_asdf.get("data_processing", 1)
+            nv_fw = base_asdf.get("firewall", 3)
+
+            return {
+                "attack": cha + nv_att,
+                "sleaze": int_val + nv_slz,
+                "data_processing": log_val + nv_dp,
+                "firewall": wil + nv_fw
+            }
+
         synergies = char_data.get("synergies", {})
         tuning = synergies.get("living_persona_network_tuning", {}).get("asdf_bonuses", {})
-
         if not tuning:
             tuning = {"attack": 4, "sleaze": 8, "data_processing": 6, "firewall": 6}
 
@@ -416,17 +444,28 @@ class ModifierEngine:
     @classmethod
     def get_full_matrix_defense(cls, char_data: Dict[str, Any]) -> Dict[str, Any]:
         """
-        Calculates Full Matrix Defense using multi-component SRMG rules:
-          Component 1: RES 8 (+4 Focus) = 12
-          Component 2: FW 9 (Base 5 + Aug 4) = 9
-          Component 3: PA Rating 6 (Full Matrix Defense action) = 6
-          Component 4: Data Processing via Directional Shield (Base 3 + Aug 4 = 7) = 7
-          Total: 12 + 9 + 6 + 7 = 34d6 (8 Bought Hits)
+        Calculates Full Matrix Defense.
+        For Monads: Willpower + Firewall (cannot run personal assistant apps on living persona).
+        For Technomancers: RES + FW + PA + DP + Focus.
         """
         attrs = char_data.get("attributes", {})
-        res = int(attrs.get("resonance", 8))
+        res = int(attrs.get("resonance", 0))
+        wil = int(attrs.get("willpower", 5))
+        identity = char_data.get("identity", {})
+        mortype = str(identity.get("mortype", "")).lower()
         asdf = cls.get_living_persona_asdf(char_data)
-        fw = asdf.get("firewall", 9)
+        fw = asdf.get("firewall", 8)
+
+        if "monad" in mortype or res == 0:
+            total_pool = wil + fw
+            effective_hits = total_pool // 4
+            breakdown = f"WIL {wil} + FW {fw} = {total_pool}d6"
+            return {
+                "pool": total_pool,
+                "effective_hits": effective_hits,
+                "breakdown": breakdown
+            }
+
         dp = asdf.get("data_processing", 7)
         pa_rating = 6
         focus_bonus = 4 if res > 0 else 0
@@ -443,9 +482,20 @@ class ModifierEngine:
     @classmethod
     def get_matrix_initiative(cls, char_data: Dict[str, Any]) -> str:
         """
-        Matrix Initiative (Hot-Sim VR):
-        Base DP (7) + Intuition (2) + Boosted Attribute (+4) + Overclock Echo (+1, +1D6) = 14 (or 10 + 4D6)
+        Matrix Initiative string.
         """
+        attrs = char_data.get("attributes", {})
+        res = int(attrs.get("resonance", 0))
+        identity = char_data.get("identity", {})
+        mortype = str(identity.get("mortype", "")).lower()
+
+        if "monad" in mortype or res == 0:
+            rea = int(attrs.get("reaction", 4)) + 2  # Synaptic Booster R2
+            int_val = int(attrs.get("intuition", 4))
+            asdf = cls.get_living_persona_asdf(char_data)
+            dp = asdf.get("data_processing", 9)
+            return f"{rea + int_val} + 3D6 (AR) / {dp + int_val} + 3D6 (Hot-Sim VR)"
+
         return "10 + 4D6 (Hot-Sim VR / Overclock)"
 
     @classmethod
@@ -454,14 +504,88 @@ class ModifierEngine:
         Calculates the full set of standardized Matrix Action Pools with SRMG multi-component rules.
         """
         attrs = char_data.get("attributes", {})
-        res = int(attrs.get("resonance", 8))
-        focus_bonus = 4 if res > 0 else 0
-        asdf = cls.get_living_persona_asdf(char_data)
-        fw = asdf.get("firewall", 9)
-        dp = asdf.get("data_processing", 7)
+        res = int(attrs.get("resonance", 0))
+        identity = char_data.get("identity", {})
+        mortype = str(identity.get("mortype", "")).lower()
 
-        # 1. Offensive Cracking: Hacking
-        # Cracking 5 + Spec (Hacking) 2 + RES 8 (+4 Focus) + Overclock 2 (1 wild) + Ally Teamwork 4 + ECM Warrior II 2 = 27d6 (1 wild) -> 6 Hits
+        asdf = cls.get_living_persona_asdf(char_data)
+        fw = asdf.get("firewall", 6)
+        dp = asdf.get("data_processing", 7)
+        log_val = int(attrs.get("logic", 4))
+        int_val = int(attrs.get("intuition", 4))
+        wil = int(attrs.get("willpower", 5))
+
+        if "monad" in mortype or res == 0:
+            # Monad Living Persona Matrix Pools (No Resonance, Focus, Overclock, or Sprite Allies)
+            # 1. Offensive Cracking: Hacking
+            c_skill = PoolComponent("Cracking", 5, "skill")
+            c_attr = PoolComponent("Logic", log_val, "attribute")
+            hacking_opt = PoolOptimization(
+                name="Offensive Cracking: Hacking",
+                components=[c_skill, c_attr],
+                notes="Matrix Brute Force, Probe & Backdoor Exploits (Logic 7 + Cracking 5 = 12d6 -> 3 Hits)"
+            )
+
+            # 2. Offensive Cracking: Other
+            cracking_other_opt = PoolOptimization(
+                name="Offensive Cracking",
+                components=[c_skill, c_attr],
+                notes="Cybercombat & Electronic Warfare Tests (Data Spike, Erase Mark, Jamming)"
+            )
+
+            # 3. Full Matrix Defense Test
+            c_def_wil = PoolComponent("Willpower", wil, "attribute")
+            c_def_fw = PoolComponent("Firewall", fw, "attribute")
+            mdef_opt = PoolOptimization(
+                name="Full Matrix Defense Test",
+                components=[c_def_wil, c_def_fw],
+                notes="Monad Living Persona defense (WIL 5 + FW 6/7 = 11-12d6 -> 3 Hits)"
+            )
+
+            # 4. Electronics: Software Tests
+            e_skill_soft = PoolComponent("Electronics", 6, "skill")
+            e_attr_soft = PoolComponent("Logic", log_val, "attribute")
+            electronics_soft_opt = PoolOptimization(
+                name="Electronics: Software Tests",
+                components=[e_skill_soft, e_attr_soft],
+                notes="Format Device, Edit File, Data Extraction (Logic 7 + Electronics 6 = 13d6 -> 3 Hits)"
+            )
+
+            # 5. Electronics: Matrix Perception
+            e_skill_perc = PoolComponent("Electronics", 6, "skill")
+            e_attr_perc = PoolComponent("Intuition", int_val, "attribute")
+            electronics_other_opt = PoolOptimization(
+                name="Electronics: Matrix Perception",
+                components=[e_skill_perc, e_attr_perc],
+                notes="Matrix Spotting & Grid Analytics (Intuition 4 + Electronics 6 = 10d6 -> 2 Hits)"
+            )
+
+            # 6. Downtime Buying Gear Test
+            buy_gear_opt = PoolOptimization(
+                name="Downtime Buying Gear Test",
+                components=[e_skill_perc, e_attr_perc],
+                notes="Matrix Search & Legwork (Intuition 4 + Electronics 6 = 10d6 -> 2 Hits)"
+            )
+
+            # 7. Programming / Coding Tests
+            programming_opt = PoolOptimization(
+                name="Programming / Coding Tests",
+                components=[e_skill_soft, e_attr_soft],
+                notes="Custom Scripting & Data Architecture (Logic 7 + Electronics 6 = 13d6 -> 3 Hits)"
+            )
+
+            return {
+                "cracking_hacking": hacking_opt,
+                "cracking_other": cracking_other_opt,
+                "full_matrix_defense": mdef_opt,
+                "electronics_software": electronics_soft_opt,
+                "electronics_other": electronics_other_opt,
+                "buy_gear": buy_gear_opt,
+                "programming": programming_opt
+            }
+
+        # Technomancer Pools (Yuriko)
+        focus_bonus = 4 if res > 0 else 0
         c_skill = PoolComponent("Cracking", 5, "skill")
         c_attr = PoolComponent("Resonance", res, "attribute", [
             PoolModifier("attribute:resonance", "focus", "Focus", focus_bonus, is_srm_capped=True)
@@ -478,8 +602,6 @@ class ModifierEngine:
             wild_dice=1
         )
 
-        # 2. Offensive Cracking: Other (Cybercombat & Electronic Warfare)
-        # Cracking 5 + RES 8 (+4 Focus) + Overclock 2 (1 wild) + Ally Teamwork & ECM Warrior II (Max +5 cap: Ally 4, ECM 1) = 24d6 (1 wild) -> 6 Hits
         c_skill_other = PoolComponent("Cracking", 5, "skill")
         c_attr_other = PoolComponent("Resonance", res, "attribute", [
             PoolModifier("attribute:resonance", "focus", "Focus", focus_bonus, is_srm_capped=True)
@@ -496,8 +618,6 @@ class ModifierEngine:
             notes="Cybercombat & Electronic Warfare Tests"
         )
 
-        # 3. Full Matrix Defense Test
-        # RES (8) + Focus (4) + FW (9) + PA (6) + DP (7) = 34d6 -> 8 Hits
         c_def_res = PoolComponent("Resonance", res, "attribute", [
             PoolModifier("attribute:resonance", "focus", "Focus", focus_bonus, is_srm_capped=True)
         ])
@@ -511,8 +631,6 @@ class ModifierEngine:
             ]
         )
 
-        # 4. Electronics: Software Tests
-        # Electronics (Software: 7) + RES (8) + Focus (4) + Ally Teamwork (4) = 23d6 -> 5 Hits
         e_skill_soft = PoolComponent("Electronics", 5, "skill")
         e_attr_soft = PoolComponent("Resonance", res, "attribute", [
             PoolModifier("attribute:resonance", "focus", "Focus", focus_bonus, is_srm_capped=True)
@@ -524,8 +642,6 @@ class ModifierEngine:
             teamwork=PoolModifier("skill:electronics", "teamwork", "Ally Teamwork", 4)
         )
 
-        # 5. Electronics: Other Tests
-        # Electronics 5 + RES 8 + Focus 4 + Ally Teamwork 4 = 21d6 -> 5 Hits
         e_skill_other = PoolComponent("Electronics", 5, "skill")
         e_attr_other = PoolComponent("Resonance", res, "attribute", [
             PoolModifier("attribute:resonance", "focus", "Focus", focus_bonus, is_srm_capped=True)
@@ -537,8 +653,6 @@ class ModifierEngine:
             notes="Computer, Hardware & Complex Forms"
         )
 
-        # 6. Downtime Buying Gear Test
-        # Electronics 5 + RES 8 + Focus 4 + Overclock 1 + Shopsoft 1 + Ally Teamwork 4 = 23d6 -> 5 Hits
         e_skill_buy = PoolComponent("Electronics", 5, "skill")
         e_attr_buy = PoolComponent("Resonance", res, "attribute", [
             PoolModifier("attribute:resonance", "focus", "Focus", focus_bonus, is_srm_capped=True)
@@ -553,8 +667,6 @@ class ModifierEngine:
             ]
         )
 
-        # 7. Programming / Coding Tests
-        # Electronics (Software: 7) + RES 8 + Focus 4 + Ally Teamwork 4 = 23d6 -> 5 Hits
         e_skill_prog = PoolComponent("Electronics", 5, "skill")
         e_attr_prog = PoolComponent("Resonance", res, "attribute", [
             PoolModifier("attribute:resonance", "focus", "Focus", focus_bonus, is_srm_capped=True)
@@ -575,6 +687,7 @@ class ModifierEngine:
             "buy_gear": buy_gear_opt,
             "programming": programming_opt
         }
+
 
     @classmethod
     def get_sprite_downtime_pools(cls, char_data: Dict[str, Any], sprite_level: int = 7) -> Dict[str, Any]:
@@ -805,3 +918,163 @@ class ModifierEngine:
             "composure": comp_opt,
             "judge_intentions": judge_opt
         }
+
+    @classmethod
+    def get_tactical_action_pools(cls, char_data: Dict[str, Any], scene_mode: str = "baseline") -> Dict[str, PoolOptimization]:
+        """
+        Calculates optimal dice pools and tactical actions for cybered operatives / street samurais
+        (Firearms, Close Combat, Physical Defense, Damage Soak, Initiative, Perception, Stealth, Engineering).
+        Enforces SRMG +4 augmentation caps, Wireless-ON Skillwires Activesoft streaming,
+        and SRMG Adrenaline Pump drug stacking rules.
+        """
+        attrs = char_data.get("attributes", {})
+        bod = int(attrs.get("body", 1))
+        agi = int(attrs.get("agility", 1))
+        rea = int(attrs.get("reaction", 1))
+        str_val = int(attrs.get("strength", 1))
+        wil = int(attrs.get("willpower", 1))
+        log_val = int(attrs.get("logic", 1))
+        int_val = int(attrs.get("intuition", 1))
+
+        is_adrenaline = "adrenaline" in scene_mode.lower() or scene_mode.lower() == "pump_active"
+
+        # Cyberware / Bioware detection & modifiers
+        # Muscle Toner R2 (+2 AGI)
+        agi_mods = [PoolModifier("attribute:agility", "augmentation", "Muscle Toner (Used R2)", 2, is_srm_capped=True)]
+        # Muscle Augmentation R2 (+2 STR)
+        str_mods = [PoolModifier("attribute:strength", "augmentation", "Muscle Augmentation (Used R2)", 2, is_srm_capped=True)]
+        # Synaptic Booster R2 (+2 REA)
+        rea_mods = [PoolModifier("attribute:reaction", "augmentation", "Synaptic Booster (Used R2)", 2, is_srm_capped=True)]
+        # Willpower baseline
+        wil_mods = []
+
+        # SRMG Adrenaline Pump Drug Stacking (+2 AGI, +2 REA, +2 STR, +2 WIL)
+        if is_adrenaline:
+            agi_mods.append(PoolModifier("attribute:agility", "drug", "Adrenaline Pump Drug Surge (Omega R2)", 2, is_srm_capped=True))
+            rea_mods.append(PoolModifier("attribute:reaction", "drug", "Adrenaline Pump Drug Surge (Omega R2)", 2, is_srm_capped=True))
+            str_mods.append(PoolModifier("attribute:strength", "drug", "Adrenaline Pump Drug Surge (Omega R2)", 2, is_srm_capped=True))
+            wil_mods.append(PoolModifier("attribute:willpower", "drug", "Adrenaline Pump Drug Surge (Omega R2)", 2, is_srm_capped=True))
+
+        # 1. Firearms Attack (FN P93 Praetor / Colt Manhunter w/ Smartlink)
+        # Activesoft R6 (Streamed via Wireless-ON Skillwires R6: +1) + Reflex Recorder (Firearms: +1) = 8 skill dice
+        # AGI (4 + Aug 2 = 6) + Smartlink (+2) = 16d6 (4 Hits)
+        # With Adrenaline Pump: AGI (4 + Aug 4 = 8) + Skill 8 + Smartlink 2 = 18d6 (4 Hits)
+        f_skill = PoolComponent("Firearms (Activesoft R6)", 6, "skill", [
+            PoolModifier("skill:firearms", "gear", "Skillwires Wireless ON", 1),
+            PoolModifier("skill:firearms", "augmentation", "Reflex Recorder (Firearms)", 1)
+        ])
+        f_attr = PoolComponent("Agility", agi, "attribute", agi_mods)
+        firearms_opt = PoolOptimization(
+            name="Firearms Attack (Smartlink Active)",
+            components=[f_skill, f_attr],
+            tactical_modifiers=[
+                PoolModifier("test:ranged_combat", "gear", "Smartlink (Wireless ON)", 2)
+            ],
+            notes="Streamed Activesoft R6 (+1 Wires, +1 Reflex Recorder) via Wireless-ON Used Skillwires (Adrenaline Surge: 18d6 -> 4 Hits)" if is_adrenaline else "Streamed Activesoft R6 (+1 Wires, +1 Reflex Recorder) via Wireless-ON Used Skillwires (Baseline: 16d6 -> 4 Hits)"
+        )
+
+        # 2. Close Combat / Unarmed Strike (Bone Density Augmentation R4)
+        # Activesoft R6 (+1 Wireless-ON) + AGI (Augmented: 6) = 13d6 (3 Hits, 3P/4P DV)
+        # With Adrenaline Pump: AGI (Augmented: 8) + Activesoft 7 = 15d6 (3 Hits, 3P/4P DV)
+        cc_skill = PoolComponent("Close Combat (Activesoft R6)", 6, "skill", [
+            PoolModifier("skill:close_combat", "gear", "Skillwires Wireless ON", 1)
+        ])
+        cc_attr = PoolComponent("Agility", agi, "attribute", agi_mods)
+        unarmed_opt = PoolOptimization(
+            name="Close Combat / Unarmed Strike",
+            components=[cc_skill, cc_attr],
+            notes="Bone Density R4 (3P DV) / Monofilament Whip (4P DV). Wireless-ON Skillwires (Adrenaline Surge: 15d6 -> 3 Hits)" if is_adrenaline else "Bone Density R4 (3P DV) / Monofilament Whip (4P DV). Wireless-ON Skillwires (Baseline: 13d6 -> 3 Hits)"
+        )
+
+        # 3. Physical Defense Test (Evasion)
+        # REA (4 + Aug 2 = 6) + INT (4) = 10d6 (2 Hits)
+        # With Adrenaline Pump: REA (4 + Aug 4 = 8) + INT (4) = 12d6 (3 Hits)
+        d_rea = PoolComponent("Reaction", rea, "attribute", rea_mods)
+        d_int = PoolComponent("Intuition", int_val, "attribute")
+        defense_opt = PoolOptimization(
+            name="Physical Defense (Ranged/Melee Evasion)",
+            components=[d_rea, d_int],
+            notes="Synaptic Booster R2 (+2 REA). Resisting ranged & melee attacks (Adrenaline Surge: 12d6 -> 3 Hits)" if is_adrenaline else "Synaptic Booster R2 (+2 REA). Resisting ranged & melee attacks (Baseline: 10d6 -> 2 Hits)"
+        )
+
+        # 4. Damage Resistance / Soak Test
+        # BOD (4 + Bone Density +4 = 8) + Orthoskin (+2) + Dermal Deposits (+1) + Ares Skinshield (+1) + Ballistic Hood (+1) = 13d6 (3 Hits)
+        # Note: Platelet Factories reduces incoming damage; Damage Compensator R3 ignores 3 wound boxes
+        soak_bod = PoolComponent("Body", bod, "attribute", [
+            PoolModifier("attribute:body", "augmentation", "Bone Density Augmentation (Alpha R4)", 4, is_srm_capped=True)
+        ])
+        soak_opt = PoolOptimization(
+            name="Damage Resistance / Soak Test",
+            components=[soak_bod],
+            action_modifiers=[
+                PoolModifier("test:damage_resistance", "augmentation", "Orthoskin (Used R2)", 2),
+                PoolModifier("test:damage_resistance", "quality", "Dermal Deposits", 1),
+                PoolModifier("test:damage_resistance", "armor", "Ares SecureTech Skinshield", 1),
+                PoolModifier("test:damage_resistance", "armor", "Ballistic Hood", 1)
+            ],
+            notes="Bone Density R4 + Orthoskin R2 + Dermal Deposits + Skinshield & Hood. Platelet Factories active. Damage Compensator R3 ignores up to 3 wound boxes."
+        )
+
+        # 5. Physical Initiative
+        # REA (4 + 2 Synaptic Booster = 6) + INT (4) = 10 + 3D6 (Synaptic Booster R2 provides +2D6 Initiative)
+        # With Adrenaline Pump: REA (8) + INT (4) = 12 + 3D6 (Per SRMG, Initiative Dice do not stack and uses highest: 3D6)
+        init_rea = rea + (4 if is_adrenaline else 2)
+        init_val = init_rea + int_val
+        init_opt = PoolOptimization(
+            name="Physical Initiative",
+            components=[d_rea, d_int],
+            notes=f"{init_val} + 3D6 Physical Initiative (Synaptic Booster R2: +2D6 Init Dice; Adrenaline Pump stacks REA but not Init Dice per SRMG)"
+        )
+
+        # 6. Physical Perception Test
+        # Perception Activesoft R6 (+1 Wireless-ON) + INT 4 + Smartlink 1 = 12d6 (3 Hits)
+        p_skill = PoolComponent("Perception (Activesoft R6)", 6, "skill", [
+            PoolModifier("skill:perception", "gear", "Skillwires Wireless ON", 1)
+        ])
+        p_attr = PoolComponent("Intuition", int_val, "attribute")
+        perception_opt = PoolOptimization(
+            name="Perception & Visual Scanning",
+            components=[p_skill, p_attr],
+            tactical_modifiers=[
+                PoolModifier("test:perception", "gear", "Image Link / Smartlink Visuals", 1)
+            ],
+            notes="Streamed Perception Activesoft R6 via Wireless-ON Used Skillwires"
+        )
+
+        # 7. Stealth & Infiltration Test
+        # Stealth Activesoft R6 (+1 Wireless-ON) + AGI (Augmented: 6) = 13d6 (3 Hits)
+        # With Adrenaline Pump: Stealth R6 (+1 Wires) + AGI (Augmented: 8) = 15d6 (3 Hits)
+        st_skill = PoolComponent("Stealth (Activesoft R6)", 6, "skill", [
+            PoolModifier("skill:stealth", "gear", "Skillwires Wireless ON", 1)
+        ])
+        st_attr = PoolComponent("Agility", agi, "attribute", agi_mods)
+        stealth_opt = PoolOptimization(
+            name="Stealth & Infiltration",
+            components=[st_skill, st_attr],
+            notes="Streamed Stealth Activesoft R6 via Wireless-ON Used Skillwires"
+        )
+
+        # 8. Technical Engineering & Cyber Repair Test
+        # Engineering 1 + LOG 7 + Math SPU 1 = 9d6 (2 Hits)
+        eng_skill = PoolComponent("Engineering", 1, "skill")
+        eng_attr = PoolComponent("Logic", log_val, "attribute")
+        engineering_opt = PoolOptimization(
+            name="Engineering & Cybernetic Repair",
+            components=[eng_skill, eng_attr],
+            tactical_modifiers=[
+                PoolModifier("test:engineering", "augmentation", "Math SPU (Used)", 1)
+            ],
+            notes="Hardware maintenance, cyberware tuning & electronics diagnostics"
+        )
+
+        return {
+            "firearms": firearms_opt,
+            "close_combat": unarmed_opt,
+            "defense": defense_opt,
+            "soak": soak_opt,
+            "initiative": init_opt,
+            "perception": perception_opt,
+            "stealth": stealth_opt,
+            "engineering": engineering_opt
+        }
+

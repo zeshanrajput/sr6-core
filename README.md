@@ -12,8 +12,15 @@ The master engine, dataset compiler, and CLI portfolio manager for Shadowrun 6th
   - **Era-Aware Voice Specs (`arc_chronology`)**: Prevents retrospective flattening by scoring against active developmental eras.
   - **Tiered Chapter Architecture (`chapter_tiers`)**: Calibrates thresholds across Tier 1 Keystones (9.0/10), Tier 2 Narrative Evolution (8.5/10), and Tier 3 Atmospheric Bridges (8.0/10).
   - **Audio Narration & TTS Fluency Discipline**: Strict ellipses density budget ($\le 0.6$ per 300 words), dialogue stitching, and elimination of sensory shortcuts.
+- **Antigravity Agent Plugin (`sr6-narrative-suite`) & Native MCP Server**:
+  - Bundles 8 sub-agent evaluation skills, modular `narrative-director` rules, and real-time lifecycle hooks.
+  - Exposes 6 native Agent tools (`sr6_evaluate_draft`, `sr6_parse_combat_ledger`, `sr6_search_rules`, `sr6_query_rag`, `sr6_lint_prose`, `sr6_audit_character`), live URI resources (`sr6://`), and pre-engineered prompt templates over stdio MCP.
+- **Unified 7-Axis Narrative Evaluator (`sr6 evaluate`)**:
+  - Scores chapter prose across all 7 evaluation dimensions with Tier 1 (9.0), Tier 2 (8.5), and Tier 3 (8.0) thresholds and generates a rich Markdown scorecard.
+- **Tabletop Combat Action & Ledger Parser (`sr6 ledger parse`)**:
+  - Automatically extracts fired ammunition (APDS, Gel, Regular, Flechette), physical/stun damage taken, drain/fading suffered, and rewards from chapter prose into explicit `character_master.yaml` patches.
 - **CommLink6 XML Dataset Compiler**: Automatically indexes 7,500+ official XML dataset records (`ref_qualities`, `ref_spells`, `ref_complex_forms`, `ref_gear`, `ref_metatypes`) extracted directly from `CommLink6` JAR releases into SQLite.
-- **CommLink6 GUI Automated Roundtrip Sync**: Scans player save directories (`~/CommLink6/player/myself/shadowrun6/`) and automatically patches character XML save files in place with live campaign Quarto totals (Karma, Nuyen, Reputation), standardized SRM contacts, and full ISO-8601 timestamps.
+- **CommLink6 GUI Automated Roundtrip Sync**: Scans player save directories (`~/CommLink6/player/myself/shadowrun6/`) and automatically patches character XML save files in place with live campaign Quarto totals (Karma, Nuyen, Reputation), standardized SRM contacts, full ISO-8601 timestamps, and terminal visual diffs.
 - **Rules Vault & RAG Subsystem**: Full-text FTS5 search and Gemini AI rules reference assistant enforcing the SRM 4-Level Authority hierarchy with physical book citations (`[Book, Page]`).
 - **Official SRM Contacts Indexing**: Populates official SRM named contacts from SRMG v2.4 Appendix C (`SRMG-0492` & `SRMG-0493`), enforcing fixed SRM Connection ratings and canonical archetypes across character portfolios.
 - **Enriched Cross-Referencing**: Merges CommLink6 stat parameters (Karma, Nuyen, Drain, Fading, ratings) with rules vault narrative descriptions into unified item cards.
@@ -246,9 +253,27 @@ sr6 export velvet --format=cards
 # Lint Quarto chapter prose for style, ellipses density, and AI buzzwords
 sr6 lint C:\GitHub\sr6yuriko\chapters\character_log.qmd
 
+# Unified 7-axis narrative audit with tier-calibrated scoring (Tier 1: 9.0, Tier 2: 8.5, Tier 3: 8.0)
+sr6 evaluate C:\GitHub\sr6yuriko\chapters\character_log.qmd --tier 2 --char yuriko
+
+# Tabletop combat action extraction & YAML state patch generator
+sr6 ledger parse C:\GitHub\sr6yuriko\chapters\character_log.qmd
+
 # Run campaign story continuity audit
 sr6 continuity C:\GitHub\sr6yuriko
 
 # Generate TTS audio narration for chapter
 sr6 narrate C:\GitHub\sr6yuriko\chapters\character_log.qmd
+```
+
+### Antigravity Agent Plugin (`sr6-narrative-suite`)
+```bash
+# Check plugin installation and skills status
+sr6 plugin status
+
+# Install plugin globally to ~/.gemini/config/plugins/
+sr6 plugin install --symlink
+
+# Initialize .agents/plugins.json inheritance in a character repository
+sr6 plugin init-repo C:\GitHub\sr6yuriko
 ```

@@ -1,0 +1,10 @@
+{
+  "name": "sr6-narrative-suite",
+  "version": "1.0.0",
+  "description": "Shadowrun 6e narrative production framework: 7-panel evaluation skills, 6-stage narrative director, rules verification, and state tracking.",
+  "author": {
+    "name": "Zeshan Rajput"
+  },
+  "repository": "https://github.com/zeshanrajput/sr6-core",
+  "license": "MIT"
+}

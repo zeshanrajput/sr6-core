@@ -212,6 +212,28 @@ def main():
     rag_search_parser = rag_sub.add_parser("search", help="Perform FTS rules search with authority ranking")
     rag_search_parser.add_argument("query", type=str, help="Search terms")
 
+    # plugin subcommand
+    plugin_parser = subparsers.add_parser("plugin", help="Manage SR6 Antigravity Agent Plugin")
+    plugin_sub = plugin_parser.add_subparsers(dest="subcommand", help="Plugin action to perform")
+    plugin_sub.add_parser("status", help="Show status of SR6 Antigravity Agent Plugin")
+    p_install = plugin_sub.add_parser("install", help="Install SR6 plugin to ~/.gemini/config/plugins/")
+    p_install.add_argument("--symlink", action="store_true", help="Create symlink/junction instead of directory copy")
+    p_install.add_argument("--force", action="store_true", default=True, help="Overwrite existing installation")
+    p_init = plugin_sub.add_parser("init-repo", help="Configure .agents/plugins.json inheritance in a character repo")
+    p_init.add_argument("path", type=str, help="Path to character repository")
+
+    # evaluate subcommand
+    eval_parser = subparsers.add_parser("evaluate", help="Perform unified 7-axis narrative audit with tier-calibrated scoring")
+    eval_parser.add_argument("target", type=str, help="Path to chapter .qmd file or prose text")
+    eval_parser.add_argument("--tier", type=int, choices=[1, 2, 3], default=2, help="Chapter Tier (1=Keystone 9.0, 2=Narrative Evolution 8.5, 3=Atmospheric Bridge 8.0)")
+    eval_parser.add_argument("--char", type=str, default=None, help="Character ID context (yuriko, velvet, union)")
+
+    # ledger subcommand
+    ledger_parser = subparsers.add_parser("ledger", help="Tabletop automation & combat ledger parsing")
+    ledger_sub = ledger_parser.add_subparsers(dest="subcommand", help="Ledger action")
+    l_parse = ledger_sub.add_parser("parse", help="Extract ammo, damage, and financial deltas from chapter prose")
+    l_parse.add_argument("target", type=str, help="Path to chapter .qmd file or prose text")
+
     args = parser.parse_args()
     cm = CharacterManager()
 
@@ -419,6 +441,34 @@ def main():
                 effort_level=effort_choice
             )
             render_rag_result_rich(res, show_context=True)
+
+    elif args.command == "plugin":
+        from sr6core.plugin import print_plugin_status_rich, install_global_plugin, configure_repo_plugin_inheritance
+        if args.subcommand == "install":
+            ok, msg = install_global_plugin(symlink=args.symlink, force=args.force)
+            if ok:
+                print(f"[OK] {msg}")
+            else:
+                print(f"[Error] {msg}")
+        elif args.subcommand == "init-repo":
+            ok, msg = configure_repo_plugin_inheritance(args.path)
+            if ok:
+                print(f"[OK] {msg}")
+            else:
+                print(f"[Error] {msg}")
+        else:
+            print_plugin_status_rich()
+
+    elif args.command == "evaluate":
+        from sr6core.evaluator import evaluate_chapter_draft, print_scorecard_rich
+        report = evaluate_chapter_draft(args.target, tier=args.tier, char_id=args.char)
+        print_scorecard_rich(report)
+
+    elif args.command == "ledger":
+        from sr6core.ledger_parser import parse_combat_ledger_prose, format_ledger_patch_markdown
+        if args.subcommand == "parse" or not args.subcommand:
+            report = parse_combat_ledger_prose(args.target)
+            print(f"\n{format_ledger_patch_markdown(report)}\n")
 
 
 if __name__ == "__main__":

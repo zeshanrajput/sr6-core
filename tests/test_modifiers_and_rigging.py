@@ -9,7 +9,6 @@ from sr6core.vehicles import parse_vehicle_modifications, calculate_drone_action
 from sr6core.rules_engine import (
     get_drone_statblock_table,
     get_drone_action_table,
-    get_matrix_protocols_summary,
     get_matrix_action_table,
     get_sprite_action_table
 )
@@ -454,6 +453,57 @@ def test_magic_and_social_action_pools_and_tables():
     strategy_table = get_scene_strategy_table("velvet")
     assert "Social & Legwork Mode" in strategy_table
     assert "Combat Mode" in strategy_table
+
+
+def test_tactical_action_pools_and_tables_union():
+    """Verifies that ModifierEngine and rules_engine correctly calculate tactical combat action pools and Monad strategy for Union."""
+    from sr6core.character_manager import CharacterManager
+    from sr6core.modifiers import ModifierEngine
+    from sr6core.rules_engine import get_tactical_action_table, get_monad_strategy_table, get_weapon_attack_table
+
+    cm = CharacterManager()
+    char = cm.get_character_data("union")
+    assert char is not None
+
+    # 1. Baseline Meatspace Mode (Chrome Active, Wireless ON)
+    tactical_base = ModifierEngine.get_tactical_action_pools(char, scene_mode="baseline")
+    assert tactical_base["firearms"].total_pool == 16  # Activesoft 6 + Wires 1 + Reflex Recorder 1 + AGI 6 + Smartlink 2 = 16d6 (4 Hits)
+    assert tactical_base["firearms"].bought_hits == 4
+    assert tactical_base["defense"].total_pool == 10  # REA 6 (Synaptic Booster R2) + INT 4 = 10d6 (2 Hits)
+    assert tactical_base["soak"].total_pool == 13  # BOD 4 + Bone Density 4 + Orthoskin 2 + Dermal 1 + Skinshield 1 + Hood 1 = 13d6 (3 Hits)
+    assert tactical_base["engineering"].total_pool == 9  # Engineering 1 + LOG 7 + Math SPU 1 = 9d6 (2 Hits)
+
+    # 2. Adrenaline Pump Surge Mode (SRMG Drug Stacking Rule)
+    tactical_adren = ModifierEngine.get_tactical_action_pools(char, scene_mode="adrenaline")
+    assert tactical_adren["firearms"].total_pool == 18  # Activesoft 6 + Wires 1 + Reflex 1 + AGI 8 (Cap) + Smartlink 2 = 18d6 (4 Hits)
+    assert tactical_adren["firearms"].bought_hits == 4
+    assert tactical_adren["defense"].total_pool == 12  # REA 8 (Cap) + INT 4 = 12d6 (3 Hits)
+
+    # 3. Tables
+    tactical_table = get_tactical_action_table("union")
+    assert "Firearms Attack" in tactical_table
+    assert "**16d6**" in tactical_table
+    assert "**4 Hits**" in tactical_table
+
+    monad_table = get_monad_strategy_table("union")
+    assert "Meatspace Baseline" in monad_table
+    assert "Adrenaline Pump Surge" in monad_table
+    assert "Matrix Living Persona" in monad_table
+    assert "Cyberware Overdrive" in monad_table
+
+    # 4. Monad Living Persona Matrix Stats
+    asdf = ModifierEngine.get_living_persona_asdf(char)
+    assert asdf["attack"] == 3  # CHA 3 + 0 NV
+    assert asdf["sleaze"] == 6  # INT 4 + 2 NV
+    assert asdf["data_processing"] == 8  # LOG 7 + 1 NV
+    assert asdf["firewall"] == 8  # WIL 5 + 3 NV
+
+    mdef = ModifierEngine.get_full_matrix_defense(char)
+    assert mdef["pool"] == 13  # WIL 5 + FW 8 = 13d6 (3 Hits)
+    assert mdef["effective_hits"] == 3
+
+
+
 
 
 

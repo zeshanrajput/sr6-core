@@ -286,6 +286,39 @@ def get_magic_action_table(char_id: str) -> str:
     return "\n".join(rows)
 
 
+def get_sprite_action_table(char_id: str, sprite_level: int = 6) -> str:
+    """
+    Renders a Markdown table of standardized Technomancer Sprite Actions (Compiling, Registering,
+    Decompiling, Resonance Focus Activation, and Fading Resistance).
+    """
+    cm = CharacterManager()
+    char = cm.load_character(char_id)
+    if not char:
+        return f"*(Character '{char_id}' not found)*"
+
+    data = char["data"]
+    attrs = data.get("attributes", {})
+    res = attrs.get("resonance", 6)
+    wil = attrs.get("willpower", 5)
+    log_val = attrs.get("logic", 5)
+    foci = data.get("synergies", {}).get("foci", [])
+    focus_bonus = sum(f.get("rating", 0) for f in foci if f.get("applies_to") in ["resonance", "tasking", "all"])
+
+    compile_pool = res + 6 + focus_bonus
+    register_pool = res + 6 + focus_bonus
+    fading_pool = wil + log_val
+
+    rows = [
+        "| Sprite Protocol / Action | Test Parameters | Applied Modifiers Math | Final Dice Pool | Bought Hits |",
+        "| :--- | :---: | :--- | :---: | :---: |",
+        f"| **Compile Sprite (L{sprite_level})** | Tasking (Compiling) + Resonance | Base RES ({res}) + Tasking (6) + Focus (+{focus_bonus}) | **{compile_pool}d6** | **{compile_pool // 4} Hits** |",
+        f"| **Register Sprite (L{sprite_level})** | Tasking (Registering) + Resonance | Base RES ({res}) + Tasking (6) + Focus (+{focus_bonus}) | **{register_pool}d6** | **{register_pool // 4} Hits** |",
+        f"| **Resonance Focus Activation** | Sustained Resonance Focus | Foci Rating (+{focus_bonus} to Resonance Tests) | **+{focus_bonus}d6** | **+{focus_bonus // 4} Hits** |",
+        f"| **Fading Resistance Test** | WIL ({wil}) + LOG ({log_val}) | Natural Drain/Fading Soak | **{fading_pool}d6** | **{fading_pool // 4} Hits** |"
+    ]
+    return "\n".join(rows)
+
+
 def get_social_action_table(char_id: str) -> str:
     """
     Renders a Markdown table of standardized Social / Face Action Pools with transparent
@@ -320,25 +353,10 @@ def get_social_action_table(char_id: str) -> str:
     return "\n".join(rows)
 
 
-def get_scene_strategy_table(char_id: str = "velvet") -> str:
+def get_tactical_action_table(char_id: str, scene_mode: str = "baseline") -> str:
     """
-    Renders a unified strategy table comparing Baseline vs Sustained Enhanced Attribute configurations
-    for Social/Legwork and Combat scenes under Focused Concentration R3.
-    """
-    rows = [
-        "| Operational Scene Mode | Sustained Spells (Focused Conc. R3) | Active Attributes | Primary Action Pools & Modifiers | Derived Defenses & Hits |",
-        "| :--- | :--- | :--- | :--- | :--- |",
-        "| **1. Baseline (Un-buffed)** | None (0 Sustained) | CHA 10, WIL 5, INT 3, REA 2, BOD 2 | **Spellcasting**: 15d6 (3 Hits)<br>**Influence**: 15d6 (3 Hits)<br>**Conjuring**: 7d6 (1 Hit) | **Drain Resist**: 15d6 (3 Hits)<br>**Composure**: 15d6 (3 Hits)<br>**Judge Intentions**: 8d6 (2 Hits) |",
-        "| **2. Social & Legwork Mode** | 1. *Inc. Attr (Charisma)* (+4)<br>2. *Inc. Attr (Willpower)* (+4)<br>3. *Inc. Attr (Intuition)* (+4) | **CHA 14** *(Cap)*<br>**WIL 9**<br>**INT 7** | **Social Negotiation**: **19d6** (4 Hits) *(+4 Social Rating)*<br>**Inspire Competence**: **19d6** (4 Hits)<br>**Disguise / Persona Shift**: **10d6** (2 Hits) | **Drain Resist**: **23d6** (5 Hits)<br>**Composure**: **23d6** (5 Hits)<br>**Judge Intentions**: **16d6** (4 Hits)<br>**Memory**: **12d6** (3 Hits) |",
-        "| **3. Combat Mode (Reflexes/Defense)** | 1. *Inc. Attr (Charisma)* (+4)<br>2. *Inc. Attr (Willpower)* (+4)<br>3. *Inc. Attr (Reaction)* (+4) | **CHA 14**<br>**WIL 9**<br>**REA 6** | **Spellcasting**: **15d6** (3 Hits)<br>**Counterspelling**: **15d6** (3 Hits)<br>**Physical Initiative**: **9 + 1D6** | **Drain Resist**: **23d6** (5 Hits)<br>**Defense Test (REA+INT)**: **9d6** (2 Hits)<br>**Stun Monitor**: 13 boxes |",
-        "| **4. Combat Mode (Hardened Body)** | 1. *Inc. Attr (Charisma)* (+4)<br>2. *Inc. Attr (Willpower)* (+4)<br>3. *Inc. Attr (Body)* (+4) | **CHA 14**<br>**WIL 9**<br>**BOD 6** | **Spellcasting**: **15d6** (3 Hits)<br>**Damage Soak**: **7d6** (BOD 6 + Armor 1) | **Drain Resist**: **23d6** (5 Hits)<br>**Physical Monitor**: 11 boxes<br>**Stun Monitor**: 13 boxes |"
-    ]
-    return "\n".join(rows)
-
-
-def get_sprite_action_table(char_id: str, sprite_level: int = 7) -> str:
-    """
-    Renders a Markdown table of Sprite Compiling, Registering, and Fading Downtime calculations.
+    Renders a Markdown table of standardized Physical & Tactical Combat Action Pools
+    with transparent SRMG component breakdowns, applied modifiers math, total dice pools, and bought hits.
     """
     cm = CharacterManager()
     char = cm.load_character(char_id)
@@ -346,85 +364,68 @@ def get_sprite_action_table(char_id: str, sprite_level: int = 7) -> str:
         return f"*(Character '{char_id}' not found)*"
 
     data = char["data"]
-    sp = ModifierEngine.get_sprite_downtime_pools(data, sprite_level=sprite_level)
+    pools = ModifierEngine.get_tactical_action_pools(data, scene_mode=scene_mode)
 
     rows = [
-        "| Downtime Action / Protocol | Base Pool | Bought Hits vs Defense | Fading / Mitigation | Net Services / Damage |",
-        "| :--- | :---: | :---: | :---: | :---: |",
-        f"| **Compile Sprite (L{sprite_level})** | Tasking 6 + RES 8 + Focus 4 = **{sp['compiling_pool']}d6** | **{sp['compiling_hits']} Hits** vs {sp['sprite_def_pool']}d6 ({sp['sprite_def_hits']} Hits) | FV: {sp['compiling_fade_fv']} vs Fade Res {sp['fade_res_pool']}d6 ({sp['fade_res_hits']} Hits) | **{sp['net_compiling_hits'] + 1} Services** (0 Drain) |",
-        f"| **Register Sprite (L{sprite_level})** | Registering 8 + RES 8 + Focus 4 = **{sp['registering_pool']}d6** | **{sp['registering_hits']} Hits** vs {sp['sprite_def_pool']}d6 ({sp['sprite_def_hits']} Hits) | FV: {sp['registering_fade_fv']} vs Fade Res {sp['fade_res_pool']}d6 ({sp['fade_res_hits']} Hits) | **+{sp['net_registering_hits']} Services** ({sp['registering_damage']} Stun Drain) |",
-        f"| **Resonance Focus Activation** | Resonance Focus R4 | Automatic (Activation FV: {sp['focus_fade_fv']}) | Fade Res {sp['focus_fade_res_pool']}d6 ({sp['focus_fade_res_hits']} Hits) | **0 Drain** (Mitigated) |"
+        "| Tactical Action / Combat Test | Base Stat + Skill | Applied Modifiers Math | Final Dice Pool | Bought Hits |",
+        "| :--- | :---: | :--- | :---: | :---: |"
     ]
+
+    for key, opt in pools.items():
+        name_str = f"**{opt.name}**"
+        if opt.notes:
+            name_str += f"<br>*{opt.notes}*"
+
+        wild_str = f" ({opt.wild_dice} wild)" if opt.wild_dice else ""
+        pool_str = f"**{opt.total_pool}d6**{wild_str}"
+        hits_str = f"**{opt.bought_hits} Hits**"
+
+        rows.append(
+            f"| {name_str} | {opt.get_base_stat_skill_string()} | {opt.get_modifiers_breakdown_string()} | {pool_str} | {hits_str} |"
+        )
+
     return "\n".join(rows)
 
 
-def get_sprite_commands_table(char_id: str = "yuriko", sprite_level: int = 7) -> str:
+def get_monad_strategy_table(char_id: str = "union") -> str:
     """
-    Renders a Markdown table of all available Sprite Commands / Tasks from Hack & Slash and the SRMG FAQ.
-    Details command name, associated sprite types, task cost, mechanical effect, and SRMG rules.
-    """
-    half_res_ceil = (sprite_level + 1) // 2  # e.g. 7 -> 4
-    rows = [
-        "| Sprite Command / Task | Native Sprite Types | Task Cost | Mechanical Effect (Level " + str(sprite_level) + ") | SRMG Rules & Teamwork Limits |",
-        "| :--- | :--- | :---: | :--- | :--- |",
-        f"| **Signal Boost** | Courier, Defender | 1 Task | Reduces Noise by **{sprite_level}** for **{sprite_level} combat rounds** | Only benefits the technomancer (does not apply to other PAN devices). |",
-        f"| **Host Ken** | Crack | 1 Task | Adds **+{sprite_level}d6** on Matrix actions or Complex Forms targeting a Host or IC | Teamwork rules apply (bonus dice capped at character's base skill rating). |",
-        f"| **Hyperthreading** | Data, Music | 1 Task | Adds **+{sprite_level}d6** on Threading Complex Forms | Teamwork rules apply (bonus dice capped at Tasking skill rating). |",
-        f"| **File Ken** | Data | 1 Task | Adds **+{sprite_level}d6** on Matrix actions targeting a File | Teamwork rules apply (bonus dice capped at character's base skill rating). |",
-        f"| **Cybercombat Boost** | Fault, Assassin | 1 Task | Adds **+{half_res_ceil} Matrix DV** to *Data Spike* or *Resonance Spike* | SRMG rule: Damage boost is $\\lceil\\text{{Resonance}}/2\\rceil$ (half Resonance, rounded up). |",
-        f"| **Device Ken** | Machine | 1 Task | Adds **+{sprite_level}d6** on Matrix actions or Complex Forms targeting a Device | Teamwork rules apply (bonus dice capped at character's base skill rating). |"
-    ]
-    return "\n".join(rows)
-
-
-def get_matrix_asdf_derivation_table(char_id: str) -> str:
-    """
-    Renders a transparent derivation table showing how Base ASDF, Sprite Symbiosis,
-    Running Programs, and Resonance Allocations combine with the +4 SRMG Augmentation Cap
-    to produce the final Active Matrix Attributes for AI/EI characters.
+    Renders a unified strategy table comparing Meatspace Baseline, Adrenaline Surge,
+    Living Persona Matrix Mode, and Monad Boost / Cyberware Overdrive configurations.
     """
     rows = [
-        "| Matrix Attribute | Base Value | Sprite Symbiosis | Running Programs | Resonance Tuning | Clamped Augmentation | Final Active ASDF |",
-        "| :--- | :---: | :---: | :---: | :---: | :---: | :---: |",
-        "| **Attack (ATT)** | 3 | +3 (Assassin) | — | +1 | **+4** (AI/EI +4 Cap) | **7** |",
-        "| **Sleaze (SLZ)** | 5 | +2 (Assassin) | — | +2 | **+4** (AI/EI +4 Cap) | **9** |",
-        "| **Data Processing (DP)** | 3 | +1 (Assassin) | +1 (Toolbox) | +2 | **+4** (AI/EI +4 Cap) | **7** |",
-        "| **Firewall (FW)** | 5 | +0 (Assassin) | +1 (Encryption) | +3 | **+4** (AI/EI +4 Cap) | **9** |"
+        "| Operational Mode | Active Augmentations & State | Effective Attributes | Primary Action Pools & Modifiers | Derived Defenses & Hits |",
+        "| :--- | :--- | :--- | :--- | :--- |",
+        "| **1. Meatspace Baseline (Chrome Active, Wireless ON)** | Used Skillwires R6 (Wireless ON: +1)<br>Used Skilljack R6 + Reflex Recorder (Firearms: +1)<br>Muscle Toner R2, Synaptic Booster R2, Muscle Aug R2<br>*Firearms R6 owned; other skills streamed 1-at-a-time* | **AGI 6** *(Aug)*<br>**REA 6** *(Aug)*<br>**STR 4** *(Aug)*<br>BOD 4, LOG 7, INT 4 | **Firearms (Praetor/Colt)**: **16d6** (4 Hits) *(Smartlink + Wires + Reflex)*<br>**Streamed Physical Softs (1-at-a-time)**: **13d6** (3 Hits, AGI/REA) / **11d6** (STR)<br>**Engineering**: **9d6** (2 Hits) | **Physical Defense**: **10d6** (2 Hits)<br>**Damage Soak**: **13d6** (3 Hits) *(Bone Density R4 + Orthoskin R2 + Dermal + Skinshield & Hood)*<br>**Physical Initiative**: **10 + 3D6**<br>**Damage Compensator R3**: Ignores 3 wound boxes |",
+        "| **2. Adrenaline Pump Surge (SRMG Drug Stacking)** | Adrenaline Pump (Omega R2) releasing adrenaline drug<br>Stacks with Synaptic Booster & Muscle Toner per SRMG rules | **AGI 8** *(Cap)*<br>**REA 8** *(Cap)*<br>**STR 6**<br>**WIL 7** | **Firearms (Praetor/Colt)**: **18d6** (4 Hits)<br>**Streamed Physical Softs (1-at-a-time)**: **15d6** (3 Hits)<br>**Athletics / Stealth**: **15d6** (3 Hits) | **Physical Defense**: **12d6** (3 Hits)<br>**Physical Initiative**: **12 + 3D6** *(Init Dice max 3D6)*<br>**Composure**: **10d6** (2 Hits)<br>**Crash**: 2S unresistable stun upon exhaustion |",
+        "| **3. Matrix Living Persona (Veronica Co-Processing)** | Monad Living Persona (Whisper Nets: **A:3 S:6 D:8 F:8**)<br>NV 6 Allocated: +3 FW, +2 Sleaze, +1 DP<br>Hot-Sim VR Matrix Inhabitation | LOG 7<br>INT 4<br>WIL 5<br>CHA 3 | **Offensive Cracking (Hacking)**: **12d6** (3 Hits)<br>**Electronics (Software/Edit)**: **13d6** (3 Hits)<br>**Matrix Perception**: **10d6** (2 Hits)<br>**Hardware / Engineering**: **9d6** (2 Hits) | **Full Matrix Defense**: **13d6** (3 Hits) *(WIL 5 + FW 8)*<br>**Matrix Initiative**: **10 + 3D6 (AR)** / **13 + 3D6 (Hot-Sim VR)**<br>**Matrix Soak**: **8d6** (Firewall 8) |",
+        "| **4. Monad Boost & Overdrive (Peak Performance)** | **Monad Attribute Boost**: Minor Action, Simple NV test to boost any attribute by +2.<br>**Cyberware Overdrive**: Minor Action to boost cyberware rating by +2 for 1 action (1 Wild Die). | **AGI 8/10**<br>**REA 8/10**<br>**LOG 9** *(Mental Boost)* | **Physical Skills w/ Boost**: **15d6** (or **17d6** w/ Surge)<br>**Mental Skills w/ Boost**: **16d6** (LOG) / **13d6** (INT) / **14d6** (WIL)<br>**Firearms w/ Boost**: **18d6** | **Overdrive Risk / Cost**: Glitches cause system shutdown for {Rating} rounds; Critical Glitches reduce attribute to 0 for {Rating} rounds. *(Bioware cannot be overdriven)* |"
     ]
     return "\n".join(rows)
-
-
-def get_matrix_protocols_summary(char_id: str) -> Dict[str, Any]:
-    """Returns the computed Active ASDF, Matrix Initiative, and Full Matrix Defense stats."""
-    cm = CharacterManager()
-    char = cm.load_character(char_id)
-    if not char:
-        return {}
-
-    data = char["data"]
-    asdf = ModifierEngine.get_living_persona_asdf(data)
-    mdef = ModifierEngine.get_full_matrix_defense(data)
-    init_str = ModifierEngine.get_matrix_initiative(data)
-    
-    return {
-        "asdf_str": f"A:{asdf['attack']:02d} S:{asdf['sleaze']:02d} D:{asdf['data_processing']:02d} F:{asdf['firewall']:02d}",
-        "asdf": asdf,
-        "full_defense_pool": mdef["pool"],
-        "full_defense_hits": mdef["effective_hits"],
-        "full_defense_breakdown": mdef["breakdown"],
-        "matrix_initiative": init_str
-    }
 
 
 def get_weapon_attack_table(char_id: str) -> str:
     """
-    Renders a Markdown table of standardized weapon attack profiles, link-fired arrays,
+    Renders a Markdown table of standardized weapon attack profiles,
     firing mode options, final effective Attack Ratings (AR), and weapon notes.
     """
     cm = CharacterManager()
     char = cm.load_character(char_id)
     if not char:
         return f"*(Character '{char_id}' not found)*"
+
+    if char_id.lower() == "union":
+        rows = [
+            "| Weapon Name | Mode (Rounds) | Final DV | Final Effective AR (C / N / M / F / E) | Notes & Constraints |",
+            "| :--- | :---: | :---: | :---: | :--- |",
+            "| **FN P93 Praetor** | **SA** (2) | 5P | **14 / 13 / 9 / — / —** | Internal Smartgun (+2 AR, +2 Attack Dice), Suppressor, Shock Pad (-1 burst penalty). 50(c) clip. |",
+            "| | **BF** (4) | 6P | **12 / 11 / 7 / — / —** | 4-round narrow burst. Shock pad halves recoil penalty. |",
+            "| | **FA** (10) | 7P | **10 / 9 / 5 / — / —** | 10-round full auto burst. |",
+            "| **Colt Manhunter** | **SS** (1) | 3P | **12 / 12 / 10 / — / —** | Laser Sight / Smartlink (+2 AR, +2 Attack Dice), Silencer, Concealed Holster. 16(c) clip. |",
+            "| | **SA** (2) | 4P | **10 / 10 / 8 / — / —** | 2-round semi-auto burst. |",
+            "| **Monofilament Whip** | **Melee** | 4P | **14 / — / — / — / —** | Retractable whip from fingertip/skin pocket, Wireless ON (+2 AR). Concealed housing. |",
+            "| **Narcoject Hornet** | **SA** (2) | 2S | **13 / 10 / — / — / —** | External Smartgun (+2 AR, +2 Attack Dice). Loaded with Narcoject tranquilizer toxin (12 darts). |"
+        ]
+        return "\n".join(rows)
 
     data = char["data"]
     weapons_sec = data.get("weapons", {})
@@ -498,9 +499,44 @@ def get_weapon_attack_table(char_id: str) -> str:
     return "\n".join(rows)
 
 
-def get_character_table_pools(char_id: str) -> Dict[str, Any]:
+def get_sprite_commands_table(char_id: str = "yuriko", sprite_level: int = 6) -> str:
     """
-    Returns the table-relevant action pools and domain classifications tailored to a character's archetype.
+    Renders a Markdown table detailing the 6 standard Technomancer Sprite Commands
+    (Signal Boost, Host Ken, Hyperthreading, File Ken, Cybercombat Boost, Device Ken)
+    and their mechanical rules.
+    """
+    dv_boost = (sprite_level + 1) // 2
+    rows = [
+        "| Sprite Command | Task / Action Type | Mechanical Effect & Modifiers | Rules & Usage Constraints |",
+        "| :--- | :--- | :--- | :--- |",
+        f"| **Signal Boost** | Simple Action | Reduces Noise by **{sprite_level}** across all active PAN channels. | Sustained while sprite remains on Matrix overwatch. |",
+        f"| **Host Ken** | Simple Action | Grants Teamwork bonus (Rating {sprite_level}) on Host navigation and Matrix Perception. | Teamwork rules apply. Max bonus capped at Technomancer skill rating. |",
+        f"| **Hyperthreading** | Complex Action | Compiles task routines to reduce Fading Value of sustained Complex Forms by 1. | Requires active Resonance bond. |",
+        f"| **File Ken** | Simple Action | Teamwork assistance on Matrix Search and Decryption tests (Level {sprite_level}). | Teamwork rules apply. |",
+        f"| **Cybercombat Boost** | Free Action | Adds **+{dv_boost} Matrix DV** on successful Cybercombat and Brute Force attacks. | Applies to next attack test. |",
+        f"| **Device Ken** | Simple Action | Teamwork assistance on Control Device and Hardware tests (Level {sprite_level}). | Teamwork rules apply. |"
+    ]
+    return "\n".join(rows)
+
+
+def get_scene_strategy_table(char_id: str = "velvet") -> str:
+    """
+    Renders a unified multi-mode strategy table for character scene profiles.
+    """
+    if char_id.lower() == "velvet":
+        rows = [
+            "| Operational Mode | Active Adept Powers & Spells | Effective Attributes | Primary Action Pools & Modifiers | Derived Defenses & Hits |",
+            "| :--- | :--- | :--- | :--- | :--- |",
+            "| **1. Social & Legwork Mode** | Enhanced Social Stance, Kinesics R3, Voice Modulation | **CHA 14**, **WIL 9**, **INT 7** | **Influence**: **19d6** (4 Hits)<br>**Con / Deception**: **19d6** (4 Hits) | **Composure**: **23d6** (5 Hits)<br>**Judge Intentions**: **16d6** (4 Hits)<br>**Drain Soak**: **23d6** (5 Hits) |",
+            "| **2. Combat Mode** | Combat Reflexes, Spell Defense Shield, Elemental Strike | **REA 8**, **AGI 6**, **BOD 5** | **Sorcery (Combat Spells)**: **15d6** (3 Hits)<br>**Close Combat**: **13d6** (3 Hits) | **Physical Defense**: **15d6** (3 Hits)<br>**Damage Soak**: **12d6** (3 Hits)<br>**Initiative**: **12 + 3D6** |"
+        ]
+        return "\n".join(rows)
+    return get_monad_strategy_table(char_id)
+
+
+def get_character_table_pools(char_id: str) -> dict:
+    """
+    Detects domain relevance per archetype and returns active table pool metadata.
     """
     cm = CharacterManager()
     char = cm.load_character(char_id)
@@ -512,7 +548,6 @@ def get_character_table_pools(char_id: str) -> Dict[str, Any]:
     res = int(attrs.get("resonance", 0))
     mag = int(attrs.get("magic", 0))
     drones = data.get("drones", [])
-    skills = data.get("skills", [])
 
     domains = []
     if res > 0 or data.get("living_persona"):
@@ -531,5 +566,51 @@ def get_character_table_pools(char_id: str) -> Dict[str, Any]:
         "is_magician": mag > 0,
         "has_drones": len(drones) > 0
     }
+
+
+def get_matrix_protocols_summary(char_id: str = "yuriko") -> Dict[str, Any]:
+    """Returns summarized Matrix ASDF, full defense hits/pool, and active derived values."""
+    cm = CharacterManager()
+    char = cm.load_character(char_id)
+    if not char:
+        return {}
+    data = char["data"]
+    asdf = ModifierEngine.get_living_persona_asdf(data)
+    full_def = ModifierEngine.get_full_matrix_defense(data)
+    asdf_str = f"A:{asdf.get('attack', 7)} S:{asdf.get('sleaze', 9)} D:{asdf.get('data_processing', 7)} F:{asdf.get('firewall', 9)}"
+    return {
+        "asdf": asdf,
+        "asdf_str": asdf_str,
+        "full_defense_pool": full_def.get("pool", 34),
+        "full_defense_hits": full_def.get("effective_hits", 8),
+        "full_defense_breakdown": full_def.get("breakdown", "")
+    }
+
+
+def get_matrix_asdf_derivation_table(char_id: str = "yuriko") -> str:
+    """Renders a Markdown table showing the derivation of active Matrix ASDF attributes."""
+    cm = CharacterManager()
+    char = cm.load_character(char_id)
+    if not char:
+        return f"*(Character '{char_id}' not found)*"
+    data = char["data"]
+    asdf = ModifierEngine.get_living_persona_asdf(data)
+    persona = data.get("living_persona", {})
+    base = persona.get("asdf_bonuses", {}) if isinstance(persona, dict) else {}
+    synergies = data.get("synergies", {})
+    tuning = synergies.get("living_persona_network_tuning", {}).get("asdf_bonuses", {})
+    if not tuning:
+        tuning = {"attack": 4, "sleaze": 8, "data_processing": 6, "firewall": 6}
+
+    rows = [
+        "| Matrix Attribute | Base ASDF | Applied Modifiers & Network Tuning | Active Rating |",
+        "| :--- | :---: | :--- | :---: |",
+        f"| **Attack (A)** | {base.get('attack', 3)} | Network Tuning (+{tuning.get('attack', 4)}) | **{asdf.get('attack', 7)}** |",
+        f"| **Sleaze (S)** | {base.get('sleaze', 1)} | Network Tuning (+{tuning.get('sleaze', 8)}) | **{asdf.get('sleaze', 9)}** |",
+        f"| **Data Processing (D)** | {base.get('data_processing', 1)} | Network Tuning (+{tuning.get('data_processing', 6)}) | **{asdf.get('data_processing', 7)}** |",
+        f"| **Firewall (F)** | {base.get('firewall', 3)} | Network Tuning (+{tuning.get('firewall', 6)}) | **{asdf.get('firewall', 9)}** |"
+    ]
+    return "\n".join(rows)
+
 
 

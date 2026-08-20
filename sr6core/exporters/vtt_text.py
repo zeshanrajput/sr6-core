@@ -80,6 +80,7 @@ def export_base_sheet(char_data: Dict[str, Any], char_repo_path: Optional[str] =
     metatype = identity.get("metatype", "Human") if isinstance(identity, dict) else "Human"
     stream = identity.get("stream", "") if isinstance(identity, dict) else ""
     tradition = identity.get("tradition", identity.get("mortype", "")) if isinstance(identity, dict) else ""
+    mortype = str(identity.get("mortype", "")).lower() if isinstance(identity, dict) else ""
     gender = identity.get("gender", "N/A") if isinstance(identity, dict) else "N/A"
     age = identity.get("age", "N/A") if isinstance(identity, dict) else "N/A"
 
@@ -98,9 +99,9 @@ def export_base_sheet(char_data: Dict[str, Any], char_repo_path: Optional[str] =
 
     submersion = totals.get("Submersion_Grade", 0)
     initiation = totals.get("Initiation_Grade", 0)
-    nuyen = totals.get("Nuyen", 5000)
-    karma_avail = totals.get("Karma", 0)
-    karma_life = totals.get("Lifetime_Karma", karma_avail)
+    nuyen = totals.get("Nuyen", identity.get("nuyen", 4745))
+    karma_avail = totals.get("Karma", identity.get("karma", 0))
+    karma_life = totals.get("Lifetime_Karma", identity.get("total_karma", karma_avail))
 
     composure = wil + cha
     judge_intentions = int_val + wil
@@ -138,6 +139,44 @@ def export_base_sheet(char_data: Dict[str, Any], char_repo_path: Optional[str] =
         lines.append(f"  Condition Monitors  : Physical [{phys_boxes} boxes] | Stun [{stun_boxes} boxes]")
         lines.append("-" * MAX_LINE_WIDTH)
         lines.append(" LIVING PERSONA / MATRIX STATS:")
+        lines.append(f"  ASDF Ratings        : A:{att_str} | S:{slz_rea} | D:{dp_agi} | F:{fw_bod}")
+        
+        mdef_line = f"  Full Matrix Defense : {mdef['pool']}d6 ({mdef['effective_hits']} Hits)"
+        if len(mdef_line) + len(mdef['breakdown']) + 3 <= MAX_LINE_WIDTH:
+            lines.append(f"{mdef_line} [{mdef['breakdown']}]")
+        else:
+            lines.append(mdef_line)
+            lines.extend(_wrap(f"[{mdef['breakdown']}]", initial_indent="    ", subsequent_indent="    "))
+            
+        lines.append(f"  Matrix Initiative   : {matrix_init}")
+    elif "monad" in mortype.lower() or "monad" in tradition.lower() or "monad" in str(identity.get("heritage", "")).lower():
+        nv = int(identity.get("nanite_volume", 6))
+        lines.append(f" Real Name : {real_name:<18} | Metatype : {metatype} (Monad)")
+        lines.append(f" Status    : Monad Dual Identity  | Nanite Volume: NV {nv} (Age: {age})")
+        lines.append(f" Available Nuyen : {nuyen:,}¥ | Karma: {karma_avail} Pool ({karma_life} Lifetime)")
+        lines.append("-" * MAX_LINE_WIDTH)
+
+        asdf = ModifierEngine.get_living_persona_asdf(char_data)
+        mdef = ModifierEngine.get_full_matrix_defense(char_data)
+        matrix_init = ModifierEngine.get_matrix_initiative(char_data)
+
+        att_str = asdf.get("attack", 3)
+        slz_rea = asdf.get("sleaze", 6)
+        dp_agi = asdf.get("data_processing", 8)
+        fw_bod = asdf.get("firewall", 8)
+
+        # Monad Toughness adds NV/2 (3) to Condition Monitors
+        phys_boxes = 8 + ((bod + 1) // 2) + (nv // 2)
+        stun_boxes = 8 + ((wil + 1) // 2) + (nv // 2)
+
+        lines.append(" ATTRIBUTES & DERIVED RATINGS:")
+        lines.append(f"  BOD: {bod:<2}       | AGI: {agi:<2}       | REA: {rea:<2}      | STR: {str_val:<2}")
+        lines.append(f"  WIL: {wil:<2}       | LOG: {log_val:<2}       | INT: {int_val:<2}      | CHA: {cha:<2}")
+        lines.append(f"  EDG: {edg:<2}       | RES: {res:<2}       | MAG: {mag:<2}      | ESS: {ess:<3.1f}")
+        lines.append(f"  Derived Pools       : Composure [{composure}] | Judge Int [{judge_intentions}] | Memory [{memory}]")
+        lines.append(f"  Condition Monitors  : Physical [{phys_boxes} boxes] | Stun [{stun_boxes} boxes] (Monad Toughness)")
+        lines.append("-" * MAX_LINE_WIDTH)
+        lines.append(" MONAD LIVING PERSONA MATRIX STATS (Whisper Nets p. 149):")
         lines.append(f"  ASDF Ratings        : A:{att_str} | S:{slz_rea} | D:{dp_agi} | F:{fw_bod}")
         
         mdef_line = f"  Full Matrix Defense : {mdef['pool']}d6 ({mdef['effective_hits']} Hits)"
@@ -312,6 +351,8 @@ def export_inventory_sheet(char_data: Dict[str, Any]) -> str:
     
     matrix_devices = char_data.get("matrix_devices", {})
     commlinks = matrix_devices.get("commlinks", []) if isinstance(matrix_devices, dict) else []
+    if not commlinks:
+        commlinks = _safe_item_list(char_data.get("commlinks", []))
     hosts = matrix_devices.get("hosts", []) if isinstance(matrix_devices, dict) else []
     programs = _safe_item_list(char_data.get("programs", []))
     autosofts = _safe_item_list(char_data.get("autosofts", []))
@@ -319,6 +360,8 @@ def export_inventory_sheet(char_data: Dict[str, Any]) -> str:
     sins = _safe_item_list(char_data.get("sins", []))
     licenses = _safe_item_list(char_data.get("licenses", []))
     lifestyles = _safe_item_list(char_data.get("lifestyles", []))
+    raw_activesofts = char_data.get("activesofts", [])
+    activesofts = _safe_item_list(raw_activesofts)
 
     lines = []
     lines.append("=" * MAX_LINE_WIDTH)
@@ -346,7 +389,19 @@ def export_inventory_sheet(char_data: Dict[str, Any]) -> str:
     lines.append("-" * MAX_LINE_WIDTH)
     lines.append(" SOFTWARE & PROGRAMS:")
 
-    # 1. Classify Programs (Basic, Hacking, Rigging)
+    # 1. Skillwires Activesofts (Rating 6)
+    if activesofts:
+        act_names = []
+        for a in activesofts:
+            if isinstance(a, dict):
+                n = a.get("name", "Activesoft")
+                r = a.get("rating", 6)
+                act_names.append(f"{n} R{r}" if f"R{r}" not in n else n)
+            else:
+                act_names.append(str(a))
+        lines.extend(_wrap(f"  Activesofts: {', '.join(act_names)}", subsequent_indent="               "))
+
+    # 2. Classify Programs (Basic, Hacking, Rigging)
     BASIC_SET = {"baby monitor", "browse", "configurator", "edit", "emulator", "encryption", "search", "signal scrubber", "toolbox", "virtual machine"}
     HACKING_SET = {"armor", "biofeedback", "biofeedback shield", "bootstrap", "cat's paw", "crash", "decryption", "defense pods", "defensive pods", "demolition", "directional shield", "directional shields", "exploit", "fork", "hitchhiker", "lockdown", "nexus protocol", "overclock", "paint", "swerve", "tar baby", "trace"}
     RIGGER_SET = {"smartsoft", "swarm", "encryption (rigger)"}
@@ -369,13 +424,6 @@ def export_inventory_sheet(char_data: Dict[str, Any]) -> str:
         else:
             basic_progs.append(p_name)
 
-    if not basic_progs and not programs:
-        basic_progs = ["Baby Monitor", "Browse", "Edit", "Emulator", "Encryption", "Signal Scrubber", "Toolbox", "Virtual Machine"]
-    if not hacking_progs and not programs:
-        hacking_progs = ["Decryption", "Defense Pods", "Directional Shields", "Fork", "Hitchhiker", "Nexus Protocol", "Overclock", "Trace"]
-    if not rigger_progs and not programs:
-        rigger_progs = ["Smartsoft", "Swarm", "Encryption (Rigger)"]
-
     if basic_progs:
         lines.extend(_wrap(f"  Basic   : {', '.join(basic_progs)}", subsequent_indent="            "))
     if hacking_progs:
@@ -383,23 +431,20 @@ def export_inventory_sheet(char_data: Dict[str, Any]) -> str:
     if rigger_progs:
         lines.extend(_wrap(f"  Rigging : {', '.join(rigger_progs)}", subsequent_indent="            "))
 
-    # 2. Clean Autosofts (Strip redundant 'Autosoft' suffix)
-    def clean_auto_name(a: Any) -> str:
-        raw_n = _get_name(a)
-        clean = re.sub(r"\s+autosoft\b", "", raw_n, flags=re.IGNORECASE).strip()
-        rtg = a.get("rating") if isinstance(a, dict) else None
-        if rtg and not re.search(r"\bR\d+\b", clean):
-            clean = f"{clean} R{rtg}"
-        return clean
-
+    # 3. Clean Autosofts (Strip redundant 'Autosoft' suffix)
     if autosofts:
-        auto_names = [clean_auto_name(a) for a in autosofts]
-    else:
-        auto_names = ["Biotech R9", "Clearsight R9", "Close Combat R9", "Engineering R9", "Evasion R9", "Maneuvering R9", "Navigation R9", "Performance R9", "Stealth R9", "Targeting R9", "Tracking R9"]
-    
-    lines.extend(_wrap(f"  Autosoft: {', '.join(auto_names)}", subsequent_indent="            "))
+        def clean_auto_name(a: Any) -> str:
+            raw_n = _get_name(a)
+            clean = re.sub(r"\s+autosoft\b", "", raw_n, flags=re.IGNORECASE).strip()
+            rtg = a.get("rating") if isinstance(a, dict) else None
+            if rtg and not re.search(r"\bR\d+\b", clean):
+                clean = f"{clean} R{rtg}"
+            return clean
 
-    # 3. Commlink Programs & Apps
+        auto_names = [clean_auto_name(a) for a in autosofts]
+        lines.extend(_wrap(f"  Autosoft: {', '.join(auto_names)}", subsequent_indent="            "))
+
+    # 4. Commlink Programs & Apps
     APP_KEYWORDS = ["facial scanner", "p-ice spines", "personal assistant", "social hud", "thermal mood", "vocal tension", "lie detector", "map software", "fitness tracker", "app"]
     commlink_apps = []
     physical_gear = []
@@ -418,25 +463,21 @@ def export_inventory_sheet(char_data: Dict[str, Any]) -> str:
         if a_n not in commlink_apps:
             commlink_apps.append(a_n)
 
-    if not commlink_apps and not gear:
-        commlink_apps = ["Facial Scanner", "P-ICE Spines", "Personal Assistant R6", "Social HUD R6", "Thermal Mood", "Vocal Tension"]
-
     if commlink_apps:
         lines.extend(_wrap(f"  Commlink: {', '.join(commlink_apps)}", subsequent_indent="            "))
 
+    if not activesofts and not basic_progs and not hacking_progs and not autosofts and not commlink_apps:
+        lines.append("  No specialized matrix programs or autosofts installed.")
+
     lines.append("-" * MAX_LINE_WIDTH)
     lines.append(" FIELD GEAR, MUNITIONS & AMMUNITION:")
-    if not physical_gear and not gear:
-        lines.append("  - 50 Explosive Rounds (Ares Predator VI)")
-        lines.append("  - 50 Krime Self Defense Rounds (Ares Predator VI)")
-        lines.append("  - 5x Peak-Discharge Laser Battery Clips (Red Fox)")
-        lines.append("  - 10x Glitter Grenades")
-        lines.append("  - Built-in Utility Kit & Medkit (Butler & Man-at-Arms)")
-    else:
+    if physical_gear:
         for g in physical_gear:
             g_name = _get_name(g, "Item")
             qty = g.get("qty", g.get("quantity", 1)) if isinstance(g, dict) else 1
             lines.extend(_wrap(f"  - [Qty: {qty}] {g_name}", subsequent_indent="    "))
+    else:
+        lines.append("  Standard runner kit and survival provisions.")
 
     lines.append("-" * MAX_LINE_WIDTH)
     lines.append(" SINS, LICENSES & LIFESTYLES:")
@@ -455,68 +496,121 @@ def export_inventory_sheet(char_data: Dict[str, Any]) -> str:
 
 
 def export_vehicles_sheet(char_data: Dict[str, Any]) -> str:
-    """Generates the Vehicles & Drones Sheet strictly within 76 columns."""
+    """Generates the Vehicles & Inhabited Drones Sheet strictly within 76-character line bounds."""
     identity = char_data.get("identity", {})
-    drones = _safe_item_list(char_data.get("drones"))
-    vehicles = _safe_item_list(char_data.get("vehicles"))
     handle = identity.get("handle", "Unknown").upper() if isinstance(identity, dict) else "UNKNOWN"
+    
+    raw_drones = char_data.get("drones", [])
+    raw_vehicles = char_data.get("vehicles", [])
+    
+    drones = _safe_item_list(raw_drones)
+    vehicles = _safe_item_list(raw_vehicles)
+
     lines = []
     lines.append("=" * MAX_LINE_WIDTH)
-    lines.append(f" VEHICLES & DRONES: {handle}")
+    lines.append(f" VEHICLES, DRONES & RIGGING DEPLOYMENTS: {handle}")
     lines.append("=" * MAX_LINE_WIDTH)
-    lines.extend(_wrap(" Abbreviations: HAN (Handling), ACC (Acceleration), SPD (Speed), BOD (Body), ARM (Armor), PLT (Pilot), SEN (Sensor)", initial_indent=" ", subsequent_indent=" "))
-    lines.append("-" * MAX_LINE_WIDTH)
-    all_units = drones + vehicles
-    if not all_units:
-        lines.append("  No registered vehicles or drones.")
-    else:
-        for u in all_units:
-            if isinstance(u, dict):
-                profile = parse_vehicle_modifications(u, char_data=char_data)
-                mods = u.get("modifications", [])
-                pools = calculate_drone_action_pools(char_data, u, mode="inhabited_override")
 
-                lines.append(f"  * {profile['name'].upper()}")
-                
-                stat_p1 = f"HAN: {profile['handling_str']} | ACC: {profile['accel_str']} | SPD: {profile['speed_str']}"
-                stat_p2 = f"BOD: {profile['augmented_body']} (Inhabited: {profile['inhabited_body']}) | ARM: {profile['augmented_armor']} | PLT: {profile['pilot_str']} | SEN: {profile['augmented_sensor']}"
-                if len(stat_p1) + len(stat_p2) + 7 <= MAX_LINE_WIDTH:
-                    lines.append(f"    {stat_p1} | {stat_p2}")
-                else:
-                    lines.append(f"    {stat_p1}")
-                    lines.append(f"    {stat_p2}")
+    if not drones and not vehicles:
+        lines.append(" No vehicles or drones listed in dossier.")
+        lines.append("=" * MAX_LINE_WIDTH)
+        return "\n".join(lines)
 
-                if mods:
-                    lines.extend(_wrap(f"Installed Modifications: {', '.join(str(m) for m in mods)}", initial_indent="    ", subsequent_indent="    "))
-                
-                lines.append("    Tactical Action Pools (Inhabited / Override):")
-                pool_p1 = f"Piloting: {pools['piloting']['pool']}d6 | Gunnery: {pools['gunnery']['pool']}d6 | Evasion: {pools['evasion']['pool']}d6"
-                pool_p2 = f"Perception: {pools['perception']['pool']}d6 | Stealth: {pools['stealth']['pool']}d6"
-                lines.append(f"      {pool_p1}")
-                lines.append(f"      {pool_p2}")
-            else:
-                lines.append(f"  * {str(u).upper()}")
-            lines.append("-" * MAX_LINE_WIDTH)
+    for item in vehicles + drones:
+        if not isinstance(item, dict):
+            continue
+        v_name = item.get("name", "Vehicle / Drone").upper()
+        v_role = item.get("role", "")
+        v_header = f" * {v_name}" + (f" ({v_role})" if v_role else "")
+        lines.append(v_header)
+
+        # Standardized SR6 Abbreviations
+        # HAN (Handling on/off), ACC (Accel on/off), TS (Top Speed), INT (Interval), BOD (Body), ARM (Armor), PIL (Pilot), SEN (Sensor), STS (Seats)
+        han_on = item.get("handling_on", item.get("handling", 3))
+        han_off = item.get("handling_off", han_on)
+        acc_on = item.get("accel_on", item.get("accel", 10))
+        acc_off = item.get("accel_off", acc_on)
+        spd = item.get("speed", item.get("top_speed", 120))
+        interval = item.get("interval", 15)
+        bod = item.get("body", 1)
+        arm = item.get("armor", 0)
+        pil = item.get("pilot", 1)
+        sen = item.get("sensor", 1)
+        seats = item.get("seats", "-")
+
+        stat_line = f"   HAN:{han_on}/{han_off} | ACC:{acc_on}/{acc_off} | SPD:{spd} (INT {interval}) | BOD:{bod} | ARM:{arm} | PIL:{pil} | SEN:{sen} | STS:{seats}"
+        lines.append(stat_line)
+
+        # Installed Modifications
+        raw_mods = item.get("modifications", [])
+        if raw_mods:
+            mod_names = [str(m.get("name", m)) if isinstance(m, dict) else str(m) for m in raw_mods]
+            lines.extend(_wrap(f"   Mods: {', '.join(mod_names)}", initial_indent="", subsequent_indent="         "))
+
+        # Inhabited Action Pools
+        pools = calculate_drone_action_pools(char_data, item)
+        if pools:
+            pool_parts = []
+            for p_name in ["piloting", "gunnery", "evasion", "perception", "stealth"]:
+                p_data = pools.get(p_name)
+                if isinstance(p_data, dict):
+                    p_short = p_name.replace("_", " ").title()
+                    p_pool = p_data.get("pool", 0)
+                    p_hits = p_pool // 4
+                    pool_parts.append(f"{p_short} {p_pool}d6 ({p_hits}H)")
+            if pool_parts:
+                lines.extend(_wrap(f"   Rigged Action Pools: {' | '.join(pool_parts)}", initial_indent="", subsequent_indent="                        "))
+
+        lines.append("-" * MAX_LINE_WIDTH)
+
+    lines.append("=" * MAX_LINE_WIDTH)
     return "\n".join(lines)
 
 
 def export_powers_sheet(char_data: Dict[str, Any]) -> str:
-    """Generates the Complex Forms, Spells & Submersion Echoes Sheet strictly within 76 columns."""
+    """Generates the Powers, Spells, Complex Forms & Cyberware Sheet."""
     identity = char_data.get("identity", {})
-    spells = _safe_item_list(char_data.get("spells"))
-    cforms = _safe_item_list(char_data.get("complex_forms"))
-    echoes = _safe_item_list(char_data.get("meta_echoes"))
-    adept = _safe_item_list(char_data.get("adept_powers"))
     handle = identity.get("handle", "Unknown").upper() if isinstance(identity, dict) else "UNKNOWN"
+    mortype = str(identity.get("mortype", "")).lower()
+
+    cforms = _safe_item_list(char_data.get("complex_forms", []))
+    echoes = _safe_item_list(char_data.get("submersion_echoes", char_data.get("metamagics", [])))
+    spells = _safe_item_list(char_data.get("spells", []))
+    adept = _safe_item_list(char_data.get("powers", char_data.get("adept_powers", [])))
+    monad_abilities = _safe_item_list(char_data.get("monad_abilities", []))
+
     lines = []
     lines.append("=" * MAX_LINE_WIDTH)
-    lines.append(f" POWERS, COMPLEX FORMS & SUBMERSION ECHOES: {handle}")
+    lines.append(f" POWERS, COMPLEX FORMS, ABILITIES & CYBERWARE: {handle}")
     lines.append("=" * MAX_LINE_WIDTH)
-    lines.extend(_wrap(" Abbreviations: FV (Fading Value), Dur (Duration: P=Permanent, S=Sustained, I=Instant)", initial_indent=" ", subsequent_indent=" "))
-    lines.append("-" * MAX_LINE_WIDTH)
-    
+
+    if monad_abilities or "monad" in mortype:
+        nv = identity.get("nanite_volume", 6)
+        lines.append(f" MONAD ABILITIES & NANITE SWARM TRAITS (NV {nv}):")
+        if monad_abilities:
+            for ma in monad_abilities:
+                if isinstance(ma, dict):
+                    name = ma.get("name", "Ability")
+                    effect = ma.get("effect", ma.get("notes", ""))
+                    lines.append(f"  * {name}")
+                    if effect:
+                        lines.extend(_wrap(effect, initial_indent="    ", subsequent_indent="    "))
+                else:
+                    lines.append(f"  * {str(ma)}")
+        else:
+            lines.append("  * Monad Toughness (+3 Condition boxes, shifts wound penalties down by 1)")
+            lines.append("  * Physical Attribute Boost (Minor Action; Simple NV test to boost BOD/AGI/REA/STR)")
+            lines.append("  * Mental Attribute Boost (Minor Action; Simple NV test to boost WIL/LOG/INT/CHA)")
+            lines.append("  * Monad Matrix Attributes (NV 6 allocated to Living Persona ASDF)")
+            lines.append("  * Rapid Healing (Cellular nanite damage repair)")
+            lines.append("  * Tech Infestation (Physical nanite electronics & hardware override)")
+            lines.append("  * Adrenal Control (WIL + NV test to remain conscious)")
+            lines.append("  * Resculpt (INT + Con test, 1 combat round appearance alteration)")
+        lines.append("-" * MAX_LINE_WIDTH)
+
     if cforms:
-        lines.append(" COMPLEX FORMS (TECHNOMANCER):")
+        lines.append(" COMPLEX FORMS:")
+        lines.extend(_wrap("  Abbreviations: FV (Fading Value), Dur (Duration: P=Perm, S=Sust, I=Inst)", subsequent_indent="  "))
         for cf in cforms:
             if isinstance(cf, dict):
                 name = cf.get("name", cf.get("ref", "Complex Form"))
@@ -559,6 +653,22 @@ def export_powers_sheet(char_data: Dict[str, Any]) -> str:
                 lines.append(f"  - {str(ap)}")
         lines.append("-" * MAX_LINE_WIDTH)
 
+    # Augmentations (Cyberware & Bioware)
+    augmentations = _safe_item_list(char_data.get("cyberware")) + _safe_item_list(char_data.get("bioware")) + _safe_item_list(char_data.get("augmentations"))
+    if augmentations:
+        lines.append(" CYBERWARE & BIOWARE AUGMENTATIONS:")
+        for aug in augmentations:
+            if isinstance(aug, dict):
+                name = aug.get("name", aug.get("ref", "Augmentation"))
+                rating = aug.get("rating", "")
+                grade = aug.get("grade", "")
+                r_str = f" R{rating}" if rating else ""
+                g_str = f" [{grade.title()} Grade]" if grade else ""
+                lines.append(f"  - {name + r_str:<30} {g_str}")
+            else:
+                lines.append(f"  - {str(aug)}")
+        lines.append("-" * MAX_LINE_WIDTH)
+
     return "\n".join(lines)
 
 
@@ -577,4 +687,3 @@ def export_modular_text_sheets(char_data: Dict[str, Any], char_id: str, char_rep
         f"{char_id}_vehicles.txt": export_vehicles_sheet(char_data),
         f"{char_id}_powers.txt": export_powers_sheet(char_data),
     }
-

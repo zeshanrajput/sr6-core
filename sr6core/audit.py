@@ -49,7 +49,7 @@ Your task is to audit character voice, POV fidelity, tactile cybernetics, and pr
 ### Audit Criteria:
 1. **Pronoun Discipline**: Exact adherence to context-dependent pronouns.
 2. **Tactile Co-Consciousness**: No generic CS diagnostic jargon ("CPU load 99%"). Co-existence represented as overlapping neural and sensory reality.
-3. **Sensory Reality**: Visceral, physical grounding (salt spray, pluff mud, deltagrade motor hum).
+3. **Sensory Reality**: Visceral, physical grounding (salt spray, pluff mud, neural cyberware hum).
 4. **Zero Radio Chatter**: No cheesy italicized telepathic walkie-talkie chatter between bonded entities.
 
 ### Output Format:

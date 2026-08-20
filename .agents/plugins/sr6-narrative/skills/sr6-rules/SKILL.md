@@ -36,9 +36,13 @@ python C:\github\sr6rag\query_rules.py "<YOUR_RULES_QUESTION>"
 ## Sub-Agent Audit Workflow & Rules Verification
 
 When auditing narrative drafts for SR6 rules accuracy:
-1. **Identify Mechanics in Prose**: Check Edge gains/expenditures, Matrix actions (Format Device, Spoof Command, Hack Into Host), spell drain, recoil, defense tests, and vehicle/drone rigging tests.
-2. **RAG Lookup**: Run `query_rules.py` for any ambiguous or high-stakes mechanical interaction.
-3. **Verification**: Confirm that prose actions follow valid SR6 rules constraints (e.g., Major vs Minor actions, Edge action costs, spell drain minimums).
+1. **Separation of Concerns (Rules Legality vs State Persistence)**:
+   - **`sr6-rules` Scope**: Audits **rules legality and mechanical validity** (e.g. Is casting Cosmetic Control R2 an Adept Power or Sustained Spell? Does background count apply correctly? Are Edge actions rules-legal in SR6?).
+   - **`continuity-tracker` Scope**: Audits **state persistence** (e.g. Has the nuyen or ammo balance been updated in `*_master.yaml`?).
+2. **Identify Mechanics in Prose**: Check Edge gains/expenditures, Matrix actions (Format Device, Spoof Command, Hack Into Host), spell drain, recoil, defense tests, and vehicle/drone rigging tests.
+3. **RAG Lookup**: Run `query_rules.py` for any ambiguous or high-stakes mechanical interaction.
+4. **Verification**: Confirm that prose actions follow valid SR6 rules constraints (e.g., Major vs Minor actions, Edge action costs, spell drain minimums).
+
 
 ---
 

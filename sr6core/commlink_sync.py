@@ -1,6 +1,7 @@
 """
 CommLink6 Player Save Scanner & Automated Roundtrip Sync Engine for SR6 Core.
 Scans CommLink6 player character folders and enables two-way automated syncing between CommLink6 GUI and sr6-core.
+Includes visual diff reporting of updated ledger values, contacts, and session rewards.
 """
 
 import os
@@ -60,7 +61,27 @@ def scan_commlink_player_saves(player_dir: Optional[str] = None) -> Dict[str, Di
     return saves
 
 
-def push_to_commlink(char_id: str, player_dir: Optional[str] = None) -> Tuple[bool, str]:
+def extract_commlink_stats(xml_path: str) -> Dict[str, Any]:
+    """Extracts key balance and ledger stats from a CommLink6 XML save file."""
+    if not os.path.exists(xml_path):
+        return {}
+    try:
+        tree = ET.parse(xml_path)
+        root = tree.getroot()
+        contacts_el = root.find("contacts")
+        rewards_el = root.find("rewards")
+        return {
+            "karma_free": root.get("karmaF", "0"),
+            "karma_invested": root.get("karmaI", "0"),
+            "nuyen": root.get("nuyen", "0"),
+            "contacts_count": len(contacts_el.findall("contact")) if contacts_el is not None else 0,
+            "rewards_count": len(rewards_el.findall("reward")) if rewards_el is not None else 0,
+        }
+    except Exception:
+        return {}
+
+
+def push_to_commlink(char_id: str, player_dir: Optional[str] = None, show_diff: bool = True) -> Tuple[bool, str]:
     """
     Export character sheet from sr6-core and overwrite the character save XML directly
     in CommLink6's player save directory, including session logs and contacts.
@@ -81,6 +102,9 @@ def push_to_commlink(char_id: str, player_dir: Optional[str] = None) -> Tuple[bo
 
     repo_path = char.get("config", {}).get("repo_path") or os.path.dirname(char.get("path", ""))
 
+    # Capture stats before patch
+    before_stats = extract_commlink_stats(xml_path)
+
     success = patch_genesis_xml(
         input_xml_path=xml_path,
         char_data=char["data"],
@@ -89,9 +113,35 @@ def push_to_commlink(char_id: str, player_dir: Optional[str] = None) -> Tuple[bo
     )
 
     if success:
+        after_stats = extract_commlink_stats(xml_path)
+        if show_diff:
+            print_commlink_sync_diff(char_id, before_stats, after_stats)
         return True, f"Successfully patched CommLink6 save at '{xml_path}'."
     else:
         return False, f"Failed to patch CommLink6 save at '{xml_path}'."
+
+
+def print_commlink_sync_diff(char_id: str, before: Dict[str, Any], after: Dict[str, Any]):
+    """Renders a styled Rich table showing before/after sync changes."""
+    try:
+        from rich.console import Console
+        from rich.table import Table
+        console = Console()
+
+        table = Table(title=f"🔄 CommLink6 GUI Save Sync: {char_id.upper()}", show_header=True)
+        table.add_column("Field / Parameter", style="bold cyan")
+        table.add_column("Previous XML Value", style="dim")
+        table.add_column("Updated Campaign Value", style="bold green")
+
+        table.add_row("Available Karma (karmaF)", str(before.get("karma_free", "N/A")), str(after.get("karma_free", "N/A")))
+        table.add_row("Spent Karma (karmaI)", str(before.get("karma_invested", "N/A")), str(after.get("karma_invested", "N/A")))
+        table.add_row("Nuyen Balance (nuyen)", f"¥{int(before.get('nuyen', 0)):,}" if str(before.get("nuyen")).isdigit() else str(before.get("nuyen")), f"¥{int(after.get('nuyen', 0)):,}" if str(after.get("nuyen")).isdigit() else str(after.get("nuyen")))
+        table.add_row("Contacts Tracked", str(before.get("contacts_count", 0)), str(after.get("contacts_count", 0)))
+        table.add_row("Mission Reward Logs", str(before.get("rewards_count", 0)), str(after.get("rewards_count", 0)))
+
+        console.print(table)
+    except ImportError:
+        pass
 
 
 def sync_all_commlink_saves(player_dir: Optional[str] = None) -> List[Tuple[str, bool, str]]:
