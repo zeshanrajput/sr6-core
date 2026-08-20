@@ -155,7 +155,7 @@ def contact(
             eff_region = region if region else "GEN"
             eff_desc = notes
 
-        eff_loyalty = loyalty if loyalty is not None else 1
+        eff_loyalty = loyalty if loyalty is not None else (1 if fp == 0 else 0)
         c_info = {
             "name": name_clean,
             "canonical_name": name_clean,
@@ -223,7 +223,7 @@ def add_rep(faction: str, points: int) -> Dict[str, int]:
     return rep
 
 
-def add_sprite(name: str, rating: int = 7, sprite_type: str = "Registered", autosofts: str = "", is_ally: bool = False, level: Optional[int] = None, type_name: Optional[str] = None, details: str = "") -> Dict[str, Any]:
+def add_sprite(name: str, rating: int = 7, sprite_type: str = "Registered", autosofts: str = "", is_ally: bool = False, level: Optional[int] = None, type_name: Optional[str] = None, details: str = "") -> str:
     global _GLOBAL_LOG_STATE
     eff_rating = level if level is not None else rating
     eff_type = type_name if type_name is not None else sprite_type
@@ -243,7 +243,8 @@ def add_sprite(name: str, rating: int = 7, sprite_type: str = "Registered", auto
         "status": "Active"
     }
     _GLOBAL_LOG_STATE["Sprites"].append(s_info)
-    return s_info
+    details_str = f" ({eff_details})" if eff_details else ""
+    return f"**{name}** (Rating {eff_rating} {eff_type}{details_str})"
 
 
 def start_mission(code: str):
