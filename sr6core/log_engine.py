@@ -88,6 +88,23 @@ def initiate(echo_or_power: str = "", coven_loyalty: int = 0) -> str:
     return f"Initiation Grade {target_grade} ({echo_or_power}): -{final_cost} Karma"
 
 
+def submerge(echo: str = "", group_loyalty: int = 0) -> str:
+    """
+    Calculates Submersion cost based on formula (10 + current_grade)
+    minus Group Loyalty discount, increments Submersion_Grade by 1,
+    and deducts Karma.
+    """
+    global _GLOBAL_LOG_STATE
+    curr_grade = _GLOBAL_LOG_STATE.get("Submersion_Grade", 0)
+    target_grade = curr_grade + 1
+    base_cost = 10 + curr_grade
+    final_cost = max(1, base_cost - group_loyalty)
+    _GLOBAL_LOG_STATE["Submersion_Grade"] = target_grade
+    inc("Karma", -final_cost)
+    return f"Submersion Grade {target_grade} ({echo}): -{final_cost} Karma"
+
+
+
 def inc_many(*args: Any) -> str:
     if len(args) == 1 and isinstance(args[0], (list, tuple)):
         pairs = args[0]
@@ -361,11 +378,17 @@ def get_log_totals(log_path: Optional[Any] = None) -> Dict[str, Any]:
             if res:
                 files.append(res)
     elif isinstance(log_path, str) and os.path.isdir(log_path):
-        target_files = [
-            os.path.join(log_path, "chapters", "character_log.qmd"),
-            os.path.join(log_path, "chapters", "character_purchases.qmd")
+        candidate_pairs = [
+            [os.path.join(log_path, "chapters", "character_log.qmd"), os.path.join(log_path, "chapters", "character_purchases.qmd")],
+            [os.path.join(log_path, "character_log.qmd"), os.path.join(log_path, "character_purchases.qmd")],
+            [os.path.join(log_path, "..", "chapters", "character_log.qmd"), os.path.join(log_path, "..", "chapters", "character_purchases.qmd")]
         ]
-        files = [p for p in target_files if os.path.exists(p)]
+        files = []
+        for pair in candidate_pairs:
+            matched = [p for p in pair if os.path.exists(p)]
+            if matched:
+                files = matched
+                break
     elif isinstance(log_path, str):
         res = resolve_existing_path(log_path)
         files = [res] if res else []

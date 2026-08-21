@@ -216,9 +216,9 @@ def test_matrix_action_pools_comprehensive():
     assert hacking.bought_hits == 6
     assert hacking.wild_dice == 1
 
-    # 2. Offensive Cracking: Other -> 24d6 (1 wild), 6 Hits
+    # 2. Offensive Cracking: Other -> 25d6 (1 wild), 6 Hits
     other = pools["cracking_other"]
-    assert other.total_pool == 24
+    assert other.total_pool == 25
     assert other.bought_hits == 6
     assert other.wild_dice == 1
 
@@ -227,25 +227,29 @@ def test_matrix_action_pools_comprehensive():
     assert mdef.total_pool == 34
     assert mdef.bought_hits == 8
 
-    # 4. Electronics: Software -> 23d6, 5 Hits
+    # 4. Electronics: Software -> 25d6 (1 wild), 6 Hits
     soft = pools["electronics_software"]
-    assert soft.total_pool == 23
-    assert soft.bought_hits == 5
+    assert soft.total_pool == 25
+    assert soft.bought_hits == 6
+    assert soft.wild_dice == 1
 
-    # 5. Electronics: Other -> 21d6, 5 Hits
+    # 5. Electronics: Other -> 23d6 (1 wild), 5 Hits
     elec = pools["electronics_other"]
-    assert elec.total_pool == 21
+    assert elec.total_pool == 23
     assert elec.bought_hits == 5
+    assert elec.wild_dice == 1
 
-    # 6. Downtime Buying Gear -> 23d6, 5 Hits
+    # 6. Downtime Buying Gear -> 24d6 (1 wild), 6 Hits
     buy = pools["buy_gear"]
-    assert buy.total_pool == 23
-    assert buy.bought_hits == 5
+    assert buy.total_pool == 24
+    assert buy.bought_hits == 6
+    assert buy.wild_dice == 1
 
-    # 7. Programming / Coding -> 23d6, 5 Hits
+    # 7. Programming / Coding -> 25d6 (1 wild), 6 Hits
     prog = pools["programming"]
-    assert prog.total_pool == 23
-    assert prog.bought_hits == 5
+    assert prog.total_pool == 25
+    assert prog.bought_hits == 6
+    assert prog.wild_dice == 1
 
 
 def test_dynamic_vehicle_modification_parser():

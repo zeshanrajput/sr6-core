@@ -33,7 +33,14 @@ def clean_markdown_for_tts(text: str) -> str:
     text = re.sub(r'<https?://[^>]+>', '', text)
     text = re.sub(r'https?://\S+', '', text)
     
-    # 4. Remove Quarto shortcodes: {{< ... >}}
+    # 4. Remove / convert Quarto callouts and shortcodes
+    text = re.sub(r':::\s*\{\s*\.callout-warning\s*\}', 'Warning. ', text, flags=re.IGNORECASE)
+    text = re.sub(r':::\s*\{\s*\.callout-important\s*\}', 'Important. ', text, flags=re.IGNORECASE)
+    text = re.sub(r':::\s*\{\s*\.callout-caution\s*\}', 'Caution. ', text, flags=re.IGNORECASE)
+    text = re.sub(r':::\s*\{\s*\.callout-tip\s*\}', 'Tip. ', text, flags=re.IGNORECASE)
+    text = re.sub(r':::\s*\{\s*\.callout-note\s*\}', 'Note. ', text, flags=re.IGNORECASE)
+    text = re.sub(r':::\s*\{\s*\.callout-[a-zA-Z0-9_-]+\s*\}', '', text)
+    text = re.sub(r'^\s*:::\s*$', '', text, flags=re.MULTILINE)
     text = re.sub(r'\{\{<.*?>\}\}', '', text)
     
     # 5. Remove HTML tags
@@ -75,7 +82,11 @@ def clean_markdown_for_tts(text: str) -> str:
 
 def clean_pronunciation(text: str) -> str:
     """Applies comprehensive pronunciation corrections for Shadowrun terms, currency, acronyms, honorifics, and hyphenated compound words."""
-    # 0. Dialogue machine/spirit code formatting (e.g. AGENT_OF_ORDER / SANITIZE_INPUT -> AGENT OF ORDER. SANITIZE INPUT.)
+    # 0. Standalone ~ as host name / home directory
+    text = re.sub(r'(?<=[\s(\[\'"`])~(?=[\s)\]\'"`.,;!?]|$)', 'tilde', text)
+    text = re.sub(r'^~(?=[\s)\]\'"`.,;!?]|$)', 'tilde', text)
+
+    # Dialogue machine/spirit code formatting (e.g. AGENT_OF_ORDER / SANITIZE_INPUT -> AGENT OF ORDER. SANITIZE INPUT.)
     def _clean_spirit_code(m):
         raw = m.group(0)
         cleaned = raw.replace('_', ' ').replace(' / ', '. ').replace('/', '. ')
@@ -100,6 +111,7 @@ def clean_pronunciation(text: str) -> str:
     text = re.sub(r'\bnuyens?\b', 'new yen', text, flags=re.IGNORECASE)
 
     # 4. Shadowrun Acronyms & Jargon (IC -> Ice, ARO -> A R O, APDS -> A P D S)
+    text = re.sub(r'\bSRM\b', 'S R M', text)
     text = re.sub(r'\bIC\b', 'Ice', text)
     text = re.sub(r'\bICE\b', 'Ice', text)
     text = re.sub(r'\bARO\b', 'A R O', text)
@@ -179,6 +191,7 @@ def clean_pronunciation(text: str) -> str:
     text = re.sub(r'\bDalakitnon\b', 'Dah lah keet non', text, flags=re.IGNORECASE)
     text = re.sub(r'\bMusok\b', 'Moo sok', text, flags=re.IGNORECASE)
     text = re.sub(r'\bTieguanyin\b', 'Teegwahn yeen', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bgyokuro\b', 'gyo koo ro', text, flags=re.IGNORECASE)
 
     return text.replace('\\', '')
 

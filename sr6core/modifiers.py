@@ -153,24 +153,21 @@ class PoolOptimization:
         }
         parts = []
         for c in self.components:
-            if c.component_type == "skill" and self.specialization:
-                parts.append(f"{c.name} ({self.specialization.source}: {c.base_value + self.specialization.value})")
+            if c.component_type == "skill":
+                parts.append(f"{c.name} ({c.base_value})")
             elif c.component_type == "attribute":
                 short_n = attr_abbrevs.get(c.name.lower(), c.name[:3].upper() if len(c.name) > 3 else c.name.upper())
                 parts.append(f"{short_n} ({c.base_value})")
             else:
                 parts.append(f"{c.name} ({c.base_value})")
-        base_with_spec = self.base_pool + (self.specialization.value if self.specialization else 0)
-        return f"{' + '.join(parts)} = **{base_with_spec}d6**"
-
+        return f"{' + '.join(parts)} = **{self.base_pool}d6**"
 
     def get_modifiers_breakdown_string(self) -> str:
-        base_with_spec = self.base_pool + (self.specialization.value if self.specialization else 0)
-        parts = [f"Base ({base_with_spec})"]
+        parts = [f"Base ({self.base_pool})"]
         for c in self.components:
             for m in c.modifiers:
                 parts.append(f"{m.source} (+{m.value})")
-        if self.specialization and not any(self.specialization.source in p for p in parts):
+        if self.specialization:
             parts.append(f"{self.specialization.source} (+{self.specialization.value})")
         if self.teamwork:
             parts.append(f"{self.teamwork.source} (+{self.teamwork.value})")
@@ -612,7 +609,7 @@ class ModifierEngine:
             teamwork=PoolModifier("skill:cracking", "teamwork", "Ally Teamwork", 4),
             tactical_modifiers=[
                 PoolModifier("test:matrix", "tactical", "Overclock", 2),
-                PoolModifier("test:matrix", "tactical", "ECM Warrior II", 1)
+                PoolModifier("test:matrix", "tactical", "ECM Warrior II", 2)
             ],
             wild_dice=1,
             notes="Cybercombat & Electronic Warfare Tests"
@@ -639,7 +636,11 @@ class ModifierEngine:
             name="Electronics: Software Tests",
             components=[e_skill_soft, e_attr_soft],
             specialization=PoolModifier("skill:electronics", "specialization", "Software", 2),
-            teamwork=PoolModifier("skill:electronics", "teamwork", "Ally Teamwork", 4)
+            teamwork=PoolModifier("skill:electronics", "teamwork", "Ally Teamwork", 4),
+            tactical_modifiers=[
+                PoolModifier("test:matrix", "tactical", "Overclock", 2)
+            ],
+            wild_dice=1
         )
 
         e_skill_other = PoolComponent("Electronics", 5, "skill")
@@ -650,6 +651,10 @@ class ModifierEngine:
             name="Electronics",
             components=[e_skill_other, e_attr_other],
             teamwork=PoolModifier("skill:electronics", "teamwork", "Ally Teamwork", 4),
+            tactical_modifiers=[
+                PoolModifier("test:matrix", "tactical", "Overclock", 2)
+            ],
+            wild_dice=1,
             notes="Computer, Hardware & Complex Forms"
         )
 
@@ -662,9 +667,10 @@ class ModifierEngine:
             components=[e_skill_buy, e_attr_buy],
             teamwork=PoolModifier("skill:electronics", "teamwork", "Ally Teamwork", 4),
             tactical_modifiers=[
-                PoolModifier("test:matrix", "tactical", "Overclock", 1),
+                PoolModifier("test:matrix", "tactical", "Overclock", 2),
                 PoolModifier("test:matrix", "tactical", "Shopsoft", 1)
-            ]
+            ],
+            wild_dice=1
         )
 
         e_skill_prog = PoolComponent("Electronics", 5, "skill")
@@ -675,7 +681,11 @@ class ModifierEngine:
             name="Programming / Coding Tests",
             components=[e_skill_prog, e_attr_prog],
             specialization=PoolModifier("skill:electronics", "specialization", "Software", 2),
-            teamwork=PoolModifier("skill:electronics", "teamwork", "Ally Teamwork", 4)
+            teamwork=PoolModifier("skill:electronics", "teamwork", "Ally Teamwork", 4),
+            tactical_modifiers=[
+                PoolModifier("test:matrix", "tactical", "Overclock", 2)
+            ],
+            wild_dice=1
         )
 
         return {
