@@ -155,7 +155,7 @@ class CharacterManager:
         repo_path = self.get_character_repo_dir(char_id)
         fmt = fmt.lower()
         if fmt in ["roll20", "json"]:
-            return export_roll20_json(data)
+            return export_roll20_json(data, char_repo_path=repo_path)
         elif fmt in ["vtt", "txt", "base"]:
             return export_vtt_text(data)
         elif fmt == "text_modular":

@@ -264,6 +264,41 @@ def add_sprite(name: str, rating: int = 7, sprite_type: str = "Registered", auto
     return f"**{name}** (Rating {eff_rating} {eff_type}{details_str})"
 
 
+def add_spirit(
+    name: str,
+    force: int = 5,
+    spirit_type: str = "Kin",
+    tasks: int = 2,
+    powers: str = "",
+    is_great_form: bool = False,
+    is_ally: bool = False,
+    details: str = ""
+) -> str:
+    global _GLOBAL_LOG_STATE
+    curr_m_idx = len(_GLOBAL_LOG_STATE.get("Missions", []))
+    m_name = _GLOBAL_LOG_STATE["Missions"][-1] if curr_m_idx > 0 else "Character Creation"
+    eff_details = details if details else powers
+    s_info = {
+        "name": name,
+        "force": force,
+        "type": spirit_type,
+        "tasks": tasks,
+        "powers": eff_details,
+        "details": eff_details,
+        "is_great_form": is_great_form,
+        "is_ally": is_ally,
+        "bound_mission": curr_m_idx,
+        "bound_mission_name": m_name,
+        "status": "Active"
+    }
+    if "Spirits" not in _GLOBAL_LOG_STATE:
+        _GLOBAL_LOG_STATE["Spirits"] = []
+    _GLOBAL_LOG_STATE["Spirits"].append(s_info)
+    great_str = "Great Form " if is_great_form else ""
+    details_str = f" ({eff_details})" if eff_details else ""
+    return f"**{name}** ({great_str}Force {force} {spirit_type} Spirit, {tasks} Tasks/Missions{details_str})"
+
+
 def start_mission(code: str):
     global _GLOBAL_LOG_STATE
     _GLOBAL_LOG_STATE["Missions"].append(code)
@@ -280,6 +315,24 @@ def get_active_sprites() -> List[Dict[str, Any]]:
             reg_m = s.get("registered_mission", 0)
             elapsed = curr_m_idx - reg_m
             if elapsed <= 3:
+                active.append(s)
+            else:
+                s["status"] = "Expired"
+    return active
+
+
+def get_active_spirits() -> List[Dict[str, Any]]:
+    global _GLOBAL_LOG_STATE
+    curr_m_idx = len(_GLOBAL_LOG_STATE.get("Missions", []))
+    active = []
+    for s in _GLOBAL_LOG_STATE.get("Spirits", []):
+        if s.get("is_ally"):
+            active.append(s)
+        else:
+            bound_m = s.get("bound_mission", 0)
+            tasks = s.get("tasks", 2)
+            elapsed = curr_m_idx - bound_m
+            if elapsed < tasks:
                 active.append(s)
             else:
                 s["status"] = "Expired"
@@ -338,8 +391,10 @@ def create_quarto_eval_env() -> Dict[str, Any]:
         "contact": contact,
         "add_rep": add_rep,
         "add_sprite": add_sprite,
+        "add_spirit": add_spirit,
         "start_mission": start_mission,
         "get_active_sprites": get_active_sprites,
+        "get_active_spirits": get_active_spirits,
         "print_contacts_summary": print_contacts_summary,
         "assign": assign,
         "initiate": initiate,
@@ -429,56 +484,62 @@ def get_log_totals(log_path: Optional[Any] = None) -> Dict[str, Any]:
     final_nuyen = _GLOBAL_LOG_STATE.get("Nuyen", 0)
     final_lifetime_nuyen = _GLOBAL_LOG_STATE.get("Lifetime_Nuyen", final_nuyen)
 
-    session_sections = re.split(r'\n(?=###\s+\*\*)', content)
+    session_sections = re.split(r'\n(?=#{2,3}\s+\*\*)', content)
     session_logs = []
 
     for section in session_sections:
-        if not section.strip().startswith("### **"):
+        if not re.match(r'^#{2,3}\s+\*\*', section.strip()):
             continue
 
-        header_match = re.search(r'###\s+\*\*(?:(\d{4}-[A-Za-z]{3}-\d{2}):\s*)?([^*]+)\*\*(?:`\{python\}\s*start_mission\((.*?)\)`|\s*)', section)
+        header_match = re.search(r'#{2,3}\s+\*\*(?:(\d{4}-[A-Za-z]{3}-\d{2}|\d{4}-\d{2}-\d{2}):\s*)?([^*]+)\*\*(?:`\{python\}\s*start_mission\((.*?)\)`|\s*)', section)
         if not header_match:
             continue
 
         date_str = header_match.group(1) or ""
         title_str = header_match.group(2).strip()
 
+        if not date_str:
+            date_match = re.search(r'\*\s+\*\*Date:\*\*\s*(\d{4}-[A-Za-z]{3}-\d{2}|\d{4}-\d{2}-\d{2})', section)
+            if date_match:
+                date_str = date_match.group(1).strip()
+
         gm_match = re.search(r'\*\s+\*\*GM:\*\*\s*(.+)', section)
         gm_str = gm_match.group(1).strip() if gm_match else ""
 
-        # Extract base mission rewards specifically from * **Rewards:** line if present
-        rewards_line_match = re.search(r'\*\s+\*\*Rewards:\*\*\s*(.+)', section)
-        rewards_line = rewards_line_match.group(1) if rewards_line_match else section
+        # Extract base mission rewards specifically from * **Rewards:** line or main body before Downtime
+        main_part = section.split("### Downtime")[0].split("### Purchases")[0]
+        rewards_line_match = re.search(r'\*\s+\*\*Rewards:\*\*\s*(.+)', main_part)
+        rewards_line = rewards_line_match.group(1) if rewards_line_match else main_part
 
         karma_val = 0
         karma_matches = re.findall(r"inc\s*\(\s*'Karma'\s*,\s*(-?\d+)\s*\)|inc_many\s*\(\s*\(\s*'Karma'\s*,\s*(-?\d+)\s*\)", rewards_line)
         for km in karma_matches:
             k1, k2 = km
-            if k1:
-                karma_val += int(k1)
-            if k2:
-                karma_val += int(k2)
+            val = int(k1 or k2)
+            if val > 0:
+                karma_val += val
 
         nuyen_val = 0
         nuyen_matches = re.findall(r"inc\s*\(\s*'Nuyen'\s*,\s*(-?\d+)\s*\)|inc_many\s*\(\s*\(\s*'Nuyen'\s*,\s*(-?\d+)\s*\)", rewards_line)
         for nm in nuyen_matches:
             n1, n2 = nm
-            if n1:
-                nuyen_val += int(n1)
-            if n2:
-                nuyen_val += int(n2)
+            val = int(n1 or n2)
+            if val > 0:
+                nuyen_val += val
 
-        session_logs.append({
-            "title": title_str,
-            "date": date_str,
-            "gm": gm_str,
-            "karma": karma_val,
-            "nuyen": nuyen_val
-        })
+        if karma_val > 0 or nuyen_val > 0 or "start_mission" in section:
+            session_logs.append({
+                "title": title_str,
+                "date": date_str,
+                "gm": gm_str,
+                "karma": karma_val,
+                "nuyen": nuyen_val
+            })
 
     rep_dict = _GLOBAL_LOG_STATE.get("Reputation", {})
     total_rep = sum(rep_dict.values()) if isinstance(rep_dict, dict) else 0
     active_sprites = get_active_sprites()
+    active_spirits = get_active_spirits()
 
     return {
         "Karma": final_karma,
@@ -492,6 +553,9 @@ def get_log_totals(log_path: Optional[Any] = None) -> Dict[str, Any]:
         "Sprites": _GLOBAL_LOG_STATE.get("Sprites", []),
         "Active_Sprites": active_sprites,
         "Active_Sprite_Count": len(active_sprites),
+        "Spirits": _GLOBAL_LOG_STATE.get("Spirits", []),
+        "Active_Spirits": active_spirits,
+        "Active_Spirit_Count": len(active_spirits),
         "Contacts": _GLOBAL_LOG_STATE.get("Contacts", {}),
         "Missions": _GLOBAL_LOG_STATE.get("Missions", []),
         "Session_Logs": session_logs

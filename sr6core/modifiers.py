@@ -797,9 +797,13 @@ class ModifierEngine:
         if sorc_impr:
             tact_mods.append(PoolModifier("skill:sorcery", "adept_power", f"Improved Ability (Sorcery R{sorc_impr})", sorc_impr))
 
+        spec_name = skills.get("Sorcery", {}).get("specialization")
+        spec_mod = PoolModifier("skill:sorcery", "specialization", f"Specialization: {spec_name}", 2) if spec_name else None
+
         spell_opt = PoolOptimization(
             name="Spellcasting (Sorcery)",
             components=[s_skill, s_attr],
+            specialization=spec_mod,
             tactical_modifiers=tact_mods,
             notes="Health, Manipulation, Combat Spells"
         )
@@ -819,10 +823,28 @@ class ModifierEngine:
         conj_opt = PoolOptimization(
             name="Conjuring & Spirit Summoning",
             components=[c_skill, c_attr],
-            notes="Summoning & Binding Spirits"
+            notes="Summoning & Binding Spirits (Conjuring + MAG = 11d6 -> 2 Hits)"
         )
 
-        # 4. Counterspelling / Dispelling
+        # 4. Spirit Channeling (if Channeling metamagic is unlocked)
+        meta_echoes = char_data.get("meta_echoes", [])
+        init_grade = len(meta_echoes) if isinstance(meta_echoes, list) else 0
+        has_channeling = any((isinstance(e, dict) and e.get("name") == "Channeling") or str(e) == "Channeling" for e in meta_echoes)
+
+        chan_opt = None
+        if has_channeling:
+            chan_skill = PoolComponent("Conjuring", conj_r, "skill")
+            chan_attr = PoolComponent("Magic", mag, "attribute", focus_mods)
+            chan_opt = PoolOptimization(
+                name="Spirit Channeling (Inhabitation)",
+                components=[chan_skill, chan_attr],
+                action_modifiers=[
+                    PoolModifier("action:channeling", "metamagic", f"Initiate Grade ({init_grade})", init_grade)
+                ],
+                notes="Channeling spirits into physical vessel (Dual Natured, +Physical Attributes, Critter Powers)"
+            )
+
+        # 5. Counterspelling / Dispelling
         disp_skill = PoolComponent("Sorcery", sorc_r, "skill")
         disp_attr = PoolComponent("Magic", mag, "attribute", focus_mods)
         disp_opt = PoolOptimization(
@@ -832,12 +854,16 @@ class ModifierEngine:
             notes="Dispelling active magical spells & magical defense"
         )
 
-        return {
+        res_pools = {
             "spellcasting": spell_opt,
             "drain_resistance": drain_opt,
             "conjuring": conj_opt,
-            "dispelling": disp_opt
         }
+        if chan_opt:
+            res_pools["channeling"] = chan_opt
+        res_pools["dispelling"] = disp_opt
+
+        return res_pools
 
     @classmethod
     def get_social_action_pools(cls, char_data: Dict[str, Any], scene_mode: str = "social_enhanced") -> Dict[str, PoolOptimization]:
@@ -888,7 +914,16 @@ class ModifierEngine:
             notes="Teamwork test assists ally test + grants 1 free Edge (Enhanced: 19d6 -> 4 Hits)" if is_enhanced else "Teamwork test assists ally test + grants 1 free Edge (Baseline)"
         )
 
-        # 3. Disguise & Persona Shift (Cosmetic Control)
+        # 3. Deception & Impersonation (Con)
+        con_skill = PoolComponent("Con", con_r, "skill")
+        con_attr = PoolComponent("Charisma", cha, "attribute", cha_mods)
+        con_opt = PoolOptimization(
+            name="Deception & Impersonation (Con)",
+            components=[con_skill, con_attr],
+            notes="Fast-talk, deep-cover impersonation, blending personas (Enhanced: 18d6 -> 4 Hits)" if is_enhanced else "Fast-talk, deep-cover impersonation, blending personas (Baseline: 14d6 -> 3 Hits)"
+        )
+
+        # 4. Disguise & Persona Shift (Cosmetic Control)
         c_skill = PoolComponent("Con / Disguise", con_r if con_r else 1, "skill")
         c_attr = PoolComponent("Intuition", int_val, "attribute", int_mods)
         c_mods = []
@@ -900,10 +935,10 @@ class ModifierEngine:
             name="Disguise & Persona Shift (Cosmetic Control)",
             components=[c_skill, c_attr],
             tactical_modifiers=c_mods,
-            notes="Shifting between Lee Ji-yoo, Tanaka Ryo, and custom identities (Enhanced: 10d6 -> 2 Hits)" if is_enhanced else "Shifting between Lee Ji-yoo, Tanaka Ryo, and custom identities (Baseline)"
+            notes="Shifting between Lee Ji-yoo, Tanaka Ryo, and custom identities (Enhanced: 13d6 -> 3 Hits)" if is_enhanced else "Shifting between Lee Ji-yoo, Tanaka Ryo, and custom identities (Baseline)"
         )
 
-        # 4. Composure Test
+        # 5. Composure Test
         comp_wil = PoolComponent("Willpower", wil, "attribute", wil_mods)
         comp_cha = PoolComponent("Charisma", cha, "attribute", cha_mods)
         comp_opt = PoolOptimization(
@@ -912,7 +947,7 @@ class ModifierEngine:
             notes="Resisting intimidation, manipulation, pressure (Enhanced: 23d6 -> 5 Hits)" if is_enhanced else "Resisting intimidation, manipulation, pressure (Baseline)"
         )
 
-        # 5. Judge Intentions Test
+        # 6. Judge Intentions Test
         judge_int = PoolComponent("Intuition", int_val, "attribute", int_mods)
         judge_wil = PoolComponent("Willpower", wil, "attribute", wil_mods)
         judge_opt = PoolOptimization(
@@ -924,6 +959,7 @@ class ModifierEngine:
         return {
             "influence": infl_opt,
             "inspire_competence": insp_opt,
+            "con": con_opt,
             "disguise": disguise_opt,
             "composure": comp_opt,
             "judge_intentions": judge_opt

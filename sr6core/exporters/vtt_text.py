@@ -307,15 +307,37 @@ def export_combat_sheet(char_data: Dict[str, Any]) -> str:
     else:
         for w in weapons:
             if isinstance(w, dict):
+                w_ref = w.get("ref", w.get("name", ""))
                 name = w.get("name", w.get("ref", "Weapon")).upper()
-                dmg = w.get("damage", w.get("dv", "N/A"))
-                ar = w.get("attack_rating", w.get("ar", "-"))
-                modes = w.get("mode", w.get("modes", "SS/SA"))
-                ammo = w.get("ammo", "N/A")
+                qty = w.get("qty") or w.get("count", 1)
+                qty_str = f" (x{qty})" if qty and int(qty) > 1 else ""
+
+                dmg = w.get("damage", w.get("dv"))
+                ar = w.get("attack_rating", w.get("ar"))
+                modes = w.get("mode", w.get("modes"))
+                ammo = w.get("ammo")
+
+                # If missing combat stats, attempt lookup in RulesDB
+                if not dmg or not ar:
+                    try:
+                        from sr6core.rules_engine import get_weapon_stats
+                        w_db = get_weapon_stats(w_ref)
+                        if w_db:
+                            dmg = dmg or w_db.get("dv", "N/A")
+                            ar = ar or (" / ".join([str(x) if x is not None else "—" for x in w_db.get("ar", [])]) if w_db.get("ar") else "-")
+                            modes = modes or w_db.get("mode", "SS")
+                            ammo = ammo or w_db.get("ammo", "—")
+                    except Exception:
+                        pass
+
+                dmg = dmg or "N/A"
+                ar = ar or "-"
+                modes = modes or "SS/SA"
+                ammo = ammo or "N/A"
                 mods = w.get("accessories", w.get("modifications", []))
                 notes = w.get("notes", "")
 
-                lines.append(f"  * {name}")
+                lines.append(f"  * {name}{qty_str}")
                 lines.append(f"    DV: {dmg:<4} | Modes: {modes:<6} | Ammo: {ammo:<6} | AR: {ar}")
                 if mods:
                     lines.extend(_wrap(f"Accessories/Mods: {', '.join(str(m) for m in mods)}", initial_indent="    ", subsequent_indent="    "))
@@ -350,13 +372,21 @@ def export_inventory_sheet(char_data: Dict[str, Any]) -> str:
     handle = identity.get("handle", "Unknown").upper() if isinstance(identity, dict) else "UNKNOWN"
     
     matrix_devices = char_data.get("matrix_devices", {})
-    commlinks = matrix_devices.get("commlinks", []) if isinstance(matrix_devices, dict) else []
+    if isinstance(matrix_devices, list):
+        commlinks = matrix_devices
+        hosts = []
+    elif isinstance(matrix_devices, dict):
+        commlinks = matrix_devices.get("commlinks", [])
+        hosts = matrix_devices.get("hosts", [])
+    else:
+        commlinks = []
+        hosts = []
+
     if not commlinks:
         commlinks = _safe_item_list(char_data.get("commlinks", []))
-    hosts = matrix_devices.get("hosts", []) if isinstance(matrix_devices, dict) else []
     programs = _safe_item_list(char_data.get("programs", []))
     autosofts = _safe_item_list(char_data.get("autosofts", []))
-    gear = _safe_item_list(char_data.get("gear", []))
+    gear = _safe_item_list(char_data.get("items", [])) + _safe_item_list(char_data.get("gear", []))
     sins = _safe_item_list(char_data.get("sins", []))
     licenses = _safe_item_list(char_data.get("licenses", []))
     lifestyles = _safe_item_list(char_data.get("lifestyles", []))
