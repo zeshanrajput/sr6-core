@@ -702,6 +702,27 @@ def export_powers_sheet(char_data: Dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
+def export_ledger_sheet(char_data: Dict[str, Any], char_repo_path: Optional[str] = None) -> str:
+    """Generates the Financial & Advancement Ledger Sheet strictly within 76 columns."""
+    identity = char_data.get("identity", {})
+    handle = identity.get("handle", "Unknown").upper() if isinstance(identity, dict) else "UNKNOWN"
+
+    totals = get_log_totals(char_repo_path) if char_repo_path and os.path.exists(char_repo_path) else {}
+    nuyen = totals.get("Nuyen", identity.get("nuyen", 0))
+    karma_avail = totals.get("Karma", identity.get("karma", 0))
+    karma_life = totals.get("Lifetime_Karma", identity.get("total_karma", karma_avail))
+
+    lines = []
+    lines.append("=" * MAX_LINE_WIDTH)
+    lines.append(f" FINANCIAL & ADVANCEMENT LEDGER: {handle}")
+    lines.append("=" * MAX_LINE_WIDTH)
+    lines.append(f" Available Nuyen Balance : {nuyen:,}¥")
+    lines.append(f" Available Karma Pool    : {karma_avail} Karma")
+    lines.append(f" Lifetime Career Karma   : {karma_life} Karma")
+    lines.append("=" * MAX_LINE_WIDTH)
+    return "\n".join(lines)
+
+
 def export_vtt_text(char_data: Dict[str, Any]) -> str:
     """Backwards-compatible default plain-text export (returns Base Sheet)."""
     return export_base_sheet(char_data)
@@ -716,4 +737,6 @@ def export_modular_text_sheets(char_data: Dict[str, Any], char_id: str, char_rep
         f"{char_id}_inventory.txt": export_inventory_sheet(char_data),
         f"{char_id}_vehicles.txt": export_vehicles_sheet(char_data),
         f"{char_id}_powers.txt": export_powers_sheet(char_data),
+        f"{char_id}_ledger.txt": export_ledger_sheet(char_data, char_repo_path=char_repo_path),
     }
+

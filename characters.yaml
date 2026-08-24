@@ -1,11 +1,10 @@
 # SR6 Multi-Character Ecosystem Configuration
-# Master configuration file listing all supported character portfolios in C:\GitHub
+# Master configuration file listing all supported character portfolios
 
 characters:
   yuriko:
     name: "Yuriko Star"
     repo: "sr6yuriko"
-    repo_path: "C:\\GitHub\\sr6yuriko"
     master_yaml: "yuriko_master.yaml"
     role: "Technoshaman AI / Hacker"
     metatype: "AI-Pilot AI"
@@ -14,7 +13,6 @@ characters:
   velvet:
     name: "Velvet"
     repo: "sr6velvet"
-    repo_path: "C:\\GitHub\\sr6velvet"
     master_yaml: "velvet_master.yaml"
     role: "Mystic Adept Face / Shaman"
     metatype: "Dalakitnon Elf"
@@ -23,7 +21,7 @@ characters:
   union:
     name: "Union"
     repo: "sr6union"
-    repo_path: "C:\\GitHub\\sr6union"
     master_yaml: "union_master.yaml"
     role: "Street Samurai / Operative"
     metatype: "Human"
+

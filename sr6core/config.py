@@ -22,7 +22,20 @@ def get_default_workspace_root() -> str:
     if parent_dir.exists() and (parent_dir / "sr6-core").exists():
         return str(parent_dir)
 
-    return r"C:\GitHub"
+    # Check parent of current working directory if sibling repos exist
+    cwd_parent = Path.cwd().parent
+    if cwd_parent.exists() and any((cwd_parent / d).exists() for d in ["sr6-core", "sr6velvet", "sr6yuriko", "sr6union"]):
+        return str(cwd_parent)
+
+    # Check current working directory
+    if Path.cwd().exists() and (Path.cwd() / "sr6-core").exists():
+        return str(Path.cwd())
+
+    if os.path.exists(r"C:\GitHub"):
+        return r"C:\GitHub"
+
+    return str(Path.cwd())
+
 
 
 # Default CommLink6 player saves directory (e.g. C:\Users\<user>\CommLink6\player\myself\shadowrun6)

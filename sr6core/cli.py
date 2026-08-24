@@ -31,9 +31,13 @@ def run_sync_all():
     for c in chars:
         cid = c["id"]
         cname = c["name"]
-        cfile_path = c["path"]
+        cfile_path = c.get("path")
+        if not c.get("exists") or not cfile_path or not os.path.exists(cfile_path):
+            continue
+
         repo_dir = os.path.dirname(cfile_path) if os.path.isfile(cfile_path) else cfile_path
         print(f"--- Processing Portfolio: {cname} ({cid}) ---")
+
 
         # 1. Deep Audit
         audit = deep_audit_character(cid)

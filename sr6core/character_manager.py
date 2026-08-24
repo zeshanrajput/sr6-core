@@ -26,41 +26,87 @@ class CharacterManager:
 
     def discover_characters(self) -> Dict[str, Dict[str, Any]]:
         """
-        Loads configured character portfolios, falling back to auto-discovery in github_root.
+        Loads configured character portfolios, falling back to auto-discovery in github_root,
+        CWD, and parent workspace directories.
         """
         characters = {}
 
-        # 1. Configured characters
+        # 1. Configured characters with multi-candidate search
         for char_id, cfg in self._character_configs.items():
-            repo_path = cfg.get("repo_path") or os.path.join(self.github_root, cfg.get("repo", f"sr6{char_id}"))
+            repo_name = cfg.get("repo", f"sr6{char_id}")
             master_file = cfg.get("master_yaml") or f"{char_id}_master.yaml"
-            full_path = os.path.join(repo_path, master_file)
 
+            candidates = []
+            if cfg.get("repo_path"):
+                candidates.append(cfg.get("repo_path"))
+            if self.github_root:
+                candidates.append(os.path.join(self.github_root, repo_name))
+                candidates.append(os.path.join(self.github_root, char_id))
+
+            # Workspace and CWD relative candidates
+            cwd = os.getcwd()
+            candidates.append(cwd)
+            candidates.append(os.path.join(cwd, repo_name))
+            candidates.append(os.path.join(cwd, "..", repo_name))
+            candidates.append(os.path.join(cwd, "..", char_id))
+
+            matched_file = None
+            resolved_repo_dir = None
             data = None
-            if os.path.exists(full_path):
+
+            for cand_dir in candidates:
+                if not cand_dir or not os.path.exists(cand_dir):
+                    continue
+                cand_dir_abs = os.path.abspath(cand_dir)
+                direct_file = os.path.join(cand_dir_abs, master_file)
+                if os.path.isfile(direct_file):
+                    matched_file = direct_file
+                    resolved_repo_dir = cand_dir_abs
+                    break
+
+                # Glob search in candidate directory
+                glob_matches = glob.glob(os.path.join(cand_dir_abs, f"*{char_id}*_master.yaml"))
+                if not glob_matches and (os.path.basename(cand_dir_abs) in [repo_name, char_id]):
+                    glob_matches = glob.glob(os.path.join(cand_dir_abs, "*_master.yaml"))
+
+                if glob_matches:
+                    matched_file = glob_matches[0]
+                    resolved_repo_dir = cand_dir_abs
+                    break
+
+            if matched_file and os.path.exists(matched_file):
                 try:
-                    with open(full_path, "r", encoding="utf-8") as f:
+                    with open(matched_file, "r", encoding="utf-8") as f:
                         data = yaml.safe_load(f)
                 except Exception as e:
-                    print(f"[Warning] Error parsing YAML for {char_id} at {full_path}: {e}")
+                    print(f"[Warning] Error parsing YAML for {char_id} at {matched_file}: {e}")
 
+            full_path = matched_file or os.path.join(self.github_root, repo_name, master_file)
             name = cfg.get("name") or (data.get("identity", {}).get("handle") if data else char_id.title())
             characters[char_id] = {
                 "id": char_id,
                 "name": name,
                 "path": full_path,
+                "repo_dir": resolved_repo_dir or (os.path.dirname(full_path) if os.path.isfile(full_path) else full_path),
                 "exists": data is not None,
                 "data": data or {},
                 "config": cfg
             }
 
-        # 2. Fallback auto-discovery for unconfigured sr6 repos
-        if os.path.exists(self.github_root):
-            for repo in os.listdir(self.github_root):
-                repo_path = os.path.join(self.github_root, repo)
-                if os.path.isdir(repo_path) and repo.startswith("sr6") and repo != "sr6-core":
-                    char_id = repo.replace("sr6", "")
-                    if char_id not in characters:
+        # 2. Fallback auto-discovery for unconfigured or missing sr6 repos
+        search_roots = [self.github_root]
+        cwd_parent = os.path.abspath(os.path.join(os.getcwd(), ".."))
+        if cwd_parent not in search_roots and os.path.exists(cwd_parent):
+            search_roots.append(cwd_parent)
+
+        for root in search_roots:
+            if not root or not os.path.exists(root):
+                continue
+            for entry in os.listdir(root):
+                repo_path = os.path.join(root, entry)
+                if os.path.isdir(repo_path) and entry.startswith("sr6") and entry != "sr6-core":
+                    char_id = entry.replace("sr6", "")
+                    if char_id not in characters or not characters[char_id].get("exists"):
                         yaml_files = glob.glob(os.path.join(repo_path, "*_master.yaml"))
                         for yf in yaml_files:
                             try:
@@ -71,14 +117,17 @@ class CharacterManager:
                                     "id": char_id,
                                     "name": name,
                                     "path": yf,
+                                    "repo_dir": repo_path,
                                     "exists": True,
                                     "data": data,
-                                    "config": {"repo": repo, "repo_path": repo_path}
+                                    "config": {"repo": entry, "repo_path": repo_path}
                                 }
+                                break
                             except Exception:
                                 pass
 
         return characters
+
 
     def list_characters(self) -> List[Dict[str, Any]]:
         chars = self.discover_characters()
@@ -111,8 +160,8 @@ class CharacterManager:
         info = chars.get(char_id)
         if not info:
             return None
-        cpath = info.get("path")
-        return os.path.dirname(cpath) if cpath and os.path.isfile(cpath) else cpath
+        return info.get("repo_dir") or (os.path.dirname(info["path"]) if info.get("path") and os.path.isfile(info["path"]) else info.get("path"))
+
 
     def audit_character(self, char_id: str) -> Dict[str, Any]:
         data = self.get_character_data(char_id)
