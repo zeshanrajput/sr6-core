@@ -4,6 +4,7 @@ Performs item-by-item verification of master portfolios against CommLink6 databa
 Supports Base Book Price vs. Transaction Price with Quality Discounts, Contact Markups, DIY Rigger Modifiers, and Overrides.
 """
 
+import os
 import sqlite3
 from typing import Dict, Any, List, Optional, Tuple
 
