@@ -58,9 +58,25 @@ def deep_audit_character(char_id: str, db_path: str = DEFAULT_DB_PATH) -> Dict[s
     if not char_data:
         return {"valid": False, "errors": [f"Character '{char_id}' not found."]}
 
-    conn = sqlite3.connect(db_path)
-    conn.row_factory = sqlite3.Row
-    cursor = conn.cursor()
+    db_path = os.environ.get("SR6_RULES_DB_PATH", db_path)
+    conn = None
+    cursor = None
+    if os.path.exists(db_path):
+        try:
+            conn = sqlite3.connect(db_path)
+            conn.row_factory = sqlite3.Row
+            cursor = conn.cursor()
+        except Exception:
+            conn = None
+            cursor = None
+
+    def _get_row(table: str, ref_val: str, name_val: str):
+        if not cursor:
+            return None
+        try:
+            return cursor.execute(f"SELECT * FROM {table} WHERE id = ? OR lower(name) = ?", (ref_val, name_val.lower())).fetchone()
+        except Exception:
+            return None
 
     warnings = []
     audit_details = []
@@ -73,11 +89,11 @@ def deep_audit_character(char_id: str, db_path: str = DEFAULT_DB_PATH) -> Dict[s
 
     for q in pos_qualities:
         q_ref = q.get("ref", q.get("name", "").lower().replace(" ", "_"))
-        row = cursor.execute("SELECT * FROM ref_qualities WHERE id = ? OR lower(name) = ?", (q_ref, q.get("name", "").lower())).fetchone()
+        row = _get_row("ref_qualities", q_ref, q.get("name", ""))
         if "karma" in q:
             actual_k = q["karma"]
         else:
-            expected_k = int(row["karma"]) if row else 5
+            expected_k = int(row["karma"]) if row and "karma" in row.keys() and str(row["karma"]).isdigit() else 5
             rating = q.get("rating", 1)
             actual_k = expected_k * rating
         total_pos_karma += actual_k
@@ -91,15 +107,14 @@ def deep_audit_character(char_id: str, db_path: str = DEFAULT_DB_PATH) -> Dict[s
 
     for q in neg_qualities:
         q_ref = q.get("ref", q.get("name", "").lower().replace(" ", "_"))
-        row = cursor.execute("SELECT * FROM ref_qualities WHERE id = ? OR lower(name) = ?", (q_ref, q.get("name", "").lower())).fetchone()
+        row = _get_row("ref_qualities", q_ref, q.get("name", ""))
         if "karma" in q:
             actual_k = q["karma"]
         else:
-            expected_k = int(row["karma"]) if row else 5
+            expected_k = int(row["karma"]) if row and "karma" in row.keys() and str(row["karma"]).isdigit() else 5
             rating = q.get("rating", 1)
             actual_k = expected_k * rating
         total_neg_karma += actual_k
-
 
         audit_details.append({
             "category": "Quality (Negative)",
@@ -118,8 +133,8 @@ def deep_audit_character(char_id: str, db_path: str = DEFAULT_DB_PATH) -> Dict[s
     gear_audits = []
     for drone in char_data.get("drones", []):
         d_ref = drone.get("ref", drone.get("name", "").lower().replace(" ", "_"))
-        row = cursor.execute("SELECT * FROM ref_gear WHERE id = ? OR lower(name) = ?", (d_ref, drone.get("name", "").lower())).fetchone()
-        base_price = int(row["cost"]) if row and str(row["cost"]).isdigit() else 10000
+        row = _get_row("ref_gear", d_ref, drone.get("name", ""))
+        base_price = int(row["cost"]) if row and "cost" in row.keys() and str(row["cost"]).isdigit() else 10000
         final_price, price_note = calculate_transaction_price(base_price, drone, char_data)
         gear_audits.append({
             "name": drone.get("name"),
@@ -130,7 +145,8 @@ def deep_audit_character(char_id: str, db_path: str = DEFAULT_DB_PATH) -> Dict[s
             "verified_in_db": row is not None
         })
 
-    conn.close()
+    if conn:
+        conn.close()
 
     # 3. Audit Synergies, Augmentation Caps & Multi-Component Pools
     synergies = char_data.get("synergies", {})
