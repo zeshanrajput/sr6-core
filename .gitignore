@@ -11,3 +11,7 @@ build/
 .sesskey
 kokoro-en-v0_19/
 kokoro-multi-lang-v1_0/
+converted_md/
+shadowrun_rules_vault/
+reports/
+data/

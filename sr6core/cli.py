@@ -102,8 +102,16 @@ def run_sync_all():
         cl_status = "OK" if ok else "SKIPPED"
         print(f"  [3/5] CommLink6 GUI Save Sync : {cl_status} ({msg})")
 
-        # 4. Expand Quarto Shortcodes in Chapter Files
+        # 4. Generate Appendix Character Dossier (.qmd)
         chap_dir = os.path.join(repo_dir, "chapters")
+        appendix_path = os.path.join(chap_dir, "appendix_dossier.qmd")
+        try:
+            generate_character_dossier_appendix(cid, appendix_path)
+            print(f"  [4/5] Appendix Character Dossier: Generated at {appendix_path}")
+        except Exception as e:
+            print(f"  [4/5] Appendix Character Dossier: Error {e}")
+
+        # 5. Expand Quarto Shortcodes in Chapter Files
         linter_count = 0
         if os.path.exists(chap_dir):
             for f in os.listdir(chap_dir):
@@ -237,6 +245,37 @@ def main():
     ledger_sub = ledger_parser.add_subparsers(dest="subcommand", help="Ledger action")
     l_parse = ledger_sub.add_parser("parse", help="Extract ammo, damage, and financial deltas from chapter prose")
     l_parse.add_argument("target", type=str, help="Path to chapter .qmd file or prose text")
+
+    # vault subcommand
+    vault_parser = subparsers.add_parser("vault", help="Manage Shadowrun Rules Vault, atomization, auditing, and Gemini vector search store")
+    vault_sub = vault_parser.add_subparsers(dest="subcommand", help="Vault action to perform")
+    v_import = vault_sub.add_parser("import-faq", help="Import & atomize official web FAQ into converted_md and vault (Auth Level 2)")
+    v_import.add_argument("--url", type=str, default="https://shadowrunsixthworld.com/shadowrun-sixth-world-faq/", help="FAQ URL to fetch")
+    v_import.add_argument("--html", type=str, default=None, help="Local HTML file path (optional)")
+
+    v_atomize = vault_sub.add_parser("atomize", help="Atomize converted markdown rulebooks into individual rule chunks")
+    v_atomize.add_argument("--single", type=str, default=None, help="Single file in converted_md to atomize")
+    v_atomize.add_argument("--clear", action="store_true", help="Clear destination vault directory before atomizing")
+
+    v_audit = vault_sub.add_parser("audit", help="Audit vault markdown chunks for integrity, dangling thoughts, and sizing anomalies")
+    v_audit.add_argument("--report", type=str, default=None, help="Path to save markdown audit report")
+
+    v_sync = vault_sub.add_parser("sync-gemini", help="Synchronize local rules vault with Google Gemini File Search Store")
+    v_sync.add_argument("--skip-updates", action="store_true", help="Skip updating existing documents with different hashes")
+    v_sync.add_argument("--workers", type=int, default=10, help="Concurrent upload worker threads (default: 10)")
+
+    vault_sub.add_parser("status", help="Show summary of local rules vault, SQLite records, and Gemini File Search Store")
+
+    v_pdf = vault_sub.add_parser("convert-pdf", help="Convert PDF rulebooks to clean markdown files in converted_md")
+    v_pdf.add_argument("--single", type=str, default=None, help="Single PDF filename in input directory")
+    v_pdf.add_argument("--regenerate", action="store_true", help="Force regenerate existing markdown files")
+    v_pdf.add_argument("--engine", type=str, choices=["docling", "pymupdf", "auto"], default="auto", help="Conversion engine (docling with GPU/CUDA or pymupdf)")
+    v_pdf.add_argument("--cuda", action="store_true", default=True, help="Enable CUDA acceleration for Docling (default: True)")
+    v_pdf.add_argument("--cpu", dest="cuda", action="store_false", help="Disable CUDA and force CPU for Docling")
+    v_pdf.add_argument("--curated-core", action="store_true", help="Curate core rulebooks: prioritize Hong Kong edition and skip redundant older core revisions")
+    v_pdf.add_argument("--no-post-process", dest="post_process", action="store_false", default=True, help="Disable Shadowrun domain post-processing")
+    v_pdf.add_argument("--input-dir", type=str, default=None, help="Input directory containing PDFs")
+    v_pdf.add_argument("--output-dir", type=str, default=None, help="Output directory for markdown files")
 
     args = parser.parse_args()
     cm = CharacterManager()
@@ -473,6 +512,110 @@ def main():
         if args.subcommand == "parse" or not args.subcommand:
             report = parse_combat_ledger_prose(args.target)
             print(f"\n{format_ledger_patch_markdown(report)}\n")
+
+    elif args.command == "vault":
+        from sr6core.vault import (
+            atomize_vault,
+            audit_vault,
+            sync_gemini_store,
+            list_stores_summary,
+            import_web_faq,
+        )
+        from sr6core.vault.pdf_converter import batch_convert_pdfs, convert_pdf_to_md
+        from sr6core.rules_db import DEFAULT_VAULT_DIR, DEFAULT_CONVERTED_DIR, DEFAULT_DB_PATH, DEFAULT_PDF_DIR
+
+        if args.subcommand == "import-faq":
+            print(f"Importing FAQ from '{args.url}' (or local source: {args.html})...")
+            try:
+                cnt, full_md, vault_d = import_web_faq(url=args.url, html_source=args.html)
+                print(f"[OK] Ingested & atomized {cnt} FAQ rules into '{vault_d}'")
+                print(f"     Full document saved: '{full_md}'")
+            except Exception as e:
+                print(f"[Error] FAQ import failed: {e}")
+
+        elif args.subcommand == "atomize":
+            print(f"Atomizing rulebooks from '{DEFAULT_CONVERTED_DIR}' to '{DEFAULT_VAULT_DIR}'...")
+            n_files, n_chunks = atomize_vault(single_file=args.single, clear_output=args.clear)
+            print(f"[OK] Processed {n_files} files, generated {n_chunks} atomic rules.")
+
+        elif args.subcommand == "audit":
+            print(f"Auditing vault at '{DEFAULT_VAULT_DIR}'...")
+            res = audit_vault(report_path=args.report)
+            print(f"\n=== Vault Audit Results ===")
+            print(f"  Valid Status        : {'PASS' if res['valid'] else 'FAIL'}")
+            print(f"  Total Chunks        : {res['total_files']}")
+            print(f"  Dangling Thoughts   : {res['dangling_thoughts_count']}")
+            print(f"  Dangling Hyphens    : {res['dangling_hyphens_count']}")
+            print(f"  Header-Only Chunks  : {res['header_only_count']}")
+            print(f"  Isolated Entities   : {res['isolated_entities_count']}")
+            print(f"  Micro Chunks (<100) : {res['micro_chunks_count']}")
+            print(f"  Monolith Chunks     : {res['monolith_chunks_count']}")
+            if args.report:
+                print(f"  Report Written To   : {args.report}")
+            print()
+
+        elif args.subcommand == "sync-gemini":
+            print(f"Synchronizing vault at '{DEFAULT_VAULT_DIR}' to Gemini File Search Store...")
+            res = sync_gemini_store(skip_updates=args.skip_updates, max_workers=args.workers)
+            if res.get("success"):
+                print(f"\n[OK] Synchronization Complete!")
+                print(f"  Store Name  : {res['store_name']}")
+                print(f"  Uploaded    : {res['uploaded']}")
+                print(f"  Updated     : {res['updated']}")
+                print(f"  Deleted     : {res['deleted']}")
+                print(f"  Local Vault : {res['total_local']} files")
+            else:
+                print(f"[Error] Synchronization failed: {res.get('error')}")
+
+        elif args.subcommand == "convert-pdf":
+            in_dir = args.input_dir or DEFAULT_PDF_DIR
+            out_dir = args.output_dir or DEFAULT_CONVERTED_DIR
+            if args.single:
+                pdf_p = os.path.join(in_dir, args.single)
+                md_p = os.path.join(out_dir, os.path.splitext(args.single)[0] + ".md")
+                ok, err = convert_pdf_to_md(
+                    pdf_p,
+                    md_p,
+                    engine=args.engine,
+                    use_cuda=args.cuda,
+                    post_process=args.post_process
+                )
+                if ok:
+                    print(f"[OK] Converted {args.single} -> {md_p} (engine: {args.engine}, cuda: {args.cuda})")
+                else:
+                    print(f"[Error] {err}")
+            else:
+                print(f"Converting PDFs from '{in_dir}' to '{out_dir}' (engine: {args.engine}, cuda: {args.cuda})...")
+                succ, tot, errs = batch_convert_pdfs(
+                    in_dir,
+                    out_dir,
+                    regenerate=args.regenerate,
+                    engine=args.engine,
+                    use_cuda=args.cuda,
+                    curated_core_only=args.curated_core
+                )
+                print(f"[OK] Converted {succ}/{tot} PDF files.")
+                for err in errs:
+                    print(f"  - {err}")
+
+        elif args.subcommand == "status" or not args.subcommand:
+            import glob
+            local_vault_count = len(glob.glob(os.path.join(DEFAULT_VAULT_DIR, "*.md"))) if os.path.exists(DEFAULT_VAULT_DIR) else 0
+            local_conv_count = len(glob.glob(os.path.join(DEFAULT_CONVERTED_DIR, "*.md"))) if os.path.exists(DEFAULT_CONVERTED_DIR) else 0
+
+            print("\n=== Shadowrun Rules Vault & Gemini Vector Store Status ===")
+            print(f" Local Vault Path     : {DEFAULT_VAULT_DIR} ({local_vault_count:,} chunks)")
+            print(f" Converted MD Path    : {DEFAULT_CONVERTED_DIR} ({local_conv_count:,} sourcebooks)")
+            print(f" SQLite Index DB Path : {DEFAULT_DB_PATH} ({'EXISTS' if os.path.exists(DEFAULT_DB_PATH) else 'MISSING'})")
+
+            try:
+                stores = list_stores_summary()
+                print("\n Active Gemini File Search Stores:")
+                for s in stores:
+                    print(f"  - {s['display_name']} ({s['name']}): {s['active_documents_count']} active, {s['pending_documents_count']} pending, {s['failed_documents_count']} failed")
+            except Exception as e:
+                print(f"\n Gemini API Store Status: [Unavailable / {e}]")
+            print()
 
 
 if __name__ == "__main__":

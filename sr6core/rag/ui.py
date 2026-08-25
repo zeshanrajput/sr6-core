@@ -31,20 +31,21 @@ def get_auth_badge(level: int) -> str:
 
 
 def print_search_results_rich(query: str, results: List[Dict[str, Any]]):
-    """Prints a styled Rich table of rules vault search results."""
+    """Prints a styled Rich table of rules vault search results with cross-references and snippets."""
     if not RICH_AVAILABLE:
         print(f"\n=== Rules Vault Search Results for '{query}' ===")
         for r in results:
-            print(f"- [{r.get('id')}] {r.get('topic', 'N/A')} ({r.get('source', 'SR6')} p.{r.get('page', '')}) [Auth Level {r.get('authority_level', 3)}]")
+            cross = f" (Also: {', '.join(r['cross_references'])})" if r.get("cross_references") else ""
+            print(f"- [{r.get('id')}] {r.get('topic', 'N/A')}{cross} ({r.get('source', 'SR6')} p.{r.get('page', '')}) [Auth Level {r.get('authority_level', 3)}]")
         return
 
     console = Console()
     table = Table(title=f"Shadowrun 6e Rules Vault Search: '{query}'", box=ROUNDED, header_style="bold cyan")
-    table.add_column("Authority Level", justify="left", style="bold")
-    table.add_column("Topic / Rule", style="bold white")
-    table.add_column("Source", style="green")
-    table.add_column("Page", justify="right", style="yellow")
-    table.add_column("CommLink6 Dataset", style="dim cyan")
+    table.add_column("Auth Level", justify="left", style="bold", width=14)
+    table.add_column("Topic / Rule", style="bold white", min_width=25)
+    table.add_column("Source", style="green", min_width=20)
+    table.add_column("Page", justify="right", style="yellow", width=8)
+    table.add_column("Snippet / Context Match", style="dim", min_width=35)
 
     for r in results:
         auth_lvl = r.get("authority_level", 3)
@@ -52,13 +53,34 @@ def print_search_results_rich(query: str, results: List[Dict[str, Any]]):
         auth_cell = Text(label, style=style)
         
         topic = r.get("topic", r.get("id", "N/A"))
+        if r.get("cross_references"):
+            cross_str = "\n[dim cyan]+ Also in: " + ", ".join(r["cross_references"]) + "[/dim cyan]"
+            topic_cell = topic + cross_str
+        else:
+            topic_cell = topic
+
+        if r.get("statblock") or r.get("statblocks"):
+            topic_cell += " [bold yellow]⚔️ [StatBlock][/bold yellow]"
+
         source = r.get("source", "SR6 Core")
         page = str(r.get("page", "N/A"))
         
-        cdata = r.get("commlink_data")
-        cdata_str = f"{cdata.get('name', '')} ({cdata.get('category', '')})" if cdata else "-"
+        snippet = r.get("snippet")
+        if snippet:
+            # Clean snippet for rich display
+            snippet_str = snippet.replace("\n", " ").strip()
+        else:
+            cdata = r.get("commlink_data")
+            if cdata:
+                snippet_str = f"CommLink6: {cdata.get('name', '')} ({cdata.get('category', '')})"
+            else:
+                content = r.get("content", "").replace("\n", " ").strip()
+                if content.startswith("---"):
+                    parts = content.split("---", 2)
+                    content = parts[2].strip() if len(parts) >= 3 else content
+                snippet_str = content[:90] + ("..." if len(content) > 90 else "")
         
-        table.add_row(auth_cell, topic, source, page, cdata_str)
+        table.add_row(auth_cell, topic_cell, source, page, snippet_str)
 
     console.print()
     console.print(table)

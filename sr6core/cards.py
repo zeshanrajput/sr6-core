@@ -382,6 +382,37 @@ def get_item_card(category: str, item_input: Union[str, Dict[str, Any]], db_path
         local_stats["speed"] = vprof["speed_str"]
         local_stats["pilot"] = vprof["pilot_str"]
 
+    # Dynamic Weapon Stats Calculation (Smartlink, Extended Barrel, Extended Clip, APDS/SnS ammo)
+    if category in ["weapon", "firearm", "weapons"] and item_dict:
+        try:
+            from sr6core.vault.statblock_parser import calculate_modified_weapon
+            from sr6core.models import WeaponStatBlock
+            raw_dmg = str(local_stats.get("damage") or local_stats.get("dv") or db_stats.get("dv") or "3P")
+            raw_ar = local_stats.get("attack_rating") or local_stats.get("ar") or db_stats.get("ar") or [10, 10, 8, 0, 0]
+            raw_cap = local_stats.get("ammo_capacity") or local_stats.get("ammo") or db_stats.get("ammo")
+            raw_modes = local_stats.get("firing_modes") or local_stats.get("mode") or db_stats.get("mode") or ["SA"]
+            
+            base_w = WeaponStatBlock(
+                name=card_name,
+                category=str(local_stats.get("category") or db_stats.get("category") or "General"),
+                damage=raw_dmg,
+                attack_rating=raw_ar,
+                firing_modes=[raw_modes] if isinstance(raw_modes, str) else list(raw_modes),
+                ammo_capacity=int(re.search(r"\d+", str(raw_cap)).group(0)) if raw_cap and re.search(r"\d+", str(raw_cap)) else None,
+                ammo_feed="c",
+            )
+            mods_list = item_dict.get("accessories", item_dict.get("modifications", []))
+            loaded_ammo = item_dict.get("loaded_ammo") or item_dict.get("ammo_type")
+            mod_w = calculate_modified_weapon(base_w, accessories=mods_list, ammo_type=loaded_ammo)
+            local_stats["damage"] = mod_w.damage
+            local_stats["attack_rating"] = " / ".join(str(x) if x > 0 else "-" for x in mod_w.attack_rating)
+            if mod_w.ammo_capacity:
+                local_stats["ammo"] = f"{mod_w.ammo_capacity}({mod_w.ammo_feed or 'c'})"
+            if mod_w.firing_modes:
+                local_stats["modes"] = "/".join(mod_w.firing_modes)
+        except Exception:
+            pass
+
     merged_stats = {}
     merged_stats.update(db_stats)
     merged_stats.update(local_stats)

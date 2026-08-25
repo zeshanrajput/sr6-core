@@ -46,68 +46,19 @@ def construct_fts5_query(terms: List[str], mode: str = "AND") -> str:
 
 def search_rules_db(db_path: str, user_query: str, limit: int = 15) -> List[Dict[str, Any]]:
     """
-    Searches the rules database using FTS5 with AND/OR fallbacks.
+    Searches the rules database using unified 5-stage hybrid search (O(1) exact, multi-word containment,
+    topic prefix, BM25 weighted FTS5 with column boosts, and fallback) enriched with CommLink6 dataset stat blocks.
     """
     if not os.path.exists(db_path):
         return []
 
-    terms = clean_query_terms(user_query)
-    if not terms:
-        terms = re.findall(r'\b\w+\b', user_query.lower())
-        if not terms:
-            return []
-
-    conn = sqlite3.connect(db_path)
-    conn.row_factory = sqlite3.Row
-    cursor = conn.cursor()
-
-    columns = [row[1] for row in cursor.execute("PRAGMA table_info(rules)").fetchall()]
-    has_authority = "authority_level" in columns
-
-    fts_query = construct_fts5_query(terms, mode="AND")
-    results = []
-
-    select_cols = "r.id, r.source, r.chapter, r.topic, r.tags, r.content, f.rank"
-    if has_authority:
-        select_cols = "r.id, r.source, r.chapter, r.topic, r.authority_level, r.tags, r.content, f.rank"
-
-    if fts_query:
-        try:
-            cursor.execute(f"""
-                SELECT {select_cols}
-                FROM rules_fts f
-                JOIN rules r ON r.id = f.id
-                WHERE rules_fts MATCH ?
-                ORDER BY f.rank
-                LIMIT ?
-            """, (fts_query, limit))
-            results = [dict(row) for row in cursor.fetchall()]
-        except sqlite3.OperationalError:
-            results = []
-
-    if len(results) < 5:
-        fts_query_or = construct_fts5_query(terms, mode="OR")
-        if fts_query_or:
-            try:
-                cursor.execute(f"""
-                    SELECT {select_cols}
-                    FROM rules_fts f
-                    JOIN rules r ON r.id = f.id
-                    WHERE rules_fts MATCH ?
-                    ORDER BY f.rank
-                    LIMIT ?
-                """, (fts_query_or, limit))
-                results_or = [dict(row) for row in cursor.fetchall()]
-                seen_ids = {r['id'] for r in results}
-                for r in results_or:
-                    if r['id'] not in seen_ids:
-                        results.append(r)
-                        seen_ids.add(r['id'])
-                results = sorted(results, key=lambda x: x.get('rank', 0))[:limit]
-            except sqlite3.OperationalError:
-                pass
+    from sr6core.rules_db import RulesDB
+    db = RulesDB(db_path=db_path)
+    results = db.search_rules(user_query, limit=limit, consolidate_editions=False, attach_statblocks=True)
 
     # Enrich rules with CommLink6 dataset stat blocks if matching
+    conn = db.conn
+    cursor = conn.cursor()
     for r in results:
         r_id = r.get("id", "")
         r_topic = r.get("topic", "")
@@ -128,18 +79,16 @@ def search_rules_db(db_path: str, user_query: str, limit: int = 15) -> List[Dict
                 pass
         r["commlink_data"] = dataset_match
 
-    conn.close()
     return results
 
 
 def deduplicate_and_resolve_conflicts(rules: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    seen_ids = set()
-    unique_rules = []
-    for rule in rules:
-        if rule['id'] not in seen_ids:
-            unique_rules.append(rule)
-            seen_ids.add(rule['id'])
-    return sorted(unique_rules, key=lambda x: (x.get('authority_level', 3), x.get('rank', 0)))
+    """
+    Consolidates duplicate topic entries across regional editions (Hong Kong, Seattle, Berlin)
+    and supplements, prioritizing higher authority levels and canonical Hong Kong Core Rulebook.
+    """
+    from sr6core.rules_db import consolidate_edition_matches
+    return consolidate_edition_matches(rules)
 
 
 def format_authority_label(level: int) -> str:
@@ -169,6 +118,10 @@ def format_context_for_llm(rules: List[Dict[str, Any]], max_chars: int = 12000) 
                     stats.append(f"{k}: {v}")
             dataset_str = f"COMMLINK6 STAT BLOCK: {', '.join(stats)}\n"
 
+        cross_refs_str = ""
+        if r.get("cross_references"):
+            cross_refs_str = f"CROSS REFERENCES: {', '.join(r['cross_references'])}\n"
+
         content_body = r.get("content", "")
         # Remove yaml frontmatter if present
         if content_body.startswith("---"):
@@ -183,6 +136,7 @@ def format_context_for_llm(rules: List[Dict[str, Any]], max_chars: int = 12000) 
             f"CHAPTER: {r.get('chapter', 'General')}\n"
             f"TOPIC: {r.get('topic', 'Rules Topic')}\n"
             f"AUTHORITY: {format_authority_label(r.get('authority_level', 3))}\n"
+            f"{cross_refs_str}"
             f"{dataset_str}"
             f"CONTENT:\n"
             f"{content_body}\n"

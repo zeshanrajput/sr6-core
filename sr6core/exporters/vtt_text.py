@@ -66,6 +66,20 @@ def _get_name(item: Any, default: str = "") -> str:
     return str(item)
 
 
+def _format_mod_item(m: Any) -> str:
+    if isinstance(m, dict):
+        parts = []
+        for k, v in m.items():
+            if v and str(v).strip() and not str(k).endswith(":"):
+                parts.append(f"{k}: {v}")
+            elif v and str(v).strip():
+                parts.append(f"{k} {v}")
+            else:
+                parts.append(str(k))
+        return ", ".join(parts)
+    return str(m)
+
+
 def export_base_sheet(char_data: Dict[str, Any], char_repo_path: Optional[str] = None) -> str:
     """Generates the primary 1-page Base Character Sheet strictly within 76-character line bounds."""
     identity = char_data.get("identity", {})
@@ -335,12 +349,39 @@ def export_combat_sheet(char_data: Dict[str, Any]) -> str:
                 modes = modes or "SS/SA"
                 ammo = ammo or "N/A"
                 mods = w.get("accessories", w.get("modifications", []))
+                loaded_ammo = w.get("loaded_ammo") or w.get("ammo_type")
                 notes = w.get("notes", "")
 
+                # Compute dynamic modified weapon stats
+                try:
+                    from sr6core.models import WeaponStatBlock
+                    from sr6core.vault.statblock_parser import calculate_modified_weapon
+                    raw_ar_val = ar if isinstance(ar, list) else ([int(x.strip()) if x.strip().isdigit() else 0 for x in str(ar).split("/")] if "/" in str(ar) else [10, 10, 8, 0, 0])
+                    base_w = WeaponStatBlock(
+                        name=name,
+                        category=str(w.get("category", "General")),
+                        damage=str(dmg),
+                        attack_rating=raw_ar_val,
+                        firing_modes=modes.split("/") if isinstance(modes, str) else list(modes),
+                        ammo_capacity=int(re.search(r"\d+", str(ammo)).group(0)) if ammo and re.search(r"\d+", str(ammo)) else None,
+                        ammo_feed="c",
+                    )
+                    mod_w = calculate_modified_weapon(base_w, accessories=mods, ammo_type=loaded_ammo)
+                    dmg = mod_w.damage
+                    ar = " / ".join(str(x) if x > 0 else "-" for x in mod_w.attack_rating)
+                    if mod_w.ammo_capacity:
+                        ammo = f"{mod_w.ammo_capacity}({mod_w.ammo_feed or 'c'})"
+                    if mod_w.firing_modes:
+                        modes = "/".join(mod_w.firing_modes)
+                except Exception:
+                    pass
+
                 lines.append(f"  * {name}{qty_str}")
-                lines.append(f"    DV: {dmg:<4} | Modes: {modes:<6} | Ammo: {ammo:<6} | AR: {ar}")
+                lines.append(f"    DV: {dmg:<6} | Modes: {modes:<8} | Ammo: {ammo:<8} | AR: {ar}")
                 if mods:
-                    lines.extend(_wrap(f"Accessories/Mods: {', '.join(str(m) for m in mods)}", initial_indent="    ", subsequent_indent="    "))
+                    lines.extend(_wrap(f"Accessories/Mods: {', '.join(_format_mod_item(m) for m in mods)}", initial_indent="    ", subsequent_indent="    "))
+                if loaded_ammo:
+                    lines.extend(_wrap(f"Loaded Ammo     : {loaded_ammo}", initial_indent="    ", subsequent_indent="    "))
                 if notes:
                     lines.extend(_wrap(f"Tactical Notes  : {notes}", initial_indent="    ", subsequent_indent="    "))
             else:
@@ -358,7 +399,7 @@ def export_combat_sheet(char_data: Dict[str, Any]) -> str:
                 mods = a.get("modifications", [])
                 lines.append(f"  * {name} (Defense Rating Bonus: +{dr})")
                 if mods:
-                    lines.extend(_wrap(f"Installed Modifications: {', '.join(str(m) for m in mods)}", initial_indent="    ", subsequent_indent="    "))
+                    lines.extend(_wrap(f"Installed Modifications: {', '.join(_format_mod_item(m) for m in mods)}", initial_indent="    ", subsequent_indent="    "))
             else:
                 lines.append(f"  * {str(a).upper()}")
             lines.append("-" * MAX_LINE_WIDTH)

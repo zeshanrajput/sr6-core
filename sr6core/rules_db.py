@@ -8,14 +8,124 @@ import re
 import sqlite3
 from typing import Dict, Any, List, Optional, Tuple
 
-DEFAULT_DB_PATH = os.path.join(os.path.expanduser("~"), ".sr6", "rules_index.db")
-DEFAULT_VAULT_DIR = os.path.join(os.path.expanduser("~"), "OneDrive", "Desktop", "SR6", "ebooks", "shadowrun_rules_vault")
+from pathlib import Path
+
+DEFAULT_DB_PATH = os.environ.get(
+    "SR6_RULES_DB_PATH",
+    os.path.join(os.path.expanduser("~"), ".sr6", "rules_index.db")
+)
+
+
+def get_default_vault_dir() -> str:
+    env_vault = os.getenv("SR6_RULES_VAULT_DIR")
+    if env_vault and os.path.exists(env_vault):
+        return env_vault
+
+    local_repo_vault = Path(__file__).resolve().parent.parent / "shadowrun_rules_vault"
+    if local_repo_vault.exists():
+        return str(local_repo_vault)
+
+    onedrive_vault = os.path.join(os.path.expanduser("~"), "OneDrive", "Desktop", "SR6", "ebooks", "shadowrun_rules_vault")
+    if os.path.exists(onedrive_vault):
+        return onedrive_vault
+
+    return str(local_repo_vault)
+
+
+def get_default_converted_dir() -> str:
+    env_converted = os.getenv("SR6_CONVERTED_MD_DIR")
+    if env_converted and os.path.exists(env_converted):
+        return env_converted
+
+    local_repo_converted = Path(__file__).resolve().parent.parent / "converted_md"
+    if local_repo_converted.exists():
+        return str(local_repo_converted)
+
+    onedrive_converted = os.path.join(os.path.expanduser("~"), "OneDrive", "Desktop", "SR6", "ebooks", "converted_md")
+    if os.path.exists(onedrive_converted):
+        return onedrive_converted
+
+def get_default_pdf_dir() -> str:
+    env_pdf = os.getenv("SR6_EBOOKS_DIR")
+    if env_pdf and os.path.exists(env_pdf):
+        return env_pdf
+
+    onedrive_pdf = os.path.join(os.path.expanduser("~"), "OneDrive", "Desktop", "SR6", "ebooks")
+    if os.path.exists(onedrive_pdf):
+        return onedrive_pdf
+
+    local_repo_pdf = Path(__file__).resolve().parent.parent / "ebooks"
+    return str(local_repo_pdf)
+
+
+DEFAULT_VAULT_DIR = get_default_vault_dir()
+DEFAULT_CONVERTED_DIR = get_default_converted_dir()
+DEFAULT_PDF_DIR = get_default_pdf_dir()
+
+
+def consolidate_edition_matches(rules: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """
+    Consolidates duplicate topic entries across regional editions (Hong Kong, Seattle, Berlin)
+    and supplements, prioritizing higher authority levels and canonical Hong Kong Core Rulebook.
+    """
+    if not rules:
+        return []
+
+    grouped: Dict[str, List[Dict[str, Any]]] = {}
+    for r in rules:
+        topic_key = re.sub(r'[^a-zA-Z0-9]', '', (r.get("topic") or "").lower())
+        if not topic_key:
+            topic_key = r.get("id", "")
+        grouped.setdefault(topic_key, []).append(r)
+
+    consolidated = []
+    for topic_key, entries in grouped.items():
+        # Sort by authority level ascending (Level 1 > Level 2 > Level 3), then prefer Hong Kong (SR6H) over Seattle (6WS)/Berlin (6WB)
+        def sort_key(item: Dict[str, Any]) -> Tuple[int, int, str]:
+            auth = item.get("authority_level", 3)
+            item_id = item.get("id", "")
+            # Prioritize SR6H (Hong Kong) if same authority level
+            pref = 0 if item_id.startswith("SR6H") else (1 if item_id.startswith("FS") else 2)
+            return (auth, pref, item_id)
+
+        sorted_entries = sorted(entries, key=sort_key)
+        primary = sorted_entries[0]
+
+        # Gather cross references from remaining entries
+        cross_refs = []
+        for other in sorted_entries[1:]:
+            src = other.get("source", "SR6")
+            pg = other.get("page")
+            ref_str = f"{src} (p. {pg})" if pg else src
+            if ref_str not in cross_refs and ref_str != primary.get("source"):
+                cross_refs.append(ref_str)
+
+        if cross_refs:
+            primary["cross_references"] = cross_refs
+
+        consolidated.append(primary)
+
+    return consolidated
+
+
+def attach_rule_statblocks(rule: Dict[str, Any]) -> Dict[str, Any]:
+    """Extracts and attaches typed Pydantic stat blocks from rule content if present."""
+    try:
+        from sr6core.vault.statblock_parser import extract_statblocks_from_rule
+        content = rule.get("content", "")
+        statblocks = extract_statblocks_from_rule(content)
+        if statblocks:
+            rule["statblocks"] = statblocks
+            rule["statblock"] = statblocks[0]
+    except Exception:
+        pass
+    return rule
 
 
 class RulesDB:
-    def __init__(self, db_path: str = DEFAULT_DB_PATH, vault_dir: str = DEFAULT_VAULT_DIR):
-        self.db_path = os.environ.get("SR6_RULES_DB_PATH", db_path)
-        self.vault_dir = os.environ.get("SR6_RULES_VAULT_DIR", vault_dir)
+    def __init__(self, db_path: Optional[str] = None, vault_dir: Optional[str] = None):
+        self.db_path = db_path or os.environ.get("SR6_RULES_DB_PATH", DEFAULT_DB_PATH)
+        self.vault_dir = vault_dir or os.environ.get("SR6_RULES_VAULT_DIR", get_default_vault_dir())
         dirname = os.path.dirname(self.db_path)
         if dirname:
             os.makedirs(dirname, exist_ok=True)
@@ -159,19 +269,33 @@ class RulesDB:
             return dict(row)
         return None
 
-    def search_rules(self, query: str, limit: int = 10, category: Optional[str] = None) -> List[Dict[str, Any]]:
-        """Full-text search across rules vault with topic ranking, category awareness, and TOC filtering."""
+    def search_rules(
+        self,
+        query: str,
+        limit: int = 10,
+        category: Optional[str] = None,
+        consolidate_editions: bool = True,
+        attach_statblocks: bool = True
+    ) -> List[Dict[str, Any]]:
+        """
+        Unified 5-stage hybrid search across rules vault:
+        1. Exact topic / name match (O(1))
+        2. Multi-word topic containment (all words in topic)
+        3. Topic prefix / title containment
+        4. FTS5 BM25 weighted search with snippets (Topic x5.0, Tags x3.0, Content x1.0)
+        5. Fallback LIKE search
+        Followed by canonical edition deduplication and Pydantic stat block attachment.
+        """
         if not query or not query.strip():
             return []
-            
+
         clean_q = query.strip()
         norm_q = clean_q.lower()
         norm_no_hyphen = norm_q.replace("-", " ")
 
         cols = self._get_rules_columns()
-        select_clause = ", ".join([c for c in cols if c in ["id", "topic", "chapter", "source", "page", "authority_level", "content"]])
-        if not select_clause:
-            select_clause = "*"
+        select_cols = [c for c in cols if c in ["id", "topic", "chapter", "source", "page", "authority_level", "content"]]
+        select_clause = ", ".join(select_cols) if select_cols else "*"
 
         cursor = self.conn.cursor()
 
@@ -182,61 +306,108 @@ class RulesDB:
             AND lower(topic) NOT LIKE '%credits%'
         """
 
-        # 1. Exact topic match (with or without hyphens)
+        raw_results = []
+
+        # 1. Exact topic match
         rows = cursor.execute(
-            f"SELECT {select_clause} FROM rules WHERE (lower(topic) = ? OR lower(topic) = ?) AND {ignore_clause} LIMIT ?",
-            (norm_q, norm_no_hyphen, limit)
+            f"SELECT {select_clause} FROM rules WHERE (lower(topic) = ? OR lower(topic) = ?) AND {ignore_clause} ORDER BY authority_level ASC, id ASC LIMIT ?",
+            (norm_q, norm_no_hyphen, limit * 2)
         ).fetchall()
         if rows:
-            return [dict(r) for r in rows]
+            raw_results.extend([dict(r) for r in rows])
 
-        # 2. Topic prefix / title containment match
-        rows = cursor.execute(
-            f"SELECT {select_clause} FROM rules WHERE (lower(topic) LIKE ? OR lower(topic) LIKE ? OR lower(topic) LIKE ? OR lower(topic) LIKE ?) AND {ignore_clause} LIMIT ?",
-            (f"{norm_q}%", f"anthro - {norm_q}%", f"% {norm_q}%", f"%{norm_q}%", limit)
-        ).fetchall()
-        if rows:
-            return [dict(r) for r in rows]
-
-        # 3. Individual significant words in topic
-        words = [w.strip() for w in re.split(r"[\s\-_]+", norm_q) if len(w.strip()) >= 4 and w.strip() not in ["array", "drone", "heavy", "light", "medium", "small"]]
-        if words:
-            for w in words:
+        # 2. Multi-word topic containment match (ALL words matching in topic)
+        if len(raw_results) < limit:
+            words = [w.strip() for w in re.split(r"[\s\-_]+", norm_q) if len(w.strip()) >= 3 and w.strip() not in ["array", "drone", "heavy", "light", "medium", "small"]]
+            if len(words) > 1:
+                like_clauses = " AND ".join(["lower(topic) LIKE ?" for _ in words])
+                params = [f"%{w}%" for w in words]
                 rows = cursor.execute(
-                    f"SELECT {select_clause} FROM rules WHERE lower(topic) LIKE ? AND {ignore_clause} LIMIT ?",
-                    (f"%{w}%", limit)
+                    f"SELECT {select_clause} FROM rules WHERE ({like_clauses}) AND {ignore_clause} ORDER BY authority_level ASC, id ASC LIMIT ?",
+                    (*params, limit * 2)
                 ).fetchall()
                 if rows:
-                    return [dict(r) for r in rows]
+                    seen = {r["id"] for r in raw_results}
+                    for r in rows:
+                        d = dict(r)
+                        if d["id"] not in seen:
+                            raw_results.append(d)
+                            seen.add(d["id"])
 
-        # 4. FTS search excluding TOC/Index
-        try:
-            fts_term = re.sub(r"[^\w\s]", " ", query).strip()
-            if fts_term:
-                fts_q = f'"{fts_term}"'
-                rows = cursor.execute(
-                    f"""
-                    SELECT {select_clause} 
-                    FROM rules r 
-                    JOIN rules_fts fts ON r.id = fts.id 
-                    WHERE rules_fts MATCH ? 
-                    AND {ignore_clause}
-                    LIMIT ?
-                    """,
-                    (fts_q, limit)
-                ).fetchall()
-                if rows:
-                    return [dict(r) for r in rows]
-        except Exception:
-            pass
+        # 3. Topic prefix / title containment match
+        if len(raw_results) < limit:
+            rows = cursor.execute(
+                f"SELECT {select_clause} FROM rules WHERE (lower(topic) LIKE ? OR lower(topic) LIKE ? OR lower(topic) LIKE ? OR lower(topic) LIKE ?) AND {ignore_clause} ORDER BY authority_level ASC, id ASC LIMIT ?",
+                (f"{norm_q}%", f"anthro - {norm_q}%", f"% {norm_q}%", f"%{norm_q}%", limit * 2)
+            ).fetchall()
+            if rows:
+                seen = {r["id"] for r in raw_results}
+                for r in rows:
+                    d = dict(r)
+                    if d["id"] not in seen:
+                        raw_results.append(d)
+                        seen.add(d["id"])
+
+        # 4. FTS5 BM25 Weighted Search with Snippet Extraction
+        if len(raw_results) < limit:
+            try:
+                fts_term = re.sub(r"[^\w\s]", " ", query).strip()
+                if fts_term:
+                    fts_words = fts_term.split()
+                    # Safe FTS query with prefix wildcard
+                    fts_q = " AND ".join([f'"{w}"*' for w in fts_words]) if len(fts_words) > 1 else f'"{fts_term}"*'
+                    
+                    fts_select = ", ".join([f"r.{c}" for c in select_cols]) if select_cols else "r.*"
+                    rows = cursor.execute(
+                        f"""
+                        SELECT {fts_select}, 
+                               bm25(rules_fts, 10.0, 5.0, 2.0, 3.0, 1.0) AS fts_score,
+                               snippet(rules_fts, 4, '[bold cyan]', '[/bold cyan]', '...', 25) AS snippet
+                        FROM rules r 
+                        JOIN rules_fts fts ON r.id = fts.id 
+                        WHERE rules_fts MATCH ? 
+                        AND {ignore_clause}
+                        ORDER BY r.authority_level ASC, fts_score ASC
+                        LIMIT ?
+                        """,
+                        (fts_q, limit * 3)
+                    ).fetchall()
+                    if rows:
+                        seen = {r["id"] for r in raw_results}
+                        for r in rows:
+                            d = dict(r)
+                            if d["id"] not in seen:
+                                raw_results.append(d)
+                                seen.add(d["id"])
+            except Exception:
+                pass
 
         # 5. Fallback content/topic LIKE query
-        fallback_term = re.sub(r"[^\w\s]", " ", query).strip()
-        rows = cursor.execute(
-            f"SELECT {select_clause} FROM rules WHERE (topic LIKE ? OR content LIKE ?) AND {ignore_clause} LIMIT ?",
-            (f"%{fallback_term}%", f"%{fallback_term}%", limit)
-        ).fetchall()
-        return [dict(r) for r in rows]
+        if len(raw_results) < limit:
+            fallback_term = re.sub(r"[^\w\s]", " ", query).strip()
+            rows = cursor.execute(
+                f"SELECT {select_clause} FROM rules WHERE (topic LIKE ? OR content LIKE ?) AND {ignore_clause} ORDER BY authority_level ASC, id ASC LIMIT ?",
+                (f"%{fallback_term}%", f"%{fallback_term}%", limit)
+            ).fetchall()
+            seen = {r["id"] for r in raw_results}
+            for r in rows:
+                d = dict(r)
+                if d["id"] not in seen:
+                    raw_results.append(d)
+                    seen.add(d["id"])
+
+        # Consolidate editions across regional versions if requested
+        if consolidate_editions:
+            results = consolidate_edition_matches(raw_results)[:limit]
+        else:
+            results = raw_results[:limit]
+
+        # Attach Pydantic stat blocks if present
+        if attach_statblocks:
+            for r in results:
+                attach_rule_statblocks(r)
+
+        return results
 
     def get_enriched_item(self, target: str) -> Optional[Dict[str, Any]]:
         """
