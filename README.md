@@ -21,7 +21,19 @@ The master engine, dataset compiler, and CLI portfolio manager for Shadowrun 6th
   - Automatically extracts fired ammunition (APDS, Gel, Regular, Flechette), physical/stun damage taken, drain/fading suffered, and rewards from chapter prose into explicit `character_master.yaml` patches.
 - **CommLink6 XML Dataset Compiler**: Automatically indexes 7,500+ official XML dataset records (`ref_qualities`, `ref_spells`, `ref_complex_forms`, `ref_gear`, `ref_metatypes`) extracted directly from `CommLink6` JAR releases into SQLite.
 - **CommLink6 GUI Automated Roundtrip Sync**: Scans player save directories (`~/CommLink6/player/myself/shadowrun6/`) and automatically patches character XML save files in place with live campaign Quarto totals (Karma, Nuyen, Reputation), standardized SRM contacts, full ISO-8601 timestamps, and terminal visual diffs.
-- **Rules Vault & RAG Subsystem**: Full-text FTS5 search and Gemini AI rules reference assistant enforcing the SRM 4-Level Authority hierarchy with physical book citations (`[Book, Page]`).
+- **Pydantic Stat Block Subsystem & Dynamic Weapon Array Engine**:
+  - 9 Strictly validated Pydantic models (`WeaponStatBlock`, `ArmorStatBlock`, `VehicleStatBlock`, `SpellStatBlock`, `ComplexFormStatBlock`, `SpriteStatBlock`, `SpiritStatBlock`, `AIStatBlock`, `NPCStatBlock`) enforcing tabletop constraints ($B,A,R,S,W,L,I,C \ge 1$, $0.0 < \text{Essence} \le 6.0$, valid damage notation, AI Matrix Condition Monitor $\lceil \text{WIL}/2 \rceil + 8$).
+  - **Dynamic Post-Modification Arrays (`calculate_modified_weapon`)**: Automatically computes modified Attack Ratings (+2 Smartlink, +2 Attack Dice), barrel ranges, extended clip capacities, and ammo damage modifiers across cards, text sheets, and Quarto appendix dossiers.
+  - **Dual Stat Block Formatters**: `format_statblock_markdown` (Quarto callouts) and `format_statblock_plaintext` (76-column ASCII bordered tables).
+- **GPU CUDA Docling Layout & Extraction Pipeline (`sr6 vault`)**:
+  - IBM Docling deep learning engine (`DocLayNet` + `TableFormer`) accelerated by NVIDIA CUDA for multi-column layout separation and authentic 2D Markdown table reconstruction.
+  - 20,082 atomic rule chunks indexed across 51 official SR6 publications with *City Edition: Hong Kong* (`SR6H`) as the canonical core baseline.
+  - Parallel vector synchronization (`sync_gemini_store`) with SHA-256 hash tracking to the Google Gemini File Search Store (`Shadowrun 6E SRM Vault`).
+- **Advanced Offline 5-Stage Hybrid Search & Cross-Edition Consolidation (`sr6 rag search`)**:
+  - 5-Stage search cascade: O(1) Topic Match $\rightarrow$ Multi-Word Topic Containment $\rightarrow$ Topic Prefix $\rightarrow$ BM25 Column-Weighted FTS5 (`topic` x5.0, `tags` x3.0) $\rightarrow$ Substring Fallback.
+  - **Canonical Edition Consolidation**: Merges identical topics across *City Edition: Hong Kong*, *Seattle*, and *Berlin* into a single canonical entry with automatic cross-edition page references (`+ Also in: Seattle p. 5, Berlin p. 247`).
+  - **Instant Pydantic Statblock Attachment (`r["statblock"]`)**: Automatically parses and attaches typed models to offline search results without cloud API dependencies.
+  - **Keyword-Centered Context Snippets**: FTS5 snippet extraction with keyword highlighting in rich terminal tables.
 - **Official SRM Contacts Indexing**: Populates official SRM named contacts from SRMG v2.4 Appendix C (`SRMG-0492` & `SRMG-0493`), enforcing fixed SRM Connection ratings and canonical archetypes across character portfolios.
 - **Enriched Cross-Referencing**: Merges CommLink6 stat parameters (Karma, Nuyen, Drain, Fading, ratings) with rules vault narrative descriptions into unified item cards.
 - **Deep Creation Auditor & Flexible Pricing Engine**:

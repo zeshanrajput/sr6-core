@@ -245,7 +245,28 @@ Replace static markdown tables in domain rules chapters with dynamic renderers f
 
 ---
 
-## 13. Final Ecosystem Synchronization
+## 13. Standardized Pydantic Stat Blocks & Dynamic Weapon Arrays
+
+`sr6-core` includes a full Pydantic stat block engine (`sr6core.models` & `sr6core.vault.statblock_parser`) supporting typed models across all 9 tabletop entity categories (`WeaponStatBlock`, `ArmorStatBlock`, `VehicleStatBlock`, `SpellStatBlock`, `ComplexFormStatBlock`, `SpriteStatBlock`, `SpiritStatBlock`, `AIStatBlock`, `NPCStatBlock`).
+
+### Key Capabilities for Character Portfolios:
+1. **Dynamic Post-Modification Weapon Arrays (`calculate_modified_weapon`)**:
+   Automatically calculates modified Attack Ratings (+2 for active Smartlink, +2 Attack Dice for Smartguns), extended barrel range extensions, expanded magazine capacities, and ammunition DV modifiers (APDS, Explosive, Gel, Stick-n-Shock) without manual spreadsheet calculation.
+2. **Dual Callout & Plain-Text Formatters**:
+   - **Quarto Callouts (`format_statblock_markdown`)**: Renders clean, copy-pasteable callouts for character narrative chapters and rules appendices:
+     ```markdown
+     ::: {.callout-note icon=false title="⚔️ WEAPON: ARES PREDATOR VI (HEAVY PISTOL)"}
+     **DV:** 3P | **Modes:** SA/BF | **Attack Ratings:** 12/12/10/-/- | **Ammo:** 15(c)
+     *Mods: Internal Smartgun System (+2 AR, +2 Attack Dice)*
+     :::
+     ```
+   - **76-Column ASCII Bordered Tables (`format_statblock_plaintext`)**: Produces strict 76-column tables for modular text exports (`output/text/<char>_combat.txt`).
+3. **Automated Appendix Generation**:
+   `sr6 sync-all` automatically builds a tactical appendix dossier (`chapters/character_dossier_appendix.qmd`) in each character repository, detailing full tactical profiles for all installed cyberware, modified weapons, and gear arrays.
+
+---
+
+## 14. Final Ecosystem Synchronization
 
 From `sr6-core`, run the ecosystem synchronizer:
 
@@ -253,4 +274,4 @@ From `sr6-core`, run the ecosystem synchronizer:
 sr6 sync-all
 ```
 
-This will automatically perform deep item audits across all character portfolios, regenerate VTT/JSON/XML/PDF/Text sheets into `output/`, patch active CommLink6 GUI player saves, and verify live Quarto builds.
+This will automatically perform deep item audits across all character portfolios, calculate post-modification weapon arrays, regenerate VTT/JSON/XML/PDF/Text sheets into `output/`, patch active CommLink6 GUI player saves, and build Quarto tactical appendix dossiers.
