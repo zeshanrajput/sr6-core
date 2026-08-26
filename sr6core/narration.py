@@ -80,8 +80,55 @@ def clean_markdown_for_tts(text: str) -> str:
     return text
 
 
+_PRONUNCIATION_CACHE = None
+
+
+def get_pronunciation_dictionary() -> Tuple[dict, list]:
+    """
+    Loads pronunciation dictionary terms and regex patterns from external YAML files.
+    Discovers:
+      1. Base dictionary in sr6-core (reference/pronunciations.yaml or sr6core/pronunciations.yaml)
+      2. Workspace dictionary in current directory (reference/pronunciations.yaml or pronunciations.yaml)
+    Merges them (workspace rules override/extend defaults).
+    """
+    global _PRONUNCIATION_CACHE
+    if _PRONUNCIATION_CACHE is not None:
+        return _PRONUNCIATION_CACHE
+
+    import yaml
+    from pathlib import Path
+
+    merged_terms = {}
+    merged_patterns = []
+
+    search_files = [
+        Path(__file__).resolve().parent.parent / "reference" / "pronunciations.yaml",
+        Path(__file__).resolve().parent / "pronunciations.yaml",
+        Path.cwd() / "reference" / "pronunciations.yaml",
+        Path.cwd() / "pronunciations.yaml",
+    ]
+
+    loaded_any = False
+    for p in search_files:
+        if p.exists() and p.is_file():
+            try:
+                with open(p, "r", encoding="utf-8") as f:
+                    data = yaml.safe_load(f) or {}
+                if "terms" in data and isinstance(data["terms"], dict):
+                    merged_terms.update(data["terms"])
+                    loaded_any = True
+                if "patterns" in data and isinstance(data["patterns"], list):
+                    merged_patterns.extend(data["patterns"])
+                    loaded_any = True
+            except Exception as e:
+                print(f"[Warning] Failed to load pronunciation file '{p}': {e}")
+
+    _PRONUNCIATION_CACHE = (merged_terms, merged_patterns)
+    return _PRONUNCIATION_CACHE
+
+
 def clean_pronunciation(text: str) -> str:
-    """Applies comprehensive pronunciation corrections for Shadowrun terms, currency, acronyms, honorifics, and hyphenated compound words."""
+    """Applies comprehensive pronunciation corrections for Shadowrun terms, currency, acronyms, honorifics, and hyphenated compound words using external YAML dictionary."""
     # 0. Standalone ~ as host name / home directory
     text = re.sub(r'(?<=[\s(\[\'"`])~(?=[\s)\]\'"`.,;!?]|$)', 'tilde', text)
     text = re.sub(r'^~(?=[\s)\]\'"`.,;!?]|$)', 'tilde', text)
@@ -93,105 +140,28 @@ def clean_pronunciation(text: str) -> str:
         return cleaned
     text = re.sub(r'\b[A-Z0-9_]{3,}(?:\s*/\s*[A-Z0-9_]{3,})+\b', _clean_spirit_code, text)
 
-    # 1. Contraction / Phonetic Fixes (wasn't -> was not)
-    text = re.sub(r"\bwasn't\b", "was not", text, flags=re.IGNORECASE)
+    # Load external dictionaries
+    terms, patterns = get_pronunciation_dictionary()
 
-    # 2. Corporate Designation (R-31-K-0 -> R 31 K 0) vs Chosen Name (Reiko -> Rayko)
-    text = re.sub(r'\bR[-_\s]*31[-_\s]*K[-_\s]*0(\'s)?\b', r'R 31 K 0\1', text, flags=re.IGNORECASE)
-    text = re.sub(r'\br31-?k0(\'s)?\b', r'R 31 K 0\1', text, flags=re.IGNORECASE)
-    text = re.sub(r'\breiko(\'s)?\b', r'Rayko\1', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bT@z(\'s)?\b', r'Taz\1', text)
-    text = re.sub(r'\bt@z(\'s)?\b', r'taz\1', text)
-    text = text.replace('SINner', 'sinner').replace('SINners', 'sinners')
-    text = re.sub(r'\br3sP@wn(\'s)?\b', r'respawn\1', text, flags=re.IGNORECASE)
+    # Apply term replacements (sorted by length descending so longer compound phrases match first)
+    sorted_terms = sorted(terms.items(), key=lambda x: len(x[0]), reverse=True)
+    for term, replacement in sorted_terms:
+        escaped = re.escape(term)
+        # Support possessives automatically if term is a clean alphanumeric word
+        if re.match(r'^\w+$', term):
+            pattern = rf'\b{escaped}(\'s)?\b'
+            rep = rf'{replacement}\1'
+            text = re.sub(pattern, rep, text, flags=re.IGNORECASE)
+        else:
+            pattern = rf'(?<!\w){escaped}(?!\w)'
+            text = re.sub(pattern, replacement, text, flags=re.IGNORECASE)
 
-    # 3. Currency & Symbols (¥500 -> 500 new yen)
-    text = re.sub(r'¥\s*(\d[\d,.]*)', r'\1 new yen', text)
-    text = text.replace('¥', ' new yen ')
-    text = re.sub(r'\bnuyens?\b', 'new yen', text, flags=re.IGNORECASE)
-
-    # 4. Shadowrun Acronyms & Jargon (IC -> Ice, ARO -> A R O, APDS -> A P D S)
-    text = re.sub(r'\bSRM\b', 'S R M', text)
-    text = re.sub(r'\bIC\b', 'Ice', text)
-    text = re.sub(r'\bICE\b', 'Ice', text)
-    text = re.sub(r'\bARO\b', 'A R O', text)
-    text = re.sub(r'\bAROs\b', 'A R Os', text)
-    text = re.sub(r'\bAPDS\b', 'A P D S', text)
-    text = re.sub(r'\bASDF\b', 'A S D F', text)
-    text = re.sub(r'\bM-TOCs?\b', 'Em Toc', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bSINless\b', 'sinless', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bSIN\b', 'sin', text)
-    text = re.sub(r'\bBrynne(\'s)?\b', r'Brin\1', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bMCT\b', 'Em See Tee', text)
-
-    # 5. Japanese, Korean & Chinese Names, Groups & Honorifics
-    text = re.sub(r'\bAh-Mei\b', 'Ah Mei', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bEndo[- ]san\b', 'Endo sahn', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bRei[- ]chan\b', 'Rei chahn', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bYuri[- ]chan\b', 'Yuri chahn', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bYuriko[- ]san\b', 'Yooreeko sahn', text, flags=re.IGNORECASE)
-    text = re.sub(r'(\b[A-Za-z]+)-chan\b', r'\1 chahn', text, flags=re.IGNORECASE)
-    text = re.sub(r'(\b[A-Za-z]+)-san\b', r'\1 sahn', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bNeo-Tokyo\b', 'Neo Tokyo', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bNeo-Kyoto\b', 'Neo Kyoto', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bNeo-Seoul\b', 'Neo Seoul', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bJin[- ]Young(\'s)?\b', r'Jin Young\1', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bJi[- ]yoo(\'s)?\b', r'Jee yoo\1', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bTanaka Ryo(\'s)?\b', r'Tanaka Ree oh\1', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bRyo(\'s)?\b', r'Ree oh\1', text)
-    text = re.sub(r'\bJi[- ]Hoon(\'s)?\b', r'Jee Hoon\1', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bTae[- ]Hyun(\'s)?\b', r'Tay Hyun\1', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bMin[- ]Ki(\'s)?\b', r'Min Kee\1', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bYueying(\'s)?\b', r'Yoo ay ying\1', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bTXM(\'s)?\b', r'T X M\1', text)
-    text = re.sub(r'\bMei Jing(\'s)?\b', r'May Jing\1', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bNi Ni Xiaolu(\'s)?\b', r'Nee Nee Shee ow loo\1', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bXingfu Chaguan\b', 'Shing foo Chah gwahn', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bNingbo\b', 'Ning bow', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bTeddy Chin(\'s)?\b', r'Teddy Chin\1', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bDavid Gao(\'s)?\b', r'David Gow\1', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bDwight Baxter(\'s)?\b', r'Dwight Baxter\1', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bPavel(\'s)?\b', r'Pah vel\1', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bOmsk\b', 'Ahmsk', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bVory\b', 'Vor ee', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bshakuhachi\b', 'shah koo hah chee', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bdaisho\b', 'dye show', text, flags=re.IGNORECASE)
-
-    # 6. Megacorps & Proper Nouns (Phonetic spelling without hyphens)
-    text = re.sub(r'\bRenraku\b', 'Renraku', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bShiawase\b', 'Sheeahwahsay', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bSaeder-Krupp\b', 'Sayder Krupp', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bMitsuhama\b', 'Meetsoohahmah', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bAztechnology\b', 'Aztechnology', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bWuxing\b', 'Woo shing', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bYuriko(\'s)?\b', r'Yooreeko\1', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bdronomancer\b', 'dronomancer', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bdronomancy\b', 'dronomancy', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bcyberdeck\b', 'cyberdeck', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bgridlink\b', 'gridlink', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bcredsticks?\b', 'cred stick', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bNarcoject\b', 'Nahr ko jekt', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bTransys Avalon\b', 'Tran sis Av ah lon', text, flags=re.IGNORECASE)
-
-    # 7. De-hyphenate compound words (soy-burger -> soyburger, matte-gray -> matte gray)
-    text = re.sub(r'\bsoy-burgers?\b', 'soyburger', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bblack-market\b', 'black market', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bquick-mart\b', 'quick mart', text, flags=re.IGNORECASE)
-    text = re.sub(r'(\b[a-zA-Z]+)-([a-zA-Z]+\b)', r'\1 \2', text)
-
-    # 8. Cultural & Loan words
-    text = re.sub(r'\bamuse-?bouche\b', 'ahmyooz boosh', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bqipao\b', 'cheepow', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bcheongsam\b', 'chongsahm', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bzaibatsu\b', 'zeyebahtsoo', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bkeiretsu\b', 'kayretsoo', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bkatana\b', 'kahtanah', text, flags=re.IGNORECASE)
-    text = re.sub(r'\byakuza\b', 'yahkoozah', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bpalengke\b', 'pah leng kay', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bDalakitnon\b', 'Dah lah keet non', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bMusok\b', 'Moo sok', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bTieguanyin\b', 'Teegwahn yeen', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bgyokuro\b', 'gyo koo ro', text, flags=re.IGNORECASE)
+    # Apply regex pattern replacements
+    for pat in patterns:
+        m = pat.get("match")
+        r = pat.get("replace")
+        if m and r is not None:
+            text = re.sub(m, r, text, flags=re.IGNORECASE)
 
     return text.replace('\\', '')
 

@@ -33,6 +33,17 @@ class TestNarrationEngine(unittest.TestCase):
         self.assertIn("AGENT OF ORDER. SANITIZE INPUT.", cleaned)
         self.assertIn("I'll", cleaned)
 
+    def test_clean_pronunciation_credsticks_and_lore(self):
+        raw = "Three certified credsticks lay beside a single credstick in Sham Shui Po. Kwai Chung lot CT4 near the Wuxing Skytower. Kang Anning practiced Daesul."
+        cleaned = clean_pronunciation(raw)
+        self.assertIn("cred sticks", cleaned)
+        self.assertIn("cred stick", cleaned)
+        self.assertIn("Shahm Shooee Poh", cleaned)
+        self.assertIn("Kwye Chung", cleaned)
+        self.assertIn("Sky Tower", cleaned)
+        self.assertIn("Kahng Ahn ning", cleaned)
+        self.assertIn("Day sool", cleaned)
+
     def test_normalize_dialogue_cadence(self):
         raw = "Wait -- what is -- that?"
         normalized = normalize_dialogue_cadence(raw)

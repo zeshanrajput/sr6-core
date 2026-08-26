@@ -1,0 +1,201 @@
+# =============================================================================
+# SR6 TTS Pronunciation & Phonetic Replacement Dictionary
+# Used by Kokoro TTS (af_heart) in the SR6 Core Master Project & Portfolios.
+# =============================================================================
+
+# Exact or Word-Boundary Term Mappings (matched as \b<term>('s)?\b, case-insensitive)
+terms:
+  # ---------------------------------------------------------------------------
+  # 1. Currency, Jargon & Mechanics
+  # ---------------------------------------------------------------------------
+  "credsticks": "cred sticks"
+  "credstick": "cred stick"
+  "nuyens": "new yen"
+  "nuyen": "new yen"
+  "SRM": "S R M"
+  "IC": "Ice"
+  "ICE": "Ice"
+  "ARO": "A R O"
+  "AROs": "A R Os"
+  "APDS": "A P D S"
+  "ASDF": "A S D F"
+  "M-TOC": "Em Toc"
+  "M-TOCs": "Em Toc"
+  "MCT": "Em See Tee"
+  "CorpSec": "Corp Sek"
+  "SkinShield": "skin shield"
+  "skinshield": "skin shield"
+  "Transys Avalon": "Tran sis Av ah lon"
+  "Narcoject": "Nahr ko jekt"
+  "cyberdeck": "cyberdeck"
+  "gridlink": "gridlink"
+  "dronomancer": "dronomancer"
+  "dronomancy": "dronomancy"
+  "SINner": "sinner"
+  "SINners": "sinners"
+  "SINless": "sinless"
+  "SIN": "sin"
+  "wasn't": "was not"
+
+  # ---------------------------------------------------------------------------
+  # 2. Megacorporations & Organizations
+  # ---------------------------------------------------------------------------
+  "Renraku": "Renraku"
+  "Shiawase": "Sheeahwahsay"
+  "Saeder-Krupp": "Sayder Krupp"
+  "Mitsuhama": "Meetsoohahmah"
+  "Aztechnology": "Aztechnology"
+  "Wuxing": "Woo shing"
+  "Ruhrmetall": "Roor met ahl"
+  "TXM": "T X M"
+  "S-K": "Ess Kay"
+
+  # ---------------------------------------------------------------------------
+  # 3. Character Names, Contacts & Personas
+  # ---------------------------------------------------------------------------
+  # Velvet / Jin-Young & Circle
+  "Jin-Young": "Jin Young"
+  "Jin Young": "Jin Young"
+  "Ji-yoo": "Jee yoo"
+  "Tanaka Ryo": "Tanaka Ree oh"
+  "Ryo": "Ree oh"
+  "Ji-Hoon": "Jee Hoon"
+  "Tae-Hyun": "Tay Hyun"
+  "Min-Ki": "Min Kee"
+  "Hana": "Hana"
+  "Yueying": "Yoo ay ying"
+  "Mei Jing": "May Jing"
+  "Zhang Wei": "Jahng Way"
+  "Leung Hoi-ching": "Leh ung Hoy ching"
+  "Hoi-ching": "Hoy ching"
+  "Kang Anning": "Kahng Ahn ning"
+  "Anning": "Ahn ning"
+  "Fa Ren": "Fah Ren"
+  "Liao Fa Ren": "Lee ow Fah Ren"
+  "Mr. Fa": "Mister Fah"
+  "Liao Fa Deng": "Lee ow Fah Deng"
+  "Ni Ni Xiaolu": "Nee Nee Shee ow loo"
+  "Ni Ni": "Nee Nee"
+  "Ni's": "Nee's"
+  "Xiaolu": "Shee ow loo"
+  "Xingfu Chaguan": "Shing foo Chah gwahn"
+  "Brynne": "Brin"
+  "Teddy Chin": "Teddy Chin"
+  "David Gao": "David Gow"
+  "Dwight Baxter": "Dwight Baxter"
+  "Pavel": "Pah vel"
+  "De Vries & Zoon": "Duh Vrees and Zohn"
+  "De Vries": "Duh Vrees"
+  "Pieter": "Peter"
+  "Lawrence Duval": "Lawrence Doo vahl"
+  "Duval": "Doo vahl"
+  "Ai-chan": "Eye chahn"
+  "Kovacs": "Koh vacks"
+
+  # Yuriko & Circle
+  "Yuriko": "Yooreeko"
+  "Reiko": "Rayko"
+  "Endo-san": "Endo sahn"
+  "Rei-chan": "Rei chahn"
+  "Yuri-chan": "Yuri chahn"
+  "Yuriko-san": "Yooreeko sahn"
+  "Ah-Mei": "Ah Mei"
+
+  # ---------------------------------------------------------------------------
+  # 4. Sprawls, Geography & Trade Hubs
+  # ---------------------------------------------------------------------------
+  "Neo-Tokyo": "Neo Tokyo"
+  "Neo-Kyoto": "Neo Kyoto"
+  "Neo-Seoul": "Neo Seoul"
+  "Sham Shui Po": "Shahm Shooee Poh"
+  "Shui": "Shooee"
+  "Kowloon": "Cow loon"
+  "Kwai Chung": "Kwye Chung"
+  "Kwai": "Kwye"
+  "Skytower": "Sky Tower"
+  "skytower": "sky tower"
+  "Victoria Harbour": "Victoria Harbor"
+  "Europort": "Euro port"
+  "Rotterdam": "Rotterdam"
+  "Omsk": "Ahmsk"
+  "Ningbo": "Ning bow"
+  "Tondo": "Tondo"
+  "Pasig": "Pah sig"
+  "Gangnam": "Gahng nahm"
+  "Vladivostok": "Vlah dee vahs tok"
+
+  # ---------------------------------------------------------------------------
+  # 5. Cultural, Shamanic & Metaphysical Lexicon
+  # ---------------------------------------------------------------------------
+  "Musok": "Moo sok"
+  "Mudang": "Moo dahng"
+  "Dalakitnon": "Dah lah keet non"
+  "Daleketnon": "Dah lah keet non"
+  "Sinbyeong": "Shin byung"
+  "Naerim-gut": "Neh reem goot"
+  "Mansin": "Mahn sheen"
+  "Bin Geureut": "Been Geh root"
+  "Wonhan-puri": "Wohn hahn poo ree"
+  "Han": "Hahn"
+  "Ssikkim-gut": "Sheek keem goot"
+  "Jinogwi-gut": "Jee no gwee goot"
+  "Daesul": "Day sool"
+  "Jijeon": "Jee jeon"
+  "Yaksa": "Yahk sah"
+  "Upāya": "Oo pah yah"
+  "Upaya": "Oo pah yah"
+  "Anattā": "Ah naht tah"
+  "Anatta": "Ah naht tah"
+  "Śūnyatā": "Shoon yah tah"
+  "Sunyata": "Shoon yah tah"
+  "Shinkyō": "Sheen kyoe"
+  "Shinkyo": "Sheen kyoe"
+  "Kagami": "Kah gah mee"
+  "Yata no Kagami": "Yah tah no Kah gah mee"
+  "Nirmāṇakāya": "Neer mah nah kah yah"
+  "Nirmanakaya": "Neer mah nah kah yah"
+  "Tieguanyin": "Teegwahn yeen"
+  "Pu-erh": "Poo air"
+  "gyokuro": "gyo koo ro"
+  "palengke": "pah leng kay"
+  "zaibatsu": "zeyebahtsoo"
+  "keiretsu": "kayretsoo"
+  "katana": "kahtanah"
+  "daisho": "dye show"
+  "shakuhachi": "shah koo hah chee"
+  "yakuza": "yahkoozah"
+  "Vory": "Vor ee"
+  "qipao": "cheepow"
+  "cheongsam": "chongsahm"
+  "amuse-bouche": "ahmyooz boosh"
+
+# -----------------------------------------------------------------------------
+# 6. Regex Pattern Replacements
+# -----------------------------------------------------------------------------
+patterns:
+  - match: '¥\s*(\d[\d,.]*)'
+    replace: '\1 new yen'
+  - match: '¥'
+    replace: ' new yen '
+  - match: '(\b[A-Za-z]+)-chan\b'
+    replace: '\1 chahn'
+  - match: '(\b[A-Za-z]+)-san\b'
+    replace: '\1 sahn'
+  - match: '\bR[-_\s]*31[-_\s]*K[-_\s]*0(\''s)?\b'
+    replace: 'R 31 K 0\1'
+  - match: '\br31-?k0(\''s)?\b'
+    replace: 'R 31 K 0\1'
+  - match: '\bT@z(\''s)?\b'
+    replace: 'Taz\1'
+  - match: '\bt@z(\''s)?\b'
+    replace: 'taz\1'
+  - match: '\br3sP@wn(\''s)?\b'
+    replace: 'respawn\1'
+  - match: '\bsoy-burgers?\b'
+    replace: 'soyburger'
+  - match: '\bblack-market\b'
+    replace: 'black market'
+  - match: '\bquick-mart\b'
+    replace: 'quick mart'
+  - match: '(\b[a-zA-Z]+)-([a-zA-Z]+\b)'
+    replace: '\1 \2'
