@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sr6char gender="DIVERSE" meta="ai-pilot ai" karmaF="1" karmaI="228" nuyen="5000">
+   <lifestyles>
+      <lifestyle lang="en" ref="low" comfort="low" entert="low" necess="low" neigh="low" security="low" space="low" value="1" />
+   </lifestyles>
+   <type>METAHUMAN</type>
+   <name>Yuriko Star</name>
+   <realName>r31k0 Takahashi</realName>
+   <age>~ 10</age>
+   <attributes>
+      <attributes id="BODY" value="5" />
+      <attributes id="AGILITY" value="3" />
+      <attributes id="REACTION" value="5" />
+      <attributes id="STRENGTH" value="3" />
+      <attributes id="WILLPOWER" value="6" />
+      <attributes id="LOGIC" value="4" />
+      <attributes id="INTUITION" value="2" />
+      <attributes id="CHARISMA" value="4" />
+      <attributes id="EDGE" value="4" />
+      <attributes id="RESONANCE" value="8" />
+   </attributes>
+   <qualities>
+      <quality lang="en" ref="natural_hacker" uuid="fb76cdfd-de61-4296-b9df-dd5304549ea6" />
+      <quality lang="en" ref="technoshaman" uuid="d63c1ff0-faf8-47b1-b605-b390d0120c7c" />
+      <quality lang="en" ref="designer" uuid="e639fb24-25bd-46ab-87d8-041b6808d45b" />
+      <quality lang="en" ref="sensor_upgrade" uuid="b711d701-56e1-4a96-8667-b3abf4443e0e" />
+      <quality lang="en" ref="pilot_origins" uuid="36709bdd-9e58-4431-b884-2a3e8bc2d616" />
+      <quality lang="en" ref="buddy_system" uuid="f3fc2561-c406-4c07-8636-6bf177f0e90a" />
+      <quality lang="en" ref="sprite_bane" uuid="1b08de5c-b403-4cc3-9dfc-e07dbb34ddd2">
+         <decision choice="9374dc13-45b9-4c16-bf23-f73af6036833" value="Primal Sprite" />
+      </quality>
+      <quality lang="en" ref="hooder" uuid="2787c26d-9185-41b8-9a57-233761f09651" value="2" />
+   </qualities>
+   <skills>
+      <skill lang="en" ref="tasking" uuid="1ee85e1d-6acb-46ad-a2a2-45028f8edde2" value="6">
+         <skillspec lang="en" ref="registering" />
+      </skill>
+      <skill lang="en" ref="cracking" uuid="5a86292a-fc3e-4d0f-aca2-e535c9af1813" value="5">
+         <skillspec lang="en" ref="hacking" />
+      </skill>
+      <skill lang="en" ref="electronics" uuid="a41a1467-aa4b-40d7-b518-90d1f43919de" value="5">
+         <skillspec lang="en" ref="software" />
+      </skill>
+      <skill lang="en" ref="influence" uuid="89125b2b-1db9-4cf0-baae-7e66cea1e1b5" value="1" />
+      <skill lang="en" ref="con" uuid="185f4ab5-f67d-4d4a-80bf-fe4046ed9665" value="1" />
+      <skill lang="en" ref="language" uuid="d7ced870-ef82-4b47-b6a9-3417367a5580" value="4">
+         <decision choice="a7103ee4-31fa-435d-ac42-08f7d4d1e80c" value="Native Language" />
+      </skill>
+   </skills>
+   <metaEchoes>
+      <metaEcho lang="en" ref="hybrid_sprites" />
+      <metaEcho lang="en" ref="new_sprite_type" />
+      <metaEcho lang="en" ref="sprite_conduit" />
+      <metaEcho lang="en" ref="sprite_symbiosis" />
+      <metaEcho lang="en" ref="living_network" />
+      <metaEcho lang="en" ref="transcendent_network" />
+      <metaEcho lang="en" ref="overclocking" />
+      <metaEcho lang="en" ref="software_emulator" />
+      <metaEcho lang="en" ref="sprite_link" />
+   </metaEchoes>
+   <sins>
+      <sin name="Yuriko Star" quality="SECOND_LIFE" uniqueid="fe3beccf-355d-42f2-852a-706536a8b846" />
+   </sins>
+   <licenses>
+      <licenses name="Drone License" rating="SECOND_LIFE" sin="fe3beccf-355d-42f2-852a-706536a8b846" uniqueid="a17c6650-2916-43d8-a3a5-811345946613" />
+      <licenses name="Firearms License" rating="SECOND_LIFE" sin="fe3beccf-355d-42f2-852a-706536a8b846" uniqueid="9bd5bed8-5d61-4ad2-90b8-c34d7c20a549" />
+   </licenses>
+   <foci>
+      <focus lang="en" ref="qi_focus" value="4">
+         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="4" />
+      </focus>
+      <focus lang="en" ref="qi_focus" value="4">
+         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="4" />
+      </focus>
+   </foci>
+   <items>
+      <item lang="en" mode="CARRIED" ref="hermes_ikon" uuid="66595e1b-3554-4b34-a382-3a19b8daacc7" />
+      <item lang="en" mode="CARRIED" ref="facial_scanner" uuid="5b1eb786-f053-4532-837c-74015617d6eb" />
+      <item lang="en" mode="CARRIED" ref="p-ice_spines" uuid="4cc8c3e6-e620-4c78-881c-1ebb64c1a1ef" />
+      <item lang="en" mode="CARRIED" ref="thermal_mood_reading" uuid="55bfbaab-26bf-4ffc-b9dc-20036d0a7724" />
+      <item lang="en" mode="CARRIED" ref="vocal_tension_detection" uuid="cf6fe8e7-529e-43e4-982a-5094e5e462b7" />
+   </items>
+   <contacts>
+      <contact name="Brynne Taggart" rat="4" type="STREET" typename="Fixer" loy="3" favors="3">
+         <description>Uses: Getting jobs, fencing gear, gangs (Shadowrun Missions Seattle) | Types: Criminal, Street</description>
+      </contact>
+      <contact name="Whiskey" rat="2" type="MEDICAL" typename="Street Doc" loy="4" favors="0">
+         <description>Uses: Medicine, street docs (Shadowrun Missions Seattle) | Types: Medical</description>
+      </contact>
+      <contact name="Indomitable Will" rat="3" type="MATRIX" typename="River People Sysop" loy="3" favors="0">
+         <description>Uses: Banking, HVAC systems, Matrix | Types: Corporate, Matrix</description>
+      </contact>
+      <contact name="Roanoke" rat="3" type="MATRIX" typename="Ecological Activist" loy="3" favors="2">
+         <description>Uses: Getting jobs, environmental science, shamanism | Types: Criminal, Matrix</description>
+      </contact>
+      <contact name="Piotr Krolik" rat="4" type="CRIMINAL" typename="NOLA Vory Borjevik" loy="1" favors="0">
+         <description>SMH 2083-02 EggHunt at the Jackalope Ranch</description>
+      </contact>
+      <contact name="Le Tigre" rat="5" type="MAGIC" typename="Epoch Model" loy="2" favors="0">
+         <description>Uses: Getting jobs, parties, modeling | Types: Corporate, Magic</description>
+      </contact>
+      <contact name="White Jackalope" rat="2" type="STREET" typename="Emergent Lifeform" loy="1" favors="0">
+         <description>SMH 2083-02 EggHunt at the Jackalope Ranch</description>
+      </contact>
+      <contact name="Big Louie" rat="3" type="STREET" typename="SEA Fixer" loy="1" favors="0">
+         <description>CMP First Taste : Top Chef - Seattle</description>
+      </contact>
+      <contact name="Dominique Augustin" rat="4" type="GOVERNMENT" typename="NOLA Wolverine Security" loy="1" favors="1">
+         <description>2083-03 Unofficial Dunkelzahn Fan Club</description>
+      </contact>
+      <contact name="Daniel Fortune" rat="3" type="STREET" typename="NOLA" loy="1" favors="0">
+         <description>2083-03 Unofficial Dunkelzahn Fan Club</description>
+      </contact>
+      <contact name="Renée Martin" rat="4" type="MAGIC" typename="League of Laveau Liaison" loy="2" favors="1">
+         <description>Uses: Getting jobs, magic, voodoo, zombies | Types: Corporate, Magic</description>
+      </contact>
+      <contact name="The Frisian" rat="6" type="CRIMINAL" typename="AMS Crime Lord of the Dutch Penose syndicate" loy="1" favors="0">
+         <description>CMP 2081-09 Bring me Prince Charming</description>
+      </contact>
+      <contact name="Ree 'Dolly' Hacker" rat="4" type="MAGIC" typename="KY Talismonger and Racer" loy="1" favors="1">
+         <description>CMP 2081-18 Blue Kentucky Girl</description>
+      </contact>
+      <contact name="Granny" rat="6" type="STREET" typename="KY Lady of the Autumn Wind" loy="1" favors="1">
+         <description>CMP 2081-18 Blue Kentucky Girl</description>
+      </contact>
+      <contact name="Kiara Shaw" rat="4" type="CORPORATE" typename="AMS Knight Errant Company Suit" loy="2" favors="0">
+         <description>CMP 2081-10 A Diamond in The Rough</description>
+      </contact>
+      <contact name="Simon Andrews" rat="5" type="CORPORATE" typename="AMS S-K Johnson" loy="2" favors="1">
+         <description>CMP 2081-11 Paved with good intentions</description>
+      </contact>
+      <contact name="Squint" rat="2" type="STREET" typename="AMS Smuggler" loy="1" favors="0">
+         <description>CMP 2081-11 Paved with good intentions</description>
+      </contact>
+      <contact name="Dr. Laureline Dodd" rat="5" type="STREET" typename="KY Arcano-Archeologist" loy="1" favors="1">
+         <description>CMP 2081-19 The Blue Moon of Kentucky</description>
+      </contact>
+      <contact name="Thaddeus" rat="3" type="STREET" typename="KY Street Samurai" loy="1" favors="0">
+         <description>CMP 2081-19 The Blue Moon of Kentucky</description>
+      </contact>
+      <contact name="Duan Yuhai" rat="3" type="CORPORATE" typename="SEA Minor 88s Johnson" loy="1" favors="0">
+         <description>SRM 2081-17 Framed in Blood</description>
+      </contact>
+      <contact name="Xiong Giuyin" rat="4" type="STREET" typename="SEA Wuxing" loy="1" favors="0">
+         <description>SRM 2081-17 Framed in Blood</description>
+      </contact>
+      <contact name="Reilly Dragman" rat="1" type="MAGIC" typename="Novice Magician" loy="1" favors="1">
+         <description>Magic | Types: Magic</description>
+      </contact>
+      <contact name="Queen Brane" rat="12" type="MAGIC" typename="Magic" loy="1" favors="0">
+         <description>Magic (Special Note: This contact cannot be called during a mission.) | Types: Magic</description>
+      </contact>
+      <contact name="Kirt Liger" rat="3" type="STREET" typename="SEA Body Mod/Engineering Cybercatman" loy="1" favors="1">
+         <description>SRM 2081-21 Grudge Match Gladiators</description>
+      </contact>
+      <contact name="Sigrún" rat="5" type="CORPORATE" typename="AMS House Orange-Nassau Johnson" loy="3" favors="1">
+         <description>CMP 2081-12 Uneasy lies the head</description>
+      </contact>
+      <contact name="Dixie L'Amin" rat="4" type="STREET" typename="DW Naga" loy="1" favors="1">
+         <description>CMP 2083-14 A Day at the Beach</description>
+      </contact>
+      <contact name="Ayanda 'Shieldbearer' Mahlangu" rat="3" type="STREET" typename="DW 'Mystic Edge' Producer" loy="1" favors="0">
+         <description>CMP 2083-14 A Day at the Beach</description>
+      </contact>
+      <contact name="Ebon Abirashur" rat="1" type="STREET" typename="DW Leviathan Dragon" loy="1" favors="1">
+         <description>CMP 2083-14 A Day at the Beach</description>
+      </contact>
+      <contact name="Col. Deborah Kentwell" rat="5" type="CORPORATE" typename="DW Thunder Corps Fixer" loy="1" favors="1">
+         <description>CMP 2083-16 War Never Changes</description>
+      </contact>
+      <contact name="Polyphemous 'Paul' Pellagios" rat="1" type="STREET" typename="DW Background Actor" loy="1" favors="0">
+         <description>CMP 2083-16 War Never Changes</description>
+      </contact>
+      <contact name="Fernand Anato" rat="4" type="STREET" typename="Kozlowski Capo" loy="1" favors="0">
+         <description>Uses: Getting jobs, fencing gear, organized crime | Types: Criminal, Street</description>
+      </contact>
+      <contact name="Monsieur Johnson" rat="5" type="CORPORATE" typename="NOLA Johnson" loy="2" favors="0">
+         <description>SRM 2083-19 The Hallow Feast</description>
+      </contact>
+      <contact name="Swango" rat="3" type="STREET" typename="SEA Rapper" loy="2" favors="0">
+         <description>SRM 2081-05 This is Renton</description>
+      </contact>
+      <contact name="Toil" rat="4" type="STREET" typename="Fixer" loy="1" favors="0">
+         <description>Uses: Drugs, exotic dancer clubs, getting jobs (Shadowrun Missions Seattle) | Types: Criminal, Street</description>
+      </contact>
+      <contact name="Trubble" rat="1" type="MAGIC" typename="Bodyguard" loy="1" favors="0">
+         <description>Uses: Bodyguards, insults, talismans (Shadowrun Missions Seattle) | Types: Magic</description>
+      </contact>
+      <contact name="SpiiniCop" rat="2" type="STREET" typename="AMS Penose Spider" loy="1" favors="0">
+         <description>CMP 2083-01 NONPLUSHED</description>
+      </contact>
+      <contact name="Eddie Wei" rat="4" type="MATRIX" typename="Triad Johnson" loy="1" favors="0">
+         <description>Uses: Business and economics, getting jobs, triads (Shadowrun Missions Seattle) | Types: Criminal, Matrix (Not available after 2081-24)</description>
+      </contact>
+      <contact name="Julian Müntefering" rat="1" type="CORPORATE" typename="Corporate Kid" loy="1" favors="0">
+         <description>Uses: Corporate playground rumors, drones, rigging research (Shadowrun Missions Seattle) | Types: Corporate, Engineering</description>
+      </contact>
+      <contact name="Ni Ni Xiaolu" rat="3" type="CRIMINAL" typename="Triad Johnson" loy="2" favors="2">
+         <description>Uses: Getting jobs, drugs, street rumors, triads (Shadowrun Missions Seattle) | Types: Criminal</description>
+      </contact>
+      <contact name="Bookie" rat="3" type="STREET" typename="SEA Ancients Bookie" loy="1" favors="0">
+         <description>SRM 2081-07 Bootleg Bliss</description>
+      </contact>
+      <contact name="Trudy" rat="2" type="STREET" typename="SEA Cutter Lieutenant" loy="1" favors="0">
+         <description>SRM 2081-07 Bootleg Bliss</description>
+      </contact>
+      <contact name="Saint James" rat="8" type="STREET" typename="Fixer" loy="2" favors="1">
+         <description>Uses: Corporations, getting jobs (Shadowrun Missions Seattle), fencing gear, gangs | Types: Criminal, Street (Not available after 2081-24)</description>
+      </contact>
+      <contact name="Jeanie Trudel" rat="1" type="STREET" typename="SEA Bartender" loy="1" favors="0">
+         <description>SRM 2081-06 Cutting Strings</description>
+      </contact>
+      <contact name="Kingston" rat="2" type="STREET" typename="Shadowrunner / Street Samurai" loy="1" favors="0">
+         <description>Uses: Shadowrunners, street rumors (Shadowrun Missions Seattle) | Types: Criminal, Street</description>
+      </contact>
+      <contact name="Kaatje" rat="2" type="MEDIA" typename="AMS Young Entertainer" loy="1" favors="0">
+         <description>CMP 2083-04 Hog Wild</description>
+      </contact>
+      <contact name="Mr. Fa" rat="4" type="CORPORATE" typename="HKB Corporate Middle Manager" loy="1" favors="1">
+         <description>CMP 2083-05 Precious Cargo</description>
+      </contact>
+      <contact name="Liao Fa Ren" rat="3" type="MEDIA" typename="HK Rookie Journalist" loy="2" favors="0">
+         <description>CMP 2083-05 Precious Cargo</description>
+      </contact>
+      <contact name="Aloysius Springinsguth" rat="3" type="STREET" typename="NOLA Sound of Silence Music Shop Owner" loy="2" favors="0">
+         <description>SRM 2083-12 When You're Smiling</description>
+      </contact>
+      <contact name="Jolene Price" rat="7" type="CORPORATE" typename="Riverboat Alliance Leader" loy="2" favors="0">
+         <description>Uses: Getting jobs, dragons, mafia | Types: Corporate, Street</description>
+      </contact>
+      <contact name="Coffin Girls" rat="3" type="STREET" typename="NOLA Independent Courtesans Group" loy="4" favors="0" />
+      <contact name="Cedar" rat="3" type="MAGIC" typename="NOLA Talismonger" loy="1" favors="0">
+         <description>SRM 2083-20 The Fallacy of Plans</description>
+      </contact>
+      <contact name="Detective Remy LeBlanc" rat="3" type="STREET" typename="NOLA Detective" loy="2" favors="0">
+         <description>SRM 2083-20 The Fallacy of Plans</description>
+      </contact>
+      <contact name="Claudette Laurier" rat="5" type="MATRIX" typename="Golden Dawn Librarian" loy="1" favors="0">
+         <description>Uses: Getting jobs, magical traditions | Types: Criminal, Matrix</description>
+      </contact>
+      <contact name="League of Laveau" rat="6" type="MAGIC" typename="NOLA Voodoo Organization" loy="3" favors="1">
+         <description>SRM 2083-18 Some Kind of Voodoo?</description>
+      </contact>
+      <contact name="Zobop" rat="6" type="MAGIC" typename="NOLA Voodoo Organization" loy="3" favors="1">
+         <description>SRM 2083-18 Some Kind of Voodoo?</description>
+      </contact>
+      <contact name="Col. Treylor" rat="3" type="CORPORATE" typename="DW Thunder Corps Fixer" loy="1" favors="1">
+         <description>CMP 2083-15 | By Land, Sea, and Hair</description>
+      </contact>
+      <contact name="Moenen" rat="5" type="STREET" typename="UNL infobroker" loy="1" favors="1">
+         <description>CMP 2083-02 ROYAL ROAD</description>
+      </contact>
+      <contact name="Blackstone" rat="3" type="STREET" typename="SEA Contact" loy="1" favors="0">
+         <description>SRM 2081-18 Friendships Never Grow Rust</description>
+      </contact>
+   </contacts>
+   <rewards>
+      <reward date="2026-04-24T00:00:00.000Z" exp="6" money="9000">
+         <title>SMH 2083-02 EggHunt at the Jackalope Ranch</title>
+         <gamemaster>JaGator</gamemaster>
+      </reward>
+      <reward date="2026-04-25T00:00:00.000Z" exp="3" money="2600">
+         <title>CMP First Taste : Top Chef - Seattle</title>
+         <gamemaster>JaGator</gamemaster>
+      </reward>
+      <reward date="2026-04-29T00:00:00.000Z" exp="8" money="9000">
+         <title>SRM 2083-03: Unofficial Dunkelzahn Fan Club</title>
+         <gamemaster>JaGator</gamemaster>
+      </reward>
+      <reward date="2026-05-02T00:00:00.000Z" exp="7" money="12000">
+         <title>CMP 2081-09 | Bring me Prince Charming</title>
+         <gamemaster>CDT Agent Kira Capalu</gamemaster>
+      </reward>
+      <reward date="2026-05-13T00:00:00.000Z" exp="7" money="15000">
+         <title>CMP 2081-18 | Blue Kentucky Girl</title>
+         <gamemaster>JaGator</gamemaster>
+      </reward>
+      <reward date="2026-05-14T00:00:00.000Z" exp="7" money="9500">
+         <title>CMP 2081-10 | A Diamond in The Rough</title>
+         <gamemaster>CDT Agent Kira Capalu</gamemaster>
+      </reward>
+      <reward date="2026-05-25T00:00:00.000Z" exp="8" money="9000">
+         <title>CMP 2081-11 | Paved with good intentions</title>
+         <gamemaster>CDT Agent Kira Capalu</gamemaster>
+      </reward>
+      <reward date="2026-05-30T00:00:00.000Z" exp="7" money="15500">
+         <title>CMP 2081-19: The Blue Moon of Kentucky</title>
+         <gamemaster>JaGator</gamemaster>
+      </reward>
+      <reward date="2026-01-01T00:00:00.000Z" exp="7" money="9500">
+         <title>2026-June-03: SRM 2081-17: Framed in Blood</title>
+         <gamemaster>Oli K</gamemaster>
+      </reward>
+      <reward date="2026-01-01T00:00:00.000Z" exp="9" money="11500">
+         <title>2026-June-06: CMP 2081-20: In the Cold Kentucky Rain</title>
+         <gamemaster>JaGator</gamemaster>
+      </reward>
+      <reward date="2026-01-01T00:00:00.000Z" exp="4" money="10500">
+         <title>2026-June-07: SRM 2081-21: Grudge Match Gladiators</title>
+         <gamemaster>Medtec28</gamemaster>
+      </reward>
+      <reward date="2026-01-01T00:00:00.000Z" exp="6" money="8500">
+         <title>2026-June-12: CMP 2081-12 | Uneasy lies the head</title>
+         <gamemaster>Kira Capalu</gamemaster>
+      </reward>
+      <reward date="2026-01-01T00:00:00.000Z" exp="8" money="13000">
+         <title>2026-June-19: CMP 2083-14 | A Day at the Beach</title>
+         <gamemaster>Nick</gamemaster>
+      </reward>
+      <reward date="2026-01-01T00:00:00.000Z" exp="0" money="0">
+         <title>2026-June-20: CMP 2083-16 | War Never Changes</title>
+         <gamemaster>Hal "SSDR"</gamemaster>
+      </reward>
+      <reward date="2026-01-01T00:00:00.000Z" exp="8" money="13500">
+         <title>2026-June-20: SRM 2083-19 | The Hallow Feast</title>
+         <gamemaster>Morgan</gamemaster>
+      </reward>
+      <reward date="2026-01-01T00:00:00.000Z" exp="8" money="12500">
+         <title>2026-June-25: SRM 2081-05 | This is Renton</title>
+         <gamemaster>CDT Agent Kira Capalu</gamemaster>
+      </reward>
+      <reward date="2026-01-01T00:00:00.000Z" exp="6" money="9500">
+         <title>2026-June-30: CMP 2083-01: NONPLUSHED</title>
+      </reward>
+      <reward date="2026-01-01T00:00:00.000Z" exp="6" money="6500">
+         <title>2026-July-07: SRM 2081-08 Child's Play</title>
+         <gamemaster>JaGator</gamemaster>
+      </reward>
+      <reward date="2026-01-01T00:00:00.000Z" exp="6" money="8000">
+         <title>2026-July-09: SRM 2081-07 | Bootleg Bliss</title>
+         <gamemaster>JaGator</gamemaster>
+      </reward>
+      <reward date="2026-01-01T00:00:00.000Z" exp="6" money="8000">
+         <title>2026-July-10: SRM 2081-06 | Cutting Strings</title>
+         <gamemaster>Kira Capalu</gamemaster>
+      </reward>
+      <reward date="2026-07-14T00:00:00.000Z" exp="7" money="9500">
+         <title>CMP 2083-04 | Hog Wild</title>
+         <gamemaster>JaGator</gamemaster>
+      </reward>
+      <reward date="2026-01-01T00:00:00.000Z" exp="7" money="6000">
+         <title>2026-July-21: CMP 2083-05 | Precious Cargo</title>
+      </reward>
+      <reward date="2026-01-01T00:00:00.000Z" exp="9" money="9000">
+         <title>2026-July-24: SRM 2083-12 | When You're Smiling</title>
+         <gamemaster>JaGator</gamemaster>
+      </reward>
+      <reward date="2026-07-30T00:00:00.000Z" exp="6" money="7450">
+         <title>SRM 2083-17 | Haute Blooded</title>
+         <gamemaster>Raven2049 (GenCon 2026)</gamemaster>
+      </reward>
+      <reward date="2026-08-01T00:00:00.000Z" exp="8" money="7000">
+         <title>SRM 2083-20 | The Fallacy of Plans</title>
+         <gamemaster>(GenCon 2026 Sat 1pm slot)</gamemaster>
+      </reward>
+      <reward date="2026-08-01T00:00:00.000Z" exp="7" money="10000">
+         <title>SRM 2083-18 | Some Kind of Voodoo?</title>
+         <gamemaster>August (GenCon 2026 Sat 6pm slot)</gamemaster>
+      </reward>
+      <reward date="2026-08-01T00:00:00.000Z" exp="6" money="11000">
+         <title>CMP 2083-15 | By Land, Sea, and Hair</title>
+         <gamemaster>(GenCon 2026 Saturday 1pm slot)</gamemaster>
+      </reward>
+      <reward date="2026-08-19T00:00:00.000Z" exp="9" money="10000">
+         <title>CMP 2083-02 | ROYAL ROAD</title>
+      </reward>
+      <reward date="2026-08-20T00:00:00.000Z" exp="7" money="8250">
+         <title>SRM 2081-18 | Friendships Never Grow Rust</title>
+         <gamemaster>JaGator</gamemaster>
+      </reward>
+   </rewards>
+</sr6char>

@@ -4,7 +4,7 @@
 characters:
   yuriko:
     name: "Yuriko Star"
-    repo: "sr6yuriko"
+    repo: "characters/yuriko"
     master_yaml: "yuriko_master.yaml"
     role: "Technoshaman AI / Hacker"
     metatype: "AI-Pilot AI"
@@ -12,7 +12,7 @@ characters:
 
   velvet:
     name: "Velvet"
-    repo: "sr6velvet"
+    repo: "characters/velvet"
     master_yaml: "velvet_master.yaml"
     role: "Mystic Adept Face / Shaman"
     metatype: "Dalakitnon Elf"
@@ -20,8 +20,9 @@ characters:
 
   union:
     name: "Union"
-    repo: "sr6union"
+    repo: "characters/union"
     master_yaml: "union_master.yaml"
     role: "Street Samurai / Operative"
     metatype: "Human"
+
 

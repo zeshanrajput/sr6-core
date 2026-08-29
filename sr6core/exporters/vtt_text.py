@@ -145,10 +145,11 @@ def export_base_sheet(char_data: Dict[str, Any], char_repo_path: Optional[str] =
         phys_boxes = 8 + ((fw_bod + 1) // 2)
         stun_boxes = 8 + ((wil + 1) // 2)
 
+        ess_str = f"{ess:.2f}" if (round(ess, 2) != round(ess, 1) or ess < 1.0) else f"{ess:.1f}"
         lines.append(" ATTRIBUTES & DERIVED RATINGS:")
         lines.append(f"  ATT (STR): {att_str:<2} | SLZ (REA): {slz_rea:<2} | DP (AGI): {dp_agi:<2} | FW (BOD): {fw_bod:<2}")
         lines.append(f"  WIL: {wil:<2}       | LOG: {log_val:<2}       | INT: {int_val:<2}      | CHA: {cha:<2}")
-        lines.append(f"  EDG: {edg:<2}       | RES: {res:<2}       | MAG: {mag:<2}      | ESS: {ess:<3.1f}")
+        lines.append(f"  EDG: {edg:<2}       | RES: {res:<2}       | MAG: {mag:<2}      | ESS: {ess_str:<4}")
         lines.append(f"  Derived Pools       : Composure [{composure}] | Judge Int [{judge_intentions}] | Memory [{memory}]")
         lines.append(f"  Condition Monitors  : Physical [{phys_boxes} boxes] | Stun [{stun_boxes} boxes]")
         lines.append("-" * MAX_LINE_WIDTH)
@@ -183,10 +184,11 @@ def export_base_sheet(char_data: Dict[str, Any], char_repo_path: Optional[str] =
         phys_boxes = 8 + ((bod + 1) // 2) + (nv // 2)
         stun_boxes = 8 + ((wil + 1) // 2) + (nv // 2)
 
+        ess_str = f"{ess:.2f}" if (round(ess, 2) != round(ess, 1) or ess < 1.0) else f"{ess:.1f}"
         lines.append(" ATTRIBUTES & DERIVED RATINGS:")
         lines.append(f"  BOD: {bod:<2}       | AGI: {agi:<2}       | REA: {rea:<2}      | STR: {str_val:<2}")
         lines.append(f"  WIL: {wil:<2}       | LOG: {log_val:<2}       | INT: {int_val:<2}      | CHA: {cha:<2}")
-        lines.append(f"  EDG: {edg:<2}       | RES: {res:<2}       | MAG: {mag:<2}      | ESS: {ess:<3.1f}")
+        lines.append(f"  EDG: {edg:<2}       | RES: {res:<2}       | MAG: {mag:<2}      | ESS: {ess_str:<4}")
         lines.append(f"  Derived Pools       : Composure [{composure}] | Judge Int [{judge_intentions}] | Memory [{memory}]")
         lines.append(f"  Condition Monitors  : Physical [{phys_boxes} boxes] | Stun [{stun_boxes} boxes] (Monad Toughness)")
         lines.append("-" * MAX_LINE_WIDTH)
@@ -214,10 +216,11 @@ def export_base_sheet(char_data: Dict[str, Any], char_repo_path: Optional[str] =
         phys_boxes = 8 + ((bod + 1) // 2)
         stun_boxes = 8 + ((wil + 1) // 2)
 
+        ess_str = f"{ess:.2f}" if (round(ess, 2) != round(ess, 1) or ess < 1.0) else f"{ess:.1f}"
         lines.append(" ATTRIBUTES & DERIVED RATINGS:")
         lines.append(f"  BOD: {bod:<2}       | AGI: {agi:<2}       | REA: {rea:<2}      | STR: {str_val:<2}")
         lines.append(f"  WIL: {wil:<2}       | LOG: {log_val:<2}       | INT: {int_val:<2}      | CHA: {cha:<2}")
-        lines.append(f"  EDG: {edg:<2}       | RES: {res:<2}       | MAG: {mag:<2}      | ESS: {ess:<3.1f}")
+        lines.append(f"  EDG: {edg:<2}       | RES: {res:<2}       | MAG: {mag:<2}      | ESS: {ess_str:<4}")
         lines.append(f"  Derived Pools       : Composure [{composure}] | Judge Int [{judge_intentions}] | Memory [{memory}]")
         lines.append(f"  Condition Monitors  : Physical [{phys_boxes} boxes] | Stun [{stun_boxes} boxes]")
 

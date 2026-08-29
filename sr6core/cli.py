@@ -49,19 +49,10 @@ def run_sync_all():
 
         # 2. Multi-Format Exports into standardized output/ subfolders
         cm.clean_output_directory(repo_dir)
-        pdf_dir = os.path.join(repo_dir, "output", "pdf")
         text_dir = os.path.join(repo_dir, "output", "text")
-        cards_dir = os.path.join(repo_dir, "output", "cards")
         vtt_dir = os.path.join(repo_dir, "output", "vtt")
-        for d in [pdf_dir, text_dir, cards_dir, vtt_dir]:
+        for d in [text_dir, vtt_dir]:
             os.makedirs(d, exist_ok=True)
-
-        # PDF Exports (Card Deck Stack + 1-2 Page Base Sheet)
-        try:
-            cm.export_character(cid, fmt="pdf_deck", output_path=os.path.join(pdf_dir, f"{cid}_cards_deck.pdf"))
-            cm.export_character(cid, fmt="pdf_base", output_path=os.path.join(pdf_dir, f"{cid}_base_sheet.pdf"))
-        except Exception as e:
-            print(f"         +-- Export PDF error: {e}")
 
         # Modular Text Exports
         try:
@@ -71,14 +62,6 @@ def run_sync_all():
                     f.write(sheet_content)
         except Exception as e:
             print(f"         +-- Export Modular Text error: {e}")
-
-        # Markdown Card Deck Export
-        try:
-            cards_md = cm.export_character(cid, fmt="cards")
-            with open(os.path.join(cards_dir, f"{cid}_cards.md"), "w", encoding="utf-8") as f:
-                f.write(cards_md)
-        except Exception as e:
-            print(f"         +-- Export Cards MD error: {e}")
 
         # VTT Exports (Genesis XML + Roll20 JSON)
         try:
@@ -95,7 +78,24 @@ def run_sync_all():
         except Exception as e:
             print(f"         +-- Export JSON error: {e}")
 
-        print(f"  [2/5] Regenerated Exports     : Saved to {os.path.join(repo_dir, 'output')} (pdf, text, cards, vtt)")
+        # Mobile HTML App Export
+        mobile_dir = os.path.join(repo_dir, "output", "mobile")
+        os.makedirs(mobile_dir, exist_ok=True)
+        try:
+            mobile_html_content = cm.export_character(cid, fmt="mobile_html")
+            with open(os.path.join(mobile_dir, "index.html"), "w", encoding="utf-8") as f:
+                f.write(mobile_html_content)
+            # Copy sw.js and manifest.json if present
+            app_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "app")
+            for asset in ["sw.js", "manifest.json"]:
+                asset_src = os.path.join(app_dir, asset)
+                if os.path.exists(asset_src):
+                    import shutil
+                    shutil.copy2(asset_src, os.path.join(mobile_dir, asset))
+        except Exception as e:
+            print(f"         +-- Export Mobile App error: {e}")
+
+        print(f"  [2/5] Regenerated Exports     : Saved to {os.path.join(repo_dir, 'output')} (text, vtt, mobile)")
 
         # 3. CommLink6 GUI Save Sync
         ok, msg = push_to_commlink(cid)
@@ -129,6 +129,29 @@ def run_sync_all():
                         pass
         print(f"  [5/5] Chapter Shortcodes & Files : Processed {linter_count} chapters in {chap_dir}\n")
 
+    # Build Master Multi-Character PWA at app/index.html
+    try:
+        from sr6core.exporters.mobile_json import export_mobile_json
+        from sr6core.exporters.mobile_html import get_mobile_html_template
+        multi_bundle = {}
+        for c in chars:
+            cid = c["id"]
+            if c.get("exists"):
+                c_data = cm.get_character_data(cid)
+                c_repo = cm.get_character_repo_dir(cid)
+                if c_data:
+                    multi_bundle[cid] = export_mobile_json(c_data, char_repo_path=c_repo)
+        
+        if multi_bundle:
+            app_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "app")
+            os.makedirs(app_dir, exist_ok=True)
+            master_html = get_mobile_html_template(multi_bundle, initial_char_id="yuriko")
+            with open(os.path.join(app_dir, "index.html"), "w", encoding="utf-8") as f:
+                f.write(master_html)
+            print(f"  [+] Multi-Character Mobile PWA  : Built at {os.path.join(app_dir, 'index.html')} ({len(multi_bundle)} characters)\n")
+    except Exception as e:
+        print(f"  [!] Master Mobile App Build Error: {e}\n")
+
     print("============================================================")
     print("      SR6 ECOSYSTEM SYNC COMPLETED SUCCESSFULLY!")
     print("============================================================\n")
@@ -156,8 +179,7 @@ def main():
 
     # card subcommand
     card_parser = subparsers.add_parser("card", help="Display item reference card")
-    card_parser.add_argument("category", type=str, help="Item category (quality, spell, complex_form, weapon, cyberware, vehicle, program, gear)")
-    card_parser.add_argument("item_id", type=str, help="Item reference ID or name")
+    card_parser.add_argument("target", type=str, nargs="+", help="Item category and name, or just item name (e.g. 'bioware Cerebellum Booster' or 'Cerebellum Booster')")
 
     # characters subcommand
     char_parser = subparsers.add_parser("characters", help="Manage character portfolios (yuriko, velvet, union)")
@@ -170,10 +192,9 @@ def main():
     adv_parser.add_argument("item_ref", type=str, help="CommLink6 item reference ID")
 
     # export subcommand
-    export_parser = subparsers.add_parser("export", help="Export character to PDF Deck, Base PDF, Modular Text, Roll20 JSON, Genesis XML, or Cards Deck")
+    export_parser = subparsers.add_parser("export", help="Export character to Modular Text, Roll20 JSON, or Genesis XML")
     export_parser.add_argument("char_id", type=str, help="Character ID (yuriko, velvet, union)")
-    export_parser.add_argument("--format", type=str, choices=["pdf_deck", "pdf_base", "text_modular", "roll20", "vtt", "xml", "cards"], default="pdf_deck", help="Export format")
-    export_parser.add_argument("--card-size", type=str, choices=["postcard_4x5.5", "index_4x6", "index_3x5"], default="postcard_4x5.5", help="Card size for PDF card deck")
+    export_parser.add_argument("--format", type=str, choices=["text_modular", "roll20", "vtt", "xml"], default="text_modular", help="Export format")
     export_parser.add_argument("--output", type=str, default=None, help="Custom output filepath")
 
     # lint subcommand
@@ -221,8 +242,15 @@ def main():
     rag_query_parser.add_argument("--url", type=str, default=None, help="Local llama.cpp URL")
     rag_query_parser.add_argument("--char", type=str, default=None, help="Active character dossier context ID (yuriko, velvet, union)")
     rag_query_parser.add_argument("--effort", type=str, choices=["high", "medium", "low"], default=None, help="Thinking effort level")
+    rag_query_parser.add_argument("--compact", action="store_true", help="Output clean Markdown without ASCII box art")
+
     rag_search_parser = rag_sub.add_parser("search", help="Perform FTS rules search with authority ranking")
     rag_search_parser.add_argument("query", type=str, help="Search terms")
+    rag_search_parser.add_argument("--compact", action="store_true", help="Output clean Markdown without ASCII box art")
+
+    rag_get_parser = rag_sub.add_parser("get", help="Retrieve full rule markdown chunk by ID or topic directly from SQLite")
+    rag_get_parser.add_argument("identifier", type=str, help="Rule ID (e.g. BS-005, HnS-0205) or Topic name")
+    rag_get_parser.add_argument("--compact", action="store_true", help="Output clean Markdown without ASCII box art")
 
     # plugin subcommand
     plugin_parser = subparsers.add_parser("plugin", help="Manage SR6 Antigravity Agent Plugin")
@@ -309,7 +337,18 @@ def main():
 
     elif args.command == "card":
         from sr6core.cards import get_item_card
-        card_info = get_item_card(args.category, args.item_id)
+        known_cats = {"quality", "qualities", "spell", "spells", "complex_form", "complexform", "weapon", "weapons", "cyberware", "bioware", "vehicle", "drone", "gear", "program", "contact", "contacts", "echo", "meta_echo"}
+        if len(args.target) == 1:
+            cat, item_name = "auto", args.target[0]
+        else:
+            first = args.target[0].lower().strip()
+            if first in known_cats:
+                cat = first
+                item_name = " ".join(args.target[1:])
+            else:
+                cat = "auto"
+                item_name = " ".join(args.target)
+        card_info = get_item_card(cat, item_name)
         print(f"\n{card_info['markdown']}\n")
 
     elif args.command == "characters":
@@ -343,8 +382,7 @@ def main():
             output = cm.export_character(
                 args.char_id,
                 fmt=args.format,
-                output_path=getattr(args, "output", None),
-                card_size=getattr(args, "card_size", "postcard_4x5.5")
+                output_path=getattr(args, "output", None)
             )
             print(f"\n--- Export for '{args.char_id}' ({args.format.upper()}) ---")
             if isinstance(output, dict):
@@ -458,12 +496,19 @@ def main():
 
     elif args.command == "rag":
         from sr6core.rag import print_search_results_rich, render_rag_result_rich
+        from sr6core.rag.ui import render_rule_chunk_markdown
         rag_engine = RAGEngine()
 
-        if args.subcommand == "search" or (not args.subcommand and hasattr(args, "query")):
+        if args.subcommand == "get":
+            ident = getattr(args, "identifier", "")
+            rule = rag_engine.get_rule(ident)
+            render_rule_chunk_markdown(rule, compact=getattr(args, "compact", False))
+
+        elif args.subcommand == "search" or (not args.subcommand and hasattr(args, "query")):
             q = getattr(args, "query", "")
+            compact = getattr(args, "compact", False)
             results = rag_engine.search(q, limit=10)
-            print_search_results_rich(q, results)
+            print_search_results_rich(q, results, compact=compact)
 
         elif args.subcommand == "query" or hasattr(args, "prompt"):
             prompt = getattr(args, "prompt", "")
@@ -473,6 +518,7 @@ def main():
             llama_url = getattr(args, "url", None)
             char_choice = getattr(args, "char", None)
             effort_choice = getattr(args, "effort", None)
+            compact = getattr(args, "compact", False)
 
             res = rag_engine.query(
                 prompt,
@@ -483,7 +529,7 @@ def main():
                 char_id=char_choice,
                 effort_level=effort_choice
             )
-            render_rag_result_rich(res, show_context=True)
+            render_rag_result_rich(res, show_context=True, compact=compact)
 
     elif args.command == "plugin":
         from sr6core.plugin import print_plugin_status_rich, install_global_plugin, configure_repo_plugin_inheritance

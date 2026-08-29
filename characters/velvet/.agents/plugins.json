@@ -1,0 +1,7 @@
+{
+  "inherits": [
+    {
+      "path": "../sr6-core/.agents/plugins/sr6-narrative"
+    }
+  ]
+}

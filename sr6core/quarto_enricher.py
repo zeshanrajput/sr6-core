@@ -89,7 +89,8 @@ def generate_character_dossier_appendix(char_id: str, output_qmd_path: str) -> b
         lines.append(f"| {k.upper()} | {v} |")
 
     # Weapons Section with Post-Modification Arrays
-    weapons = char_data.get("weapons", [])
+    from sr6core.exporters.vtt_text import _safe_item_list
+    weapons = _safe_item_list(char_data.get("weapons", []))
     if weapons:
         from sr6core.models import WeaponStatBlock
         from sr6core.vault.statblock_parser import calculate_modified_weapon, format_statblock_markdown

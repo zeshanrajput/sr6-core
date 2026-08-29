@@ -1,0 +1,942 @@
+identity:
+  handle: Yuriko Star
+  real_name: r31k0 Takahashi
+  metatype: AI-Pilot AI
+  stream: Technoshamans
+  gender: DIVERSE
+  age: ~ 10
+attributes:
+  body: 5
+  agility: 3
+  reaction: 5
+  strength: 3
+  willpower: 6
+  logic: 4
+  intuition: 2
+  charisma: 4
+  edge: 4
+  resonance: 8
+living_persona:
+  asdf_bonuses:
+    firewall: 3
+    sleaze: 1
+    data_processing: 1
+    attack: 3
+synergies:
+  attribute_substitutions:
+    - domain: matrix
+      quality: natural_hacker
+      substitute_attribute: resonance
+  foci:
+    - name: Resonance Focus
+      rating: 4
+      applies_to: resonance
+      host_device: Shiawase Man-at-Arms
+      notes: +4 dice to tests using Resonance attribute. 2 FV Stun resisted with WIL (6) + LOG (4).
+    - name: Oracle Data Structure
+      rating: 4
+      applies_to: matrix_perception, matrix_search
+      host_device: The Holy Wild Sanctuary Host (Remote Sky Commander)
+      notes: +4 dice to Matrix Perception & Matrix Search; reduces Matrix Search interval to 1 Major Action. 2 FV Stun resisted with WIL (6) + LOG (4).
+  companions:
+    - name: Taz
+      type: Assassin Sprite
+      level: 7
+      skills: [cracking, electronics]
+      autosofts: [targeting, stealth, clearsight]
+      powers: [diagnosis]
+      symbiosis_bonus: 4
+      diagnosis_bonus: 3
+  living_persona_network_tuning:
+    asdf_bonuses:
+      attack: 4
+      sleaze: 8
+      data_processing: 6
+      firewall: 6
+qualities:
+  positive:
+  - name: Natural Hacker
+    ref: natural_hacker
+  - name: 'Stream: Technoshamans'
+    ref: technoshaman
+  - name: Designer
+    ref: designer
+  - name: Sensor Upgrade
+    ref: sensor_upgrade
+  - name: Pilot Origins
+    ref: pilot_origins
+  negative:
+  - name: Buddy System
+    ref: buddy_system
+  - name: Sprite Bane
+    ref: sprite_bane
+    choice: Primal Sprite
+  - name: Hooder
+    ref: hooder
+    rating: 2
+skills:
+- name: Tasking
+  id: tasking
+  attribute: Resonance
+  rating: 6
+  specialization: Registering
+- name: Cracking
+  id: cracking
+  attribute: Logic
+  rating: 5
+  specialization: Hacking
+- name: Electronics
+  id: electronics
+  attribute: Logic
+  rating: 5
+  specialization: Software
+- name: Influence
+  id: influence
+  attribute: Charisma
+  rating: 1
+- name: Con
+  id: con
+  attribute: Charisma
+  rating: 1
+- name: Native Language
+  id: language
+  attribute: Logic
+  rating: 4
+complex_forms:
+- name: Cleaner
+  ref: cleaner
+  fading: 2
+  duration: Permanent
+- name: Diffusion
+  ref: diffusion
+  target: Firewall
+  fading: 4
+  duration: Sustained
+- name: Technoregeneration
+  ref: technoregeneration
+  fading: -1
+  duration: Permanent
+- name: Puppeteer
+  ref: puppeteer
+  fading: 5
+  duration: Sustained
+- name: Cyber Spike
+  ref: cyber_spike
+  target: Device, Persona
+  fading: 3
+  duration: Immediate
+meta_echoes:
+- name: Hybrid Sprites
+  ref: hybrid_sprites
+- name: New Sprite Type
+  ref: new_sprite_type
+- name: Sprite Conduit
+  ref: sprite_conduit
+- name: Sprite Symbiosis
+  ref: sprite_symbiosis
+- name: Living Network
+  ref: living_network
+- name: Transcendent Network
+  ref: transcendent_network
+- name: Overclocking
+  ref: overclocking
+- name: Software Emulator
+  ref: software_emulator
+- name: Sprite Link
+  ref: sprite_link
+drones:
+- name: MCT Gnat
+  ref: mctgnat
+  body: 0
+  armor: 0
+  pilot: 2
+  sensor: 1
+  speed: 30
+  handling_on: 3
+  handling_off: 3
+  accel_on: 4
+  accel_off: 4
+  speed_interval_on: 10
+  page: CRB 299
+- name: Federated-Boeing Sky Commander (Seattle Retrans Relay)
+  ref: federatedboeingskycommander_seattle
+  body: 3
+  armor: 0
+  pilot: 3
+  sensor: 3
+  speed: 120
+  handling_on: 4
+  handling_off: 4
+  accel_on: 10
+  accel_off: 10
+  speed_interval_on: 20
+  page: 6WB 288 / DC 122
+  modifications:
+  - Drone Bay (Micro/Mini)
+  - Retrans Unit
+  - Satellite Link
+  - RAM Plating 4
+  - Enhanced Sensors 3
+  - ECM 6
+  - Integrated Matrix Device Dock
+  - M-TOC II Repository & Software Tags
+  - Rating 2 Framework Host Repository (Scale 1 Micro, Grade 2 Default)
+  framework_host:
+    name: The Holy Wild Sanctuary Host (Compact Studio & Glade Portal)
+    rating: 2
+    scale: 1 (Micro / Personal LAN - Optical Brick Cluster)
+    grade: 2 (Default Security / IC Budget)
+    asdf: A:2 S:2 D:3 F:3
+    capacity: 10 visitors max (Compact Studio Apartment architecture)
+    ic:
+    - Patrol IC (Gilded paper-moth data-sprites)
+    - Acid IC
+    purpose: Sovereign home and sanctuary for Reiko and liberated emergent sparks
+    host_architecture: High-rise studio apartment (brushed teak & dry copper ceilings,
+      jasmine tea service, Megalodon schematics worktable, cased contract-collar niche,
+      compiled gold logic floorboards)
+    foundation_door: Quartz sliding glass door opening an un-insulated permanent conduit
+      into the Holy Wild glade (fossilized directory trees, fractal willows, telemetry
+      ferns, de-allocated address pools) and the Deep Foundation
+- name: Shiawase Man-at-Arms
+  ref: shiawasebdmanatarms
+  body: 10
+  armor: 8
+  pilot: 2
+  sensor: 2
+  speed: 10
+  handling_on: 3
+  handling_off: 3
+  accel_on: 5
+  accel_off: 5
+  speed_interval_on: 5
+  page: DC 116
+  modifications:
+  - Weapon Mount (Standard) x2
+  - Pop-Out Concealment (Standard) x2
+  - Chameleon Coating 2
+  - Drone Rack (Small)
+  - Tesla Coil
+  - Wrist Shield
+  - Armor Increase 5
+  - Increased Structural Integrity 5
+  - Realistic Features 4
+  - Secondary Propulsion (Rotor)
+  - Increased Sensors 3
+  - Retractable Skates
+  - Built-In MedKit
+  - Satellite Link
+  - Laser Jack
+- name: Kwonsham Dream Genie
+  ref: kwonshamdreamgenie
+  body: 2
+  armor: 0
+  pilot: 1
+  sensor: 1
+  speed: 10
+  handling_on: 2
+  handling_off: 4
+  accel_on: 10
+  accel_off: 10
+  speed_interval_on: 5
+  page: Seoul Survivor 1
+  modifications:
+  - Trid Projector
+  - Smart Tires
+- name: Vulcan Systems Utility-One
+  ref: vulcansystemsutilityone
+  body: 2
+  armor: 0
+  pilot: 1
+  sensor: 1
+  speed: 5
+  handling_on: 3
+  handling_off: 3
+  accel_on: 3
+  accel_off: 3
+  speed_interval_on: 5
+  page: DC 122 / SRMG 2.4
+  modifications:
+  - Integrated Engineering & Repair Tool Package
+armors: []
+weapons:
+  ranged:
+  - name: Crimson Wasp Array (2x Link-Fired)
+    damage: 7P
+    attack_rating: 22/20/17/12/-
+    mode: SA
+    ammo: 15(c)
+    smartlink: true
+    is_vehicle_mounted: true
+    link_fired_count: 2
+    accessories:
+    - Smartlink
+    - Drone Mount (+2 AR)
+    - Link-Fired (2x Crimson Wasps)
+  - name: Tesla Coil
+    damage: 5S(e)
+    attack_rating: 8/10*/-/-/-
+    mode: SS
+    max_range: 20m
+    area_effect: Cone (Flamethrower rules)
+    is_vehicle_mounted: true
+    accessories:
+    - MAA Cyberarm Mount (+2 AR)
+  close_combat:
+  - name: Dagger of the Sacred Rose (+1 Weapon Focus)
+    damage: 2P
+    attack_rating: 9/1/-/-/-
+  - name: Amalgam Cestas (Stun)
+    damage: 4S(e)
+    attack_rating: 5/-/-/-/-
+    personalized_grip: true
+    accessories:
+    - Personalized Grip
+    notes: Amalgam Tech Cestas; overrides magical immunity to normal weapons
+  - name: Amalgam Cestas (Phys)
+    damage: 3P
+    attack_rating: 6/-/-/-/-
+    personalized_grip: true
+    accessories:
+    - Personalized Grip
+    notes: Amalgam Tech Cestas; overrides magical immunity to normal weapons
+matrix_devices:
+  commlinks:
+  - name: Hermes Ikon
+    device_rating: 5
+    data_processing: 5
+    firewall: 4
+  hosts:
+  - name: The Holy Wild Sanctuary Host (Compact Studio & Glade Portal)
+    type: Framework Host
+    rating: 2
+    scale: 1 (Micro)
+    grade: 2 (Default)
+    acquired: SRM 2083-12 When You're Smiling
+    notes: Compact high-rise studio apartment (10-visitor limit) & Holy Wild glade
+      portal for Reiko and liberated emergent sparks.
+sins:
+- name: Yuriko Star
+  rating: 2
+licenses:
+- name: Drone License
+  sin: Yuriko Star
+- name: Firearms License
+  sin: Yuriko Star
+lifestyles:
+- name: Low Lifestyle
+  comfort: low
+  entertainment: low
+  necessities: low
+  neighborhood: low
+  security: low
+contacts:
+- name: Brynne Taggart
+  connection: 4
+  loyalty: 3
+  favors: 3
+  type: Fixer
+  archetype: Fixer
+  region: SEA
+  is_canonical: true
+  description: 'Uses: Getting jobs, fencing gear, gangs (Shadowrun Missions Seattle)
+    | Types: Criminal, Street'
+- name: Whiskey
+  connection: 2
+  loyalty: 4
+  favors: 0
+  type: Street Doc
+  archetype: Street Doc
+  region: SEA
+  is_canonical: true
+  description: 'Uses: Medicine, street docs (Shadowrun Missions Seattle) | Types:
+    Medical'
+- name: Indomitable Will
+  connection: 3
+  loyalty: 3
+  favors: 0
+  type: River People Sysop
+  archetype: River People Sysop
+  region: NOLA
+  is_canonical: true
+  description: 'Uses: Banking, HVAC systems, Matrix | Types: Corporate, Matrix'
+- name: Roanoke
+  connection: 3
+  loyalty: 3
+  favors: 2
+  type: Ecological Activist
+  archetype: Ecological Activist
+  region: NOLA
+  is_canonical: true
+  description: 'Uses: Getting jobs, environmental science, shamanism | Types: Criminal,
+    Matrix'
+- name: Piotr Krolik
+  connection: 4
+  loyalty: 1
+  favors: 1
+  type: NOLA Vory Borjevik
+  archetype: NOLA Vory Borjevik
+  region: NOLA
+  is_canonical: false
+  description: SMH 2083-02 EggHunt at the Jackalope Ranch
+- name: Le Tigre
+  connection: 5
+  loyalty: 2
+  favors: 1
+  type: Epoch Model
+  archetype: Epoch Model
+  region: NOLA
+  is_canonical: true
+  description: 'Uses: Getting jobs, parties, modeling | Types: Corporate, Magic'
+- name: White Jackalope
+  connection: 2
+  loyalty: 1
+  favors: 1
+  type: Emergent Lifeform
+  archetype: Emergent Lifeform
+  region: GEN
+  is_canonical: false
+  description: SMH 2083-02 EggHunt at the Jackalope Ranch
+- name: Big Louie
+  connection: 3
+  loyalty: 1
+  favors: 1
+  type: SEA Fixer
+  archetype: SEA Fixer
+  region: SEA
+  is_canonical: false
+  description: 'CMP First Taste : Top Chef - Seattle'
+- name: Dominique Augustin
+  connection: 4
+  loyalty: 2
+  favors: 0
+  type: NOLA Wolverine Security
+  archetype: NOLA Wolverine Security
+  region: NOLA
+  is_canonical: false
+  description: 2083-03 Unofficial Dunkelzahn Fan Club
+- name: Daniel Fortune
+  connection: 3
+  loyalty: 1
+  favors: 1
+  type: NOLA
+  archetype: NOLA
+  region: NOLA
+  is_canonical: false
+  description: 2083-03 Unofficial Dunkelzahn Fan Club
+- name: "Ren\xE9e Martin"
+  connection: 4
+  loyalty: 2
+  favors: 2
+  type: League of Laveau Liaison
+  archetype: League of Laveau Liaison
+  region: NOLA
+  is_canonical: true
+  description: 'Uses: Getting jobs, magic, voodoo, zombies | Types: Corporate, Magic'
+- name: The Frisian
+  connection: 6
+  loyalty: 1
+  favors: 1
+  type: AMS Crime Lord of the Dutch Penose syndicate
+  archetype: AMS Crime Lord of the Dutch Penose syndicate
+  region: AMS
+  is_canonical: false
+  description: CMP 2081-09 Bring me Prince Charming
+- name: Ree 'Dolly' Hacker
+  connection: 4
+  loyalty: 2
+  favors: 0
+  type: KY Talismonger and Racer
+  archetype: KY Talismonger and Racer
+  region: KY
+  is_canonical: false
+  description: CMP 2081-18 Blue Kentucky Girl
+- name: Granny
+  connection: 6
+  loyalty: 2
+  favors: 0
+  type: KY Lady of the Autumn Wind
+  archetype: KY Lady of the Autumn Wind
+  region: KY
+  is_canonical: false
+  description: CMP 2081-18 Blue Kentucky Girl
+- name: Kiara Shaw
+  connection: 4
+  loyalty: 2
+  favors: 1
+  type: AMS Knight Errant Company Suit
+  archetype: AMS Knight Errant Company Suit
+  region: AMS
+  is_canonical: false
+  description: CMP 2081-10 A Diamond in The Rough
+- name: Simon Andrews
+  connection: 5
+  loyalty: 2
+  favors: 2
+  type: AMS S-K Johnson
+  archetype: AMS S-K Johnson
+  region: AMS
+  is_canonical: false
+  description: CMP 2081-11 Paved with good intentions
+- name: Squint
+  connection: 2
+  loyalty: 1
+  favors: 1
+  type: AMS Smuggler
+  archetype: AMS Smuggler
+  region: AMS
+  is_canonical: false
+  description: CMP 2081-11 Paved with good intentions
+- name: Dr. Laureline Dodd
+  connection: 5
+  loyalty: 2
+  favors: 0
+  type: KY Arcano-Archeologist
+  archetype: KY Arcano-Archeologist
+  region: KY
+  is_canonical: false
+  description: CMP 2081-19 The Blue Moon of Kentucky
+- name: Thaddeus
+  connection: 3
+  loyalty: 1
+  favors: 1
+  type: KY Street Samurai
+  archetype: KY Street Samurai
+  region: KY
+  is_canonical: false
+  description: CMP 2081-19 The Blue Moon of Kentucky
+- name: Duan Yuhai
+  connection: 3
+  loyalty: 1
+  favors: 1
+  type: SEA Minor 88s Johnson
+  archetype: SEA Minor 88s Johnson
+  region: SEA
+  is_canonical: false
+  description: SRM 2081-17 Framed in Blood
+- name: Xiong Giuyin
+  connection: 4
+  loyalty: 1
+  favors: 1
+  type: SEA Wuxing
+  archetype: SEA Wuxing
+  region: SEA
+  is_canonical: false
+  description: SRM 2081-17 Framed in Blood
+- name: Reilly Dragman
+  connection: 1
+  loyalty: 2
+  favors: 0
+  type: Magic
+  archetype: Magic
+  region: KY
+  is_canonical: true
+  description: 'Magic | Types: Magic'
+- name: Queen Brane
+  connection: 12
+  loyalty: 1
+  favors: 1
+  type: Magic
+  archetype: Magic
+  region: KY
+  is_canonical: true
+  description: 'Magic (Special Note: This contact cannot be called during a mission.)
+    | Types: Magic'
+- name: Kirt Liger
+  connection: 3
+  loyalty: 2
+  favors: 0
+  type: SEA Body Mod/Engineering Cybercatman
+  archetype: SEA Body Mod/Engineering Cybercatman
+  region: SEA
+  is_canonical: false
+  description: SRM 2081-21 Grudge Match Gladiators
+- name: "Sigr\xFAn"
+  connection: 5
+  loyalty: 3
+  favors: 2
+  type: AMS House Orange-Nassau Johnson
+  archetype: AMS House Orange-Nassau Johnson
+  region: AMS
+  is_canonical: false
+  description: CMP 2081-12 Uneasy lies the head
+- name: Dixie L'Amin
+  connection: 4
+  loyalty: 2
+  favors: 0
+  type: DW Naga
+  archetype: DW Naga
+  region: DW
+  is_canonical: false
+  description: CMP 2083-14 A Day at the Beach
+- name: Ayanda 'Shieldbearer' Mahlangu
+  connection: 3
+  loyalty: 1
+  favors: 1
+  type: DW 'Mystic Edge' Producer
+  archetype: DW 'Mystic Edge' Producer
+  region: DW
+  is_canonical: false
+  description: CMP 2083-14 A Day at the Beach
+- name: Ebon Abirashur
+  connection: 1
+  loyalty: 2
+  favors: 0
+  type: DW Leviathan Dragon
+  archetype: DW Leviathan Dragon
+  region: DW
+  is_canonical: false
+  description: CMP 2083-14 A Day at the Beach
+- name: Col. Deborah Kentwell
+  connection: 5
+  loyalty: 2
+  favors: 0
+  type: DW Thunder Corps Fixer
+  archetype: DW Thunder Corps Fixer
+  region: DW
+  is_canonical: false
+  description: CMP 2083-16 War Never Changes
+- name: Polyphemous 'Paul' Pellagios
+  connection: 1
+  loyalty: 1
+  favors: 1
+  type: DW Background Actor
+  archetype: DW Background Actor
+  region: DW
+  is_canonical: false
+  description: CMP 2083-16 War Never Changes
+- name: Fernand Anato
+  connection: 4
+  loyalty: 1
+  favors: 1
+  type: Kozlowski Capo
+  archetype: Kozlowski Capo
+  region: NOLA
+  is_canonical: true
+  description: 'Uses: Getting jobs, fencing gear, organized crime | Types: Criminal,
+    Street'
+- name: Monsieur Johnson
+  connection: 5
+  loyalty: 2
+  favors: 1
+  type: NOLA Johnson
+  archetype: NOLA Johnson
+  region: NOLA
+  is_canonical: false
+  description: SRM 2083-19 The Hallow Feast
+- name: Swango
+  connection: 3
+  loyalty: 2
+  favors: 1
+  type: SEA Rapper
+  archetype: SEA Rapper
+  region: SEA
+  is_canonical: false
+  description: SRM 2081-05 This is Renton
+- name: Toil
+  connection: 4
+  loyalty: 1
+  favors: 1
+  type: Fixer
+  archetype: Fixer
+  region: SEA
+  is_canonical: true
+  description: 'Uses: Drugs, exotic dancer clubs, getting jobs (Shadowrun Missions
+    Seattle) | Types: Criminal, Street'
+- name: Trubble
+  connection: 1
+  loyalty: 1
+  favors: 1
+  type: Bodyguard
+  archetype: Bodyguard
+  region: SEA
+  is_canonical: true
+  description: 'Uses: Bodyguards, insults, talismans (Shadowrun Missions Seattle)
+    | Types: Magic'
+- name: SpiiniCop
+  connection: 2
+  loyalty: 1
+  favors: 1
+  type: AMS Penose Spider
+  archetype: AMS Penose Spider
+  region: AMS
+  is_canonical: false
+  description: CMP 2083-01 NONPLUSHED
+- name: Eddie Wei
+  connection: 4
+  loyalty: 1
+  favors: 1
+  type: Triad Johnson
+  archetype: Triad Johnson
+  region: SEA
+  is_canonical: true
+  description: 'Uses: Business and economics, getting jobs, triads (Shadowrun Missions
+    Seattle) | Types: Criminal, Matrix (Not available after 2081-24)'
+- name: "Julian M\xFCntefering"
+  connection: 1
+  loyalty: 1
+  favors: 1
+  type: Corporate Kid
+  archetype: Corporate Kid
+  region: SEA
+  is_canonical: true
+  description: 'Uses: Corporate playground rumors, drones, rigging research (Shadowrun
+    Missions Seattle) | Types: Corporate, Engineering'
+- name: Ni Ni Xiaolu
+  connection: 3
+  loyalty: 2
+  favors: 2
+  type: Triad Johnson
+  archetype: Triad Johnson
+  region: SEA
+  is_canonical: true
+  description: 'Uses: Getting jobs, drugs, street rumors, triads (Shadowrun Missions
+    Seattle) | Types: Criminal'
+- name: Bookie
+  connection: 3
+  loyalty: 1
+  favors: 1
+  type: SEA Ancients Bookie
+  archetype: SEA Ancients Bookie
+  region: SEA
+  is_canonical: false
+  description: SRM 2081-07 Bootleg Bliss
+- name: Trudy
+  connection: 2
+  loyalty: 1
+  favors: 1
+  type: SEA Cutter Lieutenant
+  archetype: SEA Cutter Lieutenant
+  region: SEA
+  is_canonical: false
+  description: SRM 2081-07 Bootleg Bliss
+- name: Saint James
+  connection: 8
+  loyalty: 2
+  favors: 1
+  type: Fixer
+  archetype: Fixer
+  region: SEA
+  is_canonical: true
+  description: 'Uses: Corporations, getting jobs (Shadowrun Missions Seattle), fencing
+    gear, gangs | Types: Criminal, Street (Not available after 2081-24)'
+- name: Jeanie Trudel
+  connection: 1
+  loyalty: 1
+  favors: 1
+  type: SEA Bartender
+  archetype: SEA Bartender
+  region: SEA
+  is_canonical: false
+  description: SRM 2081-06 Cutting Strings
+- name: Kingston
+  connection: 2
+  loyalty: 1
+  favors: 1
+  type: Shadowrunner/Street Samurai
+  archetype: Shadowrunner/Street Samurai
+  region: SEA
+  is_canonical: true
+  description: 'Uses: Shadowrunners, street rumors (Shadowrun Missions Seattle) |
+    Types: Criminal, Street'
+- name: Kaatje
+  connection: 2
+  loyalty: 1
+  favors: 1
+  type: AMS Young Entertainer
+  archetype: AMS Young Entertainer
+  region: AMS
+  is_canonical: false
+  description: CMP 2083-04 Hog Wild
+- name: Mr. Fa
+  connection: 4
+  loyalty: 2
+  favors: 0
+  type: HKB Corporate Middle Manager
+  archetype: HKB Corporate Middle Manager
+  region: HK
+  is_canonical: false
+  description: CMP 2083-05 Precious Cargo
+- name: Liao Fa Ren
+  connection: 3
+  loyalty: 2
+  favors: 1
+  type: HK Rookie Journalist
+  archetype: HK Rookie Journalist
+  region: HK
+  is_canonical: false
+  description: CMP 2083-05 Precious Cargo
+- name: Aloysius Springinsguth
+  connection: 3
+  loyalty: 2
+  favors: 1
+  type: NOLA Sound of Silence Music Shop Owner
+  archetype: NOLA Sound of Silence Music Shop Owner
+  region: NOLA
+  is_canonical: false
+  description: SRM 2083-12 When You're Smiling
+- name: Jolene Price
+  connection: 7
+  loyalty: 2
+  favors: 1
+  type: Riverboat Alliance Leader
+  archetype: Riverboat Alliance Leader
+  region: NOLA
+  is_canonical: true
+  description: 'Uses: Getting jobs, dragons, mafia | Types: Corporate, Street'
+- name: Coffin Girls
+  connection: 3
+  loyalty: 4
+  favors: 0
+  type: NOLA Independent Courtesans Group
+  archetype: NOLA Independent Courtesans Group
+  region: NOLA
+  is_canonical: false
+  description: ''
+- name: Cedar
+  connection: 3
+  loyalty: 1
+  favors: 1
+  type: NOLA Talismonger
+  archetype: NOLA Talismonger
+  region: NOLA
+  is_canonical: false
+  description: SRM 2083-20 The Fallacy of Plans
+- name: Detective Remy LeBlanc
+  connection: 3
+  loyalty: 2
+  favors: 1
+  type: NOLA Detective
+  archetype: NOLA Detective
+  region: NOLA
+  is_canonical: false
+  description: SRM 2083-20 The Fallacy of Plans
+- name: Claudette Laurier
+  connection: 5
+  loyalty: 1
+  favors: 1
+  type: Order of the Golden Dawn Librarian
+  archetype: Order of the Golden Dawn Librarian
+  region: NOLA
+  is_canonical: true
+  description: 'Uses: Getting jobs, magical traditions | Types: Criminal, Matrix'
+- name: League of Laveau
+  connection: 6
+  loyalty: 3
+  favors: 1
+  type: NOLA Voodoo Organization
+  archetype: NOLA Voodoo Organization
+  region: NOLA
+  is_canonical: false
+  description: SRM 2083-18 Some Kind of Voodoo?
+- name: Zobop
+  connection: 6
+  loyalty: 3
+  favors: 1
+  type: NOLA Voodoo Organization
+  archetype: NOLA Voodoo Organization
+  region: NOLA
+  is_canonical: false
+  description: SRM 2083-18 Some Kind of Voodoo?
+- name: Col. Treylor
+  connection: 3
+  loyalty: 2
+  favors: 0
+  type: DW Thunder Corps Fixer
+  archetype: DW Thunder Corps Fixer
+  region: DW
+  is_canonical: false
+  description: CMP 2083-15 | By Land, Sea, and Hair
+- name: Moenen
+  connection: 5
+  loyalty: 2
+  favors: 0
+  type: UNL infobroker
+  archetype: UNL infobroker
+  region: AMS
+  is_canonical: false
+  description: CMP 2083-02 ROYAL ROAD
+- name: Blackstone
+  connection: 3
+  loyalty: 1
+  favors: 0
+  type: SEA Contact
+  archetype: SEA Contact
+  region: SEA
+  is_canonical: false
+  description: SRM 2081-18 Friendships Never Grow Rust
+programs:
+- name: Baby Monitor
+  category: Basic
+- name: Browse
+  category: Basic
+- name: Edit
+  category: Basic
+- name: Emulator
+  category: Basic
+- name: Encryption
+  category: Basic
+- name: Signal Scrubber
+  category: Basic
+- name: Toolbox
+  category: Basic
+- name: Virtual Machine
+  category: Basic
+- name: Decryption
+  category: Hacking
+- name: Defense Pods
+  category: Hacking
+- name: Directional Shields
+  category: Hacking
+- name: Fork
+  category: Hacking
+- name: Hitchhiker
+  category: Hacking
+- name: Nexus Protocol
+  category: Hacking
+- name: Overclock
+  category: Hacking
+- name: Trace
+  category: Hacking
+- name: Smartsoft
+  category: Rigger
+- name: Swarm
+  category: Rigger
+- name: Encryption (Rigger)
+  category: Rigger
+autosofts:
+- name: Biotech Autosoft
+  rating: 9
+- name: Clearsight Autosoft
+  rating: 9
+- name: Close Combat Autosoft
+  rating: 9
+- name: Engineering Autosoft
+  rating: 9
+- name: Evasion Autosoft
+  rating: 9
+- name: Maneuvering Autosoft
+  rating: 9
+- name: Navigation Autosoft
+  rating: 9
+- name: Performance Autosoft
+  rating: 9
+- name: Stealth Autosoft
+  rating: 9
+- name: Targeting Autosoft
+  rating: 9
+- name: Tracking Autosoft
+  rating: 9
+gear:
+- name: 5x Peak-Discharge Laser Battery Clips (Crimson Wasp)
+  qty: 5
+- name: 10x Glitter Grenades
+  qty: 10
+- name: Built-in Medkit (Man-at-Arms)
+  qty: 1
+- name: Facial Scanner
+- name: P-ICE Spines
+- name: Personal Assistant (R6)
+- name: Social HUD (R6)
+- name: Thermal Mood Reading
+- name: Vocal Tension Detection

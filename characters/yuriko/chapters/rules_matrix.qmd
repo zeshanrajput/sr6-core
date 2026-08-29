@@ -1,0 +1,211 @@
+# Matrix & Network Protocols
+
+```{python}
+#| echo: false
+#| include: false
+from sr6core.log_engine import get_log_totals
+from sr6core.character_manager import CharacterManager
+from sr6core.rules_engine import get_matrix_action_table, get_matrix_protocols_summary
+from sr6core.modifiers import ModifierEngine
+
+cm = CharacterManager()
+_char = cm.get_character_data("yuriko") or {}
+attrs = _char.get("attributes", {})
+log_totals = get_log_totals("chapters/character_log.qmd")
+
+matrix_summary = get_matrix_protocols_summary("yuriko")
+active_asdf = matrix_summary.get("asdf", {})
+ACTIVE_A = active_asdf.get("attack", 7)
+ACTIVE_S = active_asdf.get("sleaze", 9)
+ACTIVE_D = active_asdf.get("data_processing", 7)
+ACTIVE_F = active_asdf.get("firewall", 9)
+
+RESONANCE = attrs.get("resonance", 8)
+WILLPOWER = attrs.get("willpower", 6)
+CHARISMA = attrs.get("charisma", 4)
+INTUITION = attrs.get("intuition", 2)
+LOGIC = attrs.get("logic", 4)
+EDGE = attrs.get("edge", 5)
+
+SUBMERSION_GRADE = log_totals.get("Submersion_Grade", 7)
+edge_storage_mtoc = 5
+edge_storage_total = SUBMERSION_GRADE + edge_storage_mtoc
+
+matrix_pools = ModifierEngine.get_matrix_action_pools(_char)
+cracking_hacking_pool = matrix_pools["cracking_hacking"].total_pool
+cracking_hacking_hits = matrix_pools["cracking_hacking"].bought_hits
+cracking_other_pool = matrix_pools["cracking_other"].total_pool
+cracking_other_hits = matrix_pools["cracking_other"].bought_hits
+full_defense_pool = matrix_pools["full_matrix_defense"].total_pool
+full_defense_hits = matrix_pools["full_matrix_defense"].bought_hits
+electronics_software_pool = matrix_pools["electronics_software"].total_pool
+electronics_software_hits = matrix_pools["electronics_software"].bought_hits
+electronics_other_pool = matrix_pools["electronics_other"].total_pool
+electronics_other_hits = matrix_pools["electronics_other"].bought_hits
+buy_gear_pool = matrix_pools["buy_gear"].total_pool
+buy_gear_hits = matrix_pools["buy_gear"].bought_hits
+programming_pool = matrix_pools["programming"].total_pool
+programming_hits = matrix_pools["programming"].bought_hits
+
+CRACKING_RATING = 5
+CRACKING_HACKING = 7
+ELECTRONICS_RATING = 5
+ELECTRONICS_SOFTWARE = 7
+RESONANCE_FOCUS = 4
+ALLY_SPRITE_TEAMWORK = 4
+OVERCLOCK_BONUS = 2
+ECM_WARRIOR_BONUS = 2
+```
+
+This reference details Reiko's Matrix attributes, action pool breakdowns, network benefits, learned programs, defense math, remote node network architecture, and decking cheat sheet.
+
+---
+
+## Matrix Attributes{#matrix-attributes}
+
+Reiko's base ASDF is 3535. She gains +6 from sprite symbiosis with Taz, +1 from Toolbox, +1 from Encryption, and +8 from her Resonance. This gives a total of +16. 
+
+::: {.callout-note} 
+Under SR6 AI rules (*Hack & Slash* pp. 116–120), Matrix ASDF attributes represent the intrinsic physical and mental characteristics of Artificial Intelligences (AI) and Emergent Intelligences (EI), making them subject to the standard **+4 Augmented Attribute Limit**.
+:::
+
+We therefore add +4 to all of Reiko's ASDF attributes. This gives her a total of 3535 + 4444 = 7979.
+
+---
+
+## Standardized Matrix Action Pools
+
+Transparent breakdown of base attributes, applied modifiers math (Natural Hacker, Resonance Focus, Overclocking, Teamwork, Tactical Software), and total effective dice pools for Matrix operations.
+
+```{python}
+#| echo: false
+#| output: asis
+print(get_matrix_action_table("yuriko"))
+```
+
+### Programming
+
+* Interval: 8 / 2 = 4 hrs (Coding Facility), Threshold = 2x Rating/Avail
+* Ratings for commonly programmed items
+  * Knowsofts: Rating 3
+  * Linguasofts: Rating 5
+  * Autosoft: Rating 9
+* Cost: 1 karma per 4,000¥
+
+---
+
+## Network Benefits
+
+* **Edge Storage**: Capacity `{python} edge_storage_total` (SUB `{python} SUBMERSION_GRADE` Transcendent Network, `{python} edge_storage_mtoc` M-TOC II).
+* **-6 Noise Reduction**: Designer home device -2, signal scrubber -2, ECM warrior -2.
+* **+1 Sensor Rating**: Added to any connected sensor (sensor upgrade).
+* **Resonant Coordination**: Connected characters using Send Message (Minor Action) among themselves gain a bonus Minor Action immediately.
+* **Smartsoft Array**:
+  * Drone Sensor Locks shared among networked drones.
+  * Target Locked victims cannot spend Edge against attacking networked drones.
+* **Detect Ambush**: -2 Perception test threshold to detect ambush.
+* **Smartguns**: +1 AR to smartlinked weapons.
+* **Encryption**: +1 threshold for all incoming Cracking tests against network.
+* **Tactical Software Apps**:
+  * *Artillery Barrage*: +1 dice pool to Launchers (grenade, rocket, mortar).
+  * *ECM Warrior II*: +2 Offensive Cracking tests.
+  * *Sneak-Sneak*: +2 Stealth.
+  * *Target Artist*: Attack without LOS on painted targets.
+
+---
+
+## Learned Programs
+
+### CMP 2083-04 | Hog Wild (2026-Jul-15)
+
+* **Nexus Protocol**: Hitchhikers experience UV.
+* **Emulator**: Run Commlink Apps
+  * *Personal Assistant (R6)*: Full Matrix Defense every round.
+  * *P-ICE Spines*
+  * *Social HUD*: Major Action to search SINs or facial recognition; +1 Edge on first social test with identified targets.
+  * *Thermal Mood Reading*: Minor Action +1 Edge on Judge Intentions.
+  * *Comm Spoofer*: +1 Edge on Con tests involving comm call misrepresentation.
+  * *Facial Scanner*: Major Action facial scan; +1 situational Edge on Matrix search.
+  * *MeFeed*: +1 situational Edge on Matrix searches about topics or targets.
+* **Virtual Machine**: +2 program slots, +1 Matrix Damage taken.
+* **Directional Shield**: In Full Matrix Defense, spend Minor Anytime Action to add Data Processing to defense pool.
+* **Toolbox**: +1 Data Processing.
+* **Clearsight Autosoft (R9)**: Perception autosoft.
+* **Stealth Autosoft (R9)**: Stealth autosoft.
+* **Coding Facility**: Halves programming test interval; +1 situational Edge on programming.
+
+### CMP 2083-05 | Precious Cargo (2026-Jul-21)
+
+* **Close Combat Autosoft (R9)**: Melee combat autosoft.
+* **Evasion Autosoft (R9)**: Pilot + Evasion defense autosoft.
+* **Maneuvering Autosoft (R9)**: Drone maneuvering autosoft.
+* **Targeting Autosoft (R9)**: Ranged weapon targeting autosoft.
+* **Tracking Autosoft (R9)**: Sensor and target tracking autosoft.
+
+---
+
+## Home Device & Remote Network Protocols
+
+### 1. Home Device Configuration (Active Venue Drone)
+
+* **Venue Drone as Home Device**: Reiko configures her active inhabited drone (Shiawase Man-at-Arms) as her Home Device instead of the M-TOC II.
+* **Sprite Power 'Override'**: Replaces active drone's Pilot rating with her Resonance (`{python} RESONANCE`).
+* **Attribute Enhancement**: Adds +1 to Body (or Sensors).
+* **Designer Trait / AI Origin Benefits**: +1 Pilot/DP, +2 Noise Reduction, Edge Defense Rating considered 4 higher [HnS p. 124].
+
+### 2. Remote Node & Seattle Retrans Setup
+
+* **Seattle Relay Node**: Federated-Boeing Sky Commander drone hosts heavy digital assets (M-TOC II, software tags, Sanctuary Host).
+* **Drone Upgrades**: Satellite Link, Retrans Unit (cleans Matrix noise), RAM Plating 4, Enhanced Sensors 3, ECM 6, Integrated Matrix Docks.
+* **Framework Host Specs (Reiko's Apartment)**:
+  * Rating 2, Scale 1 (Micro/Personal LAN), Grade 2.
+  * ASDF: Attack 2, Sleaze 3, Data Processing 4, Firewall 5 [HnS p. 154].
+  * Defense: Patrol IC, Acid IC budget.
+  * Foundation Door: Quartz sliding glass door framed in gold logic/indigo circuits leading directly into the Deep Matrix **Kernel Panic** glade.
+
+---
+
+## Decking Protocols Cheat Sheet
+
+Standardized action categorization grouped strictly by Skill & Specialization, incorporating **Natural Hacker** (Resonance attribute substitution), **Resonance Focus (+4)**, **Taz Ally Sprite Teamwork (+4)**, **Overclocking (+2, 1 wild die)**, and **Tactical Software**:
+
+### 1. Cracking Tests (Cracking + RES via Natural Hacker)
+
+* **Hacking Specialization**: **`{python} cracking_hacking_pool`d6 (1 wild)** $\rightarrow$ **`{python} cracking_hacking_hits` Bought Hits**
+  * *Applied Modifiers*: Base Cracking (`{python} CRACKING_RATING`) + RES (`{python} RESONANCE`) + RES Focus (+`{python} RESONANCE_FOCUS`) + Hacking Spec (+2) + Taz Teamwork (+`{python} ALLY_SPRITE_TEAMWORK`) + Overclock (+`{python} OVERCLOCK_BONUS`, 1 wild) + ECM Warrior II (+`{python} ECM_WARRIOR_BONUS`)
+  * *Actions*: Backdoor Entry, Crack File, Delayed Command, Garbage In / Garbage Out, Known Exploit, Metahuman in the Middle, Probe, Puppet Cyberware, Spoof Command.
+* **Cybercombat Specialization**: **`{python} cracking_other_pool`d6 (1 wild)** $\rightarrow$ **`{python} cracking_other_hits` Bought Hits**
+  * *Applied Modifiers*: Base Cracking (`{python} CRACKING_RATING`) + RES (`{python} RESONANCE`) + RES Focus (+`{python} RESONANCE_FOCUS`) + Taz Teamwork (+`{python} ALLY_SPRITE_TEAMWORK`) + Overclock (+`{python} OVERCLOCK_BONUS`, 1 wild) + ECM Warrior II (+`{python} ECM_WARRIOR_BONUS`)
+  * *Actions*: Brute Force, Crash Program, Data Spike, Device Lock, Disarm Data Bomb, Resonance Spike, Tar Pit.
+* **Electronic Warfare Specialization**: **`{python} cracking_other_pool`d6 (1 wild)** $\rightarrow$ **`{python} cracking_other_hits` Bought Hits**
+  * *Applied Modifiers*: Base Cracking (`{python} CRACKING_RATING`) + RES (`{python} RESONANCE`) + RES Focus (+`{python} RESONANCE_FOCUS`) + Taz Teamwork (+`{python} ALLY_SPRITE_TEAMWORK`) + Overclock (+`{python} OVERCLOCK_BONUS`, 1 wild) + ECM Warrior II (+`{python} ECM_WARRIOR_BONUS`)
+  * *Actions*: Calibration, Check OS, Hide, Jam Signals, Masquerade, Popup, Snoop, Watchdog.
+
+### 2. Electronics Tests (Electronics + RES via Natural Hacker)
+
+* **Software Specialization**: **`{python} electronics_software_pool`d6 (1 wild)** $\rightarrow$ **`{python} electronics_software_hits` Bought Hits**
+  * *Applied Modifiers*: Base Electronics (`{python} ELECTRONICS_RATING`) + RES (`{python} RESONANCE`) + RES Focus (+`{python} RESONANCE_FOCUS`) + Software Spec (+2) + Taz Teamwork (+`{python} ALLY_SPRITE_TEAMWORK`) + Overclock (+`{python} OVERCLOCK_BONUS`, 1 wild)
+  * *Actions*: Control Device, Format Device, Jack Out, Jump into Rigged Device, Reboot Device, Set Data Bomb, Trace Icon.
+* **Computer Specialization**: **`{python} electronics_other_pool`d6 (1 wild)** $\rightarrow$ **`{python} electronics_other_hits` Bought Hits**
+  * *Applied Modifiers*: Base Electronics (`{python} ELECTRONICS_RATING`) + RES (`{python} RESONANCE`) + RES Focus (+`{python} RESONANCE_FOCUS`) + Taz Teamwork (+`{python} ALLY_SPRITE_TEAMWORK`) + Overclock (+`{python} OVERCLOCK_BONUS`, 1 wild)
+  * *Actions*: Edit File, Encrypt File, Erase Matrix Signature, Hash Check, Matrix Perception, Matrix Search, Modify Icon, Threat Analysis.
+* **Hardware Specialization**: **`{python} electronics_other_pool`d6 (1 wild)** $\rightarrow$ **`{python} electronics_other_hits` Bought Hits**
+  * *Applied Modifiers*: Base Electronics (`{python} ELECTRONICS_RATING`) + RES (`{python} RESONANCE`) + RES Focus (+`{python} RESONANCE_FOCUS`) + Taz Teamwork (+`{python} ALLY_SPRITE_TEAMWORK`) + Overclock (+`{python} OVERCLOCK_BONUS`, 1 wild)
+  * *Actions*: Denial of Service, Squelch, Subvert Infrastructure, Turning off Wireless, removing headjammer, keycard copier, tag eraser, bug scanner.
+* **Complex Forms (Electronics-based)**: **`{python} electronics_other_pool`d6 (1 wild)** $\rightarrow$ **`{python} electronics_other_hits` Bought Hits**
+  * *Applied Modifiers*: Base Electronics (`{python} ELECTRONICS_RATING`) + RES (`{python} RESONANCE`) + RES Focus (+`{python} RESONANCE_FOCUS`) + Taz Teamwork (+`{python} ALLY_SPRITE_TEAMWORK`) + Overclock (+`{python} OVERCLOCK_BONUS`, 1 wild)
+
+### 3. Matrix Defense Protocols
+
+* **Full Matrix Defense**: **`{python} full_defense_pool`d6** $\rightarrow$ **`{python} full_defense_hits` Bought Hits**
+  * *Applied Modifiers*: RES (`{python} RESONANCE`) + RES Focus (+`{python} RESONANCE_FOCUS`) + FW (`{python} ACTIVE_F`) + Personal Assistant App R6 (+6) + Directional Shield Active DP (+`{python} ACTIVE_D`)
+* **Standard Matrix Defense (vs Attack Actions: Brute Force, Data Spike)**: **`{python} ACTIVE_F + RESONANCE + RESONANCE_FOCUS`d6** $\rightarrow$ **`{python} (ACTIVE_F + RESONANCE + RESONANCE_FOCUS) // 4` Bought Hits**
+  * *Applied Modifiers*: Firewall (`{python} ACTIVE_F`) + Natural Hacker RES (`{python} RESONANCE`) + RES Focus (+`{python} RESONANCE_FOCUS`)
+* **Standard Matrix Defense (vs Sleaze Actions: Probe, Backdoor Entry, Hack)**: **`{python} ACTIVE_F + RESONANCE + RESONANCE_FOCUS`d6** $\rightarrow$ **`{python} (ACTIVE_F + RESONANCE + RESONANCE_FOCUS) // 4` Bought Hits**
+  * *Applied Modifiers*: Firewall (`{python} ACTIVE_F`) + Natural Hacker RES (`{python} RESONANCE`) + RES Focus (+`{python} RESONANCE_FOCUS`)
+
+### 4. Matrix Edge Actions
+
+* **1 Edge**: Batch Exec, Emergency Boost, Paint Target.
+* **2 Edge**: Technobabble (CHA instead of LOG), Intervene, Hog, Signal Scream.
+* **3 Edge**: Under the Radar (Action does not increase OS).

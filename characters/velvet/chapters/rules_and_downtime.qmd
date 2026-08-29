@@ -1,0 +1,262 @@
+# Downtime Protocols & Common Rules
+
+This section aggregates core cheat sheets and templates for downtime registration, magic spellcasting, conjuring, and foci benefits.
+
+```{python}
+#| echo: false
+#| include: false
+from sr6core.character_manager import CharacterManager
+
+cm = CharacterManager()
+_char = cm.get_character_data("velvet") or {}
+attrs = _char.get("attributes", {})
+
+# Core Attributes
+Body = attrs.get("body", 2)
+Agility = attrs.get("agility", 3)
+Reaction = attrs.get("reaction", 2)
+Strength = attrs.get("strength", 2)
+Willpower = attrs.get("willpower", 5)
+Logic = attrs.get("logic", 3)
+Intuition = attrs.get("intuition", 3)
+Charisma = attrs.get("charisma", 10)
+Magic = attrs.get("magic", 6)
+Edge = attrs.get("edge", 4)
+
+# Skills & Adept Bonuses
+skills_data = {s["name"]: s for s in _char.get("skills", [])}
+Sorcery = skills_data.get("Sorcery", {}).get("rating", 5)
+Sorcery_Spec = 2 if skills_data.get("Sorcery", {}).get("specialization") else 0
+Conjuring = skills_data.get("Conjuring", {}).get("rating", 6)
+Influence = skills_data.get("Influence", {}).get("rating", 5)
+Con = skills_data.get("Con", {}).get("rating", 4)
+
+# Adept Powers
+adept_dict = {p["name"]: p.get("rating", 0) for p in _char.get("adept_powers", [])}
+Improved_Ability_Sorcery = adept_dict.get("Improved Ability (Sorcery)", 0)
+
+# Initiation Grade
+Initiation_Grade = len(_char.get("meta_echoes", []))
+
+# Derived Pools
+Spellcasting_Pool = Sorcery + Sorcery_Spec + Improved_Ability_Sorcery + Magic
+Conjuring_Pool = Conjuring + Magic
+Channeling_Pool = Conjuring + Magic + Initiation_Grade
+Drain_Resist_Pool = Willpower + Charisma
+Enhanced_Drain_Resist_Pool = (Willpower + 4) + (Charisma + 4)
+Influence_Pool = Influence + Charisma
+Con_Pool = Con + Charisma
+```
+
+---
+
+## SRM Monthly Expenses & Downtime Cadence Protocol
+
+> **Mandatory Campaign Protocol:** Every second official Shadowrun Missions (SRM) run (excluding CMPs or non-SRM special events), Velvet must settle monthly expenses and execute mandatory downtime allocations.
+
+### 1. Monthly Expenses Package
+
+Every 2nd SRM mission, the following recurring obligations are deducted from liquid Nuyen:
+
+- **Lifestyle Expenses:** Low Lifestyle (¥2,000/mo) or Middle Lifestyle (¥5,000/mo).
+- **Hooder Quality (Rating 3):** ¥3,000/mo obligation allocated to community assistance.
+- **Coven Dues:** ¥2,400/mo dues paid to the Guild of Freelance Assets.
+
+
+### 2. Mandatory Downtime Actions (Expense Months)
+
+During an expense month, Velvet receives 1 Major Downtime Action and 1 Minor Downtime Action, allocated as follows:
+
+- **1 Major Downtime Action:** Dedicated to Coven service, ritual maintenance, and keeping Coven Loyalty in good standing.
+- **1 Minor Downtime Action:** *Working for the People*—funded directly by the Hooder ¥3,000 nuyen obligation, generating **+1 Karma** at no additional nuyen charge.
+
+---
+
+## Sustained Attribute Spell Strategy (Focused Concentration R3)
+
+Velvet's primary source of attribute augmentations is the **Increase Attribute** Health spell. Under **Focused Concentration (Rating 3)**, Velvet can sustain up to **3 Increase Attribute spells simultaneously with 0 sustaining penalties**, reaching the maximum **+4 SRMG Augmentation Cap** across three key attributes.
+
+> **Deterministic Buffing Math (Buying Hits):**
+
+> * *Increase Attribute* grants a +1 base increase upon successful cast, plus +1 for each additional net hit (up to the +4 maximum augmented limit). 
+> * With Sorcery 5 + Magic 6 + Specialization (Spellcasting) 2 = **13 dice** $\rightarrow$ **3 bought hits**, Velvet achieves the maximum **+4 attribute boost** deterministically without rolling (1 base increase + 3 net hits = +4).
+> * With an initial Drain pool of **15 dice** (buying 3 hits) scaling up to **23 dice** (buying 5 hits), Velvet takes **0 Drain** across the entire buffing sequence.
+
+1. **Universal Sustained Anchor 1 — Charisma (+4)**: Boosts Charisma from 10 to **14** *(Exceptional natural/metagenetic baseline + 4)*.
+2. **Universal Sustained Anchor 2 — Willpower (+4)**: Boosts Willpower from 5 to **9**.
+3. **Scene-Calibrated Sustained Anchor 3**:
+   - **Social & Legwork Scenes**: Boosts **Intuition (+4)** from 3 to **7** (Unlocks 16d6 Judge Intentions, 10d6 Cosmetic Control shifts, and 12d6 Memory).
+   - **Combat Scenes**:
+     - Boosts **Reaction (+4)** from 2 to **6** (Unlocks 9d6 Defense Test and 9 + 1D6 Physical Initiative).
+     - A conjured R5 Spirit increases all other physical attributes by +2. 
+
+### Operational Scene Strategy & Dice Pool Cheatsheet
+
+```{python}
+#| echo: false
+#| output: asis
+from sr6core.rules_engine import get_scene_strategy_table
+print(get_scene_strategy_table("velvet"))
+```
+
+---
+
+## Optimal Magic Action & Protocol Table
+
+Breakdown of base statistics, foci, final effective dice pools, and bought hits.
+
+```{python}
+#| echo: false
+#| output: asis
+from sr6core.rules_engine import get_magic_action_table
+print(get_magic_action_table("velvet"))
+```
+
+---
+
+## Optimal Social & Face Action Table
+
+Breakdown of social negotiation, leadership, disguise, composure, and micro-expression reading pools with applied wardrobe/cosmetic synergies.
+
+```{python}
+#| echo: false
+#| output: asis
+from sr6core.rules_engine import get_social_action_table
+print(get_social_action_table("velvet"))
+```
+
+---
+
+## Spellcasting & Foci Integration
+
+### **Tradition: Shinto / Musok (Willpower + Charisma)**
+
+* **Core Attributes**: Willpower `{python} Willpower`, Charisma `{python} Charisma`, Intuition `{python} Intuition`, Body `{python} Body`, Magic `{python} Magic`.
+* **Spellcasting Pool**: Sorcery (`{python} Sorcery`){python} ' + Spec (Spellcasting, 2)' if Sorcery_Spec else ''} + Magic (`{python} Magic`) = **`{python} Spellcasting_Pool` dice** $\rightarrow$ **Buys `{python} Spellcasting_Pool // 4` Hits** (**13d6 $\rightarrow$ 3 Hits**).
+* **Drain Resistance Pool**: Willpower (`{python} Willpower`) + Charisma (`{python} Charisma`) = **`{python} Drain_Resist_Pool` dice** $\rightarrow$ **Buys `{python} Drain_Resist_Pool // 4` Hits** `[SR6, Page 36]`.
+
+---
+
+## Conjuring & Spirit Protocols{#conjuring-and-spirit-protocols}
+
+This section details Velvet's conjuring thresholds, downtime spirit binding protocols, and active spirit channeling mechanics under **Channeling** and **Power Point** (*Linguistics, Command Presence, Cloak R1*) metamagics.
+
+* **Conjuring & Summoning Pool**: Conjuring (`{python} Conjuring`) + Magic (`{python} Magic`) = **`{python} Conjuring_Pool`d6** $\rightarrow$ **Buys `{python} Conjuring_Pool // 4` Hits** (**3 Hits**).
+* **Channeling Inhabitation Pool**: Conjuring (`{python} Conjuring`) + Magic (`{python} Magic`) + Initiate Grade (`{python} Initiation_Grade`) = **`{python} Channeling_Pool`d6** $\rightarrow$ **Buys `{python} Channeling_Pool // 4` Hits** (**3 Hits**).
+* **Enhanced Drain Resistance Pool**: Sustained Willpower (9) + Sustained Charisma (14) = **`{python} Enhanced_Drain_Resist_Pool`d6** $\rightarrow$ **Buys `{python} Enhanced_Drain_Resist_Pool // 4` Hits** *(Baseline: `{python} Drain_Resist_Pool`d6 $\rightarrow$ `{python} Drain_Resist_Pool // 4` Hits)*.
+* **Maximum Bound Spirit Capacity**: Magic (`{python} Magic`) $\times$ 3 = **`{python} Magic * 3` Total Force** across all active bound spirits `[SR6, Page 147]`.
+
+---
+
+### Metamagic Suite: Channeling & Power Point
+
+*Street Wyrd, p. 78, 81, 122*
+
+Velvet's Initiate Grade 2 metamagic foundation is optimized for deep-cover infiltration, somatic power, multilingual versatility, and squad leadership:
+
+1. **Channeling (Initiation Grade 1)**:
+   * *Street Wyrd, p. 122*
+   * Enables seamless spirit inhabitation, granting $+2$ physical attribute boosts, 5-box wound negation, dual-natured combat, and direct power projection.
+2. **Power Point (Initiation Grade 2)**:
+   * *Street Wyrd, p. 78, 81*
+   * Grants +1.0 Power Point, allocating:
+     * **Linguistics (0.25 PP):** Passively absorb any spoken language at basic proficiency after 1 hour of active listening.
+     * **Command Presence (0.50 PP):** Grants $+2$ dice and $+1$ Edge on all Influence tests.
+     * **Cloak R1 (0.25 PP):** Grants $+1$ to the threshold of opposing Assensing tests to perceive Velvet's aura or pierce covers.
+
+---
+
+### Maximum Spirit Force Analysis (Buying Hits)
+
+Under official **Shadowrun Missions (SRM / SRMG)** rules, downtime tests and standard threshold evaluations utilize bought hits (4 dice = 1 hit). With base Conjuring 6 (12d6 $\rightarrow$ 3 Bought Hits):
+
+| Spirit Force | Spirit Defense Pool (Force $\times$ 2) | Spirit Bought Hits | Conjuring Net Hits (12d6 $\rightarrow$ 3 Hits) | Channeling Net Hits (14d6 $\rightarrow$ 3 Hits) | Standard Bound Duration & Role |
+| :---: | :---: | :---: | :---: | :---: | :--- |
+| **Force 1** | 2d6 | 0 Hits | **+3 Net Hits** (3 Services) | **+3 Net Hits** | Minor utility & errand runner |
+| **Force 2** | 4d6 | 1 Hit | **+2 Net Hits** (2 Services) | **+2 Net Hits** | Standard elemental |
+| **Force 3** | **6d6** | **1 Hit** | **+2 Net Hits** (2 Services) | **+2 Net Hits** | **4 Bound Tasks (4 Missions)** / Social & Stealth Anchor |
+| **Force 4** | 8d6 | 2 Hits | **+1 Net Hit** (1 Service) | **+1 Net Hit** | 2 Bound Tasks (2 Missions) |
+| **Force 5** | **10d6** | **2 Hits** | **+1 Net Hit** (1 Service) | **+1 Net Hit** | **2 Bound Tasks (2 Missions)** / Heavy Combat & Blaster |
+| **Force 6+** | 12d6+ | 3+ Hits | 0 Net Hits | 0 Net Hits | High risk; requires manual rolls and Edge expenditure |
+
+> **Deterministic Threshold**: Base **Conjuring 6** reliably summons and binds both **Force 3** and **Force 5** spirits with 100% certainty and 0 drain without requiring any conjuring specializations.
+
+---
+
+### Standard Downtime Package: The 8-Level Spirit Allocation
+
+*SRMG v2.4 Minor Downtime Action (Register/Bind up to 8 levels of spirits)*
+
+In downtime, Velvet's standard minor action binds **8 total Force levels of spirits** split into a specialized duo:
+
+1. **Spirit 1: Force 3 Spirit of Kin (4 Bound Tasks / 4 SRM Missions)**:
+   * **Reagent Cost**: $2 \times 3 = \mathbf{6\text{ drams / ¥120}}$ ($3\text{ hours}$ in lodge).
+   * **Summoning**: 12d6 (3 hits) vs 6d6 (1 hit) = **2 Base Services**.
+   * **Binding**: 12d6 (3 hits) vs 6d6 (1 hit) = **2 Bound Tasks**.
+   * **Total Longevity**: **4 Tasks / 4 SRM Missions** of active availability.
+   * **Role**: Infiltration, -3 Concealment, subconscious Influence, and sustaining buffs via *Innate Spell*.
+2. **Spirit 2: Force 5 Spirit of Fire (2 Bound Tasks / 2 SRM Missions)**:
+   * **Reagent Cost**: $2 \times 5 = \mathbf{10\text{ drams / ¥200}}$ ($5\text{ hours}$ in lodge).
+   * **Summoning**: 12d6 (3 hits) vs 10d6 (2 hits) = **1 Base Service**.
+   * **Binding**: 12d6 (3 hits) vs 10d6 (2 hits) = **1 Bound Task**.
+   * **Total Longevity**: **2 Tasks / 2 SRM Missions** of active availability.
+   * **Role**: High-threat combat, 5P Elemental Fire, Engulf, Energy Aura, and heavy Channeling augmentations (+2 to all physical stats, 5 wound boxes ignored).
+
+* **Total Downtime Budget**: **16 drams (¥320)**, **8 hours**, and **0 Drain Damage** (resisted with 23d6 soak).
+
+---
+
+### Protocol 1: Channeling a Bound Spirit (Buying Hits)
+
+*Street Wyrd, p. 122, 234 & Shadowrun Missions Guide*
+
+Under the **Channeling** metamagic, Velvet draws a bound spirit into their physical body as an internal vessel, forming a unified dual-natured entity under Velvet's conscious control.
+
+* **Action Economy**: Major Action to channel during a scene (using an existing bound spirit).
+* **Channeling Inhabitation Test**:
+  * **Channeling Dice Pool**: Conjuring (`{python} Conjuring`) + Magic (`{python} Magic`) + Initiate Grade (`{python} Initiation_Grade`) = **`{python} Channeling_Pool`d6** $\rightarrow$ **`{python} Channeling_Pool // 4` Bought Hits**.
+  * **Spirit Defense**: Force 3 (6d6 $\rightarrow$ 1 hit, **+2 extra services**) / Force 5 (10d6 $\rightarrow$ 2 hits, **+1 extra service**).
+* **Channeled Combat & Somatic Augmentations**:
+  * **Dual Natured**: Perceives and interacts with astral and physical planes simultaneously without projecting.
+  * **Physical Attribute Boost** ($\lfloor \text{Force}/2 \rfloor$ applied to any stat below Force):
+    * **Channeled Force 3**: $+1$ to Body ($2 \rightarrow \mathbf{3}$), Reaction ($2 \rightarrow \mathbf{3}$ [or $6 \rightarrow \mathbf{7}$ with spell]), Strength ($2 \rightarrow \mathbf{3}$).
+    * **Channeled Force 5**: $+2$ to Body ($2 \rightarrow \mathbf{4}$), Agility ($3 \rightarrow \mathbf{5}$), Reaction ($2 \rightarrow \mathbf{4}$ [or $6 \rightarrow \mathbf{8}$ with spell]), Strength ($2 \rightarrow \mathbf{4}$).
+  * **Wound Penalty Ignorance**: Ignores up to **Force wound penalty boxes** (3 boxes for F3, **5 boxes for F5**).
+  * **Continuous Powers (0 Services)**: Continuous access to all "Always" duration spirit powers.
+  * **Active Spirit Powers (1 Service per use)**: Project 5P/6P *Elemental Attacks*, apply *Concealment*, *Influence*, or *Guard* directly from the physical form.
+* **Delayed Departure Drain**: Resisted when channeling ends ($1\text{–}2\text{ DV}$ vs 23d6 soak) $\rightarrow$ **0 Drain Damage**.
+
+---
+
+---
+
+## Social Leverage & Inspire Competence
+
+* **Influence Pool:** Influence (`{python} Influence`) + Charisma (`{python} Charisma`) = **`{python} Influence_Pool` dice** $\rightarrow$ **Buys `{python} Influence_Pool // 4` Hits**.
+  * Nanopaste Disguise / Nanocosmetics: +1 Situational Edge.
+  * Social Rating: CHA (`{python} Charisma`) + 4 (Très Chic accessories).
+
+### Inspire Competence
+
+*6WC p. 133*
+
+* **Pool:** Charisma (`{python} Charisma`) + Influence (`{python} Influence`) = **`{python} Influence_Pool` dice**
+* **Effect**:
+  * Hits function as a teamwork test to assist an ally's skill test.
+  * Target ally gains one (1) Edge.
+
+---
+
+## Adept Powers & Qi Focus (Sharp Tongue)
+
+### **Sharp Tongue (Rating 4 Qi Focus)**
+
+*Smooth Operations, p. 1*
+
+* **Activation:** Major Action
+* **Attack Pool:** Charisma (`{python} Charisma`) + Magic (`{python} Magic`) = **`{python} Charisma + Magic` dice** *(**`{python} Charisma + Magic + 4` dice** with Sustained Charisma +4 $\rightarrow$ **Buys `{python} (Charisma + Magic + 4) // 4` Hits**)*
+* **Defense:** Target opposes with **Intuition + Willpower**.
+* **Effect:**
+  * Net hits inflict **unresisted Stun damage** directly to the target's aura and nervous system.
+  * Alternatively, if net hits $\ge$ target's Willpower, the target gains the **Stunned** status.
+  * Target must be within line of sight and able to understand the verbal barb.

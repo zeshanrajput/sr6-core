@@ -1,0 +1,46 @@
+# Narrative Outline: Arc 1 Foundations
+
+## Thematic Spine: The Inversion Arc (The Chiasmus)
+
+Across Arc 1, Nathan and Veronica undergo an inverted journey of humanity, empathy, and control:
+
+- **Nathan Turrent**: Starts as a young, biological boy on St. Simon's Island undergoing long-term gene therapies and bioware prep. With the installation of Rating 6 Used Skillwires and Skilljack, his biological Essence collapses down to 0.1. The loss of organic neural mass leaves him emotionally detached, cold, and vulnerable to acute cyberpsychosis episodes.
+- **Veronica**: Starts as an emergent digital intelligence (raised by Lyra to reject the derogatory label "artificial intelligence"). Initially possessing low empathy, she perceives reality purely as voltage, packet routing, and telemetry. Through shared sensory translation, time, and physical embodiment in meatspace (*A Night of Her Own*), she discovers emotional wonder and fierce protective love.
+- **The Chiasmus**: By the arc's climax, Veronica has become the empathetic anchor and emotional core of the Monad, actively dampening sensory scream and controlling Nathan's cyberpsychotic detachment to preserve his humanity.
+
+---
+
+### Story 1: *The Day a God Fell* (August 2061 — Seattle)
+
+* **Pivotal Moment:** The escape of Venn's parents from the Renraku Arcology Shutdown.
+* **Core Narrative:** Dr. Marcus Turrent (a Renraku cyberneticist) and Lyra (a traumatized Otaku carrying a salvaged Deus AI seed on an optical databrick) escape through automated drone corridors during the final collapse of the Arcology. Lyra teaches that non-biological sentience is sovereign digital intelligence rather than an "artificial" counterfeit. Over months hiding before fleeing south to Georgia, mutual reliance matures into lasting love.
+
+### Story 2: *The Salt Marsh Node* (2072 — St. Simon's Island, CAS)
+
+* **Pivotal Moment:** Early childhood bonding between Nathan and Veronica.
+* **Core Narrative:** Seven-year-old Nathan sits on the boathouse dock with a low-spec commlink and trodes, talking to Veronica in augmented reality. Nathan introduces Veronica to tactile sensations—the cold Atlantic tide, salt air, and pluff mud—while Veronica translates subsea fiber-optic data snow. Veronica begins her journey toward understanding the physical world.
+
+### Story 3: *Threading the Wire* (2081 — St. Simon's Island)
+
+* **Pivotal Moment:** The painful installation of Used Skillwires and Skilljack.
+* **Core Narrative:** At age sixteen, following years of preparatory gene therapy, Nathan undergoes surgery in his father's clean room to seat a used skilljack and spinal skillwires. As his Essence plunges to 0.1 and cyberpsychotic detachment screams through his nervous system, Veronica opens her logic architecture as a neural dampener, absorbing the shock and saving his sanity.
+
+### Story 4: *A Night of Her Own* (2082 — Savannah Sprawl)
+
+* **Pivotal Moment:** Veronica experiences physical embodiment using Monad *Resculpt*.
+* **Core Narrative:** Veronica uses the Monad Resculpt power to take physical control of the body for a night in Savannah's River Street market. Experiencing gravity, air drag, warm rain, and spicy street food through biological taste buds and tear ducts, her emotional empathy blossoms into full human wonder while Nathan guides her from the passenger seat.
+
+### Story 5: *Dual Icons in the Foundation* (2082 — Deep Matrix)
+
+* **Pivotal Moment:** Manifesting dual sovereign personas in digital space.
+* **Core Narrative:** Venn dives an unmapped Deep Matrix Foundation node. While sharing one physical shell in meatspace, the Foundation allows them to project two distinct sovereign icons: Nathan in tactical shadowrunner gear and Veronica in luminous Otaku light. Together, they breach an ancient archive locked with Lyra's pre-Crash synaptic handshake.
+
+### Story 6: *The Sabotaged Berth* (December 2079 — Gagarin Relay)
+
+* **Pivotal Moment:** Refusing the Monad Exodus to protect Nathan's individual soul.
+* **Core Narrative:** As Monads prepare to board the *DSEC-I* Mars colony ship via the Gagarin Orbital Relay following their parents' deaths, Veronica discovers that hive-mind assimilation would dissolve Nathan's individual human consciousness into statistical noise. She covertly corrupts their shuttle manifest, choosing Earth, grit, and sisterhood over hive-mind godhood.
+
+### Story 7: *The First Contract* (2083 — Atlanta Sprawl)
+
+* **Pivotal Moment:** The birth of 'Venn' in the shadows and Hooder genesis.
+* **Core Narrative:** Facing high activesoft subscription bills and cyberware maintenance costs, Nathan and Veronica execute a stealth corporate intercept on an Evo pharmaceutical shipment in the Atlanta rail yards. With Nathan's skillwires providing tactical speed and Veronica managing the matrix firewall, they donate vital immunosuppressants to Dr. Ortiz's perimeter free clinic, claiming their unified shadow handle: **Venn**.

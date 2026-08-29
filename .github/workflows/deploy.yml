@@ -1,0 +1,75 @@
+name: Build & Deploy Unified SR6 Books & Mobile PWA
+
+on:
+  push:
+    branches:
+      - master
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Monorepo
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Set up Astral uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Install dependencies
+        run: |
+          uv sync
+          echo "$GITHUB_WORKSPACE/.venv/bin" >> $GITHUB_PATH
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Run Full Ecosystem Sync
+        run: |
+          uv run sr6 sync-all
+
+      - name: Render Character Books
+        env:
+          QUARTO_PYTHON: ${{ github.workspace }}/.venv/bin/python
+        run: |
+          cd characters/yuriko && quarto render && cd ../..
+          cd characters/velvet && quarto render && cd ../..
+          cd characters/union && quarto render && cd ../..
+
+      - name: Assemble Static Distribution
+        run: |
+          mkdir -p _site/app _site/characters/yuriko _site/characters/velvet _site/characters/union
+          # Copy Hub / Landing Portal to Web Root
+          cp index.html _site/
+          # Copy Multi-Character Mobile PWA to /app/
+          cp -r app/* _site/app/
+          # Copy rendered character books
+          cp -r characters/yuriko/_book/* _site/characters/yuriko/
+          cp -r characters/velvet/_book/* _site/characters/velvet/
+          cp -r characters/union/_book/* _site/characters/union/
+
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

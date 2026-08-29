@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sr6char gender="MALE" karmaF="7" karmaI="10" meta="human" nuyen="4745">
+   <lifestyles>
+      <lifestyle comfort="low" entert="low" lang="en" necess="low" neigh="low" ref="low" security="low" space="low" value="1"/>
+   </lifestyles>
+   <asdfMap/>
+   <essenceChanges>
+      <valmod id="573b85fa-529b-4772-8eb1-974a55667f7f" ref="skilljack" set="AUGMENTED" type="CARRIED" value="660"/>
+      <valmod id="924dc7ab-baca-4df7-a553-5bd3fdb064d2" ref="skillwires" set="AUGMENTED" type="CARRIED" value="660"/>
+      <valmod id="5f7db67d-5f3b-4b98-be85-55d19e2898fe" ref="synaptic_booster" set="AUGMENTED" type="CARRIED" value="1100"/>
+      <valmod id="7affae16-f5a8-49f1-9055-b9f8486fb116" ref="muscle_augmentation" set="AUGMENTED" type="CARRIED" value="440"/>
+      <valmod id="41f49454-80fb-4233-870b-cb26fbdbd617" ref="muscle_toner" set="AUGMENTED" type="CARRIED" value="440"/>
+      <valmod id="23735c96-1308-4ddc-bdb3-63463907fe5d" ref="orthoskin" set="AUGMENTED" type="CARRIED" value="550"/>
+      <valmod id="38a2e593-0c2e-41e4-8895-ee654a92afa2" ref="platelet_factories" set="AUGMENTED" type="CARRIED" value="220"/>
+      <valmod id="05807d6c-106a-491d-b0ff-a0bb49824f74" ref="damage_compensator" set="AUGMENTED" type="CARRIED" value="330"/>
+      <valmod id="62d70fce-283f-4222-b802-4cea2c9795c6" ref="enhanced_articulation" set="AUGMENTED" type="CARRIED" value="220"/>
+      <valmod id="bb361f10-ebd4-4f57-8164-4107d9e22ab7" ref="math_spu" set="AUGMENTED" type="CARRIED" value="110"/>
+      <valmod ref="augmentation_acclimation" type="QUALITY" value="-100"/>
+      <valmod ref="augmentation_acclimation" type="QUALITY" value="-100"/>
+      <valmod ref="augmentation_acclimation" type="QUALITY" value="-100"/>
+      <valmod ref="augmentation_acclimation" type="QUALITY" value="-100"/>
+      <valmod ref="augmentation_acclimation" type="QUALITY" value="-100"/>
+      <valmod ref="augmentation_acclimation" type="QUALITY" value="-100"/>
+      <valmod ref="augmentation_acclimation" type="QUALITY" value="-100"/>
+      <valmod ref="augmentation_acclimation" type="QUALITY" value="-100"/>
+      <valmod ref="augmentation_acclimation" type="QUALITY" value="-100"/>
+      <valmod ref="augmentation_acclimation" type="QUALITY" value="-100"/>
+      <valmod ref="cyborg" type="QUALITY" value="-100"/>
+      <valmod ref="cyborg" type="QUALITY" value="-100"/>
+      <valmod ref="cyborg" type="QUALITY" value="-100"/>
+      <valmod ref="cyborg" type="QUALITY" value="-100"/>
+      <valmod ref="cyborg" type="QUALITY" value="-100"/>
+      <valmod ref="cyborg" type="QUALITY" value="-100"/>
+      <valmod ref="cyborg" type="QUALITY" value="-100"/>
+      <valmod ref="cyborg" type="QUALITY" value="-100"/>
+      <valmod ref="cyborg" type="QUALITY" value="-100"/>
+      <valmod ref="cyborg" type="QUALITY" value="-100"/>
+      <valmod id="861837ec-9f5a-4185-be47-1470b9469623" ref="adrenaline_pump" set="AUGMENTED" type="CARRIED" value="1650"/>
+      <valmod id="bbd0f9ac-59a2-42c2-b7ba-108114fb2345" ref="cerebral_booster_enhancer" set="AUGMENTED" type="CARRIED" value="220"/>
+      <valmod id="0ab4f022-fbaf-4b52-b6a6-11bc41cb6cdf" ref="bone_density_augmentation" set="AUGMENTED" type="CARRIED" value="960"/>
+   </essenceChanges>
+   <chargenSettings>{&#x0022;characterPoints&#x0022;:22,&#x0022;cpBoughtSpecial&#x0022;:20,&#x0022;cpBoughtAttrib&#x0022;:40,&#x0022;cpToSkills&#x0022;:4,&#x0022;cpToResources&#x0022;:22,&#x0022;boughtPP&#x0022;:0,&#x0022;boughtSpells&#x0022;:0,&#x0022;boughtComplex&#x0022;:0,&#x0022;perAttrib&#x0022;:{&#x0022;BODY&#x0022;:{&#x0022;points1&#x0022;:0,&#x0022;points2&#x0022;:3,&#x0022;points3&#x0022;:0},&#x0022;AGILITY&#x0022;:{&#x0022;points1&#x0022;:0,&#x0022;points2&#x0022;:3,&#x0022;points3&#x0022;:0},&#x0022;REACTION&#x0022;:{&#x0022;points1&#x0022;:0,&#x0022;points2&#x0022;:3,&#x0022;points3&#x0022;:0},&#x0022;STRENGTH&#x0022;:{&#x0022;points1&#x0022;:0,&#x0022;points2&#x0022;:0,&#x0022;points3&#x0022;:1},&#x0022;WILLPOWER&#x0022;:{&#x0022;points1&#x0022;:0,&#x0022;points2&#x0022;:4,&#x0022;points3&#x0022;:0},&#x0022;LOGIC&#x0022;:{&#x0022;points1&#x0022;:0,&#x0022;points2&#x0022;:6,&#x0022;points3&#x0022;:0},&#x0022;INTUITION&#x0022;:{&#x0022;points1&#x0022;:0,&#x0022;points2&#x0022;:3,&#x0022;points3&#x0022;:0},&#x0022;CHARISMA&#x0022;:{&#x0022;points1&#x0022;:0,&#x0022;points2&#x0022;:2,&#x0022;points3&#x0022;:0},&#x0022;EDGE&#x0022;:{&#x0022;points1&#x0022;:1,&#x0022;points2&#x0022;:0,&#x0022;points3&#x0022;:0},&#x0022;MAGIC&#x0022;:{&#x0022;points1&#x0022;:0,&#x0022;points2&#x0022;:0,&#x0022;points3&#x0022;:0},&#x0022;RESONANCE&#x0022;:{&#x0022;points1&#x0022;:5,&#x0022;points2&#x0022;:0,&#x0022;points3&#x0022;:0}},&#x0022;perSkill&#x0022;:{&#x0022;language/1ab9b4c2-b6d2-4d84-8c82-91920cbefe8b&#x0022;:{&#x0022;karmaSpec&#x0022;:0,&#x0022;pointSpec&#x0022;:0,&#x0022;points1&#x0022;:0,&#x0022;points2&#x0022;:0,&#x0022;points3&#x0022;:0},&#x0022;electronics&#x0022;:{&#x0022;karmaSpec&#x0022;:0,&#x0022;pointSpec&#x0022;:0,&#x0022;points1&#x0022;:6,&#x0022;points2&#x0022;:0,&#x0022;points3&#x0022;:0},&#x0022;cracking&#x0022;:{&#x0022;karmaSpec&#x0022;:0,&#x0022;pointSpec&#x0022;:0,&#x0022;points1&#x0022;:5,&#x0022;points2&#x0022;:0,&#x0022;points3&#x0022;:0},&#x0022;engineering&#x0022;:{&#x0022;karmaSpec&#x0022;:0,&#x0022;pointSpec&#x0022;:0,&#x0022;points1&#x0022;:5,&#x0022;points2&#x0022;:0,&#x0022;points3&#x0022;:0}},&#x0022;perSpellPayedWithCP&#x0022;:{},&#x0022;perRitualPayedWithCP&#x0022;:{},&#x0022;perCFormPayedWithCP&#x0022;:{},&#x0022;ppCP&#x0022;:1,&#x0022;ppKarma&#x0022;:1,&#x0022;spellsCP&#x0022;:0,&#x0022;spellsKarma&#x0022;:0,&#x0022;cformsCP&#x0022;:0,&#x0022;cformsKarma&#x0022;:0,&#x0022;variant&#x0022;:&#x0022;STANDARD&#x0022;,&#x0022;mysticAdeptPowerPoints&#x0022;:0,&#x0022;toContacts&#x0022;:0,&#x0022;negQualities&#x0022;:54,&#x0022;initiation&#x0022;:0,&#x0022;toNuyen&#x0022;:5}</chargenSettings>
+   <type>METAHUMAN</type>
+   <mortype>technomancer</mortype>
+   <qualities>
+      <quality lang="en" ref="exceptional_attribute" uuid="fa80b49f-0bd5-4554-aa6d-f725b14778ac">
+         <decision choice="4096584c-eb76-49b2-be6b-1a6c0ca9e50a" value="LOGIC"/>
+      </quality>
+      <quality lang="en" ref="hooder" uuid="9f3f2295-2e1b-4135-aca8-3044e65974fa" value="3"/>
+      <quality lang="en" ref="chronic_pain" uuid="9ddf21ef-5c4c-4187-94ad-acfa82568ea7"/>
+      <quality lang="en" ref="augmentation_acclimation" uuid="c1ff0027-ae7c-4b08-bc5e-84f5868911dd" value="10"/>
+      <quality lang="en" ref="cyber_psychosis" uuid="95a6c099-d62b-4c60-ac22-3f11bebd9df9" value="3"/>
+      <quality lang="en" ref="cyborg" uuid="6b9ff4db-172a-4031-afa5-c7a0f44b50e6" value="10"/>
+      <quality lang="en" ref="dermal_deposits"/>
+   </qualities>
+   <sins>
+      <sin name="Michael Cane" quality="ROUGH_MATCH" uniqueid="f5e1de52-fd52-4715-b85d-a195909a6cac"/>
+   </sins>
+   <licenses>
+      <licenses name="Augmentations" rating="ROUGH_MATCH" sin="f5e1de52-fd52-4715-b85d-a195909a6cac" uniqueid="0fda7849-9088-40de-a2c0-4e1c7221ba78"/>
+      <licenses name="Firearms" rating="ROUGH_MATCH" sin="f5e1de52-fd52-4715-b85d-a195909a6cac" uniqueid="48d03250-4716-42fe-b49e-6aca418da253"/>
+   </licenses>
+   <name>Union</name>
+   <datasets mode="ALL"/>
+   <rules>
+      <set rule="CAREER_UNDO_FROM_CAREER" to="true"/>
+      <set rule="CAREER_PAY_GEAR" to="true"/>
+   </rules>
+   <size>0</size>
+   <weight>0</weight>
+   <attributes>
+      <attributes id="BODY" value="4"/>
+      <attributes id="AGILITY" value="4"/>
+      <attributes id="REACTION" value="4"/>
+      <attributes id="STRENGTH" value="2"/>
+      <attributes id="WILLPOWER" value="5"/>
+      <attributes id="LOGIC" value="7"/>
+      <attributes id="INTUITION" value="4"/>
+      <attributes id="CHARISMA" value="3"/>
+      <attributes id="EDGE" value="2"/>
+      <attributes id="MAGIC" value="0"/>
+      <attributes id="RESONANCE" value="6"/>
+      <attributes id="POWER_POINTS" value="0"/>
+   </attributes>
+   <skills>
+      <skill lang="en" ref="language" uuid="1ab9b4c2-b6d2-4d84-8c82-91920cbefe8b" value="4">
+         <decision choice="a7103ee4-31fa-435d-ac42-08f7d4d1e80c" value="Native Language"/>
+      </skill>
+      <skill lang="en" ref="electronics" uuid="48116ede-8118-425b-82b3-a085457de198" value="6"/>
+      <skill lang="en" ref="cracking" uuid="32658128-1c30-4bdf-9781-bbf4405c6726" value="5"/>
+      <skill lang="en" ref="engineering" uuid="09865eee-92fe-4d66-892b-7992c2430997" value="5"/>
+   </skills>
+   <charGenUsed>pointbuy</charGenUsed>
+   <strictness>srm</strictness>
+   <items>
+      <item lang="en" mode="IMPLANTED" ref="skilljack" uuid="573b85fa-529b-4772-8eb1-974a55667f7f">
+         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="6"/>
+         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170c" value="USED"/>
+      </item>
+      <item lang="en" mode="IMPLANTED" ref="skillwires" uuid="924dc7ab-baca-4df7-a553-5bd3fdb064d2">
+         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="6"/>
+         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170c" value="USED"/>
+      </item>
+      <item lang="en" mode="IMPLANTED" ref="synaptic_booster" uuid="5f7db67d-5f3b-4b98-be85-55d19e2898fe">
+         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="2"/>
+         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170c" value="USED"/>
+      </item>
+      <item lang="en" mode="IMPLANTED" ref="muscle_augmentation" uuid="7affae16-f5a8-49f1-9055-b9f8486fb116">
+         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="2"/>
+         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170c" value="USED"/>
+      </item>
+      <item lang="en" mode="IMPLANTED" ref="muscle_toner" uuid="41f49454-80fb-4233-870b-cb26fbdbd617">
+         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="2"/>
+         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170c" value="USED"/>
+      </item>
+      <item lang="en" mode="IMPLANTED" ref="orthoskin" uuid="23735c96-1308-4ddc-bdb3-63463907fe5d">
+         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="2"/>
+         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170c" value="USED"/>
+      </item>
+      <item lang="en" mode="IMPLANTED" ref="platelet_factories" uuid="38a2e593-0c2e-41e4-8895-ee654a92afa2">
+         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170c" value="USED"/>
+      </item>
+      <item lang="en" mode="IMPLANTED" ref="damage_compensator" uuid="05807d6c-106a-491d-b0ff-a0bb49824f74">
+         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="3"/>
+         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170c" value="USED"/>
+      </item>
+      <item lang="en" mode="IMPLANTED" ref="enhanced_articulation" uuid="62d70fce-283f-4222-b802-4cea2c9795c6">
+         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170c" value="USED"/>
+      </item>
+      <item lang="en" mode="IMPLANTED" ref="math_spu" uuid="bb361f10-ebd4-4f57-8164-4107d9e22ab7">
+         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170c" value="USED"/>
+      </item>
+      <item lang="en" mode="CARRIED" ref="pack_contacts_smart" uuid="36778f9b-7893-4693-bbff-4f124899ea74"/>
+      <item lang="en" mode="CARRIED" ref="pack_heavy_predator2" uuid="a23d481f-3447-4a5e-929f-052147984b24"/>
+      <item lang="en" mode="CARRIED" ref="securetech_skinshield" uuid="e78bbe45-c806-48b8-bb8d-8eb636227864">
+         <accessories>
+            <item lang="en" mode="EMBEDDED" ref="ballistic_hood" slot="ARMOR" uuid="c7a1fc71-8f12-47a1-a9d8-8f5fbf778a06"/>
+         </accessories>
+      </item>
+      <item changes="0,0,0" count="3" lang="en" mode="CARRIED" ref="buzzard" uuid="658531a4-57c4-499e-a6a4-282af19d6a2d">
+         <customName>Firearms Activesoft</customName>
+      </item>
+      <item lang="en" mode="IMPLANTED" ref="adrenaline_pump" uuid="861837ec-9f5a-4185-be47-1470b9469623">
+         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="2"/>
+         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170c" value="OMEGA"/>
+      </item>
+      <item lang="en" mode="IMPLANTED" ref="cerebral_booster_enhancer" uuid="bbd0f9ac-59a2-42c2-b7ba-108114fb2345">
+         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170c" value="OMEGA"/>
+      </item>
+      <item lang="en" mode="IMPLANTED" ref="bone_density_augmentation" uuid="0ab4f022-fbaf-4b52-b6a6-11bc41cb6cdf">
+         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="4"/>
+         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170c" value="ALPHA"/>
+      </item>
+      <item lang="en" mode="VIRTUAL" ref="software_library" uuid="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979"/>
+   </items>
+</sr6char>

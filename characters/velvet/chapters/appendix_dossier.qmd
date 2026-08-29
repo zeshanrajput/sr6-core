@@ -1,0 +1,77 @@
+---
+title: "Appendix: Character Dossier - Velvet"
+format: html
+---
+
+# Character Dossier: Velvet
+
+**Real Name**: Kim Jin-Young  
+**Metatype**: Elf  
+**Role**: Shadowrunner  
+
+## Attributes
+
+| Attribute | Rating |
+| :--- | :--- |
+| BODY | 2 |
+| AGILITY | 3 |
+| REACTION | 2 |
+| STRENGTH | 2 |
+| WILLPOWER | 5 |
+| LOGIC | 3 |
+| INTUITION | 3 |
+| CHARISMA | 10 |
+| EDGE | 2 |
+| MAGIC | 6 |
+| RESONANCE | 0 |
+| POWER_POINTS | 3 |
+
+## Tactical Weapon Arrays
+
+::: {.callout-note icon=false title="⚔️ WEAPON: Beretta 101T (General)"}
+| Damage | Attack Rating (C/N/M/F/E) | Modes | Ammo | Avail | Cost |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **3P** | 10 / 10 / 8 / — / — | SA | —(c) | 1 | — |
+:::
+
+::: {.callout-note icon=false title="⚔️ WEAPON: Sap (General)"}
+| Damage | Attack Rating (C/N/M/F/E) | Modes | Ammo | Avail | Cost |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **3P** | 10 / 10 / 8 / — / — | SA | —(c) | 1 | — |
+:::
+
+::: {.callout-note icon=false title="⚔️ WEAPON: Yamaha Raiden (General)"}
+| Damage | Attack Rating (C/N/M/F/E) | Modes | Ammo | Avail | Cost |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **3P** | 10 / 10 / 8 / — / — | SA | —(c) | 1 | — |
+:::
+
+::: {.callout-note icon=false title="⚔️ WEAPON: Stun Baton (General)"}
+| Damage | Attack Rating (C/N/M/F/E) | Modes | Ammo | Avail | Cost |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **3P** | 10 / 10 / 8 / — / — | SA | —(c) | 1 | — |
+:::
+
+
+## Qualities & Rules Citations
+
+- **Metagenetic Attribute Improvement (Charisma)** (0 Karma) — [SR6 Core]
+- **Exceptional Attribute (Charisma)** (5 Karma) — [SR6 Core]
+- **Inspire Competence** (5 Karma) — [Sixth World Companion (p. 9)]
+- **Low-Light Vision** (0 Karma) — [Sixth World Companion (p. 9)]
+- **Focused Concentration** (5 Karma) — [SR6 Core]
+- **Chronic Pain** (5 Karma) — [Sixth World Companion (p. 9)]
+- **Hooder** (5 Karma) — [Sixth World Companion (p. 9)]
+- **Allergy (Spices, Common Moderate)** (5 Karma) — [SR6 Core]
+
+## Active Skills
+
+- **Sorcery**: Rating 5
+- **Conjuring**: Rating 6
+- **Influence**: Rating 5
+- **Con**: Rating 4
+- **Native Language**: Rating 4
+- **Small Unit Tactics**: Rating 1
+- **MCT**: Rating 1
+- **Wuxing**: Rating 1
+- **East Asian Media**: Rating 1

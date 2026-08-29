@@ -1,0 +1,62 @@
+project:
+  type: book
+  output-dir: _book
+  resources:
+    - chapters/audio/
+    - output/vtt/
+    - output/text/
+  pre-render:
+    - uv run --directory ../.. sr6 sync-all
+
+book:
+  title: "VELVET // Jin-Young Character Dossier"
+  author: "Velvet"
+  date: "2026-06-17"
+  chapters:
+    - index.qmd
+    - part: "Core Character"
+      chapters:
+        - chapters/identity_core.md
+        - chapters/character_build_point_buy.qmd
+        - chapters/character_sheet.qmd
+        - chapters/character_totals.qmd
+        - chapters/character_log.qmd
+        - chapters/character_purchases.qmd
+        - chapters/twenty_questions.qmd
+        - chapters/character_build.qmd
+        - chapters/rules_and_downtime.qmd
+        - chapters/appendix_dossier.qmd
+    - part: "Narrative Log"
+      chapters:
+        - chapters/01_transaction.md
+        - chapters/02_faceless_mirror.md
+        - chapters/03_dark_wings.md
+        - chapters/04_sabotage.md
+        - chapters/05_first_negotiation.md
+        - chapters/06_seattle_web.md
+        - chapters/07_bliss.md
+        - chapters/08_Tea_in_Tacoma.md
+        - chapters/09_Heat.md
+        - chapters/10_Burns.md
+
+    - part: "Reference & Specifications"
+      chapters:
+        - reference/philosophical_framework.md
+        - reference/karmic_persona_log.md
+        - reference/voice_spec.md
+        - reference/story_arc1.md
+        - reference/story_arc2.md
+        - reference/story_arc3.md
+        - reference/story_continuity.md
+
+format:
+  html:
+    theme:
+      - cosmo
+      - theme.scss
+    toc: true
+    number-sections: false
+    code-copy: true
+
+execute:
+  engine: jupyter

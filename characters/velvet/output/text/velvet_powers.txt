@@ -1,0 +1,14 @@
+============================================================================
+ POWERS, COMPLEX FORMS, ABILITIES & CYBERWARE: VELVET
+============================================================================
+ SPELLS & SORCERY:
+  - Increase Attribute         | Drain: 3
+  - Increase Reflexes          | Drain: 4
+----------------------------------------------------------------------------
+ ADEPT POWERS:
+  - Cosmetic Control           | Cost: 0 PP
+  - Linguistics                | Cost: 0 PP
+  - Command Presence           | Cost: 0 PP
+  - Cloak                      | Cost: 0 PP
+  - Sharp Tongue               | Cost: 0 PP
+----------------------------------------------------------------------------

@@ -1,0 +1,147 @@
+# Equipment Ledger
+
+```{python}
+#| echo: false
+#| include: false
+from sr6core.log_engine import inc, inc_many
+```
+
+### Combat
+
+* Amalgam Cestas (obtained in SRM 2083-18)
+  * Personalized Grip `{python} inc('Nuyen', -200)`
+* Crimson Wasp x2 `{python} inc('Nuyen', -1500 * 2)`
+  * Smartgun System (Internal)
+  * Peak-Discharge Laser Battery Clips x5 `{python} inc('Nuyen', -500)`
+* Glitter Grenades x10 `{python} inc('Nuyen', -1000)`
+
+### Matrix
+
+* M-TOC II `{python} inc('Nuyen', -65000)`
+  * Artillery Barrage `{python} inc('Nuyen', -200)`
+  * ECM Warrior II `{python} inc('Nuyen', -200)`
+  * Mobile Medic `{python} inc('Nuyen', -200)`
+  * Sneak-Sneak `{python} inc('Nuyen', -200)`
+  * Target Artist `{python} inc('Nuyen', -200)`
+* Software Library 
+  * Basic Programs
+    * Baby Monitor `{python} inc('Nuyen', -100)`
+    * Browse `{python} inc('Nuyen', -100)`
+    * Edit `{python} inc('Nuyen', -100)`
+    * **Emulator** `{python} inc_many(('Nuyen', -100),('Karma', -1))`
+    * Encryption `{python} inc('Nuyen', -100)`
+    * Signal Scrubber `{python} inc('Nuyen', -100)`
+    * **Toolbox** `{python} inc_many(('Nuyen', -100),('Karma', -1))`
+    * **Virtual Machine** `{python} inc_many(('Nuyen', -100),('Karma', -1))`
+  * Hacking Programs
+    * Decryption `{python} inc('Nuyen', -200)`
+    * Defense Pods `{python} inc('Nuyen', -200)`
+    * **Directional Shields** `{python} inc_many(('Nuyen', -200),('Karma', -1))`
+    * Fork `{python} inc('Nuyen', -200)`
+    * Hitchhiker `{python} inc('Nuyen', -200)`
+    * **Nexus Protocol** `{python} inc_many(('Nuyen', -1000),('Karma', -1))`
+    * Overclock `{python} inc('Nuyen', -200)`
+    * Trace `{python} inc('Nuyen', -200)`
+ * Rigger Programs
+   * Smartsoft `{python} inc('Nuyen', -250)`  
+   * Swarm `{python} inc('Nuyen', -250)`
+   * Encryption (Rigger) `{python} inc('Nuyen', -250)`
+* Autosofts
+  * Biotech (R9) `{python} inc('Nuyen', -4500)`
+  * **Clearsight (R9)** `{python} inc_many(('Nuyen', -4500),('Karma', -1))`
+  * **Close Combat (R9)** `{python} inc_many(('Nuyen', -4500),('Karma', -1))`
+  * Engineering (1, R9) `{python} inc('Nuyen', -4500)`
+  * **Evasion (R9)** `{python} inc_many(('Nuyen', -4500),('Karma', -1))`
+  * Knowledge `{python} inc('Nuyen', -1500)`
+  * Language (1, R5) `{python} inc('Nuyen', -2500)`
+  * **Maneuvering (1, R9)** `{python} inc_many(('Nuyen', -4500),('Karma', -1))`
+  * Navigation (R9) `{python} inc('Nuyen', -4500)`
+  * Performance (R9) `{python} inc('Nuyen', -4500)`
+  * **Stealth (1, R9)** `{python} inc_many(('Nuyen', -4500),('Karma', -1))`
+  * **Targeting (1, R9)** `{python} inc_many(('Nuyen', -4500),('Karma', -1))`
+  * **Tracking (R9)** `{python} inc_many(('Nuyen', -4500),('Karma', -1))`
+* Commlink Apps
+  * Facial Scanner `{python} inc('Nuyen', -750)`
+  * P-ICE Spines `{python} inc('Nuyen', -500)`
+  * Personal Assistant (R6) `{python} inc('Nuyen', -600)`
+  * Social HUD (R6) `{python} inc('Nuyen', -700)`
+  * Thermal Mood Reading `{python} inc('Nuyen', -700)`
+  * Vocal Tension Detection `{python} inc('Nuyen', -700)`
+* Other
+  * Mapsoft x4 `{python} inc('Nuyen', -400)`
+  * Shopsoft x6 `{python} inc('Nuyen',-900)`
+  * **Coding Facility** `{python} inc_many(('Nuyen',-5000),('Karma',-1))`
+* **Oracle Data Structure (Rating 4)** `{python} inc_many(('Nuyen', -20000), ('Karma', -4))`
+  * Encoded into The Holy Wild Sanctuary Host (Rating 2 Framework Host on remote Sky Commander)
+  * +4 dice on Matrix Perception and Matrix Search; reduces Matrix Search interval to 1 Major Action.
+  * Fading: 2 FV Stun (resisted with WIL 6 + LOG 4 = 10d6 / 2 bought hits, 0 damage).
+
+For autosofts that are specific, the character programs her derivative own based on the original version she bought above. This process takes 8 hours for knowledge and language autosofts, and 12 hours for all other autosofts. The cost is 1 karma for each of the derivative autosofts.
+
+Software with karma costs have been learned via the **Software Emulator** echo.
+
+### Vehicles & Drones
+
+* MCT Gnat x5 `{python} inc('Nuyen', -4000)`
+  * Realistic Features 4
+  * Laser Jack
+
+* Kwonsham Dream Genie `{python} inc('Nuyen', -2000)`
+  * Trid Projector
+  * Smart Tires
+
+* Vulcan Systems Utility-One `{python} inc('Nuyen', -3500)`
+  * Wearable Smart Toolbox & Repair Drone
+
+* Shiawase Man-At-Arms `{python} inc('Nuyen', -4500*.9)`
+  * Weapon Mount - Standard x2 `{python} inc('Nuyen', -1600/2)`
+  * Pop-Out Concealment - Standard x2 `{python} inc('Nuyen', -4000/2)`
+    * Crimson Wasp x2 (Eye laser mounts)
+  * Chameleon Coating 2 `{python} inc('Nuyen', -9000/2)`
+  * Drone Rack (Small) `{python} inc('Nuyen', -3000/2)`
+    * Stores 3 Small Drones (Sky Commander, Dream Genie, Utility-One)
+  * Tesla Coil `{python} inc('Nuyen', -15000/2)`
+  * Wrist Shield `{python} inc('Nuyen', -2000/2)`
+  * Armor Increase 5 `{python} inc('Nuyen', -25000/2)`
+  * Increased Structural Integrity 5 `{python} inc('Nuyen', -25000/2)`
+  * Realistic Features 4 `{python} inc('Nuyen', -10000/2)`
+  * Secondary Propulsion (Rotor): `{python} inc('Nuyen', -50000/2)`  
+  * Increased Sensors 3 `{python} inc('Nuyen', -15000/2)`
+  * Retractible Skates x2 `{python} inc('Nuyen',-500/2)`
+  * Built-In MedKit `{python} inc('Nuyen', -1000/2)`
+  * Accessories
+    * Satellite Link
+    * Laser Jack
+
+* Federated-Boeing Sky Commander `{python} inc('Nuyen', -12500)`
+  * Drone Bay (Micro/Mini) `{python} inc('Nuyen', -1000/2)`
+    * MCT Gnat x5
+  * RAM Plating 4
+  * ECM 6
+  * Enhanced Sensors 2
+  * Retrans Unit
+  * Satellite Link
+  * Integrated Matrix Dock x2 `{python} inc('Nuyen', -800)`
+    * M-TOC II
+    * Foundation Host (R2)
+
+Drone mods include a 50% discount on mods Yuriko installed herself (DC p. 120). Cyberware is purchased as used/omegaware (50% discount). Shiawase drones include a 10% discount (Smile for the Camera!).
+
+### Electronics
+
+* Software Tag x10 `{python} inc('Nuyen', -100 * 10)`
+* Laser Jack x10 `{python} inc('Nuyen', -100 * 10)`
+* Satellite Link x2 `{python} inc('Nuyen', -500 * 2)`
+
+### Other Supplies
+
+* Engineering Kit `{python} inc('Nuyen', -500)`
+* Medkit R1 `{python} inc('Nuyen', -250)`
+* Narcoject x10 `{python} inc('Nuyen', -50 * 10)`
+* Cyanide x5 `{python} inc('Nuyen', -70 * 5)`
+
+### SINs & Licenses
+
+* Yuriko Star (R6) `{python} inc_many(('Nuyen', -5000), ('Nuyen', -10000))`
+  * Drone License (R6) `{python} inc_many(('Nuyen', -400), ('Nuyen', -800))`
+  * Firearms License (R6) `{python} inc_many(('Nuyen', -400), ('Nuyen', -800))`

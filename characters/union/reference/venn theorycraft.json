@@ -1,0 +1,1739 @@
+{
+  "guild": {
+    "id": "444539891943079937",
+    "name": "Shadowrun Missions Online",
+    "iconUrl": "https://cdn.discordapp.com/icons/444539891943079937/e911eb9b59c743ee1cc47310a8cf5f2e.png?size=512"
+  },
+  "channel": {
+    "id": "1538998952429363300",
+    "type": "GuildPublicThread",
+    "categoryId": "742200071831027792",
+    "category": "6th-edition-help",
+    "name": "Hi friends! I'm currently considering",
+    "topic": null
+  },
+  "dateRange": {
+    "after": null,
+    "before": null
+  },
+  "exportedAt": "2026-08-26T17:33:19.9819129-04:00",
+  "messages": [
+    {
+      "id": "1538998952429363300",
+      "type": "Default",
+      "timestamp": "2026-08-17T15:52:23.477-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "Hi friends! I'm currently considering the (probably terrible) idea of playing a Monad in the next season because I have a really cool character concept I think would be fun to explore. That being said, I've never seen one played so I wanted to think through it with anyone interested. More in the \uD83E\uDDF5 if that's you. Thank you!!",
+      "author": {
+        "id": "161129943474896897",
+        "name": "wardr",
+        "discriminator": "0000",
+        "nickname": "WarDoctor",
+        "color": "#3498DB",
+        "isBot": false,
+        "roles": [
+          {
+            "id": "448543383661838351",
+            "name": "GM",
+            "color": "#3498DB",
+            "position": 8
+          }
+        ],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/161129943474896897/39bd79035cfb63fb239482f9cff08804.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": [
+        {
+          "id": "",
+          "name": "\uD83E\uDDF5",
+          "code": "thread",
+          "isAnimated": false,
+          "imageUrl": "https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/svg/1f9f5.svg"
+        }
+      ]
+    },
+    {
+      "id": "1538999257049075753",
+      "type": "Default",
+      "timestamp": "2026-08-17T15:53:36.104-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "Okay, so first up is trying to think about what the Monad frame is useful for (and not). This is probably where I need the most help. I'll put separate thoughts in separate entries to facilitate replies.",
+      "author": {
+        "id": "161129943474896897",
+        "name": "wardr",
+        "discriminator": "0000",
+        "nickname": "WarDoctor",
+        "color": "#3498DB",
+        "isBot": false,
+        "roles": [
+          {
+            "id": "448543383661838351",
+            "name": "GM",
+            "color": "#3498DB",
+            "position": 8
+          }
+        ],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/161129943474896897/39bd79035cfb63fb239482f9cff08804.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1538999762206990436",
+      "type": "Default",
+      "timestamp": "2026-08-17T15:55:36.543-04:00",
+      "timestampEdited": "2026-08-17T16:02:03.455-04:00",
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "From what I understand, what Monads ARE good at is managing incoming damage (between the power that lets them add to and shift condition monitors and the power that lets them heal. Side question: I don't see anywhere that you can't just keep using this power to heal yourself, but that might be under healing itself). \n\nIf that understanding is right, I think it lends itself towards a street sam. Supporting this seems to be that unlike magic and resonance, nanite volume doesn't decrease as your essence drops.\n\nOh, and Adrenal Control. Between this and healing, you're basically up or dead.",
+      "author": {
+        "id": "161129943474896897",
+        "name": "wardr",
+        "discriminator": "0000",
+        "nickname": "WarDoctor",
+        "color": "#3498DB",
+        "isBot": false,
+        "roles": [
+          {
+            "id": "448543383661838351",
+            "name": "GM",
+            "color": "#3498DB",
+            "position": 8
+          }
+        ],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/161129943474896897/39bd79035cfb63fb239482f9cff08804.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539000599939514501",
+      "type": "Default",
+      "timestamp": "2026-08-17T15:58:56.274-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "Next, I want to think about what I *think* might be traps in the Monad frame, really to make sure I'm thinking about this fully. First might be thinking Monads make decent tech characters. Without access to programs, agents, sprites, complex forms, or anything else they certainly have hands tied behind their backs. That being said, you should be able to get to \"respectable\" values versus NPC targets with minimal investment, at least for normal and veteran play.",
+      "author": {
+        "id": "161129943474896897",
+        "name": "wardr",
+        "discriminator": "0000",
+        "nickname": "WarDoctor",
+        "color": "#3498DB",
+        "isBot": false,
+        "roles": [
+          {
+            "id": "448543383661838351",
+            "name": "GM",
+            "color": "#3498DB",
+            "position": 8
+          }
+        ],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/161129943474896897/39bd79035cfb63fb239482f9cff08804.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539001176144613387",
+      "type": "Default",
+      "timestamp": "2026-08-17T16:01:13.652-04:00",
+      "timestampEdited": "2026-08-17T16:09:57.869-04:00",
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "Next potential trap might be the physical and mental attribute boosts. Since the amount boosted is net hits on a nanite volume test, which cannot be higher than 6 at start per SRMG, these are ~2 points improvement on average. Same for trading NV for minor actions, which trade 5 minutes of access to that NV for a single round of 1-2 extra minors.",
+      "author": {
+        "id": "161129943474896897",
+        "name": "wardr",
+        "discriminator": "0000",
+        "nickname": "WarDoctor",
+        "color": "#3498DB",
+        "isBot": false,
+        "roles": [
+          {
+            "id": "448543383661838351",
+            "name": "GM",
+            "color": "#3498DB",
+            "position": 8
+          }
+        ],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/161129943474896897/39bd79035cfb63fb239482f9cff08804.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539001731348824125",
+      "type": "Default",
+      "timestamp": "2026-08-17T16:03:26.023-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "Tech blast - why would you ever take this, unless you just didn't take the monad matrix attributes power and couldn't otherwise data spike?",
+      "author": {
+        "id": "161129943474896897",
+        "name": "wardr",
+        "discriminator": "0000",
+        "nickname": "WarDoctor",
+        "color": "#3498DB",
+        "isBot": false,
+        "roles": [
+          {
+            "id": "448543383661838351",
+            "name": "GM",
+            "color": "#3498DB",
+            "position": 8
+          }
+        ],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/161129943474896897/39bd79035cfb63fb239482f9cff08804.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539002204831350835",
+      "type": "Default",
+      "timestamp": "2026-08-17T16:05:18.91-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "Tech Infestation as written also seems to be a trap, because this doesn't say that you're specifically facing the FW of the device itself and not the PAN. So using your NV x2 will rapidly get kicked in the teeth by anything of narrative import, and for anything not of narrative import you can just do things normally.",
+      "author": {
+        "id": "161129943474896897",
+        "name": "wardr",
+        "discriminator": "0000",
+        "nickname": "WarDoctor",
+        "color": "#3498DB",
+        "isBot": false,
+        "roles": [
+          {
+            "id": "448543383661838351",
+            "name": "GM",
+            "color": "#3498DB",
+            "position": 8
+          }
+        ],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/161129943474896897/39bd79035cfb63fb239482f9cff08804.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539005118798626816",
+      "type": "Default",
+      "timestamp": "2026-08-17T16:16:53.654-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "so .... let me elaborate \uD83D\uDE42",
+      "author": {
+        "id": "812607805949083648",
+        "name": "olik0855",
+        "discriminator": "0000",
+        "nickname": "Oli K",
+        "color": null,
+        "isBot": false,
+        "roles": [],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/812607805949083648/236e6259ff12a56ef6271a279c8bb331.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [
+        {
+          "emoji": {
+            "id": "",
+            "name": "❤️",
+            "code": "heart",
+            "isAnimated": false,
+            "imageUrl": "https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/svg/2764.svg"
+          },
+          "count": 1,
+          "users": [
+            {
+              "id": "161129943474896897",
+              "name": "wardr",
+              "discriminator": "0000",
+              "nickname": "WarDoctor",
+              "color": "#3498DB",
+              "isBot": false,
+              "avatarUrl": "https://cdn.discordapp.com/avatars/161129943474896897/39bd79035cfb63fb239482f9cff08804.png?size=512"
+            }
+          ]
+        }
+      ],
+      "mentions": [],
+      "inlineEmojis": [
+        {
+          "id": "",
+          "name": "\uD83D\uDE42",
+          "code": "slight_smile",
+          "isAnimated": false,
+          "imageUrl": "https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/svg/1f642.svg"
+        }
+      ]
+    },
+    {
+      "id": "1539005193528541334",
+      "type": "Default",
+      "timestamp": "2026-08-17T16:17:11.471-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "(I was hoping to draw your interest)",
+      "author": {
+        "id": "161129943474896897",
+        "name": "wardr",
+        "discriminator": "0000",
+        "nickname": "WarDoctor",
+        "color": "#3498DB",
+        "isBot": false,
+        "roles": [
+          {
+            "id": "448543383661838351",
+            "name": "GM",
+            "color": "#3498DB",
+            "position": 8
+          }
+        ],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/161129943474896897/39bd79035cfb63fb239482f9cff08804.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539005341281558699",
+      "type": "Default",
+      "timestamp": "2026-08-17T16:17:46.698-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "healing thus far is not regulated which seems a mistake .. as the monad healing stems from its NV which is considered \"awakened\" it should count as magical healing which would limit it to once per set of injuries",
+      "author": {
+        "id": "812607805949083648",
+        "name": "olik0855",
+        "discriminator": "0000",
+        "nickname": "Oli K",
+        "color": null,
+        "isBot": false,
+        "roles": [],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/812607805949083648/236e6259ff12a56ef6271a279c8bb331.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [
+        {
+          "emoji": {
+            "id": "",
+            "name": "\uD83D\uDC4D",
+            "code": "thumbsup",
+            "isAnimated": false,
+            "imageUrl": "https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/svg/1f44d.svg"
+          },
+          "count": 1,
+          "users": [
+            {
+              "id": "161129943474896897",
+              "name": "wardr",
+              "discriminator": "0000",
+              "nickname": "WarDoctor",
+              "color": "#3498DB",
+              "isBot": false,
+              "avatarUrl": "https://cdn.discordapp.com/avatars/161129943474896897/39bd79035cfb63fb239482f9cff08804.png?size=512"
+            }
+          ]
+        }
+      ],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539005458432532600",
+      "type": "Default",
+      "timestamp": "2026-08-17T16:18:14.629-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "but so far nothing has been decided (though i made a case to Rev0 about this)",
+      "author": {
+        "id": "812607805949083648",
+        "name": "olik0855",
+        "discriminator": "0000",
+        "nickname": "Oli K",
+        "color": null,
+        "isBot": false,
+        "roles": [],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/812607805949083648/236e6259ff12a56ef6271a279c8bb331.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539005642872848505",
+      "type": "Default",
+      "timestamp": "2026-08-17T16:18:58.603-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "as for the boosts .. they are valid if you dont have any other boosts (ware/ spells)",
+      "author": {
+        "id": "812607805949083648",
+        "name": "olik0855",
+        "discriminator": "0000",
+        "nickname": "Oli K",
+        "color": null,
+        "isBot": false,
+        "roles": [],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/812607805949083648/236e6259ff12a56ef6271a279c8bb331.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539005758086189128",
+      "type": "Default",
+      "timestamp": "2026-08-17T16:19:26.072-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "extra minors stay for the same time slot as boosts",
+      "author": {
+        "id": "812607805949083648",
+        "name": "olik0855",
+        "discriminator": "0000",
+        "nickname": "Oli K",
+        "color": null,
+        "isBot": false,
+        "roles": [],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/812607805949083648/236e6259ff12a56ef6271a279c8bb331.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539005903318032435",
+      "type": "Default",
+      "timestamp": "2026-08-17T16:20:00.698-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "there are two ways of gaining extra minors: Phys boost and extra actions .. allowing you to get +6 minors in the first turn you activate",
+      "author": {
+        "id": "812607805949083648",
+        "name": "olik0855",
+        "discriminator": "0000",
+        "nickname": "Oli K",
+        "color": null,
+        "isBot": false,
+        "roles": [],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/812607805949083648/236e6259ff12a56ef6271a279c8bb331.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539005951426830609",
+      "type": "Default",
+      "timestamp": "2026-08-17T16:20:12.168-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "after that its back to having 5 at the start of the turn",
+      "author": {
+        "id": "812607805949083648",
+        "name": "olik0855",
+        "discriminator": "0000",
+        "nickname": "Oli K",
+        "color": null,
+        "isBot": false,
+        "roles": [],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/812607805949083648/236e6259ff12a56ef6271a279c8bb331.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539006036508147712",
+      "type": "Default",
+      "timestamp": "2026-08-17T16:20:32.453-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "tech blast is a waste if you plan to have any matrix skills",
+      "author": {
+        "id": "812607805949083648",
+        "name": "olik0855",
+        "discriminator": "0000",
+        "nickname": "Oli K",
+        "color": null,
+        "isBot": false,
+        "roles": [],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/812607805949083648/236e6259ff12a56ef6271a279c8bb331.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539006080686759987",
+      "type": "Reply",
+      "timestamp": "2026-08-17T16:20:42.986-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "oh interesting. I didn't realize these were separate and potentially stacking sources of minors.",
+      "author": {
+        "id": "161129943474896897",
+        "name": "wardr",
+        "discriminator": "0000",
+        "nickname": "WarDoctor",
+        "color": "#3498DB",
+        "isBot": false,
+        "roles": [
+          {
+            "id": "448543383661838351",
+            "name": "GM",
+            "color": "#3498DB",
+            "position": 8
+          }
+        ],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/161129943474896897/39bd79035cfb63fb239482f9cff08804.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [
+        {
+          "id": "812607805949083648",
+          "name": "olik0855",
+          "discriminator": "0000",
+          "nickname": "Oli K",
+          "color": null,
+          "isBot": false,
+          "roles": [],
+          "avatarUrl": "https://cdn.discordapp.com/avatars/812607805949083648/236e6259ff12a56ef6271a279c8bb331.png?size=512"
+        }
+      ],
+      "reference": {
+        "type": "Default",
+        "messageId": "1539005903318032435",
+        "channelId": "1538998952429363300",
+        "guildId": "444539891943079937"
+      },
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539006106008031242",
+      "type": "Default",
+      "timestamp": "2026-08-17T16:20:49.023-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "tech infestation however is way better then it looks at the start",
+      "author": {
+        "id": "812607805949083648",
+        "name": "olik0855",
+        "discriminator": "0000",
+        "nickname": "Oli K",
+        "color": null,
+        "isBot": false,
+        "roles": [],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/812607805949083648/236e6259ff12a56ef6271a279c8bb331.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539006267903840321",
+      "type": "Default",
+      "timestamp": "2026-08-17T16:21:27.622-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "for it can also control purely mechanical devices not only hackable ones",
+      "author": {
+        "id": "812607805949083648",
+        "name": "olik0855",
+        "discriminator": "0000",
+        "nickname": "Oli K",
+        "color": null,
+        "isBot": false,
+        "roles": [],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/812607805949083648/236e6259ff12a56ef6271a279c8bb331.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539006354419613777",
+      "type": "Default",
+      "timestamp": "2026-08-17T16:21:48.249-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "also it is not subject to OS",
+      "author": {
+        "id": "812607805949083648",
+        "name": "olik0855",
+        "discriminator": "0000",
+        "nickname": "Oli K",
+        "color": null,
+        "isBot": false,
+        "roles": [],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/812607805949083648/236e6259ff12a56ef6271a279c8bb331.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539006446036058184",
+      "type": "Default",
+      "timestamp": "2026-08-17T16:22:10.092-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "heavily defended stuff is mostly beyond your capability unless you hit like 10 NV",
+      "author": {
+        "id": "812607805949083648",
+        "name": "olik0855",
+        "discriminator": "0000",
+        "nickname": "Oli K",
+        "color": null,
+        "isBot": false,
+        "roles": [],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/812607805949083648/236e6259ff12a56ef6271a279c8bb331.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539006635899363429",
+      "type": "Default",
+      "timestamp": "2026-08-17T16:22:55.359-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "but its the creepy i insert nanites and control the device (which usually has like DR2 and thus only FW 2) until i choose to release",
+      "author": {
+        "id": "812607805949083648",
+        "name": "olik0855",
+        "discriminator": "0000",
+        "nickname": "Oli K",
+        "color": null,
+        "isBot": false,
+        "roles": [],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/812607805949083648/236e6259ff12a56ef6271a279c8bb331.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539006738534109254",
+      "type": "Default",
+      "timestamp": "2026-08-17T16:23:19.829-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "technically this could also be done with hostile cyberware/ bioware (that cant be hacked at all normally)",
+      "author": {
+        "id": "812607805949083648",
+        "name": "olik0855",
+        "discriminator": "0000",
+        "nickname": "Oli K",
+        "color": null,
+        "isBot": false,
+        "roles": [],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/812607805949083648/236e6259ff12a56ef6271a279c8bb331.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539007459119730788",
+      "type": "Default",
+      "timestamp": "2026-08-17T16:26:11.63-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "I was wondering where you were going with tech infestation. I agree it's flavorful, and since monads don't really have a toolkit to monitor or manage OS (no baby monitor, no cleaner, just the matrix action to reboot your persona?) avoiding OS might be useful. \n\nIDK if I would try hacking cyberware/bioware at the table, mostly because I don't want to slow gameplay down with what some might construe as a creative interpretation of rules.",
+      "author": {
+        "id": "161129943474896897",
+        "name": "wardr",
+        "discriminator": "0000",
+        "nickname": "WarDoctor",
+        "color": "#3498DB",
+        "isBot": false,
+        "roles": [
+          {
+            "id": "448543383661838351",
+            "name": "GM",
+            "color": "#3498DB",
+            "position": 8
+          }
+        ],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/161129943474896897/39bd79035cfb63fb239482f9cff08804.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539007701990772837",
+      "type": "Default",
+      "timestamp": "2026-08-17T16:27:09.535-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "yeah its more of a scare against players hacking their bioware (and gets monads some respect)",
+      "author": {
+        "id": "812607805949083648",
+        "name": "olik0855",
+        "discriminator": "0000",
+        "nickname": "Oli K",
+        "color": null,
+        "isBot": false,
+        "roles": [],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/812607805949083648/236e6259ff12a56ef6271a279c8bb331.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539007788615729153",
+      "type": "Default",
+      "timestamp": "2026-08-17T16:27:30.188-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "for the starting 6 powers I was eyeing:\n- monad toughness,\n- rapid healing, \n- adrenal control,\n- matrix attributes, \n- physical boost, and\n- mental boost.",
+      "author": {
+        "id": "161129943474896897",
+        "name": "wardr",
+        "discriminator": "0000",
+        "nickname": "WarDoctor",
+        "color": "#3498DB",
+        "isBot": false,
+        "roles": [
+          {
+            "id": "448543383661838351",
+            "name": "GM",
+            "color": "#3498DB",
+            "position": 8
+          }
+        ],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/161129943474896897/39bd79035cfb63fb239482f9cff08804.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539007846593732698",
+      "type": "Default",
+      "timestamp": "2026-08-17T16:27:44.011-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "i wouldnt take the matrix attributes",
+      "author": {
+        "id": "812607805949083648",
+        "name": "olik0855",
+        "discriminator": "0000",
+        "nickname": "Oli K",
+        "color": null,
+        "isBot": false,
+        "roles": [],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/812607805949083648/236e6259ff12a56ef6271a279c8bb331.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539007929087168552",
+      "type": "Default",
+      "timestamp": "2026-08-17T16:28:03.679-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "those just make you a target ... you cant form networks so its personal only not even PAN",
+      "author": {
+        "id": "812607805949083648",
+        "name": "olik0855",
+        "discriminator": "0000",
+        "nickname": "Oli K",
+        "color": null,
+        "isBot": false,
+        "roles": [],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/812607805949083648/236e6259ff12a56ef6271a279c8bb331.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539007949446451290",
+      "type": "Reply",
+      "timestamp": "2026-08-17T16:28:08.533-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "\uD83D\uDCAF I would use this as a GM against PCs, because as written I don't feel like Monads live up to the fear of them we had in 5e.",
+      "author": {
+        "id": "161129943474896897",
+        "name": "wardr",
+        "discriminator": "0000",
+        "nickname": "WarDoctor",
+        "color": "#3498DB",
+        "isBot": false,
+        "roles": [
+          {
+            "id": "448543383661838351",
+            "name": "GM",
+            "color": "#3498DB",
+            "position": 8
+          }
+        ],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/161129943474896897/39bd79035cfb63fb239482f9cff08804.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [
+        {
+          "id": "812607805949083648",
+          "name": "olik0855",
+          "discriminator": "0000",
+          "nickname": "Oli K",
+          "color": null,
+          "isBot": false,
+          "roles": [],
+          "avatarUrl": "https://cdn.discordapp.com/avatars/812607805949083648/236e6259ff12a56ef6271a279c8bb331.png?size=512"
+        }
+      ],
+      "reference": {
+        "type": "Default",
+        "messageId": "1539007701990772837",
+        "channelId": "1538998952429363300",
+        "guildId": "444539891943079937"
+      },
+      "inlineEmojis": [
+        {
+          "id": "",
+          "name": "\uD83D\uDCAF",
+          "code": "100",
+          "isAnimated": false,
+          "imageUrl": "https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/svg/1f4af.svg"
+        }
+      ]
+    },
+    {
+      "id": "1539008046968344637",
+      "type": "Default",
+      "timestamp": "2026-08-17T16:28:31.784-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "phys/mental boost as needed (ware)",
+      "author": {
+        "id": "812607805949083648",
+        "name": "olik0855",
+        "discriminator": "0000",
+        "nickname": "Oli K",
+        "color": null,
+        "isBot": false,
+        "roles": [],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/812607805949083648/236e6259ff12a56ef6271a279c8bb331.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539008266485506159",
+      "type": "Reply",
+      "timestamp": "2026-08-17T16:29:24.121-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "can you protect your own cyberware with this persona? I guess not since you can't join your own ware to the persona?",
+      "author": {
+        "id": "161129943474896897",
+        "name": "wardr",
+        "discriminator": "0000",
+        "nickname": "WarDoctor",
+        "color": "#3498DB",
+        "isBot": false,
+        "roles": [
+          {
+            "id": "448543383661838351",
+            "name": "GM",
+            "color": "#3498DB",
+            "position": 8
+          }
+        ],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/161129943474896897/39bd79035cfb63fb239482f9cff08804.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [
+        {
+          "id": "812607805949083648",
+          "name": "olik0855",
+          "discriminator": "0000",
+          "nickname": "Oli K",
+          "color": null,
+          "isBot": false,
+          "roles": [],
+          "avatarUrl": "https://cdn.discordapp.com/avatars/812607805949083648/236e6259ff12a56ef6271a279c8bb331.png?size=512"
+        }
+      ],
+      "reference": {
+        "type": "Default",
+        "messageId": "1539007929087168552",
+        "channelId": "1538998952429363300",
+        "guildId": "444539891943079937"
+      },
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539008344210280481",
+      "type": "Default",
+      "timestamp": "2026-08-17T16:29:42.652-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "my choices are: Toughness, Tox Res, action use, tech infest, rapid healing, possibly resculpt (if i dont have nanite hives) or phys/ mentalboost",
+      "author": {
+        "id": "812607805949083648",
+        "name": "olik0855",
+        "discriminator": "0000",
+        "nickname": "Oli K",
+        "color": null,
+        "isBot": false,
+        "roles": [],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/812607805949083648/236e6259ff12a56ef6271a279c8bb331.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539008365429260328",
+      "type": "Reply",
+      "timestamp": "2026-08-17T16:29:47.711-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "no",
+      "author": {
+        "id": "812607805949083648",
+        "name": "olik0855",
+        "discriminator": "0000",
+        "nickname": "Oli K",
+        "color": null,
+        "isBot": false,
+        "roles": [],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/812607805949083648/236e6259ff12a56ef6271a279c8bb331.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [
+        {
+          "id": "161129943474896897",
+          "name": "wardr",
+          "discriminator": "0000",
+          "nickname": "WarDoctor",
+          "color": "#3498DB",
+          "isBot": false,
+          "roles": [
+            {
+              "id": "448543383661838351",
+              "name": "GM",
+              "color": "#3498DB",
+              "position": 8
+            }
+          ],
+          "avatarUrl": "https://cdn.discordapp.com/avatars/161129943474896897/39bd79035cfb63fb239482f9cff08804.png?size=512"
+        }
+      ],
+      "reference": {
+        "type": "Default",
+        "messageId": "1539008266485506159",
+        "channelId": "1538998952429363300",
+        "guildId": "444539891943079937"
+      },
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539008390251155522",
+      "type": "Default",
+      "timestamp": "2026-08-17T16:29:53.629-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "its only for hacking",
+      "author": {
+        "id": "812607805949083648",
+        "name": "olik0855",
+        "discriminator": "0000",
+        "nickname": "Oli K",
+        "color": null,
+        "isBot": false,
+        "roles": [],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/812607805949083648/236e6259ff12a56ef6271a279c8bb331.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539008482013876234",
+      "type": "Default",
+      "timestamp": "2026-08-17T16:30:15.507-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "or matrix perception",
+      "author": {
+        "id": "812607805949083648",
+        "name": "olik0855",
+        "discriminator": "0000",
+        "nickname": "Oli K",
+        "color": null,
+        "isBot": false,
+        "roles": [],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/812607805949083648/236e6259ff12a56ef6271a279c8bb331.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539008622749818880",
+      "type": "Default",
+      "timestamp": "2026-08-17T16:30:49.061-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "whenever i play a monad i usually make him a secondary decker/rigger",
+      "author": {
+        "id": "812607805949083648",
+        "name": "olik0855",
+        "discriminator": "0000",
+        "nickname": "Oli K",
+        "color": null,
+        "isBot": false,
+        "roles": [],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/812607805949083648/236e6259ff12a56ef6271a279c8bb331.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539008756384403588",
+      "type": "Reply",
+      "timestamp": "2026-08-17T16:31:20.922-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "With primary being?",
+      "author": {
+        "id": "161129943474896897",
+        "name": "wardr",
+        "discriminator": "0000",
+        "nickname": "WarDoctor",
+        "color": "#3498DB",
+        "isBot": false,
+        "roles": [
+          {
+            "id": "448543383661838351",
+            "name": "GM",
+            "color": "#3498DB",
+            "position": 8
+          }
+        ],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/161129943474896897/39bd79035cfb63fb239482f9cff08804.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [
+        {
+          "id": "812607805949083648",
+          "name": "olik0855",
+          "discriminator": "0000",
+          "nickname": "Oli K",
+          "color": null,
+          "isBot": false,
+          "roles": [],
+          "avatarUrl": "https://cdn.discordapp.com/avatars/812607805949083648/236e6259ff12a56ef6271a279c8bb331.png?size=512"
+        }
+      ],
+      "reference": {
+        "type": "Default",
+        "messageId": "1539008622749818880",
+        "channelId": "1538998952429363300",
+        "guildId": "444539891943079937"
+      },
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539008776185581619",
+      "type": "Default",
+      "timestamp": "2026-08-17T16:31:25.643-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "because the quality hardened lets you absorb matrix damage as Stun damage to protect your stuff and healing also works in VR",
+      "author": {
+        "id": "812607805949083648",
+        "name": "olik0855",
+        "discriminator": "0000",
+        "nickname": "Oli K",
+        "color": null,
+        "isBot": false,
+        "roles": [],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/812607805949083648/236e6259ff12a56ef6271a279c8bb331.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539008847249674341",
+      "type": "Reply",
+      "timestamp": "2026-08-17T16:31:42.586-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "rigger/face infiltrator (resculpt/mental boost)",
+      "author": {
+        "id": "812607805949083648",
+        "name": "olik0855",
+        "discriminator": "0000",
+        "nickname": "Oli K",
+        "color": null,
+        "isBot": false,
+        "roles": [],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/812607805949083648/236e6259ff12a56ef6271a279c8bb331.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [
+        {
+          "id": "161129943474896897",
+          "name": "wardr",
+          "discriminator": "0000",
+          "nickname": "WarDoctor",
+          "color": "#3498DB",
+          "isBot": false,
+          "roles": [
+            {
+              "id": "448543383661838351",
+              "name": "GM",
+              "color": "#3498DB",
+              "position": 8
+            }
+          ],
+          "avatarUrl": "https://cdn.discordapp.com/avatars/161129943474896897/39bd79035cfb63fb239482f9cff08804.png?size=512"
+        }
+      ],
+      "reference": {
+        "type": "Default",
+        "messageId": "1539008756384403588",
+        "channelId": "1538998952429363300",
+        "guildId": "444539891943079937"
+      },
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539008960076451840",
+      "type": "Default",
+      "timestamp": "2026-08-17T16:32:09.486-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "my monad ended up as Street sam",
+      "author": {
+        "id": "812607805949083648",
+        "name": "olik0855",
+        "discriminator": "0000",
+        "nickname": "Oli K",
+        "color": null,
+        "isBot": false,
+        "roles": [],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/812607805949083648/236e6259ff12a56ef6271a279c8bb331.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539009025159471246",
+      "type": "Default",
+      "timestamp": "2026-08-17T16:32:25.003-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "cause having something akin to regeneration was cool",
+      "author": {
+        "id": "812607805949083648",
+        "name": "olik0855",
+        "discriminator": "0000",
+        "nickname": "Oli K",
+        "color": null,
+        "isBot": false,
+        "roles": [],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/812607805949083648/236e6259ff12a56ef6271a279c8bb331.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539009207255441429",
+      "type": "Default",
+      "timestamp": "2026-08-17T16:33:08.418-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "right. That's where I was heading too, a street sam monad. I was hoping to be able to defend my own ware, but that seems like a major area I need to rethink.",
+      "author": {
+        "id": "161129943474896897",
+        "name": "wardr",
+        "discriminator": "0000",
+        "nickname": "WarDoctor",
+        "color": "#3498DB",
+        "isBot": false,
+        "roles": [
+          {
+            "id": "448543383661838351",
+            "name": "GM",
+            "color": "#3498DB",
+            "position": 8
+          }
+        ],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/161129943474896897/39bd79035cfb63fb239482f9cff08804.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539009247134883963",
+      "type": "Default",
+      "timestamp": "2026-08-17T16:33:17.926-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "unless your defense is a good offense.",
+      "author": {
+        "id": "161129943474896897",
+        "name": "wardr",
+        "discriminator": "0000",
+        "nickname": "WarDoctor",
+        "color": "#3498DB",
+        "isBot": false,
+        "roles": [
+          {
+            "id": "448543383661838351",
+            "name": "GM",
+            "color": "#3498DB",
+            "position": 8
+          }
+        ],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/161129943474896897/39bd79035cfb63fb239482f9cff08804.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539009420690726912",
+      "type": "Default",
+      "timestamp": "2026-08-17T16:33:59.305-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "well save up money and get a good RCC or MTOC ... that is usually enough to protect your gear",
+      "author": {
+        "id": "812607805949083648",
+        "name": "olik0855",
+        "discriminator": "0000",
+        "nickname": "Oli K",
+        "color": null,
+        "isBot": false,
+        "roles": [],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/812607805949083648/236e6259ff12a56ef6271a279c8bb331.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539009626530390066",
+      "type": "Default",
+      "timestamp": "2026-08-17T16:34:48.381-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "That's very actionable. It'll be an M-TOC because I sorta did the rigger thing with my current char. I've never played an 'honest' street sam.",
+      "author": {
+        "id": "161129943474896897",
+        "name": "wardr",
+        "discriminator": "0000",
+        "nickname": "WarDoctor",
+        "color": "#3498DB",
+        "isBot": false,
+        "roles": [
+          {
+            "id": "448543383661838351",
+            "name": "GM",
+            "color": "#3498DB",
+            "position": 8
+          }
+        ],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/161129943474896897/39bd79035cfb63fb239482f9cff08804.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539009794084569108",
+      "type": "Default",
+      "timestamp": "2026-08-17T16:35:28.329-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "Ok, I think I'm in the basic ballpark. Thank you Oli!!",
+      "author": {
+        "id": "161129943474896897",
+        "name": "wardr",
+        "discriminator": "0000",
+        "nickname": "WarDoctor",
+        "color": "#3498DB",
+        "isBot": false,
+        "roles": [
+          {
+            "id": "448543383661838351",
+            "name": "GM",
+            "color": "#3498DB",
+            "position": 8
+          }
+        ],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/161129943474896897/39bd79035cfb63fb239482f9cff08804.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539009828754690198",
+      "type": "Default",
+      "timestamp": "2026-08-17T16:35:36.595-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "anytime \uD83D\uDE42",
+      "author": {
+        "id": "812607805949083648",
+        "name": "olik0855",
+        "discriminator": "0000",
+        "nickname": "Oli K",
+        "color": null,
+        "isBot": false,
+        "roles": [],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/812607805949083648/236e6259ff12a56ef6271a279c8bb331.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": [
+        {
+          "id": "",
+          "name": "\uD83D\uDE42",
+          "code": "slight_smile",
+          "isAnimated": false,
+          "imageUrl": "https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/svg/1f642.svg"
+        }
+      ]
+    },
+    {
+      "id": "1539009936179069048",
+      "type": "Default",
+      "timestamp": "2026-08-17T16:36:02.207-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "though don't hate me when the char comes out, but I'll probably take Matrix attributes anyway to support the AI part of the CFD.",
+      "author": {
+        "id": "161129943474896897",
+        "name": "wardr",
+        "discriminator": "0000",
+        "nickname": "WarDoctor",
+        "color": "#3498DB",
+        "isBot": false,
+        "roles": [
+          {
+            "id": "448543383661838351",
+            "name": "GM",
+            "color": "#3498DB",
+            "position": 8
+          }
+        ],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/161129943474896897/39bd79035cfb63fb239482f9cff08804.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539026415159222273",
+      "type": "Default",
+      "timestamp": "2026-08-17T17:41:31.102-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "There's a 2083 SRM with some monads in it - do you want to play against some first?",
+      "author": {
+        "id": "397618446374010880",
+        "name": "jagator",
+        "discriminator": "0000",
+        "nickname": "JaGator",
+        "color": "#3498DB",
+        "isBot": false,
+        "roles": [
+          {
+            "id": "448543383661838351",
+            "name": "GM",
+            "color": "#3498DB",
+            "position": 8
+          }
+        ],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/397618446374010880/b77f4b9892a0e9859658b0a060ead8c2.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539179304984780933",
+      "type": "Default",
+      "timestamp": "2026-08-18T03:49:02.877-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "One more thing to add, high edge helps with NV rolls, pre edge 6 more dice is quite vital for some rolls ... However you cant score more net hits than NV",
+      "author": {
+        "id": "812607805949083648",
+        "name": "olik0855",
+        "discriminator": "0000",
+        "nickname": "Oli K",
+        "color": null,
+        "isBot": false,
+        "roles": [],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/812607805949083648/236e6259ff12a56ef6271a279c8bb331.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [
+        {
+          "emoji": {
+            "id": "",
+            "name": "\uD83D\uDC4D",
+            "code": "thumbsup",
+            "isAnimated": false,
+            "imageUrl": "https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/svg/1f44d.svg"
+          },
+          "count": 1,
+          "users": [
+            {
+              "id": "161129943474896897",
+              "name": "wardr",
+              "discriminator": "0000",
+              "nickname": "WarDoctor",
+              "color": "#3498DB",
+              "isBot": false,
+              "avatarUrl": "https://cdn.discordapp.com/avatars/161129943474896897/39bd79035cfb63fb239482f9cff08804.png?size=512"
+            }
+          ]
+        }
+      ],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539213948199370843",
+      "type": "Reply",
+      "timestamp": "2026-08-18T06:06:42.463-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "I always want to play!",
+      "author": {
+        "id": "161129943474896897",
+        "name": "wardr",
+        "discriminator": "0000",
+        "nickname": "WarDoctor",
+        "color": "#3498DB",
+        "isBot": false,
+        "roles": [
+          {
+            "id": "448543383661838351",
+            "name": "GM",
+            "color": "#3498DB",
+            "position": 8
+          }
+        ],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/161129943474896897/39bd79035cfb63fb239482f9cff08804.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [
+        {
+          "id": "397618446374010880",
+          "name": "jagator",
+          "discriminator": "0000",
+          "nickname": "JaGator",
+          "color": "#3498DB",
+          "isBot": false,
+          "roles": [
+            {
+              "id": "448543383661838351",
+              "name": "GM",
+              "color": "#3498DB",
+              "position": 8
+            }
+          ],
+          "avatarUrl": "https://cdn.discordapp.com/avatars/397618446374010880/b77f4b9892a0e9859658b0a060ead8c2.png?size=512"
+        }
+      ],
+      "reference": {
+        "type": "Default",
+        "messageId": "1539026415159222273",
+        "channelId": "1538998952429363300",
+        "guildId": "444539891943079937"
+      },
+      "inlineEmojis": []
+    },
+    {
+      "id": "1539215538511679488",
+      "type": "Reply",
+      "timestamp": "2026-08-18T06:13:01.623-04:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "That being said, we have plenty of time until next season so if this happens that's great. You should prioritize what sparks joy for you too!",
+      "author": {
+        "id": "161129943474896897",
+        "name": "wardr",
+        "discriminator": "0000",
+        "nickname": "WarDoctor",
+        "color": "#3498DB",
+        "isBot": false,
+        "roles": [
+          {
+            "id": "448543383661838351",
+            "name": "GM",
+            "color": "#3498DB",
+            "position": 8
+          }
+        ],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/161129943474896897/39bd79035cfb63fb239482f9cff08804.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [
+        {
+          "id": "397618446374010880",
+          "name": "jagator",
+          "discriminator": "0000",
+          "nickname": "JaGator",
+          "color": "#3498DB",
+          "isBot": false,
+          "roles": [
+            {
+              "id": "448543383661838351",
+              "name": "GM",
+              "color": "#3498DB",
+              "position": 8
+            }
+          ],
+          "avatarUrl": "https://cdn.discordapp.com/avatars/397618446374010880/b77f4b9892a0e9859658b0a060ead8c2.png?size=512"
+        }
+      ],
+      "reference": {
+        "type": "Default",
+        "messageId": "1539026415159222273",
+        "channelId": "1538998952429363300",
+        "guildId": "444539891943079937"
+      },
+      "inlineEmojis": []
+    }
+  ],
+  "messageCount": 52
+}

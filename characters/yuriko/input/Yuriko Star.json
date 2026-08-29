@@ -1,0 +1,1607 @@
+{
+  "system": "SHADOWRUN6",
+  "version": "3.2.0",
+  "name": "r31k0 Takahashi",
+  "streetName": "Yuriko Star",
+  "metaType": "AI-Pilot AI",
+  "size": 0,
+  "weight": 0,
+  "age": "~ 10",
+  "gender": "DIVERSE",
+  "heat": 0,
+  "reputation": 22,
+  "karma": 215,
+  "freeKarma": 4,
+  "nuyen": 84020,
+  "initiation": 0,
+  "submersion": 7,
+  "attributes": [
+    {
+      "name": "Body",
+      "id": "BODY",
+      "points": 5,
+      "modifiedValue": 5
+    },
+    {
+      "name": "Agility",
+      "id": "AGILITY",
+      "points": 3,
+      "modifiedValue": 3
+    },
+    {
+      "name": "Reaction",
+      "id": "REACTION",
+      "points": 5,
+      "modifiedValue": 5
+    },
+    {
+      "name": "Strength",
+      "id": "STRENGTH",
+      "points": 3,
+      "modifiedValue": 3
+    },
+    {
+      "name": "Willpower",
+      "id": "WILLPOWER",
+      "points": 6,
+      "modifiedValue": 6
+    },
+    {
+      "name": "Logic",
+      "id": "LOGIC",
+      "points": 4,
+      "modifiedValue": 4
+    },
+    {
+      "name": "Intuition",
+      "id": "INTUITION",
+      "points": 2,
+      "modifiedValue": 2
+    },
+    {
+      "name": "Charisma",
+      "id": "CHARISMA",
+      "points": 4,
+      "modifiedValue": 4
+    },
+    {
+      "name": "Edge",
+      "id": "EDGE",
+      "points": 4,
+      "modifiedValue": 4
+    },
+    {
+      "name": "Magic",
+      "id": "MAGIC",
+      "points": 0,
+      "modifiedValue": 0
+    },
+    {
+      "name": "Resonance",
+      "id": "RESONANCE",
+      "points": 8,
+      "modifiedValue": 8
+    },
+    {
+      "name": "Power Points",
+      "id": "POWER_POINTS",
+      "points": 0,
+      "modifiedValue": 0
+    },
+    {
+      "name": "Defense Pool",
+      "id": "DEFENSE_POOL_PHYSICAL",
+      "points": 0,
+      "modifiedValue": 7
+    },
+    {
+      "name": "Composure",
+      "id": "COMPOSURE",
+      "points": 0,
+      "modifiedValue": 10
+    },
+    {
+      "name": "Judge Intentions",
+      "id": "JUDGE_INTENTIONS",
+      "points": 0,
+      "modifiedValue": 8
+    },
+    {
+      "name": "Memory",
+      "id": "MEMORY",
+      "points": 0,
+      "modifiedValue": 6
+    },
+    {
+      "name": "Lift / Carry",
+      "id": "LIFT_CARRY",
+      "points": 0,
+      "modifiedValue": 11
+    }
+  ],
+  "initiatives": [
+    {
+      "name": "Initiative (Astral)",
+      "id": "INITIATIVE_ASTRAL",
+      "value": 6,
+      "dice": "+2D6"
+    },
+    {
+      "name": "Initiative",
+      "id": "INITIATIVE_PHYSICAL",
+      "value": 7,
+      "dice": "+1D6"
+    },
+    {
+      "name": "Initiative (Matrix AR)",
+      "id": "INITIATIVE_MATRIX",
+      "value": 6,
+      "dice": "+2D6"
+    },
+    {
+      "name": "Initiative (Matrix VR)",
+      "id": "INITIATIVE_MATRIX_VR_COLD",
+      "value": 5,
+      "dice": "+2D6"
+    },
+    {
+      "name": "Initiative (Matrix Hot)",
+      "id": "INITIATIVE_MATRIX_VR_HOT",
+      "value": 5,
+      "dice": "+3D6"
+    }
+  ],
+  "qualities": [
+    {
+      "name": "Natural Hacker",
+      "id": "natural_hacker",
+      "choice": "",
+      "positive": true,
+      "rating": 0,
+      "page": "Hack\u0027n Slash 83",
+      "description": ""
+    },
+    {
+      "name": "Stream: Technoshamans",
+      "id": "technoshaman",
+      "choice": "",
+      "positive": true,
+      "rating": 0,
+      "page": "Hack\u0027n Slash 131",
+      "description": ""
+    },
+    {
+      "name": "Buddy System",
+      "id": "buddy_system",
+      "choice": "",
+      "positive": false,
+      "rating": 0,
+      "page": "Hack\u0027n Slash 84",
+      "description": ""
+    },
+    {
+      "name": "Sprite Bane",
+      "id": "sprite_bane",
+      "choice": "Primal Sprite",
+      "positive": false,
+      "rating": 0,
+      "page": "Core Rulebook 79",
+      "description": ""
+    },
+    {
+      "name": "Hooder",
+      "id": "hooder",
+      "choice": "",
+      "positive": false,
+      "rating": 2,
+      "page": "Sixth World Companion 137",
+      "description": ""
+    },
+    {
+      "name": "Designer",
+      "id": "designer",
+      "choice": "",
+      "positive": true,
+      "rating": 0,
+      "page": "Hack\u0027n Slash 119",
+      "description": ""
+    },
+    {
+      "name": "Pilot Origins",
+      "id": "pilot_origins",
+      "choice": "",
+      "positive": true,
+      "rating": 1,
+      "page": "Hack\u0027n Slash 120",
+      "description": ""
+    },
+    {
+      "name": "Sensor Upgrade",
+      "id": "sensor_upgrade",
+      "choice": "",
+      "positive": true,
+      "rating": 0,
+      "page": "Hack\u0027n Slash 120",
+      "description": ""
+    }
+  ],
+  "skills": [
+    {
+      "name": "Con",
+      "id": "con",
+      "attribute": "Charisma",
+      "rating": 1,
+      "pool": 0,
+      "specializations": [],
+      "influencedBy": [],
+      "description": ""
+    },
+    {
+      "name": "Cracking",
+      "id": "cracking",
+      "attribute": "Logic",
+      "rating": 5,
+      "pool": 0,
+      "specializations": [
+        {
+          "name": "Hacking",
+          "id": "hacking",
+          "expertise": false,
+          "attribute": "Logic",
+          "pool": 0,
+          "description": ""
+        }
+      ],
+      "influencedBy": [],
+      "description": ""
+    },
+    {
+      "name": "Electronics",
+      "id": "electronics",
+      "attribute": "Logic",
+      "rating": 5,
+      "pool": 0,
+      "specializations": [
+        {
+          "name": "Software",
+          "id": "software",
+          "expertise": false,
+          "attribute": "Logic",
+          "pool": 0,
+          "description": ""
+        }
+      ],
+      "influencedBy": [],
+      "description": ""
+    },
+    {
+      "name": "Influence",
+      "id": "influence",
+      "attribute": "Charisma",
+      "rating": 1,
+      "pool": 0,
+      "specializations": [],
+      "influencedBy": [],
+      "description": ""
+    },
+    {
+      "name": "Native Language",
+      "id": "language",
+      "attribute": "Logic",
+      "rating": 4,
+      "pool": 0,
+      "specializations": [],
+      "influencedBy": [],
+      "description": ""
+    },
+    {
+      "name": "Tasking",
+      "id": "tasking",
+      "attribute": "Resonance",
+      "rating": 6,
+      "pool": 1,
+      "specializations": [
+        {
+          "name": "Registering",
+          "id": "registering",
+          "expertise": false,
+          "attribute": "Resonance",
+          "pool": 1,
+          "description": ""
+        }
+      ],
+      "influencedBy": [
+        "Sprite Bane"
+      ],
+      "description": ""
+    }
+  ],
+  "spells": [],
+  "rituals": [],
+  "metamagic": null,
+  "echoes": [
+    {
+      "name": "Hybrid Sprites",
+      "page": "Hack\u0027n Slash 67",
+      "description": ""
+    },
+    {
+      "name": "New Sprite Type",
+      "page": "Hack\u0027n Slash 68",
+      "description": ""
+    },
+    {
+      "name": "Sprite Conduit",
+      "page": "Hack\u0027n Slash 69",
+      "description": ""
+    },
+    {
+      "name": "Sprite Symbiosis",
+      "page": "Hack\u0027n Slash 69",
+      "description": ""
+    },
+    {
+      "name": "Living Network",
+      "page": "Core Rulebook 195",
+      "description": ""
+    },
+    {
+      "name": "Transcendent Network",
+      "page": "Hack\u0027n Slash 69",
+      "description": ""
+    },
+    {
+      "name": "Overclocking",
+      "page": "Core Rulebook 195",
+      "description": ""
+    },
+    {
+      "name": "Software Emulator",
+      "page": "Hack\u0027n Slash 68",
+      "description": ""
+    }
+  ],
+  "complexForms": [
+    {
+      "name": "Cleaner",
+      "duration": "Permanent",
+      "fading": 2,
+      "influences": [],
+      "page": "Core Rulebook 190",
+      "description": ""
+    },
+    {
+      "name": "Diffusion",
+      "duration": "Sustained",
+      "fading": 4,
+      "influences": [],
+      "page": "Core Rulebook 190",
+      "description": ""
+    },
+    {
+      "name": "Technoregeneration",
+      "duration": "Permanent",
+      "fading": -1,
+      "influences": [],
+      "page": "Hack\u0027n Slash 67",
+      "description": ""
+    },
+    {
+      "name": "Puppeteer",
+      "duration": "Sustained",
+      "fading": 5,
+      "influences": [],
+      "page": "Core Rulebook 190",
+      "description": ""
+    }
+  ],
+  "adeptPowers": [],
+  "longRangeWeapons": [
+    {
+      "name": "Ares Predator VI",
+      "type": "Firearms",
+      "subtype": "Heavy Pistols",
+      "skill": null,
+      "pool": 2,
+      "damage": "3P",
+      "attackRating": "11/11/8/-/-",
+      "mode": "SA,BF",
+      "ammunition": "15(c)",
+      "wifi": [
+        "Digital ammunition counter and an ARO that tells you the ammo type loaded. ",
+        "If equipped with DNI, you gain a bonus Minor Action any turn when you eject a clip (for weapons that have them) or change fire modes."
+      ],
+      "accessories": [
+        {
+          "name": "Silencer",
+          "type": "Accessories",
+          "subType": "Weapon Accessories",
+          "rating": 0,
+          "description": ""
+        }
+      ],
+      "page": "Core Rulebook 253",
+      "description": "",
+      "primary": false
+    }
+  ],
+  "closeCombatWeapons": [
+    {
+      "name": "Monofilament Whip",
+      "type": "Close Combat Weapons",
+      "subtype": "Whips",
+      "skill": null,
+      "pool": 3,
+      "damage": "6P",
+      "attackRating": "21/-/-/-/-",
+      "wifi": [
+        "The whip uses your visuals on the target to make small adjustments in targeting, and the whip adjusts its trajectory. This increases the Attack Rating by 2. Also, the whip’s built-in safety system retracts automatically instead of hitting you on a critical glitch."
+      ],
+      "accessories": [],
+      "page": "Core Rulebook 249",
+      "description": "",
+      "primary": false
+    },
+    {
+      "name": "Dagger of the Sacred Rose (+1 Weapon Focus)",
+      "type": "Close Combat Weapons",
+      "subtype": "Blades",
+      "skill": null,
+      "pool": 2,
+      "damage": "2P",
+      "attackRating": "9/1/-/-/-",
+      "wifi": [],
+      "accessories": [],
+      "page": "Core Rulebook 247",
+      "description": "",
+      "primary": false
+    },
+    {
+      "name": "Amalgam Cestas",
+      "type": "Close Combat Weapons",
+      "subtype": "Blades",
+      "skill": null,
+      "pool": 2,
+      "damage": "3P",
+      "attackRating": "13/2/-/-/-",
+      "wifi": [
+        "The knife displays an ARO of local maps and your GPS position, along with providing basic biomonitor data when in your hand."
+      ],
+      "accessories": [],
+      "page": "Core Rulebook 248",
+      "description": "",
+      "primary": false
+    },
+    {
+      "name": "Unarmed",
+      "type": "Close Combat Weapons",
+      "subtype": "Unarmed",
+      "skill": null,
+      "pool": 2,
+      "damage": "2S",
+      "attackRating": "8/-/-/-/-",
+      "wifi": [],
+      "accessories": [],
+      "page": "Core Rulebook 67",
+      "description": "",
+      "primary": false
+    }
+  ],
+  "armors": [
+    {
+      "name": "Ares Securetech SkinShield",
+      "rating": 2,
+      "socialrating": 0,
+      "accessories": [],
+      "isIgnored": false,
+      "page": "Firing Squad 49",
+      "description": "",
+      "primary": true
+    },
+    {
+      "name": "SecureTech Invisi-Shield Armor",
+      "rating": 2,
+      "socialrating": 0,
+      "accessories": [],
+      "isIgnored": false,
+      "page": "Firing Squad 50",
+      "description": "",
+      "primary": false
+    }
+  ],
+  "items": [
+    {
+      "name": "Resonance Focus (R4)",
+      "count": 10,
+      "rating": 0,
+      "type": "Survival",
+      "subType": "Survival",
+      "page": "Core Rulebook 279",
+      "accessories": [],
+      "description": ""
+    },
+    {
+      "name": "Heavy Pistol/SMG (10x)",
+      "count": 5,
+      "rating": 0,
+      "type": "Ammunition \u0026 Explosives",
+      "subType": "Ammunition",
+      "page": "Core Rulebook 262",
+      "accessories": [],
+      "description": ""
+    },
+    {
+      "name": "Heavy Pistol/SMG (10x)",
+      "count": 5,
+      "rating": 0,
+      "type": "Ammunition \u0026 Explosives",
+      "subType": "Ammunition",
+      "page": "Core Rulebook 262",
+      "accessories": [],
+      "description": ""
+    },
+    {
+      "name": "Grenade, Glitter",
+      "count": 10,
+      "rating": 0,
+      "type": "Ammunition \u0026 Explosives",
+      "subType": "Grenades",
+      "page": "Firing Squad 36",
+      "accessories": [],
+      "description": ""
+    },
+    {
+      "name": "Kit",
+      "count": 1,
+      "rating": 0,
+      "type": "Tools",
+      "subType": "Tools",
+      "page": "Core Rulebook 273",
+      "accessories": [],
+      "description": ""
+    },
+    {
+      "name": "Medkit",
+      "count": 1,
+      "rating": 0,
+      "type": "Biology",
+      "subType": "Biotech",
+      "page": "Core Rulebook 281",
+      "accessories": [],
+      "description": ""
+    },
+    {
+      "name": "Medkit supplies",
+      "count": 5,
+      "rating": 0,
+      "type": "Biology",
+      "subType": "Biotech",
+      "page": "Core Rulebook 281",
+      "accessories": [],
+      "description": ""
+    },
+    {
+      "name": "Order of the Lion of the United Netherlands Medal",
+      "count": 1,
+      "rating": 0,
+      "type": "Tools",
+      "subType": "Tools",
+      "page": "",
+      "accessories": [],
+      "description": ""
+    },
+    {
+      "name": "Broach of the Seelie Court (+2 Power Focus)",
+      "count": 1,
+      "rating": 0,
+      "type": "Chemicals",
+      "subType": "Drugs",
+      "page": "Core Rulebook 124",
+      "accessories": [],
+      "description": ""
+    },
+    {
+      "name": "\"Smile for the Camera!\" Quality (Shiawase)",
+      "count": 1,
+      "rating": 0,
+      "type": "Chemicals",
+      "subType": "Drugs",
+      "page": "Core Rulebook 124",
+      "accessories": [],
+      "description": ""
+    },
+    {
+      "name": "Software Library",
+      "count": 1,
+      "rating": 0,
+      "type": "Electronic",
+      "subType": "Tools",
+      "page": "Core Rulebook 271",
+      "accessories": [],
+      "description": ""
+    }
+  ],
+  "augmentations": [
+    {
+      "name": "Pilot Origins",
+      "level": null,
+      "essence": 0.0,
+      "page": "Core Rulebook 283",
+      "quality": null,
+      "description": "",
+      "accessories": []
+    }
+  ],
+  "vehicles": [],
+  "drones": [
+    {
+      "name": "MCT Gnat",
+      "type": null,
+      "subtype": null,
+      "count": 5,
+      "handlOn": 3,
+      "handlOff": 3,
+      "accelOn": 4,
+      "accelOff": 4,
+      "speedIntOn": 10,
+      "speedIntOff": 10,
+      "speed": 30,
+      "body": 0,
+      "armor": 0,
+      "pilot": 2,
+      "sensor": 1,
+      "page": "Core Rulebook 299",
+      "accessories": null,
+      "description": ""
+    },
+    {
+      "name": "Shiawase Bi-Drone Butler",
+      "type": null,
+      "subtype": null,
+      "count": 1,
+      "handlOn": 4,
+      "handlOff": 5,
+      "accelOn": 5,
+      "accelOff": 5,
+      "speedIntOn": 5,
+      "speedIntOff": 5,
+      "speed": 8,
+      "body": 4,
+      "armor": 0,
+      "pilot": 2,
+      "sensor": 3,
+      "page": "Double Clutch 117",
+      "accessories": null,
+      "description": ""
+    },
+    {
+      "name": "Shiawase Bi-Drone Man-At-Arms",
+      "type": null,
+      "subtype": null,
+      "count": 1,
+      "handlOn": 3,
+      "handlOff": 3,
+      "accelOn": 5,
+      "accelOff": 5,
+      "speedIntOn": 5,
+      "speedIntOff": 5,
+      "speed": 10,
+      "body": 10,
+      "armor": 8,
+      "pilot": 2,
+      "sensor": 2,
+      "page": "Double Clutch 117",
+      "accessories": null,
+      "description": ""
+    },
+    {
+      "name": "Federated-Boeing Sky Commander",
+      "type": null,
+      "subtype": null,
+      "count": 1,
+      "handlOn": 4,
+      "handlOff": 4,
+      "accelOn": 20,
+      "accelOff": 20,
+      "speedIntOn": 30,
+      "speedIntOff": 30,
+      "speed": 190,
+      "body": 4,
+      "armor": 2,
+      "pilot": 4,
+      "sensor": 2,
+      "page": "Double Clutch 106",
+      "accessories": null,
+      "description": ""
+    }
+  ],
+  "lifestyles": [
+    {
+      "customName": "Low",
+      "name": "Low",
+      "cost": 0,
+      "paidMonths": 1,
+      "sin": null,
+      "options": null,
+      "description": null
+    }
+  ],
+  "sins": [
+    {
+      "name": "Yuriko Star",
+      "description": null,
+      "quality": 2
+    }
+  ],
+  "contacts": [
+    {
+      "name": "Brynne Taggart",
+      "type": "Fixer",
+      "loyalty": 2,
+      "influence": 4,
+      "description": "Character Creation | SRM 2081-05 This is Renton",
+      "favors": 2
+    },
+    {
+      "name": "Whiskey",
+      "type": "Street Doc",
+      "loyalty": 4,
+      "influence": 2,
+      "description": "Character Creation",
+      "favors": 0
+    },
+    {
+      "name": "Indomitable Will",
+      "type": "River People Sysop",
+      "loyalty": 3,
+      "influence": 3,
+      "description": "Character Creation",
+      "favors": 0
+    },
+    {
+      "name": "Roanoke",
+      "type": "Ecological Activist",
+      "loyalty": 3,
+      "influence": 3,
+      "description": "Character Creation | SRM 2083-17 Haute Blooded | SRM 2083-20 The Fallacy of Plans",
+      "favors": 1
+    },
+    {
+      "name": "Piotr Krolik",
+      "type": "Vory Borjevik",
+      "loyalty": 1,
+      "influence": 4,
+      "description": "SMH 2083-02 EggHunt at the Jackalope Ranch",
+      "favors": 0
+    },
+    {
+      "name": "Le Tigre",
+      "type": "Epoch Model",
+      "loyalty": 1,
+      "influence": 5,
+      "description": "SMH 2083-02 EggHunt at the Jackalope Ranch | SRM 2083-17 Haute Blooded",
+      "favors": 1
+    },
+    {
+      "name": "White Jackalope",
+      "type": "Emergent Lifeform",
+      "loyalty": 1,
+      "influence": 2,
+      "description": "SMH 2083-02 EggHunt at the Jackalope Ranch",
+      "favors": 0
+    },
+    {
+      "name": "Big Louie",
+      "type": "Fixer",
+      "loyalty": 1,
+      "influence": 3,
+      "description": "CMP First Taste : Top Chef - Seattle",
+      "favors": 0
+    },
+    {
+      "name": "Dominique Augustin",
+      "type": "Wolverine Security",
+      "loyalty": 1,
+      "influence": 4,
+      "description": "2083-03 Unofficial Dunkelzahn Fan Club",
+      "favors": 1
+    },
+    {
+      "name": "Daniel Fortune",
+      "type": "NOLA",
+      "loyalty": 1,
+      "influence": 3,
+      "description": "2083-03 Unofficial Dunkelzahn Fan Club",
+      "favors": 0
+    },
+    {
+      "name": "Renée Martin",
+      "type": "League of Laveau Liaison",
+      "loyalty": 2,
+      "influence": 4,
+      "description": "2083-03 Unofficial Dunkelzahn Fan Club | SRM 2083-20 The Fallacy of Plans",
+      "favors": 1
+    },
+    {
+      "name": "The Frisian",
+      "type": "Crime Lord of the Dutch Penose syndicate",
+      "loyalty": 1,
+      "influence": 6,
+      "description": "CMP 2081-09 Bring me Prince Charming",
+      "favors": 0
+    },
+    {
+      "name": "Ree \u0027Dolly\u0027 Hacker",
+      "type": "Talismonger and Racer",
+      "loyalty": 1,
+      "influence": 4,
+      "description": "CMP 2081-18 Blue Kentucky Girl",
+      "favors": 1
+    },
+    {
+      "name": "Granny",
+      "type": "Lady of the Autumn Wind",
+      "loyalty": 1,
+      "influence": 6,
+      "description": "CMP 2081-18 Blue Kentucky Girl | CMP 2081-20 In the Cold Kentucky Rain",
+      "favors": 1
+    },
+    {
+      "name": "Kiara Shaw",
+      "type": "Knight Errant Company Suit",
+      "loyalty": 2,
+      "influence": 4,
+      "description": "CMP 2081-10 A Diamond in The Rough | CMP 2083-04 Hog Wild",
+      "favors": 1
+    },
+    {
+      "name": "Simon Andrews",
+      "type": "S-K Johnson",
+      "loyalty": 2,
+      "influence": 5,
+      "description": "CMP 2081-11 Paved with good intentions | CMP 2083-01 NONPLUSHED | CMP 2083-04 Hog Wild",
+      "favors": 1
+    },
+    {
+      "name": "Squint",
+      "type": "Smuggler",
+      "loyalty": 1,
+      "influence": 2,
+      "description": "CMP 2081-11 Paved with good intentions",
+      "favors": 0
+    },
+    {
+      "name": "Dr. Laureline Dodd",
+      "type": "Arcano-Archeologist",
+      "loyalty": 1,
+      "influence": 5,
+      "description": "CMP 2081-19 The Blue Moon of Kentucky",
+      "favors": 1
+    },
+    {
+      "name": "Thaddeus",
+      "type": "Street Samurai",
+      "loyalty": 1,
+      "influence": 3,
+      "description": "CMP 2081-19 The Blue Moon of Kentucky",
+      "favors": 0
+    },
+    {
+      "name": "Duan Yuhai",
+      "type": "Minor 88s Johnson",
+      "loyalty": 1,
+      "influence": 3,
+      "description": "SRM 2081-17 Framed in Blood",
+      "favors": 0
+    },
+    {
+      "name": "Xiong Giuyin",
+      "type": "Wuxing",
+      "loyalty": 1,
+      "influence": 4,
+      "description": "SRM 2081-17 Framed in Blood",
+      "favors": 0
+    },
+    {
+      "name": "Reilly Dragman",
+      "type": "Child Heiress",
+      "loyalty": 1,
+      "influence": 1,
+      "description": "CMP 2081-20 In the Cold Kentucky Rain",
+      "favors": 1
+    },
+    {
+      "name": "Queen Brane",
+      "type": "Seelie Queen",
+      "loyalty": 1,
+      "influence": 12,
+      "description": "CMP 2081-20 In the Cold Kentucky Rain",
+      "favors": 0
+    },
+    {
+      "name": "Dixie L\u0027Amin",
+      "type": "Naga",
+      "loyalty": 1,
+      "influence": 4,
+      "description": "CMP 2083-14 A Day at the Beach",
+      "favors": 1
+    },
+    {
+      "name": "Ebon Abirashur",
+      "type": "Leviathan Dragon",
+      "loyalty": 1,
+      "influence": 1,
+      "description": "CMP 2083-14 A Day at the Beach",
+      "favors": 1
+    },
+    {
+      "name": "Col. Deborah Kentwell",
+      "type": "Thunder Corps Fixer",
+      "loyalty": 1,
+      "influence": 5,
+      "description": "CMP 2083-16 War Never Changes",
+      "favors": 1
+    },
+    {
+      "name": "Polyphemous \u0027Paul\u0027 Pellagios",
+      "type": "Background Actor",
+      "loyalty": 1,
+      "influence": 1,
+      "description": "CMP 2083-16 War Never Changes",
+      "favors": 0
+    },
+    {
+      "name": "Fernand Anato",
+      "type": "Kozlowski Capo",
+      "loyalty": 1,
+      "influence": 1,
+      "description": "SRM 2083-19 The Hallow Feast",
+      "favors": 0
+    },
+    {
+      "name": "Monsieur Johnson",
+      "type": "Johnson",
+      "loyalty": 2,
+      "influence": 5,
+      "description": "SRM 2083-19 The Hallow Feast",
+      "favors": 0
+    },
+    {
+      "name": "Swango",
+      "type": "Rapper",
+      "loyalty": 2,
+      "influence": 3,
+      "description": "SRM 2081-05 This is Renton",
+      "favors": 0
+    },
+    {
+      "name": "Toil",
+      "type": "Fixer",
+      "loyalty": 1,
+      "influence": 4,
+      "description": "SRM 2081-05 This is Renton",
+      "favors": 0
+    },
+    {
+      "name": "Trubble",
+      "type": "Bodyguard",
+      "loyalty": 1,
+      "influence": 1,
+      "description": "SRM 2081-05 This is Renton",
+      "favors": 0
+    },
+    {
+      "name": "SpiiniCop",
+      "type": "Penose Spider",
+      "loyalty": 1,
+      "influence": 2,
+      "description": "CMP 2083-01 NONPLUSHED",
+      "favors": 0
+    },
+    {
+      "name": "Eddie Wei",
+      "type": "Triad/Johnson",
+      "loyalty": 1,
+      "influence": 4,
+      "description": "SRM 2081-08 Child\u0027s Play",
+      "favors": 0
+    },
+    {
+      "name": "Julian Müntefering",
+      "type": "Renraku Corpokid",
+      "loyalty": 1,
+      "influence": 1,
+      "description": "SRM 2081-08 Child\u0027s Play",
+      "favors": 0
+    },
+    {
+      "name": "Ni Ni Xiaolu",
+      "type": "Johnson/Triad",
+      "loyalty": 2,
+      "influence": 3,
+      "description": "SRM 2081-07 Bootleg Bliss | CMP 2083-05 Precious Cargo",
+      "favors": 1
+    },
+    {
+      "name": "Bookie",
+      "type": "Ancients Bookie",
+      "loyalty": 1,
+      "influence": 3,
+      "description": "SRM 2081-07 Bootleg Bliss",
+      "favors": 0
+    },
+    {
+      "name": "Trudy",
+      "type": "Cutter Lieutenant",
+      "loyalty": 1,
+      "influence": 2,
+      "description": "SRM 2081-07 Bootleg Bliss",
+      "favors": 0
+    },
+    {
+      "name": "Kaatje",
+      "type": "Young Entertainer",
+      "loyalty": 1,
+      "influence": 2,
+      "description": "CMP 2083-04 Hog Wild",
+      "favors": 0
+    },
+    {
+      "name": "Kirt Liger",
+      "type": "Body Mod/Engineering Cybercatman",
+      "loyalty": 1,
+      "influence": 3,
+      "description": "SRM 2081-21 Grudge Match Gladiators",
+      "favors": 1
+    },
+    {
+      "name": "Sigrún",
+      "type": "Shadowrunner",
+      "loyalty": 3,
+      "influence": 5,
+      "description": "CMP 2081-12 Uneasy lies the head | CMP 2083-04 Hog Wild",
+      "favors": 1
+    },
+    {
+      "name": "Ayanda \u0027Shieldbearer\u0027 Mahlangu",
+      "type": "\u0027Mystic Edge\u0027 Producer",
+      "loyalty": 1,
+      "influence": 3,
+      "description": "CMP 2083-14 A Day at the Beach",
+      "favors": 0
+    },
+    {
+      "name": "Saint James",
+      "type": "Fixer",
+      "loyalty": 2,
+      "influence": 8,
+      "description": "SRM 2081-06 Cutting Strings",
+      "favors": 0
+    },
+    {
+      "name": "Jeanie Trudel",
+      "type": "Bartender",
+      "loyalty": 1,
+      "influence": 1,
+      "description": "SRM 2081-06 Cutting Strings",
+      "favors": 0
+    },
+    {
+      "name": "Kingston",
+      "type": "Shadowrunner",
+      "loyalty": 1,
+      "influence": 2,
+      "description": "SRM 2081-06 Cutting Strings",
+      "favors": 0
+    },
+    {
+      "name": "Mr. Fa",
+      "type": "HKB Corporate Middle Manager",
+      "loyalty": 1,
+      "influence": 4,
+      "description": "CMP 2083-05 Precious Cargo",
+      "favors": 1
+    },
+    {
+      "name": "Liao Fa Ren",
+      "type": "HK Rookie Journalist",
+      "loyalty": 2,
+      "influence": 3,
+      "description": "CMP 2083-05 Precious Cargo",
+      "favors": 0
+    },
+    {
+      "name": "Aloysius Springinsguth",
+      "type": "Sound of Silence Music Shop Owner",
+      "loyalty": 2,
+      "influence": 3,
+      "description": "SRM 2083-12 When You\u0027re Smiling",
+      "favors": 0
+    },
+    {
+      "name": "Jolene Price",
+      "type": "Riverboat Alliance Leader",
+      "loyalty": 2,
+      "influence": 7,
+      "description": "SRM 2083-17 Haute Blooded",
+      "favors": 0
+    },
+    {
+      "name": "Coffin Girls",
+      "type": "Independent Courtesans Group",
+      "loyalty": 4,
+      "influence": 3,
+      "description": "SRM 2083-18 Some Kind of Voodoo?",
+      "favors": 1
+    },
+    {
+      "name": "Cedar",
+      "type": "Talismonger",
+      "loyalty": 1,
+      "influence": 3,
+      "description": "SRM 2083-20 The Fallacy of Plans",
+      "favors": 0
+    },
+    {
+      "name": "Detective Remy LeBlanc",
+      "type": "Detective",
+      "loyalty": 2,
+      "influence": 3,
+      "description": "SRM 2083-20 The Fallacy of Plans",
+      "favors": 0
+    },
+    {
+      "name": "Claudette Laurier",
+      "type": "Order of the Golden Dawn Librarian",
+      "loyalty": 1,
+      "influence": 5,
+      "description": "SRM 2083-20 The Fallacy of Plans",
+      "favors": 0
+    },
+    {
+      "name": "League of Laveau",
+      "type": "Voodoo Organization",
+      "loyalty": 3,
+      "influence": 6,
+      "description": "SRM 2083-18 Some Kind of Voodoo?",
+      "favors": 1
+    },
+    {
+      "name": "Zobop",
+      "type": "Voodoo Organization",
+      "loyalty": 3,
+      "influence": 6,
+      "description": "SRM 2083-18 Some Kind of Voodoo?",
+      "favors": 1
+    },
+    {
+      "name": "Col. Treylor",
+      "type": "Thunder Corps Fixer",
+      "loyalty": 1,
+      "influence": 3,
+      "description": "CMP 2083-15 | By Land, Sea, and Hair",
+      "favors": 1
+    },
+    {
+      "name": "Mr. Johnson",
+      "type": "Epoch Model",
+      "loyalty": 1,
+      "influence": 5,
+      "description": "CMP 2083-15 | By Land, Sea, and Hair",
+      "favors": 0
+    }
+  ],
+  "licenses": [
+    {
+      "name": "Drone",
+      "sin": "Yuriko Star",
+      "type": null,
+      "rating": "ROUGH_MATCH"
+    },
+    {
+      "name": "Firearms",
+      "sin": "Yuriko Star",
+      "type": null,
+      "rating": "ROUGH_MATCH"
+    }
+  ],
+  "matrixItems": [
+    {
+      "name": "M-TOC Mark II",
+      "dataProcessing": 6,
+      "firewall": 5,
+      "attack": 0,
+      "sleaze": 0,
+      "deviceRating": 0,
+      "type": "Electronic",
+      "subType": "TAC_NET",
+      "page": "Firing Squad 90",
+      "concurrentPrograms": 0,
+      "accessories": [
+        {
+          "name": "Satellite link",
+          "type": "Electronic",
+          "subType": "Electronic Accessories",
+          "rating": 0,
+          "description": ""
+        },
+        {
+          "name": "Sneak-Sneak",
+          "type": "Software",
+          "subType": "TAC-Net Program",
+          "rating": 0,
+          "description": ""
+        },
+        {
+          "name": "Artillery Barrage",
+          "type": "Software",
+          "subType": "TAC-Net Program",
+          "rating": 0,
+          "description": ""
+        },
+        {
+          "name": "ECM Warrior II",
+          "type": "Software",
+          "subType": "TAC-Net Program",
+          "rating": 0,
+          "description": ""
+        },
+        {
+          "name": "Mapsoft",
+          "type": "Software",
+          "subType": "Other Programs",
+          "rating": 0,
+          "description": ""
+        },
+        {
+          "name": "Biotech",
+          "type": "Software",
+          "subType": "Autosofts",
+          "rating": 0,
+          "description": ""
+        },
+        {
+          "name": "Clearsight",
+          "type": "Software",
+          "subType": "Autosofts",
+          "rating": 0,
+          "description": ""
+        },
+        {
+          "name": "Close Combat",
+          "type": "Software",
+          "subType": "Autosofts",
+          "rating": 0,
+          "description": ""
+        },
+        {
+          "name": "Evasion",
+          "type": "Software",
+          "subType": "Autosofts",
+          "rating": 0,
+          "description": ""
+        },
+        {
+          "name": "Facial Scanner",
+          "type": "Software",
+          "subType": "Commlink Apps",
+          "rating": 0,
+          "description": ""
+        },
+        {
+          "name": "Maneuvering",
+          "type": "Software",
+          "subType": "Autosofts",
+          "rating": 0,
+          "description": ""
+        },
+        {
+          "name": "Mannequin",
+          "type": "Software",
+          "subType": "Commlink Apps",
+          "rating": 0,
+          "description": ""
+        },
+        {
+          "name": "MeFeed",
+          "type": "Software",
+          "subType": "Commlink Apps",
+          "rating": 0,
+          "description": ""
+        },
+        {
+          "name": "Navigation",
+          "type": "Software",
+          "subType": "Autosofts",
+          "rating": 0,
+          "description": ""
+        },
+        {
+          "name": "Performance",
+          "type": "Software",
+          "subType": "Autosofts",
+          "rating": 0,
+          "description": ""
+        },
+        {
+          "name": "Social HUD",
+          "type": "Software",
+          "subType": "Commlink Apps",
+          "rating": 0,
+          "description": ""
+        },
+        {
+          "name": "Targeting",
+          "type": "Software",
+          "subType": "Autosofts",
+          "rating": 0,
+          "description": ""
+        },
+        {
+          "name": "Tracking",
+          "type": "Software",
+          "subType": "Autosofts",
+          "rating": 0,
+          "description": ""
+        },
+        {
+          "name": "Thermal Mood Reading",
+          "type": "Software",
+          "subType": "Commlink Apps",
+          "rating": 0,
+          "description": ""
+        },
+        {
+          "name": "Vocal Tension Detection",
+          "type": "Software",
+          "subType": "Commlink Apps",
+          "rating": 0,
+          "description": ""
+        },
+        {
+          "name": "Engineering",
+          "type": "Software",
+          "subType": "Autosofts",
+          "rating": 0,
+          "description": ""
+        },
+        {
+          "name": "Smartsoft",
+          "type": "Software",
+          "subType": "Rigger Software",
+          "rating": 0,
+          "description": ""
+        },
+        {
+          "name": "Language",
+          "type": "Software",
+          "subType": "Autosofts",
+          "rating": 0,
+          "description": ""
+        },
+        {
+          "name": "Knowledge",
+          "type": "Software",
+          "subType": "Autosofts",
+          "rating": 0,
+          "description": ""
+        },
+        {
+          "name": "P-ICE Spines",
+          "type": "Software",
+          "subType": "Commlink Apps",
+          "rating": 0,
+          "description": ""
+        },
+        {
+          "name": "Personal Assistant",
+          "type": "Software",
+          "subType": "Commlink Apps",
+          "rating": 0,
+          "description": ""
+        },
+        {
+          "name": "Shopsoft",
+          "type": "Software",
+          "subType": "Other Programs",
+          "rating": 0,
+          "description": ""
+        },
+        {
+          "name": "Mobile Medic",
+          "type": "Software",
+          "subType": "TAC-Net Program",
+          "rating": 0,
+          "description": ""
+        },
+        {
+          "name": "Swarm",
+          "type": "Software",
+          "subType": "Rigger Software",
+          "rating": 0,
+          "description": ""
+        },
+        {
+          "name": "Target Artist",
+          "type": "Software",
+          "subType": "TAC-Net Program",
+          "rating": 0,
+          "description": ""
+        },
+        {
+          "name": "Stealth",
+          "type": "Software",
+          "subType": "Autosofts",
+          "rating": 0,
+          "description": ""
+        }
+      ],
+      "programs": [
+        {
+          "name": "Baby Monitor (Deck)",
+          "count": 1,
+          "rating": 0,
+          "type": "Software",
+          "subType": "Basic programs",
+          "page": "Core Rulebook 184",
+          "accessories": [],
+          "description": ""
+        },
+        {
+          "name": "Browse (Deck)",
+          "count": 1,
+          "rating": 0,
+          "type": "Software",
+          "subType": "Basic programs",
+          "page": "Core Rulebook 184",
+          "accessories": [],
+          "description": ""
+        },
+        {
+          "name": "Decryption",
+          "count": 1,
+          "rating": 0,
+          "type": "Software",
+          "subType": "Hackingprograms",
+          "page": "Core Rulebook 184",
+          "accessories": [],
+          "description": ""
+        },
+        {
+          "name": "Defense Pods",
+          "count": 1,
+          "rating": 0,
+          "type": "Software",
+          "subType": "Hackingprograms",
+          "page": "Hack\u0027n Slash 58",
+          "accessories": [],
+          "description": ""
+        },
+        {
+          "name": "Directional Shield",
+          "count": 1,
+          "rating": 0,
+          "type": "Software",
+          "subType": "Hackingprograms",
+          "page": "Hack\u0027n Slash 58",
+          "accessories": [],
+          "description": ""
+        },
+        {
+          "name": "Edit (Deck)",
+          "count": 1,
+          "rating": 0,
+          "type": "Software",
+          "subType": "Basic programs",
+          "page": "Core Rulebook 184",
+          "accessories": [],
+          "description": ""
+        },
+        {
+          "name": "Fork",
+          "count": 1,
+          "rating": 0,
+          "type": "Software",
+          "subType": "Hackingprograms",
+          "page": "Core Rulebook 184",
+          "accessories": [],
+          "description": ""
+        },
+        {
+          "name": "Hitchhiker",
+          "count": 1,
+          "rating": 0,
+          "type": "Software",
+          "subType": "Hackingprograms",
+          "page": "Hack\u0027n Slash 139",
+          "accessories": [],
+          "description": ""
+        },
+        {
+          "name": "Nexus Protocol Program",
+          "count": 1,
+          "rating": 0,
+          "type": "Software",
+          "subType": "Hackingprograms",
+          "page": "Hack\u0027n Slash 142",
+          "accessories": [],
+          "description": ""
+        },
+        {
+          "name": "Overclock",
+          "count": 1,
+          "rating": 0,
+          "type": "Software",
+          "subType": "Hackingprograms",
+          "page": "Core Rulebook 184",
+          "accessories": [],
+          "description": ""
+        },
+        {
+          "name": "Trace",
+          "count": 1,
+          "rating": 0,
+          "type": "Software",
+          "subType": "Hackingprograms",
+          "page": "Core Rulebook 185",
+          "accessories": [],
+          "description": ""
+        },
+        {
+          "name": "Emulator",
+          "count": 1,
+          "rating": 0,
+          "type": "Software",
+          "subType": "Basic programs",
+          "page": "Hack\u0027n Slash 57",
+          "accessories": [],
+          "description": ""
+        },
+        {
+          "name": "Toolbox (Deck)",
+          "count": 1,
+          "rating": 0,
+          "type": "Software",
+          "subType": "Basic programs",
+          "page": "Core Rulebook 184",
+          "accessories": [],
+          "description": ""
+        },
+        {
+          "name": "Encryption",
+          "count": 1,
+          "rating": 0,
+          "type": "Software",
+          "subType": "Basic programs",
+          "page": "Core Rulebook 184",
+          "accessories": [],
+          "description": ""
+        },
+        {
+          "name": "Signal Scrubber (Deck)",
+          "count": 1,
+          "rating": 0,
+          "type": "Software",
+          "subType": "Basic programs",
+          "page": "Core Rulebook 184",
+          "accessories": [],
+          "description": ""
+        },
+        {
+          "name": "Virtual Machine (Deck)",
+          "count": 1,
+          "rating": 0,
+          "type": "Software",
+          "subType": "Basic programs",
+          "page": "Core Rulebook 184",
+          "accessories": [],
+          "description": ""
+        }
+      ],
+      "description": ""
+    }
+  ],
+  "martialArts": [],
+  "signatureManeuvers": [],
+  "notes": null
+}

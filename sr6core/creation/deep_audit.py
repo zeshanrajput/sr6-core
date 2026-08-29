@@ -10,6 +10,7 @@ from typing import Dict, Any, List, Optional, Tuple
 
 from sr6core.rules_db import DEFAULT_DB_PATH
 from sr6core.character_manager import CharacterManager
+from sr6core.log_engine import get_log_totals
 
 
 def calculate_transaction_price(base_cost: int, item_data: Dict[str, Any], char_data: Dict[str, Any]) -> Tuple[int, str]:
@@ -187,6 +188,22 @@ def deep_audit_character(char_id: str, db_path: str = DEFAULT_DB_PATH) -> Dict[s
                 "autosofts": comp.get("autosofts", []),
                 "srm_cap_valid": c_symb <= 4
             })
+
+    # 4. Audit Campaign Log & Master YAML Resource Alignment
+    repo_dir = cm.get_character_repo_dir(char_id)
+    if repo_dir and os.path.exists(repo_dir):
+        totals = get_log_totals(repo_dir)
+        if totals:
+            id_block = char_data.get("identity", {})
+            yaml_k = id_block.get("karma", 0)
+            yaml_ny = id_block.get("nuyen", 0)
+            log_k = totals.get("Karma", yaml_k)
+            log_ny = totals.get("Nuyen", yaml_ny)
+
+            if yaml_k != log_k:
+                warnings.append(f"Available Karma mismatch: Dossier YAML has {yaml_k} Karma, but character_log.qmd tracks {log_k} Karma.")
+            if yaml_ny != log_ny:
+                warnings.append(f"Nuyen balance mismatch: Dossier YAML has ¥{yaml_ny:,}, but character_log.qmd tracks ¥{log_ny:,}.")
 
     is_valid = len(warnings) == 0
 

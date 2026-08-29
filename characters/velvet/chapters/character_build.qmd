@@ -1,0 +1,262 @@
+# Character Creation (Life Path)
+
+::: {.callout-note title="Archived Build Draft"}
+*This page documents an experimental Life Path draft for historical comparison. The official character build uses the [Point Buy Build](character_build_point_buy.qmd).*
+:::
+
+The character was created using the Life Path rules in 6WC.
+
+```{python}
+#| echo: false
+#| include: false
+# Initial stats
+Body = 0
+Agility = 0
+Reaction = 0
+Strength = 0
+Willpower = 0
+Logic = 0
+Intuition = 0
+Charisma = 0
+Magic = 0
+Edge = 0
+
+Athletics = 0
+Con = 0
+Influence = 0
+Perception = 0
+Sorcery = 0
+
+Karma = 0
+Nuyen = 0
+Contact_Points = 0
+
+MCT = "K"
+Small_Unit_Tactics = "K"
+Wuxing = "K"
+
+def inc(name, amount=1):
+    globals()[name] += amount
+    op = "+=" if amount >= 0 else "-="
+    return f"{name} {op} {abs(amount)}"
+
+def assign(name, value):
+    globals()[name] = value
+    return f"{name} = {value}"
+
+def inc_many(*pairs):
+    res = []
+    for name, amount in pairs:
+        globals()[name] += amount
+        op = "+=" if amount >= 0 else "-="
+        res.append(f"{name} {op} {abs(amount)}")
+    return ", ".join(res)
+```
+
+## Born This Way
+
+* Starting Karma: `{python} assign('Karma', 50)`
+* Metatype: Elf
+* Metavariant: Dalekitnon `{python} inc('Karma', -5)`
+* Starting Attributes
+  * Any attributes for which your metatype has an increased maximum (higher than six) start at 2. 
+  * All other attributes start at 1. 
+  * Dalekitnon have increased maximums for Agility, Logic, Intuition, and Charisma
+* Attribute Values
+  * `{python} assign('Agility', 2)`
+  * `{python} assign('Charisma', 2)`
+  * `{python} assign('Body', 1)`
+  * `{python} assign('Reaction', 1)`
+  * `{python} assign('Strength', 1)`
+  * `{python} assign('Willpower', 1)`
+  * `{python} assign('Logic', 2)`
+  * `{python} assign('Intuition', 2)`
+  * `{python} assign('Edge', 1)`
+* If you’re a full magician, mystic adept, or adept, gain `{python} assign('Magic', 1)`
+* Metagenic Qualities
+  * None allowed per SRMg p.54
+* Awakened: Mystic Adept
+* Nationality: Philippines
+* Native Language: English
+* Qualities
+  * Exceptional Attribute - CHA: `{python} inc('Karma', -12)`
+  * Injury Prone (R3): `{python} inc('Karma', 15)`
+
+## Growing Up, Early Childhood, and Adolescence
+
+* Four Childhood Skills
+  * `{python} assign('Athletics', 2)`
+  * `{python} assign('Con', 2)`
+  * `{python} assign('Influence', 2)`
+  * `{python} assign('Perception', 2)`
+* Qualities
+  * Hooder (R3): `{python} inc('Karma', 15)`
+  * Inspire Competence: `{python} inc('Karma', -11)`
+* Knowledge: East Asian Pop Culture
+
+## Coming of Age: Early Adult and the Transition to Adulthood
+
+* Choose one skill as your strongest talent
+  * Sorcery: `{python} assign('Sorcery', 4)`
+* Define your character's best attribute (cannot be Edge, Magic, or Resonance)
+  * Charisma: `{python} inc('Charisma', 5)`
+* Qualities
+  * Chronic Pain: `{python} inc('Karma', 15)`
+* Childhood Contact: 4 Points: `{python} inc_many(('Contact_Points', 4), ('Nuyen', 25000))`
+
+## Adult Life Modules
+
+### Adept Training
+
+* Choose one: +1 to Edge or Magic: `{python} inc('Magic')`
+* Choose one: +1 to Body, Agility, Reaction, or Strength: `{python} inc('Reaction')`
+* Choose one: +1 to Charisma, Intuition, Logic, or Willpower: `{python} inc('Willpower')`
+* Choose one: +1 to any skill: `{python} inc('Sorcery')`
+* Contact Points: `{python} inc('Contact_Points', 2)`
+* Knowledge Skill: Small Unit Tactics
+
+### Traveler
+
+* Choose one: +1 to any physical attribute: `{python} inc('Body')`
+* Choose one: +1 to any mental attribute: `{python} inc('Willpower')`
+* Choose one: +1 Edge or +25,000 nuyen: `{python} inc('Edge')`
+* Choose one: +1 to any one skill: `{python} inc('Sorcery')`
+* Contact Points: `{python} inc('Contact_Points', 2)`
+* Knowledge skill: Mitsuhama Computer Technologies
+
+### Event: You were overwhelmed, but things worked out
+
+* +1 to Agility, Body, Reaction, or Strength: `{python} inc('Body')`
+* +2 to Charisma, Intuition, Logic, or Willpower: `{python} inc('Charisma',2)`
+* +1 to Edge, Magic, or Resonance: `{python} inc('Magic')`
+* Contact Points: `{python} inc('Contact_Points', 4)`
+* Quality - Focused Concentration (R3): `{python} inc('Karma', -36)`
+
+### Event: You were overwhelmed, but things worked out (Repeated)
+
+* +1 to Agility, Body, Reaction, or Strength: `{python} inc('Strength')`
+* +2 to Charisma, Intuition, Logic, or Willpower: `{python} inc('Intuition', 2)`
+* +1 to Edge, Magic, or Resonance: `{python} inc('Magic')`
+* Contact Points: `{python} inc('Contact_Points', 4)`
+
+### Event: Your body was pushed to its limits
+
+* +2 to Agility, Body, Reaction, or Strength: `{python} inc('Agility', 2)`
+* +1 to Charisma, Intuition, Logic, or Willpower: `{python} inc('Willpower')`
+* +1 to Edge, Magic, or Resonance: `{python} inc('Magic')`
+* Contact Points: `{python} inc('Contact_Points', 4)`
+
+### Event: You struggled through some tough times
+
+* +1 to Agility, Body, Reaction, or Strength: `{python} inc('Reaction')`
+* +1 to Charisma, Intuition, Logic, or Willpower: `{python} inc('Logic')`
+* +1 to Edge, Magic, or Resonance: `{python} inc('Magic')`
+* +1 to any one skill: `{python} inc('Influence')`
+* Contact Points: `{python} inc('Contact_Points', 4)`
+
+### Small Business Owner
+
+* Choose one: +1 to Charisma, Intuition, or Logic: `{python} inc('Logic')`
+* Choose one: +1 to Con, Electronics, Influence, or Perception: `{python} inc('Influence')`
+* Choose one: +1 to Edge or +25,000 nuyen: `{python} inc('Edge')`
+* Choose one: +1 to any skill or attribute: `{python} inc('Willpower')`
+* Contact Points: `{python} inc('Contact_Points', 4)`
+
+### Agent
+
+* Choose one: +1 to Body, Charisma, or Logic: `{python} inc('Logic')`
+* Choose one: +1 to Agility, Intuition, or Willpower: `{python} inc('Intuition')`
+* Choose one: +1 to Con, Influence, Perception, or Stealth: `{python} inc('Influence')`
+* Resources: `{python} inc('Nuyen', 25000)`
+* Contact Points: `{python} inc('Contact_Points', 2)`
+  * Contact Types: Corporate, Government
+* Knowledge skill: **Wuxing**
+
+| Attributes | Current Value |
+|------------|:-------------:|
+| Body       | `{python} Body` |
+| Agility    | `{python} Agility` |
+| Reaction   | `{python} Reaction` |
+| Strength   | `{python} Strength` |
+| Willpower  | `{python} Willpower` |
+| Logic      | `{python} Logic` |
+| Intuition  | `{python} Intuition` |
+| Charisma   | `{python} Charisma` |
+| Magic      | `{python} Magic` |
+| Edge       | `{python} Edge` |
+
+| Skills     | Current Value |
+|------------|:-------------:|
+| Athletics  | `{python} Athletics` |
+| Con        | `{python} Con` |
+| Influence  | `{python} Influence` |
+| Perception | `{python} Perception` |
+| Sorcery    | `{python} Sorcery` |
+| East Asian Pop Culture | K |
+| MCT        | `{python} MCT` |
+| Small Unit Tactics | `{python} Small_Unit_Tactics` |
+| Wuxing     | `{python} Wuxing` |
+
+## Finishing Touches
+
+### Mystic Adept
+
+Mystic adepts must choose whether to gain a power point or spell for each point of Magic. In SRM, this is lowered to 0.5 pp or 1 spell per magic point.
+
+* Initial Magic Spells: 0
+* Initial Power Points: 3
+  * Sharp Tongue: 1.0
+  * Commanding Voice: 1.5
+  * Command Presence: 0.5
+* Three PP bought: `{python} inc('Karma', -30)`
+  * Improved Ability (Sorcery, R3): 3.0
+
+### Gear
+
+* Nanopaste Disguise `{python} inc('Nuyen', -1400)`
+  * Refill x1 `{python} inc('Nuyen', -300)`
+* Nanocosmetics `{python} inc('Nuyen', -700)`
+  * Refill x2 `{python} inc('Nuyen', -200)`
+* Savior Medkit `{python} inc('Nuyen', -2000)`
+   * Refill x1 `{python} inc('Nuyen', -300)`
+
+#### SINs
+
+* Lee Ji-Yoo (Rating 6) `{python} inc('Nuyen', -15000)`
+  * License: Magician `{python} inc('Nuyen', -1200)`
+* Tanaka Ryo (Rating 6) `{python} inc('Nuyen', -15000)`
+
+#### Electronics
+
+* Contacts (R3, Image Link, Flare Compensation, Thermographic Vision) `{python} inc('Nuyen', -1375)`
+* Erika Elite (R4), `{python} inc('Nuyen', -4350)`
+  * Securelink (R2)
+  * Personal Assistant (R6)
+  * P-ICE Nope!
+
+#### Armor & Clothing
+
+* Ares SecureTech SkinShield `{python} inc('Nuyen', -3150)`
+  * RACS 2
+  * Ballistic Hood
+
+### Contacts
+
+#### Seattle
+
+* Brynne Taggart (C5 L1) `{python} inc('Contact_Points', -6)`
+* Vincent Grisome (C5 L1) `{python} inc('Contact_Points', -6)`
+
+#### New Orleans
+
+* Claudette Laurier (C5 L1) `{python} inc('Contact_Points', -6)`
+
+#### Hong Kong
+
+* Hana (C6 L6) `{python} inc('Contact_Points', -12)`
+
+Total Contact Points: `{python} Contact_Points`
+
+Total Nuyen: `{python} Nuyen`
+
+Total Karma: `{python} Karma`

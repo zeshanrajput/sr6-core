@@ -1,0 +1,36 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+/.quarto/
+
+# Local environment
+.env
+
+# Quarto output
+_book/
+*.quarto_ipynb
+
+# Rules caches and local indexes
+.rules_cache.json
+.rules_index.json
+cache_index.json
+scratch/
+
+# Rules Vault Ignore Rules (keep only SRMG extracts)
+rules_vault/*
+!rules_vault/
+!rules_vault/SRMG-*.md
+
+# Kokoro-82M model and archives
+kokoro-en-v0_19/
+kokoro-en-v0_19.tar.bz2
+kokoro-multi-lang-v1_0/
+kokoro-multi-lang-v1_0.tar.bz2

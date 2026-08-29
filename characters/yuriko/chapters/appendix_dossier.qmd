@@ -1,0 +1,78 @@
+---
+title: "Appendix: Character Dossier - Yuriko Star"
+format: html
+---
+
+# Character Dossier: Yuriko Star
+
+**Real Name**: r31k0 Takahashi  
+**Metatype**: AI-Pilot AI  
+**Role**: Shadowrunner  
+
+## Attributes
+
+| Attribute | Rating |
+| :--- | :--- |
+| BODY | 5 |
+| AGILITY | 3 |
+| REACTION | 5 |
+| STRENGTH | 3 |
+| WILLPOWER | 6 |
+| LOGIC | 4 |
+| INTUITION | 2 |
+| CHARISMA | 4 |
+| EDGE | 4 |
+| RESONANCE | 8 |
+
+## Tactical Weapon Arrays
+
+::: {.callout-note icon=false title="⚔️ WEAPON: Crimson Wasp Array (2x Link-Fired) (General)"}
+| Damage | Attack Rating (C/N/M/F/E) | Modes | Ammo | Avail | Cost |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **7P** | 24 / 22 / 17 / 12 / — | SA | 15(c) | 1 | — |
+:::
+
+::: {.callout-note icon=false title="⚔️ WEAPON: Tesla Coil (General)"}
+| Damage | Attack Rating (C/N/M/F/E) | Modes | Ammo | Avail | Cost |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **5S(e)** | 8 / — / — / — / — | SS | —(c) | 1 | — |
+:::
+
+::: {.callout-note icon=false title="⚔️ WEAPON: Dagger of the Sacred Rose (+1 Weapon Focus) (General)"}
+| Damage | Attack Rating (C/N/M/F/E) | Modes | Ammo | Avail | Cost |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **2P** | 9 / 1 / — / — / — | SA | —(c) | 1 | — |
+:::
+
+::: {.callout-note icon=false title="⚔️ WEAPON: Amalgam Cestas (Stun) (General)"}
+| Damage | Attack Rating (C/N/M/F/E) | Modes | Ammo | Avail | Cost |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **4S(e)** | 5 / — / — / — / — | SA | —(c) | 1 | — |
+:::
+
+::: {.callout-note icon=false title="⚔️ WEAPON: Amalgam Cestas (Phys) (General)"}
+| Damage | Attack Rating (C/N/M/F/E) | Modes | Ammo | Avail | Cost |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **3P** | 6 / — / — / — / — | SA | —(c) | 1 | — |
+:::
+
+
+## Qualities & Rules Citations
+
+- **Natural Hacker** (5 Karma) — [Hack and Slash (p. 4)]
+- **Stream: Technoshamans** (5 Karma) — [SR6 Core]
+- **Designer** (5 Karma) — [Hack and Slash (p. 4)]
+- **Sensor Upgrade** (5 Karma) — [Hack and Slash (p. 4)]
+- **Pilot Origins** (5 Karma) — [Hack and Slash (p. 4)]
+- **Buddy System** (5 Karma) — [Hack and Slash (p. 4)]
+- **Sprite Bane** (5 Karma) — [SR6 Core]
+- **Hooder** (5 Karma) — [Sixth World Companion (p. 9)]
+
+## Active Skills
+
+- **Tasking**: Rating 6
+- **Cracking**: Rating 5
+- **Electronics**: Rating 5
+- **Influence**: Rating 1
+- **Con**: Rating 1
+- **Native Language**: Rating 4

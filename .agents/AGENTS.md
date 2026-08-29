@@ -108,5 +108,5 @@ Before completing edits or reviewing narrative/character updates, run correspond
 * **Combat Ledger Action Parser**: `sr6 ledger parse "chapters/<file>.qmd"`
 * **Continuity Engine**: `sr6 continuity <repo_path>`
 * **Character Creation Auditor**: `sr6 characters audit [char_id]`
-* **Multi-Format Exporters**: `sr6 export <char_id> --format=roll20|vtt|xml|cards`
+* **Multi-Format Exporters**: `sr6 export <char_id> --format=roll20|vtt|xml|text_modular`
 * **Plugin Management**: `sr6 plugin install` / `sr6 plugin status`

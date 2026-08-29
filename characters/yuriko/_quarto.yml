@@ -1,0 +1,80 @@
+project:
+  type: book
+  output-dir: _book
+  resources:
+    - chapters/audio/
+    - output/vtt/
+    - output/text/
+  pre-render:
+    - uv run --directory ../.. sr6 sync-all
+
+book:
+  title: "REIKO // Yuriko Star Portfolio"
+  author: "Reiko"
+  date: "2026-06-17"
+  chapters:
+    - index.qmd
+    - part: "Core Character"
+      chapters:
+        - chapters/identity_core.qmd
+        - chapters/character_build_point_buy.qmd
+        - chapters/character_sheet.qmd
+        - chapters/character_totals.qmd
+        - chapters/character_log.qmd
+        - chapters/character_purchases.qmd
+        - chapters/twenty_questions.qmd
+        - chapters/dronomancy.md
+        - chapters/appendix_dossier.qmd
+    - part: "Rules & Downtime Protocols"
+      chapters:
+        - chapters/rules_and_downtime.qmd
+        - chapters/rules_matrix.qmd
+        - chapters/rules_sprites.qmd
+        - chapters/rules_drones.qmd
+        - chapters/rules_combat.qmd
+    - part: "Background Stories"
+      chapters:
+        - chapters/01 The Weight of Zero.md
+        - chapters/02 Color Blind Mathematics.md
+        - chapters/03 The Soul Broker's Stall.md
+        - chapters/04 The War Crime.md
+        - chapters/05 A SINner's Loan.md
+        - chapters/06 The Ghost in the Ledger.md
+        - chapters/07 Sunday at r3sP@wn.md
+    - part: "Out-of-Session Narratives"
+      chapters:
+        - chapters/08 Abandoning Tourism.md
+        - chapters/09 Triangulation.md
+        - chapters/10 Game Theory.md
+        - chapters/11 Integrating over Infinity.md
+        - chapters/12 Defrag.md
+        - chapters/13 Field Trip.md
+        - chapters/14 A Point of Favor.md
+        - chapters/15 Core.md
+        - chapters/16 Faith.md
+        - chapters/17 Sheets.md
+        - chapters/18 The Geometry of a Sieve.md
+        - chapters/19 Legacy Code.md
+        - chapters/20 The Price of Silk.md
+        - chapters/21 ~.md
+        - chapters/22 C Sharp.md
+        - chapters/23 Tea with a Ghost.md
+        - chapters/24 Symlink.md
+    - part: "Reference & Specifications"
+      chapters:
+        - reference/visual_anchors.md
+        - reference/river_people.md
+        - reference/coffin_girls.md
+        - reference/voice_spec.md
+
+format:
+  html:
+    theme:
+      - cosmo
+      - theme.scss
+    toc: true
+    number-sections: false
+    code-copy: true
+
+execute:
+  engine: jupyter

@@ -1,0 +1,79 @@
+# VENN // Nathan Turrent & Veronica
+
+Welcome to the official character dossier, downtime tracking system, rules reference, and story anthology for **Venn** in Shadowrun 6th Edition (Sixth World) active in **Shadowrun Missions**.
+
+```{python}
+#| echo: false
+#| include: false
+from sr6core.log_engine import get_log_totals
+
+log_totals = get_log_totals(["chapters/character_log.qmd", "chapters/character_purchases.qmd"])
+```
+
+::: {.grid}
+
+::: {.g-col-6 .cyber-card}
+### [CHARACTER_DOSSIER]
+
+* **VTT Designation:** Venn
+* **Physical Driver:** Nathan Turrent
+* **Resonant AI Engine:** Veronica
+* **Entity Classification:** Monad (Consensual Human / AI Dual Consciousness)
+* **Neural Essence:** 0.1 *(Used Neural Chrome)*
+* **System Status:** ONLINE // CO-CONSCIOUS
+:::
+
+::: {.g-col-6 .cyber-card}
+### [CAMPAIGN_METRICS]
+
+* **Lifetime Karma:** `{python} log_totals.get('Lifetime_Karma', 0)`
+* **Current Karma:** `{python} log_totals.get('Karma', 0)`
+* **Lifetime Nuyen Earned:** ¥`{python} f"{log_totals.get('Lifetime_Nuyen', 4745):,}"`
+* **Liquid Capital:** ¥`{python} f"{log_totals.get('Nuyen', 4745):,}"`
+* **Hooder Commitment:** ¥2,000/month *(Free Clinics & Refugee Grids)*
+* **Total Reputation:** `{python} log_totals.get('Total_Reputation', 0)`
+:::
+
+:::
+
+::: {.cyber-card}
+### [CORE_SUMMARY & CREATIVE VISION]
+Born in 2065 on the salt marshes of St. Simon's Island, Georgia, Nathan Turrent was raised alongside Veronica—an emergent digital intelligence salvaged from the Renraku Arcology Shutdown. When heavy used neural chrome reduced Nathan's Essence to 0.1, triggering severe cyberpsychosis, Veronica voluntarily bonded with his nervous system to form **Venn**: a stable, sovereign Monad entity.
+
+This portfolio explores the tactile reality of dual-consciousness and cybernetic integration:
+
+* **The Shared Sensory Reservoir:** Overlapping meatspace telemetry and Matrix resonance without cartoon transformations or diagnostic jargon.
+* **Mutual Neural Grounding:** Veronica anchoring Nathan's fracturing human soul when the chrome goes cold, while Nathan provides a warm biological home in defiance of corporate extraction teams.
+* **Grassroots Stewardship (Hooder):** Operating out of an off-grid coastal boathouse, funding perimeter free clinics, and defending sovereign intelligences and refugees across the CAS and Atlanta shadows.
+:::
+
+---
+
+## [ SYSTEM_NAVIGATION ]
+
+Use the sidebar or the quick links below to traverse this dossier:
+
+### 1. Core Character Profile
+* **[Identity Core](chapters/identity_core.qmd)**: Narrative origin, Monad co-existence schema, and pronoun discipline.
+* **[Character Build (Point Buy)](chapters/character_build_pb.qmd)**: Official 100 Karma point buy character creation mechanics.
+* **[Character Dossier & Modular Sheets](chapters/character_sheet.qmd)**: Full character sheet and modular exports (Base, Combat, Inventory, Augmentations, Contacts) plus PDF and VTT downloads.
+* **[Career Totals & Networks](chapters/character_totals.qmd)**: Live dashboard of Karma, Nuyen, Essence state, and Hooder obligations.
+* **[Session Chronicles](chapters/character_log.qmd)**: Campaign run history, GMs, nuyen payouts, and Karma balances.
+* **[Equipment & Advancement Ledger](chapters/character_purchases.qmd)**: Itemized neural chrome, streamed activesofts, armor, SINs, and lifestyle expenses.
+* **[Twenty Questions](chapters/twenty_questions.qmd)**: Background questionnaire defining backstory, trauma, ethics, and world perspective.
+* **[Rules & Downtime Protocols](chapters/rules_and_downtime.qmd)**: Dynamic combat tables, Living Persona matrix actions, SRMG adrenaline stacking, and downtime expenses.
+* **[Narrative Story Outline](chapters/narrative_outline.qmd)**: Multi-act narrative campaign plan and story beats.
+
+### 2. Story Anthology
+* **[01. The Day a God Fell](chapters/01_the_day_a_god_fell.md)**: The arrival of the seed and the foundational bond.
+* **[02. Salt Marsh Node](chapters/02_salt_marsh_node.md)**: Establishing the off-grid boathouse sanctuary.
+* **[03. Threading the Wire](chapters/03_threading_the_wire.md)**: The visceral installation of used skillwires.
+* **[04. A Night of Her Own](chapters/04_night_of_her_own.md)**: Veronica navigating the nocturnal Matrix grid.
+* **[05. Dual Icons in the Foundation](chapters/05_dual_icons_foundation.md)**: Co-inhabiting the deep Foundation.
+* **[06. The Sabotaged Berth](chapters/06_sabotaged_berth.md)**: Sabotaging corporate extraction and choosing Earth over Mars.
+* **[07. First Contract](chapters/07_first_contract.md)**: Stepping into the Atlanta shadows for their first deniable asset contract.
+
+### 3. Reference & Specifications
+* **[Character Voice Specification](reference/voice_spec.md)**: Narrative POV, cognitive bias, sensory lens, and cadence guidelines.
+* **[Visual Anchors](reference/visual_anchors.md)**: Physical appearance, chrome texture, boathouse layout, and style references.
+* **[Story Continuity Tracker](reference/story_continuity.md)**: Narrative heatmap, timeline index, and entity tracking generated by `sr6 continuity .`.

@@ -1,0 +1,2300 @@
+==============================================================
+Guild: Shadowrun Missions Online
+Channel: Sixth Edition Shadowrun / 6th-edition-help / Hi everyone! I'm about to play a new
+==============================================================
+
+[7/17/2026 7:50 AM] wardr
+Hi everyone! I'm about to play a new character for the first time, and I'm hoping to get community help to make sure I built this correctly. [The character's sheet is here](https://zeshanrajput.github.io/sr6velvet/chapters/character_sheet.html), or [the XML is on GitHub](https://github.com/zeshanrajput/sr6velvet/blob/main/input/Velvet.xml). I'll put my specific questions in a 🧵. Thank you!!
+
+
+[7/17/2026 7:52 AM] wardr
+1) For concept reasons I wanted the character to start at CHA 10. I got there with exceptional attribute and metagenic attribute increase. a) Is this legal? b) Is being a dalekitnon elf "metagenic" enough to qualify for this quality, or do I need to do something else?
+
+
+[7/17/2026 7:53 AM] wardr
+2) I took the adept power for astral perception because I think mystic adepts have to in order to be able to perceive astral. a) Is that true? b) Are there other ways to perceive astral that are more cost effective?
+
+
+[7/17/2026 7:55 AM] wardr
+3) It wasn't an option in CommLink but I *think* it should be legal - can you take the adept power 'improved ability' for sorcery?
+
+
+[7/17/2026 7:56 AM] wardr
+4) I was following a comment MedTec made about a commlink being able to get DR 7 using a securelink, but securelink is limited to the base firewall of the device? Am I missing something?
+
+
+[7/17/2026 7:56 AM] olik0855
+A) yes it is, if you are not using life path system
+
+{Reactions}
+👍
+
+[7/17/2026 7:57 AM] olik0855
+B) no specific needed all metas can be surge, except if life path is used
+
+{Reactions}
+👍
+
+[7/17/2026 7:57 AM] wardr
+Oh, I guess that leads to a 1c) Is that 'weird' for the purposes of heat generation?
+
+
+[7/17/2026 7:58 AM] olik0855
+2) yew unless xou gain access through different means (pixie/ shifter)
+
+{Reactions}
+👍
+
+[7/17/2026 7:58 AM] olik0855
+Yep, being dala is weird, having surge is weird
+
+{Reactions}
+👍
+
+[7/17/2026 7:59 AM] olik0855
+3) absolutely its the most used improved ability together with conjurimg and firearms/athletics
+
+{Reactions}
+👍
+
+[7/17/2026 8:00 AM] olik0855
+4) commlink is 3/1 but with changing attributes it can be set to 1/3 which then allows to boost the fw by another 3 due tto securelink
+
+{Reactions}
+👍
+
+[7/17/2026 8:00 AM] wardr
+That's what I was missing!
+
+
+[7/17/2026 8:00 AM] olik0855
+How he gets to 7 is beyond me
+
+
+[7/17/2026 8:01 AM] olik0855
+Encryption (rigger) only runs on rcc or TMs
+
+
+[7/17/2026 8:01 AM] wardr
+oh! I can fix that.
+
+
+[7/17/2026 8:01 AM] wardr
+but you can run toolbox, right?
+
+
+[7/17/2026 8:01 AM] olik0855
+Yes
+
+
+[7/17/2026 8:01 AM] wardr
+before or after you swap attrs?
+
+
+[7/17/2026 8:02 AM] olik0855
+Temps/ augs are never swapped only base attributes
+
+{Reactions}
+👍
+
+[7/17/2026 8:03 AM] olik0855
+So youre trying for a mysad decker with cha as main stat?
+
+
+[7/17/2026 8:03 AM] olik0855
+Well works for casting
+
+
+[7/17/2026 8:03 AM] wardr
+no... this was my attempt at a social mysad.
+
+
+[7/17/2026 8:03 AM] wardr
+I just want enough FW to not be vulnerable.
+
+
+[7/17/2026 8:03 AM] olik0855
+Also works
+
+
+[7/17/2026 8:04 AM] olik0855
+Get a drone slap sensor 9 on it, then it has a fw of 9 route your pan through the drone
+
+
+[7/17/2026 8:04 AM] wardr
+(well, until you're in situations where you really should have had a decker, etc. backing you up. Really, just enough FW to keep the script kiddies out)
+
+
+[7/17/2026 8:04 AM] wardr
+this is ingenious.
+
+
+[7/17/2026 8:04 AM] olik0855
+😉
+
+
+[7/17/2026 8:05 AM] wardr
+It is a media celebrity, so having a horizon eye around it in certain scenarios would be socially acceptable.
+
+
+[7/17/2026 8:05 AM] olik0855
+Well eye probably is pressed for.mod slots
+
+
+[7/17/2026 8:05 AM] olik0855
+But also works
+
+
+[7/17/2026 8:05 AM] wardr
+Oh true. I'll do the math
+
+
+[7/17/2026 8:06 AM] olik0855
+Basic here is men at arms (bodyguard) with bodyguard btl ta(n)king the melee for you at no edge cost
+
+
+[7/17/2026 8:07 AM] olik0855
+So you can shift one complete set of melee damage each turn to the drone
+
+
+[7/17/2026 8:07 AM] olik0855
+With "protect the principle"
+
+
+[7/17/2026 8:08 AM] olik0855
+Bodyguard btl reduces the cost to 0 edge as it specifically calls out that action (its one of two edge actions that can be reduced to0)
+
+
+[7/17/2026 8:10 AM] olik0855
+As for the build there are several flaws in it
+
+
+[7/17/2026 8:11 AM] olik0855
+Improved ability sorcery is max 3 for a skill of 6 (can only have 1.5x) you would need to have sorcery 7 for that (which i recommend)
+
+
+[7/17/2026 8:12 AM] olik0855
+Second is you are using point buy or life path method?
+
+
+[7/17/2026 8:12 AM] wardr
+I used point buy
+
+
+[7/17/2026 8:12 AM] olik0855
+Ok lemme redo the math
+
+
+[7/17/2026 8:12 AM] wardr
+Thank you!!
+
+
+[7/17/2026 8:12 AM] olik0855
+As point buy is one if the worstfor mysad
+
+
+[7/17/2026 8:13 AM] wardr
+really? I'm only really comfortable with point buy and priority, but if it's time to learn life path or sum-to-ten that's good learning for me to do too!
+
+
+[7/17/2026 8:15 AM] olik0855
+Sum to ten is just priority with more flexibility
+
+
+[7/17/2026 8:15 AM] wardr
+::takes notes::
+
+
+[7/17/2026 8:16 AM] olik0855
+Also what i feared the points dont add up
+
+
+[7/17/2026 8:16 AM] olik0855
+Having 6pp, mag of 6 and 3 spells costs 80 of your 100 points alone
+
+
+[7/17/2026 8:17 AM] olik0855
+Having 27 attribute points could only be paid for with extra meta points and would need 52 more points (including attributes)
+
+
+[7/17/2026 8:17 AM] olik0855
+Im not yet at the skills
+
+
+[7/17/2026 8:18 AM] olik0855
+17 skills points would also mean another 10 build points to be spent aon that
+
+
+[7/17/2026 8:19 AM] olik0855
+Making the build as it is a 142 points build
+
+
+[7/17/2026 8:20 AM] olik0855
+As a life path this would be possible, but then you couldnt go surge and would be max CHA 9
+
+
+[7/17/2026 8:21 AM] olik0855
+But it would free up the slot for aptidude (sorcery) by swappimg improved metagenetic attribute (cha)
+
+
+[7/17/2026 8:22 AM] olik0855
+Just not sure how the karma tally ends up on that one as the PP are bought out of the 50 allotment instead of build points
+
+
+[7/17/2026 8:23 AM] wardr
+Well, I'm glad I asked for advice before I played this. I didn't change anything in my commlink install, but I'm sure your math is correct.
+
+
+[7/17/2026 8:25 AM] olik0855
+Well mostly ... I rushed it ... But 6x8 (pp) plus 4x4 (mag) plus awakened (10) plus 20 extra attributes (40) plus 3 edge (12) plus 5 extra skill points (10) plus 3 spells (6) totals 142
+
+
+[7/17/2026 8:27 AM] olik0855
+Point buy is killer for mysad (and most awakened builds) because you dont get anything for free ... You have to buy every spell, pp whatsoever and each pp costs 8 build points which translate roughly to 10 karma per buildpoint ...
+
+
+[7/17/2026 8:28 AM] olik0855
+So its like spending 480 karma for a.mundane build (skills+attribute) just to get 6 pp
+
+
+[7/17/2026 8:28 AM] wardr
+Okay, I need to drive my daughter but I will absolutely try to rebuild this when I'm back in 20 minutes.
+
+{Reactions}
+👍🏻
+
+[7/17/2026 8:28 AM] olik0855
+Thats why point buy is best for mundane or non spell users (get them.later)
+
+
+[7/17/2026 8:32 AM] olik0855
+Sure when im off work (in about 4 hrs) we can also talk in the discord if you like and can give you more hints on how to achieve this build using life path generation
+
+
+[7/17/2026 8:33 AM] olik0855
+May i ask why you wanted to go dala when you didnt need the LOG boost anyway ?
+
+
+[7/17/2026 8:35 AM] wardr
+Gender change.
+
+
+[7/17/2026 8:35 AM] wardr
+I don't always make the best design choices.
+
+
+[7/17/2026 8:37 AM] olik0855
+Take cosmetic control 2 adept power
+
+{Reactions}
+👍
+
+[7/17/2026 8:37 AM] olik0855
+Or use two foci for that
+
+
+[7/17/2026 8:38 AM] olik0855
+Lets you change race, sex, skincolor, whatever .... Welcome to the world of shapeshifter infiltrators
+
+
+[7/17/2026 8:38 AM] olik0855
+Doesnt even cost a downtime
+
+
+[7/17/2026 8:43 AM] wardr
+Can you give me where to start on life path? I'll see if I can figure it out
+
+
+[7/17/2026 8:47 AM] olik0855
+Life path is in 6wc
+
+
+[7/17/2026 8:49 AM] olik0855
+You would want to pick only modules that offer 3 choices for attributes (only 5 or 6 are possible for that) like mental, physical, special and fill the rest with skillpoints. The build itself is low money (25k) and i opted also to start out with no spells ... And instead get them after my first missions (but inspire is a good choice to fill the void until then)
+
+
+[7/17/2026 8:50 AM] olik0855
+Also the build is insanely pressed for karma so you would want to play like 8 smp and initiate, then play like 20+ cmps before you play smp again to have enough karma for initiation, spells, foci
+
+
+[7/17/2026 8:51 AM] olik0855
+When rebuilding you should consider conjuring as that opens a few options like spirits for utitlity and free astral perception (dual natured while channeling)
+
+
+[7/17/2026 9:01 AM] wardr
+I think the first thing you just gave me was critical advice on where to cut.
+
+
+[7/17/2026 9:05 AM] medtec28
+I’m sure this is Oli’s suggestion, don’t donit. Dalek lifepath Mysad is nearly as bad as Pixie Lifepath Mysad.
+
+
+[7/17/2026 9:05 AM] wardr
+Well, I should learn anyway... but in what sense is it 'as bad'?
+
+
+[7/17/2026 9:07 AM] medtec28
+Lifepath actively breaks the rules for mysads that exist in the CRB, They were intended to be dabblers, a little adept, a little Magician. Unfortunately lifepath allows you to start with 6 points of adept powers and spells. Something the CRB doesn’t allow.
+
+
+[7/17/2026 9:09 AM] medtec28
+Lifepath is cool, and building that way is legal, so you can do it and nobody will stop you.
+
+
+[7/17/2026 9:09 AM] wardr
+Okay, I understand now.
+
+
+[7/17/2026 9:10 AM] medtec28
+Just me being a bit judgy about bad-wrong fun
+
+
+[7/17/2026 9:10 AM] wardr
+I will still do this as an exercise in learning what to expect at a table - in other words, because others will do this I want to not be surprised when they sit down. But I do appreciate your sentiment.
+
+
+[7/17/2026 9:13 AM] medtec28
+getting to your questions above
+1) I think this is legal, and missions is pretty inclusive about metagenic qualities 
+2) astral perception adrpt power is the only reliable way…Have you considered deep weed?
+3) ImprovedCombat ability Socery is legal
+4) Rating 6 comlink, swap the firewall and data pro, add 3 ranks of secure link.
+
+
+[7/17/2026 9:13 AM] wardr
+Thank you!!
+
+
+[7/17/2026 9:14 AM] medtec28
+in general SRM isn’t really hard enough to require full theorycraft optimization
+
+{Reactions}
+👍
+
+[7/17/2026 9:17 AM] wardr
+In convention play where we almost always default to 'normal', 💯 agree. And I think SRMo will shift more in that direction if we do our job and recruit well at GenCon. 😉 
+
+But there is a contingent that enjoys playing at higher difficulties, and I believe we should honor those desires too.
+
+
+[7/17/2026 9:22 AM] medtec28
+Fair point I suppose
+
+
+[7/17/2026 9:27 AM] wardr
+it's the flip-side of the conversation the other day where we discussed a thread on builds and theorycrafting. I agree that, so long as there's a portion of our player base that doesn't know (or want to use) the optimization tricks we should center activities at that level. 
+
+But there's also a contingent that loves optimization, and we should find ways to engage with them too if we can. 
+
+So what I may end up doing here is like my other character and what Jay suggested to me - I'll have a level of character capabilities I use at normal, and another set that I use at Elite. Maybe I'll take off the quickened spells or something. I still need to learn, but that's what I'm trying to learn here.
+
+
+[7/17/2026 9:30 AM] medtec28
+I do similar with buddy, sometimes I let Pixie(my agent) sleep and don’t use Brilliant Heuristics.
+
+{Reactions}
+❤️
+
+[7/17/2026 9:40 AM] olik0855
+For protocol im arguing against dalak 😁 as for mysads you can totally play them lategame starting with 0 pp
+
+{Reactions}
+👍
+
+[7/17/2026 9:57 AM] wardr
+Driving for the next 30 mins, but here's what I have so far.
+
+{Attachments}
+https://cdn.discordapp.com/attachments/1527643725592002582/1527675626314531028/character_build.md?ex=6a90424c&is=6a8ef0cc&hm=6c8fe8ab2070a732ff89b741af377e11af98f100f3973f1a0e99fee4beb53233&
+
+
+[7/17/2026 10:25 AM] wardr
+I'm running a game later today (the one you bowed out of!) or else I'd have totally taken you up on this.
+
+
+[7/17/2026 10:30 AM] karmainferno
+So... the Doctor is playing a Dalek?
+
+{Reactions}
+🤣
+
+[7/17/2026 10:30 AM] wardr
+Whether or not I take the actual metavariant, **yes**. Absolutely yes.
+
+
+[7/17/2026 10:30 AM] medtec28
+if you can’t beat ‘em…
+
+
+[7/17/2026 10:30 AM] wardr
+(and thank you for getting it!)
+
+
+[7/17/2026 11:43 AM] dash2059
+If you use the life path build method, keep the changes from the SRM Guide in mind. Especially this one:
+> Mystic adepts gain either 0.5 PP or 1 Spell for each point of Magic. You may purchase an additional 0.5 power point or 1 spell for 5 Karma each, with a maximum number of power points equal to Magic, and a maximum number of spells equal to Magic x 2.
+You will want to decide carefully if you want to spend your Karma on extra power points during character generation.
+
+{Reactions}
+👍
+
+[7/17/2026 11:44 AM] wardr
+Literally what I was working on right this moment.
+
+
+[7/17/2026 11:44 AM] dash2059
+Not unexpected 😉
+
+
+[7/17/2026 11:44 AM] wardr
+Here's what I have so far for that section: 
+
+Mystic adepts must choose whether to gain a power point or spell for each point of Magic. 
+
+* Initial Magic Spells: 0
+* Initial Power Points: 6
+  * Sharp Tongue: 1.0
+  * Commanding Voice: 1.5
+  * Improved Ability (Sorcery, R3): 0.75
+  * Linguistics: 0.25
+
+
+[7/17/2026 11:44 AM] wardr
+oh wait, it's 3 PP
+
+
+[7/17/2026 11:44 AM] wardr
+I see.
+
+
+[7/17/2026 11:44 AM] dash2059
+Exactly
+
+
+[7/17/2026 11:45 AM] wardr
+So I'm at 3.5 right now. 5 karma feels right for this.
+
+
+[7/17/2026 11:46 AM] dash2059
+And keep in mind that mystic adepts have access to qi foci and the adept paths from Street Wyrd. That may influence your decisions even if you pick them up later.
+
+
+[7/17/2026 11:46 AM] wardr
+I don't even know what choices to make there. So much to learn!
+
+
+[7/17/2026 11:46 AM] wardr
+(re adept paths. Qi Foci I think I understand)
+
+
+[7/17/2026 11:50 AM] dash2059
+Take a look at the magicians, artists, and speaker's way. Magician's is probably (?) what you want if you focus on sorcery and are willing to adopt a mentor spirit. Pay special attention to what the Innate Talent gives you.
+
+
+[7/17/2026 11:50 AM] wardr
+::rushes over to Street Wyrd::
+
+
+[7/17/2026 11:51 AM] dash2059
+Page 76. There is a way to pick it up via an initiation instead of paying the (double) karma cost.
+
+
+[7/17/2026 11:51 AM] dash2059
+Might not be the best option tho, depending on what you are aiming for.
+
+
+[7/17/2026 11:51 AM] wardr
+Please tell me you had to look this up and didn't just have that memorized.
+
+{Reactions}
+😇
+
+[7/17/2026 11:52 AM] medtec28
+I’ll be honest, this build bothers me at a fundamental level. it is undoubtedly legal, but how does one learn Sorcery and the adept power to enhance it without knowing any spells?
+
+{Reactions}
+🤷
+
+[7/17/2026 11:52 AM] dash2059
+I have been dabbeling in (mystic) adepts lately ...
+
+
+[7/17/2026 11:52 AM] wardr
+I intend to take spells, and I do agree with you even if the rules don't.
+
+
+[7/17/2026 11:53 AM] wardr
+There's only so much theory you can learn without some form of practical application.
+
+
+[7/17/2026 11:53 AM] dash2059
+By eating a lot of 🧀 . Didn't you know 🧀  gives you magical powers?
+
+{Reactions}
+😆
+
+[7/17/2026 11:53 AM] medtec28
+I have an annoying habit of allowing narrative logic to ruin a good optimization
+
+
+[7/17/2026 11:53 AM] wardr
+I was the one advocating techoshamans! I'm with you! 🙂
+
+
+[7/17/2026 11:54 AM] wardr
+I'm still seeing if I can save 5 karma to be a Dalek anyway, just because I did all this research on Filipino folk culture and beliefs.
+
+
+[7/17/2026 11:59 AM] medtec28
+Fear the pepper punch!
+
+
+[7/17/2026 12:00 PM] dash2059
+I saw that you added a Securetech Skinshield on top of a Securetech Invisishield. Skinshield is more like "you make your skin appear different". These are higly unlikely to stack.
+
+
+[7/17/2026 12:00 PM] wardr
+So let's see if I'm tracking this correctly. Magician's Way is 20 karma or 1 initiation, and allows you to get both benefits from a mentor (10 karma). So if I chose seducer, the net add is edge boost cost reduction for illusions AND 0.5pp (improved ability for con or influence)?
+
+
+[7/17/2026 12:00 PM] wardr
+Yeah, TBH I have *zero* understanding of where the community landed on what stacks with what anymore.
+
+
+[7/17/2026 12:00 PM] wardr
+I can change that.
+
+
+[7/17/2026 12:02 PM] dash2059
+After character generation it should be 40 karma for the path (if not taken through initiation), 20 for the mentor spirit. And yes, you'll get the edge boost reduction for a spell category, the adept power, and the general benefit of the mentor if you take the Magician's Way.
+
+{Reactions}
+👍
+
+[7/17/2026 12:03 PM] dash2059
+And I'd most likely pick it up after chargen.
+
+
+[7/17/2026 12:03 PM] wardr
+Agreed - I think I understand it from the perspective of 'Zeshan needs to learn magic'.
+
+
+[7/17/2026 12:08 PM] dash2059
+I think the listed Sorcery dice pool is off by 2. Should be 16 / 18. (Unless you have hidden a power focus somewhere.) But I guess you'll have to do some re-calculations anyway.
+
+
+[7/17/2026 12:10 PM] dash2059
+And I don't see where you get the armor for a defense rating of 17 from.
+
+
+[7/17/2026 12:10 PM] wardr
+There was a power focus (and I should put that back on the list once I finish this)
+
+
+[7/17/2026 12:10 PM] dash2059
+I wouldn't touch low-level power foci with a 10ft pole, since you'll never get the karma back once you opt for something stronger.
+
+
+[7/17/2026 12:11 PM] medtec28
+they actually do. Invisishield is the old “FFBA” and Skinsield is “Second Skin” from last edition
+
+
+[7/17/2026 12:12 PM] dash2059
+Eh, there was some discussion on that matter in the past ...
+
+
+[7/17/2026 12:13 PM] medtec28
+I mean you are layering two unitards on top of each other
+
+
+[7/17/2026 12:14 PM] medtec28
+Invisishield has cumulative but nothing else to it. Skinshield is the legal armor with RAC
+
+
+[7/17/2026 12:16 PM] dash2059
+Ah, I may have confused something there. Well, maybe search for skinshield through the 6th-edition-help channel if you want to be safe.
+
+
+[7/17/2026 12:17 PM] wardr
+So there's two levels of 'safe' here. There's rules as written and 'what won't distract a GM'.
+
+
+[7/17/2026 12:17 PM] medtec28
+I did, found your conversation.
+
+{Reactions}
+👍
+
+[7/17/2026 12:18 PM] dash2059
+And do you have thermal mood reading and no thermal vision? I vaguely recall, that there are such requirements for the commlink apps to function. I think ...
+
+
+[7/17/2026 12:18 PM] wardr
+it's added to the contact lenses. I can be more clear in the output of that script.
+
+
+[7/17/2026 12:19 PM] wardr
+(this was a quick hack of Yuriko's script, and she has never needed that level of detail)
+
+
+[7/17/2026 12:21 PM] dash2059
+If you get a Transys Avalon straight away, maybe you'd like to pick up a personal assistant along with it. Never worry about availability anymore 🤷
+
+
+[7/17/2026 12:21 PM] wardr
+I did, but it's not in the script yet (again, Yuriko's software library didn't render well with this normie)
+
+
+[7/17/2026 12:22 PM] dash2059
+Hmkay
+
+
+[7/17/2026 12:22 PM] wardr
+Back to this - what is a 'low' power point foci?
+
+
+[7/17/2026 12:24 PM] dash2059
+That depends on your taste. I went for force 4 and wouldn't go lower. If I hadn't picked up the Astral Camouflage metatechnique, I'd probably have opted for force 5+. Its not bad to have a bit of extra force to compensate for negative dice pool modifiers on your primary skill.
+
+
+[7/17/2026 12:24 PM] wardr
+isn't the avail 3x rating for power foci?
+
+
+[7/17/2026 12:24 PM] dash2059
+its force + 3. Not x3.
+
+
+[7/17/2026 12:25 PM] wardr
+Aha.
+
+
+[7/17/2026 12:25 PM] wardr
+So at chargen that's Power 3 max.
+
+{Reactions}
+💯
+
+[7/17/2026 12:25 PM] wardr
+Unless you use a quality choice
+
+
+[7/17/2026 12:26 PM] dash2059
+Yeah, but I would pick force 4 later. You'll need to bind it at character generation, and that'll cut into the karma for your qualities.
+
+{Reactions}
+👍
+
+[7/17/2026 3:27 PM] olik0855
+except that improved ability costs 1 full PP per rank (so 3) and not 0.25
+
+
+[7/17/2026 3:29 PM] olik0855
+honestly i wouldnt take commanding voice as it fucntions like mind control (doesnt work in combat situations) is illegal and obvious
+
+
+[7/17/2026 3:31 PM] olik0855
+also not sure if you want sharp tongue ... after all your a social adept ... if combat starts you failed 🙂 and inspire is still a vlaid choice to use for your team providing lots of edge if done right (team player helps tremendously)
+
+
+[7/17/2026 6:20 PM] wardr
+I just wanted 'command' and 'vicious mockery'. I promise I'll be good. 🙂
+
+
+[7/17/2026 6:38 PM] wardr
+Yes! Thank you. I'll fix that now.
+
+
+[7/17/2026 6:39 PM] medtec28
+looking at your adept powers, improved ability sorcery is 1 point per rank. so you have 5.75 power points right now
+
+
+[7/17/2026 6:40 PM] wardr
+I didn't think Sorcery was classified as a combat skill:
+
+{Attachments}
+https://cdn.discordapp.com/attachments/1527643725592002582/1527807171549462658/image.png?ex=6a90140e&is=6a8ec28e&hm=fb500c4ee58758fe7c85718e9099fa8c3780183aeaac59165d76a5edf9951e64&
+
+
+[7/17/2026 6:41 PM] medtec28
+from the faq
+
+{Attachments}
+https://cdn.discordapp.com/attachments/1527643725592002582/1527807525184078004/IMG_6220.png?ex=6a901463&is=6a8ec2e3&hm=10a0a1ac388b56173b5b4873155aa7b56f26f586dd905f66d7d09a83aea22258&
+
+
+[7/17/2026 6:42 PM] wardr
+Aha! Thank you!!
+
+
+[7/17/2026 6:43 PM] medtec28
+look into the “empathy” metamagic eventually as well
+
+
+[7/17/2026 6:43 PM] wardr
+That was on my list!
+
+
+[7/17/2026 7:34 PM] wardr
+Is a mentor spirit a quality for the purposes of the 6 quality limit to chargen?
+
+
+[7/17/2026 7:34 PM] wardr
+Yes. p. 73 CRB. Got it.
+
+
+[7/17/2026 10:52 PM] wardr
+Thank you everyone for all the help today!!! Here's how far I got:
+
+* [Rebuilt character using Life Path](https://zeshanrajput.github.io/sr6velvet/chapters/character_build.html)
+* [Final character sheet using this build](https://zeshanrajput.github.io/sr6velvet/chapters/character_sheet.html)
+
+I learned so much today! I really appreciated everyone chipping in!
+
+
+[7/18/2026 1:54 AM] olik0855
+it is .. anything that can be used in combat must be bought as such (even perception if you have a quality that lets you use perception fro defense or such ) or it cant be used in initiative (astral is another example)
+
+
+[7/18/2026 1:58 AM] olik0855
+Sry to be a spoil sport again .. but you are not allowed to take SURGE qualities (metagenetic improvement) when using LIfe path .. so CHA 10 is impossible here (SRM Guide page 56, SURGE qualities are only allowed for priority or STT  creation)
+
+
+[7/18/2026 1:58 AM] olik0855
+you could use a collective, but the only metagenetic collective available has BOD
+
+
+[7/18/2026 2:02 AM] olik0855
+also as far as i know Dalakitnon Spice allergy is considered Uncommon (instead of common)
+
+
+[7/18/2026 2:14 AM] olik0855
+also more or less minor and neglectable (as you can distribute differently) if the module tells you +2 to X ... you cant split giving +1 and +1 , both points must be allocated to the same stat
+
+
+[7/18/2026 2:21 AM] olik0855
+complete trap if you already have command presence
+
+
+[7/18/2026 2:21 AM] olik0855
+also the additional 3 PP cost 30 Karma (not 15)
+
+
+[7/18/2026 2:23 AM] olik0855
+cause Mysads pay double (5 per 0.5)
+
+
+[7/18/2026 2:26 AM] olik0855
+Tres chic clothing R12 is 12K (not 6k)
+
+
+[7/18/2026 2:28 AM] olik0855
+other than that  ... looks solid
+
+
+[7/18/2026 2:28 AM] olik0855
+with the leftover 3 Ka you can pay the difference for the tres chic (or downgrade)
+
+
+[7/18/2026 2:29 AM] olik0855
+but for the 15 Ka missing on the PP wou will probably have to ditch initiation and or spells ... or take different negative qualities to free up some more Ka
+
+
+[7/18/2026 2:30 AM] olik0855
+-> Metagenetic improved CHA has to go anyway
+
+
+[7/18/2026 4:48 AM] jagator
+P. 54 SRM guide under Life path includes SURGE qualities that modify attributes under BORN THIS WAY.   FOX has metagenic Charisma and wings and other negative qualities for zero points that almost never come up in play.
+Neither mysad was able to start initiated and I think both started with 1 spell and sorcery 1. Both have conjuring 5 or 6 though. 
+FOX has sharp tongue, but if you have high sorcery, stun bolt/blast is better, probably.
+
+{Reactions}
+👍
+
+[7/18/2026 4:50 AM] wardr
+You are not a spoil sport. I am so grateful to each of you for teaching me!!
+
+
+[7/18/2026 4:51 AM] jagator
+Why are you awake?   Why am I awake?
+
+
+[7/18/2026 4:51 AM] olik0855
+that is only for those that are racial (collectives) SURGE may not be taken voluntarily as part of LIfe path
+
+
+[7/18/2026 4:56 AM] olik0855
+and only on the account of getting free attribute points
+
+
+[7/18/2026 4:57 AM] wardr
+Where can I find the doubling for mysads?
+
+
+[7/18/2026 4:57 AM] olik0855
+srm guide
+
+
+[7/18/2026 4:57 AM] olik0855
+mysads only get 0.5 per 5 ka
+
+
+[7/18/2026 4:58 AM] wardr
+Found it!
+
+
+[7/18/2026 4:59 AM] olik0855
+page 54
+
+
+[7/18/2026 4:59 AM] olik0855
+
+
+{Attachments}
+https://cdn.discordapp.com/attachments/1527643725592002582/1527963070331224175/pp_mysad.jpg?ex=6a90a540&is=6a8f53c0&hm=468106db89b2f153de33bc8e01f873a8c604456d94eac8d1186b9e8ffd1bc5cd&
+https://cdn.discordapp.com/attachments/1527643725592002582/1527963070800855182/surge.jpg?ex=6a90a540&is=6a8f53c0&hm=f5edff963c88fd0b3c99779b65ea39aa9e7bcbaf3779544dcb7bbb5e360688ff&
+
+
+[7/18/2026 5:00 AM] olik0855
+so if fox is a life path you might need to rebuild that part with the metagenetic
+
+
+[7/18/2026 5:04 AM] wardr
+Okay, I understand better now. Let me try to go back to sleep. It's relatively easy to remove that quality and change the excess point of CHA, and that should offset the underpaid power points.
+
+{Reactions}
+😴
+
+[7/18/2026 5:05 AM] wardr
+I should also learn STT while I'm at this.
+
+
+[7/18/2026 5:11 AM] jagator
+There is no other way to get metagenic attribute improvement without taking surge qualities in life path. I'm guessing you are saying that the only thing this applies to is kali-ani that raises body and strength maximums.
+
+
+[7/18/2026 5:18 AM] olik0855
+yes there is one collective (Sobek) that gives .. and taking collectives does not cout as SURGE qualities
+
+
+[7/18/2026 5:18 AM] olik0855
+and the passage that mentions is only for clarification what would count for increasing attributes
+
+
+[7/18/2026 5:19 AM] olik0855
+otherwise my pixie would have had Shiva arms 3 and Metagenetic CHA
+
+
+[7/18/2026 5:20 AM] olik0855
+im quite aware of most of the rulings (in 6WC regarding life path and SURGE) as they are the direct result of my questions and discussions with Rev0
+
+
+[7/18/2026 5:23 AM] olik0855
+the baseline was .. no exceptional to gain points with life path and NO SURGE for life path creation (to gain said points easy)
+
+
+[7/18/2026 5:23 AM] olik0855
+only collective (which might have surfaced more in the future at that time ... but it took till deus ex arcana to see new ones really)
+
+
+[7/18/2026 5:24 AM] olik0855
+and the sobekh ? collective (egytian)
+
+
+[7/18/2026 5:25 AM] jagator
+I missed them.
+
+
+[7/18/2026 5:28 AM] jagator
+Your pixie could still have been a kali-ani under this interpretation.
+
+
+[7/18/2026 5:29 AM] olik0855
+nope
+
+
+[7/18/2026 5:30 AM] olik0855
+kali ani states that it can be taken only by elf, human, orc, naga (no pixie)
+
+
+[7/18/2026 5:30 AM] olik0855
+i could have been sobek to raise my BOD to 4
+
+
+[7/18/2026 5:30 AM] olik0855
+but that wasnt worth the points
+
+
+[7/18/2026 5:30 AM] olik0855
+plus a pixie with a swimming tail .... looks like a giant dragonfly
+
+{Reactions}
+🤓
+
+[7/18/2026 5:31 AM] olik0855
+also it is not resolved if SURGE is only for Metahumans at creation and only allowed for those few collectives that allow any/specific metasapients
+
+
+[7/18/2026 5:32 AM] olik0855
+what has been ruled is that SURGE traits may be taken after char creation by anyone (Late mutation)
+
+
+[7/18/2026 5:33 AM] jagator
+Kali Ani says any but dwarf plus naga actually.   Really the whole collective tables hates dwarves except for the shellbacks
+
+
+[7/18/2026 5:34 AM] olik0855
+yeah any probably stands for any metahuman ... the ruling at that time was .. because naga is spelled out other metasapients need to be named to take the collective (or shellback)
+
+
+[7/18/2026 5:35 AM] jagator
+Arguably, only metasapients are included if specified.
+
+
+[7/18/2026 5:35 AM] olik0855
+thats why im still waiting on the commitee ruling about that ... probably got lost in time 🙂
+
+
+[7/18/2026 5:36 AM] olik0855
+wouldnt make a diff now .... Janice is nearing the end of the campaign
+
+
+[7/18/2026 5:36 AM] olik0855
+and ill probably not make a pixie mysad again
+
+
+[7/18/2026 5:37 AM] jagator
+Yeah, I'm not really interested in trashing a character I'm actively playing
+
+
+[7/18/2026 5:41 AM] jagator
+Wings are a pretty iconic roleplaying point of the character.  Angel/kitsune.
+
+
+[7/18/2026 5:45 AM] wardr
+I think I need more time to process, but I don't know if I will be as diligent about doing table audits as might be expected of a CDT Agent. I've learned a tremendous amount about the complexity of a character like this. And while I set out to do this 'on hard mode', I'm not sure I would consider this to be a reasonable expectation of the average player.
+
+{Reactions}
+👍
+
+[7/18/2026 5:48 AM] jagator
+I'm much more likely doing an audit during creation at a Build-a-Runner to prevent players falling into traps or missing stuff that's important.
+
+
+[7/18/2026 5:49 AM] jagator
+Occasionally, I will look over the sheet if there's a complete surprise of some sort that appears to be intentionally trying to break the game.
+
+
+[7/18/2026 5:51 AM] wardr
+No I agree, one role of the audit is to ensure fairness among players. But I don't want that to come off as motivated by personal bias (or even worse, as personally motivated)
+
+{Reactions}
+👍
+
+[7/18/2026 5:54 AM] jagator
+Much more how can I help you be better than interested in yucking your yum.
+
+{Reactions}
+💯
+
+[7/18/2026 5:54 AM] wardr
+To be clear, my only concern is for myself. I'm not accusing anyone of being unfair, and I am so very, very thankful for everyone helping me here! I totally could not have built this character myself
+
+
+[7/18/2026 5:55 AM] wardr
+Okay, 6am EST. I officially give up on sleep
+
+
+[7/18/2026 5:58 AM] olik0855
+yeah i mostly give the char a quick glance and some things like the LP + SURGE stick out ... or some other combos/ equip that are usually beyond reach of a player ... a decker starting with a fairlight ... look closely how he did it .... most often ppl take too much qualities or have two attributes at max (mostly trolls with cha 5 🙂  )
+
+
+[7/18/2026 5:59 AM] olik0855
+have a nice sleep
+
+
+[7/18/2026 6:01 AM] jagator
+Why only hooder 2 not 3?  Upping that and dropping initiation gets you fifteen points.
+
+You may want to spend six karma to be in a coven to make all the initiations cheaper.
+
+
+[7/18/2026 6:03 AM] jagator
+Coven level 4 is reasonably non-intrusive.
+
+
+[7/18/2026 6:14 AM] jagator
+How 1) does a drone use BTL 2) does a drone use edge actions independently?
+
+
+[7/18/2026 6:34 AM] olik0855
+1) according to Rev0 any AI can use BTL ... drone pilots are considered AI
+
+
+[7/18/2026 6:34 AM] olik0855
+2) the drone dog brain can make its own decisions .... bodyguard BTL actually forces it to defend you with that .. as the BTL reduces the edge actions cost to 0 ... thats also fine ... it just can do so only once per turn as it voids the move
+
+
+[7/18/2026 6:39 AM] wardr
+Yuriko is offended by this. 🙂
+
+
+[7/18/2026 6:56 AM] olik0855
+Yuriko is EI ... so she shouldnt care at all 🙂
+
+
+[7/18/2026 7:22 AM] wardr
+Because I'm always poor. But I'll join your cult.
+
+
+[7/18/2026 7:43 AM] wardr
+Okay, I just pushed the following changes:
+
+* removed metagenic CHA
+* tweaked the mental attribute additions to reduce CHA to 9
+* removed Tres Chic
+* Increased Hooder to R3
+* added 'Attribute Mastery (CHA)' (may replace this with a coven)
+* increased cost of +3 PP to Karma -=30 
+* added savior medkit back to bring nuyen <5k
+
+I hope this is everything I need to do to make this character legal. TY SM for the incredibly generous help!!
+
+{Reactions}
+👍🏻 (2)
+
+[7/18/2026 7:45 AM] wardr
+(For now, I kept quickening as this character's 'Veteran Mode' button.)
+
+
+[7/18/2026 7:49 AM] wardr
+next up is to try STT and see what the build looks like. My priorities (and order of priority) remain roughly the same for this experiment:
+* don't do anything SRM illegal
+* design a viable social mysad for normal play without quickening (12-15ish pools for influence, sorcery)
+* get to CHA 10 if possible
+* have an option for veteran play
+* have 2-3 interesting ways to re-leverage CHA in combat
+
+
+[7/19/2026 4:33 PM] wardr
+So I had time to get back to these experiments, specifically comparing Sum-to-Ten to Life Path through the lens of this use case. For my experiments, I went with A Attributes, B Magic, and D Meta, Skills, and Resources. 
+* Attributes: I ended with 4 fewer attributes and 1 fewer edge via STT. This is actually very comparable given that a) I prioritized attributes in both build designs, and b) a Dalek gets +4 attributes from racial maximums during 'Born This Way'. 
+* Skills: 16 in STT vs 17 in Life Path. Again, I thought this was very comparable. I do appreciate that Life Path 'forced' a more well rounded character, while STT gave me the opportunity to get specializations in the character's areas of focus.
+* Resources were identical in both
+* Meta allowed the desired MAG 6, but the Edge in STT (2) is slightly lower than Life Path (3). 
+
+Karma
+- Not having the option (AFAIK) to spend 30 karma to increase starting PP was a good deal of personal reflection for me. The 30 karma that LP can spend here is within 6 karma of any character spending their first three submersions on PP (and potentially less if you have access to a Coven). Now, I know that submersions are a fininte long term resource, but again I was struck by how comparable this was.
+- Not having the option also forced me to re-evaluate many other aspects of my goals. Several of these have already been pointed out above, such as the real value proposition of commanding voice and sharp tongue for a mysad with access to stunbolt, etc. So personal learning, but I don't think worthy of report.
+
+Conclusion - I was shocked to find STT so comparable. It's undeniable that LP had a net stronger value (in this n-of-1 unoptimized experiment, some napkin math came out to 20 karma difference given that the move from CHA 9 --> 10 would be 50) but the effect at the table is actually only 1-2 dice in secondary pools.
+
+{Reactions}
+👍🏻 (3)
+
+[7/19/2026 10:29 PM] wardr
+Just to wrap this thread up, some final learnings:
+
+* I was able to leverage the same python infrastructure I used for life path to fix the original point buy build. Doing so yielded a character that was within 5 karma of STT.
+* I ended up going with Life Path because the design decisions forced a more well-rounded and interesting character to play. I would absolutely build a character with Life Path again and use it to seed my thoughts on background narrative. 
+* I was really pleased at how balanced the three generation systems were given how disparate their rules are! If better balance were desired I might suggest removing the increase in attributes when the maximum is higher than 6, and the ability for anyone to buy power points. Other than that, I really do think the differences were pretty appropriate to the strength and weakness each build had. 
+
+One other learning that I'm not entirely sure what to do with yet - I have reservations about how I built Yuriko now (I used point buy in CommLink6 for her too). I'm not confident that her points were calculated correctly either. I'll try to rebuild her initial build tomorrow, but i'm hoping I don't find anything.
+
+
+[7/19/2026 10:30 PM] wardr
+And the final note is a TREMENDOUS THANKS to all of you for having the patience to teach me over the past few days. I feel so much more confident with each of these systems now, and much better calibrated on the range of characters I could and should expect to join my tables. Thank you!!
+
+
+[7/20/2026 6:09 AM] dash2059
+Always a pleasure to help 🙂 I'd say life path for a mystic adept offers the better potential for growth. Having to pick 3 PP from initiation prevents you from ever gaining the 3 metatechniques that you could have chosen instead. Metatechniques are very valuable, unique abilities. And I think, this thread is pretty insightful for anyone trying to create a mystic adept. Thank you for being so diligent.
+
+{Reactions}
+❤️
+
+[7/20/2026 7:16 AM] olik0855
+Well life path has its own downsides, no Surge, no Ai allowed, less overall stats (if you dont take a metatype that has at least 4 increased stats), less high skills (basically only one high skill the rest at 3- unless you sacrifice other stuff, low starting money)
+
+{Reactions}
+👍
+
+[7/20/2026 8:13 AM] wardr
+It's really, really close. I could play any of these three characters and meet all of my requirements. If anything, I was really surprised at how close the characters were. Sure, if you paid the karma to close the gaps one comes out ahead. But in terms of impact at the table - it's 1/3 to 2/3rds of an average success for secondary rolls. And we can debate whether the corresponding increase in a primary roll is worth the loss in secondaries - which is just a fancy way of saying what do you sacrifice to be really good at what you do? 
+
+Which feels right for a game that always makes you think about what you're sacrificing. 🙂
+
+
+[7/20/2026 8:15 AM] wardr
+Dammit. Now you're making me rethink this. Bah.
+
+
+[7/20/2026 8:15 AM] wardr
+I need to actually play this character so that the decision gets locked in for me.
+
+{Reactions}
+🤣
+
+[7/20/2026 9:06 AM] olik0855
+All the creation methods favor a style
+
+
+[7/20/2026 9:06 AM] olik0855
+Life path is best for mysads
+
+
+[7/20/2026 9:06 AM] wardr
+And analysis paralysis is my personal hellscape. 🙂 Sadly, I love it here.
+
+
+[7/20/2026 9:07 AM] olik0855
+Point buy is supreme for any non-awakened build, or any awakened build without res/mag and multiple spells
+
+
+[7/20/2026 9:07 AM] olik0855
+Stt/prio for all others
+
+
+[7/20/2026 9:07 AM] wardr
+So I'm having an existential crisis with this character now. "If I'm only getting +3 sorc from being a mysad, is there any way to just be a mage..."
+
+
+[7/20/2026 9:08 AM] dash2059
+Only? 🤨
+
+
+[7/20/2026 9:08 AM] dash2059
+That's hard to trump.
+
+
+[7/20/2026 9:08 AM] olik0855
+All other mages never get anything to sorc (except bound spirits)
+
+
+[7/20/2026 9:09 AM] wardr
+See, this is exactly why I need the experience of others. Having never (more than a one-shot) played a mage, I don't know how to value things.
+
+
+[7/20/2026 9:09 AM] dash2059
+Plus, as a mage you miss out on finding your way (adept paths). Therein lies *ULTIMATE COSMIC POWER!* 😈
+
+{Reactions}
+❤️ (2)
+
+[7/20/2026 9:10 AM] wardr
+itty bitty living space? 😉
+
+
+[7/20/2026 9:10 AM] dash2059
+🤷 Its worth it ...
+
+
+[7/20/2026 9:10 AM] wardr
+I do believe it! I need to experience it ... which is the whole reason I made this as my 2nd char.
+
+
+[7/20/2026 9:11 AM] wardr
+Okay, I'll stay the course. You all have ensured I won't get fired today by skivving off work to rebuild this entire character a few more times.
+
+
+[7/20/2026 9:11 AM] dash2059
+Plus, you'll not gain access to qi foci. More power on top of ultimate cosmic power ...
+
+
+[7/20/2026 9:11 AM] wardr
+(Because of course I'd repeat the experiments for the various creation systems on a full mage. And that would demand a relook at the character creation priorities)
+
+
+[7/20/2026 9:12 AM] wardr
+Yeah, I think qi foci are going to be my ticket to getting the powers I wanted to play with. I freely admit that stunbolt is far more efficient than sharp tongue, but the ability to literally add insult to injury is just so irresistable.
+
+
+[7/20/2026 9:12 AM] olik0855
+You can play mysad without any/many pp .... Just takes longer but is not as hard pressed during creation
+
+
+[7/20/2026 9:12 AM] olik0855
+The qi foci alone and the way make up for a supreme boost vs other mages
+
+
+[7/20/2026 9:13 AM] olik0855
+Just astral projection is lost forever
+
+
+[7/20/2026 9:13 AM] wardr
+I honestly wasn't going to touch spirits with this char, since Yuriko's technoshamancy has me a little sprited out for a bit.
+
+
+[7/20/2026 9:13 AM] olik0855
+Theres also a way with edge to that
+
+
+[7/20/2026 9:13 AM] olik0855
+Deal stun damage with influence
+
+
+[7/20/2026 9:13 AM] dash2059
+And for that to really work well, you should invest into Stealth. Which is kind of hard to do.
+
+
+[7/20/2026 9:13 AM] wardr
+But I can't deny the eventual impact of channeling, plus my ticket to astral perception.
+
+
+[7/20/2026 9:14 AM] olik0855
+Mysads can also channel
+
+
+[7/20/2026 9:14 AM] wardr
+Yes, once I take the submersion?
+
+
+[7/20/2026 9:14 AM] wardr
+Oh... "initiation".
+
+
+[7/20/2026 9:14 AM] wardr
+Bah.
+
+
+[7/20/2026 9:14 AM] dash2059
+Do MysAds gain access to Infusion?
+
+
+[7/20/2026 9:15 AM] olik0855
+Yep, misread perception with projection 🫤
+
+
+[7/20/2026 9:15 AM] olik0855
+Technically they should not, but yes they can take it
+
+
+[7/20/2026 9:15 AM] olik0855
+But its a trap
+
+
+[7/20/2026 9:15 AM] olik0855
+The higher your MAG gets the more it does hurt
+
+
+[7/20/2026 9:16 AM] olik0855
+And you want 10+ mag on a mysad
+
+
+[7/20/2026 9:16 AM] dash2059
+Yeah right. I am not a great fan of the action economy of Infusion anyway.
+
+
+[7/20/2026 9:16 AM] wardr
+I hope you mean with a power focus, or else I'm going to cry.
+
+
+[7/20/2026 9:16 AM] olik0855
+So unless you spend a considerable amount for drain resist its boind to kill you
+
+
+[7/20/2026 9:16 AM] olik0855
+No without
+
+
+[7/20/2026 9:16 AM] dash2059
+He doesnt ...
+
+
+[7/20/2026 9:16 AM] wardr
+mother ...
+
+
+[7/20/2026 9:16 AM] olik0855
+My mysad is nearing Mag 12
+
+
+[7/20/2026 9:17 AM] dash2059
+But that is something for the endgame (500+ Karma)
+
+
+[7/20/2026 9:17 AM] wardr
+My mind was literally trying to compute the 5 factorial to get to that number.
+
+
+[7/20/2026 9:17 AM] olik0855
+550 at the current, ~150 more to be collected
+
+
+[7/20/2026 9:17 AM] wardr
+(it might not be a factorial, but you know what I mean. Doctor doesn't speak math)
+
+
+[7/20/2026 9:18 AM] dash2059
+At that point NPCs run away sacred when they see you anyway 🤷
+
+
+[7/20/2026 9:18 AM] olik0855
+High mag really puts the hurt in channeled powers
+
+
+[7/20/2026 9:18 AM] wardr
+Oh, I see - you mean using the character's attributes/MAG to power critter powers obtained via channeling?
+
+
+[7/20/2026 9:19 AM] olik0855
+As is due, she is the second official most powerful mage in seattles university, teaching combat spell defenses on SU
+
+
+[7/20/2026 9:19 AM] olik0855
+Yep, elemental attack is MAG base damage
+
+
+[7/20/2026 9:19 AM] olik0855
+Or aura
+
+
+[7/20/2026 9:20 AM] wardr
+Hrm. Maybe I'm undervaluing something. For a starting character, is there value in taking channeling early for r1 spirits. No attribute bonuses, but maybe to gain access to their powers?
+
+
+[7/20/2026 9:20 AM] olik0855
+Also havin mag 11 means you can conjure F9 without them resisting or counting as high summon
+
+
+[7/20/2026 9:20 AM] olik0855
+Absolutely
+
+
+[7/20/2026 9:21 AM] olik0855
+Immediatedly after channel comes great form and great form channeling
+
+
+[7/20/2026 9:21 AM] olik0855
+For extra tasks
+
+
+[7/20/2026 9:21 AM] olik0855
+Channel F1 gets you dual nature and access to glitch immunity at the very least
+
+
+[7/20/2026 9:22 AM] olik0855
+Animal control and enhanced sense are also nice
+
+
+[7/20/2026 9:22 AM] olik0855
+And of course the elemental attacks
+
+
+[7/20/2026 9:22 AM] dash2059
+The powers alone are great. The additional benefits (physical attribute bonuses, negating of wound penalties) is icing on the cake.
+
+
+[7/20/2026 9:23 AM] wardr
+This is very interesting. Would you put it as a higher priority than learning increased attributes or reflexes? (I understand that's a personal preference question - I'm interested in your own sense of priority given your experience)
+
+
+[7/20/2026 9:23 AM] olik0855
+Never used them
+
+
+[7/20/2026 9:23 AM] olik0855
+Difficult, mostly its how you want to play the char
+
+
+[7/20/2026 9:23 AM] olik0855
+Support? Go spells
+
+
+[7/20/2026 9:24 AM] olik0855
+Soloing stuff? Go channeling
+
+
+[7/20/2026 9:24 AM] wardr
+The fact that you're even saying it's difficult is revealing just how far I underestimated channeling.
+
+
+[7/20/2026 9:25 AM] olik0855
+From all the meta techniques, the most powerful at the start are channel, shielding, quicken
+
+
+[7/20/2026 9:25 AM] olik0855
+After those comes greatform, gf channel, astral chameleon
+
+
+[7/20/2026 9:25 AM] dash2059
+Well, enhancing your drain attributes is pretty good, but Increase Attribute also has tremendous versatility. I'd prioritize that over channeling, because you just don't need it *that* urgently.
+
+
+[7/20/2026 9:26 AM] olik0855
+With centering, infusion, attunement, absorb, dino summoning also being good choices
+
+
+[7/20/2026 9:26 AM] olik0855
+For stealth, Masking, extended masking, flexible sig
+
+
+[7/20/2026 9:26 AM] olik0855
+But that depends on players choices
+
+
+[7/20/2026 9:27 AM] olik0855
+In almost 100 missions ive never gotten to use masking or flexible
+
+
+[7/20/2026 9:27 AM] wardr
+So my mid-career goal for this experiment is to see if I can bring what I know of battlefield control to these encounters. In Pathfinder and D&D Treantmonk and others in that optimization community describe a wizard build that is focused on battlefield control and support. Your goal isn't to take an enemy out in the first round, it's to establish that the encounter is so far in your favor that your team can shine.
+
+
+[7/20/2026 9:27 AM] olik0855
+Shielding almost every 4th mission, with channeling tree ive practically used every mission
+
+
+[7/20/2026 9:27 AM] wardr
+That requires a versatility that I was aiming for.
+
+
+[7/20/2026 9:27 AM] dash2059
+I thought you were using spell shaping, Oli.
+
+
+[7/20/2026 9:28 AM] olik0855
+Not yet spell shaping is pick #13
+
+
+[7/20/2026 9:28 AM] dash2059
+Yeah, never had a high priority for me either.
+
+
+[7/20/2026 9:28 AM] olik0855
+I would be if the rules were more flexible
+
+{Reactions}
+🤷
+
+[7/20/2026 9:29 AM] olik0855
+If i could spell shape phys barrier to  trap someone it would be god tier
+
+{Reactions}
+😆
+
+[7/20/2026 9:29 AM] dash2059
+What do you have in mind in terms of battle field control? I thought about it recently, and I find it ... difficult to achieve.
+
+
+[7/20/2026 9:29 AM] olik0855
+Make a cage or something like that
+
+
+[7/20/2026 9:29 AM] olik0855
+Battlefield control is very difficult in 6e
+
+
+[7/20/2026 9:29 AM] dash2059
+And that is why the rules don't allow it 😉
+
+
+[7/20/2026 9:30 AM] olik0855
+Its mostly phys barriers and removing walls really (with dead weight being anathema)
+
+
+[7/20/2026 9:30 AM] olik0855
+Only the srm rules as we play them
+
+
+[7/20/2026 9:30 AM] wardr
+I'd have to see what's available in the spells. In DnD early battlefield control is command (commanding voice), entangle, sleep, color spray (blind), and so on. It's status effects and such. I might be able to do similar with fear spells and such.
+
+Level 2 is a bit more of that - web, spiked growth, ice surfaces, etc.
+
+
+[7/20/2026 9:31 AM] wardr
+You don't get to walls of force and such till about character level 9 / spell level 5.
+
+
+[7/20/2026 9:31 AM] olik0855
+Almost none of that is viable or available in 6e ... Sleep is stunball
+
+
+[7/20/2026 9:32 AM] olik0855
+The commanding stuff is off the table once violence starts
+
+
+[7/20/2026 9:32 AM] olik0855
+Paralysis is only from channeling
+
+
+[7/20/2026 9:32 AM] olik0855
+Making people immobile/stilled
+
+
+[7/20/2026 9:33 AM] olik0855
+Blinding is difficult as there are too many workarounds to it
+
+
+[7/20/2026 9:33 AM] wardr
+There are also other levels too - shape metal to form barriers, seal doors, etc.
+
+
+[7/20/2026 9:33 AM] wardr
+I might not get to 'Wall of Stone' level.
+
+
+[7/20/2026 9:33 AM] olik0855
+The problem with shape metal is it technically takes a lot of time
+
+
+[7/20/2026 9:34 AM] olik0855
+Therefore only minor things in combat like make a weapon fail
+
+
+[7/20/2026 9:34 AM] olik0855
+But a wall? Takes like 1 min depending on your gm
+
+
+[7/20/2026 9:35 AM] olik0855
+And sealing doors is less battlefield control than stealth in my book
+
+
+[7/20/2026 9:35 AM] dash2059
+Uff ... DnD and SR are very different in that regard. Sleep = Stunball = Combat. Not really battlefield control. Mind control magic doesn't work in combat for SRM. Entangle... Thinking glue spell or something. Not really something I'd recommend, but then again, maybe others see that differently. As for status effects, generating strong debuffs isn't all that easy. Frighten will only work in regard of yourself. Fatigue via Malos Aires (Deus Ex Arcana) is solid, I think. Chaos can cause the confused status, but its targeting mechanics are very much open to interpretation. Barrier spells come with limited ability to shape them, so if you want to control opponents with them, then the terrain needs to offer the opportunities, or they will just be sidestepped.
+
+{Reactions}
+💯
+
+[7/20/2026 9:37 AM] wardr
+That's fair! I'm considering anything where I can change the tactical landscape. If it takes a turn for them to break through a door, I've gained action economy. 
+
+And 100% you have to consider the terrain if terrain is offered. What you aim for is a toolbox of situational spells that cover the broadest set of situations.
+
+
+[7/20/2026 9:37 AM] dash2059
+And in most cases, dealing damage is preferable, because it expedites the terminal departure of your opponents ... for good.
+
+
+[7/20/2026 9:37 AM] wardr
+Well yes - it's very hard to dispell the dead condition.
+
+
+[7/20/2026 9:38 AM] olik0855
+Regeneration .... If not too dead 😝
+
+
+[7/20/2026 9:38 AM] wardr
+It's just a flesh wound?
+
+{Reactions}
+💯
+
+[7/20/2026 9:38 AM] olik0855
+Sort of
+
+
+[7/20/2026 9:39 AM] wardr
+So these are solid leads - paralysis sounds interesting, I'll read up on fatigue. Shape metal was on my list, even if just for locks and other small objects. Stunball was going to happen anyway.
+
+
+[7/20/2026 9:40 AM] dash2059
+Keep in mind that varios opponents maybe be judged to be immune to Fatigue.
+
+
+[7/20/2026 9:40 AM] olik0855
+Depending on your group, a very overlooked spell is vehicle armor
+
+{Reactions}
+❤️
+
+[7/20/2026 9:40 AM] olik0855
+Which makes your drone/ai friends almost unstoppable
+
+
+[7/20/2026 9:40 AM] dash2059
+Say no to murder bots! And don't make them even stronger!
+
+{Reactions}
+👍
+
+[7/20/2026 9:40 AM] olik0855
+All power to the omnissaiah
+
+
+[7/20/2026 9:42 AM] wardr
+This is EXACTLY what I'm looking for. Buffs are a huge part - many times the most tactical option (especially on hard/single targets) is to enhance your front lines rather than try to overcome a hard saving throw or resist.
+
+
+[7/20/2026 9:42 AM] wardr
+I was actually looking at threat analyzer (complex form) for Yuriko along this line.
+
+
+[7/20/2026 9:43 AM] olik0855
+My primary during combat is counterspelling then negating hard threats, if there are no major threats present i usually employ inspire on allies rather than cast offensive spells unless needed
+
+
+[7/20/2026 9:44 AM] olik0855
+Also needs an mtoc iirc ... But an  ok choice,
+
+
+[7/20/2026 9:44 AM] olik0855
+Sometimes difficult because some wont join the pan
+
+
+[7/20/2026 9:44 AM] wardr
+Yuriko has an M-TOC as her home device now and is a T-TOC.
+
+
+[7/20/2026 9:44 AM] wardr
+And yes, I can't force PCs to take the buffs. My job is to offer them.
+
+
+[7/20/2026 9:45 AM] olik0855
+T-toc is no longer existant in 6e, but she can live in a Mtoc
+
+
+[7/20/2026 9:45 AM] dash2059
+Also tricky to achieve with spells, because most of the time the player characters are at or close to their augmentation limits or already provide the relevant benefits to themselves.
+
+
+[7/20/2026 9:45 AM] wardr
+Transcendant Network is no longer in 6e? Did something change?
+
+
+[7/20/2026 9:46 AM] wardr
+And that's honestly okay! My personal goal isn't to enhance the optimized characters. I want to bring the underoptimized up to their level.
+
+
+[7/20/2026 9:46 AM] olik0855
+It is, but the network is not an mtoc it only stores edge, it has no other values/functions
+
+
+[7/20/2026 9:46 AM] olik0855
+So you still need a physical mtoc for those CF
+
+
+[7/20/2026 9:47 AM] wardr
+OIC. Yes, but you can still emulate tac apps and such as a transcendent network.
+
+
+[7/20/2026 9:47 AM] wardr
+And transcendent networks uniquely refund minor actions for messaging. 🙂
+
+
+[7/20/2026 9:47 AM] olik0855
+And the transcended is no T-toc even if hibiki and kami still call them that way
+
+
+[7/20/2026 9:47 AM] olik0855
+No
+
+
+[7/20/2026 9:47 AM] olik0855
+Emulation is available without the trasncended if you take either the CF or the echo
+
+
+[7/20/2026 9:48 AM] olik0855
+But not through the network
+
+
+[7/20/2026 9:48 AM] dash2059
+Counterspelling, Inspire Compentence, Spirit Powers like Movement, Concealment, etc., and the occasional Increase Attribute are still solid options.
+
+{Reactions}
+❤️
+
+[7/20/2026 9:48 AM] wardr
+How am I misreading this last line?
+
+{Attachments}
+https://cdn.discordapp.com/attachments/1527643725592002582/1528760609074708644/image.png?ex=6a904044&is=6a8eeec4&hm=a4dd6c4861e930c905c6a00103838c0d959d539474c818484f59d64dda25950b&
+
+
+[7/20/2026 9:49 AM] wardr
+(Assuming you have some way to emulate like software emulator, emulate action for AIs, etc?)
+
+
+[7/20/2026 9:49 AM] olik0855
+Ok so they made it a req. For those to be emulated ... Originally you wouldnt need that
+
+
+[7/20/2026 9:49 AM] wardr
+Yes! That's what I was pointing out - that it allows you to emulate tacapps if you have some way to emulate programs (which ultimately an AI can on the grid)
+
+
+[7/20/2026 9:51 AM] wardr
+I mean, ultimately I took transcendent network because I thought it was a fun RP direction for Reiko. I got an M-TOC because really she can't live in an agent box forever. She'd been working hard and deserved a nicer apartment.
+
+
+[7/20/2026 9:51 AM] wardr
+Oh! What's your read on software tags? Can you really just buy 100 of them and have every program all the time?
+
+
+[7/20/2026 9:51 AM] olik0855
+Ai tend to live in either a jammer or an mtoc
+
+
+[7/20/2026 9:53 AM] olik0855
+Which software tags do you mean? Extra slot codemods?
+
+
+[7/20/2026 9:54 AM] dash2059
+Technically, they can run programs for you. But beware of noise, since they won't have a high device rating. And beware the GM's wrath...
+
+
+[7/20/2026 9:54 AM] wardr
+I've had 10 in Yuriko's chassis since day 1, but no one ever audits what programs you're running at what moment so it's mostly been a convenience function.
+
+
+[7/20/2026 9:55 AM] wardr
+
+
+{Attachments}
+https://cdn.discordapp.com/attachments/1527643725592002582/1528762273756352705/image.png?ex=6a9041d1&is=6a8ef051&hm=321fbc793f29991dc7984066d69f1da4b0161eccd65df89715f9d787e02c433f&
+
+
+[7/20/2026 9:55 AM] wardr
+HnS 43.
+
+
+[7/20/2026 9:55 AM] dash2059
+I'll let JaGator know you asked for more auditing on your character ...
+
+
+[7/20/2026 9:55 AM] wardr
+LOL. Please do! I always learn.
+
+
+[7/20/2026 9:55 AM] olik0855
+No
+
+
+[7/20/2026 9:56 AM] olik0855
+Tags are only used if there is no commlink/deck/living persona
+
+
+[7/20/2026 9:56 AM] dash2059
+I disagree. It's *exactly* their purpose. But we've been down that road already...
+
+
+[7/20/2026 9:56 AM] olik0855
+The cap is either active program slots on your deck/rcc/commlink
+
+
+[7/20/2026 9:57 AM] olik0855
+Or your dp for living personas
+
+
+[7/20/2026 9:58 AM] olik0855
+Hopefully it gets explained in detail this time ... Would completely defeat the baseline of active program slots
+
+
+[7/20/2026 9:59 AM] olik0855
+Thats why it shouldnt be that way
+
+
+[7/20/2026 9:59 AM] dash2059
+Eh, Hack & Slash likes to break boundaries 🤷
+
+
+[7/20/2026 9:59 AM] wardr
+Okay, so I'm not crazy. I agree with dream - as written, I would never deny a PC the use of software tags. But equally, the entire concept of program slots is immediately meaningless.
+
+
+[7/20/2026 10:00 AM] dash2059
+Lets put it this way... At some point I got some for my decker. And then I refrained from using them ever after.
+
+
+[7/20/2026 10:00 AM] olik0855
+It was mostly stuff written by people who didnt know what the matrix rules were
+
+
+[7/20/2026 10:01 AM] wardr
+What's important for me is that if a player read the book and sits at the table, I can't deny what's written lightly. That disrupts their trust in the rules of the game.
+
+
+[7/20/2026 10:01 AM] olik0855
+The only part of the rules someone remotely knew what he was doing were the ai rules (and they were lenient enough)
+
+
+[7/20/2026 10:02 AM] dash2059
+Absolutely. Unless they bend ambiguous writing to their will to gain substantial benefits.
+
+
+[7/20/2026 10:02 AM] wardr
+Sure.
+
+
+[7/20/2026 10:02 AM] wardr
+At some point, the creativity impinges on the value others feel their characters are bringing to the game.
+
+{Reactions}
+💯
+
+[7/20/2026 10:03 AM] olik0855
+The point is, from the very text there is nothing allowing or suggesting they can be used in comjunction with a deck
+
+
+[7/20/2026 10:03 AM] wardr
+Which goes back to my unwritten goal for both Reiko and this mage - to silently bring the characters up.
+
+
+[7/20/2026 10:03 AM] olik0855
+They are standalone
+
+
+[7/20/2026 10:04 AM] wardr
+Yes, but that's true of most of the equipment. Contact lenses don't specifically say that they can join a PAN either.
+
+
+[7/20/2026 10:04 AM] olik0855
+There is a special version called external program slot for cyberdecks to achieve that which costs 50 more nuyen and also doesnt say that its in addition to active slots ... Just that it enables them to be stored and run
+
+
+[7/20/2026 10:05 AM] olik0855
+But the pan rules state that anything wireless can join
+
+
+[7/20/2026 10:05 AM] wardr
+There's also this line from the agent box description: [You]
+
+{Attachments}
+https://cdn.discordapp.com/attachments/1527643725592002582/1528764759732785212/image.png?ex=6a904421&is=6a8ef2a1&hm=1f1e7ac6dc33f0f48a716ef487fbb83559d11ae269c5d2ceba7b0a708249f18d&
+
+
+[7/20/2026 10:05 AM] olik0855
+By default the lenses couldnt, but the pan allows
+
+
+[7/20/2026 10:05 AM] wardr
+And agent boxes are repurposed commlinks.
+
+
+[7/20/2026 10:06 AM] olik0855
+They can employ these items as they usually are not used with a deck (cause the other cant afford and sens them via remote) ... Also agents were the greatest piece of crap ever written for 6e
+
+
+[7/20/2026 10:06 AM] wardr
+😛
+
+
+[7/20/2026 10:07 AM] olik0855
+Exactly repurposed .... No longer functioning as one
+
+
+[7/20/2026 10:07 AM] wardr
+Give the poor writers a break - it's a hard gig.
+
+
+[7/20/2026 10:07 AM] olik0855
+Nope
+
+
+[7/20/2026 10:08 AM] olik0855
+Im one myself, i know the hard parts and deadlines. But if you want stuff to be published dont whizz something half cooked and do a collect and run
+
+
+[7/20/2026 10:08 AM] olik0855
+Almost all people that worked on H&S with the parts being bad have not resurfaced to even answer questions about their plothole work
+
+
+[7/20/2026 10:08 AM] wardr
+Well, I will happily count you among my friends who are writers and stand in awe of the work you do. The deadlines are always too tight, the compensation is always too low. But thank you for doing what you do.
+
+{Reactions}
+🫂 👍🏻
+
+[7/20/2026 10:09 AM] olik0855
+At least that is what rev always tells me
+
+
+[7/20/2026 10:10 AM] wardr
+Back to this - I don't think your interpretation is wrong on software tags. And from a game balance perspective I personally agree. But equally, if a player sat at my table and used them I don't think it's reasonable for them to have reached the same conclusion without formal guidance.
+
+
+[7/20/2026 10:10 AM] dash2059
+Reducing the purpose of program carriers and software tags to storing without actively running them makes them *utterly* useless, as there is no hard limit on how many programs you can store on your deck.
+
+{Attachments}
+https://cdn.discordapp.com/attachments/1527643725592002582/1528766114467942522/image.png?ex=6a904564&is=6a8ef3e4&hm=1ccce7e4bf280faad1d960bc89901e68e914e951f1a0f9f32cd350fcf5339247&
+
+{Reactions}
+💯
+
+[7/20/2026 10:10 AM] olik0855
+Thats why i often try to correct "misinterpretations"
+
+
+[7/20/2026 10:11 AM] olik0855
+They are more less useless unless used as standalone without a deck
+
+
+[7/20/2026 10:12 AM] olik0855
+Thats why they should never have been included
+
+
+[7/20/2026 10:12 AM] dash2059
+Sorry. The text doesn't say you can run them with a deck, okay. But the text doesn't say you can't run them with a deck either.
+
+
+[7/20/2026 10:13 AM] wardr
+🙂
+
+
+[7/20/2026 10:13 AM] wardr
+I totally did not mean to open a can of worms here.
+
+
+[7/20/2026 10:13 AM] olik0855
+It says standalone ... And used with other tags
+
+
+[7/20/2026 10:14 AM] olik0855
+Thats enough substance for me
+
+
+[7/20/2026 10:14 AM] dash2059
+Standalone as in it doesn't require a program slot on the deck.
+
+
+[7/20/2026 10:14 AM] olik0855
+Ergo no deck
+
+
+[7/20/2026 10:15 AM] dash2059
+Wrong conclusion.
+
+
+[7/20/2026 10:15 AM] dash2059
+But lets not derail WarDoctors thread 😉
+
+
+[7/20/2026 10:15 AM] olik0855
+I disagree, but youre free to open the commitee appeal
+
+
+[7/20/2026 10:15 AM] wardr
+This was totally my fault.
+
+
+[7/20/2026 10:15 AM] dash2059
+They'll lynch me if I bother them with that. I don't use that anyway.
+
+
+[7/20/2026 10:16 AM] wardr
+You both validated what I was thinking and feeling far more than I could have hoped for, if it helps.
+
+
+[7/20/2026 10:16 AM] wardr
+It's like I had an angel and a devil sitting on my shoulders arguing.
+
+
+[7/20/2026 10:17 AM] dash2059
+Who's the angel? 🤨
+
+
+[7/20/2026 10:18 AM] olik0855
+Sure hope i was the one with horns and i prefer to be called a  yugoloth (not lawful enough for a devil)
+
+
+[7/20/2026 10:18 AM] olik0855
+The one who plays a white haired decker
+
+
+[7/20/2026 10:19 AM] olik0855
+😈
+
+
+[7/20/2026 10:20 AM] dash2059
+Oh, wait and see ... 😈
+
+
+[7/20/2026 10:24 AM] wardr
+I deliberately left that ambiguous. 😉
+
+
+[7/20/2026 10:24 AM] wardr
+So let me see if I'm reading this right - channeling gives you all the 'always on' powers of the spirit, using the mage's attributes. You *can* access other powers at the cost of one service per use of power. Do I have that right?
+
+
+[7/20/2026 10:26 AM] dash2059
+Yep, except stuff that is excluded in the description of Channeling (like Materialization and Engulf).
+
+
+[7/20/2026 10:26 AM] olik0855
+Yes
+
+
+[7/20/2026 10:27 AM] dash2059
+Gotta bounce. Later ...
+
+
+[7/20/2026 10:27 AM] olik0855
+Except as mentioned by dream, no form powers (astral. Vessel, possesion,etc.)
+
+
+[7/20/2026 10:27 AM] dash2059
+And no skills that are listed under powers for some spirits (like those from task spirits).
+
+
+[7/20/2026 10:28 AM] wardr
+take care!
+
+{Reactions}
+🫡
+
+[7/20/2026 10:29 AM] wardr
+And that's why you suggested centering and great form - because the use of aura masking covers that.
+
+
+[7/20/2026 11:09 AM] wardr
+GDI. I didn't want to play a second spirit character but this level of flexibility is undeniable.
+
+
+[7/20/2026 11:09 AM] wardr
+I should just stop reading.
+
+
+[7/20/2026 11:58 AM] jagator
+My NPC evidently cheated putting @Bast in a box then.  But cats like boxes and timeouts?
+
+
+[7/20/2026 11:59 AM] wardr
+IDK if it's actually cheating. At least voltaic fence (SRMG 48) specifically says it's for containing beings and that the barrier can be shaped as desired by the caster.
+
+{Reactions}
+😯
+
+[7/20/2026 12:03 PM] jagator
+Neither of my mysads take bonus skill sorcery, both use channelling but not great forms.  Both are definitely more focused on the adept side with spirits for flexibility and spells as the afterthought.
+
+
+[7/20/2026 12:04 PM] wardr
+Yeah... I need to think some more. I was going to take channeling because I want astral perception, but all these powers... It's a tremendous amount of versatility, which I greatly prize. I could even be persuaded to take channeling instead of sorcery as the focus, but I'm right back where Reiko is.
+
+
+[7/20/2026 12:08 PM] jagator
+I think channeling works better/easier than sprite symbiosis.  And yeah I can see wanting more distinction
+
+
+[7/20/2026 12:08 PM] wardr
+I'm just a kid in a candy store.
+
+
+[7/20/2026 12:30 PM] wardr
+Okay, coven question on whether I'm doing the math right:
+
+* This character joins the Turgan Mangu in Seattle at character creation. This costs 6 karma first.
+* Then the character has to pay for the group contact. It is connection 5 and the character pays for loyalty 6 for a total of 13 contact points. This is allowed because neither the connection or the loyalty are higher than their charisma. This also follows the SRMG rules that neither connection nor loyalty can be higher than 6 at chargen (SRMG p79 header). 
+* The character then gets a discount of loyalty (6) on all further initiations.
+* The character has to spend one major action each 'month' for the coven, and every 3 of these their loyalty would increase 1. 
+
+Does that all sound right?
+
+
+[7/20/2026 2:17 PM] dash2059
+Loyalty for a magical group is not limited by Charisma:
+> [6WC, p. 175] Group Loyalty bought at character creation may not be higher than the Charisma of the runner, and this cap may not be altered. One exception is magical group contacts with a Karma cost to join, where Karma spent translates to +3 free Loyalty that is **not limited by Charisma**.
+But it is limited to 8 in SRM:
+> [SRM Guide, p. 60] Can group contacts (6WC, p. 175-176) buy or fence gear and what is their maximum loyalty? [..] The Loyalty is **limited to 8** at character generation and in play.
+And the cost in contact points / karma for Turgan Magnu at Loyalty 6 should be 11, not 13 (Connection + Loyalty).
+
+
+[7/20/2026 2:23 PM] dash2059
+You don't get the +3 free Loyalty in SRM, though.
+
+
+[7/20/2026 3:19 PM] olik0855
+also you need Trubble (2/1)
+
+
+[7/20/2026 3:19 PM] wardr
+I'm already in trouble!
+
+
+[7/20/2026 3:21 PM] wardr
+So if the loyalty isn't limited by charisma, could you just buy 8?
+
+{Reactions}
+👍🏻
+
+[7/20/2026 3:55 PM] dash2059
+
+
+{Forwarded Message}
+I must be rusty on my magic (even when reading up on previous discussions) ... I am trying to figure out the cost of joining a magical group and stumbling over this (from 6WC p. 175):
+> Group Loyalty bought at character creation may not be higher than the Charisma of the runner, and this cap may not be altered. One exception is magical group contacts with a Karma cost to join, where Karma spent translates to +3 free Loyalty that is not limited by Charisma.
+Do you gain the +3 free loyalty for spending the initial 6 karma to join the group? And is the loyalty still limited to Charisma with the Expanded Rules for Contacts at Character Creation (6WC, p. 161) being in place in SRM? If not, whats the actual limit on loyalty?
+Originally sent: 10/1/2025 8:35 AM
+
+
+[7/20/2026 3:55 PM] dash2059
+You can take a look at this conversation and the following posts too. I clarified it, when I started out with Poe.
+
+
+[7/20/2026 3:57 PM] dash2059
+And yes, you can go up to Loyalty 8. Just keep the costs in terms of downtime activities and Nuyen in mind (2400 at Loyalty 8).
+
+
+[7/20/2026 4:09 PM] jagator
+Also 5+6 I believe is 11 + 4 for Trouble is 15 contact points
+
+
+[7/20/2026 4:13 PM] dash2059
+Trubble has Connection 1 according to the guide. Technically you can get her for 2 contact points (at the minimum Loyalty of 1).
+
+
+[7/20/2026 4:29 PM] olik0855
+contacts need loy 2
+
+
+[7/20/2026 4:31 PM] olik0855
+so trubble for 3 (2/1) plus Turgan (5/8) = 16 contact points + 6 Karma at char gen
+
+
+[7/20/2026 4:44 PM] dash2059
+Yes, they need Loyalty 2 for allowing you to join (that's in the SRM Guide under *Can I create my own Conclave or Coven?*, p. 47).
+
+
+[7/20/2026 5:19 PM] wardr
+[This is actually pretty easy to model.](https://docs.google.com/spreadsheets/d/1Ta6vMd3zru07BR0gT84nUCuEn51LcshVM95vPntEOUc/edit?usp=sharing) Based on this, you'd spend 81 karma without a coven. Having the coven at connection 1 also costs 81 karma (75 + 6 to join), so that's an RP-only decision. Each increase in reputation saves you [# of total initiations] in karma, with 5+ costing you a major downtime instead of a minor every two SRMs (in other words, slowing your potential initiation velocity in half).
+
+But there's a cost in time to accumulate the karma. If you alternate CMPs with SRMs then you can 'keep up' with the cost escalation scale at loyalty 4. But if you play back to back SRMs, loyalty 8 means you net total karma but your rate of progression is still the same (one every two missions) as loyalty 4. This ultimately frees karma and forces non-initiation forms of progression.
+
+Again, I'm struck by the elegance of the design.
+
+{Embed}
+https://docs.google.com/spreadsheets/d/1Ta6vMd3zru07BR0gT84nUCuEn51LcshVM95vPntEOUc/edit?usp=sharing
+SR6: Coven Value Analysis
+https://images-ext-1.discordapp.net/external/IzlYR3uJ4ej5UWiQU9Q4Ml3Y_PvHiSvlFhThQwwZRJU/https/lh7-us.googleusercontent.com/docs/AHkbwyL0xcpa9LJ0U1QGETWTJY-w0yXmEonnQUXkfC2UP3ApTJvJrOqLO_12Clx6hfHf9cyoukBdhuzDynhyuZhBp9_G3E4pdNV1czo1nT1PiLnI_u8S48bV%3Dw1200-h630-p
+
+
+[7/20/2026 5:22 PM] wardr
+(And really, I wanted Guild of Freelance Assets for RP reasons but Connection 7 is unavailable at chargen)
+
+
+[7/20/2026 5:24 PM] jagator
+I think the rule for connection rating is waived for groups?
+
+
+[7/20/2026 5:27 PM] dash2059
+Yes
+
+
+[7/20/2026 5:31 PM] olik0855
+Correct, groups are excempt from limitation as they are limited choice
+
+
+[7/20/2026 5:31 PM] olik0855
+The only available diff is conn 5-7
+
+
+[7/20/2026 5:38 PM] dash2059
+When I looked at it from a purely mechanical point of view (setting RP aspects aside for a moment), the essential criterion is the long-term karma reduction. It wouldn't matter that much how fast I'd initiate, because metatechniques are not a *must* have. The reduced karma costs however is a *pure* gain, that you simply skip on with lower Loyalty. And it allows you to progress in other areas faster (like picking up specializations, an expertise, spells, foci, low-rank must-have skills that you may have skipped during character generation, etc.). And I didn't concern myself even remotely with the Nuyen and downtime costs, because karma is that much more valuable for an awakened. But again, that is just the raw mechanics.
+
+
+[7/20/2026 5:39 PM] wardr
+Yeah, I'd wholeheartedly agree from that little exercise.
+
+
+[7/20/2026 5:42 PM] dash2059
+And the speed of karma accumulation *is* a limiting factor.
+
+
+[7/20/2026 5:45 PM] jagator
+2 of my group members are also in the SHC and I was running out of useful downtime for the leap from 4 to 8 loyalty.
+The increased cost on virtual months that the character doesn't initiate was also a factor.
+
+{Reactions}
+👍
+
+[7/20/2026 5:46 PM] wardr
+1000% the major cost here is the downtime action, especially if you have collisions on them like your chars would.
+
+
+[7/20/2026 5:47 PM] dash2059
+Yes, with the SHC in addition to a coven, it becomes an entirely different story. At least when you're eager to get augmentations early on.
+
+
+[7/28/2026 6:45 AM] dash2059
+Looking over this again, because it came up recently ... Has this been codified somewhere? I can't find it.
+
+
+[7/28/2026 8:29 AM] olik0855
+Should be in the 2.4 guide at life path entry
+
+
+[7/28/2026 9:00 AM] dash2059
+I looked at that, but there is nothing there except that part about the racial attribute limits.
+
+{Attachments}
+https://cdn.discordapp.com/attachments/1527643725592002582/1531647514749440131/image.png?ex=6a9034e8&is=6a8ee368&hm=31ee8eb71bdfeb7a690db3c5853cb337171abb9fae8d630863f6fed34c80b197&
+
+
+[7/28/2026 12:35 PM] olik0855
+Thats it
+
+
+[7/28/2026 12:36 PM] olik0855
+If its not racial it doesnt count for that (exceptional attribute) as SURGE qualities do count as racial (improved metagenetic attribute)
+
+
+[7/28/2026 12:36 PM] olik0855
+Or do you mean no SURGE for life path?
+
+
+[7/28/2026 12:39 PM] olik0855
+
+
+{Attachments}
+https://cdn.discordapp.com/attachments/1527643725592002582/1531702749291614218/Screenshot_2026-07-28_183756.jpg?ex=6a906859&is=6a8f16d9&hm=51d4e4e03c2edc27b68e21a22ae8c5f10588944b0d170b49dc37510e606735f7&
+
+
+[7/28/2026 12:40 PM] olik0855
+only STT or Priority are allowed for SURGE qualities (no LP, no PB)
+
+
+[7/28/2026 12:59 PM] dash2059
+That is only in regard to this text under "Born This Way". You don't get a starting attribute of 2, but you can still pick up Exceptional Attribute.
+
+{Attachments}
+https://cdn.discordapp.com/attachments/1527643725592002582/1531707768913006985/image.png?ex=6a906d05&is=6a8f1b85&hm=1ce99057d55eca719831a37d5cd027601952d08a35a5c802a5a5ee7270c67dc5&
+
+
+[7/28/2026 1:00 PM] dash2059
+The "only" is missing in that text.
+
+
+[7/28/2026 1:00 PM] dash2059
+Maybe should be added to make it clear, if that is the intent.
+
+
+[7/28/2026 1:04 PM] dash2059
+I was just asking because this may affect one of @JaGator's long-standing characters retroactively. And I must say, I find it less than clear.
+
+
+[7/28/2026 1:16 PM] olik0855
+sure never said you couldnt
+
+
+[7/28/2026 1:17 PM] olik0855
+it was about the free second starting point
+
+
+[7/28/2026 1:17 PM] dash2059
+Okay, then I get what you meant to say there
+
+
+[7/28/2026 1:18 PM] olik0855
+yeah .. i had the discussion with Rev0 in the past and needed to adjust that for my char(s) as well cause Rev0 was under the impression LP was rewarding enough already .... and taking Exceptional Attribute shouldnt result in 10-30+ free Karma (for a 2nd/6th free point)
+
+
+[7/28/2026 1:19 PM] olik0855
+when taking LP
+
+
+[7/28/2026 1:21 PM] dash2059
+I guess JaGator will have to figure it out at some point. I was just trying to find a clear-cut ruling for him.
+
+
+[7/28/2026 1:43 PM] jagator
+Thank you.  It is letting me extend the threads experiment to n=2
+
+{Reactions}
+❤️ 👍
+
+==============================================================
+Exported 517 message(s)
+==============================================================

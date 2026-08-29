@@ -1,0 +1,212 @@
+/*-- scss:defaults --*/
+// Import Cyberpunk & Monospace Google Fonts
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@300;400;500;600&family=Orbitron:wght@600;800&display=swap');
+
+// Colors - High Contrast Colorblind-Friendly Cyberpunk Palette (Cyan, Amber, Deep Blue)
+$body-bg: #06080e;
+$body-color: #e2e8f0; // High contrast readable off-white
+$link-color: #00f0ff; // Neon cyan (Highly visible)
+$link-hover-color: #ffb700; // Neon amber (High contrast hover state)
+$sidebar-bg: #0b0e14;
+$sidebar-color: #94a3b8;
+$border-color: #1e293b;
+$primary: #00f0ff; // Primary is Cyan
+$secondary: #ffb700; // Secondary is Amber
+$success: #00f0ff;
+$info: #00f0ff;
+$warning: #ffb700;
+$danger: #f87171; // Light high-contrast red for alerts
+
+// Typography
+$font-family-sans-serif: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+$font-family-monospace: "Share Tech Mono", "Fira Code", monospace;
+
+// Code Block Custom styling
+$code-block-bg: #030407;
+$code-block-border-color: #00f0ff;
+
+/*-- scss:rules --*/
+// Apply custom global rules
+body {
+  background-color: $body-bg;
+  color: $body-color;
+  font-family: $font-family-sans-serif;
+}
+
+// Retro-cyberpunk Headings in Cyan & Amber
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Orbitron", "Share Tech Mono", monospace;
+  font-weight: 800;
+  color: #ffb700; // Glowing Amber for standard headers
+  text-shadow: 0 0 8px rgba(255, 183, 0, 0.4);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(255, 183, 0, 0.15);
+  padding-bottom: 0.3em;
+  margin-top: 1.5em;
+}
+
+h1 {
+  color: #00f0ff; // Main Page Title in neon cyan
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+  border-bottom: 2px solid rgba(0, 240, 255, 0.25);
+}
+
+// Monospace sections
+.monospace, code, pre {
+  font-family: $font-family-monospace;
+}
+
+// Glowing code blocks representing terminals in Cyan
+pre {
+  background-color: #020306 !important;
+  border: 1px solid rgba(0, 240, 255, 0.3) !important;
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.1) !important;
+  border-radius: 6px;
+  padding: 1rem;
+  color: #00f0ff !important; // Glowing cyan text
+  position: relative;
+  overflow-x: auto;
+}
+
+pre::before {
+  content: "⚡ RESONANCE_SYS_ACTIVE //";
+  position: absolute;
+  top: 4px;
+  right: 10px;
+  font-size: 0.65rem;
+  color: rgba(0, 240, 255, 0.4);
+  letter-spacing: 0.1em;
+}
+
+code {
+  color: #ffb700 !important; // Neon amber for inline code
+  background-color: rgba(255, 183, 0, 0.08);
+  border: 1px solid rgba(255, 183, 0, 0.2);
+  padding: 0.15em 0.3em;
+  border-radius: 3px;
+}
+
+// Callouts / Alerts styling (High Contrast Amber border)
+.callout {
+  border-left: 4px solid #ffb700 !important;
+  background-color: rgba(255, 183, 0, 0.04) !important;
+  border: 1px solid rgba(255, 183, 0, 0.1);
+  border-left-width: 4px;
+  border-radius: 4px;
+  color: #e2e8f0;
+}
+
+.callout.callout-style-default.callout-important {
+  border-left-color: #ffb700 !important;
+  .callout-header {
+    color: #ffb700;
+    font-family: "Orbitron", monospace;
+  }
+}
+
+.callout.callout-style-default.callout-note {
+  border-left-color: #00f0ff !important;
+  background-color: rgba(0, 240, 255, 0.04) !important;
+  border: 1px solid rgba(0, 240, 255, 0.1);
+  border-left-width: 4px;
+  .callout-header {
+    color: #00f0ff;
+    font-family: "Orbitron", monospace;
+  }
+}
+
+// Sidebar/Nav styling
+.sidebar {
+  background-color: $sidebar-bg !important;
+  border-right: 1px solid rgba(0, 240, 255, 0.15) !important;
+  
+  .sidebar-item-text, .sidebar-navigation-title {
+    font-family: "Share Tech Mono", monospace;
+  }
+  
+  a.active {
+    color: #ffb700 !important;
+    text-shadow: 0 0 5px rgba(255, 183, 0, 0.5);
+    background-color: rgba(255, 183, 0, 0.05);
+    border-left: 2px solid #ffb700;
+  }
+}
+
+// Tables styling in Cyan & Amber
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-family: "Share Tech Mono", monospace;
+  
+  th {
+    background-color: rgba(0, 240, 255, 0.1) !important;
+    color: #00f0ff !important;
+    border-bottom: 2px solid #00f0ff !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.75rem !important;
+  }
+  
+  td {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07) !important;
+    padding: 0.75rem !important;
+    color: #e2e8f0;
+  }
+  
+  tr:hover td {
+    background-color: rgba(0, 240, 255, 0.03) !important;
+    color: #00f0ff !important;
+  }
+}
+
+// Custom styling for cards on home page
+.cyber-card {
+  background: rgba(11, 14, 20, 0.85);
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+  
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 15px 15px;
+    border-color: transparent transparent #00f0ff transparent;
+  }
+  
+  h3 {
+    margin-top: 0;
+    color: #ffb700;
+    border-bottom: 1px solid rgba(255, 183, 0, 0.2);
+    font-size: 1.1rem;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+}
+
+// Scrollbars
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #06080e;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 240, 255, 0.2);
+  border-radius: 4px;
+  &:hover {
+    background: rgba(0, 240, 255, 0.4);
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "Union",
+  "alias": "Union",
+  "metatype": "Human",
+  "attributes": {
+    "body": 3,
+    "agility": 3,
+    "reaction": 3,
+    "strength": 3,
+    "willpower": 3,
+    "logic": 3,
+    "intuition": 3,
+    "charisma": 3,
+    "edge": 1
+  },
+  "skills": [],
+  "qualities": [],
+  "weapons": [],
+  "armor": [],
+  "gear": []
+}

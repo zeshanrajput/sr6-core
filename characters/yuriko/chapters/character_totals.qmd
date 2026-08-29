@@ -1,0 +1,81 @@
+# Character Career Totals & Active Sprites
+
+```{python}
+#| echo: false
+#| include: false
+from sr6core.log_engine import get_log_totals
+from sr6core.character_manager import CharacterManager
+
+_totals = get_log_totals(["chapters/character_log.qmd", "chapters/character_purchases.qmd"])
+cm = CharacterManager()
+_char = cm.get_character_data("yuriko") or {}
+_attrs = _char.get("attributes", {})
+
+Lifetime_Karma = _totals.get("Lifetime_Karma", 0)
+Karma = _totals.get("Karma", 0)
+Nuyen = _totals.get("Nuyen", 0)
+Lifetime_Nuyen = _totals.get("Lifetime_Nuyen", 0)
+Submersion_Grade = _totals.get("Submersion_Grade", 0)
+Resonance = _attrs.get("resonance", 6)
+Heat = _totals.get("Heat", 0)
+Reputation = _totals.get("Reputation", {})
+Contacts = _totals.get("Contacts", {})
+Current_Mission = len(_totals.get("Missions", []))
+
+def get_active_sprites():
+    return _totals.get("Active_Sprites", [])
+```
+
+This dashboard displays Reiko's live career totals, regional faction reputation breakdown, active registered sprite status, and contact registry sync.
+
+---
+
+## Current Totals
+
+* **Lifetime Karma:** `{python} Lifetime_Karma`
+* **Available Karma:** `{python} Karma`
+* **Lifetime Nuyen Earned:** ¥`{python} f"{Lifetime_Nuyen:,.0f}"`
+* **Available Nuyen:** ¥`{python} f"{Nuyen:,.0f}"`
+* **Submersion Grade:** `{python} Submersion_Grade`
+* **Resonance:** `{python} Resonance`
+* **Current Heat:** `{python} Heat`
+* **Total Reputation:** `{python} sum(Reputation.values())`
+  * **Seattle (SEA):** +`{python} Reputation.get('Seattle', 0)`
+  * **NOLA:** +`{python} Reputation.get('NOLA', 0)`
+  * **Vory:** +`{python} Reputation.get('Vory', 0)`
+  * **Kentucky:** +`{python} Reputation.get('Kentucky', 0)`
+  * **Mercenary / Desert Wars (DW):** +`{python} Reputation.get('Mercenary', 0) + Reputation.get('DW', 0)`
+  * **Amsterdam / UNL:** +`{python} Reputation.get('Amsterdam', 0) + Reputation.get('UNL', 0)`
+  * **Southeast Asia (HK):** +`{python} Reputation.get('Southeast Asia', 0)`
+
+---
+
+## Active Sprite Stable
+
+```{python}
+#| echo: false
+#| output: asis
+active = get_active_sprites()
+print("| Sprite Name | Rating & Type | Registered During | Full Missions Active | Status |")
+print("| ----------- | --- | --- | --- | --- |")
+for s in active:
+    if s.get("is_ally"):
+        print(f"| {s['name']} | R{s['level']} {s['type']} | Character Creation | Permanent | Active (Ally) |")
+    else:
+        elapsed = Current_Mission - s['registered_mission']
+        rem = 3 - elapsed
+        status_str = f"Active ({rem} mission{'s' if rem != 1 else ''} remaining)"
+        m_name = s.get('registered_mission_name', f"Mission {s['registered_mission']}")
+        print(f"| {s['name']} | R{s['level']} {s['type']} ({s['details']}) | {m_name} | {elapsed} / 3 | {status_str} |")
+```
+
+---
+
+## Contacts Registry & Networks
+
+```{python}
+#| echo: false
+#| output: asis
+from sr6core.log_engine import print_contacts_summary
+print_contacts_summary(Contacts)
+```

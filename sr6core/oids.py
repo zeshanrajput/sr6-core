@@ -119,29 +119,46 @@ def normalize_oid(identifier: str) -> str:
 
 
 def resolve_canonical_oid(
-    category: str,
+    category: Optional[str],
     raw_input: str,
     db_path: str = DEFAULT_DB_PATH
-) -> Tuple[str, Optional[Dict[str, Any]]]:
+) -> Tuple[str, Optional[Dict[str, Any]], str]:
     """
     Resolves a canonical OID and database row for a given category and item identifier or name.
+    If category is empty, 'auto', or unknown, searches across all standard database tables.
     
     Returns:
-        (canonical_oid, db_record_or_none)
+        (canonical_oid, db_record_or_none, resolved_category)
     """
     if not raw_input:
-        return "unknown", None
+        return "unknown", None, category or "general"
 
     norm_input = normalize_oid(raw_input)
-    cat_lower = category.lower().strip()
+    cat_lower = (category or "").lower().strip()
 
     # 1. Direct Alias Check
     if norm_input in COMMON_ALIASES:
         norm_input = COMMON_ALIASES[norm_input]
 
     # 2. Database Lookup
-    tbl = TABLE_CATEGORY_MAP.get(cat_lower, "ref_gear")
     db_row = None
+    resolved_cat = cat_lower if cat_lower in TABLE_CATEGORY_MAP else "general"
+
+    candidate_tables: List[Tuple[str, str]] = []
+    if cat_lower and cat_lower in TABLE_CATEGORY_MAP and cat_lower != "auto":
+        candidate_tables.append((TABLE_CATEGORY_MAP[cat_lower], cat_lower))
+    else:
+        # Search all tables in priority order
+        candidate_tables = [
+            ("ref_cyberware", "bioware" if any(w in norm_input for w in ["bio", "cereb", "suprath", "muscle", "bone"]) else "cyberware"),
+            ("ref_gear", "gear"),
+            ("ref_weapons", "weapon"),
+            ("ref_qualities", "quality"),
+            ("ref_spells", "spell"),
+            ("ref_complex_forms", "complex_form"),
+            ("ref_vehicles", "vehicle"),
+            ("ref_contacts", "contact"),
+        ]
 
     if os.path.exists(db_path):
         try:
@@ -149,26 +166,31 @@ def resolve_canonical_oid(
             conn.row_factory = sqlite3.Row
             cursor = conn.cursor()
 
-            # Priority A: Exact match on id
-            db_row = cursor.execute(f"SELECT * FROM {tbl} WHERE id = ? OR lower(id) = ?", (raw_input, norm_input)).fetchone()
+            for tbl, t_cat in candidate_tables:
+                # Priority A: Exact match on id
+                db_row = cursor.execute(f"SELECT * FROM {tbl} WHERE id = ? OR lower(id) = ?", (raw_input, norm_input)).fetchone()
 
-            # Priority B: Exact match on name
-            if not db_row:
-                db_row = cursor.execute(f"SELECT * FROM {tbl} WHERE lower(name) = lower(?)", (raw_input,)).fetchone()
+                # Priority B: Exact match on name
+                if not db_row:
+                    db_row = cursor.execute(f"SELECT * FROM {tbl} WHERE lower(name) = lower(?)", (raw_input,)).fetchone()
 
-            # Priority C: Stripped prefix match (e.g. searching 'cleaner' finding 'cf_cleaner')
-            if not db_row:
-                prefix = OID_PREFIXES.get(cat_lower, "")
-                if prefix and not norm_input.startswith(prefix):
-                    prefixed = f"{prefix}{norm_input}"
-                    db_row = cursor.execute(f"SELECT * FROM {tbl} WHERE id = ? OR lower(id) = ?", (prefixed, prefixed)).fetchone()
+                # Priority C: Stripped prefix match (e.g. searching 'cleaner' finding 'cf_cleaner')
+                if not db_row:
+                    prefix = OID_PREFIXES.get(t_cat, "")
+                    if prefix and not norm_input.startswith(prefix):
+                        prefixed = f"{prefix}{norm_input}"
+                        db_row = cursor.execute(f"SELECT * FROM {tbl} WHERE id = ? OR lower(id) = ?", (prefixed, prefixed)).fetchone()
 
-            # Priority D: Like search on name
-            if not db_row:
-                db_row = cursor.execute(
-                    f"SELECT * FROM {tbl} WHERE name LIKE ? AND id NOT LIKE 'pack_%'",
-                    (f"%{raw_input}%",)
-                ).fetchone()
+                # Priority D: Like search on name
+                if not db_row:
+                    db_row = cursor.execute(
+                        f"SELECT * FROM {tbl} WHERE name LIKE ? AND id NOT LIKE 'pack_%'",
+                        (f"%{raw_input}%",)
+                    ).fetchone()
+
+                if db_row:
+                    resolved_cat = t_cat
+                    break
 
             conn.close()
         except Exception:
@@ -176,11 +198,11 @@ def resolve_canonical_oid(
 
     if db_row:
         row_dict = dict(db_row)
-        return row_dict.get("id", norm_input), row_dict
+        return row_dict.get("id", norm_input), row_dict, resolved_cat
 
     # Fallback to normalized input with appropriate prefix
     prefix = OID_PREFIXES.get(cat_lower, "")
     if prefix and not norm_input.startswith(prefix) and not any(norm_input.startswith(p) for p in OID_PREFIXES.values()):
-        return f"{prefix}{norm_input}", None
+        return f"{prefix}{norm_input}", None, resolved_cat
 
-    return norm_input, None
+    return norm_input, None, resolved_cat

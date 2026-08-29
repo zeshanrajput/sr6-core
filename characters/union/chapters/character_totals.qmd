@@ -1,0 +1,54 @@
+# Character Career Totals & Networks
+
+```{python}
+#| echo: false
+#| include: false
+from sr6core.log_engine import get_log_totals
+from sr6core.character_manager import CharacterManager
+
+_totals = get_log_totals(["chapters/character_log.qmd", "chapters/character_purchases.qmd"])
+cm = CharacterManager()
+_char = cm.get_character_data("union") or {}
+_attrs = _char.get("attributes", {})
+
+Lifetime_Karma = _totals.get("Lifetime_Karma", 0)
+Karma = _totals.get("Karma", 0)
+Nuyen = _totals.get("Nuyen", 0)
+Lifetime_Nuyen = _totals.get("Lifetime_Nuyen", 0)
+Logic = _attrs.get("logic", 7)
+Nanite_Volume = _char.get("identity", {}).get("nanite_volume", 6)
+Essence = _attrs.get("essence", 0.1)
+Heat = _totals.get("Heat", 0)
+Reputation = _totals.get("Reputation", {})
+Contacts = _totals.get("Contacts", {})
+Current_Mission = len(_totals.get("Missions", []))
+```
+
+This dashboard displays Venn's live career totals, campaign downtime balances, essence state, hooder commitments, and network registries.
+
+---
+
+## Current Totals
+
+* **Lifetime Karma:** `{python} Lifetime_Karma`
+* **Available Karma:** `{python} Karma`
+* **Lifetime Nuyen Earned:** ¥`{python} f"{Lifetime_Nuyen:,.0f}"`
+* **Available Nuyen:** ¥`{python} f"{Nuyen:,.0f}"`
+* **Logic:** `{python} Logic` *(Exceptional Baseline)*
+* **Nanite Volume:** `{python} Nanite_Volume` *(Monad Swarm Synthesis)*
+* **Essence:** `{python} Essence` *(Used Neural Chrome)*
+* **Hooder Commitment:** ¥2,000/month *(Free Clinic & Refugee Support)*
+* **Current Heat:** `{python} Heat`
+* **Total Reputation:** `{python} sum(Reputation.values())`
+  * **Atlanta & CAS Coast:** +`{python} Reputation.get('Atlanta', Reputation.get('CAS', 0))`
+
+---
+
+## Contacts Registry & Networks
+
+```{python}
+#| echo: false
+#| output: asis
+from sr6core.log_engine import print_contacts_summary
+print_contacts_summary(Contacts)
+```

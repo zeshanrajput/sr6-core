@@ -1,0 +1,87 @@
+# Equipment & Advancement Ledger
+
+```{python}
+#| echo: false
+#| include: false
+from sr6core.log_engine import inc, inc_many
+```
+
+This ledger itemizes character creation gear, matrix devices, identities, software, and post-chargen advancements.
+
+---
+
+### Disguise & Medical Assets
+
+* **Nanopaste Disguise Kit:** `{python} inc('Nuyen', -1400)`
+  * Nanopaste Disguise Refill x1: `{python} inc('Nuyen', -300)`
+* **Nanocosmetics Kit:** `{python} inc('Nuyen', -700)`
+  * Nanocosmetics Refill x2: `{python} inc('Nuyen', -200)`
+* **Savior Medkit:** `{python} inc('Nuyen', -2000)`
+  * Savior Medkit Refill x1: `{python} inc('Nuyen', -300)`
+
+---
+
+### Matrix Devices & Software
+
+* **Erika Elite (Device Rating 4):** `{python} inc('Nuyen', -2500)`
+  * Comhack Securelink Upgrade: `{python} inc('Nuyen', -1000)`
+  * P-ICE Nope!: `{python} inc('Nuyen', -350)`
+  * Personal Assistant (Rating 6): `{python} inc('Nuyen', -500)`
+* **Renraku Sensei (Device Rating 3) x2:** *(Loot: CMP 2083-01 Nonplushed)*
+* **Commlink Applications & Utilities:**
+  * Virtual Machine: `{python} inc('Nuyen', -100)`
+  * Nanomask: `{python} inc('Nuyen', -100)`
+  * Thermal Mood Reading: `{python} inc('Nuyen', -100)`
+  * Facial Scanner: `{python} inc('Nuyen', -100)`
+  * MeFeed: `{python} inc('Nuyen', -50)`
+* **Audio / Visual Sensor Suite:**
+  * Contacts (Rating 3 with Image Link, Flare Compensation, Thermographic Vision): `{python} inc('Nuyen', -1375)`
+  * Earbuds (Rating 3): `{python} inc('Nuyen', -150)`
+  * Subvocal Microphone: `{python} inc('Nuyen', -50)`
+
+---
+
+### Armor & High-Fashion Outerwear
+
+* **Ares SecureTech Skinshield (Defense Rating 1):** `{python} inc('Nuyen', -4150)`
+  * Ruthenium Armor Concealment System (RACS 2)
+  * Ballistic Hood
+  * Fashion Accessory: Très Chic x2
+
+---
+
+### Identities, Licenses & Second Lives
+
+* **Fake SIN: Lee Ji-Yoo (Rating 6):** `{python} inc('Nuyen', -15000)` *(Second Life Quality)*
+  * Fake License: Magician (Rating 6): `{python} inc('Nuyen', -1200)`
+* **Fake SIN: Tanaka Ryo (Rating 6):** `{python} inc('Nuyen', -15000)` *(Second Life Quality)*
+
+---
+
+### Spells & Metamagic Advancement
+
+* **Increase Attribute (Health Spell):** *Character Creation*
+* **Channeling (Metamagic):** *Initiation Grade 1 (SRM 2081-09 Eviction Notice)*
+* **Increase Reflexes (Health Spell):** `{python} inc('Karma', -5)` *(SRM 2081-01 Downtime)*
+* **Power Point (Metamagic):** *Initiation Grade 2 (SRM 2081-01 Death of a Fixer)* — Unlocks *Linguistics (0.25 PP)*, *Command Presence (0.5 PP)*, and *Cloak R1 (0.25 PP)*
+
+---
+
+### Foci & Magical Assets
+
+* **Qi Focus (Rating 4) — Sharp Tongue:** `{python} inc('Nuyen', -12000)` `{python} inc('Karma', -8)` *(Post-chargen Qi Focus, Smooth Operations p. 1)*
+
+---
+
+### Skills & Specializations
+
+* **Sorcery Specialization (Spellcasting):** *5 Karma (CMP 2083-01 Downtime)*
+
+---
+
+### Weaponry & Field Armaments
+
+* **Beretta 101T Light Pistol x2:** *(Loot: CMP 2083-01 Nonplushed)*
+* **Sap x2:** *(Loot: CMP 2083-01 Nonplushed)*
+* **Yamaha Raiden Assault Rifle x1:** *(Loot: CMP 2083-01 Nonplushed)*
+* **Stun Baton x1:** *(Loot: CMP 2083-01 Nonplushed)*

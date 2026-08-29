@@ -1,0 +1,25 @@
+============================================================================
+ COMBAT, WEAPON ARRAYS & BALLISTICS: VENN
+============================================================================
+ WEAPONS & TACTICAL ARRAYS:
+  * FN P93 PRAETOR
+    DV: 4P     | Modes: SA/BF/FA | Ammo: 50(c)    | AR: 10 / 11 / 8 / - / -
+    Tactical Notes  : Internal Smartgun (+2 AR), Suppressor, Shock Pad, 5
+    spare clips, 100 regular, 100 gel rounds (Vat Job PACK)
+----------------------------------------------------------------------------
+  * COLT MANHUNTER
+    DV: 4P     | Modes: SA       | Ammo: 16(c)    | AR: 10 / 8 / 6 / - / -
+    Tactical Notes  : Laser sight/Smartlink (+2 AR), Concealed holster,
+    Silencer, 5 spare clips, 100 regular, 100 gel rounds (Vat Job PACK)
+----------------------------------------------------------------------------
+  * MONOFILAMENT WHIP
+    DV: 4P     | Modes: SS/SA    | Ammo: N/A      | AR: 12 / - / - / - / -
+    Tactical Notes  : Concealed in Skin Pocket (Vat Job PACK)
+----------------------------------------------------------------------------
+ BALLISTIC ARMOR & DEFENSIVE PROTECTION:
+  * LINED COAT (Defense Rating Bonus: +3)
+----------------------------------------------------------------------------
+  * HELMET (Defense Rating Bonus: +1)
+----------------------------------------------------------------------------
+  * SECURETECH SKINSHIELD (W/ BALLISTIC HOOD) (Defense Rating Bonus: +3)
+----------------------------------------------------------------------------

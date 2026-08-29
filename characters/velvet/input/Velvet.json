@@ -1,0 +1,701 @@
+{
+  "system": "SHADOWRUN6",
+  "version": "3.2.0",
+  "name": "Kim Jin-Young",
+  "streetName": "Velvet",
+  "metaType": "Elf",
+  "size": 192,
+  "weight": 72,
+  "age": "20",
+  "gender": "FEMALE",
+  "heat": 0,
+  "reputation": 0,
+  "karma": 9,
+  "freeKarma": -12,
+  "nuyen": 19000,
+  "initiation": 1,
+  "submersion": 0,
+  "attributes": [
+    {
+      "name": "Body",
+      "id": "BODY",
+      "points": 2,
+      "modifiedValue": 2
+    },
+    {
+      "name": "Agility",
+      "id": "AGILITY",
+      "points": 3,
+      "modifiedValue": 3
+    },
+    {
+      "name": "Reaction",
+      "id": "REACTION",
+      "points": 2,
+      "modifiedValue": 2
+    },
+    {
+      "name": "Strength",
+      "id": "STRENGTH",
+      "points": 2,
+      "modifiedValue": 2
+    },
+    {
+      "name": "Willpower",
+      "id": "WILLPOWER",
+      "points": 5,
+      "modifiedValue": 5
+    },
+    {
+      "name": "Logic",
+      "id": "LOGIC",
+      "points": 3,
+      "modifiedValue": 3
+    },
+    {
+      "name": "Intuition",
+      "id": "INTUITION",
+      "points": 3,
+      "modifiedValue": 3
+    },
+    {
+      "name": "Charisma",
+      "id": "CHARISMA",
+      "points": 10,
+      "modifiedValue": 10
+    },
+    {
+      "name": "Edge",
+      "id": "EDGE",
+      "points": 2,
+      "modifiedValue": 2
+    },
+    {
+      "name": "Magic",
+      "id": "MAGIC",
+      "points": 6,
+      "modifiedValue": 6
+    },
+    {
+      "name": "Resonance",
+      "id": "RESONANCE",
+      "points": 0,
+      "modifiedValue": 0
+    },
+    {
+      "name": "Power Points",
+      "id": "POWER_POINTS",
+      "points": 4,
+      "modifiedValue": 4
+    },
+    {
+      "name": "Defense Pool",
+      "id": "DEFENSE_POOL_PHYSICAL",
+      "points": 0,
+      "modifiedValue": 5
+    },
+    {
+      "name": "Composure",
+      "id": "COMPOSURE",
+      "points": 0,
+      "modifiedValue": 15
+    },
+    {
+      "name": "Judge Intentions",
+      "id": "JUDGE_INTENTIONS",
+      "points": 0,
+      "modifiedValue": 8
+    },
+    {
+      "name": "Memory",
+      "id": "MEMORY",
+      "points": 0,
+      "modifiedValue": 6
+    },
+    {
+      "name": "Lift / Carry",
+      "id": "LIFT_CARRY",
+      "points": 0,
+      "modifiedValue": 7
+    }
+  ],
+  "initiatives": [
+    {
+      "name": "Initiative (Astral)",
+      "id": "INITIATIVE_ASTRAL",
+      "value": 6,
+      "dice": "+2D6"
+    },
+    {
+      "name": "Initiative",
+      "id": "INITIATIVE_PHYSICAL",
+      "value": 5,
+      "dice": "+1D6"
+    },
+    {
+      "name": "Initiative (Matrix AR)",
+      "id": "INITIATIVE_MATRIX",
+      "value": 5,
+      "dice": "+1D6"
+    },
+    {
+      "name": "Initiative (Matrix VR)",
+      "id": "INITIATIVE_MATRIX_VR_COLD",
+      "value": 5,
+      "dice": "+2D6"
+    },
+    {
+      "name": "Initiative (Matrix Hot)",
+      "id": "INITIATIVE_MATRIX_VR_HOT",
+      "value": 5,
+      "dice": "+3D6"
+    }
+  ],
+  "qualities": [
+    {
+      "name": "Metagenic \u003cAttribute\u003e Improvement",
+      "id": "metagenetic_attribute_improvement",
+      "choice": "Charisma",
+      "positive": true,
+      "rating": 0,
+      "page": "Sixth World Companion 120",
+      "description": ""
+    },
+    {
+      "name": "Exceptional Attribute",
+      "id": "exceptional_attribute",
+      "choice": "Charisma",
+      "positive": true,
+      "rating": 0,
+      "page": "Core Rulebook 71",
+      "description": ""
+    },
+    {
+      "name": "Inspire Competence",
+      "id": "inspire_competence",
+      "choice": "",
+      "positive": true,
+      "rating": 0,
+      "page": "Sixth World Companion 133",
+      "description": ""
+    },
+    {
+      "name": "Hooder",
+      "id": "hooder",
+      "choice": "",
+      "positive": false,
+      "rating": 3,
+      "page": "Sixth World Companion 137",
+      "description": ""
+    },
+    {
+      "name": "Chronic Pain",
+      "id": "chronic_pain",
+      "choice": "",
+      "positive": false,
+      "rating": 0,
+      "page": "Sixth World Companion 136",
+      "description": ""
+    },
+    {
+      "name": "Focused Concentration",
+      "id": "focused_concentration",
+      "choice": "",
+      "positive": true,
+      "rating": 3,
+      "page": "Core Rulebook 71",
+      "description": ""
+    },
+    {
+      "name": "Low-Light Vision",
+      "id": "low-light_vision",
+      "choice": "",
+      "positive": true,
+      "rating": 0,
+      "page": "Core Rulebook 72",
+      "description": ""
+    }
+  ],
+  "skills": [
+    {
+      "name": "Native Language",
+      "id": "language",
+      "attribute": "Logic",
+      "rating": 4,
+      "pool": 0,
+      "specializations": [],
+      "influencedBy": [],
+      "description": ""
+    },
+    {
+      "name": "Sorcery",
+      "id": "sorcery",
+      "attribute": "Magic",
+      "rating": 6,
+      "pool": 0,
+      "specializations": [],
+      "influencedBy": [],
+      "description": ""
+    },
+    {
+      "name": "Influence",
+      "id": "influence",
+      "attribute": "Charisma",
+      "rating": 5,
+      "pool": 0,
+      "specializations": [],
+      "influencedBy": [
+        "Cosmetic Control"
+      ],
+      "description": ""
+    },
+    {
+      "name": "Conjuring",
+      "id": "conjuring",
+      "attribute": "Magic",
+      "rating": 1,
+      "pool": 0,
+      "specializations": [],
+      "influencedBy": [],
+      "description": ""
+    },
+    {
+      "name": "MCT",
+      "id": "knowledge",
+      "attribute": "Logic",
+      "rating": 1,
+      "pool": 0,
+      "specializations": [],
+      "influencedBy": [],
+      "description": ""
+    },
+    {
+      "name": "Wuxing",
+      "id": "knowledge",
+      "attribute": "Logic",
+      "rating": 1,
+      "pool": 0,
+      "specializations": [],
+      "influencedBy": [],
+      "description": ""
+    },
+    {
+      "name": "Small Unit Tactics",
+      "id": "knowledge",
+      "attribute": "Logic",
+      "rating": 1,
+      "pool": 0,
+      "specializations": [],
+      "influencedBy": [],
+      "description": ""
+    },
+    {
+      "name": "East Asian Media",
+      "id": "knowledge",
+      "attribute": "Logic",
+      "rating": 1,
+      "pool": 0,
+      "specializations": [],
+      "influencedBy": [],
+      "description": ""
+    }
+  ],
+  "spells": [
+    {
+      "name": "Increase Reflexes",
+      "id": "increase_reflexes",
+      "category": "Heal spells",
+      "type": "Physical",
+      "duration": "Sustained",
+      "range": "Touch",
+      "drain": 5,
+      "features": [],
+      "isAlchemistic": false,
+      "influencedBy": [],
+      "page": "Core Rulebook 137",
+      "description": ""
+    }
+  ],
+  "rituals": [],
+  "metamagic": [
+    {
+      "name": "Channeling",
+      "page": "Street Wyrd 121",
+      "description": ""
+    }
+  ],
+  "echoes": null,
+  "complexForms": [],
+  "adeptPowers": [
+    {
+      "name": "Cosmetic Control",
+      "activation": "MAJOR_ACTION",
+      "level": 0,
+      "cost": 2.0,
+      "page": "Street Wyrd 78",
+      "description": ""
+    },
+    {
+      "name": "Improved Combat Ability",
+      "activation": "PASSIVE",
+      "level": 0,
+      "cost": 2.0,
+      "page": "Core Rulebook 157",
+      "description": ""
+    }
+  ],
+  "longRangeWeapons": [],
+  "closeCombatWeapons": [
+    {
+      "name": "Unarmed",
+      "type": "Close Combat Weapons",
+      "subtype": "Unarmed",
+      "skill": null,
+      "pool": 2,
+      "damage": "2S",
+      "attackRating": "4/-/-/-/-",
+      "wifi": [],
+      "accessories": [],
+      "page": "Core Rulebook 67",
+      "description": "",
+      "primary": false
+    }
+  ],
+  "armors": [
+    {
+      "name": "Ares Securetech SkinShield",
+      "rating": 2,
+      "socialrating": 0,
+      "accessories": [
+        {
+          "name": "Ballistic Hood",
+          "type": "Accessories",
+          "subType": "Armor",
+          "rating": 0,
+          "description": ""
+        },
+        {
+          "name": "Fashion Accessory (Très Chic)",
+          "type": "Accessories",
+          "subType": "Armor",
+          "rating": 0,
+          "description": ""
+        },
+        {
+          "name": "Fashion Accessory (Très Chic)",
+          "type": "Accessories",
+          "subType": "Armor",
+          "rating": 0,
+          "description": ""
+        }
+      ],
+      "isIgnored": false,
+      "page": "Firing Squad 49",
+      "description": "",
+      "primary": true
+    },
+    {
+      "name": "Ballistic Hood",
+      "rating": 1,
+      "socialrating": 0,
+      "accessories": [],
+      "isIgnored": false,
+      "page": "Core Rulebook, Seattle City Edition 335",
+      "description": "",
+      "primary": false
+    }
+  ],
+  "items": [
+    {
+      "name": "Nanopaste Disguise",
+      "count": 1,
+      "rating": 0,
+      "type": "Nanoware",
+      "subType": "Nanotech Kits",
+      "page": "Body Shop 88",
+      "accessories": [],
+      "description": ""
+    },
+    {
+      "name": "Nanopaste Disguise Refill",
+      "count": 1,
+      "rating": 0,
+      "type": "Nanoware",
+      "subType": "Nanotech Kits",
+      "page": "Body Shop 89",
+      "accessories": [],
+      "description": ""
+    },
+    {
+      "name": "Nanocosmetics",
+      "count": 1,
+      "rating": 0,
+      "type": "Nanoware",
+      "subType": "Nanotech Kits",
+      "page": "Body Shop 88",
+      "accessories": [],
+      "description": ""
+    },
+    {
+      "name": "Nanocosmetics Refill",
+      "count": 1,
+      "rating": 0,
+      "type": "Nanoware",
+      "subType": "Nanotech Kits",
+      "page": "Body Shop 89",
+      "accessories": [],
+      "description": ""
+    },
+    {
+      "name": "Savior Medkit",
+      "count": 1,
+      "rating": 0,
+      "type": "Nanoware",
+      "subType": "Nanotech Kits",
+      "page": "Body Shop 88",
+      "accessories": [],
+      "description": ""
+    },
+    {
+      "name": "Savior Medkit Refill",
+      "count": 1,
+      "rating": 0,
+      "type": "Nanoware",
+      "subType": "Nanotech Kits",
+      "page": "Body Shop 89",
+      "accessories": [],
+      "description": ""
+    },
+    {
+      "name": "Contacts",
+      "count": 1,
+      "rating": 0,
+      "type": "Electronic",
+      "subType": "Imaging",
+      "page": "Core Rulebook 274",
+      "accessories": [
+        {
+          "name": "Image link",
+          "type": "Accessories",
+          "subType": "Vision Enhancement",
+          "rating": 0,
+          "description": ""
+        },
+        {
+          "name": "Thermographic vision",
+          "type": "Accessories",
+          "subType": "Vision Enhancement",
+          "rating": 0,
+          "description": ""
+        },
+        {
+          "name": "Flare compensation",
+          "type": "Accessories",
+          "subType": "Vision Enhancement",
+          "rating": 0,
+          "description": ""
+        }
+      ],
+      "description": ""
+    },
+    {
+      "name": "Software Library",
+      "count": 1,
+      "rating": 0,
+      "type": "Electronic",
+      "subType": "Tools",
+      "page": "Core Rulebook 271",
+      "accessories": [],
+      "description": ""
+    }
+  ],
+  "augmentations": [
+    {
+      "name": "Nanopaste Disguise",
+      "level": null,
+      "essence": 0.0,
+      "page": "Body Shop 88",
+      "quality": null,
+      "description": "",
+      "accessories": []
+    },
+    {
+      "name": "Nanopaste Disguise Refill",
+      "level": null,
+      "essence": 0.0,
+      "page": "Body Shop 89",
+      "quality": null,
+      "description": "",
+      "accessories": []
+    },
+    {
+      "name": "Nanocosmetics",
+      "level": null,
+      "essence": 0.0,
+      "page": "Body Shop 88",
+      "quality": null,
+      "description": "",
+      "accessories": []
+    },
+    {
+      "name": "Nanocosmetics Refill",
+      "level": null,
+      "essence": 0.0,
+      "page": "Body Shop 89",
+      "quality": null,
+      "description": "",
+      "accessories": []
+    },
+    {
+      "name": "Savior Medkit",
+      "level": null,
+      "essence": 0.0,
+      "page": "Body Shop 88",
+      "quality": null,
+      "description": "",
+      "accessories": []
+    },
+    {
+      "name": "Savior Medkit Refill",
+      "level": null,
+      "essence": 0.0,
+      "page": "Body Shop 89",
+      "quality": null,
+      "description": "",
+      "accessories": []
+    }
+  ],
+  "vehicles": [],
+  "drones": [],
+  "lifestyles": [
+    {
+      "customName": "Low",
+      "name": "Low",
+      "cost": 0,
+      "paidMonths": 1,
+      "sin": null,
+      "options": null,
+      "description": null
+    }
+  ],
+  "sins": [
+    {
+      "name": "Lee Ji-Yoo",
+      "description": null,
+      "quality": 6
+    },
+    {
+      "name": "Tanaka Ryo",
+      "description": null,
+      "quality": 6
+    }
+  ],
+  "contacts": [
+    {
+      "name": "Brynne Taggart",
+      "type": "SEA Fixer",
+      "loyalty": 2,
+      "influence": 5,
+      "description": null,
+      "favors": 0
+    },
+    {
+      "name": "Vincent Grisome",
+      "type": "SEA Magic Prof",
+      "loyalty": 3,
+      "influence": 5,
+      "description": null,
+      "favors": 0
+    },
+    {
+      "name": "Whiskey",
+      "type": "SEA Street Doc",
+      "loyalty": 2,
+      "influence": 2,
+      "description": null,
+      "favors": 0
+    },
+    {
+      "name": "Claudette Laurier",
+      "type": "NOLA Order of the Golden Dawn Librarian",
+      "loyalty": 3,
+      "influence": 5,
+      "description": null,
+      "favors": 0
+    },
+    {
+      "name": "Le Tigre",
+      "type": "NOLA Epoch Model",
+      "loyalty": 1,
+      "influence": 5,
+      "description": null,
+      "favors": 0
+    },
+    {
+      "name": "Hana",
+      "type": "Wuxing Talismonger and Pop Idol",
+      "loyalty": 6,
+      "influence": 6,
+      "description": null,
+      "favors": 0
+    },
+    {
+      "name": "Guild of Freelance Assets",
+      "type": "Conclave",
+      "loyalty": 8,
+      "influence": 7,
+      "description": null,
+      "favors": 0
+    }
+  ],
+  "licenses": [
+    {
+      "name": "Magician",
+      "sin": "Lee Ji-Yoo",
+      "type": null,
+      "rating": "SECOND_LIFE"
+    }
+  ],
+  "matrixItems": [
+    {
+      "name": "Erika Elite",
+      "dataProcessing": 2,
+      "firewall": 1,
+      "attack": 0,
+      "sleaze": 0,
+      "deviceRating": 0,
+      "type": "Electronic",
+      "subType": "COMMLINK",
+      "page": "Core Rulebook 267",
+      "concurrentPrograms": 2,
+      "accessories": [
+        {
+          "name": "P-ICE Nope!",
+          "type": "Software",
+          "subType": "Commlink Apps",
+          "rating": 0,
+          "description": ""
+        },
+        {
+          "name": "Personal Assistant",
+          "type": "Software",
+          "subType": "Commlink Apps",
+          "rating": 0,
+          "description": ""
+        },
+        {
+          "name": "Securelink Upgrade",
+          "type": "Electronic",
+          "subType": "Electronic Accessories",
+          "rating": 0,
+          "description": ""
+        }
+      ],
+      "programs": [],
+      "description": ""
+    }
+  ],
+  "martialArts": [],
+  "signatureManeuvers": [],
+  "notes": null
+}

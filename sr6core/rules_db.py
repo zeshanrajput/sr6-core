@@ -269,6 +269,31 @@ class RulesDB:
             return dict(row)
         return None
 
+    def get_rule_by_topic_or_id(self, identifier: str) -> Optional[Dict[str, Any]]:
+        """Fast lookup of a rule by exact ID, topic name, or best prefix match."""
+        if not identifier or not identifier.strip():
+            return None
+        clean_id = identifier.strip()
+        # 1. Exact ID
+        res = self.query_rule(clean_id)
+        if res:
+            return attach_rule_statblocks(res)
+
+        # 2. Exact Topic
+        cursor = self.conn.cursor()
+        row = cursor.execute(
+            "SELECT * FROM rules WHERE lower(topic) = ? OR lower(topic) = ?",
+            (clean_id.lower(), clean_id.lower().replace("-", " "))
+        ).fetchone()
+        if row:
+            return attach_rule_statblocks(dict(row))
+
+        # 3. Best search match
+        matches = self.search_rules(clean_id, limit=1)
+        if matches:
+            return matches[0]
+        return None
+
     def search_rules(
         self,
         query: str,
@@ -282,12 +307,14 @@ class RulesDB:
         1. Exact topic / name match (O(1))
         2. Multi-word topic containment (all words in topic)
         3. Topic prefix / title containment
-        4. FTS5 BM25 weighted search with snippets (Topic x5.0, Tags x3.0, Content x1.0)
+        4. FTS5 BM25 weighted search with stop-word cleaning (AND + OR fallback)
         5. Fallback LIKE search
         Followed by canonical edition deduplication and Pydantic stat block attachment.
         """
         if not query or not query.strip():
             return []
+
+        from sr6core.rag.search import clean_query_terms
 
         clean_q = query.strip()
         norm_q = clean_q.lower()
@@ -304,6 +331,12 @@ class RulesDB:
             AND lower(topic) NOT LIKE 'index%' 
             AND lower(topic) NOT LIKE '%game concepts%'
             AND lower(topic) NOT LIKE '%credits%'
+        """
+        ignore_clause_fts = """
+            lower(r.topic) NOT LIKE '%content%' 
+            AND lower(r.topic) NOT LIKE 'index%' 
+            AND lower(r.topic) NOT LIKE '%game concepts%'
+            AND lower(r.topic) NOT LIKE '%credits%'
         """
 
         raw_results = []
@@ -348,16 +381,16 @@ class RulesDB:
                         raw_results.append(d)
                         seen.add(d["id"])
 
-        # 4. FTS5 BM25 Weighted Search with Snippet Extraction
+        # 4. FTS5 BM25 Weighted Search with Stop-Word Cleaning & Fallback OR Ranking
         if len(raw_results) < limit:
             try:
-                fts_term = re.sub(r"[^\w\s]", " ", query).strip()
-                if fts_term:
-                    fts_words = fts_term.split()
-                    # Safe FTS query with prefix wildcard
-                    fts_q = " AND ".join([f'"{w}"*' for w in fts_words]) if len(fts_words) > 1 else f'"{fts_term}"*'
-                    
+                clean_terms = clean_query_terms(query)
+                if clean_terms:
                     fts_select = ", ".join([f"r.{c}" for c in select_cols]) if select_cols else "r.*"
+                    seen = {r["id"] for r in raw_results}
+
+                    # 4a. Strict AND search on clean terms
+                    fts_and_q = " AND ".join([f'"{w}"*' for w in clean_terms])
                     rows = cursor.execute(
                         f"""
                         SELECT {fts_select}, 
@@ -366,19 +399,42 @@ class RulesDB:
                         FROM rules r 
                         JOIN rules_fts fts ON r.id = fts.id 
                         WHERE rules_fts MATCH ? 
-                        AND {ignore_clause}
+                        AND {ignore_clause_fts}
                         ORDER BY r.authority_level ASC, fts_score ASC
                         LIMIT ?
                         """,
-                        (fts_q, limit * 3)
+                        (fts_and_q, limit * 3)
                     ).fetchall()
                     if rows:
-                        seen = {r["id"] for r in raw_results}
                         for r in rows:
                             d = dict(r)
                             if d["id"] not in seen:
                                 raw_results.append(d)
                                 seen.add(d["id"])
+
+                    # 4b. If still under limit, run OR search on clean terms with BM25 ranking
+                    if len(raw_results) < limit and len(clean_terms) > 1:
+                        fts_or_q = " OR ".join([f'"{w}"*' for w in clean_terms])
+                        rows = cursor.execute(
+                            f"""
+                            SELECT {fts_select}, 
+                                   bm25(rules_fts, 10.0, 5.0, 2.0, 3.0, 1.0) AS fts_score,
+                                   snippet(rules_fts, 4, '[bold cyan]', '[/bold cyan]', '...', 25) AS snippet
+                            FROM rules r 
+                            JOIN rules_fts fts ON r.id = fts.id 
+                            WHERE rules_fts MATCH ? 
+                            AND {ignore_clause_fts}
+                            ORDER BY r.authority_level ASC, fts_score ASC
+                            LIMIT ?
+                            """,
+                            (fts_or_q, limit * 3)
+                        ).fetchall()
+                        if rows:
+                            for r in rows:
+                                d = dict(r)
+                                if d["id"] not in seen:
+                                    raw_results.append(d)
+                                    seen.add(d["id"])
             except Exception:
                 pass
 

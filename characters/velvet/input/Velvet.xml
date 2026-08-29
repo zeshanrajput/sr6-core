@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sr6char career="true" gender="DIVERSE" karmaF="-4" karmaI="14" meta="elf" nuyen="18525">
+   <lifestyles>
+      <lifestyle comfort="low" entert="low" lang="en" necess="low" neigh="low" ref="low" security="low" space="low" value="1"/>
+   </lifestyles>
+   <asdfMap/>
+   <chargenSettings>{&#x0022;variant&#x0022;:&#x0022;STANDARD&#x0022;,&#x0022;mysticAdeptPowerPoints&#x0022;:0,&#x0022;toContacts&#x0022;:0,&#x0022;negQualities&#x0022;:0,&#x0022;initiation&#x0022;:0,&#x0022;toNuyen&#x0022;:50}</chargenSettings>
+   <realName>Kim Jin-Young</realName>
+   <type>METAHUMAN</type>
+   <mortype>mysticadept</mortype>
+   <tradition>shinto</tradition>
+   <qualities>
+      <quality lang="en" ref="metagenetic_attribute_improvement" uuid="89191c80-625f-4bf7-b0a0-83b084ada5ac">
+         <decision choice="dbb18bb4-89a4-4435-bede-3077ee600bc5" value="CHARISMA"/>
+      </quality>
+      <quality lang="en" ref="exceptional_attribute" uuid="d25774f7-61b4-45e2-862c-5f61a2a8938f">
+         <decision choice="4096584c-eb76-49b2-be6b-1a6c0ca9e50a" value="CHARISMA"/>
+      </quality>
+      <quality lang="en" ref="inspire_competence" uuid="3a73ed9e-46af-4cb7-b481-e14a279514f6"/>
+      <quality lang="en" ref="hooder" uuid="3efad21e-154a-44e6-aae2-d9fdbc19822c" value="3"/>
+      <quality lang="en" ref="chronic_pain" uuid="77c5e97c-d84e-46c2-a0b4-53f804d50c63"/>
+      <quality lang="en" ref="focused_concentration" uuid="dc02cc90-1c48-433c-90e2-0f635aa49db9" value="3"/>
+      <quality lang="en" ref="low-light_vision"/>
+   </qualities>
+   <spells>
+      <spell lang="en" ref="increase_attribute"/>
+   </spells>
+   <adeptPowers>
+      <adeptpower lang="en" ref="cosmetic_control" value="2"/>
+      <adeptpower lang="en" ref="linguistics"/>
+      <adeptpower lang="en" ref="command_presence" value="1"/>
+      <adeptpower lang="en" ref="cloak" value="1"/>
+   </adeptPowers>
+   <metaEchoes>
+      <metaEcho lang="en" ref="channeling"/>
+      <metaEcho lang="en" ref="power_points"/>
+   </metaEchoes>
+   <sins>
+      <sin name="Lee Ji-Yoo" quality="SECOND_LIFE" uniqueid="f50c7bf6-4b2e-429b-841f-a9e8e8c68443"/>
+      <sin name="Tanaka Ryo" quality="SECOND_LIFE" uniqueid="5f5c852d-5380-4398-8132-8a65aeba5a88"/>
+   </sins>
+   <licenses>
+      <licenses name="Magician" rating="SECOND_LIFE" sin="f50c7bf6-4b2e-429b-841f-a9e8e8c68443" uniqueid="52df4133-025c-458c-b515-e8217aa728d6"/>
+   </licenses>
+   <contacts>
+      <contact id="a4ebf573-0aea-4882-9f4f-aad8766c16df" loy="2" name="Brynne Taggart" rat="5" type="STREET" typename="SEA Fixer"/>
+      <contact id="8dace4ca-0877-4269-8950-e70e0f3035f2" loy="3" name="Vincent Grisome" rat="5" type="ACADEMIC" typename="SEA Magic Prof"/>
+      <contact id="4794b385-06ec-45c7-be96-251aadcc79f1" loy="2" name="Whiskey" rat="2" type="MEDICAL" typename="SEA Street Doc"/>
+      <contact id="6047b894-b8f7-4b9b-9215-53a8ce167326" loy="3" name="Claudette Laurier" rat="5" type="MAGIC" typename="NOLA Order of the Golden Dawn Librarian"/>
+      <contact id="deac7cf1-6589-466d-9935-07ef65870325" loy="1" name="Le Tigre" rat="5" type="MEDIA" typename="NOLA Epoch Model"/>
+      <contact id="db64e2c7-e042-41d1-af94-410f5c41b2dc" loy="6" name="Hana" rat="6" type="MAGIC" typename="Wuxing Talismonger and Pop Idol"/>
+      <contact id="0923a33e-7599-44e3-936d-313bb6418e12" loy="8" name="Guild of Freelance Assets" rat="7" type="MAGIC" typename="Conclave"/>
+   </contacts>
+   <name>Velvet</name>
+   <datasets mode="ALL"/>
+   <rules>
+      <set rule="CAREER_UNDO_FROM_CAREER" to="true"/>
+      <set rule="CHARGEN_NEGATIVE_NUYEN" to="true"/>
+      <set rule="CAREER_PAY_GEAR" to="true"/>
+   </rules>
+   <hairColor>White</hairColor>
+   <eyeColor>Obsidian</eyeColor>
+   <skinColor>White</skinColor>
+   <age>20</age>
+   <size>192</size>
+   <weight>72</weight>
+   <attributes>
+      <attributes id="BODY" value="2"/>
+      <attributes id="AGILITY" value="3"/>
+      <attributes id="REACTION" value="2"/>
+      <attributes id="STRENGTH" value="2"/>
+      <attributes id="WILLPOWER" value="5"/>
+      <attributes id="LOGIC" value="3"/>
+      <attributes id="INTUITION" value="3"/>
+      <attributes id="CHARISMA" value="10"/>
+      <attributes id="EDGE" value="2"/>
+      <attributes id="MAGIC" value="6"/>
+      <attributes id="RESONANCE" value="0"/>
+      <attributes id="POWER_POINTS" value="4"/>
+   </attributes>
+   <skills>
+      <skill lang="en" ref="language" uuid="1ab9b4c2-b6d2-4d84-8c82-91920cbefe8b" value="4">
+         <decision choice="a7103ee4-31fa-435d-ac42-08f7d4d1e80c" value="Native Language"/>
+      </skill>
+      <skill lang="en" ref="sorcery" value="6"/>
+      <skill lang="en" ref="influence" value="5"/>
+      <skill lang="en" ref="conjuring" value="1"/>
+      <skill lang="en" ref="knowledge" uuid="fe1dd270-9bc4-4e98-a36e-7eef833e630d" value="1">
+         <decision choice="89ebc659-ba06-4732-b347-6b832842a55b" value="MCT"/>
+      </skill>
+      <skill lang="en" ref="knowledge" uuid="f924f4e0-2964-4c5e-9bf8-97240b8067fb" value="1">
+         <decision choice="89ebc659-ba06-4732-b347-6b832842a55b" value="Wuxing"/>
+      </skill>
+      <skill lang="en" ref="knowledge" uuid="4032d4d2-620d-4708-9541-080a2a296096" value="1">
+         <decision choice="89ebc659-ba06-4732-b347-6b832842a55b" value="Small Unit Tactics"/>
+      </skill>
+      <skill lang="en" ref="knowledge" uuid="0f6f7607-2bb5-48fe-967c-a2256086deed" value="1">
+         <decision choice="89ebc659-ba06-4732-b347-6b832842a55b" value="East Asian Media"/>
+      </skill>
+   </skills>
+   <charGenUsed>free</charGenUsed>
+   <strictness>core</strictness>
+   <items>
+      <item lang="en" mode="CARRIED" ref="securetech_skinshield" uuid="cf48b356-52ca-43ad-93da-afefbdb5d5cb">
+         <accessories>
+            <item lang="en" mode="EMBEDDED" ref="ballistic_hood" slot="ARMOR" uuid="3eec3c85-718c-43ec-bdc9-7f5182043946"/>
+            <item lang="en" mode="EMBEDDED" ref="fashion_accessory_tres_chic" slot="FASHION" uuid="80815189-9626-4083-90b2-c92db90c7011"/>
+            <item lang="en" mode="EMBEDDED" ref="fashion_accessory_tres_chic" slot="FASHION" uuid="695af9c2-6c0e-4163-a499-43652182b506"/>
+         </accessories>
+      </item>
+      <item lang="en" mode="CARRIED" ref="erika_elite" uuid="39c221e3-6e1f-4849-8b12-b4487ef9b655">
+         <accessories>
+            <item lang="en" mode="EMBEDDED" ref="p-ice_nope" slot="SOFTWARE" uuid="a64b41fb-f3b6-4392-b161-852be9a97a73"/>
+            <item lang="en" mode="EMBEDDED" ref="personal_assistant" slot="SOFTWARE" uuid="a8678d75-5d05-4c0a-b27e-9037c48cd96d">
+               <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="6"/>
+            </item>
+            <item lang="en" mode="EMBEDDED" ref="comhack_securelink_upgrade" slot="ELECTRONIC_ACCESSORY" uuid="41a4ce1e-b33f-4f71-9e24-e20fef3c2559">
+               <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="2"/>
+            </item>
+         </accessories>
+         <flag>PRIMARY</flag>
+      </item>
+      <item lang="en" mode="CARRIED" ref="nanopaste_disguise_kit" uuid="75ef08d8-541e-44e0-9c83-48ffabf34456"/>
+      <item count="1" lang="en" mode="CARRIED" ref="nanopaste_disguise_refill" uuid="3a265f55-5587-4467-9476-b80de29185a4"/>
+      <item lang="en" mode="CARRIED" ref="nanocosmetics_kit" uuid="279fa73d-6901-43b5-aa66-761a2ed4225a"/>
+      <item count="1" lang="en" mode="CARRIED" ref="nanocosmetics_refill" uuid="98b9f0de-482e-4a60-b1f2-8ed3ef68f671"/>
+      <item lang="en" mode="CARRIED" ref="savior_medkit" uuid="668d11cb-6c01-49e5-8eae-4b671d3e898b"/>
+      <item count="1" lang="en" mode="CARRIED" ref="savior_medkit_refill" uuid="b93007b7-3a55-4260-9cfe-8694a0c6fc61"/>
+      <item lang="en" mode="CARRIED" ref="contacts" uuid="81211eb9-dd26-4019-8ec5-f7932cd54e40">
+         <accessories>
+            <item lang="en" mode="EMBEDDED" ref="image_link" slot="OPTICAL" uuid="64b1695a-502f-4025-8d96-c77d0fbcb923"/>
+            <item lang="en" mode="EMBEDDED" ref="thermographic_vision" slot="OPTICAL" uuid="f7d39b77-3470-405a-9139-e99d25e0f593"/>
+            <item lang="en" mode="EMBEDDED" ref="flare_compensation" slot="OPTICAL" uuid="e0fe03ba-e594-4fb5-8991-f955e9c1a7d8"/>
+         </accessories>
+         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="3"/>
+      </item>
+      <item lang="en" mode="VIRTUAL" ref="software_library" uuid="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979"/>
+   </items>
+   <history>
+      <itemmod date="2026-07-25T19:04:00.858-04:00" ref="cosmetic_control" type="ADEPT_POWER"/>
+      <itemmod date="2026-07-25T19:04:13.943-04:00" ref="improved_ability_combat" type="ADEPT_POWER"/>
+      <itemmod date="2026-07-25T19:23:16.986-04:00" expCost="11" ref="channeling" type="METAECHO"/>
+      <itemmod date="2026-07-25T19:36:45.203-04:00" expCost="5" ref="increase_attribute" type="SPELL"/>
+   </history>
+   <rewards>
+      <reward date="2026-07-01T00:00:00.000-04:00" exp="1" money="1000">
+         <title>Build-A-Runner</title>
+         <gamemaster>WarDoctor 1077</gamemaster>
+      </reward>
+      <reward date="2026-07-17T00:00:00.000-04:00" exp="8" money="14000">
+         <title>SRM 2081-09 | Eviction Notice</title>
+         <gamemaster>WarDoctor 1077</gamemaster>
+         <modifications>
+            <valmod ref="HEAT" set="AUGMENTED" type="ATTRIBUTE" value="0" when="ALLCREATE"/>
+            <valmod ref="REPUTATION" set="AUGMENTED" type="ATTRIBUTE" value="2" when="ALLCREATE"/>
+         </modifications>
+      </reward>
+   </rewards>
+</sr6char>

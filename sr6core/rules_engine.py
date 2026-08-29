@@ -395,10 +395,10 @@ def get_monad_strategy_table(char_id: str = "union") -> str:
     rows = [
         "| Operational Mode | Active Augmentations & State | Effective Attributes | Primary Action Pools & Modifiers | Derived Defenses & Hits |",
         "| :--- | :--- | :--- | :--- | :--- |",
-        "| **1. Meatspace Baseline (Chrome Active, Wireless ON)** | Used Skillwires R6 (Wireless ON: +1)<br>Used Skilljack R6 + Reflex Recorder (Firearms: +1)<br>Muscle Toner R2, Synaptic Booster R2, Muscle Aug R2<br>*Firearms R6 owned; other skills streamed 1-at-a-time* | **AGI 6** *(Aug)*<br>**REA 6** *(Aug)*<br>**STR 4** *(Aug)*<br>BOD 4, LOG 7, INT 4 | **Firearms (Praetor/Colt)**: **16d6** (4 Hits) *(Smartlink + Wires + Reflex)*<br>**Streamed Physical Softs (1-at-a-time)**: **13d6** (3 Hits, AGI/REA) / **11d6** (STR)<br>**Engineering**: **9d6** (2 Hits) | **Physical Defense**: **10d6** (2 Hits)<br>**Damage Soak**: **13d6** (3 Hits) *(Bone Density R4 + Orthoskin R2 + Dermal + Skinshield & Hood)*<br>**Physical Initiative**: **10 + 3D6**<br>**Damage Compensator R3**: Ignores 3 wound boxes |",
-        "| **2. Adrenaline Pump Surge (SRMG Drug Stacking)** | Adrenaline Pump (Omega R2) releasing adrenaline drug<br>Stacks with Synaptic Booster & Muscle Toner per SRMG rules | **AGI 8** *(Cap)*<br>**REA 8** *(Cap)*<br>**STR 6**<br>**WIL 7** | **Firearms (Praetor/Colt)**: **18d6** (4 Hits)<br>**Streamed Physical Softs (1-at-a-time)**: **15d6** (3 Hits)<br>**Athletics / Stealth**: **15d6** (3 Hits) | **Physical Defense**: **12d6** (3 Hits)<br>**Physical Initiative**: **12 + 3D6** *(Init Dice max 3D6)*<br>**Composure**: **10d6** (2 Hits)<br>**Crash**: 2S unresistable stun upon exhaustion |",
-        "| **3. Matrix Living Persona (Veronica Co-Processing)** | Monad Living Persona (Whisper Nets: **A:3 S:6 D:8 F:8**)<br>NV 6 Allocated: +3 FW, +2 Sleaze, +1 DP<br>Hot-Sim VR Matrix Inhabitation | LOG 7<br>INT 4<br>WIL 5<br>CHA 3 | **Offensive Cracking (Hacking)**: **12d6** (3 Hits)<br>**Electronics (Software/Edit)**: **13d6** (3 Hits)<br>**Matrix Perception**: **10d6** (2 Hits)<br>**Hardware / Engineering**: **9d6** (2 Hits) | **Full Matrix Defense**: **13d6** (3 Hits) *(WIL 5 + FW 8)*<br>**Matrix Initiative**: **10 + 3D6 (AR)** / **13 + 3D6 (Hot-Sim VR)**<br>**Matrix Soak**: **8d6** (Firewall 8) |",
-        "| **4. Monad Boost & Overdrive (Peak Performance)** | **Monad Attribute Boost**: Minor Action, Simple NV test to boost any attribute by +2.<br>**Cyberware Overdrive**: Minor Action to boost cyberware rating by +2 for 1 action (1 Wild Die). | **AGI 8/10**<br>**REA 8/10**<br>**LOG 9** *(Mental Boost)* | **Physical Skills w/ Boost**: **15d6** (or **17d6** w/ Surge)<br>**Mental Skills w/ Boost**: **16d6** (LOG) / **13d6** (INT) / **14d6** (WIL)<br>**Firearms w/ Boost**: **18d6** | **Overdrive Risk / Cost**: Glitches cause system shutdown for {Rating} rounds; Critical Glitches reduce attribute to 0 for {Rating} rounds. *(Bioware cannot be overdriven)* |"
+        "| **1. Meatspace Baseline (Chrome Active, Wireless ON)** | Used Skillwires R6 (Wireless ON: +1)<br>Used Skilljack R6 + Reflex Recorder (Firearms: +1)<br>Muscle Toner R2, Synaptic Booster R2, Muscle Aug R2<br>*Streamed on-demand activesofts (¥4,000/mo)* | **AGI 5** *(Aug)*<br>**REA 4** *(Aug)*<br>**STR 4** *(Aug)*<br>BOD 4, LOG 6, INT 4 | **Firearms (Praetor/Colt)**: **15d6** (4 Hits) *(Smartlink + Wires + Reflex)*<br>**Streamed Physical Softs**: **12d6** (3 Hits, AGI) / **11d6** (REA/STR)<br>**Engineering**: **7d6** (2 Hits) | **Physical Defense**: **8d6** (2 Hits)<br>**Damage Soak**: **8d6** (2 Hits) *(BOD 4 + Bone Density R4; -1 Phys dmg via Platelet Factories)*<br>**Defense Rating**: **7 DR** (SkinShield w/ Hood) / **8 DR** (Coat + Helmet)<br>**Physical Initiative**: **8 + 3D6** (4 Minor Actions) |",
+        "| **2. Adrenaline Pump Surge (SRMG Drug Stacking)** | Adrenaline Pump (Used R2) releasing internal drug<br>Stacks with Synaptic Booster & Muscle Toner per SRMG rules | **AGI 7**<br>**REA 6**<br>**STR 6**<br>**WIL 7** | **Firearms (Praetor/Colt)**: **17d6** (4 Hits)<br>**Streamed Physical Softs**: **14d6** (3 Hits, AGI) / **13d6** (REA/STR)<br>**Athletics / Stealth**: **14d6** (3 Hits) | **Physical Defense**: **10d6** (2 Hits)<br>**Physical Initiative**: **10 + 3D6** *(Init Dice max 3D6)*<br>**Composure**: **9d6** (2 Hits)<br>**Crash**: Stun damage = $\\lceil \\text{rounds} / 2 \\rceil$ resisted w/ unaugmented Body |",
+        "| **3. Matrix Living Persona (Veronica Co-Processing)** | Monad Living Persona (Whisper Nets: **A:2 S:6 D:7 F:8**)<br>NV 6 Allocated: +3 FW, +2 Sleaze, +1 DP<br>Hot-Sim VR Matrix Inhabitation | LOG 6<br>INT 4<br>WIL 5<br>CHA 2 | **Offensive Cracking (Hacking)**: **11d6** (2 Hits)<br>**Electronics (Software/Edit)**: **12d6** (3 Hits)<br>**Matrix Perception**: **10d6** (2 Hits)<br>**Hardware / Engineering**: **7d6** (2 Hits) | **Full Matrix Defense**: **13d6** (3 Hits) *(WIL 5 + FW 8; 15d6 active)*<br>**Matrix Initiative**: **9 + 3D6 (AR)** / **12 + 3D6 (Hot-Sim VR)**<br>**Matrix Soak**: **8d6** (Firewall 8) |",
+        "| **4. Monad Boost & Overdrive (Peak Performance)** | **Monad NV Boost**: Minor Action, NV test (6 dice). Each hit gives +1 attribute or +1 Minor Action (Duration = hits in rounds; exhausts NV for 1 min).<br>**Cyberware Overdrive**: Minor Action to boost cyberware rating by +2 for 1 action (+1 Edge via *Maximum Overdrive*). | **AGI 7–9**<br>**REA 6–8**<br>**LOG 7–10** *(Mental Boost)* | **Physical Skills w/ Boost**: **13–16d6** (or **17d6** w/ Surge)<br>**Mental Skills w/ Boost**: **13–16d6** (LOG) / **11–13d6** (INT) / **12–14d6** (WIL)<br>**Firearms w/ Boost**: **16–18d6** | **Nanite Cost / Risk**: After boost ends, NV temporarily decreases by total boost for 1 minute. Overflow past racial max inflicts 1 Phys/Stun damage.<br>**Overdrive Risk**: 1 Wild Die; Glitches shut down ware. *(Bioware cannot be overdriven)* |"
     ]
     return "\n".join(rows)
 
@@ -453,48 +453,20 @@ def get_weapon_attack_table(char_id: str) -> str:
                 out.append("—")
         return " / ".join(out)
 
-    # 1. Red Fox Array (Link-Fired)
-    fox_stat = get_weapon_stats("red_fox") or {"dv": "6P", "ar": [14, 16, 16, 9]}
-    fox_base_dv = int(re.sub(r"[^\d]", "", fox_stat["dv"])) if re.search(r"\d", fox_stat["dv"]) else 6
-    # Base + 2 link-fired + 3 smartlink + 2 mount = +7 AR, +4 DV
-    fox_ss_ar = format_ar(fox_stat["ar"], ar_bonus=7, burst_pen=0)
-    fox_sa_ar = format_ar(fox_stat["ar"], ar_bonus=7, burst_pen=1)
-    fox_bf_ar = format_ar(fox_stat["ar"], ar_bonus=7, burst_pen=2)
-    rows.append(f"| **Red Fox Array (Link-Fired)** | **SS** (1/gun) | {fox_base_dv + 4}P | **{fox_ss_ar}** | Link-fired 1x Red Fox + 2x Crimson Wasps (+4 DV array bonus, +2 AR). **1 round/gun** (3 rounds total) per attack. |")
-    rows.append(f"| | **SA** (2/gun) | {fox_base_dv + 5}P | **{fox_sa_ar}** | Link-fired array (Drone mount halves SA penalty). **2 rounds/gun** (6 rounds total) per attack. |")
-    rows.append(f"| | **BF** (4/gun) | {fox_base_dv + 6}P | **{fox_bf_ar}** | Link-fired array (Drone mount halves BF penalty). **4 rounds/gun** (12 rounds total) per attack. |")
-
-    # 2. Crimson Wasp Array (2x Link-Fired)
+    # 1. Crimson Wasp Array (2x Link-Fired - Eye Mounts)
     wasp_stat = get_weapon_stats("crimson_wasp") or {"dv": "5P", "ar": [16, 14, 11, 6]}
     wasp_base_dv = int(re.sub(r"[^\d]", "", wasp_stat["dv"])) if re.search(r"\d", wasp_stat["dv"]) else 5
+    # Base + 1 link-fired + 3 smartlink + 2 mount = +6 AR, +2 DV
     wasp_ss_ar = format_ar(wasp_stat["ar"], ar_bonus=6, burst_pen=0)
     wasp_sa_ar = format_ar(wasp_stat["ar"], ar_bonus=6, burst_pen=1)
-    wasp_bf_ar = format_ar(wasp_stat["ar"], ar_bonus=6, burst_pen=2)
-    rows.append(f"| **Crimson Wasp Array (2x Link-Fired)** | **SS** (1/gun) | {wasp_base_dv + 2}P | **{wasp_ss_ar}** | Link-fired 2x Crimson Wasps (+2 DV array bonus, +1 AR). **1 round/gun** (2 rounds total) per attack. |")
+    rows.append(f"| **Crimson Wasp Array (2x Link-Fired)** | **SS** (1/gun) | {wasp_base_dv + 2}P | **{wasp_ss_ar}** | Link-fired 2x Crimson Wasps in Eye Mounts (+2 DV array bonus, +1 AR). **1 round/gun** (2 rounds total) per attack. |")
     rows.append(f"| | **SA** (2/gun) | {wasp_base_dv + 3}P | **{wasp_sa_ar}** | Link-fired array (Drone mount halves SA penalty). **2 rounds/gun** (4 rounds total) per attack. |")
-    rows.append(f"| | **BF** (4/gun) | {wasp_base_dv + 4}P | **{wasp_bf_ar}** | Link-fired array (Drone mount halves BF penalty). **4 rounds/gun** (8 rounds total) per attack. |")
 
-    # 3. Tesla Coil
+    # 2. Tesla Coil
     rows.append("| **Tesla Coil (MAA Cyberarm)** | **SS** (1) | 5S(e) | **10 / 12* / — / — / —** | Max 20m, 20m Cone Area Attack (Flamethrower rules), Cyberarm Mount (+2 AR). |")
 
-    # 4. Ares Predator VI
-    pred_stat = get_weapon_stats("ares_predator_vi") or {"dv": "3P", "ar": [10, 10, 8]}
-    pred_base_dv = int(re.sub(r"[^\d]", "", pred_stat["dv"])) if re.search(r"\d", pred_stat["dv"]) else 3
-    pred_ss_ar = format_ar(pred_stat["ar"], ar_bonus=3, burst_pen=0, grip_cn_bonus=1)
-    pred_sa_ar = format_ar(pred_stat["ar"], ar_bonus=3, burst_pen=2, grip_cn_bonus=1)
-    pred_bf_ar = format_ar(pred_stat["ar"], ar_bonus=3, burst_pen=4, grip_cn_bonus=1)
-    rows.append(f"| **Ares Predator VI** | **SS** (1) | {pred_base_dv}P | **{pred_ss_ar}** | Hand-held sidearm (+4 AR Close/Near with Smartlink + Grip). |")
-    rows.append(f"| | **SA** (2) | {pred_base_dv + 1}P | **{pred_sa_ar}** | 2-round SA burst. |")
-    rows.append(f"| | **BF** (4) | {pred_base_dv + 2}P | **{pred_bf_ar}** | 4-round narrow burst. |")
-
-    # 5. Monofilament Whip
-    whip_stat = get_weapon_stats("monofilament_whip") or {"dv": "6P", "ar": [14]}
-    whip_base_dv = int(re.sub(r"[^\d]", "", whip_stat["dv"])) if re.search(r"\d", whip_stat["dv"]) else 6
-    whip_ar = format_ar(whip_stat["ar"], ar_bonus=4, burst_pen=0)
-    rows.append(f"| **Monofilament Whip** | **Melee** | {whip_base_dv}P | **{whip_ar}** | Fingertip Cyberarm Mount (+2 AR) + Wireless ON (+2 AR). |")
-
-    # 6. Amalgam Cestas
-    rows.append("| **Amalgam Cestas (Butler - Phys)** | **Melee** | 3P | **12 / — / — / — / —** | Personalized Grip +2 AR. Overrides Immunity to Normal Weapons. 1 Wild Die. |")
+    # 3. Amalgam Cestas
+    rows.append("| **Amalgam Cestas (Man-at-Arms - Phys)** | **Melee** | 3P | **12 / — / — / — / —** | Personalized Grip +2 AR. Overrides Immunity to Normal Weapons. 1 Wild Die. |")
 
     return "\n".join(rows)
 

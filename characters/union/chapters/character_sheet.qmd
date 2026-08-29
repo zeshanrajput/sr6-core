@@ -1,0 +1,72 @@
+# Character Dossier & Modular Sheets
+
+```{python}
+#| echo: false
+#| include: false
+from sr6core.character_manager import CharacterManager
+from sr6core.exporters.vtt_text import (
+    export_base_sheet,
+    export_contacts_sheet,
+    export_combat_sheet,
+    export_inventory_sheet,
+    export_vehicles_sheet,
+    export_powers_sheet,
+)
+
+cm = CharacterManager()
+char_data = cm.get_character_data("union")
+
+base_txt = export_base_sheet(char_data, char_repo_path=".")
+combat_txt = export_combat_sheet(char_data)
+contacts_txt = export_contacts_sheet(char_data)
+inventory_txt = export_inventory_sheet(char_data)
+vehicles_txt = export_vehicles_sheet(char_data)
+powers_txt = export_powers_sheet(char_data)
+```
+
+::: {.callout-note}
+### Character Views & Saves
+* 📱 **Mobile Character App**: [Launch Mobile Interactive Sheet](../output/mobile/index.html){.btn .btn-primary target="_blank"}
+* **VTT & CommLink6 Saves**: [union.xml](../output/vtt/union.xml) | [union.json](../output/vtt/union.json)
+* **Plain-Text Modular Exports**: [Base Sheet](../output/text/union_base.txt) | [Combat](../output/text/union_combat.txt) | [Inventory](../output/text/union_inventory.txt) | [Powers](../output/text/union_powers.txt) | [Contacts](../output/text/union_contacts.txt)
+:::
+
+## 1. Base Sheet
+
+```{python}
+#| echo: false
+#| output: asis
+print(f"```text\n{base_txt}\n```")
+```
+
+## 2. Combat & Tactical Arrays
+
+```{python}
+#| echo: false
+#| output: asis
+print(f"```text\n{combat_txt}\n```")
+```
+
+## 3. Inventory, Hardware & Software
+
+```{python}
+#| echo: false
+#| output: asis
+print(f"```text\n{inventory_txt}\n```")
+```
+
+## 4. Cyberware & Bioware Augmentations
+
+```{python}
+#| echo: false
+#| output: asis
+print(f"```text\n{powers_txt}\n```")
+```
+
+## 5. Contacts Directory (SRM Campaign)
+
+```{python}
+#| echo: false
+#| output: asis
+print(f"```text\n{contacts_txt}\n```")
+```

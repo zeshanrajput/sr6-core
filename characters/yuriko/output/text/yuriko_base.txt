@@ -1,0 +1,33 @@
+============================================================================
+ SHADOWRUN 6E DOSSIER: YURIKO STAR
+============================================================================
+ Real Name : r31k0 Takahashi    | Metatype : AI-Pilot AI (Technoshamans)
+ Submersion: Grade 8            | Gender   : DIVERSE (Age: ~ 10)
+ Available Nuyen : 5,000.0¥ | Karma: 1 Pool (229 Lifetime)
+----------------------------------------------------------------------------
+ ATTRIBUTES & DERIVED RATINGS:
+  ATT (STR): 7  | SLZ (REA): 9  | DP (AGI): 7  | FW (BOD): 9 
+  WIL: 6        | LOG: 4        | INT: 2       | CHA: 4 
+  EDG: 4        | RES: 8        | MAG: 0       | ESS: 6.0 
+  Derived Pools       : Composure [10] | Judge Int [8] | Memory [10]
+  Condition Monitors  : Physical [13 boxes] | Stun [11 boxes]
+----------------------------------------------------------------------------
+ LIVING PERSONA / MATRIX STATS:
+  ASDF Ratings        : A:7 | S:9 | D:7 | F:9
+  Full Matrix Defense : 34d6 (8 Hits)
+    [RES 8 + FW 9 + PA 6 + DP 7 + Focus 4 = 34d6]
+  Matrix Initiative   : 10 + 4D6 (Hot-Sim VR / Overclock)
+----------------------------------------------------------------------------
+ ACTIVE SKILLS & TABLE-RELEVANT DICE POOLS:
+  - Tasking             : 18d6  [RES 8 + 6 Rtg + +4 Focus]
+  - Cracking            : 21d6  [RES 8 + 5 Rtg + +4 Focus + +4 Taz]
+  - Electronics         : 21d6  [RES 8 + 5 Rtg + +4 Focus + +4 Taz]
+  - Influence           : 5d6  [CHA 4 + 1 Rtg]
+  - Con                 : 5d6  [CHA 4 + 1 Rtg]
+  - Native Language     : 8d6  [LOG 4 + 4 Rtg]
+----------------------------------------------------------------------------
+ QUALITIES:
+  Positive: Natural Hacker, Stream: Technoshamans, Designer, Sensor Upgrade,
+    Pilot Origins
+  Negative: Buddy System, Sprite Bane, Hooder
+============================================================================

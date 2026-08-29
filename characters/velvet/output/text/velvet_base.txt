@@ -1,0 +1,36 @@
+============================================================================
+ SHADOWRUN 6E DOSSIER: VELVET
+============================================================================
+ Real Name : Kim Jin-Young      | Metatype : Elf (Shinto / Musok)
+ Initiation: Grade 0            | Gender   : DIVERSE (Age: 20)
+ Available Nuyen : 30,735¥ | Karma: 14 Pool (47 Lifetime)
+----------------------------------------------------------------------------
+ ATTRIBUTES & DERIVED RATINGS:
+  BOD: 2        | AGI: 3        | REA: 2       | STR: 2 
+  WIL: 5        | LOG: 3        | INT: 3       | CHA: 10
+  EDG: 2        | RES: 0        | MAG: 6       | ESS: 6.0 
+  Derived Pools       : Composure [15] | Judge Int [8] | Memory [8]
+  Condition Monitors  : Physical [9 boxes] | Stun [11 boxes]
+----------------------------------------------------------------------------
+ MAGICAL TRADITION & PROTOCOLS:
+  Tradition           : Shinto / Musok
+  Drain Resistance    : 15d6 (3 Hits) [WIL 5 + CHA 10 = 15d6]
+  Adept Power Points  : 3 PP
+----------------------------------------------------------------------------
+ ACTIVE SKILLS & TABLE-RELEVANT DICE POOLS:
+  - Sorcery             : 11d6  [MAG 6 + 5 Rtg]
+  - Conjuring           : 12d6  [MAG 6 + 6 Rtg]
+  - Influence           : 15d6  [CHA 10 + 5 Rtg]
+  - Con                 : 14d6  [CHA 10 + 4 Rtg]
+  - Native Language     : 7d6  [LOG 3 + 4 Rtg]
+  - Small Unit Tactics  : 4d6  [LOG 3 + 1 Rtg]
+  - MCT                 : 4d6  [LOG 3 + 1 Rtg]
+  - Wuxing              : 4d6  [LOG 3 + 1 Rtg]
+  - East Asian Media    : 4d6  [LOG 3 + 1 Rtg]
+----------------------------------------------------------------------------
+ QUALITIES:
+  Positive: Metagenetic Attribute Improvement (Charisma), Exceptional
+    Attribute (Charisma), Inspire Competence, Low-Light Vision, Focused
+    Concentration
+  Negative: Chronic Pain, Hooder, Allergy (Spices, Common Moderate)
+============================================================================

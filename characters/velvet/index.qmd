@@ -1,0 +1,137 @@
+# VELVET // Kim Jin-Young
+
+Welcome to the consolidated magic portfolio for **Kim Jin-Young**, operating in physical nodes under the runner alias **Velvet**.
+
+```{python}
+#| echo: false
+#| include: false
+from sr6core.log_engine import get_log_totals
+
+log_totals = get_log_totals(["chapters/character_log.qmd", "chapters/character_purchases.qmd"])
+```
+
+::: {.grid}
+
+::: {.g-col-6 .cyber-card}
+### [CHARACTER_DOSSIER]
+
+* **Designation:** Kim Jin-Young
+* **VTT Alias:** Velvet
+* **Metatype:** Elf
+* **Tradition:** Shinto / Musok
+* **System Status:** ONLINE // AWAKENED
+:::
+
+::: {.g-col-6 .cyber-card}
+### [MAGIC_PROGRESSION]
+
+* **Lifetime Karma:** `{python} log_totals['Lifetime_Karma']`
+* **Current Karma:** `{python} log_totals['Karma']`
+* **Lifetime Nuyen Earned:** ¥`{python} f"{log_totals.get('Lifetime_Nuyen', 0):,}"`
+* **Liquid Capital:** ¥`{python} f"{log_totals['Nuyen']:,}"`
+* **Initiation Grade:** `{python} log_totals.get('Initiation_Grade', 2)`
+* **Total Reputation:** `{python} log_totals.get('Total_Reputation', 2)`
+:::
+
+:::
+
+::: {.cyber-card}
+### [CREATIVE VISION: THE THOUSAND LIVES & THE SACRED MIRROR]
+
+Born a Dalakitnon to a destitute family in the Manila slums, Kim Jin-Young's rare genetic architecture and extreme natural Charisma made him a prime commodity for Mitsuhama. Bio-sculpted into a pan-Asian idol and deployed as the center Face of **TXM** (*The Death Messengers*), his voice and synchronized movement were used to channel immense collective geomantic rituals across metroplexes. Sabotaging a lethal mega-ritual in Singapore to save Hana and shatter the ritual matrix, he vanished into the Seattle shadows to forge sovereign autonomy.
+
+This anthology explores the profound, visceral spaces between tabletop mechanics and literary cyberpunk:
+
+* **The Somatic Tax of Cosmetic Control (R2):** Physical transformation is never effortless morphing. It carries a heavy visceral cost—bone cartilage resetting with wet clicks, metallic heat behind the jaw, shortened or broadened ribcages, and localized DNA re-keying beneath every sculpted mask (*Lee Ji-yoo*, *Tanaka Ryo*, *Mei Jing*) vs. the un-sculpted obsidian baseline of his birth heritage.
+* **Charisma 10 (14) Engineered Gravity & The Discovery of Empathy:** Charisma 10 (14 with buff spells) is an uncanny, suffocating psychological pressure—the peak of corporate bio-engineering. Velvet's tragedy is the inability to know if anyone's affection, trust, or pity is authentic, or merely their nervous system collapsing into his manufactured gravity. Over the campaign, Velvet evolves from an algorithmic corporate weapon into someone who discovers genuine empathy by crafting un-monetized sanctuaries (pork broth in West Seattle, roasted Tieguanyin tea in Tacoma) for broken people.
+* **The Path of the Thousand Lives (*Sinbyeong* $\rightarrow$ *Living Mosaic* $\rightarrow$ *Upāya*):** Forced corporate disguise evolves into an artificial reincarnation cycle. Velvet retains indelible neuro-somatic skills, virtues, and grief (*Han*) from every lived persona, moving from traumatic fragmentation to becoming a *Mansin* (master of ten thousand spirits) who wears identities as deliberate skillful means (*Upāya*) to protect the vulnerable.
+:::
+
+::: {.cyber-card}
+### [THE 3-ARC NARRATIVE & MECHANICAL ROADMAP]
+
+```
+┌─────────────────────────────────────────────────────────────────────────────────────────────┐
+│ ARC 1: MANUFACTURED SOLACE & THE HONEYTRAP (Chapters 01–08)                                 │
+├───────────────────┬─────────────────────────────────────────────────────────────────────────┤
+│ • World Basis:    │ Manufactured Solace & The Honeytrap (Fleeing MCT, Sprawl baseline)      │
+│ • Internal Basis: │ Sinbyeong (신병) — The Broken Vessel, bodily trauma & identity sickness │
+│ • Mechanical:     │ Character Creation & Early Street Play (Magic 6, Grade 1 Channeling)   │
+├───────────────────┴─────────────────────────────────────────────────────────────────────────┤
+│ ARC 2: THE SOVEREIGN UNDERGROUND & THE PUSH FOR POWER (Chapters 09–18+)                     │
+├───────────────────┬─────────────────────────────────────────────────────────────────────────┤
+│ • World Basis:    │ Sovereign Underground (Maslow's Safety Need: subterranean fortresses)   │
+│ • Internal Basis: │ The Living Mosaic — Accretion of lived human wisdom & Echo phenomenon   │
+│ • Mechanical:     │ First 100 TKE (Magic 6, Initiation Grades 2–4, Power Focus R3)          │
+├───────────────────┴─────────────────────────────────────────────────────────────────────────┤
+│ ARC 3: THE PACIFIC RECKONING & SOVEREIGN EMANATION (Chapters 19+)                           │
+├───────────────────┬─────────────────────────────────────────────────────────────────────────┤
+│ • World Basis:    │ Pacific Counter-Strike & Sovereign Sanctuary (Hong Kong / Neo-Seoul)    │
+│ • Internal Basis: │ Upāya (방편) & The Sovereign Mansin (만신) — The Sacred Mirror (Kagami) │
+│ • Mechanical:     │ 200+ TKE (Magic 8, Initiation Grades 6–8, Invocation, Great Forms, Foci)│
+└─────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+#### Arc Progression Breakdown
+
+1. **[Story Arc 1: Manufactured Solace & The Honeytrap](reference/story_arc1.md)**: Establishing baseline survival in Seattle using weaponized charm; discovering empathy in un-monetized sanctuaries; culminating in the devastating reveal that Hana in Neo-Seoul is bait in a joint Mitsuhama/Wuxing trap.
+2. **[Story Arc 2: The Sovereign Underground & The Push for Power](reference/story_arc2.md)**: Plunging into Seattle's subterranean depths (Ork Underground, geothermal conduits); forging mutual deterrence pacts (Ni Ni Xiaolu & Octagon Triad, Cutters, Ancients); integrating the Living Mosaic; advancing initiation (*Power Points / Linguistics*, *Empathy*, *Centering*).
+3. **[Story Arc 3: The Pacific Reckoning & Sovereign Emanation](reference/story_arc3.md)**: Transnational counter-offensive across Hong Kong and Neo-Seoul; invoking Great Form Kami; shattering the idol geomantic grid; liberating Hana; establishing permanent sovereign Awakened sanctuaries.
+:::
+
+::: {.cyber-card}
+### Brief Background & Alignments
+
+#### Character Goals
+1. *Sanctuary & Sovereign Autonomy:* Build an unassailable shadow network and subterranean magical sanctuary to protect Awakened refugees from corporate reclamation.
+2. *Liberation & Solidarity:* Sever Mitsuhama's ownership claims and liberate Hana from Wuxing's gilded cage.
+3. *Spiritual Mastery:* Advance Shinto-Musok initiation (*Channeling*, *Invocation*, *Great Forms*) to channel ancestral spirit ribbons and great kami without succumbing to biological drain.
+
+#### Secrets
+1. Velvet conceals that his original identity was the center star of Mitsuhama's TXM. If revealed, MCT Asset Recovery units would deploy kill-teams to reclaim their multi-million nuyen asset.
+2. Velvet secretly channels sensory anchors and shadow resources across the Pacific to support Hana while evading dual-megacorp surveillance.
+
+#### Key Connections
+* **Seattle (SEA):** Brynne Taggart (Fixer), Ni Ni Xiaolu (Octagon Triad Johnson), Whiskey (Street Doc), Vincent Grisome (Magic Prof.), Ms. Snow (Johnson)
+* **Neo-Seoul / Global:** Hana / Luna (Pop Idol & Wuxing Talismonger)
+* **New Orleans (NOLA):** Claudette Laurier (Golden Dawn Librarian), Le Tigre (Epoch Model)
+* **Magical Conclave:** Guild of Freelance Assets (Coven Loyalty 8)
+:::
+
+## [ SYSTEM_NAVIGATION ]
+
+Use the sidebar or the indexes below to traverse this portfolio:
+
+### 1. Core Character Profile
+* **[Identity Core](chapters/identity_core.md)**: Detailed background history, trauma origin, and lore.
+* **[Character Build (Point Buy)](chapters/character_build_point_buy.qmd)**: Official character creation point buy allocation.
+* **[Character Dossier & Modular Sheets](chapters/character_sheet.qmd)**: Full character sheet and dedicated modular sheets (Base, Combat, Inventory, Powers & Spells, Contacts) plus PDF and VTT downloads.
+* **[Career Totals & Networks](chapters/character_totals.qmd)**: Live dashboard of Karma, Nuyen, Initiation grade, Coven loyalty, and Contact Registry Sync.
+* **[Session Chronicles](chapters/character_log.qmd)**: Full database of past campaign runs, GMs, nuyen payouts, and Karma adjustments.
+* **[Equipment & Advancement Ledger](chapters/character_purchases.qmd)**: Itemized gear, nanocosmetics, SINs, spells, and lifestyle expenses.
+* **[Twenty Questions](chapters/twenty_questions.qmd)**: Standard character questionnaire defining personality, trauma, ethics, and relationships.
+* **[Rules & Downtime Protocols](chapters/rules_and_downtime.qmd)**: Spellcasting formulas, drain calculations, and coven downtime protocols.
+* **[Life Path Build (Archived)](chapters/character_build.qmd)**: Archived experimental Life Path build.
+
+### 2. Background & Campaign Narratives
+* **[01. The Transaction](chapters/01_transaction.md)**: Manila slums flashback (Age 5) triggered in Redmond mud.
+* **[02. The Faceless Mirror](chapters/02_faceless_mirror.md)**: The clinical erasure of identity and bio-sculpting in Tokyo (Age 10).
+* **[03. The Dark Wings](chapters/03_dark_wings.md)**: The astral panopticon and connection with Hana (Age 17).
+* **[04. The Sabotage](chapters/04_sabotage.md)**: Sabotaging the Singapore mega-ritual and escaping into the conduits (Age 18).
+* **[05. The First Negotiation](chapters/05_first_negotiation.md)**: Deploying Lee Ji-yoo in Seattle for a zero-nuyen contract (Age 19).
+* **[06. The Seattle Web](chapters/06_seattle_web.md)**: The corporate joint-venture trap and running offensive in the shadows (Age 19-20).
+* **[07. Bliss](chapters/07_bliss.md)**: Un-manufactured solace over real pork-bone broth in West Seattle (Age 20).
+* **[08. Tea in Tacoma](chapters/08_Tea_in_Tacoma.md)**: Dropping corporate gravity with Ni Ni Xiaolu over un-taxed Tieguanyin tea (Age 20).
+* **[09. Heat](chapters/09_Heat.md)**: Surviving the North Sea cold in Europort and anchoring Lawrence Duval (Age 20).
+* **[10. Burns](chapters/10_Burns.md)**: Sacred field triage in Sham Shui Po, paying the sacred deficit (*Daesul*), and the emergence of Kang Anning (Age 20).
+
+### 3. Foundational Reference, Philosophy & Specifications
+* **[Philosophical & Spiritual Framework](reference/philosophical_framework.md)**: Grounding of the Thousand Lives (*Anattā*, *Musok*, *Mansin*, *Upāya*, and the Sacred Mirror *Kagami*).
+* **[Karmic Persona Log: The Living Mosaic](reference/karmic_persona_log.md)**: Master registry of all lived personas, somatic shift mechanics, and neuro-somatic echoes.
+* **[Philosophical Framework Deep-Dive Report](reference/philosophical_framework_report.md)**: 45-page comprehensive philosophical and literary treatise on artificial reincarnation.
+* **[Upgrade Priorities & Mechanical Roadmap](reference/upgrade_priorities.md)**: Tiered progression matrix aligned to Arc 1 (Chargen), Arc 2 (100 TKE), and Arc 3 (200+ TKE).
+* **[Voice Specification & Sensory Schema](reference/voice_spec.md)**: Character voice rules, somatic shift discipline, and TTS fluency constraints.
+* **[Story Arc 1: Manufactured Solace & The Honeytrap](reference/story_arc1.md)**: Arc 1 plot beats, Sinbyeong internal state, and chargen basis.
+* **[Story Arc 2: The Sovereign Underground](reference/story_arc2.md)**: Arc 2 plot beats, Living Mosaic internal state, and 100 TKE basis.
+* **[Story Arc 3: The Pacific Reckoning](reference/story_arc3.md)**: Arc 3 plot beats, Upāya emanation, and 200+ TKE basis.
+* **[Story Continuity & Entity Tracker](reference/story_continuity.md)**: Entity tracker and chapter index generated by `sr6 continuity .`.

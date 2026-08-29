@@ -1,0 +1,211 @@
+/*-- scss:defaults --*/
+// Import Cyberpunk & Magic Google Fonts
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@300;400;500;600&family=Cinzel:wght@500;700;900&family=Jura:wght@400;600;700&display=swap');
+
+// Colors - Cyberpunk/Magic Theme (Obsidian Purple, Neon Pink/Magenta, Electric Cyan, Healing Jade)
+$body-bg: #090512; // Obsidian dark purple
+$body-color: #f1f5f9; // Very readable off-white
+$link-color: #d946ef; // Neon pink/magenta (Mana glow)
+$link-hover-color: #00f0ff; // Neon cyan (Cyberpunk glow)
+$sidebar-bg: #100b1e; // Slightly lighter obsidian purple
+$sidebar-color: #a78bfa; // Soft purple/lavender for sidebar text
+$border-color: #2e1065; // Deep violet border
+$primary: #d946ef; // Primary is Mana Pink/Magenta
+$secondary: #00f0ff; // Secondary is Neon Cyan
+$success: #10b981; // Success is Emerald/Jade Green
+$info: #06b6d4; // Info is Teal
+$warning: #f59e0b; // Warning is Amber
+$danger: #ef4444; // Danger is Red
+
+// Typography
+$font-family-sans-serif: "Jura", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+$font-family-monospace: "Share Tech Mono", "Fira Code", monospace;
+
+// Code Block Custom styling
+$code-block-bg: #040207;
+$code-block-border-color: #d946ef;
+
+/*-- scss:rules --*/
+body {
+  background-color: $body-bg;
+  color: $body-color;
+  font-family: $font-family-sans-serif;
+}
+
+// Retro-cyberpunk-magic Headings in Neon Pink and Amber/Cyan
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Cinzel", serif;
+  font-weight: 700;
+  color: #00f0ff; // Glowing Cyan for standard headers
+  text-shadow: 0 0 8px rgba(0, 240, 255, 0.4);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(0, 240, 255, 0.15);
+  padding-bottom: 0.3em;
+  margin-top: 1.5em;
+}
+
+h1 {
+  color: #d946ef; // Main Page Title in neon pink (Mana glow)
+  text-shadow: 0 0 10px rgba(217, 70, 239, 0.5);
+  border-bottom: 2px solid rgba(217, 70, 239, 0.25);
+}
+
+// Monospace sections
+.monospace, code, pre {
+  font-family: $font-family-monospace;
+}
+
+// Glowing code blocks representing magic-terminal interfaces in Pink/Magenta
+pre {
+  background-color: #050308 !important;
+  border: 1px solid rgba(217, 70, 239, 0.3) !important;
+  box-shadow: 0 0 15px rgba(217, 70, 239, 0.1) !important;
+  border-radius: 6px;
+  padding: 1rem;
+  color: #d946ef !important; // Glowing pink text
+  position: relative;
+  overflow-x: auto;
+}
+
+pre::before {
+  content: "✨ ASTRAL_MATRIX_ACTIVE //";
+  position: absolute;
+  top: 4px;
+  right: 10px;
+  font-size: 0.65rem;
+  color: rgba(217, 70, 239, 0.4);
+  letter-spacing: 0.1em;
+}
+
+code {
+  color: #d946ef !important; // Neon pink for inline code
+  background-color: rgba(217, 70, 239, 0.08);
+  border: 1px solid rgba(217, 70, 239, 0.2);
+  padding: 0.15em 0.3em;
+  border-radius: 3px;
+}
+
+// Callouts / Alerts styling (High Contrast Pink border)
+.callout {
+  border-left: 4px solid #d946ef !important;
+  background-color: rgba(217, 70, 239, 0.04) !important;
+  border: 1px solid rgba(217, 70, 239, 0.1);
+  border-left-width: 4px;
+  border-radius: 4px;
+  color: #f1f5f9;
+}
+
+.callout.callout-style-default.callout-important {
+  border-left-color: #d946ef !important;
+  .callout-header {
+    color: #d946ef;
+    font-family: "Cinzel", serif;
+  }
+}
+
+.callout.callout-style-default.callout-note {
+  border-left-color: #00f0ff !important;
+  background-color: rgba(0, 240, 255, 0.04) !important;
+  border: 1px solid rgba(0, 240, 255, 0.1);
+  border-left-width: 4px;
+  .callout-header {
+    color: #00f0ff;
+    font-family: "Cinzel", serif;
+  }
+}
+
+// Sidebar/Nav styling
+.sidebar {
+  background-color: $sidebar-bg !important;
+  border-right: 1px solid rgba(217, 70, 239, 0.15) !important;
+  
+  .sidebar-item-text, .sidebar-navigation-title {
+    font-family: "Share Tech Mono", monospace;
+  }
+  
+  a.active {
+    color: #d946ef !important;
+    text-shadow: 0 0 5px rgba(217, 70, 239, 0.5);
+    background-color: rgba(217, 70, 239, 0.05);
+    border-left: 2px solid #d946ef;
+  }
+}
+
+// Tables styling in Pink & Cyan
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-family: "Share Tech Mono", monospace;
+  
+  th {
+    background-color: rgba(217, 70, 239, 0.1) !important;
+    color: #d946ef !important;
+    border-bottom: 2px solid #d946ef !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.75rem !important;
+  }
+  
+  td {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07) !important;
+    padding: 0.75rem !important;
+    color: #f1f5f9;
+  }
+  
+  tr:hover td {
+    background-color: rgba(217, 70, 239, 0.03) !important;
+    color: #d946ef !important;
+  }
+}
+
+// Custom styling for cards on home page
+.cyber-card {
+  background: rgba(16, 11, 30, 0.85);
+  border: 1px solid rgba(217, 70, 239, 0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+  
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 15px 15px;
+    border-color: transparent transparent #d946ef transparent;
+  }
+  
+  h3 {
+    margin-top: 0;
+    color: #00f0ff;
+    border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+    font-size: 1.1rem;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+}
+
+// Scrollbars
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #090512;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(217, 70, 239, 0.2);
+  border-radius: 4px;
+  &:hover {
+    background: rgba(217, 70, 239, 0.4);
+  }
+}

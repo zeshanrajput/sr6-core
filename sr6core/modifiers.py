@@ -1029,41 +1029,34 @@ class ModifierEngine:
         unarmed_opt = PoolOptimization(
             name="Close Combat / Unarmed Strike",
             components=[cc_skill, cc_attr],
-            notes="Bone Density R4 (3P DV) / Monofilament Whip (4P DV). Wireless-ON Skillwires (Adrenaline Surge: 15d6 -> 3 Hits)" if is_adrenaline else "Bone Density R4 (3P DV) / Monofilament Whip (4P DV). Wireless-ON Skillwires (Baseline: 13d6 -> 3 Hits)"
+            notes="Bone Density R4 (3P DV) / Monofilament Whip (4P DV). Wireless-ON Skillwires (Adrenaline Surge: 14d6 -> 3 Hits)" if is_adrenaline else "Bone Density R4 (3P DV) / Monofilament Whip (4P DV). Wireless-ON Skillwires (Baseline: 12d6 -> 3 Hits)"
         )
 
         # 3. Physical Defense Test (Evasion)
-        # REA (4 + Aug 2 = 6) + INT (4) = 10d6 (2 Hits)
-        # With Adrenaline Pump: REA (4 + Aug 4 = 8) + INT (4) = 12d6 (3 Hits)
+        # REA (2 + Aug 2 = 4) + INT (4) = 8d6 (2 Hits)
+        # With Adrenaline Pump: REA (2 + Aug 4 = 6) + INT (4) = 10d6 (2 Hits)
         d_rea = PoolComponent("Reaction", rea, "attribute", rea_mods)
         d_int = PoolComponent("Intuition", int_val, "attribute")
         defense_opt = PoolOptimization(
             name="Physical Defense (Ranged/Melee Evasion)",
             components=[d_rea, d_int],
-            notes="Synaptic Booster R2 (+2 REA). Resisting ranged & melee attacks (Adrenaline Surge: 12d6 -> 3 Hits)" if is_adrenaline else "Synaptic Booster R2 (+2 REA). Resisting ranged & melee attacks (Baseline: 10d6 -> 2 Hits)"
+            notes="Synaptic Booster R2 (+2 REA). Resisting ranged & melee attacks (Adrenaline Surge: 10d6 -> 2 Hits)" if is_adrenaline else "Synaptic Booster R2 (+2 REA). Resisting ranged & melee attacks (Baseline: 8d6 -> 2 Hits)"
         )
 
         # 4. Damage Resistance / Soak Test
-        # BOD (4 + Bone Density +4 = 8) + Orthoskin (+2) + Dermal Deposits (+1) + Ares Skinshield (+1) + Ballistic Hood (+1) = 13d6 (3 Hits)
-        # Note: Platelet Factories reduces incoming damage; Damage Compensator R3 ignores 3 wound boxes
+        # BOD (4 + Bone Density +4 = 8) = 8d6 (2 Hits)
         soak_bod = PoolComponent("Body", bod, "attribute", [
-            PoolModifier("attribute:body", "augmentation", "Bone Density Augmentation (Alpha R4)", 4, is_srm_capped=True)
+            PoolModifier("attribute:body", "augmentation", "Bone Density Augmentation (Used R4)", 4, is_srm_capped=True)
         ])
         soak_opt = PoolOptimization(
             name="Damage Resistance / Soak Test",
             components=[soak_bod],
-            action_modifiers=[
-                PoolModifier("test:damage_resistance", "augmentation", "Orthoskin (Used R2)", 2),
-                PoolModifier("test:damage_resistance", "quality", "Dermal Deposits", 1),
-                PoolModifier("test:damage_resistance", "armor", "Ares SecureTech Skinshield", 1),
-                PoolModifier("test:damage_resistance", "armor", "Ballistic Hood", 1)
-            ],
-            notes="Bone Density R4 + Orthoskin R2 + Dermal Deposits + Skinshield & Hood. Platelet Factories active. Damage Compensator R3 ignores up to 3 wound boxes."
+            notes="Bone Density Augmentation R4 (+4 Soak unarmored base: 8 Soak). Platelet Factories reduces incoming Physical damage by 1 box (min 1). Armor (Lined Coat DR 3, Helmet DR 1, SkinShield DR 3) provides Defense Rating."
         )
 
         # 5. Physical Initiative
-        # REA (4 + 2 Synaptic Booster = 6) + INT (4) = 10 + 3D6 (Synaptic Booster R2 provides +2D6 Initiative)
-        # With Adrenaline Pump: REA (8) + INT (4) = 12 + 3D6 (Per SRMG, Initiative Dice do not stack and uses highest: 3D6)
+        # REA (2 + 2 Synaptic Booster = 4) + INT (4) = 8 + 3D6 (Synaptic Booster R2 provides +2D6 Initiative)
+        # With Adrenaline Pump: REA (6) + INT (4) = 10 + 3D6 (Per SRMG, Initiative Dice do not stack and uses highest: 3D6)
         init_rea = rea + (4 if is_adrenaline else 2)
         init_val = init_rea + int_val
         init_opt = PoolOptimization(

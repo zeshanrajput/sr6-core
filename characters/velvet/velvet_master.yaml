@@ -1,0 +1,370 @@
+identity:
+  handle: Velvet
+  real_name: Kim Jin-Young
+  metatype: Elf
+  tradition: Shinto / Musok
+  mortype: Mystic Adept
+  gender: DIVERSE
+  age: 20
+  size: 165 cm
+  weight: 78 kg
+  hair_color: White
+  eye_color: Obsidian
+  skin_color: White
+attributes:
+  body: 2
+  agility: 3
+  reaction: 2
+  strength: 2
+  willpower: 5
+  logic: 3
+  intuition: 3
+  charisma: 10
+  edge: 2
+  magic: 6
+  resonance: 0
+  power_points: 3
+qualities:
+  positive:
+  - name: Metagenetic Attribute Improvement (Charisma)
+    ref: metagenetic_attribute_improvement
+    choice: Charisma
+    karma: 0
+  - name: Exceptional Attribute (Charisma)
+    ref: exceptional_attribute
+    choice: Charisma
+  - name: Inspire Competence
+    ref: inspire_competence
+  - name: Low-Light Vision
+    ref: low-light_vision
+    karma: 0
+  - name: Focused Concentration
+    ref: focused_concentration
+    rating: 3
+
+  negative:
+  - name: Chronic Pain
+    ref: chronic_pain
+  - name: Hooder
+    ref: hooder
+    rating: 3
+  - name: Allergy (Spices, Common Moderate)
+    ref: allergy
+    choice: Spices
+
+skills:
+- name: Sorcery
+  id: sorcery
+  attribute: Magic
+  rating: 5
+  specialization: Spellcasting
+- name: Conjuring
+  id: conjuring
+  attribute: Magic
+  rating: 6
+- name: Influence
+  id: influence
+  attribute: Charisma
+  rating: 5
+- name: Con
+  id: con
+  attribute: Charisma
+  rating: 4
+- name: Native Language
+  id: language
+  attribute: Logic
+  rating: 4
+- name: Small Unit Tactics
+  id: small_unit_tactics
+  attribute: Logic
+  rating: 1
+  is_knowledge: true
+- name: MCT
+  id: mct
+  attribute: Logic
+  rating: 1
+  is_knowledge: true
+- name: Wuxing
+  id: wuxing
+  attribute: Logic
+  rating: 1
+  is_knowledge: true
+- name: East Asian Media
+  id: east_asian_media
+  attribute: Logic
+  rating: 1
+  is_knowledge: true
+spells:
+- name: Increase Attribute
+  ref: increase_attribute
+  drain: 3
+  category: Health
+- name: Increase Reflexes
+  ref: increase_reflexes
+  drain: 4
+  category: Health
+adept_powers:
+- name: Cosmetic Control
+  ref: cosmetic_control
+  rating: 2
+- name: Linguistics
+  ref: linguistics
+  rating: 1
+- name: Command Presence
+  ref: command_presence
+  rating: 1
+- name: Cloak
+  ref: cloak
+  rating: 1
+- name: Sharp Tongue
+  ref: sharp_tongue
+  rating: 1
+  source: Qi Focus (Rating 4)
+meta_echoes:
+- name: Channeling
+  ref: channeling
+- name: Power Point
+  ref: power_points
+  rating: 1
+weapons:
+- name: Beretta 101T
+  ref: beretta_101T
+  qty: 2
+- name: Sap
+  ref: sap
+  qty: 2
+- name: Yamaha Raiden
+  ref: yamaha_raiden
+  qty: 1
+- name: Stun Baton
+  ref: stun_baton
+  qty: 1
+armors:
+- name: SecureTech Skinshield
+  ref: securetech_skinshield
+  defense_rating: 1
+  accessories:
+  - Ballistic Hood
+  - Fashion Accessory: Très Chic x2
+matrix_devices:
+- name: Erika Elite
+  ref: erika_elite
+  device_rating: 4
+  data_processing: 2
+  firewall: 2
+  accessories:
+  - Comhack Securelink Upgrade
+  - P-Ice Nope
+- name: Renraku Sensei
+  ref: renraku_sensei
+  device_rating: 3
+  qty: 2
+software:
+- name: Personal Assistant
+  ref: personal_assistant
+  rating: 6
+  cat: Commlink Apps
+- name: Virtual Machine
+  ref: virtual_machine
+  cat: Basic programs
+- name: Thermal Mood Reading
+  ref: thermal_mood_reading
+  cat: Commlink Apps
+- name: Nanomask
+  ref: nanomask
+  cat: Basic programs
+- name: MeFeed
+  ref: mefeed
+  cat: Commlink Apps
+- name: Facial Scanner
+  ref: facial_scanner
+  cat: Commlink Apps
+items:
+- name: Nanocosmetics Kit
+  ref: nanocosmetics_kit
+- name: Nanocosmetics Refill
+  ref: nanocosmetics_refill
+- name: Nanopaste Disguise Kit
+  ref: nanopaste_disguise_kit
+- name: Nanopaste Disguise Refill
+  ref: nanopaste_disguise_refill
+- name: Savior Medkit
+  ref: savior_medkit
+- name: Savior Medkit Refill
+  ref: savior_medkit_refill
+- name: Contacts
+  ref: contacts
+  rating: 3
+  accessories:
+  - Flare Compensation
+  - Image Link
+  - Thermographic Vision
+- name: Earbuds
+  ref: earbuds
+  rating: 3
+- name: Subvocal Microphone
+  ref: subvocal_microphone
+- name: Qi Focus (Rating 4)
+  ref: qi_focus
+  rating: 4
+  bonded: true
+  power: Sharp Tongue
+  karma_cost: 8
+  nuyen_cost: 12000
+synergies:
+  foci:
+  - name: Qi Focus (Sharp Tongue)
+    ref: qi_focus
+    rating: 4
+    bonded: true
+    power: Sharp Tongue
+sins:
+- name: Lee Ji-Yoo
+  quality: SECOND_LIFE
+  rating: 6
+- name: Tanaka Ryo
+  quality: SECOND_LIFE
+  rating: 6
+licenses:
+- name: Magician
+  rating: SECOND_LIFE
+  sin: Lee Ji-Yoo
+contacts:
+- name: Brynne Taggart
+  connection: 4
+  loyalty: 1
+  favors: 0
+  type: Fixer
+  archetype: Fixer
+  region: SEA
+  description: Chargen Contact | SRM 2081-01 Death of a Fixer
+- name: Vincent Grisome
+  connection: 5
+  loyalty: 3
+  favors: 0
+  type: Magic Prof.
+  archetype: Magic Prof.
+  region: SEA
+  description: Chargen Contact
+- name: Ni Ni Xiaolu
+  connection: 3
+  loyalty: 2
+  favors: 0
+  type: Triad Johnson
+  archetype: Triad Johnson
+  region: SEA
+  description: Chargen Contact | +2 FP SRM 2081-07 Bootleg Bliss (looking forward to date)
+- name: Whiskey
+  connection: 2
+  loyalty: 3
+  favors: 1
+  type: Street Doc
+  archetype: Street Doc
+  region: SEA
+  description: Chargen Contact | SRM 2081-02 Urgent Care
+- name: Claudette Laurier
+  connection: 5
+  loyalty: 4
+  favors: 0
+  type: Order of the Golden Dawn Librarian
+  archetype: Order of the Golden Dawn Librarian
+  region: NOLA
+  description: Chargen Contact
+- name: Le Tigre
+  connection: 5
+  loyalty: 1
+  favors: 0
+  type: Epoch Model
+  archetype: Epoch Model
+  region: NOLA
+  description: Chargen Contact
+- name: Hana
+  connection: 6
+  loyalty: 6
+  favors: 0
+  type: Wuxing Talismonger / Pop Idol
+  archetype: Wuxing Talismonger / Pop Idol
+  region: SEA
+  description: Chargen Contact
+- name: Guild of Freelance Assets
+  connection: 7
+  loyalty: 8
+  favors: 0
+  type: Conclave
+  archetype: Conclave
+  region: GEN
+  description: Chargen Contact (Conclave C7 L8)
+- name: Ms. Snow
+  connection: 5
+  loyalty: 1
+  favors: 1
+  type: Johnson
+  archetype: Johnson
+  region: SEA
+  description: SRM 2081-09 Eviction Notice (Elven female)
+- name: Bookie
+  connection: 3
+  loyalty: 1
+  favors: 0
+  type: Ancients Bookie
+  archetype: Ancients Bookie
+  region: SEA
+  description: SRM 2081-07 Bootleg Bliss
+- name: Trudy
+  connection: 2
+  loyalty: 1
+  favors: 0
+  type: Cutters Lieutenant
+  archetype: Cutters Lieutenant
+  region: SEA
+  description: SRM 2081-07 Bootleg Bliss
+- name: Eddie Wei
+  connection: 4
+  loyalty: 1
+  favors: 0
+  type: Triad Johnson
+  archetype: Triad Johnson
+  region: SEA
+  description: "Uses: Business and economics, getting jobs, triads (Shadowrun Missions Seattle) | Types: Criminal, Matrix (Not available after 2081-24) | SRM 2081-02 Urgent Care"
+- name: Kingston
+  connection: 2
+  loyalty: 2
+  favors: 0
+  type: Shadowrunner/Street Samurai
+  archetype: Shadowrunner/Street Samurai
+  region: SEA
+  description: "Uses: Shadowrunners, street rumors (Shadowrun Missions Seattle) | Types: Criminal, Street | SRM 2081-02 Urgent Care"
+- name: Ms. Margaret
+  connection: 1
+  loyalty: 1
+  favors: 0
+  type: Hospital Volunteer
+  archetype: Hospital Volunteer
+  region: SEA
+  description: "SRM 2081-02 Urgent Care (Elderly Human Hospital Volunteer who needs her roof fixed)"
+- name: Simon Andrews
+  connection: 5
+  loyalty: 1
+  favors: 0
+  type: S-K Johnson
+  archetype: S-K Johnson
+  region: AMS
+  description: "CMP 2083-01 Nonplushed (S-K Johnson)"
+- name: Mr. Fa
+  connection: 4
+  loyalty: 1
+  favors: 1
+  type: HKB Corporate Middle Manager
+  archetype: HKB Corporate Middle Manager
+  region: HK
+  description: "CMP 2083-05 Precious Cargo (Liao Fa Deng, Male Human Corporate Middle Manager)"
+- name: Liao Fa Ren
+  connection: 3
+  loyalty: 2
+  favors: 1
+  type: HK Rookie Journalist
+  archetype: HK Rookie Journalist
+  region: HK
+  description: "CMP 2083-05 Precious Cargo (Female Human Rookie Journalist, top marks on port raid story)"
+
+

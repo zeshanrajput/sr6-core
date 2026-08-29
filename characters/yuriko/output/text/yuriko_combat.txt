@@ -1,0 +1,30 @@
+============================================================================
+ COMBAT, WEAPON ARRAYS & BALLISTICS: YURIKO STAR
+============================================================================
+ WEAPONS & TACTICAL ARRAYS:
+  * CRIMSON WASP ARRAY (2X LINK-FIRED)
+    DV: 7P     | Modes: SA       | Ammo: 15(c)    | AR: 24 / 22 / 17 / 12 / -
+    Accessories/Mods: Smartlink, Drone Mount (+2 AR), Link-Fired (2x Crimson
+    Wasps)
+----------------------------------------------------------------------------
+  * TESLA COIL
+    DV: 5S(e)  | Modes: SS       | Ammo: N/A      | AR: 8 / - / - / - / -
+    Accessories/Mods: MAA Cyberarm Mount (+2 AR)
+----------------------------------------------------------------------------
+  * DAGGER OF THE SACRED ROSE (+1 WEAPON FOCUS)
+    DV: 2P     | Modes: SS/SA    | Ammo: N/A      | AR: 9 / 1 / - / - / -
+----------------------------------------------------------------------------
+  * AMALGAM CESTAS (STUN)
+    DV: 4S(e)  | Modes: SS/SA    | Ammo: N/A      | AR: 5 / - / - / - / -
+    Accessories/Mods: Personalized Grip
+    Tactical Notes  : Amalgam Tech Cestas; overrides magical immunity to
+    normal weapons
+----------------------------------------------------------------------------
+  * AMALGAM CESTAS (PHYS)
+    DV: 3P     | Modes: SS/SA    | Ammo: N/A      | AR: 6 / - / - / - / -
+    Accessories/Mods: Personalized Grip
+    Tactical Notes  : Amalgam Tech Cestas; overrides magical immunity to
+    normal weapons
+----------------------------------------------------------------------------
+ BALLISTIC ARMOR & DEFENSIVE PROTECTION:
+  Standard Street Clothes (0 Defense Rating)

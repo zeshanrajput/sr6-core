@@ -39,7 +39,15 @@ class CharacterManager:
             candidates = []
             if cfg.get("repo_path"):
                 candidates.append(cfg.get("repo_path"))
+            
+            # Monorepo characters/ folder support
+            candidates.append(os.path.join(os.path.dirname(os.path.dirname(__file__)), "characters", char_id))
+            candidates.append(os.path.join(os.path.dirname(os.path.dirname(__file__)), repo_name))
+            candidates.append(os.path.join(os.getcwd(), "characters", char_id))
+            candidates.append(os.path.join(os.getcwd(), repo_name))
+
             if self.github_root:
+                candidates.append(os.path.join(self.github_root, "sr6-core", "characters", char_id))
                 candidates.append(os.path.join(self.github_root, repo_name))
                 candidates.append(os.path.join(self.github_root, char_id))
 
@@ -186,7 +194,7 @@ class CharacterManager:
         if not os.path.exists(out_dir):
             return
 
-        # Legacy file patterns to clean from output root
+        # Legacy file patterns and obsolete export folders to clean from output root
         for entry in os.listdir(out_dir):
             entry_path = os.path.join(out_dir, entry)
             if os.path.isfile(entry_path):
@@ -195,8 +203,14 @@ class CharacterManager:
                     os.remove(entry_path)
                 except Exception:
                     pass
+            elif entry in ["xml", "pdf", "cards"] and os.path.isdir(entry_path):
+                import shutil
+                try:
+                    shutil.rmtree(entry_path)
+                except Exception:
+                    pass
 
-    def export_character(self, char_id: str, fmt: str = "xml", output_path: Optional[str] = None, card_size: str = "postcard_4x5.5") -> Any:
+    def export_character(self, char_id: str, fmt: str = "xml", output_path: Optional[str] = None) -> Any:
         data = self.get_character_data(char_id)
         if not data:
             raise ValueError(f"Character data for '{char_id}' not found.")
@@ -210,24 +224,14 @@ class CharacterManager:
         elif fmt == "text_modular":
             from sr6core.exporters.vtt_text import export_modular_text_sheets
             return export_modular_text_sheets(data, char_id, char_repo_path=repo_path)
-        elif fmt in ["cards", "cards_md"]:
-            from sr6core.cards import export_character_card_deck
-            md_deck, _ = export_character_card_deck(char_id)
-            return md_deck
-        elif fmt in ["pdf_deck", "cards_pdf"]:
-            from sr6core.cards import export_character_card_deck_pdf
-            if not output_path:
-                output_path = os.path.join(repo_path or ".", "output", "pdf", f"{char_id}_cards_deck.pdf")
-            os.makedirs(os.path.dirname(output_path), exist_ok=True)
-            return export_character_card_deck_pdf(char_id, output_path, card_size=card_size)
-        elif fmt in ["pdf_base", "base_pdf"]:
-            from sr6core.exporters.pdf_deck import generate_pdf_base_sheet
-            if not output_path:
-                output_path = os.path.join(repo_path or ".", "output", "pdf", f"{char_id}_base_sheet.pdf")
-            os.makedirs(os.path.dirname(output_path), exist_ok=True)
-            return generate_pdf_base_sheet(data, output_path)
         elif fmt in ["xml", "genesis"]:
             return export_genesis_xml(data, char_repo_path=repo_path)
+        elif fmt in ["mobile", "mobile_html", "html"]:
+            from sr6core.exporters.mobile_html import export_mobile_html
+            return export_mobile_html(data, char_id=char_id, char_repo_path=repo_path)
+        elif fmt in ["mobile_json"]:
+            from sr6core.exporters.mobile_json import export_mobile_json
+            return export_mobile_json(data, char_repo_path=repo_path)
         else:
             raise ValueError(f"Unsupported export format '{fmt}'.")
 

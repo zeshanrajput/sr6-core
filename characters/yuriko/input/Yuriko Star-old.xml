@@ -1,0 +1,1000 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sr6char career="true" gender="DIVERSE" karmaI="130" meta="pilot-ai" nuyen="37860">
+   <lifestyles>
+      <lifestyle comfort="low" entert="low" lang="en" necess="low" neigh="low" ref="low" security="low" space="low" value="1"/>
+   </lifestyles>
+   <asdfMap/>
+   <chargenSettings>{&#x0022;characterPoints&#x0022;:100,&#x0022;cpBoughtSpecial&#x0022;:32,&#x0022;cpBoughtAttrib&#x0022;:40,&#x0022;cpToSkills&#x0022;:7,&#x0022;cpToResources&#x0022;:4,&#x0022;boughtPP&#x0022;:0,&#x0022;boughtSpells&#x0022;:0,&#x0022;boughtComplex&#x0022;:0,&#x0022;perAttrib&#x0022;:{&#x0022;BODY&#x0022;:{&#x0022;points1&#x0022;:0,&#x0022;points2&#x0022;:4,&#x0022;points3&#x0022;:0},&#x0022;AGILITY&#x0022;:{&#x0022;points1&#x0022;:0,&#x0022;points2&#x0022;:2,&#x0022;points3&#x0022;:0},&#x0022;REACTION&#x0022;:{&#x0022;points1&#x0022;:0,&#x0022;points2&#x0022;:4,&#x0022;points3&#x0022;:0},&#x0022;STRENGTH&#x0022;:{&#x0022;points1&#x0022;:0,&#x0022;points2&#x0022;:2,&#x0022;points3&#x0022;:0},&#x0022;WILLPOWER&#x0022;:{&#x0022;points1&#x0022;:0,&#x0022;points2&#x0022;:5,&#x0022;points3&#x0022;:0},&#x0022;LOGIC&#x0022;:{&#x0022;points1&#x0022;:0,&#x0022;points2&#x0022;:3,&#x0022;points3&#x0022;:0},&#x0022;INTUITION&#x0022;:{&#x0022;points1&#x0022;:0,&#x0022;points2&#x0022;:1,&#x0022;points3&#x0022;:0},&#x0022;CHARISMA&#x0022;:{&#x0022;points1&#x0022;:0,&#x0022;points2&#x0022;:3,&#x0022;points3&#x0022;:0},&#x0022;EDGE&#x0022;:{&#x0022;points1&#x0022;:4,&#x0022;points2&#x0022;:0,&#x0022;points3&#x0022;:0},&#x0022;MAGIC&#x0022;:{&#x0022;points1&#x0022;:0,&#x0022;points2&#x0022;:0,&#x0022;points3&#x0022;:0},&#x0022;RESONANCE&#x0022;:{&#x0022;points1&#x0022;:5,&#x0022;points2&#x0022;:0,&#x0022;points3&#x0022;:0}},&#x0022;perSkill&#x0022;:{&#x0022;language/1ab9b4c2-b6d2-4d84-8c82-91920cbefe8b&#x0022;:{&#x0022;karmaSpec&#x0022;:0,&#x0022;pointSpec&#x0022;:0,&#x0022;points1&#x0022;:0,&#x0022;points2&#x0022;:0,&#x0022;points3&#x0022;:0},&#x0022;tasking&#x0022;:{&#x0022;karmaSpec&#x0022;:0,&#x0022;pointSpec&#x0022;:1,&#x0022;points1&#x0022;:6,&#x0022;points2&#x0022;:0,&#x0022;points3&#x0022;:0},&#x0022;electronics&#x0022;:{&#x0022;karmaSpec&#x0022;:0,&#x0022;pointSpec&#x0022;:1,&#x0022;points1&#x0022;:5,&#x0022;points2&#x0022;:0,&#x0022;points3&#x0022;:0},&#x0022;cracking&#x0022;:{&#x0022;karmaSpec&#x0022;:0,&#x0022;pointSpec&#x0022;:1,&#x0022;points1&#x0022;:5,&#x0022;points2&#x0022;:0,&#x0022;points3&#x0022;:0}},&#x0022;perSpellPayedWithCP&#x0022;:{},&#x0022;perRitualPayedWithCP&#x0022;:{},&#x0022;perCFormPayedWithCP&#x0022;:{},&#x0022;ppCP&#x0022;:1,&#x0022;ppKarma&#x0022;:1,&#x0022;spellsCP&#x0022;:0,&#x0022;spellsKarma&#x0022;:0,&#x0022;cformsCP&#x0022;:2,&#x0022;cformsKarma&#x0022;:0,&#x0022;variant&#x0022;:&#x0022;STANDARD&#x0022;,&#x0022;mysticAdeptPowerPoints&#x0022;:0,&#x0022;toContacts&#x0022;:0,&#x0022;negQualities&#x0022;:29,&#x0022;initiation&#x0022;:36,&#x0022;toNuyen&#x0022;:0}</chargenSettings>
+   <realName>r31k0 Takahashi</realName>
+   <type>METAHUMAN</type>
+   <mortype>technomancer</mortype>
+   <qualities>
+      <quality lang="en" ref="natural_hacker" uuid="478bc778-c197-474e-b91b-6840cfce2121"/>
+      <quality lang="en" ref="technoshaman" uuid="4d84d556-4a66-4800-bcfe-9e76ed4c7704"/>
+      <quality lang="en" ref="buddy_system" uuid="926173ee-9ba7-4f94-8dc8-2461264af871"/>
+      <quality lang="en" ref="sprite_bane" uuid="a9a1b193-314c-403d-8df1-7af971843795">
+         <decision choice="75f01ecc-60f3-4b5b-98de-c80008ebffec" value="primal"/>
+      </quality>
+      <quality lang="en" ref="hooder" uuid="abf1c93f-58a0-4063-af73-6a479f4d8edd" value="2"/>
+      <quality lang="en" ref="designer" uuid="db6c80aa-e4a8-4608-9234-04917efed32a"/>
+      <quality lang="en" ref="pilot_origins"/>
+      <quality lang="en" ref="sensor_upgrade"/>
+   </qualities>
+   <complexforms>
+      <complexforms lang="en" ref="cleaner"/>
+      <complexforms lang="en" ref="diffusion">
+         <decision choice="8b24b2be-c2fc-46f4-a353-7313f1f69d07" value="FIREWALL"/>
+      </complexforms>
+      <complexforms lang="en" ref="technoregeneration"/>
+      <complexforms lang="en" ref="puppeteer"/>
+   </complexforms>
+   <metaEchoes>
+      <metaEcho lang="en" ref="new_sprite_type"/>
+      <metaEcho lang="en" ref="sprite_conduit"/>
+      <metaEcho lang="en" ref="sprite_symbiosis"/>
+      <metaEcho lang="en" ref="living_network"/>
+      <metaEcho lang="en" ref="transcendent_network"/>
+      <metaEcho lang="en" ref="overclocking"/>
+      <metaEcho lang="en" ref="software_emulator"/>
+   </metaEchoes>
+   <sins>
+      <sin name="Yuriko Star" quality="ROUGH_MATCH" uniqueid="59d9bf7c-436d-4fe6-9989-7a08504ec9e2"/>
+   </sins>
+   <licenses>
+      <licenses name="Drone" rating="ROUGH_MATCH" sin="59d9bf7c-436d-4fe6-9989-7a08504ec9e2" uniqueid="2f9587eb-fc6f-4ae9-996c-fc40e5439429"/>
+      <licenses name="Firearms" rating="ROUGH_MATCH" sin="59d9bf7c-436d-4fe6-9989-7a08504ec9e2" uniqueid="f55c56eb-36c7-4257-8072-4c861db8b5f7"/>
+   </licenses>
+   <contacts>
+      <contact id="5b130c0a-b58c-43b8-8d5e-ec23e4deedbe" loy="2" name="Brynne Taggart" rat="4" type="CRIMINAL" typename="SEA Fixer">
+         <description>Character creation
+2081-05: +1 FP, +1 (Buying Favors)</description>
+      </contact>
+      <contact id="756c7b18-3351-484f-806f-e4fc413dd4f6" loy="4" name="Whiskey" rat="2" type="MEDICAL" typename="SEA Street Doc">
+         <description>Character Creation</description>
+      </contact>
+      <contact id="33e9cde2-38fa-4624-96ab-79d0d3d153b6" loy="3" name="Indomitable Will" rat="3" type="CORPORATE" typename="NOLA River People Sysop">
+         <description>Character creation</description>
+      </contact>
+      <contact id="bac29d55-ab5a-49d5-8c3d-017aadfb34d9" loy="3" name="Roanoke" rat="3" type="CRIMINAL" typename="NOLA Ecological Activist">
+         <description>Character creation</description>
+      </contact>
+      <contact id="af9ac2b6-3596-4dee-a6cc-4da6fa2a1931" loy="1" name="Piotr Krolik" rat="4" type="CRIMINAL" typename="NOLA Vory Borjevik">
+         <description>SMH 2083-02 EggHunt at the Jackalope Ranch: +1 FP -- L1</description>
+      </contact>
+      <contact id="9539ef93-6b90-4794-a7db-0ddcc2ebf353" loy="1" name="Le Tigre" rat="5" type="CORPORATE" typename="NOLA Epoch Model">
+         <description>SMH 2083-02 EggHunt at the Jackalope Ranch. +1 FP -- L1</description>
+      </contact>
+      <contact id="5d05bdd0-7587-404a-80c3-19487dfa5590" loy="1" name="White Jackalope" rat="2" type="MATRIX" typename="Emergent Lifeform">
+         <description>SMH 2083-02 EggHunt at the Jackalope Ranch. +1 FP -- L1</description>
+      </contact>
+      <contact id="a663f032-cdd7-472b-abc5-aa73ce0bd3b3" loy="1" name="Big Louie" rat="3" type="CRIMINAL" typename="SEA Fixer">
+         <description>CMP First Taste : Top Chef - Seattle. +1 FP -- L1. 
+
+Male Troll, likes Jazz, works out of Matchsticks
+</description>
+      </contact>
+      <contact favors="1" id="10d4a058-30d0-405a-9c27-f529e12d39ba" loy="1" name="Dominique Augustin" rat="4" type="CORPORATE" typename="NOLA Wolverine Security">
+         <description>Human Female
+2083-03: Unofficial Dunkelzahn Fan Club. 2FP - 1FP + L1</description>
+      </contact>
+      <contact id="51988c8a-0bd0-46ee-a42e-07e9ec84e17c" loy="1" name="Daniel Fortune" rat="3" type="CORPORATE" typename="NOLA">
+         <description>Human Male
+2083-03: Unofficial Dunkelzahn Fan Club. 1FP -- L1</description>
+      </contact>
+      <contact id="f3132127-8be7-4737-a7e4-fed4d912b72d" loy="2" name="Renée Martin" rat="4" type="MAGIC" typename="NOLA League of Laveau Community Outreach">
+         <description>Male Troll
+2083-03: Unofficial Dunkelzahn Fan Club. 3FP -- L2</description>
+      </contact>
+      <contact id="e0862e1d-7a49-4a3f-89a8-0c09329b59c7" loy="1" name="The Frisian" rat="6" type="CRIMINAL" typename="AMS Crime Lord of the Dutch Penose syndicate">
+         <description>Amsterdam
+CMP 2081-09 | Bring me Prince Charming: +1 FP -- L1</description>
+      </contact>
+      <contact favors="1" id="8db8c753-8b66-42e3-a9f4-a0c20f03efba" loy="1" name="Ree 'Dolly' Hacker" rat="4" type="MAGIC" typename="KY Talismonger and Racer">
+         <description>Female Elf
+CMP 2081-18: Blue Kentucky Girl: +2 FP -- L1/F1</description>
+      </contact>
+      <contact id="93ddb8d3-ba87-4f4f-a23b-81e38da6cdc3" loy="2" name="'Granny'" rat="6" type="MAGIC" typename="KY Lady of the Autumn Wind">
+         <description>Fae Noble. RN: Siobhan Ceidwad Hydief Gwynt
+CMP 2081-18: Blue Kentucky Girl: +1 FP -- L1
+CMP 2081-20: In the Cold Kentucky Rain: +1L</description>
+      </contact>
+      <contact id="611226de-d911-4875-823f-2f114e2354ac" loy="2" name="Kiara Shaw" rat="4" type="CORPORATE" typename="AMS Knight Errant Company Suit">
+         <description>(KE Company Suit, Connection 4) Female Dwarf
+CMP 2081-10 | A Diamond In The Rough - +2FP -- L1/FP1
+CMP 2083-04 | Hog Wild - +1 FP -- L2</description>
+      </contact>
+      <contact id="38378b7e-bf5d-46ab-b1a1-f56e23c6d1a2" loy="2" name="Simon Andrews" rat="5" type="CORPORATE" typename="AMS S-K Johnson">
+         <description>Male Awakened Lizard Punk. Likes Brit bands. Yuriko caught a concert with him.
+CMP 2081-11 | Paved with good intentions - +2FP -- L1/FP1
+CMP 2083-01: NONPLUSHED + 1FP
+CMP 2083-04 | Hog Wild: +1 FP -- L2/FP1</description>
+      </contact>
+      <contact id="ff9242f4-7f59-4007-9b66-12ed979ffece" loy="1" name="Squint" rat="2" type="CRIMINAL" typename="AMS Smuggler">
+         <description>CMP 2081-11 | Paved with good intentions - +1FP -- L1</description>
+      </contact>
+      <contact favors="1" id="bab7a38b-3a7c-4ce5-89fa-16aeefeb5ebc" loy="1" name="Dr. Laureline Dodd" rat="5" typename="KY Arcano-Archeologist">
+         <description>Female Human, Arcano-Archaelogist, Spinrad Global Connection 5, CHA 7
+CMP 2081-19: The Blue Moon of Kentucky: +2 FP -- L1/FP1</description>
+      </contact>
+      <contact id="392cea4f-b154-43c1-8044-8495cdce1279" loy="1" name="Thaddeus" rat="3" typename="KY Street Samurai">
+         <description>CopperHead Naga Street Samurai
+CMP 2081-19: The Blue Moon of Kentucky: +1 FP -- L1</description>
+      </contact>
+      <contact id="7817cea0-6302-443f-86c3-a294a366a8a2" loy="1" name="Duan Yuhai" rat="3" type="CRIMINAL" typename="SEA Minor 88s Johnson">
+         <description>2081-17: +1 FP -- L1</description>
+      </contact>
+      <contact id="6e1f9db7-c177-40df-a206-635ed84a0804" loy="1" name="Xiong Giuyin" rat="4" type="CORPORATE" typename="SEA Wuxing">
+         <description>2081-17: +1FP -- L1</description>
+      </contact>
+      <contact favors="1" id="473d22b6-c370-47d9-a9dd-fbc1da3f7f17" loy="1" name="Reilly Dragman" rat="1" type="CORPORATE" typename="KY Child Heiress">
+         <description>CMP 2081-20: In the Cold Kentucky Rain - +1L/+1FP</description>
+      </contact>
+      <contact id="85ce1b81-162a-4e97-9739-a25f1861eecb" loy="1" name="Queen Brane" rat="12" type="MAGIC" typename="Seelie Queen">
+         <description>CMP 2081-20: In the Cold Kentucky Rain: +1 L</description>
+      </contact>
+      <contact favors="3" id="a5339b43-ea6d-492a-82d2-50d40ae76bbf" loy="3" name="Sigrûn (Marikka von Harbou )" rat="5" type="GOVERNMENT" typename="AMS Shadowrunner">
+         <description>House Oranje-Nassau Johnson, Connection 5. Female Ork
+CMP 2081-12 | Uneasy lies the head - +4FP -- L2 FP1
+CMP 2083-04 | Hog Wild - +2 FP -- L3</description>
+      </contact>
+      <contact favors="1" id="0942baf1-7fa0-40d9-970c-45b5c07bf022" loy="1" name="Dixie L'Amin" rat="4" type="CORPORATE" typename="DW Naga">
+         <description>CMP 2083-14: +2 FP -- L1/FP1</description>
+      </contact>
+      <contact id="3651f12b-80ad-43ba-83aa-2aed0580c039" loy="1" name="Ayanda “Shieldbearer”Mahlangu" rat="3" type="MEDIA" typename="DW 'Mystic Edge' Producer">
+         <description>Wakyambi Elf Female. (Para Bellum pg. 15)
+CMP 2083-14: +1FP -- L1</description>
+      </contact>
+      <contact favors="1" id="30d5c780-215a-4f4f-9df6-1633ec6a6a5f" loy="1" name="Ebon Abirashur" rat="1" type="MAGIC" typename="DW Leviathan Dragon">
+         <description>CMP 2083-14: +2FP -- L1 / FP1</description>
+      </contact>
+      <contact favors="1" id="d69b29a1-e151-4899-9ee0-b7c2e47a0e01" loy="1" name="Col. Deborah Kentwell" rat="5" type="CORPORATE" typename="DW Thunder Corps Fixer">
+         <description>CMP 2083-16: +2FP -- L1/FP1</description>
+      </contact>
+      <contact id="2aa72801-de3e-40f1-b6c1-8b045dd101a9" loy="1" name="Polyphemous 'Paul' Pellagios" rat="1" type="CORPORATE" typename="DW Background Actor">
+         <description>CMP 2083-16: +1FP -- L1</description>
+      </contact>
+      <contact id="51c12ad1-e1a0-4802-8095-925f4972d185" loy="1" name="Fernand Anato" rat="1" type="CRIMINAL" typename="NOLA Kozlowski Capo">
+         <description>SRM 2083-19: +1FP -- L1</description>
+      </contact>
+      <contact favors="1" id="e85e037c-fa9d-447c-a4fa-cd5ab557f1e5" loy="2" name="Monsieur Johnson" rat="5" typename="NOLA Johnson">
+         <description>SRM 2083-19: L1/FP3 -- L2/FP1</description>
+      </contact>
+      <contact id="c143aec1-b72e-4f2f-843f-7a2e666c6b93" loy="2" name="Swango" rat="3" type="MEDIA" typename="SEA Rapper">
+         <description>SRM 2081-05: +3 FP -- L2</description>
+      </contact>
+      <contact id="7eeb0b36-62e0-4cf2-b3c6-d9c68794dd0b" loy="1" name="Toil" rat="4" type="STREET" typename="SEA Fixer">
+         <description>SRM 2081-05: +1 FP -- L1</description>
+      </contact>
+      <contact id="da714868-d1a7-4182-add6-4887b398ae46" loy="1" name="Trubble" rat="1" type="STREET" typename="SEA Bodyguard">
+         <description>SRM 2081-05: +1 FP -- L1</description>
+      </contact>
+      <contact id="22863313-368e-4c9f-875b-6ce4f26f3002" loy="1" name="SpiiniCop" rat="2" type="CRIMINAL" typename="AMS Penose Spider">
+         <description>NB Human
+CMP 2083-01: NONPLUSHED: +1 FP -- L1</description>
+      </contact>
+      <contact id="dc6e2c88-7056-450b-a075-b4a32c206207" loy="1" name="Eddie Wei" rat="4" type="CORPORATE" typename="SEA Triad/Johnson">
+         <description>SRM 2081-08 Child's Play: +1 FP -- L1</description>
+      </contact>
+      <contact id="4542297c-d98c-486a-b46b-4b4ea6036685" loy="1" name="Julian Müntefering" rat="1" typename="SEA Renraku Corpokid">
+         <description>SRM 2081-08 Child's Play: +1 FP -- L1</description>
+      </contact>
+      <contact id="4a71a665-1027-468b-98b4-b8df136fbbd5" loy="2" name="Ni Ni Xiaolu" rat="3" type="CRIMINAL" typename="SEA Johnson/Triad">
+         <description>SRM 2081-07 | Bootleg Bliss: +3 FP -- 2L</description>
+      </contact>
+      <contact id="c1936bbb-d691-4300-985e-95bd22489dc7" loy="1" name="Bookie" rat="3" type="CRIMINAL" typename="SEA Ancients Bookie">
+         <description>SRM 2081-07 | Bootleg Bliss: +1 FP -- L1
+Male Elf</description>
+      </contact>
+      <contact id="3bf7c9db-2ebb-4328-be79-9de3e27b506a" loy="1" name="Trudy" rat="2" type="CRIMINAL" typename="SEA Cutter Lieutenant">
+         <description>Female Human Mage
+SRM 2081-07 | Bootleg Bliss: +1 FP -- L1</description>
+      </contact>
+      <contact id="80480220-b85e-49ef-b4a6-68f25f297c6d" loy="1" name="Kaatje" rat="2" typename="AMS Young Entertainer">
+         <description>(Young Entertainer, Connection 2) early 20s human female
+2083-04 Hog Wild: +1 FP -- L1. (Was playing harmonica in a bar. Yuriko introduced her to Fuchs. Also met Kaatje's grandmother in a religious commune)</description>
+      </contact>
+   </contacts>
+   <name>Yuriko Star</name>
+   <datasets mode="ALL"/>
+   <rules>
+      <set rule="CAREER_UNDO_FROM_CAREER" to="true"/>
+      <set rule="CAREER_PAY_GEAR" to="true"/>
+   </rules>
+   <hairColor>neon blue</hairColor>
+   <eyeColor>dark blue</eyeColor>
+   <skinColor>light blue</skinColor>
+   <age>~ 10</age>
+   <size>0</size>
+   <weight>0</weight>
+   <attributes>
+      <attributes id="BODY" start="5" value="5"/>
+      <attributes id="AGILITY" start="3" value="3"/>
+      <attributes id="REACTION" start="5" value="5"/>
+      <attributes id="STRENGTH" start="3" value="3"/>
+      <attributes id="WILLPOWER" start="6" value="6"/>
+      <attributes id="LOGIC" start="4" value="4"/>
+      <attributes id="INTUITION" start="2" value="2"/>
+      <attributes id="CHARISMA" start="4" value="4"/>
+      <attributes id="EDGE" start="5" value="5"/>
+      <attributes id="MAGIC" value="0"/>
+      <attributes id="RESONANCE" start="6" value="7"/>
+      <attributes id="POWER_POINTS" value="0"/>
+   </attributes>
+   <skills>
+      <skill lang="en" ref="con" uuid="4b7dfca2-1897-440f-972c-8164d7243e15" value="1"/>
+      <skill lang="en" ref="cracking" uuid="9b359b5c-7d07-4435-9245-de2343d98b7c" value="5">
+         <skillspec lang="en" ref="hacking"/>
+      </skill>
+      <skill lang="en" ref="electronics" uuid="31cf21c9-4b14-4616-8389-6f8c054c6b80" value="5">
+         <skillspec lang="en" ref="software"/>
+      </skill>
+      <skill lang="en" ref="influence" uuid="f01037eb-6ffd-414d-9b23-c0d572e88d04" value="1"/>
+      <skill lang="en" ref="language" uuid="1ab9b4c2-b6d2-4d84-8c82-91920cbefe8b" value="4">
+         <decision choice="a7103ee4-31fa-435d-ac42-08f7d4d1e80c" value="Native Language"/>
+      </skill>
+      <skill lang="en" ref="tasking" uuid="5499fce6-97ca-46f9-bd46-47a870f56815" value="6">
+         <skillspec lang="en" ref="registering"/>
+      </skill>
+   </skills>
+   <charGenUsed>pointbuy</charGenUsed>
+   <strictness>srm</strictness>
+   <items>
+      <item count="10" lang="en" mode="CARRIED" ref="diving_gear" uuid="454bd629-9975-4ecb-b208-79c75d0c56af">
+         <customName>Resonance Focus (R4)</customName>
+      </item>
+      <item changes="0,0,0" count="5" lang="en" mode="CARRIED" ref="mct_gnat" uuid="9b9e6ccc-07fc-4e18-b748-cd750f3e3ac3"/>
+      <item changes="0,0,0" count="1" lang="en" mode="CARRIED" ref="shiawase_BD_butler" uuid="227c5aa8-b36c-436a-b759-18ea24ff300c">
+         <notes>Armor: 10 (SkinShield + RACS, InvisiShield, Wrist Shield)</notes>
+         <accessories>
+            <item lang="en" mode="EMBEDDED" ref="anti_theft" slot="VEHICLE_ELECTRONICS" uuid="8b62cd17-13bc-4daf-949a-39b0813df4f9" variant="rating1">
+               <flag>AUTO_ADDED</flag>
+            </item>
+            <item lang="en" mode="EMBEDDED" ref="secondary_propulsion_system" slot="VEHICLE_POWERTRAIN" uuid="38c1fad0-ecab-490f-9ae3-b7650d67b70a" variant="winged"/>
+            <item lang="en" mode="EMBEDDED" ref="increased_integrity" slot="VEHICLE_CHASSIS" uuid="8f1dd250-6508-4412-9c08-3f8c942f4107">
+               <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="2"/>
+            </item>
+            <item lang="en" mode="EMBEDDED" ref="drone_rack" slot="VEHICLE_HARDPOINT" uuid="894d6aa6-81b4-4534-b7a8-47fa37af97ea" variant="small"/>
+            <item lang="en" mode="EMBEDDED" ref="enhanced_sensors" slot="VEHICLE_ELECTRONICS" uuid="c079b5ed-e8f0-4986-9fa5-983537383ee4">
+               <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="3"/>
+            </item>
+         </accessories>
+         <accessoriesInFact>
+            <item inFactoryItem="4f2a8d0b-381f-4464-b14b-ef5c6c6ef9bf" lang="en" mode="EMBEDDED" ref="cyberweapon_wrist_shield" slot="CYBERLIMB_IMPLANT" uuid="1c09ce2a-129d-4d4d-aebf-ca3f020c3fe7">
+               <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170c" value="USED"/>
+            </item>
+         </accessoriesInFact>
+      </item>
+      <item lang="en" mode="CARRIED" ref="monofilament_whip" uuid="f22457ad-1d7d-4332-91a5-f6033f3fc9c5">
+         <enhancements>
+            <enhancement lang="en" ref="personalized_grip_melee"/>
+         </enhancements>
+      </item>
+      <item lang="en" mode="CARRIED" ref="ares_predator_vi" uuid="cf818944-2089-43aa-bfa9-2cb80f9e2510">
+         <accessories>
+            <item lang="en" mode="EMBEDDED" ref="silencer" slot="BARREL" uuid="5127c297-0b3e-424d-9f24-ec8a10d4bd91"/>
+         </accessories>
+         <enhancements>
+            <enhancement lang="en" ref="personalized_grip_ranged"/>
+         </enhancements>
+      </item>
+      <item count="5" lang="en" mode="CARRIED" ref="ammo_heavy_smg" uuid="d3aadd59-b155-48a0-8b3e-a3154a57d1ff">
+         <decision choice="b015341d-24dc-42bb-a46b-781a5340e0b3" value="explosive"/>
+      </item>
+      <item count="5" lang="en" mode="CARRIED" ref="ammo_heavy_smg" uuid="8cd3e03c-e4d7-49a0-9dc2-dd1da600d720">
+         <decision choice="b015341d-24dc-42bb-a46b-781a5340e0b3" value="krime_selfdefense"/>
+      </item>
+      <item count="10" lang="en" mode="CARRIED" ref="glitter_grenade" uuid="657984bb-a5b5-4a20-8709-082a4329580a"/>
+      <item changes="0,0,0" count="1" lang="en" mode="CARRIED" ref="shiawase_BD_man_at_arms" uuid="8c03390e-3f0c-43c3-885c-d2917b46b627">
+         <accessories>
+            <item lang="en" mode="EMBEDDED" ref="hardpoint_concealment" slot="VEHICLE_HARDPOINT" uuid="36ffc28c-1fe4-4d45-9e79-094566a2b164" variant="large"/>
+            <item lang="en" mode="EMBEDDED" ref="drone_rack" slot="VEHICLE_HARDPOINT" uuid="362a9c39-6c21-46de-8fe9-cbf51f05d330" variant="small"/>
+            <item lang="en" mode="EMBEDDED" ref="anti_theft" slot="VEHICLE_ELECTRONICS" uuid="88b63c97-f264-4225-bad5-c56f9eb45dc6" variant="rating1">
+               <flag>AUTO_ADDED</flag>
+            </item>
+            <item lang="en" mode="EMBEDDED" ref="secondary_propulsion_system" slot="VEHICLE_POWERTRAIN" uuid="5de7e79e-9425-4da6-a1bb-c455f404505b" variant="rotor"/>
+            <item lang="en" mode="EMBEDDED" ref="increased_integrity" slot="VEHICLE_CHASSIS" uuid="5466b329-bf42-408e-89e0-786bd9026c5e">
+               <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="5"/>
+            </item>
+            <item lang="en" mode="EMBEDDED" ref="realistic_features" slot="VEHICLE_CHASSIS" uuid="c75937a5-6428-44cb-9576-5e702176523b">
+               <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="4"/>
+            </item>
+            <item lang="en" mode="EMBEDDED" ref="hardpoint_small" slot="VEHICLE_CHASSIS" uuid="ba346adf-9f5a-4b98-a98e-43f30ab57001"/>
+            <item lang="en" mode="EMBEDDED" ref="hardpoint_small" slot="VEHICLE_CHASSIS" uuid="21ebc127-50bb-4900-8a45-7259049cc960"/>
+            <item lang="en" mode="EMBEDDED" ref="enhanced_sensors" slot="VEHICLE_ELECTRONICS" uuid="81cffb5b-67fe-4b0f-816a-9faed6575ddc">
+               <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="3"/>
+            </item>
+         </accessories>
+         <accessoriesInFact>
+            <item inFactoryItem="e6358fb9-51ab-48bb-9f7d-f073b08f2d2d" lang="en" mode="EMBEDDED" ref="cyberweapon_tesla_coil" slot="CYBERLIMB_IMPLANT" uuid="4089bd53-21f4-4bac-b517-694e35856aba">
+               <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170c" value="USED"/>
+            </item>
+            <item inFactoryItem="e6358fb9-51ab-48bb-9f7d-f073b08f2d2d" lang="en" mode="EMBEDDED" ref="fingertip_compartment" slot="CYBERLIMB_IMPLANT" uuid="9373d82a-c752-4a93-8157-7ca4799ba0f2">
+               <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170c" value="USED"/>
+            </item>
+            <item inFactoryItem="e6358fb9-51ab-48bb-9f7d-f073b08f2d2d" lang="en" mode="EMBEDDED" ref="cyber_heavy_pistol" slot="CYBERLIMB_IMPLANT" uuid="88d83531-2a15-4a53-9084-aea68723f30e">
+               <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170c" value="USED"/>
+            </item>
+            <item inFactoryItem="2a1dd5ab-475e-473e-9c45-7bd90f726f2b" lang="en" mode="EMBEDDED" ref="cyberweapon_wrist_shield" slot="CYBERLIMB_IMPLANT" uuid="b7d06471-84a2-41cd-a467-dd545f03b09c">
+               <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170c" value="USED"/>
+            </item>
+            <item inFactoryItem="2a1dd5ab-475e-473e-9c45-7bd90f726f2b" lang="en" mode="EMBEDDED" ref="armor_increase" slot="CYBERLIMB_IMPLANT" uuid="5460c21f-092c-494a-ab67-fb208bc776ad">
+               <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="5"/>
+               <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170c" value="USED"/>
+            </item>
+         </accessoriesInFact>
+      </item>
+      <item lang="en" mode="CARRIED" ref="securetech_skinshield" uuid="974830e7-625a-486d-9ad0-42d0aa49ffde">
+         <flag>PRIMARY</flag>
+      </item>
+      <item lang="en" mode="CARRIED" ref="kit" uuid="039a01fe-6405-4f53-a70f-4a204c477c27">
+         <decision choice="8d33356c-f3d4-4387-a6a2-a9575c449ae7" value="engineering"/>
+      </item>
+      <item count="1" lang="en" mode="CARRIED" ref="medkit" uuid="98449cd3-0063-4582-82f2-eb89ebeb3a03">
+         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="1"/>
+      </item>
+      <item count="5" lang="en" mode="CARRIED" ref="medkit_supplies" uuid="4e39f571-f6d7-469a-8b45-4b0b3b8e6fc2"/>
+      <item count="1" lang="en" mode="CARRIED" ref="trading_card" uuid="bdfe3e6f-9101-4b66-9096-3861d116b53a">
+         <customName>Order of the Lion of the United Netherlands Medal</customName>
+      </item>
+      <item count="1" lang="en" mode="CARRIED" ref="alcohol" uuid="b4c30fbd-2eeb-494a-97a6-12c4e7873fef">
+         <customName>Broach of the Seelie Court (+2 Power Focus)</customName>
+      </item>
+      <item lang="en" mode="CARRIED" ref="knife" uuid="9670a57c-8252-4ccd-9007-c7d2a399be4e">
+         <customName>Dagger of the Sacred Rose (+1 Weapon Focus)</customName>
+      </item>
+      <item count="1" lang="en" mode="CARRIED" ref="alcohol" uuid="f44fb91c-9630-44ed-8c6d-72b90bec1a65">
+         <notes>Gain one percent discount on all items from one specific brand/megacorp for every point of heat or reputation, whichever is higher up to ten percent. </notes>
+         <customName>&#x0022;Smile for the Camera!&#x0022; Quality (Shiawase)</customName>
+      </item>
+      <item lang="en" mode="CARRIED" ref="securetech_invisishield" uuid="26c35c3f-8533-46ea-9d17-e0b6eca54d1c"/>
+      <item lang="en" mode="CARRIED" ref="shock_gloves" uuid="aff32e21-314b-43ab-8c20-2c2361a9e3f7">
+         <enhancements>
+            <enhancement lang="en" ref="personalized_grip_melee"/>
+         </enhancements>
+         <customName>Krime Gloves (Stun)</customName>
+      </item>
+      <item lang="en" mode="CARRIED" ref="knucks" uuid="8c7102cc-68d5-4d45-b7c1-1786945be646">
+         <customName>Krime Gloves (Phys)</customName>
+      </item>
+      <item lang="en" mode="CARRIED" ref="mtoc_mark2" uuid="8111bbf4-5fc7-449d-acaf-41402ee536b1">
+         <accessories>
+            <item lang="en" mode="EMBEDDED" ref="satellite_link" slot="ELECTRONIC_ACCESSORY" uuid="14236071-919a-4a38-9073-f4e39982c2aa"/>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="sneak_sneak" slot="SOFTWARE" uuid="677568f7-6265-4159-a886-b6ab331d041e"/>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="artillery_barrage" slot="SOFTWARE" uuid="5ca61534-4a27-408a-b88d-9c10bc1a23c7"/>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="ecm_warrior_ii" slot="SOFTWARE" uuid="1cdd833d-6881-4c27-a083-bea18f834c53"/>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="mapsoft" slot="SOFTWARE" uuid="af663ff9-bcc0-4c1b-abe2-c1af1792d739">
+               <decision choice="47d1e468-6df7-43ce-9651-44485cc78bb8" value="SEA"/>
+            </item>
+         </accessories>
+         <flag>PRIMARY</flag>
+      </item>
+      <item count="10" lang="en" mode="CARRIED" ref="rfid_software_tags" uuid="c3a11a88-9e56-4b11-9d41-9410ec852068"/>
+      <item count="10" lang="en" mode="CARRIED" ref="laser_jack" uuid="e5c07b07-fecf-4c7c-92c1-ab18da0d49e8"/>
+      <item lang="en" mode="CARRIED" ref="coding_facility" uuid="0e9776dc-0a7f-4f8b-ab1b-17bae92aa4c2"/>
+      <item count="2" lang="en" mode="CARRIED" ref="crimson_wasp" uuid="cc9334cd-33cf-432f-8ba8-877c862c032d"/>
+      <item lang="en" mode="CARRIED" ref="red_fox" uuid="9282fc9b-eafc-4953-ba72-e1aa4d0d1bee">
+         <enhancements>
+            <enhancement lang="en" ref="smartgun_system_mod"/>
+         </enhancements>
+      </item>
+      <item count="5" lang="en" mode="CARRIED" ref="ammo_battery_laser" uuid="e44de4d4-5f5a-4d5c-9f67-c54e04e3fdd0"/>
+      <item lang="en" mode="VIRTUAL" ref="software_library" uuid="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979">
+         <accessories>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="baby_monitor" slot="SOFTWARE" uuid="21252dd0-210b-47e1-a7b4-4ce367ef6878" variant="regular"/>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="soft_biotech" slot="SOFTWARE" uuid="e3f035fe-bc96-4591-a98f-63f1fa769c36">
+               <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="9"/>
+            </item>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="browse" slot="SOFTWARE" uuid="e205e19d-78e7-49f5-9e23-d699396157c8" variant="regular"/>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="clearsight" slot="SOFTWARE" uuid="c91e74d2-57c4-4a98-906a-0ca464d270c0">
+               <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="9"/>
+            </item>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="soft_close_combat" slot="SOFTWARE" uuid="f24395ce-c571-4180-a6d8-5371f1702dd0">
+               <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="9"/>
+               <decision choice="2baf4c6e-417b-4d1a-943c-edfa816d50bf" value="katana"/>
+            </item>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="decryption" slot="SOFTWARE" uuid="4d84dc26-17b1-42b5-8905-35f188805983"/>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="defense_pods" slot="SOFTWARE" uuid="51cbd3dd-cc91-4bb0-9288-fab6edb1ac72"/>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="directional_shield" slot="SOFTWARE" uuid="3a774c61-6b50-4bea-9e06-a9412ddb6f04"/>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="edit" slot="SOFTWARE" uuid="aadac09a-608a-41be-819a-82ee7dc03a9e" variant="regular"/>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="evasion" slot="SOFTWARE" uuid="27ad6e49-f0b8-4e74-adf6-172339ff3589">
+               <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="9"/>
+            </item>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="facial_scanner" slot="SOFTWARE" uuid="97443858-7100-42eb-8881-8c0265b466df"/>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="fork" slot="SOFTWARE" uuid="7df87e18-964b-4506-8096-133ea5c96fae"/>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="hitchhiker" slot="SOFTWARE" uuid="7f6b8dc3-af0c-44ea-a851-cbc94ab40b9e"/>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="maneuvering" slot="SOFTWARE" uuid="473ef775-1b2b-4c11-ac2a-0818947562b2">
+               <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="9"/>
+               <decision choice="355a3a45-39fc-4376-8667-661c9873dfdb" value="shiawase_BD_butler"/>
+            </item>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="mannequin" slot="SOFTWARE" uuid="64de90de-7f43-4eff-a4fc-2a0937dbdf85"/>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="mefeed" slot="SOFTWARE" uuid="0683fd5d-e4be-4d7e-ad81-df8fe96f2163"/>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="soft_navigation" slot="SOFTWARE" uuid="14c1be8f-e64e-44cc-895a-98cb7574d4b8">
+               <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="9"/>
+            </item>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="nexus_protocol" slot="SOFTWARE" uuid="8f94b501-4110-45f4-8736-01bba8b0295d"/>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="overclock" slot="SOFTWARE" uuid="06cb217b-b846-4e39-acb1-a8552c505d80"/>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="soft_con_performance" slot="SOFTWARE" uuid="b924ae64-35d4-4a69-957b-c2d80b8caca1">
+               <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="9"/>
+            </item>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="social_hud" slot="SOFTWARE" uuid="3a0803ad-69e3-4b7a-8ebf-88624c826b55"/>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="targeting" slot="SOFTWARE" uuid="5f0fba38-910f-4426-b54d-8320e6a681c2">
+               <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="9"/>
+               <decision choice="2baf4c6e-417b-4d1a-943c-edfa816d50bf" value="ares_predator_vi"/>
+            </item>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="trace" slot="SOFTWARE" uuid="87e4dda6-49fe-454f-a766-04b887b35adb"/>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="soft_tracking" slot="SOFTWARE" uuid="366fea50-a623-439d-a28f-c6780212b88d">
+               <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="9"/>
+            </item>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="thermal_mood_reading" slot="SOFTWARE" uuid="c92293c4-a0f5-4721-bc79-8ef121ae9e04"/>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="vocal_tension_detection" slot="SOFTWARE" uuid="f18e96ef-f57c-40f1-bc08-45161779c6a3"/>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="soft_engineering" slot="SOFTWARE" uuid="5d8a8814-6ac9-49bc-b294-3a06dbdfe558">
+               <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="9"/>
+               <decision choice="712a1bb4-b761-48a7-b2ba-ae5d36f47166" value="engineering/industrial_mechanic"/>
+            </item>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="smart_rig" slot="SOFTWARE" uuid="c72e6196-a65a-4a86-8c3e-a755ace6b964"/>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="soft_language" slot="SOFTWARE" uuid="7d04ba55-a99c-49c4-8710-b4f924ab0c9c">
+               <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="5"/>
+            </item>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="soft_knowledge" slot="SOFTWARE" uuid="12d50f1e-ac93-410c-b691-c537a4def8b7"/>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="emulator" slot="SOFTWARE" uuid="0f38bf43-dfc0-4da6-bc70-ff46d68ba70b"/>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="p-ice_spines" slot="SOFTWARE" uuid="6ac6378b-d7b0-4e31-b963-589d3de2744a"/>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="personal_assistant" slot="SOFTWARE" uuid="c5e5ec5e-9c8e-4cd5-85bd-fd0ad8990726">
+               <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="6"/>
+            </item>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="toolbox" slot="SOFTWARE" uuid="300d3c6c-9042-40bc-8b01-d6cb0d1ebed7" variant="regular"/>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="encryption" slot="SOFTWARE" uuid="e02787fb-6703-42d5-8cae-8fed4ba35c1f"/>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="signal_scrubber" slot="SOFTWARE" uuid="215aa551-68ec-4854-8735-d59e342b53f9" variant="regular"/>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="virtual_machine" slot="SOFTWARE" uuid="b7ceba6e-c736-4e42-84f8-a058ba60babb" variant="regular"/>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="shopsoft" slot="SOFTWARE" uuid="11232734-9d02-40ae-803b-08205e458e09">
+               <decision choice="47d1e468-6df7-43ce-9651-44485cc78bb8" value="Drones, SW, HW, Firearms, Armor, Demolitions"/>
+            </item>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="mobile_medic" slot="SOFTWARE" uuid="9335def9-98ad-4852-9b9c-07fbd1b512d7"/>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="swarm_rig" slot="SOFTWARE" uuid="7d3e5678-e55a-49ca-9b89-da41613521b7"/>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="target_artist" slot="SOFTWARE" uuid="ccd718da-a362-4d43-bda9-8b6bf982eadb"/>
+            <item inFactoryItem="8fc8c01e-3023-4ba6-9d02-99ba6fcd6979" lang="en" mode="EMBEDDED" ref="stealth_auto" slot="SOFTWARE" uuid="5ad6833a-c2dd-4912-8e29-b1466ecb2945">
+               <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="9"/>
+               <decision choice="355a3a45-39fc-4376-8667-661c9873dfdb" value="shiawase_BD_man_at_arms"/>
+            </item>
+         </accessories>
+      </item>
+   </items>
+   <history>
+      <itemmod date="2026-04-26T16:12:47.105-04:00" expCost="11" ref="new_sprite_type" type="METAECHO"/>
+      <itemmod date="2026-04-26T16:12:52.095-04:00" expCost="12" ref="sprite_conduit" type="METAECHO"/>
+      <valmod date="2026-04-26T16:42:02.264-04:00" expCost="5" ref="con" set="NATURAL" type="SKILL" value="1"/>
+      <valmod date="2026-04-26T16:42:08.204-04:00" expCost="5" ref="influence" set="NATURAL" type="SKILL" value="1"/>
+      <valmod date="2026-04-26T16:47:03.506-04:00" id="454bd629-9975-4ecb-b208-79c75d0c56af" ref="diving_gear" set="AUGMENTED" type="CARRIED" value="2000"/>
+      <valmod date="2026-04-26T16:47:06.895-04:00" id="454bd629-9975-4ecb-b208-79c75d0c56af" ref="diving_gear" set="AUGMENTED" type="CARRIED" value="2000"/>
+      <valmod date="2026-04-26T16:47:07.087-04:00" id="454bd629-9975-4ecb-b208-79c75d0c56af" ref="diving_gear" set="AUGMENTED" type="CARRIED" value="2000"/>
+      <valmod date="2026-04-26T16:47:07.282-04:00" id="454bd629-9975-4ecb-b208-79c75d0c56af" ref="diving_gear" set="AUGMENTED" type="CARRIED" value="2000"/>
+      <valmod date="2026-04-26T16:47:07.485-04:00" id="454bd629-9975-4ecb-b208-79c75d0c56af" ref="diving_gear" set="AUGMENTED" type="CARRIED" value="2000"/>
+      <valmod date="2026-04-26T16:47:07.672-04:00" id="454bd629-9975-4ecb-b208-79c75d0c56af" ref="diving_gear" set="AUGMENTED" type="CARRIED" value="2000"/>
+      <valmod date="2026-04-26T16:47:07.867-04:00" id="454bd629-9975-4ecb-b208-79c75d0c56af" ref="diving_gear" set="AUGMENTED" type="CARRIED" value="2000"/>
+      <valmod date="2026-04-26T16:47:08.062-04:00" id="454bd629-9975-4ecb-b208-79c75d0c56af" ref="diving_gear" set="AUGMENTED" type="CARRIED" value="2000"/>
+      <valmod date="2026-04-26T16:47:08.273-04:00" id="454bd629-9975-4ecb-b208-79c75d0c56af" ref="diving_gear" set="AUGMENTED" type="CARRIED" value="2000"/>
+      <valmod date="2026-04-26T16:47:08.468-04:00" id="454bd629-9975-4ecb-b208-79c75d0c56af" ref="diving_gear" set="AUGMENTED" type="CARRIED" value="2000"/>
+      <valmod date="2026-04-26T16:49:12.584-04:00" id="5e1fa2c1-cdf5-4238-aa5b-787d89d25cea" ref="mortimer_berwick_suit" set="AUGMENTED" type="CARRIED" value="2300"/>
+      <valmod date="2026-04-27T09:56:18.187-04:00" id="8f174190-328d-41f2-9c29-77caf3e41ff4" ref="nissan_samurai" set="AUGMENTED" type="CARRIED" value="4500"/>
+      <valmod date="2026-04-27T09:56:25.295-04:00" id="fa0f8a71-a0bd-43f7-91fe-c39c5ea63a6b" ref="integrated_matrix_device" set="AUGMENTED" type="CARRIED" value="800"/>
+      <valmod date="2026-04-27T10:08:38.346-04:00" id="01bb9083-4354-4a8a-aaa7-4620a6bd24d1" ref="ares_predator_vi" set="AUGMENTED" type="CARRIED" value="750"/>
+      <valmod date="2026-04-27T10:29:05.617-04:00" id="01bb9083-4354-4a8a-aaa7-4620a6bd24d1" ref="ares_predator_vi" set="AUGMENTED" type="CARRIED" value="0"/>
+      <valmod date="2026-04-27T10:29:29.481-04:00" id="d2f6de09-7609-4a49-a7ec-f74a4d3dd470" ref="ares_predator_vi" set="AUGMENTED" type="CARRIED" value="750"/>
+      <valmod date="2026-04-27T10:30:37.319-04:00" id="856a9d30-bcc7-4d9b-a86c-21ad6010ddda" ref="trench_knife" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-04-27T10:31:31.741-04:00" id="2dca3dfe-2f57-447a-b569-bd9906be6cba" ref="ares_predator_vi" set="AUGMENTED" type="CARRIED" value="750"/>
+      <itemmod date="2026-04-30T08:44:50.088-04:00" expCost="13" ref="sprite_symbiosis" type="METAECHO"/>
+      <valmod date="2026-04-30T08:46:04.055-04:00" id="5d8a8814-6ac9-49bc-b294-3a06dbdfe558" ref="soft_engineering" set="AUGMENTED" type="CARRIED" value="0"/>
+      <valmod date="2026-05-06T08:48:21.140-04:00" id="809edaef-91b7-4fa7-b5cc-04f3ed7b6a6d" ref="nissan_samurai" set="AUGMENTED" type="CARRIED" value="4500"/>
+      <valmod date="2026-05-06T08:55:23.633-04:00" id="2f1fd519-d82f-48b9-890b-d7ea0a3d0d26" ref="hawker_bat" set="AUGMENTED" type="CARRIED" value="5500"/>
+      <valmod date="2026-05-06T08:55:39.539-04:00" id="99a9d0ba-6d81-42f0-b07e-41fbc8c44eef" ref="shiawase_BD_butler" set="AUGMENTED" type="CARRIED" value="3000"/>
+      <valmod date="2026-05-06T08:56:40.881-04:00" id="9f4340ae-6822-4693-b7ab-079d777bedbc" ref="maneuvering" set="AUGMENTED" type="CARRIED" value="0"/>
+      <valmod date="2026-05-06T08:57:05.618-04:00" id="8d948c36-a6b6-4db0-bda1-3443278cfb31" ref="stealth_auto" set="AUGMENTED" type="CARRIED" value="0"/>
+      <valmod date="2026-05-06T08:57:37.711-04:00" id="e718bb65-9d8e-42a0-866e-73029df49c78" ref="maneuvering" set="AUGMENTED" type="CARRIED" value="0"/>
+      <valmod date="2026-05-06T08:57:58.728-04:00" id="2a785b0e-51eb-46c6-976b-0fdbcae9909b" ref="stealth_auto" set="AUGMENTED" type="CARRIED" value="0"/>
+      <valmod date="2026-05-14T08:01:00.672-04:00" id="0ff6ae53-cedc-474b-84a9-de4efa3dfb73" ref="erika_elite" set="AUGMENTED" type="CARRIED" value="2500"/>
+      <valmod date="2026-05-14T08:04:31.596-04:00" id="2d882231-8da0-4a23-9223-c7e1e11bb8d6" ref="glitter_grenade" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-05-14T08:04:42.191-04:00" id="2d882231-8da0-4a23-9223-c7e1e11bb8d6" ref="glitter_grenade" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-05-14T08:04:42.984-04:00" id="2d882231-8da0-4a23-9223-c7e1e11bb8d6" ref="glitter_grenade" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-05-14T08:04:43.250-04:00" id="2d882231-8da0-4a23-9223-c7e1e11bb8d6" ref="glitter_grenade" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-05-14T08:04:43.499-04:00" id="2d882231-8da0-4a23-9223-c7e1e11bb8d6" ref="glitter_grenade" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-05-14T08:04:43.730-04:00" id="2d882231-8da0-4a23-9223-c7e1e11bb8d6" ref="glitter_grenade" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-05-14T08:04:43.952-04:00" id="2d882231-8da0-4a23-9223-c7e1e11bb8d6" ref="glitter_grenade" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-05-14T08:04:44.173-04:00" id="2d882231-8da0-4a23-9223-c7e1e11bb8d6" ref="glitter_grenade" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-05-14T08:04:44.416-04:00" id="2d882231-8da0-4a23-9223-c7e1e11bb8d6" ref="glitter_grenade" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-05-14T08:04:45.446-04:00" id="2d882231-8da0-4a23-9223-c7e1e11bb8d6" ref="glitter_grenade" set="AUGMENTED" type="CARRIED" value="100"/>
+      <itemmod date="2026-05-14T08:11:38.597-04:00" expCost="14" ref="living_network" type="METAECHO"/>
+      <valmod date="2026-05-14T08:28:40.306-04:00" id="91d68407-4b17-4253-9f83-8c7db5ebdb06" ref="drone_rack" set="AUGMENTED" type="CARRIED" value="1000"/>
+      <valmod date="2026-05-14T08:30:00.559-04:00" id="91d68407-4b17-4253-9f83-8c7db5ebdb06" ref="drone_rack" set="AUGMENTED" type="CARRIED" value="1000"/>
+      <valmod date="2026-05-14T08:30:13.581-04:00" id="d32afa51-d2f0-4e14-9bab-313154fc06ef" ref="drone_rack" set="AUGMENTED" type="CARRIED" value="1000"/>
+      <valmod date="2026-05-14T08:30:48.734-04:00" id="9b9e6ccc-07fc-4e18-b748-cd750f3e3ac3" ref="mct_gnat" set="AUGMENTED" type="CARRIED" value="800"/>
+      <valmod date="2026-05-14T08:30:52.497-04:00" id="9b9e6ccc-07fc-4e18-b748-cd750f3e3ac3" ref="mct_gnat" set="AUGMENTED" type="CARRIED" value="800"/>
+      <valmod date="2026-05-14T08:30:52.948-04:00" id="9b9e6ccc-07fc-4e18-b748-cd750f3e3ac3" ref="mct_gnat" set="AUGMENTED" type="CARRIED" value="800"/>
+      <valmod date="2026-05-14T08:30:53.487-04:00" id="9b9e6ccc-07fc-4e18-b748-cd750f3e3ac3" ref="mct_gnat" set="AUGMENTED" type="CARRIED" value="800"/>
+      <valmod date="2026-05-14T08:30:54.235-04:00" id="9b9e6ccc-07fc-4e18-b748-cd750f3e3ac3" ref="mct_gnat" set="AUGMENTED" type="CARRIED" value="800"/>
+      <valmod date="2026-05-14T10:14:31.076-04:00" id="24db7afa-62bb-4056-a8d0-9115ca224850" ref="soft_engineering" set="AUGMENTED" type="CARRIED" value="-52430"/>
+      <valmod date="2026-05-14T10:49:45.082-04:00" id="d36746ec-c5b2-443d-af8d-3f835e0d64b1" ref="chameleon_coating" set="AUGMENTED" type="CARRIED" value="18000"/>
+      <valmod date="2026-05-14T10:49:52.339-04:00" id="a9d55460-d9d3-47a2-b1bc-f5ec853ef10e" ref="integrated_matrix_device" set="AUGMENTED" type="CARRIED" value="800"/>
+      <valmod date="2026-05-14T10:57:08.056-04:00" id="94e1e1d7-cea1-4a5c-b0d0-c2d636a0e027" ref="passive_stealth" set="AUGMENTED" type="CARRIED" value="1000"/>
+      <valmod date="2026-05-14T11:12:03.752-04:00" id="57b342c3-0bda-48f7-9b95-25fe16572bc1" ref="suzuki_transit" set="AUGMENTED" type="CARRIED" value="9000"/>
+      <valmod date="2026-05-14T11:12:43.377-04:00" id="3d0158e5-9191-4147-9328-eb430725a2b2" ref="rigger_interface" set="AUGMENTED" type="CARRIED" value="1000"/>
+      <valmod date="2026-05-25T14:11:12.598-04:00" id="3161e432-1695-45d9-9324-6ba54f73c668" ref="dodge_scoot" set="AUGMENTED" type="CARRIED" value="3000"/>
+      <valmod date="2026-05-25T14:19:01.851-04:00" id="bbc49bb7-cdde-47d4-89ae-f6cb32c6fd28" ref="secondary_propulsion_system" set="AUGMENTED" type="CARRIED" value="12000"/>
+      <valmod date="2026-05-25T14:21:47.913-04:00" id="ce191bf1-d894-46a0-8bad-83243ae16fc5" ref="suzuki_transit" set="AUGMENTED" type="CARRIED" value="9000"/>
+      <valmod date="2026-05-25T14:21:54.382-04:00" id="57b207e7-eed3-4d72-b44c-8d97e4de89a6" ref="rigger_interface" set="AUGMENTED" type="CARRIED" value="1000"/>
+      <valmod date="2026-05-25T14:22:04.207-04:00" id="d2be037b-69d5-4d33-8903-592eccb46735" ref="secondary_propulsion_system" set="AUGMENTED" type="CARRIED" value="12000"/>
+      <valmod date="2026-05-25T14:25:29.613-04:00" id="71ea7835-5687-4851-b05f-66e0ab850be2" ref="suzuki_transit" set="AUGMENTED" type="CARRIED" value="9000"/>
+      <valmod date="2026-05-25T14:25:38.334-04:00" id="ddab919f-25ea-41c3-8639-4da200df4e5a" ref="rigger_interface" set="AUGMENTED" type="CARRIED" value="1000"/>
+      <valmod date="2026-05-31T10:47:19.401-04:00" id="be06c5ea-00ea-4d89-89c5-c90225432c3e" ref="boing_sky_commander" set="AUGMENTED" type="CARRIED" value="12500"/>
+      <valmod date="2026-05-31T10:47:32.095-04:00" id="d9803750-7ba5-47b8-99f6-8f5ba58dec74" ref="chameleon_coating" set="AUGMENTED" type="CARRIED" value="4500"/>
+      <valmod date="2026-05-31T10:47:41.449-04:00" id="f458136e-9fdb-4e0e-86a0-5192e855125d" ref="drone_rack" set="AUGMENTED" type="CARRIED" value="1000"/>
+      <valmod date="2026-05-31T10:59:50.989-04:00" id="b8ff6e03-35fe-4a12-b3ed-e4037ee0ecaa" ref="enhanced_sensors" set="AUGMENTED" type="CARRIED" value="35000"/>
+      <valmod date="2026-05-31T11:00:27.881-04:00" id="2f5ae0f0-cd22-4a90-9817-3e9e54bf6559" ref="boing_sky_commander" set="AUGMENTED" type="CARRIED" value="12500"/>
+      <valmod date="2026-05-31T11:00:36.993-04:00" id="4fca3a8c-104f-4ae9-b557-22c44b13709f" ref="chameleon_coating" set="AUGMENTED" type="CARRIED" value="4500"/>
+      <valmod date="2026-05-31T11:00:43.035-04:00" id="86dbcfb1-a6fc-4387-8ad6-8b146300ab59" ref="drone_rack" set="AUGMENTED" type="CARRIED" value="1000"/>
+      <valmod date="2026-05-31T11:01:08.957-04:00" id="2fc6dcce-c4f8-45ea-8b22-71971f5779f0" ref="shiawase_BD_man_at_arms" set="AUGMENTED" type="CARRIED" value="4500"/>
+      <valmod date="2026-05-31T11:01:25.575-04:00" id="a162930a-de64-4723-908c-817f1320ed79" ref="increased_integrity" set="AUGMENTED" type="CARRIED" value="25000"/>
+      <valmod date="2026-05-31T11:01:34.993-04:00" id="0b78994d-bd2b-4a9d-9a04-1449ba392769" ref="chameleon_coating" set="AUGMENTED" type="CARRIED" value="4500"/>
+      <valmod date="2026-05-31T11:01:41.200-04:00" id="4370c832-c45e-4fb7-a7b8-844a7447b42e" ref="drone_rack" set="AUGMENTED" type="CARRIED" value="2000"/>
+      <valmod date="2026-05-31T11:01:57.121-04:00" id="0b78f78c-d902-43d0-a25e-2502ec044a77" ref="hardpoint_concealment" set="AUGMENTED" type="CARRIED" value="3000"/>
+      <valmod date="2026-05-31T12:54:22.628-04:00" id="6701081e-2ccc-43b0-874a-2d0cba07c6d5" ref="shiawase_BD_man_at_arms" set="AUGMENTED" type="CARRIED" value="4500"/>
+      <valmod date="2026-05-31T12:54:32.716-04:00" id="de9476cc-fe58-4f96-a35d-6e0c6b90bf37" ref="drone_rack" set="AUGMENTED" type="CARRIED" value="2000"/>
+      <valmod date="2026-05-31T12:54:43.240-04:00" id="f021bfaa-6422-473e-b214-ce8e3732f0d6" ref="hardpoint_concealment" set="AUGMENTED" type="CARRIED" value="3000"/>
+      <valmod date="2026-05-31T12:54:51.201-04:00" id="26838cf5-6f77-44d5-865a-157f6fd523a6" ref="increased_integrity" set="AUGMENTED" type="CARRIED" value="25000"/>
+      <valmod date="2026-05-31T12:55:53.971-04:00" id="c2fa05a6-24c7-4708-ab62-b850a953545f" ref="chameleon_suit" set="AUGMENTED" type="CARRIED" value="2000"/>
+      <valmod date="2026-05-31T12:56:13.010-04:00" id="5d37e2cf-1df3-4cd6-91c5-52039686a4d7" ref="ballistic_hood" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-05-31T12:56:17.581-04:00" id="8fda63fd-7344-470d-9d11-1d46bbae01df" ref="electrochromic_feature" set="AUGMENTED" type="CARRIED" value="75"/>
+      <valmod date="2026-05-31T12:56:49.947-04:00" id="0b20387c-a644-4c07-bfe1-1e93eedc2fdb" ref="gear_access" set="AUGMENTED" type="CARRIED" value="250"/>
+      <valmod date="2026-05-31T12:57:36.674-04:00" id="6398a13a-46a7-4e4a-bf9b-8158f605ab46" ref="securetech_invisishield" set="AUGMENTED" type="CARRIED" value="5000"/>
+      <valmod date="2026-05-31T12:57:41.931-04:00" id="1d921379-0e46-416e-91ff-322738a5a321" ref="securetech_aas" set="AUGMENTED" type="CARRIED" value="500"/>
+      <valmod date="2026-05-31T12:58:39.954-04:00" id="3fe9cd59-a798-4a2d-b1c3-579452da3f97" ref="securetech_skinshield" set="AUGMENTED" type="CARRIED" value="3000"/>
+      <valmod date="2026-05-31T12:58:48.295-04:00" id="5dc2c55e-18fd-4b4a-8801-27be479d049b" ref="ballistic_hood" set="AUGMENTED" type="CARRIED" value="150"/>
+      <valmod date="2026-05-31T13:02:01.164-04:00" id="1db4e206-c43f-4491-87a9-0826c45d1252" ref="armor_ceramic" set="AUGMENTED" type="CARRIED" value="12000"/>
+      <valmod date="2026-05-31T14:20:44.931-04:00" id="b903e671-2778-4f41-b6d4-966bd2f4d1f6" ref="integrated_matrix_device" set="AUGMENTED" type="CARRIED" value="800"/>
+      <valmod date="2026-05-31T14:25:36.649-04:00" id="c72e6196-a65a-4a86-8c3e-a755ace6b964" ref="smart_rig" set="AUGMENTED" type="CARRIED" value="0"/>
+      <valmod date="2026-05-31T14:42:21.516-04:00" id="8a1bd80e-93ce-4e5c-9bc5-ea43c86cd9a3" ref="shiawase_BD_man_at_arms" set="AUGMENTED" type="CARRIED" value="4500"/>
+      <valmod date="2026-05-31T14:42:34.407-04:00" id="bcae4f46-ef01-48a2-88b4-79983916ed7f" ref="hardpoint_concealment" set="AUGMENTED" type="CARRIED" value="4500"/>
+      <valmod date="2026-05-31T14:42:52.268-04:00" id="8bf94f72-2272-4a80-9b08-d9724e3314b3" ref="drone_rack" set="AUGMENTED" type="CARRIED" value="2000"/>
+      <valmod date="2026-05-31T14:43:01.150-04:00" id="86e8ec67-6701-4c6f-b9dc-345b8df9f5be" ref="armor_ceramic" set="AUGMENTED" type="CARRIED" value="12000"/>
+      <valmod date="2026-05-31T14:43:17.219-04:00" id="0b42f50f-6ad6-4443-9839-8ffc4abbd983" ref="increased_integrity" set="AUGMENTED" type="CARRIED" value="25000"/>
+      <valmod date="2026-05-31T14:43:56.121-04:00" id="cacd4d68-a83a-4b15-901b-2d918226b451" ref="integrated_matrix_device" set="AUGMENTED" type="CARRIED" value="800"/>
+      <valmod date="2026-05-31T14:48:04.332-04:00" id="2d3a90f2-349a-4455-9c2b-2a132aaf1458" ref="ammo_heavy_smg" set="AUGMENTED" type="CARRIED" value="15"/>
+      <valmod date="2026-05-31T14:48:06.941-04:00" id="2d3a90f2-349a-4455-9c2b-2a132aaf1458" ref="ammo_heavy_smg" set="AUGMENTED" type="CARRIED" value="15"/>
+      <valmod date="2026-05-31T14:48:07.559-04:00" id="2d3a90f2-349a-4455-9c2b-2a132aaf1458" ref="ammo_heavy_smg" set="AUGMENTED" type="CARRIED" value="15"/>
+      <valmod date="2026-05-31T14:48:07.982-04:00" id="2d3a90f2-349a-4455-9c2b-2a132aaf1458" ref="ammo_heavy_smg" set="AUGMENTED" type="CARRIED" value="15"/>
+      <valmod date="2026-05-31T14:48:08.492-04:00" id="2d3a90f2-349a-4455-9c2b-2a132aaf1458" ref="ammo_heavy_smg" set="AUGMENTED" type="CARRIED" value="15"/>
+      <valmod date="2026-06-01T10:59:34.373-04:00" id="4d9480cf-ae70-42fc-8908-3bffcfa4b828" ref="armor_standard" set="AUGMENTED" type="CARRIED" value="1600"/>
+      <valmod date="2026-06-02T17:41:42.173-04:00" id="1fc92204-a120-4503-8dfb-f36fcc7d7fd5" ref="antidote_patch" set="AUGMENTED" type="CARRIED" value="150"/>
+      <valmod date="2026-06-02T17:42:11.825-04:00" id="1fc92204-a120-4503-8dfb-f36fcc7d7fd5" ref="antidote_patch" set="AUGMENTED" type="CARRIED" value="150"/>
+      <valmod date="2026-06-02T17:42:12.111-04:00" id="1fc92204-a120-4503-8dfb-f36fcc7d7fd5" ref="antidote_patch" set="AUGMENTED" type="CARRIED" value="150"/>
+      <valmod date="2026-06-02T17:42:12.379-04:00" id="1fc92204-a120-4503-8dfb-f36fcc7d7fd5" ref="antidote_patch" set="AUGMENTED" type="CARRIED" value="150"/>
+      <valmod date="2026-06-02T17:42:12.663-04:00" id="1fc92204-a120-4503-8dfb-f36fcc7d7fd5" ref="antidote_patch" set="AUGMENTED" type="CARRIED" value="150"/>
+      <valmod date="2026-06-02T18:33:19.144-04:00" id="019bde4a-fdec-4319-9920-fa5ac18046b8" ref="katana" set="AUGMENTED" type="CARRIED" value="350"/>
+      <valmod date="2026-06-03T12:05:12.759-04:00" id="a789c99d-7534-4af2-87b5-f0c8efe47d1c" ref="shiawase_BD_man_at_arms" set="AUGMENTED" type="CARRIED" value="4500"/>
+      <valmod date="2026-06-03T12:05:26.109-04:00" id="579c0124-9c9b-4928-bd25-c6913c51dd31" ref="secondary_propulsion_system" set="AUGMENTED" type="CARRIED" value="45000"/>
+      <valmod date="2026-06-03T12:05:35.765-04:00" id="64814809-4ee2-4c7b-8252-a08415b13475" ref="hardpoint_concealment" set="AUGMENTED" type="CARRIED" value="4500"/>
+      <valmod date="2026-06-03T12:05:42.041-04:00" id="40f214f5-eedb-41fa-a78f-6fc95b62fa71" ref="drone_rack" set="AUGMENTED" type="CARRIED" value="2000"/>
+      <valmod date="2026-06-03T12:10:38.425-04:00" id="61ee8a1d-7a9b-4ce2-9789-26b5388ad8fc" ref="increased_integrity" set="AUGMENTED" type="CARRIED" value="20000"/>
+      <valmod date="2026-06-03T12:25:45.752-04:00" id="a40338db-aabd-4e8f-8615-43463ccc919d" ref="shiawase_BD_man_at_arms" set="AUGMENTED" type="CARRIED" value="4500"/>
+      <valmod date="2026-06-03T12:25:55.940-04:00" id="e201dd1d-49b1-43bd-99ea-1fba813cae4f" ref="hardpoint_concealment" set="AUGMENTED" type="CARRIED" value="4500"/>
+      <valmod date="2026-06-03T12:26:03.524-04:00" id="3390e0c1-6e45-47ec-adda-d728f3fc7185" ref="drone_rack" set="AUGMENTED" type="CARRIED" value="2000"/>
+      <valmod date="2026-06-03T12:26:13.373-04:00" id="fb1a0c05-a20e-4e9d-9f51-788b3b9656dd" ref="secondary_propulsion_system" set="AUGMENTED" type="CARRIED" value="45000"/>
+      <valmod date="2026-06-03T12:27:09.206-04:00" id="d32bb9f8-996f-4017-a0c0-2ac434d2f957" ref="increased_integrity" set="AUGMENTED" type="CARRIED" value="10000"/>
+      <valmod date="2026-06-03T12:29:08.397-04:00" id="faa5489c-d419-47e5-89ad-b804fbc8b320" ref="shiawase_BD_butler" set="AUGMENTED" type="CARRIED" value="3000"/>
+      <valmod date="2026-06-03T12:35:07.720-04:00" id="227c5aa8-b36c-436a-b759-18ea24ff300c" ref="shiawase_BD_butler" set="AUGMENTED" type="CARRIED" value="3000"/>
+      <itemmod date="2026-06-03T18:20:01.526-04:00" expCost="14" ref="living_network" type="METAECHO"/>
+      <valmod date="2026-06-04T07:22:17.580-04:00" id="f22457ad-1d7d-4332-91a5-f6033f3fc9c5" ref="monofilament_whip" set="AUGMENTED" type="CARRIED" value="1300"/>
+      <valmod date="2026-06-04T07:28:21.869-04:00" id="742474b4-7f8a-4899-80ef-208a814c0e6a" ref="megalodon" set="AUGMENTED" type="CARRIED" value="12000"/>
+      <valmod date="2026-06-05T15:35:01.621-04:00" id="5ca61534-4a27-408a-b88d-9c10bc1a23c7" ref="artillery_barrage" set="AUGMENTED" type="CARRIED" value="-46550"/>
+      <valmod date="2026-06-05T15:35:11.034-04:00" id="1cdd833d-6881-4c27-a083-bea18f834c53" ref="ecm_warrior_ii" set="AUGMENTED" type="CARRIED" value="0"/>
+      <valmod date="2026-06-05T15:35:22.783-04:00" id="9335def9-98ad-4852-9b9c-07fbd1b512d7" ref="mobile_medic" set="AUGMENTED" type="CARRIED" value="0"/>
+      <valmod date="2026-06-05T15:35:32.253-04:00" id="677568f7-6265-4159-a886-b6ab331d041e" ref="sneak_sneak" set="AUGMENTED" type="CARRIED" value="0"/>
+      <valmod date="2026-06-05T15:35:44.380-04:00" id="ccd718da-a362-4d43-bda9-8b6bf982eadb" ref="target_artist" set="AUGMENTED" type="CARRIED" value="0"/>
+      <valmod date="2026-06-05T15:36:32.665-04:00" id="11232734-9d02-40ae-803b-08205e458e09" ref="shopsoft" set="AUGMENTED" type="CARRIED" value="0"/>
+      <valmod date="2026-06-05T15:36:44.818-04:00" id="7d04ba55-a99c-49c4-8710-b4f924ab0c9c" ref="soft_language" set="AUGMENTED" type="CARRIED" value="0"/>
+      <valmod date="2026-06-05T15:36:53.369-04:00" id="12d50f1e-ac93-410c-b691-c537a4def8b7" ref="soft_knowledge" set="AUGMENTED" type="CARRIED" value="0"/>
+      <valmod date="2026-06-05T15:37:21.194-04:00" id="0daa5575-a0f1-4905-9cfe-ffe017ab49e3" ref="izom_artemis" set="AUGMENTED" type="CARRIED" value="1800"/>
+      <valmod date="2026-06-05T15:53:40.686-04:00" id="1c849b46-726a-49f8-aa05-0e84f2ae1fed" ref="silencer" set="AUGMENTED" type="CARRIED" value="500"/>
+      <valmod date="2026-06-05T15:56:37.241-04:00" id="c6908b60-fd13-4920-bc3c-7459c57e69c4" ref="ammo_rifles" set="AUGMENTED" type="CARRIED" value="30"/>
+      <valmod date="2026-06-05T15:59:40.411-04:00" id="e8c83c92-a379-4cad-93c6-3b59ad43a2e3" ref="ammo_rifles" set="AUGMENTED" type="CARRIED" value="60"/>
+      <valmod date="2026-06-05T15:59:53.920-04:00" id="e8c83c92-a379-4cad-93c6-3b59ad43a2e3" ref="ammo_rifles" set="AUGMENTED" type="CARRIED" value="60"/>
+      <valmod date="2026-06-05T15:59:56.304-04:00" id="c6908b60-fd13-4920-bc3c-7459c57e69c4" ref="ammo_rifles" set="AUGMENTED" type="CARRIED" value="30"/>
+      <valmod date="2026-06-05T16:00:58.326-04:00" id="b0f04041-10bf-471c-8dec-5cde61b3cbb2" ref="ammo_cannon" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-06-05T16:01:02.346-04:00" id="b0f04041-10bf-471c-8dec-5cde61b3cbb2" ref="ammo_cannon" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-06-05T16:01:57.718-04:00" id="cce81ee6-039f-4a97-9e4f-c691eca09496" ref="securetech_invisishield" set="AUGMENTED" type="CARRIED" value="5000"/>
+      <valmod date="2026-06-05T16:03:46.096-04:00" id="516d6297-074e-4d3b-8dda-5e80671f7e01" ref="cyberweapon_tesla_coil" set="AUGMENTED" type="CARRIED" value="7500"/>
+      <valmod date="2026-06-05T16:03:58.776-04:00" id="5f12a678-1424-43a1-ac05-06a96d83e9d3" ref="fingertip_compartment" set="AUGMENTED" type="CARRIED" value="1500"/>
+      <valmod date="2026-06-05T16:06:23.637-04:00" id="d4679697-d55d-48ff-a692-158ee877871d" ref="cyber_heavy_pistol" set="AUGMENTED" type="CARRIED" value="2150"/>
+      <valmod date="2026-06-05T16:06:44.652-04:00" id="ec97562f-f84c-46d6-8179-3445f9d15f3f" ref="cyberweapon_wrist_shield" set="AUGMENTED" type="CARRIED" value="1000"/>
+      <valmod date="2026-06-05T16:19:24.845-04:00" id="cf818944-2089-43aa-bfa9-2cb80f9e2510" ref="ares_predator_vi" set="AUGMENTED" type="CARRIED" value="750"/>
+      <valmod date="2026-06-05T16:19:47.971-04:00" id="a4bf0fa3-6d43-42de-b0ff-0aecfe1476ac" ref="ammo_heavy_smg" set="AUGMENTED" type="CARRIED" value="15"/>
+      <valmod date="2026-06-05T16:20:01.069-04:00" id="d3aadd59-b155-48a0-8b3e-a3154a57d1ff" ref="ammo_heavy_smg" set="AUGMENTED" type="CARRIED" value="20"/>
+      <valmod date="2026-06-05T16:20:03.131-04:00" id="a4bf0fa3-6d43-42de-b0ff-0aecfe1476ac" ref="ammo_heavy_smg" set="AUGMENTED" type="CARRIED" value="15"/>
+      <valmod date="2026-06-05T16:20:04.173-04:00" id="d3aadd59-b155-48a0-8b3e-a3154a57d1ff" ref="ammo_heavy_smg" set="AUGMENTED" type="CARRIED" value="20"/>
+      <valmod date="2026-06-05T16:20:43.917-04:00" id="5127c297-0b3e-424d-9f24-ec8a10d4bd91" ref="silencer" set="AUGMENTED" type="CARRIED" value="500"/>
+      <valmod date="2026-06-05T16:29:47.748-04:00" id="8cd3e03c-e4d7-49a0-9dc2-dd1da600d720" ref="ammo_heavy_smg" set="AUGMENTED" type="CARRIED" value="20"/>
+      <valmod date="2026-06-05T16:29:50.188-04:00" id="8cd3e03c-e4d7-49a0-9dc2-dd1da600d720" ref="ammo_heavy_smg" set="AUGMENTED" type="CARRIED" value="20"/>
+      <valmod date="2026-06-05T16:30:03.467-04:00" id="657984bb-a5b5-4a20-8709-082a4329580a" ref="glitter_grenade" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-06-05T16:30:05.840-04:00" id="657984bb-a5b5-4a20-8709-082a4329580a" ref="glitter_grenade" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-06-05T16:30:06.205-04:00" id="657984bb-a5b5-4a20-8709-082a4329580a" ref="glitter_grenade" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-06-05T16:30:06.467-04:00" id="657984bb-a5b5-4a20-8709-082a4329580a" ref="glitter_grenade" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-06-05T16:30:06.695-04:00" id="657984bb-a5b5-4a20-8709-082a4329580a" ref="glitter_grenade" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-06-05T16:30:06.924-04:00" id="657984bb-a5b5-4a20-8709-082a4329580a" ref="glitter_grenade" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-06-05T16:30:07.194-04:00" id="657984bb-a5b5-4a20-8709-082a4329580a" ref="glitter_grenade" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-06-05T16:30:07.975-04:00" id="657984bb-a5b5-4a20-8709-082a4329580a" ref="glitter_grenade" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-06-05T16:30:08.460-04:00" id="657984bb-a5b5-4a20-8709-082a4329580a" ref="glitter_grenade" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-06-05T16:30:09.081-04:00" id="657984bb-a5b5-4a20-8709-082a4329580a" ref="glitter_grenade" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-06-05T16:31:29.375-04:00" id="d3aadd59-b155-48a0-8b3e-a3154a57d1ff" ref="ammo_heavy_smg" set="AUGMENTED" type="CARRIED" value="20"/>
+      <valmod date="2026-06-05T16:31:29.862-04:00" id="d3aadd59-b155-48a0-8b3e-a3154a57d1ff" ref="ammo_heavy_smg" set="AUGMENTED" type="CARRIED" value="20"/>
+      <valmod date="2026-06-05T16:31:30.272-04:00" id="d3aadd59-b155-48a0-8b3e-a3154a57d1ff" ref="ammo_heavy_smg" set="AUGMENTED" type="CARRIED" value="20"/>
+      <valmod date="2026-06-05T16:31:31.418-04:00" id="8cd3e03c-e4d7-49a0-9dc2-dd1da600d720" ref="ammo_heavy_smg" set="AUGMENTED" type="CARRIED" value="20"/>
+      <valmod date="2026-06-05T16:31:31.744-04:00" id="8cd3e03c-e4d7-49a0-9dc2-dd1da600d720" ref="ammo_heavy_smg" set="AUGMENTED" type="CARRIED" value="20"/>
+      <valmod date="2026-06-05T16:31:32.110-04:00" id="8cd3e03c-e4d7-49a0-9dc2-dd1da600d720" ref="ammo_heavy_smg" set="AUGMENTED" type="CARRIED" value="20"/>
+      <itemmod date="2026-06-05T20:07:44.691-04:00" expCost="5" ref="diffusion" type="COMPLEX_FORM"/>
+      <valmod date="2026-06-05T21:20:00.811-04:00" id="b9c8bdc9-33c4-44f8-9b63-8430c36aa82d" ref="shiawase_BD_man_at_arms" set="AUGMENTED" type="CARRIED" value="4500"/>
+      <valmod date="2026-06-05T21:20:19.189-04:00" id="5b3ea9ab-1fb9-40bd-923b-ab2e080334dd" ref="hardpoint_concealment" set="AUGMENTED" type="CARRIED" value="4500"/>
+      <valmod date="2026-06-05T21:20:32.911-04:00" id="8336cfbc-a779-4fd8-99ef-a75eedc20398" ref="drone_rack" set="AUGMENTED" type="CARRIED" value="2000"/>
+      <valmod date="2026-06-05T21:20:44.074-04:00" id="f3587b77-9f92-4ca5-8517-4a64ce3fad87" ref="secondary_propulsion_system" set="AUGMENTED" type="CARRIED" value="45000"/>
+      <valmod date="2026-06-05T21:21:08.007-04:00" id="11a4978f-07f7-4535-984b-fa38a964cb70" ref="increased_integrity" set="AUGMENTED" type="CARRIED" value="25000"/>
+      <valmod date="2026-06-05T21:21:42.540-04:00" id="9877d263-35eb-4496-a16e-2f820daa8ad9" ref="shiawase_BD_man_at_arms" set="AUGMENTED" type="CARRIED" value="4500"/>
+      <valmod date="2026-06-05T21:21:53.929-04:00" id="1c2a71b7-fb74-4ca5-91e5-fc60252c435c" ref="hardpoint_concealment" set="AUGMENTED" type="CARRIED" value="4500"/>
+      <valmod date="2026-06-05T21:22:00.250-04:00" id="8ff35813-6c06-4b59-a139-73f9f2fa2a0a" ref="drone_rack" set="AUGMENTED" type="CARRIED" value="2000"/>
+      <valmod date="2026-06-05T21:22:12.107-04:00" id="aeda28c3-f962-45c5-a92d-a24306aad759" ref="cyberweapon_tesla_coil" set="AUGMENTED" type="CARRIED" value="7500"/>
+      <valmod date="2026-06-05T21:22:21.434-04:00" id="a5af7012-213f-4597-9d36-1f7ac738a713" ref="fingertip_compartment" set="AUGMENTED" type="CARRIED" value="1500"/>
+      <valmod date="2026-06-05T21:22:34.605-04:00" id="a16f492b-d5d8-4660-b911-d4ddbfc5a970" ref="cyber_heavy_pistol" set="AUGMENTED" type="CARRIED" value="2150"/>
+      <valmod date="2026-06-05T21:22:47.282-04:00" id="f9c39436-6d09-4d01-b518-cef2d892f890" ref="cyberweapon_wrist_shield" set="AUGMENTED" type="CARRIED" value="1000"/>
+      <valmod date="2026-06-05T21:25:34.337-04:00" id="b40e9a3c-34fe-4e18-a338-4ec823b4e767" ref="secondary_propulsion_system" set="AUGMENTED" type="CARRIED" value="45000"/>
+      <valmod date="2026-06-05T21:25:52.050-04:00" id="ef89aa04-80e4-4859-8471-be2c1de03326" ref="increased_integrity" set="AUGMENTED" type="CARRIED" value="25000"/>
+      <valmod date="2026-06-06T21:45:47.561-04:00" id="8c03390e-3f0c-43c3-885c-d2917b46b627" ref="shiawase_BD_man_at_arms" set="AUGMENTED" type="CARRIED" value="4500"/>
+      <valmod date="2026-06-06T21:45:58.640-04:00" id="36ffc28c-1fe4-4d45-9e79-094566a2b164" ref="hardpoint_concealment" set="AUGMENTED" type="CARRIED" value="4500"/>
+      <valmod date="2026-06-06T21:46:04.438-04:00" id="362a9c39-6c21-46de-8fe9-cbf51f05d330" ref="drone_rack" set="AUGMENTED" type="CARRIED" value="2000"/>
+      <valmod date="2026-06-06T21:46:15.664-04:00" id="4089bd53-21f4-4bac-b517-694e35856aba" ref="cyberweapon_tesla_coil" set="AUGMENTED" type="CARRIED" value="7500"/>
+      <valmod date="2026-06-06T21:46:25.947-04:00" id="9373d82a-c752-4a93-8157-7ca4799ba0f2" ref="fingertip_compartment" set="AUGMENTED" type="CARRIED" value="1500"/>
+      <valmod date="2026-06-06T21:46:34.505-04:00" id="88d83531-2a15-4a53-9084-aea68723f30e" ref="cyber_heavy_pistol" set="AUGMENTED" type="CARRIED" value="2150"/>
+      <valmod date="2026-06-06T21:46:45.626-04:00" id="b7d06471-84a2-41cd-a467-dd545f03b09c" ref="cyberweapon_wrist_shield" set="AUGMENTED" type="CARRIED" value="1000"/>
+      <valmod date="2026-06-07T13:37:43.135-04:00" id="5de7e79e-9425-4da6-a1bb-c455f404505b" ref="secondary_propulsion_system" set="AUGMENTED" type="CARRIED" value="50000"/>
+      <valmod date="2026-06-07T13:37:54.623-04:00" id="5466b329-bf42-408e-89e0-786bd9026c5e" ref="increased_integrity" set="AUGMENTED" type="CARRIED" value="25000"/>
+      <valmod date="2026-06-07T13:38:02.310-04:00" id="c75937a5-6428-44cb-9576-5e702176523b" ref="realistic_features" set="AUGMENTED" type="CARRIED" value="40000"/>
+      <valmod date="2026-06-07T13:39:27.957-04:00" id="5460c21f-092c-494a-ab67-fb208bc776ad" ref="armor_increase" set="AUGMENTED" type="CARRIED" value="13500"/>
+      <valmod date="2026-06-07T13:40:07.100-04:00" id="974830e7-625a-486d-9ad0-42d0aa49ffde" ref="securetech_skinshield" set="AUGMENTED" type="CARRIED" value="3000"/>
+      <valmod date="2026-06-07T13:48:06.699-04:00" id="039a01fe-6405-4f53-a70f-4a204c477c27" ref="kit" set="AUGMENTED" type="CARRIED" value="500"/>
+      <valmod date="2026-06-07T13:49:50.544-04:00" id="98449cd3-0063-4582-82f2-eb89ebeb3a03" ref="medkit" set="AUGMENTED" type="CARRIED" value="250"/>
+      <valmod date="2026-06-07T13:50:45.309-04:00" id="4e39f571-f6d7-469a-8b45-4b0b3b8e6fc2" ref="medkit_supplies" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-06-07T13:50:47.100-04:00" id="4e39f571-f6d7-469a-8b45-4b0b3b8e6fc2" ref="medkit_supplies" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-06-07T13:50:47.757-04:00" id="4e39f571-f6d7-469a-8b45-4b0b3b8e6fc2" ref="medkit_supplies" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-06-07T13:50:48.369-04:00" id="4e39f571-f6d7-469a-8b45-4b0b3b8e6fc2" ref="medkit_supplies" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-06-07T13:50:49.003-04:00" id="4e39f571-f6d7-469a-8b45-4b0b3b8e6fc2" ref="medkit_supplies" set="AUGMENTED" type="CARRIED" value="100"/>
+      <itemmod date="2026-06-07T17:31:50.090-04:00" expCost="15" ref="transcendent_network" type="METAECHO"/>
+      <valmod date="2026-06-12T19:29:55.652-04:00" id="bdfe3e6f-9101-4b66-9096-3861d116b53a" ref="trading_card" set="AUGMENTED" type="CARRIED" value="5"/>
+      <valmod date="2026-06-12T19:30:23.296-04:00" id="bdfe3e6f-9101-4b66-9096-3861d116b53a" ref="trading_card" set="AUGMENTED" type="CARRIED" value="5"/>
+      <valmod date="2026-06-12T19:30:42.863-04:00" id="b4c30fbd-2eeb-494a-97a6-12c4e7873fef" ref="alcohol" set="AUGMENTED" type="CARRIED" value="5"/>
+      <valmod date="2026-06-12T19:31:14.421-04:00" id="b4c30fbd-2eeb-494a-97a6-12c4e7873fef" ref="alcohol" set="AUGMENTED" type="CARRIED" value="5"/>
+      <valmod date="2026-06-12T19:31:56.003-04:00" id="9670a57c-8252-4ccd-9007-c7d2a399be4e" ref="knife" set="AUGMENTED" type="CARRIED" value="20"/>
+      <itemmod date="2026-06-21T22:36:50.852-04:00" expCost="16" ref="sprite_link" type="METAECHO"/>
+      <itemmod date="2026-06-21T22:37:24.520-04:00" expCost="5" ref="puppeteer" type="COMPLEX_FORM"/>
+      <itemmod date="2026-06-21T23:06:03.118-04:00" expCost="16" ref="overclocking" type="METAECHO"/>
+      <valmod date="2026-06-21T23:35:25.539-04:00" id="f44fb91c-9630-44ed-8c6d-72b90bec1a65" ref="alcohol" set="AUGMENTED" type="CARRIED" value="5"/>
+      <valmod date="2026-06-22T19:52:35.313-04:00" id="38c1fad0-ecab-490f-9ae3-b7650d67b70a" ref="secondary_propulsion_system" set="AUGMENTED" type="CARRIED" value="18000"/>
+      <valmod date="2026-06-22T19:52:58.547-04:00" id="8f1dd250-6508-4412-9c08-3f8c942f4107" ref="increased_integrity" set="AUGMENTED" type="CARRIED" value="10000"/>
+      <valmod date="2026-06-22T19:55:35.752-04:00" id="1c09ce2a-129d-4d4d-aebf-ca3f020c3fe7" ref="cyberweapon_wrist_shield" set="AUGMENTED" type="CARRIED" value="1000"/>
+      <valmod date="2026-06-22T19:56:40.099-04:00" id="894d6aa6-81b4-4534-b7a8-47fa37af97ea" ref="drone_rack" set="AUGMENTED" type="CARRIED" value="2000"/>
+      <valmod date="2026-06-22T19:59:06.375-04:00" id="26c35c3f-8533-46ea-9d17-e0b6eca54d1c" ref="securetech_invisishield" set="AUGMENTED" type="CARRIED" value="5000"/>
+      <valmod date="2026-06-26T21:29:04.815-04:00" id="c106b839-6fc4-4e40-a12a-e0bc757d9016" ref="shiawase_arms_tactical_model_73" set="AUGMENTED" type="CARRIED" value="5500"/>
+      <valmod date="2026-06-26T21:29:29.300-04:00" id="3dc7227f-7292-40b3-9e7c-afa874a6abeb" ref="gas-vent_system" set="AUGMENTED" type="CARRIED" value="500"/>
+      <valmod date="2026-06-26T21:30:10.999-04:00" id="5561cb18-b91e-4959-a3c3-967521763f98" ref="shock_pad" set="AUGMENTED" type="CARRIED" value="50"/>
+      <valmod date="2026-06-26T21:32:59.439-04:00" id="33570f85-56d7-4dcc-a16e-7fff67e67655" ref="under_grenade_launcher" set="AUGMENTED" type="CARRIED" value="1350"/>
+      <valmod date="2026-06-26T21:35:06.325-04:00" id="7aecb3a1-bbbd-4e28-b994-306276c0602b" ref="ammo_rifles" set="AUGMENTED" type="CARRIED" value="40"/>
+      <valmod date="2026-06-26T21:35:08.391-04:00" id="7aecb3a1-bbbd-4e28-b994-306276c0602b" ref="ammo_rifles" set="AUGMENTED" type="CARRIED" value="40"/>
+      <valmod date="2026-06-26T21:35:08.909-04:00" id="7aecb3a1-bbbd-4e28-b994-306276c0602b" ref="ammo_rifles" set="AUGMENTED" type="CARRIED" value="40"/>
+      <valmod date="2026-06-26T21:35:09.314-04:00" id="7aecb3a1-bbbd-4e28-b994-306276c0602b" ref="ammo_rifles" set="AUGMENTED" type="CARRIED" value="40"/>
+      <valmod date="2026-06-26T21:35:09.905-04:00" id="7aecb3a1-bbbd-4e28-b994-306276c0602b" ref="ammo_rifles" set="AUGMENTED" type="CARRIED" value="40"/>
+      <valmod date="2026-06-26T21:35:37.662-04:00" id="1afcb50e-e010-45bf-9489-cd11e3a8de51" ref="ammo_rifles" set="AUGMENTED" type="CARRIED" value="40"/>
+      <valmod date="2026-06-26T21:35:42.044-04:00" id="1afcb50e-e010-45bf-9489-cd11e3a8de51" ref="ammo_rifles" set="AUGMENTED" type="CARRIED" value="40"/>
+      <valmod date="2026-06-26T21:35:42.426-04:00" id="1afcb50e-e010-45bf-9489-cd11e3a8de51" ref="ammo_rifles" set="AUGMENTED" type="CARRIED" value="40"/>
+      <valmod date="2026-06-26T21:35:42.845-04:00" id="1afcb50e-e010-45bf-9489-cd11e3a8de51" ref="ammo_rifles" set="AUGMENTED" type="CARRIED" value="40"/>
+      <valmod date="2026-06-26T21:35:43.486-04:00" id="1afcb50e-e010-45bf-9489-cd11e3a8de51" ref="ammo_rifles" set="AUGMENTED" type="CARRIED" value="40"/>
+      <valmod date="2026-06-30T19:46:48.236-04:00" id="aff32e21-314b-43ab-8c20-2c2361a9e3f7" ref="shock_gloves" set="AUGMENTED" type="CARRIED" value="790"/>
+      <valmod date="2026-06-30T19:47:07.712-04:00" id="8c7102cc-68d5-4d45-b7c1-1786945be646" ref="knucks" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-07-08T13:45:30.097-04:00" expCost="35" ref="RESONANCE" set="AUGMENTED" type="ATTRIBUTE" value="7"/>
+      <valmod date="2026-07-08T15:24:53.524-04:00" id="3dc7227f-7292-40b3-9e7c-afa874a6abeb" ref="gas-vent_system" set="AUGMENTED" type="CARRIED" value="500"/>
+      <valmod date="2026-07-09T21:18:21.485-04:00" id="8111bbf4-5fc7-449d-acaf-41402ee536b1" ref="mtoc_mark2" set="AUGMENTED" type="CARRIED" value="65000"/>
+      <valmod date="2026-07-09T21:20:40.663-04:00" id="14236071-919a-4a38-9073-f4e39982c2aa" ref="satellite_link" set="AUGMENTED" type="CARRIED" value="500"/>
+      <valmod date="2026-07-09T21:23:48.176-04:00" id="c3a11a88-9e56-4b11-9d41-9410ec852068" ref="rfid_software_tags" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-07-09T21:23:53.053-04:00" id="c3a11a88-9e56-4b11-9d41-9410ec852068" ref="rfid_software_tags" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-07-09T21:23:53.266-04:00" id="c3a11a88-9e56-4b11-9d41-9410ec852068" ref="rfid_software_tags" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-07-09T21:23:53.467-04:00" id="c3a11a88-9e56-4b11-9d41-9410ec852068" ref="rfid_software_tags" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-07-09T21:23:53.663-04:00" id="c3a11a88-9e56-4b11-9d41-9410ec852068" ref="rfid_software_tags" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-07-09T21:23:53.873-04:00" id="c3a11a88-9e56-4b11-9d41-9410ec852068" ref="rfid_software_tags" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-07-09T21:23:54.081-04:00" id="c3a11a88-9e56-4b11-9d41-9410ec852068" ref="rfid_software_tags" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-07-09T21:23:54.278-04:00" id="c3a11a88-9e56-4b11-9d41-9410ec852068" ref="rfid_software_tags" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-07-09T21:23:54.477-04:00" id="c3a11a88-9e56-4b11-9d41-9410ec852068" ref="rfid_software_tags" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-07-09T21:23:54.689-04:00" id="c3a11a88-9e56-4b11-9d41-9410ec852068" ref="rfid_software_tags" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-07-09T21:25:05.485-04:00" id="d03ff079-e65c-4a07-8d68-1f11c3b5eaa3" ref="laser_jack" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-07-09T21:25:09.073-04:00" id="d03ff079-e65c-4a07-8d68-1f11c3b5eaa3" ref="laser_jack" set="AUGMENTED" type="CARRIED" value="100"/>
+      <itemmod date="2026-07-10T22:14:45.610-04:00" expCost="17" ref="software_emulator" type="METAECHO"/>
+      <valmod date="2026-07-10T22:23:31.037-04:00" id="e5c07b07-fecf-4c7c-92c1-ab18da0d49e8" ref="laser_jack" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-07-10T22:23:37.186-04:00" id="e5c07b07-fecf-4c7c-92c1-ab18da0d49e8" ref="laser_jack" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-07-10T22:23:37.657-04:00" id="e5c07b07-fecf-4c7c-92c1-ab18da0d49e8" ref="laser_jack" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-07-10T22:23:38.049-04:00" id="e5c07b07-fecf-4c7c-92c1-ab18da0d49e8" ref="laser_jack" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-07-10T22:23:38.603-04:00" id="e5c07b07-fecf-4c7c-92c1-ab18da0d49e8" ref="laser_jack" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-07-10T22:23:41.467-04:00" id="e5c07b07-fecf-4c7c-92c1-ab18da0d49e8" ref="laser_jack" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-07-10T22:23:42.819-04:00" id="e5c07b07-fecf-4c7c-92c1-ab18da0d49e8" ref="laser_jack" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-07-10T22:23:43.774-04:00" id="e5c07b07-fecf-4c7c-92c1-ab18da0d49e8" ref="laser_jack" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-07-10T22:23:45.597-04:00" id="e5c07b07-fecf-4c7c-92c1-ab18da0d49e8" ref="laser_jack" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-07-10T22:23:46.003-04:00" id="e5c07b07-fecf-4c7c-92c1-ab18da0d49e8" ref="laser_jack" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-07-15T14:04:13.104-04:00" id="0e9776dc-0a7f-4f8b-ab1b-17bae92aa4c2" ref="coding_facility" set="AUGMENTED" type="CARRIED" value="5000"/>
+      <valmod date="2026-07-15T23:02:04.516-04:00" id="37c821d1-ec43-4397-b917-5d3714c96e34" ref="red_fox" set="AUGMENTED" type="CARRIED" value="2800"/>
+      <valmod date="2026-07-15T23:02:48.963-04:00" id="d19b6ae9-8c49-4e3f-836d-6d15dcb283fb" ref="crimson_wasp" set="AUGMENTED" type="CARRIED" value="1500"/>
+      <valmod date="2026-07-15T23:03:01.089-04:00" id="d19b6ae9-8c49-4e3f-836d-6d15dcb283fb" ref="crimson_wasp" set="AUGMENTED" type="CARRIED" value="2000"/>
+      <valmod date="2026-07-15T23:04:53.596-04:00" id="ba346adf-9f5a-4b98-a98e-43f30ab57001" ref="hardpoint_small" set="AUGMENTED" type="CARRIED" value="800"/>
+      <valmod date="2026-07-15T23:05:40.731-04:00" id="21ebc127-50bb-4900-8a45-7259049cc960" ref="hardpoint_small" set="AUGMENTED" type="CARRIED" value="800"/>
+      <valmod date="2026-07-15T23:11:40.379-04:00" id="cc9334cd-33cf-432f-8ba8-877c862c032d" ref="crimson_wasp" set="AUGMENTED" type="CARRIED" value="1500"/>
+      <valmod date="2026-07-15T23:11:43.895-04:00" id="cc9334cd-33cf-432f-8ba8-877c862c032d" ref="crimson_wasp" set="AUGMENTED" type="CARRIED" value="1500"/>
+      <valmod date="2026-07-15T23:23:29.794-04:00" id="cc9334cd-33cf-432f-8ba8-877c862c032d" ref="crimson_wasp" set="AUGMENTED" type="CARRIED" value="1500"/>
+      <valmod date="2026-07-15T23:51:10.151-04:00" id="9282fc9b-eafc-4953-ba72-e1aa4d0d1bee" ref="red_fox" set="AUGMENTED" type="CARRIED" value="2800"/>
+      <valmod date="2026-07-15T23:54:15.184-04:00" id="e44de4d4-5f5a-4d5c-9f67-c54e04e3fdd0" ref="ammo_battery_laser" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-07-15T23:54:17.530-04:00" id="e44de4d4-5f5a-4d5c-9f67-c54e04e3fdd0" ref="ammo_battery_laser" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-07-15T23:54:19.517-04:00" id="e44de4d4-5f5a-4d5c-9f67-c54e04e3fdd0" ref="ammo_battery_laser" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-07-15T23:54:20.033-04:00" id="e44de4d4-5f5a-4d5c-9f67-c54e04e3fdd0" ref="ammo_battery_laser" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-07-15T23:54:20.498-04:00" id="e44de4d4-5f5a-4d5c-9f67-c54e04e3fdd0" ref="ammo_battery_laser" set="AUGMENTED" type="CARRIED" value="100"/>
+      <valmod date="2026-07-20T21:33:23.881-04:00" id="7d3e5678-e55a-49ca-9b89-da41613521b7" ref="swarm_rig" set="AUGMENTED" type="CARRIED" value="-46430"/>
+      <valmod date="2026-07-20T21:49:36.764-04:00" id="5ad6833a-c2dd-4912-8e29-b1466ecb2945" ref="stealth_auto" set="AUGMENTED" type="CARRIED" value="0"/>
+      <valmod date="2026-07-20T23:09:48.603-04:00" id="81cffb5b-67fe-4b0f-816a-9faed6575ddc" ref="enhanced_sensors" set="AUGMENTED" type="CARRIED" value="15000"/>
+      <valmod date="2026-07-20T23:10:01.582-04:00" id="c079b5ed-e8f0-4986-9fa5-983537383ee4" ref="enhanced_sensors" set="AUGMENTED" type="CARRIED" value="15000"/>
+   </history>
+   <rewards>
+      <reward date="2026-04-20T00:00:00.000-04:00" exp="13">
+         <title>Chargen correction: charged for hybrid sprites</title>
+      </reward>
+      <reward date="2026-04-24T00:00:00.000-04:00" exp="6" money="8500">
+         <title>SMH 2083-02 EggHunt at the Jackalope Ranch</title>
+         <gamemaster>JaGator</gamemaster>
+         <modifications>
+            <valmod ref="REPUTATION" set="AUGMENTED" type="ATTRIBUTE" value="2" when="ALLCREATE"/>
+         </modifications>
+      </reward>
+      <reward date="2026-04-24T00:00:00.000-04:00" exp="1" money="-2000">
+         <title>SMH 2083-02: Working for the People</title>
+      </reward>
+      <reward date="2026-04-20T00:00:00.000-04:00" exp="1" money="1000">
+         <title>CMP Build-A-Runner (GM Credit)</title>
+         <gamemaster>Z. Rajput</gamemaster>
+      </reward>
+      <reward date="2026-04-25T00:00:00.000-04:00" exp="3" money="2600">
+         <title>CMP First Taste : Top Chef - Seattle</title>
+         <gamemaster>JaGator</gamemaster>
+         <modifications>
+            <valmod ref="REPUTATION" set="AUGMENTED" type="ATTRIBUTE" value="1" when="ALLCREATE"/>
+         </modifications>
+      </reward>
+      <reward date="2026-04-20T00:00:00.000-04:00" exp="-4">
+         <title>Chargen correction: Charge for Resonance Focus</title>
+      </reward>
+      <reward date="2026-04-25T00:00:00.000-04:00" exp="1" money="-2000">
+         <title>CMP First Taste: Working for the People</title>
+      </reward>
+      <reward date="2026-04-29T00:00:00.000-04:00" exp="8" money="9000">
+         <title>SRM 2083-03: Unofficial Dunkelzahn Fan Club </title>
+         <gamemaster>JaGator</gamemaster>
+         <modifications>
+            <valmod ref="HEAT" set="AUGMENTED" type="ATTRIBUTE" value="0" when="ALLCREATE"/>
+            <valmod ref="REPUTATION" set="AUGMENTED" type="ATTRIBUTE" value="0" when="ALLCREATE"/>
+         </modifications>
+      </reward>
+      <reward date="2026-05-02T00:00:00.000-04:00" exp="7" money="12000">
+         <title>CMP 2081-09 | Bring me Prince Charming</title>
+         <gamemaster>Kira Capalu</gamemaster>
+         <modifications>
+            <valmod ref="REPUTATION" set="AUGMENTED" type="ATTRIBUTE" value="1" when="ALLCREATE"/>
+         </modifications>
+      </reward>
+      <reward date="2026-05-02T00:00:00.000-04:00" exp="1" money="-3000">
+         <title>CMP 2081-09: Working for the People, Bribe</title>
+      </reward>
+      <reward date="2026-04-29T00:00:00.000-04:00" exp="1" money="-2000">
+         <title>SRM 2083-03: Working for the People</title>
+      </reward>
+      <reward date="2026-05-13T00:00:00.000-04:00" exp="7" money="15000">
+         <title>CMP 2081-18: Blue Kentucky Girl</title>
+         <gamemaster>JaGator</gamemaster>
+         <modifications>
+            <valmod ref="HEAT" set="AUGMENTED" type="ATTRIBUTE" value="0" when="ALLCREATE"/>
+            <valmod ref="REPUTATION" set="AUGMENTED" type="ATTRIBUTE" value="0" when="ALLCREATE"/>
+         </modifications>
+      </reward>
+      <reward date="2026-05-13T00:00:00.000-04:00" exp="1" money="-2000">
+         <title>CMP 2081-18: Working for the People</title>
+      </reward>
+      <reward date="2026-05-13T00:00:00.000-04:00" money="2500">
+         <title>CMP 2081-18: Free R4 Commlink</title>
+      </reward>
+      <reward date="2026-05-14T00:00:00.000-04:00" exp="7" money="9500">
+         <title>CMP 2081-10 | A Diamond in the Rough</title>
+         <gamemaster>Kira Capalu</gamemaster>
+      </reward>
+      <reward date="2026-05-14T00:00:00.000-04:00" exp="1" money="-2000">
+         <title>CMP 2081-10: Working for the People</title>
+      </reward>
+      <reward date="2026-05-25T22:08:32.677-04:00" exp="8" money="9000">
+         <title>CMP 2081-11: Paved with Good Intentions</title>
+         <gamemaster>Kira Capalu</gamemaster>
+      </reward>
+      <reward date="2026-05-25T22:08:58.548-04:00" exp="1" money="-2000">
+         <title>CMP 2081-11: Working for the People</title>
+      </reward>
+      <reward date="2026-05-30T22:29:43.079-04:00" exp="7" money="15500">
+         <title>CMP 2081-19: The Blue Moon of Kentucky</title>
+         <gamemaster>JaGator</gamemaster>
+         <modifications>
+            <valmod ref="HEAT" set="AUGMENTED" type="ATTRIBUTE" value="0" when="ALLCREATE"/>
+            <valmod ref="REPUTATION" set="AUGMENTED" type="ATTRIBUTE" value="2" when="ALLCREATE"/>
+         </modifications>
+      </reward>
+      <reward date="2026-05-30T22:30:11.432-04:00" exp="1" money="-2000">
+         <title>CMP 2081-19: Working for the People</title>
+      </reward>
+      <reward date="2026-06-03T18:16:30.406-04:00" exp="7" money="9500">
+         <title>SRM 2081-17 Framed in Blood</title>
+         <gamemaster>Oli K</gamemaster>
+         <modifications>
+            <valmod ref="REPUTATION" set="AUGMENTED" type="ATTRIBUTE" value="1" when="ALLCREATE"/>
+         </modifications>
+      </reward>
+      <reward date="2026-06-03T00:00:00.000-04:00" exp="1" money="-5000">
+         <title>SRM 2081-17: Working for the Ppl, Rent, Bribes</title>
+      </reward>
+      <reward date="2026-06-06T21:42:12.671-04:00" exp="9" money="11500">
+         <title>CMP 2081-20: In the Cold Kentucky Rain</title>
+         <gamemaster>JaGator</gamemaster>
+         <modifications>
+            <valmod ref="HEAT" set="AUGMENTED" type="ATTRIBUTE" value="1" when="ALLCREATE"/>
+            <valmod ref="REPUTATION" set="AUGMENTED" type="ATTRIBUTE" value="1" when="ALLCREATE"/>
+         </modifications>
+      </reward>
+      <reward date="2026-06-06T21:42:29.704-04:00" exp="1" money="-4000">
+         <title>CMP 2081-20: Working for the People, Bribes</title>
+         <modifications>
+            <valmod ref="HEAT" set="AUGMENTED" type="ATTRIBUTE" value="-1" when="ALLCREATE"/>
+         </modifications>
+      </reward>
+      <reward date="2026-06-07T13:38:50.149-04:00" money="60500">
+         <title>CMP 2081-20: Refund for self-modifying drones</title>
+      </reward>
+      <reward date="2026-06-07T17:29:34.207-04:00" exp="4" money="10500">
+         <title>SRM 2081-21: Grudge Match Gladiators</title>
+         <gamemaster>Medtec28</gamemaster>
+      </reward>
+      <reward date="2026-06-07T17:32:06.235-04:00" exp="1" money="-2000">
+         <title>SRM 2081-21: Working for the People</title>
+      </reward>
+      <reward date="2026-06-12T19:50:08.556-04:00" exp="6" money="8500">
+         <title> CMP 2081-12 | Uneasy lies the head</title>
+         <gamemaster>Kira Capalu</gamemaster>
+         <modifications>
+            <valmod ref="REPUTATION" set="AUGMENTED" type="ATTRIBUTE" value="1" when="ALLCREATE"/>
+         </modifications>
+      </reward>
+      <reward date="2026-06-12T19:54:10.632-04:00" exp="1" money="-3000">
+         <title>CMP 2081-12: Working for the People, Bribes</title>
+      </reward>
+      <reward date="2026-06-19T00:00:00.000-04:00" exp="7" money="13000">
+         <title>CMP 2083-14: A Day at the Beach</title>
+         <gamemaster>Nick (Origins '26)</gamemaster>
+         <modifications>
+            <valmod ref="REPUTATION" set="AUGMENTED" type="ATTRIBUTE" value="1" when="ALLCREATE"/>
+         </modifications>
+      </reward>
+      <reward date="2026-06-19T00:00:00.000-04:00" exp="1" money="-2000">
+         <title>CMP 2083-14: Working for the People</title>
+      </reward>
+      <reward date="2026-06-20T00:00:00.000-04:00" exp="6" money="15000">
+         <title>CMP 2083-16: War Never Changes</title>
+         <gamemaster>Hal &#x0022;SSDR&#x0022; (Origins'26)</gamemaster>
+         <modifications>
+            <valmod ref="HEAT" set="AUGMENTED" type="ATTRIBUTE" value="4" when="ALLCREATE"/>
+            <valmod ref="REPUTATION" set="AUGMENTED" type="ATTRIBUTE" value="2" when="ALLCREATE"/>
+         </modifications>
+      </reward>
+      <reward date="2026-06-20T00:00:00.000-04:00" exp="1" money="-5000">
+         <title>CMP 2083-16: Working for the People, Bribes</title>
+         <modifications>
+            <valmod ref="HEAT" set="AUGMENTED" type="ATTRIBUTE" value="-1" when="ALLCREATE"/>
+         </modifications>
+      </reward>
+      <reward date="2026-06-20T00:00:00.000-04:00" exp="8" money="13500">
+         <title>SRM 2083-19: The Hallow Feast</title>
+         <gamemaster>Morgan (Origins'26)</gamemaster>
+         <modifications>
+            <valmod ref="HEAT" set="AUGMENTED" type="ATTRIBUTE" value="0" when="ALLCREATE"/>
+            <valmod ref="REPUTATION" set="AUGMENTED" type="ATTRIBUTE" value="3" when="ALLCREATE"/>
+         </modifications>
+      </reward>
+      <reward date="2026-06-20T00:00:00.000-04:00" exp="1" money="-4000">
+         <title>SRM 2083-19: Working for the People, Rent</title>
+      </reward>
+      <reward date="2026-06-20T00:00:00.000-04:00" money="-6000">
+         <title>CMP 2083-16: Buying down heat</title>
+         <modifications>
+            <valmod ref="HEAT" set="AUGMENTED" type="ATTRIBUTE" value="-3" when="ALLCREATE"/>
+         </modifications>
+      </reward>
+      <reward date="2026-06-22T19:57:46.207-04:00" money="16000">
+         <title>Refund (self-modifying drone, Smile for the Camera)</title>
+      </reward>
+      <reward date="2026-06-25T20:59:26.983-04:00" exp="8" money="12500">
+         <title>SRM 2081-05: This is Renton</title>
+         <gamemaster>Kira Capalu</gamemaster>
+         <modifications>
+            <valmod ref="REPUTATION" set="AUGMENTED" type="ATTRIBUTE" value="2" when="ALLCREATE"/>
+         </modifications>
+      </reward>
+      <reward date="2026-06-25T21:00:00.977-04:00" exp="1" money="-5000">
+         <title>SRM 2081-05: Bribes, Working for the People, Buying Favors</title>
+      </reward>
+      <reward date="2026-06-25T00:00:00.000-04:00" money="840">
+         <title>Refund: Smile for the Camera</title>
+      </reward>
+      <reward date="2026-06-30T00:00:00.000-04:00" exp="6" money="9500">
+         <title>CMP 2083-01: NONPLUSHED</title>
+         <gamemaster>JaGator</gamemaster>
+      </reward>
+      <reward date="2026-06-30T00:00:00.000-04:00" exp="1" money="-2500">
+         <title>CMP 2083-01: Working for the People, Bribes</title>
+      </reward>
+      <reward date="2026-07-07T00:00:00.000-04:00" exp="6" money="6500">
+         <title>SRM 2081-08 Child's Play</title>
+         <gamemaster>JaGator</gamemaster>
+         <modifications>
+            <valmod ref="REPUTATION" set="AUGMENTED" type="ATTRIBUTE" value="1" when="ALLCREATE"/>
+         </modifications>
+      </reward>
+      <reward date="2026-07-07T00:00:00.000-04:00" exp="1" money="-5000">
+         <title>SRM 2081-08: Bribes, Rent, Working for the People</title>
+      </reward>
+      <reward date="2026-07-09T21:04:57.509-04:00" exp="6" money="8000">
+         <title>SRM 2081-07 | Bootleg Bliss</title>
+         <gamemaster>JaGator</gamemaster>
+      </reward>
+      <reward date="2026-07-09T21:05:24.777-04:00" exp="1" money="-2000">
+         <title>SRM 2081-07: Working for the People</title>
+         <gamemaster>JaGator</gamemaster>
+      </reward>
+      <reward date="2026-07-10T22:03:56.405-04:00" exp="6" money="8000">
+         <title>SRM 2081-06 | Cutting Strings</title>
+         <gamemaster>Kira Capalu</gamemaster>
+         <modifications>
+            <valmod ref="HEAT" set="AUGMENTED" type="ATTRIBUTE" value="1" when="ALLCREATE"/>
+            <valmod ref="REPUTATION" set="AUGMENTED" type="ATTRIBUTE" value="1" when="ALLCREATE"/>
+         </modifications>
+      </reward>
+      <reward date="2026-07-10T22:04:16.485-04:00" money="-5000">
+         <title>SRM 2081-06: Working for the People, Bribes, Buying down heat</title>
+         <modifications>
+            <valmod ref="HEAT" set="AUGMENTED" type="ATTRIBUTE" value="-1" when="ALLCREATE"/>
+         </modifications>
+      </reward>
+      <reward date="2026-06-03T00:00:00.000-04:00" exp="-34">
+         <title>SRM 2081-17: R7 Ally Sprite Charge</title>
+      </reward>
+      <reward date="2026-07-14T00:00:00.000-04:00" exp="7" money="9500">
+         <title>CMP 2083-04 | Hog Wild</title>
+         <gamemaster>JaGator</gamemaster>
+         <modifications>
+            <valmod ref="REPUTATION" set="AUGMENTED" type="ATTRIBUTE" value="1" when="ALLCREATE"/>
+         </modifications>
+      </reward>
+      <reward date="2026-07-14T00:00:00.000-04:00" exp="1" money="-2000">
+         <title>CMP 2083-04: Working for the People</title>
+      </reward>
+      <reward date="2026-07-15T14:04:25.898-04:00" exp="-8">
+         <title>CMP 2083-04: Learning Programs</title>
+      </reward>
+      <reward date="2026-07-21T00:00:00.000-04:00" exp="7" money="6000">
+         <title>CMP 2083-05 | Precious Cargo</title>
+         <modifications>
+            <valmod ref="REPUTATION" set="AUGMENTED" type="ATTRIBUTE" value="2" when="ALLCREATE"/>
+         </modifications>
+      </reward>
+      <reward date="2026-07-21T00:00:00.000-04:00" exp="1" money="-2500">
+         <title>CMP 2083-05: Working for the People, Souvenirs</title>
+      </reward>
+   </rewards>
+</sr6char>

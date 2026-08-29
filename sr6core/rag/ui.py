@@ -30,13 +30,33 @@ def get_auth_badge(level: int) -> str:
     return f"[{style}][{label}][/{style}]"
 
 
-def print_search_results_rich(query: str, results: List[Dict[str, Any]]):
-    """Prints a styled Rich table of rules vault search results with cross-references and snippets."""
-    if not RICH_AVAILABLE:
-        print(f"\n=== Rules Vault Search Results for '{query}' ===")
+def print_search_results_rich(query: str, results: List[Dict[str, Any]], compact: bool = False):
+    """Prints a styled Rich table or compact Markdown of rules vault search results."""
+    if compact or not RICH_AVAILABLE:
+        print(f"\n### Rules Vault Search Results: '{query}' ({len(results)} matches)")
         for r in results:
+            auth_lvl = r.get("authority_level", 3)
+            auth_str = format_authority_short(auth_lvl)
+            topic = r.get("topic", r.get("id", "N/A"))
+            source = r.get("source", "SR6")
+            page = r.get("page", "")
+            page_str = f", p. {page}" if page else ""
             cross = f" (Also: {', '.join(r['cross_references'])})" if r.get("cross_references") else ""
-            print(f"- [{r.get('id')}] {r.get('topic', 'N/A')}{cross} ({r.get('source', 'SR6')} p.{r.get('page', '')}) [Auth Level {r.get('authority_level', 3)}]")
+            stat_badge = " [⚔️ StatBlock]" if (r.get("statblock") or r.get("statblocks")) else ""
+            
+            snippet = r.get("snippet") or ""
+            if not snippet:
+                content = r.get("content", "").replace("\n", " ").strip()
+                if content.startswith("---"):
+                    parts = content.split("---", 2)
+                    content = parts[2].strip() if len(parts) >= 3 else content
+                snippet = content[:120] + ("..." if len(content) > 120 else "")
+            
+            clean_snip = re.sub(r"\[/?bold[^\]]*\]", "", snippet).strip()
+            print(f"- **{topic}**{cross}{stat_badge} — *{source}{page_str}* [{auth_str}]")
+            if clean_snip:
+                print(f"  > {clean_snip}")
+        print()
         return
 
     console = Console()
@@ -67,7 +87,6 @@ def print_search_results_rich(query: str, results: List[Dict[str, Any]]):
         
         snippet = r.get("snippet")
         if snippet:
-            # Clean snippet for rich display
             snippet_str = snippet.replace("\n", " ").strip()
         else:
             cdata = r.get("commlink_data")
@@ -87,21 +106,82 @@ def print_search_results_rich(query: str, results: List[Dict[str, Any]]):
     console.print()
 
 
-def render_rag_result_rich(res: Dict[str, Any], show_context: bool = False):
-    """Renders a complete RAG query answer with Rich header panel, Markdown body, and citation table."""
-    if not RICH_AVAILABLE:
-        prompt = res.get("query", "")
-        print(f"\n=== RAG AI Assistant Answer for '{prompt}' ===")
-        if res.get("ai_response"):
-            print(res["ai_response"])
-        elif res.get("error"):
-            print(f"[AI Notice] {res['error']}")
-            print("\n=== Retrieved Context ===")
-            print(res.get("context", ""))
+def format_authority_short(level: int) -> str:
+    labels = {
+        1: "Level 1: SRM Exception",
+        2: "Level 2: Supplement",
+        3: "Level 3: Core Rulebook",
+        4: "Level 4: Homebrew"
+    }
+    return labels.get(level, f"Level {level}")
+
+
+def render_rule_chunk_markdown(rule: Dict[str, Any], compact: bool = False):
+    """Renders a single atomic rule chunk in rich or clean Markdown format."""
+    if not rule:
+        print("[Notice] Rule not found.")
+        return
+
+    auth_lvl = rule.get("authority_level", 3)
+    auth_str = format_authority_short(auth_lvl)
+    topic = rule.get("topic", rule.get("id", "Rule Topic"))
+    source = rule.get("source", "SR6")
+    page = rule.get("page", "")
+    page_str = f", Page {page}" if page else ""
+    rid = rule.get("id", "")
+
+    content = rule.get("content", "")
+    if content.startswith("---"):
+        parts = content.split("---", 2)
+        content = parts[2].strip() if len(parts) >= 3 else content
+
+    if compact or not RICH_AVAILABLE:
+        print(f"\n## [{rid}] {topic}")
+        print(f"> **Source**: {source}{page_str} | **Authority**: {auth_str}")
+        if rule.get("cross_references"):
+            print(f"> **Cross References**: {', '.join(rule['cross_references'])}")
+        print()
+        print(content)
+        print()
         return
 
     console = Console()
+    style, label = AUTH_LEVEL_STYLES.get(auth_lvl, ("white", f"Level {auth_lvl}"))
+    header = f"[bold white]{topic}[/bold white] ([cyan]{source}{page_str}[/cyan]) | [{style}]{label}[/{style}]"
+    
+    console.print()
+    console.print(Panel(Markdown(content), title=f"[bold magenta]{rid}: {header}[/bold magenta]", box=ROUNDED, border_style="cyan"))
+    console.print()
+
+
+def render_rag_result_rich(res: Dict[str, Any], show_context: bool = False, compact: bool = False):
+    """Renders a complete RAG query answer with Rich header panel, Markdown body, and citation table."""
     prompt = res.get("query", "")
+    ai_response = res.get("ai_response")
+    error = res.get("error")
+    rules = res.get("rules", [])
+
+    if compact or not RICH_AVAILABLE:
+        print(f"\n## Authoritative Rules Answer: {prompt}\n")
+        if ai_response:
+            print(ai_response)
+        elif error:
+            print(f"[AI Notice] {error}")
+
+        if rules:
+            print("\n### Citations & Authority Matrix")
+            for r in rules:
+                auth_lvl = r.get("authority_level", 3)
+                auth_str = format_authority_short(auth_lvl)
+                topic = r.get("topic", r.get("id", "N/A"))
+                source = r.get("source", "SR6")
+                page = r.get("page", "")
+                page_str = f", p. {page}" if page else ""
+                print(f"- **{topic}** — *{source}{page_str}* [{auth_str}]")
+        print()
+        return
+
+    console = Console()
     provider = res.get("provider_name", "gemini").upper()
     model = res.get("model_name", "gemini-flash-latest")
     effort = res.get("effort_level") or "default"
@@ -112,9 +192,6 @@ def render_rag_result_rich(res: Dict[str, Any], show_context: bool = False):
     console.print()
     console.print(Panel(f"[bold white]{prompt}[/bold white]\n\n{header_text}", title="[bold magenta]SR6 RAG RULES VAULT QUERY[/bold magenta]", box=ROUNDED, border_style="cyan"))
 
-    ai_response = res.get("ai_response")
-    error = res.get("error")
-
     if ai_response:
         console.print()
         console.print(Panel(Markdown(ai_response), title="[bold green]AUTHORITATIVE RULES ANSWER[/bold green]", box=ROUNDED, border_style="green"))
@@ -122,7 +199,6 @@ def render_rag_result_rich(res: Dict[str, Any], show_context: bool = False):
         console.print()
         console.print(Panel(f"[bold red]AI Engine Notice:[/bold red] {error}", title="[bold red]NOTICE[/bold red]", box=ROUNDED, border_style="red"))
 
-    rules = res.get("rules", [])
     if rules or show_context:
         table = Table(title="Retrieved Rules Vault Citations & Authority Matrix", box=ROUNDED, header_style="bold magenta")
         table.add_column("Authority Hierarchy", justify="left")

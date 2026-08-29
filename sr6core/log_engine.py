@@ -299,9 +299,10 @@ def add_spirit(
     return f"**{name}** ({great_str}Force {force} {spirit_type} Spirit, {tasks} Tasks/Missions{details_str})"
 
 
-def start_mission(code: str):
+def start_mission(code: str) -> str:
     global _GLOBAL_LOG_STATE
     _GLOBAL_LOG_STATE["Missions"].append(code)
+    return ""
 
 
 def get_active_sprites() -> List[Dict[str, Any]]:
@@ -348,6 +349,7 @@ def print_contacts_summary(contacts: Optional[Dict[str, Any]] = None):
         "SEA": "Seattle (SEA)",
         "NOLA": "New Orleans (NOLA)",
         "AMS": "Amsterdam / UNL (AMS)",
+        "HK": "Hong Kong / Southeast Asia (HK)",
         "KY": "Kentucky (KY)",
         "DW": "Desert Wars (DW)",
         "GEN": "General / Matrix / Other (GEN)"
@@ -358,7 +360,10 @@ def print_contacts_summary(contacts: Optional[Dict[str, Any]] = None):
         reg = c.get("region", "GEN") or "GEN"
         grouped.setdefault(reg, []).append(c)
 
-    for reg in ["SEA", "NOLA", "AMS", "KY", "DW", "GEN"]:
+    ordered_regions = ["SEA", "NOLA", "AMS", "HK", "KY", "DW", "GEN"]
+    all_regions = ordered_regions + [r for r in grouped.keys() if r not in ordered_regions]
+
+    for reg in all_regions:
         if reg in grouped:
             print(f"#### {region_names.get(reg, reg)}\n")
             print("| Contact Name | Connection | Loyalty | Favors | Type / Archetype | Notes |")

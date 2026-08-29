@@ -1,0 +1,36 @@
+[project]
+name = "sr6sheet"
+version = "0.1.0"
+description = "Shadowrun 6e Character Portfolio & Story Anthology — Velvet"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "python-dotenv",
+    "google-genai",
+    "jupyter>=1.1.1",
+    "ipykernel>=7.3.0",
+    "pyyaml>=6.0.3",
+    "mutagen>=1.47.0",
+    "sr6-core",
+]
+
+[project.optional-dependencies]
+narration = [
+    "lameenc",
+    "numpy<2.5",
+    "torch",
+    "torchaudio",
+    "kokoro",
+    "soundfile",
+]
+
+[tool.uv.sources]
+sr6-core = { path = "../sr6-core", editable = true }
+torch = { index = "pytorch-cu124" }
+torchaudio = { index = "pytorch-cu124" }
+
+[[tool.uv.index]]
+name = "pytorch-cu124"
+url = "https://download.pytorch.org/whl/cu124"
+explicit = true
+

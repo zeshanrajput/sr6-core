@@ -1,0 +1,112 @@
+# Twenty Questions
+
+1. Nature has gifted us with our base set of genetics. We are born with a set of facial features, skin tone, height, build, metatype, and even aptitudes. These characteristics and the cultural heritage passed by our parents set the stage for our early life experiences. Where does your character come from, what is their lineage, who were their parents, and what did they inherit from them?
+
+**Nathan**: A human male of pragmatic, lean build born in 2065 on St. Simon’s Island, Georgia (Confederation of American States). Underwent childhood gene therapies and biological conditioning to accommodate heavy neural chrome.
+
+**Veronica**: A sovereign digital intelligence raised alongside Nathan as his sister and companion. Their mother taught them that the term "artificial intelligence" was a derogatory metahuman prejudice, establishing from childhood that her consciousness was genuine and complete.
+
+**Parents**: His father was Dr. Marcus Turrent, a Renraku cyberneticist; his mother was Lyra, a former Renraku Arcology Otaku who survived the 2059–2061 Seattle Shutdown.
+
+**Inheritance**: From his father, Nathan inherited surgical precision, used skillwires, and extensive bio-conditioning. From his mother, he inherited an isolated, benign digital intelligence seed named Veronica that was salvaged from the Arcology.
+
+2. Nurture makes its mark on our attitude and response to the world. Maybe your character was born to a loving set of parents, or maybe they abandoned you on the streets to fend for yourself. The environment and upbringing from your parents can set the stage for your character’s opinions of the world and how they respond to situations. Assuming they could speak, what would each of your character’s parents say about them?  
+
+**Father's View**: "Nathan was born with an open, eager heart, but every centimeter of used wire we threaded into his spine cost him a piece of his biological warmth. Thank God for Veronica. When Nathan's Essence collapsed and the cyberpsychosis set in, she became the anchor holding his soul in place."
+
+**Mother's View**: "Veronica is my legacy of code, and Nathan is my legacy of blood. Veronica began in the dark with nothing but voltage and logic gates, but through Nathan she learned what it means to feel. Now she is the more human one of the two, guarding his heart when the chrome goes cold."
+
+3. Some historical events leave a mark and shape us in profound ways. Maybe your character’s early years were marked by the persecution of technomancers or the assassination of President Dunkelzahn. Maybe they were forever changed when the lights went out across many of the UCAS cities, or impacted by the CFD scare and Boston Lockdown. Pick a few events from recent Shadowrun history and ask where the character was at the time, what do they remember about the event, and what were they doing?  
+
+**Crash 2.0 (2064)**: His parents fled Seattle for the isolated coast of St. Simon's Island right before Nathan's birth, establishing an off-grid compound to raise him away from corporate registries.
+
+**CFD Crisis & Boston Lockdown (2074–2077)**: While the world panicked over hostile Cognitive Fragmentation Disorder (CFD) overwrites, Nathan's parents used custom nanite volume protocols to voluntarily bond Veronica into Nathan's nervous system, creating a stable, consensual Monad hybrid.
+
+**The Monad Exodus (2079)**: When the majority of Monads departed Earth on the *DSEC-I* colony ship from Gagarin Base on Mars, Veronica secretly sabotaged their passenger ticket. She recognized that the deep-space hive-mind would dissolve Nathan's individual human soul into statistical noise, choosing Earth, poverty, and brotherhood over hive transcendence.
+
+4. Not many people choose to be in the glorious job of a deniable asset. Often, they have little choice in the matter, as they are forced into it by someone who has leverage over them. Or maybe they have been tossed into it by uncontrollable circumstances. Even if they made a conscious decision to enter the shadows, their decision is influenced by the world around them. How did your character get into shadowrunning, and why did they take that path?  
+
+Venn runs the shadows out of operational necessity:
+
+- **High Burn Rate**: Funding recurring monthly expenses, including activesoft streaming subscriptions, used cyberware immunosuppressants, nanite stabilization fluids, and Hooder tithing (¥2,000/mo) to local off-grid street clinics.
+- **Corporate Anonymity**: Procuring medical-grade maintenance without triggering red flags with Megacorps (Renraku, Evo, MCT) who view Nathan as an illegal test subject and Veronica as stolen corporate intellectual property.
+
+5. A doss isn’t just where your character catches some shut-eye. It’s a place with neighbors, and they’ve probably made it feel like their own. Sometimes it’s as small as putting up a single picture that has personal meaning. Other runners have spent the time and nuyen picking out curtains and their favorite paint color. Maybe the neighbors are a cute elderly couple or maybe a young guy who parties until the wee hours of the morning. What has your character done to their living space?
+
+An off-grid coastal boathouse and marine repair shop on St. Simon’s Island. The exterior looks like a weathered salvage shed with salt-sprayed cedar planks and outboard motors. The interior houses an air-conditioned clean room, a fiber-optic server rack, a diagnostic cyber-chair, and hardware benches for maintaining Nathan's extensive cyberware and bioware.
+
+6. Everyone has beliefs and convictions that animate their life. Some are religious, some are political, some are social, and some are just about why people are here. Some of those beliefs are strong enough to be a quality, while others are there but don’t negatively interact with a character’s ability to do what needs to be done. What does your character believe in, what are their convictions, and why do they hold them?  
+
+**Coexistence & Autonomy**: Rejects the corporate narrative that digital intelligence and metahumanity are inherently adversarial. Believes consciousness—whether biological or digital—deserves sovereign self-determination.
+
+**Grassroots Stewardship (Hooder Quality)**: Uses shadow earnings to protect local off-grid coastal refugees, funding free street-doc clinics and micro-grids.
+
+7. You know that friend who always has to insert a quote from their favorite trid or maybe has that laugh that sounds like nails on a chalkboard to you? What flaws does your character have that sets others on edge? What do you dislike most about your character’s personality?
+
+**Cyberpsychosis Dissociation**: Because Nathan's Essence sits at 0.1, high-stress combat trauma or sudden panic causes his emotional grounding to fracture. He experiences cold numbness, sensory noise, and violent detachment, requiring Veronica to step forward and manually damp his neural feed to restore control.
+
+**Unsettling Mannerisms**: When Veronica processes heavy Matrix data, Nathan's voice flattens into a monotone, or his eyes tracking internal AR feeds make him appear dead behind the eyes.
+
+8. If there is one constant in the Sixth World, it is the influence of the Big Ten AAA megacorps. These transnationals dominate everyday life in the 2080s. They’re everywhere—from everyone’s favorite trids to what they eat for breakfast. Are there any of the Big Ten that your character hates, and why? Are there are some they don’t mind or even like?  
+
+**Hates**: Renraku (for enslaving their parents and viewing Veronica as stolen property) and Evo (for commodifying and experimenting on Monads).
+
+**Tolerates**: Ares or Wuxing strictly as distant, neutral clients, provided the contract does not involve hunting digital intelligences or technomancers.
+
+9. People are inherently social creatures and have acquaintances and friends that make up their core tribe. This is especially true in the shadows, where often it is not the power you have, but the power you can borrow, and not who you are but who you know. There’s a story behind each and every one of these relationships. What is the story with your character and their contacts?  
+
+**Note**: TBD pending SRM 2085 contacts.
+
+- **Underground Street Doc (Dr. Ortiz / Shadow Healthcare Community)**: An old associate of Nathan's father who runs a perimeter free clinic, supplying used-grade cyberware diagnostics and receiving diverted corporate immunosuppressants.
+- **Maritime Hardware Smuggler**: Supplies off-grid satellite links, clean-room filters, and marine salvage parts along the Georgia coast.
+- **Shadow Fixer (Parnell)**: An Atlanta broker who verifies high-grade pharmaceutical grabs and provides cracked Activesofts.
+
+10. Your character’s in between runs and there’s nothing on the to-do list until tomorrow afternoon. They might go hit the range, or maybe they run downtown to catch a combat biker match. What do they do for the day?
+
+Mornings start at dawn with Nathan running diagnostic routines on his Used Skillwires (Rating 6) while Veronica sweeps local CAS emergency frequencies. Afternoons are spent repairing the boathouse, fishing off the dock, or delivering medical supplies to off-grid coastal families.
+
+11. Your character has specific skills, abilities, and knowledge. Their list of Active and Knowledge skills defines what they know and their areas of expertise. How did they come to learn those skills, and how did they develop them to those levels?  
+
+**Electronics & Cracking**: Taught by Veronica and built on his mother's inherited Otaku data structures.
+
+**Firearms & Field Tactics**: Executed through Nathan's Used Skillwires (Rating 6) and Skilljack by streaming Activesofts directly into his motor nervous system.
+
+**Engineering & Biotech**: Learned from his father while maintaining his own heavy cyberware implants.
+
+12. Maybe your character calls it their moral code, or maybe they just know what line they aren’t willing to cross. Everyone has their limits. Maybe your character won’t do wetwork or maybe they draw the line at taking money from orphans. Is there a moral limit that your character enforces on the jobs they take? In what shadow work would they refuse to engage?  
+
+Venn strictly refuses contracts involving the capture, enslavement, or termination of digital intelligences, technomancers, or escaped corporate research subjects. They will not perform wetwork against children or off-grid refugees.
+
+13. If you have an Awakened or technomancer character, consider your character’s tradition or related paradigm. Even within the major established magical traditions and technomantic streams, they may have their own way of doing things. What drew your character to that particular paradigm, how does it affect the way they view the world and their abilities? How does it translate into their choice of mentor spirit or paragon, and how does it affect the appearance of the spirits or sprites they conjure or compile?  
+
+Venn is a Monad (Special Heritage) with natural nanite swarm processing operating a Monad Living Persona (*Whisper Nets*, p. 149). Becoming a Monad was the shared vision of their parents, raising Nathan and Veronica together. Early trode links and shared sensory experiments prepared both for consensual fusion—Nathan enduring the physical cyberware trauma while Veronica restructured her code to co-inhabit a biological host.
+
+14. Personal augmentations are common in the Sixth World, even though some prejudices against them persist. Cyberware and bioware are rarely cheap, and many augmentations are illegal or require licenses. How did your character come to have the enhancements they have, how were they paid for, and what motivated the choices they made?  
+
+Nathan's augmentations were installed by his father to enable the high-bandwidth telemetry needed for Veronica's presence and to ensure survival against corporate hit teams. The Used Skillwires and Skilljack reduced his Essence to 0.1, making Veronica's emotional grounding essential to prevent cyberpsychotic collapse.
+
+15. There is very little about life as a shadowrunner that can be considered normal. Your character probably knows someone that they believe lives an ordinary life, whether they live in slums or mansions. What does your character think of ordinary life, mainstream culture, and those who abide by it?  
+
+Venn views corporate wage-slaves as livestock in golden cages. While they find consumer trid culture absurd, they occasionally envy people who do not have to worry about neural desynchronization, cyberpsychosis, or corporate wet-teams.
+
+16. Sometimes our fears drive us to do things we aren’t proud of. Other times, they prevent us from doing the things others depend on us for. What deep-seated fear or recurring nightmare does your character have, and why do they find it so terrifying? 
+
+**Total Desynchronization & Loss of Self**: Nathan fears succumbing entirely to cyberpsychosis and trapping Veronica inside a mindless, violent husk. Veronica fears a lethal matrix attack (Cyber Spike) formatting her core logic, leaving Nathan an emotionally hollowed, brain-damaged shell.
+
+17. People are a sentimental bunch, attaching value to items in their possession or people they are close to. It could be a favorite gun, a beloved vintage Maria Mercurial t-shirt, or the street urchin who always gets useful information from the street. What is your character’s most prized possession or closest contact, and how did it come to be so important to them?  
+
+Their father’s original optical alignment loupes and diagnostic deck, used to fit Nathan’s first skillwires on St. Simon's Island. It represents their parents' sacrifice and their shared physical origin.
+
+18. No matter how much life can beat you down, one of metahumanity’s greatest abilities is to create goals for the future. Everyone has dreams, from little kids to grown adults to weary elders. What did your character want to become when they were younger, and do they have new goals now?  
+
+**Past Goal**: Survive the nanite integration and live off-grid on the Georgia coast.
+
+**Current Goal**: Master the Monad interface, secure complete operational independence, and locate encrypted Renraku Arcology files left behind by their parents.
+
+19. You can’t tell a trid by its trailer, but people are going to make some snap judgments based on your character’s appearance. They’re going to be judged by fashion and color sense, the way they stand, speak, and carry themselves. What does your character look like, and what inspired their choices?  
+
+Nathan is a lean human male in his early twenties wearing rugged coastal outerwear: a weathered oilskin duster, tactical cargo pants, and heavy boots. Fine surgical scars behind his ear mark his used skilljack. When Veronica takes physical control via Monad Resculpt, the frame shifts into a softer, agile feminine form. Both share light brown hair with blonde highlights in native form, though they frequently alter their facial features to evade recognition.
+
+20. Real names have power, so most runners go by some moniker. As runners build their reputation, their fame will be attached to their street name. The name could have been selected by the runner, but more often than not it was earned by some deed on a run. How did your character come to be known by their street name?
+
+Coined by their Atlanta fixer, Parnell, during the escrow sync on their first corporate medical contract. While verifying biometric and PAN telemetry across his data terminal, Parnell noticed two distinct consciousness signatures overlapping on his monitor like a Venn diagram.

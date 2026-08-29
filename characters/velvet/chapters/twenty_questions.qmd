@@ -1,0 +1,131 @@
+# 20 Questions: Velvet
+
+### Q1: Origins & Lineage
+>
+> Nature has gifted us with our base set of genetics. We are born with a set of facial features, skin tone, height, build, metatype, and even aptitudes. Where does your character come from, what is their lineage, who were their parents, and what did they inherit from them?
+
+Kim Jin-Young was born in the flooded slums of Manila, Philippines, as a Dalakitnon—a rare, nocturnal elven heritage known for sharp, preternatural grace and deep obsidian irises. In the starving shantytowns of Tondo, extreme natural charisma and an innate Awakened spark were not celebrated gifts; they were a commodity and a survival ticket.
+
+### Q2: Development & Creators
+>
+> Nurture makes its mark on our attitude and response to the world. Assuming they could speak, what would each of your character’s parents say about them?
+
+His parents would have little to say beyond the memory of desperation. Facing famine and crushing corporate debt, they sold five-year-old Jin-Young to a talent scout from a Mitsuhama Computer Technologies entertainment subsidiary. His childhood was spent inside hermetically sealed corporate idol trainee dormitories in Neo-Tokyo, where grueling twelve-hour dance drills, combat choreography, and mental conditioning systematically stripped away his Filipino identity in favor of corporate obedience.
+
+### Q3: Historical Influences & Trauma
+>
+> Some historical events leave a mark and shape us in profound ways. Pick a few events from recent Shadowrun history and ask where the character was at the time, what do they remember, and what were they doing?
+
+Jin-Young's defining trauma was the systematic, clinical erasure of his physical identity at age ten. Over four months in a Mitsuhama surgical facility, intensive bio-sculpting, bone shaving, cartilage realignment, and permanent tissue alteration spells carved away his original features to construct an optimized, universally marketable "pan-Asian" aesthetic. The physical pain of resetting bone cartilage and the psychological horror of looking into a mirror and seeing a stranger became his lifelong baseline.
+
+### Q4: Entry into the Shadows
+>
+> How did your character get into shadowrunning, and why did they take that path?
+
+Jin-Young debuted as the center vocalist and Face of **TXM** (*The Death Messengers*), a massively popular boy group. Behind the stadium pyrotechnics, TXM was an elite Mitsuhama black-ops asset team. Their 80,000-fan stadium concerts were secretly engineered **Geomantic Rituals** designed to harvest collective astral mana to rewrite corporate loyalty across entire metroplexes. Upon discovering that MCT planned a lethal mega-ritual in Singapore to consume Wuxing's idol group *Yueying*, Jin-Young sabotaged the performance, severed the ritual matrix, and fled into the Singapore drainage conduits, resurfacing in Seattle's shadows to survive.
+
+### Q5: Living Spaces & Sanctuaries
+>
+> What has your character done to their living space?
+
+Velvet maintains a secure, low-profile safehouse in West Seattle leased through a shell identity. Unlike the hyper-sterile, camera-monitored dormitories of his corporate youth, his sanctuary is quiet and grounded in physical stillness: tatami flooring, cedarwood wall panels, a low-slung table with a cast-iron kettle for brewing un-taxed roasted Tieguanyin tea, and the scent of dry sandalwood incense. No trid screens or smart-home AI assistants are permitted.
+
+### Q6: Beliefs & Convictions
+>
+> What does your character believe in, what are their convictions, and why do they hold them?
+
+Velvet practices a syncretic **Shinto-Musok** tradition, honoring kami and ancestral spirit ribbons, deepened by Buddhist insights into *Anattā* (Non-Self) and *Upāya* (Skillful Means). Having been manufactured and bought as a disposable commodity, his deepest moral conviction is the **creation of un-monetized sanctuaries**—quiet spaces of genuine empathy, mutual respect, and protection for broken people who have been discarded or exploited by corporate machine logic. Rather than viewing his fluid identities as deceit, he views them as an artificial reincarnation cycle: becoming a *Mansin* (master of ten thousand spirits) whose empty vessel (*bin geureut*) honors the lived experience and grief (*Han*) of every human role he inhabits.
+
+### Q7: Flaws & Friction
+>
+> What flaws does your character have that sets others on edge? What do you dislike most about your character’s personality?
+
+Years of algorithmic conditioning and extreme Charisma (10 baseline, 14 buffed) create an uncanny, suffocating psychological gravity. Contacts and allies instinctively distrust their own feelings around Velvet, fearing their empathy or compliance is biologically manufactured. In turn, Velvet suffers from deep existential isolation, unable to know if affection is genuine or a product of his engineered aura. Furthermore, physical transformations via Cosmetic Control R2 induce acute somatic migraines, cartilage fatigue, and identity friction that Velvet conceals behind a placid smile.
+
+### Q8: Megacorporate Relations
+>
+> Are there any of the Big Ten that your character hates, and why?
+
+- **Mitsuhama Computer Technologies (MCT):** Universal adversary. MCT created, sculpted, and owned him. Their Asset Recovery divisons continue to hunt for their missing high-spec IP.
+- **Wuxing Incorporated:** Complex and dangerous. Wuxing holds Hana under contract; while not actively attacking Velvet, their corporate machinations treat both runners as leverage in Pacific Rim trade negotiations.
+- **Aztechnology & Renraku:** Viewed with cold professional wariness as predatory blood-magic and Matrix panopticons.
+
+### Q9: Network of Contacts
+>
+> What is the story with your character and their contacts?
+
+- **Hana ("Luna") [Seattle / Neo-Seoul]:** Center star of Wuxing's *Yueying*. The genuine bond formed during a televised variety show off-camera sparked Velvet's rebellion; protecting her remains his emotional north star.
+- **Brynne Taggart [Seattle Fixer]:** The first major fixer to contract Velvet in Seattle, testing his corporate polish in the gritty Redmond underworld.
+- **Ni Ni Xiaolu [Triad Johnson]:** An Octagon Triad operative with whom Velvet established a respectful, mutually lucrative shadow partnership over tea in Tacoma.
+- **Whiskey [Street Doc]:** A reliable back-alley surgeon in Seattle who understands the biological taxation of bio-sculpting and provides pain management without logging corporate medical files.
+- **Claudette Laurier & Vincent Grisome:** Scholarly and occult resources in New Orleans and Seattle aiding his initiation into deeper esoteric mysteries.
+- **Guild of Freelance Assets:** A sovereign magical conclave providing coven ritual backing and initiation support in exchange for dedicated monthly service.
+
+### Q10: Distinguishing Features
+>
+> What does your character look like, and how do they present themselves?
+
+In his unmasked state, Jin-Young is a lean, 165 cm elf with porcelain-smooth skin, stark white hair, and deep obsidian irises that hint at his birth heritage. Through **Cosmetic Control (Rating 2)** and high-fashion tailoring (Ares SecureTech Skinshield), he shifts into distinct public personas (*Nirmāṇakāya* / transformation bodies):
+- **Lee Ji-yoo (She/Her):** Soft, elegant, razor-sharp corporate consultant and negotiator.
+- **Tanaka Ryo (He/Him):** Clean, authoritative, masculine executive liaison.
+- **Mei Jing & Underworld Aliases:** Street-level and Triad personas carrying distinct somatic grit and Cantonese/Japanese vernacular.
+
+### Q11: Combat Doctrine & Style
+>
+> How does your character approach combat when negotiations fail?
+
+Velvet treats combat as synchronized stage choreography and battlefield geometry. Maintaining distance with uncanny grace, he bolsters allies via *Inspire Competence* and *Increase Attribute*, dispels opposing magical structures, and uses *Channeling* or *Increase Reflexes* when direct engagement is inevitable, minimizing unnecessary collateral bloodshed.
+
+### Q12: Morality & Limits
+>
+> What lines will your character never cross?
+
+Velvet will never participate in the exploitation or trafficking of children, nor will he assist megacorps in spiritual harvest or geomantic mind-control rituals against metahuman populations.
+
+### Q13: Daily Routine & Solace
+>
+> How does your character spend quiet downtime between runs?
+
+Downtime is spent away from crowds and cameras: visiting small street stalls in West Seattle for un-synthesized pork-bone broth, brewing loose-leaf tea, maintaining coven shrine wards, and meditating to spirit ribbons while resetting facial cartilage in front of a mirror.
+
+### Q14: Financial Philosophy
+>
+> How does your character view nuyen and wealth?
+
+Nuyen is purely fuel for autonomy and security. Velvet maintains a strict Hooder practice (Rating 3), funneling ¥3,000 monthly into community aid and refugee relief, viewing un-shared wealth as corporate poison.
+
+### Q15: Spiritual Tradition & Magic
+>
+> How does your character perceive and cast magic?
+
+Under the Shinto-Musok tradition, magic is not mathematical code or high-fantasy fireballs; it is experienced as shifting emotional hues in auras, whispering ancestral presence, folded talismanic paper ribbons, and the sacred mirror (*Kagami*) of awareness. In deep meditation and channeling, the lived memories of past personas form an internal choir supporting ritual focus. Drain manifests as physical exhaustion, dry vocal cords, and somatic bone aches.
+
+### Q16: Relationship with Technology
+>
+> How does your character interact with the Matrix?
+
+Velvet treats the Matrix with cautious respect. He relies on an Erika Elite commlink with Comhack Securelink and P-ICE Nope! for encrypted communications, but leaves deep node intrusions and cybercombat to specialized deckers and technomancers.
+
+### Q17: The Ultimate Ambition
+>
+> What is your character's long-term goal in the shadows?
+
+To amass enough magical prowess, political leverage, and underground syndicate alliances to permanently sever Mitsuhama's reclaim claims, liberate Hana from Wuxing's golden cage, and establish a permanent sovereign sanctuary for Awakened refugees.
+
+### Q18: Secret Vulnerabilities
+>
+> What is your character's greatest hidden weakness?
+
+Velvet suffers from chronic somatic pain and tissue fatigue from continuous Cosmetic Control transformations and early bio-sculpting trauma. Furthermore, any direct threat to Hana can cause him to abandon calculated risk assessments in favor of desperate rescue maneuvers.
+
+### Q19: Identity & Gender Fluidity
+>
+> How does your character navigate their shifting gender presentation?
+
+Having been engineered to embody any market demographic's ideal fantasy, Velvet views gender presentation as both an art form and an operational tool. Whether operating as Lee Ji-yoo (she/her), Tanaka Ryo (he/him), or un-sculpted Jin-Young (he/they), each persona is inhabited with complete psychological authenticity and respect.
+
+### Q20: The Shadow Legacy
+>
+> When your character eventually leaves the shadows, how do they wish to be remembered?
+
+Not as an idol, a corporate weapon, or a commodity on a balance sheet—but as someone who found their own voice in the dark and used it to protect others from being silenced.

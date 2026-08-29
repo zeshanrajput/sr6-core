@@ -210,6 +210,39 @@ def export_genesis_xml(char_data: Dict[str, Any], char_repo_path: Optional[str] 
     root.set("karmaI", str(karma_spent))
     root.set("nuyen", str(nuyen_val))
 
+    # Lifestyles
+    lifestyles = char_data.get("lifestyles", [])
+    if lifestyles:
+        ls_container = ET.SubElement(root, "lifestyles")
+        for ls in lifestyles:
+            l_el = ET.SubElement(ls_container, "lifestyle")
+            l_el.set("lang", "en")
+            l_el.set("ref", ls.get("quality", "low").lower())
+            l_el.set("comfort", ls.get("comfort", "low").lower())
+            l_el.set("entert", ls.get("entertainment", "low").lower())
+            l_el.set("necess", ls.get("necessities", "low").lower())
+            l_el.set("neigh", ls.get("neighborhood", "low").lower())
+            l_el.set("security", ls.get("security", "low").lower())
+            l_el.set("space", ls.get("space", "low").lower())
+            l_el.set("value", str(ls.get("months", 1)))
+            if "sin" in ls:
+                l_el.set("sin", str(ls["sin"]))
+
+    # Type, Mortype & Tradition
+    type_el = ET.SubElement(root, "type")
+    type_el.text = "METAHUMAN"
+
+    mortype = identity.get("mortype", "").lower().replace(" ", "").replace("_", "")
+    if mortype and mortype in ["mysticadept", "magician", "adept", "technomancer", "aspectedmagician"]:
+        m_el = ET.SubElement(root, "mortype")
+        m_el.text = mortype
+
+    tradition = identity.get("tradition", "").lower()
+    if tradition:
+        t_ref = "shinto" if "shinto" in tradition else tradition.split()[0].replace("/", "")
+        t_el = ET.SubElement(root, "tradition")
+        t_el.text = t_ref
+
     # Name node
     name_el = ET.SubElement(root, "name")
     name_el.text = identity.get("handle", "Unknown")
@@ -218,6 +251,26 @@ def export_genesis_xml(char_data: Dict[str, Any], char_repo_path: Optional[str] 
     if "real_name" in identity:
         real_el = ET.SubElement(root, "realName")
         real_el.text = identity["real_name"]
+
+    # Physical Bio Details
+    if "hair_color" in identity:
+        h_el = ET.SubElement(root, "hairColor")
+        h_el.text = str(identity["hair_color"])
+    if "eye_color" in identity:
+        e_el = ET.SubElement(root, "eyeColor")
+        e_el.text = str(identity["eye_color"])
+    if "skin_color" in identity:
+        sk_el = ET.SubElement(root, "skinColor")
+        sk_el.text = str(identity["skin_color"])
+    if "age" in identity:
+        age_el = ET.SubElement(root, "age")
+        age_el.text = str(identity["age"])
+    if "size" in identity:
+        size_el = ET.SubElement(root, "size")
+        size_el.text = str(identity["size"]).replace("cm", "").strip()
+    if "weight" in identity:
+        w_el = ET.SubElement(root, "weight")
+        w_el.text = str(identity["weight"]).replace("kg", "").strip()
 
     # Attributes
     attrs_el = ET.SubElement(root, "attributes")
@@ -296,8 +349,10 @@ def export_genesis_xml(char_data: Dict[str, Any], char_repo_path: Optional[str] 
             p_el = ET.SubElement(powers_el, "adeptpower")
             p_el.set("lang", "en")
             p_ref = p.get("ref") or p.get("name", "").lower().replace(" ", "_")
+            if p_ref in ["authoritative_tone", "authorative_tone"]:
+                p_ref = "authorative_tone"
             p_el.set("ref", p_ref)
-            if "rating" in p and int(p["rating"]) > 0:
+            if "rating" in p and int(p["rating"]) > 0 and p_ref not in ["linguistics"]:
                 p_el.set("value", str(p["rating"]))
 
     # Meta Echoes / Metamagics / Submersion Echoes
@@ -308,17 +363,62 @@ def export_genesis_xml(char_data: Dict[str, Any], char_repo_path: Optional[str] 
             me_el = ET.SubElement(echoes_el, "metaEcho")
             me_el.set("lang", "en")
             me_ref = me.get("ref") or me.get("name", "").lower().replace(" ", "_")
+            if me_ref in ["power_point", "power_points", "powerpoint"]:
+                me_ref = "power_points"
+                val = me.get("rating") or me.get("value") or 1
+                me_el.set("value", str(val))
+            elif "rating" in me and int(me["rating"]) > 0:
+                me_el.set("value", str(me["rating"]))
+            elif "value" in me and int(me["value"]) > 0:
+                me_el.set("value", str(me["value"]))
             me_el.set("ref", me_ref)
 
-    # Complex Forms
-    cforms = char_data.get("complex_forms", [])
-    if cforms:
-        cf_el = ET.SubElement(root, "complexforms")
-        for cf in cforms:
-            c_el = ET.SubElement(cf_el, "complexforms")
-            c_el.set("lang", "en")
-            c_ref = lookup_canonical_ref(cf.get("ref") or cf.get("name", ""), "complex_form", db_path=db_path)
-            c_el.set("ref", c_ref)
+    # SINs & Licenses
+    sins = char_data.get("sins", [])
+    if sins:
+        sins_el = ET.SubElement(root, "sins")
+        sin_uuid_map = {}
+        for s in sins:
+            s_node = ET.SubElement(sins_el, "sin")
+            s_node.set("name", s.get("name", "SIN"))
+            s_node.set("quality", s.get("quality", "SECOND_LIFE"))
+            s_uuid = s.get("uuid") or str(uuid.uuid4())
+            s_node.set("uniqueid", s_uuid)
+            sin_uuid_map[s.get("name")] = s_uuid
+
+        licenses = char_data.get("licenses", [])
+        if licenses:
+            lic_el = ET.SubElement(root, "licenses")
+            for lic in licenses:
+                l_node = ET.SubElement(lic_el, "licenses")
+                l_node.set("name", lic.get("name", "License"))
+                l_node.set("rating", lic.get("rating", "SECOND_LIFE"))
+                l_sin_name = lic.get("sin")
+                l_node.set("sin", sin_uuid_map.get(l_sin_name, l_sin_name or str(uuid.uuid4())))
+                l_node.set("uniqueid", lic.get("uuid") or str(uuid.uuid4()))
+
+    # Foci
+    foci_list = char_data.get("synergies", {}).get("foci", []) or [
+        it for it in char_data.get("items", []) if isinstance(it, dict) and "focus" in it.get("ref", "").lower()
+    ]
+    if foci_list:
+        foci_el = ET.SubElement(root, "foci")
+        for f in foci_list:
+            f_node = ET.SubElement(foci_el, "focus")
+            f_node.set("lang", "en")
+            f_ref = f.get("ref", "qi_focus")
+            f_rating = str(f.get("rating", 4))
+            f_node.set("ref", f_ref)
+            f_node.set("value", f_rating)
+
+            dec_rating = ET.SubElement(f_node, "decision")
+            dec_rating.set("choice", "c2d17c87-1cfe-4355-9877-a20fe09c170d")
+            dec_rating.set("value", f_rating)
+
+            if "power" in f and f["power"]:
+                dec_power = ET.SubElement(f_node, "decision")
+                dec_power.set("choice", "37026c81-d5a0-44fe-8fa9-9263acb6059f")
+                dec_power.set("value", f["power"].lower().replace(" ", "_"))
 
     # Items / Gear / Weapons / Armor / Devices / Drones
     items_el = ET.SubElement(root, "items")
@@ -640,21 +740,49 @@ def patch_genesis_xml(input_xml_path: str, char_data: Dict[str, Any], output_xml
                         sat_el.set("slot", "VEHICLE_ELECTRONICS")
                         sat_el.set("uuid", str(uuid.uuid4()))
 
+        # DYNAMIC ADEPT POWERS SYNC
+        powers = char_data.get("adept_powers", [])
+        if powers:
+            powers_container = root.find("adeptPowers")
+            if powers_container is None:
+                powers_container = ET.SubElement(root, "adeptPowers")
+            else:
+                powers_container.clear()
+
+            for p in powers:
+                if p.get("source"):
+                    continue
+                p_el = ET.SubElement(powers_container, "adeptpower")
+                p_el.set("lang", "en")
+                p_ref = p.get("ref") or p.get("name", "").lower().replace(" ", "_")
+                if p_ref in ["authoritative_tone", "authorative_tone"]:
+                    p_ref = "authorative_tone"
+                p_el.set("ref", p_ref)
+                if "rating" in p and int(p["rating"]) > 0 and p_ref not in ["linguistics"]:
+                    p_el.set("value", str(p["rating"]))
+
         # DYNAMIC METAECHOES / METAMAGICS SYNC
         meta_echoes = char_data.get("meta_echoes", [])
         if meta_echoes:
             echoes_container = root.find("metaEchoes")
             if echoes_container is None:
                 echoes_container = ET.SubElement(root, "metaEchoes")
+            else:
+                echoes_container.clear()
 
-            existing_echoes = {e.get("ref") for e in echoes_container.findall("metaEcho") if e.get("ref")}
             for me in meta_echoes:
+                me_el = ET.SubElement(echoes_container, "metaEcho")
+                me_el.set("lang", "en")
                 me_ref = me.get("ref") or me.get("name", "").lower().replace(" ", "_")
-                if me_ref not in existing_echoes:
-                    me_el = ET.SubElement(echoes_container, "metaEcho")
-                    me_el.set("lang", "en")
-                    me_el.set("ref", me_ref)
-                    existing_echoes.add(me_ref)
+                if me_ref in ["power_point", "power_points", "powerpoint"]:
+                    me_ref = "power_points"
+                    val = me.get("rating") or me.get("value") or 1
+                    me_el.set("value", str(val))
+                elif "rating" in me and int(me["rating"]) > 0:
+                    me_el.set("value", str(me["rating"]))
+                elif "value" in me and int(me["value"]) > 0:
+                    me_el.set("value", str(me["value"]))
+                me_el.set("ref", me_ref)
 
         # DYNAMIC SPELLS SYNC
         spells = char_data.get("spells", [])
@@ -774,6 +902,117 @@ def patch_genesis_xml(input_xml_path: str, char_data: Dict[str, Any], output_xml
             if sess.get("gm"):
                 gm_el = ET.SubElement(r_el, "gamemaster")
                 gm_el.text = str(sess["gm"])
+
+        # DYNAMIC SINS & LICENSES SYNC
+        sins = char_data.get("sins", [])
+        if sins:
+            sins_el = root.find("sins")
+            if sins_el is None:
+                sins_el = ET.SubElement(root, "sins")
+            else:
+                sins_el.clear()
+
+            sin_uuid_map = {}
+            for s in sins:
+                s_node = ET.SubElement(sins_el, "sin")
+                s_node.set("name", s.get("name", "SIN"))
+                s_node.set("quality", s.get("quality", "SECOND_LIFE"))
+                s_uuid = s.get("uuid") or str(uuid.uuid4())
+                s_node.set("uniqueid", s_uuid)
+                sin_uuid_map[s.get("name")] = s_uuid
+
+            licenses = char_data.get("licenses", [])
+            if licenses:
+                lic_el = root.find("licenses")
+                if lic_el is None:
+                    lic_el = ET.SubElement(root, "licenses")
+                else:
+                    lic_el.clear()
+
+                for lic in licenses:
+                    l_node = ET.SubElement(lic_el, "licenses")
+                    l_node.set("name", lic.get("name", "License"))
+                    l_node.set("rating", lic.get("rating", "SECOND_LIFE"))
+                    l_sin_name = lic.get("sin")
+                    l_node.set("sin", sin_uuid_map.get(l_sin_name, l_sin_name or str(uuid.uuid4())))
+                    l_node.set("uniqueid", lic.get("uuid") or str(uuid.uuid4()))
+
+        # DYNAMIC FOCI SYNC
+        foci_list = char_data.get("synergies", {}).get("foci", []) or [
+            it for it in char_data.get("items", []) if isinstance(it, dict) and "focus" in it.get("ref", "").lower()
+        ]
+        if foci_list:
+            foci_el = root.find("foci")
+            if foci_el is None:
+                foci_el = ET.SubElement(root, "foci")
+            else:
+                foci_el.clear()
+
+            for f in foci_list:
+                f_node = ET.SubElement(foci_el, "focus")
+                f_node.set("lang", "en")
+                f_ref = f.get("ref", "qi_focus")
+                f_rating = str(f.get("rating", 4))
+                f_node.set("ref", f_ref)
+                f_node.set("value", f_rating)
+
+                dec_rating = ET.SubElement(f_node, "decision")
+                dec_rating.set("choice", "c2d17c87-1cfe-4355-9877-a20fe09c170d")
+                dec_rating.set("value", f_rating)
+
+                if "power" in f and f["power"]:
+                    dec_power = ET.SubElement(f_node, "decision")
+                    dec_power.set("choice", "37026c81-d5a0-44fe-8fa9-9263acb6059f")
+                    dec_power.set("value", f["power"].lower().replace(" ", "_"))
+
+        # DYNAMIC LIFESTYLES SYNC
+        lifestyles = char_data.get("lifestyles", [])
+        if lifestyles:
+            ls_container = root.find("lifestyles")
+            if ls_container is None:
+                ls_container = ET.SubElement(root, "lifestyles")
+            else:
+                ls_container.clear()
+
+            for ls in lifestyles:
+                l_el = ET.SubElement(ls_container, "lifestyle")
+                l_el.set("lang", "en")
+                l_el.set("ref", ls.get("quality", "low").lower())
+                l_el.set("comfort", ls.get("comfort", "low").lower())
+                l_el.set("entert", ls.get("entertainment", "low").lower())
+                l_el.set("necess", ls.get("necessities", "low").lower())
+                l_el.set("neigh", ls.get("neighborhood", "low").lower())
+                l_el.set("security", ls.get("security", "low").lower())
+                l_el.set("space", ls.get("space", "low").lower())
+                l_el.set("value", str(ls.get("months", 1)))
+                if "sin" in ls:
+                    l_el.set("sin", str(ls["sin"]))
+
+        # DYNAMIC BIO & APPEARANCE SYNC
+        for tag_name, yaml_key in [("hairColor", "hair_color"), ("eyeColor", "eye_color"), ("skinColor", "skin_color"), ("age", "age"), ("size", "size"), ("weight", "weight")]:
+            if yaml_key in identity:
+                val = str(identity[yaml_key]).replace("cm", "").replace("kg", "").strip()
+                node = root.find(tag_name)
+                if node is None:
+                    node = ET.SubElement(root, tag_name)
+                node.text = val
+
+        # DYNAMIC MORTYPE & TRADITION SYNC
+        if "mortype" in identity and identity["mortype"]:
+            m_val = identity["mortype"].lower().replace(" ", "").replace("_", "")
+            if m_val in ["mysticadept", "magician", "adept", "technomancer", "aspectedmagician"]:
+                m_node = root.find("mortype")
+                if m_node is None:
+                    m_node = ET.SubElement(root, "mortype")
+                m_node.text = m_val
+
+        if "tradition" in identity and identity["tradition"]:
+            t_val = identity["tradition"].lower()
+            t_ref = "shinto" if "shinto" in t_val else t_val.split()[0].replace("/", "")
+            t_node = root.find("tradition")
+            if t_node is None:
+                t_node = ET.SubElement(root, "tradition")
+            t_node.text = t_ref
 
         os.makedirs(os.path.dirname(output_xml_path) or ".", exist_ok=True)
         tree.write(output_xml_path, encoding="utf-8", xml_declaration=True)

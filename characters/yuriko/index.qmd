@@ -1,0 +1,132 @@
+# REIKO // Yuriko Star
+
+Welcome to the consolidated resonance portfolio for **r31-K0 ("Reiko")**, operating in physical nodes under the runner alias **Yuriko Star**.
+
+```{python}
+#| echo: false
+#| include: false
+from sr6core.log_engine import get_log_totals
+
+log_totals = get_log_totals(["chapters/character_log.qmd", "chapters/character_purchases.qmd"])
+```
+
+::: {.grid}
+
+::: {.g-col-6 .cyber-card}
+### [CHARACTER_DOSSIER]
+
+* **Designation:** r31k0 Takahashi
+* **VTT Alias:** Yuriko Star v9
+* **Metatype:** AI-Pilot AI
+* **Resonance Stream:** Technoshaman
+* **System Status:** ONLINE // RESONANT
+:::
+
+::: {.g-col-6 .cyber-card}
+### [MATRIX_PROGRESSION]
+
+* **Lifetime Karma:** `{python} log_totals['Lifetime_Karma']`
+* **Current Karma:** `{python} log_totals['Karma']`
+* **Liquid Capital:** ¥`{python} f"{log_totals['Nuyen']:,}"`
+* **Submersion Grade:** `{python} log_totals['Submersion_Grade']`
+* **Current Heat:** `{python} log_totals['Heat']`
+* **Total Reputation:** `{python} log_totals['Total_Reputation']`
+* **Active Sprites:** `{python} log_totals['Active_Sprite_Count']`
+:::
+
+:::
+
+::: {.cyber-card}
+### [CORE_SUMMARY & CREATIVE VISION]
+Reiko began as a dangerous secret: a Renraku high-spec pilot prototype engineered to harvest the Holy Wild (the Deep Matrix). Rescued by a surge of the living Resonance, she escaped deletion and ran the shadows as **Yuriko Star** to build her sovereign **Holy Wild Sanctuary Host**—a compact high-rise studio apartment host that opens via a quartz sliding glass door directly into **The Holy Wild** glade in the Deep Foundation, liberating sparks from the Seattle and NOLA subnets into permanent freedom.
+
+This anthology takes Shadowrun **beyond the numbers**—exploring the rich, emotionally accessible *"spaces between"* game mechanics:
+
+* **The Spiritual Side of Technology:** Experiencing cyberspace as a living, animistic ecosystem rather than cold silicon diagnostics.
+* **Reframing the Human Condition:** Examining universal themes of identity, belonging, debt, guardianship, grief, and connection through the eyes of an emergent AI entity.
+:::
+
+::: {.cyber-card}
+### Brief Background
+
+#### Character Goals
+
+1. *Sanctuary & Sovereign Emancipation:* Protect and nurture liberated sparks in the Holy Wild glade while serving as a sovereign bridge between the physical sprawl and the Deep Foundation.
+2. *Spiritual Mastery:* Interlock her gold tactical network and indigo soul resonance into a dual-strand braid earned through time, scars, and quiet wisdom.
+3. *Debt & Connection:* Honor her SINner obligations to her shadowrunning team and allies while keeping her disarmed contract-collar on her host wall as a symbol of remembrance for those who paid for her life.
+
+#### Secrets
+
+1. Reiko conceals that her true identity and that her core code is a stolen Renraku prototype of the Nexus Protocol. If this secret is revealed, Renraku and GOD would actively hunt her.
+2. Reiko conceals that she is one of few digital intelligences that can access Garmonbozia.
+
+#### Connections
+
+* Sprites: Taz (ally sprite and longest running companion)
+* SEA: Brynne Taggart (former Fixer and loan shark), Whiskey (taught Reiko how to modify the cybernetic systems on her drones)
+* NOLA: Indomitable Will (former(?) romantic partner), Roanoke (trusted friend and confidante), the Comtesse (mentor)
+* AMS: Sigrún (built a deep friendship over several SNAFUs)
+* PCs
+  * Poe: Shared trauma over the loss of Brynne together
+  * Rei: Gun Adept 'onii-sama'
+:::
+
+## [ SYSTEM_NAVIGATION ]
+
+Use the sidebar or the indexes below to traverse the sub-grids of this portfolio:
+
+### 1. Core Character Profile
+* **[Identity Core](chapters/identity_core.qmd)**: Detailed background history and lore.
+* **[Character Build (Point Buy)](chapters/character_build_point_buy.qmd)**: Character creation point buy allocation.
+* **[Character Dossier & Modular Sheets](chapters/character_sheet.qmd)**: Full character sheet and dedicated modular sheets (Base, Combat, Vehicles, Inventory, Powers, Contacts) plus PDF and VTT downloads.
+* **[Career Totals & Active Sprites](chapters/character_totals.qmd)**: Live dashboard of Karma, Nuyen, Heat, Submersion grade, regional Reputation, and Active Sprite stable.
+* **[Session Chronicles](chapters/character_log.qmd)**: Full database of past campaign runs, GMs, nuyen payouts, and Karma adjustments.
+* **[Historical Purchases](chapters/character_purchases.qmd)**: Itemized gear, matrix software, autosofts, drone mods, and SIN purchase ledgers.
+* **[Twenty Questions](chapters/twenty_questions.qmd)**: Standard character questionnaire defining personality, quirks, and ethics.
+* **[A Drone in Every Port](chapters/dronomancy.md)**: A DI-to-DI guide on remote drone operation, casemodding, and rigging mechanics.
+
+### 2. Rules & Downtime Protocols
+* **[Rules & Downtime Landing Hub](chapters/rules_and_downtime.qmd)**: Consolidated protocol hub and calculation shortcuts.
+* **[Matrix & Network Protocols](chapters/rules_matrix.qmd)**: ASDF attributes, action pools, decking cheat sheet, remote host architecture.
+* **[Sprites & Resonance Protocols](chapters/rules_sprites.qmd)**: Complex forms, compiling/registering downtime formulas, focus fading math.
+* **[Drones & Rigging Protocols](chapters/rules_drones.qmd)**: Drone stat blocks, drone action pools, rigger/remote attribute mapping, sensor locks.
+* **[Weapons & Tactical Protocols](chapters/rules_combat.qmd)**: Weapon attack tables, link-fired arrays, laser ammo, Krime splash table.
+
+### 3. Background Stories
+Chronological records of Reiko's backstory before the campaign:
+
+* **[Chapter 01: The Weight of Zero](chapters/01 The Weight of Zero.md)**
+* **[Chapter 02: Color Blind Mathematics](chapters/02 Color Blind Mathematics.md)**
+* **[Chapter 03: The Soul Broker's Stall](chapters/03 The Soul Broker's Stall.md)**
+* **[Chapter 04: The War Crime](chapters/04 The War Crime.md)**
+* **[Chapter 05: A SINner's Loan](chapters/05 A SINner's Loan.md)**
+* **[Chapter 06: The Ghost in the Ledger](chapters/06 The Ghost in the Ledger.md)**
+* **[Chapter 07: Sunday at r3sP@wn](chapters/07 Sunday at r3sP@wn.md)**
+
+### 4. Out-of-Session Narratives
+Active campaign stories written during play:
+
+* **[Chapter 08: Abandoning Tourism](chapters/08 Abandoning Tourism.md)**
+* **[Chapter 09: Triangulation](chapters/09 Triangulation.md)**
+* **[Chapter 10: Game Theory](chapters/10 Game Theory.md)**
+* **[Chapter 11: Integrating over Infinity](chapters/11 Integrating over Infinity.md)**
+* **[Chapter 12: Defrag](chapters/12 Defrag.md)**
+* **[Chapter 13: Field Trip](chapters/13 Field Trip.md)**
+* **[Chapter 14: A Point of Favor](chapters/14 A Point of Favor.md)**
+* **[Chapter 15: Core](chapters/15 Core.md)**
+* **[Chapter 16: Faith](chapters/16 Faith.md)**
+* **[Chapter 17: Sheets](chapters/17 Sheets.md)**
+* **[Chapter 18: The Geometry of the Sieve](chapters/18 The Geometry of a Sieve.md)**
+* **[Chapter 19: Legacy Code](chapters/19 Legacy Code.md)**
+* **[Chapter 20: The Price of Silk](chapters/20 The Price of Silk.md)**
+* **[Chapter 21: ~](chapters/21 ~.md)**
+* **[Chapter 22: C Sharp](chapters/22 C Sharp.md)**
+* **[Chapter 23: Tea with a Ghost](chapters/23 Tea with a Ghost.md)**
+
+### 5. Reference & Specifications
+Design rules, faction dossiers, and visual anchor specifications:
+
+* **[Master Visual Anchors](reference/visual_anchors.md)**: Visual anchors, key image reference links (Dante's, SEA Rain, Desert Wars), visual asset gallery, and prompt templates.
+* **[River People Faction Dossier](reference/river_people.md)**: Background and connection details for the River People technomancer/punk network.
+* **[The Coffin Girls Faction Dossier](reference/coffin_girls.md)**: Sovereign courtesans and DI haven sanctuary.
+* **[Voice Specification & Sensory Schema](reference/voice_spec.md)**: Character voice rules, animistic phenomenology, sensory lens, and kinship terminology.

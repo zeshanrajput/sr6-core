@@ -1,0 +1,215 @@
+# Character Career Log
+
+This log chronicles out-of-session missions, downtime decisions, Karma expenditures, and financial ledgers.
+
+::: {.callout-warning title="Spoilers"}
+*This section may contain spoilers.*
+:::
+
+```{python}
+#| echo: false
+#| include: false
+from sr6core.log_engine import (
+    inc, inc_many, contact, add_rep, start_mission, state, assign, print_contacts_summary, initiate, add_spirit
+)
+
+# Initial baseline values
+assign("Karma", 0)
+assign("Lifetime_Karma", 0)
+assign("Nuyen", 50000) # 50,000¥ Chargen Resources
+assign("Lifetime_Nuyen", 50000)
+assign("Initiation_Grade", 0)
+assign("Coven_Loyalty", 8)
+assign("Heat", 0)
+
+Initiation_Grade = state["Initiation_Grade"]
+Coven_Loyalty = state["Coven_Loyalty"]
+Contacts = state["Contacts"]
+
+# Seed Chargen Contacts with explicit regions & SRM canonical connection ratings
+contact("Brynne Taggart", connection=4, loyalty=1, type_name="Fixer", region="SEA", notes="Chargen Contact")
+contact("Vincent Grisome", connection=5, loyalty=3, type_name="Magic Prof.", region="SEA", notes="Chargen Contact")
+contact("Ni Ni Xiaolu", connection=3, loyalty=1, type_name="Triad Johnson", region="SEA", notes="Chargen Contact")
+contact("Whiskey", connection=2, loyalty=3, type_name="Street Doc", region="SEA", notes="Chargen Contact")
+contact("Claudette Laurier", connection=5, loyalty=4, type_name="Order of the Golden Dawn Librarian", region="NOLA", notes="Chargen Contact")
+contact("Le Tigre", connection=5, loyalty=1, type_name="Epoch Model", region="NOLA", notes="Chargen Contact")
+contact("Hana", connection=6, loyalty=6, type_name="Wuxing Talismonger / Pop Idol", region="SEA", notes="Chargen Contact")
+contact("Guild of Freelance Assets", connection=7, loyalty=8, type_name="Conclave", region="GEN", notes="Chargen Contact (Conclave C7 L8)")
+```
+
+---
+
+## **2026-Jul-01: Build-A-Runner (GM Credit)** `{python} start_mission('Build-A-Runner')`
+
+* **GM:** WarDoctor CDT 1077
+* **Karma:** `{python} inc('Karma', 1)`
+* **Nuyen:** ¥`{python} inc('Nuyen', 1000)`
+
+---
+
+## **SRM 2081-09 | Eviction Notice** `{python} start_mission('SRM 2081-09')`
+
+* **Date:** 2026-Jul-17
+* **PCs:** Poe, BunnyR, YankeeDoodle, Groucho, Jolthead
+* **GM:** WarDoctor CDT 1077
+* **Difficulty:** Veteran
+* **Rewards:** `{python} inc('Nuyen', 11000)`, `{python} inc('Karma', 7)`
+* **Reputation:** `{python} add_rep('SEA', 2)`
+* **Contacts:**
+  * **ALL:** `{python} contact("Ms. Snow", connection=5, fp=2, type_name="Johnson", region="SEA", notes="SRM 2081-09 Eviction Notice (Elven female)")`
+  * **BunnyR:** +1 FP Whiskey, +1 FP Belial
+  * **Poe:** +1 FP Vincent, +1 FP Ms. Snow (for services rendered)
+* **Heat:** 0 (Roll 4 + 6, -3 w/ "contributions" from BunnyR, Jolthead, Groucho)
+* **Downtime:** 1 Major, 1 Minor
+
+In the screamsheets the next day, Aztecnology representative Carmen del Silva proudly announces a new corporate initiative from their pharmaceutical division targeting the pain management market with an even better side effect profile than ever before. The announcement is accompanied by several scientific publications in reputable journals, all done by Aztlani universities. Most journal editors conclude "further research is required".
+
+### Downtime
+
+* Learned 'Increase Attribute': `{python} inc('Karma', -5)`
+* Initiation - Channeling: `{python} initiate("Channeling", coven_loyalty=Coven_Loyalty)`
+
+GM Reward correction: `{python} inc('Nuyen', 1000)`
+
+---
+
+## **SRM 2081-07 | Bootleg Bliss** `{python} start_mission('SRM 2081-07')`
+
+* **Date:** 2026-Jul-26
+* **GM:** CDT Agent Kira Capalu (#TBD)
+* **Player:** Velvet (WarDoctor)
+* **Team:** Frazz (Grankle), Glyph (Wyntr), Havoc (ShuiroHanaga1), Rei (Snowcrash), Velvet (WarDoctor), Yankee Doodle (Inirlan)
+* **Difficulty:** Veteran
+* **Summary:** The team got hired by Ni Ni Xiaolu to make an example of Dwight Baxter, a small-fry dealer who dared to sell his products under the Triad branding at the Night Market. Through their contacts they were able to secure an appointment with the person in charge of the local Ancients holdout, and after a round of drone dog fight betting he told them that their target was here to see them before heading to the rival Cutters gang. Bookie offered them money if they’d come across intel on the Cutters. Following the lead, the team went to the Cutters headquarter upstairs the Oshki Piroshki and convinced the person in charge, Trudy, to help them on their quest in exchange for their promise to letting the blame fall on her bosses so she could hopefully rise up the ranks. Trudy pointed the team to a Vory safehouse in Tukwila, and after seeing the goons in the basement, they landed on the roof and found the target in the right room, but it proved to be a trap. After taking care of the goons, they decided to drop their target over the Night Market.
+* **Rewards:** `{python} inc('Nuyen', 10000)`, `{python} inc('Karma', 7)` (7,000¥ Ni Ni + 1,000¥ Bookie + 2,000¥ Veteran; 6 + 1 Veteran Karma)
+* **Reputation:** ±0 | **Heat:** ±0 (Roll 6+1, Base +2, Bribes -2 by Havoc & Rei)
+* **Contacts & Favor Points:**
+  * `{python} contact("Ni Ni Xiaolu", connection=3, fp=2, type_name="Triad Johnson", region="SEA", notes="Chargen Contact | +2 FP SRM 2081-07 Bootleg Bliss (looking forward to date)")`
+  * `{python} contact("Bookie", connection=3, fp=1, type_name="Ancients Bookie", region="SEA", notes="SRM 2081-07 Bootleg Bliss")`
+  * `{python} contact("Trudy", connection=2, fp=1, type_name="Cutters Lieutenant", region="SEA", notes="SRM 2081-07 Bootleg Bliss")`
+
+### Downtime & Monthly Expenses (SRM #2)
+
+* **Monthly Expenses:** `{python} inc('Nuyen', -7400)` (Low Lifestyle ¥2,000 + Hooder R3 ¥3,000 + Coven Dues ¥2,400)
+* **Major Downtime Action:** Coven Ritual Maintenance & Service (Guild of Freelance Assets / Shinto-Musok Coven)
+* **Minor Downtime Action:** Working for the People (Funded by Hooder ¥3,000 allocation): `{python} inc('Karma', 1)` (+1 Karma, no extra Nuyen charge)
+
+---
+
+## **SRM 2081-01 | Death of a Fixer** `{python} start_mission('SRM 2081-01')`
+
+* **Date:** 2026-Aug-07
+* **GM:** WarDoctor
+* **Player:** Velvet (WarDoctor)
+* **Team:** Trax, Hurricane, Jolthead, Hedgehog
+* **Difficulty:** Normal
+* **Rewards:** `{python} inc('Nuyen', 8300)`, `{python} inc('Karma', 6)`
+* **Reputation:** ±0 | **Heat:** ±0
+* **Contacts & Favor Points:**
+  * `{python} contact("Ni Ni Xiaolu", connection=3, fp=2, type_name="Triad Johnson", region="SEA", notes="Chargen Contact | +2 FP SRM 2081-07 Bootleg Bliss | SRM 2081-01 ")`
+  * `{python} contact("Brynne Taggart", connection=4, fp=2, type_name="Fixer", region="SEA", notes="SRM 2081-01 Death of a Fixer")`
+* **Major Downtime Action:** Initiation: Power Point (1.0 PP: Linguistics, Command Presence, Cloak R1) `{python} initiate("Power Point", coven_loyalty=Coven_Loyalty)`
+* **Minor Downtime Action:** Learned Spell 'Increase Reflexes' `{python} inc('Karma', -5)`
+
+---
+
+## **SRM 2081-02 | Urgent Care** `{python} start_mission('SRM 2081-02')`
+
+* **Date:** 2026-Aug-22
+* **GM:** WarDoctor CDT 1077
+* **Player:** Velvet (WarDoctor / GM Credit)
+* **Players:** Arrogant Ninja, Hedgehog, Jolthead, Knave of Blades, Silicon Mage
+* **Difficulty:** Veteran (GM Credit: Standard Max)
+* **Rewards:** `{python} inc('Nuyen', 7000)`, `{python} inc('Karma', 7)` *(Table base: 7,500¥ + 2,000¥ Vet; 7 + 1 Karma. GM Credit capped at 7,000¥ max, no Vet Karma bonus)*
+* **Reputation:** `{python} add_rep('SEA', 2)`
+* **Heat:** 0 *(Bribes: Silicon Mage, Knave of Blades)*
+* **Contacts & Favor Points:**
+  * `{python} contact("Eddie Wei", fp=1, notes="SRM 2081-02 Urgent Care")`
+  * `{python} contact("Kingston", fp=3, notes="SRM 2081-02 Urgent Care")`
+  * `{python} contact("Whiskey", fp=1, notes="SRM 2081-02 Urgent Care")`
+  * `{python} contact("Ms. Margaret", connection=1, fp=1, type_name="Hospital Volunteer", region="SEA", notes="SRM 2081-02 Urgent Care (Elderly Human Hospital Volunteer who needs her roof fixed)")`
+
+### Downtime & Monthly Expenses (SRM #4)
+
+* **Monthly Expenses:** `{python} inc('Nuyen', -7400)` (Low Lifestyle ¥2,000 + Hooder R3 ¥3,000 + Coven Dues ¥2,400)
+* **Major Downtime Action:** Coven Ritual Maintenance & Service (Guild of Freelance Assets / Shinto-Musok Coven)
+* **Minor Downtime Action:** Working for the People (Funded by Hooder ¥3,000 allocation): `{python} inc('Karma', 1)` (+1 Karma, no extra Nuyen charge)
+* **Advancement & Focus Bonding:** Acquired and bonded **Qi Focus (Rating 4)** with *Sharp Tongue* adept power *(12,000¥, 8 Karma itemized in Equipment Ledger)*.
+
+---
+
+## **CMP 2083-01 | Nonplushed** `{python} start_mission('CMP 2083-01')`
+
+* **Date:** 2026-Aug-22
+* **GM:** CDT Agent Kira Capalu (#TBD)
+* **Player:** Velvet (WarDoctor)
+* **Team:** Bast (Bast), Mamba (Dreamwalker), Ninja (ArrogantNinja), Velvet (WarDoctor), Yankee Doodle (Inirlan)
+* **Difficulty:** Veteran
+* **Summary:** While being in Amsterdam for one reason or another, the team got hired by two Johnsons – first to find some kidnapped trucks, then to look for clues why it happened. They headed to the last known location, passed the traffic jams via a flying car and found a gas station nearby, where they got in contact with two teenage girls and learned that the crime community of Ghent might be involved. So they brought them to their soccer game and heard of a warehouse shared between three factions, with one of them rumoured to be the perpetrators. With that they went to the double warehouse, where they scouted it astrally and went for the host, only to get surprised by a databomb and finding the system going into alarm mode. Fearing for their traces, the team acted quickly and attacked the warehouse with open firepower. Despite a team of mercenaries that waited in a container for a shipment joining in, the criminals in the warehouse proved no match, and after breaking the resistance, the team interrogated or mindprobed some survivors to find out that it was a paid gig with insider knowledge. While escorting the trucks to their destination in Europort proved uneventful, Simon Andrews called them a second time, revealing to them that their original Johnson was found dead, that they were paid by the same shell company as their opposition, and that he has a bad feeling about this.
+* **Rewards:** `{python} inc('Nuyen', 10500)`, `{python} inc('Karma', 7)` *(6,500¥ Finding the trucks + 2,000¥ Simon’s bonus + 2,000¥ Veteran; 6 + 1 Veteran Karma)*
+* **Reputation:** `{python} add_rep('UNL', -1)` *(Attacked the other Penose factions)*
+* **Heat:** ±0 *(Roll 4+2; Base +2 [Violence and Murder], Bribes -3 [Bast, Ninja, Mamba])*
+* **Contacts & Favor Points:**
+  * `{python} contact("Simon Andrews", connection=5, fp=1, type_name="S-K Johnson", region="AMS", notes="CMP 2083-01 Nonplushed (S-K Johnson)")`
+* **Loot Claimed (Personal Inventory):**
+  * 2x Beretta 101T light pistols
+  * 2x Saps
+  * 2x Renraku Sensei commlinks (Rating 3)
+  * 1x Yamaha Raiden assault rifle
+  * 1x Stun Baton
+* **Loot Surrendered / Shared:** Remaining 3x Yamaha Raiden assault rifles, 3x Stun Batons *(Team Fenced / Split)*
+
+### Downtime & Character Advancement (CMP 2 Minor Actions)
+
+* **Minor Downtime Action 1 (Community Service):** *Working for the People* — `{python} inc('Karma', 1)` (+1 Karma).
+* **Minor Downtime Action 2 (Binding Spirits):** Bound standard 8-level spirit package (Force 3 Spirit of Kin [4 tasks/missions] & Force 5 Spirit of Fire [2 tasks/missions]) per downtime protocol: `{python} inc('Nuyen', -320)` (16 drams of reagents).
+  * `{python} add_spirit("Spirit of Kin", force=3, spirit_type="Kin", tasks=4, details="4 Bound Tasks / 4 SRM Missions, Infiltration & Sustaining")`
+  * `{python} add_spirit("Spirit of Fire", force=5, spirit_type="Fire", tasks=2, details="2 Bound Tasks / 2 SRM Missions, Combat & Channeling")`
+* **Advancement:** Purchased **Sorcery Specialization (*Spellcasting*)**: `{python} inc('Karma', -5)` (-5 Karma).
+
+---
+
+## **CMP 2083-05 | Precious Cargo** `{python} start_mission('CMP 2083-05')`
+
+* **Date:** 2026-Aug-25
+* **GM:** JaGator
+* **Player:** Velvet (WarDoctor)
+* **Team:** Mithral, Bast, Ninja (ArrogantNinja), Velvet (WarDoctor), Silicon Mage
+* **Difficulty:** Veteran
+* **Summary:** BREAKING NEWS: HK Police raided an abandoned Red Dragon Triad operation at Kwai Chung Container Port. Multiple reports indicate a human trafficking operation was broken up by a small team of Seattle-based Shadowrunners including a magical cat before the Port Authority arrived. A number of Red Dragon associates were also found inside the Jade Crane storage facility. Liao Fa Ren, journalism student, aided in the report and earned top marks on her paper, which was published in the school paper and picked up by local news outlets. After her boyfriend's betrayal of her, she seemed a bit less broken up about his demise.
+* **Rewards:** `{python} inc('Nuyen', 7000)`, `{python} inc('Karma', 8)` *(7,000¥ Mission Pay; 8 Veteran Karma)*
+* **Heat Payoff / Bribe:** `{python} inc('Nuyen', -1000)` *(NO HEAT: 1,000¥ contribution by Velvet, Mithral, Bast, Ninja)*
+* **Reputation:** `{python} add_rep('Southeast Asia', 2)`
+* **Heat:** ±0 *(No Heat)*
+* **Contacts & Favor Points:**
+  * `{python} contact("Mr. Fa", connection=4, fp=2, type_name="HKB Corporate Middle Manager", region="HK", notes="CMP 2083-05 Precious Cargo (Liao Fa Deng, Male Human)")`
+  * `{python} contact("Liao Fa Ren", connection=3, fp=4, type_name="HK Rookie Journalist", region="HK", notes="CMP 2083-05 Precious Cargo (Female Human, top marks on port raid)")`
+
+### Downtime & Character Advancement (CMP 2 Minor Actions)
+
+* **Minor Downtime Action 1 (Community Service):** *Working for the People* — `{python} inc('Karma', 1)` (+1 Karma banked towards Power Focus Rating 3).
+* **Minor Downtime Action 2 (Binding Spirits):** Re-bound standard 8-level spirit package (Force 5 Spirit of Fire [2 tasks/missions] & Force 3 Spirit of Kin [4 tasks/missions]) per downtime protocol to replenish exhausted fire ancestor: `{python} inc('Nuyen', -320)` (16 drams of reagents).
+  * `{python} add_spirit("Spirit of Fire", force=5, spirit_type="Fire", tasks=2, details="2 Bound Tasks / 2 SRM Missions, Combat & Channeling")`
+  * `{python} add_spirit("Spirit of Kin", force=3, spirit_type="Kin", tasks=4, details="4 Bound Tasks / 4 SRM Missions, Infiltration & Sustaining")`
+* **Advancement & Capital Savings:** Saving Karma and Nuyen towards **Power Focus (Rating 3)** (Goal: 18 Karma / ¥54,000; currently at **14 Karma** and **¥30,735**).
+
+---
+
+## **Active Contacts Summary**
+
+```{python}
+#| echo: false
+#| output: asis
+print_contacts_summary(Contacts)
+```
+
+---
+
+## **Current Totals**
+
+* **Lifetime Karma:** `{python} state['Lifetime_Karma']`
+* **Available Karma:** `{python} state['Karma']`
+* **Lifetime Nuyen Earned:** ¥`{python} f"{state.get('Lifetime_Nuyen', 0):,}"`
+* **Available Nuyen:** ¥`{python} f"{state['Nuyen']:,}"`
+* **Initiation Grade:** `{python} state.get('Initiation_Grade', 2)`
+

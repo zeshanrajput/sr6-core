@@ -22,7 +22,6 @@ from typing import Dict, Any, List, Optional, Tuple, Union
 from sr6core.rules_db import DEFAULT_DB_PATH, RulesDB
 from sr6core.character_manager import CharacterManager
 from sr6core.oids import resolve_canonical_oid
-from sr6core.exporters.pdf_deck import generate_pdf_card_deck
 from sr6core.log_engine import get_log_totals
 from sr6core.modifiers import ModifierEngine
 from sr6core.vehicles import parse_vehicle_modifications, calculate_drone_action_pools
@@ -243,19 +242,65 @@ def get_skills_card(char_data: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
-def get_item_card(category: str, item_input: Union[str, Dict[str, Any]], db_path: str = DEFAULT_DB_PATH, char_data: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+import xml.etree.ElementTree as ET
+
+
+def parse_xml_stats(raw_xml: str) -> Dict[str, Any]:
+    """Extracts typed, rating-aware stats from CommLink6 item XML nodes."""
+    if not raw_xml:
+        return {}
+    try:
+        root = ET.fromstring(raw_xml)
+        price = root.get("cost") or root.get("price")
+        avail = root.get("avail")
+        usage = root.find(".//usage")
+        ess = usage.get("value") if usage is not None else (root.get("ess") or root.get("essence"))
+        choice = root.find(".//choice[@ref='RATING']")
+        rating_opts = choice.get("options") if choice is not None else None
+        
+        result = {}
+        if ess and str(ess) != "0.0":
+            ess_str = str(ess).replace("$RATING*", "").replace("RATING*", "").strip()
+            if rating_opts or "$RATING" in str(ess):
+                result["essence"] = f"Rating × {ess_str} Ess"
+            else:
+                result["essence"] = f"{ess_str} Ess"
+
+        if price and str(price) != "0":
+            price_val = int(price) if str(price).isdigit() else price
+            if rating_opts:
+                result["cost"] = f"Rating × {price_val:,}¥" if isinstance(price_val, int) else f"Rating × {price_val}¥"
+            else:
+                result["cost"] = f"{price_val:,}¥" if isinstance(price_val, int) else f"{price_val}¥"
+
+        if avail:
+            if rating_opts:
+                result["avail"] = f"Rating × {avail}"
+            else:
+                result["avail"] = str(avail)
+
+        if rating_opts:
+            result["ratings"] = rating_opts
+        return result
+    except Exception:
+        return {}
+
+
+def get_item_card(category: Optional[str], item_input: Union[str, Dict[str, Any]], db_path: str = DEFAULT_DB_PATH, char_data: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
     """
     Looks up item stat fields in CommLink XML tables and rules vault text in SQLite.
     Resolves canonical OIDs and merges local dossier item attributes.
+    If category is empty or 'auto', auto-detects category across all reference tables.
     """
     item_dict = item_input if isinstance(item_input, dict) else {}
     raw_id = _extract_id(item_input)
     local_name = item_dict.get("name") if item_dict else (item_input if isinstance(item_input, str) else "")
 
     if not raw_id:
-        return {"id": "unknown", "name": "Unknown Item", "category": category, "markdown": ""}
+        return {"id": "unknown", "name": "Unknown Item", "category": category or "general", "markdown": ""}
 
-    canonical_oid, stat_row = resolve_canonical_oid(category, raw_id, db_path=db_path)
+    canonical_oid, stat_row, resolved_cat = resolve_canonical_oid(category, raw_id, db_path=db_path)
+    category = resolved_cat or category or "gear"
 
     # Search rules vault for narrative description
     rdb = RulesDB(db_path=db_path)
@@ -362,6 +407,12 @@ def get_item_card(category: str, item_input: Union[str, Dict[str, Any]], db_path
     if stat_row:
         card_name = local_name or stat_row.get("name", card_name)
         db_stats = {k: v for k, v in stat_row.items() if k not in ["raw_xml", "id", "name"]}
+        raw_xml = stat_row.get("raw_xml")
+        if raw_xml:
+            xml_stats = parse_xml_stats(raw_xml)
+            for xk, xv in xml_stats.items():
+                if xv is not None and str(xv).strip() not in ["", "0", "0.0"]:
+                    db_stats[xk] = xv
 
     # Filter local stats from item_dict
     local_stats = {}
@@ -453,87 +504,3 @@ def get_item_card(category: str, item_input: Union[str, Dict[str, Any]], db_path
     }
 
 
-def build_character_cards(char_id: str, db_path: str = DEFAULT_DB_PATH) -> List[Dict[str, Any]]:
-    """Constructs the curated, table-relevant reference card stack for a character."""
-    cm = CharacterManager()
-    char = cm.load_character(char_id)
-    if not char or "data" not in char:
-        return []
-
-    data = char["data"]
-    repo_path = cm.get_character_repo_dir(char_id)
-    cards = []
-
-    # 1. Base Attributes Card
-    cards.append(get_base_attributes_card(data, char_repo_path=repo_path))
-
-    # 2. Active Skills Card
-    cards.append(get_skills_card(data))
-
-    # 3. Qualities (Positive & Negative)
-    for q in _extract_item_list(data.get("qualities")):
-        cards.append(get_item_card("quality", q, db_path=db_path, char_data=data))
-
-    # 4. Spells
-    for s in _extract_item_list(data.get("spells")):
-        cards.append(get_item_card("spell", s, db_path=db_path, char_data=data))
-
-    # 5. Complex Forms
-    for cf in _extract_item_list(data.get("complex_forms")):
-        cards.append(get_item_card("complex_form", cf, db_path=db_path, char_data=data))
-
-    # 6. Meta Echoes / Submersion Echoes
-    for me in _extract_item_list(data.get("meta_echoes")):
-        cards.append(get_item_card("meta_echo", me, db_path=db_path, char_data=data))
-
-    # 7. Weapons (Ranged & Melee)
-    for w in _extract_item_list(data.get("weapons")):
-        cards.append(get_item_card("weapon", w, db_path=db_path, char_data=data))
-
-    # 8. Armor & Ballistics
-    for a in _extract_item_list(data.get("armors", data.get("armor", []))):
-        cards.append(get_item_card("armor", a, db_path=db_path, char_data=data))
-
-    # 9. Cyberware / Bioware / Augmentations
-    all_augmentations = _extract_item_list(data.get("cyberware")) + _extract_item_list(data.get("bioware")) + _extract_item_list(data.get("augmentations"))
-    for c in all_augmentations:
-        cards.append(get_item_card("cyberware", c, db_path=db_path, char_data=data))
-
-    # 10. Drones & Vehicles
-    for v in _extract_item_list(data.get("drones")) + _extract_item_list(data.get("vehicles")):
-        cards.append(get_item_card("vehicle", v, db_path=db_path, char_data=data))
-
-    return [c for c in cards if c.get("name") and c.get("id") != "unknown"]
-
-
-def export_character_card_deck(char_id: str, db_path: str = DEFAULT_DB_PATH) -> Tuple[str, str]:
-    """Generates Markdown and HTML reference card decks."""
-    cards = build_character_cards(char_id, db_path=db_path)
-    cm = CharacterManager()
-    char = cm.load_character(char_id)
-    char_name = char["data"].get("identity", {}).get("handle", char_id.title()) if char else char_id.title()
-
-    md_deck_lines = [
-        f"# [CARD] Reference Card Deck: {char_name}",
-        f"*Total Cards in Deck: {len(cards)}*\n",
-        "---"
-    ]
-    for c in cards:
-        md_deck_lines.append(c["markdown"])
-        md_deck_lines.append("\n---\n")
-
-    return "\n".join(md_deck_lines), ""
-
-
-def export_character_card_deck_pdf(
-    char_id: str,
-    output_path: str,
-    card_size: str = "postcard_4x5.5",
-    db_path: str = DEFAULT_DB_PATH
-) -> str:
-    """Generates a ReportLab PDF card deck formatted for physical printing."""
-    cards = build_character_cards(char_id, db_path=db_path)
-    cm = CharacterManager()
-    char = cm.load_character(char_id)
-    char_name = char["data"].get("identity", {}).get("handle", char_id.title()) if char else char_id.title()
-    return generate_pdf_card_deck(cards, output_path, card_size=card_size, char_name=char_name)

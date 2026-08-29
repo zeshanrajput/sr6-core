@@ -1,0 +1,86 @@
+# Character Career Totals & Networks
+
+```{python}
+#| echo: false
+#| include: false
+from sr6core.log_engine import get_log_totals
+from sr6core.character_manager import CharacterManager
+
+_totals = get_log_totals(["chapters/character_log.qmd", "chapters/character_purchases.qmd"])
+cm = CharacterManager()
+_char = cm.get_character_data("velvet") or {}
+_attrs = _char.get("attributes", {})
+
+Lifetime_Karma = _totals.get("Lifetime_Karma", 0)
+Karma = _totals.get("Karma", 0)
+Nuyen = _totals.get("Nuyen", 0)
+Lifetime_Nuyen = _totals.get("Lifetime_Nuyen", 0)
+Initiation_Grade = _totals.get("Initiation_Grade", 2)
+Coven_Loyalty = _totals.get("Coven_Loyalty", 8)
+Magic = _attrs.get("magic", 6)
+Charisma = _attrs.get("charisma", 10)
+Heat = _totals.get("Heat", 0)
+Reputation = _totals.get("Reputation", {})
+Contacts = _totals.get("Contacts", {})
+Current_Mission = len(_totals.get("Missions", []))
+
+def get_active_spirits():
+    return _totals.get("Active_Spirits", [])
+```
+
+This dashboard displays Velvet's live career totals, regional faction reputation breakdown, initiation progress, coven standing, active bound spirit status, and contact registry sync.
+
+---
+
+## Current Totals
+
+* **Lifetime Karma:** `{python} Lifetime_Karma`
+* **Available Karma:** `{python} Karma`
+* **Lifetime Nuyen Earned:** ¥`{python} f"{Lifetime_Nuyen:,.0f}"`
+* **Available Nuyen:** ¥`{python} f"{Nuyen:,.0f}"`
+* **Initiation Grade:** `{python} Initiation_Grade`
+* **Magic:** `{python} Magic`
+* **Charisma:** `{python} Charisma`
+* **Coven Loyalty (Guild of Freelance Assets):** `{python} Coven_Loyalty`
+* **Current Heat:** `{python} Heat`
+* **Total Reputation:** `{python} sum(Reputation.values())`
+  * **Seattle (SEA):** +`{python} Reputation.get('Seattle', Reputation.get('SEA', 2))`
+  * **United Netherlands (UNL):** `{python} Reputation.get('UNL', Reputation.get('AMS', 0))`
+  * **Southeast Asia (HK):** +`{python} Reputation.get('Southeast Asia', Reputation.get('HK', 0))`
+
+
+---
+
+## Active Spirit Stable
+
+```{python}
+#| echo: false
+#| output: asis
+active = get_active_spirits()
+if active:
+    print("| Spirit Name | Force & Type | Bound During | Tasks / Longevity | Status |")
+    print("| ----------- | --- | --- | --- | --- |")
+    for s in active:
+        if s.get("is_ally"):
+            print(f"| {s['name']} | Force {s['force']} {s['type']} | Character Creation | Permanent | Active (Ally) |")
+        else:
+            elapsed = Current_Mission - s['bound_mission']
+            tasks = s.get("tasks", 2)
+            rem = tasks - elapsed
+            status_str = f"Active ({rem} task{'s' if rem != 1 else ''} / mission{'s' if rem != 1 else ''} remaining)"
+            m_name = s.get('bound_mission_name', f"Mission {s['bound_mission']}")
+            print(f"| {s['name']} | Force {s['force']} {s['type']} ({s['details']}) | {m_name} | {elapsed} / {tasks} used | {status_str} |")
+else:
+    print("*(No active bound spirits in stable)*")
+```
+
+---
+
+## Contacts Registry & Networks
+
+```{python}
+#| echo: false
+#| output: asis
+from sr6core.log_engine import print_contacts_summary
+print_contacts_summary(Contacts)
+```

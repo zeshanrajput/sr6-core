@@ -15,3 +15,6 @@ converted_md/
 shadowrun_rules_vault/
 reports/
 data/
+_book/
+.quarto/
+_site/

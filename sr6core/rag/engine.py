@@ -115,6 +115,11 @@ class RAGEngine:
         raw = search_rules_db(self.db_path, query, limit=limit)
         return deduplicate_and_resolve_conflicts(raw)
 
+    def get_rule(self, identifier: str) -> Optional[Dict[str, Any]]:
+        from sr6core.rules_db import RulesDB
+        db = RulesDB(db_path=self.db_path)
+        return db.get_rule_by_topic_or_id(identifier)
+
     def query(
         self,
         user_query: str,

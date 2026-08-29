@@ -1,0 +1,10 @@
+{
+  "default": true,
+  "MD013": false,
+  "MD033": {
+    "allowed_elements": ["audio", "source", "div", "span"]
+  },
+  "MD012": true,
+  "MD009": true,
+  "MD041": true
+}

@@ -1,0 +1,235 @@
+identity:
+  handle: Venn
+  real_name: Nathan Turrent & Veronica
+  metatype: Human
+  mortype: Monad (Human / AI Dual Entity)
+  gender: MALE
+  age: 20
+  nanite_volume: 4
+  lifestyle: Low (Off-Grid Coastal Boathouse)
+  nuyen: 4550
+  karma: 1
+  total_karma: 1
+
+attributes:
+  body: 5
+  agility: 5
+  reaction: 2
+  strength: 2
+  willpower: 5
+  logic: 6
+  intuition: 5
+  charisma: 2
+  edge: 7
+  resonance: 0
+  magic: 0
+  essence: 0.06
+
+living_persona:
+  asdf_bonuses:
+    attack: 0
+    sleaze: 1
+    data_processing: 1
+    firewall: 2
+  notes: "Monad Matrix Attributes (Whisper Nets p. 149): Base Attack=CHA 2, Sleaze=INT 5, Data Processing=LOG 6, Firewall=WIL 5 boosted by 4 Nanite Volume (NV=4) points prioritizing Firewall (+2), Sleaze (+1), and Data Processing (+1) -> A:2 S:6 D:7 F:7."
+
+monad_abilities:
+  - name: Monad Matrix Attributes
+    effect: "Internal nanite swarm synthesizes Living Persona ASDF (A:2 S:6 D:7 F:7) with 12d6 Full Matrix Defense (14d6 when Adrenaline Pump active)."
+  - name: Resculpt
+    effect: "Extended INT + NV (16, 1 combat round) test to alter physical biological appearance and voice."
+  - name: Monad Toughness
+    effect: "Adds +2 Condition boxes (NV/2) to Condition Monitors (+1 Physical, +1 Stun -> 12 Physical, 12 Stun boxes), shifts all wound penalties down by 1."
+  - name: Physical Attribute Boost
+    effect: "Minor Action; roll NV test (4 dice). Each hit adds +1 to any Physical Attribute (BOD/AGI/REA/STR) or +1 Minor Action (stackable/splittable, max boost = min(NV, +4)). Lasts for hits in combat rounds. When ended, decreases NV by total boost for 1 minute; boost beyond racial max inflicts 1 Physical damage box."
+  - name: Mental Attribute Boost
+    effect: "Minor Action; roll NV test (4 dice). Each hit adds +1 to any Mental Attribute (WIL/LOG/INT/CHA) (stackable/splittable, max boost = min(NV, +4)). Lasts for hits in combat rounds. When ended, decreases NV by total boost for 1 minute; boost beyond racial max inflicts 1 Stun damage box."
+  - name: Rapid Healing
+    effect: "Minor or Major Action cellular nanite repair to reduce Condition Monitor damage."
+  - name: Adrenal Control
+    effect: "Minor Action; WIL + NV (2) test to remain conscious when mortally wounded or stunned."
+
+qualities:
+  positive:
+    - name: Augmentation Acclimation
+      rating: 10
+    - name: Analytical Mind
+    - name: Maximum Overdrive
+  negative:
+    - name: Hooder
+      rating: 2
+    - name: Chronic Pain
+    - name: Cyberpsychosis
+      rating: 3
+
+skills:
+  - name: Electronics
+    id: electronics
+    attribute: Logic
+    rating: 6
+    specialization: Computer
+  - name: Native Language (English)
+    id: language
+    attribute: Logic
+    rating: 4
+
+knowledge_skills:
+  - name: Small Unit Tactics
+    attribute: Logic
+  - name: Espionage Techniques
+    attribute: Logic
+  - name: Security Systems
+    attribute: Logic
+  - name: Resonance Realms
+    attribute: Logic
+  - name: UnITy (Unified Information Theory)
+    attribute: Logic
+
+cyberware:
+  - name: Skilljack
+    ref: skilljack
+    rating: 6
+    grade: used
+    category: cyberware
+    notes: "Wireless Bonus: Max total rating limit = R6 x 4 = 24. Edge can be used on associated tests."
+  - name: Skillwires
+    ref: skillwires
+    rating: 6
+    grade: used
+    category: cyberware
+    notes: "Wireless Bonus: Memory cache expanded, grants +1 dice pool modifier to all skills used through skillwires."
+  - name: Math SPU
+    ref: math_spu
+    grade: standard
+    category: cyberware
+    notes: "-1 Edge cost on technical/Logic tests (-2 when overdriven) / +1 Logic calculation tests (SRMG v2.4 25,000¥ / 0.25 Ess standard grade - no Bad Luck glitch risk)"
+  - name: Synaptic Booster
+    ref: synaptic_booster
+    rating: 2
+    grade: used
+    category: bioware
+    notes: "+2 Reaction, +2D6 Initiative (Vat Job PACK bundled item: Sixth World Companion p. 27)"
+  - name: Muscle Toner
+    ref: muscle_toner
+    rating: 2
+    grade: used
+    category: bioware
+    notes: "+2 Agility (Vat Job PACK bundled item: Sixth World Companion p. 27)"
+  - name: Muscle Augmentation
+    ref: muscle_augmentation
+    rating: 2
+    grade: used
+    category: bioware
+    notes: "+2 Strength (Vat Job PACK bundled item: Sixth World Companion p. 27)"
+  - name: Bone Density Augmentation
+    ref: bone_density_augmentation
+    rating: 4
+    grade: used
+    category: bioware
+    notes: "+4 Body for damage resistance/soak (8 Soak unarmored), 3P Unarmed DV (Vat Job PACK bundled item)"
+  - name: Adrenaline Pump
+    ref: adrenaline_pump
+    rating: 2
+    grade: used
+    category: bioware
+    notes: "+2 Reaction, +2 Agility, +2 Strength, +2 Willpower (SRMG Drug Stacking Rule). Ignores wound penalties and stun unconsciousness for 2D6 rounds. Stun crash resisted with unaugmented Body (Vat Job PACK bundled item)"
+  - name: Skin Pocket
+    ref: skin_pocket
+    grade: used
+    category: bioware
+    notes: "Internal concealed smuggling pocket (Threshold 10 to detect; Vat Job PACK bundled item)"
+  - name: Reflex Recorder (Firearms)
+    ref: reflex_recorder
+    grade: used
+    category: bioware
+    notes: "+1 dice pool modifier to Firearms skill (Vat Job PACK bundled item)"
+  - name: Platelet Factories
+    ref: platelet_factories
+    grade: standard
+    category: bioware
+    notes: "Reduces all incoming Physical damage by 1 box (min 1 box); SR6 Core p. 286"
+
+activesofts:
+  - name: Firearms Activesoft
+    rating: 6
+    category: activesoft
+    notes: "Hardcoded into Skilljack local memory (SRMG coded software). Runs on Skillwires R6 with Wireless-ON (+1) and Reflex Recorder (+1) for 8 skill dice (12d6 baseline with AGI 4, 14d6 with Smartlink, 16d6 when Adrenaline Pump active)."
+  - name: Perception Activesoft
+    rating: 6
+    category: activesoft
+    notes: "Hardcoded into Skilljack local memory (SRMG coded software). Runs on Skillwires R6 with Wireless-ON (+1) for 7 skill dice (11d6 baseline with INT 4, 13d6 under Monad Mental Boost)."
+  - name: Engineering Activesoft
+    rating: 6
+    category: activesoft
+    notes: "Hardcoded into Skilljack local memory (SRMG coded software). Runs on Skillwires R6 with Wireless-ON (+1) and Math SPU (+1) for 8 skill dice (14d6 baseline with LOG 6, 16-18d6 under Monad Mental Boost)."
+
+weapons:
+  - name: FN P93 Praetor
+    category: submachine_gun
+    damage: 4P
+    attack_rating: "10/11/8/-/-"
+    modes: "SA/BF/FA"
+    ammo: "50(c)"
+    notes: "Internal Smartgun (+2 AR), Suppressor, Shock Pad, 5 spare clips, 100 regular, 100 gel rounds (Vat Job PACK)"
+  - name: Colt Manhunter
+    category: heavy_pistol
+    damage: 4P
+    attack_rating: "10/8/6/-/-"
+    modes: "SA"
+    ammo: "16(c)"
+    notes: "Laser sight/Smartlink (+2 AR), Concealed holster, Silencer, 5 spare clips, 100 regular, 100 gel rounds (Vat Job PACK)"
+  - name: Monofilament Whip
+    category: exotic_melee
+    damage: 4P
+    attack_rating: "12/-/-/-/-"
+    notes: "Concealed in Skin Pocket (Vat Job PACK)"
+
+armors:
+  - name: Lined Coat
+    defense_rating: 3
+    notes: "Chemical Res 1, Cold Res 2, Electricity Res 2, Fire Res 2 (Vat Job PACK)"
+  - name: Helmet
+    defense_rating: 1
+    notes: "+1 Defense Rating (Vat Job PACK)"
+  - name: "Securetech SkinShield (w/ Ballistic Hood)"
+    defense_rating: 3
+    notes: "+2 DR form-fitting under-armor, +1 DR Ballistic Hood (Firing Squad p. 3 / Seattle p. 5). Invisible under normal street clothes with 0 Social penalty."
+
+vehicles: []
+
+commlinks:
+  - name: Renraku Sensei
+    device_rating: 3
+    data_processing: 3
+    firewall: 1
+    notes: "Everyday burner commlink and legal SIN broadcast. Veronica uses Monad Living Persona for all Shadow Matrix operations."
+
+gear:
+  - name: Contacts (Rating 3 w/ Flare Comp, Smartlink)
+    rating: 3
+  - name: Savior Medkit (Rating 6 w/ 1x Refill)
+    rating: 6
+  - name: Flash-Paks (x2)
+    quantity: 2
+  - name: Smoke Grenades (x2)
+    quantity: 2
+  - name: Thermal Smoke Grenades (x2)
+    quantity: 2
+  - name: Stun Grenades (x2)
+    quantity: 2
+  - name: Stim Patches Rating 6 (x10)
+    quantity: 10
+
+sins: []
+
+licenses:
+  - name: "Fake License: Firearms (Rating 4)"
+    rating: 4
+  - name: "Fake License: Concealed Carry (Rating 4)"
+    rating: 4
+
+lifestyles:
+  - name: Low Lifestyle (Off-Grid Coastal Boathouse)
+    monthly_cost: 2000
+
+contacts: []

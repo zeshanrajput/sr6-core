@@ -1,0 +1,27 @@
+# Identity Core
+
+## Background
+
+Born on St. Simon’s Island to survivors of the 2059 Renraku Arcology Shutdown, human host Nathan and digital intelligence Veronica were raised off-grid and voluntarily bonded via custom nanites into the Monad hybrid known as Venn. Taught by their mother Lyra that the term "artificial intelligence" is a derogatory prejudice, Veronica was raised as a sovereign non-biological entity.
+
+Across their introductory arc, they underwent a profound psychological inversion: Nathan, subjected to childhood gene therapy and invasive used skillwires, saw his biological Essence erode down to 0.1, stripping his emotional warmth and leaving him vulnerable to cyberpsychotic dissociation. Meanwhile, Veronica grew from a detached, low-empathy digital intelligence into an emotionally nuanced, protective guardian. Following their parents' deaths and the 2079 Monad Exodus to Mars, the mounting burn rate for nanite volume maintenance, skillsoft subscriptions, and heavy cyberware upkeep forced Venn into the shadows. Venn runs to secure operational independence, sustain coastal free clinics, and decrypt buried Arcology archives.
+
+## 3-2-1 Framework
+
+### Three GM Story Hooks
+
+1. The Essence Boundary & Cyberpsychosis: Because Nathan's Essence rests at a precarious 0.1, severe trauma or depletion of tactical momentum triggers sudden cyberpsychotic dissociation and emotional flattening, forcing Veronica to step in as the empathetic neural dampener to keep him grounded.
+
+2. System Exploits: Venn is vulnerable to electrical feedback, mana spells that bypass physical armor, and Technomancer complex forms like Cyber Spike. As a Monad, Venn faces intense discrimination from corporate extraction teams and street purists alike.
+
+3. Vulnerable Home Turf: St. Simon's Island is overrun with plagues and disease. Venn contributes a significant portion of their shadow income and captured pharmaceuticals to sustain Dr. Ortiz's perimeter free clinics, fighting an endless containment battle.
+
+### Two Character Secrets
+
+1. The Encrypted Arcology Vault: Veronica’s core memory contains an encrypted data vault extracted from Deus research nodes during the 2061 Arcology escape, holding paydata that both Renraku and Evo would kill to acquire.
+
+2. The Refusal of Exodus: Venn did not miss the 2079 Monad Exodus to Mars by accident; Veronica intentionally sabotaged their launch transport to keep Nathan on Earth, realizing deep-space hive-mind transit would dissolve Nathan's individual human consciousness.
+
+### One Connection
+
+Pending SRM 2085 release.
