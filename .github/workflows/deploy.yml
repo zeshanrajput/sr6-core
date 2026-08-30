@@ -52,21 +52,24 @@ jobs:
         env:
           QUARTO_PYTHON: ${{ github.workspace }}/.venv/bin/python
         run: |
-          cd characters/yuriko && quarto render && cd ../..
+          cd characters/reiko && quarto render && cd ../..
           cd characters/velvet && quarto render && cd ../..
-          cd characters/union && quarto render && cd ../..
+          cd characters/venn && quarto render && cd ../..
 
       - name: Assemble Static Distribution
         run: |
-          mkdir -p _site/app _site/characters/yuriko _site/characters/velvet _site/characters/union
+          mkdir -p _site/app _site/characters/reiko _site/characters/velvet _site/characters/venn
           # Copy Hub / Landing Portal to Web Root
           cp index.html _site/
           # Copy Multi-Character Mobile PWA to /app/
           cp -r app/* _site/app/
           # Copy rendered character books
-          cp -r characters/yuriko/_book/* _site/characters/yuriko/
+          cp -r characters/reiko/_book/* _site/characters/reiko/
           cp -r characters/velvet/_book/* _site/characters/velvet/
-          cp -r characters/union/_book/* _site/characters/union/
+          cp -r characters/venn/_book/* _site/characters/venn/
+          # Legacy alias copies for backward compatibility
+          cp -r _site/characters/reiko _site/characters/yuriko
+          cp -r _site/characters/venn _site/characters/union
 
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
