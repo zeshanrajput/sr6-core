@@ -1,0 +1,117 @@
+# Drones & Rigging Protocols
+
+```{python}
+#| echo: false
+#| include: false
+from sr6core.rules_engine import get_drone_statblock_table, get_drone_action_table, get_matrix_protocols_summary
+
+matrix_summary = get_matrix_protocols_summary("yuriko")
+active_asdf = matrix_summary.get("asdf", {})
+ACTIVE_A = active_asdf.get("attack", 7)
+ACTIVE_S = active_asdf.get("sleaze", 9)
+ACTIVE_D = active_asdf.get("data_processing", 7)
+ACTIVE_F = active_asdf.get("firewall", 9)
+```
+
+This reference details Reiko's active drone profiles, drone action pools, AI attribute mapping for Jumped-In vs Remote operation, and Sensor Lock mechanics.
+
+---
+
+## Drone Stat Blocks & Augmented Profiles{#tactical-drones}
+
+Stat blocks list active drones in official **SR6 Vehicle/Drone Stat Block Order** (Handling, Acceleration, Speed, Body, Armor, Pilot, Sensor).
+
+### 1. Shiawase Man-at-Arms (Anthrodrone)
+
+```{python}
+#| echo: false
+#| output: asis
+print(get_drone_statblock_table("yuriko", "man-at-arms"))
+```
+
+### 2. MCT Gnat (Microdrone)
+
+```{python}
+#| echo: false
+#| output: asis
+print(get_drone_statblock_table("yuriko", "gnat"))
+```
+
+### 3. Kwonsham Dream Genie (Small Wheeled Drone)
+
+```{python}
+#| echo: false
+#| output: asis
+print(get_drone_statblock_table("yuriko", "dream"))
+```
+
+### 4. Vulcan Systems Utility-One (Small Special Drone)
+
+```{python}
+#| echo: false
+#| output: asis
+print(get_drone_statblock_table("yuriko", "utility"))
+```
+
+### Retractable Skates Alternate Movement
+
+All anthrodrones feature **Retractable Skates** [BS p. 47]:
+
+* **Activation**: Extending or retracting skates takes a **Minor Action**.
+* **Movement Rules**: Uses metahuman movement rules: **Walking 10m/rnd**, **Sprinting 30m/rnd**, **+2m per net hit** on Sprinting tests.
+
+---
+
+## Standardized Drone Action Pools
+
+### 1. Remote AR Operation (Control Device via AI ASDF)
+
+```{python}
+#| echo: false
+#| output: asis
+print(get_drone_action_table("yuriko", "man-at-arms", mode="remote_ar"))
+```
+
+### 2. Inhabited Override Operation (Sprite Power *Override*)
+
+Reiko can also operate drones using the *Override* Sprite Power [SR6H p. 194], which allows her to replace the drone's pilot with herself (acting as a sprite with a Level equal to her Resonance). Because this is now a test involving her Resonance pool, her Resonance Focus applies [HnS p. 71], alongside Taz's Assassin Sprite Symbiosis and Diagnosis support.
+
+```{python}
+#| echo: false
+#| output: asis
+print(get_drone_action_table("yuriko", "man-at-arms", mode="inhabited_override"))
+```
+
+---
+
+## Controlling Drones Protocols & Rules
+
+AI characters with **Pilot Origins** [HnS p. 119] operate drones using two distinct methods:
+
+### 1. Jumped-In Operation (Rigging)
+
+* **Control Rig Bonus**: Pilot Origins grants control rig benefits [HnS p. 119].
+* **Mental Attribute Substitution**: Jumped-in rigger uses mental attributes instead of physical ones [SR6 Core p. 198]:
+  * Piloting: **Piloting + Intuition**
+  * Gunnery: **Firearms + Logic**
+  * Defense: **Intuition + Willpower**
+
+### 2. Remote Control / Un-jumped Operation {#matrix-equivalent-attributes}
+
+* **Remote Tests** [SR6H p. 180]
+  * AR: normal physical attribute
+  * VR: substitute appropriate mental attribute (Body = Willpower, Agility = Logic, Reaction = Intuition, Strength = Charisma).
+* **Matrix Equivalent Attributes**: When controlling drones remotely via AR using Control Device, a Pilot Origin AI must use their "physical attributes" (which map to ASDF) [HnS p. 118]:
+  * Body → Firewall (`{python} ACTIVE_F`)
+  * Agility → Data Processing (`{python} ACTIVE_D`)
+  * Reaction → Sleaze (`{python} ACTIVE_S`)
+  * Strength → Attack (`{python} ACTIVE_A`)
+
+---
+
+## Sensor Locks
+
+* **Establishing**: Electronics + Logic (or Sensor + Clearsight) vs. Reaction + Piloting (or Pilot + Evasion) (Major Action).
+
+* **Locked On Status**: Target cannot spend Edge while defending against attacks originating from the vehicle that established lock. Lasts until Cover IV is achieved or ended by Break Sensor Lock.
+* **Break Sensor Lock**: Reaction + Piloting (or Intuition + Reaction) vs. Electronics + Intuition (or Clearsight + Sensor) (Major Action).

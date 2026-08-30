@@ -1,0 +1,161 @@
+/*-- scss:defaults --*/
+// Import Nanotech Operative & Tactical Monospace Google Fonts
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&family=Chakra+Petch:wght@500;600;700&display=swap');
+
+// Colors - Monad Nanite Swarm & Titanium Stealth Palette (Bioluminescent Emerald, Overdrive Amber, Gunmetal Slate)
+$body-bg: #060d0e; // Deep titanium stealth slate
+$body-color: #f0fdf4; // High contrast readable mint-tinted off-white
+$link-color: #00ff9d; // Bioluminescent nanite emerald
+$link-hover-color: #ffb700; // Overdrive amber (High contrast hover state)
+$sidebar-bg: #091416; // Tactical gunmetal
+$sidebar-color: #a7f3d0; // Soft emerald text for navigation
+$border-color: #115e59; // Dark teal/emerald border
+$primary: #00ff9d; // Primary is Nanite Emerald
+$secondary: #ffb700; // Secondary is Overdrive Amber
+$success: #10b981; // Success is Emerald
+$info: #14b8a6; // Info is Cyan-Teal
+$warning: #ffb700; // Warning is Amber
+$danger: #f87171; // Danger is Coral Red
+
+// Typography
+$font-family-sans-serif: "Rajdhani", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+$font-family-monospace: "Share Tech Mono", "Fira Code", monospace;
+
+// Code Block Custom styling
+$code-block-bg: #020708;
+$code-block-border-color: #00ff9d;
+
+/*-- scss:rules --*/
+// Apply custom global rules
+body {
+  background-color: $body-bg;
+  color: $body-color;
+  font-family: $font-family-sans-serif;
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+}
+
+// Tactical Monad Headings in Nanite Green & Overdrive Amber
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Chakra Petch", "Share Tech Mono", monospace;
+  font-weight: 700;
+  color: #ffb700; // Overdrive Amber for standard headers
+  text-shadow: 0 0 10px rgba(255, 183, 0, 0.35);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(255, 183, 0, 0.2);
+  padding-bottom: 0.3em;
+  margin-top: 1.5em;
+}
+
+h1 {
+  color: #00ff9d; // Main Page Title in bioluminescent nanite emerald
+  text-shadow: 0 0 12px rgba(0, 255, 157, 0.5);
+  border-bottom: 2px solid rgba(0, 255, 157, 0.35);
+}
+
+// Monospace sections
+.monospace, code, pre {
+  font-family: $font-family-monospace;
+}
+
+// Glowing code blocks representing tactical nanite telemetry bus
+pre {
+  background-color: #020708 !important;
+  border: 1px solid rgba(0, 255, 157, 0.3) !important;
+  box-shadow: 0 0 15px rgba(0, 255, 157, 0.12) !important;
+  border-radius: 6px;
+  padding: 1rem;
+  color: #00ff9d !important; // Glowing emerald text
+  position: relative;
+  overflow-x: auto;
+}
+
+pre::before {
+  content: "🧬 MONAD_NANITE_BUS_ONLINE // NV:4 //";
+  position: absolute;
+  top: 4px;
+  right: 10px;
+  font-size: 0.65rem;
+  color: rgba(0, 255, 157, 0.45);
+  letter-spacing: 0.1em;
+}
+
+code {
+  color: #ffb700 !important; // Neon amber for inline code
+  background-color: rgba(255, 183, 0, 0.08);
+  border: 1px solid rgba(255, 183, 0, 0.2);
+  padding: 0.15em 0.3em;
+  border-radius: 3px;
+}
+
+// Callouts / Alerts styling (High Contrast Amber/Green border)
+.callout {
+  border-left: 4px solid #00ff9d !important;
+  background-color: rgba(0, 255, 157, 0.04) !important;
+  border: 1px solid rgba(0, 255, 157, 0.15);
+  border-left-width: 4px;
+  border-radius: 4px;
+  color: #f0fdf4;
+}
+
+.callout.callout-style-default.callout-important {
+  border-left-color: #ffb700 !important;
+  background-color: rgba(255, 183, 0, 0.05) !important;
+}
+
+.callout.callout-style-default.callout-warning {
+  border-left-color: #f87171 !important;
+  background-color: rgba(248, 113, 113, 0.05) !important;
+}
+
+// Links
+a {
+  color: #00ff9d;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+a:hover {
+  color: #ffb700;
+  text-shadow: 0 0 8px rgba(255, 183, 0, 0.6);
+}
+
+// Tables - Tactical Dark Grid
+.table {
+  border-color: rgba(0, 255, 157, 0.15);
+  color: #f0fdf4;
+}
+
+.table > :not(caption) > * > * {
+  background-color: transparent;
+  border-bottom-color: rgba(0, 255, 157, 0.15);
+}
+
+.table th {
+  color: #ffb700;
+  font-family: "Chakra Petch", monospace;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid rgba(0, 255, 157, 0.3) !important;
+}
+
+// Sidebar Customization
+.sidebar {
+  border-right: 1px solid rgba(0, 255, 157, 0.15);
+}
+
+.sidebar-title {
+  font-family: "Chakra Petch", monospace;
+  font-weight: 700;
+  color: #00ff9d !important;
+  text-shadow: 0 0 10px rgba(0, 255, 157, 0.4);
+}
+
+.sidebar-item-text {
+  font-size: 0.95rem;
+}
+
+.sidebar-item.active > .sidebar-item-text {
+  color: #ffb700 !important;
+  font-weight: 600;
+}

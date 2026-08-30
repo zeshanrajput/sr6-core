@@ -145,7 +145,7 @@ def run_sync_all():
         if multi_bundle:
             app_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "app")
             os.makedirs(app_dir, exist_ok=True)
-            master_html = get_mobile_html_template(multi_bundle, initial_char_id="yuriko")
+            master_html = get_mobile_html_template(multi_bundle, initial_char_id="reiko")
             with open(os.path.join(app_dir, "index.html"), "w", encoding="utf-8") as f:
                 f.write(master_html)
             print(f"  [+] Multi-Character Mobile PWA  : Built at {os.path.join(app_dir, 'index.html')} ({len(multi_bundle)} characters)\n")
@@ -182,18 +182,18 @@ def main():
     card_parser.add_argument("target", type=str, nargs="+", help="Item category and name, or just item name (e.g. 'bioware Cerebellum Booster' or 'Cerebellum Booster')")
 
     # characters subcommand
-    char_parser = subparsers.add_parser("characters", help="Manage character portfolios (yuriko, velvet, union)")
+    char_parser = subparsers.add_parser("characters", help="Manage character portfolios (reiko, velvet, venn)")
     char_sub = char_parser.add_subparsers(dest="subcommand", help="Action to perform")
     char_sub.add_parser("list", help="List all configured character portfolios")
     audit_parser = char_sub.add_parser("audit", help="Audit character creation compliance")
-    audit_parser.add_argument("char_id", type=str, nargs="?", help="Character ID (yuriko, velvet, union)")
+    audit_parser.add_argument("char_id", type=str, nargs="?", help="Character ID (reiko, velvet, venn)")
     adv_parser = char_sub.add_parser("advance", help="Purchase gear/qualities for character")
     adv_parser.add_argument("char_id", type=str, help="Character ID")
     adv_parser.add_argument("item_ref", type=str, help="CommLink6 item reference ID")
 
     # export subcommand
     export_parser = subparsers.add_parser("export", help="Export character to Modular Text, Roll20 JSON, or Genesis XML")
-    export_parser.add_argument("char_id", type=str, help="Character ID (yuriko, velvet, union)")
+    export_parser.add_argument("char_id", type=str, help="Character ID (reiko, velvet, venn)")
     export_parser.add_argument("--format", type=str, choices=["text_modular", "roll20", "vtt", "xml"], default="text_modular", help="Export format")
     export_parser.add_argument("--output", type=str, default=None, help="Custom output filepath")
 
@@ -216,7 +216,7 @@ def main():
     # narrate subcommand
     narrate_parser = subparsers.add_parser("narrate", help="Generate or manage TTS audio narration and character metadata tags")
     narrate_parser.add_argument("target", type=str, nargs="?", default=".", help="Path to chapter file, directory, or audio file (default: .)")
-    narrate_parser.add_argument("--char", type=str, default=None, help="Character identifier (e.g. velvet, yuriko, union)")
+    narrate_parser.add_argument("--char", type=str, default=None, help="Character identifier (e.g. velvet, reiko, venn)")
     narrate_parser.add_argument("--retag", action="store_true", help="Update ID3 metadata tags on existing MP3 files without re-synthesizing audio")
     narrate_parser.add_argument("--list", action="store_true", help="List narrative audio files and their character metadata tags")
     narrate_parser.add_argument("--voice", type=str, default="af_heart", help="Kokoro voice model identifier (default: af_heart)")
@@ -240,7 +240,7 @@ def main():
     rag_query_parser.add_argument("--provider", type=str, choices=["gemini", "llama"], default="gemini", help="LLM Provider (gemini or llama)")
     rag_query_parser.add_argument("--model", type=str, default="gemini-flash-latest", help="Model choice (gemini-flash-latest, gemma-2-9b-it)")
     rag_query_parser.add_argument("--url", type=str, default=None, help="Local llama.cpp URL")
-    rag_query_parser.add_argument("--char", type=str, default=None, help="Active character dossier context ID (yuriko, velvet, union)")
+    rag_query_parser.add_argument("--char", type=str, default=None, help="Active character dossier context ID (reiko, velvet, venn)")
     rag_query_parser.add_argument("--effort", type=str, choices=["high", "medium", "low"], default=None, help="Thinking effort level")
     rag_query_parser.add_argument("--compact", action="store_true", help="Output clean Markdown without ASCII box art")
 
@@ -266,7 +266,7 @@ def main():
     eval_parser = subparsers.add_parser("evaluate", help="Perform unified 7-axis narrative audit with tier-calibrated scoring")
     eval_parser.add_argument("target", type=str, help="Path to chapter .qmd file or prose text")
     eval_parser.add_argument("--tier", type=int, choices=[1, 2, 3], default=2, help="Chapter Tier (1=Keystone 9.0, 2=Narrative Evolution 8.5, 3=Atmospheric Bridge 8.0)")
-    eval_parser.add_argument("--char", type=str, default=None, help="Character ID context (yuriko, velvet, union)")
+    eval_parser.add_argument("--char", type=str, default=None, help="Character ID context (reiko, velvet, venn)")
 
     # ledger subcommand
     ledger_parser = subparsers.add_parser("ledger", help="Tabletop automation & combat ledger parsing")

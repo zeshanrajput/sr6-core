@@ -20,8 +20,8 @@
  ACTIVE SKILLS & TABLE-RELEVANT DICE POOLS:
   - Sorcery             : 11d6  [MAG 6 + 5 Rtg]
   - Conjuring           : 12d6  [MAG 6 + 6 Rtg]
-  - Influence           : 15d6  [CHA 10 + 5 Rtg]
-  - Con                 : 14d6  [CHA 10 + 4 Rtg]
+  - Influence           : 19d6  [CHA 14 + 5 Rtg]
+  - Con                 : 18d6  [CHA 14 + 4 Rtg]
   - Native Language     : 7d6  [LOG 3 + 4 Rtg]
   - Small Unit Tactics  : 4d6  [LOG 3 + 1 Rtg]
   - MCT                 : 4d6  [LOG 3 + 1 Rtg]

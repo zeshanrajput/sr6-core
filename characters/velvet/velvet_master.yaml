@@ -99,27 +99,57 @@ spells:
   ref: increase_attribute
   drain: 3
   category: Health
+  duration: Sustained
+  type: Physical
+  range: Touch
+  notes: "Sorcery + Magic (5 - Essence) test. Net hits increase target attribute by +1 (max +4). Each net hit beyond the 1st increases Drain by +1. Sustained via Focused Concentration R3 with 0 penalties."
+  doc_link: chapters/rules_and_downtime.html#spell-library
 - name: Increase Reflexes
   ref: increase_reflexes
-  drain: 4
+  drain: 5
   category: Health
+  duration: Sustained
+  type: Physical
+  range: Touch
+  notes: "Sorcery + Magic (5 - Essence) test. Net hits increase both Reaction and Initiative Dice (+1 REA & +1D6 Init per net hit). Each net hit beyond the 1st increases Drain by +1."
+  doc_link: chapters/rules_and_downtime.html#spell-library
 adept_powers:
 - name: Cosmetic Control
   ref: cosmetic_control
   rating: 2
+  cost: 2.0 PP
+  action: Major Action
+  notes: "Physical biological disguise (face, skin, height, weight, gender markers, eyes, metaspecies features). Reduces Edge cost by -1 for Con tests (Acting, Disguise, Impersonation)."
+  doc_link: chapters/rules_and_downtime.html#adept-powers
 - name: Linguistics
   ref: linguistics
   rating: 1
+  cost: 0.25 PP
+  action: Passive
+  notes: "Absorbs any new spoken language at basic proficiency after 1 hour of exposure without spending Karma. +1 bonus die on language Perception tests."
+  doc_link: chapters/rules_and_downtime.html#adept-powers
 - name: Command Presence
   ref: command_presence
   rating: 1
+  cost: 0.50 PP
+  action: Passive
+  notes: "+2 dice pool bonus and +1 Edge on all Influence (Leadership) tests. Reduces Small Unit Tactics test thresholds by -2."
+  doc_link: chapters/rules_and_downtime.html#adept-powers
 - name: Cloak
   ref: cloak
   rating: 1
+  cost: 0.25 PP
+  action: Passive
+  notes: "Imposes a -1 dice pool penalty per rating point to hostile Assensing and Astral Perception tests attempting to read Velvet's aura or pierce covers."
+  doc_link: chapters/rules_and_downtime.html#adept-powers
 - name: Sharp Tongue
   ref: sharp_tongue
   rating: 1
+  cost: 1.0 PP
   source: Qi Focus (Rating 4)
+  action: Major Action
+  notes: "Charisma + Magic vs Intuition + Willpower (20d6 vs INT+WIL). Net hits inflict unresisted Stun damage. Alternatively, inflicts Dazed if net hits >= target Willpower."
+  doc_link: chapters/rules_and_downtime.html#adept-powers
 meta_echoes:
 - name: Channeling
   ref: channeling

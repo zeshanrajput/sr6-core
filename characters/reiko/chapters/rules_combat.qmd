@@ -1,0 +1,86 @@
+# Weapons & Tactical Gear Protocols
+
+```{python}
+#| echo: false
+#| include: false
+from sr6core.rules_engine import render_weapon_card
+```
+
+This reference details Reiko's standardized weapon attack tables, link-fired weapon arrays, firing mode penalties, attack rating modifiers, laser battery rules, and Amalgam/GMT alloy mechanics.
+
+---
+
+## Tactical Weapon & Attack Rating Cheatsheet{#tactical-weapon-arrays}
+
+Breakdown of base weapon statistics, applied modifiers (Smartlink, Network Smartgun, Mount Stability, Personalized Grip, Link-Firing), final effective Attack Ratings (AR), and Firing Mode options.
+
+```{python}
+#| echo: false
+#| output: asis
+from sr6core.rules_engine import get_weapon_attack_table
+
+print(get_weapon_attack_table("yuriko"))
+```
+
+---
+
+## Base Weapon Cards
+
+```{python}
+#| echo: false
+#| output: asis
+from sr6core.rules_engine import render_weapon_card
+
+print(render_weapon_card("crimson_wasp"))
+```
+
+### Attack Rating (AR) Modifiers Summary
+
+* All smartlinked weapons have +3 AR (Smartgun + network bonus) (Crimson Wasp).
+* All drone mounted weapons have +2 AR (drone mount AR bonus) (Crimson Wasp, Tesla Coil).
+* All held/melee weapons (Amalgam Cestas (+2)) have personalized grips.
+
+---
+
+## Amalgam & Grey Mana Technology (GMT) Alloy Protocols{#amalgam-protocols}
+
+Reference: *Scotophobia* (p. 181)
+
+### 1. Overcoming Immunity to Normal Weapons (ItNW)
+
+* **Mechanic**: When attacking any materialized spirit, critter, or entity possessing the **Immunity to Normal Weapons (ItNW)** power using an **Amalgam / GMT Alloy** weapon (e.g. *Amalgam Cestas*), the Essence-based Hardened Armor provided by the immunity is treated as **normal armor** instead of hardened armor.
+* **Effect**: Armor dice do not automatically convert to automatic hits, allowing normal damage penetration without requiring spellcasting or adept weapon foci.
+
+### 2. Wild Die & Durability
+
+* **Attack Test Wild Die**: Replace one normal die with a **Wild Die** on all attack tests made with GMT / Amalgam weapons.
+* **Misfire / Damage Condition**: If the Wild Die rolls a **1**, the alloy weapon suffers structural damage and cannot be used or retracted until repaired.
+* **Repair Procedure**: Requires an armorer facility/shop and an extended **Engineering (Armorer) + Logic (6, 1 hour)** test.
+
+### 3. Disian Entity Bonuses
+
+* **Disian Chimeras**: +4 AR bonus on attack tests.
+* **Disian Shells**: +4 AR bonus and +2 DV bonus on attack tests.
+
+---
+
+## Firing Mode & Attack Rating Rules
+
+### 1. Firing Mode Summary (SR6 Core p. 109 & Double Clutch p. 142)
+
+* **Single Shot (SS)**: 1 round fired. Base DV, 0 AR penalty.
+* **Semi-Automatic (SA Burst)**: 2 rounds fired. Adds **+1 DV**. Standard -2 AR penalty (halved to **-1 AR** on vehicle/drone mounts).
+* **Burst Fire (BF Narrow)**: 4 rounds fired. Adds **+2 DV**. Standard -4 AR penalty (halved to **-2 AR** on vehicle/drone mounts).
+
+### 2. Attack Rating (AR) Modifications
+
+* **Smartlink System (+3 AR Total)**: Integrated smartlink (+2 AR) plus networked smartgun software (+1 AR).
+* **Personalized Grip (+1 / +2 AR)**: Custom grip adds +1 AR to Close & Near ranges for ranged weapons, +2 AR for melee.
+* **Vehicle / Drone Mount (+2 AR, Halve Burst Penalty)**: Mounted weapons gain +2 AR and halve burst fire AR penalties (*Double Clutch* p. 142).
+* **Link-Firing Bonus (+1 AR per secondary weapon)**: Adds +1 AR to primary weapon per secondary weapon in array.
+
+### 3. Laser Weapon Ammunition & Batteries (Firing Squad p. 44)
+
+* **Peak-Discharge Batteries**:
+  * **Crimson Wasp**: 15 shots per Peak-Discharge Battery Clip (100¥).
+* **Field Ammunition**: Yuriko carries 5x Peak-Discharge Battery Clips (500¥ total).

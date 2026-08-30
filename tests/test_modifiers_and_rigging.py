@@ -261,8 +261,10 @@ def test_dynamic_vehicle_modification_parser():
     assert profile["augmented_armor"] == 8   # 4 worn anthro (2 skin + 2 invisi) + 4 wrist shield
     assert profile["augmented_sensor"] == 7  # 3 base + 3 enhanced + 1 network sensor upgrade
     assert profile["has_rotor"] is True
-    assert "Rotor: 5" in profile["handling_str"]
-    assert "Rotor: 120" in profile["speed_str"]
+    assert profile["handling_str"] == "4/5"
+    assert profile["speed_str"] == "8"
+    assert "Rotor: Han 5, Acc 10, SPD 120 (20)" in profile["mobility_str"]
+    assert "Skates: 10/30/+2" in profile["mobility_str"]
 
 
 def test_drone_action_pool_evaluator():
@@ -297,7 +299,7 @@ def test_matrix_protocols_summary():
 
 def test_matrix_action_table_renderer():
     """Verifies that get_matrix_action_table generates a valid Markdown table."""
-    table_md = get_matrix_action_table("yuriko")
+    table_md = get_matrix_action_table("reiko")
     assert "| Action Category / Test | Base Stat + Skill | Applied Modifiers Math | Final Dice Pool | Bought Hits |" in table_md
     assert "**Offensive Cracking: Hacking**" in table_md
     assert "**27d6** (1 wild)" in table_md
@@ -309,7 +311,7 @@ def test_matrix_action_table_renderer():
 
 def test_sprite_action_table_renderer():
     """Verifies that get_sprite_action_table generates valid downtime tables."""
-    table_md = get_sprite_action_table("yuriko", sprite_level=7)
+    table_md = get_sprite_action_table("reiko", sprite_level=7)
     assert "Compile Sprite (L7)" in table_md
     assert "Register Sprite (L7)" in table_md
     assert "Resonance Focus Activation" in table_md
@@ -317,37 +319,37 @@ def test_sprite_action_table_renderer():
 
 def test_deep_audit_synergies():
     """Verifies deep character auditing on synergies and augmentation caps."""
-    audit_res = deep_audit_character("yuriko")
+    audit_res = deep_audit_character("reiko")
     assert "synergy_audits" in audit_res
     assert len(audit_res["synergy_audits"]) >= 2
-    # All synergies for Yuriko must be within the +4 SRMG cap
+    # All synergies for Reiko must be within the +4 SRMG cap
     assert all(s["srm_cap_valid"] for s in audit_res["synergy_audits"])
 
 
 def test_weapon_attack_table_renderer():
     """Verifies that get_weapon_attack_table dynamically computes weapon arrays, firing modes, and effective AR."""
     from sr6core.rules_engine import get_weapon_attack_table
-    table_md = get_weapon_attack_table("yuriko")
+    table_md = get_weapon_attack_table("reiko")
     assert "| Weapon Name | Mode (Rounds) | Final DV | Final Effective AR (C / N / M / F / E) | Notes & Constraints |" in table_md
     assert "**Crimson Wasp Array (2x Link-Fired)**" in table_md
     assert "7P" in table_md
     assert "**Tesla Coil" in table_md
     assert "**Amalgam Cestas" in table_md
 
-    table_union = get_weapon_attack_table("union")
-    assert "**FN P93 Praetor**" in table_union
-    assert "**Colt Manhunter**" in table_union
+    table_venn = get_weapon_attack_table("venn")
+    assert "**FN P93 Praetor**" in table_venn
+    assert "**Colt Manhunter**" in table_venn
 
 
 def test_character_table_pools():
     """Verifies that get_character_table_pools detects domain relevance per archetype."""
     from sr6core.rules_engine import get_character_table_pools
-    yuriko_pools = get_character_table_pools("yuriko")
-    assert "matrix_operations" in yuriko_pools["active_domains"]
-    assert "rigging_and_drones" in yuriko_pools["active_domains"]
-    assert "resonance_emergence" in yuriko_pools["active_domains"]
-    assert yuriko_pools["is_technomancer"] is True
-    assert yuriko_pools["is_magician"] is False
+    reiko_pools = get_character_table_pools("reiko")
+    assert "matrix_operations" in reiko_pools["active_domains"]
+    assert "rigging_and_drones" in reiko_pools["active_domains"]
+    assert "resonance_emergence" in reiko_pools["active_domains"]
+    assert reiko_pools["is_technomancer"] is True
+    assert reiko_pools["is_magician"] is False
 
 
 def test_canonical_contacts_and_log_engine():
@@ -400,7 +402,7 @@ def test_canonical_contacts_and_log_engine():
 def test_sprite_commands_table_renderer():
     """Verifies that get_sprite_commands_table correctly renders all 6 commands and SRMG rules."""
     from sr6core.rules_engine import get_sprite_commands_table
-    table = get_sprite_commands_table("yuriko", sprite_level=7)
+    table = get_sprite_commands_table("reiko", sprite_level=7)
     assert "| **Signal Boost**" in table
     assert "| **Host Ken**" in table
     assert "| **Hyperthreading**" in table

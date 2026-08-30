@@ -1,10 +1,9 @@
-// SR6 PWA Service Worker (Offline Cache Engine)
-const CACHE_NAME = 'sr6-pwa-cache-v1';
+// SR6 PWA Service Worker (Offline Cache Engine - Network First)
+const CACHE_NAME = 'sr6-pwa-cache-v2';
 const ASSETS_TO_CACHE = [
   './',
   'index.html',
-  'manifest.json',
-  'https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Outfit:wght@400;500;600;700;800&display=swap'
+  'manifest.json'
 ];
 
 self.addEventListener('install', (event) => {
@@ -30,21 +29,18 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+  // Network-first strategy: always fetch live data from server/disk, fall back to offline cache if offline
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      if (cachedResponse) {
-        return cachedResponse;
-      }
-      return fetch(event.request).then((networkResponse) => {
-        if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
-          return networkResponse;
+    fetch(event.request)
+      .then((networkResponse) => {
+        if (networkResponse && networkResponse.status === 200) {
+          const responseToCache = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, responseToCache);
+          });
         }
-        const responseToCache = networkResponse.clone();
-        caches.open(CACHE_NAME).then((cache) => {
-          cache.put(event.request, responseToCache);
-        });
         return networkResponse;
-      });
-    })
+      })
+      .catch(() => caches.match(event.request))
   );
 });

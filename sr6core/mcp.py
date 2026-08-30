@@ -42,7 +42,7 @@ TOOLS_DEFINITIONS: List[Dict[str, Any]] = [
                 },
                 "char_id": {
                     "type": "string",
-                    "description": "Optional active character ID ('yuriko', 'velvet', 'union') to inject runner attributes and active gear into context."
+                    "description": "Optional active character ID ('reiko', 'velvet', 'venn') to inject runner attributes and active gear into context."
                 },
                 "no_ai": {
                     "type": "boolean",
@@ -84,7 +84,7 @@ TOOLS_DEFINITIONS: List[Dict[str, Any]] = [
                 },
                 "char_id": {
                     "type": "string",
-                    "description": "Optional character ID ('yuriko', 'velvet', 'union') for voice spec calibration."
+                    "description": "Optional character ID ('reiko', 'velvet', 'venn') for voice spec calibration."
                 }
             },
             "required": ["text_or_path"]
@@ -112,7 +112,7 @@ TOOLS_DEFINITIONS: List[Dict[str, Any]] = [
             "properties": {
                 "char_id": {
                     "type": "string",
-                    "description": "Character ID (e.g. 'yuriko', 'velvet', 'union') or path to master YAML file."
+                    "description": "Character ID (e.g. 'reiko', 'velvet', 'venn') or path to master YAML file."
                 }
             },
             "required": ["char_id"]
@@ -126,25 +126,45 @@ TOOLS_DEFINITIONS: List[Dict[str, Any]] = [
             "properties": {
                 "repo_path": {
                     "type": "string",
-                    "description": "Path to the character repository (defaults to current directory '.')."
+                    "description": "Absolute path to the character repository (e.g. 'C:/GitHub/sr6-core/characters/reiko')."
                 }
-            }
+            },
+            "required": ["repo_path"]
+        }
+    },
+    {
+        "name": "sr6_export_character",
+        "description": "Exports a character sheet to Roll20 JSON, Genesis XML, or Modular Text formats.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "char_id": {
+                    "type": "string",
+                    "description": "Target character ID (reiko, velvet, venn)."
+                },
+                "format": {
+                    "type": "string",
+                    "enum": ["text_modular", "roll20", "vtt", "xml", "mobile", "mobile_json"],
+                    "default": "text_modular",
+                    "description": "Target export format."
+                }
+            },
+            "required": ["char_id"]
         }
     },
     {
         "name": "sr6_get_item_card",
-        "description": "Retrieves the complete markdown item reference card for a specific quality, weapon, spell, cyberware, vehicle, or program.",
+        "description": "Fetches canonical item stats, essence costs, rules, and stat blocks (weapons, cyberware, bioware, spells, complex forms, qualities, vehicles).",
         "inputSchema": {
             "type": "object",
             "properties": {
                 "category": {
                     "type": "string",
-                    "enum": ["quality", "weapon", "spell", "cyberware", "vehicle", "program", "armor", "gear"],
-                    "description": "Category of the item."
+                    "description": "Optional category (weapon, cyberware, bioware, spell, complex_form, quality, vehicle, program)."
                 },
                 "item_id": {
                     "type": "string",
-                    "description": "The exact ID or name of the item (e.g. 'ambidextrous', 'fireball', 'wired_reflexes_1')."
+                    "description": "Name or ID of the item."
                 }
             },
             "required": ["category", "item_id"]
@@ -154,9 +174,9 @@ TOOLS_DEFINITIONS: List[Dict[str, Any]] = [
 
 RESOURCES_DEFINITIONS: List[Dict[str, Any]] = [
     {
-        "uri": "sr6://characters/yuriko/master",
-        "name": "Yuriko Master Character Dossier",
-        "description": "Full YAML dossier for Yuriko Star (Technoshaman/Rigger).",
+        "uri": "sr6://characters/reiko/master",
+        "name": "Reiko Master Character Dossier",
+        "description": "Full YAML dossier for Reiko (Technoshaman AI / Rigger).",
         "mimeType": "application/x-yaml"
     },
     {
@@ -166,9 +186,9 @@ RESOURCES_DEFINITIONS: List[Dict[str, Any]] = [
         "mimeType": "application/x-yaml"
     },
     {
-        "uri": "sr6://characters/union/master",
-        "name": "Union Master Character Dossier",
-        "description": "Full YAML dossier for Union (Street Sam/Decker).",
+        "uri": "sr6://characters/venn/master",
+        "name": "Venn Master Character Dossier",
+        "description": "Full YAML dossier for Venn (Monad Street Sam/Operative).",
         "mimeType": "application/x-yaml"
     },
     {
@@ -436,6 +456,10 @@ def handle_read_resource(uri: str) -> Optional[Dict[str, Any]]:
 
         char_info = cm.get_character(cid)
         if not char_info:
+            alias_map = {"yuriko": "reiko", "union": "venn"}
+            if cid in alias_map:
+                char_info = cm.get_character(alias_map[cid])
+        if not char_info:
             return None
 
         if res_type == "master":
@@ -444,11 +468,12 @@ def handle_read_resource(uri: str) -> Optional[Dict[str, Any]]:
                 with open(yaml_path, "r", encoding="utf-8") as f:
                     return {"uri": uri, "mimeType": "application/x-yaml", "text": f.read()}
         elif res_type == "voice_spec":
-            repo_dir = char_info.get("repo_path")
-            voice_path = os.path.join(repo_dir, "reference", "voice_spec.md")
-            if os.path.exists(voice_path):
-                with open(voice_path, "r", encoding="utf-8") as f:
-                    return {"uri": uri, "mimeType": "text/markdown", "text": f.read()}
+            repo_dir = char_info.get("repo_dir") or char_info.get("repo_path")
+            if repo_dir:
+                voice_path = os.path.join(repo_dir, "reference", "voice_spec.md")
+                if os.path.exists(voice_path):
+                    with open(voice_path, "r", encoding="utf-8") as f:
+                        return {"uri": uri, "mimeType": "text/markdown", "text": f.read()}
 
     elif uri == "sr6://campaign/contacts":
         from sr6core.contacts import CANONICAL_CONTACTS
@@ -489,7 +514,7 @@ def handle_get_prompt(prompt_name: str, arguments: Dict[str, Any]) -> Optional[D
         }
     elif prompt_name == "sr6_draft_scene":
         prompt_text = arguments.get("prompt", "Infiltrate the warehouse")
-        char_id = arguments.get("char_id", "yuriko")
+        char_id = arguments.get("char_id", "reiko")
         tier = arguments.get("tier", "2")
         return {
             "description": f"Draft scene for {char_id} (Tier {tier})",

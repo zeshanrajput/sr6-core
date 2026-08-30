@@ -2,10 +2,10 @@
 # Master configuration file listing all supported character portfolios
 
 characters:
-  yuriko:
-    name: "Yuriko Star"
-    repo: "characters/yuriko"
-    master_yaml: "yuriko_master.yaml"
+  reiko:
+    name: "Reiko"
+    repo: "characters/reiko"
+    master_yaml: "reiko_master.yaml"
     role: "Technoshaman AI / Hacker"
     metatype: "AI-Pilot AI"
     stream: "Technoshamans"
@@ -18,11 +18,12 @@ characters:
     metatype: "Dalakitnon Elf"
     tradition: "Shinto / Musok"
 
-  union:
-    name: "Union"
-    repo: "characters/union"
-    master_yaml: "union_master.yaml"
-    role: "Street Samurai / Operative"
+  venn:
+    name: "Venn"
+    repo: "characters/venn"
+    master_yaml: "venn_master.yaml"
+    role: "Monad Street Samurai / Operative"
     metatype: "Human"
+    mortype: "Monad (Human / AI Dual Entity)"
 
 

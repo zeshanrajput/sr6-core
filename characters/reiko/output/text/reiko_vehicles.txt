@@ -1,0 +1,40 @@
+============================================================================
+ VEHICLES, DRONES & RIGGING DEPLOYMENTS: YURIKO STAR
+============================================================================
+ * MCT GNAT
+   HAN:3/3 | ACC:4/4 | SPD:30 (INT 15) | BOD:0 | ARM:0 | PIL:2 | SEN:1 | STS:-
+   Rigged Action Pools: Piloting 9d6 (2H) | Gunnery 9d6 (2H) | Evasion 9d6
+                        (2H) | Perception 9d6 (2H) | Stealth 9d6 (2H)
+----------------------------------------------------------------------------
+ * FEDERATED-BOEING SKY COMMANDER (SEATTLE RETRANS RELAY)
+   HAN:4/4 | ACC:10/10 | SPD:120 (INT 15) | BOD:3 | ARM:0 | PIL:3 | SEN:3 | STS:-
+   Mods: Drone Bay (Micro/Mini), Retrans Unit, Satellite Link, RAM Plating
+         4, Enhanced Sensors 3, ECM 6, Integrated Matrix Device Dock, M-TOC
+         II Repository & Software Tags, Rating 2 Framework Host Repository
+         (Scale 1 Micro, Grade 2 Default)
+   Rigged Action Pools: Piloting 10d6 (2H) | Gunnery 14d6 (3H) | Evasion
+                        10d6 (2H) | Perception 14d6 (3H) | Stealth 10d6 (2H)
+----------------------------------------------------------------------------
+ * SHIAWASE MAN-AT-ARMS
+   HAN:3/3 | ACC:5/5 | SPD:10 (INT 15) | BOD:10 | ARM:8 | PIL:2 | SEN:3 | STS:-
+   Mods: Weapon Mount (Standard) x2, Pop-Out Concealment (Standard) x2,
+         Chameleon Coating 2, Drone Rack (Small), Tesla Coil, Wrist Shield,
+         Armor Increase 5, Increased Structural Integrity 5, Realistic
+         Features 4, Secondary Propulsion (Rotor), Increased Sensors 3,
+         Retractable Skates, Built-In MedKit, Satellite Link, Laser Jack
+   Rigged Action Pools: Piloting 23d6 (5H) | Gunnery 24d6 (6H) | Evasion
+                        24d6 (6H) | Perception 18d6 (4H) | Stealth 26d6 (6H)
+----------------------------------------------------------------------------
+ * KWONSHAM DREAM GENIE
+   HAN:2/4 | ACC:10/10 | SPD:10 (INT 15) | BOD:2 | ARM:0 | PIL:1 | SEN:1 | STS:-
+   Mods: Trid Projector, Smart Tires
+   Rigged Action Pools: Piloting 8d6 (2H) | Gunnery 9d6 (2H) | Evasion 8d6
+                        (2H) | Perception 9d6 (2H) | Stealth 8d6 (2H)
+----------------------------------------------------------------------------
+ * VULCAN SYSTEMS UTILITY-ONE
+   HAN:3/3 | ACC:3/3 | SPD:5 (INT 15) | BOD:2 | ARM:0 | PIL:1 | SEN:1 | STS:-
+   Mods: Integrated Engineering & Repair Tool Package
+   Rigged Action Pools: Piloting 8d6 (2H) | Gunnery 9d6 (2H) | Evasion 8d6
+                        (2H) | Perception 9d6 (2H) | Stealth 8d6 (2H)
+----------------------------------------------------------------------------
+============================================================================

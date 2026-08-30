@@ -3,6 +3,7 @@ Rich Terminal User Interface for SR6 RAG Rules Engine.
 Provides beautiful, colorized Markdown rendering, authority-level badges, citation tables, and interactive slash command sessions.
 """
 
+import re
 from typing import Dict, Any, List, Optional
 
 try:

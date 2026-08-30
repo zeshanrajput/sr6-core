@@ -1,0 +1,27 @@
+============================================================================
+ SHADOWRUN 6E DOSSIER: VENN
+============================================================================
+ Real Name : Nathan Turrent & Veronica | Metatype : Human (Monad)
+ Status    : Monad Dual Identity  | Nanite Volume: NV 4 (Age: 20)
+ Available Nuyen : 4,550¥ | Karma: 1 Pool (1 Lifetime)
+----------------------------------------------------------------------------
+ ATTRIBUTES & DERIVED RATINGS:
+  BOD: 5        | AGI: 5        | REA: 2       | STR: 2 
+  WIL: 5        | LOG: 6        | INT: 5       | CHA: 2 
+  EDG: 7        | RES: 0        | MAG: 0       | ESS: 0.06
+  Derived Pools       : Composure [7] | Judge Int [10] | Memory [11]
+  Condition Monitors  : Physical [13 boxes] | Stun [13 boxes] (Monad Toughness)
+----------------------------------------------------------------------------
+ MONAD LIVING PERSONA MATRIX STATS (Whisper Nets p. 149):
+  ASDF Ratings        : A:2 | S:6 | D:7 | F:7
+  Full Matrix Defense : 12d6 (3 Hits) [WIL 5 + FW 7 = 12d6]
+  Matrix Initiative   : 9 + 3D6 (AR) / 12 + 3D6 (Hot-Sim VR)
+----------------------------------------------------------------------------
+ ACTIVE SKILLS & TABLE-RELEVANT DICE POOLS:
+  - Electronics         : 12d6  [LOG 6 + 6 Rtg]
+  - Native Language (English): 10d6  [LOG 6 + 4 Rtg]
+----------------------------------------------------------------------------
+ QUALITIES:
+  Positive: Augmentation Acclimation, Analytical Mind, Maximum Overdrive
+  Negative: Hooder, Chronic Pain, Cyberpsychosis
+============================================================================

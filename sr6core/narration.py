@@ -341,9 +341,13 @@ def extract_chapter_metadata(file_path: str, char_id: Optional[str] = None) -> d
                 }
         else:
             repo_name = Path(file_dir).parent.name.lower()
-            for known_id in ["velvet", "yuriko", "union"]:
+            for known_id in ["velvet", "reiko", "venn", "yuriko", "union"]:
                 if known_id in repo_name or known_id in Path(file_dir).name.lower():
                     c = cm.get_character(known_id)
+                    if not c:
+                        alias_map = {"yuriko": "reiko", "union": "venn"}
+                        if known_id in alias_map:
+                            c = cm.get_character(alias_map[known_id])
                     if c:
                         c_data = c.get("data", {})
                         character_info = {

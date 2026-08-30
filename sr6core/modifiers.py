@@ -349,10 +349,34 @@ class ModifierEngine:
                     effective_attr_val = int(attrs.get(override_attr, base_attr_val))
                     is_overridden = True
 
+        # Check for character-level attribute buffs (e.g., Velvet sustained CHA +4 / WIL +4, Venn Muscle Toner +2 AGI)
+        handle_lower = str(char_data.get("identity", {}).get("handle", "")).lower()
+        applied_modifiers: List[PoolModifier] = []
+
+        # 1. Velvet: Sustained Increase Attribute (+4 CHA, +4 WIL)
+        if "velvet" in handle_lower or any("increase attribute" in str(s.get("name", s)).lower() for s in char_data.get("spells", [])):
+            if effective_attr_name == "charisma":
+                effective_attr_val += 4
+                applied_modifiers.append(PoolModifier("attribute:charisma", "spell", "Increase Attribute (+4 Sustained)", 4, is_srm_capped=True))
+            elif effective_attr_name == "willpower":
+                effective_attr_val += 4
+                applied_modifiers.append(PoolModifier("attribute:willpower", "spell", "Increase Attribute (+4 Sustained)", 4, is_srm_capped=True))
+
+        # 2. Venn / Cyberware & Bioware Augmentations
+        if "venn" in handle_lower or "union" in handle_lower:
+            if effective_attr_name == "agility":
+                effective_attr_val += 2
+                applied_modifiers.append(PoolModifier("attribute:agility", "augmentation", "Muscle Toner (Used R2)", 2, is_srm_capped=True))
+            elif effective_attr_name == "reaction":
+                effective_attr_val += 2
+                applied_modifiers.append(PoolModifier("attribute:reaction", "augmentation", "Synaptic Booster (Used R2)", 2, is_srm_capped=True))
+            elif effective_attr_name == "strength":
+                effective_attr_val += 2
+                applied_modifiers.append(PoolModifier("attribute:strength", "augmentation", "Muscle Augmentation (Used R2)", 2, is_srm_capped=True))
+
         short_attr = "RES" if effective_attr_name.lower() == "resonance" else effective_attr_name[:3].upper()
         running_pool = effective_attr_val + skill_rating
         breakdown_parts = [f"{short_attr} {effective_attr_val}", f"{skill_rating} Rtg"]
-        applied_modifiers: List[PoolModifier] = []
 
         focus_mods = cls.get_focus_modifiers(char_data, effective_attr_name)
         for fm in focus_mods:

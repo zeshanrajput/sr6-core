@@ -32,6 +32,7 @@ class CharacterManager:
         characters = {}
 
         # 1. Configured characters with multi-candidate search
+        legacy_aliases = {"reiko": ["yuriko", "sr6yuriko"], "venn": ["union", "sr6union"]}
         for char_id, cfg in self._character_configs.items():
             repo_name = cfg.get("repo", f"sr6{char_id}")
             master_file = cfg.get("master_yaml") or f"{char_id}_master.yaml"
@@ -40,14 +41,16 @@ class CharacterManager:
             if cfg.get("repo_path"):
                 candidates.append(cfg.get("repo_path"))
             
-            # Monorepo characters/ folder support
+            # Monorepo characters/ folder support (highest priority)
             candidates.append(os.path.join(os.path.dirname(os.path.dirname(__file__)), "characters", char_id))
-            candidates.append(os.path.join(os.path.dirname(os.path.dirname(__file__)), repo_name))
             candidates.append(os.path.join(os.getcwd(), "characters", char_id))
-            candidates.append(os.path.join(os.getcwd(), repo_name))
-
             if self.github_root:
                 candidates.append(os.path.join(self.github_root, "sr6-core", "characters", char_id))
+
+            # Sibling and CWD candidates
+            candidates.append(os.path.join(os.path.dirname(os.path.dirname(__file__)), repo_name))
+            candidates.append(os.path.join(os.getcwd(), repo_name))
+            if self.github_root:
                 candidates.append(os.path.join(self.github_root, repo_name))
                 candidates.append(os.path.join(self.github_root, char_id))
 
@@ -57,6 +60,15 @@ class CharacterManager:
             candidates.append(os.path.join(cwd, repo_name))
             candidates.append(os.path.join(cwd, "..", repo_name))
             candidates.append(os.path.join(cwd, "..", char_id))
+
+            # Also check legacy alias candidate directories
+            for alias in legacy_aliases.get(char_id, []):
+                candidates.append(os.path.join(os.path.dirname(os.path.dirname(__file__)), "characters", alias))
+                if self.github_root:
+                    candidates.append(os.path.join(self.github_root, alias))
+                    candidates.append(os.path.join(self.github_root, f"sr6{alias}"))
+                candidates.append(os.path.join(cwd, "..", alias))
+                candidates.append(os.path.join(cwd, "..", f"sr6{alias}"))
 
             matched_file = None
             resolved_repo_dir = None
@@ -107,22 +119,29 @@ class CharacterManager:
         if cwd_parent not in search_roots and os.path.exists(cwd_parent):
             search_roots.append(cwd_parent)
 
+        alias_map = {"yuriko": "reiko", "union": "venn"}
+        ignored_repos = {"sr6-core", "sr6narrator", "sr6lglass"}
+
         for root in search_roots:
             if not root or not os.path.exists(root):
                 continue
             for entry in os.listdir(root):
                 repo_path = os.path.join(root, entry)
-                if os.path.isdir(repo_path) and entry.startswith("sr6") and entry != "sr6-core":
-                    char_id = entry.replace("sr6", "")
-                    if char_id not in characters or not characters[char_id].get("exists"):
+                if os.path.isdir(repo_path) and entry.startswith("sr6") and entry not in ignored_repos:
+                    raw_id = entry.replace("sr6", "").lower()
+                    canonical_id = alias_map.get(raw_id, raw_id)
+                    # If this character or its canonical alias is already loaded, skip it to avoid duplicates
+                    if canonical_id in characters and characters[canonical_id].get("exists"):
+                        continue
+                    if raw_id not in characters or not characters[raw_id].get("exists"):
                         yaml_files = glob.glob(os.path.join(repo_path, "*_master.yaml"))
                         for yf in yaml_files:
                             try:
                                 with open(yf, "r", encoding="utf-8") as f:
                                     data = yaml.safe_load(f)
-                                name = data.get("identity", {}).get("handle", char_id.title())
-                                characters[char_id] = {
-                                    "id": char_id,
+                                name = data.get("identity", {}).get("handle", canonical_id.title())
+                                characters[canonical_id] = {
+                                    "id": canonical_id,
                                     "name": name,
                                     "path": yf,
                                     "repo_dir": repo_path,
@@ -156,16 +175,20 @@ class CharacterManager:
 
     def get_character(self, char_id: str) -> Optional[Dict[str, Any]]:
         chars = self.discover_characters()
-        return chars.get(char_id)
+        if char_id in chars:
+            return chars[char_id]
+        # Backward compatibility alias map
+        alias_map = {"yuriko": "reiko", "union": "venn"}
+        if char_id.lower() in alias_map:
+            return chars.get(alias_map[char_id.lower()])
+        return None
 
     def get_character_data(self, char_id: str) -> Optional[Dict[str, Any]]:
-        chars = self.discover_characters()
-        info = chars.get(char_id)
+        info = self.get_character(char_id)
         return info.get("data") if info else None
 
     def get_character_repo_dir(self, char_id: str) -> Optional[str]:
-        chars = self.discover_characters()
-        info = chars.get(char_id)
+        info = self.get_character(char_id)
         if not info:
             return None
         return info.get("repo_dir") or (os.path.dirname(info["path"]) if info.get("path") and os.path.isfile(info["path"]) else info.get("path"))

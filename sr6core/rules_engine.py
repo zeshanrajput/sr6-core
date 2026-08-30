@@ -387,7 +387,7 @@ def get_tactical_action_table(char_id: str, scene_mode: str = "baseline") -> str
     return "\n".join(rows)
 
 
-def get_monad_strategy_table(char_id: str = "union") -> str:
+def get_monad_strategy_table(char_id: str = "venn") -> str:
     """
     Renders a unified strategy table comparing Meatspace Baseline, Adrenaline Surge,
     Living Persona Matrix Mode, and Monad Boost / Cyberware Overdrive configurations.
@@ -413,7 +413,7 @@ def get_weapon_attack_table(char_id: str) -> str:
     if not char:
         return f"*(Character '{char_id}' not found)*"
 
-    if char_id.lower() == "union":
+    if char_id.lower() in ["venn", "union"]:
         rows = [
             "| Weapon Name | Mode (Rounds) | Final DV | Final Effective AR (C / N / M / F / E) | Notes & Constraints |",
             "| :--- | :---: | :---: | :---: | :--- |",
@@ -471,7 +471,7 @@ def get_weapon_attack_table(char_id: str) -> str:
     return "\n".join(rows)
 
 
-def get_sprite_commands_table(char_id: str = "yuriko", sprite_level: int = 6) -> str:
+def get_sprite_commands_table(char_id: str = "reiko", sprite_level: int = 6) -> str:
     """
     Renders a Markdown table detailing the 6 standard Technomancer Sprite Commands
     (Signal Boost, Host Ken, Hyperthreading, File Ken, Cybercombat Boost, Device Ken)
@@ -540,7 +540,7 @@ def get_character_table_pools(char_id: str) -> dict:
     }
 
 
-def get_matrix_protocols_summary(char_id: str = "yuriko") -> Dict[str, Any]:
+def get_matrix_protocols_summary(char_id: str = "reiko") -> Dict[str, Any]:
     """Returns summarized Matrix ASDF, full defense hits/pool, and active derived values."""
     cm = CharacterManager()
     char = cm.load_character(char_id)
@@ -559,7 +559,7 @@ def get_matrix_protocols_summary(char_id: str = "yuriko") -> Dict[str, Any]:
     }
 
 
-def get_matrix_asdf_derivation_table(char_id: str = "yuriko") -> str:
+def get_matrix_asdf_derivation_table(char_id: str = "reiko") -> str:
     """Renders a Markdown table showing the derivation of active Matrix ASDF attributes."""
     cm = CharacterManager()
     char = cm.load_character(char_id)

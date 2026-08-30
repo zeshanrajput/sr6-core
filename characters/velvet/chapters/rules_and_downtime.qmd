@@ -72,7 +72,7 @@ During an expense month, Velvet receives 1 Major Downtime Action and 1 Minor Dow
 
 ---
 
-## Sustained Attribute Spell Strategy (Focused Concentration R3)
+## Sustained Attribute Spell Strategy (Focused Concentration R3){#sustained-spells}
 
 Velvet's primary source of attribute augmentations is the **Increase Attribute** Health spell. Under **Focused Concentration (Rating 3)**, Velvet can sustain up to **3 Increase Attribute spells simultaneously with 0 sustaining penalties**, reaching the maximum **+4 SRMG Augmentation Cap** across three key attributes.
 
@@ -127,7 +127,7 @@ print(get_social_action_table("velvet"))
 
 ---
 
-## Spellcasting & Foci Integration
+## Spellcasting & Foci Integration{#foci-protocols}
 
 ### **Tradition: Shinto / Musok (Willpower + Charisma)**
 
@@ -230,6 +230,66 @@ Under the **Channeling** metamagic, Velvet draws a bound spirit into their physi
 
 ---
 
+## Spell Library & Mechanics{#spell-library}
+
+Velvet channels two cornerstone Health spells, sustained seamlessly via **Focused Concentration (Rating 3)**:
+
+::: {.callout-note icon=false title="✨ HEALTH SPELL: Increase Attribute"}
+* **Source**: *City Edition: Hong Kong*, p. 115 (*SR6 Core*) | **Category**: Health | **Type**: Physical (P) | **Range**: Touch | **Duration**: Sustained (S) | **Base Drain Value**: 3
+* **Mechanic**: The touch of the caster temporarily raises one target attribute (chosen before casting). The caster rolls a **Sorcery + Magic (5 - Essence)** test (**13d6 $\rightarrow$ Buys 3 Hits**).
+* **Attribute Increase**: Each net hit increases the selected attribute by **+1** (up to the maximum **+4 SRMG Augmented Attribute Cap**). For each net hit applied beyond the first, the Drain Value of the spell increases by **+1**. (Cannot affect Edge, Essence, Magic, or Resonance).
+* **Sustained Anchors**:
+  * **Charisma (+4)**: Boosts Charisma from 10 to **14**.
+  * **Willpower (+4)**: Boosts Willpower from 5 to **9**.
+  * **Intuition (+4)** / **Reaction (+4)**: Swapped flexibly based on social or combat scene requirements.
+:::
+
+::: {.callout-note icon=false title="✨ HEALTH SPELL: Increase Reflexes"}
+* **Source**: *City Edition: Hong Kong*, p. 115 (*SR6 Core*) | **Category**: Health | **Type**: Physical (P) | **Range**: Touch | **Duration**: Sustained (S) | **Base Drain Value**: 5
+* **Mechanic**: The reaction time and speed of the target increase. The caster rolls a **Sorcery + Magic (5 - Essence)** test (**13d6 $\rightarrow$ Buys 3 Hits**).
+* **Reaction & Initiative Dice**: The caster can select how many net hits to apply to the target to increase **both their Reaction score and number of Initiative Dice** at a rate of **+1 Reaction point and +1 Initiative Die per net hit**. For each net hit applied beyond the first, the Drain Value of the spell increases by **+1**.
+* **Drain Resistance**: Resisted with Willpower + Charisma (**23d6 soak under sustained buffs $\rightarrow$ 5 Bought Hits**), completely negating drain damage.
+:::
+
+---
+
+## Adept Powers & Metamagics{#adept-powers}
+
+Velvet's somatic and metaphysical abilities combine Adept Powers, Qi Foci, and Metamagic grades:
+
+::: {.callout-note icon=false title="🌟 ADEPT POWER: Cosmetic Control (Rating 2)"}
+* **Source**: *Street Wyrd*, p. 5 (SW-0308) | **Cost**: 2.0 PP (1.0 PP / level) | **Activation**: Major Action
+* **Physical Transformation**: Alters physical appearance (growing/shedding hair, changing gender markers, skin tone, facial features, height/weight, scars/blemishes, claws/nails). These changes are biological/physical and non-illusory.
+* **Metaspecies Transmutation (Level 2)**: Reaches beyond natural metaspecies limitations in appearance and size (e.g. elf passing completely as human, dwarf, ork, or troll with custom skin/hair/eye pigmentation).
+* **Social Edge Discount**: Lowers the cost of **Edge Boosts by -1 for all Con tests (Acting, Disguise, Impersonation)** and applicable Social Edge interactions.
+:::
+
+::: {.callout-note icon=false title="🌟 ADEPT POWER: Linguistics (Rating 1)"}
+* **Source**: *Street Wyrd*, p. 5 (SW-0325) | **Cost**: 0.25 PP | **Activation**: Passive
+* **Mechanic**: Focuses superhuman perception, memorization, mimicry, and empathic resonance to learn languages with minimal exposure without spending Karma.
+* **Effect**: After exposure to any spoken language for a minimum of **1 hour**, Velvet gains the new Language Skill at basic proficiency. Additionally grants **+1 bonus die to all Perception tests** to understand spoken or written languages.
+:::
+
+::: {.callout-note icon=false title="🌟 ADEPT POWER: Command Presence (Rating 1)"}
+* **Source**: *Deadly Arts*, p. 5 (DA-0535) | **Cost**: 0.50 PP | **Activation**: Passive
+* **Prerequisites**: Charisma 4+, Influence (Leadership) 4+
+* **Mechanic**: Words, commands, and tactical orders carry supernatural weight. Grants **+2 dice pool bonus and +1 Edge** on all **Influence (Leadership)** tests. Additionally reduces thresholds for **Small Unit Tactics** tests by **-2**.
+:::
+
+::: {.callout-note icon=false title="🌟 ADEPT POWER: Cloak (Rating 1)"}
+* **Source**: *Street Wyrd*, p. 5 (SW-0305) | **Cost**: 0.25 PP per level | **Activation**: Passive
+* **Mechanic**: Mystically shrouds and masks Velvet's aura. Imposes a **-1 dice pool penalty** on all hostile Assensing and Astral Perception tests attempting to read Velvet's aura, detect magical tradition, or pierce mystical covers.
+:::
+
+::: {.callout-note icon=false title="🌟 ADEPT POWER: Sharp Tongue (Rating 4 Qi Focus)"}
+* **Source**: *Smooth Operations*, p. 105 (SO-0253) | **Cost**: 1.0 PP (bound via Rating 4 Qi Focus) | **Activation**: Major Action
+* **Attack Roll**: **Charisma + Magic vs. Intuition + Willpower** (**20d6 vs. INT + WIL under Sustained Charisma 14 $\rightarrow$ Buys 5 Hits**).
+* **Effect**: Net hits inflict **unresisted Stun damage** directly to the target's aura and central nervous system. (Target must be in line of sight and able to understand the verbal barb).
+* **Stun Alternative**: Alternatively, the adept may choose before rolling to stun the target: if net hits $\ge$ target's Willpower, the target immediately suffers the **Dazed** status (*SR6*, p. 52).
+:::
+
+---
+
 ## Social Leverage & Inspire Competence
 
 * **Influence Pool:** Influence (`{python} Influence`) + Charisma (`{python} Charisma`) = **`{python} Influence_Pool` dice** $\rightarrow$ **Buys `{python} Influence_Pool // 4` Hits**.
@@ -244,19 +304,3 @@ Under the **Channeling** metamagic, Velvet draws a bound spirit into their physi
 * **Effect**:
   * Hits function as a teamwork test to assist an ally's skill test.
   * Target ally gains one (1) Edge.
-
----
-
-## Adept Powers & Qi Focus (Sharp Tongue)
-
-### **Sharp Tongue (Rating 4 Qi Focus)**
-
-*Smooth Operations, p. 1*
-
-* **Activation:** Major Action
-* **Attack Pool:** Charisma (`{python} Charisma`) + Magic (`{python} Magic`) = **`{python} Charisma + Magic` dice** *(**`{python} Charisma + Magic + 4` dice** with Sustained Charisma +4 $\rightarrow$ **Buys `{python} (Charisma + Magic + 4) // 4` Hits**)*
-* **Defense:** Target opposes with **Intuition + Willpower**.
-* **Effect:**
-  * Net hits inflict **unresisted Stun damage** directly to the target's aura and nervous system.
-  * Alternatively, if net hits $\ge$ target's Willpower, the target gains the **Stunned** status.
-  * Target must be within line of sight and able to understand the verbal barb.

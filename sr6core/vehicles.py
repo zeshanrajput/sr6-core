@@ -93,8 +93,6 @@ def parse_vehicle_modifications(drone_dict: Dict[str, Any], char_data: Optional[
         # 6. Wrist Shield
         if "wrist shield" in m_lower or "wrist_shield" in m_lower:
             has_wrist_shield = True
-            armor_bonus += 4
-            notes_list.append("Wrist Shield (+4 ARM)")
 
         # 7. RAM Plating
         ram_match = re.search(r"ram\s+plating\s+(\d+)", m_lower)
@@ -108,6 +106,10 @@ def parse_vehicle_modifications(drone_dict: Dict[str, Any], char_data: Optional[
     # Both can deploy a Wrist Shield for an additional +4 Defense Rating.
     is_anthro = any(k in name.lower() for k in ["butler", "man-at-arms", "man_at_arms", "samurai", "duelist", "anthro"]) or "anthro" in str(drone_dict.get("category", "")).lower()
     
+    shield_dr = 4 if has_wrist_shield else 0
+    if has_wrist_shield and not any("Wrist Shield" in n for n in notes_list):
+        notes_list.append("Wrist Shield (+4 ARM)")
+
     if is_anthro and char_data:
         armors = char_data.get("armors", [])
         primary_armor = 0
@@ -133,47 +135,49 @@ def parse_vehicle_modifications(drone_dict: Dict[str, Any], char_data: Optional[
             notes_list.append(f"Worn Anthro Armor ({total_worn_armor}: Primary {primary_armor} + Cumulative {cumulative_armor})")
         else:
             effective_base_armor = vehicle_built_in
-            if vehicle_built_in > armor:
-                pass  # already added in modification loop
 
-        # Wrist Shield (+4 DR when deployed)
-        has_wrist_shield = has_wrist_shield or "wrist shield" in [str(m).lower() for m in mods] or is_anthro
-        if has_wrist_shield and not any("Wrist Shield" in n for n in notes_list):
-            notes_list.append("Wrist Shield (+4 DR when deployed)")
-        
-        shield_dr = 4 if has_wrist_shield else 0
         aug_armor = effective_base_armor + shield_dr
     else:
-        aug_armor = armor + armor_bonus
+        aug_armor = armor + armor_bonus + shield_dr
 
     aug_body = body + body_bonus
     inhabited_body = aug_body + 1  # Home Device Tuning adds +1 Body when inhabited
-    aug_sensor = sensor + sensor_bonus
-
-    # Handling, Accel & Speed strings
-    if has_rotor:
-        han_str = f"{h_on}/{h_off} (Rotor: 5)"
-        acc_str = f"{a_on}/{a_off} (Rotor: 10)"
-        spd_str = f"{speed} (Rotor: 120)"
-    else:
-        han_str = f"{h_on}/{h_off}"
-        acc_str = f"{a_on}/{a_off}"
-        spd_str = str(speed)
-
-    # Inhabited / Override Pilot & Designer Quality (+1 Pilot, 2 Noise Reduction)
+    # Inhabited / Override Pilot & Designer Quality (+1 Pilot, 2 Noise Reduction on Home Device)
+    is_home_device = any(k in name.lower() for k in ["man-at-arms", "man_at_arms", "butler", "home device", "primary chassis"])
     res = int(char_data.get("attributes", {}).get("resonance", 8)) if char_data else 8
     pos_qualities = char_data.get("qualities", {}).get("positive", []) if char_data else []
     has_designer = any("designer" in str(q.get("name", q) if isinstance(q, dict) else q).lower() for q in pos_qualities)
     designer_pilot_bonus = 1 if has_designer else 0
-    inhabited_pilot = res + designer_pilot_bonus
 
-    if has_designer:
-        notes_list.append("Designer Quality (+1 Pilot, 2 Noise Reduction on Home Device)")
+    if is_home_device:
+        inhabited_body = aug_body + 1  # Home Device Tuning adds +1 Body when inhabited
+        inhabited_pilot = res + designer_pilot_bonus
+        if has_designer:
+            notes_list.append("Designer Quality (+1 Pilot, 2 Noise Reduction on Home Device)")
+        pilot_str = f"{pilot} (Override: {inhabited_pilot})"
+    else:
+        inhabited_body = aug_body
+        inhabited_pilot = pilot
+        pilot_str = str(pilot)
 
-    pilot_str = f"{pilot} (Override: {inhabited_pilot})"
+    aug_sensor = sensor + sensor_bonus
+
+    # Clean Top Row Handling, Accel & Speed strings
+    han_str = f"{h_on}/{h_off}"
+    acc_str = f"{a_on}/{a_off}"
+    spd_str = str(speed)
+
+    # 2nd Row Mobility & Propulsion Modes (Rotor & Retractable Skates)
+    mobility_parts = []
+    if has_rotor:
+        mobility_parts.append("Rotor: Han 5, Acc 10, SPD 120 (20)")
+    if has_retractable_skates:
+        mobility_parts.append("Skates: 10/30/+2")
+    mobility_str = ". ".join(mobility_parts)
 
     return {
         "name": name,
+        "is_home_device": is_home_device,
         "base_body": body,
         "augmented_body": aug_body,
         "inhabited_body": inhabited_body,
@@ -189,10 +193,11 @@ def parse_vehicle_modifications(drone_dict: Dict[str, Any], char_data: Optional[
         "pilot_str": pilot_str,
         "has_rotor": has_rotor,
         "has_skates": has_retractable_skates,
+        "mobility_str": mobility_str,
         "notes": notes_list,
         "summary_line": (
             f"HAN: {han_str} | ACC: {acc_str} | SPD: {spd_str} | "
-            f"BOD: {aug_body} (Inhabited: {inhabited_body}) | ARM: {aug_armor} | "
+            f"BOD: {aug_body}{f' (Inhabited: {inhabited_body})' if is_home_device else ''} | ARM: {aug_armor} | "
             f"PLT: {pilot_str} | SEN: {aug_sensor}"
         )
     }
@@ -217,6 +222,11 @@ def calculate_drone_action_pools(
       - 'autopilot': Drone Base Pilot + Autosofts
       - 'jumped_in_vr': Rigger VR control rig operation (Piloting+INT, Gunnery+LOG)
     """
+    is_home_device = any(k in drone_dict.get("name", "").lower() for k in ["man-at-arms", "man_at_arms", "butler", "home device", "primary chassis"])
+    if mode == "inhabited_override" and not is_home_device:
+        # Reiko only overrides her Man-at-Arms home device; secondary drones operate on Autopilot
+        mode = "autopilot"
+
     res = int(char_data.get("attributes", {}).get("resonance", 8))
     asdf = ModifierEngine.get_living_persona_asdf(char_data)
     active_d = asdf.get("data_processing", 7)
@@ -225,16 +235,16 @@ def calculate_drone_action_pools(
 
     pos_qualities = char_data.get("qualities", {}).get("positive", []) if char_data else []
     has_designer = any("designer" in str(q.get("name", q) if isinstance(q, dict) else q).lower() for q in pos_qualities)
-    designer_pilot_bonus = 1 if has_designer else 0
+    designer_pilot_bonus = 1 if (has_designer and is_home_device) else 0
     inhabited_pilot = res + designer_pilot_bonus
 
     drone_profile = parse_vehicle_modifications(drone_dict, char_data=char_data)
     sensor_val = drone_profile["augmented_sensor"]
-    focus_bonus = 4 if res > 0 else 0
+    focus_bonus = 4 if (res > 0 and is_home_device) else 0
     taz_symbiosis = 4
     taz_diagnosis = 3
 
-    if mode == "inhabited_override":
+    if mode == "inhabited_override" and is_home_device:
         # Mode 1: Inhabited Override (Reiko Primary)
         # Pilot replaced with Resonance (8) + Designer Quality (+1) = 9. Because test involves Resonance, Resonance Focus (+4) applies.
         # Maneuvering R9 (7 effective) + Pilot/RES (9) + Focus (4) + Taz Diagnosis (3) = 23d6

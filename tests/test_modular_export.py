@@ -63,19 +63,19 @@ def test_oid_normalization_and_aliases():
 
 
 def test_modular_text_sheets_generation():
-    sheets = export_modular_text_sheets(SAMPLE_CHAR, "yuriko")
-    assert "yuriko_base.txt" in sheets
-    assert "yuriko_contacts.txt" in sheets
-    assert "yuriko_combat.txt" in sheets
-    assert "yuriko_inventory.txt" in sheets
-    assert "yuriko_vehicles.txt" in sheets
-    assert "yuriko_powers.txt" in sheets
+    sheets = export_modular_text_sheets(SAMPLE_CHAR, "reiko")
+    assert "reiko_base.txt" in sheets
+    assert "reiko_contacts.txt" in sheets
+    assert "reiko_combat.txt" in sheets
+    assert "reiko_inventory.txt" in sheets
+    assert "reiko_vehicles.txt" in sheets
+    assert "reiko_powers.txt" in sheets
 
     for name, content in sheets.items():
         for i, line in enumerate(content.splitlines(), 1):
             assert len(line) <= 76, f"Line {i} in {name} exceeds 76 chars ({len(line)} chars): '{line}'"
 
-    base_txt = sheets["yuriko_base.txt"]
+    base_txt = sheets["reiko_base.txt"]
     assert "YURIKO STAR" in base_txt
     assert "Tasking" in base_txt
     assert "Composure" in base_txt

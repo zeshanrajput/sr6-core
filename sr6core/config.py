@@ -24,7 +24,7 @@ def get_default_workspace_root() -> str:
 
     # Check parent of current working directory if sibling repos exist
     cwd_parent = Path.cwd().parent
-    if cwd_parent.exists() and any((cwd_parent / d).exists() for d in ["sr6-core", "sr6velvet", "sr6yuriko", "sr6union"]):
+    if cwd_parent.exists() and any((cwd_parent / d).exists() for d in ["sr6-core", "sr6velvet", "sr6reiko", "sr6venn", "sr6yuriko", "sr6union"]):
         return str(cwd_parent)
 
     # Check current working directory

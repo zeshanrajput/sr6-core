@@ -1,0 +1,246 @@
+# Resonance & Sprites
+
+```{python}
+#| echo: false
+#| include: false
+from sr6core.log_engine import get_log_totals
+from sr6core.character_manager import CharacterManager
+from sr6core.modifiers import ModifierEngine
+from sr6core.rules_engine import get_sprite_action_table, get_matrix_protocols_summary
+
+cm = CharacterManager()
+_char = cm.get_character_data("yuriko") or {}
+attrs = _char.get("attributes", {})
+log_totals = get_log_totals("chapters/character_log.qmd")
+
+matrix_summary = get_matrix_protocols_summary("yuriko")
+active_asdf = matrix_summary.get("asdf", {})
+ACTIVE_A = active_asdf.get("attack", 7)
+ACTIVE_S = active_asdf.get("sleaze", 9)
+ACTIVE_D = active_asdf.get("data_processing", 7)
+ACTIVE_F = active_asdf.get("firewall", 9)
+
+RESONANCE = attrs.get("resonance", 8)
+WILLPOWER = attrs.get("willpower", 6)
+CHARISMA = attrs.get("charisma", 4)
+INTUITION = attrs.get("intuition", 2)
+LOGIC = attrs.get("logic", 4)
+EDGE = attrs.get("edge", 5)
+TASKING = 6
+REGISTERING = TASKING + 2
+RESONANCE_FOCUS = 4
+SUBMERSION_GRADE = log_totals.get("Submersion_Grade", 7)
+
+CRACKING_RATING = 5
+CRACKING_HACKING = 7
+ELECTRONICS_RATING = 5
+ELECTRONICS_SOFTWARE = 7
+ALLY_SPRITE_TEAMWORK = 4
+OVERCLOCK_BONUS = 2
+ECM_WARRIOR_BONUS = 2
+
+SPRITE_LEVEL = 7
+SPRITE_SYMBIOSIS = 4
+
+sp_downtime = ModifierEngine.get_sprite_downtime_pools(_char, sprite_level=SPRITE_LEVEL)
+compiling_pool = sp_downtime["compiling_pool"]
+compiling_hits = sp_downtime["compiling_hits"]
+sprite_def_pool = sp_downtime["sprite_def_pool"]
+sprite_def_hits = sp_downtime["sprite_def_hits"]
+net_compiling_hits = sp_downtime["net_compiling_hits"]
+compiling_fade_fv = sp_downtime["compiling_fade_fv"]
+compiling_fade_mitigated = max(0, compiling_fade_fv - 2)
+fade_res_pool = sp_downtime["fade_res_pool"]
+fade_res_hits = sp_downtime["fade_res_hits"]
+
+registering_pool = sp_downtime["registering_pool"]
+registering_hits = sp_downtime["registering_hits"]
+registering_fade_fv = sp_downtime["registering_fade_fv"]
+net_registering_hits = sp_downtime["net_registering_hits"]
+total_services = sp_downtime["total_services"]
+registering_damage = sp_downtime["registering_damage"]
+
+focus_fade_fv = sp_downtime["focus_fade_fv"]
+focus_fade_res_pool = sp_downtime["focus_fade_res_pool"]
+focus_fade_res_hits = sp_downtime["focus_fade_res_hits"]
+focus_fade_damage = sp_downtime["focus_fade_damage"]
+```
+
+This reference details Reiko's Complex Forms, sprite compiling and registering downtime protocols, and Resonance Focus fading calculations.
+
+---
+
+## Complex Forms{#complex-forms}
+
+* **Sprite Symbiosis Bonus**: +`{python} SPRITE_SYMBIOSIS`
+* **Resonance Focus Bonus**: +`{python} RESONANCE_FOCUS` (Fading Value: 2 for activation)
+
+::: {.callout-note icon=false title="🌀 COMPLEX FORM: Technoregeneration"}
+* **Source**: *Hack and Slash*, p. 4 | **Target**: Electronic Device | **Duration**: Permanent (P) | **Fading Value**: Hits (Net 0 after mitigation)
+* **Mechanic**: Make an **Electronics (Hardware) + Resonance** test. For every hit scored, restore **1 box of Matrix damage** on the target electronic device. (Does not work on IC, sprites, or Matrix fauna).
+* **Side Effect & Maintenance**: When a device has been repaired by this complex form, it functions erratically—when making any test using the device, replace one die with a **Wild Die** until thorough maintenance can be completed (requires one hour with an Electronics toolkit). Until this maintenance is done, the device cannot be repaired via Technoregeneration again.
+:::
+
+::: {.callout-note icon=false title="🌀 COMPLEX FORM: Cleaner"}
+* **Source**: *City Edition: Hong Kong*, p. 115 | **Target**: Self / Persona | **Duration**: Permanent (P) | **Fading Value**: 2
+* **Mechanic**: Make an **Electronics + Resonance** test. Each hit reduces your accumulated **Overwatch Score (OS)** by 1, wiping convergence tracking without requiring a reboot.
+:::
+
+::: {.callout-note icon=false title="🌀 COMPLEX FORM: Diffusion (Firewall)"}
+* **Source**: *Berlin Edition*, p. 3 | **Target**: Device / Persona / Host | **Duration**: Sustained (S) | **Fading Value**: 4
+* **Mechanic**: Make an **Electronics + Resonance vs. Willpower + Firewall** opposed test. Each net hit reduces the target's effective **Firewall** attribute by 1 (to a minimum of 1) for the duration of the sustained form.
+:::
+
+::: {.callout-note icon=false title="🌀 COMPLEX FORM: Puppeteer"}
+* **Source**: *Berlin Edition*, p. 4 & *Shadowrun Missions Guide v2.4*, p. 7 | **Target**: Device | **Duration**: Sustained (S) | **Fading Value**: 5
+* **Mechanic**: Replaces the **Control Device** Matrix action with an **Electronics + Resonance** test (instead of Electronics + Logic). Grants total control of the device as if you possessed **Admin access**, even without the proper access level. You must still be able to detect the device.
+* **Physical Device Actions**: When controlling a physical device (such as an automated turret, drone, vehicle, or electronic lock), you can take its physical actions (e.g. firing mounted weapons, driving, or opening blast doors).
+* **Sustaining Control (SRMG)**: Sustaining Puppeteer maintains control of the device. If control is temporarily lost due to the control hierarchy, you can reassert control immediately without making a new test.
+:::
+
+::: {.callout-note icon=false title="🌀 COMPLEX FORM: Cyber Spike"}
+* **Source**: *Hack and Slash*, p. 4 | **Target**: Character with wireless cyberware (or direct connection) | **Duration**: Immediate (I) | **Fading Value**: Hits (Base 3)
+* **Mechanic**: Target a character who has at least one cyberware augmentation with wireless mode enabled (or establish a direct connection). (If target has no vulnerable cyberware, the action is wasted). Make an **Electronics + Resonance vs. Target Body + Essence (rounded down)** opposed test.
+* **Damage & Cyberware Stress**: The target suffers **1 box of Physical damage for every net hit** (they may roll Body to reduce damage). Furthermore, **all of the target's installed cyberware becomes stressed as if from Augmentation Overdrive (*SR6 Core*, p. 282) for one combat round**.
+:::
+
+---
+
+## Sprite Symbiosis Powers (Taz){#sprite-symbiosis-powers}
+
+Through deep **Sprite Symbiosis** with **Taz** (Level 7 Assassin Sprite), Reiko channels four intrinsic sprite powers into her Matrix and meatspace operations:
+
+::: {.callout-note icon=false title="⚡ SPRITE POWER: Override"}
+* **Source**: *Berlin Edition*, p. 5 (*SR6 Core*) | **Action**: Minor Action | **Target**: Device operating on autopilot (Drone / Vehicle)
+* **Mechanic**: The sprite/technomancer targets a device, making an **Electronics + Level/RES vs. Device Rating + Firewall** test.
+* **Effect**: If successful, gains total control of the device and **substitutes its Level / RES for the Pilot rating of the device** (Reiko RES 8 + 1 Designer Quality = **Pilot 9**). Resonance Focus (+4) and Taz's Symbiosis (+4) / Diagnosis (+3) apply to rigging tests.
+:::
+
+::: {.callout-note icon=false title="⚡ SPRITE POWER: Phantom"}
+* **Source**: *Berlin Edition*, p. 5 (*SR6 Core*) | **Action**: Minor Action (Sustained) | **Target**: Persona / Device
+* **Effect**: Conceals a persona or device in such a way as to make it **invisible to Matrix searches**.
+* **Detection Threshold**: Concealed personas or devices can **only be found with a Matrix Perception test that is specifically looking for that exact hidden icon**; even then, the sprite makes an **Electronics + Resonance** test, with **net hits becoming the threshold** for the searcher's Matrix Perception test.
+:::
+
+::: {.callout-note icon=false title="⚡ SPRITE POWER: Death Mark"}
+* **Source**: *Hack and Slash*, p. 4 (Assassin Sprite) | **Action**: Minor Action (Sustained) | **Target**: Persona using VR mode (Hot-Sim or Cold-Sim)
+* **Mechanic**: Targets a persona using VR mode and makes a **Cracking + Resonance vs. Intuition + Firewall** Opposed test.
+* **Link-Lock & Biofeedback**: If successful, the target gains a visible wound on their persona and becomes **link-locked** (unable to Switch Interface Mode or Hide, and requires an Opposed test to Jack Out). Whenever the target takes Matrix damage from any source, they also suffer an **equal number of boxes of biofeedback damage** (Physical damage if using hot-sim VR, Stun damage if using cold-sim VR). If the sprite directly damages the target, it deals additional boxes equal to the net hits scored on the initial Cracking test.
+:::
+
+::: {.callout-note icon=false title="⚡ SPRITE POWER: Harmonize"}
+* **Source**: *Hack and Slash*, p. 4 (Music Sprite) | **Action**: Performance Action | **Target**: 100-meter Radius Area / Surrounding Matrix
+* **Mechanic**: The sprite makes a **Con (Performance) + Resonance** test.
+* **Noise Reduction**: Matrix noise within 100 meters of the sprite is **reduced by hits** (this power overcomes even sources of noise that state they cannot be reduced or negated).
+* **Healing & Repair Bonus**: Anyone within 100 meters experiencing the performance gains **bonus dice equal to hits on any healing tests** (natural healing, First Aid, medkits, healing magic, and complex forms) and **repair tests** (Engineering or Electronics to fix Matrix or Physical damage).
+* **Matrix Fauna Regeneration**: Sprites, AI, and Matrix fauna automatically **heal 1 box of damage at the end of every combat round**.
+:::
+
+---
+
+## Registering Sprites{#registering-sprites}
+
+```{python}
+#| echo: false
+#| output: asis
+print(get_sprite_action_table("yuriko", sprite_level=SPRITE_LEVEL))
+```
+
+* **Minor Downtime Action**: Register up to 8 levels of sprites (up to Rating `{python} SPRITE_LEVEL` sprite).
+* **Schedule**: 1 per night's rest (7 hours registering, 3 hours restoration) or minor downtime action. Buying hits per SRMG p. 19.
+* **Standard Outcome**: Level `{python} SPRITE_LEVEL` Modular Sprite with `{python} total_services` services/powers for 3 missions.
+
+### 1. Compiling Phase
+
+* **Compiling Dice Pool**: Tasking (`{python} TASKING`) + RES (`{python} RESONANCE`) + Resonance Focus (`{python} RESONANCE_FOCUS`) = **`{python} compiling_pool`d6** → **`{python} compiling_hits` Bought Hits**.
+* **Sprite Defense Pool**: Level `{python} SPRITE_LEVEL` × 2 = **`{python} sprite_def_pool`d6** → **`{python} sprite_def_hits` Bought Hits**.
+* **Net Hits**: `{python} compiling_hits` - `{python} sprite_def_hits` = `{python} net_compiling_hits` net hit (**1 base service**).
+* **Technoshaman Stream Bonus**: +1 additional service on successful compiling. Total compiled services = **`{python} net_compiling_hits + 1` services/powers**.
+* **Fading Value (FV)**: Equal to sprite defense hits = **`{python} compiling_fade_fv` FV**.
+* **Technoshaman Mitigation**: Reduces compiling fade by 2 (`{python} compiling_fade_fv` - 2 = **`{python} compiling_fade_mitigated` FV**).
+* **Fading Resistance**: Willpower (`{python} WILLPOWER`) + Charisma (`{python} CHARISMA`) + Submersion Grade / Sprite Conduit (`{python} SUBMERSION_GRADE`) = **`{python} fade_res_pool`d6** → **`{python} fade_res_hits` Bought Hits**.
+* **Compiling Damage Taken**: `{python} compiling_fade_mitigated` FV - `{python} fade_res_hits` hits = **0 Damage**.
+
+### 2. Registering Phase
+
+* **Registering Dice Pool**: Registering (`{python} REGISTERING`) + RES (`{python} RESONANCE`) + RES Focus (`{python} RESONANCE_FOCUS`) = **`{python} registering_pool`d6** → **`{python} registering_hits` Bought Hits**.
+* **Sprite Defense Pool**: Level `{python} SPRITE_LEVEL` × 2 = **`{python} sprite_def_pool`d6** → **`{python} sprite_def_hits` Bought Hits**.
+* **Net Hits**: `{python} registering_hits` - `{python} sprite_def_hits` = **`{python} net_registering_hits` net hits** (`{python} net_registering_hits` registered services).
+* **Combined Total Services**: 2 (compiled) + `{python} net_registering_hits` (registered) = **`{python} total_services` total services/powers**.
+* **Fading Value (FV)**: Twice sprite defense hits (`{python} sprite_def_hits` × 2 = **`{python} registering_fade_fv` FV**).
+* **Fading Resistance**: Willpower (`{python} WILLPOWER`) + Charisma (`{python} CHARISMA`) + Submersion Grade (`{python} SUBMERSION_GRADE`) = **`{python} fade_res_pool`d6** → **`{python} fade_res_hits` Bought Hits**.
+* **Registering Damage Taken**: `{python} registering_fade_fv` FV - `{python} fade_res_hits` hits = **`{python} registering_damage` boxes of Stun damage**.
+
+### 3. Resonance Focus & Data Structure Protocols
+
+* **Resonance Focus (Rating 4)**: Encoded into the physical **Shiawase Man-at-Arms** drone chassis.
+  * **Bonus**: Adds **+4 dice** to any test using the Resonance attribute while inhabiting the chassis.
+  * **Focus Fading FV**: Rating / 2 (`{python} RESONANCE_FOCUS` / 2 = **`{python} focus_fade_fv` FV**).
+  * **Fading Pool**: WIL (`{python} WILLPOWER`) + LOG (`{python} LOGIC`) = **`{python} focus_fade_res_pool`d6** → **`{python} focus_fade_res_hits` Bought Hits**.
+  * **Damage Taken**: `{python} focus_fade_fv` FV - `{python} focus_fade_res_hits` hits = **`{python} focus_fade_damage` Damage**.
+* **Oracle Data Structure (Rating 4)**: Encoded into **The Holy Wild Sanctuary Host** on the remote Sky Commander.
+  * **Bonus**: Adds **+4 dice** to **Matrix Perception** and **Matrix Search** tests, and reduces extended Matrix Search intervals to a **Major Action**.
+  * **Data Structure Fading FV**: Rating / 2 (4 / 2 = **2 FV** Stun).
+  * **Fading Pool**: WIL (`{python} WILLPOWER`) + LOG (`{python} LOGIC`) = **`{python} focus_fade_res_pool`d6** → **`{python} focus_fade_res_hits` Bought Hits** (0 damage taken).
+* *Note on EI Host Contact (SRMG v2.4 p. 69–71)*: Under SRM rules, an Emergent Intelligence must reside in/touch the device/host housing the data structure to activate it (Minor Action), limiting active use to one data structure at a time based on current operational locus.
+
+---
+
+## Sprite Commands & Tactical Orders{#sprite-commands}
+
+All of these commands are available from Reiko's pool of registered Modular Sprites at a cost of **1 task per use**. In SRMG, these commands function as Teamwork tests (except where modified by the SRM Guide FAQ):
+
+| Sprite Command | Task / Action Type | Mechanical Effect & Rules (SRM) | Notes & Constraints |
+| :--- | :--- | :--- | :--- |
+| **Signal Boost** | Simple Action | Reduces Noise penalty by sprite Rating (**`{python} SPRITE_LEVEL`**). | SRM: Applies **only to the TM/EI**. |
+| **Host Ken** | Simple Action | Teamwork assistance (adds dice) on tests **versus hosts and IC**. | |
+| **Hyperthreading** | Complex Action | Teamwork assistance (adds dice) to **Threading tests** (Complex Forms). | |
+| **File Ken** | Simple Action | Teamwork assistance (adds dice) to any **Matrix action that targets files** (Search, Edit, Decryption, File Perception). | |
+| **Cybercombat Boost** | Free Action | Adds **+4 Matrix DV** (Level / 2 rounded up) to **Data Spikes and Resonance Spikes**. | SRMG modifies this to 1/2 sprite RES. |
+| **Device Ken** | Simple Action | Teamwork assistance (adds dice) to **any Matrix action or Complex Form that targets a device**. | |
+---
+
+## Foundation Rules
+
+### Base Foundation Rules
+
+[HnS p. 141]
+
+* Social Tests: Cracking [Hacking]
+* Perception/Physical/Piloting: Electronics [Computer]
+* Combat: Cracking [Cybercombat]
+* Technical tests: Electronics [Software] or Cracking [Electronic Warfare]
+* Physical Attributes follow the [Matrix Equivalent Attributes](rules_drones.qmd#matrix-equivalent-attributes)
+* All damage is 3P or 3S
+
+### Nexus Protocol Rules
+
+[HnS p. 142]
+
+* Characters with an Electronics or Cracking skill also gain a pool of bonus dice to use. This pool is equal to the higher skill rating and refreshes each combat round. Outside of combat, a maximum of half the pool can be added to a test.
+* Hitchhikers gain +1 to their highest-rating skill and attribute.
+
+### Reiko's Foundation Form
+
+#### Attributes
+
+* Body → Firewall (`{python} ACTIVE_F`)
+* Agility → Data Processing (`{python} ACTIVE_D`)
+* Reaction → Sleaze (`{python} ACTIVE_S`)
+* Strength → Attack (`{python} ACTIVE_A`)
+* Willpower (`{python} WILLPOWER`)
+* Logic (`{python} LOGIC`)
+* Intuition (`{python} INTUITION`)
+* Charisma (`{python} CHARISMA`)
+* Edge (`{python} EDGE`)
+* Resonance (Highest Attribute) = `{python} RESONANCE + 1`
+
+#### Skills & Derived Action Pools
+
+Under the Nexus Protocol [HnS p. 142], Reiko uses her real-world skills and attributes with a +1 bonus to highest attribute (RES 8 + 1 = 9) and highest skill (Tasking 6 + 1 = 7), plus a dedicated bonus pool of +7 dice in combat (+3 dice in downtime), alongside Natural Hacker, Resonance Focus (+4), Taz Teamwork (+4), Overclock (+2), and ECM Warrior II (+2):
+
+* **Tasking (Highest Skill)**: 7
+* **Social Tests (Cracking [Hacking] + RES)**: `{python} CRACKING_HACKING + (RESONANCE + 1) + RESONANCE_FOCUS + ALLY_SPRITE_TEAMWORK + OVERCLOCK_BONUS + ECM_WARRIOR_BONUS + 3`d6 (Downtime: 25d6) / **`{python} CRACKING_HACKING + (RESONANCE + 1) + RESONANCE_FOCUS + ALLY_SPRITE_TEAMWORK + OVERCLOCK_BONUS + ECM_WARRIOR_BONUS + 7`d6 (Combat: 29d6, 1 wild)**
+* **Perception / Physical / Piloting (Electronics [Computer] + RES)**: `{python} ELECTRONICS_RATING + (RESONANCE + 1) + RESONANCE_FOCUS + ALLY_SPRITE_TEAMWORK + OVERCLOCK_BONUS + 3`d6 (Downtime: 23d6) / **`{python} ELECTRONICS_RATING + (RESONANCE + 1) + RESONANCE_FOCUS + ALLY_SPRITE_TEAMWORK + OVERCLOCK_BONUS + 7`d6 (Combat: 27d6, 1 wild)**
+* **Combat Tests (Cracking [Cybercombat] + RES)**: `{python} CRACKING_RATING + (RESONANCE + 1) + RESONANCE_FOCUS + ALLY_SPRITE_TEAMWORK + OVERCLOCK_BONUS + ECM_WARRIOR_BONUS + 3`d6 (Downtime: 25d6) / **`{python} CRACKING_RATING + (RESONANCE + 1) + RESONANCE_FOCUS + ALLY_SPRITE_TEAMWORK + OVERCLOCK_BONUS + ECM_WARRIOR_BONUS + 7`d6 (Combat: 29d6, 1 wild)**
+* **Technical Tests (Electronics [Software] + RES)**: `{python} ELECTRONICS_SOFTWARE + (RESONANCE + 1) + RESONANCE_FOCUS + ALLY_SPRITE_TEAMWORK + OVERCLOCK_BONUS + 3`d6 (Downtime: 25d6) / **`{python} ELECTRONICS_SOFTWARE + (RESONANCE + 1) + RESONANCE_FOCUS + ALLY_SPRITE_TEAMWORK + OVERCLOCK_BONUS + 7`d6 (Combat: 29d6, 1 wild)**

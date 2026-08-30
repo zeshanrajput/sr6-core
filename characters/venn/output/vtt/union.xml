@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sr6char gender="MALE" meta="human" karmaF="1" karmaI="0" nuyen="4550">
+   <lifestyles>
+      <lifestyle lang="en" ref="low" comfort="low" entert="low" necess="low" neigh="low" security="low" space="low" value="1" />
+   </lifestyles>
+   <type>METAHUMAN</type>
+   <name>Venn</name>
+   <realName>Nathan Turrent &amp; Veronica</realName>
+   <age>20</age>
+   <attributes>
+      <attributes id="BODY" value="5" />
+      <attributes id="AGILITY" value="5" />
+      <attributes id="REACTION" value="2" />
+      <attributes id="STRENGTH" value="2" />
+      <attributes id="WILLPOWER" value="5" />
+      <attributes id="LOGIC" value="6" />
+      <attributes id="INTUITION" value="5" />
+      <attributes id="CHARISMA" value="2" />
+      <attributes id="EDGE" value="7" />
+      <attributes id="RESONANCE" value="0" />
+      <attributes id="MAGIC" value="0" />
+   </attributes>
+   <qualities>
+      <quality lang="en" ref="augmentation_acclimation" uuid="51e75dd5-7e44-4b1e-8e4d-33faceecbc0e" value="10" />
+      <quality lang="en" ref="analytical_mind" uuid="eda15331-a4fd-40c3-bea3-fb8a96fb0da2" />
+      <quality lang="en" ref="maximum_overdrive" uuid="eca95716-8a74-4c21-b570-4e9a8f369c0c" />
+      <quality lang="en" ref="hooder" uuid="b77c7ef5-d04b-41db-914c-9a1a13afabb0" value="2" />
+      <quality lang="en" ref="chronic_pain" uuid="d9841f08-210d-4823-939b-883c5b8b5dea" />
+      <quality lang="en" ref="cyberpsychosis" uuid="f85a668e-feba-471d-8b5a-c272770f1a3f" value="3" />
+   </qualities>
+   <skills>
+      <skill lang="en" ref="electronics" uuid="b0c25603-3131-4ab8-8675-0f5b5cc48fef" value="6">
+         <skillspec lang="en" ref="computer" />
+      </skill>
+      <skill lang="en" ref="language" uuid="66c55d94-5516-41ae-b540-29d483057336" value="4">
+         <decision choice="a7103ee4-31fa-435d-ac42-08f7d4d1e80c" value="Native Language (English)" />
+      </skill>
+   </skills>
+   <items>
+      <item lang="en" mode="CARRIED" ref="fn_p93_praetor" uuid="b4ef22c2-52b9-4fc2-895f-df85cc0c772c">
+         <accessories>
+            <item lang="en" mode="EMBEDDED" ref="shock_pad" uuid="e4649c67-f79e-4dee-b137-c379d1a29426" />
+         </accessories>
+      </item>
+      <item lang="en" mode="CARRIED" ref="colt_manhunter" uuid="38eca02e-8d4f-4744-aeda-c687c0696725">
+         <accessories>
+            <item lang="en" mode="EMBEDDED" ref="smartlink" uuid="c9819b85-05ee-4109-8249-24f725efeef4" />
+            <item lang="en" mode="EMBEDDED" ref="silencer" uuid="8a1dc59f-9da5-4ebc-b22f-6d53c4b7f5de" />
+         </accessories>
+      </item>
+      <item lang="en" mode="CARRIED" ref="monofilament_whip" uuid="e35cd400-ff64-46fe-9196-b6ed23bc8e03" />
+      <item lang="en" mode="CARRIED" ref="lined_coat" uuid="8b181dc5-7e85-4767-86de-7873744ccb95" />
+      <item lang="en" mode="CARRIED" ref="helmet" uuid="b54f550a-116a-45fc-854b-45a4c93a16a4" />
+   </items>
+   <contacts />
+   <rewards />
+</sr6char>

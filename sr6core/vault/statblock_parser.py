@@ -838,8 +838,15 @@ def format_statblock_markdown(model: Any, title: Optional[str] = None) -> str:
     """
     if isinstance(model, WeaponStatBlock):
         callout_title = title or f"⚔️ WEAPON: {model.name} ({model.category})"
-        modes_str = " / ".join(model.firing_modes) if model.firing_modes else "SS"
-        ammo_str = f"{model.ammo_capacity or '—'}({model.ammo_feed or 'c'})"
+        is_melee = model.category.lower() in ["melee", "unarmed", "exotic_melee", "close_combat"] or any(
+            x in model.name.lower() for x in ["cesta", "cestas", "whip", "dagger", "sword", "knife", "blade", "unarmed", "fist", "club", "staff"]
+        )
+        if is_melee:
+            modes_str = "—"
+            ammo_str = "—"
+        else:
+            modes_str = " / ".join(model.firing_modes) if model.firing_modes else "SS"
+            ammo_str = f"{model.ammo_capacity or '—'}({model.ammo_feed or 'c'})"
         ar_str = " / ".join(str(x) if x > 0 else "—" for x in model.attack_rating)
         restr = f"({model.legal_restriction})" if model.legal_restriction else ""
         cost_str = f"{model.cost:,}¥" if model.cost else "—"

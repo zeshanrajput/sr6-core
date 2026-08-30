@@ -6,11 +6,11 @@
   <meta name="theme-color" content="#0b0f19">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>SR6 Mobile Character Viewer</title>
+  <title>SR6 Tactical Character Dossier</title>
   <link rel="manifest" href="manifest.json">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Chakra+Petch:wght@500;600;700&display=swap" rel="stylesheet">
   
   <style>
     :root {
@@ -26,6 +26,7 @@
       --cyan-accent: #06b6d4;
       --emerald-accent: #10b981;
       --rose-accent: #f43f5e;
+      --purple-accent: #a855f7;
       --text-primary: #f8fafc;
       --text-secondary: #94a3b8;
       --text-muted: #64748b;
@@ -33,6 +34,55 @@
       --font-mono: 'Fira Code', monospace;
       --nav-height: 64px;
       --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    /* Reiko Theme (Technoshaman AI - Matrix Cyan & Electric Purple) */
+    body[data-theme="reiko"], body[data-theme="yuriko"] {
+      --bg-base: #060913;
+      --bg-card: rgba(11, 18, 33, 0.88);
+      --bg-card-hover: rgba(18, 30, 56, 0.95);
+      --border-accent: rgba(0, 240, 255, 0.45);
+      --gold-primary: #00f0ff;
+      --gold-glow: rgba(0, 240, 255, 0.25);
+      --indigo-primary: #8b5cf6;
+      --cyan-accent: #00f0ff;
+      --emerald-accent: #10b981;
+      --purple-accent: #a855f7;
+      background-image: radial-gradient(circle at top right, rgba(0, 240, 255, 0.12), transparent 45%),
+                        radial-gradient(circle at bottom left, rgba(168, 85, 247, 0.10), transparent 45%);
+    }
+
+    /* Velvet Theme (Mystic Adept Face - Shinto Gold & Mana Pink) */
+    body[data-theme="velvet"] {
+      --bg-base: #0a0614;
+      --bg-card: rgba(22, 13, 38, 0.88);
+      --bg-card-hover: rgba(36, 21, 61, 0.95);
+      --border-accent: rgba(217, 70, 239, 0.45);
+      --gold-primary: #f59e0b;
+      --gold-glow: rgba(245, 158, 11, 0.3);
+      --indigo-primary: #d946ef;
+      --cyan-accent: #00f0ff;
+      --emerald-accent: #10b981;
+      --purple-accent: #c084fc;
+      background-image: radial-gradient(circle at top right, rgba(217, 70, 239, 0.14), transparent 45%),
+                        radial-gradient(circle at bottom left, rgba(245, 158, 11, 0.10), transparent 45%);
+    }
+
+    /* Venn Theme (Monad Street Samurai - Nanite Emerald & Overdrive Amber) */
+    body[data-theme="venn"], body[data-theme="union"] {
+      --bg-base: #040a0b;
+      --bg-card: rgba(8, 20, 22, 0.88);
+      --bg-card-hover: rgba(12, 34, 38, 0.95);
+      --border-accent: rgba(0, 255, 157, 0.45);
+      --gold-primary: #00ff9d;
+      --gold-glow: rgba(0, 255, 157, 0.25);
+      --indigo-primary: #ffb700;
+      --cyan-accent: #06b6d4;
+      --emerald-accent: #00ff9d;
+      --rose-accent: #f87171;
+      --purple-accent: #14b8a6;
+      background-image: radial-gradient(circle at top right, rgba(0, 255, 157, 0.14), transparent 45%),
+                        radial-gradient(circle at bottom left, rgba(255, 183, 0, 0.10), transparent 45%);
     }
 
     * {
@@ -44,15 +94,14 @@
 
     body {
       background-color: var(--bg-base);
-      background-image: radial-gradient(circle at top right, rgba(99, 102, 241, 0.12), transparent 40%),
-                        radial-gradient(circle at bottom left, rgba(245, 158, 11, 0.08), transparent 40%);
       color: var(--text-primary);
       font-family: var(--font-display);
       min-height: 100vh;
       min-height: -webkit-fill-available;
       overflow-x: hidden;
-      padding-bottom: calc(var(--nav-height) + var(--safe-bottom) + 20px);
+      padding-bottom: calc(var(--nav-height) + var(--safe-bottom) + 24px);
       user-select: none;
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
     /* Top App Bar */
@@ -60,7 +109,7 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(8, 12, 20, 0.88);
+      background: rgba(8, 12, 20, 0.92);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border-subtle);
@@ -74,12 +123,13 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 10px;
     }
 
     .char-select-wrap {
       position: relative;
       flex: 1;
-      max-width: 220px;
+      max-width: 240px;
     }
 
     .char-select {
@@ -109,8 +159,9 @@
 
     .header-badges {
       display: flex;
-      gap: 8px;
+      gap: 6px;
       align-items: center;
+      flex-shrink: 0;
     }
 
     .nuyen-badge {
@@ -119,7 +170,7 @@
       color: var(--gold-primary);
       font-family: var(--font-mono);
       font-weight: 600;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       padding: 4px 8px;
       border-radius: 8px;
     }
@@ -130,7 +181,7 @@
       color: #a5b4fc;
       font-family: var(--font-mono);
       font-weight: 600;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       padding: 4px 8px;
       border-radius: 8px;
     }
@@ -194,7 +245,7 @@
       justify-content: space-between;
     }
 
-    /* Attribute Grid */
+    /* Attribute Grid with Interactive Drilldown */
     .attr-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -210,14 +261,21 @@
       display: flex;
       flex-direction: column;
       gap: 2px;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.15s ease;
+    }
+    .attr-box:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-accent);
     }
     .attr-box.augmented {
       border-color: rgba(245, 158, 11, 0.5);
-      background: rgba(245, 158, 11, 0.04);
+      background: rgba(245, 158, 11, 0.05);
     }
 
     .attr-name {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 700;
       color: var(--text-secondary);
       letter-spacing: 0.05em;
@@ -231,6 +289,13 @@
     }
     .attr-box.augmented .attr-val {
       color: var(--gold-primary);
+      text-shadow: 0 0 8px var(--gold-glow);
+    }
+
+    .attr-sublabel {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      font-weight: 500;
     }
 
     /* Condition Monitors */
@@ -261,6 +326,27 @@
       font-size: 1.3rem;
       font-weight: 700;
       color: var(--cyan-accent);
+    }
+
+    /* Derived Ratings Grid */
+    .derived-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      font-size: 0.85rem;
+    }
+
+    .derived-item {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 8px 10px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .derived-item:hover {
+      border-color: var(--border-accent);
+      background: var(--bg-card-hover);
     }
 
     /* Pool Row Component */
@@ -300,11 +386,13 @@
     }
 
     .skill-spec {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: var(--gold-primary);
       background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.3);
       padding: 2px 6px;
       border-radius: 6px;
+      font-weight: 600;
     }
 
     .info-btn {
@@ -319,6 +407,12 @@
       justify-content: center;
       font-size: 0.85rem;
       cursor: pointer;
+      transition: all 0.15s ease;
+      flex-shrink: 0;
+    }
+    .info-btn:hover {
+      background: rgba(99, 102, 241, 0.3);
+      transform: scale(1.05);
     }
 
     .pool-main {
@@ -382,15 +476,16 @@
       text-transform: uppercase;
     }
 
-    /* Expandable Breakdown Drawer */
+    /* Universal Expandable Breakdown Drawer */
     .breakdown-drawer {
       display: none;
-      background: rgba(0, 0, 0, 0.35);
+      background: rgba(0, 0, 0, 0.45);
       border-radius: 8px;
       padding: 10px 12px;
-      margin-top: 4px;
+      margin-top: 6px;
       border-left: 3px solid var(--indigo-primary);
       font-size: 0.85rem;
+      animation: fadeIn 0.15s ease-out;
     }
     .breakdown-drawer.open {
       display: block;
@@ -399,21 +494,44 @@
     .breakdown-math {
       font-family: var(--font-mono);
       color: #cbd5e1;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
+      font-size: 0.82rem;
     }
 
     .buff-checklist {
       display: flex;
       flex-direction: column;
       gap: 4px;
+      margin-bottom: 6px;
     }
 
     .buff-chip {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       color: var(--text-secondary);
       font-size: 0.8rem;
+    }
+
+    .doc-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.35);
+      color: #c7d2fe;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      margin-top: 4px;
+      transition: all 0.15s ease;
+    }
+    .doc-link-btn:hover {
+      background: rgba(99, 102, 241, 0.3);
+      color: #ffffff;
     }
 
     /* Weapon Cards */
@@ -423,6 +541,11 @@
       border-radius: 12px;
       padding: 14px;
       margin-bottom: 12px;
+      transition: all 0.15s ease;
+    }
+    .weapon-card:hover {
+      border-color: var(--border-accent);
+      background: var(--bg-card-hover);
     }
 
     .weapon-header {
@@ -471,7 +594,38 @@
       margin-bottom: 2px;
     }
 
-    /* Vehicle Cards */
+    /* Powers & Augmentations Cards */
+    .power-item {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      transition: all 0.15s ease;
+    }
+    .power-item:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-accent);
+    }
+
+    .power-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .power-badge {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      color: #a5b4fc;
+    }
+
+    /* Vehicle & Drone Cards */
     .vehicle-card {
       background: rgba(255, 255, 255, 0.02);
       border: 1px solid var(--border-subtle);
@@ -494,13 +648,66 @@
       margin: 2px 4px 2px 0;
     }
 
-    /* Contacts Directory */
+    .quality-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      margin: 2px 4px 4px 0;
+    }
+    .quality-badge.pos {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #6ee7b7;
+    }
+    .quality-badge.neg {
+      background: rgba(244, 63, 94, 0.12);
+      border: 1px solid rgba(244, 63, 94, 0.35);
+      color: #fda4af;
+    }
+
+    /* Contacts Directory & Filter Bar */
+    .filter-bar {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+    }
+
+    .filter-chip {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+    .filter-chip.active {
+      background: var(--gold-primary);
+      color: #080c14;
+      border-color: var(--gold-primary);
+      font-weight: 700;
+    }
+
     .contact-item {
       background: rgba(255, 255, 255, 0.02);
       border: 1px solid var(--border-subtle);
       border-radius: 10px;
       padding: 12px;
       margin-bottom: 8px;
+      transition: all 0.15s ease;
+    }
+    .contact-item:hover {
+      border-color: var(--border-accent);
+      background: var(--bg-card-hover);
     }
 
     .contact-header {
@@ -518,6 +725,18 @@
       font-weight: 700;
       padding: 2px 6px;
       border-radius: 6px;
+    }
+
+    .contact-group-header {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 700;
+      color: var(--gold-primary);
+      margin: 14px 0 8px 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
     /* Bottom Navigation Bar */
@@ -615,25 +834,32 @@
         </div>
         <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;" id="charRoleTradition">Role & Tradition</div>
 
-        <div class="card-title" style="margin-top: 14px;">Attributes</div>
+        <div class="card-title" style="margin-top: 14px;">Attributes (Buffed vs Base)</div>
         <div class="attr-grid" id="attrGrid">
           <!-- Generated via JS -->
         </div>
 
+        <div id="attrDrilldownArea" style="margin-top: 10px;"></div>
+
         <div class="card-title" style="margin-top: 16px;">Condition Monitors</div>
         <div class="track-grid">
           <div class="track-card">
-            <div class="track-header">PHYSICAL</div>
+            <div class="track-header">PHYSICAL (Base BOD)</div>
             <div class="track-boxes" id="physBoxes">10 Boxes</div>
           </div>
           <div class="track-card">
-            <div class="track-header">STUN</div>
+            <div class="track-header">STUN (Base WIL)</div>
             <div class="track-boxes" id="stunBoxes">11 Boxes</div>
           </div>
         </div>
 
-        <div class="card-title" style="margin-top: 16px;">Derived Defense & Ratings</div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 0.85rem;" id="derivedGrid">
+        <div class="card-title" style="margin-top: 16px;">Derived Pools & Ratings</div>
+        <div class="derived-grid" id="derivedGrid">
+          <!-- Generated via JS -->
+        </div>
+
+        <div class="card-title" style="margin-top: 16px;">Qualities & Edge Enhancements</div>
+        <div id="qualitiesList">
           <!-- Generated via JS -->
         </div>
       </div>
@@ -646,7 +872,7 @@
       </div>
     </section>
 
-    <!-- Tab 3: Combat & Defense -->
+    <!-- Tab 3: Combat & Tactical Defense -->
     <section id="tab-combat" class="tab-pane">
       <div class="card">
         <div class="card-title">Tactical Weapon Arrays</div>
@@ -687,10 +913,17 @@
       </div>
     </section>
 
-    <!-- Tab 6: Contacts & Ledger -->
+    <!-- Tab 6: Contacts & Network -->
     <section id="tab-contacts" class="tab-pane">
       <div class="card">
         <div class="card-title">SRM Canonical Contacts</div>
+        <div class="filter-bar" id="contactFilterBar">
+          <button class="filter-chip active" data-sort="all">All Contacts</button>
+          <button class="filter-chip" data-sort="region">By Region</button>
+          <button class="filter-chip" data-sort="type">By Archetype</button>
+          <button class="filter-chip" data-sort="loyalty">Sort Loyalty</button>
+          <button class="filter-chip" data-sort="connection">Sort Connection</button>
+        </div>
         <div id="contactsList">
           <!-- Generated via JS -->
         </div>
@@ -733,7 +966,7 @@
   <!-- Embedded Data Payload & Script -->
   <script>
     const CHARACTERS_DATA = {
-  "yuriko": {
+  "reiko": {
     "identity": {
       "handle": "Yuriko Star",
       "real_name": "r31k0 Takahashi",
@@ -747,7 +980,9 @@
       "nuyen": 5000.0,
       "karma": 1,
       "lifetime_karma": 229,
-      "nanite_volume": 0
+      "nanite_volume": 0,
+      "is_ai": true,
+      "is_monad": false
     },
     "attributes": {
       "body": 5,
@@ -763,6 +998,138 @@
       "magic": 0,
       "essence": 6.0
     },
+    "attributes_list": [
+      {
+        "name": "Attack",
+        "code": "ATT",
+        "base": 3,
+        "buffed": 7,
+        "is_buffed": true,
+        "buffs": [
+          {
+            "source": "Network Tuning / Symbiosis",
+            "value": 4,
+            "notes": "Subject to +4 Augmented Attribute Limit"
+          }
+        ],
+        "breakdown": "Base 3 + Network Tuning (+4) = 7",
+        "doc_link": "chapters/rules_matrix.html#matrix-attributes"
+      },
+      {
+        "name": "Sleaze",
+        "code": "SLZ",
+        "base": 5,
+        "buffed": 9,
+        "is_buffed": true,
+        "buffs": [
+          {
+            "source": "Network Tuning / Symbiosis",
+            "value": 4,
+            "notes": "Subject to +4 Augmented Attribute Limit"
+          }
+        ],
+        "breakdown": "Base 5 + Network Tuning (+4) = 9",
+        "doc_link": "chapters/rules_matrix.html#matrix-attributes"
+      },
+      {
+        "name": "Data Processing",
+        "code": "DP",
+        "base": 3,
+        "buffed": 7,
+        "is_buffed": true,
+        "buffs": [
+          {
+            "source": "Network Tuning / Symbiosis",
+            "value": 4,
+            "notes": "Subject to +4 Augmented Attribute Limit"
+          }
+        ],
+        "breakdown": "Base 3 + Network Tuning (+4) = 7",
+        "doc_link": "chapters/rules_matrix.html#matrix-attributes"
+      },
+      {
+        "name": "Firewall",
+        "code": "FW",
+        "base": 5,
+        "buffed": 9,
+        "is_buffed": true,
+        "buffs": [
+          {
+            "source": "Network Tuning / Symbiosis",
+            "value": 4,
+            "notes": "Subject to +4 Augmented Attribute Limit"
+          }
+        ],
+        "breakdown": "Base 5 + Network Tuning (+4) = 9",
+        "doc_link": "chapters/rules_matrix.html#matrix-attributes"
+      },
+      {
+        "name": "Willpower",
+        "code": "WIL",
+        "base": 6,
+        "buffed": 6,
+        "is_buffed": false,
+        "buffs": [],
+        "breakdown": "Base 6",
+        "doc_link": "chapters/rules_matrix.html#matrix-attributes"
+      },
+      {
+        "name": "Logic",
+        "code": "LOG",
+        "base": 4,
+        "buffed": 4,
+        "is_buffed": false,
+        "buffs": [],
+        "breakdown": "Base 4",
+        "doc_link": "chapters/rules_matrix.html#matrix-attributes"
+      },
+      {
+        "name": "Intuition",
+        "code": "INT",
+        "base": 2,
+        "buffed": 2,
+        "is_buffed": false,
+        "buffs": [],
+        "breakdown": "Base 2",
+        "doc_link": "chapters/rules_matrix.html#matrix-attributes"
+      },
+      {
+        "name": "Charisma",
+        "code": "CHA",
+        "base": 4,
+        "buffed": 4,
+        "is_buffed": false,
+        "buffs": [],
+        "breakdown": "Base 4",
+        "doc_link": "chapters/rules_matrix.html#matrix-attributes"
+      },
+      {
+        "name": "Edge",
+        "code": "EDG",
+        "base": 4,
+        "buffed": 4,
+        "is_buffed": false,
+        "buffs": [],
+        "breakdown": "Base 4",
+        "doc_link": "chapters/rules_matrix.html#network-benefits"
+      },
+      {
+        "name": "Resonance",
+        "code": "RES",
+        "base": 8,
+        "buffed": 8,
+        "is_buffed": true,
+        "buffs": [
+          {
+            "source": "Resonance Focus (+4)",
+            "value": 4,
+            "notes": "Applies +4 dice to Resonance-linked action tests"
+          }
+        ],
+        "breakdown": "Base 8 (+4 Focus on tests)",
+        "doc_link": "chapters/rules_matrix.html#matrix-action-pools"
+      }
+    ],
     "derived": {
       "composure": 10,
       "judge_intentions": 8,
@@ -793,8 +1160,10 @@
         "attribute": "Resonance",
         "specialization": "Registering",
         "base_pool": 14,
-        "buffed_pool": 20,
-        "bought_hits": 5,
+        "buffed_pool": 18,
+        "bought_hits": 4,
+        "specialized_pool": 20,
+        "specialized_hits": 5,
         "effective_attribute": "resonance",
         "is_attribute_overridden": true,
         "breakdown_text": "RES 8 + 6 Rtg + +4 Focus",
@@ -807,13 +1176,14 @@
             "active": true
           },
           {
-            "source": "Specialization (Registering)",
+            "source": "Specialization: Registering",
             "type": "specialization",
             "value": 2,
             "target": "action",
-            "active": true
+            "active": false
           }
-        ]
+        ],
+        "doc_link": "chapters/rules_matrix.html#matrix-action-pools"
       },
       {
         "name": "Cracking",
@@ -822,8 +1192,10 @@
         "attribute": "Logic",
         "specialization": "Hacking",
         "base_pool": 9,
-        "buffed_pool": 23,
+        "buffed_pool": 21,
         "bought_hits": 5,
+        "specialized_pool": 23,
+        "specialized_hits": 5,
         "effective_attribute": "resonance",
         "is_attribute_overridden": true,
         "breakdown_text": "RES 8 + 5 Rtg + +4 Focus + +4 Taz",
@@ -843,13 +1215,14 @@
             "active": true
           },
           {
-            "source": "Specialization (Hacking)",
+            "source": "Specialization: Hacking",
             "type": "specialization",
             "value": 2,
             "target": "action",
-            "active": true
+            "active": false
           }
-        ]
+        ],
+        "doc_link": "chapters/rules_matrix.html#matrix-action-pools"
       },
       {
         "name": "Electronics",
@@ -858,8 +1231,10 @@
         "attribute": "Logic",
         "specialization": "Software",
         "base_pool": 9,
-        "buffed_pool": 23,
+        "buffed_pool": 21,
         "bought_hits": 5,
+        "specialized_pool": 23,
+        "specialized_hits": 5,
         "effective_attribute": "resonance",
         "is_attribute_overridden": true,
         "breakdown_text": "RES 8 + 5 Rtg + +4 Focus + +4 Taz",
@@ -879,13 +1254,14 @@
             "active": true
           },
           {
-            "source": "Specialization (Software)",
+            "source": "Specialization: Software",
             "type": "specialization",
             "value": 2,
             "target": "action",
-            "active": true
+            "active": false
           }
-        ]
+        ],
+        "doc_link": "chapters/rules_matrix.html#matrix-action-pools"
       },
       {
         "name": "Influence",
@@ -896,10 +1272,13 @@
         "base_pool": 5,
         "buffed_pool": 5,
         "bought_hits": 1,
+        "specialized_pool": 5,
+        "specialized_hits": 1,
         "effective_attribute": "charisma",
         "is_attribute_overridden": false,
         "breakdown_text": "CHA 4 + 1 Rtg",
-        "buffs": []
+        "buffs": [],
+        "doc_link": "chapters/rules_matrix.html#matrix-action-pools"
       },
       {
         "name": "Con",
@@ -910,10 +1289,13 @@
         "base_pool": 5,
         "buffed_pool": 5,
         "bought_hits": 1,
+        "specialized_pool": 5,
+        "specialized_hits": 1,
         "effective_attribute": "charisma",
         "is_attribute_overridden": false,
         "breakdown_text": "CHA 4 + 1 Rtg",
-        "buffs": []
+        "buffs": [],
+        "doc_link": "chapters/rules_matrix.html#matrix-action-pools"
       },
       {
         "name": "Native Language",
@@ -924,10 +1306,13 @@
         "base_pool": 8,
         "buffed_pool": 8,
         "bought_hits": 2,
+        "specialized_pool": 8,
+        "specialized_hits": 2,
         "effective_attribute": "logic",
         "is_attribute_overridden": false,
         "breakdown_text": "LOG 4 + 4 Rtg",
-        "buffs": []
+        "buffs": [],
+        "doc_link": "chapters/rules_matrix.html#matrix-action-pools"
       }
     ],
     "qualities": {
@@ -987,7 +1372,10 @@
     "weapons": [
       {
         "name": "Crimson Wasp Array (2x Link-Fired)",
+        "is_melee": false,
+        "category": "general",
         "damage": "7P",
+        "base_damage": "7P",
         "attack_rating": [
           24,
           22,
@@ -996,44 +1384,58 @@
           0
         ],
         "attack_rating_str": "24 / 22 / 17 / 12 / —",
+        "base_attack_rating_str": "22 / 20 / 17 / 12 / —",
         "modes": [
           "SA"
         ],
         "modes_str": "SA",
+        "base_modes_str": "SA",
         "ammo": "15(c)",
+        "base_ammo": "15(c)",
         "loaded_ammo": null,
         "accessories": [
           "Smartlink",
           "Drone Mount (+2 AR)",
           "Link-Fired (2x Crimson Wasps)"
         ],
-        "notes": ""
+        "notes": "",
+        "doc_link": "chapters/rules_combat.html#tactical-weapon-arrays"
       },
       {
         "name": "Tesla Coil",
+        "is_melee": false,
+        "category": "general",
         "damage": "5S(e)",
+        "base_damage": "5S(e)",
         "attack_rating": [
-          8,
-          0,
+          10,
+          12,
           0,
           0,
           0
         ],
-        "attack_rating_str": "8 / — / — / — / —",
+        "attack_rating_str": "10 / 12 / — / — / —",
+        "base_attack_rating_str": "10 / 12 / — / — / —",
         "modes": [
           "SS"
         ],
         "modes_str": "SS",
+        "base_modes_str": "SS",
         "ammo": "—",
+        "base_ammo": "—",
         "loaded_ammo": null,
         "accessories": [
           "MAA Cyberarm Mount (+2 AR)"
         ],
-        "notes": ""
+        "notes": "",
+        "doc_link": "chapters/rules_combat.html#tactical-weapon-arrays"
       },
       {
         "name": "Dagger of the Sacred Rose (+1 Weapon Focus)",
+        "is_melee": true,
+        "category": "general",
         "damage": "2P",
+        "base_damage": "2P",
         "attack_rating": [
           9,
           1,
@@ -1042,40 +1444,23 @@
           0
         ],
         "attack_rating_str": "9 / 1 / — / — / —",
-        "modes": [
-          "SA"
-        ],
-        "modes_str": "SA",
+        "base_attack_rating_str": "9 / 1 / — / — / —",
+        "modes": [],
+        "modes_str": "Melee",
+        "base_modes_str": "Melee",
         "ammo": "—",
+        "base_ammo": "—",
         "loaded_ammo": null,
         "accessories": [],
-        "notes": ""
+        "notes": "",
+        "doc_link": "chapters/rules_combat.html#tactical-weapon-arrays"
       },
       {
-        "name": "Amalgam Cestas (Stun)",
-        "damage": "4S(e)",
-        "attack_rating": [
-          5,
-          0,
-          0,
-          0,
-          0
-        ],
-        "attack_rating_str": "5 / — / — / — / —",
-        "modes": [
-          "SA"
-        ],
-        "modes_str": "SA",
-        "ammo": "—",
-        "loaded_ammo": null,
-        "accessories": [
-          "Personalized Grip"
-        ],
-        "notes": "Amalgam Tech Cestas; overrides magical immunity to normal weapons"
-      },
-      {
-        "name": "Amalgam Cestas (Phys)",
+        "name": "Amalgam Cestas",
+        "is_melee": true,
+        "category": "general",
         "damage": "3P",
+        "base_damage": "3P",
         "attack_rating": [
           6,
           0,
@@ -1084,16 +1469,18 @@
           0
         ],
         "attack_rating_str": "6 / — / — / — / —",
-        "modes": [
-          "SA"
-        ],
-        "modes_str": "SA",
+        "base_attack_rating_str": "6 / — / — / — / —",
+        "modes": [],
+        "modes_str": "Melee",
+        "base_modes_str": "Melee",
         "ammo": "—",
+        "base_ammo": "—",
         "loaded_ammo": null,
         "accessories": [
           "Personalized Grip"
         ],
-        "notes": "Amalgam Tech Cestas; overrides magical immunity to normal weapons"
+        "notes": "Amalgam Tech Cestas; 3P damage, overrides magical immunity to normal weapons (ItNW). 1 Wild Die.",
+        "doc_link": "chapters/rules_combat.html#amalgam-protocols"
       }
     ],
     "armors": [],
@@ -1103,53 +1490,66 @@
         "role": "",
         "handling": "3/3",
         "accel": "4/4",
-        "speed": 30,
+        "speed": "30",
         "interval": 10,
         "body": 0,
+        "base_body": 0,
         "armor": 0,
+        "base_armor": 0,
         "pilot": 2,
-        "sensor": 1,
+        "base_pilot": 2,
+        "sensor": 2,
+        "base_sensor": 1,
         "seats": "-",
         "modifications": [],
+        "profile_notes": [
+          "Network Sensor Upgrade (+1)"
+        ],
+        "mobility_str": "",
         "rigged_pools": {
           "piloting": {
-            "pool": 23,
-            "hits": 5,
-            "breakdown": "Maneuvering 7 + Pilot/RES 9 + Focus 4 + Taz Diagnosis 3 = 23d6"
+            "pool": 9,
+            "hits": 2,
+            "breakdown": "Maneuvering 7 + Pilot 2 = 9d6"
           },
           "gunnery": {
-            "pool": 24,
-            "hits": 6,
-            "breakdown": "Targeting 7 + Pilot/RES 9 + Focus 4 + Taz Symbiosis 4 = 24d6"
+            "pool": 9,
+            "hits": 2,
+            "breakdown": "Targeting 7 + Sensor 2 = 9d6"
           },
           "evasion": {
-            "pool": 24,
-            "hits": 6,
-            "breakdown": "Evasion 7 + Pilot/RES 9 + Focus 4 + Taz Symbiosis 4 = 24d6"
+            "pool": 9,
+            "hits": 2,
+            "breakdown": "Evasion 7 + Pilot 2 = 9d6"
           },
           "perception": {
-            "pool": 13,
-            "hits": 3,
-            "breakdown": "Clearsight 7 + Sensor 2 + Taz Symbiosis 4 = 13d6"
+            "pool": 9,
+            "hits": 2,
+            "breakdown": "Clearsight 7 + Sensor 2 = 9d6"
           },
           "stealth": {
-            "pool": 26,
-            "hits": 6,
-            "breakdown": "Stealth 7 + Pilot/RES 9 + Focus 4 + Taz Symbiosis 4 + Tactical Soft Sneak-Sneak 2 = 26d6"
+            "pool": 9,
+            "hits": 2,
+            "breakdown": "Stealth 7 + Pilot 2 = 9d6"
           }
-        }
+        },
+        "doc_link": "chapters/rules_drones.html#tactical-drones"
       },
       {
         "name": "Federated-Boeing Sky Commander (Seattle Retrans Relay)",
         "role": "",
         "handling": "4/4",
         "accel": "10/10",
-        "speed": 120,
+        "speed": "120",
         "interval": 20,
         "body": 3,
-        "armor": 0,
+        "base_body": 3,
+        "armor": 4,
+        "base_armor": 0,
         "pilot": 3,
-        "sensor": 3,
+        "base_pilot": 3,
+        "sensor": 7,
+        "base_sensor": 3,
         "seats": "-",
         "modifications": [
           "Drone Bay (Micro/Mini)",
@@ -1162,6 +1562,83 @@
           "M-TOC II Repository & Software Tags",
           "Rating 2 Framework Host Repository (Scale 1 Micro, Grade 2 Default)"
         ],
+        "profile_notes": [
+          "Network Sensor Upgrade (+1)",
+          "RAM Plating (+4 ARM)",
+          "Enhanced Sensors (+3 SEN)"
+        ],
+        "mobility_str": "",
+        "rigged_pools": {
+          "piloting": {
+            "pool": 10,
+            "hits": 2,
+            "breakdown": "Maneuvering 7 + Pilot 3 = 10d6"
+          },
+          "gunnery": {
+            "pool": 14,
+            "hits": 3,
+            "breakdown": "Targeting 7 + Sensor 7 = 14d6"
+          },
+          "evasion": {
+            "pool": 10,
+            "hits": 2,
+            "breakdown": "Evasion 7 + Pilot 3 = 10d6"
+          },
+          "perception": {
+            "pool": 14,
+            "hits": 3,
+            "breakdown": "Clearsight 7 + Sensor 7 = 14d6"
+          },
+          "stealth": {
+            "pool": 10,
+            "hits": 2,
+            "breakdown": "Stealth 7 + Pilot 3 = 10d6"
+          }
+        },
+        "doc_link": "chapters/rules_drones.html#tactical-drones"
+      },
+      {
+        "name": "Shiawase Man-at-Arms",
+        "role": "",
+        "handling": "3/3",
+        "accel": "5/5",
+        "speed": "10",
+        "interval": 5,
+        "body": 16,
+        "base_body": 10,
+        "armor": 17,
+        "base_armor": 8,
+        "pilot": 9,
+        "base_pilot": 2,
+        "sensor": 7,
+        "base_sensor": 3,
+        "seats": "-",
+        "modifications": [
+          "Weapon Mount (Standard) x2",
+          "Pop-Out Concealment (Standard) x2",
+          "Chameleon Coating 2",
+          "Drone Rack (Small)",
+          "Tesla Coil",
+          "Wrist Shield",
+          "Armor Increase 5",
+          "Increased Structural Integrity 5",
+          "Realistic Features 4",
+          "Secondary Propulsion (Rotor)",
+          "Increased Sensors 3",
+          "Retractable Skates",
+          "Built-In MedKit",
+          "Satellite Link",
+          "Laser Jack"
+        ],
+        "profile_notes": [
+          "Network Sensor Upgrade (+1)",
+          "Armor Increase (+5 ARM)",
+          "Structural Integrity (+5 BOD)",
+          "Enhanced Sensors (+3 SEN)",
+          "Wrist Shield (+4 ARM)",
+          "Designer Quality (+1 Pilot, 2 Noise Reduction on Home Device)"
+        ],
+        "mobility_str": "Rotor: Han 5, Acc 10, SPD 120 (20). Skates: 10/30/+2",
         "rigged_pools": {
           "piloting": {
             "pool": 23,
@@ -1188,196 +1665,309 @@
             "hits": 6,
             "breakdown": "Stealth 7 + Pilot/RES 9 + Focus 4 + Taz Symbiosis 4 + Tactical Soft Sneak-Sneak 2 = 26d6"
           }
-        }
-      },
-      {
-        "name": "Shiawase Man-at-Arms",
-        "role": "",
-        "handling": "3/3",
-        "accel": "5/5",
-        "speed": 10,
-        "interval": 5,
-        "body": 10,
-        "armor": 8,
-        "pilot": 2,
-        "sensor": 2,
-        "seats": "-",
-        "modifications": [
-          "Weapon Mount (Standard) x2",
-          "Pop-Out Concealment (Standard) x2",
-          "Chameleon Coating 2",
-          "Drone Rack (Small)",
-          "Tesla Coil",
-          "Wrist Shield",
-          "Armor Increase 5",
-          "Increased Structural Integrity 5",
-          "Realistic Features 4",
-          "Secondary Propulsion (Rotor)",
-          "Increased Sensors 3",
-          "Retractable Skates",
-          "Built-In MedKit",
-          "Satellite Link",
-          "Laser Jack"
-        ],
-        "rigged_pools": {
-          "piloting": {
-            "pool": 23,
-            "hits": 5,
-            "breakdown": "Maneuvering 7 + Pilot/RES 9 + Focus 4 + Taz Diagnosis 3 = 23d6"
-          },
-          "gunnery": {
-            "pool": 24,
-            "hits": 6,
-            "breakdown": "Targeting 7 + Pilot/RES 9 + Focus 4 + Taz Symbiosis 4 = 24d6"
-          },
-          "evasion": {
-            "pool": 24,
-            "hits": 6,
-            "breakdown": "Evasion 7 + Pilot/RES 9 + Focus 4 + Taz Symbiosis 4 = 24d6"
-          },
-          "perception": {
-            "pool": 17,
-            "hits": 4,
-            "breakdown": "Clearsight 7 + Sensor 6 + Taz Symbiosis 4 = 17d6"
-          },
-          "stealth": {
-            "pool": 26,
-            "hits": 6,
-            "breakdown": "Stealth 7 + Pilot/RES 9 + Focus 4 + Taz Symbiosis 4 + Tactical Soft Sneak-Sneak 2 = 26d6"
-          }
-        }
+        },
+        "doc_link": "chapters/rules_drones.html#tactical-drones"
       },
       {
         "name": "Kwonsham Dream Genie",
         "role": "",
         "handling": "2/4",
         "accel": "10/10",
-        "speed": 10,
+        "speed": "10",
         "interval": 5,
         "body": 2,
+        "base_body": 2,
         "armor": 0,
+        "base_armor": 0,
         "pilot": 1,
-        "sensor": 1,
+        "base_pilot": 1,
+        "sensor": 2,
+        "base_sensor": 1,
         "seats": "-",
         "modifications": [
           "Trid Projector",
           "Smart Tires"
         ],
+        "profile_notes": [
+          "Network Sensor Upgrade (+1)"
+        ],
+        "mobility_str": "",
         "rigged_pools": {
           "piloting": {
-            "pool": 23,
-            "hits": 5,
-            "breakdown": "Maneuvering 7 + Pilot/RES 9 + Focus 4 + Taz Diagnosis 3 = 23d6"
+            "pool": 8,
+            "hits": 2,
+            "breakdown": "Maneuvering 7 + Pilot 1 = 8d6"
           },
           "gunnery": {
-            "pool": 24,
-            "hits": 6,
-            "breakdown": "Targeting 7 + Pilot/RES 9 + Focus 4 + Taz Symbiosis 4 = 24d6"
+            "pool": 9,
+            "hits": 2,
+            "breakdown": "Targeting 7 + Sensor 2 = 9d6"
           },
           "evasion": {
-            "pool": 24,
-            "hits": 6,
-            "breakdown": "Evasion 7 + Pilot/RES 9 + Focus 4 + Taz Symbiosis 4 = 24d6"
+            "pool": 8,
+            "hits": 2,
+            "breakdown": "Evasion 7 + Pilot 1 = 8d6"
           },
           "perception": {
-            "pool": 13,
-            "hits": 3,
-            "breakdown": "Clearsight 7 + Sensor 2 + Taz Symbiosis 4 = 13d6"
+            "pool": 9,
+            "hits": 2,
+            "breakdown": "Clearsight 7 + Sensor 2 = 9d6"
           },
           "stealth": {
-            "pool": 26,
-            "hits": 6,
-            "breakdown": "Stealth 7 + Pilot/RES 9 + Focus 4 + Taz Symbiosis 4 + Tactical Soft Sneak-Sneak 2 = 26d6"
+            "pool": 8,
+            "hits": 2,
+            "breakdown": "Stealth 7 + Pilot 1 = 8d6"
           }
-        }
+        },
+        "doc_link": "chapters/rules_drones.html#tactical-drones"
       },
       {
         "name": "Vulcan Systems Utility-One",
         "role": "",
         "handling": "3/3",
         "accel": "3/3",
-        "speed": 5,
+        "speed": "5",
         "interval": 5,
         "body": 2,
+        "base_body": 2,
         "armor": 0,
+        "base_armor": 0,
         "pilot": 1,
-        "sensor": 1,
+        "base_pilot": 1,
+        "sensor": 2,
+        "base_sensor": 1,
         "seats": "-",
         "modifications": [
           "Integrated Engineering & Repair Tool Package"
         ],
+        "profile_notes": [
+          "Network Sensor Upgrade (+1)"
+        ],
+        "mobility_str": "",
         "rigged_pools": {
           "piloting": {
-            "pool": 23,
-            "hits": 5,
-            "breakdown": "Maneuvering 7 + Pilot/RES 9 + Focus 4 + Taz Diagnosis 3 = 23d6"
+            "pool": 8,
+            "hits": 2,
+            "breakdown": "Maneuvering 7 + Pilot 1 = 8d6"
           },
           "gunnery": {
-            "pool": 24,
-            "hits": 6,
-            "breakdown": "Targeting 7 + Pilot/RES 9 + Focus 4 + Taz Symbiosis 4 = 24d6"
+            "pool": 9,
+            "hits": 2,
+            "breakdown": "Targeting 7 + Sensor 2 = 9d6"
           },
           "evasion": {
-            "pool": 24,
-            "hits": 6,
-            "breakdown": "Evasion 7 + Pilot/RES 9 + Focus 4 + Taz Symbiosis 4 = 24d6"
+            "pool": 8,
+            "hits": 2,
+            "breakdown": "Evasion 7 + Pilot 1 = 8d6"
           },
           "perception": {
-            "pool": 13,
-            "hits": 3,
-            "breakdown": "Clearsight 7 + Sensor 2 + Taz Symbiosis 4 = 13d6"
+            "pool": 9,
+            "hits": 2,
+            "breakdown": "Clearsight 7 + Sensor 2 = 9d6"
           },
           "stealth": {
-            "pool": 26,
-            "hits": 6,
-            "breakdown": "Stealth 7 + Pilot/RES 9 + Focus 4 + Taz Symbiosis 4 + Tactical Soft Sneak-Sneak 2 = 26d6"
+            "pool": 8,
+            "hits": 2,
+            "breakdown": "Stealth 7 + Pilot 1 = 8d6"
           }
-        }
+        },
+        "doc_link": "chapters/rules_drones.html#tactical-drones"
       }
     ],
+    "spells": [],
+    "adept_powers": [],
+    "complex_forms": [
+      {
+        "name": "Cleaner",
+        "fading": 2,
+        "duration": "Permanent",
+        "target": "Device/Persona",
+        "notes": "Electronics + RES test. Each hit reduces accumulated Overwatch Score (OS) by 1.",
+        "doc_link": "chapters/rules_sprites.html#complex-forms"
+      },
+      {
+        "name": "Diffusion",
+        "fading": 4,
+        "duration": "Sustained",
+        "target": "Firewall",
+        "notes": "Electronics + RES vs WIL + FW. Each net hit reduces target Firewall by 1 (min 1).",
+        "doc_link": "chapters/rules_sprites.html#complex-forms"
+      },
+      {
+        "name": "Technoregeneration",
+        "fading": -1,
+        "duration": "Permanent",
+        "target": "Electronic Device",
+        "notes": "Electronics (Hardware) + RES restores 1 Matrix box per hit. Repaired device rolls Wild Die until 1 hr toolkit maintenance.",
+        "doc_link": "chapters/rules_sprites.html#complex-forms"
+      },
+      {
+        "name": "Puppeteer",
+        "fading": 5,
+        "duration": "Sustained",
+        "target": "Device",
+        "notes": "Replaces Control Device action with Electronics + RES as if having Admin access. Controls physical device actions (firing turrets, driving). Sustaining maintains control.",
+        "doc_link": "chapters/rules_sprites.html#complex-forms"
+      },
+      {
+        "name": "Cyber Spike",
+        "fading": 3,
+        "duration": "Immediate",
+        "target": "Character with wireless cyberware",
+        "notes": "Electronics + RES vs BOD + Essence (rounded down). Deals 1 Physical damage per net hit and stresses all installed cyberware as if from Augmentation Overdrive for 1 round.",
+        "doc_link": "chapters/rules_sprites.html#complex-forms"
+      }
+    ],
+    "sprite_powers": [
+      {
+        "name": "Override",
+        "type": "Sprite Power (Symbiosis)",
+        "target": "Device on Autopilot (Drone / Vehicle)",
+        "action": "Minor Action",
+        "effect": "Electronics + Level/RES vs Device Rating + FW. Substitutes Level/RES for device Pilot rating (Reiko RES 8 + 1 Designer = Pilot 9). Enables Resonance Focus and Sprite Symbiosis bonuses on rigging.",
+        "doc_link": "chapters/rules_sprites.html#sprite-symbiosis-powers"
+      },
+      {
+        "name": "Phantom",
+        "type": "Sprite Power (Symbiosis)",
+        "target": "Persona / Device",
+        "action": "Minor Action (Sustained)",
+        "effect": "Conceals icon from Matrix searches. Only detectable by a Matrix Perception test specifically looking for that icon, with sprite's Electronics + RES net hits acting as the detection threshold.",
+        "doc_link": "chapters/rules_sprites.html#sprite-symbiosis-powers"
+      },
+      {
+        "name": "Death Mark",
+        "type": "Sprite Power (Symbiosis)",
+        "target": "Persona using VR Mode (Hot-Sim / Cold-Sim)",
+        "action": "Minor Action (Sustained)",
+        "effect": "Cracking + RES vs INT + FW. Target is link-locked and suffers matching Biofeedback damage (Physical if hot-sim, Stun if cold-sim) whenever taking Matrix damage from any source.",
+        "doc_link": "chapters/rules_sprites.html#sprite-symbiosis-powers"
+      },
+      {
+        "name": "Harmonize",
+        "type": "Sprite Power (Symbiosis)",
+        "target": "100m Radius Area / Matrix",
+        "action": "Performance Action",
+        "effect": "Con (Performance) + RES reduces ambient Noise by hits (overcomes un-negatable noise), grants +hits bonus dice to all healing/repairs, and matrix fauna regenerate 1 box/round.",
+        "doc_link": "chapters/rules_sprites.html#sprite-symbiosis-powers"
+      }
+    ],
+    "monad_abilities": [],
+    "augmentations": [],
     "powers": {
       "complex_forms": [
         {
           "name": "Cleaner",
           "fading": 2,
           "duration": "Permanent",
-          "target": "Device/Persona"
+          "target": "Device/Persona",
+          "notes": "Electronics + RES test. Each hit reduces accumulated Overwatch Score (OS) by 1.",
+          "doc_link": "chapters/rules_sprites.html#complex-forms"
         },
         {
           "name": "Diffusion",
           "fading": 4,
           "duration": "Sustained",
-          "target": "Firewall"
+          "target": "Firewall",
+          "notes": "Electronics + RES vs WIL + FW. Each net hit reduces target Firewall by 1 (min 1).",
+          "doc_link": "chapters/rules_sprites.html#complex-forms"
         },
         {
           "name": "Technoregeneration",
           "fading": -1,
           "duration": "Permanent",
-          "target": "Device/Persona"
+          "target": "Electronic Device",
+          "notes": "Electronics (Hardware) + RES restores 1 Matrix box per hit. Repaired device rolls Wild Die until 1 hr toolkit maintenance.",
+          "doc_link": "chapters/rules_sprites.html#complex-forms"
         },
         {
           "name": "Puppeteer",
           "fading": 5,
           "duration": "Sustained",
-          "target": "Device/Persona"
+          "target": "Device",
+          "notes": "Replaces Control Device action with Electronics + RES as if having Admin access. Controls physical device actions (firing turrets, driving). Sustaining maintains control.",
+          "doc_link": "chapters/rules_sprites.html#complex-forms"
         },
         {
           "name": "Cyber Spike",
           "fading": 3,
           "duration": "Immediate",
-          "target": "Device, Persona"
+          "target": "Character with wireless cyberware",
+          "notes": "Electronics + RES vs BOD + Essence (rounded down). Deals 1 Physical damage per net hit and stresses all installed cyberware as if from Augmentation Overdrive for 1 round.",
+          "doc_link": "chapters/rules_sprites.html#complex-forms"
         }
       ],
       "echoes": [
-        "Hybrid Sprites",
-        "New Sprite Type",
-        "Sprite Conduit",
-        "Sprite Symbiosis",
-        "Living Network",
-        "Transcendent Network",
-        "Overclocking",
-        "Software Emulator",
-        "Sprite Link"
+        {
+          "name": "Hybrid Sprites",
+          "doc_link": "chapters/rules_matrix.html#network-benefits"
+        },
+        {
+          "name": "New Sprite Type",
+          "doc_link": "chapters/rules_matrix.html#network-benefits"
+        },
+        {
+          "name": "Sprite Conduit",
+          "doc_link": "chapters/rules_matrix.html#network-benefits"
+        },
+        {
+          "name": "Sprite Symbiosis",
+          "doc_link": "chapters/rules_matrix.html#network-benefits"
+        },
+        {
+          "name": "Living Network",
+          "doc_link": "chapters/rules_matrix.html#network-benefits"
+        },
+        {
+          "name": "Transcendent Network",
+          "doc_link": "chapters/rules_matrix.html#network-benefits"
+        },
+        {
+          "name": "Overclocking",
+          "doc_link": "chapters/rules_matrix.html#network-benefits"
+        },
+        {
+          "name": "Software Emulator",
+          "doc_link": "chapters/rules_matrix.html#network-benefits"
+        },
+        {
+          "name": "Sprite Link",
+          "doc_link": "chapters/rules_matrix.html#network-benefits"
+        }
+      ],
+      "sprite_powers": [
+        {
+          "name": "Override",
+          "type": "Sprite Power (Symbiosis)",
+          "target": "Device on Autopilot (Drone / Vehicle)",
+          "action": "Minor Action",
+          "effect": "Electronics + Level/RES vs Device Rating + FW. Substitutes Level/RES for device Pilot rating (Reiko RES 8 + 1 Designer = Pilot 9). Enables Resonance Focus and Sprite Symbiosis bonuses on rigging.",
+          "doc_link": "chapters/rules_sprites.html#sprite-symbiosis-powers"
+        },
+        {
+          "name": "Phantom",
+          "type": "Sprite Power (Symbiosis)",
+          "target": "Persona / Device",
+          "action": "Minor Action (Sustained)",
+          "effect": "Conceals icon from Matrix searches. Only detectable by a Matrix Perception test specifically looking for that icon, with sprite's Electronics + RES net hits acting as the detection threshold.",
+          "doc_link": "chapters/rules_sprites.html#sprite-symbiosis-powers"
+        },
+        {
+          "name": "Death Mark",
+          "type": "Sprite Power (Symbiosis)",
+          "target": "Persona using VR Mode (Hot-Sim / Cold-Sim)",
+          "action": "Minor Action (Sustained)",
+          "effect": "Cracking + RES vs INT + FW. Target is link-locked and suffers matching Biofeedback damage (Physical if hot-sim, Stun if cold-sim) whenever taking Matrix damage from any source.",
+          "doc_link": "chapters/rules_sprites.html#sprite-symbiosis-powers"
+        },
+        {
+          "name": "Harmonize",
+          "type": "Sprite Power (Symbiosis)",
+          "target": "100m Radius Area / Matrix",
+          "action": "Performance Action",
+          "effect": "Con (Performance) + RES reduces ambient Noise by hits (overcomes un-negatable noise), grants +hits bonus dice to all healing/repairs, and matrix fauna regenerate 1 box/round.",
+          "doc_link": "chapters/rules_sprites.html#sprite-symbiosis-powers"
+        }
       ],
       "spells": [],
       "adept_powers": [],
@@ -1989,7 +2579,9 @@
       "nuyen": 30735,
       "karma": 14,
       "lifetime_karma": 47,
-      "nanite_volume": 0
+      "nanite_volume": 0,
+      "is_ai": false,
+      "is_monad": false
     },
     "attributes": {
       "body": 2,
@@ -2005,10 +2597,124 @@
       "magic": 6,
       "essence": 6.0
     },
+    "attributes_list": [
+      {
+        "name": "Body",
+        "code": "BOD",
+        "base": 2,
+        "buffed": 2,
+        "is_buffed": false,
+        "buffs": [],
+        "breakdown": "Base 2",
+        "doc_link": "chapters/rules_and_downtime.html"
+      },
+      {
+        "name": "Agility",
+        "code": "AGI",
+        "base": 3,
+        "buffed": 3,
+        "is_buffed": false,
+        "buffs": [],
+        "breakdown": "Base 3",
+        "doc_link": "chapters/rules_and_downtime.html"
+      },
+      {
+        "name": "Reaction",
+        "code": "REA",
+        "base": 2,
+        "buffed": 2,
+        "is_buffed": false,
+        "buffs": [],
+        "breakdown": "Base 2",
+        "doc_link": "chapters/rules_and_downtime.html"
+      },
+      {
+        "name": "Strength",
+        "code": "STR",
+        "base": 2,
+        "buffed": 2,
+        "is_buffed": false,
+        "buffs": [],
+        "breakdown": "Base 2",
+        "doc_link": "chapters/rules_and_downtime.html"
+      },
+      {
+        "name": "Willpower",
+        "code": "WIL",
+        "base": 5,
+        "buffed": 9,
+        "is_buffed": true,
+        "buffs": [
+          {
+            "source": "Increase Attribute Spell (F4)",
+            "value": 4,
+            "notes": "Sustained via Focused Concentration R3"
+          }
+        ],
+        "breakdown": "Base 5 + Increase Attribute (+4) = 9",
+        "doc_link": "chapters/rules_and_downtime.html#sustained-spells"
+      },
+      {
+        "name": "Logic",
+        "code": "LOG",
+        "base": 3,
+        "buffed": 3,
+        "is_buffed": false,
+        "buffs": [],
+        "breakdown": "Base 3",
+        "doc_link": "chapters/rules_and_downtime.html"
+      },
+      {
+        "name": "Intuition",
+        "code": "INT",
+        "base": 3,
+        "buffed": 3,
+        "is_buffed": false,
+        "buffs": [],
+        "breakdown": "Base 3",
+        "doc_link": "chapters/rules_and_downtime.html"
+      },
+      {
+        "name": "Charisma",
+        "code": "CHA",
+        "base": 10,
+        "buffed": 14,
+        "is_buffed": true,
+        "buffs": [
+          {
+            "source": "Increase Attribute Spell (F4)",
+            "value": 4,
+            "notes": "Sustained via Focused Concentration R3"
+          }
+        ],
+        "breakdown": "Base 10 + Increase Attribute (+4) = 14",
+        "doc_link": "chapters/rules_and_downtime.html#sustained-spells"
+      },
+      {
+        "name": "Edge",
+        "code": "EDG",
+        "base": 2,
+        "buffed": 2,
+        "is_buffed": false,
+        "buffs": [],
+        "breakdown": "Base 2",
+        "doc_link": "chapters/rules_and_downtime.html"
+      },
+      {
+        "name": "Magic",
+        "code": "MAG",
+        "base": 6,
+        "buffed": 6,
+        "is_buffed": false,
+        "buffs": [],
+        "breakdown": "Base 6",
+        "doc_link": "chapters/rules_and_downtime.html#foci-protocols"
+      }
+    ],
     "derived": {
-      "composure": 15,
-      "judge_intentions": 8,
-      "memory": 8,
+      "composure": 23,
+      "judge_intentions": 12,
+      "memory": 12,
       "lift_carry": 4,
       "physical_defense": 5,
       "defense_rating": 1,
@@ -2035,20 +2741,23 @@
         "attribute": "Magic",
         "specialization": "Spellcasting",
         "base_pool": 11,
-        "buffed_pool": 13,
-        "bought_hits": 3,
+        "buffed_pool": 11,
+        "bought_hits": 2,
+        "specialized_pool": 13,
+        "specialized_hits": 3,
         "effective_attribute": "magic",
         "is_attribute_overridden": false,
         "breakdown_text": "MAG 6 + 5 Rtg",
         "buffs": [
           {
-            "source": "Specialization (Spellcasting)",
+            "source": "Specialization: Spellcasting",
             "type": "specialization",
             "value": 2,
             "target": "action",
-            "active": true
+            "active": false
           }
-        ]
+        ],
+        "doc_link": "chapters/rules_and_downtime.html"
       },
       {
         "name": "Conjuring",
@@ -2059,10 +2768,13 @@
         "base_pool": 12,
         "buffed_pool": 12,
         "bought_hits": 3,
+        "specialized_pool": 12,
+        "specialized_hits": 3,
         "effective_attribute": "magic",
         "is_attribute_overridden": false,
         "breakdown_text": "MAG 6 + 6 Rtg",
-        "buffs": []
+        "buffs": [],
+        "doc_link": "chapters/rules_and_downtime.html"
       },
       {
         "name": "Influence",
@@ -2071,12 +2783,23 @@
         "attribute": "Charisma",
         "specialization": null,
         "base_pool": 15,
-        "buffed_pool": 15,
-        "bought_hits": 3,
+        "buffed_pool": 19,
+        "bought_hits": 4,
+        "specialized_pool": 19,
+        "specialized_hits": 4,
         "effective_attribute": "charisma",
         "is_attribute_overridden": false,
-        "breakdown_text": "CHA 10 + 5 Rtg",
-        "buffs": []
+        "breakdown_text": "CHA 14 + 5 Rtg",
+        "buffs": [
+          {
+            "source": "Increase Attribute (+4 Sustained)",
+            "type": "spell",
+            "value": 4,
+            "target": "attribute:charisma",
+            "active": true
+          }
+        ],
+        "doc_link": "chapters/rules_and_downtime.html"
       },
       {
         "name": "Con",
@@ -2085,12 +2808,23 @@
         "attribute": "Charisma",
         "specialization": null,
         "base_pool": 14,
-        "buffed_pool": 14,
-        "bought_hits": 3,
+        "buffed_pool": 18,
+        "bought_hits": 4,
+        "specialized_pool": 18,
+        "specialized_hits": 4,
         "effective_attribute": "charisma",
         "is_attribute_overridden": false,
-        "breakdown_text": "CHA 10 + 4 Rtg",
-        "buffs": []
+        "breakdown_text": "CHA 14 + 4 Rtg",
+        "buffs": [
+          {
+            "source": "Increase Attribute (+4 Sustained)",
+            "type": "spell",
+            "value": 4,
+            "target": "attribute:charisma",
+            "active": true
+          }
+        ],
+        "doc_link": "chapters/rules_and_downtime.html"
       },
       {
         "name": "Native Language",
@@ -2101,10 +2835,13 @@
         "base_pool": 7,
         "buffed_pool": 7,
         "bought_hits": 1,
+        "specialized_pool": 7,
+        "specialized_hits": 1,
         "effective_attribute": "logic",
         "is_attribute_overridden": false,
         "breakdown_text": "LOG 3 + 4 Rtg",
-        "buffs": []
+        "buffs": [],
+        "doc_link": "chapters/rules_and_downtime.html"
       },
       {
         "name": "Small Unit Tactics",
@@ -2115,10 +2852,13 @@
         "base_pool": 4,
         "buffed_pool": 4,
         "bought_hits": 1,
+        "specialized_pool": 4,
+        "specialized_hits": 1,
         "effective_attribute": "logic",
         "is_attribute_overridden": false,
         "breakdown_text": "LOG 3 + 1 Rtg",
-        "buffs": []
+        "buffs": [],
+        "doc_link": "chapters/rules_and_downtime.html"
       },
       {
         "name": "MCT",
@@ -2129,10 +2869,13 @@
         "base_pool": 4,
         "buffed_pool": 4,
         "bought_hits": 1,
+        "specialized_pool": 4,
+        "specialized_hits": 1,
         "effective_attribute": "logic",
         "is_attribute_overridden": false,
         "breakdown_text": "LOG 3 + 1 Rtg",
-        "buffs": []
+        "buffs": [],
+        "doc_link": "chapters/rules_and_downtime.html"
       },
       {
         "name": "Wuxing",
@@ -2143,10 +2886,13 @@
         "base_pool": 4,
         "buffed_pool": 4,
         "bought_hits": 1,
+        "specialized_pool": 4,
+        "specialized_hits": 1,
         "effective_attribute": "logic",
         "is_attribute_overridden": false,
         "breakdown_text": "LOG 3 + 1 Rtg",
-        "buffs": []
+        "buffs": [],
+        "doc_link": "chapters/rules_and_downtime.html"
       },
       {
         "name": "East Asian Media",
@@ -2157,10 +2903,13 @@
         "base_pool": 4,
         "buffed_pool": 4,
         "bought_hits": 1,
+        "specialized_pool": 4,
+        "specialized_hits": 1,
         "effective_attribute": "logic",
         "is_attribute_overridden": false,
         "breakdown_text": "LOG 3 + 1 Rtg",
-        "buffs": []
+        "buffs": [],
+        "doc_link": "chapters/rules_and_downtime.html"
       }
     ],
     "qualities": {
@@ -2220,7 +2969,10 @@
     "weapons": [
       {
         "name": "Beretta 101T",
+        "is_melee": false,
+        "category": "general",
         "damage": "3P",
+        "base_damage": "3P",
         "attack_rating": [
           10,
           10,
@@ -2229,18 +2981,25 @@
           0
         ],
         "attack_rating_str": "10 / 10 / 8 / — / —",
+        "base_attack_rating_str": "10 / 10 / 8 / — / —",
         "modes": [
           "SA"
         ],
         "modes_str": "SA",
+        "base_modes_str": "SA",
         "ammo": "—",
+        "base_ammo": "—",
         "loaded_ammo": null,
         "accessories": [],
-        "notes": ""
+        "notes": "",
+        "doc_link": "chapters/rules_and_downtime.html#weapon-attack-table"
       },
       {
         "name": "Sap",
+        "is_melee": true,
+        "category": "general",
         "damage": "3P",
+        "base_damage": "3P",
         "attack_rating": [
           10,
           10,
@@ -2249,18 +3008,23 @@
           0
         ],
         "attack_rating_str": "10 / 10 / 8 / — / —",
-        "modes": [
-          "SA"
-        ],
-        "modes_str": "SA",
+        "base_attack_rating_str": "10 / 10 / 8 / — / —",
+        "modes": [],
+        "modes_str": "Melee",
+        "base_modes_str": "Melee",
         "ammo": "—",
+        "base_ammo": "—",
         "loaded_ammo": null,
         "accessories": [],
-        "notes": ""
+        "notes": "",
+        "doc_link": "chapters/rules_and_downtime.html#weapon-attack-table"
       },
       {
         "name": "Yamaha Raiden",
+        "is_melee": false,
+        "category": "general",
         "damage": "3P",
+        "base_damage": "3P",
         "attack_rating": [
           10,
           10,
@@ -2269,18 +3033,25 @@
           0
         ],
         "attack_rating_str": "10 / 10 / 8 / — / —",
+        "base_attack_rating_str": "10 / 10 / 8 / — / —",
         "modes": [
           "SA"
         ],
         "modes_str": "SA",
+        "base_modes_str": "SA",
         "ammo": "—",
+        "base_ammo": "—",
         "loaded_ammo": null,
         "accessories": [],
-        "notes": ""
+        "notes": "",
+        "doc_link": "chapters/rules_and_downtime.html#weapon-attack-table"
       },
       {
         "name": "Stun Baton",
+        "is_melee": true,
+        "category": "general",
         "damage": "3P",
+        "base_damage": "3P",
         "attack_rating": [
           10,
           10,
@@ -2289,14 +3060,16 @@
           0
         ],
         "attack_rating_str": "10 / 10 / 8 / — / —",
-        "modes": [
-          "SA"
-        ],
-        "modes_str": "SA",
+        "base_attack_rating_str": "10 / 10 / 8 / — / —",
+        "modes": [],
+        "modes_str": "Melee",
+        "base_modes_str": "Melee",
         "ammo": "—",
+        "base_ammo": "—",
         "loaded_ammo": null,
         "accessories": [],
-        "notes": ""
+        "notes": "",
+        "doc_link": "chapters/rules_and_downtime.html#weapon-attack-table"
       }
     ],
     "armors": [
@@ -2307,58 +3080,135 @@
       }
     ],
     "vehicles": [],
+    "spells": [
+      {
+        "name": "Increase Attribute",
+        "drain": 3,
+        "type": "Physical",
+        "range": "Touch",
+        "duration": "Sustained",
+        "notes": "Sorcery + Magic (5 - Essence) test. Net hits increase target attribute by +1 (max +4). Each net hit beyond the 1st increases Drain by +1. Sustained via Focused Concentration R3 with 0 penalties.",
+        "doc_link": "chapters/rules_and_downtime.html#spell-library"
+      },
+      {
+        "name": "Increase Reflexes",
+        "drain": 5,
+        "type": "Physical",
+        "range": "Touch",
+        "duration": "Sustained",
+        "notes": "Sorcery + Magic (5 - Essence) test. Net hits increase both Reaction and Initiative Dice (+1 REA & +1D6 Init per net hit). Each net hit beyond the 1st increases Drain by +1.",
+        "doc_link": "chapters/rules_and_downtime.html#spell-library"
+      }
+    ],
+    "adept_powers": [
+      {
+        "name": "Cosmetic Control",
+        "cost": "2.0 PP",
+        "rating": 2,
+        "notes": "Physical biological disguise (face, skin, height, weight, gender markers, eyes, metaspecies features). Reduces Edge cost by -1 for Con tests (Acting, Disguise, Impersonation).",
+        "doc_link": "chapters/rules_and_downtime.html#adept-powers"
+      },
+      {
+        "name": "Linguistics",
+        "cost": "0.25 PP",
+        "rating": 1,
+        "notes": "Absorbs any new spoken language at basic proficiency after 1 hour of exposure without spending Karma. +1 bonus die on language Perception tests.",
+        "doc_link": "chapters/rules_and_downtime.html#adept-powers"
+      },
+      {
+        "name": "Command Presence",
+        "cost": "0.50 PP",
+        "rating": 1,
+        "notes": "+2 dice pool bonus and +1 Edge on all Influence (Leadership) tests. Reduces Small Unit Tactics test thresholds by -2.",
+        "doc_link": "chapters/rules_and_downtime.html#adept-powers"
+      },
+      {
+        "name": "Cloak",
+        "cost": "0.25 PP",
+        "rating": 1,
+        "notes": "Imposes a -1 dice pool penalty per rating point to hostile Assensing and Astral Perception tests attempting to read Velvet's aura or pierce covers.",
+        "doc_link": "chapters/rules_and_downtime.html#adept-powers"
+      },
+      {
+        "name": "Sharp Tongue",
+        "cost": "1.0 PP",
+        "rating": 1,
+        "notes": "Charisma + Magic vs Intuition + Willpower (20d6 vs INT+WIL). Net hits inflict unresisted Stun damage. Alternatively, inflicts Dazed if net hits >= target Willpower.",
+        "doc_link": "chapters/rules_and_downtime.html#adept-powers"
+      }
+    ],
+    "complex_forms": [],
+    "sprite_powers": [],
+    "monad_abilities": [],
+    "augmentations": [],
     "powers": {
       "complex_forms": [],
       "echoes": [
-        "Channeling",
-        "Power Point"
+        {
+          "name": "Channeling",
+          "doc_link": "chapters/rules_matrix.html#network-benefits"
+        },
+        {
+          "name": "Power Point",
+          "doc_link": "chapters/rules_matrix.html#network-benefits"
+        }
       ],
+      "sprite_powers": [],
       "spells": [
         {
           "name": "Increase Attribute",
           "drain": 3,
           "type": "Physical",
-          "range": "LOS",
-          "duration": "Instant"
+          "range": "Touch",
+          "duration": "Sustained",
+          "notes": "Sorcery + Magic (5 - Essence) test. Net hits increase target attribute by +1 (max +4). Each net hit beyond the 1st increases Drain by +1. Sustained via Focused Concentration R3 with 0 penalties.",
+          "doc_link": "chapters/rules_and_downtime.html#spell-library"
         },
         {
           "name": "Increase Reflexes",
-          "drain": 4,
+          "drain": 5,
           "type": "Physical",
-          "range": "LOS",
-          "duration": "Instant"
+          "range": "Touch",
+          "duration": "Sustained",
+          "notes": "Sorcery + Magic (5 - Essence) test. Net hits increase both Reaction and Initiative Dice (+1 REA & +1D6 Init per net hit). Each net hit beyond the 1st increases Drain by +1.",
+          "doc_link": "chapters/rules_and_downtime.html#spell-library"
         }
       ],
       "adept_powers": [
         {
           "name": "Cosmetic Control",
-          "cost": 0,
+          "cost": "2.0 PP",
           "rating": 2,
-          "notes": ""
+          "notes": "Physical biological disguise (face, skin, height, weight, gender markers, eyes, metaspecies features). Reduces Edge cost by -1 for Con tests (Acting, Disguise, Impersonation).",
+          "doc_link": "chapters/rules_and_downtime.html#adept-powers"
         },
         {
           "name": "Linguistics",
-          "cost": 0,
+          "cost": "0.25 PP",
           "rating": 1,
-          "notes": ""
+          "notes": "Absorbs any new spoken language at basic proficiency after 1 hour of exposure without spending Karma. +1 bonus die on language Perception tests.",
+          "doc_link": "chapters/rules_and_downtime.html#adept-powers"
         },
         {
           "name": "Command Presence",
-          "cost": 0,
+          "cost": "0.50 PP",
           "rating": 1,
-          "notes": ""
+          "notes": "+2 dice pool bonus and +1 Edge on all Influence (Leadership) tests. Reduces Small Unit Tactics test thresholds by -2.",
+          "doc_link": "chapters/rules_and_downtime.html#adept-powers"
         },
         {
           "name": "Cloak",
-          "cost": 0,
+          "cost": "0.25 PP",
           "rating": 1,
-          "notes": ""
+          "notes": "Imposes a -1 dice pool penalty per rating point to hostile Assensing and Astral Perception tests attempting to read Velvet's aura or pierce covers.",
+          "doc_link": "chapters/rules_and_downtime.html#adept-powers"
         },
         {
           "name": "Sharp Tongue",
-          "cost": 0,
+          "cost": "1.0 PP",
           "rating": 1,
-          "notes": ""
+          "notes": "Charisma + Magic vs Intuition + Willpower (20d6 vs INT+WIL). Net hits inflict unresisted Stun damage. Alternatively, inflicts Dazed if net hits >= target Willpower.",
+          "doc_link": "chapters/rules_and_downtime.html#adept-powers"
         }
       ],
       "monad_abilities": [],
@@ -2538,7 +3388,7 @@
       }
     ]
   },
-  "union": {
+  "venn": {
     "identity": {
       "handle": "Venn",
       "real_name": "Nathan Turrent & Veronica",
@@ -2552,7 +3402,9 @@
       "nuyen": 4550,
       "karma": 1,
       "lifetime_karma": 1,
-      "nanite_volume": 4
+      "nanite_volume": 4,
+      "is_ai": false,
+      "is_monad": true
     },
     "attributes": {
       "body": 5,
@@ -2568,12 +3420,144 @@
       "magic": 0,
       "essence": 0.06
     },
+    "attributes_list": [
+      {
+        "name": "Body",
+        "code": "BOD",
+        "base": 5,
+        "buffed": 5,
+        "is_buffed": true,
+        "buffs": [
+          {
+            "source": "Bone Density Augmentation R4",
+            "value": 4,
+            "notes": "+4 unarmored soak (8 Soak)"
+          }
+        ],
+        "breakdown": "Base 5 (+4 Bone Density soak)",
+        "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+      },
+      {
+        "name": "Agility",
+        "code": "AGI",
+        "base": 5,
+        "buffed": 7,
+        "is_buffed": true,
+        "buffs": [
+          {
+            "source": "Muscle Toner R2 (Used)",
+            "value": 2,
+            "notes": "+2 Agility bioware"
+          }
+        ],
+        "breakdown": "Base 5 + Muscle Toner (+2) = 7",
+        "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+      },
+      {
+        "name": "Reaction",
+        "code": "REA",
+        "base": 2,
+        "buffed": 4,
+        "is_buffed": true,
+        "buffs": [
+          {
+            "source": "Synaptic Booster R2 (Used)",
+            "value": 2,
+            "notes": "+2 Reaction, +2D6 Initiative"
+          }
+        ],
+        "breakdown": "Base 2 + Synaptic Booster (+2) = 4",
+        "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+      },
+      {
+        "name": "Strength",
+        "code": "STR",
+        "base": 2,
+        "buffed": 4,
+        "is_buffed": true,
+        "buffs": [
+          {
+            "source": "Muscle Augmentation R2 (Used)",
+            "value": 2,
+            "notes": "+2 Strength bioware"
+          }
+        ],
+        "breakdown": "Base 2 + Muscle Augmentation (+2) = 4",
+        "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+      },
+      {
+        "name": "Willpower",
+        "code": "WIL",
+        "base": 5,
+        "buffed": 5,
+        "is_buffed": false,
+        "buffs": [],
+        "breakdown": "Base 5",
+        "doc_link": "chapters/rules_and_downtime.html"
+      },
+      {
+        "name": "Logic",
+        "code": "LOG",
+        "base": 6,
+        "buffed": 6,
+        "is_buffed": true,
+        "buffs": [
+          {
+            "source": "Monad Mental Boost (NV)",
+            "value": 4,
+            "notes": "Surges to Logic 10 / Math SPU +1"
+          }
+        ],
+        "breakdown": "Base 6 (Surges to 10 under Monad Boost)",
+        "doc_link": "chapters/rules_and_downtime.html#monad-nanite-boosts"
+      },
+      {
+        "name": "Intuition",
+        "code": "INT",
+        "base": 5,
+        "buffed": 5,
+        "is_buffed": false,
+        "buffs": [],
+        "breakdown": "Base 5",
+        "doc_link": "chapters/rules_and_downtime.html"
+      },
+      {
+        "name": "Charisma",
+        "code": "CHA",
+        "base": 2,
+        "buffed": 2,
+        "is_buffed": false,
+        "buffs": [],
+        "breakdown": "Base 2",
+        "doc_link": "chapters/rules_and_downtime.html"
+      },
+      {
+        "name": "Edge",
+        "code": "EDG",
+        "base": 7,
+        "buffed": 7,
+        "is_buffed": false,
+        "buffs": [],
+        "breakdown": "Base 7",
+        "doc_link": "chapters/rules_and_downtime.html"
+      },
+      {
+        "name": "Nanite Volume",
+        "code": "NV",
+        "base": 4,
+        "buffed": 4,
+        "is_buffed": false,
+        "buffs": [],
+        "breakdown": "Base 4",
+        "doc_link": "chapters/rules_and_downtime.html#monad-matrix-attributes"
+      }
+    ],
     "derived": {
       "composure": 7,
       "judge_intentions": 10,
       "memory": 11,
-      "lift_carry": 7,
-      "physical_defense": 7,
+      "lift_carry": 9,
+      "physical_defense": 9,
       "defense_rating": 7,
       "physical_boxes": 13,
       "stun_boxes": 13
@@ -2598,20 +3582,23 @@
         "attribute": "Logic",
         "specialization": "Computer",
         "base_pool": 12,
-        "buffed_pool": 14,
+        "buffed_pool": 12,
         "bought_hits": 3,
+        "specialized_pool": 14,
+        "specialized_hits": 3,
         "effective_attribute": "logic",
         "is_attribute_overridden": false,
         "breakdown_text": "LOG 6 + 6 Rtg",
         "buffs": [
           {
-            "source": "Specialization (Computer)",
+            "source": "Specialization: Computer",
             "type": "specialization",
             "value": 2,
             "target": "action",
-            "active": true
+            "active": false
           }
-        ]
+        ],
+        "doc_link": "chapters/rules_and_downtime.html"
       },
       {
         "name": "Native Language (English)",
@@ -2622,10 +3609,135 @@
         "base_pool": 10,
         "buffed_pool": 10,
         "bought_hits": 2,
+        "specialized_pool": 10,
+        "specialized_hits": 2,
         "effective_attribute": "logic",
         "is_attribute_overridden": false,
         "breakdown_text": "LOG 6 + 4 Rtg",
-        "buffs": []
+        "buffs": [],
+        "doc_link": "chapters/rules_and_downtime.html"
+      },
+      {
+        "name": "Firearms (Activesoft)",
+        "id": "firearms_activesoft",
+        "rating": 7,
+        "base_rating": 6,
+        "is_activesoft": true,
+        "attribute": "agility",
+        "specialization": null,
+        "base_pool": 11,
+        "buffed_pool": 15,
+        "bought_hits": 3,
+        "specialized_pool": 15,
+        "specialized_hits": 3,
+        "effective_attribute": "agility",
+        "is_attribute_overridden": false,
+        "breakdown_text": "AGI 7 + 6 Base Soft + Skillwires (+1) + Reflex Recorder (+1) = 15d6",
+        "buffs": [
+          {
+            "source": "Skillwires Wireless ON",
+            "type": "cyberware",
+            "value": 1,
+            "target": "skill",
+            "active": true
+          },
+          {
+            "source": "Reflex Recorder (+1)",
+            "type": "augmentation",
+            "value": 1,
+            "target": "skill",
+            "active": true
+          }
+        ],
+        "doc_link": "chapters/rules_and_downtime.html#activesofts-and-skillwires"
+      },
+      {
+        "name": "Cracking (Activesoft)",
+        "id": "cracking_activesoft",
+        "rating": 7,
+        "base_rating": 6,
+        "is_activesoft": true,
+        "attribute": "logic",
+        "specialization": null,
+        "base_pool": 12,
+        "buffed_pool": 13,
+        "bought_hits": 3,
+        "specialized_pool": 13,
+        "specialized_hits": 3,
+        "effective_attribute": "logic",
+        "is_attribute_overridden": false,
+        "breakdown_text": "LOG 6 + 6 Base Soft + Skillwires (+1) = 13d6",
+        "buffs": [
+          {
+            "source": "Skillwires Wireless ON",
+            "type": "cyberware",
+            "value": 1,
+            "target": "skill",
+            "active": true
+          }
+        ],
+        "doc_link": "chapters/rules_and_downtime.html#activesofts-and-skillwires"
+      },
+      {
+        "name": "Perception (Activesoft)",
+        "id": "perception_activesoft",
+        "rating": 7,
+        "base_rating": 6,
+        "is_activesoft": true,
+        "attribute": "intuition",
+        "specialization": null,
+        "base_pool": 11,
+        "buffed_pool": 12,
+        "bought_hits": 3,
+        "specialized_pool": 12,
+        "specialized_hits": 3,
+        "effective_attribute": "intuition",
+        "is_attribute_overridden": false,
+        "breakdown_text": "INT 5 + 6 Base Soft + Skillwires (+1) = 12d6",
+        "buffs": [
+          {
+            "source": "Skillwires Wireless ON",
+            "type": "cyberware",
+            "value": 1,
+            "target": "skill",
+            "active": true
+          }
+        ],
+        "doc_link": "chapters/rules_and_downtime.html#activesofts-and-skillwires"
+      },
+      {
+        "name": "Engineering (Activesoft)",
+        "id": "engineering_activesoft",
+        "rating": 7,
+        "base_rating": 6,
+        "is_activesoft": true,
+        "attribute": "logic",
+        "specialization": null,
+        "base_pool": 12,
+        "buffed_pool": 14,
+        "bought_hits": 3,
+        "specialized_pool": 14,
+        "specialized_hits": 3,
+        "effective_attribute": "logic",
+        "is_attribute_overridden": false,
+        "breakdown_text": "LOG 6 + 6 Base Soft + Skillwires (+1) + Math SPU (+1) = 14d6",
+        "buffs": [
+          {
+            "source": "Skillwires Wireless ON",
+            "type": "cyberware",
+            "value": 1,
+            "target": "skill",
+            "active": true
+          },
+          {
+            "source": "Math SPU (+1)",
+            "type": "augmentation",
+            "value": 1,
+            "target": "skill",
+            "active": true
+          }
+        ],
+        "doc_link": "chapters/rules_and_downtime.html#activesofts-and-skillwires"
       }
     ],
     "qualities": {
@@ -2673,7 +3785,10 @@
     "weapons": [
       {
         "name": "FN P93 Praetor",
+        "is_melee": false,
+        "category": "submachine_gun",
         "damage": "4P",
+        "base_damage": "4P",
         "attack_rating": [
           10,
           11,
@@ -2682,40 +3797,62 @@
           0
         ],
         "attack_rating_str": "10 / 11 / 8 / — / —",
+        "base_attack_rating_str": "8 / 9 / 8 / — / —",
         "modes": [
           "SA",
           "BF",
           "FA"
         ],
         "modes_str": "SA/BF/FA",
+        "base_modes_str": "SA/BF/FA",
         "ammo": "50(c)",
+        "base_ammo": "50(c)",
         "loaded_ammo": null,
-        "accessories": [],
-        "notes": "Internal Smartgun (+2 AR), Suppressor, Shock Pad, 5 spare clips, 100 regular, 100 gel rounds (Vat Job PACK)"
+        "accessories": [
+          "Internal Smartgun System",
+          "Suppressor",
+          "Shock Pad"
+        ],
+        "notes": "Internal Smartgun (+2 AR), Suppressor, Shock Pad, 5 spare clips, 100 regular, 100 gel rounds (Vat Job PACK)",
+        "doc_link": "chapters/rules_and_downtime.html#weapon-attack-table"
       },
       {
         "name": "Colt Manhunter",
+        "is_melee": false,
+        "category": "heavy_pistol",
         "damage": "4P",
+        "base_damage": "4P",
         "attack_rating": [
           10,
-          8,
+          10,
           6,
           0,
           0
         ],
-        "attack_rating_str": "10 / 8 / 6 / — / —",
+        "attack_rating_str": "10 / 10 / 6 / — / —",
+        "base_attack_rating_str": "8 / 8 / 6 / — / —",
         "modes": [
           "SA"
         ],
         "modes_str": "SA",
+        "base_modes_str": "SA",
         "ammo": "16(c)",
+        "base_ammo": "16(c)",
         "loaded_ammo": null,
-        "accessories": [],
-        "notes": "Laser sight/Smartlink (+2 AR), Concealed holster, Silencer, 5 spare clips, 100 regular, 100 gel rounds (Vat Job PACK)"
+        "accessories": [
+          "Smartlink",
+          "Silencer",
+          "Concealed Holster"
+        ],
+        "notes": "Smartlink (+2 AR), Concealed holster, Silencer, 5 spare clips, 100 regular, 100 gel rounds (Vat Job PACK)",
+        "doc_link": "chapters/rules_and_downtime.html#weapon-attack-table"
       },
       {
         "name": "Monofilament Whip",
+        "is_melee": true,
+        "category": "exotic_melee",
         "damage": "4P",
+        "base_damage": "4P",
         "attack_rating": [
           12,
           0,
@@ -2724,14 +3861,16 @@
           0
         ],
         "attack_rating_str": "12 / — / — / — / —",
-        "modes": [
-          "SA"
-        ],
-        "modes_str": "SA",
+        "base_attack_rating_str": "12 / — / — / — / —",
+        "modes": [],
+        "modes_str": "Melee",
+        "base_modes_str": "Melee",
         "ammo": "—",
+        "base_ammo": "—",
         "loaded_ammo": null,
         "accessories": [],
-        "notes": "Concealed in Skin Pocket (Vat Job PACK)"
+        "notes": "Concealed in Skin Pocket (Vat Job PACK)",
+        "doc_link": "chapters/rules_and_downtime.html#weapon-attack-table"
       }
     ],
     "armors": [
@@ -2752,39 +3891,168 @@
       }
     ],
     "vehicles": [],
+    "spells": [],
+    "adept_powers": [],
+    "complex_forms": [],
+    "sprite_powers": [],
+    "monad_abilities": [
+      {
+        "name": "Monad Matrix Attributes",
+        "effect": "Internal nanite swarm synthesizes Living Persona ASDF (A:2 S:6 D:7 F:7) with 12d6 Full Matrix Defense (14d6 when Adrenaline Pump active).",
+        "doc_link": "chapters/rules_and_downtime.html#monad-nanite-boosts"
+      },
+      {
+        "name": "Resculpt",
+        "effect": "Extended INT + NV (16, 1 combat round) test to alter physical biological appearance and voice.",
+        "doc_link": "chapters/rules_and_downtime.html#monad-nanite-boosts"
+      },
+      {
+        "name": "Monad Toughness",
+        "effect": "Adds +2 Condition boxes (NV/2) to Condition Monitors (+1 Physical, +1 Stun -> 12 Physical, 12 Stun boxes), shifts all wound penalties down by 1.",
+        "doc_link": "chapters/rules_and_downtime.html#monad-nanite-boosts"
+      },
+      {
+        "name": "Physical Attribute Boost",
+        "effect": "Minor Action; roll NV test (4 dice). Each hit adds +1 to any Physical Attribute (BOD/AGI/REA/STR) or +1 Minor Action (stackable/splittable, max boost = min(NV, +4)). Lasts for hits in combat rounds. When ended, decreases NV by total boost for 1 minute; boost beyond racial max inflicts 1 Physical damage box.",
+        "doc_link": "chapters/rules_and_downtime.html#monad-nanite-boosts"
+      },
+      {
+        "name": "Rapid Healing",
+        "effect": "Minor or Major Action cellular nanite repair to reduce Condition Monitor damage.",
+        "doc_link": "chapters/rules_and_downtime.html#monad-nanite-boosts"
+      },
+      {
+        "name": "Adrenal Control",
+        "effect": "Minor Action; WIL + NV (2) test to remain conscious when mortally wounded or stunned.",
+        "doc_link": "chapters/rules_and_downtime.html#monad-nanite-boosts"
+      }
+    ],
+    "augmentations": [
+      {
+        "name": "Skilljack",
+        "rating": 6,
+        "grade": "used",
+        "essence": 0,
+        "notes": "Wireless Bonus: Max total rating limit = R6 x 4 = 24. Edge can be used on associated tests.",
+        "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+      },
+      {
+        "name": "Skillwires",
+        "rating": 6,
+        "grade": "used",
+        "essence": 0,
+        "notes": "Wireless Bonus: Memory cache expanded, grants +1 dice pool modifier to all skills used through skillwires.",
+        "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+      },
+      {
+        "name": "Math SPU",
+        "rating": null,
+        "grade": "standard",
+        "essence": 0,
+        "notes": "-1 Edge cost on technical/Logic tests (-2 when overdriven) / +1 Logic calculation tests (SRMG v2.4 25,000¥ / 0.25 Ess standard grade - no Bad Luck glitch risk)",
+        "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+      },
+      {
+        "name": "Synaptic Booster",
+        "rating": 2,
+        "grade": "used",
+        "essence": 0,
+        "notes": "+2 Reaction, +2D6 Initiative (Vat Job PACK bundled item: Sixth World Companion p. 27)",
+        "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+      },
+      {
+        "name": "Muscle Toner",
+        "rating": 2,
+        "grade": "used",
+        "essence": 0,
+        "notes": "+2 Agility (Vat Job PACK bundled item: Sixth World Companion p. 27)",
+        "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+      },
+      {
+        "name": "Muscle Augmentation",
+        "rating": 2,
+        "grade": "used",
+        "essence": 0,
+        "notes": "+2 Strength (Vat Job PACK bundled item: Sixth World Companion p. 27)",
+        "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+      },
+      {
+        "name": "Bone Density Augmentation",
+        "rating": 4,
+        "grade": "used",
+        "essence": 0,
+        "notes": "+4 Body for damage resistance/soak (8 Soak unarmored), 3P Unarmed DV (Vat Job PACK bundled item)",
+        "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+      },
+      {
+        "name": "Adrenaline Pump",
+        "rating": 2,
+        "grade": "used",
+        "essence": 0,
+        "notes": "+2 Reaction, +2 Agility, +2 Strength, +2 Willpower (SRMG Drug Stacking Rule). Ignores wound penalties and stun unconsciousness for 2D6 rounds. Stun crash resisted with unaugmented Body (Vat Job PACK bundled item)",
+        "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+      },
+      {
+        "name": "Skin Pocket",
+        "rating": null,
+        "grade": "used",
+        "essence": 0,
+        "notes": "Internal concealed smuggling pocket (Threshold 10 to detect; Vat Job PACK bundled item)",
+        "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+      },
+      {
+        "name": "Reflex Recorder (Firearms)",
+        "rating": null,
+        "grade": "used",
+        "essence": 0,
+        "notes": "+1 dice pool modifier to Firearms skill (Vat Job PACK bundled item)",
+        "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+      },
+      {
+        "name": "Platelet Factories",
+        "rating": null,
+        "grade": "standard",
+        "essence": 0,
+        "notes": "Reduces all incoming Physical damage by 1 box (min 1 box); SR6 Core p. 286",
+        "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+      }
+    ],
     "powers": {
       "complex_forms": [],
       "echoes": [],
+      "sprite_powers": [],
       "spells": [],
       "adept_powers": [],
       "monad_abilities": [
         {
           "name": "Monad Matrix Attributes",
-          "effect": "Internal nanite swarm synthesizes Living Persona ASDF (A:2 S:6 D:7 F:7) with 12d6 Full Matrix Defense (14d6 when Adrenaline Pump active)."
+          "effect": "Internal nanite swarm synthesizes Living Persona ASDF (A:2 S:6 D:7 F:7) with 12d6 Full Matrix Defense (14d6 when Adrenaline Pump active).",
+          "doc_link": "chapters/rules_and_downtime.html#monad-nanite-boosts"
         },
         {
           "name": "Resculpt",
-          "effect": "Extended INT + NV (16, 1 combat round) test to alter physical biological appearance and voice."
+          "effect": "Extended INT + NV (16, 1 combat round) test to alter physical biological appearance and voice.",
+          "doc_link": "chapters/rules_and_downtime.html#monad-nanite-boosts"
         },
         {
           "name": "Monad Toughness",
-          "effect": "Adds +2 Condition boxes (NV/2) to Condition Monitors (+1 Physical, +1 Stun -> 12 Physical, 12 Stun boxes), shifts all wound penalties down by 1."
+          "effect": "Adds +2 Condition boxes (NV/2) to Condition Monitors (+1 Physical, +1 Stun -> 12 Physical, 12 Stun boxes), shifts all wound penalties down by 1.",
+          "doc_link": "chapters/rules_and_downtime.html#monad-nanite-boosts"
         },
         {
           "name": "Physical Attribute Boost",
-          "effect": "Minor Action; roll NV test (4 dice). Each hit adds +1 to any Physical Attribute (BOD/AGI/REA/STR) or +1 Minor Action (stackable/splittable, max boost = min(NV, +4)). Lasts for hits in combat rounds. When ended, decreases NV by total boost for 1 minute; boost beyond racial max inflicts 1 Physical damage box."
-        },
-        {
-          "name": "Mental Attribute Boost",
-          "effect": "Minor Action; roll NV test (4 dice). Each hit adds +1 to any Mental Attribute (WIL/LOG/INT/CHA) (stackable/splittable, max boost = min(NV, +4)). Lasts for hits in combat rounds. When ended, decreases NV by total boost for 1 minute; boost beyond racial max inflicts 1 Stun damage box."
+          "effect": "Minor Action; roll NV test (4 dice). Each hit adds +1 to any Physical Attribute (BOD/AGI/REA/STR) or +1 Minor Action (stackable/splittable, max boost = min(NV, +4)). Lasts for hits in combat rounds. When ended, decreases NV by total boost for 1 minute; boost beyond racial max inflicts 1 Physical damage box.",
+          "doc_link": "chapters/rules_and_downtime.html#monad-nanite-boosts"
         },
         {
           "name": "Rapid Healing",
-          "effect": "Minor or Major Action cellular nanite repair to reduce Condition Monitor damage."
+          "effect": "Minor or Major Action cellular nanite repair to reduce Condition Monitor damage.",
+          "doc_link": "chapters/rules_and_downtime.html#monad-nanite-boosts"
         },
         {
           "name": "Adrenal Control",
-          "effect": "Minor Action; WIL + NV (2) test to remain conscious when mortally wounded or stunned."
+          "effect": "Minor Action; WIL + NV (2) test to remain conscious when mortally wounded or stunned.",
+          "doc_link": "chapters/rules_and_downtime.html#monad-nanite-boosts"
         }
       ],
       "augmentations": [
@@ -2792,67 +4060,89 @@
           "name": "Skilljack",
           "rating": 6,
           "grade": "used",
-          "essence": 0
+          "essence": 0,
+          "notes": "Wireless Bonus: Max total rating limit = R6 x 4 = 24. Edge can be used on associated tests.",
+          "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
         },
         {
           "name": "Skillwires",
           "rating": 6,
           "grade": "used",
-          "essence": 0
+          "essence": 0,
+          "notes": "Wireless Bonus: Memory cache expanded, grants +1 dice pool modifier to all skills used through skillwires.",
+          "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
         },
         {
           "name": "Math SPU",
           "rating": null,
           "grade": "standard",
-          "essence": 0
+          "essence": 0,
+          "notes": "-1 Edge cost on technical/Logic tests (-2 when overdriven) / +1 Logic calculation tests (SRMG v2.4 25,000¥ / 0.25 Ess standard grade - no Bad Luck glitch risk)",
+          "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
         },
         {
           "name": "Synaptic Booster",
           "rating": 2,
           "grade": "used",
-          "essence": 0
+          "essence": 0,
+          "notes": "+2 Reaction, +2D6 Initiative (Vat Job PACK bundled item: Sixth World Companion p. 27)",
+          "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
         },
         {
           "name": "Muscle Toner",
           "rating": 2,
           "grade": "used",
-          "essence": 0
+          "essence": 0,
+          "notes": "+2 Agility (Vat Job PACK bundled item: Sixth World Companion p. 27)",
+          "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
         },
         {
           "name": "Muscle Augmentation",
           "rating": 2,
           "grade": "used",
-          "essence": 0
+          "essence": 0,
+          "notes": "+2 Strength (Vat Job PACK bundled item: Sixth World Companion p. 27)",
+          "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
         },
         {
           "name": "Bone Density Augmentation",
           "rating": 4,
           "grade": "used",
-          "essence": 0
+          "essence": 0,
+          "notes": "+4 Body for damage resistance/soak (8 Soak unarmored), 3P Unarmed DV (Vat Job PACK bundled item)",
+          "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
         },
         {
           "name": "Adrenaline Pump",
           "rating": 2,
           "grade": "used",
-          "essence": 0
+          "essence": 0,
+          "notes": "+2 Reaction, +2 Agility, +2 Strength, +2 Willpower (SRMG Drug Stacking Rule). Ignores wound penalties and stun unconsciousness for 2D6 rounds. Stun crash resisted with unaugmented Body (Vat Job PACK bundled item)",
+          "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
         },
         {
           "name": "Skin Pocket",
           "rating": null,
           "grade": "used",
-          "essence": 0
+          "essence": 0,
+          "notes": "Internal concealed smuggling pocket (Threshold 10 to detect; Vat Job PACK bundled item)",
+          "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
         },
         {
           "name": "Reflex Recorder (Firearms)",
           "rating": null,
           "grade": "used",
-          "essence": 0
+          "essence": 0,
+          "notes": "+1 dice pool modifier to Firearms skill (Vat Job PACK bundled item)",
+          "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
         },
         {
           "name": "Platelet Factories",
           "rating": null,
           "grade": "standard",
-          "essence": 0
+          "essence": 0,
+          "notes": "Reduces all incoming Physical damage by 1 box (min 1 box); SR6 Core p. 286",
+          "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
         }
       ]
     },
@@ -2874,13 +4164,15 @@
     "contacts": []
   }
 };
-    let activeCharId = "yuriko";
+    let activeCharId = "reiko";
+    let contactFilterMode = "all";
 
     // Initialize DOM
     document.addEventListener("DOMContentLoaded", () => {
       initCharacterSelector();
       setupTabs();
       setupSearch();
+      setupContactFilters();
       renderActiveCharacter();
       registerServiceWorker();
     });
@@ -2890,6 +4182,17 @@
       toast.textContent = msg;
       toast.classList.add("show");
       setTimeout(() => toast.classList.remove("show"), 2000);
+    }
+
+    function getDocUrl(charId, docLink) {
+      if (!docLink) return "#";
+      // Determine if running inside /output/mobile/ or master /app/
+      const currentPath = window.location.pathname.replace(/\\/g, "/");
+      if (currentPath.includes("/output/mobile/")) {
+        return `../../_book/${docLink}`;
+      } else {
+        return `../characters/${charId}/_book/${docLink}`;
+      }
     }
 
     function initCharacterSelector() {
@@ -2934,18 +4237,33 @@
 
     function filterContent(query) {
       if (!query) {
-        document.querySelectorAll(".pool-item, .weapon-card, .vehicle-card, .contact-item, .power-item").forEach(el => el.style.display = "");
+        document.querySelectorAll(".pool-item, .weapon-card, .vehicle-card, .contact-item, .power-item, .attr-box").forEach(el => el.style.display = "");
         return;
       }
-      document.querySelectorAll(".pool-item, .weapon-card, .vehicle-card, .contact-item, .power-item").forEach(el => {
+      document.querySelectorAll(".pool-item, .weapon-card, .vehicle-card, .contact-item, .power-item, .attr-box").forEach(el => {
         const text = el.textContent.toLowerCase();
         el.style.display = text.includes(query) ? "" : "none";
+      });
+    }
+
+    function setupContactFilters() {
+      const chips = document.querySelectorAll("#contactFilterBar .filter-chip");
+      chips.forEach(chip => {
+        chip.addEventListener("click", () => {
+          chips.forEach(c => c.classList.remove("active"));
+          chip.classList.add("active");
+          contactFilterMode = chip.getAttribute("data-sort");
+          renderContacts();
+        });
       });
     }
 
     function renderActiveCharacter() {
       const char = CHARACTERS_DATA[activeCharId];
       if (!char) return;
+
+      // Apply dynamic character theme
+      document.body.dataset.theme = activeCharId.toLowerCase();
 
       // Header Info
       document.getElementById("nuyenBadge").textContent = `¥ ${char.identity.nuyen.toLocaleString()}`;
@@ -2954,20 +4272,52 @@
       document.getElementById("charMetatype").textContent = char.identity.metatype || "Human";
       document.getElementById("charRoleTradition").textContent = `${char.identity.role || "Shadowrunner"} • ${char.identity.stream || char.identity.tradition || char.identity.mortype || "Street Runner"}`;
 
-      // Attributes Grid
+      // Attributes Grid (Using enriched attributes_list)
       const attrGrid = document.getElementById("attrGrid");
+      const attrDrillArea = document.getElementById("attrDrilldownArea");
       attrGrid.innerHTML = "";
-      const attrs = char.attributes;
-      const attrOrder = ["body", "agility", "reaction", "strength", "willpower", "logic", "intuition", "charisma", "edge", "resonance", "magic", "essence"];
+      attrDrillArea.innerHTML = "";
+
+      const attrsList = char.attributes_list || [];
       
-      attrOrder.forEach(k => {
-        const v = attrs[k];
-        if (v === undefined || (k === "magic" && v === 0) || (k === "resonance" && v === 0)) return;
+      attrsList.forEach((attr, idx) => {
         const box = document.createElement("div");
-        box.className = "attr-box" + (k === "resonance" || k === "edge" || (char.identity.mortype && char.identity.mortype.includes("monad") && k === "logic") ? " augmented" : "");
-        const label = k === "essence" ? "ESS" : (k === "resonance" ? "RES" : (k === "magic" ? "MAG" : k.slice(0, 3).toUpperCase()));
-        const displayVal = k === "essence" ? Number(v).toFixed(2) : v;
-        box.innerHTML = `<span class="attr-name">${label}</span><span class="attr-val">${displayVal}</span>`;
+        box.className = "attr-box" + (attr.is_buffed ? " augmented" : "");
+        const displayVal = typeof attr.buffed === "number" ? (Number.isInteger(attr.buffed) ? attr.buffed : attr.buffed.toFixed(2)) : attr.buffed;
+        const subLbl = attr.is_buffed ? `Base ${attr.base}` : "";
+
+        box.innerHTML = `
+          <span class="attr-name">${attr.code}</span>
+          <span class="attr-val">${displayVal}</span>
+          ${subLbl ? `<span class="attr-sublabel">${subLbl}</span>` : ""}
+        `;
+
+        // Drilldown toggle
+        box.addEventListener("click", () => {
+          const isSelected = box.classList.contains("selected");
+          document.querySelectorAll(".attr-box").forEach(b => b.classList.remove("selected"));
+          
+          if (isSelected) {
+            attrDrillArea.innerHTML = "";
+          } else {
+            box.classList.add("selected");
+            const buffsHtml = attr.buffs && attr.buffs.length ? 
+              attr.buffs.map(b => `<div class="buff-chip">✔ <strong>${b.source}</strong>: +${b.value} <span style="color: var(--text-muted);">(${b.notes || ''})</span></div>`).join("") :
+              '<div class="buff-chip">Baseline natural attribute value</div>';
+
+            const docLink = attr.doc_link ? `<a class="doc-link-btn" href="${getDocUrl(activeCharId, attr.doc_link)}" target="_blank" rel="noopener">📖 View Rules & Mechanics ↗</a>` : "";
+
+            attrDrillArea.innerHTML = `
+              <div class="breakdown-drawer open">
+                <div style="font-weight: 700; color: var(--gold-primary); margin-bottom: 4px;">${attr.name} (${attr.code}): ${attr.buffed}</div>
+                <div class="breakdown-math">📊 ${attr.breakdown || `Base ${attr.base}`}</div>
+                <div class="buff-checklist">${buffsHtml}</div>
+                ${docLink}
+              </div>
+            `;
+          }
+        });
+
         attrGrid.appendChild(box);
       });
 
@@ -2975,16 +4325,69 @@
       document.getElementById("physBoxes").textContent = `${char.derived.physical_boxes} Boxes`;
       document.getElementById("stunBoxes").textContent = `${char.derived.stun_boxes} Boxes`;
 
-      // Derived Ratings
+      // Derived Ratings with Drilldown
       const dGrid = document.getElementById("derivedGrid");
       dGrid.innerHTML = `
-        <div><strong>Composure:</strong> ${char.derived.composure}d6 (${Math.floor(char.derived.composure/4)}H)</div>
-        <div><strong>Judge Int:</strong> ${char.derived.judge_intentions}d6 (${Math.floor(char.derived.judge_intentions/4)}H)</div>
-        <div><strong>Memory:</strong> ${char.derived.memory}d6 (${Math.floor(char.derived.memory/4)}H)</div>
-        <div><strong>Physical Def:</strong> ${char.derived.physical_defense}d6 (${Math.floor(char.derived.physical_defense/4)}H)</div>
-        <div><strong>Defense Rating:</strong> ${char.derived.defense_rating} DR</div>
-        <div><strong>Full Matrix Def:</strong> ${char.matrix.matrix_defense}d6 (${char.matrix.matrix_defense_hits}H)</div>
+        <div class="derived-item">
+          <strong>Composure:</strong> ${char.derived.composure}d6 (${Math.floor(char.derived.composure/4)}H)
+          <div style="font-size: 0.72rem; color: var(--text-muted);">WIL + CHA</div>
+        </div>
+        <div class="derived-item">
+          <strong>Judge Int:</strong> ${char.derived.judge_intentions}d6 (${Math.floor(char.derived.judge_intentions/4)}H)
+          <div style="font-size: 0.72rem; color: var(--text-muted);">WIL + INT</div>
+        </div>
+        <div class="derived-item">
+          <strong>Memory:</strong> ${char.derived.memory}d6 (${Math.floor(char.derived.memory/4)}H)
+          <div style="font-size: 0.72rem; color: var(--text-muted);">WIL + LOG</div>
+        </div>
+        <div class="derived-item">
+          <strong>Physical Def:</strong> ${char.derived.physical_defense}d6 (${Math.floor(char.derived.physical_defense/4)}H)
+          <div style="font-size: 0.72rem; color: var(--text-muted);">REA + INT</div>
+        </div>
+        <div class="derived-item">
+          <strong>Defense Rating:</strong> ${char.derived.defense_rating} DR
+          <div style="font-size: 0.72rem; color: var(--text-muted);">Armor + Soak</div>
+        </div>
+        <div class="derived-item">
+          <strong>Full Matrix Def:</strong> ${char.matrix.matrix_defense}d6 (${char.matrix.matrix_defense_hits}H)
+          <div style="font-size: 0.72rem; color: var(--text-muted);">${char.matrix.matrix_defense_breakdown || 'WIL + FW'}</div>
+        </div>
       `;
+
+      // Qualities & Edge Enhancements Rendering
+      const qList = document.getElementById("qualitiesList");
+      if (qList && char.qualities) {
+        qList.innerHTML = "";
+        const posQ = char.qualities.positive || [];
+        const negQ = char.qualities.negative || [];
+        
+        let qHtml = '<div style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 6px;">';
+        posQ.forEach(q => {
+          const qName = typeof q === 'object' ? (q.name || q.ref) : q;
+          const choice = (typeof q === 'object' && q.choice) ? ` (${q.choice})` : "";
+          const rtg = (typeof q === 'object' && q.rating) ? ` R${q.rating}` : "";
+          qHtml += `<span class="quality-badge pos">✔ ${qName}${rtg}${choice}</span>`;
+        });
+        negQ.forEach(q => {
+          const qName = typeof q === 'object' ? (q.name || q.ref) : q;
+          const choice = (typeof q === 'object' && q.choice) ? ` (${q.choice})` : "";
+          const rtg = (typeof q === 'object' && q.rating) ? ` R${q.rating}` : "";
+          qHtml += `<span class="quality-badge neg">✖ ${qName}${rtg}${choice}</span>`;
+        });
+        qHtml += '</div>';
+
+        const allQ = [...posQ, ...negQ];
+        const notesQ = allQ.filter(q => typeof q === 'object' && (q.notes || q.choice));
+        if (notesQ.length > 0) {
+          qHtml += '<div style="margin-top: 6px; font-size: 0.75rem; color: var(--text-secondary); line-height: 1.4;">';
+          notesQ.forEach(q => {
+            qHtml += `<div>• <strong>${q.name || q.ref}</strong>: ${q.notes || q.choice}</div>`;
+          });
+          qHtml += '</div>';
+        }
+
+        qList.innerHTML = qHtml;
+      }
 
       // Skills Tab
       const sList = document.getElementById("skillsList");
@@ -2994,7 +4397,8 @@
         item.className = "pool-item";
         
         const specHtml = s.specialization ? `<span class="skill-spec">+2 ${s.specialization}</span>` : "";
-        const buffsHtml = s.buffs.map(b => `<div class="buff-chip">✔ ${b.source} (+${b.value})</div>`).join("");
+        const buffsHtml = s.buffs.map(b => `<div class="buff-chip">${b.active ? '✔' : '⚡'} ${b.source} (+${b.value})</div>`).join("");
+        const docLink = s.doc_link ? `<a class="doc-link-btn" href="${getDocUrl(activeCharId, s.doc_link)}" target="_blank" rel="noopener">📖 View Rules & Mechanics ↗</a>` : "";
 
         item.innerHTML = `
           <div class="pool-top">
@@ -3007,7 +4411,7 @@
           <div class="pool-main">
             <div class="pool-target" title="Tap to Roll">
               <span class="pool-d6">${s.buffed_pool}d6</span>
-              <span class="pool-sublabel">Base: ${s.base_pool}d6</span>
+              <span class="pool-sublabel">Base: ${s.base_pool}d6 ${s.specialization ? `| Spec: ${s.specialized_pool}d6` : ''}</span>
             </div>
             <div class="bought-hits-box">
               <span class="bought-hits-num">${s.bought_hits}</span>
@@ -3016,15 +4420,17 @@
           </div>
           <div class="breakdown-drawer">
             <div class="breakdown-math">📊 ${s.breakdown_text}</div>
+            ${s.specialization ? `<div style="font-size: 0.8rem; color: var(--gold-primary); margin-bottom: 4px;"><strong>Specialized Action:</strong> ${s.specialized_pool}d6 (${s.specialized_hits} Bought Hits)</div>` : ''}
             <div class="buff-checklist">
               ${buffsHtml || '<div class="buff-chip">No active buffs</div>'}
             </div>
+            ${docLink}
           </div>
         `;
 
         // Click target to copy/toast
         item.querySelector(".pool-target").addEventListener("click", () => {
-          showToast(`⚡ ${s.name}: ${s.buffed_pool}d6 (${s.bought_hits} Hits)`);
+          showToast(`⚡ ${s.name}: ${s.buffed_pool}d6 (${s.bought_hits} Hits)${s.specialization ? ` [${s.specialization}: ${s.specialized_pool}d6]` : ''}`);
         });
 
         // Toggle Breakdown Drawer
@@ -3054,18 +4460,39 @@
             </div>
           `).join("");
 
+          const docLink = w.doc_link ? `<a class="doc-link-btn" href="${getDocUrl(activeCharId, w.doc_link)}" target="_blank" rel="noopener">📖 View Weapon Protocols ↗</a>` : "";
+
+          // Melee weapons omit fire mode and ammo
+          const modeAmmoHtml = w.is_melee ? 
+            `<div style="font-size: 0.8rem; color: var(--gold-primary); margin-bottom: 4px;">⚔️ <strong>Physical Melee Weapon</strong> (No fire mode / ammo)</div>` :
+            `<div style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 4px;">
+              Modes: <strong>${w.modes_str}</strong> | Ammo: <strong>${w.ammo}</strong> ${w.loaded_ammo ? `(${w.loaded_ammo})` : ""}
+            </div>`;
+
           wCard.innerHTML = `
             <div class="weapon-header">
               <span class="weapon-name">${w.name}</span>
-              <span class="weapon-dv">${w.damage}</span>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="weapon-dv">${w.damage}</span>
+                <button class="info-btn" title="Weapon Breakdown">ℹ</button>
+              </div>
             </div>
-            <div style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 4px;">
-              Modes: <strong>${w.modes_str}</strong> | Ammo: <strong>${w.ammo}</strong> ${w.loaded_ammo ? `(${w.loaded_ammo})` : ""}
-            </div>
+            ${modeAmmoHtml}
             <div class="range-bands">${arHtml}</div>
-            ${w.accessories.length ? `<div style="font-size: 0.75rem; color: var(--text-muted);">Mods: ${w.accessories.join(", ")}</div>` : ""}
+            ${w.accessories.length ? `<div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Mods: ${w.accessories.join(", ")}</div>` : ""}
             ${w.notes ? `<div style="font-size: 0.75rem; color: var(--gold-primary); margin-top: 4px;">${w.notes}</div>` : ""}
+            <div class="breakdown-drawer">
+              <div class="breakdown-math">📊 Base Stats: ${w.base_damage} | AR: ${w.base_attack_rating_str} ${w.is_melee ? '' : `| Modes: ${w.base_modes_str} | Cap: ${w.base_ammo}`}</div>
+              ${w.accessories.length ? `<div class="buff-checklist">${w.accessories.map(a => `<div class="buff-chip">✔ ${a}</div>`).join("")}</div>` : '<div class="buff-chip">Unmodified chassis</div>'}
+              ${docLink}
+            </div>
           `;
+
+          wCard.querySelector(".info-btn").addEventListener("click", () => {
+            const drawer = wCard.querySelector(".breakdown-drawer");
+            drawer.classList.toggle("open");
+          });
+
           wList.appendChild(wCard);
         });
       }
@@ -3080,11 +4507,12 @@
         aList.appendChild(div);
       });
 
-      // Powers Tab
+      // Powers Tab with Drilldowns and Doc Links
       const pContent = document.getElementById("powersContent");
       pContent.innerHTML = "";
       
       const cf = char.powers.complex_forms || [];
+      const spPowers = char.powers.sprite_powers || [];
       const spells = char.powers.spells || [];
       const adept = char.powers.adept_powers || [];
       const echoes = char.powers.echoes || [];
@@ -3092,44 +4520,120 @@
       const augs = char.powers.augmentations || [];
 
       if (cf.length > 0) {
+        let cfItems = cf.map(c => `
+          <div class="power-item">
+            <div class="power-header">
+              <strong>${c.name}</strong>
+              <span class="power-badge">FV: ${c.fading} | ${c.duration}</span>
+            </div>
+            <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 4px;">Target: ${c.target}</div>
+            ${c.notes ? `<div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">${c.notes}</div>` : ""}
+            ${c.doc_link ? `<a class="doc-link-btn" href="${getDocUrl(activeCharId, c.doc_link)}" target="_blank" rel="noopener">📖 View Complex Form Rules ↗</a>` : ""}
+          </div>
+        `).join("");
+
         pContent.innerHTML += `
           <div class="card">
             <div class="card-title">Complex Forms & Resonance</div>
-            ${cf.map(c => `<div class="power-item" style="margin-bottom: 8px;"><strong>${c.name}</strong> (FV: ${c.fading} | Dur: ${c.duration})</div>`).join("")}
-            ${echoes.length ? `<div style="margin-top: 10px; font-size: 0.8rem; color: var(--gold-primary);"><strong>Echoes:</strong> ${echoes.join(", ")}</div>` : ""}
+            ${cfItems}
+            ${echoes.length ? `<div style="margin-top: 10px; font-size: 0.85rem; color: var(--gold-primary);"><strong>Submersion Echoes:</strong> ${echoes.map(e => typeof e === 'object' ? e.name : e).join(", ")}</div>` : ""}
+          </div>
+        `;
+      }
+
+      if (spPowers.length > 0) {
+        let spItems = spPowers.map(sp => `
+          <div class="power-item">
+            <div class="power-header">
+              <strong style="color: var(--cyan-accent);">${sp.name}</strong>
+              <span class="power-badge">${sp.action}</span>
+            </div>
+            <div style="font-size: 0.8rem; color: var(--gold-primary); margin-top: 2px;">Target: ${sp.target}</div>
+            <div style="font-size: 0.82rem; color: var(--text-secondary); margin-top: 4px;">${sp.effect}</div>
+            ${sp.doc_link ? `<a class="doc-link-btn" href="${getDocUrl(activeCharId, sp.doc_link)}" target="_blank" rel="noopener">📖 View Symbiosis Rules ↗</a>` : ""}
+          </div>
+        `).join("");
+
+        pContent.innerHTML += `
+          <div class="card">
+            <div class="card-title">⚡ Sprite Symbiosis Powers (Taz)</div>
+            ${spItems}
           </div>
         `;
       }
 
       if (spells.length > 0 || adept.length > 0) {
+        let spellItems = spells.map(s => `
+          <div class="power-item">
+            <div class="power-header">
+              <strong>${s.name}</strong>
+              <span class="power-badge">Drain: ${s.drain} | ${s.duration}</span>
+            </div>
+            ${s.notes ? `<div style="font-size: 0.78rem; color: var(--gold-primary); margin-top: 4px;">${s.notes}</div>` : ""}
+            ${s.doc_link ? `<a class="doc-link-btn" href="${getDocUrl(activeCharId, s.doc_link)}" target="_blank" rel="noopener">📖 View Spellcasting Rules ↗</a>` : ""}
+          </div>
+        `).join("");
+
+        let adeptItems = adept.map(a => `
+          <div class="power-item">
+            <div class="power-header">
+              <strong>${a.name}</strong>
+              <span class="power-badge">Cost: ${a.cost} PP</span>
+            </div>
+            ${a.notes ? `<div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">${a.notes}</div>` : ""}
+            ${a.doc_link ? `<a class="doc-link-btn" href="${getDocUrl(activeCharId, a.doc_link)}" target="_blank" rel="noopener">📖 View Power Rules ↗</a>` : ""}
+          </div>
+        `).join("");
+
         pContent.innerHTML += `
           <div class="card">
             <div class="card-title">Spells & Adept Powers</div>
-            ${spells.map(s => `<div class="power-item" style="margin-bottom: 8px;"><strong>${s.name}</strong> (Drain: ${s.drain} | ${s.duration})</div>`).join("")}
-            ${adept.map(a => `<div class="power-item" style="margin-bottom: 8px;"><strong>${a.name}</strong> (Cost: ${a.cost} PP)</div>`).join("")}
+            ${spellItems}
+            ${adeptItems}
           </div>
         `;
       }
 
       if (monad.length > 0) {
+        let monadItems = monad.map(m => `
+          <div class="power-item">
+            <div class="power-header">
+              <strong style="color: var(--cyan-accent);">${m.name}</strong>
+            </div>
+            <div style="color: var(--text-secondary); font-size: 0.82rem; margin-top: 4px;">${m.effect}</div>
+            ${m.doc_link ? `<a class="doc-link-btn" href="${getDocUrl(activeCharId, m.doc_link)}" target="_blank" rel="noopener">📖 View Monad Protocols ↗</a>` : ""}
+          </div>
+        `).join("");
+
         pContent.innerHTML += `
           <div class="card">
             <div class="card-title">Monad Swarm Abilities</div>
-            ${monad.map(m => `<div class="power-item" style="margin-bottom: 8px;"><strong>${m.name}</strong>: <span style="color: var(--text-secondary); font-size: 0.85rem;">${m.effect}</span></div>`).join("")}
+            ${monadItems}
           </div>
         `;
       }
 
       if (augs.length > 0) {
+        let augItems = augs.map(a => `
+          <div class="power-item">
+            <div class="power-header">
+              <strong>${a.name} ${a.rating ? `R${a.rating}` : ""}</strong>
+              <span class="power-badge">[${a.grade}] ${a.essence ? `${a.essence} Ess` : ''}</span>
+            </div>
+            ${a.notes ? `<div style="font-size: 0.78rem; color: var(--gold-primary); margin-top: 4px;">${a.notes}</div>` : ""}
+            ${a.doc_link ? `<a class="doc-link-btn" href="${getDocUrl(activeCharId, a.doc_link)}" target="_blank" rel="noopener">📖 View Augmentation Rules ↗</a>` : ""}
+          </div>
+        `).join("");
+
         pContent.innerHTML += `
           <div class="card">
             <div class="card-title">Cyberware & Bioware Augmentations</div>
-            ${augs.map(a => `<div class="power-item" style="margin-bottom: 6px;"><strong>${a.name}</strong> ${a.rating ? `R${a.rating}` : ""} [${a.grade}]</div>`).join("")}
+            ${augItems}
           </div>
         `;
       }
 
-      // Vehicles & Drones
+      // Vehicles & Drones Tab
       const vList = document.getElementById("vehiclesList");
       vList.innerHTML = "";
       if (char.vehicles.length === 0) {
@@ -3147,22 +4651,40 @@
             });
           }
 
+          const docLink = v.doc_link ? `<a class="doc-link-btn" href="${getDocUrl(activeCharId, v.doc_link)}" target="_blank" rel="noopener">📖 View Drone Statblocks ↗</a>` : "";
+
           vCard.innerHTML = `
             <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
               <strong style="font-size: 1.05rem;">${v.name}</strong>
-              <span style="font-size: 0.8rem; color: var(--gold-primary);">${v.role || ""}</span>
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="font-size: 0.8rem; color: var(--gold-primary);">${v.role || ""}</span>
+                <button class="info-btn" title="Drone Specs">ℹ</button>
+              </div>
             </div>
-            <div style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 6px;">
-              HAN: ${v.handling} | ACC: ${v.accel} | SPD: ${v.speed} | BOD: ${v.body} | ARM: ${v.armor} | PIL: ${v.pilot}
+            <div style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 4px;">
+              HAN: ${v.handling} | ACC: ${v.accel} | SPD: ${v.speed} | BOD: ${v.body} | ARM: ${v.armor} | PIL: ${v.pilot} | SEN: ${v.sensor}
             </div>
+            ${v.mobility_str ? `<div style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--gold-primary); margin-bottom: 6px;">⚙️ ${v.mobility_str}</div>` : ""}
             ${poolsHtml ? `<div style="margin: 6px 0;">${poolsHtml}</div>` : ""}
             ${v.modifications.length ? `<div style="font-size: 0.75rem; color: var(--text-muted);">Mods: ${v.modifications.join(", ")}</div>` : ""}
+            <div class="breakdown-drawer">
+              <div class="breakdown-math">📊 Base Stats: Base BOD ${v.base_body || v.body} | Base ARM ${v.base_armor || v.armor} | Base PIL ${v.base_pilot || v.pilot} | Base SEN ${v.base_sensor || v.sensor}</div>
+              ${v.profile_notes && v.profile_notes.length ? `<div style="font-size: 0.75rem; color: var(--gold-primary); margin-bottom: 4px;"><strong>Active Enhancements:</strong> ${v.profile_notes.join(" • ")}</div>` : ""}
+              ${v.modifications.length ? `<div class="buff-checklist">${v.modifications.map(m => `<div class="buff-chip">✔ ${m}</div>`).join("")}</div>` : '<div class="buff-chip">Standard factory chassis</div>'}
+              ${docLink}
+            </div>
           `;
+
+          vCard.querySelector(".info-btn").addEventListener("click", () => {
+            const drawer = vCard.querySelector(".breakdown-drawer");
+            drawer.classList.toggle("open");
+          });
+
           vList.appendChild(vCard);
         });
       }
 
-      // Inventory & Software
+      // Inventory & Software Tab
       const iList = document.getElementById("inventoryList");
       const progs = char.inventory.programs || [];
       const autos = char.inventory.autosofts || [];
@@ -3174,27 +4696,90 @@
       `;
 
       // Contacts Tab
+      renderContacts();
+    }
+
+    function renderContacts() {
+      const char = CHARACTERS_DATA[activeCharId];
+      if (!char) return;
+
       const cList = document.getElementById("contactsList");
       cList.innerHTML = "";
-      if (char.contacts.length === 0) {
+      const rawContacts = [...(char.contacts || [])];
+
+      if (rawContacts.length === 0) {
         cList.innerHTML = "<div style='color: var(--text-muted);'>No recorded contacts.</div>";
-      } else {
-        char.contacts.forEach(c => {
-          const cItem = document.createElement("div");
-          cItem.className = "contact-item";
-          cItem.innerHTML = `
-            <div class="contact-header">
-              <strong style="color: var(--text-primary);">${c.name} (${c.archetype})</strong>
-              ${c.favors ? `<span class="favor-badge">+${c.favors} Favor</span>` : ""}
-            </div>
-            <div style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 4px;">
-              Connection: <strong>${c.connection}</strong> | Loyalty: <strong>${c.loyalty}</strong> ${c.region ? `| Region: ${c.region}` : ""}
-            </div>
-            ${c.description ? `<div style="font-size: 0.75rem; color: var(--text-muted);">${c.description}</div>` : ""}
-          `;
-          cList.appendChild(cItem);
-        });
+        return;
       }
+
+      let sorted = rawContacts;
+
+      if (contactFilterMode === "loyalty") {
+        sorted.sort((a, b) => (b.loyalty || 0) - (a.loyalty || 0));
+      } else if (contactFilterMode === "connection") {
+        sorted.sort((a, b) => (b.connection || 0) - (a.connection || 0));
+      } else if (contactFilterMode === "region") {
+        // Group by region
+        const groups = {};
+        sorted.forEach(c => {
+          const reg = c.region || "Seattle / Global";
+          if (!groups[reg]) groups[reg] = [];
+          groups[reg].push(c);
+        });
+
+        Object.keys(groups).sort().forEach(reg => {
+          const header = document.createElement("div");
+          header.className = "contact-group-header";
+          header.innerHTML = `📍 ${reg} (${groups[reg].length})`;
+          cList.appendChild(header);
+
+          groups[reg].forEach(c => {
+            cList.appendChild(createContactElement(c));
+          });
+        });
+        return;
+      } else if (contactFilterMode === "type") {
+        // Group by type / archetype
+        const groups = {};
+        sorted.forEach(c => {
+          const arch = c.archetype || "Contact";
+          if (!groups[arch]) groups[arch] = [];
+          groups[arch].push(c);
+        });
+
+        Object.keys(groups).sort().forEach(arch => {
+          const header = document.createElement("div");
+          header.className = "contact-group-header";
+          header.innerHTML = `👥 ${arch} (${groups[arch].length})`;
+          cList.appendChild(header);
+
+          groups[arch].forEach(c => {
+            cList.appendChild(createContactElement(c));
+          });
+        });
+        return;
+      }
+
+      // Default rendering
+      sorted.forEach(c => {
+        cList.appendChild(createContactElement(c));
+      });
+    }
+
+    function createContactElement(c) {
+      const cItem = document.createElement("div");
+      cItem.className = "contact-item";
+      cItem.innerHTML = `
+        <div class="contact-header">
+          <strong style="color: var(--text-primary); font-size: 1.02rem;">${c.name} (${c.archetype})</strong>
+          ${c.favors ? `<span class="favor-badge">+${c.favors} Favor</span>` : ""}
+        </div>
+        <div style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 4px;">
+          Connection: <strong>${c.connection}</strong> | Loyalty: <strong>${c.loyalty}</strong> ${c.region ? `| 📍 ${c.region}` : ""}
+        </div>
+        ${c.description ? `<div style="font-size: 0.75rem; color: var(--text-muted);">${c.description}</div>` : ""}
+      `;
+      return cItem;
     }
 
     function registerServiceWorker() {
