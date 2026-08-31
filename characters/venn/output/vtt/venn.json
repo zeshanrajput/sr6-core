@@ -1,18 +1,18 @@
 {
   "system": "SHADOWRUN6",
   "version": "3.2.0",
-  "name": "Nathan Turrent & Veronica",
+  "name": "Venn",
   "streetName": "Venn",
   "metaType": "Human",
   "size": 0,
   "weight": 0,
-  "age": "20",
-  "gender": "MALE",
+  "age": "",
+  "gender": "",
   "heat": 0,
   "reputation": 0,
-  "karma": 1,
-  "freeKarma": 1,
-  "nuyen": 4550,
+  "karma": 0,
+  "freeKarma": 0,
+  "nuyen": 3950,
   "initiation": 0,
   "submersion": 0,
   "attributes": [
@@ -25,8 +25,8 @@
     {
       "name": "Agility",
       "id": "AGILITY",
-      "points": 5,
-      "modifiedValue": 5
+      "points": 7,
+      "modifiedValue": 7
     },
     {
       "name": "Reaction",
@@ -37,20 +37,20 @@
     {
       "name": "Strength",
       "id": "STRENGTH",
-      "points": 2,
-      "modifiedValue": 2
+      "points": 4,
+      "modifiedValue": 4
     },
     {
       "name": "Willpower",
       "id": "WILLPOWER",
-      "points": 5,
-      "modifiedValue": 5
+      "points": 7,
+      "modifiedValue": 7
     },
     {
       "name": "Logic",
       "id": "LOGIC",
-      "points": 6,
-      "modifiedValue": 6
+      "points": 7,
+      "modifiedValue": 7
     },
     {
       "name": "Intuition",
@@ -98,7 +98,7 @@
       "name": "Composure",
       "id": "COMPOSURE",
       "points": 0,
-      "modifiedValue": 7
+      "modifiedValue": 9
     },
     {
       "name": "Judge Intentions",
@@ -110,13 +110,13 @@
       "name": "Memory",
       "id": "MEMORY",
       "points": 0,
-      "modifiedValue": 11
+      "modifiedValue": 14
     },
     {
       "name": "Lift / Carry",
       "id": "LIFT_CARRY",
       "points": 0,
-      "modifiedValue": 7
+      "modifiedValue": 9
     }
   ],
   "initiatives": [
@@ -162,8 +162,17 @@
       "description": ""
     },
     {
-      "name": "Analytical Mind",
-      "id": "analytical_mind",
+      "name": "Redliner",
+      "id": "redliner",
+      "choice": "",
+      "positive": true,
+      "rating": 0,
+      "page": "",
+      "description": ""
+    },
+    {
+      "name": "Cyber Singularity Seeker",
+      "id": "cyber_singularity_seeker",
       "choice": "",
       "positive": true,
       "rating": 0,
@@ -180,26 +189,17 @@
       "description": ""
     },
     {
-      "name": "Hooder",
-      "id": "hooder",
-      "choice": "",
-      "positive": false,
-      "rating": 2,
-      "page": "",
-      "description": ""
-    },
-    {
-      "name": "Chronic Pain",
-      "id": "chronic_pain",
-      "choice": "",
-      "positive": false,
-      "rating": 0,
-      "page": "",
-      "description": ""
-    },
-    {
       "name": "Cyberpsychosis",
       "id": "cyberpsychosis",
+      "choice": "",
+      "positive": false,
+      "rating": 3,
+      "page": "",
+      "description": ""
+    },
+    {
+      "name": "Hooder",
+      "id": "hooder",
       "choice": "",
       "positive": false,
       "rating": 3,
@@ -246,47 +246,15 @@
   "adeptPowers": [],
   "longRangeWeapons": [
     {
-      "name": "FN P93 Praetor",
-      "type": "Firearms",
-      "subtype": "Light Pistols",
-      "skill": null,
-      "pool": 5,
-      "damage": "4P",
-      "attackRating": "8/9/8/-/-",
-      "mode": "SA/BF/FA",
-      "ammunition": "50(c)",
-      "wifi": [],
-      "accessories": [],
-      "page": "",
-      "description": "",
-      "primary": false
-    },
-    {
       "name": "Colt Manhunter",
       "type": "Firearms",
       "subtype": "Light Pistols",
       "skill": null,
-      "pool": 5,
+      "pool": 7,
       "damage": "4P",
       "attackRating": "8/8/6/-/-",
       "mode": "SA",
       "ammunition": "16(c)",
-      "wifi": [],
-      "accessories": [],
-      "page": "",
-      "description": "",
-      "primary": false
-    },
-    {
-      "name": "Monofilament Whip",
-      "type": "Firearms",
-      "subtype": "Light Pistols",
-      "skill": null,
-      "pool": 5,
-      "damage": "4P",
-      "attackRating": "12/-/-/-/-",
-      "mode": "SA",
-      "ammunition": "15(c)",
       "wifi": [],
       "accessories": [],
       "page": "",
@@ -297,26 +265,6 @@
   "closeCombatWeapons": [],
   "armors": [
     {
-      "name": "Lined Coat",
-      "rating": 3,
-      "socialrating": 0,
-      "accessories": [],
-      "isIgnored": false,
-      "page": "",
-      "description": "",
-      "primary": true
-    },
-    {
-      "name": "Helmet",
-      "rating": 1,
-      "socialrating": 0,
-      "accessories": [],
-      "isIgnored": false,
-      "page": "",
-      "description": "",
-      "primary": false
-    },
-    {
       "name": "Securetech SkinShield (w/ Ballistic Hood)",
       "rating": 3,
       "socialrating": 0,
@@ -324,7 +272,7 @@
       "isIgnored": false,
       "page": "",
       "description": "",
-      "primary": false
+      "primary": true
     }
   ],
   "items": [],

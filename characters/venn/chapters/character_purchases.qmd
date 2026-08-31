@@ -6,72 +6,73 @@
 from sr6core.log_engine import inc, inc_many
 ```
 
-This ledger itemizes character creation gear, neural implants, streamed activesofts, identities, and operational maintenance.
+This ledger itemizes character creation augmentations, tactical gear, activesofts, identities, and operational maintenance.
 
 ---
 
-### Neural Chrome, Bioware & Geneware Implants
+### Cyberware, Bioware & Geneware Augmentations
 
-* **Vat Job Bioware-Augmented Combat Specialist PACK:** *(Sixth World Companion, p. 27 — Bundled 275,000¥ / 5.17 Ess)*
-  * Synaptic Booster (Rating 2, Used)
-  * Adrenaline Pump (Rating 2, Used)
-  * Bone Density Augmentation (Rating 4, Used)
-  * Muscle Toner (Rating 2, Used)
-  * Muscle Augmentation (Rating 2, Used)
-  * Skin Pocket (Used)
-* **Custom Neural Interface & Bioware Suite:** *(Character Creation Allocation)*
-  * Skilljack (Rating 6, Used Grade — 60,000¥ / 0.66 Ess)
-  * Skillwires (Rating 6, Used Grade — 60,000¥ / 0.66 Ess)
-  * Math SPU (Standard Grade — SRMG v2.4, 25,000¥, 0.25 Ess)
-  * Platelet Factories (Standard Grade — SR6 Core p. 286, 17,000¥, 0.20 Ess; reduces incoming Physical damage by 1 box)
+* **Two Full Synthetic Cyberarms (Standard Grade w/ Agility +3 Enhancement):** *(SR6 Core, p. 288 & p. 247 — 70,000¥ / 2.00 Ess)*
+  * 1.00 Ess each (2.00 Ess total), ¥20,000 base + ¥15,000 Agility [+3] mod each (¥70,000 total).
+  * Capacity: 8 each (3 used for AGI+3 $\rightarrow$ **5 Open Capacity each**), Avail 5.
+  * With Redliner operates at **Agility 7 / Strength 4** (surges to **Agility 9 / Strength 6** when overdriven).
+* **Two Full Synthetic Cyberlegs (Standard Grade w/ Agility +3 Enhancement):** *(SR6 Core, p. 288 & p. 247 — 70,000¥ / 2.00 Ess)*
+  * 1.00 Ess each (2.00 Ess total), ¥20,000 base + ¥15,000 Agility [+3] mod each (¥70,000 total).
+  * Capacity: 10 each (3 used for AGI+3 $\rightarrow$ **7 Open Capacity each**), Avail 5.
+  * With Redliner operates at **Agility 7 / Strength 4** (surges to **Agility 9 / Strength 6** when overdriven).
+* **Betaware Bone Density Augmentation (Rating 4):** *(SR6 Core, p. 286 & Body Shop, p. 101 — 30,000¥ / 0.84 Ess)*
+  * 0.84 Ess (1.2 x 0.7), ¥30,000 (20,000 x 1.5), Avail 6L.
+  * +4 Body for damage resistance soak (9 Soak unarmored), 4P Unarmed DV, +3 Attack Rating.
+* **Used Skilljack (Rating 6):** *(SR6 Core, p. 247 — 60,000¥ / 0.66 Ess)*
+  * Base ¥120,000 / 0.60 Ess $\rightarrow$ Used 0.5x cost = ¥60,000, 0.66 Ess, Avail 3.
+  * Supports up to Rating 6 skillsofts; total rating capacity = 24.
+* **Used Skillwires (Rating 6):** *(SR6 Core, p. 247 — 60,000¥ / 0.66 Ess)*
+  * Base ¥120,000 / 0.60 Ess $\rightarrow$ Used 0.5x cost = ¥60,000, 0.66 Ess, Avail 3.
+  * Wireless Bonus: Grants +1 dice pool modifier to all skills routed through skillwires.
+* **Standard Math SPU:** *(Body Shop, p. 5 — 25,000¥ / 0.25 Ess)*
+  * 0.25 Ess, ¥25,000, Avail 4.
+  * Lowers Edge boost cost by 1 (or by 2 when overdriven with +1 wild die); 0 Bad Luck penalty.
+* **Alphaware Cerebral Booster Enhancer:** *(Body Shop, p. 5 — 48,000¥ / 0.16 Ess)*
+  * 0.16 Ess (0.20 x 0.8), ¥48,000 (40,000 x 1.2), Avail 6L.
+  * Geneware augmentics permanently granting **+1 Logic** (stacks with future Cerebral Boosters).
 
 ---
 
 ### Activesoft Roster & Software Library
 
-* **Hardcoded Local Activesofts (Rating 6 — Coded at Chargen via SRMG Rules):**
-  * **Firearms Activesoft (Rating 6):** Coded with 6 Karma (¥30,000 value). Paired with Wireless-ON Skillwires (+1), Reflex Recorder (+1), and Smartlink (+2) for **14d6 attack pool** with AGI 4 (16d6 under Adrenaline surge; 18d6 under Monad Boost).
-  * **Perception Activesoft (Rating 6):** Coded with 6 Karma (¥30,000 value). Paired with Wireless-ON Skillwires (+1) for **11d6 sensory pool** with INT 4 (13d6 under Monad Boost).
-  * **Engineering Activesoft (Rating 6):** Coded with 6 Karma (¥30,000 value). Paired with Wireless-ON Skillwires (+1) and Math SPU (+1) for **14d6 repair/tech pool** with LOG 6 (16–18d6 under Monad Boost).
-
-* **On-Demand Subscription Streaming (Rating 6 — ¥4,000/month):**
-  * Provides dynamic access to the Skilljack's **4th 6-rank floating slot** (e.g. Exotic Weapons [Monofilament Whip] 6, Stealth 6, Close Combat 6, Athletics 6, Piloting 6, or technical Knowsofts/Linguasofts on-demand).
+* **Firearms Activesoft (Rating 6):** Purchased with Nuyen (¥30,000). Paired with Cyberarm Agility 7, Wireless-ON Skillwires (+1), and Smartlink (+2) for **16d6 attack pool** (surges to **18d6** when Overdriven to AGI 9).
+* **Cracking Activesoft (Rating 5):** Coded with Karma (6 Karma @ 1 Karma / ¥4,000). Paired with Wireless-ON Skillwires (+1) and Logic 7 for **13d6 matrix attack pool**.
 
 ---
 
 ### Weapons & Ballistic Outerwear
 
-* **FN P93 Praetor Submachine Gun:** *(Vat Job PACK)*
-  * Internal Smartgun System (+2 AR), Suppressor, Shock Pad
-  * 5 Spare Clips, 100 Regular Ammo, 100 Gel Ammo
-* **Colt Manhunter Heavy Pistol:** *(Vat Job PACK)*
+* **Colt Manhunter (Heavy Pistol):** *(1,500¥)*
   * Laser Sight / Smartlink (+2 AR), Concealed Holster, Silencer
   * 5 Spare Clips, 100 Regular Ammo, 100 Gel Ammo
-* **Monofilament Whip:** *(Vat Job PACK — Housed in Skin Pocket)*
-* **Lined Coat:** *(Vat Job PACK)*
-  * Defense Rating 3, Chemical Res 1, Cold Res 2, Electricity Res 2, Fire Res 2
-* **Helmet:** *(Vat Job PACK — Defense Rating +1)*
-* **Securetech SkinShield (w/ Ballistic Hood):** *(Purchased Allocation — Firing Squad p. 3 / Seattle p. 5, 3,150¥)*
+* **Securetech SkinShield (w/ Ballistic Hood):** *(Firing Squad p. 3 / Seattle p. 5 — 3,150¥)*
   * +2 Defense Rating form-fitting under-armor, +1 Defense Rating Ballistic Hood, Capacity 2, Avail 3, Social Mod 0 (Invisible under normal street clothes).
 
 ---
 
 ### Tactical & Sensory Gear
 
-* **Contacts (Rating 3):** *(Vat Job PACK)*
+* **Contacts (Rating 3):** *(1,500¥)*
   * Smartlink Integration & Flare Compensation
-* **Tactical Munitions:** *(Vat Job PACK)*
-  * 2 Flash-Paks, 2 Smoke Grenades, 2 Thermal Smoke Grenades, 2 Stun Grenades
-* **Medical Supplies:**
-  * 10 Stim Patches (Rating 6 — *Vat Job PACK*)
-  * Savior Medkit (Rating 6) + 1x Refill *(Purchased Allocation)*
+* **Savior Medkit (Rating 6 w/ 1x Refill):** *(2,300¥)*
 
 ---
 
 ### Matrix Hardware & Commlink Software
 
+* **Renraku Sensei Commlink:** *(1,000¥)*
+  * DR 3 | DP 3 | FW 1; everyday burner SIN broadcast. Veronica uses Monad Living Persona for all Shadow Matrix operations.
+
+---
+
 ### Identities, Licenses & Lifestyle
 
-* **Fake Licenses (Rating 4):** *(Vat Job PACK)*
+* **Fake Licenses (Rating 4 x2):** *(1,600¥)*
   * Fake License: Firearms (Rating 4)
-  * Fake License: Cyberware (Rating 4)
+  * Fake License: Concealed Carry (Rating 4)
+* **Low Lifestyle (Off-Grid Coastal Boathouse):** *(2,000¥ / 1st month prepaid)*

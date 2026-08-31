@@ -8,10 +8,10 @@ from sr6core.log_engine import (
 )
 
 # Initial chargen baseline
-assign("Karma", 1)
-assign("Lifetime_Karma", 1)
-assign("Nuyen", 4550)
-assign("Lifetime_Nuyen", 4550)
+assign("Karma", 0)
+assign("Lifetime_Karma", 0)
+assign("Nuyen", 3950)
+assign("Lifetime_Nuyen", 3950)
 assign("Total_Reputation", 0)
 ```
 
@@ -33,7 +33,7 @@ This ledger records complete campaign mission history, Karma earned and spent, l
 
 | Date | Mission Title | GM | Karma Earned | Nuyen Earned | Notes |
 | :--- | :--- | :--- | :---: | :---: | :--- |
-| **2026-07-26** | *Character Creation (Point Buy 100)* | System | 1 | ¥4,550 | Point Buy Chargen Balance |
+| **2026-07-26** | *Character Creation (Point Buy 100)* | System | 0 | ¥3,950 | Full Monad Cyborg Chargen Balance |
 
 ---
 

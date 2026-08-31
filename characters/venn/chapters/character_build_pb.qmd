@@ -84,14 +84,14 @@ Shadowrunners built with the Point Buy method start with **100 Character Points 
 * Heritage: Monad — Dual Consciousness Monad `{python} inc('Character_Points', -10)` *(Whisper Nets, p. 149)*
   * **Monad Dual Identity:** Nathan (Human biological host) & Veronica (AI fork sister).
   * Monads start with baseline **Nanite Volume (NV) = 1**: `{python} assign('Nanite_Volume', 1)`
-  * **Nanite Volume Increments (3 Adjustment Points @ 4 CP each):** `{python} inc_many(('Nanite_Volume', 3), ('Character_Points', -12))` *(Nanite Volume raised from 1 to **`{python} Nanite_Volume`**)*
+  * **Nanite Volume Increments (5 Adjustment Points @ 4 CP each):** `{python} inc_many(('Nanite_Volume', 5), ('Character_Points', -20))` *(Nanite Volume raised from 1 to **`{python} Nanite_Volume`**)*
   * **Monad Abilities Purchase (*Sixth World Companion*, p. 27 & *Whisper Nets*, p. 145):** In Point Buy, special abilities (spells, complex forms, monad abilities) are purchased at **2 CP or 5 Karma each**. We purchase **6 Monad Abilities** with Karma (`-30 Karma`): `{python} inc('Karma', -30)`
-    1. **Monad Matrix Attributes:** Synthesizes Living Persona ASDF (A:2 S:6 D:7 F:8) with 13d6 Full Matrix Defense (15d6 active).
-    2. **Resculpt:** Extended INT + NV (16, 1 combat round) test to alter physical appearance and voice.
+    1. **Monad Matrix Attributes:** Synthesizes Living Persona ASDF (A:2 S:6 D:8 F:9) with 15d6 Full Matrix Defense (17d6 active under Willpower 7).
+    2. **Resculpt:** Extended INT + NV (16, 1 combat round) test to alter physical biological appearance and voice.
     3. **Monad Toughness:** Adds one-half Nanite Volume (+`{python} Nanite_Volume // 2` boxes at NV `{python} Nanite_Volume`) to Condition Monitors (+`{python} (Nanite_Volume // 2) - (Nanite_Volume // 4)` Physical, +`{python} Nanite_Volume // 4` Stun), and shifts all Wound Modifiers down by one.
-    4. **Physical Attribute Boost:** Minor Action; roll NV test (`{python} Nanite_Volume` dice). Each hit adds +1 to any Physical Attribute (BOD/AGI/REA/STR) or +1 Minor Action (stackable/splittable, max boost = min(NV, +4)). Lasts for hits in combat rounds. When ended, decreases NV by total boost for 1 minute; boost beyond racial max inflicts 1 Physical damage box.
-    5. **Rapid Healing:** Minor or Major Action cellular nanite repair. Minor Action rolls an NV test to reduce Condition Monitor damage by hits; Major Action grants +1 situational Edge and heals double hits.
-    6. **Adrenal Control:** Minor Action; WIL + NV (2) test to remain conscious when condition monitors are full.
+    4. **Physical Attribute Boost:** Minor Action; roll NV test (`{python} Nanite_Volume` dice). With a 4-Edge boost (13 exploding dice), rolling $\ge 3$ hits (89.4%) or $\ge 4$ hits (76.2%) adds **+4 Minor Actions** or physical attribute boosts for hits in combat rounds.
+    5. **Rapid Healing:** Minor or Major Action cellular nanite repair. Minor Action rolls an NV test (6 dice) to reduce Condition Monitor damage by hits; Major Action grants +1 situational Edge and heals double hits.
+    6. **Adrenal Control:** Minor Action; WIL + NV (2) test (13d6 pool) to remain conscious when condition monitors are full.
 
 ---
 
@@ -105,26 +105,29 @@ Shadowrunners built with the Point Buy method start with **100 Character Points 
 
 ## 4. Qualities & Edge Engine Optimization
 
-### Positive Qualities
+Under standard SR6 character creation rules (*SR6 Core*, p. 65), characters can select a maximum of **6 total qualities** (excluding racial traits). We select exactly 4 Positive Qualities and 2 Negative Qualities:
+
+### Positive Qualities (4 Slots / 47 Karma)
 * **Augmentation Acclimation (Rating 10):** `{python} inc_many(('Karma', -20), ('Positive_Quality_Karma', -20), ('Essence', 1.00))` *(Sixth World Companion, p. 132)*
   * Reduces total Essence loss from installed cyberware and bioware by **1.00 Essence** (0.10 Essence per rating level).
-* **Analytical Mind:** `{python} inc_many(('Karma', -3), ('Positive_Quality_Karma', -3))` *(SR6 Core, p. 70)*
-  * +1 Situational Edge on LOG based tests.
+* **Redliner:** `{python} inc_many(('Karma', -10), ('Positive_Quality_Karma', -10))` *(Body Shop, p. 101)*
+  * With 4 full cyberlimbs (2 pairs: arms and legs), all cyberlimbs gain **+2 Strength and +2 Agility**! Grants +1 Physical Condition Monitor box per full pair (+2 boxes total).
+* **Cyber Singularity Seeker:** `{python} inc_many(('Karma', -10), ('Positive_Quality_Karma', -10))` *(Body Shop, p. 101)*
+  * With 4 full cyberlimbs (2 pairs), gain **+2 Willpower** (raising natural Willpower from 5 to **7**).
 * **Maximum Overdrive:** `{python} inc_many(('Karma', -7), ('Positive_Quality_Karma', -7))` *(Sixth World Companion, p. 129)*
-  * Gain +1 Edge whenever overdriving cyberware (e.g. Math SPU). Overdriven Math SPU drops Edge cost of Logic boosts by 2, which combined with +1 Edge from Overdrive and +1 Edge from Analytical Mind allows +7 Exploding Dice on Logic tests at **0 Net Edge cost**!
+  * Gain +1 Edge whenever overdriving cyberware (e.g. Math SPU, Cyberlimbs).
 
-### Negative Qualities
-* **Hooder (Rank 2):** `{python} inc_many(('Karma', 10), ('Negative_Quality_Karma', 10))` *(Sixth World Companion, p. 129)*
-  * Dedicated to helping the disadvantaged, taking low/zero-pay contracts or donating earnings (¥2,000/mo tithing).
-* **Chronic Pain:** `{python} inc_many(('Karma', 15), ('Negative_Quality_Karma', 15))` *(Sixth World Companion, p. 126)*
-  * BOD + WIL (3 + sessions free from pain). Fail: -1 on all tests for the session.
-* **Cyberpsychosis (Rank 3):** `{python} inc_many(('Karma', 24), ('Negative_Quality_Karma', 24))` *(Sixth World Companion, p. 136)*
+### Negative Qualities (2 Slots / +39 Karma)
+* **Cyberpsychosis (Rank 3 — MAX):** `{python} inc_many(('Karma', 24), ('Negative_Quality_Karma', 24))` *(Sixth World Companion, p. 136)*
   * Requires Essence ≤ 1.00. Whenever Edge pool reaches 0, lose touch with situation/surroundings and suffer -1 Minor Action per round per level (-3 Minor Actions at Rank 3) until Edge is regained (+8 Karma per rank = +24 Karma total). Edge 7 provides a massive buffer.
+* **Hooder (Rank 3 — MAX):** `{python} inc_many(('Karma', 15), ('Negative_Quality_Karma', 15))` *(Sixth World Companion, p. 129)*
+  * Dedicated to helping the disadvantaged, taking low/zero-pay contracts or donating earnings (¥3,000/mo tithing). When paying monthly Hooder tithing, gain +1 Karma back! (+5 Karma per rank = +15 Karma total).
 
-> **Quality Karma Limit Compliance Check (*Sixth World Companion*, p. 28 / *SR6 Core*, p. 65):**
+> **Quality Karma & Slot Limit Compliance Check (*Sixth World Companion*, p. 28 / *SR6 Core*, p. 65):**
+> * Total Qualities Selected: **6 Qualities** (4 Positive, 2 Negative — 100% compliant with the 6-quality chargen limit).
 > * Positive Qualities: `{python} Positive_Quality_Karma` Karma
 > * Negative Qualities: +`{python} Negative_Quality_Karma` Karma
-> * **Net Quality Karma Gain:** **+`{python} Negative_Quality_Karma + Positive_Quality_Karma` Karma** (`{python} "Legal: <= +20 Net Karma cap" if (Negative_Quality_Karma + Positive_Quality_Karma) <= 20 else "ILLEGAL: Exceeds +20 Net Karma cap"`)
+> * **Net Quality Karma Gain:** **`{python} Negative_Quality_Karma + Positive_Quality_Karma` Karma** (`{python} "Legal: <= +20 Net Karma cap" if (Negative_Quality_Karma + Positive_Quality_Karma) <= 20 else "ILLEGAL: Exceeds +20 Net Karma cap"`)
 
 ---
 
@@ -143,43 +146,36 @@ All physical and mental attributes start at human baseline (1):
 
 ### Attribute Increments 
 
-Every character receives **4 Free Attribute Points** (0 CP cost). Additional attribute points are purchased at **2 CP per point** (36 CP total spent on attributes: 28 base CP + 8 CP freed from Nanite Volume).
-
-Attributes are prioritized to reach near-maximum values sequentially, with Logic holding our single racial maximum (Priority: **LOG > WIL > INT > BOD > AGI > REA > CHA > STR**):
+Every character receives **4 Free Attribute Points** (0 CP cost). Additional attribute points are purchased at **2 CP per point** (30 CP total spent on attributes, saving CP on Agility/Strength since 4 cyberlimbs provide all physical attributes):
 
 1. **Logic (Priority 1 — +4 Free Points + 1 Purchased Point @ 2 CP):** `{python} inc_many(('Logic', 5), ('Character_Points', -2))` *(Logic = 6, Human Natural Maximum)*
-2. **Willpower (Priority 2 — +4 Purchased Points @ 8 CP):** `{python} inc_many(('Willpower', 4), ('Character_Points', -8))` *(Willpower = 5)*
+2. **Willpower (Priority 2 — +4 Purchased Points @ 8 CP):** `{python} inc_many(('Willpower', 4), ('Character_Points', -8))` *(Willpower = 5; becomes **7** with Cyber Singularity Seeker)*
 3. **Intuition (Priority 3 — +4 Purchased Points @ 8 CP):** `{python} inc_many(('Intuition', 4), ('Character_Points', -8))` *(Intuition = 5)*
 4. **Body (Priority 4 — +4 Purchased Points @ 8 CP):** `{python} inc_many(('Body', 4), ('Character_Points', -8))` *(Body = 5; supports Max NV ≤ 2 * Body = 10)*
-5. **Agility (Priority 5 — +4 Purchased Points @ 8 CP):** `{python} inc_many(('Agility', 4), ('Character_Points', -8))` *(Agility = 5)*
-6. **Reaction (Priority 6 — +1 Purchased Point @ 2 CP):** `{python} inc_many(('Reaction', 1), ('Character_Points', -2))` *(Reaction = 2)*
-7. **Charisma (Priority 7 — Baseline 1):** Unchanged at CP step.
-8. **Strength (Priority 8 — Baseline 1):** Unchanged at CP step.
-
-### Customization Karma Attribute Increases
-Any attributes remaining at baseline 1 are raised to 2 using customization Karma (10 Karma per point from 1 to 2):
-
-* **Charisma (1 -> 2 @ 10 Karma):** `{python} inc_many(('Charisma', 1), ('Karma', -10))` *(Charisma = 2)*
-* **Strength (1 -> 2 @ 10 Karma):** `{python} inc_many(('Strength', 1), ('Karma', -10))` *(Strength = 2)*
+5. **Reaction (Priority 5 — +1 Purchased Point @ 2 CP):** `{python} inc_many(('Reaction', 1), ('Character_Points', -2))` *(Reaction = 2)*
+6. **Charisma (Priority 6 — +1 Purchased Point @ 2 CP):** `{python} inc_many(('Charisma', 1), ('Character_Points', -2))` *(Charisma = 2; locks in 12 Contact Points)*
+7. **Agility (Priority 7 — Baseline 1):** Natural biological core is 1 (0 CP spent; full cyberlimbs provide **Agility 7** passively, and **Agility 9** overdriven).
+8. **Strength (Priority 8 — Baseline 1):** Natural biological core is 1 (0 CP spent; full cyberlimbs provide **Strength 4** passively, and **Strength 6** overdriven).
 
 ---
 
 ## 6. Attribute Allocation Summary
 
-| Attribute | Natural Value | Racial Maximum |
-| :--- | :---: | :---: |
-| **Body** | **`{python} Body`** | 6 |
-| **Agility** | **`{python} Agility`** | 6 |
-| **Reaction** | **`{python} Reaction`** | 6 |
-| **Strength** | **`{python} Strength`** | 6 |
-| **Willpower** | **`{python} Willpower`** | 6 |
-| **Logic** | **`{python} Logic`** | 6 |
-| **Intuition** | **`{python} Intuition`** | 6 |
-| **Charisma** | **`{python} Charisma`** | 6 |
-| **Edge** | **`{python} Edge`** | **7** |
-| **Nanite Volume** | **`{python} Nanite_Volume`** | `{python} 2 * Body` |
+| Attribute | Natural Value | Augmented / Quality Value | Racial Maximum |
+| :--- | :---: | :---: | :---: |
+| **Body** | **`{python} Body`** | **`{python} Body`** *(+4 Soak from Bone Density 4)* | 6 |
+| **Agility** | **`{python} Agility`** | **7** *(2 Base + 2 Redliner + 3 Limb Mod; 9 Overdriven)* | 6 |
+| **Reaction** | **`{python} Reaction`** | **`{python} Reaction`** *(Monad Boost adds +4 Minor Actions)* | 6 |
+| **Strength** | **`{python} Strength`** | **4** *(2 Base + 2 Redliner; 6 Overdriven)* | 6 |
+| **Willpower** | **`{python} Willpower`** | **7** *(5 Base + 2 Cyber Singularity Seeker)* | 6 |
+| **Logic** | **`{python} Logic`** | **7** *(6 Base + 1 Alphaware Cerebral Enhancer)* | 6 |
+| **Intuition** | **`{python} Intuition`** | **`{python} Intuition`** | 6 |
+| **Charisma** | **`{python} Charisma`** | **`{python} Charisma`** | 6 |
+| **Edge** | **`{python} Edge`** | **`{python} Edge` (MAX)** | **7** |
+| **Nanite Volume** | **`{python} Nanite_Volume`** | **`{python} Nanite_Volume`** | `{python} 2 * Body` |
 
-*Adrenaline Pump R2 adds another +2 to AGI, REA, STR, and WIL for 2 x 1D6 rounds when activated (SRMG Drug Stacking Rule), ignores wound penalties, and prevents unconsciousness from Stun damage.*
+* **Combat Action Economy (Monad Physical Boost):** Spending 1 Minor Action + 4 Edge on Turn 1 rolls **13 exploding dice** (NV 6 + Edge 7), yielding **+4 Minor Actions** for 4 rounds (convertible to **3 Major Actions and 1 Minor Action per round**).
+* **Cyberlimb Overdrive:** Overdriving cyberlimbs grants +2 Agility and +2 Strength $\rightarrow$ **Agility 9, Strength 6** (with wild die), and generates **+1 Edge** via Maximum Overdrive.
 
 ---
 
@@ -193,7 +189,7 @@ Characters receive **12 Free Skill Points** (0 CP). Additional skill ranks / spe
 
 ### Knowledge Skills
 
-In Point Buy (*Sixth World Companion*, p. 29), Knowledge Skills do not receive separate free attribute-based allocations, but can be purchased with skill points (1 Skill Point = 1 Knowledge Skill) or CP/Karma. We use our **5 remaining free skill points** to acquire **5 Knowledge Skills** (0 CP spent):
+We use our **5 remaining free skill points** to acquire **5 Knowledge Skills** (0 CP spent):
 
 1. **Small Unit Tactics**
 2. **Espionage Techniques**
@@ -201,40 +197,45 @@ In Point Buy (*Sixth World Companion*, p. 29), Knowledge Skills do not receive s
 4. **Resonance Realms**
 5. **UnITy (Unified Information Theory)**
 
-### Custom Hardcoded Activesofts (SRMG Coding Rules)
+### Activesofts & Coding Allocation
 
-Using the *Shadowrun Missions Guide (SRMG)* rules for writing custom software / coding programs during character creation (1 Karma equates to ¥5,000 value of code), Veronica writes and hardcodes two Rating 6 Activesofts (¥30,000 market value each) directly into the Skilljack's local flash memory for **6 Karma each** (12 Karma total):
-
-* **Firearms Activesoft (Rating 6):** `{python} inc_many(('Karma', -6), ('Firearms', 6))` *(¥30,000 value — 17d6 attack pool with AGI 7, Wires ON, Reflex Recorder, and Smartlink; 19d6 under Adrenaline surge)*
-* **Cracking Activesoft (Rating 6):** `{python} inc_many(('Karma', -6), ('Cracking', 6))` *(¥30,000 value — 13d6 matrix attack pool with LOG 6, Wires ON, and Math SPU)*
+* **Firearms Activesoft (Rating 6 — Purchased with Nuyen):** `{python} assign('Firearms', 6)` *(¥30,000 market value — 16d6 attack pool with Cyberarm AGI 7, Wires-ON [+1], and Smartlink [+2]; 18d6 when Overdriven to AGI 9)*
+* **Cracking Activesoft (Rating 5 — Coded with Karma):** `{python} inc_many(('Karma', -6), ('Cracking', 5))` *(Coded via SRMG rules for 6 Karma @ 1 Karma / ¥4,000 — 13d6 matrix attack pool with LOG 7 and Wires-ON [+1])*
 
 ### Resource Allocation (Starting Nuyen)
 
 * **Base Starting Resources (*Sixth World Companion*, p. 29-30):** ¥10,000 base starting allowance: `{python} assign('Nuyen', 10000)`
-* **Resource Purchase (Max 22 CP):** 22 CP spent @ 20,000 Nuyen / CP = **+¥440,000 Nuyen**:
-  * `{python} inc_many(('Character_Points', -22), ('Nuyen', 440000))`
-* **Maximum Chargen Resource Cap:** **¥450,000 Nuyen** *(¥10,000 base + ¥440,000 purchased)*.
+* **Resource Purchase (20 CP):** 20 CP spent @ 20,000 Nuyen / CP = **+¥400,000 Nuyen**:
+  * `{python} inc_many(('Character_Points', -20), ('Nuyen', 400000))`
+* **Total Chargen Capital:** **¥410,000 Nuyen** *(¥10,000 base + ¥400,000 purchased)*.
 
-### Cyberware, Bioware & Geneware
+### Cyberware, Bioware & Limb Enhancements
 
-* **Vat Job Bioware-Augmented Combat Specialist PACK:** `{python} inc_many(('Nuyen', -275000), ('Essence', -5.17))` *(Sixth World Companion, p. 27)*
-  * **Included Bioware:** Synaptic Booster R2 (Used), Adrenaline Pump R2 (Used), Bone Density Augmentation R4 (Used), Muscle Toner R2 (Used), Muscle Augmentation R2 (Used), Skin Pocket (Used), Reflex Recorder (Firearms, Used).
-  * **Included Weapons:** FN P93 Praetor (w/ smartgun, suppressor, shock pad, 5 clips, 200 ammo), Colt Manhunter (w/ smartlink, silencer, concealed holster, 5 clips, 200 ammo), Monofilament Whip (housed in Skin Pocket).
-  * **Included Armor:** Lined Coat (w/ 4 elemental resistances), Helmet.
-  * **Included Gear:** Contacts R3 (flare comp, smartlink), 8 Tactical Grenades (flash, smoke, thermal smoke, stun), 10 Stim Patches (Rating 6).
-  * **Included Licenses:** Fake Licenses R4 (Pistols, Concealed Carry).
-* **Skilljack (Rating 6, Used Grade):** `{python} inc_many(('Nuyen', -60000), ('Essence', -0.66))`
-* **Skillwires (Rating 6, Used Grade):** `{python} inc_many(('Nuyen', -60000), ('Essence', -0.66))`
-* **Math SPU (Standard Grade):** `{python} inc_many(('Nuyen', -25000), ('Essence', -0.25))` *(SRMG v2.4 25k/0.25 Ess; Standard grade avoids Bad Luck glitch quality; -1 Edge cost, -2 when overdriven)*
-* **Platelet Factories (Standard Grade):** `{python} inc_many(('Nuyen', -17000), ('Essence', -0.20))` *(SR6 Core, p. 286 — Reduces all incoming Physical damage by 1 box, to a minimum of 1 box)*
+* **Two Full Synthetic Cyberarms (Standard Grade w/ Agility +3 Enhancement):** `{python} inc_many(('Nuyen', -70000), ('Essence', -2.00))` *(SR6 Core, p. 288 & p. 247 — 1.00 Ess each [2.00 Ess total], ¥20,000 base + ¥15,000 Agility [+3] each [¥70,000 total], 16 Total Capacity [8 each, 3 used for AGI+3 -> 5 Open Capacity each], Avail 5)*
+* **Two Full Synthetic Cyberlegs (Standard Grade w/ Agility +3 Enhancement):** `{python} inc_many(('Nuyen', -70000), ('Essence', -2.00))` *(SR6 Core, p. 288 & p. 247 — 1.00 Ess each [2.00 Ess total], ¥20,000 base + ¥15,000 Agility [+3] each [¥70,000 total], 20 Total Capacity [10 each, 3 used for AGI+3 -> 7 Open Capacity each], Avail 5)*
+* **Betaware Bone Density Augmentation (Rating 4):** `{python} inc_many(('Nuyen', -30000), ('Essence', -0.84))` *(SR6 Core, p. 286 & Body Shop, p. 101 — 0.84 Ess [1.2 x 0.7], ¥30,000 [20,000 x 1.5], Avail 6L; +4 Body for damage resistance soak, 4P Unarmed DV, +3 AR)*
+* **Skilljack (Rating 6, Used Grade):** `{python} inc_many(('Nuyen', -60000), ('Essence', -0.66))` *(SR6 Core, p. 247 — Base Rating x 20,000¥ = 120k; Used 0.5x cost = ¥60,000, 0.66 Ess, Avail 3; supports up to Rating 6 skillsofts)*
+* **Skillwires (Rating 6, Used Grade):** `{python} inc_many(('Nuyen', -60000), ('Essence', -0.66))` *(SR6 Core, p. 247 — Base Rating x 20,000¥ = 120k; Used 0.5x cost = ¥60,000, 0.66 Ess, Avail 3; +1 dice pool modifier to all skills routed through skillwires)*
+* **Math SPU (Standard Grade):** `{python} inc_many(('Nuyen', -25000), ('Essence', -0.25))` *(Body Shop, p. 5 — 0.25 Ess, ¥25,000, Avail 4; lowers Edge boost cost by 1, or by 2 when overdriven with +1 wild die; 0 Bad Luck penalty)*
+* **Alphaware Cerebral Booster Enhancer:** `{python} inc_many(('Nuyen', -48000), ('Essence', -0.16))` *(Body Shop, p. 5 — 0.16 Ess [0.20 x 0.8], ¥48,000 [40,000 x 1.2], Avail 6L; Geneware augmentics permanently granting **+1 Logic**; stacks with future Cerebral Boosters)*
 
-### Additional Field Gear & Lifestyle
+### Cyberlimb Available Capacity (24 Total Open Capacity)
 
-* **Securetech SkinShield (w/ Ballistic Hood):** `{python} inc('Nuyen', -3150)` *(Firing Squad, p. 3 / City Edition: Seattle, p. 5 — +2 DR form-fitting under-armor [3,000¥], +1 DR Ballistic Hood [5% armor surcharge = 150¥], Capacity 2, Avail 3, Social Mod 0)*
-* **Commlink: Renraku Sensei** `{python} inc('Nuyen', -1000)` *(DR 3 | DP 3 | FW 1; everyday burner/SIN broadcast; Veronica functions as living cyberdeck)*
-* **Savior Medkit (Rating 6):** `{python} inc('Nuyen', -2000)`
-* **Savior Medkit Refill x1:** `{python} inc('Nuyen', -300)`
-* **Low Lifestyle (1st Month Prepaid):** `{python} inc('Nuyen', -2000)` *(SR6 Core, p. 240 — Deducted from starting liquid capital)*
+* **Left Synthetic Cyberarm:** `[5 Capacity Open]` *(3 of 8 Cap used for Agility +3)*
+* **Right Synthetic Cyberarm:** `[5 Capacity Open]` *(3 of 8 Cap used for Agility +3)*
+* **Left Synthetic Cyberleg:** `[7 Capacity Open]` *(3 of 10 Cap used for Agility +3)*
+* **Right Synthetic Cyberleg:** `[7 Capacity Open]` *(3 of 10 Cap used for Agility +3)*
+
+### Additional Field Gear, Weapons & Lifestyle
+
+* **Firearms Activesoft (Rating 6):** `{python} inc('Nuyen', -30000)` *(Commercial activesoft software license)*
+* **Colt Manhunter (Heavy Pistol):** `{python} inc('Nuyen', -1500)` *(w/ Smartlink, Concealed Holster, Silencer, 5 spare clips, 100 regular, 100 gel rounds)*
+* **Securetech SkinShield (w/ Ballistic Hood):** `{python} inc('Nuyen', -3150)` *(Firing Squad, p. 3 / Seattle, p. 5 — +2 DR form-fitting under-armor, +1 DR Ballistic Hood, Capacity 2, Avail 3, Social Mod 0)*
+* **Contacts (Rating 3):** `{python} inc('Nuyen', -1500)` *(w/ Flare Compensation, Smartlink)*
+* **Savior Medkit (Rating 6 w/ 1x Refill):** `{python} inc('Nuyen', -2300)`
+* **Commlink: Renraku Sensei:** `{python} inc('Nuyen', -1000)` *(DR 3 | DP 3 | FW 1; everyday burner SIN broadcast)*
+* **Fake Licenses (Rating 4 x2):** `{python} inc('Nuyen', -1600)` *(Firearms, Concealed Carry)*
+* **Low Lifestyle (1st Month Prepaid):** `{python} inc('Nuyen', -2000)` *(Off-Grid Coastal Boathouse)*
 
 ---
 
@@ -247,9 +248,8 @@ Gain **6 * Charisma** contact points to spend:
 
 * **Shadow Healthcare Community Membership:** `{python} inc('Karma', -6)` *(Shadowrun Missions Guide v2.4, p. 20)*
   * **Game Effect:** Grants official membership in the Shadow Healthcare Community network, providing street doc medical assistance, cyberware maintenance, and specialized trauma support.
-  * Unlocks access to the **Working for the Streetdoc** Major Downtime Activity
-    * Convert an unlimited amount of karma at 1 karma : 7000 nuyen to purchase an augmentation for yourself
-  * May sell back Augmentations for full price (cyberware/non-cultured bioware only)
+  * Unlocks access to the **Working for the Streetdoc** Major Downtime Activity: convert an unlimited amount of Karma at 1 Karma : ¥7,000 Nuyen to purchase augmentations.
+  * May sell back Augmentations for full price (cyberware/non-cultured bioware only).
 
 ---
 
@@ -257,6 +257,6 @@ Gain **6 * Charisma** contact points to spend:
 
 * **Total Character Points Remaining:** `{python} Character_Points`
 * **Total Liquid Nuyen Remaining:** ¥`{python} f"{Nuyen:,}"` 
-* **Remaining Essence:** `{python} f"{Essence:.2f}"` 
+* **Remaining Essence:** `{python} f"{Essence:.2f}"` *(Raw: 6.57 Ess | Buffer: +1.00 Ess | Cyberpsychosis Rank 3 active)*
 * **Total Starting Karma Remaining:** `{python} Karma` 
 * **Total Contact Points:** `{python} Contact_Points`

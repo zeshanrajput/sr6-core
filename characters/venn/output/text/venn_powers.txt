@@ -1,40 +1,37 @@
 ============================================================================
  POWERS, COMPLEX FORMS, ABILITIES & CYBERWARE: VENN
 ============================================================================
- MONAD ABILITIES & NANITE SWARM TRAITS (NV 4):
+ MONAD ABILITIES & NANITE SWARM TRAITS (NV 6):
   * Monad Matrix Attributes
-    Internal nanite swarm synthesizes Living Persona ASDF (A:2 S:6 D:7 F:7)
-    with 12d6 Full Matrix Defense (14d6 when Adrenaline Pump active).
+    Internal nanite swarm synthesizes Living Persona ASDF (A:2 S:6 D:8 F:9)
+    with 15d6 Full Matrix Defense (17d6 active under Willpower 7).
   * Resculpt
     Extended INT + NV (16, 1 combat round) test to alter physical biological
     appearance and voice.
   * Monad Toughness
-    Adds +2 Condition boxes (NV/2) to Condition Monitors (+1 Physical, +1
-    Stun -> 12 Physical, 12 Stun boxes), shifts all wound penalties down by
-    1.
+    Adds +3 Condition boxes (NV/2) to Condition Monitors (+2 Physical, +1
+    Stun -> 14 Physical [10 base + 2 Redliner + 2 Monad], 13 Stun boxes [12
+    base + 1 Monad]), shifts all wound penalties down by 1.
   * Physical Attribute Boost
-    Minor Action; roll NV test (4 dice). Each hit adds +1 to any Physical
-    Attribute (BOD/AGI/REA/STR) or +1 Minor Action (stackable/splittable,
-    max boost = min(NV, +4)). Lasts for hits in combat rounds. When ended,
-    decreases NV by total boost for 1 minute; boost beyond racial max
-    inflicts 1 Physical damage box.
+    Minor Action; roll NV test (6 dice). With 4-Edge boost (13 exploding
+    dice), rolling >= 3 hits (89.4%) or >= 4 hits (76.2%) adds +4 Minor
+    Actions or physical attribute boosts for hits in combat rounds. When
+    ended, decreases NV by total boost for 1 minute.
   * Rapid Healing
     Minor or Major Action cellular nanite repair to reduce Condition Monitor
     damage.
   * Adrenal Control
-    Minor Action; WIL + NV (2) test to remain conscious when mortally
-    wounded or stunned.
+    Minor Action; WIL + NV (2) test (13d6 dice pool) to remain conscious
+    when mortally wounded or stunned.
 ----------------------------------------------------------------------------
  CYBERWARE & BIOWARE AUGMENTATIONS:
+  - Left Synthetic Cyberarm         [Standard Grade]
+  - Right Synthetic Cyberarm        [Standard Grade]
+  - Left Synthetic Cyberleg         [Standard Grade]
+  - Right Synthetic Cyberleg        [Standard Grade]
+  - Bone Density Augmentation R4    [Betaware Grade]
   - Skilljack R6                    [Used Grade]
   - Skillwires R6                   [Used Grade]
   - Math SPU                        [Standard Grade]
-  - Synaptic Booster R2             [Used Grade]
-  - Muscle Toner R2                 [Used Grade]
-  - Muscle Augmentation R2          [Used Grade]
-  - Bone Density Augmentation R4    [Used Grade]
-  - Adrenaline Pump R2              [Used Grade]
-  - Skin Pocket                     [Used Grade]
-  - Reflex Recorder (Firearms)      [Used Grade]
-  - Platelet Factories              [Standard Grade]
+  - Cerebral Booster Enhancer       [Alphaware Grade]
 ----------------------------------------------------------------------------

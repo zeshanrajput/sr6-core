@@ -8,7 +8,7 @@ from sr6core.character_manager import CharacterManager
 
 _totals = get_log_totals(["chapters/character_log.qmd", "chapters/character_purchases.qmd"])
 cm = CharacterManager()
-_char = cm.get_character_data("union") or {}
+_char = cm.get_character_data("venn") or {}
 _attrs = _char.get("attributes", {})
 
 Lifetime_Karma = _totals.get("Lifetime_Karma", 0)
@@ -16,8 +16,8 @@ Karma = _totals.get("Karma", 0)
 Nuyen = _totals.get("Nuyen", 0)
 Lifetime_Nuyen = _totals.get("Lifetime_Nuyen", 0)
 Logic = _attrs.get("logic", 7)
-Nanite_Volume = _char.get("identity", {}).get("nanite_volume", 6)
-Essence = _attrs.get("essence", 0.1)
+Nanite_Volume = _char.get("meta", {}).get("nanite_volume", 6)
+Essence = _attrs.get("essence", 0.43)
 Heat = _totals.get("Heat", 0)
 Reputation = _totals.get("Reputation", {})
 Contacts = _totals.get("Contacts", {})
@@ -34,10 +34,10 @@ This dashboard displays Venn's live career totals, campaign downtime balances, e
 * **Available Karma:** `{python} Karma`
 * **Lifetime Nuyen Earned:** ¥`{python} f"{Lifetime_Nuyen:,.0f}"`
 * **Available Nuyen:** ¥`{python} f"{Nuyen:,.0f}"`
-* **Logic:** `{python} Logic` *(Exceptional Baseline)*
+* **Logic:** `{python} Logic` *(Base 6 + 1 Cerebral Enhancer)*
 * **Nanite Volume:** `{python} Nanite_Volume` *(Monad Swarm Synthesis)*
-* **Essence:** `{python} Essence` *(Used Neural Chrome)*
-* **Hooder Commitment:** ¥2,000/month *(Free Clinic & Refugee Support)*
+* **Essence:** `{python} Essence` *(0.43 Rem Ess | Cyberpsychosis Rank 3 active)*
+* **Hooder Commitment:** ¥3,000/month *(Free Clinic & Refugee Support — Rank 3)*
 * **Current Heat:** `{python} Heat`
 * **Total Reputation:** `{python} sum(Reputation.values())`
   * **Atlanta & CAS Coast:** +`{python} Reputation.get('Atlanta', Reputation.get('CAS', 0))`

@@ -5,17 +5,11 @@
   - Commlink: Renraku Sensei (DR: 3 | DP: 3 | FW: 1)
 ----------------------------------------------------------------------------
  SOFTWARE & PROGRAMS:
-  Activesofts: Firearms Activesoft R6, Cracking Activesoft R6, Perception
-               Activesoft R6, Engineering Activesoft R6
+  Activesofts: Firearms Activesoft R6, Cracking Activesoft R5
 ----------------------------------------------------------------------------
  FIELD GEAR, MUNITIONS & AMMUNITION:
   - [Qty: 1] Contacts (Rating 3 w/ Flare Comp, Smartlink)
   - [Qty: 1] Savior Medkit (Rating 6 w/ 1x Refill)
-  - [Qty: 2] Flash-Paks (x2)
-  - [Qty: 2] Smoke Grenades (x2)
-  - [Qty: 2] Thermal Smoke Grenades (x2)
-  - [Qty: 2] Stun Grenades (x2)
-  - [Qty: 10] Stim Patches Rating 6 (x10)
 ----------------------------------------------------------------------------
  SINS, LICENSES & LIFESTYLES:
   - License: Fake License: Firearms (Rating 4)

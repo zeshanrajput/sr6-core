@@ -14,7 +14,7 @@ from sr6core.exporters.vtt_text import (
 )
 
 cm = CharacterManager()
-char_data = cm.get_character_data("union")
+char_data = cm.get_character_data("venn")
 
 base_txt = export_base_sheet(char_data, char_repo_path=".")
 combat_txt = export_combat_sheet(char_data)
@@ -27,8 +27,8 @@ powers_txt = export_powers_sheet(char_data)
 ::: {.callout-note}
 ### Character Views & Saves
 * 📱 **Mobile Character App**: [Launch Mobile Interactive Sheet](../output/mobile/index.html){.btn .btn-primary target="_blank"}
-* **VTT & CommLink6 Saves**: [union.xml](../output/vtt/union.xml) | [union.json](../output/vtt/union.json)
-* **Plain-Text Modular Exports**: [Base Sheet](../output/text/union_base.txt) | [Combat](../output/text/union_combat.txt) | [Inventory](../output/text/union_inventory.txt) | [Powers](../output/text/union_powers.txt) | [Contacts](../output/text/union_contacts.txt)
+* **VTT & CommLink6 Saves**: [venn.xml](../output/vtt/venn.xml) | [venn.json](../output/vtt/venn.json)
+* **Plain-Text Modular Exports**: [Base Sheet](../output/text/venn_base.txt) | [Combat](../output/text/venn_combat.txt) | [Inventory](../output/text/venn_inventory.txt) | [Powers](../output/text/venn_powers.txt) | [Contacts](../output/text/venn_contacts.txt)
 :::
 
 ## 1. Base Sheet

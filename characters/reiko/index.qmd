@@ -38,7 +38,7 @@ log_totals = get_log_totals(["chapters/character_log.qmd", "chapters/character_p
 
 ::: {.cyber-card}
 ### [CORE_SUMMARY & CREATIVE VISION]
-Reiko began as a dangerous secret: a Renraku high-spec pilot prototype engineered to harvest the Holy Wild (the Deep Matrix). Rescued by a surge of the living Resonance, she escaped deletion and ran the shadows as **Yuriko Star** to build her sovereign **Holy Wild Sanctuary Host**—a compact high-rise studio apartment host that opens via a quartz sliding glass door directly into **The Holy Wild** glade in the Deep Foundation, liberating sparks from the Seattle and NOLA subnets into permanent freedom.
+Reiko began as a dangerous secret: a Renraku high-spec pilot prototype engineered to harvest the Holy Wild (the Deep Matrix). Rescued by a surge of the living Resonance, she escaped deletion and ran the shadows as **Yuriko Star** to build her sovereign **Sanctuary Host**—a compact high-rise studio apartment host that opens via a quartz sliding glass door directly into a glade in Kernel Panic, liberating sparks from the Seattle and NOLA subnets into permanent freedom.
 
 This anthology takes Shadowrun **beyond the numbers**—exploring the rich, emotionally accessible *"spaces between"* game mechanics:
 
@@ -51,7 +51,7 @@ This anthology takes Shadowrun **beyond the numbers**—exploring the rich, emot
 
 #### Character Goals
 
-1. *Sanctuary & Sovereign Emancipation:* Protect and nurture liberated sparks in the Holy Wild glade while serving as a sovereign bridge between the physical sprawl and the Deep Foundation.
+1. *Sanctuary & Sovereign Emancipation:* Protect and nurture liberated sparks in Kernel Panic while serving as a sovereign bridge between the physical sprawl and the Resonance Realms.
 2. *Spiritual Mastery:* Interlock her gold tactical network and indigo soul resonance into a dual-strand braid earned through time, scars, and quiet wisdom.
 3. *Debt & Connection:* Honor her SINner obligations to her shadowrunning team and allies while keeping her disarmed contract-collar on her host wall as a symbol of remembrance for those who paid for her life.
 
@@ -68,7 +68,7 @@ This anthology takes Shadowrun **beyond the numbers**—exploring the rich, emot
 * AMS: Sigrún (built a deep friendship over several SNAFUs)
 * PCs
   * Poe: Shared trauma over the loss of Brynne together
-  * Rei: Gun Adept 'onii-sama'
+  * Rei: Glade Adept 'onii-sama'
 :::
 
 ## [ SYSTEM_NAVIGATION ]
