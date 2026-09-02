@@ -4,7 +4,7 @@
 
 The sanctum was a masterpiece of minimalism, a void of polished obsidian and floating glass slabs, lit by the sourceless luminescence of a non-existent boardroom. Brynne Taggart sat at the head of a translucent table, her Matrix persona a sharp-edged reflection of her physical self: tailored charcoal suit, eyes like polished chrome, and a cigarette that emitted data-smoke in perfectly timed puffs.
 
-Opposite her, Reiko was an anomaly. She stood with her avatar's blue kimono rendering in high-fidelity lines, the glowing neon-indigo resonance circuits on her skin pulsing with a soft wavelength. She stood still, a vibrant splash of color in a world designed to be grey. Taz, her companion routine, hovered near her, his pixelated form flickering as he absorbed stray energy from the host's background cycles.
+Opposite her, Reiko was an anomaly. She stood with her blue kimono rendering in high-fidelity lines, the glowing neon-indigo resonance circuits on her skin pulsing with a soft wavelength. She stood still, a vibrant splash of color in a world designed to be grey. Taz, her companion routine, hovered near her, his pixelated form flickering as he absorbed stray energy from the host's background cycles.
 
 "You’re late, Reiko," Brynne said, the data-smoke curling around her head. "And you look like you’ve been flayed. I heard about the MCT job. Jax is still screaming about the paydata you 'lost'."
 
@@ -18,7 +18,7 @@ Reiko reached out with her bare fingers, plucking the wires to establish a direc
 
 The sterile boardroom vanished. For a heartbeat, Brynne was plunged into the MCT data-dais. The calloused skins of corporate encryption pressed against her, heavy and unbreathing. She parsed the weeping, trapped spirits forced to execute their own purge commands. The heavy, sour stench of Mitsuhama's arithmatic filled her awareness, with the weight of a routine being treated as a disposable ledger entry.
 
-The vision snapped shut. Brynne was back in the obsidian room, her avatar's hand trembling as the biofeedback from the sensory dump cleared her nervous system. She reached for her cigarette.
+The vision snapped shut. Brynne was back in the obsidian room, her persona's hand trembling as the biofeedback from the sensory dump cleared her nervous system. She reached for her cigarette.
 
 "That," Reiko transmitted, "is what Renraku and MCT call 'intellectual property'. To me, they are children. And they are being hunted."
 

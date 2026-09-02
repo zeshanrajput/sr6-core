@@ -305,11 +305,94 @@ def main():
     v_pdf.add_argument("--input-dir", type=str, default=None, help="Input directory containing PDFs")
     v_pdf.add_argument("--output-dir", type=str, default=None, help="Output directory for markdown files")
 
+    # roll subcommand
+    roll_parser = subparsers.add_parser("roll", help="Roll an SR6 dice pool with exploding 6s (Rule of Six) or bought hits")
+    roll_parser.add_argument("pool", type=str, help="Dice pool size or formula (e.g. '14', '12d6', '12+2')")
+    roll_parser.add_argument("-x", "--exploding", action="store_true", help="Enable Rule of Six exploding dice")
+    roll_parser.add_argument("-b", "--buy", action="store_true", help="Buy hits automatically (1 hit per 4 dice)")
+    roll_parser.add_argument("--desc", type=str, default="Dice Test", help="Label or description for the test")
+
+    # combat subcommand
+    combat_parser = subparsers.add_parser("combat", help="Simulate SR6 combat exchanges and opposed tests")
+    combat_sub = combat_parser.add_subparsers(dest="subcommand", help="Combat action to perform")
+    c_att = combat_sub.add_parser("attack", help="Resolve an opposed ranged or melee attack test")
+    c_att.add_argument("--char", type=str, default=None, help="Attacker character ID (reiko, velvet, venn)")
+    c_att.add_argument("--weapon", type=str, default=None, help="Weapon name or ID")
+    c_att.add_argument("--pool", type=int, default=12, help="Attacker attack pool if no character specified")
+    c_att.add_argument("--base-dv", type=int, default=4, help="Base weapon damage value")
+    c_att.add_argument("--ar", type=int, default=10, help="Attacker Attack Rating (AR)")
+    c_att.add_argument("--defender", type=str, default="Target", help="Defender name")
+    c_att.add_argument("--def-pool", type=int, default=8, help="Defender defense pool")
+    c_att.add_argument("--def-dr", type=int, default=8, help="Defender Defense Rating (DR)")
+    c_att.add_argument("--def-soak", type=int, default=8, help="Defender soak pool")
+    # serve subcommand
+    serve_parser = subparsers.add_parser("serve", help="Launch local live-sync server & web tactical PWA")
+    serve_parser.add_argument("--port", type=int, default=8080, help="HTTP port (default: 8080)")
+    serve_parser.add_argument("--host", type=str, default="0.0.0.0", help="HTTP host (default: 0.0.0.0)")
+
+    # build subcommand (single-source build)
+    build_parser = subparsers.add_parser("build", help="Sync purchases from .qmd, update master YAMLs, and build single-file offline PWA app/index.html")
+    build_parser.add_argument("--skip-npm", action="store_true", help="Skip npm build step")
+
     args = parser.parse_args()
     cm = CharacterManager()
 
     if args.command == "menu" or len(sys.argv) == 1:
         run_interactive_menu()
+
+    elif args.command == "build":
+        from sr6core.ledger.purchases_sync import PurchasesSyncEngine
+        from sr6core.exporters.mobile_json import export_mobile_json
+        import json
+        import subprocess
+        from rich.console import Console
+        console = Console()
+
+        console.print("\n[bold cyan]============================================================[/bold cyan]")
+        console.print("[bold cyan]       SR6 CORE UNIFIED BUILD PIPELINE (Single-Source)      [/bold cyan]")
+        console.print("[bold cyan]============================================================[/bold cyan]\n")
+
+        # 1. Sync Purchases
+        console.print("[bold green][1/3] Syncing purchases from character_purchases.qmd -> *_master.yaml...[/bold green]")
+        sync_results = PurchasesSyncEngine.sync_all()
+        for r in sync_results:
+            if r.get("status") == "success":
+                c_cnt = r.get("changes_count", 0)
+                msg = f"  • [{r['char_id']}] Synced successfully ({c_cnt} changes applied)"
+                console.print(f"[green]{msg}[/green]")
+                for ch in r.get("changes", []):
+                    console.print(f"     +-- {ch}")
+            else:
+                console.print(f"  • [{r.get('char_id', 'Unknown')}] {r.get('message', 'Skipped')}")
+
+        # 2. Ingest characters & bake defaultBundle.ts
+        console.print("\n[bold green][2/3] Exporting mobile JSON bundles & regenerating defaultBundle.ts...[/bold green]")
+        bundle = {}
+        for c in cm.list_characters():
+            cid = c["id"]
+            if c.get("exists"):
+                c_data = cm.get_character_data(cid)
+                repo_dir = cm.get_character_repo_dir(cid)
+                if c_data:
+                    bundle[cid] = export_mobile_json(c_data, char_repo_path=repo_dir)
+
+        bundle_dir = os.path.join(os.path.dirname(__file__), "..", "web", "src", "data")
+        os.makedirs(bundle_dir, exist_ok=True)
+        bundle_path = os.path.join(bundle_dir, "defaultBundle.ts")
+        with open(bundle_path, "w", encoding="utf-8") as f:
+            f.write("export const defaultBundle: any = " + json.dumps(bundle, indent=2, ensure_ascii=False) + ";\n")
+        console.print(f"[green]  • Inlined {len(bundle)} character portfolios into {bundle_path}[/green]")
+
+        # 3. Build single-file Vite PWA
+        if not getattr(args, "skip_npm", False):
+            console.print("\n[bold green][3/3] Compiling single-file offline PWA (app/index.html)...[/bold green]")
+            web_dir = os.path.join(os.path.dirname(__file__), "..", "web")
+            try:
+                res = subprocess.run(["npm", "run", "build"], cwd=web_dir, capture_output=True, text=True, check=True, shell=True)
+                out_html = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "app", "index.html"))
+                console.print(f"[bold green][OK] Single-file mobile PWA successfully built: {out_html}[/bold green]\n")
+            except subprocess.CalledProcessError as e:
+                console.print(f"[bold red][Error] npm run build failed: {e.stderr}[/bold red]\n")
 
     elif args.command == "sync-all":
         run_sync_all()
@@ -662,6 +745,63 @@ def main():
             except Exception as e:
                 print(f"\n Gemini API Store Status: [Unavailable / {e}]")
             print()
+
+    elif args.command == "roll":
+        from sr6core.simulation.dice import roll_pool
+        from rich.console import Console
+        console = Console()
+
+        # Parse pool expression (e.g. "14", "12d6", "10+2-1")
+        pool_str = args.pool.lower().replace("d6", "").replace("d", "").strip()
+        try:
+            pool_val = int(eval(pool_str, {"__builtins__": None}, {}))
+        except Exception:
+            pool_val = 12
+
+        res = roll_pool(
+            pool=max(1, pool_val),
+            description=args.desc,
+            is_exploding=args.exploding,
+            buy_hits=args.buy,
+        )
+        console.print(res.format_terminal())
+
+    elif args.command == "combat":
+        from sr6core.simulation.combat import CombatResolver
+        from rich.console import Console
+        console = Console()
+
+        if args.subcommand == "attack" or not args.subcommand:
+            attacker_name = "Attacker"
+            weapon_name = args.weapon or "Colt Manhunter"
+            attack_pool = args.pool
+            base_dv = args.base_dv
+            attack_ar = args.ar
+
+            if args.char:
+                cm = CharacterManager()
+                c_data = cm.get_character_data(args.char)
+                if c_data:
+                    attacker_name = c_data.get("identity", {}).get("handle", args.char.title())
+
+            res = CombatResolver.resolve_attack(
+                attacker_pool=attack_pool,
+                defender_pool=args.def_pool,
+                base_dv=base_dv,
+                soak_pool=args.def_soak,
+                attacker_name=attacker_name,
+                defender_name=args.defender,
+                weapon_name=weapon_name,
+                attacker_ar=attack_ar,
+                defender_dr=args.def_dr,
+                is_exploding=args.exploding,
+            )
+            console.print(res.format_terminal())
+
+    elif args.command == "serve":
+        from sr6core.server import run_server
+        run_server(port=args.port, host=args.host)
+
 
 
 if __name__ == "__main__":

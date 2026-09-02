@@ -171,18 +171,13 @@ print(get_sprite_action_table("yuriko", sprite_level=SPRITE_LEVEL))
 * **Fading Resistance**: Willpower (`{python} WILLPOWER`) + Charisma (`{python} CHARISMA`) + Submersion Grade (`{python} SUBMERSION_GRADE`) = **`{python} fade_res_pool`d6** → **`{python} fade_res_hits` Bought Hits**.
 * **Registering Damage Taken**: `{python} registering_fade_fv` FV - `{python} fade_res_hits` hits = **`{python} registering_damage` boxes of Stun damage**.
 
-### 3. Resonance Focus & Data Structure Protocols
+### 3. Resonance Focus Protocols
 
 * **Resonance Focus (Rating 4)**: Encoded into the physical **Shiawase Man-at-Arms** drone chassis.
   * **Bonus**: Adds **+4 dice** to any test using the Resonance attribute while inhabiting the chassis.
   * **Focus Fading FV**: Rating / 2 (`{python} RESONANCE_FOCUS` / 2 = **`{python} focus_fade_fv` FV**).
   * **Fading Pool**: WIL (`{python} WILLPOWER`) + LOG (`{python} LOGIC`) = **`{python} focus_fade_res_pool`d6** → **`{python} focus_fade_res_hits` Bought Hits**.
   * **Damage Taken**: `{python} focus_fade_fv` FV - `{python} focus_fade_res_hits` hits = **`{python} focus_fade_damage` Damage**.
-* **Oracle Data Structure (Rating 4)**: Encoded into **The Holy Wild Sanctuary Host** on the remote Sky Commander.
-  * **Bonus**: Adds **+4 dice** to **Matrix Perception** and **Matrix Search** tests, and reduces extended Matrix Search intervals to a **Major Action**.
-  * **Data Structure Fading FV**: Rating / 2 (4 / 2 = **2 FV** Stun).
-  * **Fading Pool**: WIL (`{python} WILLPOWER`) + LOG (`{python} LOGIC`) = **`{python} focus_fade_res_pool`d6** → **`{python} focus_fade_res_hits` Bought Hits** (0 damage taken).
-* *Note on EI Host Contact (SRMG v2.4 p. 69–71)*: Under SRM rules, an Emergent Intelligence must reside in/touch the device/host housing the data structure to activate it (Minor Action), limiting active use to one data structure at a time based on current operational locus.
 
 ---
 

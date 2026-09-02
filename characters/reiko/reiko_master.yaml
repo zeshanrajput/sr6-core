@@ -5,6 +5,27 @@ identity:
   stream: Technoshamans
   gender: DIVERSE
   age: ~ 10
+  languages:
+    native:
+    - name: Mindspeech
+      rating: 4
+      notes: Native DI/Resonance ideational language (Null Value); direct non-acoustic
+        ideation, harmonic frequencies, and emotional metadata.
+    linguasofts:
+    - name: Japanese
+      rating: 5
+      notes: Slotted Linguasoft; Renraku origin aesthetic, honorific matrix, kintsugi,
+        and wabi-sabi.
+    - name: English
+      rating: 5
+      notes: Slotted Linguasoft; Seattle Sprawl street trade with Brynne, Jax, and
+        shadowrunners.
+    - name: Cantonese
+      rating: 5
+      notes: Slotted Linguasoft; Chinatown trade in The Price of Silk.
+    - name: Mandarin
+      rating: 5
+      notes: Slotted Linguasoft; Chinatown trade in The Price of Silk.
 attributes:
   body: 5
   agility: 3
@@ -24,29 +45,31 @@ living_persona:
     attack: 3
 synergies:
   attribute_substitutions:
-    - domain: matrix
-      quality: natural_hacker
-      substitute_attribute: resonance
+  - domain: matrix
+    quality: natural_hacker
+    substitute_attribute: resonance
   foci:
-    - name: Resonance Focus
-      rating: 4
-      applies_to: resonance
-      host_device: Shiawase Man-at-Arms
-      notes: +4 dice to tests using Resonance attribute. 2 FV Stun resisted with WIL (6) + LOG (4).
-    - name: Oracle Data Structure
-      rating: 4
-      applies_to: matrix_perception, matrix_search
-      host_device: The Holy Wild Sanctuary Host (Remote Sky Commander)
-      notes: +4 dice to Matrix Perception & Matrix Search; reduces Matrix Search interval to 1 Major Action. 2 FV Stun resisted with WIL (6) + LOG (4).
+  - name: Resonance Focus
+    rating: 4
+    applies_to: resonance
+    host_device: Shiawase Man-at-Arms
+    notes: +4 dice to tests using Resonance attribute. 2 FV Stun resisted with WIL
+      (6) + LOG (4).
   companions:
-    - name: Taz
-      type: Assassin Sprite
-      level: 7
-      skills: [cracking, electronics]
-      autosofts: [targeting, stealth, clearsight]
-      powers: [diagnosis]
-      symbiosis_bonus: 4
-      diagnosis_bonus: 3
+  - name: Taz
+    type: Assassin Sprite
+    level: 7
+    skills:
+    - cracking
+    - electronics
+    autosofts:
+    - targeting
+    - stealth
+    - clearsight
+    powers:
+    - diagnosis
+    symbiosis_bonus: 4
+    diagnosis_bonus: 3
   living_persona_network_tuning:
     asdf_bonuses:
       attack: 4
@@ -54,34 +77,42 @@ synergies:
       data_processing: 6
       firewall: 6
 sprite_powers:
-  - name: Override
-    ref: override
-    type: Sprite Power (Symbiosis)
-    target: Device on Autopilot (Drone / Vehicle)
-    action: Minor Action
-    effect: "Electronics + Level/RES vs Device Rating + FW. Substitutes Level/RES for device Pilot rating (Reiko RES 8 + 1 Designer = Pilot 9). Enables Resonance Focus and Sprite Symbiosis bonuses on rigging."
-    doc_link: chapters/rules_sprites.html#sprite-symbiosis-powers
-  - name: Phantom
-    ref: phantom
-    type: Sprite Power (Symbiosis)
-    target: Persona / Device
-    action: Minor Action (Sustained)
-    effect: "Conceals icon from Matrix searches. Only detectable by a Matrix Perception test specifically looking for that icon, with sprite's Electronics + RES net hits acting as the detection threshold."
-    doc_link: chapters/rules_sprites.html#sprite-symbiosis-powers
-  - name: Death Mark
-    ref: death_mark
-    type: Sprite Power (Symbiosis)
-    target: Persona using VR Mode (Hot-Sim / Cold-Sim)
-    action: Minor Action (Sustained)
-    effect: "Cracking + RES vs INT + FW. Target is link-locked and suffers matching Biofeedback damage (Physical if hot-sim, Stun if cold-sim) whenever taking Matrix damage from any source."
-    doc_link: chapters/rules_sprites.html#sprite-symbiosis-powers
-  - name: Harmonize
-    ref: harmonize
-    type: Sprite Power (Symbiosis)
-    target: 100m Radius Area / Matrix
-    action: Performance Action
-    effect: "Con (Performance) + RES reduces ambient Noise by hits (overcomes un-negatable noise), grants +hits bonus dice to all healing/repairs, and matrix fauna regenerate 1 box/round."
-    doc_link: chapters/rules_sprites.html#sprite-symbiosis-powers
+- name: Override
+  ref: override
+  type: Sprite Power (Symbiosis)
+  target: Device on Autopilot (Drone / Vehicle)
+  action: Minor Action
+  effect: Electronics + Level/RES vs Device Rating + FW. Substitutes Level/RES for
+    device Pilot rating (Reiko RES 8 + 1 Designer = Pilot 9). Enables Resonance Focus
+    and Sprite Symbiosis bonuses on rigging.
+  doc_link: chapters/rules_sprites.html#sprite-symbiosis-powers
+- name: Phantom
+  ref: phantom
+  type: Sprite Power (Symbiosis)
+  target: Persona / Device
+  action: Minor Action (Sustained)
+  effect: Conceals icon from Matrix searches. Only detectable by a Matrix Perception
+    test specifically looking for that icon, with sprite's Electronics + RES net hits
+    acting as the detection threshold.
+  doc_link: chapters/rules_sprites.html#sprite-symbiosis-powers
+- name: Death Mark
+  ref: death_mark
+  type: Sprite Power (Symbiosis)
+  target: Persona using VR Mode (Hot-Sim / Cold-Sim)
+  action: Minor Action (Sustained)
+  effect: Cracking + RES vs INT + FW. Target is link-locked and suffers matching Biofeedback
+    damage (Physical if hot-sim, Stun if cold-sim) whenever taking Matrix damage from
+    any source.
+  doc_link: chapters/rules_sprites.html#sprite-symbiosis-powers
+- name: Harmonize
+  ref: harmonize
+  type: Sprite Power (Symbiosis)
+  target: 100m Radius Area / Matrix
+  action: Performance Action
+  effect: Con (Performance) + RES reduces ambient Noise by hits (overcomes un-negatable
+    noise), grants +hits bonus dice to all healing/repairs, and matrix fauna regenerate
+    1 box/round.
+  doc_link: chapters/rules_sprites.html#sprite-symbiosis-powers
 qualities:
   positive:
   - name: Natural Hacker
@@ -136,31 +167,38 @@ complex_forms:
   ref: cleaner
   fading: 2
   duration: Permanent
-  notes: "Electronics + RES test. Each hit reduces accumulated Overwatch Score (OS) by 1."
+  notes: Electronics + RES test. Each hit reduces accumulated Overwatch Score (OS)
+    by 1.
 - name: Diffusion
   ref: diffusion
   target: Firewall
   fading: 4
   duration: Sustained
-  notes: "Electronics + RES vs WIL + FW. Each net hit reduces target Firewall by 1 (min 1)."
+  notes: Electronics + RES vs WIL + FW. Each net hit reduces target Firewall by 1
+    (min 1).
 - name: Technoregeneration
   ref: technoregeneration
   target: Electronic Device
   fading: -1
   duration: Permanent
-  notes: "Electronics (Hardware) + RES restores 1 Matrix box per hit. Repaired device rolls Wild Die until 1 hr toolkit maintenance."
+  notes: Electronics (Hardware) + RES restores 1 Matrix box per hit. Repaired device
+    rolls Wild Die until 1 hr toolkit maintenance.
 - name: Puppeteer
   ref: puppeteer
   target: Device
   fading: 5
   duration: Sustained
-  notes: "Replaces Control Device action with Electronics + RES as if having Admin access. Controls physical device actions (firing turrets, driving). Sustaining maintains control."
+  notes: Replaces Control Device action with Electronics + RES as if having Admin
+    access. Controls physical device actions (firing turrets, driving). Sustaining
+    maintains control.
 - name: Cyber Spike
   ref: cyber_spike
   target: Character with wireless cyberware
   fading: 3
   duration: Immediate
-  notes: "Electronics + RES vs BOD + Essence (rounded down). Deals 1 Physical damage per net hit and stresses all installed cyberware as if from Augmentation Overdrive for 1 round."
+  notes: Electronics + RES vs BOD + Essence (rounded down). Deals 1 Physical damage
+    per net hit and stresses all installed cyberware as if from Augmentation Overdrive
+    for 1 round.
 meta_echoes:
 - name: Hybrid Sprites
   ref: hybrid_sprites
@@ -194,6 +232,9 @@ drones:
   accel_off: 4
   speed_interval_on: 10
   page: CRB 299
+  modifications:
+  - Realistic Features 4
+  - Laser Jack
 - name: Federated-Boeing Sky Commander (Seattle Retrans Relay)
   ref: federatedboeingskycommander_seattle
   body: 3
@@ -209,14 +250,12 @@ drones:
   page: 6WB 288 / DC 122
   modifications:
   - Drone Bay (Micro/Mini)
+  - RAM Plating 4
+  - ECM 6
+  - Enhanced Sensors 2
   - Retrans Unit
   - Satellite Link
-  - RAM Plating 4
-  - Enhanced Sensors 3
-  - ECM 6
-  - Integrated Matrix Device Dock
-  - M-TOC II Repository & Software Tags
-  - Rating 2 Framework Host Repository (Scale 1 Micro, Grade 2 Default)
+  - Integrated Matrix Dock x2
   framework_host:
     name: The Holy Wild Sanctuary Host (Compact Studio & Glade Portal)
     rating: 2
@@ -258,7 +297,7 @@ drones:
   - Increased Structural Integrity 5
   - Realistic Features 4
   - Secondary Propulsion (Rotor)
-  - Increased Sensors 3
+  - Increased Sensors 9
   - Retractable Skates
   - Built-In MedKit
   - Satellite Link
@@ -328,7 +367,8 @@ weapons:
     personalized_grip: true
     accessories:
     - Personalized Grip
-    notes: Amalgam Tech Cestas; 3P damage, overrides magical immunity to normal weapons (ItNW). 1 Wild Die.
+    notes: Amalgam Tech Cestas; 3P damage, overrides magical immunity to normal weapons
+      (ItNW). 1 Wild Die.
 matrix_devices:
   commlinks:
   - name: Hermes Ikon
@@ -346,12 +386,14 @@ matrix_devices:
       portal for Reiko and liberated emergent sparks.
 sins:
 - name: Yuriko Star
-  rating: 2
+  rating: 6
 licenses:
 - name: Drone License
   sin: Yuriko Star
+  rating: 6
 - name: Firearms License
   sin: Yuriko Star
+  rating: 6
 lifestyles:
 - name: Low Lifestyle
   comfort: low
@@ -453,7 +495,7 @@ contacts:
   region: NOLA
   is_canonical: false
   description: 2083-03 Unofficial Dunkelzahn Fan Club
-- name: "Ren\xE9e Martin"
+- name: Renée Martin
   connection: 4
   loyalty: 2
   favors: 2
@@ -580,7 +622,7 @@ contacts:
   region: SEA
   is_canonical: false
   description: SRM 2081-21 Grudge Match Gladiators
-- name: "Sigr\xFAn"
+- name: Sigrún
   connection: 5
   loyalty: 3
   favors: 2
@@ -700,8 +742,8 @@ contacts:
   region: SEA
   is_canonical: true
   description: 'Uses: Business and economics, getting jobs, triads (Shadowrun Missions
-    Seattle) | Types: Criminal, Matrix (Not available after 2081-24)'
-- name: "Julian M\xFCntefering"
+    Seattle) | Types: Criminal, Matrix'
+- name: Julian Müntefering
   connection: 1
   loyalty: 1
   favors: 1
@@ -748,7 +790,7 @@ contacts:
   region: SEA
   is_canonical: true
   description: 'Uses: Corporations, getting jobs (Shadowrun Missions Seattle), fencing
-    gear, gangs | Types: Criminal, Street (Not available after 2081-24)'
+    gear, gangs | Types: Criminal, Street'
 - name: Jeanie Trudel
   connection: 1
   loyalty: 1

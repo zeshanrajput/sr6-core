@@ -36,6 +36,18 @@ terms:
   "SINless": "sinless"
   "SIN": "sin"
   "wasn't": "was not"
+  "breathed": "breethed"
+  "breathes": "breethes"
+  "mech": "mek"
+  "mechs": "meks"
+  "warmech": "warmek"
+  "warmechs": "warmeks"
+  "biomech": "biomek"
+  "biomechs": "biomeks"
+  "cybermech": "cybermek"
+  "cybermechs": "cybermeks"
+  "activesoft": "active soft"
+  "activesofts": "active softs"
 
   # ---------------------------------------------------------------------------
   # 2. Megacorporations & Organizations
@@ -197,5 +209,9 @@ patterns:
     replace: 'black market'
   - match: '\bquick-mart\b'
     replace: 'quick mart'
+  - match: '\b([a-zA-Z]+)mechs\b'
+    replace: '\1meks'
+  - match: '\b([a-zA-Z]+)mech\b'
+    replace: '\1mek'
   - match: '(\b[a-zA-Z]+)-([a-zA-Z]+\b)'
     replace: '\1 \2'

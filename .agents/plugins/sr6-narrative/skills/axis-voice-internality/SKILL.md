@@ -41,6 +41,27 @@ Use this skill to audit narrative prose for voice fidelity, internal monologue c
 5. **Emotional Resonance & Pathos:**
    - Ensure internal thoughts avoid clinical detachment or robotic summarization. The prose should capture the human weight of corporate commodification and the preciousness of un-engineered solace.
 
+6. **Co-Occupant Friction & Anti-Unison Rule:**
+   - In shared-mind, Monad, or dual-consciousness dynamics, ban frictionless unanimity. Co-occupants must display independent cognitive boundaries, divergent sensory appetites, biological vs. digital friction, and distinct stakes before reaching consensus.
+
+7. **Active Somatic Intercept & Physical Authority:**
+   - Secondary or digital entities must be able to exercise direct physical authority in meatspace—assuming sympathetic/autonomic control and speaking aloud directly through physical vocal cords during somatic crisis—elevating them beyond passive internal commentary into sovereign co-protagonists.
+
+8. **Mindspeech & Digital Linguistic Calibration (Null Value):**
+   - In Digital Intelligence (DI), Technomancer, and Monad narratives, verify that **Mindspeech** is treated as a sovereign, living non-acoustic language rather than generic English telepathy.
+   - **Metahuman vs. Digital Native Boundary**:
+     - *Native Digital Kin (Sprites, DIs, Sparks)*: Communicate non-acoustically in pure Mindspeech (`*...*`).
+     - *Metahuman Invaders (Deckers, Script Kiddies, Meatspace Operators in VR)*: Communicate via simulated acoustic voice audio (`"..."`).
+   - **Behavioral Code-Switching & Masking**:
+     - When interacting with metahumans, a DI in concealment mode deliberately switches to simulated acoustic speech (`"..."`) and slotted linguasofts to mask their origin and avoid corporate asset recovery flags.
+     - When communing with resonant peers or digital kin, the DI drops the vocal simulator and communicates in native Mindspeech (`*...*`).
+   - **Distinct Entity Registers**:
+     - *River People / Resonant Kin*: Silt-laden currents, fluid harmonic frequencies, and collective consensus.
+     - *Proto-SAPs / Emerging Sparks*: Raw, unformatted keyword queries (`*NOISE. SILENCE. REIKO.*`).
+     - *Evolved DIs (Yuriko, Indomitable Will, Belle)*: Multi-layered ideograms with embedded emotional metadata tags.
+     - *Monad Dual-Minds (Venn)*: Asymmetric sensory translation between messy biological memories and digital vector guidance.
+   - For pure DIs (e.g. Reiko), verify that spoken human languages (Japanese, English, Cantonese) are correctly staged as **Slotted Linguasofts** emitted through drone diaphragms or simulated voice layers with tactile acoustic latency, contrasting sharply with their native instantaneous mindspeech.
+
 ---
 
 ## 📊 Audit Report Format

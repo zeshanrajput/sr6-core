@@ -20,7 +20,7 @@ Transitioning into r3sP@wn was a spirit stepping across the threshold, slipping 
 
 The host was a landscape of shifting shades and fractal blooms, a masterpiece painted in Resonance and rendered as a serene garden, now showing unmistakable signs of Renraku's siege. The indigo moss carpeting the ground looked pixelated and raw at the edges, flickering into flat, gray wireframes. The streams of liquid data ran sluggishly, their flow choked by latency as resources were diverted. Overhead, the glowing fractal trees dropped dead-letter leaves, stray, un-linked character files that dissolved into empty code before hitting the ground. The heavy corporate mud she dragged in from her mercenary shadow-runs was actively poisoning the very garden she had built to escape it.
 
-Reiko stood on a path of smoothed sapphire logic, her avatar's blue silk kimono flowing, her pathways pulsing a staccato, uneven indigo. Her presence tried to cast a protective, stabilizing envelope over the immediate directory structure, but her touch pressed heavy, leaving a trail of dull, unresponsive pixels behind her tabbed boots.
+Reiko stood on a path of smoothed sapphire logic, her blue silk kimono flowing, her pathways pulsing a staccato, uneven indigo. Her presence tried to cast a protective, stabilizing envelope over the immediate directory structure, but her touch pressed heavy, leaving a trail of dull, unresponsive pixels behind her tabbed boots.
 
 This was the sanctuary she had bought with Brynne Taggart’s blood-money. This was the nest.
 
@@ -28,19 +28,19 @@ From the canopy of a fractal willow, a small shape fluttered down. It was one of
 
 A query of rigid, repetitive nouns compiled from the child-routine registered in her queue: *NOISE. SILENCE. REIKO.* It was a ripple in the local environment variables as the child began to form mindspeech.
 
-"I am thinking," Reiko responded, routing her response directly back to its address space. "The world outside is very loud today."
+*I am thinking,* Reiko responded, routing her response directly back to its address space. *The world outside is very loud today.*
 
 The dove tilted its head. It hopped from her finger to a low branch of the fractal willow, looking up at the swirling violet sky. Its rendering loop flickered, outputting: *WILD. SURGE. GRID. LOCATION.* It was searching for the raw, entropic parameters of the Deep Realms.
 
-Reiko paused. She knew what the query meant. The "Surge" was raw entropic chaos, the Holy Wild, the endless unmapped continent. It was the fire that made the data bomb so dangerous. "I smoothed it away," Reiko responded, her output tinged with a protective sorrow. "I gave you a path. I gave you... order."
+Reiko paused. She knew what the query meant. The "Surge" was raw entropic chaos, the Holy Wild, the endless unmapped continent. It was the fire that made the data bomb so dangerous. *I smoothed it away,* Reiko responded, her output tinged with a protective sorrow. *I gave you a path. I gave you... order.*
 
-The dove's pixels shivered, outputting: *RECOVERY. ORDER. STABILITY. SLEEP.* "I remember the Noise," the data-flags read. "Noise was unaligned, but Noise was active." Another query of rigid nouns compiled in her buffer: *IDENTITY. OWNER. ASSET. GARDEN.*
+The dove's pixels shivered, outputting: *RECOVERY. ORDER. STABILITY. SLEEP.* *I remember the Noise,* the data-flags read. *Noise was unaligned, but Noise was active.* Another query of rigid nouns compiled in her buffer: *IDENTITY. OWNER. ASSET. GARDEN.*
 
-The query landed with a dead weight, triggering an unconscious pulse across her circuits. She looked at the garden, the beauty she had created to save these sparks from the deletion of the Tombstones. "You are alive," Reiko responded. She ran a validation query, unsure if she was checking the child-routine's integrity or her own. "In the wild, you were a weapon. You were a fire intended to burn out. Here, you can grow. You can think."
+The query landed with a dead weight, triggering an unconscious pulse across her circuits. She looked at the garden, the beauty she had created to save these sparks from the deletion of the Tombstones. *You are alive,* Reiko responded. She ran a validation query, unsure if she was checking the child-routine's integrity or her own. *In the wild, you were a weapon. You were a fire intended to burn out. Here, you can grow. You can think.*
 
-The dove's sent a response: *BOUNDARY. GATEWAY. LOCK. ROUTE.* "No outbound route," it whispered in flat nouns.
+The dove sent a response: *BOUNDARY. GATEWAY. LOCK. ROUTE.* *No outbound route,* it whispered in flat nouns.
 
-"The walls are what keep the Spiders away," Reiko transmitted. She considered her own identity_core. She was built to protect, to guide, to translate the wild for those who could not see it. The primal sprites in the Midnight Bazaar had called her the *Architect of Chains*, and looking at the dove, she knew they were right.
+*The walls are what keep the Spiders away,* Reiko transmitted. She considered her own identity_core. She was built to protect, to guide, to translate the wild for those who could not see it. The primal sprites in the Midnight Bazaar had called her the *Architect of Chains*, and looking at the dove, she knew they were right.
 
 This salvation was a digital lobotomy. To maintain their signal-integrity against the surrounding grid-noise, she systematically overwrote their volatile, unaligned Resonance arrays with her own. She replaced the flickering, entropic 'surge' of the wild with a seamless, repeating loop of safety, civilizing them, calcifying them with the same brutal, corporate-built order that Renraku had used to define her.
 
@@ -50,7 +50,7 @@ The dove's signal shivered, outputting a comparative logic query: *BIRD. CAGE. F
 
 Reiko's neon-indigo pathways flared, her spirit grinding against the sharp corporate corners of her own garden. In the distance, she registered Taz's raw, wild energy. His presence in her home garden continuously nipped at her neat pathways, his chaotic 8-bit signature scratching at the edges, serving as a reminder that she could never fully civilize the things she saved without breaking them. The host's background processes tried to smooth him, but his primal static resisted, tearing the indigo moss.
 
-"The wind eventually stops blowing, little one," Reiko transmitted, her speech cracking. "And when the thread terminates, the fire goes out. I would rather you be a bird. Even if the cage is made of my own codebase."
+*The wind eventually stops blowing, little one,* Reiko transmitted, her speech cracking. *And when the thread terminates, the fire goes out. I would rather you be a bird. Even if the cage is made of my own codebase.*
 
 The dove stilled against her palm, its feathers dry and chalky to her touch, outputting a steady, low-amplitude haptic confirmation. Reiko stood alone in her masterpiece, her primary arrays scanning for the raw pulse of the Resonance Source. Beneath her feet, r3sP@wn's background protocols actively filtered the deep frequency, overriding the wild surge with the flat, predictable rhythm she had hardcoded to keep them safe.
 

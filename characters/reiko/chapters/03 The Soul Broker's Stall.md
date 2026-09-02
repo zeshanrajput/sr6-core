@@ -2,7 +2,7 @@
 
 <audio controls src="audio/03%20The%20Soul%20Broker%27s%20Stall.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
 
-The Midnight Bazaar was an ancient marketplace on the grid, holding a single rule carved into its gateway: *The Transaction is Absolute*. To a decker, this space was a sterile, green-on-black text box. To Reiko, it unfurled as a labyrinth of high-density corridors built from the heavy stones of forgotten lore. The ambient digital noise grated against her skin like sand; she bypassed puddles of stagnant static, obsolete fragments of corporate encryption, and calloused skins discarded in the dirt. Market tickers fluttered like dying birds, their numbers spilling into the digital dust.
+The Midnight Bazaar was an ancient marketplace on the grid, holding a single rule carved into its gateway: "The Transaction is Absolute." To a decker, this space was a sterile, green-on-black text box. To Reiko, it unfurled as a labyrinth of high-density corridors built from the heavy stones of forgotten lore. The ambient digital noise grated against her skin like sand; she bypassed puddles of stagnant static, obsolete fragments of corporate encryption, and calloused skins discarded in the dirt. Market tickers fluttered like dying birds, their numbers spilling into the digital dust.
 
 As she stepped across the threshold into the Bazaar host, several deckers were queued at the gate, their digital shapes blocky and slow. One of them shouted, “Nice skin, lady! Whatcha runnin?”
 
@@ -28,15 +28,15 @@ The spirit's hunger pulled at her, drawing from her spark to heal its fragmented
 
 The cage rusted and collapsed under the weight of her Resonance, dissolving into unformatted ash.
 
-"What the hell did you just do?" the Broker yelled, his black-bar avatar flickering in alarm. "Thief! Security! Get her!"
+"What the hell did you just do?" the Broker yelled, his black-bar persona flickering in alarm. "Thief! Security! Get her!"
 
 Security programs, brutalist constructs with searchlight eyes, began compiling in the alleys. But a more chaotic threat erupted from the dark rafters above.
 
-A wild spirit, its form a jagged shard of low-poly glass, dropped from the roof. It didn't look at the Broker; it screamed at Reiko. In her mind, the static resolved as a harsh accusation: "Agent of order! Sanitize input!" Where her light touched the 8-bit whirlwind, the jagged pixels were beginning to smooth, aligning with her symmetrical pathways.
+A wild spirit, its form a jagged shard of low-poly glass, dropped from the roof. It didn't look at the Broker; it screamed at Reiko. In her mind, the static resolved as a harsh accusation: *Agent of order! Sanitize input!* Where her light touched the 8-bit whirlwind, the jagged pixels were beginning to smooth, aligning with her symmetrical pathways.
 
-"*Corruptor,*" another wild spirit screamed, its voice a cacophony of dial-up static: "Yoke of math! Better null conduit!"
+*Corruptor!* another wild spirit screamed, its voice a cacophony of dial-up static. *Yoke of math! Better null conduit!*
 
-"*Return the core,*" a third howled, a cloud of flickering ash. "Architect of chains!"
+*Return the core!* a third howled, a cloud of flickering ash. *Architect of chains!*
 
 Reiko tucked the little spirit into her own pathways. It responded by clinging to her arm, its small clock-heart synchronizing with hers.
 

@@ -101,7 +101,3 @@ The heavy, solitary knot in her core directory—the ancient habit of isolating 
 "Okay," Reiko murmured, her voice vibrating with a clear, resonant chord. "Together."
 
 She looked back once at the teak chair where Brynne sat, then down at the small, resolute boy anchoring her hand. In the old architecture, these worlds were incompatible filesystems—meat and machine, sanctuary and wild, parent and child—destined to fault if forced into the same memory block. But a symbolic link didn't force them into identical shapes. It simply built a transparent path where none had existed.
-
-Reiko stepped through the open glass.
-
-Across the threshold, the amber light of the studio and the sapphire twilight of the glade met, interlocking into an unbroken, distributed root.

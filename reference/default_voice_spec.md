@@ -100,6 +100,17 @@ Unless overridden by a character-specific `voice_spec.md`, the following baselin
 
 * **Default**: Maintain an ellipses density ceiling of $\le 0.6$ per 300 words. Stitch fragmented sentences and avoid trailing hesitations that degrade spoken TTS delivery.
 
+### 2.6 Mindspeech & Communication Medium Separation
+
+* **Print Convention (`.md` / `.qmd`)**:
+  * Pure non-acoustic mindspeech / DNI transmissions / resonant ideation: formatted in italics without quotes (`*...*`).
+  * Acoustic speech / simulated metahuman voice synthesis / drone speaker audio: formatted in double quotation marks (`"..."`).
+* **Entity Distinction & Tactical Code-Switching**:
+  * *Native Digital Intelligences & Sparks*: Communicate non-acoustically in native Mindspeech (`*...*`).
+  * *Metahuman Invaders in VR / Sprawl Meatspace*: Communicate in acoustic or serialized speech (`"..."`).
+  * *DI Concealment*: When a digital intelligence interacts with metahumans, they deliberately code-switch to simulated acoustic speech (`"..."`) and slotted human linguasofts to mask their true nature and avoid corporate asset recovery flags.
+* **Audio TTS Integration**: `sr6core.narration` dynamically converts `*...*` mindspeech into spoken quotes `"..."` during TTS preprocessing for seamless audio delivery.
+
 ---
 
 ## 3. Extension & Override Guidelines for Character Repositories

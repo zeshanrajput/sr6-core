@@ -1,6 +1,6 @@
 # Mechanical Plan & Progression Roadmap
 
-This document outlines Venn's post-chargen augmentation roadmap, tracking Essence holes, sell-back credits, and Karma/Nuyen conversions via the **Working for the Streetdoc** Major Downtime Activity (*Shadowrun Missions Guide v2.4*, p. 20).
+This document establishes Venn's post-chargen augmentation roadmap, tracking Essence holes, sell-back credits, cyberlimb capacity utilization, and Karma/Nuyen conversions via the **Working for the Streetdoc** Major Downtime Activity (*Shadowrun Missions Guide v2.4*, p. 20).
 
 ---
 
@@ -8,165 +8,287 @@ This document outlines Venn's post-chargen augmentation roadmap, tracking Essenc
 
 * **Shadow Healthcare Community Membership**: Unlocks the *Working for the Streetdoc* Major Downtime Activity (*SRMG v2.4*, p. 20).
 * **Augmentation Conversion Rate**: Convert unlimited Karma to Nuyen at **1 Karma = 7,000¥** (must be spent on augmentations for yourself).
-* **Full Used Sell-Back**: Non-cultured cyberware and standard bioware can be sold back at their full purchased value (Used grade = 50% base retail cost).
-* **Cultured Bioware Alphaware Policy**: Because cultured bioware is genetically tailored to the host's DNA and **cannot be sold back or upgraded for trade-in nuyen credit** (0¥ resale), **all new cultured bioware is strictly purchased at Alphaware grade** on initial implantation. This permanently locks in the 20% Essence savings ($$0.8\times$$ multiplier) without risking stranded capital.
+* **Full Used/Standard Sell-Back**: Non-cultured cyberware and standard bioware can be sold back at their full purchased value (Used grade = 50% base retail credit; Standard grade = 100% base retail credit).
+* **Cultured Bioware Alphaware Policy**: Because cultured bioware is genetically tailored to the host's DNA and **cannot be sold back or upgraded for trade-in nuyen credit** (0¥ resale), **all new cultured bioware is strictly purchased at Alphaware grade** on initial implantation. This permanently locks in the 20% Essence savings ($0.8\times$ multiplier) without risking stranded capital.
 * **Used Grade Multipliers**: Used augmentations have an Essence multiplier of **1.1×** and a Nuyen cost multiplier of **0.5×** (50% retail).
-* **Essence Hole Mechanics**: Removed augmentations create an Essence Hole equal to the Essence they consumed. New augmentations fill this hole first before touching remaining biological Essence (**0.06 Essence baseline**).
-* **Key Preserved Ware**:
-  * **Adrenaline Pump (Rating 2, Used)**: Kept for vital +2 WIL / REA / AGI / STR surge, wound penalty nullification, and stun crash prevention.
-  * **Muscle Toner (Rating 2, Used)**: Kept for essential +2 Agility physical bonus.
-  * **Synaptic Booster (Rating 2, Used)**: Cultured bioware permanently retained at Used grade (1.10 Ess).
+* **Essence Hole Mechanics**: Removed augmentations create an Essence Hole equal to the Essence they consumed. New augmentations fill this hole first before touching remaining biological Essence (**0.43 Biological Essence baseline**).
+* **Quality Compliance**: Biological Essence remains at $\le 1.00$ at all times, permanently maintaining legal compliance for **Cyberpsychosis (Rank 3)** (+24 Karma).
 
 ---
 
-## 2. Trade-in Table: Augmentations Removed (Downtime 1)
+## 2. Starting Chargen Baseline & Augmentation State
 
-To create the required Essence hole and generate seed capital, Venn removes three starting used augmentations:
+Venn begins play with **0.59 Biological Essence** (6.00 Base + 1.00 Augmentation Acclimation R10 buffer $- 6.41$ Total Consumed):
 
-| Removed Augmentation | Type / Grade | Base Retail | Used Sell-Back Credit (50%) | Essence Freed (1.1×) |
-| :--- | :---: | :---: | :---: | :---: |
-| **Muscle Augmentation (Rating 2)** | Standard Bioware (Used) | 62,000¥ | **+31,000¥** | +0.44 Ess |
-| **Skin Pocket** | Standard Bioware (Used) | 12,000¥ | **+6,000¥** | +0.11 Ess |
-| **Reflex Recorder (Firearms)** | Cultured Bioware (Used) | 14,000¥ | **0¥** *(Cultured: No resale)* | +0.11 Ess |
-| **TOTALS** | | **88,000¥** | **+37,000¥** | **+0.66 Ess Hole** |
-
----
-
-## 3. Downtime Move 1: Seating Cerebral Boosters R3 (Alphaware)
-
-* **Goal**: Maximize raw cognitive and computational capacity by seating maximum-rating cultured Cerebral Boosters at Alphaware grade.
-
-### A. Purchases & Essence Budget
-* **Cerebral Boosters (Rating 3, Alphaware)**: Cultured Bioware ($$0.60 \times 0.8\text{ Ess} / 94.5\text{k} \times 1.2$$) — **0.48 Ess** | **113,400¥** (Avail 6)
-* **Total Essence Consumed**: **0.48 Ess**
-* **Essence Hole Tracking**: $$0.66\text{ (freed)} - 0.48\text{ (consumed)} = \mathbf{0.18\text{ Ess Hole remaining}}$$ (*Biological Essence intact at 0.06*).
-
-### B. Financials & Karma Conversion
-* **Gross Purchase Cost**: 113,400¥
-* **Less Used Sell-Back Credit**: −37,000¥
-* **Net Nuyen Required**: **76,400¥**
-* **Karma Conversion (1k = 7,000¥)**:
-  * **Option A (Max Cash Spend)**: **10 Karma** ($$10 \times 7,000¥ = 70,000¥$$) + **6,400¥ cash** *(using starting 4,550¥ + 1,850¥ mission pay)*.
-  * **Option B (Zero Cash Dependency)**: **11 Karma** ($$11 \times 7,000¥ = 77,000¥$$) $\rightarrow$ Covers entire cost with 600¥ excess.
-
-### C. Mechanical Effects & Tactical Gains
-* **Logic Attribute**: Jumps from **6 to 9** (+3 natural Logic).
-* **Logic-Based Skills**: All Logic skill pools increase by +3 (Electronics, Cracking, Engineering, Biotech, Memory).
-* **Living Persona Matrix Stats**: Data Processing raised from 7 to **10** ($$\text{LOG } 9 + \text{NV } 1$$), dramatically boosting matrix initiative and defense.
-* **Preserved Combat Suite**: Venn retains both **Adrenaline Pump R2** and **Muscle Toner R2 (+2 Agility)**.
-* **Massive Essence Cushion**: Leaves **0.18 Essence Hole** immediately open (only 0.02 Ess away from seating the Cerebral Enhancer!).
+| Augmentation | Grade | Base Ess | Grade Mult | Final Ess | Purchase Cost | Key Function & Tabletop Synergy |
+| :--- | :---: | :---: | :---: | :---: | :---: | :--- |
+| **Left Synthetic Cyberarm** | Standard | 1.00 | 1.0× | **1.00 Ess** | 35,000¥ | Agility [+3] Mod; 5 Capacity Open. Operates at AGI 7 / STR 4 (9/6 Overdriven). |
+| **Right Synthetic Cyberarm** | Standard | 1.00 | 1.0× | **1.00 Ess** | 35,000¥ | Agility [+3] Mod; 5 Capacity Open. Operates at AGI 7 / STR 4 (9/6 Overdriven). |
+| **Left Synthetic Cyberleg** | Standard | 1.00 | 1.0× | **1.00 Ess** | 35,000¥ | Agility [+3] Mod; 7 Capacity Open. Operates at AGI 7 / STR 4 (9/6 Overdriven). |
+| **Right Synthetic Cyberleg** | Standard | 1.00 | 1.0× | **1.00 Ess** | 35,000¥ | Agility [+3] Mod; 7 Capacity Open. Operates at AGI 7 / STR 4 (9/6 Overdriven). |
+| **Bone Density Augmentation R4** | Betaware | 1.20 | 0.7× | **0.84 Ess** | 30,000¥ | +4 Body for damage resistance soak (9 unarmored soak), 4P Unarmed DV, +3 AR. |
+| **Skilljack R6** | Used | 0.60 | 1.1× | **0.66 Ess** | 60,000¥ | Runs Activesofts up to R6; Wireless limit = R6 × 4 = 24. |
+| **Skillwires R6** | Used | 0.60 | 1.1× | **0.66 Ess** | 60,000¥ | Wireless-ON: +1 dice pool modifier to all skills routed through skillwires. |
+| **Math SPU** | Standard | 0.25 | 1.0× | **0.25 Ess** | 25,000¥ | -1 Edge cost on Logic tests (-2 when overdriven with +1 wild die); 0 Bad Luck. |
+| **TOTAL CONSUMED** | | | | **6.41 Ess** | **310,000¥** | **Remaining Biological Essence: 0.59 Ess** |
 
 ---
 
-## 4. Downtime Move 2: Bone Density Alphaware Upgrade & Cerebral Booster Enhancer
+## 3. Cyberlimb Capacity Architecture (52 Total Capacity with Bulk R4)
 
-* **Goal**: Upgrade Bone Density Augmentation to Alphaware to expand the Essence hole, then immediately seat the Cerebral Booster Enhancer.
+```text
+                    +------------------------------------------------+
+                    |  CYBERLIMB MODULAR CAPACITY (52 CAP WITH BULK) |
+                    +-----------------------+------------------------+
+                                            |
+                 +--------------------------+--------------------------+
+                 |                                                     |
+                 v                                                     v
+    +------------------------------+             +------------------------------+
+    |  CYBERARMS (24 CAP TOTAL)    |             |  CYBERLEGS (28 CAP TOTAL)    |
+    |  Left Arm (12 Cap):          |             |  Left Leg (14 Cap):          |
+    |  - Agility [+4] (4 Cap)      |             |  - Agility [+4] (4 Cap)      |
+    |  - Tesla Coil (8 Cap)        |             |  - Retractable Skates (2 Cap)|
+    |  Right Arm (12 Cap):         |             |  - Hydraulic Jacks R2 (2 Cap)|
+    |  - Agility [+4] (4 Cap)      |             |  - Hidden Slide (3 Cap)      |
+    |  - Built-in Medkit (4 Cap)   |             |  - Built-in Utility (2 Cap)  |
+    |  - Monofilament Saw (4 Cap)  |             |  - Gecko Tips (1 Cap)        |
+    |    [12/12 Exact per arm]     |             |  Right Leg (14 Cap):         |
+    |                              |             |  - Agility [+4] (4 Cap)      |
+    |                              |             |  - Retractable Skates (2 Cap)|
+    |                              |             |  - Hydraulic Jacks R2 (2 Cap)|
+    |                              |             |  - Smuggling Box (5 Cap)     |
+    |                              |             |  - Gecko Tips (1 Cap)        |
+    |                              |             |    [14/14 Exact per leg]     |
+    +------------------------------+             +------------------------------+
+```
 
-### A. Purchases, Upgrades & Essence Budget
-* **Bone Density Augmentation R4 Upgrade (Used $\rightarrow$ Alphaware)**:
-  * **Essence Freed**: Reduces Essence from 1.32 Ess to 0.96 Ess $\rightarrow$ **Frees +0.36 Ess Hole**.
-  * **Essence Hole Pool**: $$0.18\text{ (from Move 1)} + 0.36\text{ (from Upgrade)} = \mathbf{0.54\text{ Ess Hole available}}$$.
-  * **Upgrade Cost**: $$28,000¥ \times 1.2\text{ (Alpha)} - 14,000¥\text{ (Used trade-in)} = \mathbf{19,600¥}$$.
-* **Cerebral Booster Enhancer Purchase**:
-  * **Bioware**: 0.20 Ess | **40,000¥**.
-* **Total Gross Cost**: $$19,600¥ + 40,000¥ = \mathbf{59,600¥}$$.
-* **Essence Consumed**: 0.20 Ess ($$0.54 - 0.20 = \mathbf{0.34\text{ Ess Hole remaining}}$$).
+### The Capacity vs. Essence Golden Rule (0 Essence Cost)
 
-### B. Financials & Karma Conversion
-* **Net Nuyen Required**: **59,600¥**
-* **Karma Converted (1k = 7,000¥)**: **8 Karma** ($$8 \times 7,000¥ = \mathbf{56,000¥}$$)
-* **Cash Remainder Paid**: **3,600¥** *(or 9 Karma for 63,000¥ to cover outright with 3,400¥ excess)*
-* **Zero Karma Wasted!**
+Source: Shadowrun 6e Core Rulebook (p. 288, 290) and Body Shop (p. 33–34, 44–49).
 
-### C. Mechanical Effects & Tactical Gains
-* **Effective Logic**: +1 effective rating on Cerebral Boosters (Logic effectively **10** for cognitive thresholds and Logic-based skill tests).
-* **Action Economy**: **+1 Minor Action** per combat turn (from Enhancer).
-* **Defensive Integrity**: All +4 Body soak benefits from Bone Density Augmentation R4 are fully preserved at Alphaware grade.
-* **Essence Cushion**: Leaves a massive **0.34 Essence Hole** open for subsequent upgrades.
+Under standard SR6 augmentation rules, cyberware modifications installed directly into organic flesh cost **Essence**, whereas modifications installed into existing cyberlimbs cost **[Capacity] ONLY (0.00 Essence cost)**. By adding **Bulk Modification Rating 4** (2,000¥ per limb | +4 Capacity per limb), Venn expands total cyberlimb capacity from 36 to **52 Total Capacity** with **0.00 Essence consumed**:
+
+```text
+                       PASSIVE & OVERDRIVEN ATTRIBUTE ARRAYS
++-----------------------------------------------------------------------------------+
+|  CYBERLIMB AGILITY  | Base 2 + 4 Enhancement + 2 Redliner = 8 AGI (10 OVERDRIVEN)  |
+|  NATURAL STRENGTH   | Base 2 + 0 Enhancement + 2 Redliner = 4 STR (6 OVERDRIVEN)   |
++-----------------------------------------------------------------------------------+
+```
 
 ---
 
-## 5. Future Downtime Options: Grade Upgrades (Non-Cultured 'Ware Only)
+### Modular Capacity Breakdown (52 / 52 Capacity — 100% Utilized)
 
-To create further Essence holes or reduce Essence drain in subsequent runs:
+#### 1. Left Cyberarm (12 / 12 Capacity)
 
-| Augmentation | Type / Current Grade | Target Grade | Essence Freed | Estimated Upgrade Cost |
-| :--- | :---: | :---: | :---: | :---: |
-| **Skillwires (Rating 6)** | Cyberware (Used 0.72 Ess) | **Alphaware (0.48 Ess)** | **+0.24 Ess** | 55,200¥ (8 Karma) |
-| **Skilljack (Rating 6)** | Cyberware (Used 0.72 Ess) | **Alphaware (0.48 Ess)** | **+0.24 Ess** | 42,000¥ (6 Karma) |
-| **Adrenaline Pump (Rating 2)** | Standard Bioware (Used 1.65 Ess) | **Alphaware (1.20 Ess)** | **+0.45 Ess** | 77,000¥ (11 Karma) |
-| **Muscle Toner (Rating 2)** | Standard Bioware (Used 0.44 Ess) | **Alphaware (0.32 Ess)** | **+0.12 Ess** | 44,800¥ (6 Karma + 2.8k) |
-| **Math SPU** | Cyberware (Standard 0.25 Ess) | **Alphaware (0.20 Ess)** | **+0.05 Ess** | 5,000¥ (1 Karma) |
-| **Platelet Factories** | Standard Bioware (Standard 0.20 Ess) | **Alphaware (0.16 Ess)** | **+0.04 Ess** | 3,400¥ |
+* **Agility Enhancement [+4]**: `[4 Cap | 20,000¥]` $\rightarrow$ Pushes limb Agility to **8 (10 Overdriven)**.
+* **Tesla Coil (Spray Attack)**: `[8 Cap | 15,000¥ | Avail 7(I) | *Body Shop*, p. 49]` $\rightarrow$ Forearm-integrated directed lightning projector (**5S(e) Damage | Spray Attack Mode | AR 8/10\*/-/-/- | 5 Shots**). Arcs electrical stun damage across multiple clustered enemies without drawing a weapon!
+
+#### 2. Right Cyberarm (12 / 12 Capacity)
+
+* **Agility Enhancement [+4]**: `[4 Cap | 20,000¥]` $\rightarrow$ Pushes limb Agility to **8 (10 Overdriven)**.
+* **Built-in Medkit (Mil-Spec Medkit R6)**: `[4 Cap | 1,000¥ + Medkit | *Body Shop*, p. 44]` $\rightarrow$ Automated paramedic trauma suite inside the right forearm. Allows instant field diagnosis, toxin stabilization, and emergency healing.
+* **Implanted Monofilament Combat Chainsaw**: `[4 Cap | 3,000¥ | Avail 3 | *Body Shop*, p. 5 & *Firing Squad*, p. 14]` $\rightarrow$ Forearm-deployed motorized monofilament saw (**6P Base Physical Damage | AR 10/-/-/-/-**). Doubles its DV when employed against barriers, chewing through reinforced security doors, titanium bulkheads, and engine blocks in seconds!
+
+#### 3. Left Cyberleg (14 / 14 Capacity)
+
+* **Agility Enhancement [+4]**: `[4 Cap | 20,000¥]` $\rightarrow$ Operates at AGI 8 (10 Overdriven).
+* **Retractable Inline Skates**: `[2 Cap | 250¥ | *Body Shop*, p. 48]` $\rightarrow$ Motorized inline wheels deployed on demand for high-speed **10-meter ground glide**.
+* **Hydraulic Jacks (Rating 2)**: `[2 Cap | 5,000¥ | *SR6 Core*, p. 289]` $\rightarrow$ Reduces Flying Kick launch threshold from 3 down to **1 hit**, and absorbs up to 4 boxes of falling damage!
+* **Hidden Slide**: `[3 Cap | 3,000¥ | *SR6 Core*, p. 289]` $\rightarrow$ Concealed pop-out slide mechanism for quick-deploying tools or secondary items.
+* **Built-in Utility Kit**: `[2 Cap | 1,000¥ | *Body Shop*, p. 44]` $\rightarrow$ Integrated micro-soldering, lock diagnostics, and optical wire taps for 0-gear-penalty hardware decker bypass.
+* **Gecko Tips**: `[1 Cap | 500¥ | *Body Shop*, p. 45]` $\rightarrow$ Microscopic setae on the sole of the foot.
+
+#### 4. Right Cyberleg (14 / 14 Capacity)
+
+* **Agility Enhancement [+4]**: `[4 Cap | 20,000¥]` $\rightarrow$ Operates at AGI 8 (10 Overdriven).
+* **Retractable Inline Skates**: `[2 Cap | 250¥ | *Body Shop*, p. 48]` $\rightarrow$ Motorized inline wheels deployed on demand for high-speed **10-meter ground glide**.
+* **Hydraulic Jacks (Rating 2)**: `[2 Cap | 5,000¥ | *SR6 Core*, p. 289]` $\rightarrow$ Reduces Flying Kick launch threshold from 3 down to **1 hit**.
+* **Smuggling Compartment**: `[5 Cap | 6,000¥ | *SR6 Core*, p. 289]` $\rightarrow$ Heavy concealed internal cavity with $-4$ search modifier; fits illicit paydata drives, contraband, or compact hardware.
+* **Gecko Tips**: `[1 Cap | 500¥ | *Body Shop*, p. 45]` $\rightarrow$ Microscopic setae on the sole of the foot.
 
 ---
 
-## 6. Long-Term High-Impact Augmentations
+### Non-Magical "Wall Running" & Kinetic Blitz Suite
 
-Once Essence holes are created via Alphaware grade upgrades:
+1. **Non-Magical Wall Running**: Combining **Gecko Tips** in both cyberfeet with **Gecko Tape Gloves** (250¥) allows Venn to run, climb, or skate vertically up sheer walls and hang from ceilings like an Adept without magic!
+2. **The 15+ Meter Kinetic Blitz**:
+   * **Glide (Minor Action)**: Skates deploy $\rightarrow$ **10 meters** of high-speed gliding.
+   * **Catapult (Minor Action)**: Hydraulic Jacks launch Venn **4–6+ meters** through the air (launch threshold = 1 hit).
+   * **Strike (Major Action)**: Lands an **8P Base Physical Kick** or discharges the **5S(e) Tesla Coil Spray** across the entire enemy squad!
 
-| Priority Target | Grade / Space | Essence | Cost | Karma (1k=7k¥) | Key Mechanical Utility |
+---
+
+## 4. Downtime Progression Roadmap (12–14 Karma "Moves")
+
+All augmentation progression is synchronized around the **Working for the Streetdoc** downtime move (*Body Shop*, p. 101: **7,000¥ per Karma spent**). To fit real-table pacing (accessing the streetdoc roughly every other mission), upgrades are organized into discrete **12–14 Karma "bites"**.
+
+Because every augmentation upgrade utilizes an **Essence Hole** or cyberlimb capacity, **biological Essence remains strictly under the 1.00 Essence cap at all times**, keeping Venn **100% Cyberpsychosis legal across character lifetime**.
+
+```text
+               SYNCHRONIZED STREETDOC & KARMA PROGRESSION TIMELINE
++-----------------------------------------------------------------------------------+
+|  CHARGEN BASELINE (Day 1)         -> Tae Kwon Do (7P Flying Kick) + Skates/Jacks  |
++-----------------------------------------------------------------------------------+
+|  MOVE 1: STREETDOC (~14 Karma)   -> Essence Mine + Alphaware Cerebral R3 (LOG 10) |
+|  INTERVAL 1: KARMA (12 Karma)    -> Sangre y Acero (8P Kick) + Mean Right Hook   |
+|                                     (1-Edge Instant Blackout Subdual Engine!)     |
++-----------------------------------------------------------------------------------+
+|  MOVE 2: STREETDOC (10.2 Karma)  -> 52-Cap Bulk + Tesla Coil + Saw + Smuggling    |
+|  INTERVAL 2: KARMA (18 Karma)    -> Analytical Mind (6) + Extended Overdrive R1   |
++-----------------------------------------------------------------------------------+
+|  MOVE 3: STREETDOC (~14 Karma)   -> Alphaware Cerebellum R3 (Intuition 8 / S:9)   |
+|  INTERVAL 3: KARMA (17 Karma)    -> Extended Overdrive R2 (12) + Bending Reed [M] |
++-----------------------------------------------------------------------------------+
+|  MOVE 4: STREETDOC (9.8 Karma)   -> Cerebellum Enhancer (INT 9/S:10) + Platelets  |
+|  INTERVAL 4: KARMA (17 Karma)    -> Extended Overdrive R3 (12) + Bending Reed [R] |
++-----------------------------------------------------------------------------------+
+|  INTERVAL 5: KARMA (5 Karma)     -> Sense the Breeze (5) (Damage Shunted to Stun) |
++-----------------------------------------------------------------------------------+
+```
+
+---
+
+### Phase-by-Phase Step Accounting
+
+#### Step 1: Streetdoc Move 1 — The "Essence Mine", Cerebral Boosters R3 & Enhancer
+
+* **Prerequisite**: 14 Karma saved + chargen gear trade-in.
+* **1. Upgrade 4x Cyberlimbs to Alphaware**:
+  * *Sell-Back Credit*: 4 × 20,000¥ (base limb) = +80,000¥ trade-in credit.
+  * *Alphaware Purchase*: 4 × 24,000¥ (20k × 1.2) = 96,000¥. Net cash required: **16,000¥** (2.3 Karma).
+  * *Essence Freed*: $4 \times (1.00 - 0.80) = \mathbf{+0.80\text{ Ess Hole}}$.
+* **2. Install Cerebral Boosters R3 (Alphaware Cultured Bioware)**:
+  * *Essence Cost*: $0.60 \times 0.8 = \mathbf{0.48\text{ Ess}}$ (Seated inside the +0.80 Ess Hole).
+  * *Nuyen Cost*: 113,400¥ ($94.5\text{k} \times 1.2$ | Funded via 11.7 Karma Streetdoc credit + trade-in/cash).
+* **3. Install Cerebral Booster Enhancer (Alphaware Geneware)**:
+  * *Essence Cost*: $0.20 \times 0.8 = \mathbf{0.16\text{ Ess}}$ (Seated inside the +0.80 Ess Hole).
+  * *Nuyen Cost*: 48,000¥ (6.9 Karma).
+  * *Essence Hole Balance*: $+0.80 - 0.48 - 0.16 = \mathbf{+0.16\text{ Ess Hole remaining}}$ (Biological Essence intact at **0.49**).
+  * *Game Effect*: **Logic 10** (+3 Boosters + 1 Enhancer), Living Persona Data Processing **11**, Matrix Attack/Hacking pools **17d6–19d6**.
+
+#### Step 2: Interleaved Karma Spend 1 — 8P Kick Engine & 1-Edge Instant Blackout (12 Karma)
+
+* **1. Sangre y Acero (7 Karma)** (*Body Shop*, p. 5):
+  * Unlocks **Iron Limbs** (Signature Technique: +1 DV base unarmed, +2 dice Body soak vs physical attacks) and unlocks Melee weapon category access.
+  * *Damage Spike*: Stacks with Day 1 Tae Kwon Do for a devastating **8P Base Physical Damage** leaping kick!
+* **2. Mean Right Hook (5 Karma)** (*Firing Squad*, p. 104):
+  * Reduces the Edge cost of the *Knockout Blow* Edge Action from 2 Edge $\rightarrow$ **1 Edge**.
+  * *Instant Subdual*: Spend 1 Edge on an 8P kick strike; because 8P exceeds the target's Willpower ($\text{Damage} > \text{WIL}$), the target's Stun track is instantly and completely filled, knocking them unconscious in 1 single blow!
+
+#### Step 3: Streetdoc Move 2 — The 52-Capacity Bulk Expansion (10.2 Karma / 71,500¥)
+
+* **Prerequisite**: 10–11 Karma saved with Streetdoc.
+* **1. Bulk Modification Rating 4 (All 4 Limbs)**: 4 × 2,000¥ = **8,000¥** (1.1 Karma) $\rightarrow$ Expands capacity to **52 Total Cap** (0 Ess)!
+* **2. Agility Enhancement [+4] (All 4 Limbs)**: 4 × 5,000¥ upgrade = **20,000¥** (2.8 Karma) $\rightarrow$ **Agility 8 (10 Overdriven)**!
+* **3. Tesla Coil (Left Arm)**: **15,000¥** (2.1 Karma) $\rightarrow$ 5S(e) Directed Lightning Spray Attack.
+* **4. Built-in Mil-Spec Medkit R6 (Right Arm)**: **4,000¥** (0.6 Karma) $\rightarrow$ Paramedic trauma suite.
+* **5. Implanted Monofilament Combat Chainsaw (Right Arm)**: **3,000¥** (0.4 Karma) $\rightarrow$ 6P Structural Breacher (doubles DV vs barriers).
+* **6. Smuggling Compartment (Right Leg)**: **6,000¥** (0.9 Karma) $\rightarrow$ Heavy concealed cavity ($-4$ search modifier).
+* *Result*: The **Tesla Coil Spray**, **Monofilament Chainsaw**, and **52-Cap modular loadout** are 100% complete!
+
+#### Step 4: Interleaved Karma Spend 2 — Analytical Mind & 1-Round Overdrive (18 Karma)
+
+* **1. Analytical Mind (6 Karma)** (*Sixth World Companion*, p. 124 — Base 3 Karma × 2 post-chargen): +1 Edge on all Logic, pattern recognition, and matrix intrusion tests.
+* **2. Extended Overdrive Rank 1 (12 Karma)** (*Sixth World Companion*, p. 133 — Base 6 Karma × 2 post-chargen): Overdrive lasts **1 full combat round** per activation.
+
+#### Step 5: Streetdoc Move 3 — Intuition Transcendence (~14 Karma + Cash)
+
+* **1. Upgrade Skilljack R6 & Skillwires R6 to Alphaware**:
+  * *Sell-Back Credit*: +120,000¥ trade-in credit.
+  * *Alphaware Purchase*: 288,000¥. Net cash required: **168,000¥**.
+  * *Essence Freed*: $2 \times (0.66 - 0.48) = \mathbf{+0.36\text{ Ess Hole}}$ (Expands hole pool to $+0.16 + 0.36 = \mathbf{+0.52\text{ Ess Hole}}$).
+* **2. Install Cerebellum Boosters R3 (Alphaware Cultured Bioware)**:
+  * *Essence Cost*: $0.60 \times 0.8 = \mathbf{0.48\text{ Ess}}$ (Seated inside +0.52 Ess Hole).
+  * *Nuyen Cost*: 180,000¥ (Funded via 14 Karma Streetdoc credit + mission cash earnings).
+  * *Essence Hole Balance*: $+0.52 - 0.48 = \mathbf{+0.04\text{ Ess Hole remaining}}$ (Biological Essence intact at **0.49**).
+  * *Game Effect*: **Intuition 8**, Living Persona Sleaze **9**, Matrix Perception/Defense **14d6**, Initiative **11 + 1D6**.
+
+#### Step 6: Interleaved Karma Spend 3 — 2-Round Overdrive & Melee Dodge Mastery (17 Karma)
+
+* **1. Extended Overdrive Rank 2 (12 Karma)**: Overdrive lasts **2 full combat rounds**.
+* **2. Bending of the Reed (Melee) (5 Karma)** (*Firing Squad*, p. 103): Gain **+1 Bonus Edge** whenever taking the Dodge Minor Action against melee attacks.
+
+#### Step 7: Streetdoc Move 4 — Max Sleaze & Damage Reduction (9.8 Karma / 68,400¥)
+
+* **1. Install Cerebellum Booster Enhancer (Alphaware Geneware)**:
+  * *Essence Cost*: $0.20 \times 0.8 = \mathbf{0.16\text{ Ess}}$ (Takes 0.04 from hole $+ 0.12$ from biological).
+  * *Nuyen Cost*: 48,000¥ (6.9 Karma).
+  * *Game Effect*: Pushes Intuition to **9** $\rightarrow$ Living Persona Sleaze = **10**!
+* **2. Install Platelet Factories (Alphaware Bioware)**:
+  * *Essence Cost*: $0.20 \times 0.8 = \mathbf{0.16\text{ Ess}}$ (Consumes 0.16 Biological Essence).
+  * *Nuyen Cost*: 20,400¥ (2.9 Karma).
+  * *Biological Essence*: Shifts from $0.49 \rightarrow \mathbf{0.21\text{ Ess}}$ (Safely under 1.00 cap; legal for Cyberpsychosis R3).
+  * *Game Effect*: Whenever taking $\ge 2$ boxes of Physical damage from an attack, **reduce damage by 1 box**.
+
+#### Step 8: Interleaved Karma Spend 4 — Full 3-Round Overdrive & Ranged Dodge (17 Karma)
+
+* **1. Extended Overdrive Rank 3 (12 Karma)**: Overdrive lasts **3 full combat rounds** (Venn spends 1 Minor Action on Turn 1 and stays at Agility 10 / Wild Die / +1 Edge generation for the entire battle!).
+* **2. Bending of the Reed (Ranged) (5 Karma)** (*Firing Squad*, p. 103): Gain **+1 Bonus Edge** whenever taking the Dodge Minor Action against ranged gunfire.
+
+#### Step 9: Interleaved Karma Spend 5 — Damage Shunting to Stun (5 Karma)
+
+* **1. Sense the Breeze (5 Karma)** (*Body Shop*, p. 5): After dodging via Bending of the Reed, shunt unsoaked Physical damage to **Stun damage** equal to augmented Reaction bonus.
+
+---
+
+## 5. Activesoft Acquisition Strategy: Pure Nuyen vs. Karma
+
+Because *Working for the Streetdoc* yields **7,000¥ per Karma** on augmentations, while the *Programming* downtime move (*Hack and Slash*, p. 86) yields only **4,000¥ per Karma** on software:
+
+> [!TIP]
+> **Financial Rule**: Spend **100% of Karma** on Streetdoc augmentation moves and martial arts qualities. Purchase all Rating 6 Activesofts (30,000¥ each) with **Pure Nuyen from Mission Payouts**!
+
+### Activesoft Priority Acquisition Order (via Mission Pay)
+
+| Priority | Skillsoft (Rating 6) | Market Cost | Tabletop Attack / Test Pool |
+| :---: | :--- | :---: | :--- |
+| **1** | **Firearms (Heavy Pistols)** | ¥30,000 | **17d6 Pool** (19d6 Overdriven) w/ Smartlink + Wires-ON |
+| **2** | **Close Combat (Unarmed)** | ¥30,000 | **15d6 Pool** (17d6 Overdriven) w/ Wires-ON |
+| **3** | **Stealth (Sneaking)** | ¥30,000 | **15d6 Pool** (17d6 Overdriven) w/ Wires-ON |
+| **4** | **Engineering (Lockpicking)** | ¥30,000 | **17d6 Pool** (18d6 Overdriven) w/ Logic 10 + Wires-ON |
+| **5** | **Piloting (Ground Craft)** | ¥30,000 | **11d6 Pool** (13d6 Overdriven) w/ REA 2 + Wires-ON |
+
+---
+
+## 6. Chargen Skill Tuning: Free Athletics (Rating 1) Allocation
+
+In Point Buy chargen, characters receive **12 Free Skill Points**. Venn spent 7 points on Electronics 6 + Specialization, and 5 points on Knowledge Skills.
+
+By trading **1 Knowledge Skill** for **Athletics (Rating 1)** at chargen (0 CP, 0 Karma):
+
+* **Eliminates Unskilled Penalty**: Removes the $-1$ dice pool penalty on all physical jumping, sprinting, climbing, and flying kicks.
+* **Preserves Skillwire Capacity**: Does not tie up any skillwire slots.
+* **Leap Distance Multiplier**: With Cyberleg Agility 8 (10 Overdriven) + Athletics 1 + Hydraulic Jacks R2, Venn rolls **9d6 (11d6 Overdriven)** against a threshold of **1**, guaranteeing **3–5 hits on every launch** and propelling Flying Kicks **1.5m to 2.5m+ across the room**!
+
+---
+
+## 7. Lifetime Essence Accounting Ledger
+
+| Milestone / Upgrade Event | Ess Hole Freed | Ess Hole Consumed | Ess Hole Pool | Biological Essence | Cyberpsychosis Cap Status |
 | :--- | :---: | :---: | :---: | :---: | :--- |
-| **Cerebellum Booster (Rating 3)** | Cultured Bioware (Alphaware) | 0.48 Ess (0.16/rtg) | 180,000¥ (60k/rtg) | **25 Karma** (+5k¥) | **+3 Intuition** (raises natural INT 4 $\rightarrow$ 7, or up to 9 with Karma). Directly powers Living Persona Sleaze, Matrix Perception, physical Defense, and Initiative. |
-| **Cerebellum Booster Enhancer** | Bioware (Avail 5) | 0.20 Ess | 55,000¥ | **7 Karma** (+6k¥) | **+1 effective Intuition** synergy $\rightarrow$ Pushes Intuition to **8–9** (effective 10). |
-| **Suprathyroid Gland** | Betaware Bioware | 0.42 Ess (0.6×) | 82,500¥ | **11–12 Karma** | **+1 to BOD, AGI, REA, STR** (in SRM, stacks above the +4 augmented maximum!). Expands Max NV cap ($$2 \times \text{BOD}$$) and boosts physical soak/combat. |
-| **Muscle Toner Upgrade (R2 $\rightarrow$ R4)** | Alphaware Bioware | 0.32 Ess net | 64,000¥ | **9 Karma** | **+2 additional Agility** $\rightarrow$ Reaches +4 Agility augmented maximum (AGI 6 baseline + 4 = 10 AGI). |
-| **Adrenaline Pump Upgrade (R2 $\rightarrow$ R3)** | Alphaware Bioware | 0.60 Ess net | 66,000¥ (Alpha diff) | **9–10 Karma** | **+3 WIL, REA, AGI, STR surge** (lasts 3×1D6 rounds; ignores wound penalties & stun crash). Massive burst to Matrix Firewall/Defense, Initiative (+3), and combat pools. |
+| **Chargen Baseline** | — | — | 0.00 | **0.49 Ess** | **LEGAL** ($\le 1.00$ Ess) |
+| **Move 1: 4x Limbs $\rightarrow$ Alphaware** | +0.80 Ess | — | +0.80 Ess | 0.49 Ess | **LEGAL** ($\le 1.00$ Ess) |
+| **Move 1: Alphaware Cerebral R3 & Enhancer** | — | 0.64 Ess | +0.16 Ess | 0.49 Ess | **LEGAL** ($\le 1.00$ Ess) |
+| **Move 2: 52-Cap Bulk Modification** | — | — (0 Ess) | +0.16 Ess | 0.49 Ess | **LEGAL** ($\le 1.00$ Ess) |
+| **Move 3: Skilljack/Wires $\rightarrow$ Alpha** | +0.36 Ess | — | +0.52 Ess | 0.49 Ess | **LEGAL** ($\le 1.00$ Ess) |
+| **Move 3: Alphaware Cerebellum R3** | — | 0.48 Ess | +0.04 Ess | 0.49 Ess | **LEGAL** ($\le 1.00$ Ess) |
+| **Move 4: Cerebellum Enhancer** | — | 0.16 Ess | 0.00 Ess | **0.37 Ess** | **LEGAL** ($\le 1.00$ Ess) |
+| **Move 4: Platelet Factories** | — | 0.16 Ess | 0.00 Ess | **0.21 Ess** | **LEGAL** ($\le 1.00$ Ess) |
 
 ---
 
-## 7. Strategic Priority & Utility Analysis
+## 8. Strategic Multi-Axis Priority Analysis
 
-### A. Matrix Utility (Logic & Intuition — Highest Frequency)
-* **Frequency**: Called on multiple times every mission (recon, host intrusion, data theft, device subversion, matrix perception).
-* **Why Logic & Intuition Rule**: Because Venn's Monad Living Persona cannot run cyberdeck programs (Exploit, Stealth, Overclock) or agents, raw attribute supremacy (**Logic 9–10** and **Intuition 6–9**) is the primary driver for achieving 14–18 dice pools to overcome high-rating corporate host firewalls.
-
-### B. Combat & Agility Utility (Guaranteed 1+ Scene per Mission)
-* **Frequency**: Guaranteed high-stakes scene every run.
-* **Why High Agility is Crucial**: With Rating 6 Activesofts running on Skillwires R6, Agility is the sole physical stat determining attack dice.
-* **Scaling**: Moving from AGI 4 (starting) $\rightarrow$ AGI 6 (Muscle Toner R4) $\rightarrow$ AGI 7 (Suprathyroid) pushes Firearms attack pools to **15–17 dice** (17–19 dice under Adrenal surge), guaranteeing lethal efficiency with zero karma spent on physical combat skills.
-
-### C. Nanite Volume (The Wild Card Multiplier Engine)
-In actual tabletop play, Nanite Volume (NV) is Venn's multi-dimensional force multiplier:
-1. **Living Persona ASDF Pool**: NV directly adds points to Living Persona attributes on a 1:1 basis (e.g. boosting Firewall to 8–9 and Sleaze to 6–8).
-2. **Monad Toughness**: Adds $$\lfloor \text{NV}/2 \rfloor$$ Condition Monitor boxes and **shifts all wound penalties down by 1** (takes 0 penalty up to 4 boxes of damage!).
-3. **Rapid Cellular Healing**: Minor Action roll (NV dice) heals damage in combat on demand without medkits or spell drain.
-4. **Dynamic Overclocking**: Minor Action NV test to temporarily add +1 to +4 to any attribute or gain +1 to +2 extra Minor Actions.
-* **Verdict**: Raising NV from 6 to 8 over time is one of the highest survivability investments available to a Monad.
-
----
-
-## 8. Essence Budget Maintenance & Lifetime Accounting Protocols
-
-Because Venn operates at a razor-thin **0.06 Biological Essence floor**, strict Essence accounting must be maintained across all downtime activities.
-
-### A. Core Maintenance Guardrails
-1. **The Hard Floor (Anti-Burnout Rule)**: Biological Essence must **never drop below 0.01** ($$\text{Essence} \le 0.00 = \text{Character Death / Burnout}$$).
-2. **Essence Hole Primacy**: No new cyberware or bioware may be implanted unless an **Essence Hole $\ge$ the new implant's cost** is already open or created in the exact same downtime surgery.
-3. **Cultured Immutability & Alphaware Standard**: Cultured bioware (Synaptic Booster, Reflex Recorder, Cerebral Booster, Cerebellum Booster) cannot be resold. All future cultured purchases are strictly **Alphaware ($$0.8\times$$ Essence)** to permanently maximize Essence efficiency.
-4. **Quality Compliance**: Biological Essence remains at $$\le 1.00$$, permanently maintaining legal compliance for **Cyberpsychosis (Rank 3)** (+24 starting Karma).
-
-### B. Upgrading as an "Essence Mine" (Unlocking +1.50 Headroom)
-Excluding permanent cultured bioware, Venn holds **+1.50 Essence of locked headroom** inside non-cultured Used and Standard implants. Upgrading to **Alphaware (0.8× base Ess)** unlocks this space:
-
-| Inefficient Implant | Current Grade | Current Ess | Alphaware Ess | Essence Hole Unlocked |
-| :--- | :---: | :---: | :---: | :---: |
-| **Bone Density R4** | Used | 1.32 Ess | 0.96 Ess | **+0.36 Ess** *(Move 2)* |
-| **Skillwires R6** | Used | 0.72 Ess | 0.48 Ess | **+0.24 Ess** |
-| **Skilljack R6** | Used | 0.72 Ess | 0.48 Ess | **+0.24 Ess** |
-| **Adrenaline Pump R2** | Used | 1.65 Ess | 1.20 Ess | **+0.45 Ess** |
-| **Muscle Toner R2** | Used | 0.44 Ess | 0.32 Ess | **+0.12 Ess** |
-| **Math SPU** | Standard | 0.25 Ess | 0.20 Ess | **+0.05 Ess** |
-| **Platelet Factories** | Standard | 0.20 Ess | 0.16 Ess | **+0.04 Ess** |
-| **TOTAL UNLOCKABLE HEADROOM** | | | | **+1.50 Ess Hole** |
-
-### C. Lifetime Essence Ledger (Phase-by-Phase Balance)
-
-| Phase / Downtime Move | Action / Upgrade | Ess Freed | Ess Consumed | Essence Hole Pool | Biological Essence |
-| :--- | :--- | :---: | :---: | :---: | :---: |
-| **Chargen Baseline** | Starting Used 'Ware & Acclimation R10 | — | — | 0.00 Ess | **0.06 Ess** |
-| **Downtime Move 1** | Remove 3 Used Implants / Install **Alphaware Cerebral R3** | +0.66 Ess | −0.48 Ess | **+0.18 Ess** | **0.06 Ess** |
-| **Downtime Move 2** | Bone Density $\rightarrow$ Alpha / Install Cerebral Enhancer | +0.36 Ess | −0.20 Ess | **+0.34 Ess** | **0.06 Ess** |
-| **Phase 3 (Intuition)** | Skillwires & Skilljack $\rightarrow$ Alpha / Install **Alphaware Cerebellum R3** | +0.48 Ess | −0.48 Ess | **+0.34 Ess** | **0.06 Ess** |
-| **Phase 4 (Speed/Agility)** | Adrenaline $\rightarrow$ Alpha / Install Cerebellum Enhancer & Toner R4 | +0.45 Ess | −0.52 Ess | **+0.27 Ess** | **0.06 Ess** |
-| **Phase 5 (Metabolic Cap)** | Muscle Toner, SPU, Platelet $\rightarrow$ Alpha / Install **Betaware Suprathyroid** | +0.21 Ess | −0.42 Ess | **+0.06 Ess** | **0.06 Ess** |
+```text
+               DEVELOPMENT VALUE BY AXIS (POST-OPTIMIZATION)
++-----------------------------------------------------------------------------------+
+| AXIS 1: COMPUTATIONAL SUPREMACY   | LOG 10 / INT 9 / Living Persona ASDF: 2/10/11/9 |
+| AXIS 2: 8P KINETIC SUBDUAL ENGINE | 8P Base Kick + 1-Edge KO + 15m Skating Blitz  |
+| AXIS 3: STRUCTURAL BREACHING      | Monofilament Saw (6P / 2x vs Barriers) + Setae |
+| AXIS 4: TRAUMA & FIRST AID SUITE  | Built-in Mil-Spec Medkit + Automated Treatment |
+| AXIS 5: ESSENCE INTEGRITY         | Biological 0.49 -> 0.21 (100% Cyberpsychosis)  |
++-----------------------------------------------------------------------------------+
+```

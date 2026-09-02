@@ -14,13 +14,24 @@ from sr6core.narration import (
 
 class TestNarrationEngine(unittest.TestCase):
     def test_clean_markdown_for_tts(self):
-        raw = "# Chapter 1\n\n![Image](foo.png)\nCheck out [this link](https://example.com) for details.\n\n---\n\n> Quoted text"
+        raw = '# Chapter 1\n\n![Image](foo.png)\n"You downed a helicopter?" she asked.\n\n*What is the encryption level?* Nathan asked.\n\n*Rating 3 maglock,* Veronica replied.\n\nCheck out [this link](https://example.com) for details.\n\n---\n\n> Quoted text'
         cleaned = clean_markdown_for_tts(raw)
         self.assertNotIn("![Image]", cleaned)
         self.assertNotIn("https://example.com", cleaned)
+        self.assertIn('"You downed a helicopter?" she asked.', cleaned)
+        self.assertIn('"What is the encryption level?" Nathan asked.', cleaned)
+        self.assertIn('"Rating 3 maglock," Veronica replied.', cleaned)
         self.assertIn("this link", cleaned)
         self.assertIn("<SCENE_PAUSE>", cleaned)
         self.assertNotIn("# Chapter", cleaned)
+
+    def test_clean_pronunciation_breathed_and_mechs(self):
+        raw = "She breathed deeply near the warmech and biomech units in the battlemech hangar."
+        cleaned = clean_pronunciation(raw)
+        self.assertIn("breethed", cleaned)
+        self.assertIn("warmek", cleaned)
+        self.assertIn("biomek", cleaned)
+        self.assertIn("battlemek", cleaned)
 
     def test_clean_pronunciation(self):
         raw = "Reiko's deck at r3sP@wn's grid wasn't working with Rei-chan and Yuriko-san. AGENT_OF_ORDER / SANITIZE_INPUT. I'll be fine."

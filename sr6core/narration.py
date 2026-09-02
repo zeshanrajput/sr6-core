@@ -19,9 +19,8 @@ def clean_markdown_for_tts(text: str) -> str:
     text = text.replace('\ufffd', '')
     text = text.replace('“', '"').replace('”', '"')
     text = text.replace('‘', "'").replace('’', "'")
-    text = text.replace('—', ' -- ').replace('–', ' -- ')
+    text = text.replace('—', ', ').replace('–', ', ')
     text = text.replace('…', '...')
-    text = text.replace('"', '')
     
     # 1. Remove Markdown image embeds completely: ![alt](path)
     text = re.sub(r'!\[.*?\]\(.*?\)', '', text)
@@ -64,7 +63,10 @@ def clean_markdown_for_tts(text: str) -> str:
         
     text = "\n".join(lines)
     
-    # 7. Strip inline code backticks, bold, italic, strikethrough markers
+    # 7. Convert italicized mindspeech / non-acoustic dialogue (*...*) to spoken double quotes for TTS cadence
+    text = re.sub(r'(?<!\*)\*([A-Z0-9][^*]+?[.,?!])\*(?!\*)', r'"\1"', text)
+
+    # 8. Strip inline code backticks, bold, italic, strikethrough markers
     text = re.sub(r'```.*?```', '', text, flags=re.DOTALL)
     text = re.sub(r'`([^`]+)`', r'\1', text)
     text = re.sub(r'\*\*([^*]+)\*\*', r'\1', text)
@@ -73,7 +75,7 @@ def clean_markdown_for_tts(text: str) -> str:
     text = re.sub(r'_([^_]+)_', r'\1', text)
     text = re.sub(r'~~([^~]+)~~', r'\1', text)
     
-    # 8. Clean up stray markdown symbols like orphan --- or *** in prose
+    # 9. Clean up stray markdown symbols like orphan --- or *** in prose
     text = re.sub(r'\s*---+\s*', ' -- ', text)
     text = re.sub(r'\s*\*\*\*+\s*', ' ', text)
     
@@ -560,13 +562,17 @@ def generate_narration(file_path: str, output_mp3: Optional[str] = None, pacing:
     clean_text = clean_markdown_for_tts(content)
     clean_text = clean_pronunciation(clean_text)
     clean_text = normalize_dialogue_cadence(clean_text)
-    chunks = split_into_narration_chunks(clean_text, pacing=pacing)
 
-    if not chunks:
+    if not clean_text.strip():
         return None, "No speakable text found in file."
 
-    print(f"[*] Prepared {len(chunks)} speech chunks for Kokoro GPU narration -> {output_mp3}")
-    
+    if pacing == "tight":
+        p_pause, scene_pause = 0.25, 0.60
+    elif pacing == "spacious":
+        p_pause, scene_pause = 0.65, 1.20
+    else:  # 'balanced' (default)
+        p_pause, scene_pause = 0.40, 0.85
+
     if pipeline is None:
         print(f"[*] Kokoro TTS Inference Device: {device.upper()} ({device_name}) [Voice: {voice}, Pacing: {pacing.upper()}]")
         print(f"[*] Initializing Kokoro PyTorch pipeline (voice: '{voice}')...")
@@ -574,25 +580,39 @@ def generate_narration(file_path: str, output_mp3: Optional[str] = None, pacing:
 
     sample_rate = 24000
     pcm_float_segments = []
+    last_text_index = None
 
-    for text_chunk, pause_sec in chunks:
-        if text_chunk:
-            try:
-                generator = pipeline(text_chunk, voice=voice, speed=1.0)
-                for gs, ps, audio_tensor in generator:
-                    if audio_tensor is not None and len(audio_tensor) > 0:
-                        if hasattr(audio_tensor, "numpy"):
-                            samples_float32 = audio_tensor.detach().cpu().numpy().astype(np.float32)
-                        else:
-                            samples_float32 = np.array(audio_tensor, dtype=np.float32)
-                        faded_samples = apply_micro_fade(samples_float32, sample_rate, fade_ms=7.0)
-                        pcm_float_segments.append(faded_samples)
-            except Exception as e:
-                print(f"[Warning] Failed synthesizing chunk '{text_chunk[:30]}...': {e}")
+    try:
+        generator = pipeline(clean_text, voice=voice, speed=1.0)
+        for res in generator:
+            # Check if this segment is a scene pause placeholder
+            graphtext = res.graphemes.strip() if hasattr(res, "graphemes") and res.graphemes else ""
+            if graphtext == "<SCENE_PAUSE>":
+                pcm_float_segments.append(np.zeros(int(sample_rate * scene_pause), dtype=np.float32))
+                last_text_index = getattr(res, "text_index", None)
+                continue
 
-        if pause_sec > 0.0:
-            silence_samples = int(sample_rate * pause_sec)
-            pcm_float_segments.append(np.zeros(silence_samples, dtype=np.float32))
+            audio_tensor = getattr(res, "audio", None)
+            if audio_tensor is None and isinstance(res, (list, tuple)) and len(res) >= 3:
+                audio_tensor = res[2]
+
+            if audio_tensor is not None and len(audio_tensor) > 0:
+                if hasattr(audio_tensor, "numpy"):
+                    samples_float32 = audio_tensor.detach().cpu().numpy().astype(np.float32)
+                else:
+                    samples_float32 = np.array(audio_tensor, dtype=np.float32)
+
+                faded_samples = apply_micro_fade(samples_float32, sample_rate, fade_ms=4.0)
+
+                # Add natural paragraph pause when transitioning between distinct paragraphs
+                curr_idx = getattr(res, "text_index", None)
+                if last_text_index is not None and curr_idx is not None and curr_idx != last_text_index:
+                    pcm_float_segments.append(np.zeros(int(sample_rate * p_pause), dtype=np.float32))
+
+                pcm_float_segments.append(faded_samples)
+                last_text_index = curr_idx
+    except Exception as e:
+        print(f"[Warning] Error during Kokoro synthesis: {e}")
 
     if not pcm_float_segments:
         return None, "Failed to generate audio samples."

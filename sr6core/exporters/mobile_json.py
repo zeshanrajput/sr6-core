@@ -73,7 +73,7 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
     karma_avail = totals.get("Karma", identity.get("karma", 0))
     karma_life = totals.get("Lifetime_Karma", identity.get("total_karma", karma_avail))
 
-    is_monad = "monad" in mortype or "monad" in str(metatype).lower()
+    is_monad = "monad" in mortype or "monad" in str(metatype).lower() or "monad" in str(identity.get("archetype", "")).lower() or "monad" in str(identity.get("heritage", "")).lower() or "monad_abilities" in char_data
     is_ai = ("pilot ai" in str(metatype).lower() or str(metatype).lower() == "ai" or "ai" in stream.lower()) and not is_monad
     is_velvet = "velvet" in handle.lower() or "kim jin-young" in real_name.lower()
 
@@ -656,21 +656,22 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
             a_name = a.get("name", a.get("ref", "Armor"))
             dr = int(a.get("defense_rating", a.get("rating", 0)))
             total_dr += dr
-            mods = a.get("modifications", [])
+            mods = a.get("accessories", a.get("modifications", []))
+            notes = a.get("notes", "")
             compiled_armors.append({
                 "name": a_name,
                 "defense_rating": dr,
-                "modifications": [str(m.get("name", m)) if isinstance(m, dict) else str(m) for m in mods]
+                "accessories": [str(m.get("name", m)) if isinstance(m, dict) else str(m) for m in mods],
+                "modifications": [str(m.get("name", m)) if isinstance(m, dict) else str(m) for m in mods],
+                "notes": notes
             })
 
     # Drones and Vehicles with Inhabited Action Pools and Base vs Mod Stats
-    from sr6core.vehicles import parse_vehicle_modifications
+    from sr6core.vehicles import parse_vehicle_modifications, calculate_drone_action_pools
     raw_drones = _safe_item_list(char_data.get("drones", []))
     raw_vehicles = _safe_item_list(char_data.get("vehicles", []))
-    compiled_vehicles = []
-    for item in raw_vehicles + raw_drones:
-        if not isinstance(item, dict):
-            continue
+
+    def _compile_vehicle_item(item: Dict[str, Any], is_drone: bool = False) -> Dict[str, Any]:
         v_name = item.get("name", "Drone / Vehicle")
         v_role = item.get("role", "")
         han_on = item.get("handling_on", item.get("handling", 3))
@@ -699,8 +700,9 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
                         "breakdown": p_val.get("breakdown", "")
                     }
 
-        compiled_vehicles.append({
+        return {
             "name": v_name,
+            "category": "drone" if is_drone else "vehicle",
             "role": v_role,
             "handling": aug_profile.get("handling_str", f"{han_on}/{han_off}"),
             "accel": aug_profile.get("accel_str", f"{acc_on}/{acc_off}"),
@@ -720,7 +722,11 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
             "mobility_str": aug_profile.get("mobility_str", ""),
             "rigged_pools": formatted_pools,
             "doc_link": "chapters/rules_drones.html#tactical-drones" if is_ai else "chapters/rules_and_downtime.html"
-        })
+        }
+
+    compiled_drones = [_compile_vehicle_item(d, is_drone=True) for d in raw_drones if isinstance(d, dict)]
+    compiled_vehicles = [_compile_vehicle_item(v, is_drone=False) for v in raw_vehicles if isinstance(v, dict)]
+    all_vehicles = compiled_vehicles + compiled_drones
 
     # Complex Forms, Spells, Adept Powers, Echoes, Monad Abilities, Sprite Powers with Deep Links
     complex_forms = []
@@ -812,19 +818,97 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
     autosofts = [_get_name(a) for a in _safe_item_list(char_data.get("autosofts", []))]
     gear = [_get_name(g) for g in _safe_item_list(char_data.get("gear", [])) + _safe_item_list(char_data.get("items", []))]
 
-    # Contacts with explicit sorting fields
+    # Contacts with explicit sorting fields & parsed types
     raw_contacts = char_data.get("contacts", [])
     compiled_contacts = []
     for c in raw_contacts:
         if isinstance(c, dict):
+            desc = str(c.get("description", c.get("notes", "")))
+            # Strip '(Not available after ...)' per campaign rules
+            desc = re.sub(r'\s*\([Nn]ot available after[^\)]*\)', '', desc).strip()
+            types_list = list(c.get("types", [])) if isinstance(c.get("types"), list) else []
+
+            # Extract types from "Types: Criminal, Street" in description if not explicitly set
+            if not types_list and "Types:" in desc:
+                m = re.search(r'Types:\s*([^\|\)]+)', desc)
+                if m:
+                    raw_extracted = [t.strip().rstrip('.') for t in m.group(1).split(',') if t.strip()]
+                    types_list.extend(raw_extracted)
+
+            # If still empty, infer from archetype or description keywords
+            if not types_list:
+                arch = str(c.get("archetype", c.get("type", ""))).lower()
+                desc_lower = desc.lower()
+                for keyword, cat_name in [
+                    ("criminal", "Criminal"),
+                    ("street", "Street"),
+                    ("fixer", "Fixer"),
+                    ("corporate", "Corporate"),
+                    ("matrix", "Matrix"),
+                    ("magic", "Magic"),
+                    ("medical", "Medical"),
+                    ("engineering", "Engineering"),
+                    ("vory", "Criminal"),
+                    ("triad", "Criminal"),
+                    ("gang", "Street"),
+                ]:
+                    if (keyword in arch or keyword in desc_lower) and cat_name not in types_list:
+                        types_list.append(cat_name)
+
+            if not types_list:
+                types_list = ["General"]
+
+            # Clean region
+            reg = c.get("region", "SEA")
             compiled_contacts.append({
                 "name": c.get("name", "Contact"),
                 "connection": c.get("connection", 1),
                 "loyalty": c.get("loyalty", 1),
                 "archetype": c.get("archetype", c.get("type", "Contact")),
                 "favors": c.get("favors", c.get("favor_balance", 0)),
-                "region": c.get("region", "Seattle / Global"),
-                "description": c.get("description", c.get("notes", ""))
+                "region": reg,
+                "types": types_list,
+                "description": desc
+            })
+
+    # SINs, Licenses & Lifestyles
+    raw_sins = _safe_item_list(char_data.get("sins", []))
+    raw_licenses = _safe_item_list(char_data.get("licenses", []))
+    raw_lifestyles = _safe_item_list(char_data.get("lifestyles", []))
+
+    compiled_sins = []
+    for s in raw_sins:
+        if isinstance(s, dict):
+            s_name = s.get("name", "Fake SIN")
+            s_lics = [lic.get("name", "License") for lic in raw_licenses if isinstance(lic, dict) and lic.get("sin") == s_name]
+            compiled_sins.append({
+                "name": s_name,
+                "rating": s.get("rating", 1),
+                "quality": s.get("quality", "Standard"),
+                "licenses": s_lics
+            })
+
+    # Unattached licenses (if any)
+    attached_lic_names = {lic.get("name") for lic in raw_licenses if isinstance(lic, dict) and lic.get("sin")}
+    for lic in raw_licenses:
+        if isinstance(lic, dict) and lic.get("name") not in attached_lic_names:
+            compiled_sins.append({
+                "name": f"Independent: {lic.get('name')}",
+                "rating": lic.get("rating", 1),
+                "quality": "License",
+                "licenses": [lic.get("name", "License")]
+            })
+
+    compiled_lifestyles = []
+    for life in raw_lifestyles:
+        if isinstance(life, dict):
+            compiled_lifestyles.append({
+                "name": life.get("name", "Lifestyle"),
+                "comfort": life.get("comfort", "Low"),
+                "entertainment": life.get("entertainment", "Low"),
+                "necessities": life.get("necessities", "Low"),
+                "neighborhood": life.get("neighborhood", "Low"),
+                "security": life.get("security", "Low")
             })
 
     return {
@@ -840,6 +924,7 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
             "age": age,
             "nuyen": nuyen,
             "karma": karma_avail,
+            "karma_avail": karma_avail,
             "lifetime_karma": karma_life,
             "nanite_volume": nv,
             "is_ai": is_ai,
@@ -884,7 +969,8 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
         },
         "weapons": compiled_weapons,
         "armors": compiled_armors,
-        "vehicles": compiled_vehicles,
+        "drones": compiled_drones,
+        "vehicles": all_vehicles,
         "spells": spells,
         "adept_powers": adept_powers,
         "complex_forms": complex_forms,
@@ -905,7 +991,11 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
             "hosts": hosts,
             "programs": programs,
             "autosofts": autosofts,
-            "gear": gear
+            "gear": gear,
+            "sins": compiled_sins,
+            "lifestyles": compiled_lifestyles
         },
+        "sins": compiled_sins,
+        "lifestyles": compiled_lifestyles,
         "contacts": compiled_contacts
     }

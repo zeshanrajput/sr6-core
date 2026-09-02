@@ -181,11 +181,29 @@ domain_vocabulary_rules:
     approved_terms:
       - "port protocols, ASDF attributes, signal encryption, payload dumps, handshake validations"
 
+  domain_4_mindspeech_and_linguistic_architecture:
+    context: "Linguistic reality of an emergent Digital Intelligence (Null Value lore)"
+    native_language: "Mindspeech (The ONLY native tongue: direct ideation, harmonic resonance frequencies, data textures, and emotional metadata tags)"
+    emulated_spoken_languages:
+      japanese: "Slotted Linguasoft (Rating 5) — Cultural alignment with Renraku origins, tea ceremony, kintsugi, and wabi-sabi aesthetics"
+      english: "Slotted Linguasoft (Rating 5) — Seattle Sprawl street trade with Brynne, Jax, and shadowrunners"
+      cantonese_mandarin: "Slotted Linguasofts (Rating 5) — Chinatown trade in The Price of Silk"
+    behavioral_code_switching:
+      metahuman_masking: "When dealing with metahumans (deckers, fixers, corporate agents, street merchants), Reiko deliberately adopts simulated acoustic speech (formatted in double quotes '\"...\"') and slots human linguasofts. She suppresses her native resonant emissions and mimics human conversational latency, facial micro-expressions, and politeness routines to conceal her DI nature and avoid triggering corporate asset recovery flags."
+      digital_kin_communion: "When communicating with native digital intelligences (sprites, DIs like Indomitable Will and Belle, wild sparks, and the Cantor), Reiko speaks in her native Mindspeech (formatted in italics '*...*'). This communication is instantaneous, high-bandwidth, non-acoustic, and grounded in emotional tags and data textures."
+      primal_vs_invader_distinction: "Metahuman deckers entering hosts use simulated acoustic audio ('\"...\"'). Native primal sprites and wild spirits scream, pray, or communicate in pure non-acoustic mindspeech ('*...*')."
+    rule: "Stage non-acoustic ideation between DIs/technomancers in italics without quotes (`*...*`). Stage acoustic dialogue or simulated metahuman speech in quotation marks (`\"...\"`). Contrast the instantaneous, multi-layered richness of native Mindspeech with the clunky serialized latency of routing spoken words through physical drone audio diaphragms or metahuman speech synthesis."
+
+  domain_5_dialogue_paragraph_discipline:
+    context: "Spoken dialogue, drone speaker emissions, and direct mindspeech transmissions"
+    rule: "Strictly enforce One Speaker Per Paragraph for both acoustic speech and mindspeech turns. Never combine turns from multiple entities into the same paragraph block. Braid each turn with that persona's specific resonance flux, harmonic carrier wave, or drone chassis micro-movements."
+
   identity_and_kinship_terminology:
     self_and_kin_designation: "Digital Intelligence (DI), sovereign mind, resonant spark, digital kin"
     forbidden_self_descriptors:
       - "AI / Artificial Intelligence" (In internal monologue or when speaking of her kind)
       - "Program / Script / Utility" (When applied to sovereign digital minds)
+      - "Avatar" (In Matrix/Resonance spaces — manifestations are their 'body' or 'form'; meat drones are 'shells' or 'anchors'; 'avatar' is reserved only for metahumans decking in from meatspace)
     thematic_friction_rule:
       description: "Metahumans (deckers, fixers, Johnsons) will regularly use 'AI', 'bot', or 'program'. Reiko does not correct them aggressively, but her internal thoughts and her own speech consistently hold the line on 'Digital Intelligence'."
 ```

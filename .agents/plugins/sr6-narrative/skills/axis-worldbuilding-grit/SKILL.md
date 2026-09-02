@@ -37,6 +37,9 @@ Use this skill to audit narrative drafts for Shadowrun 6e dystopian verisimilitu
 4. **Zero Info-Dumping:**
    - All worldbuilding must be woven organically into immediate sensory interaction, tactical awareness, and physical friction. Never pause the story for an encyclopedia lecture.
 
+5. **Shadow Economy Paranoia & Transactional Friction:**
+   - Eliminate "cozy cyberpunk" tropes. Corporate asset theft and underworld clinic distribution must carry genuine collateral terror for recipients (e.g., fear of tracing beacons, punitive strike teams, or collateral destruction). Fixers and shadow brokers must remain calculating, self-interested, and exacting, taking standard cuts and assessing cold operational margins rather than acting as cheerful benefactors.
+
 ---
 
 ## 📊 Audit Report Format

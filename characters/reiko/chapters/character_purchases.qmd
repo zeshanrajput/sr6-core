@@ -71,10 +71,6 @@ from sr6core.log_engine import inc, inc_many
   * Mapsoft x4 `{python} inc('Nuyen', -400)`
   * Shopsoft x6 `{python} inc('Nuyen',-900)`
   * **Coding Facility** `{python} inc_many(('Nuyen',-5000),('Karma',-1))`
-* **Oracle Data Structure (Rating 4)** `{python} inc_many(('Nuyen', -20000), ('Karma', -4))`
-  * Encoded into The Holy Wild Sanctuary Host (Rating 2 Framework Host on remote Sky Commander)
-  * +4 dice on Matrix Perception and Matrix Search; reduces Matrix Search interval to 1 Major Action.
-  * Fading: 2 FV Stun (resisted with WIL 6 + LOG 4 = 10d6 / 2 bought hits, 0 damage).
 
 For autosofts that are specific, the character programs her derivative own based on the original version she bought above. This process takes 8 hours for knowledge and language autosofts, and 12 hours for all other autosofts. The cost is 1 karma for each of the derivative autosofts.
 
@@ -106,7 +102,7 @@ Software with karma costs have been learned via the **Software Emulator** echo.
   * Increased Structural Integrity 5 `{python} inc('Nuyen', -25000/2)`
   * Realistic Features 4 `{python} inc('Nuyen', -10000/2)`
   * Secondary Propulsion (Rotor): `{python} inc('Nuyen', -50000/2)`  
-  * Increased Sensors 3 `{python} inc('Nuyen', -15000/2)`
+  * Increased Sensors 9 `{python} inc('Nuyen', -45000/2)`
   * Retractible Skates x2 `{python} inc('Nuyen',-500/2)`
   * Built-In MedKit `{python} inc('Nuyen', -1000/2)`
   * Accessories

@@ -409,7 +409,7 @@ class ModifierEngine:
             "skill_name": skill_name,
             "specialization": specialization,
             "effective_pool": running_pool,
-            "base_pool": base_attr_val + skill_rating,
+            "base_pool": effective_attr_val + skill_rating,
             "effective_attribute": effective_attr_name,
             "is_attribute_overridden": is_overridden,
             "breakdown": " + ".join(breakdown_parts),

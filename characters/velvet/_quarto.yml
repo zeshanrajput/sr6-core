@@ -17,13 +17,12 @@ book:
     - part: "Core Character"
       chapters:
         - chapters/identity_core.md
-        - chapters/character_build_point_buy.qmd
+        - chapters/character_build.qmd
         - chapters/character_sheet.qmd
         - chapters/character_totals.qmd
         - chapters/character_log.qmd
         - chapters/character_purchases.qmd
         - chapters/twenty_questions.qmd
-        - chapters/character_build.qmd
         - chapters/rules_and_downtime.qmd
         - chapters/appendix_dossier.qmd
     - part: "Narrative Log"

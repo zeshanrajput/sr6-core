@@ -16,7 +16,7 @@ book:
     - part: "Core Character"
       chapters:
         - chapters/identity_core.qmd
-        - chapters/character_build_pb.qmd
+        - chapters/character_build.qmd
         - chapters/character_sheet.qmd
         - chapters/character_totals.qmd
         - chapters/character_log.qmd

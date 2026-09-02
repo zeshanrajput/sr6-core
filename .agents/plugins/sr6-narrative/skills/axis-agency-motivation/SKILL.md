@@ -35,6 +35,9 @@ Use this skill to audit narrative drafts for protagonist agency, active goal-see
 3. **Absence of Deus Ex Machina:**
    - Tactical dilemmas and emotional impasses must be resolved through the protagonist's own skills, Adept disciplines, and psychological leverage rather than lucky external coincidences.
 
+4. **Co-Protagonist Parity & Anti-Foil Safeguard:**
+   - In dual-protagonist or bonded-partner narratives, when one partner takes the lead or gains emotional gravitas, actively protect the other partner's competence, agency, and somatic stakes. Never reduce the organic anchor or secondary partner to a passive foil, helpless victim, or mere sounding board.
+
 ---
 
 ## 📊 Audit Report Format

@@ -21,6 +21,7 @@ Use this skill to audit narrative drafts and downtime proposals for state consis
    - **Pre-Validation of Purchases / Installs**: When auditing or proposing downtime acquisitions, always verify stats via `uv run sr6 card "<item>"` to confirm exact Essence cost, Nuyen price, and Availability before writing state changes.
    - **Capability Consistency**: Ensure gear, spells, and implants depicted in fiction exist on the character sheet.
    - **Narrative Anchor Consistency**: Ensure contact names, locations, and relationships align with established campaign history.
+   - **Chronological Causal Matrix Audit**: Cross-reference chapter dates and timeline headers against intra-chapter backstory references (e.g., character age, dates of surgical procedures, and death/burial dates of key NPCs). Ensure causality flows consistently forward without temporal paradoxes.
 
 
 3. **Sub-Agent Audit Report & State Diff Generation**:

@@ -41,7 +41,6 @@ qualities:
   - name: Focused Concentration
     ref: focused_concentration
     rating: 3
-
   negative:
   - name: Chronic Pain
     ref: chronic_pain
@@ -51,7 +50,6 @@ qualities:
   - name: Allergy (Spices, Common Moderate)
     ref: allergy
     choice: Spices
-
 skills:
 - name: Sorcery
   id: sorcery
@@ -102,7 +100,9 @@ spells:
   duration: Sustained
   type: Physical
   range: Touch
-  notes: "Sorcery + Magic (5 - Essence) test. Net hits increase target attribute by +1 (max +4). Each net hit beyond the 1st increases Drain by +1. Sustained via Focused Concentration R3 with 0 penalties."
+  notes: Sorcery + Magic (5 - Essence) test. Net hits increase target attribute by
+    +1 (max +4). Each net hit beyond the 1st increases Drain by +1. Sustained via
+    Focused Concentration R3 with 0 penalties.
   doc_link: chapters/rules_and_downtime.html#spell-library
 - name: Increase Reflexes
   ref: increase_reflexes
@@ -111,7 +111,9 @@ spells:
   duration: Sustained
   type: Physical
   range: Touch
-  notes: "Sorcery + Magic (5 - Essence) test. Net hits increase both Reaction and Initiative Dice (+1 REA & +1D6 Init per net hit). Each net hit beyond the 1st increases Drain by +1."
+  notes: Sorcery + Magic (5 - Essence) test. Net hits increase both Reaction and Initiative
+    Dice (+1 REA & +1D6 Init per net hit). Each net hit beyond the 1st increases Drain
+    by +1.
   doc_link: chapters/rules_and_downtime.html#spell-library
 adept_powers:
 - name: Cosmetic Control
@@ -119,28 +121,33 @@ adept_powers:
   rating: 2
   cost: 2.0 PP
   action: Major Action
-  notes: "Physical biological disguise (face, skin, height, weight, gender markers, eyes, metaspecies features). Reduces Edge cost by -1 for Con tests (Acting, Disguise, Impersonation)."
+  notes: Physical biological disguise (face, skin, height, weight, gender markers,
+    eyes, metaspecies features). Reduces Edge cost by -1 for Con tests (Acting, Disguise,
+    Impersonation).
   doc_link: chapters/rules_and_downtime.html#adept-powers
 - name: Linguistics
   ref: linguistics
   rating: 1
   cost: 0.25 PP
   action: Passive
-  notes: "Absorbs any new spoken language at basic proficiency after 1 hour of exposure without spending Karma. +1 bonus die on language Perception tests."
+  notes: Absorbs any new spoken language at basic proficiency after 1 hour of exposure
+    without spending Karma. +1 bonus die on language Perception tests.
   doc_link: chapters/rules_and_downtime.html#adept-powers
 - name: Command Presence
   ref: command_presence
   rating: 1
   cost: 0.50 PP
   action: Passive
-  notes: "+2 dice pool bonus and +1 Edge on all Influence (Leadership) tests. Reduces Small Unit Tactics test thresholds by -2."
+  notes: +2 dice pool bonus and +1 Edge on all Influence (Leadership) tests. Reduces
+    Small Unit Tactics test thresholds by -2.
   doc_link: chapters/rules_and_downtime.html#adept-powers
 - name: Cloak
   ref: cloak
   rating: 1
   cost: 0.25 PP
   action: Passive
-  notes: "Imposes a -1 dice pool penalty per rating point to hostile Assensing and Astral Perception tests attempting to read Velvet's aura or pierce covers."
+  notes: Imposes a -1 dice pool penalty per rating point to hostile Assensing and
+    Astral Perception tests attempting to read Velvet's aura or pierce covers.
   doc_link: chapters/rules_and_downtime.html#adept-powers
 - name: Sharp Tongue
   ref: sharp_tongue
@@ -148,7 +155,8 @@ adept_powers:
   cost: 1.0 PP
   source: Qi Focus (Rating 4)
   action: Major Action
-  notes: "Charisma + Magic vs Intuition + Willpower (20d6 vs INT+WIL). Net hits inflict unresisted Stun damage. Alternatively, inflicts Dazed if net hits >= target Willpower."
+  notes: Charisma + Magic vs Intuition + Willpower (20d6 vs INT+WIL). Net hits inflict
+    unresisted Stun damage. Alternatively, inflicts Dazed if net hits >= target Willpower.
   doc_link: chapters/rules_and_downtime.html#adept-powers
 meta_echoes:
 - name: Channeling
@@ -170,12 +178,14 @@ weapons:
   ref: stun_baton
   qty: 1
 armors:
-- name: SecureTech Skinshield
+- name: Ares SecureTech Skinshield
   ref: securetech_skinshield
-  defense_rating: 1
+  defense_rating: 2
   accessories:
-  - Ballistic Hood
+  - Concealable Holster
+  - Rapid Adjustment Clothing System (RACS) 2
   - Fashion Accessory: Très Chic x2
+  notes: "DR +2, Concealable Holster, RACS 2, Très Chic x2"
 matrix_devices:
 - name: Erika Elite
   ref: erika_elite
@@ -249,16 +259,14 @@ synergies:
     bonded: true
     power: Sharp Tongue
 sins:
-- name: Lee Ji-Yoo
-  quality: SECOND_LIFE
+- name: 'Fake SIN: Lee Ji-Yoo:  (Second Life Quality)'
   rating: 6
-- name: Tanaka Ryo
-  quality: SECOND_LIFE
+- name: 'Fake SIN: Tanaka Ryo:  (Second Life Quality)'
   rating: 6
 licenses:
-- name: Magician
-  rating: SECOND_LIFE
-  sin: Lee Ji-Yoo
+- name: 'Fake License: Magician'
+  sin: 'Fake SIN: Lee Ji-Yoo:  (Second Life Quality)'
+  rating: 6
 contacts:
 - name: Brynne Taggart
   connection: 4
@@ -283,7 +291,8 @@ contacts:
   type: Triad Johnson
   archetype: Triad Johnson
   region: SEA
-  description: Chargen Contact | +2 FP SRM 2081-07 Bootleg Bliss (looking forward to date)
+  description: Chargen Contact | +2 FP SRM 2081-07 Bootleg Bliss (looking forward
+    to date)
 - name: Whiskey
   connection: 2
   loyalty: 3
@@ -355,7 +364,8 @@ contacts:
   type: Triad Johnson
   archetype: Triad Johnson
   region: SEA
-  description: "Uses: Business and economics, getting jobs, triads (Shadowrun Missions Seattle) | Types: Criminal, Matrix (Not available after 2081-24) | SRM 2081-02 Urgent Care"
+  description: 'Uses: Business and economics, getting jobs, triads (Shadowrun Missions
+    Seattle) | Types: Criminal, Matrix | SRM 2081-02 Urgent Care'
 - name: Kingston
   connection: 2
   loyalty: 2
@@ -363,7 +373,8 @@ contacts:
   type: Shadowrunner/Street Samurai
   archetype: Shadowrunner/Street Samurai
   region: SEA
-  description: "Uses: Shadowrunners, street rumors (Shadowrun Missions Seattle) | Types: Criminal, Street | SRM 2081-02 Urgent Care"
+  description: 'Uses: Shadowrunners, street rumors (Shadowrun Missions Seattle) |
+    Types: Criminal, Street | SRM 2081-02 Urgent Care'
 - name: Ms. Margaret
   connection: 1
   loyalty: 1
@@ -371,7 +382,8 @@ contacts:
   type: Hospital Volunteer
   archetype: Hospital Volunteer
   region: SEA
-  description: "SRM 2081-02 Urgent Care (Elderly Human Hospital Volunteer who needs her roof fixed)"
+  description: SRM 2081-02 Urgent Care (Elderly Human Hospital Volunteer who needs
+    her roof fixed)
 - name: Simon Andrews
   connection: 5
   loyalty: 1
@@ -379,7 +391,7 @@ contacts:
   type: S-K Johnson
   archetype: S-K Johnson
   region: AMS
-  description: "CMP 2083-01 Nonplushed (S-K Johnson)"
+  description: CMP 2083-01 Nonplushed (S-K Johnson)
 - name: Mr. Fa
   connection: 4
   loyalty: 1
@@ -387,7 +399,8 @@ contacts:
   type: HKB Corporate Middle Manager
   archetype: HKB Corporate Middle Manager
   region: HK
-  description: "CMP 2083-05 Precious Cargo (Liao Fa Deng, Male Human Corporate Middle Manager)"
+  description: CMP 2083-05 Precious Cargo (Liao Fa Deng, Male Human Corporate Middle
+    Manager)
 - name: Liao Fa Ren
   connection: 3
   loyalty: 2
@@ -395,6 +408,5 @@ contacts:
   type: HK Rookie Journalist
   archetype: HK Rookie Journalist
   region: HK
-  description: "CMP 2083-05 Precious Cargo (Female Human Rookie Journalist, top marks on port raid story)"
-
-
+  description: CMP 2083-05 Precious Cargo (Female Human Rookie Journalist, top marks
+    on port raid story)

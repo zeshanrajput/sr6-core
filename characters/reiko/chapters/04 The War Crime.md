@@ -8,7 +8,7 @@ The Mitsuhama regional host was a zero-zone, a greasy graveyard trench of black 
 
 Reiko drew her spark from the master stream to which all resonance returned.
 
-"I am past the second threshold," she transmitted on a private audio link, her voice clear and low. Her avatar's blue silk slid through the dark, the glowing pathways on her skin pulsing in rhythm with the host’s clock. Beside her, Taz, her companion routine manifesting as a glitchy, 8-bit whirlwind, was busy tearing at the peripheral veils. "The datastore is ahead. It is suffocating in here. The security architecture is stifling."
+"I am past the second threshold," she transmitted on a private audio link, her voice clear and low. Her blue silk kimono slid through the dark, the glowing pathways on her skin pulsing in rhythm with the host’s clock. Beside her, Taz, her companion routine manifesting as a glitchy, 8-bit whirlwind, was busy tearing at the peripheral veils. "The datastore is ahead. It is suffocating in here. The security architecture is stifling."
 
 “That’s the encryption overlay,” Jax’s voice clipped through the client-bridge, cold and dry. “Clear your buffer and dump the payload.”
 

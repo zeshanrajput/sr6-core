@@ -74,7 +74,7 @@ print(get_drone_action_table("yuriko", "man-at-arms", mode="remote_ar"))
 
 ### 2. Inhabited Override Operation (Sprite Power *Override*)
 
-Reiko can also operate drones using the *Override* Sprite Power [SR6H p. 194], which allows her to replace the drone's pilot with herself (acting as a sprite with a Level equal to her Resonance). Because this is now a test involving her Resonance pool, her Resonance Focus applies [HnS p. 71], alongside Taz's Assassin Sprite Symbiosis and Diagnosis support.
+Reiko can also operate drones using the *Override* Sprite Power [SR6H p. 194], which allows her to replace the drone's pilot with herself (acting as a sprite with a Level equal to her Resonance). For tests using the drone's Pilot (such as Piloting, Evasion, and Stealth), this test involves her Resonance pool and her Resonance Focus applies [HnS p. 71], alongside Taz's Assassin Sprite Symbiosis and Diagnosis support. For tests based on Sensor (such as Targeting Autosoft and Clearsight), the pool pairs the autosoft with the drone's augmented Sensor rating without Resonance Focus.
 
 ```{python}
 #| echo: false

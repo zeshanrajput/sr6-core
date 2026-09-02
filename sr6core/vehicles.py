@@ -251,9 +251,9 @@ def calculate_drone_action_pools(
         piloting_pool = active_d + inhabited_pilot + focus_bonus + taz_diagnosis
         piloting_breakdown = f"Maneuvering {active_d} + Pilot/RES {inhabited_pilot} + Focus {focus_bonus} + Taz Diagnosis {taz_diagnosis} = {piloting_pool}d6"
 
-        # Targeting R9 (7 effective) + Pilot/RES (9) + Focus (4) + Taz Symbiosis (4) = 24d6
-        gunnery_pool = active_d + inhabited_pilot + focus_bonus + taz_symbiosis
-        gunnery_breakdown = f"Targeting {active_d} + Pilot/RES {inhabited_pilot} + Focus {focus_bonus} + Taz Symbiosis {taz_symbiosis} = {gunnery_pool}d6"
+        # Targeting R9 (7 effective) + Sensor (7) + Taz Symbiosis (4) = 18d6 (Sensor-based test; Resonance Focus does not apply)
+        gunnery_pool = active_d + sensor_val + taz_symbiosis
+        gunnery_breakdown = f"Targeting {active_d} + Sensor {sensor_val} + Taz Symbiosis {taz_symbiosis} = {gunnery_pool}d6"
 
         # Evasion R9 (7 effective) + Pilot/RES (9) + Focus (4) + Taz Symbiosis (4) = 24d6
         evasion_pool = active_d + inhabited_pilot + focus_bonus + taz_symbiosis
@@ -273,9 +273,9 @@ def calculate_drone_action_pools(
         piloting_pool = active_d + active_s + taz_diagnosis
         piloting_breakdown = f"Maneuvering {active_d} + Sleaze/REA {active_s} + Taz Diagnosis {taz_diagnosis} = {piloting_pool}d6"
 
-        # Gunnery: Targeting (7) + Data Proc/AGI (7) + Taz Symbiosis (4) = 18d6
-        gunnery_pool = active_d + active_d + taz_symbiosis
-        gunnery_breakdown = f"Targeting {active_d} + Data Proc/AGI {active_d} + Taz Symbiosis {taz_symbiosis} = {gunnery_pool}d6"
+        # Gunnery/Targeting: Targeting (7) + Sensor (7) + Taz Symbiosis (4) = 18d6
+        gunnery_pool = active_d + sensor_val + taz_symbiosis
+        gunnery_breakdown = f"Targeting {active_d} + Sensor {sensor_val} + Taz Symbiosis {taz_symbiosis} = {gunnery_pool}d6"
 
         # Evasion: Evasion (7) + Sleaze/REA (9) + Taz Symbiosis (4) = 20d6
         evasion_pool = active_d + active_s + taz_symbiosis
@@ -288,6 +288,20 @@ def calculate_drone_action_pools(
         # Stealth: Stealth (7) + Data Proc/AGI (7) + Taz Symbiosis (4) + Sneak-Sneak (2) = 20d6
         stealth_pool = active_d + active_d + taz_symbiosis + 2
         stealth_breakdown = f"Stealth {active_d} + Data Proc/AGI {active_d} + Taz Symbiosis {taz_symbiosis} + Tactical Soft 2 = {stealth_pool}d6"
+
+    elif mode == "sprite_override":
+        # Mode: Sprite Override (Level 7 Companion / Registered Sprite)
+        sprite_rating = 7
+        piloting_pool = active_d + sprite_rating + taz_diagnosis
+        piloting_breakdown = f"Maneuvering {active_d} + Sprite Pilot {sprite_rating} + Taz Diagnosis {taz_diagnosis} = {piloting_pool}d6"
+        gunnery_pool = active_d + sensor_val + taz_symbiosis
+        gunnery_breakdown = f"Targeting {active_d} + Sensor {sensor_val} + Taz Symbiosis {taz_symbiosis} = {gunnery_pool}d6"
+        evasion_pool = active_d + sprite_rating + taz_symbiosis
+        evasion_breakdown = f"Evasion {active_d} + Sprite Pilot {sprite_rating} + Taz Symbiosis {taz_symbiosis} = {evasion_pool}d6"
+        perception_pool = active_d + sensor_val + taz_symbiosis
+        perception_breakdown = f"Clearsight {active_d} + Sensor {sensor_val} + Taz Symbiosis {taz_symbiosis} = {perception_pool}d6"
+        stealth_pool = active_d + sprite_rating + taz_symbiosis
+        stealth_breakdown = f"Stealth {active_d} + Sprite Pilot {sprite_rating} + Taz Symbiosis {taz_symbiosis} = {stealth_pool}d6"
 
     else:
         # Mode 3: Autopilot

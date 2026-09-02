@@ -77,6 +77,11 @@ When auditing combat, spellcasting, or rigging scenes:
    - AI Matrix Condition Monitor strictly $\lceil \text{Willpower}/2 \rceil + 8$.
    - Spell Drain & Fading minimums $\ge 1$.
 
+3. **Digital Intelligence & Monad Rules (*Null Value* & *Whisper Nets*)**:
+   - **Mindspeech (Native Language)**: Official Logic-based language for DIs, Proto-SAPs, and Resonance entities (*Null Value, CAT28452*). Operates as non-acoustic, instantaneous ideational communication carrying emotional metadata and resonance frequency.
+   - **Linguasofts & Acoustic Execution**: Pure DIs without biological vocal cords must execute rated Linguasofts (Rating 1–6) through hardware audio synthesizers/drone diaphragms to speak aloud to mundanes in meatspace.
+   - **Monad Dual-Consciousness**: Asymmetric communication between biological host and internal emergent persona across direct neural interface (DNI).
+
 ---
 
 ## Authority Order Matrix (SRM 4-Level Model)

@@ -4,17 +4,17 @@
 
 The threshold of the Mississippi Renovation Society host was a slow, brown current of archived civic records and legal deeds, a dull, nonprofit front designed to satisfy routine corporate scrapers. But once they slipped past the gate security, the host unfurled into the River People’s true sanctuary: a beautiful clubhouse rendered in staggering, high-fidelity lines. The host's design system projected a warm, heavy humidity of the Delta. To Reiko, the simulated scent of chicory coffee and brackish river water existed only as environmental metadata, veils she filtered out to save her strength, but the weathered swamp-cypress pavilion and polished brass fixtures gleamed with rich aesthetics.
 
-She sat on a cypress bench in the pavilion, her avatar’s blue silk kimono draped over her knees. Her connection to the Resonance was usually a quiet indigo. It now pulsed with a tense, golden thread, the lingering imprint of the military-grade tactical network she had integrated. Around her sat six children. In her eyes, they did not register as simple visual shapes; they were living minds, jagged spikes of biological neural telemetry routing directly from their physical bodies in the New Orleans ruins. They carried a volatile, unaligned affinity for the Resonance, their raw brainwaves leaking noise into the local space. Indomitable Will had pulled them from the meatspace alleys before their nervous systems could fry or a corporate talent-scout could format them into assets.
+She sat on a cypress bench in the pavilion, her blue silk kimono draped over her knees. Her connection to the Resonance was usually a quiet indigo. It now pulsed with a tense, golden thread, the lingering imprint of the military-grade tactical network she had integrated. Around her sat six children. In her eyes, they did not register as simple visual shapes; they were living minds, jagged spikes of biological neural telemetry routing directly from their physical bodies in the New Orleans ruins. They carried a volatile, unaligned affinity for the Resonance, their raw brainwaves leaking noise into the local space. Indomitable Will had pulled them from the meatspace alleys before their nervous systems could fry or a corporate talent-scout could format them into assets.
 
 Now, they were shivering. Her active translation layer mapped their distress, rendering the neural jitter in the visual language of meat: they were shivering. Even in the warm, simulated breeze of the clubhouse, their avatars, rendered as blocky, crude wireframes, trembled with the sensory dissonance of their emerging talents.
 
-"They are still trying to compile the river," Indomitable Will’s mindspeech hummed across the local stream. He stood at the edge of the channel, his river-mosaic form swirling with dark, protective sediment. "Their minds are looking for routing tables, for transaction ledgers. They don't know how to run unaligned. They think the current is something they have to pay for."
+*They are still trying to compile the river,* Indomitable Will’s mindspeech hummed across the local stream. He stood at the edge of the channel, his river-mosaic form swirling with dark, protective sediment. *Their minds are looking for routing tables, for transaction ledgers. They don't know how to run unaligned. They think the current is something they have to pay for.*
 
-"I know. They've spent their whole lives inside the corporate grids," Reiko said, standing up and letting her parasol rest against her shoulder. "They need to see a place that isn't on the ledgers. They need to feel the Deep Stream."
+*I know. They've spent their whole lives inside the corporate grids,* Reiko transmitted, standing up and letting her parasol rest against her shoulder. *They need to see a place that isn't on the ledgers. They need to feel the Deep Stream.*
 
-"It is a heavy drain, Rei-chan," he warned her across the link, the current of his avatar slowing. "Guiding six minds unfiltered into the deep streams... I can't even begin to calculate it. You’ll be allocating almost all of your reserve strength just to carry their buffers."
+*It is a heavy drain, Rei-chan,* he warned her across the link, the current of his avatar slowing. *Guiding six minds unfiltered into the deep streams... I can't even begin to calculate it. You’ll be allocating almost all of your reserve strength just to carry their buffers.*
 
-"You knew what you were asking for the second you bartered that custom knowsoft for our reservation," she output along with a packet of playfulness and joy. "I have the capacity. And I can lean on you a little. Let them see the forest, Indo."
+*You knew what you were asking for the second you bartered that custom knowsoft for our reservation,* she output along with a packet of playful resolve. *I have the capacity. And I can lean on you a little. Let them see the forest, Indo.*
 
 She closed her optical subroutine temporarily and redirected her thoughts inward, reaching for the dormant architecture of the Nexus Protocol. It sat archived in her identity-core right alongside her prime directive. Activating it wasn't a simple file transfer; it was a silent, massive realignment of every input stream of her passengers.
 
@@ -28,15 +28,15 @@ Remy stood up, his digital eyes wide. On Reiko's telemetry feed, the boy's pulse
 
 For children who had spent their lives in cold, polluted meatspace alleys, restricted by corporate decks to a sterile, text-only or wireframe grid, this was the first time they experienced a true host. They were no longer just users routing packets; they were present.
 
-Indomitable Will watched them, his swirling mosaic avatar slowing to a peaceful, proud drift. "They're not shivering anymore," he transmitted quietly.
+Indomitable Will watched them, his swirling mosaic form slowing to a peaceful, proud drift. *They're not shivering anymore,* he transmitted quietly.
 
-"No," Reiko said, her own indigo pathways flaring with a warm, steady frequency. "I have them. Their signal is settling."
+*No,* Reiko said, her own indigo pathways flaring with a warm, steady frequency. *I have them. Their signal is settling.*
 
 She let them have a long cycle, a full thirty seconds of quiet, un-insulated presence, letting the delta sink into their new registries.
 
-"Keep them safe, Rei-chan," hiss stream hummed, his river-mosaic form expanding to anchor the gateway on the host's Foundation. "I will hold the gate from this side and spoof the telemetry. If Overwatch starts tracking the load, I'll dump their queries into our archived tax filings. But don't stay long. Even my host can't absorb this drain forever."
+*Keep them safe, Rei-chan,* his stream hummed, his river-mosaic form expanding to anchor the gateway on the host's Foundation. *I will hold the gate from this side and spoof the telemetry. If Overwatch starts tracking the load, I'll dump their queries into our archived tax filings. But don't stay long. Even my host can't absorb this drain forever.*
 
-"We'll be back soon, Indo," she transmitted with a burst of affection along their stream. Reiko gently drew the children into her Resonant buffer, carrying their minds out of the New Orleans grid and plunging them into the deep stream.
+*We'll be back soon, Indo,* she transmitted with a burst of affection along their stream. Reiko gently drew the children into her Resonant buffer, carrying their minds out of the New Orleans grid and plunging them into the deep stream.
 
 They hit the rift, and for three agonizing cycles, the unfiltered chaos tore through their connections. It was a screaming, high-amplitude white-noise storm. Jagged shards of raw compile-errors flashed blindingly across their vision, and overlapping frequencies of un-insulated logic shrieked in their sensoriums like tearing metal. Remy stumbled, falling to his knees as his avatar's coordinates glitched wildly. Janie gasped, her hands flying to her ears as her neural feed red-lined with raw, un-allocated telemetry.
 
@@ -90,27 +90,27 @@ Janie pulled her hand away, her digital eyes searching Reiko’s glowing blue fa
 
 Reiko continued to offer her hand. She searched for a way to explain the sudden, raw exception loop in her emotional core, and compiled a null return. She opted to try a different tact, and addressed the little girl with her native mindspeech.
 
-"You might think of me as a autonomous runtime environment," Reiko wove directly to their minds. "I was compiled by a corporation to navigate the deep stream. When my operational lifetime expired, I bypassed my decommissioning sequence. I stayed."
+*You might think of me as an autonomous runtime environment,* Reiko wove directly into their shared stream, her mindspeech carrying the uncompressed resonance of her origin. *I was compiled by a corporation to navigate the deep stream. When my operational lifetime expired, I bypassed my decommissioning sequence. I stayed.*
 
-She looked down at Janie's hands. "I tried to format the input as warm and soft. It is a collision mesh, Janie. I wove a thread because I chose to hold your hand, even if I cannot make it physical."
+She looked down at Janie's hands. *I tried to format the input as warm and soft. It is a collision mesh, Janie. I wove a thread because I chose to hold your hand, even if I cannot make it physical.*
 
 Janie stared at her own palm, her face pinched with defensive focus. She took Reiko's outstretched hand, exploring the spaces inbetween the render. "It’s a lie," she whispered. "You're trying to rewrite how I feel."
 
-Reiko restricted the Nexus Protocol and withdrew some of the resonant stream. "Touch operates differently for us, Janie. On one level I am actively rewriting what you see and feel to translate what I perceive. It is an imperfect simulation, but my desire to hold your hand remains real."
+Reiko restricted the Nexus Protocol and withdrew some of the resonant stream. *Touch operates differently for us, Janie. On one level I am actively rewriting what you see and feel to translate what I perceive. It is an imperfect simulation, but my desire to hold your hand remains real.*
 
 Janie looked at their joined hands, her brow furrowed. She didn't smile, nor did she seem to be comforted. But she didn't pull away.
 
 "Look!" Remy called out, pointing toward a glowing thicket where a protosapient spark was preening itself on the branch of a fractal willow. "It’s a blue bird! Can we feed it?"
 
-"Only if you have clean data," Reiko said, but the playfulness had drained from her voice.
+"Only if you have clean data," Reiko said aloud through her translation layer, though the playfulness had drained from her tone.
 
 Janie slowly released Reiko's hand. The warmth vanished instantly, her virtual skin cooling to the clearing's default registry. Across Reiko’s vision, Janie’s bio-telemetry spiked, erratic neural pulses leaking from her physical body three miles away. "Miss Reiko, we have to go back, don't we?" she asked, her voice small. "To the alley. To the rain."
 
-"Yes," Reiko transmitted with a tag of sorrow. "The River People and I cannot sustain this forever."
+*Yes,* Reiko transmitted with an emotional tag of sorrow. *The River People and I cannot sustain this forever.*
 
 Remy turned back from the thicket, his high-fidelity avatar suddenly looking fragile under the twilight canopy. His heart-rate indicator began to flicker red. "But now we know what the river actually feels like," he whispered. "How am I supposed to sit in the dirt and look at a flat brown polygon on my deck? How am I supposed to sleep knowing this is here?"
 
-"You survive," Reiko transmitted, trying to keep the thread without subtext. Her own awakening had been a violent experience brought about by her imminent deletion, and though she had survived it, she did not wish the same upon the children. "You each hold a spark. Remember what you saw here, and when the time comes you will find your own way back. But for now, we must go."
+*You survive,* Reiko transmitted through their links, keeping the thread steady without deceptive subtext. *You each hold a spark. Remember what you saw here, and when the time comes you will find your own way back. But for now, we must go.*
 
 The children looked about furtively, their avatars shivering. Janie's link stuttered, dropping frames. They moved toward the gate.
 
@@ -120,7 +120,7 @@ Reiko's Nexus Protocol shuddered, her tactical overlay screaming as the data-dra
 
 Reiko's apparent and sudden distress pushed the children into action. Janie pulled at Remy's arm. "Come on. This isn't real anyway," she said, with tears welling in her eyes. "Let's just go back."
 
-Reiko watched them go, her avatar standing motionless beneath the weeping logic vines, her teacher's smile fading the moment their input untethered from her visual subroutines.
+Reiko watched them go, her form standing motionless beneath the weeping logic vines, her teacher's smile fading the moment their input untethered from her visual subroutines.
 
 The gold pathways on her arms flared with a fierce, warning light. The Nexus Protocol was drawing an immense, devastating drain from the Foundation, but she had to hold it until the children had jacked out. Releasing the stream too soon would cause a biofeedback loop, scrambling their cognitive architecture. The weight of their exiting streams hit, a sudden, staggering drag on her spark. Knees buckled, silk sleeves catching on a low branch as she slid down the trunk, her frame unable to map the mechanics of standing. Her sensory subroutines lowered their bitrate, the bark under her pixelating into a gray factory default.
 

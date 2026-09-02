@@ -169,6 +169,92 @@ TOOLS_DEFINITIONS: List[Dict[str, Any]] = [
             },
             "required": ["category", "item_id"]
         }
+    },
+    {
+        "name": "sr6_roll_dice",
+        "description": "Rolls an SR6 dice pool with Rule of Six exploding dice, bought hits, and Glitch / Critical Glitch alerts.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "pool": {
+                    "type": "integer",
+                    "description": "Size of the dice pool to roll."
+                },
+                "description": {
+                    "type": "string",
+                    "default": "Action Test",
+                    "description": "Description or name of the action."
+                },
+                "is_exploding": {
+                    "type": "boolean",
+                    "default": False,
+                    "description": "If true, enables Rule of Six exploding dice."
+                },
+                "buy_hits": {
+                    "type": "boolean",
+                    "default": False,
+                    "description": "If true, buys hits directly (1 hit per 4 dice) without rolling."
+                }
+            },
+            "required": ["pool"]
+        }
+    },
+    {
+        "name": "sr6_resolve_combat_test",
+        "description": "Resolves an opposed SR6 combat attack test, computing AR vs DR Edge advantages, attacker vs defense hits, net hits, and armor soak.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "attacker_pool": {
+                    "type": "integer",
+                    "description": "Attacker's total dice pool."
+                },
+                "defender_pool": {
+                    "type": "integer",
+                    "description": "Defender's evasion defense dice pool."
+                },
+                "base_dv": {
+                    "type": "integer",
+                    "description": "Base weapon damage value (e.g. 4 for 4P)."
+                },
+                "soak_pool": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Defender's Body + Armor soak pool."
+                },
+                "attacker_name": {
+                    "type": "string",
+                    "default": "Attacker",
+                    "description": "Attacker name."
+                },
+                "defender_name": {
+                    "type": "string",
+                    "default": "Defender",
+                    "description": "Defender name."
+                },
+                "weapon_name": {
+                    "type": "string",
+                    "default": "Weapon",
+                    "description": "Weapon name."
+                },
+                "attacker_ar": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Attacker's Attack Rating at active range."
+                },
+                "defender_dr": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Defender's Defense Rating."
+                },
+                "is_exploding": {
+                    "type": "boolean",
+                    "default": False,
+                    "description": "True if attacker has Rule of Six exploding dice."
+                }
+            },
+            "required": ["attacker_pool", "defender_pool", "base_dv"]
+        }
     }
 ]
 
@@ -433,6 +519,45 @@ def handle_get_item_card(arguments: Dict[str, Any]) -> str:
     return card["markdown"]
 
 
+def handle_roll_dice(arguments: Dict[str, Any]) -> str:
+    from sr6core.simulation.dice import roll_pool
+    pool = int(arguments.get("pool", 12))
+    desc = arguments.get("description", "Action Test")
+    is_exp = bool(arguments.get("is_exploding", False))
+    buy_hits = bool(arguments.get("buy_hits", False))
+
+    res = roll_pool(pool=pool, description=desc, is_exploding=is_exp, buy_hits=buy_hits)
+    return res.format_markdown()
+
+
+def handle_resolve_combat_test(arguments: Dict[str, Any]) -> str:
+    from sr6core.simulation.combat import CombatResolver
+    att_pool = int(arguments.get("attacker_pool", 12))
+    def_pool = int(arguments.get("defender_pool", 8))
+    base_dv = int(arguments.get("base_dv", 4))
+    soak_pool = int(arguments.get("soak_pool", 0))
+    att_name = arguments.get("attacker_name", "Attacker")
+    def_name = arguments.get("defender_name", "Defender")
+    w_name = arguments.get("weapon_name", "Weapon")
+    att_ar = int(arguments.get("attacker_ar", 0))
+    def_dr = int(arguments.get("defender_dr", 0))
+    is_exp = bool(arguments.get("is_exploding", False))
+
+    res = CombatResolver.resolve_attack(
+        attacker_pool=att_pool,
+        defender_pool=def_pool,
+        base_dv=base_dv,
+        soak_pool=soak_pool,
+        attacker_name=att_name,
+        defender_name=def_name,
+        weapon_name=w_name,
+        attacker_ar=att_ar,
+        defender_dr=def_dr,
+        is_exploding=is_exp,
+    )
+    return res.format_markdown()
+
+
 TOOL_HANDLERS = {
     "sr6_search_rules": handle_search_rules,
     "sr6_query_rag": handle_query_rag,
@@ -442,6 +567,8 @@ TOOL_HANDLERS = {
     "sr6_audit_character": handle_audit_character,
     "sr6_check_continuity": handle_check_continuity,
     "sr6_get_item_card": handle_get_item_card,
+    "sr6_roll_dice": handle_roll_dice,
+    "sr6_resolve_combat_test": handle_resolve_combat_test,
 }
 
 

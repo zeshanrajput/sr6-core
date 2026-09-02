@@ -1,194 +1,228 @@
 identity:
   name: Venn (Nathan & Veronica)
+  real_name: Nathan & Veronica Turrent
   handle: Venn
   id: venn
   metatype: Human
   system: shadowrun6e
-  source_book: "Sixth World Companion / Whisper Nets / Body Shop"
-  archetype: "Monad Cyborg Street Decker & Infiltrator"
-  heritage: "Monad Dual Consciousness (Nathan: Human biological host / Veronica: Emergent AI fork sister)"
+  source_book: Sixth World Companion / Whisper Nets / Body Shop
+  archetype: Monad Cyborg Street Decker & Infiltrator
+  heritage: 'Monad Dual Consciousness (Nathan: Human biological host / Veronica: Emergent
+    AI fork sister)'
   nanite_volume: 6
-  nuyen: 3950
-  karma: 0
-  total_karma: 0
-
+  nuyen: 5000
+  karma: 1
+  total_karma: 1
 attributes:
   body: 5
   agility: 7
   reaction: 2
   strength: 4
   willpower: 7
-  logic: 7
+  logic: 6
   intuition: 5
   charisma: 2
   edge: 7
   resonance: 0
   magic: 0
-  essence: 0.43
-
+  essence: 0.49
 living_persona:
   asdf_bonuses:
     attack: 0
     sleaze: 1
-    data_processing: 1
+    data_processing: 2
     firewall: 2
-  notes: "Monad Matrix Attributes (Whisper Nets p. 149): Base Attack=CHA 2, Sleaze=INT 5, Data Processing=LOG 7, Firewall=WIL 7 boosted by 6 Nanite Volume (NV=6) points -> A:2 S:6 D:8 F:9 with 15d6 Full Matrix Defense (17d6 active)."
-
+  notes: 'Monad Matrix Attributes (Whisper Nets p. 149): Base Attack=CHA 2, Sleaze=INT
+    5 + NV 1 = 6, Data Processing=LOG 6 + NV 2 = 8, Firewall=WIL 7 + NV 2 = 9 boosted
+    by 6 Nanite Volume (NV=6) points -> A:2 S:6 D:8 F:9 with 15d6 Full Matrix Defense
+    (17d6 active).'
 monad_abilities:
-  - name: Monad Matrix Attributes
-    effect: "Internal nanite swarm synthesizes Living Persona ASDF (A:2 S:6 D:8 F:9) with 15d6 Full Matrix Defense (17d6 active under Willpower 7)."
-  - name: Resculpt
-    effect: "Extended INT + NV (16, 1 combat round) test to alter physical biological appearance and voice."
-  - name: Monad Toughness
-    effect: "Adds +3 Condition boxes (NV/2) to Condition Monitors (+2 Physical, +1 Stun -> 14 Physical [10 base + 2 Redliner + 2 Monad], 13 Stun boxes [12 base + 1 Monad]), shifts all wound penalties down by 1."
-  - name: Physical Attribute Boost
-    effect: "Minor Action; roll NV test (6 dice). With 4-Edge boost (13 exploding dice), rolling >= 3 hits (89.4%) or >= 4 hits (76.2%) adds +4 Minor Actions or physical attribute boosts for hits in combat rounds. When ended, decreases NV by total boost for 1 minute."
-  - name: Rapid Healing
-    effect: "Minor or Major Action cellular nanite repair to reduce Condition Monitor damage."
-  - name: Adrenal Control
-    effect: "Minor Action; WIL + NV (2) test (13d6 dice pool) to remain conscious when mortally wounded or stunned."
-
+- name: Monad Matrix Attributes
+  effect: Internal nanite swarm synthesizes Living Persona ASDF (A:2 S:6 D:8 F:9)
+    with 15d6 Full Matrix Defense (17d6 active under Willpower 7).
+- name: Resculpt
+  effect: Extended INT + NV (16, 1 combat round) test to alter physical biological
+    appearance and voice.
+- name: Monad Toughness
+  effect: Adds +3 Condition boxes (NV/2) to Condition Monitors (+2 Physical, +1 Stun
+    -> 14 Physical [10 base + 2 Redliner + 2 Monad], 13 Stun boxes [12 base + 1 Monad]),
+    shifts all wound penalties down by 1.
+- name: Physical Attribute Boost
+  effect: Minor Action; roll NV test (6 dice). With 4-Edge boost (13 exploding dice),
+    rolling >= 3 hits (89.4%) or >= 4 hits (76.2%) adds +4 Minor Actions or physical
+    attribute boosts for hits in combat rounds. When ended, decreases NV by total
+    boost for 1 minute.
+- name: Rapid Healing
+  effect: Minor or Major Action cellular nanite repair to reduce Condition Monitor
+    damage.
+- name: Adrenal Control
+  effect: Minor Action; WIL + NV (2) test (13d6 dice pool) to remain conscious when
+    mortally wounded or stunned.
 qualities:
   positive:
-    - name: Augmentation Acclimation
-      rating: 10
-    - name: Redliner
-    - name: Cyber Singularity Seeker
-    - name: Maximum Overdrive
+  - name: Augmentation Acclimation
+    rating: 9
+  - name: Redliner
+  - name: Cyber Singularity Seeker
+  - name: Maximum Overdrive
   negative:
-    - name: Cyberpsychosis
-      rating: 3
-    - name: Hooder
-      rating: 3
-
-skills:
-  - name: Electronics
-    id: electronics
-    attribute: Logic
-    rating: 6
-    specialization: Computer
-  - name: Native Language (English)
-    id: language
-    attribute: Logic
-    rating: 4
-
-knowledge_skills:
-  - name: Small Unit Tactics
-    attribute: Logic
-  - name: Espionage Techniques
-    attribute: Logic
-  - name: Security Systems
-    attribute: Logic
-  - name: Resonance Realms
-    attribute: Logic
-  - name: UnITy (Unified Information Theory)
-    attribute: Logic
-
-cyberware:
-  - name: Left Synthetic Cyberarm
-    ref: cyberarm
-    grade: standard
-    category: cyberware
-    notes: "Base AGI 2 / STR 2 + Agility [+3] mod (3 Cap used). With Redliner operates at AGI 7 / STR 4 (AGI 9 / STR 6 Overdriven). 5 Capacity Open."
-  - name: Right Synthetic Cyberarm
-    ref: cyberarm
-    grade: standard
-    category: cyberware
-    notes: "Base AGI 2 / STR 2 + Agility [+3] mod (3 Cap used). With Redliner operates at AGI 7 / STR 4 (AGI 9 / STR 6 Overdriven). 5 Capacity Open."
-  - name: Left Synthetic Cyberleg
-    ref: cyberleg
-    grade: standard
-    category: cyberware
-    notes: "Base AGI 2 / STR 2 + Agility [+3] mod (3 Cap used). With Redliner operates at AGI 7 / STR 4 (AGI 9 / STR 6 Overdriven). 7 Capacity Open."
-  - name: Right Synthetic Cyberleg
-    ref: cyberleg
-    grade: standard
-    category: cyberware
-    notes: "Base AGI 2 / STR 2 + Agility [+3] mod (3 Cap used). With Redliner operates at AGI 7 / STR 4 (AGI 9 / STR 6 Overdriven). 7 Capacity Open."
-  - name: Bone Density Augmentation
-    ref: bone_density_augmentation
-    rating: 4
-    grade: betaware
-    category: bioware
-    notes: "+4 Body for damage resistance soak (9 Soak unarmored), 4P Unarmed DV, +3 Attack Rating (SR6 Core p. 286 / Body Shop p. 101; 0.84 Ess, 30,000¥, Avail 6L)."
-  - name: Skilljack
-    ref: skilljack
-    rating: 6
-    grade: used
-    category: cyberware
-    notes: "Base 120,000¥ / 0.60 Ess -> Used 60,000¥ / 0.66 Ess. Wireless Bonus: Max total rating limit = R6 x 4 = 24. Edge can be used on associated tests."
-  - name: Skillwires
-    ref: skillwires
-    rating: 6
-    grade: used
-    category: cyberware
-    notes: "Base 120,000¥ / 0.60 Ess -> Used 60,000¥ / 0.66 Ess. Wireless Bonus: Memory cache expanded, grants +1 dice pool modifier to all skills used through skillwires."
-  - name: Math SPU
-    ref: math_spu
-    grade: standard
-    category: cyberware
-    notes: "-1 Edge cost on technical/Logic tests (-2 when overdriven with +1 wild die and +1 Edge gained via Maximum Overdrive); Body Shop p. 5; 0 Bad Luck penalty."
-  - name: Cerebral Booster Enhancer
-    ref: cerebral_booster_enhancer
-    grade: alphaware
-    category: geneware
-    notes: "Geneware augmentics permanently granting +1 Logic (Logic 6 -> 7); stacks with future Cerebral Boosters; 0.16 Ess, 48,000¥, Avail 6L."
-
-activesofts:
-  - name: Firearms Activesoft
-    rating: 6
-    category: activesoft
-    attribute: agility
-    notes: "Purchased with Nuyen (30,000¥). Runs on Skillwires R6 with Wireless-ON (+1) for 7 skill dice (14d6 with Cyberarm AGI 7, 16d6 with Smartlink, 18d6 when Overdriven to AGI 9)."
-  - name: Cracking Activesoft
-    rating: 5
-    category: activesoft
-    attribute: logic
-    notes: "Coded with Karma (6 Karma @ 1 Karma / 4,000¥). Runs on Skillwires R6 with Wireless-ON (+1) for 6 skill dice (13d6 with LOG 7)."
-
-weapons:
-  - name: Colt Manhunter
-    category: heavy_pistol
-    damage: 4P
-    attack_rating: "8/8/6/-/-"
-    modes: "SA"
-    ammo: "16(c)"
-    accessories:
-      - "Smartlink"
-      - "Silencer"
-      - "Concealed Holster"
-    notes: "Smartlink (+2 AR), Concealed holster, Silencer, 5 spare clips, 100 regular, 100 gel rounds."
-
-armors:
-  - name: "Securetech SkinShield (w/ Ballistic Hood)"
-    defense_rating: 3
-    notes: "+2 DR form-fitting under-armor, +1 DR Ballistic Hood (Firing Squad p. 3 / Seattle p. 5). Invisible under normal street clothes with 0 Social penalty."
-
-vehicles: []
-
-commlinks:
-  - name: Renraku Sensei
-    device_rating: 3
-    data_processing: 3
-    firewall: 1
-    notes: "Everyday burner commlink and legal SIN broadcast. Veronica uses Monad Living Persona for all Shadow Matrix operations."
-
-gear:
-  - name: Contacts (Rating 3 w/ Flare Comp, Smartlink)
+  - name: Cyberpsychosis
     rating: 3
-  - name: Savior Medkit (Rating 6 w/ 1x Refill)
-    rating: 6
-
-sins: []
-
+  - name: Hooder
+    rating: 3
+martial_arts:
+- name: Tae Kwon Do
+  style: Striking
+  techniques:
+  - name: Kick Attack
+    notes: +1 DV to unarmed attacks, extends Close range by +2m.
+  - name: Flying Kick
+    notes: 'Signature Technique: Minor Action + Athletics + Agility (threshold 1 hit
+      via Jacks R2) to add +2 DV and leap 5+ meters.'
+  notes: Combines with Bone Density 4 (4P) for 7P Base Physical Damage leaping kick
+    strikes from Day 1!
+skills:
+- name: Electronics
+  id: electronics
+  attribute: Logic
+  rating: 6
+  specialization: Computer
+- name: Athletics
+  id: athletics
+  attribute: Agility
+  rating: 1
+- name: Native Language (English)
+  id: language_english
+  attribute: Logic
+  rating: 4
+  notes: Nathan's native tongue (CAS English dialect).
+- name: Native Language (Mindspeech)
+  id: language_mindspeech
+  attribute: Logic
+  rating: 4
+  notes: Veronica's native DI/Resonance ideational language (Null Value); direct non-acoustic
+    neural communication.
+knowledge_skills:
+- name: Small Unit Tactics
+  attribute: Logic
+- name: Espionage Techniques
+  attribute: Logic
+- name: Security Systems
+  attribute: Logic
+- name: Resonance Realms
+  attribute: Logic
+cyberware:
+- name: Left Synthetic Cyberarm
+  ref: cyberarm
+  grade: standard
+  category: cyberware
+  notes: Base AGI 2 / STR 2 + Agility [+3] mod (3 Cap used). With Redliner operates
+    at AGI 7 / STR 4 (AGI 9 / STR 6 Overdriven). 5 Capacity Open.
+- name: Right Synthetic Cyberarm
+  ref: cyberarm
+  grade: standard
+  category: cyberware
+  notes: Base AGI 2 / STR 2 + Agility [+3] mod (3 Cap used). With Redliner operates
+    at AGI 7 / STR 4 (AGI 9 / STR 6 Overdriven). 5 Capacity Open.
+- name: Left Synthetic Cyberleg
+  ref: cyberleg
+  grade: standard
+  category: cyberware
+  notes: Base AGI 2 / STR 2 + Agility [+3] mod (3 Cap), Retractable Inline Skates
+    (2 Cap), Hydraulic Jacks R2 (2 Cap), Hidden Slide (3 Cap) -> 10/10 Capacity Full.
+    Operates at AGI 7 / STR 4 (9/6 Overdriven).
+- name: Right Synthetic Cyberleg
+  ref: cyberleg
+  grade: standard
+  category: cyberware
+  notes: Base AGI 2 / STR 2 + Agility [+3] mod (3 Cap), Retractable Inline Skates
+    (2 Cap), Hydraulic Jacks R2 (2 Cap), Built-in Utility Kit (2 Cap), Gecko Tips
+    (1 Cap) -> 10/10 Capacity Full. Operates at AGI 7 / STR 4 (9/6 Overdriven).
+- name: Bone Density Augmentation
+  ref: bone_density_augmentation
+  rating: 4
+  grade: betaware
+  category: bioware
+  notes: +4 Body for damage resistance soak (9 Soak unarmored), 4P Unarmed DV, +3
+    Attack Rating (SR6 Core p. 286 / Body Shop p. 101; 0.84 Ess, 30,000¥, Avail 6L).
+- name: Skilljack
+  ref: skilljack
+  rating: 6
+  grade: used
+  category: cyberware
+  notes: 'Base 120,000¥ / 0.60 Ess -> Used 60,000¥ / 0.66 Ess. Wireless Bonus: Max
+    total rating limit = R6 x 4 = 24. Edge can be used on associated tests.'
+- name: Skillwires
+  ref: skillwires
+  rating: 6
+  grade: used
+  category: cyberware
+  notes: 'Base 120,000¥ / 0.60 Ess -> Used 60,000¥ / 0.66 Ess. Wireless Bonus: Memory
+    cache expanded, grants +1 dice pool modifier to all skills used through skillwires.'
+- name: Math SPU
+  ref: math_spu
+  grade: standard
+  category: cyberware
+  notes: -1 Edge cost on technical/Logic tests (-2 when overdriven with +1 wild die
+    and +1 Edge gained via Maximum Overdrive); Body Shop p. 5; 0 Bad Luck penalty.
+activesofts:
+- name: Close Combat Activesoft
+  rating: 6
+  category: activesoft
+  attribute: agility
+  notes: Purchased with Nuyen (30,000¥). Runs on Skillwires R6 with Wireless-ON (+1)
+    for 7 skill dice (14d6 Unarmed pool with Cyberarm AGI 7; 16d6 when Overdriven
+    to AGI 9).
+- name: Cracking Activesoft
+  rating: 6
+  category: activesoft
+  attribute: logic
+  notes: Purchased with Nuyen (30,000¥). Runs on Skillwires R6 with Wireless-ON (+1)
+    for 7 skill dice (13d6 with LOG 6; 17d6 with LOG 10 post-chargen).
+weapons:
+- name: Colt Manhunter
+  category: heavy_pistol
+  damage: 4P
+  attack_rating: 8/8/6/-/-
+  modes: SA
+  ammo: 16(c)
+  accessories:
+  - Smartlink
+  - Silencer
+  - Concealed Holster
+  notes: Smartlink (+2 AR), Concealed holster, Silencer, 5 spare clips, 100 regular,
+    100 gel rounds.
+armors:
+- name: Securetech SkinShield (w/ Ballistic Hood)
+  defense_rating: 3
+  notes: +2 DR form-fitting under-armor, +1 DR Ballistic Hood (Firing Squad p. 3 /
+    Seattle p. 5). Invisible under normal street clothes with 0 Social penalty.
+vehicles: []
+commlinks:
+- name: Renraku Sensei
+  device_rating: 3
+  data_processing: 3
+  firewall: 1
+  notes: Everyday burner commlink and legal SIN broadcast. Veronica uses Monad Living
+    Persona for all Shadow Matrix operations.
+gear:
+- name: Contacts (Rating 3 w/ Flare Comp, Smartlink)
+  rating: 3
+- name: Savior Medkit (Rating 6 w/ 1x Refill)
+  rating: 6
+sins:
+- name: 'Fake Licenses (Rating 4 x2): (1,600¥)'
+  rating: 1
+- name: 'Low Lifestyle (Off-Grid Coastal Boathouse): (2,000¥ / 1st month prepaid)'
+  rating: 1
 licenses:
-  - name: "Fake License: Firearms (Rating 4)"
-    rating: 4
-  - name: "Fake License: Concealed Carry (Rating 4)"
-    rating: 4
-
+- name: 'Fake License: Firearms'
+  sin: 'Fake Licenses (Rating 4 x2): (1,600¥)'
+  rating: 4
+- name: 'Fake License: Concealed Carry'
+  sin: 'Fake Licenses (Rating 4 x2): (1,600¥)'
+  rating: 4
 lifestyles:
-  - name: Low Lifestyle (Off-Grid Coastal Boathouse)
-    monthly_cost: 2000
-
+- name: Low Lifestyle (Off-Grid Coastal Boathouse)
+  monthly_cost: 2000
 contacts: []

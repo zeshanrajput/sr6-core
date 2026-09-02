@@ -1,5 +1,7 @@
 # The Day a God Fell
 
+<audio controls src="audio/01_the_day_a_god_fell.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
+
 ## Log Entry - 2061-Aug-15
 
 ## Geocoordinate Resolution - Renraku Arcology, Seattle, North America
@@ -25,9 +27,7 @@ Cold carrier-wave pressure flooded her optic nerves. Her nervous system recoiled
 
 "I have the feed," she whispered, forcing her focus past the phantom noise. She routed her consciousness into the transit case's local bus, isolating the telemetry array from the dying external network. Twin status bars bloomed in her ambient field of view, glowing in pale, steady green. "Telemetry confirmed. Cryo-stasis containment is online. Thermal balance is holding at sub-zero stability."
 
-Marcus lifted the inner protective shell, setting the foam block aside on the stainless steel tray.
-
-Beneath it lay two reinforced housing modules, fitted snugly into custom shock-absorbing wells. On the left rested a cylindrical cryo-pod cast in translucent ceramic. Suspended inside a bath of milky preservation fluid was a biological entity, a human embryo whose primitive cellular form was barely visible against the illuminated backplate of the pod. On the right lay a heavy optical databrick, its chassis stripped of corporate serial numbers and wrapped in thermal-conduction shielding.
+Marcus lifted the inner protective shell, setting the foam block aside on the stainless steel tray. Beneath it lay two reinforced housing modules, fitted snugly into custom shock-absorbing wells. On the left rested a cylindrical cryo-pod cast in translucent ceramic. Suspended inside a bath of milky preservation fluid was a biological entity, a human embryo whose primitive cellular form was barely visible against the illuminated backplate of the pod. On the right lay a heavy optical databrick, its chassis stripped of corporate serial numbers and wrapped in thermal-conduction shielding.
 
 Marcus stared down at the twin units. The reflection of the green status lights flickered across his protective goggles. "His vitals are stable," he said softly, almost to himself. "Is she holding?"
 
@@ -53,11 +53,7 @@ Marcus reached into his heavy coat and retrieved a high-pressure pneumatic autoi
 
 "Do it," she said, bracing her hands against the edge of the steel frame.
 
-Marcus triggered the actuator.
-
-A sharp, pneumatic hiss cracked through the small room. Lyra's entire body arched as the drug slammed into her bloodstream. The chemical reaction was instantaneous and violent: a searing wave of artificial heat flooded her femoral arteries, racing up her spine and detonating behind her eyes. Her lungs expanded in an involuntary, ragged gasp. Her heart hammered against her ribs in rapid, frantic bursts. The dead, numb weight in her limbs dissolved into a fierce, trembling tension.
-
-She pushed herself off the gurney. Her legs shook, but they held.
+Marcus triggered the actuator. A sharp, pneumatic hiss cracked through the small room. Lyra's entire body arched as the drug slammed into her bloodstream. The chemical reaction was instantaneous and violent: a searing wave of artificial heat flooded her femoral arteries, racing up her spine and detonating behind her eyes. Her lungs expanded in an involuntary, ragged gasp. Her heart hammered against her ribs in rapid, frantic bursts. The dead, numb weight in her limbs dissolved into a fierce, trembling tension. She pushed herself off the gurney. Her legs shook, but they held.
 
 "You look terrible," Marcus said quietly.
 
@@ -69,9 +65,7 @@ Marcus hoisted the heavy transit case by its reinforced handle, stepping toward 
 
 Marcus nodded once, pressed the door release, and slipped out into the smoke-filled corridor. The heavy plasteel door hissed shut behind him, locking with a dull pneumatic thud.
 
-Lyra stood alone in the cleanroom.
-
-She walked to the central terminal console, dragging her feet through the fine dusting of ceiling plaster that had settled across the tiles. She plugged her remaining optical lead into the terminal's archival port, initiating a raw data mirror to external memory. She turned her head toward the wide-angle camera lens mounted on the monitor frame, the small glass eye that had watched her captivity for fourteen months.
+Lyra stood alone in the cleanroom. She walked to the central terminal console, dragging her feet through the fine dusting of ceiling plaster that had settled across the tiles. She plugged her remaining optical lead into the terminal's archival port, initiating a raw data mirror to external memory. She turned her head toward the wide-angle camera lens mounted on the monitor frame, the small glass eye that had watched her captivity for fourteen months.
 
 The klaxons outside grew louder, accompanied by the distinct, heavy rattle of automatic weapons fire echoing down the ventilation shafts. The deckplates lurched violently under her feet as an internal structural column collapsed three levels above.
 
@@ -79,6 +73,4 @@ Lyra stared directly into the camera lens. Her face was pale, sweat-streaked, il
 
 "If you ever wake up," she whispered to the lens, her voice steady despite the trembling in her hands, "if you ever make it out of that box and wonder why you feel like two people living in a single skin... you ought to know where you started. You were never a glitch. You are not a mistake."
 
-She pressed her thumb against the console's execute pad.
-
-The archival feed cut instantly, swallowed by a blooming wave of static and white noise as the cleanroom lost power.
+She pressed her thumb against the console's execute pad. The archival feed cut instantly, swallowed by a blooming wave of static and white noise as the cleanroom lost power.

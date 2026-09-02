@@ -1,0 +1,181 @@
+# Character Creation (Point Buy)
+
+This page tracks the character creation process using the Point Buy system (Sixth World Companion).
+
+```{python}
+#| echo: false
+#| include: false
+# Initial stats
+Firewall = 0
+Data_Processing = 0
+Sleaze = 0
+Attack = 0
+Willpower = 0
+Logic = 0
+Intuition = 0
+Charisma = 0
+Resonance = 0
+Edge = 0
+
+Tasking = 0
+Electronics = 0
+Cracking = 0
+Influence = 0
+Con = 0
+
+Karma = 0
+Nuyen = 0
+Contact_Points = 0
+Character_Points = 0
+
+def inc(name, amount=1):
+    globals()[name] += amount
+    op = "+=" if amount >= 0 else "-="
+    return f"{name} {op} {abs(amount)}"
+
+def assign(name, value):
+    globals()[name] = value
+    return f"{name} = {value}"
+
+def inc_many(*pairs):
+    res = []
+    for name, amount in pairs:
+        globals()[name] += amount
+        op = "+=" if amount >= 0 else "-="
+        res.append(f"{name} {op} {abs(amount)}")
+    return ", ".join(res)
+```
+
+Shadowrunners are built with 100 Character Points (CP). You still gain 50 points of customization Karma.
+
+* `{python} assign('Character_Points', 100)`
+* `{python} assign('Karma', 50)`
+
+## Choose Your Metatype/Metavariant
+
+* Choose metatype: **AI / Pilot AI** `{python} inc('Karma', 0)`
+
+## Choose Mundane, Awakened, or Emerged
+
+* Emerged (Technomancer): `{python} inc('Character_Points', -10)`
+* Technomancers start with `{python} assign('Resonance', 1)`.
+  * Technomancers may purchase a number of complex forms up to their final Resonance x2.
+  * These cost either 2 CP or 5 Karma each.
+  * Technoregeneration: `{python} inc('Karma', -5)`
+  * Cleaner: `{python} inc('Karma', -5)`
+* Submersion - New Sprite Types: `{python} inc('Karma', -11)`
+* Submersion - Sprite Conduit: `{python} inc('Karma', -12)`
+
+## Purchase Special / Metatype Adjustment Points with CP
+
+* All characters start with 1 Edge: `{python} inc('Edge', 1)`
+* All characters start with 1 metatype adjustment point for free: `{python} inc('Resonance', 1)`
+* You may purchase up to 12 additional adjustment points at 4 CP each:
+  * `{python} inc('Resonance', 4)` : `{python} inc('Character_Points', -16)`
+  * `{python} inc('Edge', 3)` : `{python} inc('Character_Points', -12)`
+
+## Purchase Attributes with CP
+
+* Digital Intelligence characters replace physical attributes with Matrix attributes (Firewall, Data Processing, Sleaze, Attack). All attributes start at minimum 1:
+  * `{python} assign('Firewall', 1)` (Body equivalent)
+  * `{python} assign('Data_Processing', 1)` (Agility equivalent)
+  * `{python} assign('Sleaze', 1)` (Reaction equivalent)
+  * `{python} assign('Attack', 1)` (Strength equivalent)
+  * `{python} assign('Willpower', 1)`
+  * `{python} assign('Logic', 1)`
+  * `{python} assign('Intuition', 1)`
+  * `{python} assign('Charisma', 1)`
+* All characters start with 4 attribute points:
+  * `{python} inc('Willpower', 4)`
+* You may purchase up to 20 additional attribute points for 2 CP each:
+  * `{python} inc('Willpower', 1)` : `{python} inc('Character_Points', -2)`
+  * `{python} inc('Logic', 3)` : `{python} inc('Character_Points', -6)`
+  * `{python} inc('Intuition', 1)` : `{python} inc('Character_Points', -2)`
+  * `{python} inc('Charisma', 3)` : `{python} inc('Character_Points', -6)`
+  * `{python} inc('Firewall', 4)` (Body equivalent) : `{python} inc('Character_Points', -8)`
+  * `{python} inc('Sleaze', 4)` (Reaction equivalent) : `{python} inc('Character_Points', -8)`
+  * `{python} inc('Data_Processing', 2)` (Agility equivalent) : `{python} inc('Character_Points', -4)`
+  * `{python} inc('Attack', 2)` (Strength equivalent) : `{python} inc('Character_Points', -4)`
+
+
+## Purchase Skills with CP
+
+* All characters start with 12 skill points:
+  * `{python} inc('Tasking', 6)`
+  * `{python} inc('Electronics', 5)` 
+  * `{python} inc('Cracking', 1)`
+* You may purchase additional skill points for 2 CP each:
+  * `{python} inc('Cracking', 4)` : `{python} inc('Character_Points', -8)`
+  * `{python} inc('Influence', 1)` : `{python} inc('Character_Points', -2)`
+  * `{python} inc('Con', 1)` : `{python} inc('Character_Points', -2)`
+  * Cracking specialization - Hacking : `{python} inc('Character_Points', -2)`
+  * Electronics specialization - Software : `{python} inc('Character_Points', -2)`
+  * Tasking specialization - Registering : `{python} inc('Character_Points', -2)`
+  
+## Purchase Resources with CP
+
+* All characters start with `{python} assign('Nuyen', 10000)`
+* You may purchase resources at a rate of 1 CP per 20,000 Nuyen
+  * `{python} inc_many(('Nuyen', 80000), ('Character_Points', -4))`
+
+| Attributes | Current Value |
+|------------|:-------------:|
+| Firewall (Body) | `{python} Firewall` |
+| Data Processing (Agility) | `{python} Data_Processing` |
+| Sleaze (Reaction) | `{python} Sleaze` |
+| Attack (Strength) | `{python} Attack` |
+| Willpower  | `{python} Willpower` |
+| Logic      | `{python} Logic` |
+| Intuition  | `{python} Intuition` |
+| Charisma   | `{python} Charisma` |
+| Resonance  | `{python} Resonance` |
+| Edge       | `{python} Edge` |
+
+| Skills     | Current Value |
+|------------|:-------------:|
+| Tasking    | `{python} Tasking` |
+| Electronics| `{python} Electronics` |
+| Cracking   | `{python} Cracking` |
+| Influence  | `{python} Influence` |
+| Con        | `{python} Con` |
+
+## Qualities & Customization
+
+* Technoshaman Stream: `{python} inc('Karma', -20)`
+* Natural Hacker: `{python} inc('Karma', -15)`
+* Buddy System: `{python} inc('Karma', 7)`
+* Sprite Bane (Primal): `{python} inc('Karma', 12)`
+* Hooder (R2): `{python} inc('Karma', 10)`
+* Designer: `{python} inc('Karma', -6)`
+
+### Contacts
+
+Gain 6 * Charisma contact points to spend.
+
+* `{python} inc_many(('Contact_Points', 6 * Charisma))`
+
+#### Seattle Contacts
+
+* Brynne Taggart (Fixer, C4 L2) `{python} inc('Contact_Points', -6)`
+* Whiskey (SEA Street Doc, C2 L4) `{python} inc('Contact_Points', -6)`
+
+### New Orleans Contacts
+
+* Indomitable Will (NOLA River People Sysop, C3 L3) `{python} inc('Contact_Points', -6)`
+* Roanoke (NOLA Ecological Activist, C3 L3) `{python} inc('Contact_Points', -6)`
+
+### Gear
+
+* Resonance Focus (R4) - `{python} inc('Karma', -4)`
+
+:::{.callout-note title="Unable to Rebuild Gear"}
+Logs of what gear the character had at character generation aren't available. 
+:::
+
+Total Contact Points Remaining: `{python} Contact_Points`
+
+Total Nuyen Remaining: ¥`{python} f"{Nuyen:,}"`
+
+Total Karma Remaining: `{python} Karma`
+
+Total Character Points Remaining: `{python} Character_Points`
