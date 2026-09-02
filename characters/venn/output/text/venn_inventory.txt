@@ -5,14 +5,17 @@
   - Commlink: Renraku Sensei (DR: 3 | DP: 3 | FW: 1)
 ----------------------------------------------------------------------------
  SOFTWARE & PROGRAMS:
-  Activesofts: Firearms Activesoft R6, Cracking Activesoft R5
+  Activesofts: Close Combat Activesoft R6, Cracking Activesoft R6
 ----------------------------------------------------------------------------
  FIELD GEAR, MUNITIONS & AMMUNITION:
   - [Qty: 1] Contacts (Rating 3 w/ Flare Comp, Smartlink)
   - [Qty: 1] Savior Medkit (Rating 6 w/ 1x Refill)
 ----------------------------------------------------------------------------
  SINS, LICENSES & LIFESTYLES:
-  - License: Fake License: Firearms (Rating 4)
-  - License: Fake License: Concealed Carry (Rating 4)
+  - SIN: Fake Licenses (Rating 4 x2): (1,600¥) (Rating 1)
+  - SIN: Low Lifestyle (Off-Grid Coastal Boathouse): (2,000¥ / 1st month
+    prepaid) (Rating 1)
+  - License: Fake License: Firearms
+  - License: Fake License: Concealed Carry
   - Lifestyle: Low Lifestyle (Off-Grid Coastal Boathouse)
 ============================================================================

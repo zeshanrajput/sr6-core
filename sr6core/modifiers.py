@@ -349,20 +349,11 @@ class ModifierEngine:
                     effective_attr_val = int(attrs.get(override_attr, base_attr_val))
                     is_overridden = True
 
-        # Check for character-level attribute buffs (e.g., Velvet sustained CHA +4 / WIL +4, Venn Muscle Toner +2 AGI)
+        # Check for character-level permanent augmentations (e.g., Venn Muscle Toner +2 AGI)
         handle_lower = str(char_data.get("identity", {}).get("handle", "")).lower()
         applied_modifiers: List[PoolModifier] = []
 
-        # 1. Velvet: Sustained Increase Attribute (+4 CHA, +4 WIL)
-        if "velvet" in handle_lower or any("increase attribute" in str(s.get("name", s)).lower() for s in char_data.get("spells", [])):
-            if effective_attr_name == "charisma":
-                effective_attr_val += 4
-                applied_modifiers.append(PoolModifier("attribute:charisma", "spell", "Increase Attribute (+4 Sustained)", 4, is_srm_capped=True))
-            elif effective_attr_name == "willpower":
-                effective_attr_val += 4
-                applied_modifiers.append(PoolModifier("attribute:willpower", "spell", "Increase Attribute (+4 Sustained)", 4, is_srm_capped=True))
-
-        # 2. Venn / Cyberware & Bioware Augmentations
+        # Venn / Cyberware & Bioware Augmentations
         if "venn" in handle_lower or "union" in handle_lower:
             if effective_attr_name == "agility":
                 effective_attr_val += 2

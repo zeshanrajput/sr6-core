@@ -26,7 +26,7 @@
   - [Qty: 1] Built-in Medkit (Man-at-Arms)
 ----------------------------------------------------------------------------
  SINS, LICENSES & LIFESTYLES:
-  - SIN: Yuriko Star (Rating 2)
+  - SIN: Yuriko Star (Rating 6)
   - License: Drone License
   - License: Firearms License
   - Lifestyle: Low Lifestyle

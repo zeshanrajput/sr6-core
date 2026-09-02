@@ -185,7 +185,8 @@ armors:
   - Concealable Holster
   - Rapid Adjustment Clothing System (RACS) 2
   - Fashion Accessory: Très Chic x2
-  notes: "DR +2, Concealable Holster, RACS 2, Très Chic x2"
+  - Ballistic Hood
+  notes: "DR +2, Concealable Holster, RACS 2, Très Chic x2, Ballistic Hood"
 matrix_devices:
 - name: Erika Elite
   ref: erika_elite

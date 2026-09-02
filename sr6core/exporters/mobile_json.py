@@ -96,10 +96,9 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
     mdef = ModifierEngine.get_full_matrix_defense(char_data)
     matrix_init = ModifierEngine.get_matrix_initiative(char_data)
 
-    # Calculate Buffed Attributes
-    # Velvet: +4 Charisma, +4 Willpower from Sustained Increase Attribute spells
-    buffed_cha = cha + 4 if is_velvet else cha
-    buffed_wil = wil + 4 if is_velvet else wil
+    # Calculate Buffed Attributes (dynamic enhancement engine handles sustaining spells & boosts)
+    buffed_cha = cha
+    buffed_wil = wil
 
     # Venn / Union: Bioware bonuses (Muscle Toner +2 AGI, Synaptic Booster +2 REA, Muscle Augmentation +2 STR)
     buffed_agi = agi
@@ -335,7 +334,64 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
                 "buffs": [{"source": "Increase Attribute Spell (F4)", "value": buffed_cha - cha, "notes": "Sustained via Focused Concentration R3"}] if buffed_cha != cha else [],
                 "breakdown": f"Base {cha} + Increase Attribute (+{buffed_cha - cha}) = {buffed_cha}" if buffed_cha != cha else f"Base {cha}",
                 "doc_link": "chapters/rules_and_downtime.html#sustained-spells" if is_velvet else "chapters/rules_and_downtime.html"
-            },
+            }
+        ]
+
+        if is_monad:
+            # Monad Living Persona ASDF (Row 3: ATT, SLZ, DP, FW all on a single line)
+            attributes_list.extend([
+                {
+                    "name": "Attack (Living Persona)",
+                    "code": "ATT",
+                    "base": cha,
+                    "buffed": cha,
+                    "linked_mental": "cha",
+                    "tuning_bonus": 0,
+                    "is_buffed": False,
+                    "buffs": [],
+                    "breakdown": f"Monad Living Persona Attack (Charisma {cha})",
+                    "doc_link": "chapters/rules_and_downtime.html#monad-matrix-attributes"
+                },
+                {
+                    "name": "Sleaze (Living Persona)",
+                    "code": "SLZ",
+                    "base": int_val,
+                    "buffed": int_val,
+                    "linked_mental": "int",
+                    "tuning_bonus": 0,
+                    "is_buffed": False,
+                    "buffs": [],
+                    "breakdown": f"Monad Living Persona Sleaze (Intuition {int_val})",
+                    "doc_link": "chapters/rules_and_downtime.html#monad-matrix-attributes"
+                },
+                {
+                    "name": "Data Processing (Living Persona)",
+                    "code": "DP",
+                    "base": log_val,
+                    "buffed": log_val,
+                    "linked_mental": "log",
+                    "tuning_bonus": 0,
+                    "is_buffed": False,
+                    "buffs": [],
+                    "breakdown": f"Monad Living Persona Data Processing (Logic {log_val})",
+                    "doc_link": "chapters/rules_and_downtime.html#monad-matrix-attributes"
+                },
+                {
+                    "name": "Firewall (Living Persona)",
+                    "code": "FW",
+                    "base": wil,
+                    "buffed": wil,
+                    "linked_mental": "wil",
+                    "tuning_bonus": 0,
+                    "is_buffed": False,
+                    "buffs": [],
+                    "breakdown": f"Monad Living Persona Firewall (Willpower {wil})",
+                    "doc_link": "chapters/rules_and_downtime.html#monad-matrix-attributes"
+                }
+            ])
+
+        # Special attributes (Row 4)
+        attributes_list.extend([
             {
                 "name": "Edge",
                 "code": "EDG",
@@ -356,7 +412,19 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
                 "breakdown": f"Base {mag if mag > 0 else (res if res > 0 else (nv if is_monad else f'{ess:.2f}'))}",
                 "doc_link": "chapters/rules_and_downtime.html#monad-matrix-attributes" if is_monad else ("chapters/rules_and_downtime.html#foci-protocols" if mag > 0 else "chapters/rules_and_downtime.html")
             }
-        ]
+        ])
+
+        if is_monad:
+            attributes_list.append({
+                "name": "Essence",
+                "code": "ESS",
+                "base": ess,
+                "buffed": ess,
+                "is_buffed": False,
+                "buffs": [],
+                "breakdown": f"Base {ess:.2f}",
+                "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+            })
 
     # Skills compilation: Specialization (+2) is NOT added to top-level buffed_pool
     compiled_skills = []
@@ -809,14 +877,146 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
                 "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
             })
 
-    # Matrix Devices, Programs, Autosofts
-    matrix_devices = char_data.get("matrix_devices", {})
-    commlinks = matrix_devices.get("commlinks", []) if isinstance(matrix_devices, dict) else _safe_item_list(char_data.get("commlinks", []))
-    hosts = matrix_devices.get("hosts", []) if isinstance(matrix_devices, dict) else []
+    # Initiative Compilation
+    compiled_initiative = {
+        "default_mode": "vr_hotsim" if is_ai else "physical",
+        "modes": {}
+    }
 
-    programs = [_get_name(p) for p in _safe_item_list(char_data.get("programs", []))]
+    if is_ai:
+        # Reiko: Technoshaman Living Persona VR Hot-Sim with Overclocking Echo (+1 Score, +1d6 Dice)
+        overclock_score = 1
+        overclock_dice = 1
+        hotsim_score = dp_val + int_val + overclock_score
+        hotsim_dice = 3 + overclock_dice
+        compiled_initiative["modes"]["vr_hotsim"] = {
+            "name": "VR Hot-Sim",
+            "score": hotsim_score,
+            "dice": hotsim_dice,
+            "dice_str": f"{hotsim_dice}d6",
+            "breakdown": f"DP ({dp_val}) + INT ({int_val}) + Overclocking Echo (+{overclock_score}) = {hotsim_score} + {hotsim_dice}d6 (3d6 Hot-Sim + 1d6 Echo)"
+        }
+    elif is_velvet:
+        # Velvet: Physical Initiative (Reaction + Intuition + 1d6), modified via Increase Reflexes spell
+        phys_score = buffed_rea + buffed_int
+        phys_dice = 1
+        compiled_initiative["modes"]["physical"] = {
+            "name": "Physical",
+            "score": phys_score,
+            "dice": phys_dice,
+            "dice_str": f"{phys_dice}d6",
+            "breakdown": f"REA ({buffed_rea}) + INT ({buffed_int}) + {phys_dice}d6 (Modifiable via Increase Reflexes spell)"
+        }
+    elif is_monad:
+        # Venn: Physical Initiative (Reaction + Intuition + 1d6, modifiable via Monad Boost) and VR Hot-Sim (Monad Persona DP 6 + INT 5 + 3d6)
+        phys_score = buffed_rea + buffed_int
+        phys_dice = 1
+        compiled_initiative["modes"]["physical"] = {
+            "name": "Physical",
+            "score": phys_score,
+            "dice": phys_dice,
+            "dice_str": f"{phys_dice}d6",
+            "breakdown": f"REA ({buffed_rea}) + INT ({buffed_int}) + {phys_dice}d6 (Modifiable via Monad Physical Boost)"
+        }
+        monad_dp = 6
+        monad_int = buffed_int
+        monad_hotsim_score = monad_dp + monad_int
+        compiled_initiative["modes"]["vr_hotsim"] = {
+            "name": "VR Hot-Sim",
+            "score": monad_hotsim_score,
+            "dice": 3,
+            "dice_str": "3d6",
+            "breakdown": f"DP ({monad_dp}) + INT ({monad_int}) + 3d6 (Monad Living Persona Hot-Sim)"
+        }
+    else:
+        phys_score = buffed_rea + buffed_int
+        phys_dice = 1
+        compiled_initiative["modes"]["physical"] = {
+            "name": "Physical",
+            "score": phys_score,
+            "dice": phys_dice,
+            "dice_str": f"{phys_dice}d6",
+            "breakdown": f"REA ({buffed_rea}) + INT ({buffed_int}) + {phys_dice}d6"
+        }
+
+    # Matrix Devices, Programs, Autosofts & Gear
+    raw_matrix_dict = char_data.get("matrix_devices", {})
+    hosts = raw_matrix_dict.get("hosts", []) if isinstance(raw_matrix_dict, dict) else []
+    raw_devs = raw_matrix_dict.get("commlinks", []) if isinstance(raw_matrix_dict, dict) else char_data.get("matrix_devices", [])
+    raw_comms = _safe_item_list(char_data.get("commlinks", []))
+    all_matrix_devs = _safe_item_list(raw_devs) + [c for c in raw_comms if c not in _safe_item_list(raw_devs)]
+    compiled_matrix_devices = []
+    for d in all_matrix_devs:
+        if isinstance(d, dict):
+            d_name = d.get("name", d.get("ref", "Commlink"))
+            d_rtg = d.get("device_rating", d.get("rating", 3))
+            d_dp = d.get("data_processing", 2)
+            d_fw = d.get("firewall", 2)
+            d_accs = d.get("accessories", [])
+            d_notes = d.get("notes", "")
+            d_qty = d.get("qty", 1)
+            compiled_matrix_devices.append({
+                "name": d_name,
+                "rating": d_rtg,
+                "data_processing": d_dp,
+                "firewall": d_fw,
+                "qty": d_qty,
+                "accessories": [str(a.get("name", a)) if isinstance(a, dict) else str(a) for a in d_accs],
+                "notes": d_notes
+            })
+
+    raw_software = _safe_item_list(char_data.get("software", [])) + _safe_item_list(char_data.get("programs", []))
+    compiled_software = []
+    for sw in raw_software:
+        if isinstance(sw, dict):
+            sw_name = sw.get("name", sw.get("ref", "Program"))
+            sw_rtg = sw.get("rating")
+            sw_cat = sw.get("cat", sw.get("category", "Matrix Program"))
+            compiled_software.append({
+                "name": sw_name,
+                "rating": sw_rtg,
+                "category": sw_cat
+            })
+        elif isinstance(sw, str):
+            compiled_software.append({
+                "name": sw,
+                "rating": None,
+                "category": "Matrix Program"
+            })
+
     autosofts = [_get_name(a) for a in _safe_item_list(char_data.get("autosofts", []))]
-    gear = [_get_name(g) for g in _safe_item_list(char_data.get("gear", [])) + _safe_item_list(char_data.get("items", []))]
+    
+    # Structured Field Gear Items
+    raw_gear_items = _safe_item_list(char_data.get("gear", [])) + _safe_item_list(char_data.get("items", []))
+    compiled_gear = []
+    for g in raw_gear_items:
+        if isinstance(g, dict):
+            g_name = g.get("name", g.get("ref", "Gear"))
+            g_qty = g.get("qty", g.get("quantity", 1))
+            g_rtg = g.get("rating", g.get("device_rating"))
+            g_cat = g.get("category", g.get("cat", "Field Gear"))
+            g_accs = g.get("accessories", g.get("modifications", []))
+            g_notes = g.get("notes", g.get("description", ""))
+            compiled_gear.append({
+                "name": g_name,
+                "qty": g_qty,
+                "rating": g_rtg,
+                "category": g_cat,
+                "accessories": [str(a.get("name", a)) if isinstance(a, dict) else str(a) for a in g_accs],
+                "notes": g_notes
+            })
+        elif isinstance(g, str):
+            compiled_gear.append({
+                "name": g,
+                "qty": 1,
+                "rating": None,
+                "category": "Field Gear",
+                "accessories": [],
+                "notes": ""
+            })
+
+    gear_names = [g["name"] for g in compiled_gear]
+    program_names = [p["name"] for p in compiled_software]
 
     # Contacts with explicit sorting fields & parsed types
     raw_contacts = char_data.get("contacts", [])
@@ -962,6 +1162,7 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
             "matrix_defense_breakdown": mdef.get("breakdown", ""),
             "matrix_initiative": matrix_init
         },
+        "initiative": compiled_initiative,
         "skills": compiled_skills,
         "qualities": {
             "positive": pos_qualities,
@@ -987,14 +1188,20 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
             "augmentations": augmentations
         },
         "inventory": {
-            "commlinks": commlinks,
+            "commlinks": [d["name"] for d in compiled_matrix_devices],
+            "matrix_devices": compiled_matrix_devices,
             "hosts": hosts,
-            "programs": programs,
+            "programs": program_names,
+            "software": compiled_software,
             "autosofts": autosofts,
-            "gear": gear,
+            "gear": gear_names,
+            "gear_items": compiled_gear,
             "sins": compiled_sins,
             "lifestyles": compiled_lifestyles
         },
+        "gear_items": compiled_gear,
+        "matrix_devices": compiled_matrix_devices,
+        "software": compiled_software,
         "sins": compiled_sins,
         "lifestyles": compiled_lifestyles,
         "contacts": compiled_contacts

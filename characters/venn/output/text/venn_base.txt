@@ -1,15 +1,15 @@
 ============================================================================
  SHADOWRUN 6E DOSSIER: VENN
 ============================================================================
- Real Name : N/A                | Metatype : Human (Monad)
+ Real Name : Nathan & Veronica Turrent | Metatype : Human (Monad)
  Status    : Monad Dual Identity  | Nanite Volume: NV 6 (Age: N/A)
- Available Nuyen : 3,950¥ | Karma: 0 Pool (0 Lifetime)
+ Available Nuyen : 5,000¥ | Karma: 1 Pool (1 Lifetime)
 ----------------------------------------------------------------------------
  ATTRIBUTES & DERIVED RATINGS:
   BOD: 5        | AGI: 7        | REA: 2       | STR: 4 
-  WIL: 7        | LOG: 7        | INT: 5       | CHA: 2 
-  EDG: 7        | RES: 0        | MAG: 0       | ESS: 0.43
-  Derived Pools       : Composure [9] | Judge Int [12] | Memory [14]
+  WIL: 7        | LOG: 6        | INT: 5       | CHA: 2 
+  EDG: 7        | RES: 0        | MAG: 0       | ESS: 0.49
+  Derived Pools       : Composure [9] | Judge Int [12] | Memory [13]
   Condition Monitors  : Physical [14 boxes] | Stun [15 boxes] (Monad Toughness)
 ----------------------------------------------------------------------------
  MONAD LIVING PERSONA MATRIX STATS (Whisper Nets p. 149):
@@ -18,8 +18,10 @@
   Matrix Initiative   : 9 + 3D6 (AR) / 13 + 3D6 (Hot-Sim VR)
 ----------------------------------------------------------------------------
  ACTIVE SKILLS & TABLE-RELEVANT DICE POOLS:
-  - Electronics         : 13d6  [LOG 7 + 6 Rtg]
-  - Native Language (English): 11d6  [LOG 7 + 4 Rtg]
+  - Electronics         : 12d6  [LOG 6 + 6 Rtg]
+  - Athletics           : 10d6  [AGI 9 + 1 Rtg]
+  - Native Language (English): 10d6  [LOG 6 + 4 Rtg]
+  - Native Language (Mindspeech): 10d6  [LOG 6 + 4 Rtg]
 ----------------------------------------------------------------------------
  QUALITIES:
   Positive: Augmentation Acclimation, Redliner, Cyber Singularity Seeker,

@@ -1,7 +1,7 @@
 {
   "system": "SHADOWRUN6",
   "version": "3.2.0",
-  "name": "Venn",
+  "name": "Nathan & Veronica Turrent",
   "streetName": "Venn",
   "metaType": "Human",
   "size": 0,
@@ -10,9 +10,9 @@
   "gender": "",
   "heat": 0,
   "reputation": 0,
-  "karma": 0,
-  "freeKarma": 0,
-  "nuyen": 3950,
+  "karma": 1,
+  "freeKarma": 1,
+  "nuyen": 5000,
   "initiation": 0,
   "submersion": 0,
   "attributes": [
@@ -49,8 +49,8 @@
     {
       "name": "Logic",
       "id": "LOGIC",
-      "points": 7,
-      "modifiedValue": 7
+      "points": 6,
+      "modifiedValue": 6
     },
     {
       "name": "Intuition",
@@ -110,7 +110,7 @@
       "name": "Memory",
       "id": "MEMORY",
       "points": 0,
-      "modifiedValue": 14
+      "modifiedValue": 13
     },
     {
       "name": "Lift / Carry",
@@ -157,7 +157,7 @@
       "id": "augmentation_acclimation",
       "choice": "",
       "positive": true,
-      "rating": 10,
+      "rating": 9,
       "page": "",
       "description": ""
     },
@@ -228,8 +228,28 @@
       "description": ""
     },
     {
+      "name": "Athletics",
+      "id": "athletics",
+      "attribute": "Agility",
+      "rating": 1,
+      "pool": 0,
+      "specializations": [],
+      "influencedBy": [],
+      "description": ""
+    },
+    {
       "name": "Native Language (English)",
-      "id": "language",
+      "id": "language_english",
+      "attribute": "Logic",
+      "rating": 4,
+      "pool": 0,
+      "specializations": [],
+      "influencedBy": [],
+      "description": ""
+    },
+    {
+      "name": "Native Language (Mindspeech)",
+      "id": "language_mindspeech",
       "attribute": "Logic",
       "rating": 4,
       "pool": 0,
@@ -290,15 +310,28 @@
       "description": null
     }
   ],
-  "sins": [],
+  "sins": [
+    {
+      "name": "Fake Licenses (Rating 4 x2): (1,600\u00a5)",
+      "description": null,
+      "quality": 1
+    },
+    {
+      "name": "Low Lifestyle (Off-Grid Coastal Boathouse): (2,000\u00a5 / 1st month prepaid)",
+      "description": null,
+      "quality": 1
+    }
+  ],
   "contacts": [],
   "licenses": [
     {
-      "name": "Fake License: Firearms (Rating 4)",
+      "name": "Fake License: Firearms",
+      "sin": "Fake Licenses (Rating 4 x2): (1,600\u00a5)",
       "rating": 4
     },
     {
-      "name": "Fake License: Concealed Carry (Rating 4)",
+      "name": "Fake License: Concealed Carry",
+      "sin": "Fake Licenses (Rating 4 x2): (1,600\u00a5)",
       "rating": 4
     }
   ],

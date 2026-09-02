@@ -15,5 +15,5 @@
     DV: 5S(e)  | Modes: SS       | Ammo: —        | AR: 10 / 10 / 8 / - / -
 ----------------------------------------------------------------------------
  BALLISTIC ARMOR & DEFENSIVE PROTECTION:
-  * SECURETECH SKINSHIELD (Defense Rating Bonus: +1)
+  * ARES SECURETECH SKINSHIELD (Defense Rating Bonus: +2)
 ----------------------------------------------------------------------------

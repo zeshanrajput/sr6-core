@@ -52,8 +52,8 @@
  [12] EDDIE WEI (Triad Johnson) [SEA]
       Connection: 4 (Fixed) | Loyalty: 1 | Active Favors: 0
       History / Changes: Uses: Business and economics, getting jobs, triads
-      (Shadowrun Missions Seattle) | Types: Criminal, Matrix (Not available
-      after 2081-24) | SRM 2081-02 Urgent Care
+      (Shadowrun Missions Seattle) | Types: Criminal, Matrix | SRM 2081-02
+      Urgent Care
 ----------------------------------------------------------------------------
  [13] KINGSTON (Shadowrunner/Street Samurai) [SEA]
       Connection: 2 (Fixed) | Loyalty: 2 | Active Favors: 0

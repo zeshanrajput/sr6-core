@@ -298,32 +298,40 @@
       font-weight: 500;
     }
 
-    /* Condition Monitors */
+    /* Condition Monitors & Initiative Row (Single Line 3 Columns) */
     .track-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 10px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-top: 8px;
     }
 
     .track-card {
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--border-subtle);
       border-radius: 10px;
-      padding: 12px;
+      padding: 6px 4px;
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 52px;
     }
 
     .track-header {
-      font-size: 0.8rem;
+      font-size: 0.68rem;
       font-weight: 700;
+      letter-spacing: 0.03em;
       color: var(--text-secondary);
-      margin-bottom: 4px;
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .track-boxes {
       font-family: var(--font-mono);
-      font-size: 1.3rem;
+      font-size: 1.02rem;
       font-weight: 700;
       color: var(--cyan-accent);
     }
@@ -532,6 +540,112 @@
     .doc-link-btn:hover {
       background: rgba(99, 102, 241, 0.3);
       color: #ffffff;
+    }
+
+    /* Initiative Card & Mode Switcher */
+    .init-compact-card {
+      cursor: pointer;
+      border: 1px solid var(--border-accent);
+      background: rgba(0, 0, 0, 0.35);
+      transition: all 0.15s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .init-compact-card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--gold-primary);
+      box-shadow: 0 0 10px var(--gold-glow);
+    }
+    .init-compact-card.open {
+      border-color: var(--gold-primary);
+      background: rgba(0, 255, 157, 0.08);
+      box-shadow: 0 0 12px var(--gold-glow);
+    }
+    .init-card {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border-accent);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-top: 10px;
+      margin-bottom: 6px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+      animation: fadeIn 0.15s ease-out;
+    }
+    .init-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .init-mode-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .init-mode-pill.active {
+      background: rgba(0, 255, 157, 0.15);
+      border-color: var(--gold-primary);
+      color: var(--gold-primary);
+    }
+    .init-val-box {
+      font-family: var(--font-mono);
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--gold-primary);
+    }
+
+    /* Gear Item Cards */
+    .gear-card {
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      transition: all 0.15s ease;
+    }
+    .gear-card:hover {
+      border-color: var(--border-accent);
+      background: var(--bg-card-hover);
+    }
+    .gear-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 4px;
+    }
+    .gear-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+    }
+    .gear-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+    }
+    .gear-badge.qty {
+      background: rgba(255, 183, 0, 0.12);
+      border-color: rgba(255, 183, 0, 0.35);
+      color: #fbbf24;
+    }
+    .gear-badge.rating {
+      background: rgba(6, 182, 212, 0.12);
+      border-color: rgba(6, 182, 212, 0.35);
+      color: #38bdf8;
     }
 
     /* Weapon Cards */
@@ -800,6 +914,119 @@
       opacity: 1;
       transform: translateX(-50%) translateY(0);
     }
+
+    /* Interactive Steppers & Modifiers */
+    .stepper-pool-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex: 1;
+    }
+
+    .stepper-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      width: 32px;
+      height: 36px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      cursor: pointer;
+      transition: all 0.12s ease;
+      flex-shrink: 0;
+      user-select: none;
+    }
+    .stepper-btn:hover {
+      background: rgba(255, 255, 255, 0.14);
+      border-color: var(--border-accent);
+      color: var(--gold-primary);
+    }
+    .stepper-btn:active {
+      transform: scale(0.92);
+      background: var(--border-accent);
+      color: #000;
+    }
+
+    .stepper-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 3px 6px;
+    }
+
+    .mod-delta-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 1px 5px;
+      border-radius: 4px;
+      background: rgba(245, 158, 11, 0.2);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: var(--gold-primary);
+      margin-left: 4px;
+      vertical-align: middle;
+      font-family: var(--font-mono);
+    }
+    .mod-delta-badge.pos {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: rgba(16, 185, 129, 0.4);
+      color: #10b981;
+    }
+    .mod-delta-badge.neg {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: rgba(239, 68, 68, 0.4);
+      color: #ef4444;
+    }
+
+    .attr-box.manual-modified {
+      border-color: var(--gold-primary);
+      box-shadow: 0 0 10px var(--gold-glow);
+    }
+    .pool-item.manual-modified {
+      border-color: var(--border-accent);
+    }
+
+    .reset-all-btn {
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s ease;
+      font-family: var(--font-display);
+    }
+    .reset-all-btn:hover {
+      border-color: var(--rose-accent, #ef4444);
+      color: var(--rose-accent, #ef4444);
+      background: rgba(239, 68, 68, 0.08);
+    }
+
+    .wound-banner {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      color: #fca5a5;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
   </style>
 </head>
 <body>
@@ -814,6 +1041,7 @@
         <div class="char-select-arrow">▼</div>
       </div>
       <div class="header-badges">
+        <button id="resetAllModsBtn" class="reset-all-btn" style="display: none;" onclick="resetCharMods(activeCharId)" title="Reset all active modifiers to default">↺ Reset Mods</button>
         <div id="nuyenBadge" class="nuyen-badge">¥ 0</div>
         <div id="karmaBadge" class="karma-badge">0 K</div>
       </div>
@@ -841,17 +1069,32 @@
 
         <div id="attrDrilldownArea" style="margin-top: 10px;"></div>
 
-        <div class="card-title" style="margin-top: 16px;">Condition Monitors</div>
+        <div class="card-title" style="margin-top: 16px;">Condition & Initiative</div>
         <div class="track-grid">
           <div class="track-card">
-            <div class="track-header">PHYSICAL (Base BOD)</div>
-            <div class="track-boxes" id="physBoxes">10 Boxes</div>
+            <div class="track-header">PHYSICAL DMG</div>
+            <div class="stepper-inline" style="margin: 2px 0; justify-content: center; gap: 2px;">
+              <button class="stepper-btn" style="width: 22px; height: 22px; padding: 0; font-size: 0.85rem;" onclick="stepModifier('dmg_phys', -1)" title="Heal 1 Physical Box">-</button>
+              <span id="physBoxes" class="track-boxes" style="font-size: 0.95rem; min-width: 42px; text-align: center;">0 / 10</span>
+              <button class="stepper-btn" style="width: 22px; height: 22px; padding: 0; font-size: 0.85rem;" onclick="stepModifier('dmg_phys', 1)" title="Take 1 Physical Damage">+</button>
+            </div>
+            <div style="font-size: 0.65rem; color: var(--text-muted);" id="physRemainLbl">10 Left</div>
           </div>
           <div class="track-card">
-            <div class="track-header">STUN (Base WIL)</div>
-            <div class="track-boxes" id="stunBoxes">11 Boxes</div>
+            <div class="track-header">STUN DMG</div>
+            <div class="stepper-inline" style="margin: 2px 0; justify-content: center; gap: 2px;">
+              <button class="stepper-btn" style="width: 22px; height: 22px; padding: 0; font-size: 0.85rem;" onclick="stepModifier('dmg_stun', -1)" title="Heal 1 Stun Box">-</button>
+              <span id="stunBoxes" class="track-boxes" style="font-size: 0.95rem; min-width: 42px; text-align: center;">0 / 11</span>
+              <button class="stepper-btn" style="width: 22px; height: 22px; padding: 0; font-size: 0.85rem;" onclick="stepModifier('dmg_stun', 1)" title="Take 1 Stun Damage">+</button>
+            </div>
+            <div style="font-size: 0.65rem; color: var(--text-muted);" id="stunRemainLbl">11 Left</div>
+          </div>
+          <div id="initCompactCard" class="track-card init-compact-card" onclick="toggleInitDrawer()" title="Click to expand/adjust initiative">
+            <!-- Generated via JS -->
           </div>
         </div>
+        <div id="initDrawerArea"></div>
+        <div id="woundPenaltyBanner" style="display: none;"></div>
 
         <div class="card-title" style="margin-top: 16px;">Derived Pools & Ratings</div>
         <div class="derived-grid" id="derivedGrid">
@@ -898,16 +1141,37 @@
 
     <!-- Tab 5: Drones & Gear -->
     <section id="tab-drones" class="tab-pane">
-      <div class="card">
+      <div id="dronesCard" class="card" style="margin-bottom: 14px;">
         <div class="card-title">Vehicles & Rigged Drones</div>
         <div id="vehiclesList">
           <!-- Generated via JS -->
         </div>
       </div>
 
+      <div class="card" style="margin-bottom: 14px;">
+        <div class="card-title">Tactical Field Gear & Equipment</div>
+        <div id="fieldGearList">
+          <!-- Generated via JS -->
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom: 14px;">
+        <div class="card-title">Matrix Hardware & Commlinks</div>
+        <div id="matrixHardwareList">
+          <!-- Generated via JS -->
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom: 14px;">
+        <div class="card-title">Software, Autosofts & Apps</div>
+        <div id="softwareList">
+          <!-- Generated via JS -->
+        </div>
+      </div>
+
       <div class="card">
-        <div class="card-title">Matrix Devices & Software</div>
-        <div id="inventoryList">
+        <div class="card-title">Identities, Licenses & Lifestyles</div>
+        <div id="sinsLifestyleList">
           <!-- Generated via JS -->
         </div>
       </div>
@@ -954,8 +1218,8 @@
       <span>Powers</span>
     </div>
     <div class="nav-tab" data-tab="tab-drones">
-      <div class="nav-tab-icon">🤖</div>
-      <span>Drones</span>
+      <div class="nav-tab-icon">🎒</div>
+      <span>Gear & Drones</span>
     </div>
     <div class="nav-tab" data-tab="tab-contacts">
       <div class="nav-tab-icon">🗂️</div>
@@ -969,7 +1233,7 @@
   "venn": {
     "identity": {
       "handle": "Venn",
-      "real_name": "N/A",
+      "real_name": "Nathan & Veronica Turrent",
       "metatype": "Human",
       "role": "Shadowrunner",
       "stream": "",
@@ -977,12 +1241,13 @@
       "mortype": "",
       "gender": "Diverse",
       "age": "~",
-      "nuyen": 3950,
-      "karma": 0,
-      "lifetime_karma": 0,
+      "nuyen": 5000,
+      "karma": 1,
+      "karma_avail": 1,
+      "lifetime_karma": 1,
       "nanite_volume": 6,
       "is_ai": false,
-      "is_monad": false
+      "is_monad": true
     },
     "attributes": {
       "body": 5,
@@ -990,13 +1255,13 @@
       "reaction": 2,
       "strength": 4,
       "willpower": 7,
-      "logic": 7,
+      "logic": 6,
       "intuition": 5,
       "charisma": 2,
       "edge": 7,
       "resonance": 0,
       "magic": 0,
-      "essence": 0.43
+      "essence": 0.49
     },
     "attributes_list": [
       {
@@ -1004,10 +1269,16 @@
         "code": "BOD",
         "base": 5,
         "buffed": 5,
-        "is_buffed": false,
-        "buffs": [],
-        "breakdown": "Base 5",
-        "doc_link": "chapters/rules_and_downtime.html"
+        "is_buffed": true,
+        "buffs": [
+          {
+            "source": "Bone Density Augmentation R4",
+            "value": 4,
+            "notes": "+4 unarmored soak (8 Soak)"
+          }
+        ],
+        "breakdown": "Base 5 (+4 Bone Density soak)",
+        "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
       },
       {
         "name": "Agility",
@@ -1017,7 +1288,7 @@
         "is_buffed": false,
         "buffs": [],
         "breakdown": "Base 7",
-        "doc_link": "chapters/rules_and_downtime.html"
+        "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
       },
       {
         "name": "Reaction",
@@ -1027,7 +1298,7 @@
         "is_buffed": false,
         "buffs": [],
         "breakdown": "Base 2",
-        "doc_link": "chapters/rules_and_downtime.html"
+        "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
       },
       {
         "name": "Strength",
@@ -1037,7 +1308,7 @@
         "is_buffed": false,
         "buffs": [],
         "breakdown": "Base 4",
-        "doc_link": "chapters/rules_and_downtime.html"
+        "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
       },
       {
         "name": "Willpower",
@@ -1052,12 +1323,18 @@
       {
         "name": "Logic",
         "code": "LOG",
-        "base": 7,
-        "buffed": 7,
-        "is_buffed": false,
-        "buffs": [],
-        "breakdown": "Base 7",
-        "doc_link": "chapters/rules_and_downtime.html"
+        "base": 6,
+        "buffed": 6,
+        "is_buffed": true,
+        "buffs": [
+          {
+            "source": "Monad Mental Boost (NV)",
+            "value": 4,
+            "notes": "Surges to Logic 10 / Math SPU +1"
+          }
+        ],
+        "breakdown": "Base 6 (Surges to 10 under Monad Boost)",
+        "doc_link": "chapters/rules_and_downtime.html#monad-nanite-boosts"
       },
       {
         "name": "Intuition",
@@ -1080,6 +1357,54 @@
         "doc_link": "chapters/rules_and_downtime.html"
       },
       {
+        "name": "Attack (Living Persona)",
+        "code": "ATT",
+        "base": 2,
+        "buffed": 2,
+        "linked_mental": "cha",
+        "tuning_bonus": 0,
+        "is_buffed": false,
+        "buffs": [],
+        "breakdown": "Monad Living Persona Attack (Charisma 2)",
+        "doc_link": "chapters/rules_and_downtime.html#monad-matrix-attributes"
+      },
+      {
+        "name": "Sleaze (Living Persona)",
+        "code": "SLZ",
+        "base": 5,
+        "buffed": 5,
+        "linked_mental": "int",
+        "tuning_bonus": 0,
+        "is_buffed": false,
+        "buffs": [],
+        "breakdown": "Monad Living Persona Sleaze (Intuition 5)",
+        "doc_link": "chapters/rules_and_downtime.html#monad-matrix-attributes"
+      },
+      {
+        "name": "Data Processing (Living Persona)",
+        "code": "DP",
+        "base": 6,
+        "buffed": 6,
+        "linked_mental": "log",
+        "tuning_bonus": 0,
+        "is_buffed": false,
+        "buffs": [],
+        "breakdown": "Monad Living Persona Data Processing (Logic 6)",
+        "doc_link": "chapters/rules_and_downtime.html#monad-matrix-attributes"
+      },
+      {
+        "name": "Firewall (Living Persona)",
+        "code": "FW",
+        "base": 7,
+        "buffed": 7,
+        "linked_mental": "wil",
+        "tuning_bonus": 0,
+        "is_buffed": false,
+        "buffs": [],
+        "breakdown": "Monad Living Persona Firewall (Willpower 7)",
+        "doc_link": "chapters/rules_and_downtime.html#monad-matrix-attributes"
+      },
+      {
         "name": "Edge",
         "code": "EDG",
         "base": 7,
@@ -1090,20 +1415,30 @@
         "doc_link": "chapters/rules_and_downtime.html"
       },
       {
-        "name": "Essence",
-        "code": "ESS",
-        "base": 0.43,
-        "buffed": 0.43,
+        "name": "Nanite Volume",
+        "code": "NV",
+        "base": 6,
+        "buffed": 6,
         "is_buffed": false,
         "buffs": [],
-        "breakdown": "Base 0.43",
-        "doc_link": "chapters/rules_and_downtime.html"
+        "breakdown": "Base 6",
+        "doc_link": "chapters/rules_and_downtime.html#monad-matrix-attributes"
+      },
+      {
+        "name": "Essence",
+        "code": "ESS",
+        "base": 0.49,
+        "buffed": 0.49,
+        "is_buffed": false,
+        "buffs": [],
+        "breakdown": "Base 0.49",
+        "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
       }
     ],
     "derived": {
       "composure": 9,
       "judge_intentions": 12,
-      "memory": 14,
+      "memory": 13,
       "lift_carry": 9,
       "physical_defense": 7,
       "defense_rating": 3,
@@ -1122,6 +1457,25 @@
       "matrix_defense_breakdown": "WIL 7 + FW 9 = 16d6",
       "matrix_initiative": "9 + 3D6 (AR) / 13 + 3D6 (Hot-Sim VR)"
     },
+    "initiative": {
+      "default_mode": "physical",
+      "modes": {
+        "physical": {
+          "name": "Physical",
+          "score": 7,
+          "dice": 1,
+          "dice_str": "1d6",
+          "breakdown": "REA (2) + INT (5) + 1d6 (Modifiable via Monad Physical Boost)"
+        },
+        "vr_hotsim": {
+          "name": "VR Hot-Sim",
+          "score": 11,
+          "dice": 3,
+          "dice_str": "3d6",
+          "breakdown": "DP (6) + INT (5) + 3d6 (Monad Living Persona Hot-Sim)"
+        }
+      }
+    },
     "skills": [
       {
         "name": "Electronics",
@@ -1129,14 +1483,14 @@
         "rating": 6,
         "attribute": "Logic",
         "specialization": "Computer",
-        "base_pool": 13,
-        "buffed_pool": 13,
+        "base_pool": 12,
+        "buffed_pool": 12,
         "bought_hits": 3,
-        "specialized_pool": 15,
+        "specialized_pool": 14,
         "specialized_hits": 3,
         "effective_attribute": "logic",
         "is_attribute_overridden": false,
-        "breakdown_text": "LOG 7 + 6 Rtg",
+        "breakdown_text": "LOG 6 + 6 Rtg",
         "buffs": [
           {
             "source": "Specialization: Computer",
@@ -1149,49 +1503,84 @@
         "doc_link": "chapters/rules_and_downtime.html"
       },
       {
+        "name": "Athletics",
+        "id": "athletics",
+        "rating": 1,
+        "attribute": "Agility",
+        "specialization": null,
+        "base_pool": 10,
+        "buffed_pool": 10,
+        "bought_hits": 2,
+        "specialized_pool": 10,
+        "specialized_hits": 2,
+        "effective_attribute": "agility",
+        "is_attribute_overridden": false,
+        "breakdown_text": "AGI 9 + 1 Rtg",
+        "buffs": [
+          {
+            "source": "Muscle Toner (Used R2)",
+            "type": "augmentation",
+            "value": 2,
+            "target": "attribute:agility",
+            "active": true
+          }
+        ],
+        "doc_link": "chapters/rules_and_downtime.html"
+      },
+      {
         "name": "Native Language (English)",
-        "id": "language",
+        "id": "language_english",
         "rating": 4,
         "attribute": "Logic",
         "specialization": null,
-        "base_pool": 11,
-        "buffed_pool": 11,
+        "base_pool": 10,
+        "buffed_pool": 10,
         "bought_hits": 2,
-        "specialized_pool": 11,
+        "specialized_pool": 10,
         "specialized_hits": 2,
         "effective_attribute": "logic",
         "is_attribute_overridden": false,
-        "breakdown_text": "LOG 7 + 4 Rtg",
+        "breakdown_text": "LOG 6 + 4 Rtg",
         "buffs": [],
         "doc_link": "chapters/rules_and_downtime.html"
       },
       {
-        "name": "Firearms (Activesoft)",
-        "id": "firearms_activesoft",
+        "name": "Native Language (Mindspeech)",
+        "id": "language_mindspeech",
+        "rating": 4,
+        "attribute": "Logic",
+        "specialization": null,
+        "base_pool": 10,
+        "buffed_pool": 10,
+        "bought_hits": 2,
+        "specialized_pool": 10,
+        "specialized_hits": 2,
+        "effective_attribute": "logic",
+        "is_attribute_overridden": false,
+        "breakdown_text": "LOG 6 + 4 Rtg",
+        "buffs": [],
+        "doc_link": "chapters/rules_and_downtime.html"
+      },
+      {
+        "name": "Close Combat (Activesoft)",
+        "id": "close_combat_activesoft",
         "rating": 7,
         "base_rating": 6,
         "is_activesoft": true,
         "attribute": "agility",
         "specialization": null,
         "base_pool": 13,
-        "buffed_pool": 15,
+        "buffed_pool": 14,
         "bought_hits": 3,
-        "specialized_pool": 15,
+        "specialized_pool": 14,
         "specialized_hits": 3,
         "effective_attribute": "agility",
         "is_attribute_overridden": false,
-        "breakdown_text": "AGI 7 + 6 Base Soft + Skillwires (+1) + Reflex Recorder (+1) = 15d6",
+        "breakdown_text": "AGI 7 + 6 Base Soft + Skillwires (+1) = 14d6",
         "buffs": [
           {
             "source": "Skillwires Wireless ON",
             "type": "cyberware",
-            "value": 1,
-            "target": "skill",
-            "active": true
-          },
-          {
-            "source": "Reflex Recorder (+1)",
-            "type": "augmentation",
             "value": 1,
             "target": "skill",
             "active": true
@@ -1202,8 +1591,8 @@
       {
         "name": "Cracking (Activesoft)",
         "id": "cracking_activesoft",
-        "rating": 6,
-        "base_rating": 5,
+        "rating": 7,
+        "base_rating": 6,
         "is_activesoft": true,
         "attribute": "logic",
         "specialization": null,
@@ -1214,7 +1603,7 @@
         "specialized_hits": 3,
         "effective_attribute": "logic",
         "is_attribute_overridden": false,
-        "breakdown_text": "LOG 7 + 5 Base Soft + Skillwires (+1) = 13d6",
+        "breakdown_text": "LOG 6 + 6 Base Soft + Skillwires (+1) = 13d6",
         "buffs": [
           {
             "source": "Skillwires Wireless ON",
@@ -1231,7 +1620,7 @@
       "positive": [
         {
           "name": "Augmentation Acclimation",
-          "rating": 10,
+          "rating": 9,
           "choice": null,
           "notes": null
         },
@@ -1306,9 +1695,12 @@
       {
         "name": "Securetech SkinShield (w/ Ballistic Hood)",
         "defense_rating": 3,
-        "modifications": []
+        "accessories": [],
+        "modifications": [],
+        "notes": "+2 DR form-fitting under-armor, +1 DR Ballistic Hood (Firing Squad p. 3 / Seattle p. 5). Invisible under normal street clothes with 0 Social penalty."
       }
     ],
+    "drones": [],
     "vehicles": [],
     "spells": [],
     "adept_powers": [],
@@ -1368,7 +1760,7 @@
         "rating": null,
         "grade": "standard",
         "essence": 0,
-        "notes": "Base AGI 2 / STR 2 + Agility [+3] mod (3 Cap used). With Redliner operates at AGI 7 / STR 4 (AGI 9 / STR 6 Overdriven). 7 Capacity Open.",
+        "notes": "Base AGI 2 / STR 2 + Agility [+3] mod (3 Cap), Retractable Inline Skates (2 Cap), Hydraulic Jacks R2 (2 Cap), Hidden Slide (3 Cap) -> 10/10 Capacity Full. Operates at AGI 7 / STR 4 (9/6 Overdriven).",
         "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
       },
       {
@@ -1376,7 +1768,7 @@
         "rating": null,
         "grade": "standard",
         "essence": 0,
-        "notes": "Base AGI 2 / STR 2 + Agility [+3] mod (3 Cap used). With Redliner operates at AGI 7 / STR 4 (AGI 9 / STR 6 Overdriven). 7 Capacity Open.",
+        "notes": "Base AGI 2 / STR 2 + Agility [+3] mod (3 Cap), Retractable Inline Skates (2 Cap), Hydraulic Jacks R2 (2 Cap), Built-in Utility Kit (2 Cap), Gecko Tips (1 Cap) -> 10/10 Capacity Full. Operates at AGI 7 / STR 4 (9/6 Overdriven).",
         "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
       },
       {
@@ -1409,14 +1801,6 @@
         "grade": "standard",
         "essence": 0,
         "notes": "-1 Edge cost on technical/Logic tests (-2 when overdriven with +1 wild die and +1 Edge gained via Maximum Overdrive); Body Shop p. 5; 0 Bad Luck penalty.",
-        "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
-      },
-      {
-        "name": "Cerebral Booster Enhancer",
-        "rating": null,
-        "grade": "alphaware",
-        "essence": 0,
-        "notes": "Geneware augmentics permanently granting +1 Logic (Logic 6 -> 7); stacks with future Cerebral Boosters; 0.16 Ess, 48,000¥, Avail 6L.",
         "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
       }
     ],
@@ -1480,7 +1864,7 @@
           "rating": null,
           "grade": "standard",
           "essence": 0,
-          "notes": "Base AGI 2 / STR 2 + Agility [+3] mod (3 Cap used). With Redliner operates at AGI 7 / STR 4 (AGI 9 / STR 6 Overdriven). 7 Capacity Open.",
+          "notes": "Base AGI 2 / STR 2 + Agility [+3] mod (3 Cap), Retractable Inline Skates (2 Cap), Hydraulic Jacks R2 (2 Cap), Hidden Slide (3 Cap) -> 10/10 Capacity Full. Operates at AGI 7 / STR 4 (9/6 Overdriven).",
           "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
         },
         {
@@ -1488,7 +1872,7 @@
           "rating": null,
           "grade": "standard",
           "essence": 0,
-          "notes": "Base AGI 2 / STR 2 + Agility [+3] mod (3 Cap used). With Redliner operates at AGI 7 / STR 4 (AGI 9 / STR 6 Overdriven). 7 Capacity Open.",
+          "notes": "Base AGI 2 / STR 2 + Agility [+3] mod (3 Cap), Retractable Inline Skates (2 Cap), Hydraulic Jacks R2 (2 Cap), Built-in Utility Kit (2 Cap), Gecko Tips (1 Cap) -> 10/10 Capacity Full. Operates at AGI 7 / STR 4 (9/6 Overdriven).",
           "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
         },
         {
@@ -1522,35 +1906,202 @@
           "essence": 0,
           "notes": "-1 Edge cost on technical/Logic tests (-2 when overdriven with +1 wild die and +1 Edge gained via Maximum Overdrive); Body Shop p. 5; 0 Bad Luck penalty.",
           "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
-        },
-        {
-          "name": "Cerebral Booster Enhancer",
-          "rating": null,
-          "grade": "alphaware",
-          "essence": 0,
-          "notes": "Geneware augmentics permanently granting +1 Logic (Logic 6 -> 7); stacks with future Cerebral Boosters; 0.16 Ess, 48,000¥, Avail 6L.",
-          "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
         }
       ]
     },
     "inventory": {
-      "commlinks": [],
+      "commlinks": [
+        "Renraku Sensei"
+      ],
+      "matrix_devices": [
+        {
+          "name": "Renraku Sensei",
+          "rating": 3,
+          "data_processing": 3,
+          "firewall": 1,
+          "qty": 1,
+          "accessories": [],
+          "notes": "Everyday burner commlink and legal SIN broadcast. Veronica uses Monad Living Persona for all Shadow Matrix operations."
+        }
+      ],
       "hosts": [],
       "programs": [],
+      "software": [],
       "autosofts": [],
       "gear": [
         "Contacts (Rating 3 w/ Flare Comp, Smartlink)",
         "Savior Medkit (Rating 6 w/ 1x Refill)"
+      ],
+      "gear_items": [
+        {
+          "name": "Contacts (Rating 3 w/ Flare Comp, Smartlink)",
+          "qty": 1,
+          "rating": 3,
+          "category": "Field Gear",
+          "accessories": [],
+          "notes": ""
+        },
+        {
+          "name": "Savior Medkit (Rating 6 w/ 1x Refill)",
+          "qty": 1,
+          "rating": 6,
+          "category": "Field Gear",
+          "accessories": [],
+          "notes": ""
+        }
+      ],
+      "sins": [
+        {
+          "name": "Fake Licenses (Rating 4 x2): (1,600¥)",
+          "rating": 1,
+          "quality": "Standard",
+          "licenses": [
+            "Fake License: Firearms",
+            "Fake License: Concealed Carry"
+          ]
+        },
+        {
+          "name": "Low Lifestyle (Off-Grid Coastal Boathouse): (2,000¥ / 1st month prepaid)",
+          "rating": 1,
+          "quality": "Standard",
+          "licenses": []
+        }
+      ],
+      "lifestyles": [
+        {
+          "name": "Low Lifestyle (Off-Grid Coastal Boathouse)",
+          "comfort": "Low",
+          "entertainment": "Low",
+          "necessities": "Low",
+          "neighborhood": "Low",
+          "security": "Low"
+        }
       ]
     },
+    "gear_items": [
+      {
+        "name": "Contacts (Rating 3 w/ Flare Comp, Smartlink)",
+        "qty": 1,
+        "rating": 3,
+        "category": "Field Gear",
+        "accessories": [],
+        "notes": ""
+      },
+      {
+        "name": "Savior Medkit (Rating 6 w/ 1x Refill)",
+        "qty": 1,
+        "rating": 6,
+        "category": "Field Gear",
+        "accessories": [],
+        "notes": ""
+      }
+    ],
+    "matrix_devices": [
+      {
+        "name": "Renraku Sensei",
+        "rating": 3,
+        "data_processing": 3,
+        "firewall": 1,
+        "qty": 1,
+        "accessories": [],
+        "notes": "Everyday burner commlink and legal SIN broadcast. Veronica uses Monad Living Persona for all Shadow Matrix operations."
+      }
+    ],
+    "software": [],
+    "sins": [
+      {
+        "name": "Fake Licenses (Rating 4 x2): (1,600¥)",
+        "rating": 1,
+        "quality": "Standard",
+        "licenses": [
+          "Fake License: Firearms",
+          "Fake License: Concealed Carry"
+        ]
+      },
+      {
+        "name": "Low Lifestyle (Off-Grid Coastal Boathouse): (2,000¥ / 1st month prepaid)",
+        "rating": 1,
+        "quality": "Standard",
+        "licenses": []
+      }
+    ],
+    "lifestyles": [
+      {
+        "name": "Low Lifestyle (Off-Grid Coastal Boathouse)",
+        "comfort": "Low",
+        "entertainment": "Low",
+        "necessities": "Low",
+        "neighborhood": "Low",
+        "security": "Low"
+      }
+    ],
     "contacts": []
   }
 };
+    window.__SR6_DATA_BUNDLE__ = CHARACTERS_DATA;
     let activeCharId = "venn";
     let contactFilterMode = "all";
+    let selectedAttrCode = null;
+    let isInitDrawerOpen = false;
+    const openDrawers = new Set();
+    const RUNTIME_MODIFIERS = {};
+
+    function getRuntimeMod(charId, key) {
+      if (!RUNTIME_MODIFIERS[charId]) RUNTIME_MODIFIERS[charId] = {};
+      return RUNTIME_MODIFIERS[charId][key] || 0;
+    }
+
+    function setRuntimeMod(charId, key, val) {
+      if (!RUNTIME_MODIFIERS[charId]) RUNTIME_MODIFIERS[charId] = {};
+      RUNTIME_MODIFIERS[charId][key] = val;
+      try {
+        localStorage.setItem("sr6_mods_" + charId, JSON.stringify(RUNTIME_MODIFIERS[charId]));
+      } catch(e) {}
+    }
+
+    function stepModifier(key, step) {
+      const cur = getRuntimeMod(activeCharId, key);
+      let next = cur + step;
+      if (key.startsWith("dmg_")) {
+        next = Math.max(0, next);
+      }
+      setRuntimeMod(activeCharId, key, next);
+      renderActiveCharacter();
+    }
+
+    function resetModifier(key) {
+      setRuntimeMod(activeCharId, key, 0);
+      renderActiveCharacter();
+    }
+
+    function toggleInitDrawer() {
+      isInitDrawerOpen = !isInitDrawerOpen;
+      renderActiveCharacter();
+    }
+
+    function resetCharMods(charId) {
+      RUNTIME_MODIFIERS[charId] = {};
+      try {
+        localStorage.removeItem("sr6_mods_" + charId);
+      } catch(e) {}
+      renderActiveCharacter();
+      showToast("↺ Modifiers reset to dossier defaults");
+    }
+
+    function loadRuntimeMods() {
+      try {
+        Object.keys(CHARACTERS_DATA).forEach(cid => {
+          const raw = localStorage.getItem("sr6_mods_" + cid);
+          if (raw) {
+            RUNTIME_MODIFIERS[cid] = JSON.parse(raw);
+          }
+        });
+      } catch(e) {}
+    }
 
     // Initialize DOM
     document.addEventListener("DOMContentLoaded", () => {
+      loadRuntimeMods();
       initCharacterSelector();
       setupTabs();
       setupSearch();
@@ -1568,8 +2119,7 @@
 
     function getDocUrl(charId, docLink) {
       if (!docLink) return "#";
-      // Determine if running inside /output/mobile/ or master /app/
-      const currentPath = window.location.pathname.replace(/\\/g, "/");
+      const currentPath = window.location.pathname.split("\\").join("/");
       if (currentPath.includes("/output/mobile/")) {
         return `../../_book/${docLink}`;
       } else {
@@ -1647,92 +2197,299 @@
       // Apply dynamic character theme
       document.body.dataset.theme = activeCharId.toLowerCase();
 
+      // Check if any active modifiers exist for this character
+      const charMods = RUNTIME_MODIFIERS[activeCharId] || {};
+      const hasActiveMods = Object.keys(charMods).some(k => charMods[k] !== 0);
+      const resetBtn = document.getElementById("resetAllModsBtn");
+      if (resetBtn) {
+        resetBtn.style.display = hasActiveMods ? "inline-flex" : "none";
+      }
+
       // Header Info
-      document.getElementById("nuyenBadge").textContent = `¥ ${char.identity.nuyen.toLocaleString()}`;
-      document.getElementById("karmaBadge").textContent = `${char.identity.karma} Karma`;
+      document.getElementById("nuyenBadge").textContent = `¥ ${char.identity.nuyen ? char.identity.nuyen.toLocaleString() : 0}`;
+      const karmaAvail = char.identity.karma_avail !== undefined ? char.identity.karma_avail : char.identity.karma;
+      const karmaLife = char.identity.lifetime_karma;
+      document.getElementById("karmaBadge").textContent = karmaLife && karmaLife !== karmaAvail ? `${karmaAvail} Karma (${karmaLife} Tot)` : `${karmaAvail} Karma`;
       document.getElementById("charRealName").textContent = char.identity.real_name || "Unknown";
       document.getElementById("charMetatype").textContent = char.identity.metatype || "Human";
       document.getElementById("charRoleTradition").textContent = `${char.identity.role || "Shadowrunner"} • ${char.identity.stream || char.identity.tradition || char.identity.mortype || "Street Runner"}`;
 
-      // Attributes Grid (Using enriched attributes_list)
+      // Attributes Map & Grid Rendering
       const attrGrid = document.getElementById("attrGrid");
       const attrDrillArea = document.getElementById("attrDrilldownArea");
       attrGrid.innerHTML = "";
       attrDrillArea.innerHTML = "";
 
       const attrsList = char.attributes_list || [];
+      const liveAttrs = {};
+
+      // First pass: compute live physical, mental, special attributes
+      attrsList.forEach((attr) => {
+        const key = "attr_" + attr.code.toLowerCase();
+        const delta = getRuntimeMod(activeCharId, key);
+        if (!attr.linked_mental) {
+          const baseAug = attr.buffed;
+          liveAttrs[attr.code.toLowerCase()] = Math.max(0, baseAug + delta);
+        }
+      });
+
+      // Second pass: compute live ASDF matrix attributes linked to mental attributes
+      attrsList.forEach((attr) => {
+        const key = "attr_" + attr.code.toLowerCase();
+        const delta = getRuntimeMod(activeCharId, key);
+        if (attr.linked_mental) {
+          const parentVal = liveAttrs[attr.linked_mental] !== undefined ? liveAttrs[attr.linked_mental] : attr.base;
+          const tuning = attr.tuning_bonus || 0;
+          const dynamicBase = parentVal + tuning;
+          liveAttrs[attr.code.toLowerCase()] = Math.max(0, dynamicBase + delta);
+        }
+      });
       
-      attrsList.forEach((attr, idx) => {
+      attrsList.forEach((attr) => {
+        const key = "attr_" + attr.code.toLowerCase();
+        const delta = getRuntimeMod(activeCharId, key);
+        const effectiveVal = liveAttrs[attr.code.toLowerCase()];
+        const isManualMod = delta !== 0;
+        const isSelected = (selectedAttrCode === attr.code.toLowerCase());
+
+        let baseAug = attr.buffed;
+        let subLbl = "";
+        let breakdownMath = `📊 Base ${attr.base} | Default ${baseAug}`;
+
+        if (attr.linked_mental) {
+          const mentalCode = attr.linked_mental.toUpperCase();
+          const parentVal = liveAttrs[attr.linked_mental] !== undefined ? liveAttrs[attr.linked_mental] : attr.base;
+          const tuning = attr.tuning_bonus || 0;
+          const dynamicBase = parentVal + tuning;
+          baseAug = dynamicBase;
+          subLbl = isManualMod ? `Default ${dynamicBase}` : (tuning ? `${mentalCode} +${tuning}` : `${mentalCode} (${parentVal})`);
+          breakdownMath = `📊 ${mentalCode} (${parentVal}) ${tuning ? `+ Tuning (+${tuning})` : ''} = ${dynamicBase} ${isManualMod ? `| Live Mod: ${delta > 0 ? '+' + delta : delta}` : ''}`;
+        } else {
+          subLbl = isManualMod ? `Default ${baseAug}` : (attr.is_buffed ? `Base ${attr.base}` : '');
+          breakdownMath = `📊 Base ${attr.base} | Default ${baseAug} ${isManualMod ? `| Live Mod: ${delta > 0 ? '+' + delta : delta}` : ''}`;
+        }
+
         const box = document.createElement("div");
-        box.className = "attr-box" + (attr.is_buffed ? " augmented" : "");
-        const displayVal = typeof attr.buffed === "number" ? (Number.isInteger(attr.buffed) ? attr.buffed : attr.buffed.toFixed(2)) : attr.buffed;
-        const subLbl = attr.is_buffed ? `Base ${attr.base}` : "";
+        box.className = "attr-box" + (attr.is_buffed ? " augmented" : "") + (isManualMod ? " manual-modified" : "") + (isSelected ? " selected" : "");
+        const displayVal = typeof effectiveVal === "number" ? (Number.isInteger(effectiveVal) ? effectiveVal : effectiveVal.toFixed(2)) : effectiveVal;
+        const deltaBadge = isManualMod ? `<span class="mod-delta-badge ${delta > 0 ? 'pos' : 'neg'}">${delta > 0 ? '+' + delta : delta}</span>` : '';
 
         box.innerHTML = `
-          <span class="attr-name">${attr.code}</span>
+          <span class="attr-name">${attr.code} ${deltaBadge}</span>
           <span class="attr-val">${displayVal}</span>
           ${subLbl ? `<span class="attr-sublabel">${subLbl}</span>` : ""}
         `;
 
         // Drilldown toggle
         box.addEventListener("click", () => {
-          const isSelected = box.classList.contains("selected");
-          document.querySelectorAll(".attr-box").forEach(b => b.classList.remove("selected"));
-          
-          if (isSelected) {
-            attrDrillArea.innerHTML = "";
-          } else {
-            box.classList.add("selected");
-            const buffsHtml = attr.buffs && attr.buffs.length ? 
-              attr.buffs.map(b => `<div class="buff-chip">✔ <strong>${b.source}</strong>: +${b.value} <span style="color: var(--text-muted);">(${b.notes || ''})</span></div>`).join("") :
-              '<div class="buff-chip">Baseline natural attribute value</div>';
-
-            const docLink = attr.doc_link ? `<a class="doc-link-btn" href="${getDocUrl(activeCharId, attr.doc_link)}" target="_blank" rel="noopener">📖 View Rules & Mechanics ↗</a>` : "";
-
-            attrDrillArea.innerHTML = `
-              <div class="breakdown-drawer open">
-                <div style="font-weight: 700; color: var(--gold-primary); margin-bottom: 4px;">${attr.name} (${attr.code}): ${attr.buffed}</div>
-                <div class="breakdown-math">📊 ${attr.breakdown || `Base ${attr.base}`}</div>
-                <div class="buff-checklist">${buffsHtml}</div>
-                ${docLink}
-              </div>
-            `;
-          }
+          selectedAttrCode = (selectedAttrCode === attr.code.toLowerCase()) ? null : attr.code.toLowerCase();
+          renderActiveCharacter();
         });
+
+        // If selected, render persistent open drawer
+        if (isSelected) {
+          const buffsHtml = attr.buffs && attr.buffs.length ? 
+            attr.buffs.map(b => `<div class="buff-chip">✔ <strong>${b.source}</strong>: +${b.value} <span style="color: var(--text-muted);">(${b.notes || ''})</span></div>`).join("") :
+            (attr.linked_mental ? `<div class="buff-chip">✔ Derived from mental attribute <strong>${attr.linked_mental.toUpperCase()}</strong></div>` : '<div class="buff-chip">Baseline natural attribute value</div>');
+
+          const docLink = attr.doc_link ? `<a class="doc-link-btn" href="${getDocUrl(activeCharId, attr.doc_link)}" target="_blank" rel="noopener">📖 View Rules & Mechanics ↗</a>` : "";
+
+          attrDrillArea.innerHTML = `
+            <div class="breakdown-drawer open">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <div style="font-weight: 700; color: var(--gold-primary); font-size: 1.02rem;">
+                  ${attr.name} (${attr.code}): <strong>${effectiveVal}</strong>
+                </div>
+                <div class="stepper-inline">
+                  <button class="stepper-btn" onclick="stepModifier('${key}', -1); event.stopPropagation();" title="Decrease Attribute">-</button>
+                  <span style="font-family: var(--font-mono); font-weight: 700; padding: 0 4px; min-width: 24px; text-align: center;">${effectiveVal}</span>
+                  <button class="stepper-btn" onclick="stepModifier('${key}', 1); event.stopPropagation();" title="Increase Attribute">+</button>
+                  ${isManualMod ? `<button class="reset-all-btn" onclick="resetModifier('${key}'); event.stopPropagation();" title="Reset to default">↺</button>` : ''}
+                </div>
+              </div>
+              <div class="breakdown-math">${breakdownMath}</div>
+              <div class="buff-checklist">${buffsHtml}</div>
+              ${docLink}
+            </div>
+          `;
+        }
 
         attrGrid.appendChild(box);
       });
 
-      // Condition Monitors
-      document.getElementById("physBoxes").textContent = `${char.derived.physical_boxes} Boxes`;
-      document.getElementById("stunBoxes").textContent = `${char.derived.stun_boxes} Boxes`;
+      // Derived Attribute Values (Live from attributes + modifier deltas)
+      const wilVal = liveAttrs["wil"] !== undefined ? liveAttrs["wil"] : (char.attributes ? char.attributes.wil : 5);
+      const chaVal = liveAttrs["cha"] !== undefined ? liveAttrs["cha"] : (char.attributes ? char.attributes.cha : 5);
+      const intVal = liveAttrs["int"] !== undefined ? liveAttrs["int"] : (char.attributes ? char.attributes.int : 5);
+      const logVal = liveAttrs["log"] !== undefined ? liveAttrs["log"] : (char.attributes ? char.attributes.log : 5);
+      const reaVal = liveAttrs["rea"] !== undefined ? liveAttrs["rea"] : (char.attributes ? char.attributes.rea : 2);
+      const dpVal = liveAttrs["dp"] !== undefined ? liveAttrs["dp"] : (char.matrix && char.matrix.asdf ? char.matrix.asdf.data_processing : 6);
+      const fwVal = liveAttrs["fw"] !== undefined ? liveAttrs["fw"] : (char.matrix && char.matrix.asdf ? char.matrix.asdf.firewall : 5);
 
-      // Derived Ratings with Drilldown
+      // Initiative Compact Card and Expandable Drawer Rendering
+      const initCompact = document.getElementById("initCompactCard");
+      const initDrawerArea = document.getElementById("initDrawerArea");
+      if (initCompact && char.initiative && char.initiative.modes) {
+        const initModes = char.initiative.modes;
+        const availableModes = Object.keys(initModes);
+        let currentMode = getRuntimeMod(activeCharId, "init_mode") || char.initiative.default_mode || availableModes[0];
+        if (!initModes[currentMode]) currentMode = availableModes[0];
+        
+        const modeData = initModes[currentMode];
+        const scoreModKey = `init_score_${currentMode}`;
+        const diceModKey = `init_dice_${currentMode}`;
+        const scoreDelta = getRuntimeMod(activeCharId, scoreModKey);
+        const diceDelta = getRuntimeMod(activeCharId, diceModKey);
+
+        let liveBaseScore = modeData.score;
+        let dynamicBreakdown = modeData.breakdown;
+
+        if (currentMode === "physical") {
+          liveBaseScore = reaVal + intVal;
+          dynamicBreakdown = `REA (${reaVal}) + INT (${intVal}) + ${(modeData.dice + diceDelta)}d6`;
+        } else if (currentMode === "vr_hotsim") {
+          const overclockScore = char.identity.is_ai ? 1 : 0;
+          liveBaseScore = dpVal + intVal + overclockScore;
+          dynamicBreakdown = `DP (${dpVal}) + INT (${intVal}) ${overclockScore ? '+ Overclock Echo (+1)' : ''} + ${(modeData.dice + diceDelta)}d6`;
+        }
+
+        const effScore = Math.max(1, liveBaseScore + scoreDelta);
+        const effDice = Math.max(1, modeData.dice + diceDelta);
+        const isModified = (scoreDelta !== 0 || diceDelta !== 0);
+        const deltaBadge = isModified ? `<span class="mod-delta-badge ${scoreDelta >= 0 ? 'pos' : 'neg'}" style="font-size: 0.65rem; margin-left: 4px;">${scoreDelta >= 0 ? '+' + scoreDelta : scoreDelta}</span>` : '';
+
+        // Render Compact Card in the 3-column row
+        initCompact.className = "track-card init-compact-card" + (isInitDrawerOpen ? " open" : "");
+        initCompact.innerHTML = `
+          <div class="track-header" style="color: var(--gold-primary);">⚡ INITIATIVE</div>
+          <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 800; color: var(--gold-primary); margin: 2px 0; text-align: center;">
+            ${effScore} + ${effDice}d6 ${deltaBadge}
+          </div>
+          <div style="font-size: 0.65rem; color: var(--text-muted); text-align: center;">
+            ${modeData.name} ${isInitDrawerOpen ? '▲' : '▼'}
+          </div>
+        `;
+
+        // Render Expanded Drawer if active
+        if (isInitDrawerOpen) {
+          let pillsHtml = "";
+          if (availableModes.length > 1) {
+            pillsHtml = availableModes.map(m => `
+              <button class="init-mode-pill ${m === currentMode ? 'active' : ''}" onclick="setRuntimeMod(activeCharId, 'init_mode', '${m}'); renderActiveCharacter(); event.stopPropagation();">
+                ${m === 'vr_hotsim' ? '⚡ Hot-Sim' : (m === 'physical' ? '🏃 Physical' : m.toUpperCase())}
+              </button>
+            `).join("");
+          }
+
+          initDrawerArea.innerHTML = `
+            <div class="init-card">
+              <div class="init-header-row">
+                <div style="font-weight: 700; font-size: 0.95rem; color: var(--gold-primary); display: flex; align-items: center; gap: 6px;">
+                  <span>⚡ Adjust ${modeData.name} Initiative</span>
+                </div>
+                <div style="display: flex; gap: 4px;">
+                  ${pillsHtml}
+                </div>
+              </div>
+
+              <div style="display: flex; align-items: center; justify-content: space-between; background: rgba(0,0,0,0.3); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 8px 12px;">
+                <div>
+                  <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Active Rating</div>
+                  <div class="init-val-box">${effScore} + ${effDice}d6</div>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 4px; align-items: flex-end;">
+                  <div style="display: flex; align-items: center; gap: 6px;">
+                    <span style="font-size: 0.72rem; color: var(--text-muted); min-width: 36px; text-align: right;">Score:</span>
+                    <div class="stepper-inline">
+                      <button class="stepper-btn" onclick="stepModifier('${scoreModKey}', -1); event.stopPropagation();" title="Decrease Initiative Score">-</button>
+                      <span style="font-family: var(--font-mono); font-weight: 700; min-width: 22px; text-align: center;">${effScore}</span>
+                      <button class="stepper-btn" onclick="stepModifier('${scoreModKey}', 1); event.stopPropagation();" title="Increase Initiative Score">+</button>
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 6px;">
+                    <span style="font-size: 0.72rem; color: var(--text-muted); min-width: 36px; text-align: right;">Dice:</span>
+                    <div class="stepper-inline">
+                      <button class="stepper-btn" onclick="stepModifier('${diceModKey}', -1); event.stopPropagation();" title="Decrease Initiative Dice">-</button>
+                      <span style="font-family: var(--font-mono); font-weight: 700; min-width: 22px; text-align: center;">+${effDice}d6</span>
+                      <button class="stepper-btn" onclick="stepModifier('${diceModKey}', 1); event.stopPropagation();" title="Increase Initiative Dice">+</button>
+                      ${isModified ? `<button class="reset-all-btn" onclick="resetModifier('${scoreModKey}'); resetModifier('${diceModKey}'); event.stopPropagation();" title="Reset initiative adjustments">↺</button>` : ''}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 6px; line-height: 1.3;">
+                📊 ${dynamicBreakdown} ${isModified ? `| <strong style="color: var(--gold-primary);">Extra Mod: ${scoreDelta >= 0 ? '+' + scoreDelta : scoreDelta} Score, ${diceDelta >= 0 ? '+' + diceDelta : diceDelta}d6</strong>` : ''}
+              </div>
+            </div>
+          `;
+        } else {
+          initDrawerArea.innerHTML = "";
+        }
+      }
+
+      // Condition Monitors & Wound Calculation
+      const maxPhys = char.derived.physical_boxes || 10;
+      const maxStun = char.derived.stun_boxes || 11;
+      const physDmg = getRuntimeMod(activeCharId, "dmg_phys");
+      const stunDmg = getRuntimeMod(activeCharId, "dmg_stun");
+      const physRem = Math.max(0, maxPhys - physDmg);
+      const stunRem = Math.max(0, maxStun - stunDmg);
+
+      document.getElementById("physBoxes").textContent = `${physDmg} / ${maxPhys}`;
+      document.getElementById("physRemainLbl").textContent = `${physRem} Boxes Left (${physDmg} Dmg)`;
+      document.getElementById("stunBoxes").textContent = `${stunDmg} / ${maxStun}`;
+      document.getElementById("stunRemainLbl").textContent = `${stunRem} Boxes Left (${stunDmg} Dmg)`;
+
+      // SR6 Wound Penalty: -1 dice per full 3 damage boxes on either track
+      const woundPenalty = Math.floor(physDmg / 3) + Math.floor(stunDmg / 3);
+      const woundBanner = document.getElementById("woundPenaltyBanner");
+      if (woundBanner) {
+        if (woundPenalty > 0) {
+          woundBanner.className = "wound-banner";
+          woundBanner.style.display = "flex";
+          woundBanner.innerHTML = `
+            <span>⚠️ <strong>Wound Penalty: -${woundPenalty} Dice</strong> to all tests (${physDmg} Phys, ${stunDmg} Stun)</span>
+            <button class="reset-all-btn" onclick="setRuntimeMod(activeCharId, 'dmg_phys', 0); setRuntimeMod(activeCharId, 'dmg_stun', 0); renderActiveCharacter();">Clear Damage</button>
+          `;
+        } else {
+          woundBanner.style.display = "none";
+        }
+      }
+
+      // Derived Ratings (Live calculated from attributes + modifier deltas)
+      const compBase = wilVal + chaVal;
+      const judgeBase = wilVal + intVal;
+      const memBase = wilVal + logVal;
+      const physDefBase = reaVal + intVal;
+      const defRating = char.derived.defense_rating;
+      const matDefBase = wilVal + fwVal;
+
       const dGrid = document.getElementById("derivedGrid");
       dGrid.innerHTML = `
         <div class="derived-item">
-          <strong>Composure:</strong> ${char.derived.composure}d6 (${Math.floor(char.derived.composure/4)}H)
-          <div style="font-size: 0.72rem; color: var(--text-muted);">WIL + CHA</div>
+          <strong>Composure:</strong> ${compBase}d6 (${Math.floor(compBase/4)}H)
+          <div style="font-size: 0.72rem; color: var(--text-muted);">WIL (${wilVal}) + CHA (${chaVal})</div>
         </div>
         <div class="derived-item">
-          <strong>Judge Int:</strong> ${char.derived.judge_intentions}d6 (${Math.floor(char.derived.judge_intentions/4)}H)
-          <div style="font-size: 0.72rem; color: var(--text-muted);">WIL + INT</div>
+          <strong>Judge Int:</strong> ${judgeBase}d6 (${Math.floor(judgeBase/4)}H)
+          <div style="font-size: 0.72rem; color: var(--text-muted);">WIL (${wilVal}) + INT (${intVal})</div>
         </div>
         <div class="derived-item">
-          <strong>Memory:</strong> ${char.derived.memory}d6 (${Math.floor(char.derived.memory/4)}H)
-          <div style="font-size: 0.72rem; color: var(--text-muted);">WIL + LOG</div>
+          <strong>Memory:</strong> ${memBase}d6 (${Math.floor(memBase/4)}H)
+          <div style="font-size: 0.72rem; color: var(--text-muted);">WIL (${wilVal}) + LOG (${logVal})</div>
         </div>
         <div class="derived-item">
-          <strong>Physical Def:</strong> ${char.derived.physical_defense}d6 (${Math.floor(char.derived.physical_defense/4)}H)
-          <div style="font-size: 0.72rem; color: var(--text-muted);">REA + INT</div>
+          <strong>Physical Def:</strong> ${physDefBase}d6 (${Math.floor(physDefBase/4)}H)
+          <div style="font-size: 0.72rem; color: var(--text-muted);">REA (${reaVal}) + INT (${intVal})</div>
         </div>
         <div class="derived-item">
-          <strong>Defense Rating:</strong> ${char.derived.defense_rating} DR
+          <strong>Defense Rating:</strong> ${defRating} DR
           <div style="font-size: 0.72rem; color: var(--text-muted);">Armor + Soak</div>
         </div>
         <div class="derived-item">
-          <strong>Full Matrix Def:</strong> ${char.matrix.matrix_defense}d6 (${char.matrix.matrix_defense_hits}H)
-          <div style="font-size: 0.72rem; color: var(--text-muted);">${char.matrix.matrix_defense_breakdown || 'WIL + FW'}</div>
+          <strong>Full Matrix Def:</strong> ${matDefBase}d6 (${Math.floor(matDefBase/4)}H)
+          <div style="font-size: 0.72rem; color: var(--text-muted);">WIL (${wilVal}) + FW (${fwVal})</div>
         </div>
       `;
 
@@ -1771,14 +2528,24 @@
         qList.innerHTML = qHtml;
       }
 
-      // Skills Tab
+      // Skills Tab with Interactive +/- Steppers
       const sList = document.getElementById("skillsList");
       sList.innerHTML = "";
       char.skills.forEach(s => {
+        const skillKey = "skill_" + (s.id || s.name.toLowerCase().replace(/[^a-z0-9]/g, "_"));
+        const delta = getRuntimeMod(activeCharId, skillKey);
+        const defaultPool = s.buffed_pool;
+        const currentPool = Math.max(0, defaultPool + delta);
+        const boughtHits = Math.floor(currentPool / 4);
+        const specPool = s.specialization ? (currentPool + 2) : currentPool;
+        const specHits = Math.floor(specPool / 4);
+        const isManualMod = delta !== 0;
+
         const item = document.createElement("div");
-        item.className = "pool-item";
+        item.className = "pool-item" + (isManualMod ? " manual-modified" : "");
         
         const specHtml = s.specialization ? `<span class="skill-spec">+2 ${s.specialization}</span>` : "";
+        const deltaBadge = isManualMod ? `<span class="mod-delta-badge ${delta > 0 ? 'pos' : 'neg'}">${delta > 0 ? '+' + delta : delta}</span>` : "";
         const buffsHtml = s.buffs.map(b => `<div class="buff-chip">${b.active ? '✔' : '⚡'} ${b.source} (+${b.value})</div>`).join("");
         const docLink = s.doc_link ? `<a class="doc-link-btn" href="${getDocUrl(activeCharId, s.doc_link)}" target="_blank" rel="noopener">📖 View Rules & Mechanics ↗</a>` : "";
 
@@ -1787,22 +2554,30 @@
             <div class="skill-title-wrap">
               <span class="skill-name">${s.name}</span>
               ${specHtml}
+              ${deltaBadge}
             </div>
-            <button class="info-btn" title="Inspect Breakdown">ℹ</button>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              ${isManualMod ? `<button class="reset-all-btn" onclick="resetModifier('${skillKey}')" title="Reset modifier">↺</button>` : ''}
+              <button class="info-btn" title="Inspect Breakdown">ℹ</button>
+            </div>
           </div>
           <div class="pool-main">
-            <div class="pool-target" title="Tap to Roll">
-              <span class="pool-d6">${s.buffed_pool}d6</span>
-              <span class="pool-sublabel">Base: ${s.base_pool}d6 ${s.specialization ? `| Spec: ${s.specialized_pool}d6` : ''}</span>
+            <div class="stepper-pool-wrap">
+              <button class="stepper-btn minus" onclick="stepModifier('${skillKey}', -1)" title="Decrease Pool by 1">-</button>
+              <div class="pool-target" title="Tap to Copy">
+                <span class="pool-d6">${currentPool}d6</span>
+                <span class="pool-sublabel">Base: ${s.base_pool}d6 | Default: ${s.buffed_pool}d6 ${s.specialization ? `| Spec: ${specPool}d6` : ''}</span>
+              </div>
+              <button class="stepper-btn plus" onclick="stepModifier('${skillKey}', 1)" title="Increase Pool by 1">+</button>
             </div>
             <div class="bought-hits-box">
-              <span class="bought-hits-num">${s.bought_hits}</span>
+              <span class="bought-hits-num">${boughtHits}</span>
               <span class="bought-hits-lbl">Bought Hits</span>
             </div>
           </div>
           <div class="breakdown-drawer">
-            <div class="breakdown-math">📊 ${s.breakdown_text}</div>
-            ${s.specialization ? `<div style="font-size: 0.8rem; color: var(--gold-primary); margin-bottom: 4px;"><strong>Specialized Action:</strong> ${s.specialized_pool}d6 (${s.specialized_hits} Bought Hits)</div>` : ''}
+            <div class="breakdown-math">📊 ${s.breakdown_text} ${isManualMod ? `| Live Modifier: ${delta > 0 ? '+' + delta : delta}` : ''}</div>
+            ${s.specialization ? `<div style="font-size: 0.8rem; color: var(--gold-primary); margin-bottom: 4px;"><strong>Specialized Action:</strong> ${specPool}d6 (${specHits} Bought Hits)</div>` : ''}
             <div class="buff-checklist">
               ${buffsHtml || '<div class="buff-chip">No active buffs</div>'}
             </div>
@@ -1812,13 +2587,25 @@
 
         // Click target to copy/toast
         item.querySelector(".pool-target").addEventListener("click", () => {
-          showToast(`⚡ ${s.name}: ${s.buffed_pool}d6 (${s.bought_hits} Hits)${s.specialization ? ` [${s.specialization}: ${s.specialized_pool}d6]` : ''}`);
+          showToast(`⚡ ${s.name}: ${currentPool}d6 (${boughtHits} Hits)${s.specialization ? ` [${s.specialization}: ${specPool}d6]` : ''}`);
         });
 
-        // Toggle Breakdown Drawer
-        item.querySelector(".info-btn").addEventListener("click", () => {
+        const isDrawerOpen = openDrawers.has(skillKey);
+        if (isDrawerOpen) {
           const drawer = item.querySelector(".breakdown-drawer");
-          drawer.classList.toggle("open");
+          if (drawer) drawer.classList.add("open");
+        }
+
+        // Toggle Breakdown Drawer
+        item.querySelector(".info-btn").addEventListener("click", (e) => {
+          e.stopPropagation();
+          if (openDrawers.has(skillKey)) {
+            openDrawers.delete(skillKey);
+          } else {
+            openDrawers.add(skillKey);
+          }
+          const drawer = item.querySelector(".breakdown-drawer");
+          if (drawer) drawer.classList.toggle("open");
         });
 
         sList.appendChild(item);
@@ -1844,7 +2631,6 @@
 
           const docLink = w.doc_link ? `<a class="doc-link-btn" href="${getDocUrl(activeCharId, w.doc_link)}" target="_blank" rel="noopener">📖 View Weapon Protocols ↗</a>` : "";
 
-          // Melee weapons omit fire mode and ammo
           const modeAmmoHtml = w.is_melee ? 
             `<div style="font-size: 0.8rem; color: var(--gold-primary); margin-bottom: 4px;">⚔️ <strong>Physical Melee Weapon</strong> (No fire mode / ammo)</div>` :
             `<div style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 4px;">
@@ -1918,7 +2704,7 @@
           <div class="card">
             <div class="card-title">Complex Forms & Resonance</div>
             ${cfItems}
-            ${echoes.length ? `<div style="margin-top: 10px; font-size: 0.85rem; color: var(--gold-primary);"><strong>Submersion Echoes:</strong> ${echoes.map(e => typeof e === 'object' ? e.name : e).join(", ")}</div>` : ""}
+            ${echoes.length ? `<div style="margin-top: 10px; font-size: 0.85rem; color: var(--gold-primary);"><strong>Submersion Echoes:</strong> ${echoes.map(e => typeof e === 'object' ? e.name : e).join(", ") }</div>` : ""}
           </div>
         `;
       }
@@ -2066,16 +2852,122 @@
         });
       }
 
-      // Inventory & Software Tab
-      const iList = document.getElementById("inventoryList");
-      const progs = char.inventory.programs || [];
-      const autos = char.inventory.autosofts || [];
-      const gear = char.inventory.gear || [];
-      iList.innerHTML = `
-        <div style="margin-bottom: 8px;"><strong>Programs:</strong> <span style="color: var(--text-secondary); font-size: 0.85rem;">${progs.join(", ") || "None"}</span></div>
-        <div style="margin-bottom: 8px;"><strong>Autosofts:</strong> <span style="color: var(--text-secondary); font-size: 0.85rem;">${autos.join(", ") || "None"}</span></div>
-        <div><strong>Field Gear:</strong> <span style="color: var(--text-secondary); font-size: 0.85rem;">${gear.join(", ") || "Standard runner kit"}</span></div>
-      `;
+      // Field Gear & Equipment
+      const fgList = document.getElementById("fieldGearList");
+      const gearItems = char.gear_items || [];
+      if (gearItems.length === 0) {
+        fgList.innerHTML = '<div style="color: var(--text-muted); font-size: 0.85rem;">Standard runner field equipment</div>';
+      } else {
+        fgList.innerHTML = gearItems.map(g => {
+          const qtyBadge = (g.qty && g.qty > 1) ? `<span class="gear-badge qty">Qty: ${g.qty}</span>` : '';
+          const rtgBadge = g.rating ? `<span class="gear-badge rating">Rating ${g.rating}</span>` : '';
+          const accChips = (g.accessories && g.accessories.length) ? 
+            `<div style="display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px;">${g.accessories.map(a => `<span class="buff-chip" style="font-size: 0.75rem;">✔ ${a}</span>`).join('')}</div>` : '';
+          const notesText = g.notes ? `<div style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 3px;">${g.notes}</div>` : '';
+
+          return `
+            <div class="gear-card">
+              <div class="gear-header">
+                <span class="gear-title">${g.name}</span>
+                <div style="display: flex; gap: 4px;">${qtyBadge}${rtgBadge}</div>
+              </div>
+              ${accChips}
+              ${notesText}
+            </div>
+          `;
+        }).join("");
+      }
+
+      // Matrix Hardware & Commlinks
+      const mhList = document.getElementById("matrixHardwareList");
+      const mDevs = char.matrix_devices || [];
+      if (mDevs.length === 0) {
+        mhList.innerHTML = '<div style="color: var(--text-muted); font-size: 0.85rem;">No external commlink hardware (Living Persona)</div>';
+      } else {
+        mhList.innerHTML = mDevs.map(d => {
+          const rtgBadge = d.rating ? `<span class="gear-badge rating">Device Rating ${d.rating}</span>` : '';
+          const qtyBadge = (d.qty && d.qty > 1) ? `<span class="gear-badge qty">Qty: ${d.qty}</span>` : '';
+          const dpFw = `<div style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--gold-primary); margin-top: 2px;">Data Processing: ${d.data_processing || 2} | Firewall: ${d.firewall || 2}</div>`;
+          const accChips = (d.accessories && d.accessories.length) ? 
+            `<div style="display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px;">${d.accessories.map(a => `<span class="buff-chip" style="font-size: 0.75rem;">✔ ${a}</span>`).join('')}</div>` : '';
+          const notesText = d.notes ? `<div style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 3px;">${d.notes}</div>` : '';
+
+          return `
+            <div class="gear-card">
+              <div class="gear-header">
+                <span class="gear-title">${d.name}</span>
+                <div style="display: flex; gap: 4px;">${qtyBadge}${rtgBadge}</div>
+              </div>
+              ${dpFw}
+              ${accChips}
+              ${notesText}
+            </div>
+          `;
+        }).join("");
+      }
+
+      // Software & Apps
+      const swList = document.getElementById("softwareList");
+      const swItems = char.software || [];
+      const autos = (char.inventory && char.inventory.autosofts) || [];
+      let swHtml = "";
+      if (swItems.length > 0) {
+        swHtml += swItems.map(s => {
+          const rtgBadge = s.rating ? `<span class="gear-badge rating">R${s.rating}</span>` : '';
+          const catBadge = s.category ? `<span class="power-badge" style="font-size: 0.7rem;">${s.category}</span>` : '';
+          return `
+            <div class="gear-card" style="display: flex; justify-content: space-between; align-items: center; padding: 6px 10px;">
+              <span style="font-size: 0.88rem; font-weight: 600;">${s.name}</span>
+              <div style="display: flex; gap: 4px; align-items: center;">${catBadge}${rtgBadge}</div>
+            </div>
+          `;
+        }).join("");
+      }
+      if (autos.length > 0) {
+        swHtml += `
+          <div style="margin-top: 8px; font-size: 0.78rem; font-weight: 700; color: var(--gold-primary);">Vehicle / Drone Autosofts:</div>
+          <div style="font-size: 0.82rem; color: var(--text-secondary); margin-top: 3px;">${autos.join(", ")}</div>
+        `;
+      }
+      if (!swHtml) {
+        swHtml = '<div style="color: var(--text-muted); font-size: 0.85rem;">Standard firmware only</div>';
+      }
+      swList.innerHTML = swHtml;
+
+      // Identities & Lifestyles
+      const slList = document.getElementById("sinsLifestyleList");
+      const sins = char.sins || [];
+      const lifestyles = char.lifestyles || [];
+      let sinsContent = "";
+      if (sins.length > 0) {
+        sinsContent += `<div style="font-size: 0.82rem; font-weight: 700; color: var(--gold-primary); margin-bottom: 6px;">Identities & Fake SINs</div>`;
+        sinsContent += sins.map(s => `
+          <div class="gear-card">
+            <div class="gear-header">
+              <span class="gear-title">${s.name}</span>
+              <span class="power-badge">R${s.rating || 1} ${s.quality || ''}</span>
+            </div>
+            ${s.licenses && s.licenses.length ? `<div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 4px;"><strong>Licenses:</strong> ${s.licenses.join(', ')}</div>` : ''}
+          </div>
+        `).join("");
+      }
+      if (lifestyles.length > 0) {
+        sinsContent += `<div style="font-size: 0.82rem; font-weight: 700; color: var(--gold-primary); margin-top: 10px; margin-bottom: 6px;">Lifestyles</div>`;
+        sinsContent += lifestyles.map(l => `
+          <div class="gear-card">
+            <div class="gear-header">
+              <span class="gear-title">${l.name}</span>
+            </div>
+            <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 2px;">
+              Comfort: ${l.comfort || 'Low'} | Security: ${l.security || 'Low'} | Neighborhood: ${l.neighborhood || 'Low'}
+            </div>
+          </div>
+        `).join("");
+      }
+      if (!sinsContent) {
+        sinsContent = '<div style="color: var(--text-muted); font-size: 0.85rem;">None recorded</div>';
+      }
+      slList.innerHTML = sinsContent;
 
       // Contacts Tab
       renderContacts();
@@ -2101,7 +2993,6 @@
       } else if (contactFilterMode === "connection") {
         sorted.sort((a, b) => (b.connection || 0) - (a.connection || 0));
       } else if (contactFilterMode === "region") {
-        // Group by region
         const groups = {};
         sorted.forEach(c => {
           const reg = c.region || "Seattle / Global";
@@ -2121,12 +3012,13 @@
         });
         return;
       } else if (contactFilterMode === "type") {
-        // Group by type / archetype
         const groups = {};
         sorted.forEach(c => {
-          const arch = c.archetype || "Contact";
-          if (!groups[arch]) groups[arch] = [];
-          groups[arch].push(c);
+          const types = (c.types && c.types.length) ? c.types : [c.archetype || "Contact"];
+          types.forEach(t => {
+            if (!groups[t]) groups[t] = [];
+            groups[t].push(c);
+          });
         });
 
         Object.keys(groups).sort().forEach(arch => {
@@ -2151,6 +3043,10 @@
     function createContactElement(c) {
       const cItem = document.createElement("div");
       cItem.className = "contact-item";
+      let typesHtml = "";
+      if (c.types && c.types.length) {
+        typesHtml = `<div style="display: flex; gap: 4px; flex-wrap: wrap; margin-top: 4px;">${c.types.map(t => `<span class="quality-badge pos" style="font-size: 0.68rem; padding: 1px 6px;">${t}</span>`).join("")}</div>`;
+      }
       cItem.innerHTML = `
         <div class="contact-header">
           <strong style="color: var(--text-primary); font-size: 1.02rem;">${c.name} (${c.archetype})</strong>
@@ -2159,7 +3055,8 @@
         <div style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 4px;">
           Connection: <strong>${c.connection}</strong> | Loyalty: <strong>${c.loyalty}</strong> ${c.region ? `| 📍 ${c.region}` : ""}
         </div>
-        ${c.description ? `<div style="font-size: 0.75rem; color: var(--text-muted);">${c.description}</div>` : ""}
+        ${typesHtml}
+        ${c.description ? `<div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">${c.description}</div>` : ""}
       `;
       return cItem;
     }

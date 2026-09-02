@@ -5,7 +5,7 @@ format: html
 
 # Character Dossier: Venn
 
-**Real Name**: N/A  
+**Real Name**: Nathan & Veronica Turrent  
 **Metatype**: Human  
 **Role**: Shadowrunner  
 
@@ -18,13 +18,13 @@ format: html
 | REACTION | 2 |
 | STRENGTH | 4 |
 | WILLPOWER | 7 |
-| LOGIC | 7 |
+| LOGIC | 6 |
 | INTUITION | 5 |
 | CHARISMA | 2 |
 | EDGE | 7 |
 | RESONANCE | 0 |
 | MAGIC | 0 |
-| ESSENCE | 0.43 |
+| ESSENCE | 0.49 |
 
 ## Tactical Weapon Arrays
 
@@ -47,4 +47,6 @@ format: html
 ## Active Skills
 
 - **Electronics**: Rating 6
+- **Athletics**: Rating 1
 - **Native Language (English)**: Rating 4
+- **Native Language (Mindspeech)**: Rating 4

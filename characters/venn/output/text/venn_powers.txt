@@ -33,5 +33,4 @@
   - Skilljack R6                    [Used Grade]
   - Skillwires R6                   [Used Grade]
   - Math SPU                        [Standard Grade]
-  - Cerebral Booster Enhancer       [Alphaware Grade]
 ----------------------------------------------------------------------------

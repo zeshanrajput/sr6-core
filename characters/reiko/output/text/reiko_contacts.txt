@@ -161,8 +161,7 @@
  [37] EDDIE WEI (Triad Johnson) [SEA]
       Connection: 4 (Fixed) | Loyalty: 1 | Active Favors: 1
       History / Changes: Uses: Business and economics, getting jobs, triads
-      (Shadowrun Missions Seattle) | Types: Criminal, Matrix (Not available
-      after 2081-24)
+      (Shadowrun Missions Seattle) | Types: Criminal, Matrix
 ----------------------------------------------------------------------------
  [38] JULIAN MÜNTEFERING (Corporate Kid) [SEA]
       Connection: 1 (Fixed) | Loyalty: 1 | Active Favors: 1
@@ -185,8 +184,7 @@
  [42] SAINT JAMES (Fixer) [SEA]
       Connection: 8 (Fixed) | Loyalty: 2 | Active Favors: 1
       History / Changes: Uses: Corporations, getting jobs (Shadowrun
-      Missions Seattle), fencing gear, gangs | Types: Criminal, Street (Not
-      available after 2081-24)
+      Missions Seattle), fencing gear, gangs | Types: Criminal, Street
 ----------------------------------------------------------------------------
  [43] JEANIE TRUDEL (SEA Bartender) [SEA]
       Connection: 1 (Fixed) | Loyalty: 1 | Active Favors: 1

@@ -102,6 +102,16 @@ def test_mobile_json_export_reiko():
     stun_cestas = [w for w in res["weapons"] if "stun" in w["name"].lower()]
     assert len(stun_cestas) == 0
 
+    # Verify Reiko's VR Hot-Sim Initiative with Overclocking Echo (+1 Score, +1d6 Dice -> 4d6)
+    init = res.get("initiative")
+    assert init is not None
+    assert init["default_mode"] == "vr_hotsim"
+    assert "vr_hotsim" in init["modes"]
+    hotsim = init["modes"]["vr_hotsim"]
+    assert hotsim["score"] == 10  # DP (7) + INT (2) + Overclock (1)
+    assert hotsim["dice"] == 4   # 3d6 Hot-Sim + 1d6 Overclocking
+    assert len(res["gear_items"]) > 0
+
 
 def test_mobile_json_export_velvet():
     cm = CharacterManager()
@@ -115,34 +125,30 @@ def test_mobile_json_export_velvet():
     assert res["attributes"]["charisma"] == 10
     assert len(res["skills"]) > 0
 
-    # Verify Buffed Charisma and Willpower in attributes_list
+    # Verify Charisma and Willpower in attributes_list (Baseline CHA 10, WIL 5)
     cha = next((a for a in res["attributes_list"] if a["code"] == "CHA"), None)
     assert cha is not None
-    assert cha["buffed"] == 14
     assert cha["base"] == 10
-    assert cha["is_buffed"] is True
 
     wil = next((a for a in res["attributes_list"] if a["code"] == "WIL"), None)
     assert wil is not None
-    assert wil["buffed"] == 9
     assert wil["base"] == 5
-    assert wil["is_buffed"] is True
 
     # Verify Condition Monitors use BASE attributes (BOD 2 -> 9 boxes, WIL 5 -> 11 boxes)
     assert res["derived"]["physical_boxes"] == 9
     assert res["derived"]["stun_boxes"] == 11
 
-    # Verify Derived Pools use BUFFED attributes (Composure: WIL 9 + CHA 14 = 23)
-    assert res["derived"]["composure"] == 23
+    # Verify Derived Pools use baseline attributes (Composure: WIL 5 + CHA 10 = 15)
+    assert res["derived"]["composure"] == 15
 
-    # Verify Velvet's Influence and Con reflect the +4 sustained Charisma buff (CHA 14)
+    # Verify Velvet's Influence and Con reflect baseline Charisma (CHA 10)
     infl = next((s for s in res["skills"] if s["name"].lower() == "influence"), None)
     assert infl is not None
-    assert infl["buffed_pool"] == 19  # Base CHA 10 + 4 Spell + 5 Rtg = 19d6
+    assert infl["base_pool"] == 15  # Base CHA 10 + 5 Rtg = 15d6
 
     con = next((s for s in res["skills"] if s["name"].lower() == "con"), None)
     assert con is not None
-    assert con["buffed_pool"] == 18   # Base CHA 10 + 4 Spell + 4 Rtg = 18d6
+    assert con["base_pool"] == 14   # Base CHA 10 + 4 Rtg = 14d6
 
     # Verify Sap and Stun Baton are melee weapons with no fire modes
     sap = next((w for w in res["weapons"] if "sap" in w["name"].lower()), None)
@@ -175,6 +181,15 @@ def test_mobile_json_export_velvet():
 
     sharp_tongue = next((p for p in res["adept_powers"] if "sharp tongue" in p["name"].lower()), None)
     assert sharp_tongue is not None
+
+    # Verify Velvet's Physical Initiative (Base REA 2 + INT 3 = 5, 1d6) and Gear
+    v_init = res.get("initiative")
+    assert v_init is not None
+    assert v_init["default_mode"] == "physical"
+    assert v_init["modes"]["physical"]["score"] == 5
+    assert v_init["modes"]["physical"]["dice"] == 1
+    assert len(res["gear_items"]) > 0
+    assert any("contacts" in g["name"].lower() for g in res["gear_items"])
 
 
 def test_mobile_json_export_venn():
@@ -217,6 +232,16 @@ def test_mobile_json_export_venn():
     assert colt is not None
     assert "10 / 10 / 6" in colt["attack_rating_str"]
     assert "8 / 8 / 6" in colt["base_attack_rating_str"]
+
+    # Verify Venn has both Physical and VR Hot-Sim Initiative modes
+    venn_init = res.get("initiative")
+    assert venn_init is not None
+    assert "physical" in venn_init["modes"]
+    assert "vr_hotsim" in venn_init["modes"]
+    assert venn_init["modes"]["physical"]["score"] == 7  # REA 2 + INT 5
+    assert venn_init["modes"]["physical"]["dice"] == 1
+    assert venn_init["modes"]["vr_hotsim"]["score"] == 11  # DP 6 + INT 5
+    assert venn_init["modes"]["vr_hotsim"]["dice"] == 3
 
 
 def test_standalone_mobile_html():

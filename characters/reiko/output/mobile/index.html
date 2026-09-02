@@ -298,32 +298,40 @@
       font-weight: 500;
     }
 
-    /* Condition Monitors */
+    /* Condition Monitors & Initiative Row (Single Line 3 Columns) */
     .track-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 10px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-top: 8px;
     }
 
     .track-card {
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--border-subtle);
       border-radius: 10px;
-      padding: 12px;
+      padding: 6px 4px;
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 52px;
     }
 
     .track-header {
-      font-size: 0.8rem;
+      font-size: 0.68rem;
       font-weight: 700;
+      letter-spacing: 0.03em;
       color: var(--text-secondary);
-      margin-bottom: 4px;
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .track-boxes {
       font-family: var(--font-mono);
-      font-size: 1.3rem;
+      font-size: 1.02rem;
       font-weight: 700;
       color: var(--cyan-accent);
     }
@@ -532,6 +540,112 @@
     .doc-link-btn:hover {
       background: rgba(99, 102, 241, 0.3);
       color: #ffffff;
+    }
+
+    /* Initiative Card & Mode Switcher */
+    .init-compact-card {
+      cursor: pointer;
+      border: 1px solid var(--border-accent);
+      background: rgba(0, 0, 0, 0.35);
+      transition: all 0.15s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .init-compact-card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--gold-primary);
+      box-shadow: 0 0 10px var(--gold-glow);
+    }
+    .init-compact-card.open {
+      border-color: var(--gold-primary);
+      background: rgba(0, 255, 157, 0.08);
+      box-shadow: 0 0 12px var(--gold-glow);
+    }
+    .init-card {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border-accent);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-top: 10px;
+      margin-bottom: 6px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+      animation: fadeIn 0.15s ease-out;
+    }
+    .init-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .init-mode-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .init-mode-pill.active {
+      background: rgba(0, 255, 157, 0.15);
+      border-color: var(--gold-primary);
+      color: var(--gold-primary);
+    }
+    .init-val-box {
+      font-family: var(--font-mono);
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--gold-primary);
+    }
+
+    /* Gear Item Cards */
+    .gear-card {
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      transition: all 0.15s ease;
+    }
+    .gear-card:hover {
+      border-color: var(--border-accent);
+      background: var(--bg-card-hover);
+    }
+    .gear-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 4px;
+    }
+    .gear-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+    }
+    .gear-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+    }
+    .gear-badge.qty {
+      background: rgba(255, 183, 0, 0.12);
+      border-color: rgba(255, 183, 0, 0.35);
+      color: #fbbf24;
+    }
+    .gear-badge.rating {
+      background: rgba(6, 182, 212, 0.12);
+      border-color: rgba(6, 182, 212, 0.35);
+      color: #38bdf8;
     }
 
     /* Weapon Cards */
@@ -800,6 +914,119 @@
       opacity: 1;
       transform: translateX(-50%) translateY(0);
     }
+
+    /* Interactive Steppers & Modifiers */
+    .stepper-pool-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex: 1;
+    }
+
+    .stepper-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      width: 32px;
+      height: 36px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      cursor: pointer;
+      transition: all 0.12s ease;
+      flex-shrink: 0;
+      user-select: none;
+    }
+    .stepper-btn:hover {
+      background: rgba(255, 255, 255, 0.14);
+      border-color: var(--border-accent);
+      color: var(--gold-primary);
+    }
+    .stepper-btn:active {
+      transform: scale(0.92);
+      background: var(--border-accent);
+      color: #000;
+    }
+
+    .stepper-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 3px 6px;
+    }
+
+    .mod-delta-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 1px 5px;
+      border-radius: 4px;
+      background: rgba(245, 158, 11, 0.2);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: var(--gold-primary);
+      margin-left: 4px;
+      vertical-align: middle;
+      font-family: var(--font-mono);
+    }
+    .mod-delta-badge.pos {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: rgba(16, 185, 129, 0.4);
+      color: #10b981;
+    }
+    .mod-delta-badge.neg {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: rgba(239, 68, 68, 0.4);
+      color: #ef4444;
+    }
+
+    .attr-box.manual-modified {
+      border-color: var(--gold-primary);
+      box-shadow: 0 0 10px var(--gold-glow);
+    }
+    .pool-item.manual-modified {
+      border-color: var(--border-accent);
+    }
+
+    .reset-all-btn {
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s ease;
+      font-family: var(--font-display);
+    }
+    .reset-all-btn:hover {
+      border-color: var(--rose-accent, #ef4444);
+      color: var(--rose-accent, #ef4444);
+      background: rgba(239, 68, 68, 0.08);
+    }
+
+    .wound-banner {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      color: #fca5a5;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
   </style>
 </head>
 <body>
@@ -814,6 +1041,7 @@
         <div class="char-select-arrow">▼</div>
       </div>
       <div class="header-badges">
+        <button id="resetAllModsBtn" class="reset-all-btn" style="display: none;" onclick="resetCharMods(activeCharId)" title="Reset all active modifiers to default">↺ Reset Mods</button>
         <div id="nuyenBadge" class="nuyen-badge">¥ 0</div>
         <div id="karmaBadge" class="karma-badge">0 K</div>
       </div>
@@ -841,17 +1069,32 @@
 
         <div id="attrDrilldownArea" style="margin-top: 10px;"></div>
 
-        <div class="card-title" style="margin-top: 16px;">Condition Monitors</div>
+        <div class="card-title" style="margin-top: 16px;">Condition & Initiative</div>
         <div class="track-grid">
           <div class="track-card">
-            <div class="track-header">PHYSICAL (Base BOD)</div>
-            <div class="track-boxes" id="physBoxes">10 Boxes</div>
+            <div class="track-header">PHYSICAL DMG</div>
+            <div class="stepper-inline" style="margin: 2px 0; justify-content: center; gap: 2px;">
+              <button class="stepper-btn" style="width: 22px; height: 22px; padding: 0; font-size: 0.85rem;" onclick="stepModifier('dmg_phys', -1)" title="Heal 1 Physical Box">-</button>
+              <span id="physBoxes" class="track-boxes" style="font-size: 0.95rem; min-width: 42px; text-align: center;">0 / 10</span>
+              <button class="stepper-btn" style="width: 22px; height: 22px; padding: 0; font-size: 0.85rem;" onclick="stepModifier('dmg_phys', 1)" title="Take 1 Physical Damage">+</button>
+            </div>
+            <div style="font-size: 0.65rem; color: var(--text-muted);" id="physRemainLbl">10 Left</div>
           </div>
           <div class="track-card">
-            <div class="track-header">STUN (Base WIL)</div>
-            <div class="track-boxes" id="stunBoxes">11 Boxes</div>
+            <div class="track-header">STUN DMG</div>
+            <div class="stepper-inline" style="margin: 2px 0; justify-content: center; gap: 2px;">
+              <button class="stepper-btn" style="width: 22px; height: 22px; padding: 0; font-size: 0.85rem;" onclick="stepModifier('dmg_stun', -1)" title="Heal 1 Stun Box">-</button>
+              <span id="stunBoxes" class="track-boxes" style="font-size: 0.95rem; min-width: 42px; text-align: center;">0 / 11</span>
+              <button class="stepper-btn" style="width: 22px; height: 22px; padding: 0; font-size: 0.85rem;" onclick="stepModifier('dmg_stun', 1)" title="Take 1 Stun Damage">+</button>
+            </div>
+            <div style="font-size: 0.65rem; color: var(--text-muted);" id="stunRemainLbl">11 Left</div>
+          </div>
+          <div id="initCompactCard" class="track-card init-compact-card" onclick="toggleInitDrawer()" title="Click to expand/adjust initiative">
+            <!-- Generated via JS -->
           </div>
         </div>
+        <div id="initDrawerArea"></div>
+        <div id="woundPenaltyBanner" style="display: none;"></div>
 
         <div class="card-title" style="margin-top: 16px;">Derived Pools & Ratings</div>
         <div class="derived-grid" id="derivedGrid">
@@ -898,16 +1141,37 @@
 
     <!-- Tab 5: Drones & Gear -->
     <section id="tab-drones" class="tab-pane">
-      <div class="card">
+      <div id="dronesCard" class="card" style="margin-bottom: 14px;">
         <div class="card-title">Vehicles & Rigged Drones</div>
         <div id="vehiclesList">
           <!-- Generated via JS -->
         </div>
       </div>
 
+      <div class="card" style="margin-bottom: 14px;">
+        <div class="card-title">Tactical Field Gear & Equipment</div>
+        <div id="fieldGearList">
+          <!-- Generated via JS -->
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom: 14px;">
+        <div class="card-title">Matrix Hardware & Commlinks</div>
+        <div id="matrixHardwareList">
+          <!-- Generated via JS -->
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom: 14px;">
+        <div class="card-title">Software, Autosofts & Apps</div>
+        <div id="softwareList">
+          <!-- Generated via JS -->
+        </div>
+      </div>
+
       <div class="card">
-        <div class="card-title">Matrix Devices & Software</div>
-        <div id="inventoryList">
+        <div class="card-title">Identities, Licenses & Lifestyles</div>
+        <div id="sinsLifestyleList">
           <!-- Generated via JS -->
         </div>
       </div>
@@ -954,8 +1218,8 @@
       <span>Powers</span>
     </div>
     <div class="nav-tab" data-tab="tab-drones">
-      <div class="nav-tab-icon">🤖</div>
-      <span>Drones</span>
+      <div class="nav-tab-icon">🎒</div>
+      <span>Gear & Drones</span>
     </div>
     <div class="nav-tab" data-tab="tab-contacts">
       <div class="nav-tab-icon">🗂️</div>
@@ -977,8 +1241,9 @@
       "mortype": "",
       "gender": "DIVERSE",
       "age": "~ 10",
-      "nuyen": 5000.0,
-      "karma": 1,
+      "nuyen": 10000.0,
+      "karma": 5,
+      "karma_avail": 5,
       "lifetime_karma": 229,
       "nanite_volume": 0,
       "is_ai": true,
@@ -1152,6 +1417,18 @@
       "matrix_defense_breakdown": "RES 8 + FW 9 + PA 6 + DP 7 + Focus 4 = 34d6",
       "matrix_initiative": "10 + 4D6 (Hot-Sim VR / Overclock)"
     },
+    "initiative": {
+      "default_mode": "vr_hotsim",
+      "modes": {
+        "vr_hotsim": {
+          "name": "VR Hot-Sim",
+          "score": 10,
+          "dice": 4,
+          "dice_str": "4d6",
+          "breakdown": "DP (7) + INT (2) + Overclocking Echo (+1) = 10 + 4d6 (3d6 Hot-Sim + 1d6 Echo)"
+        }
+      }
+    },
     "skills": [
       {
         "name": "Tasking",
@@ -1191,7 +1468,7 @@
         "rating": 5,
         "attribute": "Logic",
         "specialization": "Hacking",
-        "base_pool": 9,
+        "base_pool": 13,
         "buffed_pool": 21,
         "bought_hits": 5,
         "specialized_pool": 23,
@@ -1230,7 +1507,7 @@
         "rating": 5,
         "attribute": "Logic",
         "specialization": "Software",
-        "base_pool": 9,
+        "base_pool": 13,
         "buffed_pool": 21,
         "bought_hits": 5,
         "specialized_pool": 23,
@@ -1484,9 +1761,10 @@
       }
     ],
     "armors": [],
-    "vehicles": [
+    "drones": [
       {
         "name": "MCT Gnat",
+        "category": "drone",
         "role": "",
         "handling": "3/3",
         "accel": "4/4",
@@ -1501,7 +1779,10 @@
         "sensor": 2,
         "base_sensor": 1,
         "seats": "-",
-        "modifications": [],
+        "modifications": [
+          "Realistic Features 4",
+          "Laser Jack"
+        ],
         "profile_notes": [
           "Network Sensor Upgrade (+1)"
         ],
@@ -1537,6 +1818,7 @@
       },
       {
         "name": "Federated-Boeing Sky Commander (Seattle Retrans Relay)",
+        "category": "drone",
         "role": "",
         "handling": "4/4",
         "accel": "10/10",
@@ -1548,24 +1830,22 @@
         "base_armor": 0,
         "pilot": 3,
         "base_pilot": 3,
-        "sensor": 7,
+        "sensor": 6,
         "base_sensor": 3,
         "seats": "-",
         "modifications": [
           "Drone Bay (Micro/Mini)",
+          "RAM Plating 4",
+          "ECM 6",
+          "Enhanced Sensors 2",
           "Retrans Unit",
           "Satellite Link",
-          "RAM Plating 4",
-          "Enhanced Sensors 3",
-          "ECM 6",
-          "Integrated Matrix Device Dock",
-          "M-TOC II Repository & Software Tags",
-          "Rating 2 Framework Host Repository (Scale 1 Micro, Grade 2 Default)"
+          "Integrated Matrix Dock x2"
         ],
         "profile_notes": [
           "Network Sensor Upgrade (+1)",
           "RAM Plating (+4 ARM)",
-          "Enhanced Sensors (+3 SEN)"
+          "Enhanced Sensors (+2 SEN)"
         ],
         "mobility_str": "",
         "rigged_pools": {
@@ -1575,9 +1855,9 @@
             "breakdown": "Maneuvering 7 + Pilot 3 = 10d6"
           },
           "gunnery": {
-            "pool": 14,
+            "pool": 13,
             "hits": 3,
-            "breakdown": "Targeting 7 + Sensor 7 = 14d6"
+            "breakdown": "Targeting 7 + Sensor 6 = 13d6"
           },
           "evasion": {
             "pool": 10,
@@ -1585,9 +1865,9 @@
             "breakdown": "Evasion 7 + Pilot 3 = 10d6"
           },
           "perception": {
-            "pool": 14,
+            "pool": 13,
             "hits": 3,
-            "breakdown": "Clearsight 7 + Sensor 7 = 14d6"
+            "breakdown": "Clearsight 7 + Sensor 6 = 13d6"
           },
           "stealth": {
             "pool": 10,
@@ -1599,6 +1879,7 @@
       },
       {
         "name": "Shiawase Man-at-Arms",
+        "category": "drone",
         "role": "",
         "handling": "3/3",
         "accel": "5/5",
@@ -1610,7 +1891,7 @@
         "base_armor": 8,
         "pilot": 9,
         "base_pilot": 2,
-        "sensor": 7,
+        "sensor": 13,
         "base_sensor": 3,
         "seats": "-",
         "modifications": [
@@ -1624,7 +1905,7 @@
           "Increased Structural Integrity 5",
           "Realistic Features 4",
           "Secondary Propulsion (Rotor)",
-          "Increased Sensors 3",
+          "Increased Sensors 9",
           "Retractable Skates",
           "Built-In MedKit",
           "Satellite Link",
@@ -1634,7 +1915,7 @@
           "Network Sensor Upgrade (+1)",
           "Armor Increase (+5 ARM)",
           "Structural Integrity (+5 BOD)",
-          "Enhanced Sensors (+3 SEN)",
+          "Enhanced Sensors (+9 SEN)",
           "Wrist Shield (+4 ARM)",
           "Designer Quality (+1 Pilot, 2 Noise Reduction on Home Device)"
         ],
@@ -1648,7 +1929,7 @@
           "gunnery": {
             "pool": 24,
             "hits": 6,
-            "breakdown": "Targeting 7 + Pilot/RES 9 + Focus 4 + Taz Symbiosis 4 = 24d6"
+            "breakdown": "Targeting 7 + Sensor 13 + Taz Symbiosis 4 = 24d6"
           },
           "evasion": {
             "pool": 24,
@@ -1656,9 +1937,9 @@
             "breakdown": "Evasion 7 + Pilot/RES 9 + Focus 4 + Taz Symbiosis 4 = 24d6"
           },
           "perception": {
-            "pool": 18,
-            "hits": 4,
-            "breakdown": "Clearsight 7 + Sensor 7 + Taz Symbiosis 4 = 18d6"
+            "pool": 24,
+            "hits": 6,
+            "breakdown": "Clearsight 7 + Sensor 13 + Taz Symbiosis 4 = 24d6"
           },
           "stealth": {
             "pool": 26,
@@ -1670,6 +1951,7 @@
       },
       {
         "name": "Kwonsham Dream Genie",
+        "category": "drone",
         "role": "",
         "handling": "2/4",
         "accel": "10/10",
@@ -1723,6 +2005,303 @@
       },
       {
         "name": "Vulcan Systems Utility-One",
+        "category": "drone",
+        "role": "",
+        "handling": "3/3",
+        "accel": "3/3",
+        "speed": "5",
+        "interval": 5,
+        "body": 2,
+        "base_body": 2,
+        "armor": 0,
+        "base_armor": 0,
+        "pilot": 1,
+        "base_pilot": 1,
+        "sensor": 2,
+        "base_sensor": 1,
+        "seats": "-",
+        "modifications": [
+          "Integrated Engineering & Repair Tool Package"
+        ],
+        "profile_notes": [
+          "Network Sensor Upgrade (+1)"
+        ],
+        "mobility_str": "",
+        "rigged_pools": {
+          "piloting": {
+            "pool": 8,
+            "hits": 2,
+            "breakdown": "Maneuvering 7 + Pilot 1 = 8d6"
+          },
+          "gunnery": {
+            "pool": 9,
+            "hits": 2,
+            "breakdown": "Targeting 7 + Sensor 2 = 9d6"
+          },
+          "evasion": {
+            "pool": 8,
+            "hits": 2,
+            "breakdown": "Evasion 7 + Pilot 1 = 8d6"
+          },
+          "perception": {
+            "pool": 9,
+            "hits": 2,
+            "breakdown": "Clearsight 7 + Sensor 2 = 9d6"
+          },
+          "stealth": {
+            "pool": 8,
+            "hits": 2,
+            "breakdown": "Stealth 7 + Pilot 1 = 8d6"
+          }
+        },
+        "doc_link": "chapters/rules_drones.html#tactical-drones"
+      }
+    ],
+    "vehicles": [
+      {
+        "name": "MCT Gnat",
+        "category": "drone",
+        "role": "",
+        "handling": "3/3",
+        "accel": "4/4",
+        "speed": "30",
+        "interval": 10,
+        "body": 0,
+        "base_body": 0,
+        "armor": 0,
+        "base_armor": 0,
+        "pilot": 2,
+        "base_pilot": 2,
+        "sensor": 2,
+        "base_sensor": 1,
+        "seats": "-",
+        "modifications": [
+          "Realistic Features 4",
+          "Laser Jack"
+        ],
+        "profile_notes": [
+          "Network Sensor Upgrade (+1)"
+        ],
+        "mobility_str": "",
+        "rigged_pools": {
+          "piloting": {
+            "pool": 9,
+            "hits": 2,
+            "breakdown": "Maneuvering 7 + Pilot 2 = 9d6"
+          },
+          "gunnery": {
+            "pool": 9,
+            "hits": 2,
+            "breakdown": "Targeting 7 + Sensor 2 = 9d6"
+          },
+          "evasion": {
+            "pool": 9,
+            "hits": 2,
+            "breakdown": "Evasion 7 + Pilot 2 = 9d6"
+          },
+          "perception": {
+            "pool": 9,
+            "hits": 2,
+            "breakdown": "Clearsight 7 + Sensor 2 = 9d6"
+          },
+          "stealth": {
+            "pool": 9,
+            "hits": 2,
+            "breakdown": "Stealth 7 + Pilot 2 = 9d6"
+          }
+        },
+        "doc_link": "chapters/rules_drones.html#tactical-drones"
+      },
+      {
+        "name": "Federated-Boeing Sky Commander (Seattle Retrans Relay)",
+        "category": "drone",
+        "role": "",
+        "handling": "4/4",
+        "accel": "10/10",
+        "speed": "120",
+        "interval": 20,
+        "body": 3,
+        "base_body": 3,
+        "armor": 4,
+        "base_armor": 0,
+        "pilot": 3,
+        "base_pilot": 3,
+        "sensor": 6,
+        "base_sensor": 3,
+        "seats": "-",
+        "modifications": [
+          "Drone Bay (Micro/Mini)",
+          "RAM Plating 4",
+          "ECM 6",
+          "Enhanced Sensors 2",
+          "Retrans Unit",
+          "Satellite Link",
+          "Integrated Matrix Dock x2"
+        ],
+        "profile_notes": [
+          "Network Sensor Upgrade (+1)",
+          "RAM Plating (+4 ARM)",
+          "Enhanced Sensors (+2 SEN)"
+        ],
+        "mobility_str": "",
+        "rigged_pools": {
+          "piloting": {
+            "pool": 10,
+            "hits": 2,
+            "breakdown": "Maneuvering 7 + Pilot 3 = 10d6"
+          },
+          "gunnery": {
+            "pool": 13,
+            "hits": 3,
+            "breakdown": "Targeting 7 + Sensor 6 = 13d6"
+          },
+          "evasion": {
+            "pool": 10,
+            "hits": 2,
+            "breakdown": "Evasion 7 + Pilot 3 = 10d6"
+          },
+          "perception": {
+            "pool": 13,
+            "hits": 3,
+            "breakdown": "Clearsight 7 + Sensor 6 = 13d6"
+          },
+          "stealth": {
+            "pool": 10,
+            "hits": 2,
+            "breakdown": "Stealth 7 + Pilot 3 = 10d6"
+          }
+        },
+        "doc_link": "chapters/rules_drones.html#tactical-drones"
+      },
+      {
+        "name": "Shiawase Man-at-Arms",
+        "category": "drone",
+        "role": "",
+        "handling": "3/3",
+        "accel": "5/5",
+        "speed": "10",
+        "interval": 5,
+        "body": 16,
+        "base_body": 10,
+        "armor": 17,
+        "base_armor": 8,
+        "pilot": 9,
+        "base_pilot": 2,
+        "sensor": 13,
+        "base_sensor": 3,
+        "seats": "-",
+        "modifications": [
+          "Weapon Mount (Standard) x2",
+          "Pop-Out Concealment (Standard) x2",
+          "Chameleon Coating 2",
+          "Drone Rack (Small)",
+          "Tesla Coil",
+          "Wrist Shield",
+          "Armor Increase 5",
+          "Increased Structural Integrity 5",
+          "Realistic Features 4",
+          "Secondary Propulsion (Rotor)",
+          "Increased Sensors 9",
+          "Retractable Skates",
+          "Built-In MedKit",
+          "Satellite Link",
+          "Laser Jack"
+        ],
+        "profile_notes": [
+          "Network Sensor Upgrade (+1)",
+          "Armor Increase (+5 ARM)",
+          "Structural Integrity (+5 BOD)",
+          "Enhanced Sensors (+9 SEN)",
+          "Wrist Shield (+4 ARM)",
+          "Designer Quality (+1 Pilot, 2 Noise Reduction on Home Device)"
+        ],
+        "mobility_str": "Rotor: Han 5, Acc 10, SPD 120 (20). Skates: 10/30/+2",
+        "rigged_pools": {
+          "piloting": {
+            "pool": 23,
+            "hits": 5,
+            "breakdown": "Maneuvering 7 + Pilot/RES 9 + Focus 4 + Taz Diagnosis 3 = 23d6"
+          },
+          "gunnery": {
+            "pool": 24,
+            "hits": 6,
+            "breakdown": "Targeting 7 + Sensor 13 + Taz Symbiosis 4 = 24d6"
+          },
+          "evasion": {
+            "pool": 24,
+            "hits": 6,
+            "breakdown": "Evasion 7 + Pilot/RES 9 + Focus 4 + Taz Symbiosis 4 = 24d6"
+          },
+          "perception": {
+            "pool": 24,
+            "hits": 6,
+            "breakdown": "Clearsight 7 + Sensor 13 + Taz Symbiosis 4 = 24d6"
+          },
+          "stealth": {
+            "pool": 26,
+            "hits": 6,
+            "breakdown": "Stealth 7 + Pilot/RES 9 + Focus 4 + Taz Symbiosis 4 + Tactical Soft Sneak-Sneak 2 = 26d6"
+          }
+        },
+        "doc_link": "chapters/rules_drones.html#tactical-drones"
+      },
+      {
+        "name": "Kwonsham Dream Genie",
+        "category": "drone",
+        "role": "",
+        "handling": "2/4",
+        "accel": "10/10",
+        "speed": "10",
+        "interval": 5,
+        "body": 2,
+        "base_body": 2,
+        "armor": 0,
+        "base_armor": 0,
+        "pilot": 1,
+        "base_pilot": 1,
+        "sensor": 2,
+        "base_sensor": 1,
+        "seats": "-",
+        "modifications": [
+          "Trid Projector",
+          "Smart Tires"
+        ],
+        "profile_notes": [
+          "Network Sensor Upgrade (+1)"
+        ],
+        "mobility_str": "",
+        "rigged_pools": {
+          "piloting": {
+            "pool": 8,
+            "hits": 2,
+            "breakdown": "Maneuvering 7 + Pilot 1 = 8d6"
+          },
+          "gunnery": {
+            "pool": 9,
+            "hits": 2,
+            "breakdown": "Targeting 7 + Sensor 2 = 9d6"
+          },
+          "evasion": {
+            "pool": 8,
+            "hits": 2,
+            "breakdown": "Evasion 7 + Pilot 1 = 8d6"
+          },
+          "perception": {
+            "pool": 9,
+            "hits": 2,
+            "breakdown": "Clearsight 7 + Sensor 2 = 9d6"
+          },
+          "stealth": {
+            "pool": 8,
+            "hits": 2,
+            "breakdown": "Stealth 7 + Pilot 1 = 8d6"
+          }
+        },
+        "doc_link": "chapters/rules_drones.html#tactical-drones"
+      },
+      {
+        "name": "Vulcan Systems Utility-One",
+        "category": "drone",
         "role": "",
         "handling": "3/3",
         "accel": "3/3",
@@ -1976,11 +2555,17 @@
     },
     "inventory": {
       "commlinks": [
+        "Hermes Ikon"
+      ],
+      "matrix_devices": [
         {
           "name": "Hermes Ikon",
-          "device_rating": 5,
+          "rating": 5,
           "data_processing": 5,
-          "firewall": 4
+          "firewall": 4,
+          "qty": 1,
+          "accessories": [],
+          "notes": ""
         }
       ],
       "hosts": [
@@ -2015,6 +2600,103 @@
         "Swarm",
         "Encryption (Rigger)"
       ],
+      "software": [
+        {
+          "name": "Baby Monitor",
+          "rating": null,
+          "category": "Basic"
+        },
+        {
+          "name": "Browse",
+          "rating": null,
+          "category": "Basic"
+        },
+        {
+          "name": "Edit",
+          "rating": null,
+          "category": "Basic"
+        },
+        {
+          "name": "Emulator",
+          "rating": null,
+          "category": "Basic"
+        },
+        {
+          "name": "Encryption",
+          "rating": null,
+          "category": "Basic"
+        },
+        {
+          "name": "Signal Scrubber",
+          "rating": null,
+          "category": "Basic"
+        },
+        {
+          "name": "Toolbox",
+          "rating": null,
+          "category": "Basic"
+        },
+        {
+          "name": "Virtual Machine",
+          "rating": null,
+          "category": "Basic"
+        },
+        {
+          "name": "Decryption",
+          "rating": null,
+          "category": "Hacking"
+        },
+        {
+          "name": "Defense Pods",
+          "rating": null,
+          "category": "Hacking"
+        },
+        {
+          "name": "Directional Shields",
+          "rating": null,
+          "category": "Hacking"
+        },
+        {
+          "name": "Fork",
+          "rating": null,
+          "category": "Hacking"
+        },
+        {
+          "name": "Hitchhiker",
+          "rating": null,
+          "category": "Hacking"
+        },
+        {
+          "name": "Nexus Protocol",
+          "rating": null,
+          "category": "Hacking"
+        },
+        {
+          "name": "Overclock",
+          "rating": null,
+          "category": "Hacking"
+        },
+        {
+          "name": "Trace",
+          "rating": null,
+          "category": "Hacking"
+        },
+        {
+          "name": "Smartsoft",
+          "rating": null,
+          "category": "Rigger"
+        },
+        {
+          "name": "Swarm",
+          "rating": null,
+          "category": "Rigger"
+        },
+        {
+          "name": "Encryption (Rigger)",
+          "rating": null,
+          "category": "Rigger"
+        }
+      ],
       "autosofts": [
         "Biotech Autosoft",
         "Clearsight Autosoft",
@@ -2038,8 +2720,306 @@
         "Social HUD (R6)",
         "Thermal Mood Reading",
         "Vocal Tension Detection"
+      ],
+      "gear_items": [
+        {
+          "name": "5x Peak-Discharge Laser Battery Clips (Crimson Wasp)",
+          "qty": 5,
+          "rating": null,
+          "category": "Field Gear",
+          "accessories": [],
+          "notes": ""
+        },
+        {
+          "name": "10x Glitter Grenades",
+          "qty": 10,
+          "rating": null,
+          "category": "Field Gear",
+          "accessories": [],
+          "notes": ""
+        },
+        {
+          "name": "Built-in Medkit (Man-at-Arms)",
+          "qty": 1,
+          "rating": null,
+          "category": "Field Gear",
+          "accessories": [],
+          "notes": ""
+        },
+        {
+          "name": "Facial Scanner",
+          "qty": 1,
+          "rating": null,
+          "category": "Field Gear",
+          "accessories": [],
+          "notes": ""
+        },
+        {
+          "name": "P-ICE Spines",
+          "qty": 1,
+          "rating": null,
+          "category": "Field Gear",
+          "accessories": [],
+          "notes": ""
+        },
+        {
+          "name": "Personal Assistant (R6)",
+          "qty": 1,
+          "rating": null,
+          "category": "Field Gear",
+          "accessories": [],
+          "notes": ""
+        },
+        {
+          "name": "Social HUD (R6)",
+          "qty": 1,
+          "rating": null,
+          "category": "Field Gear",
+          "accessories": [],
+          "notes": ""
+        },
+        {
+          "name": "Thermal Mood Reading",
+          "qty": 1,
+          "rating": null,
+          "category": "Field Gear",
+          "accessories": [],
+          "notes": ""
+        },
+        {
+          "name": "Vocal Tension Detection",
+          "qty": 1,
+          "rating": null,
+          "category": "Field Gear",
+          "accessories": [],
+          "notes": ""
+        }
+      ],
+      "sins": [
+        {
+          "name": "Yuriko Star",
+          "rating": 6,
+          "quality": "Standard",
+          "licenses": [
+            "Drone License",
+            "Firearms License"
+          ]
+        }
+      ],
+      "lifestyles": [
+        {
+          "name": "Low Lifestyle",
+          "comfort": "low",
+          "entertainment": "low",
+          "necessities": "low",
+          "neighborhood": "low",
+          "security": "low"
+        }
       ]
     },
+    "gear_items": [
+      {
+        "name": "5x Peak-Discharge Laser Battery Clips (Crimson Wasp)",
+        "qty": 5,
+        "rating": null,
+        "category": "Field Gear",
+        "accessories": [],
+        "notes": ""
+      },
+      {
+        "name": "10x Glitter Grenades",
+        "qty": 10,
+        "rating": null,
+        "category": "Field Gear",
+        "accessories": [],
+        "notes": ""
+      },
+      {
+        "name": "Built-in Medkit (Man-at-Arms)",
+        "qty": 1,
+        "rating": null,
+        "category": "Field Gear",
+        "accessories": [],
+        "notes": ""
+      },
+      {
+        "name": "Facial Scanner",
+        "qty": 1,
+        "rating": null,
+        "category": "Field Gear",
+        "accessories": [],
+        "notes": ""
+      },
+      {
+        "name": "P-ICE Spines",
+        "qty": 1,
+        "rating": null,
+        "category": "Field Gear",
+        "accessories": [],
+        "notes": ""
+      },
+      {
+        "name": "Personal Assistant (R6)",
+        "qty": 1,
+        "rating": null,
+        "category": "Field Gear",
+        "accessories": [],
+        "notes": ""
+      },
+      {
+        "name": "Social HUD (R6)",
+        "qty": 1,
+        "rating": null,
+        "category": "Field Gear",
+        "accessories": [],
+        "notes": ""
+      },
+      {
+        "name": "Thermal Mood Reading",
+        "qty": 1,
+        "rating": null,
+        "category": "Field Gear",
+        "accessories": [],
+        "notes": ""
+      },
+      {
+        "name": "Vocal Tension Detection",
+        "qty": 1,
+        "rating": null,
+        "category": "Field Gear",
+        "accessories": [],
+        "notes": ""
+      }
+    ],
+    "matrix_devices": [
+      {
+        "name": "Hermes Ikon",
+        "rating": 5,
+        "data_processing": 5,
+        "firewall": 4,
+        "qty": 1,
+        "accessories": [],
+        "notes": ""
+      }
+    ],
+    "software": [
+      {
+        "name": "Baby Monitor",
+        "rating": null,
+        "category": "Basic"
+      },
+      {
+        "name": "Browse",
+        "rating": null,
+        "category": "Basic"
+      },
+      {
+        "name": "Edit",
+        "rating": null,
+        "category": "Basic"
+      },
+      {
+        "name": "Emulator",
+        "rating": null,
+        "category": "Basic"
+      },
+      {
+        "name": "Encryption",
+        "rating": null,
+        "category": "Basic"
+      },
+      {
+        "name": "Signal Scrubber",
+        "rating": null,
+        "category": "Basic"
+      },
+      {
+        "name": "Toolbox",
+        "rating": null,
+        "category": "Basic"
+      },
+      {
+        "name": "Virtual Machine",
+        "rating": null,
+        "category": "Basic"
+      },
+      {
+        "name": "Decryption",
+        "rating": null,
+        "category": "Hacking"
+      },
+      {
+        "name": "Defense Pods",
+        "rating": null,
+        "category": "Hacking"
+      },
+      {
+        "name": "Directional Shields",
+        "rating": null,
+        "category": "Hacking"
+      },
+      {
+        "name": "Fork",
+        "rating": null,
+        "category": "Hacking"
+      },
+      {
+        "name": "Hitchhiker",
+        "rating": null,
+        "category": "Hacking"
+      },
+      {
+        "name": "Nexus Protocol",
+        "rating": null,
+        "category": "Hacking"
+      },
+      {
+        "name": "Overclock",
+        "rating": null,
+        "category": "Hacking"
+      },
+      {
+        "name": "Trace",
+        "rating": null,
+        "category": "Hacking"
+      },
+      {
+        "name": "Smartsoft",
+        "rating": null,
+        "category": "Rigger"
+      },
+      {
+        "name": "Swarm",
+        "rating": null,
+        "category": "Rigger"
+      },
+      {
+        "name": "Encryption (Rigger)",
+        "rating": null,
+        "category": "Rigger"
+      }
+    ],
+    "sins": [
+      {
+        "name": "Yuriko Star",
+        "rating": 6,
+        "quality": "Standard",
+        "licenses": [
+          "Drone License",
+          "Firearms License"
+        ]
+      }
+    ],
+    "lifestyles": [
+      {
+        "name": "Low Lifestyle",
+        "comfort": "low",
+        "entertainment": "low",
+        "necessities": "low",
+        "neighborhood": "low",
+        "security": "low"
+      }
+    ],
     "contacts": [
       {
         "name": "Brynne Taggart",
@@ -2048,6 +3028,10 @@
         "archetype": "Fixer",
         "favors": 3,
         "region": "SEA",
+        "types": [
+          "Criminal",
+          "Street"
+        ],
         "description": "Uses: Getting jobs, fencing gear, gangs (Shadowrun Missions Seattle) | Types: Criminal, Street"
       },
       {
@@ -2057,6 +3041,9 @@
         "archetype": "Street Doc",
         "favors": 0,
         "region": "SEA",
+        "types": [
+          "Medical"
+        ],
         "description": "Uses: Medicine, street docs (Shadowrun Missions Seattle) | Types: Medical"
       },
       {
@@ -2066,6 +3053,10 @@
         "archetype": "River People Sysop",
         "favors": 0,
         "region": "NOLA",
+        "types": [
+          "Corporate",
+          "Matrix"
+        ],
         "description": "Uses: Banking, HVAC systems, Matrix | Types: Corporate, Matrix"
       },
       {
@@ -2075,6 +3066,10 @@
         "archetype": "Ecological Activist",
         "favors": 2,
         "region": "NOLA",
+        "types": [
+          "Criminal",
+          "Matrix"
+        ],
         "description": "Uses: Getting jobs, environmental science, shamanism | Types: Criminal, Matrix"
       },
       {
@@ -2084,6 +3079,9 @@
         "archetype": "NOLA Vory Borjevik",
         "favors": 1,
         "region": "NOLA",
+        "types": [
+          "Criminal"
+        ],
         "description": "SMH 2083-02 EggHunt at the Jackalope Ranch"
       },
       {
@@ -2093,6 +3091,10 @@
         "archetype": "Epoch Model",
         "favors": 1,
         "region": "NOLA",
+        "types": [
+          "Corporate",
+          "Magic"
+        ],
         "description": "Uses: Getting jobs, parties, modeling | Types: Corporate, Magic"
       },
       {
@@ -2102,6 +3104,9 @@
         "archetype": "Emergent Lifeform",
         "favors": 1,
         "region": "GEN",
+        "types": [
+          "General"
+        ],
         "description": "SMH 2083-02 EggHunt at the Jackalope Ranch"
       },
       {
@@ -2111,6 +3116,9 @@
         "archetype": "SEA Fixer",
         "favors": 1,
         "region": "SEA",
+        "types": [
+          "Fixer"
+        ],
         "description": "CMP First Taste : Top Chef - Seattle"
       },
       {
@@ -2120,6 +3128,9 @@
         "archetype": "NOLA Wolverine Security",
         "favors": 0,
         "region": "NOLA",
+        "types": [
+          "General"
+        ],
         "description": "2083-03 Unofficial Dunkelzahn Fan Club"
       },
       {
@@ -2129,6 +3140,9 @@
         "archetype": "NOLA",
         "favors": 1,
         "region": "NOLA",
+        "types": [
+          "General"
+        ],
         "description": "2083-03 Unofficial Dunkelzahn Fan Club"
       },
       {
@@ -2138,6 +3152,10 @@
         "archetype": "League of Laveau Liaison",
         "favors": 2,
         "region": "NOLA",
+        "types": [
+          "Corporate",
+          "Magic"
+        ],
         "description": "Uses: Getting jobs, magic, voodoo, zombies | Types: Corporate, Magic"
       },
       {
@@ -2147,6 +3165,9 @@
         "archetype": "AMS Crime Lord of the Dutch Penose syndicate",
         "favors": 1,
         "region": "AMS",
+        "types": [
+          "General"
+        ],
         "description": "CMP 2081-09 Bring me Prince Charming"
       },
       {
@@ -2156,6 +3177,9 @@
         "archetype": "KY Talismonger and Racer",
         "favors": 0,
         "region": "KY",
+        "types": [
+          "General"
+        ],
         "description": "CMP 2081-18 Blue Kentucky Girl"
       },
       {
@@ -2165,6 +3189,9 @@
         "archetype": "KY Lady of the Autumn Wind",
         "favors": 0,
         "region": "KY",
+        "types": [
+          "General"
+        ],
         "description": "CMP 2081-18 Blue Kentucky Girl"
       },
       {
@@ -2174,6 +3201,9 @@
         "archetype": "AMS Knight Errant Company Suit",
         "favors": 1,
         "region": "AMS",
+        "types": [
+          "General"
+        ],
         "description": "CMP 2081-10 A Diamond in The Rough"
       },
       {
@@ -2183,6 +3213,9 @@
         "archetype": "AMS S-K Johnson",
         "favors": 2,
         "region": "AMS",
+        "types": [
+          "General"
+        ],
         "description": "CMP 2081-11 Paved with good intentions"
       },
       {
@@ -2192,6 +3225,9 @@
         "archetype": "AMS Smuggler",
         "favors": 1,
         "region": "AMS",
+        "types": [
+          "General"
+        ],
         "description": "CMP 2081-11 Paved with good intentions"
       },
       {
@@ -2201,6 +3237,9 @@
         "archetype": "KY Arcano-Archeologist",
         "favors": 0,
         "region": "KY",
+        "types": [
+          "General"
+        ],
         "description": "CMP 2081-19 The Blue Moon of Kentucky"
       },
       {
@@ -2210,6 +3249,9 @@
         "archetype": "KY Street Samurai",
         "favors": 1,
         "region": "KY",
+        "types": [
+          "Street"
+        ],
         "description": "CMP 2081-19 The Blue Moon of Kentucky"
       },
       {
@@ -2219,6 +3261,9 @@
         "archetype": "SEA Minor 88s Johnson",
         "favors": 1,
         "region": "SEA",
+        "types": [
+          "General"
+        ],
         "description": "SRM 2081-17 Framed in Blood"
       },
       {
@@ -2228,6 +3273,9 @@
         "archetype": "SEA Wuxing",
         "favors": 1,
         "region": "SEA",
+        "types": [
+          "General"
+        ],
         "description": "SRM 2081-17 Framed in Blood"
       },
       {
@@ -2237,6 +3285,9 @@
         "archetype": "Magic",
         "favors": 0,
         "region": "KY",
+        "types": [
+          "Magic"
+        ],
         "description": "Magic | Types: Magic"
       },
       {
@@ -2246,6 +3297,9 @@
         "archetype": "Magic",
         "favors": 1,
         "region": "KY",
+        "types": [
+          "Magic"
+        ],
         "description": "Magic (Special Note: This contact cannot be called during a mission.) | Types: Magic"
       },
       {
@@ -2255,6 +3309,9 @@
         "archetype": "SEA Body Mod/Engineering Cybercatman",
         "favors": 0,
         "region": "SEA",
+        "types": [
+          "Engineering"
+        ],
         "description": "SRM 2081-21 Grudge Match Gladiators"
       },
       {
@@ -2264,6 +3321,9 @@
         "archetype": "AMS House Orange-Nassau Johnson",
         "favors": 2,
         "region": "AMS",
+        "types": [
+          "General"
+        ],
         "description": "CMP 2081-12 Uneasy lies the head"
       },
       {
@@ -2273,6 +3333,9 @@
         "archetype": "DW Naga",
         "favors": 0,
         "region": "DW",
+        "types": [
+          "General"
+        ],
         "description": "CMP 2083-14 A Day at the Beach"
       },
       {
@@ -2282,6 +3345,9 @@
         "archetype": "DW 'Mystic Edge' Producer",
         "favors": 1,
         "region": "DW",
+        "types": [
+          "General"
+        ],
         "description": "CMP 2083-14 A Day at the Beach"
       },
       {
@@ -2291,6 +3357,9 @@
         "archetype": "DW Leviathan Dragon",
         "favors": 0,
         "region": "DW",
+        "types": [
+          "General"
+        ],
         "description": "CMP 2083-14 A Day at the Beach"
       },
       {
@@ -2300,6 +3369,9 @@
         "archetype": "DW Thunder Corps Fixer",
         "favors": 0,
         "region": "DW",
+        "types": [
+          "Fixer"
+        ],
         "description": "CMP 2083-16 War Never Changes"
       },
       {
@@ -2309,6 +3381,9 @@
         "archetype": "DW Background Actor",
         "favors": 1,
         "region": "DW",
+        "types": [
+          "General"
+        ],
         "description": "CMP 2083-16 War Never Changes"
       },
       {
@@ -2318,6 +3393,10 @@
         "archetype": "Kozlowski Capo",
         "favors": 1,
         "region": "NOLA",
+        "types": [
+          "Criminal",
+          "Street"
+        ],
         "description": "Uses: Getting jobs, fencing gear, organized crime | Types: Criminal, Street"
       },
       {
@@ -2327,6 +3406,9 @@
         "archetype": "NOLA Johnson",
         "favors": 1,
         "region": "NOLA",
+        "types": [
+          "General"
+        ],
         "description": "SRM 2083-19 The Hallow Feast"
       },
       {
@@ -2336,6 +3418,9 @@
         "archetype": "SEA Rapper",
         "favors": 1,
         "region": "SEA",
+        "types": [
+          "General"
+        ],
         "description": "SRM 2081-05 This is Renton"
       },
       {
@@ -2345,6 +3430,10 @@
         "archetype": "Fixer",
         "favors": 1,
         "region": "SEA",
+        "types": [
+          "Criminal",
+          "Street"
+        ],
         "description": "Uses: Drugs, exotic dancer clubs, getting jobs (Shadowrun Missions Seattle) | Types: Criminal, Street"
       },
       {
@@ -2354,6 +3443,9 @@
         "archetype": "Bodyguard",
         "favors": 1,
         "region": "SEA",
+        "types": [
+          "Magic"
+        ],
         "description": "Uses: Bodyguards, insults, talismans (Shadowrun Missions Seattle) | Types: Magic"
       },
       {
@@ -2363,6 +3455,9 @@
         "archetype": "AMS Penose Spider",
         "favors": 1,
         "region": "AMS",
+        "types": [
+          "General"
+        ],
         "description": "CMP 2083-01 NONPLUSHED"
       },
       {
@@ -2372,7 +3467,11 @@
         "archetype": "Triad Johnson",
         "favors": 1,
         "region": "SEA",
-        "description": "Uses: Business and economics, getting jobs, triads (Shadowrun Missions Seattle) | Types: Criminal, Matrix (Not available after 2081-24)"
+        "types": [
+          "Criminal",
+          "Matrix"
+        ],
+        "description": "Uses: Business and economics, getting jobs, triads (Shadowrun Missions Seattle) | Types: Criminal, Matrix"
       },
       {
         "name": "Julian Müntefering",
@@ -2381,6 +3480,10 @@
         "archetype": "Corporate Kid",
         "favors": 1,
         "region": "SEA",
+        "types": [
+          "Corporate",
+          "Engineering"
+        ],
         "description": "Uses: Corporate playground rumors, drones, rigging research (Shadowrun Missions Seattle) | Types: Corporate, Engineering"
       },
       {
@@ -2390,6 +3493,9 @@
         "archetype": "Triad Johnson",
         "favors": 2,
         "region": "SEA",
+        "types": [
+          "Criminal"
+        ],
         "description": "Uses: Getting jobs, drugs, street rumors, triads (Shadowrun Missions Seattle) | Types: Criminal"
       },
       {
@@ -2399,6 +3505,9 @@
         "archetype": "SEA Ancients Bookie",
         "favors": 1,
         "region": "SEA",
+        "types": [
+          "General"
+        ],
         "description": "SRM 2081-07 Bootleg Bliss"
       },
       {
@@ -2408,6 +3517,9 @@
         "archetype": "SEA Cutter Lieutenant",
         "favors": 1,
         "region": "SEA",
+        "types": [
+          "General"
+        ],
         "description": "SRM 2081-07 Bootleg Bliss"
       },
       {
@@ -2417,7 +3529,11 @@
         "archetype": "Fixer",
         "favors": 1,
         "region": "SEA",
-        "description": "Uses: Corporations, getting jobs (Shadowrun Missions Seattle), fencing gear, gangs | Types: Criminal, Street (Not available after 2081-24)"
+        "types": [
+          "Criminal",
+          "Street"
+        ],
+        "description": "Uses: Corporations, getting jobs (Shadowrun Missions Seattle), fencing gear, gangs | Types: Criminal, Street"
       },
       {
         "name": "Jeanie Trudel",
@@ -2426,6 +3542,9 @@
         "archetype": "SEA Bartender",
         "favors": 1,
         "region": "SEA",
+        "types": [
+          "General"
+        ],
         "description": "SRM 2081-06 Cutting Strings"
       },
       {
@@ -2435,6 +3554,10 @@
         "archetype": "Shadowrunner/Street Samurai",
         "favors": 1,
         "region": "SEA",
+        "types": [
+          "Criminal",
+          "Street"
+        ],
         "description": "Uses: Shadowrunners, street rumors (Shadowrun Missions Seattle) | Types: Criminal, Street"
       },
       {
@@ -2444,6 +3567,9 @@
         "archetype": "AMS Young Entertainer",
         "favors": 1,
         "region": "AMS",
+        "types": [
+          "General"
+        ],
         "description": "CMP 2083-04 Hog Wild"
       },
       {
@@ -2453,6 +3579,9 @@
         "archetype": "HKB Corporate Middle Manager",
         "favors": 0,
         "region": "HK",
+        "types": [
+          "Corporate"
+        ],
         "description": "CMP 2083-05 Precious Cargo"
       },
       {
@@ -2462,6 +3591,9 @@
         "archetype": "HK Rookie Journalist",
         "favors": 1,
         "region": "HK",
+        "types": [
+          "General"
+        ],
         "description": "CMP 2083-05 Precious Cargo"
       },
       {
@@ -2471,6 +3603,9 @@
         "archetype": "NOLA Sound of Silence Music Shop Owner",
         "favors": 1,
         "region": "NOLA",
+        "types": [
+          "General"
+        ],
         "description": "SRM 2083-12 When You're Smiling"
       },
       {
@@ -2480,6 +3615,10 @@
         "archetype": "Riverboat Alliance Leader",
         "favors": 1,
         "region": "NOLA",
+        "types": [
+          "Corporate",
+          "Street"
+        ],
         "description": "Uses: Getting jobs, dragons, mafia | Types: Corporate, Street"
       },
       {
@@ -2489,6 +3628,9 @@
         "archetype": "NOLA Independent Courtesans Group",
         "favors": 0,
         "region": "NOLA",
+        "types": [
+          "General"
+        ],
         "description": ""
       },
       {
@@ -2498,6 +3640,9 @@
         "archetype": "NOLA Talismonger",
         "favors": 1,
         "region": "NOLA",
+        "types": [
+          "General"
+        ],
         "description": "SRM 2083-20 The Fallacy of Plans"
       },
       {
@@ -2507,6 +3652,9 @@
         "archetype": "NOLA Detective",
         "favors": 1,
         "region": "NOLA",
+        "types": [
+          "General"
+        ],
         "description": "SRM 2083-20 The Fallacy of Plans"
       },
       {
@@ -2516,6 +3664,10 @@
         "archetype": "Order of the Golden Dawn Librarian",
         "favors": 1,
         "region": "NOLA",
+        "types": [
+          "Criminal",
+          "Matrix"
+        ],
         "description": "Uses: Getting jobs, magical traditions | Types: Criminal, Matrix"
       },
       {
@@ -2525,6 +3677,9 @@
         "archetype": "NOLA Voodoo Organization",
         "favors": 1,
         "region": "NOLA",
+        "types": [
+          "General"
+        ],
         "description": "SRM 2083-18 Some Kind of Voodoo?"
       },
       {
@@ -2534,6 +3689,9 @@
         "archetype": "NOLA Voodoo Organization",
         "favors": 1,
         "region": "NOLA",
+        "types": [
+          "General"
+        ],
         "description": "SRM 2083-18 Some Kind of Voodoo?"
       },
       {
@@ -2543,6 +3701,9 @@
         "archetype": "DW Thunder Corps Fixer",
         "favors": 0,
         "region": "DW",
+        "types": [
+          "Fixer"
+        ],
         "description": "CMP 2083-15 | By Land, Sea, and Hair"
       },
       {
@@ -2552,6 +3713,9 @@
         "archetype": "UNL infobroker",
         "favors": 0,
         "region": "AMS",
+        "types": [
+          "General"
+        ],
         "description": "CMP 2083-02 ROYAL ROAD"
       },
       {
@@ -2561,16 +3725,78 @@
         "archetype": "SEA Contact",
         "favors": 0,
         "region": "SEA",
+        "types": [
+          "General"
+        ],
         "description": "SRM 2081-18 Friendships Never Grow Rust"
       }
     ]
   }
 };
+    window.__SR6_DATA_BUNDLE__ = CHARACTERS_DATA;
     let activeCharId = "reiko";
     let contactFilterMode = "all";
+    let selectedAttrCode = null;
+    let isInitDrawerOpen = false;
+    const openDrawers = new Set();
+    const RUNTIME_MODIFIERS = {};
+
+    function getRuntimeMod(charId, key) {
+      if (!RUNTIME_MODIFIERS[charId]) RUNTIME_MODIFIERS[charId] = {};
+      return RUNTIME_MODIFIERS[charId][key] || 0;
+    }
+
+    function setRuntimeMod(charId, key, val) {
+      if (!RUNTIME_MODIFIERS[charId]) RUNTIME_MODIFIERS[charId] = {};
+      RUNTIME_MODIFIERS[charId][key] = val;
+      try {
+        localStorage.setItem("sr6_mods_" + charId, JSON.stringify(RUNTIME_MODIFIERS[charId]));
+      } catch(e) {}
+    }
+
+    function stepModifier(key, step) {
+      const cur = getRuntimeMod(activeCharId, key);
+      let next = cur + step;
+      if (key.startsWith("dmg_")) {
+        next = Math.max(0, next);
+      }
+      setRuntimeMod(activeCharId, key, next);
+      renderActiveCharacter();
+    }
+
+    function resetModifier(key) {
+      setRuntimeMod(activeCharId, key, 0);
+      renderActiveCharacter();
+    }
+
+    function toggleInitDrawer() {
+      isInitDrawerOpen = !isInitDrawerOpen;
+      renderActiveCharacter();
+    }
+
+    function resetCharMods(charId) {
+      RUNTIME_MODIFIERS[charId] = {};
+      try {
+        localStorage.removeItem("sr6_mods_" + charId);
+      } catch(e) {}
+      renderActiveCharacter();
+      showToast("↺ Modifiers reset to dossier defaults");
+    }
+
+    function loadRuntimeMods() {
+      try {
+        Object.keys(CHARACTERS_DATA).forEach(cid => {
+          const raw = localStorage.getItem("sr6_mods_" + cid);
+          if (raw) {
+            RUNTIME_MODIFIERS[cid] = JSON.parse(raw);
+          }
+        });
+      } catch(e) {}
+    }
 
     // Initialize DOM
     document.addEventListener("DOMContentLoaded", () => {
+      loadRuntimeMods();
       initCharacterSelector();
       setupTabs();
       setupSearch();
@@ -2588,8 +3814,7 @@
 
     function getDocUrl(charId, docLink) {
       if (!docLink) return "#";
-      // Determine if running inside /output/mobile/ or master /app/
-      const currentPath = window.location.pathname.replace(/\\/g, "/");
+      const currentPath = window.location.pathname.split("\\").join("/");
       if (currentPath.includes("/output/mobile/")) {
         return `../../_book/${docLink}`;
       } else {
@@ -2667,92 +3892,299 @@
       // Apply dynamic character theme
       document.body.dataset.theme = activeCharId.toLowerCase();
 
+      // Check if any active modifiers exist for this character
+      const charMods = RUNTIME_MODIFIERS[activeCharId] || {};
+      const hasActiveMods = Object.keys(charMods).some(k => charMods[k] !== 0);
+      const resetBtn = document.getElementById("resetAllModsBtn");
+      if (resetBtn) {
+        resetBtn.style.display = hasActiveMods ? "inline-flex" : "none";
+      }
+
       // Header Info
-      document.getElementById("nuyenBadge").textContent = `¥ ${char.identity.nuyen.toLocaleString()}`;
-      document.getElementById("karmaBadge").textContent = `${char.identity.karma} Karma`;
+      document.getElementById("nuyenBadge").textContent = `¥ ${char.identity.nuyen ? char.identity.nuyen.toLocaleString() : 0}`;
+      const karmaAvail = char.identity.karma_avail !== undefined ? char.identity.karma_avail : char.identity.karma;
+      const karmaLife = char.identity.lifetime_karma;
+      document.getElementById("karmaBadge").textContent = karmaLife && karmaLife !== karmaAvail ? `${karmaAvail} Karma (${karmaLife} Tot)` : `${karmaAvail} Karma`;
       document.getElementById("charRealName").textContent = char.identity.real_name || "Unknown";
       document.getElementById("charMetatype").textContent = char.identity.metatype || "Human";
       document.getElementById("charRoleTradition").textContent = `${char.identity.role || "Shadowrunner"} • ${char.identity.stream || char.identity.tradition || char.identity.mortype || "Street Runner"}`;
 
-      // Attributes Grid (Using enriched attributes_list)
+      // Attributes Map & Grid Rendering
       const attrGrid = document.getElementById("attrGrid");
       const attrDrillArea = document.getElementById("attrDrilldownArea");
       attrGrid.innerHTML = "";
       attrDrillArea.innerHTML = "";
 
       const attrsList = char.attributes_list || [];
+      const liveAttrs = {};
+
+      // First pass: compute live physical, mental, special attributes
+      attrsList.forEach((attr) => {
+        const key = "attr_" + attr.code.toLowerCase();
+        const delta = getRuntimeMod(activeCharId, key);
+        if (!attr.linked_mental) {
+          const baseAug = attr.buffed;
+          liveAttrs[attr.code.toLowerCase()] = Math.max(0, baseAug + delta);
+        }
+      });
+
+      // Second pass: compute live ASDF matrix attributes linked to mental attributes
+      attrsList.forEach((attr) => {
+        const key = "attr_" + attr.code.toLowerCase();
+        const delta = getRuntimeMod(activeCharId, key);
+        if (attr.linked_mental) {
+          const parentVal = liveAttrs[attr.linked_mental] !== undefined ? liveAttrs[attr.linked_mental] : attr.base;
+          const tuning = attr.tuning_bonus || 0;
+          const dynamicBase = parentVal + tuning;
+          liveAttrs[attr.code.toLowerCase()] = Math.max(0, dynamicBase + delta);
+        }
+      });
       
-      attrsList.forEach((attr, idx) => {
+      attrsList.forEach((attr) => {
+        const key = "attr_" + attr.code.toLowerCase();
+        const delta = getRuntimeMod(activeCharId, key);
+        const effectiveVal = liveAttrs[attr.code.toLowerCase()];
+        const isManualMod = delta !== 0;
+        const isSelected = (selectedAttrCode === attr.code.toLowerCase());
+
+        let baseAug = attr.buffed;
+        let subLbl = "";
+        let breakdownMath = `📊 Base ${attr.base} | Default ${baseAug}`;
+
+        if (attr.linked_mental) {
+          const mentalCode = attr.linked_mental.toUpperCase();
+          const parentVal = liveAttrs[attr.linked_mental] !== undefined ? liveAttrs[attr.linked_mental] : attr.base;
+          const tuning = attr.tuning_bonus || 0;
+          const dynamicBase = parentVal + tuning;
+          baseAug = dynamicBase;
+          subLbl = isManualMod ? `Default ${dynamicBase}` : (tuning ? `${mentalCode} +${tuning}` : `${mentalCode} (${parentVal})`);
+          breakdownMath = `📊 ${mentalCode} (${parentVal}) ${tuning ? `+ Tuning (+${tuning})` : ''} = ${dynamicBase} ${isManualMod ? `| Live Mod: ${delta > 0 ? '+' + delta : delta}` : ''}`;
+        } else {
+          subLbl = isManualMod ? `Default ${baseAug}` : (attr.is_buffed ? `Base ${attr.base}` : '');
+          breakdownMath = `📊 Base ${attr.base} | Default ${baseAug} ${isManualMod ? `| Live Mod: ${delta > 0 ? '+' + delta : delta}` : ''}`;
+        }
+
         const box = document.createElement("div");
-        box.className = "attr-box" + (attr.is_buffed ? " augmented" : "");
-        const displayVal = typeof attr.buffed === "number" ? (Number.isInteger(attr.buffed) ? attr.buffed : attr.buffed.toFixed(2)) : attr.buffed;
-        const subLbl = attr.is_buffed ? `Base ${attr.base}` : "";
+        box.className = "attr-box" + (attr.is_buffed ? " augmented" : "") + (isManualMod ? " manual-modified" : "") + (isSelected ? " selected" : "");
+        const displayVal = typeof effectiveVal === "number" ? (Number.isInteger(effectiveVal) ? effectiveVal : effectiveVal.toFixed(2)) : effectiveVal;
+        const deltaBadge = isManualMod ? `<span class="mod-delta-badge ${delta > 0 ? 'pos' : 'neg'}">${delta > 0 ? '+' + delta : delta}</span>` : '';
 
         box.innerHTML = `
-          <span class="attr-name">${attr.code}</span>
+          <span class="attr-name">${attr.code} ${deltaBadge}</span>
           <span class="attr-val">${displayVal}</span>
           ${subLbl ? `<span class="attr-sublabel">${subLbl}</span>` : ""}
         `;
 
         // Drilldown toggle
         box.addEventListener("click", () => {
-          const isSelected = box.classList.contains("selected");
-          document.querySelectorAll(".attr-box").forEach(b => b.classList.remove("selected"));
-          
-          if (isSelected) {
-            attrDrillArea.innerHTML = "";
-          } else {
-            box.classList.add("selected");
-            const buffsHtml = attr.buffs && attr.buffs.length ? 
-              attr.buffs.map(b => `<div class="buff-chip">✔ <strong>${b.source}</strong>: +${b.value} <span style="color: var(--text-muted);">(${b.notes || ''})</span></div>`).join("") :
-              '<div class="buff-chip">Baseline natural attribute value</div>';
-
-            const docLink = attr.doc_link ? `<a class="doc-link-btn" href="${getDocUrl(activeCharId, attr.doc_link)}" target="_blank" rel="noopener">📖 View Rules & Mechanics ↗</a>` : "";
-
-            attrDrillArea.innerHTML = `
-              <div class="breakdown-drawer open">
-                <div style="font-weight: 700; color: var(--gold-primary); margin-bottom: 4px;">${attr.name} (${attr.code}): ${attr.buffed}</div>
-                <div class="breakdown-math">📊 ${attr.breakdown || `Base ${attr.base}`}</div>
-                <div class="buff-checklist">${buffsHtml}</div>
-                ${docLink}
-              </div>
-            `;
-          }
+          selectedAttrCode = (selectedAttrCode === attr.code.toLowerCase()) ? null : attr.code.toLowerCase();
+          renderActiveCharacter();
         });
+
+        // If selected, render persistent open drawer
+        if (isSelected) {
+          const buffsHtml = attr.buffs && attr.buffs.length ? 
+            attr.buffs.map(b => `<div class="buff-chip">✔ <strong>${b.source}</strong>: +${b.value} <span style="color: var(--text-muted);">(${b.notes || ''})</span></div>`).join("") :
+            (attr.linked_mental ? `<div class="buff-chip">✔ Derived from mental attribute <strong>${attr.linked_mental.toUpperCase()}</strong></div>` : '<div class="buff-chip">Baseline natural attribute value</div>');
+
+          const docLink = attr.doc_link ? `<a class="doc-link-btn" href="${getDocUrl(activeCharId, attr.doc_link)}" target="_blank" rel="noopener">📖 View Rules & Mechanics ↗</a>` : "";
+
+          attrDrillArea.innerHTML = `
+            <div class="breakdown-drawer open">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <div style="font-weight: 700; color: var(--gold-primary); font-size: 1.02rem;">
+                  ${attr.name} (${attr.code}): <strong>${effectiveVal}</strong>
+                </div>
+                <div class="stepper-inline">
+                  <button class="stepper-btn" onclick="stepModifier('${key}', -1); event.stopPropagation();" title="Decrease Attribute">-</button>
+                  <span style="font-family: var(--font-mono); font-weight: 700; padding: 0 4px; min-width: 24px; text-align: center;">${effectiveVal}</span>
+                  <button class="stepper-btn" onclick="stepModifier('${key}', 1); event.stopPropagation();" title="Increase Attribute">+</button>
+                  ${isManualMod ? `<button class="reset-all-btn" onclick="resetModifier('${key}'); event.stopPropagation();" title="Reset to default">↺</button>` : ''}
+                </div>
+              </div>
+              <div class="breakdown-math">${breakdownMath}</div>
+              <div class="buff-checklist">${buffsHtml}</div>
+              ${docLink}
+            </div>
+          `;
+        }
 
         attrGrid.appendChild(box);
       });
 
-      // Condition Monitors
-      document.getElementById("physBoxes").textContent = `${char.derived.physical_boxes} Boxes`;
-      document.getElementById("stunBoxes").textContent = `${char.derived.stun_boxes} Boxes`;
+      // Derived Attribute Values (Live from attributes + modifier deltas)
+      const wilVal = liveAttrs["wil"] !== undefined ? liveAttrs["wil"] : (char.attributes ? char.attributes.wil : 5);
+      const chaVal = liveAttrs["cha"] !== undefined ? liveAttrs["cha"] : (char.attributes ? char.attributes.cha : 5);
+      const intVal = liveAttrs["int"] !== undefined ? liveAttrs["int"] : (char.attributes ? char.attributes.int : 5);
+      const logVal = liveAttrs["log"] !== undefined ? liveAttrs["log"] : (char.attributes ? char.attributes.log : 5);
+      const reaVal = liveAttrs["rea"] !== undefined ? liveAttrs["rea"] : (char.attributes ? char.attributes.rea : 2);
+      const dpVal = liveAttrs["dp"] !== undefined ? liveAttrs["dp"] : (char.matrix && char.matrix.asdf ? char.matrix.asdf.data_processing : 6);
+      const fwVal = liveAttrs["fw"] !== undefined ? liveAttrs["fw"] : (char.matrix && char.matrix.asdf ? char.matrix.asdf.firewall : 5);
 
-      // Derived Ratings with Drilldown
+      // Initiative Compact Card and Expandable Drawer Rendering
+      const initCompact = document.getElementById("initCompactCard");
+      const initDrawerArea = document.getElementById("initDrawerArea");
+      if (initCompact && char.initiative && char.initiative.modes) {
+        const initModes = char.initiative.modes;
+        const availableModes = Object.keys(initModes);
+        let currentMode = getRuntimeMod(activeCharId, "init_mode") || char.initiative.default_mode || availableModes[0];
+        if (!initModes[currentMode]) currentMode = availableModes[0];
+        
+        const modeData = initModes[currentMode];
+        const scoreModKey = `init_score_${currentMode}`;
+        const diceModKey = `init_dice_${currentMode}`;
+        const scoreDelta = getRuntimeMod(activeCharId, scoreModKey);
+        const diceDelta = getRuntimeMod(activeCharId, diceModKey);
+
+        let liveBaseScore = modeData.score;
+        let dynamicBreakdown = modeData.breakdown;
+
+        if (currentMode === "physical") {
+          liveBaseScore = reaVal + intVal;
+          dynamicBreakdown = `REA (${reaVal}) + INT (${intVal}) + ${(modeData.dice + diceDelta)}d6`;
+        } else if (currentMode === "vr_hotsim") {
+          const overclockScore = char.identity.is_ai ? 1 : 0;
+          liveBaseScore = dpVal + intVal + overclockScore;
+          dynamicBreakdown = `DP (${dpVal}) + INT (${intVal}) ${overclockScore ? '+ Overclock Echo (+1)' : ''} + ${(modeData.dice + diceDelta)}d6`;
+        }
+
+        const effScore = Math.max(1, liveBaseScore + scoreDelta);
+        const effDice = Math.max(1, modeData.dice + diceDelta);
+        const isModified = (scoreDelta !== 0 || diceDelta !== 0);
+        const deltaBadge = isModified ? `<span class="mod-delta-badge ${scoreDelta >= 0 ? 'pos' : 'neg'}" style="font-size: 0.65rem; margin-left: 4px;">${scoreDelta >= 0 ? '+' + scoreDelta : scoreDelta}</span>` : '';
+
+        // Render Compact Card in the 3-column row
+        initCompact.className = "track-card init-compact-card" + (isInitDrawerOpen ? " open" : "");
+        initCompact.innerHTML = `
+          <div class="track-header" style="color: var(--gold-primary);">⚡ INITIATIVE</div>
+          <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 800; color: var(--gold-primary); margin: 2px 0; text-align: center;">
+            ${effScore} + ${effDice}d6 ${deltaBadge}
+          </div>
+          <div style="font-size: 0.65rem; color: var(--text-muted); text-align: center;">
+            ${modeData.name} ${isInitDrawerOpen ? '▲' : '▼'}
+          </div>
+        `;
+
+        // Render Expanded Drawer if active
+        if (isInitDrawerOpen) {
+          let pillsHtml = "";
+          if (availableModes.length > 1) {
+            pillsHtml = availableModes.map(m => `
+              <button class="init-mode-pill ${m === currentMode ? 'active' : ''}" onclick="setRuntimeMod(activeCharId, 'init_mode', '${m}'); renderActiveCharacter(); event.stopPropagation();">
+                ${m === 'vr_hotsim' ? '⚡ Hot-Sim' : (m === 'physical' ? '🏃 Physical' : m.toUpperCase())}
+              </button>
+            `).join("");
+          }
+
+          initDrawerArea.innerHTML = `
+            <div class="init-card">
+              <div class="init-header-row">
+                <div style="font-weight: 700; font-size: 0.95rem; color: var(--gold-primary); display: flex; align-items: center; gap: 6px;">
+                  <span>⚡ Adjust ${modeData.name} Initiative</span>
+                </div>
+                <div style="display: flex; gap: 4px;">
+                  ${pillsHtml}
+                </div>
+              </div>
+
+              <div style="display: flex; align-items: center; justify-content: space-between; background: rgba(0,0,0,0.3); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 8px 12px;">
+                <div>
+                  <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Active Rating</div>
+                  <div class="init-val-box">${effScore} + ${effDice}d6</div>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 4px; align-items: flex-end;">
+                  <div style="display: flex; align-items: center; gap: 6px;">
+                    <span style="font-size: 0.72rem; color: var(--text-muted); min-width: 36px; text-align: right;">Score:</span>
+                    <div class="stepper-inline">
+                      <button class="stepper-btn" onclick="stepModifier('${scoreModKey}', -1); event.stopPropagation();" title="Decrease Initiative Score">-</button>
+                      <span style="font-family: var(--font-mono); font-weight: 700; min-width: 22px; text-align: center;">${effScore}</span>
+                      <button class="stepper-btn" onclick="stepModifier('${scoreModKey}', 1); event.stopPropagation();" title="Increase Initiative Score">+</button>
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 6px;">
+                    <span style="font-size: 0.72rem; color: var(--text-muted); min-width: 36px; text-align: right;">Dice:</span>
+                    <div class="stepper-inline">
+                      <button class="stepper-btn" onclick="stepModifier('${diceModKey}', -1); event.stopPropagation();" title="Decrease Initiative Dice">-</button>
+                      <span style="font-family: var(--font-mono); font-weight: 700; min-width: 22px; text-align: center;">+${effDice}d6</span>
+                      <button class="stepper-btn" onclick="stepModifier('${diceModKey}', 1); event.stopPropagation();" title="Increase Initiative Dice">+</button>
+                      ${isModified ? `<button class="reset-all-btn" onclick="resetModifier('${scoreModKey}'); resetModifier('${diceModKey}'); event.stopPropagation();" title="Reset initiative adjustments">↺</button>` : ''}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 6px; line-height: 1.3;">
+                📊 ${dynamicBreakdown} ${isModified ? `| <strong style="color: var(--gold-primary);">Extra Mod: ${scoreDelta >= 0 ? '+' + scoreDelta : scoreDelta} Score, ${diceDelta >= 0 ? '+' + diceDelta : diceDelta}d6</strong>` : ''}
+              </div>
+            </div>
+          `;
+        } else {
+          initDrawerArea.innerHTML = "";
+        }
+      }
+
+      // Condition Monitors & Wound Calculation
+      const maxPhys = char.derived.physical_boxes || 10;
+      const maxStun = char.derived.stun_boxes || 11;
+      const physDmg = getRuntimeMod(activeCharId, "dmg_phys");
+      const stunDmg = getRuntimeMod(activeCharId, "dmg_stun");
+      const physRem = Math.max(0, maxPhys - physDmg);
+      const stunRem = Math.max(0, maxStun - stunDmg);
+
+      document.getElementById("physBoxes").textContent = `${physDmg} / ${maxPhys}`;
+      document.getElementById("physRemainLbl").textContent = `${physRem} Boxes Left (${physDmg} Dmg)`;
+      document.getElementById("stunBoxes").textContent = `${stunDmg} / ${maxStun}`;
+      document.getElementById("stunRemainLbl").textContent = `${stunRem} Boxes Left (${stunDmg} Dmg)`;
+
+      // SR6 Wound Penalty: -1 dice per full 3 damage boxes on either track
+      const woundPenalty = Math.floor(physDmg / 3) + Math.floor(stunDmg / 3);
+      const woundBanner = document.getElementById("woundPenaltyBanner");
+      if (woundBanner) {
+        if (woundPenalty > 0) {
+          woundBanner.className = "wound-banner";
+          woundBanner.style.display = "flex";
+          woundBanner.innerHTML = `
+            <span>⚠️ <strong>Wound Penalty: -${woundPenalty} Dice</strong> to all tests (${physDmg} Phys, ${stunDmg} Stun)</span>
+            <button class="reset-all-btn" onclick="setRuntimeMod(activeCharId, 'dmg_phys', 0); setRuntimeMod(activeCharId, 'dmg_stun', 0); renderActiveCharacter();">Clear Damage</button>
+          `;
+        } else {
+          woundBanner.style.display = "none";
+        }
+      }
+
+      // Derived Ratings (Live calculated from attributes + modifier deltas)
+      const compBase = wilVal + chaVal;
+      const judgeBase = wilVal + intVal;
+      const memBase = wilVal + logVal;
+      const physDefBase = reaVal + intVal;
+      const defRating = char.derived.defense_rating;
+      const matDefBase = wilVal + fwVal;
+
       const dGrid = document.getElementById("derivedGrid");
       dGrid.innerHTML = `
         <div class="derived-item">
-          <strong>Composure:</strong> ${char.derived.composure}d6 (${Math.floor(char.derived.composure/4)}H)
-          <div style="font-size: 0.72rem; color: var(--text-muted);">WIL + CHA</div>
+          <strong>Composure:</strong> ${compBase}d6 (${Math.floor(compBase/4)}H)
+          <div style="font-size: 0.72rem; color: var(--text-muted);">WIL (${wilVal}) + CHA (${chaVal})</div>
         </div>
         <div class="derived-item">
-          <strong>Judge Int:</strong> ${char.derived.judge_intentions}d6 (${Math.floor(char.derived.judge_intentions/4)}H)
-          <div style="font-size: 0.72rem; color: var(--text-muted);">WIL + INT</div>
+          <strong>Judge Int:</strong> ${judgeBase}d6 (${Math.floor(judgeBase/4)}H)
+          <div style="font-size: 0.72rem; color: var(--text-muted);">WIL (${wilVal}) + INT (${intVal})</div>
         </div>
         <div class="derived-item">
-          <strong>Memory:</strong> ${char.derived.memory}d6 (${Math.floor(char.derived.memory/4)}H)
-          <div style="font-size: 0.72rem; color: var(--text-muted);">WIL + LOG</div>
+          <strong>Memory:</strong> ${memBase}d6 (${Math.floor(memBase/4)}H)
+          <div style="font-size: 0.72rem; color: var(--text-muted);">WIL (${wilVal}) + LOG (${logVal})</div>
         </div>
         <div class="derived-item">
-          <strong>Physical Def:</strong> ${char.derived.physical_defense}d6 (${Math.floor(char.derived.physical_defense/4)}H)
-          <div style="font-size: 0.72rem; color: var(--text-muted);">REA + INT</div>
+          <strong>Physical Def:</strong> ${physDefBase}d6 (${Math.floor(physDefBase/4)}H)
+          <div style="font-size: 0.72rem; color: var(--text-muted);">REA (${reaVal}) + INT (${intVal})</div>
         </div>
         <div class="derived-item">
-          <strong>Defense Rating:</strong> ${char.derived.defense_rating} DR
+          <strong>Defense Rating:</strong> ${defRating} DR
           <div style="font-size: 0.72rem; color: var(--text-muted);">Armor + Soak</div>
         </div>
         <div class="derived-item">
-          <strong>Full Matrix Def:</strong> ${char.matrix.matrix_defense}d6 (${char.matrix.matrix_defense_hits}H)
-          <div style="font-size: 0.72rem; color: var(--text-muted);">${char.matrix.matrix_defense_breakdown || 'WIL + FW'}</div>
+          <strong>Full Matrix Def:</strong> ${matDefBase}d6 (${Math.floor(matDefBase/4)}H)
+          <div style="font-size: 0.72rem; color: var(--text-muted);">WIL (${wilVal}) + FW (${fwVal})</div>
         </div>
       `;
 
@@ -2791,14 +4223,24 @@
         qList.innerHTML = qHtml;
       }
 
-      // Skills Tab
+      // Skills Tab with Interactive +/- Steppers
       const sList = document.getElementById("skillsList");
       sList.innerHTML = "";
       char.skills.forEach(s => {
+        const skillKey = "skill_" + (s.id || s.name.toLowerCase().replace(/[^a-z0-9]/g, "_"));
+        const delta = getRuntimeMod(activeCharId, skillKey);
+        const defaultPool = s.buffed_pool;
+        const currentPool = Math.max(0, defaultPool + delta);
+        const boughtHits = Math.floor(currentPool / 4);
+        const specPool = s.specialization ? (currentPool + 2) : currentPool;
+        const specHits = Math.floor(specPool / 4);
+        const isManualMod = delta !== 0;
+
         const item = document.createElement("div");
-        item.className = "pool-item";
+        item.className = "pool-item" + (isManualMod ? " manual-modified" : "");
         
         const specHtml = s.specialization ? `<span class="skill-spec">+2 ${s.specialization}</span>` : "";
+        const deltaBadge = isManualMod ? `<span class="mod-delta-badge ${delta > 0 ? 'pos' : 'neg'}">${delta > 0 ? '+' + delta : delta}</span>` : "";
         const buffsHtml = s.buffs.map(b => `<div class="buff-chip">${b.active ? '✔' : '⚡'} ${b.source} (+${b.value})</div>`).join("");
         const docLink = s.doc_link ? `<a class="doc-link-btn" href="${getDocUrl(activeCharId, s.doc_link)}" target="_blank" rel="noopener">📖 View Rules & Mechanics ↗</a>` : "";
 
@@ -2807,22 +4249,30 @@
             <div class="skill-title-wrap">
               <span class="skill-name">${s.name}</span>
               ${specHtml}
+              ${deltaBadge}
             </div>
-            <button class="info-btn" title="Inspect Breakdown">ℹ</button>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              ${isManualMod ? `<button class="reset-all-btn" onclick="resetModifier('${skillKey}')" title="Reset modifier">↺</button>` : ''}
+              <button class="info-btn" title="Inspect Breakdown">ℹ</button>
+            </div>
           </div>
           <div class="pool-main">
-            <div class="pool-target" title="Tap to Roll">
-              <span class="pool-d6">${s.buffed_pool}d6</span>
-              <span class="pool-sublabel">Base: ${s.base_pool}d6 ${s.specialization ? `| Spec: ${s.specialized_pool}d6` : ''}</span>
+            <div class="stepper-pool-wrap">
+              <button class="stepper-btn minus" onclick="stepModifier('${skillKey}', -1)" title="Decrease Pool by 1">-</button>
+              <div class="pool-target" title="Tap to Copy">
+                <span class="pool-d6">${currentPool}d6</span>
+                <span class="pool-sublabel">Base: ${s.base_pool}d6 | Default: ${s.buffed_pool}d6 ${s.specialization ? `| Spec: ${specPool}d6` : ''}</span>
+              </div>
+              <button class="stepper-btn plus" onclick="stepModifier('${skillKey}', 1)" title="Increase Pool by 1">+</button>
             </div>
             <div class="bought-hits-box">
-              <span class="bought-hits-num">${s.bought_hits}</span>
+              <span class="bought-hits-num">${boughtHits}</span>
               <span class="bought-hits-lbl">Bought Hits</span>
             </div>
           </div>
           <div class="breakdown-drawer">
-            <div class="breakdown-math">📊 ${s.breakdown_text}</div>
-            ${s.specialization ? `<div style="font-size: 0.8rem; color: var(--gold-primary); margin-bottom: 4px;"><strong>Specialized Action:</strong> ${s.specialized_pool}d6 (${s.specialized_hits} Bought Hits)</div>` : ''}
+            <div class="breakdown-math">📊 ${s.breakdown_text} ${isManualMod ? `| Live Modifier: ${delta > 0 ? '+' + delta : delta}` : ''}</div>
+            ${s.specialization ? `<div style="font-size: 0.8rem; color: var(--gold-primary); margin-bottom: 4px;"><strong>Specialized Action:</strong> ${specPool}d6 (${specHits} Bought Hits)</div>` : ''}
             <div class="buff-checklist">
               ${buffsHtml || '<div class="buff-chip">No active buffs</div>'}
             </div>
@@ -2832,13 +4282,25 @@
 
         // Click target to copy/toast
         item.querySelector(".pool-target").addEventListener("click", () => {
-          showToast(`⚡ ${s.name}: ${s.buffed_pool}d6 (${s.bought_hits} Hits)${s.specialization ? ` [${s.specialization}: ${s.specialized_pool}d6]` : ''}`);
+          showToast(`⚡ ${s.name}: ${currentPool}d6 (${boughtHits} Hits)${s.specialization ? ` [${s.specialization}: ${specPool}d6]` : ''}`);
         });
 
-        // Toggle Breakdown Drawer
-        item.querySelector(".info-btn").addEventListener("click", () => {
+        const isDrawerOpen = openDrawers.has(skillKey);
+        if (isDrawerOpen) {
           const drawer = item.querySelector(".breakdown-drawer");
-          drawer.classList.toggle("open");
+          if (drawer) drawer.classList.add("open");
+        }
+
+        // Toggle Breakdown Drawer
+        item.querySelector(".info-btn").addEventListener("click", (e) => {
+          e.stopPropagation();
+          if (openDrawers.has(skillKey)) {
+            openDrawers.delete(skillKey);
+          } else {
+            openDrawers.add(skillKey);
+          }
+          const drawer = item.querySelector(".breakdown-drawer");
+          if (drawer) drawer.classList.toggle("open");
         });
 
         sList.appendChild(item);
@@ -2864,7 +4326,6 @@
 
           const docLink = w.doc_link ? `<a class="doc-link-btn" href="${getDocUrl(activeCharId, w.doc_link)}" target="_blank" rel="noopener">📖 View Weapon Protocols ↗</a>` : "";
 
-          // Melee weapons omit fire mode and ammo
           const modeAmmoHtml = w.is_melee ? 
             `<div style="font-size: 0.8rem; color: var(--gold-primary); margin-bottom: 4px;">⚔️ <strong>Physical Melee Weapon</strong> (No fire mode / ammo)</div>` :
             `<div style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 4px;">
@@ -2938,7 +4399,7 @@
           <div class="card">
             <div class="card-title">Complex Forms & Resonance</div>
             ${cfItems}
-            ${echoes.length ? `<div style="margin-top: 10px; font-size: 0.85rem; color: var(--gold-primary);"><strong>Submersion Echoes:</strong> ${echoes.map(e => typeof e === 'object' ? e.name : e).join(", ")}</div>` : ""}
+            ${echoes.length ? `<div style="margin-top: 10px; font-size: 0.85rem; color: var(--gold-primary);"><strong>Submersion Echoes:</strong> ${echoes.map(e => typeof e === 'object' ? e.name : e).join(", ") }</div>` : ""}
           </div>
         `;
       }
@@ -3086,16 +4547,122 @@
         });
       }
 
-      // Inventory & Software Tab
-      const iList = document.getElementById("inventoryList");
-      const progs = char.inventory.programs || [];
-      const autos = char.inventory.autosofts || [];
-      const gear = char.inventory.gear || [];
-      iList.innerHTML = `
-        <div style="margin-bottom: 8px;"><strong>Programs:</strong> <span style="color: var(--text-secondary); font-size: 0.85rem;">${progs.join(", ") || "None"}</span></div>
-        <div style="margin-bottom: 8px;"><strong>Autosofts:</strong> <span style="color: var(--text-secondary); font-size: 0.85rem;">${autos.join(", ") || "None"}</span></div>
-        <div><strong>Field Gear:</strong> <span style="color: var(--text-secondary); font-size: 0.85rem;">${gear.join(", ") || "Standard runner kit"}</span></div>
-      `;
+      // Field Gear & Equipment
+      const fgList = document.getElementById("fieldGearList");
+      const gearItems = char.gear_items || [];
+      if (gearItems.length === 0) {
+        fgList.innerHTML = '<div style="color: var(--text-muted); font-size: 0.85rem;">Standard runner field equipment</div>';
+      } else {
+        fgList.innerHTML = gearItems.map(g => {
+          const qtyBadge = (g.qty && g.qty > 1) ? `<span class="gear-badge qty">Qty: ${g.qty}</span>` : '';
+          const rtgBadge = g.rating ? `<span class="gear-badge rating">Rating ${g.rating}</span>` : '';
+          const accChips = (g.accessories && g.accessories.length) ? 
+            `<div style="display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px;">${g.accessories.map(a => `<span class="buff-chip" style="font-size: 0.75rem;">✔ ${a}</span>`).join('')}</div>` : '';
+          const notesText = g.notes ? `<div style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 3px;">${g.notes}</div>` : '';
+
+          return `
+            <div class="gear-card">
+              <div class="gear-header">
+                <span class="gear-title">${g.name}</span>
+                <div style="display: flex; gap: 4px;">${qtyBadge}${rtgBadge}</div>
+              </div>
+              ${accChips}
+              ${notesText}
+            </div>
+          `;
+        }).join("");
+      }
+
+      // Matrix Hardware & Commlinks
+      const mhList = document.getElementById("matrixHardwareList");
+      const mDevs = char.matrix_devices || [];
+      if (mDevs.length === 0) {
+        mhList.innerHTML = '<div style="color: var(--text-muted); font-size: 0.85rem;">No external commlink hardware (Living Persona)</div>';
+      } else {
+        mhList.innerHTML = mDevs.map(d => {
+          const rtgBadge = d.rating ? `<span class="gear-badge rating">Device Rating ${d.rating}</span>` : '';
+          const qtyBadge = (d.qty && d.qty > 1) ? `<span class="gear-badge qty">Qty: ${d.qty}</span>` : '';
+          const dpFw = `<div style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--gold-primary); margin-top: 2px;">Data Processing: ${d.data_processing || 2} | Firewall: ${d.firewall || 2}</div>`;
+          const accChips = (d.accessories && d.accessories.length) ? 
+            `<div style="display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px;">${d.accessories.map(a => `<span class="buff-chip" style="font-size: 0.75rem;">✔ ${a}</span>`).join('')}</div>` : '';
+          const notesText = d.notes ? `<div style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 3px;">${d.notes}</div>` : '';
+
+          return `
+            <div class="gear-card">
+              <div class="gear-header">
+                <span class="gear-title">${d.name}</span>
+                <div style="display: flex; gap: 4px;">${qtyBadge}${rtgBadge}</div>
+              </div>
+              ${dpFw}
+              ${accChips}
+              ${notesText}
+            </div>
+          `;
+        }).join("");
+      }
+
+      // Software & Apps
+      const swList = document.getElementById("softwareList");
+      const swItems = char.software || [];
+      const autos = (char.inventory && char.inventory.autosofts) || [];
+      let swHtml = "";
+      if (swItems.length > 0) {
+        swHtml += swItems.map(s => {
+          const rtgBadge = s.rating ? `<span class="gear-badge rating">R${s.rating}</span>` : '';
+          const catBadge = s.category ? `<span class="power-badge" style="font-size: 0.7rem;">${s.category}</span>` : '';
+          return `
+            <div class="gear-card" style="display: flex; justify-content: space-between; align-items: center; padding: 6px 10px;">
+              <span style="font-size: 0.88rem; font-weight: 600;">${s.name}</span>
+              <div style="display: flex; gap: 4px; align-items: center;">${catBadge}${rtgBadge}</div>
+            </div>
+          `;
+        }).join("");
+      }
+      if (autos.length > 0) {
+        swHtml += `
+          <div style="margin-top: 8px; font-size: 0.78rem; font-weight: 700; color: var(--gold-primary);">Vehicle / Drone Autosofts:</div>
+          <div style="font-size: 0.82rem; color: var(--text-secondary); margin-top: 3px;">${autos.join(", ")}</div>
+        `;
+      }
+      if (!swHtml) {
+        swHtml = '<div style="color: var(--text-muted); font-size: 0.85rem;">Standard firmware only</div>';
+      }
+      swList.innerHTML = swHtml;
+
+      // Identities & Lifestyles
+      const slList = document.getElementById("sinsLifestyleList");
+      const sins = char.sins || [];
+      const lifestyles = char.lifestyles || [];
+      let sinsContent = "";
+      if (sins.length > 0) {
+        sinsContent += `<div style="font-size: 0.82rem; font-weight: 700; color: var(--gold-primary); margin-bottom: 6px;">Identities & Fake SINs</div>`;
+        sinsContent += sins.map(s => `
+          <div class="gear-card">
+            <div class="gear-header">
+              <span class="gear-title">${s.name}</span>
+              <span class="power-badge">R${s.rating || 1} ${s.quality || ''}</span>
+            </div>
+            ${s.licenses && s.licenses.length ? `<div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 4px;"><strong>Licenses:</strong> ${s.licenses.join(', ')}</div>` : ''}
+          </div>
+        `).join("");
+      }
+      if (lifestyles.length > 0) {
+        sinsContent += `<div style="font-size: 0.82rem; font-weight: 700; color: var(--gold-primary); margin-top: 10px; margin-bottom: 6px;">Lifestyles</div>`;
+        sinsContent += lifestyles.map(l => `
+          <div class="gear-card">
+            <div class="gear-header">
+              <span class="gear-title">${l.name}</span>
+            </div>
+            <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 2px;">
+              Comfort: ${l.comfort || 'Low'} | Security: ${l.security || 'Low'} | Neighborhood: ${l.neighborhood || 'Low'}
+            </div>
+          </div>
+        `).join("");
+      }
+      if (!sinsContent) {
+        sinsContent = '<div style="color: var(--text-muted); font-size: 0.85rem;">None recorded</div>';
+      }
+      slList.innerHTML = sinsContent;
 
       // Contacts Tab
       renderContacts();
@@ -3121,7 +4688,6 @@
       } else if (contactFilterMode === "connection") {
         sorted.sort((a, b) => (b.connection || 0) - (a.connection || 0));
       } else if (contactFilterMode === "region") {
-        // Group by region
         const groups = {};
         sorted.forEach(c => {
           const reg = c.region || "Seattle / Global";
@@ -3141,12 +4707,13 @@
         });
         return;
       } else if (contactFilterMode === "type") {
-        // Group by type / archetype
         const groups = {};
         sorted.forEach(c => {
-          const arch = c.archetype || "Contact";
-          if (!groups[arch]) groups[arch] = [];
-          groups[arch].push(c);
+          const types = (c.types && c.types.length) ? c.types : [c.archetype || "Contact"];
+          types.forEach(t => {
+            if (!groups[t]) groups[t] = [];
+            groups[t].push(c);
+          });
         });
 
         Object.keys(groups).sort().forEach(arch => {
@@ -3171,6 +4738,10 @@
     function createContactElement(c) {
       const cItem = document.createElement("div");
       cItem.className = "contact-item";
+      let typesHtml = "";
+      if (c.types && c.types.length) {
+        typesHtml = `<div style="display: flex; gap: 4px; flex-wrap: wrap; margin-top: 4px;">${c.types.map(t => `<span class="quality-badge pos" style="font-size: 0.68rem; padding: 1px 6px;">${t}</span>`).join("")}</div>`;
+      }
       cItem.innerHTML = `
         <div class="contact-header">
           <strong style="color: var(--text-primary); font-size: 1.02rem;">${c.name} (${c.archetype})</strong>
@@ -3179,7 +4750,8 @@
         <div style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 4px;">
           Connection: <strong>${c.connection}</strong> | Loyalty: <strong>${c.loyalty}</strong> ${c.region ? `| 📍 ${c.region}` : ""}
         </div>
-        ${c.description ? `<div style="font-size: 0.75rem; color: var(--text-muted);">${c.description}</div>` : ""}
+        ${typesHtml}
+        ${c.description ? `<div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">${c.description}</div>` : ""}
       `;
       return cItem;
     }
