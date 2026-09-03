@@ -19,18 +19,26 @@ class PoolModifier:
     def __init__(
         self,
         target: str,
-        type_: str,  # 'augmentation', 'focus', 'symbiosis', 'specialization', 'teamwork', 'tactical', 'action', 'diagnosis'
+        type_: str,  # 'teamwork', 'augmentation', 'specialization', 'expertise', 'other', 'focus', 'symbiosis', 'gear'
         source: str,
         value: int,
         is_srm_capped: bool = False,
-        condition: Optional[str] = None
+        condition: Optional[str] = None,
+        rule_anchor: Optional[str] = None,
+        id_: Optional[str] = None,
+        enabled: bool = True,
+        sub_skill: Optional[str] = None
     ):
         self.target = target
-        self.type = type_
+        self.type = type_.lower().strip()
         self.source = source
         self.value = value
         self.is_srm_capped = is_srm_capped
         self.condition = condition
+        self.rule_anchor = rule_anchor
+        self.id = id_ or source.lower().replace(" ", "_").replace("(", "").replace(")", "").replace("+", "")
+        self.enabled = enabled
+        self.sub_skill = sub_skill
 
     def __repr__(self) -> str:
         return f"<PoolModifier {self.target} +{self.value} ({self.source}) [{self.type}]>"
@@ -43,7 +51,7 @@ Modifier = PoolModifier
 class PoolComponent:
     """
     Represents a test component (Attribute, Skill, Autosoft, or Action Attribute).
-    Enforces the SRMG +4 augmentation maximum per component.
+    Enforces the SRMG +4 augmentation maximum per component and teamwork capping.
     """
     def __init__(
         self,
@@ -63,14 +71,26 @@ class PoolComponent:
     def raw_aug_bonus(self) -> int:
         return sum(
             m.value for m in self.modifiers
-            if m.is_srm_capped or m.type in ["augmentation", "symbiosis", "focus", "boost"]
+            if m.enabled and (m.is_srm_capped or m.type in ["augmentation", "symbiosis", "focus", "boost"])
         )
+
+    @property
+    def raw_teamwork_bonus(self) -> int:
+        return sum(
+            m.value for m in self.modifiers
+            if m.enabled and m.type == "teamwork"
+        )
+
+    @property
+    def clamped_teamwork_bonus(self) -> int:
+        # Teamwork is capped at that skill/activesoft's rating
+        return min(self.raw_teamwork_bonus, self.base_value)
 
     @property
     def uncapped_bonus(self) -> int:
         return sum(
             m.value for m in self.modifiers
-            if not (m.is_srm_capped or m.type in ["augmentation", "symbiosis", "focus", "boost"])
+            if m.enabled and not (m.is_srm_capped or m.type in ["augmentation", "symbiosis", "focus", "boost", "teamwork"])
         )
 
     @property
@@ -79,7 +99,7 @@ class PoolComponent:
 
     @property
     def effective_value(self) -> int:
-        return self.base_value + self.clamped_aug_bonus + self.uncapped_bonus
+        return self.base_value + self.clamped_aug_bonus + self.clamped_teamwork_bonus + self.uncapped_bonus
 
     @property
     def is_at_aug_cap(self) -> bool:
@@ -103,6 +123,7 @@ class PoolOptimization:
         name: str,
         components: List[PoolComponent],
         specialization: Optional[PoolModifier] = None,
+        expertise: Optional[PoolModifier] = None,
         teamwork: Optional[PoolModifier] = None,
         tactical_modifiers: Optional[List[PoolModifier]] = None,
         action_modifiers: Optional[List[PoolModifier]] = None,
@@ -112,6 +133,7 @@ class PoolOptimization:
         self.name = name
         self.components = components
         self.specialization = specialization
+        self.expertise = expertise
         self.teamwork = teamwork
         self.tactical_modifiers = tactical_modifiers or []
         self.action_modifiers = action_modifiers or []
@@ -125,10 +147,16 @@ class PoolOptimization:
     @property
     def total_pool(self) -> int:
         comp_total = sum(c.effective_value for c in self.components)
-        spec_val = self.specialization.value if self.specialization else 0
-        tw_val = self.teamwork.value if self.teamwork else 0
-        tact_val = sum(m.value for m in self.tactical_modifiers)
-        act_val = sum(m.value for m in self.action_modifiers)
+        # Expertise (+3) takes precedence over Specialization (+2) if both are somehow present for the same sub-skill
+        spec_val = 0
+        if self.expertise and self.expertise.enabled:
+            spec_val = self.expertise.value
+        elif self.specialization and self.specialization.enabled:
+            spec_val = self.specialization.value
+
+        tw_val = self.teamwork.value if (self.teamwork and self.teamwork.enabled) else 0
+        tact_val = sum(m.value for m in self.tactical_modifiers if m.enabled)
+        act_val = sum(m.value for m in self.action_modifiers if m.enabled)
         return comp_total + spec_val + tw_val + tact_val + act_val
 
     @property
@@ -167,7 +195,9 @@ class PoolOptimization:
         for c in self.components:
             for m in c.modifiers:
                 parts.append(f"{m.source} (+{m.value})")
-        if self.specialization:
+        if self.expertise:
+            parts.append(f"{self.expertise.source} (+{self.expertise.value})")
+        elif self.specialization:
             parts.append(f"{self.specialization.source} (+{self.specialization.value})")
         if self.teamwork:
             parts.append(f"{self.teamwork.source} (+{self.teamwork.value})")
@@ -179,13 +209,73 @@ class PoolOptimization:
         return " + ".join(parts)
 
     def to_dict(self) -> Dict[str, Any]:
+        all_modifiers = []
+        for c in self.components:
+            for m in c.modifiers:
+                all_modifiers.append({
+                    "id": m.id,
+                    "source": m.source,
+                    "value": m.value,
+                    "type": m.type,
+                    "enabled": m.enabled,
+                    "rule_anchor": m.rule_anchor,
+                    "target_component": c.name
+                })
+        if self.expertise:
+            all_modifiers.append({
+                "id": self.expertise.id,
+                "source": self.expertise.source,
+                "value": self.expertise.value,
+                "type": self.expertise.type,
+                "enabled": self.expertise.enabled,
+                "rule_anchor": self.expertise.rule_anchor
+            })
+        elif self.specialization:
+            all_modifiers.append({
+                "id": self.specialization.id,
+                "source": self.specialization.source,
+                "value": self.specialization.value,
+                "type": self.specialization.type,
+                "enabled": self.specialization.enabled,
+                "rule_anchor": self.specialization.rule_anchor
+            })
+        if self.teamwork:
+            all_modifiers.append({
+                "id": self.teamwork.id,
+                "source": self.teamwork.source,
+                "value": self.teamwork.value,
+                "type": self.teamwork.type,
+                "enabled": self.teamwork.enabled,
+                "rule_anchor": self.teamwork.rule_anchor
+            })
+        for m in self.tactical_modifiers:
+            all_modifiers.append({
+                "id": m.id,
+                "source": m.source,
+                "value": m.value,
+                "type": m.type,
+                "enabled": m.enabled,
+                "rule_anchor": m.rule_anchor
+            })
+        for m in self.action_modifiers:
+            all_modifiers.append({
+                "id": m.id,
+                "source": m.source,
+                "value": m.value,
+                "type": m.type,
+                "enabled": m.enabled,
+                "rule_anchor": m.rule_anchor
+            })
+
         return {
             "name": self.name,
+            "base_pool": self.base_pool,
             "total_pool": self.total_pool,
             "bought_hits": self.bought_hits,
             "wild_dice": self.wild_dice,
             "base_stat_skill": self.get_base_stat_skill_string(),
             "modifiers_math": self.get_modifiers_breakdown_string(),
+            "modifiers": all_modifiers,
             "components": [
                 {
                     "name": c.name,
@@ -193,7 +283,16 @@ class PoolOptimization:
                     "type": c.component_type,
                     "aug_bonus": c.clamped_aug_bonus,
                     "effective": c.effective_value,
-                    "modifiers": [{"source": m.source, "value": m.value, "type": m.type} for m in c.modifiers]
+                    "modifiers": [
+                        {
+                            "id": m.id,
+                            "source": m.source,
+                            "value": m.value,
+                            "type": m.type,
+                            "enabled": m.enabled,
+                            "rule_anchor": m.rule_anchor
+                        } for m in c.modifiers
+                    ]
                 } for c in self.components
             ],
             "total_augmentations": self.total_augmentations,
@@ -349,21 +448,7 @@ class ModifierEngine:
                     effective_attr_val = int(attrs.get(override_attr, base_attr_val))
                     is_overridden = True
 
-        # Check for character-level permanent augmentations (e.g., Venn Muscle Toner +2 AGI)
-        handle_lower = str(char_data.get("identity", {}).get("handle", "")).lower()
         applied_modifiers: List[PoolModifier] = []
-
-        # Venn / Cyberware & Bioware Augmentations
-        if "venn" in handle_lower or "union" in handle_lower:
-            if effective_attr_name == "agility":
-                effective_attr_val += 2
-                applied_modifiers.append(PoolModifier("attribute:agility", "augmentation", "Muscle Toner (Used R2)", 2, is_srm_capped=True))
-            elif effective_attr_name == "reaction":
-                effective_attr_val += 2
-                applied_modifiers.append(PoolModifier("attribute:reaction", "augmentation", "Synaptic Booster (Used R2)", 2, is_srm_capped=True))
-            elif effective_attr_name == "strength":
-                effective_attr_val += 2
-                applied_modifiers.append(PoolModifier("attribute:strength", "augmentation", "Muscle Augmentation (Used R2)", 2, is_srm_capped=True))
 
         short_attr = "RES" if effective_attr_name.lower() == "resonance" else effective_attr_name[:3].upper()
         running_pool = effective_attr_val + skill_rating
@@ -372,29 +457,95 @@ class ModifierEngine:
         focus_mods = cls.get_focus_modifiers(char_data, effective_attr_name)
         for fm in focus_mods:
             running_pool += fm.value
-            applied_modifiers.append(fm)
-            breakdown_parts.append(f"+{fm.value} {fm.source}")
-
-        comp_mods = cls.get_companion_modifiers(char_data, skill_name)
         aug_total = 0
-        for cm in comp_mods:
-            if cm.is_srm_capped:
-                if aug_total + cm.value > 4:
-                    clamped_val = max(0, 4 - aug_total)
+        # Check char_data for explicitly declared modifiers (from modifier() calls in Trio)
+        declared_mods = char_data.get("modifiers", [])
+        has_declared_symbiosis = any(
+            isinstance(dm, dict) and dm.get("type") in ["symbiosis", "teamwork"] and
+            dm.get("target") in [f"skill:{skill_name.lower().strip()}", f"autosoft:{skill_name.lower().strip()}", skill_name.lower().strip()]
+            for dm in declared_mods
+        )
+
+        if not has_declared_symbiosis:
+            comp_mods = cls.get_companion_modifiers(char_data, skill_name)
+            for cm in comp_mods:
+                if cm.is_srm_capped:
+                    clamped_val = min(cm.value, max(0, 4 - aug_total))
                     if clamped_val > 0:
                         running_pool += clamped_val
-                        aug_total = 4
+                        aug_total += clamped_val
                         applied_modifiers.append(cm)
                         breakdown_parts.append(f"+{clamped_val} {cm.source}")
                 else:
                     running_pool += cm.value
-                    aug_total += cm.value
                     applied_modifiers.append(cm)
                     breakdown_parts.append(f"+{cm.value} {cm.source}")
-            else:
-                running_pool += cm.value
-                applied_modifiers.append(cm)
-                breakdown_parts.append(f"+{cm.value} {cm.source}")
+
+        if isinstance(declared_mods, list):
+            for dm in declared_mods:
+                if not isinstance(dm, dict):
+                    continue
+                target = dm.get("target", "")
+                m_type = dm.get("type", "teamwork")
+                m_val = dm.get("value", 0)
+                m_name = dm.get("name", "Modifier")
+                m_sub = dm.get("sub_skill")
+                m_anchor = dm.get("rule_anchor")
+                m_id = dm.get("id")
+
+                if not isinstance(m_val, (int, float)):
+                    continue
+                m_val = int(m_val)
+
+                # Matches skill/autosoft name (e.g. 'skill:electronics', 'autosoft:targeting', or 'targeting')
+                if target in [
+                    f"skill:{skill_name.lower().strip()}",
+                    f"autosoft:{skill_name.lower().strip()}",
+                    skill_name.lower().strip()
+                ]:
+                    if m_type == "teamwork":
+                        # Teamwork is capped at the character's skill rating
+                        tw_cap = skill_rating
+                        clamped_tw = min(m_val, tw_cap)
+                        running_pool += clamped_tw
+                        applied_modifiers.append(PoolModifier(
+                            target=target,
+                            type_="teamwork",
+                            source=m_name,
+                            value=clamped_tw,
+                            is_srm_capped=True,
+                            rule_anchor=m_anchor,
+                            id_=m_id,
+                            sub_skill=m_sub
+                        ))
+                        breakdown_parts.append(f"+{clamped_tw} {m_name} (Teamwork)")
+                    elif m_type in ["augmentation", "symbiosis", "focus"]:
+                        clamped_aug = min(m_val, max(0, 4 - aug_total))
+                        if clamped_aug > 0:
+                            running_pool += clamped_aug
+                            aug_total += clamped_aug
+                            applied_modifiers.append(PoolModifier(
+                                target=target,
+                                type_="augmentation",
+                                source=m_name,
+                                value=clamped_aug,
+                                is_srm_capped=True,
+                                rule_anchor=m_anchor,
+                                id_=m_id
+                            ))
+                            breakdown_parts.append(f"+{clamped_aug} {m_name}")
+                    elif m_type == "other":
+                        running_pool += m_val
+                        applied_modifiers.append(PoolModifier(
+                            target=target,
+                            type_="other",
+                            source=m_name,
+                            value=m_val,
+                            is_srm_capped=False,
+                            rule_anchor=m_anchor,
+                            id_=m_id
+                        ))
+                        breakdown_parts.append(f"+{m_val} {m_name}")
 
         return {
             "skill_name": skill_name,
@@ -842,9 +993,9 @@ class ModifierEngine:
         )
 
         # 4. Spirit Channeling (if Channeling metamagic is unlocked)
-        meta_echoes = char_data.get("meta_echoes", [])
-        init_grade = len(meta_echoes) if isinstance(meta_echoes, list) else 0
-        has_channeling = any((isinstance(e, dict) and e.get("name") == "Channeling") or str(e) == "Channeling" for e in meta_echoes)
+        metamagics = char_data.get("metamagic", []) + char_data.get("meta_echoes", [])
+        init_grade = len(metamagics) if isinstance(metamagics, list) else 0
+        has_channeling = any((isinstance(e, dict) and "channeling" in e.get("name", "").lower()) or "channeling" in str(e).lower() for e in metamagics)
 
         chan_opt = None
         if has_channeling:

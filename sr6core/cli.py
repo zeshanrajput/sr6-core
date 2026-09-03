@@ -331,7 +331,8 @@ def main():
     serve_parser.add_argument("--host", type=str, default="0.0.0.0", help="HTTP host (default: 0.0.0.0)")
 
     # build subcommand (single-source build)
-    build_parser = subparsers.add_parser("build", help="Sync purchases from .qmd, update master YAMLs, and build single-file offline PWA app/index.html")
+    build_parser = subparsers.add_parser("build", help="Rebuild master YAMLs from Markdown Trio, sync purchases, and build single-file offline PWA app/index.html")
+    build_parser.add_argument("--rebuild-yaml", action="store_true", help="Recompile master YAML files completely from Markdown Trio (single source of truth)")
     build_parser.add_argument("--skip-npm", action="store_true", help="Skip npm build step")
 
     args = parser.parse_args()
@@ -352,8 +353,21 @@ def main():
         console.print("[bold cyan]       SR6 CORE UNIFIED BUILD PIPELINE (Single-Source)      [/bold cyan]")
         console.print("[bold cyan]============================================================[/bold cyan]\n")
 
-        # 1. Sync Purchases
-        console.print("[bold green][1/3] Syncing purchases from character_purchases.qmd -> *_master.yaml...[/bold green]")
+        # 1. Rebuild Master YAMLs from Markdown Trio if requested
+        if getattr(args, "rebuild_yaml", False):
+            from sr6core.compiler import rebuild_character_yaml
+            console.print("[bold green][1/4] Recompiling master YAML dossiers from Markdown Trio...[/bold green]")
+            for c in cm.list_characters():
+                cid = c["id"]
+                if c.get("exists"):
+                    try:
+                        ypath = rebuild_character_yaml(cid)
+                        console.print(f"  • [{cid}] Rebuilt: {ypath}")
+                    except Exception as ex:
+                        console.print(f"  • [{cid}] Rebuild error: {ex}")
+
+        # 2. Sync Purchases
+        console.print("[bold green][2/4] Syncing purchases from character_purchases.qmd -> *_master.yaml...[/bold green]")
         sync_results = PurchasesSyncEngine.sync_all()
         for r in sync_results:
             if r.get("status") == "success":
@@ -365,8 +379,8 @@ def main():
             else:
                 console.print(f"  • [{r.get('char_id', 'Unknown')}] {r.get('message', 'Skipped')}")
 
-        # 2. Ingest characters & bake defaultBundle.ts
-        console.print("\n[bold green][2/3] Exporting mobile JSON bundles & regenerating defaultBundle.ts...[/bold green]")
+        # 3. Ingest characters & bake defaultBundle.ts
+        console.print("\n[bold green][3/4] Exporting mobile JSON bundles & regenerating defaultBundle.ts...[/bold green]")
         bundle = {}
         for c in cm.list_characters():
             cid = c["id"]
@@ -383,7 +397,15 @@ def main():
             f.write("export const defaultBundle: any = " + json.dumps(bundle, indent=2, ensure_ascii=False) + ";\n")
         console.print(f"[green]  • Inlined {len(bundle)} character portfolios into {bundle_path}[/green]")
 
-        # 3. Build single-file Vite PWA
+        # Also emit standalone mobile app HTML directly into app/index.html
+        from sr6core.exporters.mobile_html import get_mobile_html_template
+        app_html_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "app", "index.html"))
+        os.makedirs(os.path.dirname(app_html_path), exist_ok=True)
+        with open(app_html_path, "w", encoding="utf-8") as f:
+            f.write(get_mobile_html_template(bundle, initial_char_id="velvet"))
+        console.print(f"[green]  • Standalone mobile PWA refreshed: {app_html_path}[/green]")
+
+        # 3. Build single-file Vite PWA (if npm is available and not skipped)
         if not getattr(args, "skip_npm", False):
             console.print("\n[bold green][3/3] Compiling single-file offline PWA (app/index.html)...[/bold green]")
             web_dir = os.path.join(os.path.dirname(__file__), "..", "web")

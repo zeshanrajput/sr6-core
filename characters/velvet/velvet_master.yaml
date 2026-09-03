@@ -1,4 +1,6 @@
 identity:
+  id: velvet
+  name: Velvet
   handle: Velvet
   real_name: Kim Jin-Young
   metatype: Elf
@@ -11,6 +13,12 @@ identity:
   hair_color: White
   eye_color: Obsidian
   skin_color: White
+  system: shadowrun6e
+  karma: 27
+  lifetime_karma: 47
+  nuyen: 89360
+  lifetime_nuyen: 105800
+  heat: 0
 attributes:
   body: 2
   agility: 3
@@ -92,78 +100,367 @@ skills:
   attribute: Logic
   rating: 1
   is_knowledge: true
+modifiers: []
 spells:
 - name: Increase Attribute
   ref: increase_attribute
-  drain: 3
   category: Health
   duration: Sustained
   type: Physical
   range: Touch
-  notes: Sorcery + Magic (5 - Essence) test. Net hits increase target attribute by
-    +1 (max +4). Each net hit beyond the 1st increases Drain by +1. Sustained via
-    Focused Concentration R3 with 0 penalties.
-  doc_link: chapters/rules_and_downtime.html#spell-library
+  drain: 3
+  notes: Sorcery + Magic test. Net hits increase target attribute by +1.
 - name: Increase Reflexes
   ref: increase_reflexes
-  drain: 5
   category: Health
   duration: Sustained
   type: Physical
   range: Touch
-  notes: Sorcery + Magic (5 - Essence) test. Net hits increase both Reaction and Initiative
-    Dice (+1 REA & +1D6 Init per net hit). Each net hit beyond the 1st increases Drain
-    by +1.
-  doc_link: chapters/rules_and_downtime.html#spell-library
+  drain: 5
+  notes: Sorcery + Magic test. Net hits increase Reaction and Initiative Dice.
 adept_powers:
 - name: Cosmetic Control
   ref: cosmetic_control
   rating: 2
   cost: 2.0 PP
+  cost_pp: 2.0
   action: Major Action
-  notes: Physical biological disguise (face, skin, height, weight, gender markers,
-    eyes, metaspecies features). Reduces Edge cost by -1 for Con tests (Acting, Disguise,
-    Impersonation).
-  doc_link: chapters/rules_and_downtime.html#adept-powers
+  source: natural
+  notes: Physical biological disguise (face, skin, height, weight, gender markers).
+    Reduces Edge cost by -1 for Con tests.
 - name: Linguistics
   ref: linguistics
   rating: 1
   cost: 0.25 PP
+  cost_pp: 0.25
   action: Passive
-  notes: Absorbs any new spoken language at basic proficiency after 1 hour of exposure
-    without spending Karma. +1 bonus die on language Perception tests.
-  doc_link: chapters/rules_and_downtime.html#adept-powers
+  source: natural
+  notes: Absorbs spoken languages after 1 hr exposure.
 - name: Command Presence
   ref: command_presence
   rating: 1
-  cost: 0.50 PP
+  cost: 0.5 PP
+  cost_pp: 0.5
   action: Passive
-  notes: +2 dice pool bonus and +1 Edge on all Influence (Leadership) tests. Reduces
-    Small Unit Tactics test thresholds by -2.
-  doc_link: chapters/rules_and_downtime.html#adept-powers
+  source: natural
+  notes: +2 dice pool bonus and +1 Edge on Influence (Leadership) tests.
 - name: Cloak
   ref: cloak
   rating: 1
   cost: 0.25 PP
+  cost_pp: 0.25
   action: Passive
-  notes: Imposes a -1 dice pool penalty per rating point to hostile Assensing and
-    Astral Perception tests attempting to read Velvet's aura or pierce covers.
-  doc_link: chapters/rules_and_downtime.html#adept-powers
+  source: natural
+  notes: -1 dice pool penalty to hostile Assensing tests.
 - name: Sharp Tongue
   ref: sharp_tongue
   rating: 1
   cost: 1.0 PP
-  source: Qi Focus (Rating 4)
+  cost_pp: 1.0
   action: Major Action
-  notes: Charisma + Magic vs Intuition + Willpower (20d6 vs INT+WIL). Net hits inflict
-    unresisted Stun damage. Alternatively, inflicts Dazed if net hits >= target Willpower.
-  doc_link: chapters/rules_and_downtime.html#adept-powers
-meta_echoes:
+  source: Qi Focus (Rating 4)
+  notes: CHA + Magic vs INT + WIL. Net hits inflict unresisted Stun damage.
+metamagic:
 - name: Channeling
   ref: channeling
+  notes: Allows conscious coexistence and spellcasting control while inhabited/channeling
+    a spirit.
 - name: Power Point
-  ref: power_points
+  ref: power_point
+  notes: Grants 1.0 Adept Power Point.
+meta_echoes: []
+knowledge_skills:
+- name: Korean
+  rating: 4
+  level: Native
+  is_native: true
+  is_linguasoft: false
+  notes: Native language
+- name: English
+  rating: 2
+  level: Specialist
+  is_native: false
+  is_linguasoft: false
+  notes: Spoken proficiency
+- name: Japanese
   rating: 1
+  level: Basic
+  is_native: false
+  is_linguasoft: false
+  notes: Basic street trade
+- name: Small Unit Tactics
+  rating: 1
+  notes: ''
+- name: MCT
+  rating: 1
+  notes: ''
+- name: Wuxing
+  rating: 1
+  notes: ''
+- name: East Asian Media
+  rating: 1
+  notes: ''
+contacts:
+  Brynne Taggart:
+    name: Brynne Taggart
+    canonical_name: Brynne Taggart
+    is_canonical: true
+    connection: 4
+    loyalty: 2
+    favors: 0
+    type: Fixer
+    region: SEA
+    description: 'Uses: Getting jobs, fencing gear, gangs (Shadowrun Missions Seattle)
+      | Types: Criminal, Street'
+    notes: 'Uses: Getting jobs, fencing gear, gangs (Shadowrun Missions Seattle) |
+      Types: Criminal, Street'
+    history:
+    - 'Chargen Contact (Met: C4 L1)'
+    - SRM 2081-01 Death of a Fixer (+2 FP)
+    - Auto-Promoted to Loyalty 2 (-2 FP)
+  Vincent Grisome:
+    name: Vincent Grisome
+    canonical_name: Vincent Grisome
+    is_canonical: false
+    connection: 5
+    loyalty: 3
+    favors: 0
+    type: Magic Prof.
+    region: SEA
+    description: Chargen Contact
+    notes: Chargen Contact
+    history:
+    - 'Chargen Contact (Met: C5 L3)'
+  Ni Ni Xiaolu:
+    name: Ni Ni Xiaolu
+    canonical_name: Ni Ni Xiaolu
+    is_canonical: true
+    connection: 3
+    loyalty: 2
+    favors: 2
+    type: Triad Johnson
+    region: SEA
+    description: 'Uses: Getting jobs, drugs, street rumors, triads (Shadowrun Missions
+      Seattle) | Types: Criminal'
+    notes: 'Uses: Getting jobs, drugs, street rumors, triads (Shadowrun Missions Seattle)
+      | Types: Criminal'
+    history:
+    - 'Chargen Contact (Met: C3 L1)'
+    - Chargen Contact | +2 FP SRM 2081-07 Bootleg Bliss (looking forward to date)
+      (+2 FP)
+    - Auto-Promoted to Loyalty 2 (-2 FP)
+    - Chargen Contact | +2 FP SRM 2081-07 Bootleg Bliss | SRM 2081-01  (+2 FP)
+  Whiskey:
+    name: Whiskey
+    canonical_name: Whiskey
+    is_canonical: true
+    connection: 2
+    loyalty: 3
+    favors: 1
+    type: Street Doc
+    region: SEA
+    description: 'Uses: Medicine, street docs (Shadowrun Missions Seattle) | Types:
+      Medical'
+    notes: 'Uses: Medicine, street docs (Shadowrun Missions Seattle) | Types: Medical'
+    history:
+    - 'Chargen Contact (Met: C2 L3)'
+    - SRM 2081-02 Urgent Care (+1 FP)
+  Claudette Laurier:
+    name: Claudette Laurier
+    canonical_name: Claudette Laurier
+    is_canonical: true
+    connection: 5
+    loyalty: 4
+    favors: 0
+    type: Order of the Golden Dawn Librarian
+    region: NOLA
+    description: 'Uses: Getting jobs, magical traditions | Types: Criminal, Matrix'
+    notes: 'Uses: Getting jobs, magical traditions | Types: Criminal, Matrix'
+    history:
+    - 'Chargen Contact (Met: C5 L4)'
+  Le Tigre:
+    name: Le Tigre
+    canonical_name: Le Tigre
+    is_canonical: true
+    connection: 5
+    loyalty: 1
+    favors: 0
+    type: Epoch Model
+    region: NOLA
+    description: 'Uses: Getting jobs, parties, modeling | Types: Corporate, Magic'
+    notes: 'Uses: Getting jobs, parties, modeling | Types: Corporate, Magic'
+    history:
+    - 'Chargen Contact (Met: C5 L1)'
+  Hana:
+    name: Hana
+    canonical_name: Hana
+    is_canonical: false
+    connection: 6
+    loyalty: 6
+    favors: 0
+    type: Wuxing Talismonger / Pop Idol
+    region: SEA
+    description: Chargen Contact
+    notes: Chargen Contact
+    history:
+    - 'Chargen Contact (Met: C6 L6)'
+  Guild of Freelance Assets:
+    name: Guild of Freelance Assets
+    canonical_name: Guild of Freelance Assets
+    is_canonical: false
+    connection: 7
+    loyalty: 8
+    favors: 0
+    type: Conclave
+    region: GEN
+    description: Chargen Contact (Conclave C7 L8)
+    notes: Chargen Contact (Conclave C7 L8)
+    history:
+    - 'Chargen Contact (Conclave C7 L8) (Met: C7 L8)'
+  Ms. Snow:
+    name: Ms. Snow
+    canonical_name: Ms. Snow
+    is_canonical: true
+    connection: 5
+    loyalty: 1
+    favors: 1
+    type: Shadow Chapters Johnson
+    region: SEA
+    description: 'Uses: Corporate rumors, getting jobs, military (Shadowrun Missions
+      Seattle) | Types: Corporate, Government'
+    notes: 'Uses: Corporate rumors, getting jobs, military (Shadowrun Missions Seattle)
+      | Types: Corporate, Government'
+    history:
+    - 'SRM 2081-09 Eviction Notice (Elven female) (Met: C5 L0, +2 FP)'
+    - Auto-Promoted to Loyalty 1 (-1 FP)
+  Bookie:
+    name: Bookie
+    canonical_name: Bookie
+    is_canonical: false
+    connection: 3
+    loyalty: 1
+    favors: 0
+    type: Ancients Bookie
+    region: SEA
+    description: SRM 2081-07 Bootleg Bliss
+    notes: SRM 2081-07 Bootleg Bliss
+    history:
+    - 'SRM 2081-07 Bootleg Bliss (Met: C3 L0, +1 FP)'
+    - Auto-Promoted to Loyalty 1 (-1 FP)
+  Trudy:
+    name: Trudy
+    canonical_name: Trudy
+    is_canonical: false
+    connection: 2
+    loyalty: 1
+    favors: 0
+    type: Cutters Lieutenant
+    region: SEA
+    description: SRM 2081-07 Bootleg Bliss
+    notes: SRM 2081-07 Bootleg Bliss
+    history:
+    - 'SRM 2081-07 Bootleg Bliss (Met: C2 L0, +1 FP)'
+    - Auto-Promoted to Loyalty 1 (-1 FP)
+  Eddie Wei:
+    name: Eddie Wei
+    canonical_name: Eddie Wei
+    is_canonical: true
+    connection: 4
+    loyalty: 1
+    favors: 0
+    type: Triad Johnson
+    region: SEA
+    description: 'Uses: Business and economics, getting jobs, triads (Shadowrun Missions
+      Seattle) | Types: Criminal, Matrix (Not available after 2081-24)'
+    notes: 'Uses: Business and economics, getting jobs, triads (Shadowrun Missions
+      Seattle) | Types: Criminal, Matrix (Not available after 2081-24)'
+    history:
+    - 'SRM 2081-02 Urgent Care (Met: C4 L0, +1 FP)'
+    - Auto-Promoted to Loyalty 1 (-1 FP)
+  Kingston:
+    name: Kingston
+    canonical_name: Kingston
+    is_canonical: true
+    connection: 2
+    loyalty: 2
+    favors: 0
+    type: Shadowrunner/Street Samurai
+    region: SEA
+    description: 'Uses: Shadowrunners, street rumors (Shadowrun Missions Seattle)
+      | Types: Criminal, Street'
+    notes: 'Uses: Shadowrunners, street rumors (Shadowrun Missions Seattle) | Types:
+      Criminal, Street'
+    history:
+    - 'SRM 2081-02 Urgent Care (Met: C2 L0, +3 FP)'
+    - Auto-Promoted to Loyalty 1 (-1 FP)
+    - Auto-Promoted to Loyalty 2 (-2 FP)
+  Ms. Margaret:
+    name: Ms. Margaret
+    canonical_name: Ms. Margaret
+    is_canonical: false
+    connection: 1
+    loyalty: 1
+    favors: 0
+    type: Hospital Volunteer
+    region: SEA
+    description: SRM 2081-02 Urgent Care (Elderly Human Hospital Volunteer who needs
+      her roof fixed)
+    notes: SRM 2081-02 Urgent Care (Elderly Human Hospital Volunteer who needs her
+      roof fixed)
+    history:
+    - 'SRM 2081-02 Urgent Care (Elderly Human Hospital Volunteer who needs her roof
+      fixed) (Met: C1 L0, +1 FP)'
+    - Auto-Promoted to Loyalty 1 (-1 FP)
+  Simon Andrews:
+    name: Simon Andrews
+    canonical_name: Simon Andrews
+    is_canonical: false
+    connection: 5
+    loyalty: 1
+    favors: 0
+    type: S-K Johnson
+    region: AMS
+    description: CMP 2083-01 Nonplushed (S-K Johnson)
+    notes: CMP 2083-01 Nonplushed (S-K Johnson)
+    history:
+    - 'CMP 2083-01 Nonplushed (S-K Johnson) (Met: C5 L0, +1 FP)'
+    - Auto-Promoted to Loyalty 1 (-1 FP)
+  Mr. Fa:
+    name: Mr. Fa
+    canonical_name: Mr. Fa
+    is_canonical: false
+    connection: 4
+    loyalty: 1
+    favors: 1
+    type: HKB Corporate Middle Manager
+    region: HK
+    description: CMP 2083-05 Precious Cargo (Liao Fa Deng, Male Human)
+    notes: CMP 2083-05 Precious Cargo (Liao Fa Deng, Male Human)
+    history:
+    - 'CMP 2083-05 Precious Cargo (Liao Fa Deng, Male Human) (Met: C4 L0, +2 FP)'
+    - Auto-Promoted to Loyalty 1 (-1 FP)
+  Liao Fa Ren:
+    name: Liao Fa Ren
+    canonical_name: Liao Fa Ren
+    is_canonical: false
+    connection: 3
+    loyalty: 2
+    favors: 1
+    type: HK Rookie Journalist
+    region: HK
+    description: CMP 2083-05 Precious Cargo (Female Human, top marks on port raid)
+    notes: CMP 2083-05 Precious Cargo (Female Human, top marks on port raid)
+    history:
+    - 'CMP 2083-05 Precious Cargo (Female Human, top marks on port raid) (Met: C3
+      L0, +4 FP)'
+    - Auto-Promoted to Loyalty 1 (-1 FP)
+    - Auto-Promoted to Loyalty 2 (-2 FP)
+reputation:
+  SEA: 4
+  UNL: -1
+  Southeast Asia: 2
+total_reputation: 5
+drones: []
 weapons:
 - name: Beretta 101T
   ref: beretta_101T
@@ -186,79 +483,20 @@ armors:
   - Rapid Adjustment Clothing System (RACS) 2
   - Fashion Accessory: Très Chic x2
   - Ballistic Hood
-  notes: "DR +2, Concealable Holster, RACS 2, Très Chic x2, Ballistic Hood"
-matrix_devices:
-- name: Erika Elite
-  ref: erika_elite
-  device_rating: 4
-  data_processing: 2
-  firewall: 2
-  accessories:
-  - Comhack Securelink Upgrade
-  - P-Ice Nope
-- name: Renraku Sensei
-  ref: renraku_sensei
-  device_rating: 3
-  qty: 2
-software:
-- name: Personal Assistant
-  ref: personal_assistant
-  rating: 6
-  cat: Commlink Apps
-- name: Virtual Machine
-  ref: virtual_machine
-  cat: Basic programs
-- name: Thermal Mood Reading
-  ref: thermal_mood_reading
-  cat: Commlink Apps
-- name: Nanomask
-  ref: nanomask
-  cat: Basic programs
-- name: MeFeed
-  ref: mefeed
-  cat: Commlink Apps
-- name: Facial Scanner
-  ref: facial_scanner
-  cat: Commlink Apps
-items:
-- name: Nanocosmetics Kit
-  ref: nanocosmetics_kit
-- name: Nanocosmetics Refill
-  ref: nanocosmetics_refill
+  notes: DR +2, Concealable Holster, RACS 2, Très Chic x2, Ballistic Hood
+gear:
 - name: Nanopaste Disguise Kit
-  ref: nanopaste_disguise_kit
-- name: Nanopaste Disguise Refill
-  ref: nanopaste_disguise_refill
-- name: Savior Medkit
-  ref: savior_medkit
-- name: Savior Medkit Refill
-  ref: savior_medkit_refill
-- name: Contacts
-  ref: contacts
+  qty: 1
+- name: Nanocosmetics Kit
+  qty: 1
+- name: Savior Medkit (Rating 6)
+  qty: 1
+  rating: 6
+- name: Contacts (Rating 3 w/ Flare Comp, Image Link, Thermo)
   rating: 3
-  accessories:
-  - Flare Compensation
-  - Image Link
-  - Thermographic Vision
-- name: Earbuds
-  ref: earbuds
-  rating: 3
-- name: Subvocal Microphone
-  ref: subvocal_microphone
-- name: Qi Focus (Rating 4)
-  ref: qi_focus
-  rating: 4
-  bonded: true
-  power: Sharp Tongue
-  karma_cost: 8
-  nuyen_cost: 12000
-synergies:
-  foci:
-  - name: Qi Focus (Sharp Tongue)
-    ref: qi_focus
-    rating: 4
-    bonded: true
-    power: Sharp Tongue
+cyberware: []
+activesofts: []
+sprite_powers: []
 sins:
 - name: 'Fake SIN: Lee Ji-Yoo:  (Second Life Quality)'
   rating: 6
@@ -266,148 +504,13 @@ sins:
   rating: 6
 licenses:
 - name: 'Fake License: Magician'
-  sin: 'Fake SIN: Lee Ji-Yoo:  (Second Life Quality)'
   rating: 6
-contacts:
-- name: Brynne Taggart
-  connection: 4
-  loyalty: 1
-  favors: 0
-  type: Fixer
-  archetype: Fixer
-  region: SEA
-  description: Chargen Contact | SRM 2081-01 Death of a Fixer
-- name: Vincent Grisome
-  connection: 5
-  loyalty: 3
-  favors: 0
-  type: Magic Prof.
-  archetype: Magic Prof.
-  region: SEA
-  description: Chargen Contact
-- name: Ni Ni Xiaolu
-  connection: 3
-  loyalty: 2
-  favors: 0
-  type: Triad Johnson
-  archetype: Triad Johnson
-  region: SEA
-  description: Chargen Contact | +2 FP SRM 2081-07 Bootleg Bliss (looking forward
-    to date)
-- name: Whiskey
-  connection: 2
-  loyalty: 3
-  favors: 1
-  type: Street Doc
-  archetype: Street Doc
-  region: SEA
-  description: Chargen Contact | SRM 2081-02 Urgent Care
-- name: Claudette Laurier
-  connection: 5
-  loyalty: 4
-  favors: 0
-  type: Order of the Golden Dawn Librarian
-  archetype: Order of the Golden Dawn Librarian
-  region: NOLA
-  description: Chargen Contact
-- name: Le Tigre
-  connection: 5
-  loyalty: 1
-  favors: 0
-  type: Epoch Model
-  archetype: Epoch Model
-  region: NOLA
-  description: Chargen Contact
-- name: Hana
-  connection: 6
-  loyalty: 6
-  favors: 0
-  type: Wuxing Talismonger / Pop Idol
-  archetype: Wuxing Talismonger / Pop Idol
-  region: SEA
-  description: Chargen Contact
-- name: Guild of Freelance Assets
-  connection: 7
-  loyalty: 8
-  favors: 0
-  type: Conclave
-  archetype: Conclave
-  region: GEN
-  description: Chargen Contact (Conclave C7 L8)
-- name: Ms. Snow
-  connection: 5
-  loyalty: 1
-  favors: 1
-  type: Johnson
-  archetype: Johnson
-  region: SEA
-  description: SRM 2081-09 Eviction Notice (Elven female)
-- name: Bookie
-  connection: 3
-  loyalty: 1
-  favors: 0
-  type: Ancients Bookie
-  archetype: Ancients Bookie
-  region: SEA
-  description: SRM 2081-07 Bootleg Bliss
-- name: Trudy
-  connection: 2
-  loyalty: 1
-  favors: 0
-  type: Cutters Lieutenant
-  archetype: Cutters Lieutenant
-  region: SEA
-  description: SRM 2081-07 Bootleg Bliss
-- name: Eddie Wei
-  connection: 4
-  loyalty: 1
-  favors: 0
-  type: Triad Johnson
-  archetype: Triad Johnson
-  region: SEA
-  description: 'Uses: Business and economics, getting jobs, triads (Shadowrun Missions
-    Seattle) | Types: Criminal, Matrix | SRM 2081-02 Urgent Care'
-- name: Kingston
-  connection: 2
-  loyalty: 2
-  favors: 0
-  type: Shadowrunner/Street Samurai
-  archetype: Shadowrunner/Street Samurai
-  region: SEA
-  description: 'Uses: Shadowrunners, street rumors (Shadowrun Missions Seattle) |
-    Types: Criminal, Street | SRM 2081-02 Urgent Care'
-- name: Ms. Margaret
-  connection: 1
-  loyalty: 1
-  favors: 0
-  type: Hospital Volunteer
-  archetype: Hospital Volunteer
-  region: SEA
-  description: SRM 2081-02 Urgent Care (Elderly Human Hospital Volunteer who needs
-    her roof fixed)
-- name: Simon Andrews
-  connection: 5
-  loyalty: 1
-  favors: 0
-  type: S-K Johnson
-  archetype: S-K Johnson
-  region: AMS
-  description: CMP 2083-01 Nonplushed (S-K Johnson)
-- name: Mr. Fa
-  connection: 4
-  loyalty: 1
-  favors: 1
-  type: HKB Corporate Middle Manager
-  archetype: HKB Corporate Middle Manager
-  region: HK
-  description: CMP 2083-05 Precious Cargo (Liao Fa Deng, Male Human Corporate Middle
-    Manager)
-- name: Liao Fa Ren
-  connection: 3
-  loyalty: 2
-  favors: 1
-  type: HK Rookie Journalist
-  archetype: HK Rookie Journalist
-  region: HK
-  description: CMP 2083-05 Precious Cargo (Female Human Rookie Journalist, top marks
-    on port raid story)
+  sin: 'Fake SIN: Lee Ji-Yoo:  (Second Life Quality)'
+living_persona: {}
+synergies:
+  foci:
+  - name: Qi Focus (Sharp Tongue)
+    ref: qi_focus
+    rating: 4
+    bonded: true
+    power: Sharp Tongue

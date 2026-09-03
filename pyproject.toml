@@ -29,3 +29,6 @@ sr6 = "sr6core.cli:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["sr6core"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

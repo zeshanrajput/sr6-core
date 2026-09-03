@@ -3,7 +3,7 @@
 ============================================================================
  Real Name : Kim Jin-Young      | Metatype : Elf (Shinto / Musok)
  Initiation: Grade 0            | Gender   : DIVERSE (Age: 20)
- Available Nuyen : 30,735¥ | Karma: 14 Pool (47 Lifetime)
+ Available Nuyen : 30,735¥ | Karma: 19 Pool (47 Lifetime)
 ----------------------------------------------------------------------------
  ATTRIBUTES & DERIVED RATINGS:
   BOD: 2        | AGI: 3        | REA: 2       | STR: 2 

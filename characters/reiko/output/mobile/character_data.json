@@ -1,0 +1,1530 @@
+{
+  "identity": {
+    "handle": "Yuriko Star",
+    "real_name": "r31k0 Takahashi",
+    "metatype": "AI-Pilot AI",
+    "role": "Shadowrunner",
+    "stream": "Technoshamans",
+    "tradition": "",
+    "mortype": "",
+    "gender": "DIVERSE",
+    "age": "~ 10",
+    "nuyen": 10000.0,
+    "lifetime_nuyen": 377300,
+    "karma": 0,
+    "karma_avail": 0,
+    "lifetime_karma": 229,
+    "nanite_volume": 0,
+    "is_ai": true,
+    "is_monad": false,
+    "has_channeling": false
+  },
+  "attributes": {
+    "body": 5,
+    "agility": 3,
+    "reaction": 5,
+    "strength": 3,
+    "willpower": 6,
+    "logic": 4,
+    "intuition": 2,
+    "charisma": 4,
+    "edge": 4,
+    "resonance": 8,
+    "magic": 0,
+    "essence": 6.0
+  },
+  "attributes_list": [
+    {
+      "name": "Attack",
+      "code": "ATT",
+      "base": 3,
+      "buffed": 7,
+      "is_buffed": true,
+      "buffs": [
+        {
+          "source": "Network Tuning / Symbiosis",
+          "value": 4,
+          "notes": "Subject to +4 Augmented Attribute Limit"
+        }
+      ],
+      "breakdown": "Base 3 + Network Tuning (+4) = 7",
+      "doc_link": "chapters/rules_matrix.html#matrix-attributes"
+    },
+    {
+      "name": "Sleaze",
+      "code": "SLZ",
+      "base": 5,
+      "buffed": 9,
+      "is_buffed": true,
+      "buffs": [
+        {
+          "source": "Network Tuning / Symbiosis",
+          "value": 4,
+          "notes": "Subject to +4 Augmented Attribute Limit"
+        }
+      ],
+      "breakdown": "Base 5 + Network Tuning (+4) = 9",
+      "doc_link": "chapters/rules_matrix.html#matrix-attributes"
+    },
+    {
+      "name": "Data Processing",
+      "code": "DP",
+      "base": 3,
+      "buffed": 7,
+      "is_buffed": true,
+      "buffs": [
+        {
+          "source": "Network Tuning / Symbiosis",
+          "value": 4,
+          "notes": "Subject to +4 Augmented Attribute Limit"
+        }
+      ],
+      "breakdown": "Base 3 + Network Tuning (+4) = 7",
+      "doc_link": "chapters/rules_matrix.html#matrix-attributes"
+    },
+    {
+      "name": "Firewall",
+      "code": "FW",
+      "base": 5,
+      "buffed": 9,
+      "is_buffed": true,
+      "buffs": [
+        {
+          "source": "Network Tuning / Symbiosis",
+          "value": 4,
+          "notes": "Subject to +4 Augmented Attribute Limit"
+        }
+      ],
+      "breakdown": "Base 5 + Network Tuning (+4) = 9",
+      "doc_link": "chapters/rules_matrix.html#matrix-attributes"
+    },
+    {
+      "name": "Willpower",
+      "code": "WIL",
+      "base": 6,
+      "buffed": 6,
+      "is_buffed": false,
+      "buffs": [],
+      "breakdown": "Base 6",
+      "doc_link": "chapters/rules_matrix.html#matrix-attributes"
+    },
+    {
+      "name": "Logic",
+      "code": "LOG",
+      "base": 4,
+      "buffed": 4,
+      "is_buffed": false,
+      "buffs": [],
+      "breakdown": "Base 4",
+      "doc_link": "chapters/rules_matrix.html#matrix-attributes"
+    },
+    {
+      "name": "Intuition",
+      "code": "INT",
+      "base": 2,
+      "buffed": 2,
+      "is_buffed": false,
+      "buffs": [],
+      "breakdown": "Base 2",
+      "doc_link": "chapters/rules_matrix.html#matrix-attributes"
+    },
+    {
+      "name": "Charisma",
+      "code": "CHA",
+      "base": 4,
+      "buffed": 4,
+      "is_buffed": false,
+      "buffs": [],
+      "breakdown": "Base 4",
+      "doc_link": "chapters/rules_matrix.html#matrix-attributes"
+    },
+    {
+      "name": "Edge",
+      "code": "EDG",
+      "base": 4,
+      "buffed": 4,
+      "is_buffed": false,
+      "buffs": [],
+      "breakdown": "Base 4",
+      "doc_link": "chapters/rules_matrix.html#network-benefits"
+    },
+    {
+      "name": "Resonance",
+      "code": "RES",
+      "base": 8,
+      "buffed": 8,
+      "is_buffed": true,
+      "buffs": [
+        {
+          "source": "Resonance Focus (+4)",
+          "value": 4,
+          "notes": "Applies +4 dice to Resonance-linked action tests"
+        }
+      ],
+      "breakdown": "Base 8 (+4 Focus on tests)",
+      "doc_link": "chapters/rules_matrix.html#matrix-action-pools"
+    }
+  ],
+  "derived": {
+    "composure": 10,
+    "judge_intentions": 8,
+    "memory": 10,
+    "lift_carry": 8,
+    "physical_defense": 7,
+    "defense_rating": 0,
+    "physical_boxes": 11,
+    "stun_boxes": 11
+  },
+  "matrix": {
+    "asdf": {
+      "attack": 7,
+      "sleaze": 9,
+      "data_processing": 7,
+      "firewall": 9
+    },
+    "matrix_defense": 34,
+    "matrix_defense_hits": 8,
+    "matrix_defense_breakdown": "RES 8 + FW 9 + PA 6 + DP 7 + Focus 4 = 34d6",
+    "matrix_initiative": "10 + 4D6 (Hot-Sim VR / Overclock)"
+  },
+  "initiative": {
+    "default_mode": "vr_hotsim",
+    "modes": {
+      "vr_hotsim": {
+        "name": "VR Hot-Sim",
+        "score": 10,
+        "dice": 4,
+        "dice_str": "4d6",
+        "breakdown": "DP (7) + INT (2) + Overclocking Echo (+1) = 10 + 4d6 (3d6 Hot-Sim + 1d6 Echo)"
+      }
+    }
+  },
+  "skills": [
+    {
+      "name": "Tasking",
+      "id": "tasking",
+      "rating": 6,
+      "attribute": "Resonance",
+      "specialization": "Registering",
+      "base_pool": 14,
+      "buffed_pool": 18,
+      "bought_hits": 4,
+      "specialized_pool": 20,
+      "specialized_hits": 5,
+      "effective_attribute": "resonance",
+      "is_attribute_overridden": true,
+      "breakdown_text": "RES 8 + 6 Rtg",
+      "buffs": [
+        {
+          "source": "Specialization: Registering",
+          "type": "specialization",
+          "value": 2,
+          "target": "action",
+          "active": false
+        }
+      ],
+      "doc_link": "chapters/rules_matrix.html#matrix-action-pools"
+    },
+    {
+      "name": "Cracking",
+      "id": "cracking",
+      "rating": 5,
+      "attribute": "Logic",
+      "specialization": "Hacking",
+      "base_pool": 13,
+      "buffed_pool": 21,
+      "bought_hits": 5,
+      "specialized_pool": 23,
+      "specialized_hits": 5,
+      "effective_attribute": "resonance",
+      "is_attribute_overridden": true,
+      "breakdown_text": "RES 8 + 5 Rtg + +4 Taz Symbiosis (Cracking) (Teamwork)",
+      "buffs": [
+        {
+          "source": "Taz Symbiosis (Cracking)",
+          "type": "teamwork",
+          "value": 4,
+          "target": "skill:cracking",
+          "active": true
+        },
+        {
+          "source": "Specialization: Hacking",
+          "type": "specialization",
+          "value": 2,
+          "target": "action",
+          "active": false
+        }
+      ],
+      "doc_link": "chapters/rules_matrix.html#matrix-action-pools"
+    },
+    {
+      "name": "Electronics",
+      "id": "electronics",
+      "rating": 5,
+      "attribute": "Logic",
+      "specialization": "Software",
+      "base_pool": 13,
+      "buffed_pool": 21,
+      "bought_hits": 5,
+      "specialized_pool": 23,
+      "specialized_hits": 5,
+      "effective_attribute": "resonance",
+      "is_attribute_overridden": true,
+      "breakdown_text": "RES 8 + 5 Rtg + +4 Taz Symbiosis (Electronics) (Teamwork)",
+      "buffs": [
+        {
+          "source": "Taz Symbiosis (Electronics)",
+          "type": "teamwork",
+          "value": 4,
+          "target": "skill:electronics",
+          "active": true
+        },
+        {
+          "source": "Specialization: Software",
+          "type": "specialization",
+          "value": 2,
+          "target": "action",
+          "active": false
+        }
+      ],
+      "doc_link": "chapters/rules_matrix.html#matrix-action-pools"
+    },
+    {
+      "name": "Influence",
+      "id": "influence",
+      "rating": 1,
+      "attribute": "Charisma",
+      "specialization": null,
+      "base_pool": 5,
+      "buffed_pool": 5,
+      "bought_hits": 1,
+      "specialized_pool": 5,
+      "specialized_hits": 1,
+      "effective_attribute": "charisma",
+      "is_attribute_overridden": false,
+      "breakdown_text": "CHA 4 + 1 Rtg",
+      "buffs": [],
+      "doc_link": "chapters/rules_matrix.html#matrix-action-pools"
+    },
+    {
+      "name": "Con",
+      "id": "con",
+      "rating": 1,
+      "attribute": "Charisma",
+      "specialization": null,
+      "base_pool": 5,
+      "buffed_pool": 5,
+      "bought_hits": 1,
+      "specialized_pool": 5,
+      "specialized_hits": 1,
+      "effective_attribute": "charisma",
+      "is_attribute_overridden": false,
+      "breakdown_text": "CHA 4 + 1 Rtg",
+      "buffs": [],
+      "doc_link": "chapters/rules_matrix.html#matrix-action-pools"
+    },
+    {
+      "name": "Native Language",
+      "id": "language",
+      "rating": 4,
+      "attribute": "Logic",
+      "specialization": null,
+      "base_pool": 8,
+      "buffed_pool": 8,
+      "bought_hits": 2,
+      "specialized_pool": 8,
+      "specialized_hits": 2,
+      "effective_attribute": "logic",
+      "is_attribute_overridden": false,
+      "breakdown_text": "LOG 4 + 4 Rtg",
+      "buffs": [],
+      "doc_link": "chapters/rules_matrix.html#matrix-action-pools"
+    }
+  ],
+  "qualities": {
+    "positive": [
+      {
+        "name": "Natural Hacker",
+        "rating": null,
+        "choice": null,
+        "notes": null
+      },
+      {
+        "name": "Stream: Technoshamans",
+        "rating": null,
+        "choice": null,
+        "notes": null
+      },
+      {
+        "name": "Designer",
+        "rating": null,
+        "choice": null,
+        "notes": null
+      },
+      {
+        "name": "Sensor Upgrade",
+        "rating": null,
+        "choice": null,
+        "notes": null
+      },
+      {
+        "name": "Pilot Origins",
+        "rating": null,
+        "choice": null,
+        "notes": null
+      }
+    ],
+    "negative": [
+      {
+        "name": "Buddy System",
+        "rating": null,
+        "choice": null,
+        "notes": null
+      },
+      {
+        "name": "Sprite Bane",
+        "rating": null,
+        "choice": "Primal Sprite",
+        "notes": null
+      },
+      {
+        "name": "Hooder",
+        "rating": 2,
+        "choice": null,
+        "notes": null
+      }
+    ]
+  },
+  "weapons": [
+    {
+      "name": "Crimson Wasp Array (2x Link-Fired)",
+      "is_melee": false,
+      "category": "general",
+      "damage": "7P",
+      "base_damage": "7P",
+      "attack_rating": [
+        24,
+        22,
+        17,
+        12,
+        0
+      ],
+      "attack_rating_str": "24 / 22 / 17 / 12 / \u2014",
+      "base_attack_rating_str": "22 / 20 / 17 / 12 / \u2014",
+      "modes": [
+        "SA"
+      ],
+      "modes_str": "SA",
+      "base_modes_str": "SA",
+      "ammo": "15(c)",
+      "base_ammo": "15(c)",
+      "loaded_ammo": null,
+      "accessories": [
+        "Smartlink",
+        "Drone Mount (+2 AR)",
+        "Link-Fired (2x Crimson Wasps)"
+      ],
+      "notes": "",
+      "doc_link": "chapters/rules_combat.html#tactical-weapon-arrays"
+    },
+    {
+      "name": "Tesla Coil",
+      "is_melee": false,
+      "category": "general",
+      "damage": "5S(e)",
+      "base_damage": "5S(e)",
+      "attack_rating": [
+        10,
+        12,
+        0,
+        0,
+        0
+      ],
+      "attack_rating_str": "10 / 12 / \u2014 / \u2014 / \u2014",
+      "base_attack_rating_str": "10 / 12 / \u2014 / \u2014 / \u2014",
+      "modes": [
+        "SS"
+      ],
+      "modes_str": "SS",
+      "base_modes_str": "SS",
+      "ammo": "\u2014",
+      "base_ammo": "\u2014",
+      "loaded_ammo": null,
+      "accessories": [
+        "MAA Cyberarm Mount (+2 AR)"
+      ],
+      "notes": "",
+      "doc_link": "chapters/rules_combat.html#tactical-weapon-arrays"
+    },
+    {
+      "name": "Dagger of the Sacred Rose (+1 Weapon Focus)",
+      "is_melee": true,
+      "category": "general",
+      "damage": "2P",
+      "base_damage": "2P",
+      "attack_rating": [
+        9,
+        1,
+        0,
+        0,
+        0
+      ],
+      "attack_rating_str": "9 / 1 / \u2014 / \u2014 / \u2014",
+      "base_attack_rating_str": "9 / 1 / \u2014 / \u2014 / \u2014",
+      "modes": [],
+      "modes_str": "Melee",
+      "base_modes_str": "Melee",
+      "ammo": "\u2014",
+      "base_ammo": "\u2014",
+      "loaded_ammo": null,
+      "accessories": [],
+      "notes": "",
+      "doc_link": "chapters/rules_combat.html#tactical-weapon-arrays"
+    },
+    {
+      "name": "Amalgam Cestas",
+      "is_melee": true,
+      "category": "general",
+      "damage": "3P",
+      "base_damage": "3P",
+      "attack_rating": [
+        6,
+        0,
+        0,
+        0,
+        0
+      ],
+      "attack_rating_str": "6 / \u2014 / \u2014 / \u2014 / \u2014",
+      "base_attack_rating_str": "6 / \u2014 / \u2014 / \u2014 / \u2014",
+      "modes": [],
+      "modes_str": "Melee",
+      "base_modes_str": "Melee",
+      "ammo": "\u2014",
+      "base_ammo": "\u2014",
+      "loaded_ammo": null,
+      "accessories": [
+        "Personalized Grip"
+      ],
+      "notes": "Amalgam Tech Cestas; 3P damage, overrides magical immunity to normal weapons (ItNW). 1 Wild Die.",
+      "doc_link": "chapters/rules_combat.html#amalgam-protocols"
+    }
+  ],
+  "armors": [],
+  "drones": [
+    {
+      "name": "MCT Gnat",
+      "category": "drone",
+      "role": "",
+      "handling": "3/3",
+      "accel": "4/4",
+      "speed": "30",
+      "interval": 10,
+      "body": 0,
+      "base_body": 0,
+      "armor": 0,
+      "base_armor": 0,
+      "pilot": 2,
+      "base_pilot": 2,
+      "sensor": 2,
+      "base_sensor": 1,
+      "seats": "-",
+      "modifications": [
+        "Realistic Features 4",
+        "Laser Jack"
+      ],
+      "profile_notes": [
+        "Network Sensor Upgrade (+1)"
+      ],
+      "mobility_str": "",
+      "rigged_pools": {
+        "piloting": {
+          "pool": 9,
+          "hits": 2,
+          "breakdown": "Maneuvering 7 + Pilot 2 = 9d6"
+        },
+        "gunnery": {
+          "pool": 9,
+          "hits": 2,
+          "breakdown": "Targeting 7 + Sensor 2 = 9d6"
+        },
+        "evasion": {
+          "pool": 9,
+          "hits": 2,
+          "breakdown": "Evasion 7 + Pilot 2 = 9d6"
+        },
+        "perception": {
+          "pool": 9,
+          "hits": 2,
+          "breakdown": "Clearsight 7 + Sensor 2 = 9d6"
+        },
+        "stealth": {
+          "pool": 9,
+          "hits": 2,
+          "breakdown": "Stealth 7 + Pilot 2 = 9d6"
+        }
+      },
+      "doc_link": "chapters/rules_drones.html#tactical-drones"
+    },
+    {
+      "name": "Federated-Boeing Sky Commander (Seattle Retrans Relay)",
+      "category": "drone",
+      "role": "",
+      "handling": "4/4",
+      "accel": "10/10",
+      "speed": "120",
+      "interval": 20,
+      "body": 3,
+      "base_body": 3,
+      "armor": 4,
+      "base_armor": 0,
+      "pilot": 3,
+      "base_pilot": 3,
+      "sensor": 6,
+      "base_sensor": 3,
+      "seats": "-",
+      "modifications": [
+        "Drone Bay (Micro/Mini)",
+        "RAM Plating 4",
+        "ECM 6",
+        "Enhanced Sensors 2",
+        "Retrans Unit",
+        "Satellite Link",
+        "Integrated Matrix Dock x2"
+      ],
+      "profile_notes": [
+        "Network Sensor Upgrade (+1)",
+        "RAM Plating (+4 ARM)",
+        "Enhanced Sensors (+2 SEN)"
+      ],
+      "mobility_str": "",
+      "rigged_pools": {
+        "piloting": {
+          "pool": 10,
+          "hits": 2,
+          "breakdown": "Maneuvering 7 + Pilot 3 = 10d6"
+        },
+        "gunnery": {
+          "pool": 13,
+          "hits": 3,
+          "breakdown": "Targeting 7 + Sensor 6 = 13d6"
+        },
+        "evasion": {
+          "pool": 10,
+          "hits": 2,
+          "breakdown": "Evasion 7 + Pilot 3 = 10d6"
+        },
+        "perception": {
+          "pool": 13,
+          "hits": 3,
+          "breakdown": "Clearsight 7 + Sensor 6 = 13d6"
+        },
+        "stealth": {
+          "pool": 10,
+          "hits": 2,
+          "breakdown": "Stealth 7 + Pilot 3 = 10d6"
+        }
+      },
+      "doc_link": "chapters/rules_drones.html#tactical-drones"
+    },
+    {
+      "name": "Shiawase Man-at-Arms",
+      "category": "drone",
+      "role": "",
+      "handling": "3/3",
+      "accel": "5/5",
+      "speed": "10",
+      "interval": 5,
+      "body": 16,
+      "base_body": 10,
+      "armor": 17,
+      "base_armor": 8,
+      "pilot": 9,
+      "base_pilot": 2,
+      "sensor": 13,
+      "base_sensor": 3,
+      "seats": "-",
+      "modifications": [
+        "Weapon Mount (Standard) x2",
+        "Pop-Out Concealment (Standard) x2",
+        "Chameleon Coating 2",
+        "Drone Rack (Small)",
+        "Tesla Coil",
+        "Wrist Shield",
+        "Armor Increase 5",
+        "Increased Structural Integrity 5",
+        "Realistic Features 4",
+        "Secondary Propulsion (Rotor)",
+        "Increased Sensors 9",
+        "Retractable Skates",
+        "Built-In MedKit",
+        "Satellite Link",
+        "Laser Jack"
+      ],
+      "profile_notes": [
+        "Network Sensor Upgrade (+1)",
+        "Armor Increase (+5 ARM)",
+        "Structural Integrity (+5 BOD)",
+        "Enhanced Sensors (+9 SEN)",
+        "Wrist Shield (+4 ARM)",
+        "Designer Quality (+1 Pilot, 2 Noise Reduction on Home Device)"
+      ],
+      "mobility_str": "Rotor: Han 5, Acc 10, SPD 120 (20). Skates: 10/30/+2",
+      "rigged_pools": {
+        "piloting": {
+          "pool": 23,
+          "hits": 5,
+          "breakdown": "Maneuvering 7 + Pilot/RES 9 + Focus 4 + Taz Diagnosis 3 = 23d6"
+        },
+        "gunnery": {
+          "pool": 25,
+          "hits": 6,
+          "breakdown": "Targeting 7 + Sensor 13 + Taz Symbiosis 4 + Smartlink (Wireless) 1 = 25d6"
+        },
+        "evasion": {
+          "pool": 24,
+          "hits": 6,
+          "breakdown": "Evasion 7 + Pilot/RES 9 + Focus 4 + Taz Symbiosis 4 = 24d6"
+        },
+        "perception": {
+          "pool": 24,
+          "hits": 6,
+          "breakdown": "Clearsight 7 + Sensor 13 + Taz Symbiosis 4 = 24d6"
+        },
+        "stealth": {
+          "pool": 26,
+          "hits": 6,
+          "breakdown": "Stealth 7 + Pilot/RES 9 + Focus 4 + Taz Symbiosis 4 + Tactical Soft Sneak-Sneak 2 = 26d6"
+        }
+      },
+      "doc_link": "chapters/rules_drones.html#tactical-drones"
+    },
+    {
+      "name": "Kwonsham Dream Genie",
+      "category": "drone",
+      "role": "",
+      "handling": "2/4",
+      "accel": "10/10",
+      "speed": "10",
+      "interval": 5,
+      "body": 2,
+      "base_body": 2,
+      "armor": 0,
+      "base_armor": 0,
+      "pilot": 1,
+      "base_pilot": 1,
+      "sensor": 2,
+      "base_sensor": 1,
+      "seats": "-",
+      "modifications": [
+        "Trid Projector",
+        "Smart Tires"
+      ],
+      "profile_notes": [
+        "Network Sensor Upgrade (+1)"
+      ],
+      "mobility_str": "",
+      "rigged_pools": {
+        "piloting": {
+          "pool": 8,
+          "hits": 2,
+          "breakdown": "Maneuvering 7 + Pilot 1 = 8d6"
+        },
+        "gunnery": {
+          "pool": 9,
+          "hits": 2,
+          "breakdown": "Targeting 7 + Sensor 2 = 9d6"
+        },
+        "evasion": {
+          "pool": 8,
+          "hits": 2,
+          "breakdown": "Evasion 7 + Pilot 1 = 8d6"
+        },
+        "perception": {
+          "pool": 9,
+          "hits": 2,
+          "breakdown": "Clearsight 7 + Sensor 2 = 9d6"
+        },
+        "stealth": {
+          "pool": 8,
+          "hits": 2,
+          "breakdown": "Stealth 7 + Pilot 1 = 8d6"
+        }
+      },
+      "doc_link": "chapters/rules_drones.html#tactical-drones"
+    },
+    {
+      "name": "Vulcan Systems Utility-One",
+      "category": "drone",
+      "role": "",
+      "handling": "3/3",
+      "accel": "3/3",
+      "speed": "5",
+      "interval": 5,
+      "body": 2,
+      "base_body": 2,
+      "armor": 0,
+      "base_armor": 0,
+      "pilot": 1,
+      "base_pilot": 1,
+      "sensor": 2,
+      "base_sensor": 1,
+      "seats": "-",
+      "modifications": [
+        "Integrated Engineering & Repair Tool Package"
+      ],
+      "profile_notes": [
+        "Network Sensor Upgrade (+1)"
+      ],
+      "mobility_str": "",
+      "rigged_pools": {
+        "piloting": {
+          "pool": 8,
+          "hits": 2,
+          "breakdown": "Maneuvering 7 + Pilot 1 = 8d6"
+        },
+        "gunnery": {
+          "pool": 9,
+          "hits": 2,
+          "breakdown": "Targeting 7 + Sensor 2 = 9d6"
+        },
+        "evasion": {
+          "pool": 8,
+          "hits": 2,
+          "breakdown": "Evasion 7 + Pilot 1 = 8d6"
+        },
+        "perception": {
+          "pool": 9,
+          "hits": 2,
+          "breakdown": "Clearsight 7 + Sensor 2 = 9d6"
+        },
+        "stealth": {
+          "pool": 8,
+          "hits": 2,
+          "breakdown": "Stealth 7 + Pilot 1 = 8d6"
+        }
+      },
+      "doc_link": "chapters/rules_drones.html#tactical-drones"
+    }
+  ],
+  "vehicles": [
+    {
+      "name": "MCT Gnat",
+      "category": "drone",
+      "role": "",
+      "handling": "3/3",
+      "accel": "4/4",
+      "speed": "30",
+      "interval": 10,
+      "body": 0,
+      "base_body": 0,
+      "armor": 0,
+      "base_armor": 0,
+      "pilot": 2,
+      "base_pilot": 2,
+      "sensor": 2,
+      "base_sensor": 1,
+      "seats": "-",
+      "modifications": [
+        "Realistic Features 4",
+        "Laser Jack"
+      ],
+      "profile_notes": [
+        "Network Sensor Upgrade (+1)"
+      ],
+      "mobility_str": "",
+      "rigged_pools": {
+        "piloting": {
+          "pool": 9,
+          "hits": 2,
+          "breakdown": "Maneuvering 7 + Pilot 2 = 9d6"
+        },
+        "gunnery": {
+          "pool": 9,
+          "hits": 2,
+          "breakdown": "Targeting 7 + Sensor 2 = 9d6"
+        },
+        "evasion": {
+          "pool": 9,
+          "hits": 2,
+          "breakdown": "Evasion 7 + Pilot 2 = 9d6"
+        },
+        "perception": {
+          "pool": 9,
+          "hits": 2,
+          "breakdown": "Clearsight 7 + Sensor 2 = 9d6"
+        },
+        "stealth": {
+          "pool": 9,
+          "hits": 2,
+          "breakdown": "Stealth 7 + Pilot 2 = 9d6"
+        }
+      },
+      "doc_link": "chapters/rules_drones.html#tactical-drones"
+    },
+    {
+      "name": "Federated-Boeing Sky Commander (Seattle Retrans Relay)",
+      "category": "drone",
+      "role": "",
+      "handling": "4/4",
+      "accel": "10/10",
+      "speed": "120",
+      "interval": 20,
+      "body": 3,
+      "base_body": 3,
+      "armor": 4,
+      "base_armor": 0,
+      "pilot": 3,
+      "base_pilot": 3,
+      "sensor": 6,
+      "base_sensor": 3,
+      "seats": "-",
+      "modifications": [
+        "Drone Bay (Micro/Mini)",
+        "RAM Plating 4",
+        "ECM 6",
+        "Enhanced Sensors 2",
+        "Retrans Unit",
+        "Satellite Link",
+        "Integrated Matrix Dock x2"
+      ],
+      "profile_notes": [
+        "Network Sensor Upgrade (+1)",
+        "RAM Plating (+4 ARM)",
+        "Enhanced Sensors (+2 SEN)"
+      ],
+      "mobility_str": "",
+      "rigged_pools": {
+        "piloting": {
+          "pool": 10,
+          "hits": 2,
+          "breakdown": "Maneuvering 7 + Pilot 3 = 10d6"
+        },
+        "gunnery": {
+          "pool": 13,
+          "hits": 3,
+          "breakdown": "Targeting 7 + Sensor 6 = 13d6"
+        },
+        "evasion": {
+          "pool": 10,
+          "hits": 2,
+          "breakdown": "Evasion 7 + Pilot 3 = 10d6"
+        },
+        "perception": {
+          "pool": 13,
+          "hits": 3,
+          "breakdown": "Clearsight 7 + Sensor 6 = 13d6"
+        },
+        "stealth": {
+          "pool": 10,
+          "hits": 2,
+          "breakdown": "Stealth 7 + Pilot 3 = 10d6"
+        }
+      },
+      "doc_link": "chapters/rules_drones.html#tactical-drones"
+    },
+    {
+      "name": "Shiawase Man-at-Arms",
+      "category": "drone",
+      "role": "",
+      "handling": "3/3",
+      "accel": "5/5",
+      "speed": "10",
+      "interval": 5,
+      "body": 16,
+      "base_body": 10,
+      "armor": 17,
+      "base_armor": 8,
+      "pilot": 9,
+      "base_pilot": 2,
+      "sensor": 13,
+      "base_sensor": 3,
+      "seats": "-",
+      "modifications": [
+        "Weapon Mount (Standard) x2",
+        "Pop-Out Concealment (Standard) x2",
+        "Chameleon Coating 2",
+        "Drone Rack (Small)",
+        "Tesla Coil",
+        "Wrist Shield",
+        "Armor Increase 5",
+        "Increased Structural Integrity 5",
+        "Realistic Features 4",
+        "Secondary Propulsion (Rotor)",
+        "Increased Sensors 9",
+        "Retractable Skates",
+        "Built-In MedKit",
+        "Satellite Link",
+        "Laser Jack"
+      ],
+      "profile_notes": [
+        "Network Sensor Upgrade (+1)",
+        "Armor Increase (+5 ARM)",
+        "Structural Integrity (+5 BOD)",
+        "Enhanced Sensors (+9 SEN)",
+        "Wrist Shield (+4 ARM)",
+        "Designer Quality (+1 Pilot, 2 Noise Reduction on Home Device)"
+      ],
+      "mobility_str": "Rotor: Han 5, Acc 10, SPD 120 (20). Skates: 10/30/+2",
+      "rigged_pools": {
+        "piloting": {
+          "pool": 23,
+          "hits": 5,
+          "breakdown": "Maneuvering 7 + Pilot/RES 9 + Focus 4 + Taz Diagnosis 3 = 23d6"
+        },
+        "gunnery": {
+          "pool": 25,
+          "hits": 6,
+          "breakdown": "Targeting 7 + Sensor 13 + Taz Symbiosis 4 + Smartlink (Wireless) 1 = 25d6"
+        },
+        "evasion": {
+          "pool": 24,
+          "hits": 6,
+          "breakdown": "Evasion 7 + Pilot/RES 9 + Focus 4 + Taz Symbiosis 4 = 24d6"
+        },
+        "perception": {
+          "pool": 24,
+          "hits": 6,
+          "breakdown": "Clearsight 7 + Sensor 13 + Taz Symbiosis 4 = 24d6"
+        },
+        "stealth": {
+          "pool": 26,
+          "hits": 6,
+          "breakdown": "Stealth 7 + Pilot/RES 9 + Focus 4 + Taz Symbiosis 4 + Tactical Soft Sneak-Sneak 2 = 26d6"
+        }
+      },
+      "doc_link": "chapters/rules_drones.html#tactical-drones"
+    },
+    {
+      "name": "Kwonsham Dream Genie",
+      "category": "drone",
+      "role": "",
+      "handling": "2/4",
+      "accel": "10/10",
+      "speed": "10",
+      "interval": 5,
+      "body": 2,
+      "base_body": 2,
+      "armor": 0,
+      "base_armor": 0,
+      "pilot": 1,
+      "base_pilot": 1,
+      "sensor": 2,
+      "base_sensor": 1,
+      "seats": "-",
+      "modifications": [
+        "Trid Projector",
+        "Smart Tires"
+      ],
+      "profile_notes": [
+        "Network Sensor Upgrade (+1)"
+      ],
+      "mobility_str": "",
+      "rigged_pools": {
+        "piloting": {
+          "pool": 8,
+          "hits": 2,
+          "breakdown": "Maneuvering 7 + Pilot 1 = 8d6"
+        },
+        "gunnery": {
+          "pool": 9,
+          "hits": 2,
+          "breakdown": "Targeting 7 + Sensor 2 = 9d6"
+        },
+        "evasion": {
+          "pool": 8,
+          "hits": 2,
+          "breakdown": "Evasion 7 + Pilot 1 = 8d6"
+        },
+        "perception": {
+          "pool": 9,
+          "hits": 2,
+          "breakdown": "Clearsight 7 + Sensor 2 = 9d6"
+        },
+        "stealth": {
+          "pool": 8,
+          "hits": 2,
+          "breakdown": "Stealth 7 + Pilot 1 = 8d6"
+        }
+      },
+      "doc_link": "chapters/rules_drones.html#tactical-drones"
+    },
+    {
+      "name": "Vulcan Systems Utility-One",
+      "category": "drone",
+      "role": "",
+      "handling": "3/3",
+      "accel": "3/3",
+      "speed": "5",
+      "interval": 5,
+      "body": 2,
+      "base_body": 2,
+      "armor": 0,
+      "base_armor": 0,
+      "pilot": 1,
+      "base_pilot": 1,
+      "sensor": 2,
+      "base_sensor": 1,
+      "seats": "-",
+      "modifications": [
+        "Integrated Engineering & Repair Tool Package"
+      ],
+      "profile_notes": [
+        "Network Sensor Upgrade (+1)"
+      ],
+      "mobility_str": "",
+      "rigged_pools": {
+        "piloting": {
+          "pool": 8,
+          "hits": 2,
+          "breakdown": "Maneuvering 7 + Pilot 1 = 8d6"
+        },
+        "gunnery": {
+          "pool": 9,
+          "hits": 2,
+          "breakdown": "Targeting 7 + Sensor 2 = 9d6"
+        },
+        "evasion": {
+          "pool": 8,
+          "hits": 2,
+          "breakdown": "Evasion 7 + Pilot 1 = 8d6"
+        },
+        "perception": {
+          "pool": 9,
+          "hits": 2,
+          "breakdown": "Clearsight 7 + Sensor 2 = 9d6"
+        },
+        "stealth": {
+          "pool": 8,
+          "hits": 2,
+          "breakdown": "Stealth 7 + Pilot 1 = 8d6"
+        }
+      },
+      "doc_link": "chapters/rules_drones.html#tactical-drones"
+    }
+  ],
+  "spells": [],
+  "adept_powers": [],
+  "complex_forms": [
+    {
+      "name": "Technoregeneration",
+      "fading": -1,
+      "duration": "Permanent",
+      "target": "Electronic Device",
+      "notes": "Electronics (Hardware) + RES restores 1 Matrix box per hit.",
+      "doc_link": "chapters/rules_sprites.html#complex-forms"
+    },
+    {
+      "name": "Cleaner",
+      "fading": 2,
+      "duration": "Permanent",
+      "target": "Device",
+      "notes": "Electronics + RES test. Each hit reduces OS by 1.",
+      "doc_link": "chapters/rules_sprites.html#complex-forms"
+    },
+    {
+      "name": "Diffusion",
+      "fading": 4,
+      "duration": "Sustained",
+      "target": "Firewall",
+      "notes": "Electronics + RES vs WIL + FW. Each net hit reduces target Firewall by 1.",
+      "doc_link": "chapters/rules_sprites.html#complex-forms"
+    },
+    {
+      "name": "Puppeteer",
+      "fading": 5,
+      "duration": "Sustained",
+      "target": "Device",
+      "notes": "Electronics + RES vs WIL + FW. Forces device to perform action.",
+      "doc_link": "chapters/rules_sprites.html#complex-forms"
+    },
+    {
+      "name": "Cyber Spike",
+      "fading": 3,
+      "duration": "Immediate",
+      "target": "Character with wireless cyberware",
+      "notes": "Electronics + RES vs BOD + Essence. Deals 1 Physical damage per net hit and stresses installed ware.",
+      "doc_link": "chapters/rules_sprites.html#complex-forms"
+    }
+  ],
+  "sprite_powers": [
+    {
+      "name": "Death Mark",
+      "type": "Sprite Power (Symbiosis)",
+      "target": "Persona using VR Mode (Hot-Sim / Cold-Sim)",
+      "action": "Minor Action (Sustained)",
+      "effect": "Cracking + RES vs INT + FW. Link-locks target and causes matching biofeedback damage whenever taking Matrix damage.",
+      "doc_link": "chapters/rules_sprites.html#sprite-symbiosis-powers"
+    },
+    {
+      "name": "Phantom",
+      "type": "Sprite Power (Symbiosis)",
+      "target": "Persona / Device",
+      "action": "Minor Action (Sustained)",
+      "effect": "Conceals icon from Matrix searches. Threshold to find via specific Matrix Perception equals sprite Electronics + RES net hits.",
+      "doc_link": "chapters/rules_sprites.html#sprite-symbiosis-powers"
+    },
+    {
+      "name": "Override",
+      "type": "Sprite Power (Symbiosis)",
+      "target": "Device on Autopilot (Drone / Vehicle)",
+      "action": "Minor Action",
+      "effect": "Electronics + Level/RES vs Device Rating + FW. Substitutes Level/RES for device Pilot rating. Enables Resonance Focus and Sprite Symbiosis on rigging.",
+      "doc_link": "chapters/rules_sprites.html#sprite-symbiosis-powers"
+    },
+    {
+      "name": "Harmonize",
+      "type": "Sprite Power (Symbiosis)",
+      "target": "100m Radius Area / Matrix",
+      "action": "Performance Action",
+      "effect": "Con (Performance) + RES reduces ambient Noise by hits, grants +hits bonus dice to healing/repairs, and matrix fauna regenerate 1 box/round.",
+      "doc_link": "chapters/rules_sprites.html#sprite-symbiosis-powers"
+    }
+  ],
+  "monad_abilities": [],
+  "augmentations": [],
+  "spirit_channeling_catalog": {},
+  "powers": {
+    "complex_forms": [
+      {
+        "name": "Technoregeneration",
+        "fading": -1,
+        "duration": "Permanent",
+        "target": "Electronic Device",
+        "notes": "Electronics (Hardware) + RES restores 1 Matrix box per hit.",
+        "doc_link": "chapters/rules_sprites.html#complex-forms"
+      },
+      {
+        "name": "Cleaner",
+        "fading": 2,
+        "duration": "Permanent",
+        "target": "Device",
+        "notes": "Electronics + RES test. Each hit reduces OS by 1.",
+        "doc_link": "chapters/rules_sprites.html#complex-forms"
+      },
+      {
+        "name": "Diffusion",
+        "fading": 4,
+        "duration": "Sustained",
+        "target": "Firewall",
+        "notes": "Electronics + RES vs WIL + FW. Each net hit reduces target Firewall by 1.",
+        "doc_link": "chapters/rules_sprites.html#complex-forms"
+      },
+      {
+        "name": "Puppeteer",
+        "fading": 5,
+        "duration": "Sustained",
+        "target": "Device",
+        "notes": "Electronics + RES vs WIL + FW. Forces device to perform action.",
+        "doc_link": "chapters/rules_sprites.html#complex-forms"
+      },
+      {
+        "name": "Cyber Spike",
+        "fading": 3,
+        "duration": "Immediate",
+        "target": "Character with wireless cyberware",
+        "notes": "Electronics + RES vs BOD + Essence. Deals 1 Physical damage per net hit and stresses installed ware.",
+        "doc_link": "chapters/rules_sprites.html#complex-forms"
+      }
+    ],
+    "echoes": [
+      {
+        "name": "New Sprite Type",
+        "doc_link": "chapters/rules_matrix.html#network-benefits"
+      },
+      {
+        "name": "Sprite Conduit",
+        "doc_link": "chapters/rules_matrix.html#network-benefits"
+      }
+    ],
+    "sprite_powers": [
+      {
+        "name": "Death Mark",
+        "type": "Sprite Power (Symbiosis)",
+        "target": "Persona using VR Mode (Hot-Sim / Cold-Sim)",
+        "action": "Minor Action (Sustained)",
+        "effect": "Cracking + RES vs INT + FW. Link-locks target and causes matching biofeedback damage whenever taking Matrix damage.",
+        "doc_link": "chapters/rules_sprites.html#sprite-symbiosis-powers"
+      },
+      {
+        "name": "Phantom",
+        "type": "Sprite Power (Symbiosis)",
+        "target": "Persona / Device",
+        "action": "Minor Action (Sustained)",
+        "effect": "Conceals icon from Matrix searches. Threshold to find via specific Matrix Perception equals sprite Electronics + RES net hits.",
+        "doc_link": "chapters/rules_sprites.html#sprite-symbiosis-powers"
+      },
+      {
+        "name": "Override",
+        "type": "Sprite Power (Symbiosis)",
+        "target": "Device on Autopilot (Drone / Vehicle)",
+        "action": "Minor Action",
+        "effect": "Electronics + Level/RES vs Device Rating + FW. Substitutes Level/RES for device Pilot rating. Enables Resonance Focus and Sprite Symbiosis on rigging.",
+        "doc_link": "chapters/rules_sprites.html#sprite-symbiosis-powers"
+      },
+      {
+        "name": "Harmonize",
+        "type": "Sprite Power (Symbiosis)",
+        "target": "100m Radius Area / Matrix",
+        "action": "Performance Action",
+        "effect": "Con (Performance) + RES reduces ambient Noise by hits, grants +hits bonus dice to healing/repairs, and matrix fauna regenerate 1 box/round.",
+        "doc_link": "chapters/rules_sprites.html#sprite-symbiosis-powers"
+      }
+    ],
+    "spells": [],
+    "adept_powers": [],
+    "monad_abilities": [],
+    "augmentations": [],
+    "spirit_channeling_catalog": {}
+  },
+  "inventory": {
+    "commlinks": [],
+    "matrix_devices": [],
+    "hosts": [],
+    "programs": [],
+    "software": [],
+    "autosofts": [],
+    "gear": [
+      "5x Peak-Discharge Laser Battery Clips (Crimson Wasp)",
+      "10x Glitter Grenades",
+      "Built-in Medkit (Man-at-Arms)",
+      "Facial Scanner",
+      "P-ICE Spines",
+      "Personal Assistant (R6)",
+      "Social HUD (R6)",
+      "Thermal Mood Reading",
+      "Vocal Tension Detection"
+    ],
+    "gear_items": [
+      {
+        "name": "5x Peak-Discharge Laser Battery Clips (Crimson Wasp)",
+        "qty": 5,
+        "rating": null,
+        "category": "Field Gear",
+        "accessories": [],
+        "notes": ""
+      },
+      {
+        "name": "10x Glitter Grenades",
+        "qty": 10,
+        "rating": null,
+        "category": "Field Gear",
+        "accessories": [],
+        "notes": ""
+      },
+      {
+        "name": "Built-in Medkit (Man-at-Arms)",
+        "qty": 1,
+        "rating": null,
+        "category": "Field Gear",
+        "accessories": [],
+        "notes": ""
+      },
+      {
+        "name": "Facial Scanner",
+        "qty": 1,
+        "rating": null,
+        "category": "Field Gear",
+        "accessories": [],
+        "notes": ""
+      },
+      {
+        "name": "P-ICE Spines",
+        "qty": 1,
+        "rating": null,
+        "category": "Field Gear",
+        "accessories": [],
+        "notes": ""
+      },
+      {
+        "name": "Personal Assistant (R6)",
+        "qty": 1,
+        "rating": null,
+        "category": "Field Gear",
+        "accessories": [],
+        "notes": ""
+      },
+      {
+        "name": "Social HUD (R6)",
+        "qty": 1,
+        "rating": null,
+        "category": "Field Gear",
+        "accessories": [],
+        "notes": ""
+      },
+      {
+        "name": "Thermal Mood Reading",
+        "qty": 1,
+        "rating": null,
+        "category": "Field Gear",
+        "accessories": [],
+        "notes": ""
+      },
+      {
+        "name": "Vocal Tension Detection",
+        "qty": 1,
+        "rating": null,
+        "category": "Field Gear",
+        "accessories": [],
+        "notes": ""
+      }
+    ],
+    "sins": [
+      {
+        "name": "Yuriko Star",
+        "rating": 6,
+        "quality": "Standard",
+        "licenses": [
+          "Drone License",
+          "Firearms License"
+        ]
+      }
+    ],
+    "lifestyles": []
+  },
+  "gear_items": [
+    {
+      "name": "5x Peak-Discharge Laser Battery Clips (Crimson Wasp)",
+      "qty": 5,
+      "rating": null,
+      "category": "Field Gear",
+      "accessories": [],
+      "notes": ""
+    },
+    {
+      "name": "10x Glitter Grenades",
+      "qty": 10,
+      "rating": null,
+      "category": "Field Gear",
+      "accessories": [],
+      "notes": ""
+    },
+    {
+      "name": "Built-in Medkit (Man-at-Arms)",
+      "qty": 1,
+      "rating": null,
+      "category": "Field Gear",
+      "accessories": [],
+      "notes": ""
+    },
+    {
+      "name": "Facial Scanner",
+      "qty": 1,
+      "rating": null,
+      "category": "Field Gear",
+      "accessories": [],
+      "notes": ""
+    },
+    {
+      "name": "P-ICE Spines",
+      "qty": 1,
+      "rating": null,
+      "category": "Field Gear",
+      "accessories": [],
+      "notes": ""
+    },
+    {
+      "name": "Personal Assistant (R6)",
+      "qty": 1,
+      "rating": null,
+      "category": "Field Gear",
+      "accessories": [],
+      "notes": ""
+    },
+    {
+      "name": "Social HUD (R6)",
+      "qty": 1,
+      "rating": null,
+      "category": "Field Gear",
+      "accessories": [],
+      "notes": ""
+    },
+    {
+      "name": "Thermal Mood Reading",
+      "qty": 1,
+      "rating": null,
+      "category": "Field Gear",
+      "accessories": [],
+      "notes": ""
+    },
+    {
+      "name": "Vocal Tension Detection",
+      "qty": 1,
+      "rating": null,
+      "category": "Field Gear",
+      "accessories": [],
+      "notes": ""
+    }
+  ],
+  "matrix_devices": [],
+  "software": [],
+  "sins": [
+    {
+      "name": "Yuriko Star",
+      "rating": 6,
+      "quality": "Standard",
+      "licenses": [
+        "Drone License",
+        "Firearms License"
+      ]
+    }
+  ],
+  "lifestyles": [],
+  "contacts": [],
+  "exceptions": [
+    {
+      "id": "omegaware_discount",
+      "title": "Used/Omegaware Cyberware 50% Discount",
+      "category": "financial",
+      "description": "Cyberware components purchased as salvage omegaware at 50% book cost.",
+      "source": "character_purchases.qmd",
+      "gm": "WarDoctor / SRM FAQ",
+      "active": true
+    },
+    {
+      "id": "diy_rigger_mods",
+      "title": "DIY Rigger 50% Installation Discount",
+      "category": "financial",
+      "description": "50% discount on vehicle/drone parts installed personally via Engineering facility (Double Clutch p. 120).",
+      "source": "Double Clutch p. 120 / character_purchases.qmd",
+      "gm": "Tabletop Baseline",
+      "active": true
+    },
+    {
+      "id": "shiawase_camera_discount",
+      "title": "Smile for the Camera! Shiawase 10% Discount",
+      "category": "financial",
+      "description": "10% manufacturer discount on Shiawase brand items.",
+      "source": "Sixth World Companion p. 142 / character_purchases.qmd",
+      "gm": "Tabletop Baseline",
+      "active": true
+    },
+    {
+      "id": "inhabited_override",
+      "title": "Inhabited Override Sprite Power Substitution",
+      "category": "mechanics",
+      "description": "Operating drones via Inhabited Override (SR6H p. 194) substitutes drone Pilot with Reiko's Resonance (benefiting from Resonance Focus and Taz Symbiosis). Sensor tests pair autosofts with drone Sensor.",
+      "source": "Hack & Slash p. 71 / SR6H p. 194",
+      "gm": "Tabletop Baseline",
+      "active": true
+    },
+    {
+      "id": "natural_hacker_swap",
+      "title": "Natural Hacker Matrix Attribute Substitution",
+      "category": "mechanics",
+      "description": "Natural Hacker quality substitutes Resonance for any mental attribute in Matrix actions and defenses.",
+      "source": "Sixth World Companion / rules_matrix.qmd",
+      "gm": "Tabletop Baseline",
+      "active": true
+    },
+    {
+      "id": "retractable_skates",
+      "title": "Anthrodrone Retractable Skates Movement Mode",
+      "category": "mechanics",
+      "description": "Anthrodrone skates deploy via Minor Action, using metahuman movement rules (Walk 10m/rnd, Sprint 30m/rnd + 2m/hit).",
+      "source": "Body Shop p. 47 / rules_drones.qmd",
+      "gm": "Tabletop Baseline",
+      "active": true
+    }
+  ],
+  "rules_doc": "rules/rules.html"
+}

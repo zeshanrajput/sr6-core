@@ -7,6 +7,7 @@ Exposes standard Quarto tracking helpers so character logs can import sr6core.lo
 import os
 import re
 import io
+import textwrap
 import contextlib
 from typing import Dict, Any, List, Optional, Tuple, Union
 
@@ -21,10 +22,19 @@ _GLOBAL_LOG_STATE: Dict[str, Any] = {
     "Heat": 0,
     "Resonance": 6,
     "Submersion_Grade": 0,
+    "Initiation_Grade": 0,
     "Reputation": {},
     "Sprites": [],
+    "Spirits": [],
     "Contacts": {},
-    "Missions": []
+    "Missions": [],
+    "Modifiers": [],
+    "Spells": [],
+    "Complex_Forms": [],
+    "Adept_Powers": [],
+    "Metamagic": [],
+    "Echoes": [],
+    "Knowledge_Skills": []
 }
 
 state = _GLOBAL_LOG_STATE
@@ -41,10 +51,19 @@ def reset_log_state():
         "Heat": 0,
         "Resonance": 6,
         "Submersion_Grade": 0,
+        "Initiation_Grade": 0,
         "Reputation": {},
         "Sprites": [],
+        "Spirits": [],
         "Contacts": {},
-        "Missions": []
+        "Missions": [],
+        "Modifiers": [],
+        "Spells": [],
+        "Complex_Forms": [],
+        "Adept_Powers": [],
+        "Metamagic": [],
+        "Echoes": [],
+        "Knowledge_Skills": []
     })
 
 
@@ -88,6 +107,49 @@ def initiate(echo_or_power: str = "", coven_loyalty: int = 0) -> str:
     return f"Initiation Grade {target_grade} ({echo_or_power}): -{final_cost} Karma"
 
 
+def modifier(
+    name: str,
+    applies_to: str,
+    value: Union[int, float, str],
+    type: str = "teamwork",
+    sub_skill: Optional[str] = None,
+    rule_anchor: Optional[str] = None,
+    notes: Optional[str] = None,
+    enabled: bool = True
+) -> str:
+    """
+    Registers a structured modifier in the Quarto evaluation scope.
+    Allowed types:
+      - 'teamwork': skills/activesofts/autosofts, capped at that skill's rating
+      - 'augmentation': cyberware, bioware, magic, adept powers, drugs (+4 cap for attribute/skill)
+      - 'specialization': adds +2 to that skill in that sub-skill
+      - 'expertise': adds +3 to that skill in that sub-skill
+      - 'other': weird things like adrenaline pumps, suprathyroid glands, wireless on skillwires
+    """
+    global _GLOBAL_LOG_STATE
+    valid_type = type.lower().strip()
+    if valid_type not in ["teamwork", "augmentation", "specialization", "expertise", "other", "focus", "symbiosis", "gear", "attribute_substitution"]:
+        valid_type = "other"
+
+    val_num = int(value) if isinstance(value, (int, float)) or (isinstance(value, str) and value.lstrip("-+").isdigit()) else value
+
+    mod_entry = {
+        "id": name.lower().replace(" ", "_").replace("(", "").replace(")", "").replace("+", ""),
+        "name": name,
+        "target": applies_to.lower().strip(),
+        "value": val_num,
+        "type": valid_type,
+        "sub_skill": sub_skill,
+        "rule_anchor": rule_anchor,
+        "notes": notes,
+        "enabled": enabled
+    }
+    _GLOBAL_LOG_STATE.setdefault("Modifiers", []).append(mod_entry)
+    
+    val_disp = f"+{val_num}" if isinstance(val_num, int) and val_num > 0 else f"{val_num}"
+    return f"**{name}**: {applies_to} ({val_disp} [{valid_type}])"
+
+
 def submerge(echo: str = "", group_loyalty: int = 0) -> str:
     """
     Calculates Submersion cost based on formula (10 + current_grade)
@@ -100,8 +162,168 @@ def submerge(echo: str = "", group_loyalty: int = 0) -> str:
     base_cost = 10 + curr_grade
     final_cost = max(1, base_cost - group_loyalty)
     _GLOBAL_LOG_STATE["Submersion_Grade"] = target_grade
+    if echo:
+        _GLOBAL_LOG_STATE.setdefault("Echoes", []).append({
+            "name": echo,
+            "ref": echo.lower().replace(" ", "_"),
+            "grade": target_grade
+        })
     inc("Karma", -final_cost)
     return f"Submersion Grade {target_grade} ({echo}): -{final_cost} Karma"
+
+
+def spell(
+    name: str,
+    category: str = "Combat",
+    duration: str = "Instant",
+    spell_type: str = "Physical",
+    spell_range: str = "Line of Sight",
+    drain: int = 3,
+    notes: Optional[str] = None
+) -> str:
+    global _GLOBAL_LOG_STATE
+    entry = {
+        "name": name,
+        "ref": name.lower().replace(" ", "_"),
+        "category": category,
+        "duration": duration,
+        "type": spell_type,
+        "range": spell_range,
+        "drain": drain,
+        "notes": notes or ""
+    }
+    _GLOBAL_LOG_STATE.setdefault("Spells", []).append(entry)
+    return f"**Spell ({name})**: {category} [{duration}, {spell_type}, Drain {drain}]"
+
+
+def complex_form(
+    name: str,
+    fading: int = 2,
+    duration: str = "Immediate",
+    target: str = "Device",
+    notes: Optional[str] = None
+) -> str:
+    global _GLOBAL_LOG_STATE
+    entry = {
+        "name": name,
+        "ref": name.lower().replace(" ", "_"),
+        "fading": fading,
+        "duration": duration,
+        "target": target,
+        "notes": notes or ""
+    }
+    _GLOBAL_LOG_STATE.setdefault("Complex_Forms", []).append(entry)
+    return f"**Complex Form ({name})**: Fading {fading} [{duration}, Target: {target}]"
+
+
+def adept_power(
+    name: str,
+    rating: int = 1,
+    cost_pp: float = 1.0,
+    action: str = "Passive",
+    source: str = "natural",
+    notes: Optional[str] = None
+) -> str:
+    global _GLOBAL_LOG_STATE
+    entry = {
+        "name": name,
+        "ref": name.lower().replace(" ", "_"),
+        "rating": rating,
+        "cost": f"{cost_pp} PP",
+        "cost_pp": cost_pp,
+        "action": action,
+        "source": source,
+        "notes": notes or ""
+    }
+    _GLOBAL_LOG_STATE.setdefault("Adept_Powers", []).append(entry)
+    return f"**Adept Power ({name} R{rating})**: {cost_pp} PP ({action})"
+
+
+def metamagic(name: str, notes: Optional[str] = None) -> str:
+    global _GLOBAL_LOG_STATE
+    entry = {
+        "name": name,
+        "ref": name.lower().replace(" ", "_"),
+        "notes": notes or ""
+    }
+    _GLOBAL_LOG_STATE.setdefault("Metamagic", []).append(entry)
+    return f"**Metamagic ({name})**"
+
+
+def echo(name: str, notes: Optional[str] = None) -> str:
+    global _GLOBAL_LOG_STATE
+    entry = {
+        "name": name,
+        "ref": name.lower().replace(" ", "_"),
+        "notes": notes or ""
+    }
+    _GLOBAL_LOG_STATE.setdefault("Echoes", []).append(entry)
+    return f"**Echo ({name})**"
+
+
+def sprite_power(
+    name: str,
+    source: str = "Taz",
+    power_type: str = "Sprite Power (Symbiosis)",
+    target: Optional[str] = None,
+    action: Optional[str] = None,
+    effect: Optional[str] = None,
+    origin: str = "native",
+    doc_link: Optional[str] = None
+) -> str:
+    """
+    Declares an active sprite power accessible via Sprite Symbiosis (e.g. from Taz).
+    origin can be 'native' (inherent to sprite archetype) or 'added' (added during compilation).
+    """
+    global _GLOBAL_LOG_STATE
+    entry = {
+        "name": name,
+        "source": source,
+        "type": power_type,
+        "target": target or "PAN / Matrix Icon",
+        "action": action or "Minor Action",
+        "effect": effect or "",
+        "origin": origin,
+        "doc_link": doc_link or "chapters/rules_sprites.html#sprite-symbiosis-powers"
+    }
+    _GLOBAL_LOG_STATE.setdefault("Sprite_Powers", []).append(entry)
+    return f"**Sprite Power ({name})**: {power_type} via {source} [{origin.title()}]"
+
+
+def knowledge_skill(name: str, rating: Optional[int] = None, notes: Optional[str] = None) -> str:
+    global _GLOBAL_LOG_STATE
+    entry = {
+        "name": name,
+        "rating": rating,
+        "notes": notes or ""
+    }
+    _GLOBAL_LOG_STATE.setdefault("Knowledge_Skills", []).append(entry)
+    rtg_str = f" R{rating}" if rating is not None else ""
+    return f"**Knowledge Skill ({name}{rtg_str})**"
+
+
+def language(name: str, rating: int = 4, notes: Optional[str] = None) -> str:
+    """
+    Languages are rated knowledge skills:
+      - 1: Basic
+      - 2: Specialist
+      - 3: Expert
+      - 4: Native
+      - 5: Linguasoft
+    """
+    global _GLOBAL_LOG_STATE
+    labels = {1: "Basic", 2: "Specialist", 3: "Expert", 4: "Native", 5: "Linguasoft"}
+    level_label = labels.get(rating, f"Rating {rating}")
+    entry = {
+        "name": name,
+        "rating": rating,
+        "level": level_label,
+        "is_native": rating == 4,
+        "is_linguasoft": rating >= 5,
+        "notes": notes or ""
+    }
+    _GLOBAL_LOG_STATE.setdefault("Knowledge_Skills", []).append(entry)
+    return f"**Language ({name} - {level_label})**"
 
 
 
@@ -403,6 +625,16 @@ def create_quarto_eval_env() -> Dict[str, Any]:
         "print_contacts_summary": print_contacts_summary,
         "assign": assign,
         "initiate": initiate,
+        "submerge": submerge,
+        "modifier": modifier,
+        "spell": spell,
+        "complex_form": complex_form,
+        "adept_power": adept_power,
+        "metamagic": metamagic,
+        "echo": echo,
+        "sprite_power": sprite_power,
+        "knowledge_skill": knowledge_skill,
+        "language": language,
         "state": _GLOBAL_LOG_STATE,
     })
 
@@ -412,7 +644,9 @@ def resolve_existing_path(p: str) -> Optional[str]:
         return p
     candidates = [
         os.path.normpath(os.path.join(os.getcwd(), "..", p)),
+        os.path.normpath(p.replace("chapters/", "core/")),
         os.path.normpath(p.replace("chapters/", "")),
+        os.path.normpath(os.path.join("core", p)),
         os.path.normpath(os.path.join("chapters", p)),
         os.path.normpath(os.path.join("..", p))
     ]
@@ -424,10 +658,12 @@ def resolve_existing_path(p: str) -> Optional[str]:
 
 def get_log_totals(log_path: Optional[Any] = None) -> Dict[str, Any]:
     if log_path is None:
-        # Default fallback: search current directory and parent directory for chapters/character_log.qmd
+        # Default fallback: search current directory and parent directory for core/ or chapters/ character_log.qmd
         possible_paths = [
+            "core/character_log.qmd",
             "chapters/character_log.qmd",
             "character_log.qmd",
+            "../core/character_log.qmd",
             "../chapters/character_log.qmd"
         ]
         files = [p for p in possible_paths if os.path.exists(p)][:1]
@@ -438,14 +674,16 @@ def get_log_totals(log_path: Optional[Any] = None) -> Dict[str, Any]:
             if res:
                 files.append(res)
     elif isinstance(log_path, str) and os.path.isdir(log_path):
-        candidate_pairs = [
-            [os.path.join(log_path, "chapters", "character_log.qmd"), os.path.join(log_path, "chapters", "character_purchases.qmd")],
-            [os.path.join(log_path, "character_log.qmd"), os.path.join(log_path, "character_purchases.qmd")],
-            [os.path.join(log_path, "..", "chapters", "character_log.qmd"), os.path.join(log_path, "..", "chapters", "character_purchases.qmd")]
+        candidate_trios = [
+            [os.path.join(log_path, "core", "character_build.qmd"), os.path.join(log_path, "core", "character_purchases.qmd"), os.path.join(log_path, "core", "character_log.qmd")],
+            [os.path.join(log_path, "chapters", "character_build.qmd"), os.path.join(log_path, "chapters", "character_purchases.qmd"), os.path.join(log_path, "chapters", "character_log.qmd")],
+            [os.path.join(log_path, "character_build.qmd"), os.path.join(log_path, "character_purchases.qmd"), os.path.join(log_path, "character_log.qmd")],
+            [os.path.join(log_path, "..", "core", "character_build.qmd"), os.path.join(log_path, "..", "core", "character_purchases.qmd"), os.path.join(log_path, "..", "core", "character_log.qmd")],
+            [os.path.join(log_path, "..", "chapters", "character_build.qmd"), os.path.join(log_path, "..", "chapters", "character_purchases.qmd"), os.path.join(log_path, "..", "chapters", "character_log.qmd")]
         ]
         files = []
-        for pair in candidate_pairs:
-            matched = [p for p in pair if os.path.exists(p)]
+        for trio in candidate_trios:
+            matched = [p for p in trio if os.path.exists(p)]
             if matched:
                 files = matched
                 break
@@ -469,9 +707,9 @@ def get_log_totals(log_path: Optional[Any] = None) -> Dict[str, Any]:
             block = match.group(1)
             inline = match.group(2)
             if block is not None:
-                clean_lines = [line.strip() for line in block.splitlines() if not line.strip().startswith('#|')]
+                clean_lines = [line for line in block.splitlines() if not line.strip().startswith('#|')]
                 try:
-                    exec("\n".join(clean_lines), env)
+                    exec(textwrap.dedent("\n".join(clean_lines)), env)
                 except Exception:
                     pass
             elif inline is not None:
@@ -563,5 +801,13 @@ def get_log_totals(log_path: Optional[Any] = None) -> Dict[str, Any]:
         "Active_Spirit_Count": len(active_spirits),
         "Contacts": _GLOBAL_LOG_STATE.get("Contacts", {}),
         "Missions": _GLOBAL_LOG_STATE.get("Missions", []),
+        "Modifiers": _GLOBAL_LOG_STATE.get("Modifiers", []),
+        "Spells": _GLOBAL_LOG_STATE.get("Spells", []),
+        "Complex_Forms": _GLOBAL_LOG_STATE.get("Complex_Forms", []),
+        "Adept_Powers": _GLOBAL_LOG_STATE.get("Adept_Powers", []),
+        "Metamagic": _GLOBAL_LOG_STATE.get("Metamagic", []),
+        "Echoes": _GLOBAL_LOG_STATE.get("Echoes", []),
+        "Sprite_Powers": _GLOBAL_LOG_STATE.get("Sprite_Powers", []),
+        "Knowledge_Skills": _GLOBAL_LOG_STATE.get("Knowledge_Skills", []),
         "Session_Logs": session_logs
     }

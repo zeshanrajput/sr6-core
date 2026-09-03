@@ -1,18 +1,19 @@
 identity:
-  name: Venn (Nathan & Veronica)
-  real_name: Nathan & Veronica Turrent
-  handle: Venn
   id: venn
+  name: Venn (Nathan & Veronica)
+  handle: Venn
+  real_name: Nathan & Veronica Turrent
   metatype: Human
-  system: shadowrun6e
-  source_book: Sixth World Companion / Whisper Nets / Body Shop
-  archetype: Monad Cyborg Street Decker & Infiltrator
   heritage: 'Monad Dual Consciousness (Nathan: Human biological host / Veronica: Emergent
     AI fork sister)'
+  archetype: Monad Cyborg Street Decker & Infiltrator
   nanite_volume: 6
-  nuyen: 5000
+  system: shadowrun6e
   karma: 1
-  total_karma: 1
+  lifetime_karma: 1
+  nuyen: 5000
+  lifetime_nuyen: 5000
+  heat: 0
 attributes:
   body: 5
   agility: 7
@@ -26,38 +27,6 @@ attributes:
   resonance: 0
   magic: 0
   essence: 0.49
-living_persona:
-  asdf_bonuses:
-    attack: 0
-    sleaze: 1
-    data_processing: 2
-    firewall: 2
-  notes: 'Monad Matrix Attributes (Whisper Nets p. 149): Base Attack=CHA 2, Sleaze=INT
-    5 + NV 1 = 6, Data Processing=LOG 6 + NV 2 = 8, Firewall=WIL 7 + NV 2 = 9 boosted
-    by 6 Nanite Volume (NV=6) points -> A:2 S:6 D:8 F:9 with 15d6 Full Matrix Defense
-    (17d6 active).'
-monad_abilities:
-- name: Monad Matrix Attributes
-  effect: Internal nanite swarm synthesizes Living Persona ASDF (A:2 S:6 D:8 F:9)
-    with 15d6 Full Matrix Defense (17d6 active under Willpower 7).
-- name: Resculpt
-  effect: Extended INT + NV (16, 1 combat round) test to alter physical biological
-    appearance and voice.
-- name: Monad Toughness
-  effect: Adds +3 Condition boxes (NV/2) to Condition Monitors (+2 Physical, +1 Stun
-    -> 14 Physical [10 base + 2 Redliner + 2 Monad], 13 Stun boxes [12 base + 1 Monad]),
-    shifts all wound penalties down by 1.
-- name: Physical Attribute Boost
-  effect: Minor Action; roll NV test (6 dice). With 4-Edge boost (13 exploding dice),
-    rolling >= 3 hits (89.4%) or >= 4 hits (76.2%) adds +4 Minor Actions or physical
-    attribute boosts for hits in combat rounds. When ended, decreases NV by total
-    boost for 1 minute.
-- name: Rapid Healing
-  effect: Minor or Major Action cellular nanite repair to reduce Condition Monitor
-    damage.
-- name: Adrenal Control
-  effect: Minor Action; WIL + NV (2) test (13d6 dice pool) to remain conscious when
-    mortally wounded or stunned.
 qualities:
   positive:
   - name: Augmentation Acclimation
@@ -70,17 +39,6 @@ qualities:
     rating: 3
   - name: Hooder
     rating: 3
-martial_arts:
-- name: Tae Kwon Do
-  style: Striking
-  techniques:
-  - name: Kick Attack
-    notes: +1 DV to unarmed attacks, extends Close range by +2m.
-  - name: Flying Kick
-    notes: 'Signature Technique: Minor Action + Athletics + Agility (threshold 1 hit
-      via Jacks R2) to add +2 DV and leap 5+ meters.'
-  notes: Combines with Bone Density 4 (4P) for 7P Base Physical Damage leaping kick
-    strikes from Day 1!
 skills:
 - name: Electronics
   id: electronics
@@ -102,15 +60,69 @@ skills:
   rating: 4
   notes: Veronica's native DI/Resonance ideational language (Null Value); direct non-acoustic
     neural communication.
+modifiers:
+- id: cerebral_booster_enhancer
+  name: Cerebral Booster Enhancer
+  target: attribute:logic
+  value: 1
+  type: augmentation
+  sub_skill: null
+  rule_anchor: rules/rules_and_downtime.html
+  notes: null
+  enabled: true
+meta_echoes: []
 knowledge_skills:
 - name: Small Unit Tactics
-  attribute: Logic
+  rating: null
+  notes: ''
 - name: Espionage Techniques
-  attribute: Logic
+  rating: null
+  notes: ''
 - name: Security Systems
-  attribute: Logic
+  rating: null
+  notes: ''
 - name: Resonance Realms
-  attribute: Logic
+  rating: null
+  notes: ''
+- name: English
+  rating: 4
+  level: Native
+  is_native: true
+  is_linguasoft: false
+  notes: CAS dialect
+- name: Mindspeech
+  rating: 4
+  level: Native
+  is_native: true
+  is_linguasoft: false
+  notes: Direct ideation, resonance non-acoustic
+contacts: {}
+reputation: {}
+total_reputation: 0
+drones: []
+weapons:
+- name: Colt Manhunter
+  category: heavy_pistol
+  damage: 4P
+  attack_rating: 8/8/6/-/-
+  modes: SA
+  ammo: 16(c)
+  accessories:
+  - Smartlink
+  - Silencer
+  - Concealed Holster
+  notes: Smartlink (+2 AR), Concealed holster, Silencer, 5 spare clips, 100 regular,
+    100 gel rounds.
+armors:
+- name: Securetech SkinShield (w/ Ballistic Hood)
+  defense_rating: 3
+  notes: +2 DR form-fitting under-armor, +1 DR Ballistic Hood (Firing Squad p. 3 /
+    Seattle p. 5). Invisible under normal street clothes with 0 Social penalty.
+gear:
+- name: Contacts (Rating 3 w/ Flare Comp, Smartlink)
+  rating: 3
+- name: Savior Medkit (Rating 6 w/ 1x Refill)
+  rating: 6
 cyberware:
 - name: Left Synthetic Cyberarm
   ref: cyberarm
@@ -144,20 +156,20 @@ cyberware:
   grade: betaware
   category: bioware
   notes: +4 Body for damage resistance soak (9 Soak unarmored), 4P Unarmed DV, +3
-    Attack Rating (SR6 Core p. 286 / Body Shop p. 101; 0.84 Ess, 30,000¥, Avail 6L).
+    Attack Rating (SR6 Core p. 286 / Body Shop p. 101; 0.84 Ess, 30,000Â¥, Avail 6L).
 - name: Skilljack
   ref: skilljack
   rating: 6
   grade: used
   category: cyberware
-  notes: 'Base 120,000¥ / 0.60 Ess -> Used 60,000¥ / 0.66 Ess. Wireless Bonus: Max
+  notes: 'Base 120,000Â¥ / 0.60 Ess -> Used 60,000Â¥ / 0.66 Ess. Wireless Bonus: Max
     total rating limit = R6 x 4 = 24. Edge can be used on associated tests.'
 - name: Skillwires
   ref: skillwires
   rating: 6
   grade: used
   category: cyberware
-  notes: 'Base 120,000¥ / 0.60 Ess -> Used 60,000¥ / 0.66 Ess. Wireless Bonus: Memory
+  notes: 'Base 120,000Â¥ / 0.60 Ess -> Used 60,000Â¥ / 0.66 Ess. Wireless Bonus: Memory
     cache expanded, grants +1 dice pool modifier to all skills used through skillwires.'
 - name: Math SPU
   ref: math_spu
@@ -170,46 +182,16 @@ activesofts:
   rating: 6
   category: activesoft
   attribute: agility
-  notes: Purchased with Nuyen (30,000¥). Runs on Skillwires R6 with Wireless-ON (+1)
+  notes: Purchased with Nuyen (30,000Â¥). Runs on Skillwires R6 with Wireless-ON (+1)
     for 7 skill dice (14d6 Unarmed pool with Cyberarm AGI 7; 16d6 when Overdriven
     to AGI 9).
 - name: Cracking Activesoft
   rating: 6
   category: activesoft
   attribute: logic
-  notes: Purchased with Nuyen (30,000¥). Runs on Skillwires R6 with Wireless-ON (+1)
+  notes: Purchased with Nuyen (30,000Â¥). Runs on Skillwires R6 with Wireless-ON (+1)
     for 7 skill dice (13d6 with LOG 6; 17d6 with LOG 10 post-chargen).
-weapons:
-- name: Colt Manhunter
-  category: heavy_pistol
-  damage: 4P
-  attack_rating: 8/8/6/-/-
-  modes: SA
-  ammo: 16(c)
-  accessories:
-  - Smartlink
-  - Silencer
-  - Concealed Holster
-  notes: Smartlink (+2 AR), Concealed holster, Silencer, 5 spare clips, 100 regular,
-    100 gel rounds.
-armors:
-- name: Securetech SkinShield (w/ Ballistic Hood)
-  defense_rating: 3
-  notes: +2 DR form-fitting under-armor, +1 DR Ballistic Hood (Firing Squad p. 3 /
-    Seattle p. 5). Invisible under normal street clothes with 0 Social penalty.
-vehicles: []
-commlinks:
-- name: Renraku Sensei
-  device_rating: 3
-  data_processing: 3
-  firewall: 1
-  notes: Everyday burner commlink and legal SIN broadcast. Veronica uses Monad Living
-    Persona for all Shadow Matrix operations.
-gear:
-- name: Contacts (Rating 3 w/ Flare Comp, Smartlink)
-  rating: 3
-- name: Savior Medkit (Rating 6 w/ 1x Refill)
-  rating: 6
+sprite_powers: []
 sins:
 - name: 'Fake Licenses (Rating 4 x2): (1,600¥)'
   rating: 1
@@ -217,12 +199,19 @@ sins:
   rating: 1
 licenses:
 - name: 'Fake License: Firearms'
-  sin: 'Fake Licenses (Rating 4 x2): (1,600¥)'
   rating: 4
+  sin: 'Fake Licenses (Rating 4 x2): (1,600¥)'
 - name: 'Fake License: Concealed Carry'
-  sin: 'Fake Licenses (Rating 4 x2): (1,600¥)'
   rating: 4
-lifestyles:
-- name: Low Lifestyle (Off-Grid Coastal Boathouse)
-  monthly_cost: 2000
-contacts: []
+  sin: 'Fake Licenses (Rating 4 x2): (1,600¥)'
+living_persona:
+  asdf_bonuses:
+    attack: 0
+    sleaze: 1
+    data_processing: 2
+    firewall: 2
+  notes: 'Monad Matrix Attributes (Whisper Nets p. 149): Base Attack=CHA 2, Sleaze=INT
+    5 + NV 1 = 6, Data Processing=LOG 6 + NV 2 = 8, Firewall=WIL 7 + NV 2 = 9 boosted
+    by 6 Nanite Volume (NV=6) points -> A:2 S:6 D:8 F:9 with 15d6 Full Matrix Defense
+    (17d6 active).'
+synergies: {}

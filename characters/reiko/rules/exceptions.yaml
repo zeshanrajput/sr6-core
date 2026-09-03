@@ -1,0 +1,48 @@
+exceptions:
+- id: omegaware_discount
+  title: Used/Omegaware Cyberware 50% Discount
+  category: financial
+  description: Cyberware components purchased as salvage omegaware at 50% book cost.
+  source: character_purchases.qmd
+  gm: WarDoctor / SRM FAQ
+  active: true
+- id: diy_rigger_mods
+  title: DIY Rigger 50% Installation Discount
+  category: financial
+  description: 50% discount on vehicle/drone parts installed personally via Engineering
+    facility (Double Clutch p. 120).
+  source: Double Clutch p. 120 / character_purchases.qmd
+  gm: Tabletop Baseline
+  active: true
+- id: shiawase_camera_discount
+  title: Smile for the Camera! Shiawase 10% Discount
+  category: financial
+  description: 10% manufacturer discount on Shiawase brand items.
+  source: Sixth World Companion p. 142 / character_purchases.qmd
+  gm: Tabletop Baseline
+  active: true
+- id: inhabited_override
+  title: Inhabited Override Sprite Power Substitution
+  category: mechanics
+  description: Operating drones via Inhabited Override (SR6H p. 194) substitutes drone
+    Pilot with Reiko's Resonance (benefiting from Resonance Focus and Taz Symbiosis).
+    Sensor tests pair autosofts with drone Sensor.
+  source: Hack & Slash p. 71 / SR6H p. 194
+  gm: Tabletop Baseline
+  active: true
+- id: natural_hacker_swap
+  title: Natural Hacker Matrix Attribute Substitution
+  category: mechanics
+  description: Natural Hacker quality substitutes Resonance for any mental attribute
+    in Matrix actions and defenses.
+  source: Sixth World Companion / rules_matrix.qmd
+  gm: Tabletop Baseline
+  active: true
+- id: retractable_skates
+  title: Anthrodrone Retractable Skates Movement Mode
+  category: mechanics
+  description: Anthrodrone skates deploy via Minor Action, using metahuman movement
+    rules (Walk 10m/rnd, Sprint 30m/rnd + 2m/hit).
+  source: Body Shop p. 47 / rules_drones.qmd
+  gm: Tabletop Baseline
+  active: true

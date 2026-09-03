@@ -8,7 +8,7 @@
  ADEPT POWERS:
   - Cosmetic Control           | Cost: 2.0 PP PP
   - Linguistics                | Cost: 0.25 PP PP
-  - Command Presence           | Cost: 0.50 PP PP
+  - Command Presence           | Cost: 0.5 PP PP
   - Cloak                      | Cost: 0.25 PP PP
   - Sharp Tongue               | Cost: 1.0 PP PP
 ----------------------------------------------------------------------------

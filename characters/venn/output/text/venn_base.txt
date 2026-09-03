@@ -19,7 +19,7 @@
 ----------------------------------------------------------------------------
  ACTIVE SKILLS & TABLE-RELEVANT DICE POOLS:
   - Electronics         : 12d6  [LOG 6 + 6 Rtg]
-  - Athletics           : 10d6  [AGI 9 + 1 Rtg]
+  - Athletics           : 8d6  [AGI 7 + 1 Rtg]
   - Native Language (English): 10d6  [LOG 6 + 4 Rtg]
   - Native Language (Mindspeech): 10d6  [LOG 6 + 4 Rtg]
 ----------------------------------------------------------------------------

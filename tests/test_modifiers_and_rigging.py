@@ -284,6 +284,30 @@ def test_drone_action_pool_evaluator():
     assert pools_remote["evasion"]["pool"] == 20      # Evasion 7 + Sleaze 9 + Symbiosis 4
 
 
+def test_drone_targeting_autosoft_other_modifier():
+    """Verifies that an 'other' modifier targeting autosoft:targeting correctly applies to gunnery pools."""
+    butler = SAMPLE_YURIKO["drones"][0]
+    char_with_smartlink = dict(SAMPLE_YURIKO)
+    char_with_smartlink["modifiers"] = [
+        {
+            "id": "smartlink_wireless",
+            "name": "Smartlink (Wireless)",
+            "target": "autosoft:targeting",
+            "value": 1,
+            "type": "other",
+            "enabled": True
+        }
+    ]
+    
+    pools_inhabited = calculate_drone_action_pools(char_with_smartlink, butler, mode="inhabited_override")
+    assert pools_inhabited["gunnery"]["pool"] == 19   # Targeting 7 + Sensor 7 + Symbiosis 4 + Smartlink 1
+    assert "Smartlink (Wireless) 1" in pools_inhabited["gunnery"]["breakdown"]
+
+    pools_remote = calculate_drone_action_pools(char_with_smartlink, butler, mode="remote_ar")
+    assert pools_remote["gunnery"]["pool"] == 19
+    assert "Smartlink (Wireless) 1" in pools_remote["gunnery"]["breakdown"]
+
+
 def test_matrix_protocols_summary():
     """Verifies active ASDF and full matrix defense calculations."""
     asdf = ModifierEngine.get_living_persona_asdf(SAMPLE_YURIKO)
@@ -504,9 +528,9 @@ def test_tactical_action_pools_and_tables_union():
 
     monad_table = get_monad_strategy_table("union")
     assert "Meatspace Baseline" in monad_table
-    assert "Adrenaline Pump Surge" in monad_table
+    assert "Cyberlimb Overdrive" in monad_table
     assert "Matrix Living Persona" in monad_table
-    assert "Cyberware Overdrive" in monad_table
+    assert "Monad Physical Attribute Boost" in monad_table
 
     # 4. Monad Living Persona Matrix Stats
     asdf = ModifierEngine.get_living_persona_asdf(char)

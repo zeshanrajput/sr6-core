@@ -1,0 +1,25 @@
+exceptions:
+- id: srm_monthly_expenses
+  title: SRM Bi-Monthly Expense & Downtime Cadence
+  category: lifestyle
+  description: Every 2nd SRM mission, settle monthly lifestyle obligations and perform
+    1 Major and 1 Minor downtime action.
+  source: rules_and_downtime.qmd
+  gm: SRM Campaign Baseline
+  active: true
+- id: adept_sorcery_stacking
+  title: Adept Improved Ability (Sorcery) Stacking
+  category: mechanics
+  description: Improved Ability adept power grants bonus dice to Sorcery spellcasting
+    within adept power limits.
+  source: Street Wyrd / rules_and_downtime.qmd
+  gm: Tabletop Baseline
+  active: true
+- id: high_charisma_drain_synergy
+  title: Musok Charisma Drain Resistance
+  category: mechanics
+  description: Drain resistance utilizes Willpower + Charisma (enhanced by Sustained
+    Attribute spells up to +4 per attribute).
+  source: SR6 Core p. 132 / rules_and_downtime.qmd
+  gm: Tabletop Baseline
+  active: true

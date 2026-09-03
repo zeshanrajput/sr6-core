@@ -1,0 +1,25 @@
+exceptions:
+- id: cyborg_essence_tolerance
+  title: Full Conversion Monad 0.06 Essence Tolerance
+  category: mechanics
+  description: Extreme bioware and cyberware tolerances operating at 0.06 Essence
+    supported by nanite fluid balances.
+  source: rules_and_downtime.qmd
+  gm: Tabletop Baseline
+  active: true
+- id: monad_toughness_monitor
+  title: Nanite Volume Toughness Scaling
+  category: mechanics
+  description: Nanite volume adds bonus condition monitor boxes (Nanite Volume //
+    2) to Physical and Stun tracks.
+  source: Hack & Slash / rules_and_downtime.qmd
+  gm: Tabletop Baseline
+  active: true
+- id: hooder_karma_funding
+  title: Hooder Quality Downtime Karma Exchange
+  category: financial
+  description: "\xA52,000/mo Hooder obligation directly funds the 'Working for the\
+    \ People' minor downtime action (+1 Karma)."
+  source: rules_and_downtime.qmd
+  gm: SRM Campaign Baseline
+  active: true

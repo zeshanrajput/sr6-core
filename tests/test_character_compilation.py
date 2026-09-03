@@ -17,9 +17,18 @@ def test_standardized_trio_structure():
         repo_dir = cm.get_character_repo_dir(cid)
         assert repo_dir is not None, f"Repo dir missing for {cid}"
 
-        build_qmd = os.path.join(repo_dir, "chapters", "character_build.qmd")
-        purchases_qmd = os.path.join(repo_dir, "chapters", "character_purchases.qmd")
-        log_qmd = os.path.join(repo_dir, "chapters", "character_log.qmd")
+        # Check core/ (primary segregated layout) with chapters/ fallback
+        build_qmd = os.path.join(repo_dir, "core", "character_build.qmd")
+        if not os.path.exists(build_qmd):
+            build_qmd = os.path.join(repo_dir, "chapters", "character_build.qmd")
+
+        purchases_qmd = os.path.join(repo_dir, "core", "character_purchases.qmd")
+        if not os.path.exists(purchases_qmd):
+            purchases_qmd = os.path.join(repo_dir, "chapters", "character_purchases.qmd")
+
+        log_qmd = os.path.join(repo_dir, "core", "character_log.qmd")
+        if not os.path.exists(log_qmd):
+            log_qmd = os.path.join(repo_dir, "chapters", "character_log.qmd")
 
         assert os.path.exists(build_qmd), f"character_build.qmd missing in {cid}"
         assert os.path.exists(purchases_qmd), f"character_purchases.qmd missing in {cid}"
@@ -47,6 +56,8 @@ def test_full_compiler_sync_and_mobile_export():
         assert "skills" in mobile_doc
         assert "weapons" in mobile_doc
         assert "matrix" in mobile_doc
+        assert "exceptions" in mobile_doc
+        assert len(mobile_doc["exceptions"]) >= 3, f"Exceptions missing in {cid}"
 
         # Verify Reiko specific compiled states
         if cid == "reiko":
@@ -54,5 +65,5 @@ def test_full_compiler_sync_and_mobile_export():
             assert maa is not None
             assert maa["sensor"] == 13
             assert any("increased sensors 9" in m.lower() for m in maa["modifications"])
-            assert maa["rigged_pools"]["gunnery"]["pool"] == 24
+            assert maa["rigged_pools"]["gunnery"]["pool"] == 25
             assert maa["rigged_pools"]["perception"]["pool"] == 24

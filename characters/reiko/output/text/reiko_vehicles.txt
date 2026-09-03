@@ -21,7 +21,7 @@
          Armor Increase 5, Increased Structural Integrity 5, Realistic
          Features 4, Secondary Propulsion (Rotor), Increased Sensors 9,
          Retractable Skates, Built-In MedKit, Satellite Link, Laser Jack
-   Rigged Action Pools: Piloting 23d6 (5H) | Gunnery 24d6 (6H) | Evasion
+   Rigged Action Pools: Piloting 23d6 (5H) | Gunnery 25d6 (6H) | Evasion
                         24d6 (6H) | Perception 24d6 (6H) | Stealth 26d6 (6H)
 ----------------------------------------------------------------------------
  * KWONSHAM DREAM GENIE

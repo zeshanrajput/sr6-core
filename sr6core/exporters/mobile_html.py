@@ -538,6 +538,27 @@ def get_mobile_html_template(character_data_bundle: Dict[str, Any], initial_char
       gap: 6px;
       color: var(--text-secondary);
       font-size: 0.8rem;
+      padding: 3px 6px;
+      border-radius: 6px;
+      transition: all 0.15s ease;
+    }}
+    .buff-chip.buff-active {{
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.12);
+    }}
+    .buff-chip.buff-disabled {{
+      color: var(--text-muted);
+      opacity: 0.55;
+      text-decoration: line-through;
+    }}
+    .doc-link-inline {{
+      color: var(--indigo-primary);
+      text-decoration: none;
+      font-size: 0.82rem;
+      margin-left: 4px;
+    }}
+    .doc-link-inline:hover {{
+      color: #ffffff;
     }}
 
     .doc-link-btn {{
@@ -1124,6 +1145,11 @@ def get_mobile_html_template(character_data_bundle: Dict[str, Any], initial_char
         <div id="qualitiesList">
           <!-- Generated via JS -->
         </div>
+
+        <div class="card-title" style="margin-top: 16px;">Verified Exceptions & Tabletop Rulings</div>
+        <div id="exceptionsList">
+          <!-- Generated via JS -->
+        </div>
       </div>
     </section>
 
@@ -1285,8 +1311,37 @@ def get_mobile_html_template(character_data_bundle: Dict[str, Any], initial_char
       renderActiveCharacter();
     }}
 
+    function toggleBuff(toggleKey, currentActive) {{
+      const nextVal = currentActive ? -1 : 1;
+      setRuntimeMod(activeCharId, toggleKey, nextVal);
+      renderActiveCharacter();
+    }}
+
     function toggleInitDrawer() {{
       isInitDrawerOpen = !isInitDrawerOpen;
+      renderActiveCharacter();
+    }}
+
+    function updateChannelingState(spiritKey, forceVal) {{
+      setRuntimeMod(activeCharId, "channeling_spirit", spiritKey);
+      setRuntimeMod(activeCharId, "channeling_force", parseInt(forceVal, 10) || 0);
+      renderActiveCharacter();
+      if (spiritKey !== "none" && forceVal > 0) {{
+        showToast(`⚡ Channeling active: Force ${{forceVal}} ${{spiritKey.toUpperCase()}}`);
+      }} else {{
+        showToast("⚡ Spirit Channeling deactivated");
+      }}
+    }}
+
+    function updateChannelingOption(powerName, optionVal) {{
+      const optKey = "channeling_opt_" + powerName.toLowerCase().replace(/[^a-z0-9]/g, "_");
+      setRuntimeMod(activeCharId, optKey, optionVal);
+      renderActiveCharacter();
+    }}
+
+    function toggleChannelingOptionalPower(powerName, isSelected) {{
+      const toggleKey = "channeling_opt_power_" + powerName.toLowerCase().replace(/[^a-z0-9]/g, "_");
+      setRuntimeMod(activeCharId, toggleKey, isSelected ? 1 : 0);
       renderActiveCharacter();
     }}
 
@@ -1410,7 +1465,11 @@ def get_mobile_html_template(character_data_bundle: Dict[str, Any], initial_char
 
       // Check if any active modifiers exist for this character
       const charMods = RUNTIME_MODIFIERS[activeCharId] || {{}};
-      const hasActiveMods = Object.keys(charMods).some(k => charMods[k] !== 0);
+      const hasActiveMods = Object.keys(charMods).some(k => {{
+        const val = charMods[k];
+        if (k === "channeling_spirit") return val && val !== "none";
+        return val !== 0 && val !== "" && val !== null && val !== undefined;
+      }});
       const resetBtn = document.getElementById("resetAllModsBtn");
       if (resetBtn) {{
         resetBtn.style.display = hasActiveMods ? "inline-flex" : "none";
@@ -1434,13 +1493,29 @@ def get_mobile_html_template(character_data_bundle: Dict[str, Any], initial_char
       const attrsList = char.attributes_list || [];
       const liveAttrs = {{}};
 
+      // Spirit Channeling Active State Calculation
+      const hasChanneling = !!(char.identity && char.identity.has_channeling);
+      const activeSpiritKey = getRuntimeMod(activeCharId, "channeling_spirit") || "none";
+      const activeSpiritForce = parseInt(getRuntimeMod(activeCharId, "channeling_force") || 0, 10);
+      const spiritCatalog = (char.powers && char.powers.spirit_channeling_catalog) || char.spirit_channeling_catalog || {{}};
+      const activeSpirit = (activeSpiritKey !== "none" && spiritCatalog[activeSpiritKey]) ? spiritCatalog[activeSpiritKey] : null;
+      let channelingPhysicalBoost = 0;
+      let channelingWoundsIgnored = 0;
+      if (hasChanneling && activeSpirit && activeSpiritForce > 0) {{
+        channelingPhysicalBoost = Math.max(1, Math.floor(activeSpiritForce / 2));
+        channelingWoundsIgnored = activeSpiritForce;
+      }}
+
       // First pass: compute live physical, mental, special attributes
+      const physicalCodes = ["bod", "agi", "rea", "str"];
       attrsList.forEach((attr) => {{
-        const key = "attr_" + attr.code.toLowerCase();
+        const code = attr.code.toLowerCase();
+        const key = "attr_" + code;
         const delta = getRuntimeMod(activeCharId, key);
         if (!attr.linked_mental) {{
           const baseAug = attr.buffed;
-          liveAttrs[attr.code.toLowerCase()] = Math.max(0, baseAug + delta);
+          const chanBonus = physicalCodes.includes(code) ? channelingPhysicalBoost : 0;
+          liveAttrs[code] = Math.max(0, baseAug + delta + chanBonus);
         }}
       }});
 
@@ -1739,6 +1814,28 @@ def get_mobile_html_template(character_data_bundle: Dict[str, Any], initial_char
         qList.innerHTML = qHtml;
       }}
 
+      // Exceptions & Tabletop Rulings Rendering
+      const excList = document.getElementById("exceptionsList");
+      if (excList) {{
+        const excs = char.exceptions || [];
+        if (excs.length === 0) {{
+          excList.innerHTML = '<div style="color: var(--text-muted); font-size: 0.8rem;">No custom tabletop exceptions recorded (Standard Core rules apply).</div>';
+        }} else {{
+          excList.innerHTML = excs.map(e => `
+            <div style="background: rgba(0,0,0,0.35); border: 1px solid var(--border-accent); border-radius: 8px; padding: 8px 12px; margin-bottom: 6px;">
+              <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                <span style="font-weight: 700; color: var(--gold-primary); font-size: 0.85rem;">⚡ ${{e.title}}</span>
+                <span class="power-badge" style="text-transform: uppercase;">${{e.category || 'Ruling'}}</span>
+              </div>
+              <div style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 3px; line-height: 1.35;">${{e.description}}</div>
+              <div style="font-size: 0.68rem; color: var(--text-muted); margin-top: 4px;">
+                <strong>Source:</strong> ${{e.source || 'Campaign Ruling'}} | <strong>Authority:</strong> ${{e.gm || 'GM Ruling'}}
+              </div>
+            </div>
+          `).join("");
+        }}
+      }}
+
       // Skills Tab with Interactive +/- Steppers
       const sList = document.getElementById("skillsList");
       sList.innerHTML = "";
@@ -1757,7 +1854,46 @@ def get_mobile_html_template(character_data_bundle: Dict[str, Any], initial_char
         
         const specHtml = s.specialization ? `<span class="skill-spec">+2 ${{s.specialization}}</span>` : "";
         const deltaBadge = isManualMod ? `<span class="mod-delta-badge ${{delta > 0 ? 'pos' : 'neg'}}">${{delta > 0 ? '+' + delta : delta}}</span>` : "";
-        const buffsHtml = s.buffs.map(b => `<div class="buff-chip">${{b.active ? '✔' : '⚡'}} ${{b.source}} (+${{b.value}})</div>`).join("");
+
+        // Calculate dynamic buffs based on toggle state
+        let buffsDelta = 0;
+        const buffsHtml = s.buffs.map(b => {{
+          const modToggleKey = "toggle_" + skillKey + "_" + b.source.toLowerCase().replace(/[^a-z0-9]/g, "_");
+          // Check if disabled by user (defaults to active if b.active is true)
+          const isEnabled = getRuntimeMod(activeCharId, modToggleKey) !== -1;
+          if (!isEnabled && b.active) {{
+            buffsDelta -= b.value;
+          }}
+          const ruleLinkHtml = b.rule_anchor ? ` <a class="doc-link-inline" href="${{getDocUrl(activeCharId, b.rule_anchor)}}" target="_blank" rel="noopener" title="View Rule">📖</a>` : '';
+          return `
+            <div class="buff-chip ${{isEnabled ? 'buff-active' : 'buff-disabled'}}" style="cursor: pointer;" onclick="toggleBuff('${{modToggleKey}}', ${{isEnabled ? 1 : 0}}); event.stopPropagation();">
+              <span>${{isEnabled ? '☑' : '☐'}} <strong>${{b.source}}</strong> (+${{b.value}})${{ruleLinkHtml}}</span>
+            </div>
+          `;
+        }}).join("");
+
+        // Dynamically incorporate changes in the linked attribute
+        const attrMap = {{
+          "body": "bod", "agility": "agi", "reaction": "rea", "strength": "str",
+          "willpower": "wil", "logic": "log", "intuition": "int", "charisma": "cha",
+          "edge": "edg", "magic": "mag", "resonance": "res",
+          "bod": "bod", "agi": "agi", "rea": "rea", "str": "str",
+          "wil": "wil", "log": "log", "int": "int", "cha": "cha",
+          "edg": "edg", "mag": "mag", "res": "res"
+        }};
+        const rawAttrStr = (s.attribute || "").toLowerCase();
+        const shortCode = attrMap[rawAttrStr] || rawAttrStr;
+        const baseAugAttr = (char.attributes && (char.attributes[rawAttrStr] !== undefined ? char.attributes[rawAttrStr] : char.attributes[shortCode])) !== undefined
+          ? (char.attributes[rawAttrStr] !== undefined ? char.attributes[rawAttrStr] : char.attributes[shortCode])
+          : (s.base_pool - s.rating);
+        const liveAttrVal = liveAttrs[shortCode] !== undefined ? liveAttrs[shortCode] : (liveAttrs[rawAttrStr] !== undefined ? liveAttrs[rawAttrStr] : baseAugAttr);
+        const attrDelta = liveAttrVal - baseAugAttr;
+
+        const totalPool = Math.max(0, defaultPool + delta + buffsDelta + attrDelta);
+        const effectiveBoughtHits = Math.floor(totalPool / 4);
+        const effectiveSpecPool = s.specialization ? (totalPool + 2) : totalPool;
+        const effectiveSpecHits = Math.floor(effectiveSpecPool / 4);
+
         const docLink = s.doc_link ? `<a class="doc-link-btn" href="${{getDocUrl(activeCharId, s.doc_link)}}" target="_blank" rel="noopener">📖 View Rules & Mechanics ↗</a>` : "";
 
         item.innerHTML = `
@@ -1776,19 +1912,19 @@ def get_mobile_html_template(character_data_bundle: Dict[str, Any], initial_char
             <div class="stepper-pool-wrap">
               <button class="stepper-btn minus" onclick="stepModifier('${{skillKey}}', -1)" title="Decrease Pool by 1">-</button>
               <div class="pool-target" title="Tap to Copy">
-                <span class="pool-d6">${{currentPool}}d6</span>
-                <span class="pool-sublabel">Base: ${{s.base_pool}}d6 | Default: ${{s.buffed_pool}}d6 ${{s.specialization ? `| Spec: ${{specPool}}d6` : ''}}</span>
+                <span class="pool-d6">${{totalPool}}d6</span>
+                <span class="pool-sublabel">Base: ${{s.base_pool}}d6 | Default: ${{s.buffed_pool}}d6 ${{s.specialization ? `| Spec: ${{effectiveSpecPool}}d6` : ''}}</span>
               </div>
               <button class="stepper-btn plus" onclick="stepModifier('${{skillKey}}', 1)" title="Increase Pool by 1">+</button>
             </div>
             <div class="bought-hits-box">
-              <span class="bought-hits-num">${{boughtHits}}</span>
+              <span class="bought-hits-num">${{effectiveBoughtHits}}</span>
               <span class="bought-hits-lbl">Bought Hits</span>
             </div>
           </div>
           <div class="breakdown-drawer">
             <div class="breakdown-math">📊 ${{s.breakdown_text}} ${{isManualMod ? `| Live Modifier: ${{delta > 0 ? '+' + delta : delta}}` : ''}}</div>
-            ${{s.specialization ? `<div style="font-size: 0.8rem; color: var(--gold-primary); margin-bottom: 4px;"><strong>Specialized Action:</strong> ${{specPool}}d6 (${{specHits}} Bought Hits)</div>` : ''}}
+            ${{s.specialization ? `<div style="font-size: 0.8rem; color: var(--gold-primary); margin-bottom: 4px;"><strong>Specialized Action:</strong> ${{effectiveSpecPool}}d6 (${{effectiveSpecHits}} Bought Hits)</div>` : ''}}
             <div class="buff-checklist">
               ${{buffsHtml || '<div class="buff-chip">No active buffs</div>'}}
             </div>
@@ -1798,7 +1934,7 @@ def get_mobile_html_template(character_data_bundle: Dict[str, Any], initial_char
 
         // Click target to copy/toast
         item.querySelector(".pool-target").addEventListener("click", () => {{
-          showToast(`⚡ ${{s.name}}: ${{currentPool}}d6 (${{boughtHits}} Hits)${{s.specialization ? ` [${{s.specialization}}: ${{specPool}}d6]` : ''}}`);
+          showToast(`⚡ ${{s.name}}: ${{totalPool}}d6 (${{effectiveBoughtHits}} Hits)${{s.specialization ? ` [${{s.specialization}}: ${{effectiveSpecPool}}d6]` : ''}}`);
         }});
 
         const isDrawerOpen = openDrawers.has(skillKey);
@@ -1897,6 +2033,187 @@ def get_mobile_html_template(character_data_bundle: Dict[str, Any], initial_char
       const echoes = char.powers.echoes || [];
       const monad = char.powers.monad_abilities || [];
       const augs = char.powers.augmentations || [];
+
+      // ⚡ Spirit Channeling Inhabitation Console for Mages with Conjuring & Channeling
+      if (hasChanneling) {{
+        const mageMagic = parseInt(char.attributes.magic || 6, 10);
+        const maxAllowedForce = Math.max(1, mageMagic - 1);
+        const spiritCatalog = (char.powers && char.powers.spirit_channeling_catalog) || char.spirit_channeling_catalog || {{}};
+        const spiritKeys = Object.keys(spiritCatalog);
+
+        // Build Spirit dropdown options
+        let spiritOptsHtml = `<option value="none" ${{activeSpiritKey === 'none' ? 'selected' : ''}}>— None (Inactive / Astral Standby) —</option>`;
+        spiritKeys.forEach(k => {{
+          const sp = spiritCatalog[k];
+          const isSel = (activeSpiritKey === k);
+          spiritOptsHtml += `<option value="${{k}}" ${{isSel ? 'selected' : ''}}>${{sp.name}} (${{sp.category}})</option>`;
+        }});
+
+        // Build Force dropdown options (1 to Magic - 1 per user specification)
+        let forceOptsHtml = "";
+        for (let f = 1; f <= maxAllowedForce; f++) {{
+          const isSel = (activeSpiritForce === f) || (!activeSpiritForce && f === Math.min(3, maxAllowedForce));
+          forceOptsHtml += `<option value="${{f}}" ${{isSel ? 'selected' : ''}}>Force ${{f}} (+${{Math.max(1, Math.floor(f/2))}} Phys, ${{f}} Wounds Ignored)</option>`;
+        }}
+
+        // Optional Powers UI per SR6 Core: 1 optional power for every 3 full points of Force
+        let optionalPowersHtml = "";
+        let powerChoiceHtml = "";
+        if (activeSpirit && activeSpiritForce > 0) {{
+          const optionalList = activeSpirit.optional_powers || [];
+          const maxOptionalAllowed = Math.floor(activeSpiritForce / 3);
+
+          if (optionalList.length > 0) {{
+            if (maxOptionalAllowed > 0) {{
+              const currentlyCheckedPowers = optionalList.filter(op => {{
+                const optToggleKey = "channeling_opt_power_" + op.name.toLowerCase().replace(/[^a-z0-9]/g, "_");
+                return getRuntimeMod(activeCharId, optToggleKey) === 1;
+              }});
+
+              optionalPowersHtml = `
+                <div style="margin-top: 10px; padding: 10px; background: rgba(0,0,0,0.3); border-radius: 8px; border-left: 3px solid var(--purple-accent);">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <div style="font-size: 0.78rem; font-weight: 700; color: var(--purple-accent); text-transform: uppercase;">
+                      🌟 Optional Powers (${{currentlyCheckedPowers.length}} / ${{maxOptionalAllowed}} Selected)
+                    </div>
+                    <div style="font-size: 0.70rem; color: var(--text-muted); font-style: italic;">
+                      1 per 3 full points of Force (SR6 Core p. 147)
+                    </div>
+                  </div>
+                  <div style="display: flex; flex-direction: column; gap: 6px;">
+                    ${{optionalList.map(op => {{
+                      const optToggleKey = "channeling_opt_power_" + op.name.toLowerCase().replace(/[^a-z0-9]/g, "_");
+                      const isOptChecked = getRuntimeMod(activeCharId, optToggleKey) === 1;
+                      const disableCheck = (!isOptChecked && currentlyCheckedPowers.length >= maxOptionalAllowed);
+                      return `
+                        <label style="display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: ${{disableCheck ? 'var(--text-muted)' : 'var(--text-primary)'}}; cursor: ${{disableCheck ? 'not-allowed' : 'pointer'}}; opacity: ${{disableCheck ? '0.6' : '1'}};">
+                          <input type="checkbox" ${{isOptChecked ? 'checked' : ''}} ${{disableCheck ? 'disabled' : ''}} onchange="toggleChannelingOptionalPower('${{op.name}}', this.checked)">
+                          <span><strong>${{op.name}}</strong> <em style="color: var(--text-muted); font-size: 0.75rem;">— ${{op.effect}}</em></span>
+                        </label>
+                      `;
+                    }}).join("")}}
+                  </div>
+                </div>
+              `;
+            }} else {{
+              optionalPowersHtml = `
+                <div style="margin-top: 10px; padding: 8px 10px; background: rgba(0,0,0,0.18); border-radius: 6px; border: 1px dashed var(--border-subtle); font-size: 0.76rem; color: var(--text-muted);">
+                  ℹ️ <em>Optional powers unlock at Force 3+ (1 for every 3 full points of Force: Force 1–2 receive 0, Force 3–5 receive 1, Force 6–8 receive 2).</em>
+                </div>
+              `;
+            }}
+          }}
+        }}
+
+        // Specific Choice input for configurable powers (e.g. Skill for Spirit of Task, Innate Spell for Spirit of Kin)
+        const configurablePowers = (activeSpirit && activeSpirit.powers) ? activeSpirit.powers.filter(p => p.requires_choice) : [];
+        if (configurablePowers.length > 0) {{
+          powerChoiceHtml = configurablePowers.map(cp => {{
+            const optKey = "channeling_opt_" + cp.name.toLowerCase().replace(/[^a-z0-9]/g, "_");
+            const currentVal = getRuntimeMod(activeCharId, optKey) || "";
+            return `
+              <div style="margin-top: 8px; padding: 8px 10px; background: rgba(0,0,0,0.25); border-radius: 6px; border: 1px dashed var(--border-accent);">
+                <div style="font-size: 0.76rem; color: var(--gold-primary); font-weight: 600; margin-bottom: 4px;">
+                  ⚙️ ${{cp.choice_label || cp.name + ' Specification'}}:
+                </div>
+                <input type="text" class="search-input" style="padding: 4px 8px; font-size: 0.8rem;" placeholder="e.g. Electronics, Engineering, or Spell Name" value="${{currentVal}}" onchange="updateChannelingOption('${{cp.name}}', this.value)">
+              </div>
+            `;
+          }}).join("");
+        }}
+
+        // Active channeling status banner
+        const isChannelingActive = (activeSpirit && activeSpiritForce > 0);
+        const statusBanner = isChannelingActive ? `
+          <div style="margin-top: 10px; padding: 10px 12px; background: rgba(217, 70, 239, 0.12); border: 1px solid var(--border-accent); border-radius: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-weight: 700; color: var(--gold-primary); font-size: 0.88rem;">
+                ⚡ Channeling Inhabited: ${{activeSpirit.name}} (Force ${{activeSpiritForce}})
+              </span>
+              <span class="power-badge" style="background: rgba(217,70,239,0.25); color: #f0abfc;">Dual-Natured</span>
+            </div>
+            <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 4px; line-height: 1.4;">
+              • <strong>Physical Augmentation:</strong> +${{channelingPhysicalBoost}} to BOD, AGI, REA, STR (reflected in live attributes & pools)<br>
+              • <strong>Somatic Resilience:</strong> Ignores up to <strong>${{channelingWoundsIgnored}} boxes</strong> of wound penalties<br>
+              • <strong>Perception:</strong> Simultaneous Astral & Physical Plane interaction without projecting
+              ${{activeSpirit.weakness ? `<br>• <span style="color: #fca5a5;"><strong>Weakness:</strong> ${{activeSpirit.weakness}}</span>` : ''}}
+            </div>
+            <div style="margin-top: 6px;">
+              <a class="doc-link-btn" href="${{getDocUrl(activeCharId, activeSpirit.doc_link)}}" target="_blank" rel="noopener">📖 View Channeling Protocols ↗</a>
+            </div>
+          </div>
+        ` : `
+          <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 6px;">
+            Select a spirit and Force to channel into physical form. Max Force is limited to <strong>Magic - 1</strong> (Force ${{maxAllowedForce}}).
+          </div>
+        `;
+
+        pContent.innerHTML += `
+          <div class="card" style="border: 1px solid var(--border-accent); box-shadow: 0 0 12px rgba(217, 70, 239, 0.15);">
+            <div class="card-title" style="display: flex; justify-content: space-between; align-items: center;">
+              <span>⚡ Spirit Channeling Inhabitation Console</span>
+              <span class="power-badge" style="text-transform: uppercase;">Street Wyrd p. 122</span>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 140px; gap: 8px; margin-top: 8px;">
+              <div>
+                <label style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; display: block; margin-bottom: 3px;">Channeled Spirit</label>
+                <select id="channelingSpiritSelect" class="char-select" style="font-size: 0.88rem; padding: 6px 10px;" onchange="updateChannelingState(this.value, document.getElementById('channelingForceSelect').value)">
+                  ${{spiritOptsHtml}}
+                </select>
+              </div>
+              <div>
+                <label style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; display: block; margin-bottom: 3px;">Force (1 - ${{maxAllowedForce}})</label>
+                <select id="channelingForceSelect" class="char-select" style="font-size: 0.88rem; padding: 6px 10px;" onchange="updateChannelingState(document.getElementById('channelingSpiritSelect').value, this.value)">
+                  ${{forceOptsHtml}}
+                </select>
+              </div>
+            </div>
+
+            ${{powerChoiceHtml}}
+            ${{optionalPowersHtml}}
+            ${{statusBanner}}
+          </div>
+        `;
+
+        // If channeling is active, inject the spirit powers into the active powers list
+        if (isChannelingActive) {{
+          const spiritPowers = activeSpirit.powers || [];
+          const activeOptionalPowers = (activeSpirit.optional_powers || []).filter(op => {{
+            const optToggleKey = "channeling_opt_power_" + op.name.toLowerCase().replace(/[^a-z0-9]/g, "_");
+            return getRuntimeMod(activeCharId, optToggleKey) === 1;
+          }});
+
+          const allChanneledPowers = [...spiritPowers, ...activeOptionalPowers];
+          const channeledCardsHtml = allChanneledPowers.map(p => {{
+            const optKey = "channeling_opt_" + p.name.toLowerCase().replace(/[^a-z0-9]/g, "_");
+            const optVal = getRuntimeMod(activeCharId, optKey);
+            const choiceLabel = optVal ? ` [<strong>${{optVal}}</strong>]` : "";
+            return `
+              <div class="power-item" style="border-left: 3px solid var(--purple-accent);">
+                <div class="power-header">
+                  <strong style="color: var(--purple-accent);">${{p.name}}${{choiceLabel}}</strong>
+                  <span class="power-badge">${{p.action}}</span>
+                </div>
+                <div style="font-size: 0.8rem; color: var(--gold-primary); margin-top: 2px;">Target: ${{p.target}}</div>
+                <div style="font-size: 0.82rem; color: var(--text-secondary); margin-top: 4px;">${{p.effect}}</div>
+                <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 4px;">
+                  Channeled from ${{activeSpirit.name}} (Force ${{activeSpiritForce}}) | <strong>Source:</strong> ${{activeSpirit.source}}
+                </div>
+              </div>
+            `;
+          }}).join("");
+
+          pContent.innerHTML += `
+            <div class="card">
+              <div class="card-title" style="color: var(--purple-accent);">
+                ✨ Active Channeled Spirit Powers (${{activeSpirit.name}} F${{activeSpiritForce}})
+              </div>
+              ${{channeledCardsHtml}}
+            </div>
+          `;
+        }}
+      }}
 
       if (cf.length > 0) {{
         let cfItems = cf.map(c => `

@@ -1,0 +1,97 @@
+# Equipment & Advancement Ledger
+
+```{python}
+#| echo: false
+#| include: false
+from sr6core.log_engine import inc, inc_many, assign, state, adept_power, spell
+
+# Initial Starting Resources from Chargen
+assign("Karma", 0)
+assign("Lifetime_Karma", 0)
+assign("Nuyen", 50000)
+assign("Lifetime_Nuyen", 50000)
+```
+
+This ledger itemizes character creation gear, matrix devices, identities, software, and post-chargen advancements.
+
+---
+
+### Disguise & Medical Assets
+
+* **Nanopaste Disguise Kit:** `{python} inc('Nuyen', -1400)`
+  * Nanopaste Disguise Refill x1: `{python} inc('Nuyen', -300)`
+* **Nanocosmetics Kit:** `{python} inc('Nuyen', -700)`
+  * Nanocosmetics Refill x2: `{python} inc('Nuyen', -200)`
+* **Savior Medkit:** `{python} inc('Nuyen', -2000)`
+  * Savior Medkit Refill x1: `{python} inc('Nuyen', -300)`
+
+---
+
+### Matrix Devices & Software
+
+* **Erika Elite (Device Rating 4):** `{python} inc('Nuyen', -2500)`
+  * Comhack Securelink Upgrade: `{python} inc('Nuyen', -1000)`
+  * P-ICE Nope!: `{python} inc('Nuyen', -350)`
+  * Personal Assistant (Rating 6): `{python} inc('Nuyen', -500)`
+* **Renraku Sensei (Device Rating 3) x2:** *(Loot: CMP 2083-01 Nonplushed)*
+* **Commlink Applications & Utilities:**
+  * Virtual Machine: `{python} inc('Nuyen', -100)`
+  * Nanomask: `{python} inc('Nuyen', -100)`
+  * Thermal Mood Reading: `{python} inc('Nuyen', -100)`
+  * Facial Scanner: `{python} inc('Nuyen', -100)`
+  * MeFeed: `{python} inc('Nuyen', -50)`
+* **Audio / Visual Sensor Suite:**
+  * Contacts (Rating 3 with Image Link, Flare Compensation, Thermographic Vision): `{python} inc('Nuyen', -1375)`
+  * Earbuds (Rating 3): `{python} inc('Nuyen', -150)`
+  * Subvocal Microphone: `{python} inc('Nuyen', -50)`
+
+---
+
+### Armor & High-Fashion Outerwear
+
+* **Ares SecureTech Skinshield (Defense Rating 2):** `{python} inc('Nuyen', -4150)`
+  * Concealable Holster
+  * Rapid Adjustment Clothing System (RACS 2)
+  * Fashion Accessory: Très Chic x2
+  * Ballistic Hood
+
+---
+
+### Identities, Licenses & Second Lives
+
+* **Fake SIN: Lee Ji-Yoo (Rating 6):** `{python} inc('Nuyen', -15000)` *(Second Life Quality)*
+  * Fake License: Magician (Rating 6): `{python} inc('Nuyen', -1200)`
+* **Fake SIN: Tanaka Ryo (Rating 6):** `{python} inc('Nuyen', -15000)` *(Second Life Quality)*
+
+---
+
+### Spells & Metamagic Advancement
+
+* **Increase Attribute (Health Spell):** *Character Creation* `{python} spell('Increase Attribute', category='Health', duration='Sustained', spell_type='Physical', spell_range='Touch', drain=3, notes='Sorcery + Magic test. Net hits increase target attribute by +1.')`
+* **Channeling (Metamagic):** *Initiation Grade 1 (SRM 2081-09 Eviction Notice)* `{python} metamagic('Channeling', notes='Allows conscious coexistence and spellcasting control while inhabited/channeling a spirit.')`
+* **Increase Reflexes (Health Spell):** `{python} spell('Increase Reflexes', category='Health', duration='Sustained', spell_type='Physical', spell_range='Touch', drain=5, notes='Sorcery + Magic test. Net hits increase Reaction and Initiative Dice.')` *(SRM 2081-01 Downtime)*
+* **Power Point (Metamagic):** *Initiation Grade 2 (SRM 2081-01 Death of a Fixer)* `{python} metamagic('Power Point', notes='Grants 1.0 Adept Power Point.')`
+  * `{python} adept_power('Linguistics', rating=1, cost_pp=0.25, action='Passive', notes='Absorbs spoken languages after 1 hr exposure.')`
+  * `{python} adept_power('Command Presence', rating=1, cost_pp=0.50, action='Passive', notes='+2 dice pool bonus and +1 Edge on Influence (Leadership) tests.')`
+  * `{python} adept_power('Cloak', rating=1, cost_pp=0.25, action='Passive', notes='-1 dice pool penalty to hostile Assensing tests.')`
+
+---
+
+### Foci & Magical Assets
+
+* **Qi Focus (Rating 4) — Sharp Tongue:** `{python} inc('Nuyen', -12000)` `{python} inc('Karma', -8)` `{python} adept_power('Sharp Tongue', rating=1, cost_pp=1.0, action='Major Action', source='Qi Focus (Rating 4)', notes='CHA + Magic vs INT + WIL. Net hits inflict unresisted Stun damage.')` *(Post-chargen Qi Focus, Smooth Operations p. 1)*
+
+---
+
+### Skills & Specializations
+
+* **Sorcery Specialization (Spellcasting):** *5 Karma (CMP 2083-01 Downtime)*
+
+---
+
+### Weaponry & Field Armaments
+
+* **Beretta 101T Light Pistol x2:** *(Loot: CMP 2083-01 Nonplushed)*
+* **Sap x2:** *(Loot: CMP 2083-01 Nonplushed)*
+* **Yamaha Raiden Assault Rifle x1:** *(Loot: CMP 2083-01 Nonplushed)*
+* **Stun Baton x1:** *(Loot: CMP 2083-01 Nonplushed)*

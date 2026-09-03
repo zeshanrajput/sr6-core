@@ -4,252 +4,119 @@
   Note: Connection ratings for official SRM Canonical Contacts are fixed by
  the SRM Guide.
 ----------------------------------------------------------------------------
- [01] BRYNNE TAGGART (Fixer) [SEA]
-      Connection: 4 (Fixed) | Loyalty: 3 | Active Favors: 3
-      History / Changes: Uses: Getting jobs, fencing gear, gangs (Shadowrun
-      Missions Seattle) | Types: Criminal, Street
+ [01] BRYNNE TAGGART
 ----------------------------------------------------------------------------
- [02] WHISKEY (Street Doc) [SEA]
-      Connection: 2 (Fixed) | Loyalty: 4 | Active Favors: 0
-      History / Changes: Uses: Medicine, street docs (Shadowrun Missions
-      Seattle) | Types: Medical
+ [02] WHISKEY
 ----------------------------------------------------------------------------
- [03] INDOMITABLE WILL (River People Sysop) [NOLA]
-      Connection: 3 (Fixed) | Loyalty: 3 | Active Favors: 0
-      History / Changes: Uses: Banking, HVAC systems, Matrix | Types:
-      Corporate, Matrix
+ [03] INDOMITABLE WILL
 ----------------------------------------------------------------------------
- [04] ROANOKE (Ecological Activist) [NOLA]
-      Connection: 3 (Fixed) | Loyalty: 3 | Active Favors: 2
-      History / Changes: Uses: Getting jobs, environmental science,
-      shamanism | Types: Criminal, Matrix
+ [04] ROANOKE
 ----------------------------------------------------------------------------
- [05] PIOTR KROLIK (NOLA Vory Borjevik) [NOLA]
-      Connection: 4 (Fixed) | Loyalty: 1 | Active Favors: 1
-      History / Changes: SMH 2083-02 EggHunt at the Jackalope Ranch
+ [05] PIOTR KROLIK
 ----------------------------------------------------------------------------
- [06] LE TIGRE (Epoch Model) [NOLA]
-      Connection: 5 (Fixed) | Loyalty: 2 | Active Favors: 1
-      History / Changes: Uses: Getting jobs, parties, modeling | Types:
-      Corporate, Magic
+ [06] LE TIGRE
 ----------------------------------------------------------------------------
- [07] WHITE JACKALOPE (Emergent Lifeform) [GEN]
-      Connection: 2 (Fixed) | Loyalty: 1 | Active Favors: 1
-      History / Changes: SMH 2083-02 EggHunt at the Jackalope Ranch
+ [07] WHITE JACKALOPE
 ----------------------------------------------------------------------------
- [08] BIG LOUIE (SEA Fixer) [SEA]
-      Connection: 3 (Fixed) | Loyalty: 1 | Active Favors: 1
-      History / Changes: CMP First Taste : Top Chef - Seattle
+ [08] BIG LOUIE
 ----------------------------------------------------------------------------
- [09] DOMINIQUE AUGUSTIN (NOLA Wolverine Security) [NOLA]
-      Connection: 4 (Fixed) | Loyalty: 2 | Active Favors: 0
-      History / Changes: 2083-03 Unofficial Dunkelzahn Fan Club
+ [09] DOMINIQUE AUGUSTIN
 ----------------------------------------------------------------------------
- [10] DANIEL FORTUNE (NOLA) [NOLA]
-      Connection: 3 (Fixed) | Loyalty: 1 | Active Favors: 1
-      History / Changes: 2083-03 Unofficial Dunkelzahn Fan Club
+ [10] DANIEL FORTUNE
 ----------------------------------------------------------------------------
- [11] RENÉE MARTIN (League of Laveau Liaison) [NOLA]
-      Connection: 4 (Fixed) | Loyalty: 2 | Active Favors: 2
-      History / Changes: Uses: Getting jobs, magic, voodoo, zombies | Types:
-      Corporate, Magic
+ [11] RENÉE MARTIN
 ----------------------------------------------------------------------------
- [12] THE FRISIAN (AMS Crime Lord of the Dutch Penose syndicate) [AMS]
-      Connection: 6 (Fixed) | Loyalty: 1 | Active Favors: 1
-      History / Changes: CMP 2081-09 Bring me Prince Charming
+ [12] THE FRISIAN
 ----------------------------------------------------------------------------
- [13] REE 'DOLLY' HACKER (KY Talismonger and Racer) [KY]
-      Connection: 4 (Fixed) | Loyalty: 2 | Active Favors: 0
-      History / Changes: CMP 2081-18 Blue Kentucky Girl
+ [13] REE 'DOLLY' HACKER
 ----------------------------------------------------------------------------
- [14] GRANNY (KY Lady of the Autumn Wind) [KY]
-      Connection: 6 (Fixed) | Loyalty: 2 | Active Favors: 0
-      History / Changes: CMP 2081-18 Blue Kentucky Girl
+ [14] GRANNY
 ----------------------------------------------------------------------------
- [15] KIARA SHAW (AMS Knight Errant Company Suit) [AMS]
-      Connection: 4 (Fixed) | Loyalty: 2 | Active Favors: 1
-      History / Changes: CMP 2081-10 A Diamond in The Rough
+ [15] KIARA SHAW
 ----------------------------------------------------------------------------
- [16] SIMON ANDREWS (AMS S-K Johnson) [AMS]
-      Connection: 5 (Fixed) | Loyalty: 2 | Active Favors: 2
-      History / Changes: CMP 2081-11 Paved with good intentions
+ [16] SIMON ANDREWS
 ----------------------------------------------------------------------------
- [17] SQUINT (AMS Smuggler) [AMS]
-      Connection: 2 (Fixed) | Loyalty: 1 | Active Favors: 1
-      History / Changes: CMP 2081-11 Paved with good intentions
+ [17] SQUINT
 ----------------------------------------------------------------------------
- [18] DR. LAURELINE DODD (KY Arcano-Archeologist) [KY]
-      Connection: 5 (Fixed) | Loyalty: 2 | Active Favors: 0
-      History / Changes: CMP 2081-19 The Blue Moon of Kentucky
+ [18] DR. LAURELINE DODD
 ----------------------------------------------------------------------------
- [19] THADDEUS (KY Street Samurai) [KY]
-      Connection: 3 (Fixed) | Loyalty: 1 | Active Favors: 1
-      History / Changes: CMP 2081-19 The Blue Moon of Kentucky
+ [19] THADDEUS
 ----------------------------------------------------------------------------
- [20] DUAN YUHAI (SEA Minor 88s Johnson) [SEA]
-      Connection: 3 (Fixed) | Loyalty: 1 | Active Favors: 1
-      History / Changes: SRM 2081-17 Framed in Blood
+ [20] DUAN YUHAI
 ----------------------------------------------------------------------------
- [21] XIONG GIUYIN (SEA Wuxing) [SEA]
-      Connection: 4 (Fixed) | Loyalty: 1 | Active Favors: 1
-      History / Changes: SRM 2081-17 Framed in Blood
+ [21] XIONG GIUYIN
 ----------------------------------------------------------------------------
- [22] REILLY DRAGMAN (Magic) [KY]
-      Connection: 1 (Fixed) | Loyalty: 2 | Active Favors: 0
-      History / Changes: Magic | Types: Magic
+ [22] REILLY DRAGMAN
 ----------------------------------------------------------------------------
- [23] QUEEN BRANE (Magic) [KY]
-      Connection: 12 (Fixed) | Loyalty: 1 | Active Favors: 1
-      History / Changes: Magic (Special Note: This contact cannot be called
-      during a mission.) | Types: Magic
+ [23] QUEEN BRANE
 ----------------------------------------------------------------------------
- [24] KIRT LIGER (SEA Body Mod/Engineering Cybercatman) [SEA]
-      Connection: 3 (Fixed) | Loyalty: 2 | Active Favors: 0
-      History / Changes: SRM 2081-21 Grudge Match Gladiators
+ [24] KIRT LIGER
 ----------------------------------------------------------------------------
- [25] SIGRÚN (AMS House Orange-Nassau Johnson) [AMS]
-      Connection: 5 (Fixed) | Loyalty: 3 | Active Favors: 2
-      History / Changes: CMP 2081-12 Uneasy lies the head
+ [25] SIGRÚN
 ----------------------------------------------------------------------------
- [26] DIXIE L'AMIN (DW Naga) [DW]
-      Connection: 4 (Fixed) | Loyalty: 2 | Active Favors: 0
-      History / Changes: CMP 2083-14 A Day at the Beach
+ [26] DIXIE L'AMIN
 ----------------------------------------------------------------------------
- [27] AYANDA 'SHIELDBEARER' MAHLANGU (DW 'Mystic Edge' Producer) [DW]
-      Connection: 3 (Fixed) | Loyalty: 1 | Active Favors: 1
-      History / Changes: CMP 2083-14 A Day at the Beach
+ [27] AYANDA 'SHIELDBEARER' MAHLANGU
 ----------------------------------------------------------------------------
- [28] EBON ABIRASHUR (DW Leviathan Dragon) [DW]
-      Connection: 1 (Fixed) | Loyalty: 2 | Active Favors: 0
-      History / Changes: CMP 2083-14 A Day at the Beach
+ [28] EBON ABIRASHUR
 ----------------------------------------------------------------------------
- [29] COL. DEBORAH KENTWELL (DW Thunder Corps Fixer) [DW]
-      Connection: 5 (Fixed) | Loyalty: 2 | Active Favors: 0
-      History / Changes: CMP 2083-16 War Never Changes
+ [29] COL. DEBORAH KENTWELL
 ----------------------------------------------------------------------------
- [30] POLYPHEMOUS 'PAUL' PELLAGIOS (DW Background Actor) [DW]
-      Connection: 1 (Fixed) | Loyalty: 1 | Active Favors: 1
-      History / Changes: CMP 2083-16 War Never Changes
+ [30] POLYPHEMOUS 'PAUL' PELLAGIOS
 ----------------------------------------------------------------------------
- [31] FERNAND ANATO (Kozlowski Capo) [NOLA]
-      Connection: 4 (Fixed) | Loyalty: 1 | Active Favors: 1
-      History / Changes: Uses: Getting jobs, fencing gear, organized crime |
-      Types: Criminal, Street
+ [31] FERNAND ANATO
 ----------------------------------------------------------------------------
- [32] MONSIEUR JOHNSON (NOLA Johnson) [NOLA]
-      Connection: 5 (Fixed) | Loyalty: 2 | Active Favors: 1
-      History / Changes: SRM 2083-19 The Hallow Feast
+ [32] MONSIEUR JOHNSON
 ----------------------------------------------------------------------------
- [33] SWANGO (SEA Rapper) [SEA]
-      Connection: 3 (Fixed) | Loyalty: 2 | Active Favors: 1
-      History / Changes: SRM 2081-05 This is Renton
+ [33] SWANGO
 ----------------------------------------------------------------------------
- [34] TOIL (Fixer) [SEA]
-      Connection: 4 (Fixed) | Loyalty: 1 | Active Favors: 1
-      History / Changes: Uses: Drugs, exotic dancer clubs, getting jobs
-      (Shadowrun Missions Seattle) | Types: Criminal, Street
+ [34] TOIL
 ----------------------------------------------------------------------------
- [35] TRUBBLE (Bodyguard) [SEA]
-      Connection: 1 (Fixed) | Loyalty: 1 | Active Favors: 1
-      History / Changes: Uses: Bodyguards, insults, talismans (Shadowrun
-      Missions Seattle) | Types: Magic
+ [35] TRUBBLE
 ----------------------------------------------------------------------------
- [36] SPIINICOP (AMS Penose Spider) [AMS]
-      Connection: 2 (Fixed) | Loyalty: 1 | Active Favors: 1
-      History / Changes: CMP 2083-01 NONPLUSHED
+ [36] SPIINICOP
 ----------------------------------------------------------------------------
- [37] EDDIE WEI (Triad Johnson) [SEA]
-      Connection: 4 (Fixed) | Loyalty: 1 | Active Favors: 1
-      History / Changes: Uses: Business and economics, getting jobs, triads
-      (Shadowrun Missions Seattle) | Types: Criminal, Matrix
+ [37] EDDIE WEI
 ----------------------------------------------------------------------------
- [38] JULIAN MÜNTEFERING (Corporate Kid) [SEA]
-      Connection: 1 (Fixed) | Loyalty: 1 | Active Favors: 1
-      History / Changes: Uses: Corporate playground rumors, drones, rigging
-      research (Shadowrun Missions Seattle) | Types: Corporate, Engineering
+ [38] JULIAN MÜNTEFERING
 ----------------------------------------------------------------------------
- [39] NI NI XIAOLU (Triad Johnson) [SEA]
-      Connection: 3 (Fixed) | Loyalty: 2 | Active Favors: 2
-      History / Changes: Uses: Getting jobs, drugs, street rumors, triads
-      (Shadowrun Missions Seattle) | Types: Criminal
+ [39] NI NI XIAOLU
 ----------------------------------------------------------------------------
- [40] BOOKIE (SEA Ancients Bookie) [SEA]
-      Connection: 3 (Fixed) | Loyalty: 1 | Active Favors: 1
-      History / Changes: SRM 2081-07 Bootleg Bliss
+ [40] BOOKIE
 ----------------------------------------------------------------------------
- [41] TRUDY (SEA Cutter Lieutenant) [SEA]
-      Connection: 2 (Fixed) | Loyalty: 1 | Active Favors: 1
-      History / Changes: SRM 2081-07 Bootleg Bliss
+ [41] TRUDY
 ----------------------------------------------------------------------------
- [42] SAINT JAMES (Fixer) [SEA]
-      Connection: 8 (Fixed) | Loyalty: 2 | Active Favors: 1
-      History / Changes: Uses: Corporations, getting jobs (Shadowrun
-      Missions Seattle), fencing gear, gangs | Types: Criminal, Street
+ [42] SAINT JAMES
 ----------------------------------------------------------------------------
- [43] JEANIE TRUDEL (SEA Bartender) [SEA]
-      Connection: 1 (Fixed) | Loyalty: 1 | Active Favors: 1
-      History / Changes: SRM 2081-06 Cutting Strings
+ [43] JEANIE TRUDEL
 ----------------------------------------------------------------------------
- [44] KINGSTON (Shadowrunner/Street Samurai) [SEA]
-      Connection: 2 (Fixed) | Loyalty: 1 | Active Favors: 1
-      History / Changes: Uses: Shadowrunners, street rumors (Shadowrun
-      Missions Seattle) | Types: Criminal, Street
+ [44] KINGSTON
 ----------------------------------------------------------------------------
- [45] KAATJE (AMS Young Entertainer) [AMS]
-      Connection: 2 (Fixed) | Loyalty: 1 | Active Favors: 1
-      History / Changes: CMP 2083-04 Hog Wild
+ [45] KAATJE
 ----------------------------------------------------------------------------
- [46] MR. FA (HKB Corporate Middle Manager) [HK]
-      Connection: 4 (Fixed) | Loyalty: 2 | Active Favors: 0
-      History / Changes: CMP 2083-05 Precious Cargo
+ [46] MR. FA
 ----------------------------------------------------------------------------
- [47] LIAO FA REN (HK Rookie Journalist) [HK]
-      Connection: 3 (Fixed) | Loyalty: 2 | Active Favors: 1
-      History / Changes: CMP 2083-05 Precious Cargo
+ [47] LIAO FA REN
 ----------------------------------------------------------------------------
- [48] ALOYSIUS SPRINGINSGUTH (NOLA Sound of Silence Music Shop Owner) [NOLA]
-      Connection: 3 (Fixed) | Loyalty: 2 | Active Favors: 1
-      History / Changes: SRM 2083-12 When You're Smiling
+ [48] ALOYSIUS SPRINGINSGUTH
 ----------------------------------------------------------------------------
- [49] JOLENE PRICE (Riverboat Alliance Leader) [NOLA]
-      Connection: 7 (Fixed) | Loyalty: 2 | Active Favors: 1
-      History / Changes: Uses: Getting jobs, dragons, mafia | Types:
-      Corporate, Street
+ [49] JOLENE PRICE
 ----------------------------------------------------------------------------
- [50] COFFIN GIRLS (NOLA Independent Courtesans Group) [NOLA]
-      Connection: 3 (Fixed) | Loyalty: 4 | Active Favors: 0
-      History / Changes:
+ [50] COFFIN GIRLS
 ----------------------------------------------------------------------------
- [51] CEDAR (NOLA Talismonger) [NOLA]
-      Connection: 3 (Fixed) | Loyalty: 1 | Active Favors: 1
-      History / Changes: SRM 2083-20 The Fallacy of Plans
+ [51] CEDAR
 ----------------------------------------------------------------------------
- [52] DETECTIVE REMY LEBLANC (NOLA Detective) [NOLA]
-      Connection: 3 (Fixed) | Loyalty: 2 | Active Favors: 1
-      History / Changes: SRM 2083-20 The Fallacy of Plans
+ [52] DETECTIVE REMY LEBLANC
 ----------------------------------------------------------------------------
- [53] CLAUDETTE LAURIER (Order of the Golden Dawn Librarian) [NOLA]
-      Connection: 5 (Fixed) | Loyalty: 1 | Active Favors: 1
-      History / Changes: Uses: Getting jobs, magical traditions | Types:
-      Criminal, Matrix
+ [53] CLAUDETTE LAURIER
 ----------------------------------------------------------------------------
- [54] LEAGUE OF LAVEAU (NOLA Voodoo Organization) [NOLA]
-      Connection: 6 (Fixed) | Loyalty: 3 | Active Favors: 1
-      History / Changes: SRM 2083-18 Some Kind of Voodoo?
+ [54] LEAGUE OF LAVEAU
 ----------------------------------------------------------------------------
- [55] ZOBOP (NOLA Voodoo Organization) [NOLA]
-      Connection: 6 (Fixed) | Loyalty: 3 | Active Favors: 1
-      History / Changes: SRM 2083-18 Some Kind of Voodoo?
+ [55] ZOBOP
 ----------------------------------------------------------------------------
- [56] COL. TREYLOR (DW Thunder Corps Fixer) [DW]
-      Connection: 3 (Fixed) | Loyalty: 2 | Active Favors: 0
-      History / Changes: CMP 2083-15 | By Land, Sea, and Hair
+ [56] COL. TREYLOR
 ----------------------------------------------------------------------------
- [57] MOENEN (UNL infobroker) [AMS]
-      Connection: 5 (Fixed) | Loyalty: 2 | Active Favors: 0
-      History / Changes: CMP 2083-02 ROYAL ROAD
+ [57] MOENEN
 ----------------------------------------------------------------------------
- [58] BLACKSTONE (SEA Contact) [SEA]
-      Connection: 3 (Fixed) | Loyalty: 1 | Active Favors: 0
-      History / Changes: SRM 2081-18 Friendships Never Grow Rust
+ [58] BLACKSTONE
 ----------------------------------------------------------------------------

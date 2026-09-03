@@ -18,3 +18,10 @@ data/
 _book/
 .quarto/
 _site/
+*.db
+*.sqlite
+rules_index.db
+cache_index.json
+characters/*/scratch/
+*.wav
+*.mp3

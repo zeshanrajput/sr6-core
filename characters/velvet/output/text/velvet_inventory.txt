@@ -2,23 +2,15 @@
  INVENTORY, MATRIX HARDWARE & SOFTWARE: VELVET
 ============================================================================
  TACTICAL OPERATING CENTERS & MATRIX DEVICES:
-  - Commlink: Erika Elite (DR: 4 | DP: 2 | FW: 2)
-  - Commlink: Renraku Sensei (DR: 3 | DP: 1 | FW: 1)
 ----------------------------------------------------------------------------
  SOFTWARE & PROGRAMS:
   No specialized matrix programs or autosofts installed.
 ----------------------------------------------------------------------------
  FIELD GEAR, MUNITIONS & AMMUNITION:
-  - [Qty: 1] Nanocosmetics Kit
-  - [Qty: 1] Nanocosmetics Refill
   - [Qty: 1] Nanopaste Disguise Kit
-  - [Qty: 1] Nanopaste Disguise Refill
-  - [Qty: 1] Savior Medkit
-  - [Qty: 1] Savior Medkit Refill
-  - [Qty: 1] Contacts
-  - [Qty: 1] Earbuds
-  - [Qty: 1] Subvocal Microphone
-  - [Qty: 1] Qi Focus (Rating 4)
+  - [Qty: 1] Nanocosmetics Kit
+  - [Qty: 1] Savior Medkit (Rating 6)
+  - [Qty: 1] Contacts (Rating 3 w/ Flare Comp, Image Link, Thermo)
 ----------------------------------------------------------------------------
  SINS, LICENSES & LIFESTYLES:
   - SIN: Fake SIN: Lee Ji-Yoo:  (Second Life Quality) (Rating 6)

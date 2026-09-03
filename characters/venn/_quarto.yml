@@ -16,24 +16,23 @@ book:
     - part: "Core Character"
       chapters:
         - chapters/identity_core.qmd
-        - chapters/character_build.qmd
+        - core/character_build.qmd
         - chapters/character_sheet.qmd
-        - chapters/character_totals.qmd
-        - chapters/character_log.qmd
-        - chapters/character_purchases.qmd
+        - core/character_log.qmd
+        - core/character_purchases.qmd
         - chapters/twenty_questions.qmd
-        - chapters/rules_and_downtime.qmd
+        - rules/rules_and_downtime.qmd
         - chapters/narrative_outline.qmd
         - chapters/appendix_dossier.qmd
     - part: "Narrative Anthology"
       chapters:
-        - chapters/01_the_day_a_god_fell.md
-        - chapters/02_salt_marsh_node.md
-        - chapters/03_threading_the_wire.md
-        - chapters/04_night_of_her_own.md
-        - chapters/05_dual_icons_foundation.md
-        - chapters/06_sabotaged_berth.md
-        - chapters/07_first_contract.md
+        - narrative/01_the_day_a_god_fell.md
+        - narrative/02_salt_marsh_node.md
+        - narrative/03_threading_the_wire.md
+        - narrative/04_night_of_her_own.md
+        - narrative/05_dual_icons_foundation.md
+        - narrative/06_sabotaged_berth.md
+        - narrative/07_first_contract.md
     - part: "Reference & Specifications"
       chapters:
         - reference/voice_spec.md

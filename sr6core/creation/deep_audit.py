@@ -126,10 +126,11 @@ def deep_audit_character(char_id: str, db_path: str = DEFAULT_DB_PATH) -> Dict[s
             "verified_in_db": row is not None
         })
 
-    if total_pos_karma > 50:
-        warnings.append(f"Positive qualities total ({total_pos_karma} Karma) exceeds standard 50 Karma cap.")
-    if total_neg_karma > 50:
-        warnings.append(f"Negative qualities total ({total_neg_karma} Karma) exceeds standard 50 Karma cap.")
+    # In Shadowrun Point Buy / Customization, characters spend from a 50 Karma budget
+    # where negative qualities grant Karma (up to the allowed limit) and net positive qualities cost Karma.
+    net_quality_karma = total_pos_karma - total_neg_karma
+    if net_quality_karma > 50:
+        warnings.append(f"Net positive qualities cost ({net_quality_karma} Karma) exceeds the 50 Karma customization allowance.")
 
     # 2. Audit Gear & Vehicles/Drones
     gear_audits = []

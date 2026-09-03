@@ -17,26 +17,25 @@ book:
     - part: "Core Character"
       chapters:
         - chapters/identity_core.md
-        - chapters/character_build.qmd
+        - core/character_build.qmd
         - chapters/character_sheet.qmd
-        - chapters/character_totals.qmd
-        - chapters/character_log.qmd
-        - chapters/character_purchases.qmd
+        - core/character_log.qmd
+        - core/character_purchases.qmd
         - chapters/twenty_questions.qmd
-        - chapters/rules_and_downtime.qmd
+        - rules/rules_and_downtime.qmd
         - chapters/appendix_dossier.qmd
     - part: "Narrative Log"
       chapters:
-        - chapters/01_transaction.md
-        - chapters/02_faceless_mirror.md
-        - chapters/03_dark_wings.md
-        - chapters/04_sabotage.md
-        - chapters/05_first_negotiation.md
-        - chapters/06_seattle_web.md
-        - chapters/07_bliss.md
-        - chapters/08_Tea_in_Tacoma.md
-        - chapters/09_Heat.md
-        - chapters/10_Burns.md
+        - narrative/01_transaction.md
+        - narrative/02_faceless_mirror.md
+        - narrative/03_dark_wings.md
+        - narrative/04_sabotage.md
+        - narrative/05_first_negotiation.md
+        - narrative/06_seattle_web.md
+        - narrative/07_bliss.md
+        - narrative/08_Tea_in_Tacoma.md
+        - narrative/09_Heat.md
+        - narrative/10_Burns.md
 
     - part: "Reference & Specifications"
       chapters:

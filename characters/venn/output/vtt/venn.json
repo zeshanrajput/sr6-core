@@ -299,17 +299,7 @@
   "augmentations": [],
   "vehicles": [],
   "drones": [],
-  "lifestyles": [
-    {
-      "name": "Low Lifestyle (Off-Grid Coastal Boathouse)",
-      "customName": "Low Lifestyle (Off-Grid Coastal Boathouse)",
-      "cost": 0,
-      "paidMonths": 1,
-      "sin": null,
-      "options": null,
-      "description": null
-    }
-  ],
+  "lifestyles": [],
   "sins": [
     {
       "name": "Fake Licenses (Rating 4 x2): (1,600\u00a5)",
@@ -326,13 +316,13 @@
   "licenses": [
     {
       "name": "Fake License: Firearms",
-      "sin": "Fake Licenses (Rating 4 x2): (1,600\u00a5)",
-      "rating": 4
+      "rating": 4,
+      "sin": "Fake Licenses (Rating 4 x2): (1,600\u00a5)"
     },
     {
       "name": "Fake License: Concealed Carry",
-      "sin": "Fake Licenses (Rating 4 x2): (1,600\u00a5)",
-      "rating": 4
+      "rating": 4,
+      "sin": "Fake Licenses (Rating 4 x2): (1,600\u00a5)"
     }
   ],
   "matrixItems": [],

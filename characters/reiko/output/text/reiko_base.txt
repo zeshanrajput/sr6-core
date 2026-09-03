@@ -3,7 +3,7 @@
 ============================================================================
  Real Name : r31k0 Takahashi    | Metatype : AI-Pilot AI (Technoshamans)
  Submersion: Grade 8            | Gender   : DIVERSE (Age: ~ 10)
- Available Nuyen : 10,000.0¥ | Karma: 5 Pool (229 Lifetime)
+ Available Nuyen : 10,000.0¥ | Karma: 0 Pool (229 Lifetime)
 ----------------------------------------------------------------------------
  ATTRIBUTES & DERIVED RATINGS:
   ATT (STR): 7  | SLZ (REA): 9  | DP (AGI): 7  | FW (BOD): 9 
@@ -19,9 +19,11 @@
   Matrix Initiative   : 10 + 4D6 (Hot-Sim VR / Overclock)
 ----------------------------------------------------------------------------
  ACTIVE SKILLS & TABLE-RELEVANT DICE POOLS:
-  - Tasking             : 18d6  [RES 8 + 6 Rtg + +4 Focus]
-  - Cracking            : 21d6  [RES 8 + 5 Rtg + +4 Focus + +4 Taz]
-  - Electronics         : 21d6  [RES 8 + 5 Rtg + +4 Focus + +4 Taz]
+  - Tasking             : 18d6  [RES 8 + 6 Rtg]
+  - Cracking            : 21d6  [RES 8 + 5 Rtg + +4 Taz Symbiosis (Cracking)
+    (Teamwork)]
+  - Electronics         : 21d6  [RES 8 + 5 Rtg + +4 Taz Symbiosis
+    (Electronics) (Teamwork)]
   - Influence           : 5d6  [CHA 4 + 1 Rtg]
   - Con                 : 5d6  [CHA 4 + 1 Rtg]
   - Native Language     : 8d6  [LOG 4 + 4 Rtg]

@@ -4,78 +4,37 @@
   Note: Connection ratings for official SRM Canonical Contacts are fixed by
  the SRM Guide.
 ----------------------------------------------------------------------------
- [01] BRYNNE TAGGART (Fixer) [SEA]
-      Connection: 4 (Fixed) | Loyalty: 1 | Active Favors: 0
-      History / Changes: Chargen Contact | SRM 2081-01 Death of a Fixer
+ [01] BRYNNE TAGGART
 ----------------------------------------------------------------------------
- [02] VINCENT GRISOME (Magic Prof.) [SEA]
-      Connection: 5 (Fixed) | Loyalty: 3 | Active Favors: 0
-      History / Changes: Chargen Contact
+ [02] VINCENT GRISOME
 ----------------------------------------------------------------------------
- [03] NI NI XIAOLU (Triad Johnson) [SEA]
-      Connection: 3 (Fixed) | Loyalty: 2 | Active Favors: 0
-      History / Changes: Chargen Contact | +2 FP SRM 2081-07 Bootleg Bliss
-      (looking forward to date)
+ [03] NI NI XIAOLU
 ----------------------------------------------------------------------------
- [04] WHISKEY (Street Doc) [SEA]
-      Connection: 2 (Fixed) | Loyalty: 3 | Active Favors: 1
-      History / Changes: Chargen Contact | SRM 2081-02 Urgent Care
+ [04] WHISKEY
 ----------------------------------------------------------------------------
- [05] CLAUDETTE LAURIER (Order of the Golden Dawn Librarian) [NOLA]
-      Connection: 5 (Fixed) | Loyalty: 4 | Active Favors: 0
-      History / Changes: Chargen Contact
+ [05] CLAUDETTE LAURIER
 ----------------------------------------------------------------------------
- [06] LE TIGRE (Epoch Model) [NOLA]
-      Connection: 5 (Fixed) | Loyalty: 1 | Active Favors: 0
-      History / Changes: Chargen Contact
+ [06] LE TIGRE
 ----------------------------------------------------------------------------
- [07] HANA (Wuxing Talismonger / Pop Idol) [SEA]
-      Connection: 6 (Fixed) | Loyalty: 6 | Active Favors: 0
-      History / Changes: Chargen Contact
+ [07] HANA
 ----------------------------------------------------------------------------
- [08] GUILD OF FREELANCE ASSETS (Conclave) [GEN]
-      Connection: 7 (Fixed) | Loyalty: 8 | Active Favors: 0
-      History / Changes: Chargen Contact (Conclave C7 L8)
+ [08] GUILD OF FREELANCE ASSETS
 ----------------------------------------------------------------------------
- [09] MS. SNOW (Johnson) [SEA]
-      Connection: 5 (Fixed) | Loyalty: 1 | Active Favors: 1
-      History / Changes: SRM 2081-09 Eviction Notice (Elven female)
+ [09] MS. SNOW
 ----------------------------------------------------------------------------
- [10] BOOKIE (Ancients Bookie) [SEA]
-      Connection: 3 (Fixed) | Loyalty: 1 | Active Favors: 0
-      History / Changes: SRM 2081-07 Bootleg Bliss
+ [10] BOOKIE
 ----------------------------------------------------------------------------
- [11] TRUDY (Cutters Lieutenant) [SEA]
-      Connection: 2 (Fixed) | Loyalty: 1 | Active Favors: 0
-      History / Changes: SRM 2081-07 Bootleg Bliss
+ [11] TRUDY
 ----------------------------------------------------------------------------
- [12] EDDIE WEI (Triad Johnson) [SEA]
-      Connection: 4 (Fixed) | Loyalty: 1 | Active Favors: 0
-      History / Changes: Uses: Business and economics, getting jobs, triads
-      (Shadowrun Missions Seattle) | Types: Criminal, Matrix | SRM 2081-02
-      Urgent Care
+ [12] EDDIE WEI
 ----------------------------------------------------------------------------
- [13] KINGSTON (Shadowrunner/Street Samurai) [SEA]
-      Connection: 2 (Fixed) | Loyalty: 2 | Active Favors: 0
-      History / Changes: Uses: Shadowrunners, street rumors (Shadowrun
-      Missions Seattle) | Types: Criminal, Street | SRM 2081-02 Urgent Care
+ [13] KINGSTON
 ----------------------------------------------------------------------------
- [14] MS. MARGARET (Hospital Volunteer) [SEA]
-      Connection: 1 (Fixed) | Loyalty: 1 | Active Favors: 0
-      History / Changes: SRM 2081-02 Urgent Care (Elderly Human Hospital
-      Volunteer who needs her roof fixed)
+ [14] MS. MARGARET
 ----------------------------------------------------------------------------
- [15] SIMON ANDREWS (S-K Johnson) [AMS]
-      Connection: 5 (Fixed) | Loyalty: 1 | Active Favors: 0
-      History / Changes: CMP 2083-01 Nonplushed (S-K Johnson)
+ [15] SIMON ANDREWS
 ----------------------------------------------------------------------------
- [16] MR. FA (HKB Corporate Middle Manager) [HK]
-      Connection: 4 (Fixed) | Loyalty: 1 | Active Favors: 1
-      History / Changes: CMP 2083-05 Precious Cargo (Liao Fa Deng, Male
-      Human Corporate Middle Manager)
+ [16] MR. FA
 ----------------------------------------------------------------------------
- [17] LIAO FA REN (HK Rookie Journalist) [HK]
-      Connection: 3 (Fixed) | Loyalty: 2 | Active Favors: 1
-      History / Changes: CMP 2083-05 Precious Cargo (Female Human Rookie
-      Journalist, top marks on port raid story)
+ [17] LIAO FA REN
 ----------------------------------------------------------------------------

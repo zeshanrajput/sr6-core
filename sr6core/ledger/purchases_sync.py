@@ -193,8 +193,10 @@ class PurchasesSyncEngine:
         if not repo_dir or not os.path.exists(repo_dir):
             return {"status": "error", "message": f"Repo dir for '{char_id}' not found"}
 
-        # Find character_purchases.qmd
-        qmd_path = os.path.join(repo_dir, "chapters", "character_purchases.qmd")
+        # Find character_purchases.qmd (prioritize core/ over chapters/)
+        core_path = os.path.join(repo_dir, "core", "character_purchases.qmd")
+        chap_path = os.path.join(repo_dir, "chapters", "character_purchases.qmd")
+        qmd_path = core_path if os.path.exists(core_path) else chap_path
         if not os.path.exists(qmd_path):
             # Check alternative locations
             for root, _, files in os.walk(repo_dir):

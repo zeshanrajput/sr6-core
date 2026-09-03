@@ -3,9 +3,9 @@
 ============================================================================
  COMPLEX FORMS:
   Abbreviations: FV (Fading Value), Dur (Duration: P=Perm, S=Sust, I=Inst)
+  - Technoregeneration         | FV: -1 | Dur: P
   - Cleaner                    | FV: 2  | Dur: P
   - Diffusion                  | FV: 4  | Dur: S
-  - Technoregeneration         | FV: -1 | Dur: P
   - Puppeteer                  | FV: 5  | Dur: S
   - Cyber Spike                | FV: 3  | Dur: I
 ----------------------------------------------------------------------------

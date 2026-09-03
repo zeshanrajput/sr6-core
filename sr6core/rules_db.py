@@ -484,22 +484,69 @@ class RulesDB:
             ("ref_qualities", "quality"),
             ("ref_spells", "spell"),
             ("ref_complex_forms", "complex_form"),
+            ("ref_adept_powers", "adept_power"),
+            ("ref_weapons", "weapon"),
+            ("ref_vehicles", "vehicle"),
+            ("ref_cyberware", "cyberware"),
+            ("ref_programs", "program"),
             ("ref_gear", "gear"),
             ("ref_metatypes", "metatype")
         ]
 
+        # Generate normalized candidate identifiers
+        candidate_identifiers = [
+            clean_target,
+            norm_target,
+            clean_target.lower(),
+            clean_target.lower().replace("-", " "),
+            clean_target.lower().replace("-", "_")
+        ]
+        
+        # Also try stripping common manufacturer / brand prefixes (Ares, Shiawase, Renraku, MCT, Federated-Boeing)
+        unbranded = re.sub(r'^(?:ares|shiawase|renraku|mct|federated-boeing|erika)\s+', '', clean_target, flags=re.IGNORECASE).strip()
+        if unbranded and unbranded.lower() != clean_target.lower():
+            candidate_identifiers.extend([
+                unbranded,
+                unbranded.lower().replace(" ", "_"),
+                unbranded.lower().replace("-", " "),
+                unbranded.lower().replace("-", "_"),
+                unbranded.lower()
+            ])
+
+        # 1. Exact match pass (highest precision)
         for tbl, t_label in tables:
             try:
-                row = cursor.execute(
-                    f"SELECT * FROM {tbl} WHERE id = ? OR lower(id) = ? OR lower(name) = ?",
-                    (clean_target, norm_target, clean_target.lower())
-                ).fetchone()
-                if row:
-                    dataset_info = dict(row)
-                    item_type = t_label
+                for cand in candidate_identifiers:
+                    row = cursor.execute(
+                        f"SELECT * FROM {tbl} WHERE id = ? OR lower(id) = ? OR lower(name) = ?",
+                        (cand, cand.lower(), cand.lower())
+                    ).fetchone()
+                    if row:
+                        dataset_info = dict(row)
+                        item_type = t_label
+                        break
+                if dataset_info:
                     break
             except Exception:
                 pass
+
+        # 2. Pattern match pass (if no exact match found)
+        if not dataset_info:
+            for tbl, t_label in tables:
+                try:
+                    for cand in candidate_identifiers:
+                        row = cursor.execute(
+                            f"SELECT * FROM {tbl} WHERE lower(id) LIKE ? OR lower(name) LIKE ?",
+                            (f"%{cand.lower()}%", f"%{cand.lower()}%")
+                        ).fetchone()
+                        if row:
+                            dataset_info = dict(row)
+                            item_type = t_label
+                            break
+                    if dataset_info:
+                        break
+                except Exception:
+                    pass
 
         vault_rule = self.query_rule(norm_target) or self.query_rule(clean_target)
         if not vault_rule:

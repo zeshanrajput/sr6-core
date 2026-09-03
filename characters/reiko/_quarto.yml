@@ -17,30 +17,29 @@ book:
     - part: "Core Character"
       chapters:
         - chapters/identity_core.qmd
-        - chapters/character_build.qmd
+        - core/character_build.qmd
         - chapters/character_sheet.qmd
-        - chapters/character_totals.qmd
-        - chapters/character_log.qmd
-        - chapters/character_purchases.qmd
+        - core/character_log.qmd
+        - core/character_purchases.qmd
         - chapters/twenty_questions.qmd
-        - chapters/dronomancy.md
+        - rules/dronomancy.md
         - chapters/appendix_dossier.qmd
     - part: "Rules & Downtime Protocols"
       chapters:
-        - chapters/rules_and_downtime.qmd
-        - chapters/rules_matrix.qmd
-        - chapters/rules_sprites.qmd
-        - chapters/rules_drones.qmd
-        - chapters/rules_combat.qmd
+        - rules/rules_and_downtime.qmd
+        - rules/rules_matrix.qmd
+        - rules/rules_sprites.qmd
+        - rules/rules_drones.qmd
+        - rules/rules_combat.qmd
     - part: "Background Stories"
       chapters:
-        - chapters/01 The Weight of Zero.md
-        - chapters/02 Color Blind Mathematics.md
-        - chapters/03 The Soul Broker's Stall.md
-        - chapters/04 The War Crime.md
-        - chapters/05 A SINner's Loan.md
-        - chapters/06 The Ghost in the Ledger.md
-        - chapters/07 Sunday at r3sP@wn.md
+        - narrative/01 The Weight of Zero.md
+        - narrative/02 Color Blind Mathematics.md
+        - narrative/03 The Soul Broker's Stall.md
+        - narrative/04 The War Crime.md
+        - narrative/05 A SINner's Loan.md
+        - narrative/06 The Ghost in the Ledger.md
+        - narrative/07 Sunday at r3sP@wn.md
     - part: "Out-of-Session Narratives"
       chapters:
         - chapters/08 Abandoning Tourism.md

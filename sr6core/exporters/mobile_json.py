@@ -12,6 +12,7 @@ from typing import Dict, Any, List, Optional
 from sr6core.modifiers import ModifierEngine, PoolModifier
 from sr6core.vehicles import calculate_drone_action_pools
 from sr6core.log_engine import get_log_totals
+from sr6core.rules_spirits import SPIRIT_CATALOG
 
 
 def _get_name(item: Any, default: str = "") -> str:
@@ -73,9 +74,16 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
     karma_avail = totals.get("Karma", identity.get("karma", 0))
     karma_life = totals.get("Lifetime_Karma", identity.get("total_karma", karma_avail))
 
-    is_monad = "monad" in mortype or "monad" in str(metatype).lower() or "monad" in str(identity.get("archetype", "")).lower() or "monad" in str(identity.get("heritage", "")).lower() or "monad_abilities" in char_data
-    is_ai = ("pilot ai" in str(metatype).lower() or str(metatype).lower() == "ai" or "ai" in stream.lower()) and not is_monad
+    is_monad = "monad" in mortype or "monad" in str(metatype).lower() or "monad" in str(identity.get("archetype", "")).lower() or "monad" in str(identity.get("heritage", "")).lower() or bool(char_data.get("monad_abilities"))
+    is_ai = ("ai" in str(metatype).lower() or "pilot" in str(metatype).lower() or "yuriko" in handle.lower() or "reiko" in handle.lower() or "r31k0" in real_name.lower() or "ai" in stream.lower()) and not is_monad
     is_velvet = "velvet" in handle.lower() or "kim jin-young" in real_name.lower()
+    
+    # Check if character has Channeling metamagic and Conjuring skill
+    all_metamagics = char_data.get("metamagic", []) + char_data.get("meta_echoes", []) + char_data.get("metamagics", [])
+    has_channeling = any(
+        (isinstance(m, dict) and "channeling" in m.get("name", "").lower()) or "channeling" in str(m).lower()
+        for m in all_metamagics
+    ) or is_velvet
 
     # Base attributes
     bod = int(attrs.get("body", 1))
@@ -100,25 +108,12 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
     buffed_cha = cha
     buffed_wil = wil
 
-    # Venn / Union: Bioware bonuses (Muscle Toner +2 AGI, Synaptic Booster +2 REA, Muscle Augmentation +2 STR)
     buffed_agi = agi
     buffed_rea = rea
     buffed_str = str_val
     buffed_bod = bod
     buffed_log = log_val
     buffed_int = int_val
-
-    if is_monad:
-        # Check bioware in character data
-        cyb_bio = _safe_item_list(char_data.get("cyberware")) + _safe_item_list(char_data.get("bioware"))
-        for item in cyb_bio:
-            name_lower = _get_name(item).lower()
-            if "muscle toner" in name_lower and buffed_agi == agi:
-                buffed_agi = max(buffed_agi, agi + 2)
-            elif "synaptic booster" in name_lower and buffed_rea == rea:
-                buffed_rea = max(buffed_rea, rea + 2)
-            elif "muscle augmentation" in name_lower and buffed_str == str_val:
-                buffed_str = max(buffed_str, str_val + 2)
 
     # Condition Monitors: Strictly based on BASE attributes!
     nv = int(identity.get("nanite_volume", 0))
@@ -271,9 +266,9 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
                 "base": agi,
                 "buffed": buffed_agi,
                 "is_buffed": buffed_agi != agi,
-                "buffs": [{"source": "Muscle Toner R2 (Used)", "value": buffed_agi - agi, "notes": "+2 Agility bioware"}] if buffed_agi != agi else [],
-                "breakdown": f"Base {agi} + Muscle Toner (+{buffed_agi - agi}) = {buffed_agi}" if buffed_agi != agi else f"Base {agi}",
-                "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking" if is_monad else "chapters/rules_and_downtime.html"
+                "buffs": [],
+                "breakdown": f"Base {agi}",
+                "doc_link": "rules/rules_and_downtime.html" if is_monad else "rules/rules_and_downtime.html"
             },
             {
                 "name": "Reaction",
@@ -281,9 +276,9 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
                 "base": rea,
                 "buffed": buffed_rea,
                 "is_buffed": buffed_rea != rea,
-                "buffs": [{"source": "Synaptic Booster R2 (Used)", "value": buffed_rea - rea, "notes": "+2 Reaction, +2D6 Initiative"}] if buffed_rea != rea else [],
-                "breakdown": f"Base {rea} + Synaptic Booster (+{buffed_rea - rea}) = {buffed_rea}" if buffed_rea != rea else f"Base {rea}",
-                "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking" if is_monad else "chapters/rules_and_downtime.html"
+                "buffs": [],
+                "breakdown": f"Base {rea}",
+                "doc_link": "rules/rules_and_downtime.html" if is_monad else "rules/rules_and_downtime.html"
             },
             {
                 "name": "Strength",
@@ -291,9 +286,9 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
                 "base": str_val,
                 "buffed": buffed_str,
                 "is_buffed": buffed_str != str_val,
-                "buffs": [{"source": "Muscle Augmentation R2 (Used)", "value": buffed_str - str_val, "notes": "+2 Strength bioware"}] if buffed_str != str_val else [],
-                "breakdown": f"Base {str_val} + Muscle Augmentation (+{buffed_str - str_val}) = {buffed_str}" if buffed_str != str_val else f"Base {str_val}",
-                "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking" if is_monad else "chapters/rules_and_downtime.html"
+                "buffs": [],
+                "breakdown": f"Base {str_val}",
+                "doc_link": "rules/rules_and_downtime.html" if is_monad else "rules/rules_and_downtime.html"
             },
             {
                 "name": "Willpower",
@@ -1123,12 +1118,14 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
             "gender": gender,
             "age": age,
             "nuyen": nuyen,
+            "lifetime_nuyen": totals.get("Lifetime_Nuyen", identity.get("lifetime_nuyen", nuyen)),
             "karma": karma_avail,
             "karma_avail": karma_avail,
             "lifetime_karma": karma_life,
             "nanite_volume": nv,
             "is_ai": is_ai,
-            "is_monad": is_monad
+            "is_monad": is_monad,
+            "has_channeling": has_channeling
         },
         "attributes": {
             "body": bod,
@@ -1178,6 +1175,7 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
         "sprite_powers": sprite_powers,
         "monad_abilities": monad_abilities,
         "augmentations": augmentations,
+        "spirit_channeling_catalog": SPIRIT_CATALOG if has_channeling else {},
         "powers": {
             "complex_forms": complex_forms,
             "echoes": submersion_echoes,
@@ -1185,7 +1183,8 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
             "spells": spells,
             "adept_powers": adept_powers,
             "monad_abilities": monad_abilities,
-            "augmentations": augmentations
+            "augmentations": augmentations,
+            "spirit_channeling_catalog": SPIRIT_CATALOG if has_channeling else {}
         },
         "inventory": {
             "commlinks": [d["name"] for d in compiled_matrix_devices],
@@ -1204,5 +1203,7 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
         "software": compiled_software,
         "sins": compiled_sins,
         "lifestyles": compiled_lifestyles,
-        "contacts": compiled_contacts
+        "contacts": compiled_contacts,
+        "exceptions": char_data.get("exceptions", []),
+        "rules_doc": f"rules/rules.html"
     }

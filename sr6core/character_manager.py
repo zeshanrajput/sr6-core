@@ -101,6 +101,52 @@ class CharacterManager:
                 except Exception as e:
                     print(f"[Warning] Error parsing YAML for {char_id} at {matched_file}: {e}")
 
+            # Also load exceptions if available in rules/exceptions.yaml
+            if data and resolved_repo_dir:
+                try:
+                    from sr6core.creation.exceptions_parser import ExceptionsRegistry
+                    data["exceptions"] = ExceptionsRegistry.get_character_exceptions(char_id, repo_dir=resolved_repo_dir)
+                except Exception:
+                    pass
+
+                # Ingest declared modifiers and collections from character_build.qmd / character_log.qmd / character_purchases.qmd
+                try:
+                    from sr6core.log_engine import get_log_totals
+                    totals = get_log_totals(resolved_repo_dir)
+                    if totals:
+                        if "Modifiers" in totals and totals["Modifiers"]:
+                            data.setdefault("modifiers", [])
+                            existing_ids = {m.get("id") for m in data["modifiers"] if isinstance(m, dict)}
+                            for dm in totals["Modifiers"]:
+                                if dm.get("id") not in existing_ids:
+                                    data["modifiers"].append(dm)
+                                    existing_ids.add(dm.get("id"))
+
+                        for field_key in ["Spells", "Complex_Forms", "Adept_Powers", "Metamagic", "Echoes", "Knowledge_Skills"]:
+                            if field_key in totals and totals[field_key]:
+                                yaml_key = field_key.lower()
+                                data.setdefault(yaml_key, [])
+                                existing_names = {x.get("name", "").lower() for x in data[yaml_key] if isinstance(x, dict)}
+                                for item in totals[field_key]:
+                                    if item.get("name", "").lower() not in existing_names:
+                                        data[yaml_key].append(item)
+                                        existing_names.add(item.get("name", "").lower())
+                        # Sync dynamic runtime balances (Karma, Nuyen, Contacts) from single source of truth log
+                        data.setdefault("identity", {})
+                        if "Karma" in totals:
+                            data["identity"]["karma"] = totals["Karma"]
+                        if "Nuyen" in totals:
+                            data["identity"]["nuyen"] = totals["Nuyen"]
+                        if "Contacts" in totals and totals["Contacts"]:
+                            data.setdefault("contacts", [])
+                            existing_contact_names = {c.get("name", "").lower() for c in data["contacts"] if isinstance(c, dict)}
+                            for c in totals["Contacts"]:
+                                if c.get("name", "").lower() not in existing_contact_names:
+                                    data["contacts"].append(c)
+                                    existing_contact_names.add(c.get("name", "").lower())
+                except Exception:
+                    pass
+
             full_path = matched_file or os.path.join(self.github_root, repo_name, master_file)
             name = cfg.get("name") or (data.get("identity", {}).get("handle") if data else char_id.title())
             characters[char_id] = {

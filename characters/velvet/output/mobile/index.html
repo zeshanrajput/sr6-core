@@ -519,6 +519,27 @@
       gap: 6px;
       color: var(--text-secondary);
       font-size: 0.8rem;
+      padding: 3px 6px;
+      border-radius: 6px;
+      transition: all 0.15s ease;
+    }
+    .buff-chip.buff-active {
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.12);
+    }
+    .buff-chip.buff-disabled {
+      color: var(--text-muted);
+      opacity: 0.55;
+      text-decoration: line-through;
+    }
+    .doc-link-inline {
+      color: var(--indigo-primary);
+      text-decoration: none;
+      font-size: 0.82rem;
+      margin-left: 4px;
+    }
+    .doc-link-inline:hover {
+      color: #ffffff;
     }
 
     .doc-link-btn {
@@ -1105,6 +1126,11 @@
         <div id="qualitiesList">
           <!-- Generated via JS -->
         </div>
+
+        <div class="card-title" style="margin-top: 16px;">Verified Exceptions & Tabletop Rulings</div>
+        <div id="exceptionsList">
+          <!-- Generated via JS -->
+        </div>
       </div>
     </section>
 
@@ -1242,12 +1268,14 @@
       "gender": "DIVERSE",
       "age": 20,
       "nuyen": 30735,
-      "karma": 14,
-      "karma_avail": 14,
+      "lifetime_nuyen": 105800,
+      "karma": 19,
+      "karma_avail": 19,
       "lifetime_karma": 47,
       "nanite_volume": 0,
       "is_ai": false,
-      "is_monad": false
+      "is_monad": false,
+      "has_channeling": true
     },
     "attributes": {
       "body": 2,
@@ -1282,7 +1310,7 @@
         "is_buffed": false,
         "buffs": [],
         "breakdown": "Base 3",
-        "doc_link": "chapters/rules_and_downtime.html"
+        "doc_link": "rules/rules_and_downtime.html"
       },
       {
         "name": "Reaction",
@@ -1292,7 +1320,7 @@
         "is_buffed": false,
         "buffs": [],
         "breakdown": "Base 2",
-        "doc_link": "chapters/rules_and_downtime.html"
+        "doc_link": "rules/rules_and_downtime.html"
       },
       {
         "name": "Strength",
@@ -1302,7 +1330,7 @@
         "is_buffed": false,
         "buffs": [],
         "breakdown": "Base 2",
-        "doc_link": "chapters/rules_and_downtime.html"
+        "doc_link": "rules/rules_and_downtime.html"
       },
       {
         "name": "Willpower",
@@ -1750,7 +1778,7 @@
         "type": "Physical",
         "range": "Touch",
         "duration": "Sustained",
-        "notes": "Sorcery + Magic (5 - Essence) test. Net hits increase target attribute by +1 (max +4). Each net hit beyond the 1st increases Drain by +1. Sustained via Focused Concentration R3 with 0 penalties.",
+        "notes": "Sorcery + Magic test. Net hits increase target attribute by +1.",
         "doc_link": "chapters/rules_and_downtime.html#spell-library"
       },
       {
@@ -1759,7 +1787,7 @@
         "type": "Physical",
         "range": "Touch",
         "duration": "Sustained",
-        "notes": "Sorcery + Magic (5 - Essence) test. Net hits increase both Reaction and Initiative Dice (+1 REA & +1D6 Init per net hit). Each net hit beyond the 1st increases Drain by +1.",
+        "notes": "Sorcery + Magic test. Net hits increase Reaction and Initiative Dice.",
         "doc_link": "chapters/rules_and_downtime.html#spell-library"
       }
     ],
@@ -1768,35 +1796,35 @@
         "name": "Cosmetic Control",
         "cost": "2.0 PP",
         "rating": 2,
-        "notes": "Physical biological disguise (face, skin, height, weight, gender markers, eyes, metaspecies features). Reduces Edge cost by -1 for Con tests (Acting, Disguise, Impersonation).",
+        "notes": "Physical biological disguise (face, skin, height, weight, gender markers). Reduces Edge cost by -1 for Con tests.",
         "doc_link": "chapters/rules_and_downtime.html#adept-powers"
       },
       {
         "name": "Linguistics",
         "cost": "0.25 PP",
         "rating": 1,
-        "notes": "Absorbs any new spoken language at basic proficiency after 1 hour of exposure without spending Karma. +1 bonus die on language Perception tests.",
+        "notes": "Absorbs spoken languages after 1 hr exposure.",
         "doc_link": "chapters/rules_and_downtime.html#adept-powers"
       },
       {
         "name": "Command Presence",
-        "cost": "0.50 PP",
+        "cost": "0.5 PP",
         "rating": 1,
-        "notes": "+2 dice pool bonus and +1 Edge on all Influence (Leadership) tests. Reduces Small Unit Tactics test thresholds by -2.",
+        "notes": "+2 dice pool bonus and +1 Edge on Influence (Leadership) tests.",
         "doc_link": "chapters/rules_and_downtime.html#adept-powers"
       },
       {
         "name": "Cloak",
         "cost": "0.25 PP",
         "rating": 1,
-        "notes": "Imposes a -1 dice pool penalty per rating point to hostile Assensing and Astral Perception tests attempting to read Velvet's aura or pierce covers.",
+        "notes": "-1 dice pool penalty to hostile Assensing tests.",
         "doc_link": "chapters/rules_and_downtime.html#adept-powers"
       },
       {
         "name": "Sharp Tongue",
         "cost": "1.0 PP",
         "rating": 1,
-        "notes": "Charisma + Magic vs Intuition + Willpower (20d6 vs INT+WIL). Net hits inflict unresisted Stun damage. Alternatively, inflicts Dazed if net hits >= target Willpower.",
+        "notes": "CHA + Magic vs INT + WIL. Net hits inflict unresisted Stun damage.",
         "doc_link": "chapters/rules_and_downtime.html#adept-powers"
       }
     ],
@@ -1804,18 +1832,772 @@
     "sprite_powers": [],
     "monad_abilities": [],
     "augmentations": [],
+    "spirit_channeling_catalog": {
+      "air": {
+        "name": "Spirit of Air",
+        "category": "Core Elementals",
+        "source": "SR6 Core p. 147",
+        "doc_link": "chapters/rules_and_downtime.html#conjuring-and-spirit-protocols",
+        "powers": [
+          {
+            "name": "Accident",
+            "action": "Major Action",
+            "target": "Single Target",
+            "effect": "Target must make REA + INT test vs Spirit Force x 2 or suffer clumsy accident/stumble."
+          },
+          {
+            "name": "Astral Form",
+            "action": "Always",
+            "target": "Self",
+            "effect": "Dual-natured or wholly astral entity."
+          },
+          {
+            "name": "Concealment",
+            "action": "Minor Action",
+            "target": "Single Target / Area",
+            "effect": "Adds Spirit Force as negative modifier to perception tests against target."
+          },
+          {
+            "name": "Confusion",
+            "action": "Major Action",
+            "target": "Single Target",
+            "effect": "Target suffers negative dice pool modifier equal to net hits on all actions."
+          },
+          {
+            "name": "Engulf (Air)",
+            "action": "Major Action",
+            "target": "Melee",
+            "effect": "Engulfs target in miniature vortex; deals (Force + 2)S + Fatigue I damage."
+          },
+          {
+            "name": "Movement",
+            "action": "Minor Action",
+            "target": "Single Target",
+            "effect": "Multiplies or divides target's movement rate by spirit Force."
+          },
+          {
+            "name": "Search",
+            "action": "Major Action",
+            "target": "Area",
+            "effect": "Searches for person, object, or location in physical or astral plane."
+          }
+        ],
+        "optional_powers": [
+          {
+            "name": "Elemental Attack (Cold or Electricity)",
+            "action": "Major Action",
+            "target": "LOS",
+            "effect": "Ranged attack dealing (Force)P damage with Cold or Electrical secondary effects."
+          },
+          {
+            "name": "Energy Aura (Cold or Electricity)",
+            "action": "Always",
+            "target": "Self",
+            "effect": "Adds Cold or Electricity damage and AP to melee attacks, shocks/freezes attackers."
+          },
+          {
+            "name": "Fear",
+            "action": "Major Action",
+            "target": "LOS",
+            "effect": "Forces target to flee in terror on failed WIL + LOG test."
+          },
+          {
+            "name": "Guard",
+            "action": "Minor Action",
+            "target": "Target",
+            "effect": "Protects target against hazards, falling, and glitches."
+          },
+          {
+            "name": "Noxious Breath",
+            "action": "Major Action",
+            "target": "Cone / Close",
+            "effect": "Target makes BOD + WIL test vs Force or suffers nausea and disorientation."
+          },
+          {
+            "name": "Psychokinesis",
+            "action": "Major Action",
+            "target": "LOS",
+            "effect": "Manipulates physical objects with effective Strength equal to Force."
+          }
+        ],
+        "weakness": "Allergy (Inhalation vector toxins, Severe)",
+        "attributes_formula": "BOD: F-2, AGI: F+3, REA: F+4, STR: F-3, WIL: F, LOG: F, INT: F, CHA: F"
+      },
+      "earth": {
+        "name": "Spirit of Earth",
+        "category": "Core Elementals",
+        "source": "SR6 Core p. 147",
+        "doc_link": "chapters/rules_and_downtime.html#conjuring-and-spirit-protocols",
+        "powers": [
+          {
+            "name": "Astral Form",
+            "action": "Always",
+            "target": "Self",
+            "effect": "Dual-natured or wholly astral entity."
+          },
+          {
+            "name": "Binding",
+            "action": "Major Action",
+            "target": "Melee / Close",
+            "effect": "Encases target in stone/earth; target is immobilized until breaking free (STR + BOD vs Force x 2)."
+          },
+          {
+            "name": "Guard",
+            "action": "Minor Action (Sustained)",
+            "target": "Protected Target",
+            "effect": "Protects target against accidents, glitches, and environmental hazards."
+          },
+          {
+            "name": "Movement",
+            "action": "Minor Action",
+            "target": "Single Target",
+            "effect": "Multiplies or divides target movement rate by spirit Force."
+          },
+          {
+            "name": "Search",
+            "action": "Major Action",
+            "target": "Area",
+            "effect": "Searches for person, object, or location in physical or astral plane."
+          }
+        ],
+        "optional_powers": [
+          {
+            "name": "Concealment",
+            "action": "Minor Action",
+            "target": "Single Target / Area",
+            "effect": "Adds Spirit Force as negative modifier to perception tests."
+          },
+          {
+            "name": "Confusion",
+            "action": "Major Action",
+            "target": "Single Target",
+            "effect": "Imposes net hits penalty on all target actions."
+          },
+          {
+            "name": "Elemental Attack (Chemical)",
+            "action": "Major Action",
+            "target": "LOS",
+            "effect": "Ranged attack dealing (Force)P crushing or corrosive damage."
+          },
+          {
+            "name": "Engulf (Earth)",
+            "action": "Major Action",
+            "target": "Melee",
+            "effect": "Crushes and suffocates target in stone and dirt."
+          },
+          {
+            "name": "Fear",
+            "action": "Major Action",
+            "target": "LOS",
+            "effect": "Terrifying tremor/earthen presence forcing target to flee."
+          }
+        ],
+        "weakness": "Allergy (Electricity, Severe)",
+        "attributes_formula": "BOD: F+4, AGI: F-2, REA: F-1, STR: F+4, WIL: F, LOG: F-1, INT: F, CHA: F"
+      },
+      "fire": {
+        "name": "Spirit of Fire",
+        "category": "Core Elementals",
+        "source": "SR6 Core p. 148",
+        "doc_link": "chapters/rules_and_downtime.html#conjuring-and-spirit-protocols",
+        "powers": [
+          {
+            "name": "Accident",
+            "action": "Major Action",
+            "target": "Single Target",
+            "effect": "Forces accident/mishap test (REA + INT vs Force x 2)."
+          },
+          {
+            "name": "Astral Form",
+            "action": "Always",
+            "target": "Self",
+            "effect": "Dual-natured or wholly astral entity."
+          },
+          {
+            "name": "Confusion",
+            "action": "Major Action",
+            "target": "Single Target",
+            "effect": "Dazzles target with flames, applying net hits penalty to all target tests."
+          },
+          {
+            "name": "Elemental Attack (Fire)",
+            "action": "Major Action",
+            "target": "LOS (Ranged)",
+            "effect": "Projects bolt/blast of fire dealing (Force)P damage with Burning secondary effect."
+          },
+          {
+            "name": "Energy Aura (Fire)",
+            "action": "Always",
+            "target": "Self",
+            "effect": "Surrounds form in blazing flames; deals fire damage to melee attackers and on touch."
+          },
+          {
+            "name": "Engulf (Fire)",
+            "action": "Major Action",
+            "target": "Melee",
+            "effect": "Envelops target in intense conflagration dealing (Force)P continuous damage."
+          }
+        ],
+        "optional_powers": [
+          {
+            "name": "Fear",
+            "action": "Major Action",
+            "target": "LOS",
+            "effect": "Terrifies target into fleeing."
+          },
+          {
+            "name": "Guard",
+            "action": "Minor Action",
+            "target": "Protected Target",
+            "effect": "Protects against glitches and fire hazards."
+          },
+          {
+            "name": "Noxious Breath (Smoke)",
+            "action": "Major Action",
+            "target": "Cone",
+            "effect": "Chokes target with dense toxic smoke."
+          },
+          {
+            "name": "Search",
+            "action": "Major Action",
+            "target": "Area",
+            "effect": "Locates target in astral or physical planes."
+          }
+        ],
+        "weakness": "Allergy (Cold, Severe), Vulnerability (fire extinguishers)",
+        "attributes_formula": "BOD: F+1, AGI: F+2, REA: F+3, STR: F-2, WIL: F, LOG: F, INT: F+1, CHA: F"
+      },
+      "water": {
+        "name": "Spirit of Water",
+        "category": "Core Elementals",
+        "source": "SR6 Core p. 148",
+        "doc_link": "chapters/rules_and_downtime.html#conjuring-and-spirit-protocols",
+        "powers": [
+          {
+            "name": "Astral Form",
+            "action": "Always",
+            "target": "Self",
+            "effect": "Dual-natured or wholly astral entity."
+          },
+          {
+            "name": "Concealment",
+            "action": "Minor Action",
+            "target": "Target / Area",
+            "effect": "Cloaks target in mist, fog, or water reflection; -Force to perception."
+          },
+          {
+            "name": "Confusion",
+            "action": "Major Action",
+            "target": "Single Target",
+            "effect": "Disorients with shifting water imagery, imposing net hits dice penalty."
+          },
+          {
+            "name": "Engulf (Water)",
+            "action": "Major Action",
+            "target": "Melee",
+            "effect": "Drowns/engulfs target in water vortex dealing (Force)S fatigue/drowning damage."
+          },
+          {
+            "name": "Movement",
+            "action": "Minor Action",
+            "target": "Target",
+            "effect": "Accelerates or decelerates swimming and surface speed by Force multiplier."
+          },
+          {
+            "name": "Search",
+            "action": "Major Action",
+            "target": "Area",
+            "effect": "Searches for person, object, or location across waterways or astral plane."
+          }
+        ],
+        "optional_powers": [
+          {
+            "name": "Accident",
+            "action": "Major Action",
+            "target": "Single Target",
+            "effect": "Causes slipping on ice/water or mechanical flooding."
+          },
+          {
+            "name": "Binding",
+            "action": "Major Action",
+            "target": "Close",
+            "effect": "Encapsulates target in dense watery tendrils (STR + BOD vs Force x 2)."
+          },
+          {
+            "name": "Elemental Attack (Cold)",
+            "action": "Major Action",
+            "target": "LOS",
+            "effect": "Sub-zero ice/water blast dealing (Force)P with Chilled/Soaked effect."
+          },
+          {
+            "name": "Energy Aura (Cold)",
+            "action": "Always",
+            "target": "Self",
+            "effect": "Sub-zero frost armor damaging melee attackers."
+          },
+          {
+            "name": "Guard",
+            "action": "Minor Action",
+            "target": "Target",
+            "effect": "Prevents drowning and water accidents."
+          },
+          {
+            "name": "Weather Control",
+            "action": "Major Action",
+            "target": "Area",
+            "effect": "Controls local precipitation, fog, and storm conditions."
+          }
+        ],
+        "weakness": "Allergy (Fire, Severe)",
+        "attributes_formula": "BOD: F, AGI: F+1, REA: F+2, STR: F, WIL: F, LOG: F, INT: F, CHA: F"
+      },
+      "beasts": {
+        "name": "Spirit of Beasts",
+        "category": "Core Spirits",
+        "source": "SR6 Core p. 149",
+        "doc_link": "chapters/rules_and_downtime.html#conjuring-and-spirit-protocols",
+        "powers": [
+          {
+            "name": "Animal Control",
+            "action": "Major Action",
+            "target": "Mundane Animal",
+            "effect": "Takes command of natural mundane critters."
+          },
+          {
+            "name": "Astral Form",
+            "action": "Always",
+            "target": "Self",
+            "effect": "Dual-natured or wholly astral entity."
+          },
+          {
+            "name": "Enhanced Senses (Hearing, Low-Light, Smell)",
+            "action": "Always",
+            "target": "Self",
+            "effect": "Supernatural olfactory, low-light, and auditory perception."
+          },
+          {
+            "name": "Fear",
+            "action": "Major Action",
+            "target": "LOS",
+            "effect": "Predatory roar/intimidation forcing targets to flee on failed WIL + LOG test."
+          },
+          {
+            "name": "Movement",
+            "action": "Minor Action",
+            "target": "Target",
+            "effect": "Boosts or slows target ground movement speed."
+          }
+        ],
+        "optional_powers": [
+          {
+            "name": "Concealment",
+            "action": "Minor Action",
+            "target": "Target",
+            "effect": "Natural camouflage (-Force to perception)."
+          },
+          {
+            "name": "Confusion",
+            "action": "Major Action",
+            "target": "Target",
+            "effect": "Predatory distraction causing net hits dice penalty."
+          },
+          {
+            "name": "Guard",
+            "action": "Minor Action",
+            "target": "Target",
+            "effect": "Guards against terrain hazards and animal attacks."
+          },
+          {
+            "name": "Natural Weapon (Claws/Bite)",
+            "action": "Always",
+            "target": "Melee",
+            "effect": "Deals (Force + 2)P damage in melee."
+          },
+          {
+            "name": "Noxious Breath",
+            "action": "Major Action",
+            "target": "Cone",
+            "effect": "Foul predatory breath sickening targets."
+          },
+          {
+            "name": "Search",
+            "action": "Major Action",
+            "target": "Area",
+            "effect": "Tracks prey or objects by scent/aura."
+          },
+          {
+            "name": "Venom",
+            "action": "Always",
+            "target": "Melee",
+            "effect": "Injects toxic venom upon dealing damage."
+          }
+        ],
+        "weakness": "Allergy (Silver, Severe)",
+        "attributes_formula": "BOD: F+2, AGI: F+1, REA: F, STR: F+2, WIL: F, LOG: F, INT: F, CHA: F"
+      },
+      "kin": {
+        "name": "Spirit of Kin / Man",
+        "category": "Core Spirits",
+        "source": "SR6 Core p. 149",
+        "doc_link": "chapters/rules_and_downtime.html#conjuring-and-spirit-protocols",
+        "powers": [
+          {
+            "name": "Accident",
+            "action": "Major Action",
+            "target": "Single Target",
+            "effect": "Forces accident/mishap test (REA + INT vs Force x 2)."
+          },
+          {
+            "name": "Astral Form",
+            "action": "Always",
+            "target": "Self",
+            "effect": "Dual-natured or wholly astral entity."
+          },
+          {
+            "name": "Concealment",
+            "action": "Minor Action",
+            "target": "Single Target / Group",
+            "effect": "Subtle perceptual camouflage (-Force to opposing Perception tests)."
+          },
+          {
+            "name": "Confusion",
+            "action": "Major Action",
+            "target": "Single Target",
+            "effect": "Mental fog imposing net hits penalty on all tests."
+          },
+          {
+            "name": "Enhanced Senses (Low-Light, Thermographic)",
+            "action": "Always",
+            "target": "Self",
+            "effect": "Low-light and thermographic vision."
+          },
+          {
+            "name": "Guard",
+            "action": "Minor Action (Sustained)",
+            "target": "Protected Target",
+            "effect": "Shields target from glitches, critical failures, and misfortune."
+          },
+          {
+            "name": "Influence",
+            "action": "Major Action",
+            "target": "Single Target",
+            "effect": "Plants subtle psychic suggestions; target believes suggestion was their own idea."
+          },
+          {
+            "name": "Search",
+            "action": "Major Action",
+            "target": "Area",
+            "effect": "Searches for person, object, or location."
+          }
+        ],
+        "optional_powers": [
+          {
+            "name": "Fear",
+            "action": "Major Action",
+            "target": "LOS",
+            "effect": "Existential dread forcing retreat."
+          },
+          {
+            "name": "Innate Spell",
+            "action": "Complex Action",
+            "target": "Per Spell",
+            "effect": "Spirit knows and can cast one chosen spell known to the summoner at Force rating.",
+            "requires_choice": true,
+            "choice_label": "Innate Spell Choice"
+          },
+          {
+            "name": "Movement",
+            "action": "Minor Action",
+            "target": "Target",
+            "effect": "Increases or decreases target walking/running speed by Force factor."
+          },
+          {
+            "name": "Psychokinesis",
+            "action": "Major Action",
+            "target": "LOS",
+            "effect": "Telekinetic physical manipulation."
+          }
+        ],
+        "weakness": "Allergy (Ferrous metal, Severe)",
+        "attributes_formula": "BOD: F+1, AGI: F, REA: F+2, STR: F-2, WIL: F, LOG: F, INT: F+1, CHA: F"
+      },
+      "guardian": {
+        "name": "Spirit of Guardian",
+        "category": "Street Wyrd Spirits",
+        "source": "Street Wyrd p. 7 / SRMG v2.4",
+        "doc_link": "chapters/rules_and_downtime.html#conjuring-and-spirit-protocols",
+        "powers": [
+          {
+            "name": "Astral Form",
+            "action": "Always",
+            "target": "Self",
+            "effect": "Dual-natured or wholly astral combat guardian."
+          },
+          {
+            "name": "Guard",
+            "action": "Minor Action (Sustained)",
+            "target": "Ward",
+            "effect": "Safeguards ward from surprise and hazards."
+          },
+          {
+            "name": "Movement",
+            "action": "Minor Action",
+            "target": "Target",
+            "effect": "Augments tactical positioning and sprint speed."
+          },
+          {
+            "name": "Natural Weapon (Spectral Blade / Shield)",
+            "action": "Always",
+            "target": "Melee",
+            "effect": "Deals (Force + 3)P physical damage with Armor Piercing."
+          }
+        ],
+        "optional_powers": [
+          {
+            "name": "Armor",
+            "action": "Always",
+            "target": "Self",
+            "effect": "Grants +Force additional hardened armor / Defense Rating."
+          },
+          {
+            "name": "Elemental Attack (Vengeance)",
+            "action": "Major Action",
+            "target": "LOS",
+            "effect": "Deals (Force)P ranged energy strike."
+          },
+          {
+            "name": "Energy Aura",
+            "action": "Always",
+            "target": "Self",
+            "effect": "Protective radiant shield damaging melee attackers."
+          },
+          {
+            "name": "Fear",
+            "action": "Major Action",
+            "target": "LOS",
+            "effect": "Intimidating warrior presence terrifying adversaries."
+          },
+          {
+            "name": "Psychokinesis",
+            "action": "Major Action",
+            "target": "LOS",
+            "effect": "Disarms or deflects incoming attacks."
+          }
+        ],
+        "weakness": "Allergy (Wood, Severe)",
+        "attributes_formula": "BOD: F+3, AGI: F+2, REA: F+3, STR: F+3, WIL: F+1, LOG: F, INT: F, CHA: F"
+      },
+      "guidance": {
+        "name": "Spirit of Guidance",
+        "category": "Street Wyrd Spirits",
+        "source": "Street Wyrd p. 7 / SRMG v2.4",
+        "doc_link": "chapters/rules_and_downtime.html#conjuring-and-spirit-protocols",
+        "powers": [
+          {
+            "name": "Astral Form",
+            "action": "Always",
+            "target": "Self",
+            "effect": "Dual-natured ancestral guide."
+          },
+          {
+            "name": "Divination",
+            "action": "Major Action",
+            "target": "Summoner",
+            "effect": "Grants cryptic insight and +Force bonus Edge on related forthcoming tests."
+          },
+          {
+            "name": "Guard",
+            "action": "Minor Action",
+            "target": "Target",
+            "effect": "Protects against bad omens, hexes, and glitches."
+          },
+          {
+            "name": "Search",
+            "action": "Major Action",
+            "target": "Area",
+            "effect": "Guides searcher directly to target or spiritual path."
+          },
+          {
+            "name": "Shadow Cloak",
+            "action": "Minor Action",
+            "target": "Self / Target",
+            "effect": "Bends spiritual shadows to conceal aura and physical form."
+          }
+        ],
+        "optional_powers": [
+          {
+            "name": "Concealment",
+            "action": "Minor Action",
+            "target": "Target",
+            "effect": "Aura and visual obfuscation."
+          },
+          {
+            "name": "Confusion",
+            "action": "Major Action",
+            "target": "Target",
+            "effect": "Labyrinthine mental confusion."
+          },
+          {
+            "name": "Influence",
+            "action": "Major Action",
+            "target": "Target",
+            "effect": "Subconscious behavioral guidance."
+          }
+        ],
+        "weakness": "Allergy (Gold, Severe)",
+        "attributes_formula": "BOD: F, AGI: F+1, REA: F+2, STR: F-2, WIL: F+2, LOG: F+2, INT: F+2, CHA: F+1"
+      },
+      "plant": {
+        "name": "Spirit of Plant",
+        "category": "Street Wyrd Spirits",
+        "source": "Street Wyrd p. 55, 66 / SR5 Street Grimoire",
+        "doc_link": "chapters/rules_and_downtime.html#conjuring-and-spirit-protocols",
+        "powers": [
+          {
+            "name": "Astral Form",
+            "action": "Always",
+            "target": "Self",
+            "effect": "Dual-natured or wholly astral entity."
+          },
+          {
+            "name": "Concealment",
+            "action": "Minor Action",
+            "target": "Target / Area",
+            "effect": "Forest/foliage camouflage (-Force to perception)."
+          },
+          {
+            "name": "Engulf (Vegetation)",
+            "action": "Major Action",
+            "target": "Melee",
+            "effect": "Encloses target inside roots, wood, or thorny tendrils dealing (Force)P continuous damage."
+          },
+          {
+            "name": "Fear",
+            "action": "Major Action",
+            "target": "LOS",
+            "effect": "Haunted woods terror forcing target to flee on failed WIL + LOG test."
+          },
+          {
+            "name": "Guard",
+            "action": "Minor Action",
+            "target": "Target",
+            "effect": "Shields against glitches, misfortune, toxins, and environmental hazards."
+          },
+          {
+            "name": "Magical Guard",
+            "action": "Minor Action (Sustained)",
+            "target": "Summoner / Ward",
+            "effect": "Provides spell defense using Counterspelling equal to spirit Force against incoming spells."
+          },
+          {
+            "name": "Silence",
+            "action": "Major Action",
+            "target": "Area",
+            "effect": "Dampens all sound within (Force x 2) meter radius."
+          }
+        ],
+        "optional_powers": [
+          {
+            "name": "Accident",
+            "action": "Major Action",
+            "target": "Target",
+            "effect": "Causes root entanglement, stumbling, or falling foliage."
+          },
+          {
+            "name": "Confusion",
+            "action": "Major Action",
+            "target": "Target",
+            "effect": "Hallucinogenic spores/pollen imposing net hits penalty."
+          },
+          {
+            "name": "Movement",
+            "action": "Minor Action",
+            "target": "Target",
+            "effect": "Accelerates or hinders passage through vegetation/terrain by Force multiplier."
+          },
+          {
+            "name": "Noxious Breath",
+            "action": "Major Action",
+            "target": "Cone",
+            "effect": "Chokes target in toxic pollen cloud imposing nausea."
+          },
+          {
+            "name": "Search",
+            "action": "Major Action",
+            "target": "Area",
+            "effect": "Searches for person, object, or location via root-network astral tracking."
+          }
+        ],
+        "great_form_power": "Regeneration (Street Wyrd p. 66)",
+        "weakness": "Allergy (Fire, Vulnerability [SR6 p. 229])",
+        "attributes_formula": "BOD: F+3, AGI: F-1, REA: F, STR: F+2, WIL: F+1, LOG: F-1, INT: F, CHA: F"
+      },
+      "task": {
+        "name": "Spirit of Task",
+        "category": "Street Wyrd Spirits",
+        "source": "Street Wyrd p. 7 / SRMG v2.4",
+        "doc_link": "chapters/rules_and_downtime.html#conjuring-and-spirit-protocols",
+        "powers": [
+          {
+            "name": "Accident",
+            "action": "Major Action",
+            "target": "Target",
+            "effect": "Industrial mishaps or equipment jams."
+          },
+          {
+            "name": "Astral Form",
+            "action": "Always",
+            "target": "Self",
+            "effect": "Dual-natured or wholly astral entity."
+          },
+          {
+            "name": "Binding",
+            "action": "Major Action",
+            "target": "Melee",
+            "effect": "Traps target under heavy machinery or cables."
+          },
+          {
+            "name": "Movement",
+            "action": "Minor Action",
+            "target": "Target",
+            "effect": "Accelerates physical work or machine operations."
+          },
+          {
+            "name": "Search",
+            "action": "Major Action",
+            "target": "Area",
+            "effect": "Searches for tools, blueprints, or materials."
+          },
+          {
+            "name": "Skill",
+            "action": "Always",
+            "target": "Summoner / Self",
+            "effect": "Possesses and provides teamwork dice equal to Force on one chosen technical or physical skill.",
+            "requires_choice": true,
+            "choice_label": "Designated Skill (e.g., Electronics, Engineering, Cracking)"
+          }
+        ],
+        "optional_powers": [
+          {
+            "name": "Concealment",
+            "action": "Minor Action",
+            "target": "Target",
+            "effect": "Hides within industrial equipment."
+          },
+          {
+            "name": "Psychokinesis",
+            "action": "Major Action",
+            "target": "LOS",
+            "effect": "Remotely manipulates tools and mechanical levers."
+          }
+        ],
+        "weakness": "Allergy (Corrosives, Severe)",
+        "attributes_formula": "BOD: F+2, AGI: F+1, REA: F+1, STR: F+2, WIL: F, LOG: F+1, INT: F, CHA: F"
+      }
+    },
     "powers": {
       "complex_forms": [],
-      "echoes": [
-        {
-          "name": "Channeling",
-          "doc_link": "chapters/rules_matrix.html#network-benefits"
-        },
-        {
-          "name": "Power Point",
-          "doc_link": "chapters/rules_matrix.html#network-benefits"
-        }
-      ],
+      "echoes": [],
       "sprite_powers": [],
       "spells": [
         {
@@ -1824,7 +2606,7 @@
           "type": "Physical",
           "range": "Touch",
           "duration": "Sustained",
-          "notes": "Sorcery + Magic (5 - Essence) test. Net hits increase target attribute by +1 (max +4). Each net hit beyond the 1st increases Drain by +1. Sustained via Focused Concentration R3 with 0 penalties.",
+          "notes": "Sorcery + Magic test. Net hits increase target attribute by +1.",
           "doc_link": "chapters/rules_and_downtime.html#spell-library"
         },
         {
@@ -1833,7 +2615,7 @@
           "type": "Physical",
           "range": "Touch",
           "duration": "Sustained",
-          "notes": "Sorcery + Magic (5 - Essence) test. Net hits increase both Reaction and Initiative Dice (+1 REA & +1D6 Init per net hit). Each net hit beyond the 1st increases Drain by +1.",
+          "notes": "Sorcery + Magic test. Net hits increase Reaction and Initiative Dice.",
           "doc_link": "chapters/rules_and_downtime.html#spell-library"
         }
       ],
@@ -1842,140 +2624,818 @@
           "name": "Cosmetic Control",
           "cost": "2.0 PP",
           "rating": 2,
-          "notes": "Physical biological disguise (face, skin, height, weight, gender markers, eyes, metaspecies features). Reduces Edge cost by -1 for Con tests (Acting, Disguise, Impersonation).",
+          "notes": "Physical biological disguise (face, skin, height, weight, gender markers). Reduces Edge cost by -1 for Con tests.",
           "doc_link": "chapters/rules_and_downtime.html#adept-powers"
         },
         {
           "name": "Linguistics",
           "cost": "0.25 PP",
           "rating": 1,
-          "notes": "Absorbs any new spoken language at basic proficiency after 1 hour of exposure without spending Karma. +1 bonus die on language Perception tests.",
+          "notes": "Absorbs spoken languages after 1 hr exposure.",
           "doc_link": "chapters/rules_and_downtime.html#adept-powers"
         },
         {
           "name": "Command Presence",
-          "cost": "0.50 PP",
+          "cost": "0.5 PP",
           "rating": 1,
-          "notes": "+2 dice pool bonus and +1 Edge on all Influence (Leadership) tests. Reduces Small Unit Tactics test thresholds by -2.",
+          "notes": "+2 dice pool bonus and +1 Edge on Influence (Leadership) tests.",
           "doc_link": "chapters/rules_and_downtime.html#adept-powers"
         },
         {
           "name": "Cloak",
           "cost": "0.25 PP",
           "rating": 1,
-          "notes": "Imposes a -1 dice pool penalty per rating point to hostile Assensing and Astral Perception tests attempting to read Velvet's aura or pierce covers.",
+          "notes": "-1 dice pool penalty to hostile Assensing tests.",
           "doc_link": "chapters/rules_and_downtime.html#adept-powers"
         },
         {
           "name": "Sharp Tongue",
           "cost": "1.0 PP",
           "rating": 1,
-          "notes": "Charisma + Magic vs Intuition + Willpower (20d6 vs INT+WIL). Net hits inflict unresisted Stun damage. Alternatively, inflicts Dazed if net hits >= target Willpower.",
+          "notes": "CHA + Magic vs INT + WIL. Net hits inflict unresisted Stun damage.",
           "doc_link": "chapters/rules_and_downtime.html#adept-powers"
         }
       ],
       "monad_abilities": [],
-      "augmentations": []
+      "augmentations": [],
+      "spirit_channeling_catalog": {
+        "air": {
+          "name": "Spirit of Air",
+          "category": "Core Elementals",
+          "source": "SR6 Core p. 147",
+          "doc_link": "chapters/rules_and_downtime.html#conjuring-and-spirit-protocols",
+          "powers": [
+            {
+              "name": "Accident",
+              "action": "Major Action",
+              "target": "Single Target",
+              "effect": "Target must make REA + INT test vs Spirit Force x 2 or suffer clumsy accident/stumble."
+            },
+            {
+              "name": "Astral Form",
+              "action": "Always",
+              "target": "Self",
+              "effect": "Dual-natured or wholly astral entity."
+            },
+            {
+              "name": "Concealment",
+              "action": "Minor Action",
+              "target": "Single Target / Area",
+              "effect": "Adds Spirit Force as negative modifier to perception tests against target."
+            },
+            {
+              "name": "Confusion",
+              "action": "Major Action",
+              "target": "Single Target",
+              "effect": "Target suffers negative dice pool modifier equal to net hits on all actions."
+            },
+            {
+              "name": "Engulf (Air)",
+              "action": "Major Action",
+              "target": "Melee",
+              "effect": "Engulfs target in miniature vortex; deals (Force + 2)S + Fatigue I damage."
+            },
+            {
+              "name": "Movement",
+              "action": "Minor Action",
+              "target": "Single Target",
+              "effect": "Multiplies or divides target's movement rate by spirit Force."
+            },
+            {
+              "name": "Search",
+              "action": "Major Action",
+              "target": "Area",
+              "effect": "Searches for person, object, or location in physical or astral plane."
+            }
+          ],
+          "optional_powers": [
+            {
+              "name": "Elemental Attack (Cold or Electricity)",
+              "action": "Major Action",
+              "target": "LOS",
+              "effect": "Ranged attack dealing (Force)P damage with Cold or Electrical secondary effects."
+            },
+            {
+              "name": "Energy Aura (Cold or Electricity)",
+              "action": "Always",
+              "target": "Self",
+              "effect": "Adds Cold or Electricity damage and AP to melee attacks, shocks/freezes attackers."
+            },
+            {
+              "name": "Fear",
+              "action": "Major Action",
+              "target": "LOS",
+              "effect": "Forces target to flee in terror on failed WIL + LOG test."
+            },
+            {
+              "name": "Guard",
+              "action": "Minor Action",
+              "target": "Target",
+              "effect": "Protects target against hazards, falling, and glitches."
+            },
+            {
+              "name": "Noxious Breath",
+              "action": "Major Action",
+              "target": "Cone / Close",
+              "effect": "Target makes BOD + WIL test vs Force or suffers nausea and disorientation."
+            },
+            {
+              "name": "Psychokinesis",
+              "action": "Major Action",
+              "target": "LOS",
+              "effect": "Manipulates physical objects with effective Strength equal to Force."
+            }
+          ],
+          "weakness": "Allergy (Inhalation vector toxins, Severe)",
+          "attributes_formula": "BOD: F-2, AGI: F+3, REA: F+4, STR: F-3, WIL: F, LOG: F, INT: F, CHA: F"
+        },
+        "earth": {
+          "name": "Spirit of Earth",
+          "category": "Core Elementals",
+          "source": "SR6 Core p. 147",
+          "doc_link": "chapters/rules_and_downtime.html#conjuring-and-spirit-protocols",
+          "powers": [
+            {
+              "name": "Astral Form",
+              "action": "Always",
+              "target": "Self",
+              "effect": "Dual-natured or wholly astral entity."
+            },
+            {
+              "name": "Binding",
+              "action": "Major Action",
+              "target": "Melee / Close",
+              "effect": "Encases target in stone/earth; target is immobilized until breaking free (STR + BOD vs Force x 2)."
+            },
+            {
+              "name": "Guard",
+              "action": "Minor Action (Sustained)",
+              "target": "Protected Target",
+              "effect": "Protects target against accidents, glitches, and environmental hazards."
+            },
+            {
+              "name": "Movement",
+              "action": "Minor Action",
+              "target": "Single Target",
+              "effect": "Multiplies or divides target movement rate by spirit Force."
+            },
+            {
+              "name": "Search",
+              "action": "Major Action",
+              "target": "Area",
+              "effect": "Searches for person, object, or location in physical or astral plane."
+            }
+          ],
+          "optional_powers": [
+            {
+              "name": "Concealment",
+              "action": "Minor Action",
+              "target": "Single Target / Area",
+              "effect": "Adds Spirit Force as negative modifier to perception tests."
+            },
+            {
+              "name": "Confusion",
+              "action": "Major Action",
+              "target": "Single Target",
+              "effect": "Imposes net hits penalty on all target actions."
+            },
+            {
+              "name": "Elemental Attack (Chemical)",
+              "action": "Major Action",
+              "target": "LOS",
+              "effect": "Ranged attack dealing (Force)P crushing or corrosive damage."
+            },
+            {
+              "name": "Engulf (Earth)",
+              "action": "Major Action",
+              "target": "Melee",
+              "effect": "Crushes and suffocates target in stone and dirt."
+            },
+            {
+              "name": "Fear",
+              "action": "Major Action",
+              "target": "LOS",
+              "effect": "Terrifying tremor/earthen presence forcing target to flee."
+            }
+          ],
+          "weakness": "Allergy (Electricity, Severe)",
+          "attributes_formula": "BOD: F+4, AGI: F-2, REA: F-1, STR: F+4, WIL: F, LOG: F-1, INT: F, CHA: F"
+        },
+        "fire": {
+          "name": "Spirit of Fire",
+          "category": "Core Elementals",
+          "source": "SR6 Core p. 148",
+          "doc_link": "chapters/rules_and_downtime.html#conjuring-and-spirit-protocols",
+          "powers": [
+            {
+              "name": "Accident",
+              "action": "Major Action",
+              "target": "Single Target",
+              "effect": "Forces accident/mishap test (REA + INT vs Force x 2)."
+            },
+            {
+              "name": "Astral Form",
+              "action": "Always",
+              "target": "Self",
+              "effect": "Dual-natured or wholly astral entity."
+            },
+            {
+              "name": "Confusion",
+              "action": "Major Action",
+              "target": "Single Target",
+              "effect": "Dazzles target with flames, applying net hits penalty to all target tests."
+            },
+            {
+              "name": "Elemental Attack (Fire)",
+              "action": "Major Action",
+              "target": "LOS (Ranged)",
+              "effect": "Projects bolt/blast of fire dealing (Force)P damage with Burning secondary effect."
+            },
+            {
+              "name": "Energy Aura (Fire)",
+              "action": "Always",
+              "target": "Self",
+              "effect": "Surrounds form in blazing flames; deals fire damage to melee attackers and on touch."
+            },
+            {
+              "name": "Engulf (Fire)",
+              "action": "Major Action",
+              "target": "Melee",
+              "effect": "Envelops target in intense conflagration dealing (Force)P continuous damage."
+            }
+          ],
+          "optional_powers": [
+            {
+              "name": "Fear",
+              "action": "Major Action",
+              "target": "LOS",
+              "effect": "Terrifies target into fleeing."
+            },
+            {
+              "name": "Guard",
+              "action": "Minor Action",
+              "target": "Protected Target",
+              "effect": "Protects against glitches and fire hazards."
+            },
+            {
+              "name": "Noxious Breath (Smoke)",
+              "action": "Major Action",
+              "target": "Cone",
+              "effect": "Chokes target with dense toxic smoke."
+            },
+            {
+              "name": "Search",
+              "action": "Major Action",
+              "target": "Area",
+              "effect": "Locates target in astral or physical planes."
+            }
+          ],
+          "weakness": "Allergy (Cold, Severe), Vulnerability (fire extinguishers)",
+          "attributes_formula": "BOD: F+1, AGI: F+2, REA: F+3, STR: F-2, WIL: F, LOG: F, INT: F+1, CHA: F"
+        },
+        "water": {
+          "name": "Spirit of Water",
+          "category": "Core Elementals",
+          "source": "SR6 Core p. 148",
+          "doc_link": "chapters/rules_and_downtime.html#conjuring-and-spirit-protocols",
+          "powers": [
+            {
+              "name": "Astral Form",
+              "action": "Always",
+              "target": "Self",
+              "effect": "Dual-natured or wholly astral entity."
+            },
+            {
+              "name": "Concealment",
+              "action": "Minor Action",
+              "target": "Target / Area",
+              "effect": "Cloaks target in mist, fog, or water reflection; -Force to perception."
+            },
+            {
+              "name": "Confusion",
+              "action": "Major Action",
+              "target": "Single Target",
+              "effect": "Disorients with shifting water imagery, imposing net hits dice penalty."
+            },
+            {
+              "name": "Engulf (Water)",
+              "action": "Major Action",
+              "target": "Melee",
+              "effect": "Drowns/engulfs target in water vortex dealing (Force)S fatigue/drowning damage."
+            },
+            {
+              "name": "Movement",
+              "action": "Minor Action",
+              "target": "Target",
+              "effect": "Accelerates or decelerates swimming and surface speed by Force multiplier."
+            },
+            {
+              "name": "Search",
+              "action": "Major Action",
+              "target": "Area",
+              "effect": "Searches for person, object, or location across waterways or astral plane."
+            }
+          ],
+          "optional_powers": [
+            {
+              "name": "Accident",
+              "action": "Major Action",
+              "target": "Single Target",
+              "effect": "Causes slipping on ice/water or mechanical flooding."
+            },
+            {
+              "name": "Binding",
+              "action": "Major Action",
+              "target": "Close",
+              "effect": "Encapsulates target in dense watery tendrils (STR + BOD vs Force x 2)."
+            },
+            {
+              "name": "Elemental Attack (Cold)",
+              "action": "Major Action",
+              "target": "LOS",
+              "effect": "Sub-zero ice/water blast dealing (Force)P with Chilled/Soaked effect."
+            },
+            {
+              "name": "Energy Aura (Cold)",
+              "action": "Always",
+              "target": "Self",
+              "effect": "Sub-zero frost armor damaging melee attackers."
+            },
+            {
+              "name": "Guard",
+              "action": "Minor Action",
+              "target": "Target",
+              "effect": "Prevents drowning and water accidents."
+            },
+            {
+              "name": "Weather Control",
+              "action": "Major Action",
+              "target": "Area",
+              "effect": "Controls local precipitation, fog, and storm conditions."
+            }
+          ],
+          "weakness": "Allergy (Fire, Severe)",
+          "attributes_formula": "BOD: F, AGI: F+1, REA: F+2, STR: F, WIL: F, LOG: F, INT: F, CHA: F"
+        },
+        "beasts": {
+          "name": "Spirit of Beasts",
+          "category": "Core Spirits",
+          "source": "SR6 Core p. 149",
+          "doc_link": "chapters/rules_and_downtime.html#conjuring-and-spirit-protocols",
+          "powers": [
+            {
+              "name": "Animal Control",
+              "action": "Major Action",
+              "target": "Mundane Animal",
+              "effect": "Takes command of natural mundane critters."
+            },
+            {
+              "name": "Astral Form",
+              "action": "Always",
+              "target": "Self",
+              "effect": "Dual-natured or wholly astral entity."
+            },
+            {
+              "name": "Enhanced Senses (Hearing, Low-Light, Smell)",
+              "action": "Always",
+              "target": "Self",
+              "effect": "Supernatural olfactory, low-light, and auditory perception."
+            },
+            {
+              "name": "Fear",
+              "action": "Major Action",
+              "target": "LOS",
+              "effect": "Predatory roar/intimidation forcing targets to flee on failed WIL + LOG test."
+            },
+            {
+              "name": "Movement",
+              "action": "Minor Action",
+              "target": "Target",
+              "effect": "Boosts or slows target ground movement speed."
+            }
+          ],
+          "optional_powers": [
+            {
+              "name": "Concealment",
+              "action": "Minor Action",
+              "target": "Target",
+              "effect": "Natural camouflage (-Force to perception)."
+            },
+            {
+              "name": "Confusion",
+              "action": "Major Action",
+              "target": "Target",
+              "effect": "Predatory distraction causing net hits dice penalty."
+            },
+            {
+              "name": "Guard",
+              "action": "Minor Action",
+              "target": "Target",
+              "effect": "Guards against terrain hazards and animal attacks."
+            },
+            {
+              "name": "Natural Weapon (Claws/Bite)",
+              "action": "Always",
+              "target": "Melee",
+              "effect": "Deals (Force + 2)P damage in melee."
+            },
+            {
+              "name": "Noxious Breath",
+              "action": "Major Action",
+              "target": "Cone",
+              "effect": "Foul predatory breath sickening targets."
+            },
+            {
+              "name": "Search",
+              "action": "Major Action",
+              "target": "Area",
+              "effect": "Tracks prey or objects by scent/aura."
+            },
+            {
+              "name": "Venom",
+              "action": "Always",
+              "target": "Melee",
+              "effect": "Injects toxic venom upon dealing damage."
+            }
+          ],
+          "weakness": "Allergy (Silver, Severe)",
+          "attributes_formula": "BOD: F+2, AGI: F+1, REA: F, STR: F+2, WIL: F, LOG: F, INT: F, CHA: F"
+        },
+        "kin": {
+          "name": "Spirit of Kin / Man",
+          "category": "Core Spirits",
+          "source": "SR6 Core p. 149",
+          "doc_link": "chapters/rules_and_downtime.html#conjuring-and-spirit-protocols",
+          "powers": [
+            {
+              "name": "Accident",
+              "action": "Major Action",
+              "target": "Single Target",
+              "effect": "Forces accident/mishap test (REA + INT vs Force x 2)."
+            },
+            {
+              "name": "Astral Form",
+              "action": "Always",
+              "target": "Self",
+              "effect": "Dual-natured or wholly astral entity."
+            },
+            {
+              "name": "Concealment",
+              "action": "Minor Action",
+              "target": "Single Target / Group",
+              "effect": "Subtle perceptual camouflage (-Force to opposing Perception tests)."
+            },
+            {
+              "name": "Confusion",
+              "action": "Major Action",
+              "target": "Single Target",
+              "effect": "Mental fog imposing net hits penalty on all tests."
+            },
+            {
+              "name": "Enhanced Senses (Low-Light, Thermographic)",
+              "action": "Always",
+              "target": "Self",
+              "effect": "Low-light and thermographic vision."
+            },
+            {
+              "name": "Guard",
+              "action": "Minor Action (Sustained)",
+              "target": "Protected Target",
+              "effect": "Shields target from glitches, critical failures, and misfortune."
+            },
+            {
+              "name": "Influence",
+              "action": "Major Action",
+              "target": "Single Target",
+              "effect": "Plants subtle psychic suggestions; target believes suggestion was their own idea."
+            },
+            {
+              "name": "Search",
+              "action": "Major Action",
+              "target": "Area",
+              "effect": "Searches for person, object, or location."
+            }
+          ],
+          "optional_powers": [
+            {
+              "name": "Fear",
+              "action": "Major Action",
+              "target": "LOS",
+              "effect": "Existential dread forcing retreat."
+            },
+            {
+              "name": "Innate Spell",
+              "action": "Complex Action",
+              "target": "Per Spell",
+              "effect": "Spirit knows and can cast one chosen spell known to the summoner at Force rating.",
+              "requires_choice": true,
+              "choice_label": "Innate Spell Choice"
+            },
+            {
+              "name": "Movement",
+              "action": "Minor Action",
+              "target": "Target",
+              "effect": "Increases or decreases target walking/running speed by Force factor."
+            },
+            {
+              "name": "Psychokinesis",
+              "action": "Major Action",
+              "target": "LOS",
+              "effect": "Telekinetic physical manipulation."
+            }
+          ],
+          "weakness": "Allergy (Ferrous metal, Severe)",
+          "attributes_formula": "BOD: F+1, AGI: F, REA: F+2, STR: F-2, WIL: F, LOG: F, INT: F+1, CHA: F"
+        },
+        "guardian": {
+          "name": "Spirit of Guardian",
+          "category": "Street Wyrd Spirits",
+          "source": "Street Wyrd p. 7 / SRMG v2.4",
+          "doc_link": "chapters/rules_and_downtime.html#conjuring-and-spirit-protocols",
+          "powers": [
+            {
+              "name": "Astral Form",
+              "action": "Always",
+              "target": "Self",
+              "effect": "Dual-natured or wholly astral combat guardian."
+            },
+            {
+              "name": "Guard",
+              "action": "Minor Action (Sustained)",
+              "target": "Ward",
+              "effect": "Safeguards ward from surprise and hazards."
+            },
+            {
+              "name": "Movement",
+              "action": "Minor Action",
+              "target": "Target",
+              "effect": "Augments tactical positioning and sprint speed."
+            },
+            {
+              "name": "Natural Weapon (Spectral Blade / Shield)",
+              "action": "Always",
+              "target": "Melee",
+              "effect": "Deals (Force + 3)P physical damage with Armor Piercing."
+            }
+          ],
+          "optional_powers": [
+            {
+              "name": "Armor",
+              "action": "Always",
+              "target": "Self",
+              "effect": "Grants +Force additional hardened armor / Defense Rating."
+            },
+            {
+              "name": "Elemental Attack (Vengeance)",
+              "action": "Major Action",
+              "target": "LOS",
+              "effect": "Deals (Force)P ranged energy strike."
+            },
+            {
+              "name": "Energy Aura",
+              "action": "Always",
+              "target": "Self",
+              "effect": "Protective radiant shield damaging melee attackers."
+            },
+            {
+              "name": "Fear",
+              "action": "Major Action",
+              "target": "LOS",
+              "effect": "Intimidating warrior presence terrifying adversaries."
+            },
+            {
+              "name": "Psychokinesis",
+              "action": "Major Action",
+              "target": "LOS",
+              "effect": "Disarms or deflects incoming attacks."
+            }
+          ],
+          "weakness": "Allergy (Wood, Severe)",
+          "attributes_formula": "BOD: F+3, AGI: F+2, REA: F+3, STR: F+3, WIL: F+1, LOG: F, INT: F, CHA: F"
+        },
+        "guidance": {
+          "name": "Spirit of Guidance",
+          "category": "Street Wyrd Spirits",
+          "source": "Street Wyrd p. 7 / SRMG v2.4",
+          "doc_link": "chapters/rules_and_downtime.html#conjuring-and-spirit-protocols",
+          "powers": [
+            {
+              "name": "Astral Form",
+              "action": "Always",
+              "target": "Self",
+              "effect": "Dual-natured ancestral guide."
+            },
+            {
+              "name": "Divination",
+              "action": "Major Action",
+              "target": "Summoner",
+              "effect": "Grants cryptic insight and +Force bonus Edge on related forthcoming tests."
+            },
+            {
+              "name": "Guard",
+              "action": "Minor Action",
+              "target": "Target",
+              "effect": "Protects against bad omens, hexes, and glitches."
+            },
+            {
+              "name": "Search",
+              "action": "Major Action",
+              "target": "Area",
+              "effect": "Guides searcher directly to target or spiritual path."
+            },
+            {
+              "name": "Shadow Cloak",
+              "action": "Minor Action",
+              "target": "Self / Target",
+              "effect": "Bends spiritual shadows to conceal aura and physical form."
+            }
+          ],
+          "optional_powers": [
+            {
+              "name": "Concealment",
+              "action": "Minor Action",
+              "target": "Target",
+              "effect": "Aura and visual obfuscation."
+            },
+            {
+              "name": "Confusion",
+              "action": "Major Action",
+              "target": "Target",
+              "effect": "Labyrinthine mental confusion."
+            },
+            {
+              "name": "Influence",
+              "action": "Major Action",
+              "target": "Target",
+              "effect": "Subconscious behavioral guidance."
+            }
+          ],
+          "weakness": "Allergy (Gold, Severe)",
+          "attributes_formula": "BOD: F, AGI: F+1, REA: F+2, STR: F-2, WIL: F+2, LOG: F+2, INT: F+2, CHA: F+1"
+        },
+        "plant": {
+          "name": "Spirit of Plant",
+          "category": "Street Wyrd Spirits",
+          "source": "Street Wyrd p. 55, 66 / SR5 Street Grimoire",
+          "doc_link": "chapters/rules_and_downtime.html#conjuring-and-spirit-protocols",
+          "powers": [
+            {
+              "name": "Astral Form",
+              "action": "Always",
+              "target": "Self",
+              "effect": "Dual-natured or wholly astral entity."
+            },
+            {
+              "name": "Concealment",
+              "action": "Minor Action",
+              "target": "Target / Area",
+              "effect": "Forest/foliage camouflage (-Force to perception)."
+            },
+            {
+              "name": "Engulf (Vegetation)",
+              "action": "Major Action",
+              "target": "Melee",
+              "effect": "Encloses target inside roots, wood, or thorny tendrils dealing (Force)P continuous damage."
+            },
+            {
+              "name": "Fear",
+              "action": "Major Action",
+              "target": "LOS",
+              "effect": "Haunted woods terror forcing target to flee on failed WIL + LOG test."
+            },
+            {
+              "name": "Guard",
+              "action": "Minor Action",
+              "target": "Target",
+              "effect": "Shields against glitches, misfortune, toxins, and environmental hazards."
+            },
+            {
+              "name": "Magical Guard",
+              "action": "Minor Action (Sustained)",
+              "target": "Summoner / Ward",
+              "effect": "Provides spell defense using Counterspelling equal to spirit Force against incoming spells."
+            },
+            {
+              "name": "Silence",
+              "action": "Major Action",
+              "target": "Area",
+              "effect": "Dampens all sound within (Force x 2) meter radius."
+            }
+          ],
+          "optional_powers": [
+            {
+              "name": "Accident",
+              "action": "Major Action",
+              "target": "Target",
+              "effect": "Causes root entanglement, stumbling, or falling foliage."
+            },
+            {
+              "name": "Confusion",
+              "action": "Major Action",
+              "target": "Target",
+              "effect": "Hallucinogenic spores/pollen imposing net hits penalty."
+            },
+            {
+              "name": "Movement",
+              "action": "Minor Action",
+              "target": "Target",
+              "effect": "Accelerates or hinders passage through vegetation/terrain by Force multiplier."
+            },
+            {
+              "name": "Noxious Breath",
+              "action": "Major Action",
+              "target": "Cone",
+              "effect": "Chokes target in toxic pollen cloud imposing nausea."
+            },
+            {
+              "name": "Search",
+              "action": "Major Action",
+              "target": "Area",
+              "effect": "Searches for person, object, or location via root-network astral tracking."
+            }
+          ],
+          "great_form_power": "Regeneration (Street Wyrd p. 66)",
+          "weakness": "Allergy (Fire, Vulnerability [SR6 p. 229])",
+          "attributes_formula": "BOD: F+3, AGI: F-1, REA: F, STR: F+2, WIL: F+1, LOG: F-1, INT: F, CHA: F"
+        },
+        "task": {
+          "name": "Spirit of Task",
+          "category": "Street Wyrd Spirits",
+          "source": "Street Wyrd p. 7 / SRMG v2.4",
+          "doc_link": "chapters/rules_and_downtime.html#conjuring-and-spirit-protocols",
+          "powers": [
+            {
+              "name": "Accident",
+              "action": "Major Action",
+              "target": "Target",
+              "effect": "Industrial mishaps or equipment jams."
+            },
+            {
+              "name": "Astral Form",
+              "action": "Always",
+              "target": "Self",
+              "effect": "Dual-natured or wholly astral entity."
+            },
+            {
+              "name": "Binding",
+              "action": "Major Action",
+              "target": "Melee",
+              "effect": "Traps target under heavy machinery or cables."
+            },
+            {
+              "name": "Movement",
+              "action": "Minor Action",
+              "target": "Target",
+              "effect": "Accelerates physical work or machine operations."
+            },
+            {
+              "name": "Search",
+              "action": "Major Action",
+              "target": "Area",
+              "effect": "Searches for tools, blueprints, or materials."
+            },
+            {
+              "name": "Skill",
+              "action": "Always",
+              "target": "Summoner / Self",
+              "effect": "Possesses and provides teamwork dice equal to Force on one chosen technical or physical skill.",
+              "requires_choice": true,
+              "choice_label": "Designated Skill (e.g., Electronics, Engineering, Cracking)"
+            }
+          ],
+          "optional_powers": [
+            {
+              "name": "Concealment",
+              "action": "Minor Action",
+              "target": "Target",
+              "effect": "Hides within industrial equipment."
+            },
+            {
+              "name": "Psychokinesis",
+              "action": "Major Action",
+              "target": "LOS",
+              "effect": "Remotely manipulates tools and mechanical levers."
+            }
+          ],
+          "weakness": "Allergy (Corrosives, Severe)",
+          "attributes_formula": "BOD: F+2, AGI: F+1, REA: F+1, STR: F+2, WIL: F, LOG: F+1, INT: F, CHA: F"
+        }
+      }
     },
     "inventory": {
-      "commlinks": [
-        "Erika Elite",
-        "Renraku Sensei"
-      ],
-      "matrix_devices": [
-        {
-          "name": "Erika Elite",
-          "rating": 4,
-          "data_processing": 2,
-          "firewall": 2,
-          "qty": 1,
-          "accessories": [
-            "Comhack Securelink Upgrade",
-            "P-Ice Nope"
-          ],
-          "notes": ""
-        },
-        {
-          "name": "Renraku Sensei",
-          "rating": 3,
-          "data_processing": 2,
-          "firewall": 2,
-          "qty": 2,
-          "accessories": [],
-          "notes": ""
-        }
-      ],
+      "commlinks": [],
+      "matrix_devices": [],
       "hosts": [],
-      "programs": [
-        "Personal Assistant",
-        "Virtual Machine",
-        "Thermal Mood Reading",
-        "Nanomask",
-        "MeFeed",
-        "Facial Scanner"
-      ],
-      "software": [
-        {
-          "name": "Personal Assistant",
-          "rating": 6,
-          "category": "Commlink Apps"
-        },
-        {
-          "name": "Virtual Machine",
-          "rating": null,
-          "category": "Basic programs"
-        },
-        {
-          "name": "Thermal Mood Reading",
-          "rating": null,
-          "category": "Commlink Apps"
-        },
-        {
-          "name": "Nanomask",
-          "rating": null,
-          "category": "Basic programs"
-        },
-        {
-          "name": "MeFeed",
-          "rating": null,
-          "category": "Commlink Apps"
-        },
-        {
-          "name": "Facial Scanner",
-          "rating": null,
-          "category": "Commlink Apps"
-        }
-      ],
+      "programs": [],
+      "software": [],
       "autosofts": [],
       "gear": [
-        "Nanocosmetics Kit",
-        "Nanocosmetics Refill",
         "Nanopaste Disguise Kit",
-        "Nanopaste Disguise Refill",
-        "Savior Medkit",
-        "Savior Medkit Refill",
-        "Contacts",
-        "Earbuds",
-        "Subvocal Microphone",
-        "Qi Focus (Rating 4)"
+        "Nanocosmetics Kit",
+        "Savior Medkit (Rating 6)",
+        "Contacts (Rating 3 w/ Flare Comp, Image Link, Thermo)"
       ],
       "gear_items": [
-        {
-          "name": "Nanocosmetics Kit",
-          "qty": 1,
-          "rating": null,
-          "category": "Field Gear",
-          "accessories": [],
-          "notes": ""
-        },
-        {
-          "name": "Nanocosmetics Refill",
-          "qty": 1,
-          "rating": null,
-          "category": "Field Gear",
-          "accessories": [],
-          "notes": ""
-        },
         {
           "name": "Nanopaste Disguise Kit",
           "qty": 1,
@@ -1985,7 +3445,7 @@
           "notes": ""
         },
         {
-          "name": "Nanopaste Disguise Refill",
+          "name": "Nanocosmetics Kit",
           "qty": 1,
           "rating": null,
           "category": "Field Gear",
@@ -1993,53 +3453,17 @@
           "notes": ""
         },
         {
-          "name": "Savior Medkit",
+          "name": "Savior Medkit (Rating 6)",
           "qty": 1,
-          "rating": null,
+          "rating": 6,
           "category": "Field Gear",
           "accessories": [],
           "notes": ""
         },
         {
-          "name": "Savior Medkit Refill",
-          "qty": 1,
-          "rating": null,
-          "category": "Field Gear",
-          "accessories": [],
-          "notes": ""
-        },
-        {
-          "name": "Contacts",
+          "name": "Contacts (Rating 3 w/ Flare Comp, Image Link, Thermo)",
           "qty": 1,
           "rating": 3,
-          "category": "Field Gear",
-          "accessories": [
-            "Flare Compensation",
-            "Image Link",
-            "Thermographic Vision"
-          ],
-          "notes": ""
-        },
-        {
-          "name": "Earbuds",
-          "qty": 1,
-          "rating": 3,
-          "category": "Field Gear",
-          "accessories": [],
-          "notes": ""
-        },
-        {
-          "name": "Subvocal Microphone",
-          "qty": 1,
-          "rating": null,
-          "category": "Field Gear",
-          "accessories": [],
-          "notes": ""
-        },
-        {
-          "name": "Qi Focus (Rating 4)",
-          "qty": 1,
-          "rating": 4,
           "category": "Field Gear",
           "accessories": [],
           "notes": ""
@@ -2065,22 +3489,6 @@
     },
     "gear_items": [
       {
-        "name": "Nanocosmetics Kit",
-        "qty": 1,
-        "rating": null,
-        "category": "Field Gear",
-        "accessories": [],
-        "notes": ""
-      },
-      {
-        "name": "Nanocosmetics Refill",
-        "qty": 1,
-        "rating": null,
-        "category": "Field Gear",
-        "accessories": [],
-        "notes": ""
-      },
-      {
         "name": "Nanopaste Disguise Kit",
         "qty": 1,
         "rating": null,
@@ -2089,7 +3497,7 @@
         "notes": ""
       },
       {
-        "name": "Nanopaste Disguise Refill",
+        "name": "Nanocosmetics Kit",
         "qty": 1,
         "rating": null,
         "category": "Field Gear",
@@ -2097,113 +3505,24 @@
         "notes": ""
       },
       {
-        "name": "Savior Medkit",
+        "name": "Savior Medkit (Rating 6)",
         "qty": 1,
-        "rating": null,
-        "category": "Field Gear",
-        "accessories": [],
-        "notes": ""
-      },
-      {
-        "name": "Savior Medkit Refill",
-        "qty": 1,
-        "rating": null,
-        "category": "Field Gear",
-        "accessories": [],
-        "notes": ""
-      },
-      {
-        "name": "Contacts",
-        "qty": 1,
-        "rating": 3,
-        "category": "Field Gear",
-        "accessories": [
-          "Flare Compensation",
-          "Image Link",
-          "Thermographic Vision"
-        ],
-        "notes": ""
-      },
-      {
-        "name": "Earbuds",
-        "qty": 1,
-        "rating": 3,
-        "category": "Field Gear",
-        "accessories": [],
-        "notes": ""
-      },
-      {
-        "name": "Subvocal Microphone",
-        "qty": 1,
-        "rating": null,
-        "category": "Field Gear",
-        "accessories": [],
-        "notes": ""
-      },
-      {
-        "name": "Qi Focus (Rating 4)",
-        "qty": 1,
-        "rating": 4,
-        "category": "Field Gear",
-        "accessories": [],
-        "notes": ""
-      }
-    ],
-    "matrix_devices": [
-      {
-        "name": "Erika Elite",
-        "rating": 4,
-        "data_processing": 2,
-        "firewall": 2,
-        "qty": 1,
-        "accessories": [
-          "Comhack Securelink Upgrade",
-          "P-Ice Nope"
-        ],
-        "notes": ""
-      },
-      {
-        "name": "Renraku Sensei",
-        "rating": 3,
-        "data_processing": 2,
-        "firewall": 2,
-        "qty": 2,
-        "accessories": [],
-        "notes": ""
-      }
-    ],
-    "software": [
-      {
-        "name": "Personal Assistant",
         "rating": 6,
-        "category": "Commlink Apps"
+        "category": "Field Gear",
+        "accessories": [],
+        "notes": ""
       },
       {
-        "name": "Virtual Machine",
-        "rating": null,
-        "category": "Basic programs"
-      },
-      {
-        "name": "Thermal Mood Reading",
-        "rating": null,
-        "category": "Commlink Apps"
-      },
-      {
-        "name": "Nanomask",
-        "rating": null,
-        "category": "Basic programs"
-      },
-      {
-        "name": "MeFeed",
-        "rating": null,
-        "category": "Commlink Apps"
-      },
-      {
-        "name": "Facial Scanner",
-        "rating": null,
-        "category": "Commlink Apps"
+        "name": "Contacts (Rating 3 w/ Flare Comp, Image Link, Thermo)",
+        "qty": 1,
+        "rating": 3,
+        "category": "Field Gear",
+        "accessories": [],
+        "notes": ""
       }
     ],
+    "matrix_devices": [],
+    "software": [],
     "sins": [
       {
         "name": "Fake SIN: Lee Ji-Yoo:  (Second Life Quality)",
@@ -2221,214 +3540,37 @@
       }
     ],
     "lifestyles": [],
-    "contacts": [
+    "contacts": [],
+    "exceptions": [
       {
-        "name": "Brynne Taggart",
-        "connection": 4,
-        "loyalty": 1,
-        "archetype": "Fixer",
-        "favors": 0,
-        "region": "SEA",
-        "types": [
-          "Fixer"
-        ],
-        "description": "Chargen Contact | SRM 2081-01 Death of a Fixer"
+        "id": "srm_monthly_expenses",
+        "title": "SRM Bi-Monthly Expense & Downtime Cadence",
+        "category": "lifestyle",
+        "description": "Every 2nd SRM mission, settle monthly lifestyle obligations and perform 1 Major and 1 Minor downtime action.",
+        "source": "rules_and_downtime.qmd",
+        "gm": "SRM Campaign Baseline",
+        "active": true
       },
       {
-        "name": "Vincent Grisome",
-        "connection": 5,
-        "loyalty": 3,
-        "archetype": "Magic Prof.",
-        "favors": 0,
-        "region": "SEA",
-        "types": [
-          "Magic"
-        ],
-        "description": "Chargen Contact"
+        "id": "adept_sorcery_stacking",
+        "title": "Adept Improved Ability (Sorcery) Stacking",
+        "category": "mechanics",
+        "description": "Improved Ability adept power grants bonus dice to Sorcery spellcasting within adept power limits.",
+        "source": "Street Wyrd / rules_and_downtime.qmd",
+        "gm": "Tabletop Baseline",
+        "active": true
       },
       {
-        "name": "Ni Ni Xiaolu",
-        "connection": 3,
-        "loyalty": 2,
-        "archetype": "Triad Johnson",
-        "favors": 0,
-        "region": "SEA",
-        "types": [
-          "Criminal"
-        ],
-        "description": "Chargen Contact | +2 FP SRM 2081-07 Bootleg Bliss (looking forward to date)"
-      },
-      {
-        "name": "Whiskey",
-        "connection": 2,
-        "loyalty": 3,
-        "archetype": "Street Doc",
-        "favors": 1,
-        "region": "SEA",
-        "types": [
-          "Street"
-        ],
-        "description": "Chargen Contact | SRM 2081-02 Urgent Care"
-      },
-      {
-        "name": "Claudette Laurier",
-        "connection": 5,
-        "loyalty": 4,
-        "archetype": "Order of the Golden Dawn Librarian",
-        "favors": 0,
-        "region": "NOLA",
-        "types": [
-          "General"
-        ],
-        "description": "Chargen Contact"
-      },
-      {
-        "name": "Le Tigre",
-        "connection": 5,
-        "loyalty": 1,
-        "archetype": "Epoch Model",
-        "favors": 0,
-        "region": "NOLA",
-        "types": [
-          "General"
-        ],
-        "description": "Chargen Contact"
-      },
-      {
-        "name": "Hana",
-        "connection": 6,
-        "loyalty": 6,
-        "archetype": "Wuxing Talismonger / Pop Idol",
-        "favors": 0,
-        "region": "SEA",
-        "types": [
-          "General"
-        ],
-        "description": "Chargen Contact"
-      },
-      {
-        "name": "Guild of Freelance Assets",
-        "connection": 7,
-        "loyalty": 8,
-        "archetype": "Conclave",
-        "favors": 0,
-        "region": "GEN",
-        "types": [
-          "General"
-        ],
-        "description": "Chargen Contact (Conclave C7 L8)"
-      },
-      {
-        "name": "Ms. Snow",
-        "connection": 5,
-        "loyalty": 1,
-        "archetype": "Johnson",
-        "favors": 1,
-        "region": "SEA",
-        "types": [
-          "General"
-        ],
-        "description": "SRM 2081-09 Eviction Notice (Elven female)"
-      },
-      {
-        "name": "Bookie",
-        "connection": 3,
-        "loyalty": 1,
-        "archetype": "Ancients Bookie",
-        "favors": 0,
-        "region": "SEA",
-        "types": [
-          "General"
-        ],
-        "description": "SRM 2081-07 Bootleg Bliss"
-      },
-      {
-        "name": "Trudy",
-        "connection": 2,
-        "loyalty": 1,
-        "archetype": "Cutters Lieutenant",
-        "favors": 0,
-        "region": "SEA",
-        "types": [
-          "General"
-        ],
-        "description": "SRM 2081-07 Bootleg Bliss"
-      },
-      {
-        "name": "Eddie Wei",
-        "connection": 4,
-        "loyalty": 1,
-        "archetype": "Triad Johnson",
-        "favors": 0,
-        "region": "SEA",
-        "types": [
-          "Criminal",
-          "Matrix"
-        ],
-        "description": "Uses: Business and economics, getting jobs, triads (Shadowrun Missions Seattle) | Types: Criminal, Matrix | SRM 2081-02 Urgent Care"
-      },
-      {
-        "name": "Kingston",
-        "connection": 2,
-        "loyalty": 2,
-        "archetype": "Shadowrunner/Street Samurai",
-        "favors": 0,
-        "region": "SEA",
-        "types": [
-          "Criminal",
-          "Street"
-        ],
-        "description": "Uses: Shadowrunners, street rumors (Shadowrun Missions Seattle) | Types: Criminal, Street | SRM 2081-02 Urgent Care"
-      },
-      {
-        "name": "Ms. Margaret",
-        "connection": 1,
-        "loyalty": 1,
-        "archetype": "Hospital Volunteer",
-        "favors": 0,
-        "region": "SEA",
-        "types": [
-          "General"
-        ],
-        "description": "SRM 2081-02 Urgent Care (Elderly Human Hospital Volunteer who needs her roof fixed)"
-      },
-      {
-        "name": "Simon Andrews",
-        "connection": 5,
-        "loyalty": 1,
-        "archetype": "S-K Johnson",
-        "favors": 0,
-        "region": "AMS",
-        "types": [
-          "General"
-        ],
-        "description": "CMP 2083-01 Nonplushed (S-K Johnson)"
-      },
-      {
-        "name": "Mr. Fa",
-        "connection": 4,
-        "loyalty": 1,
-        "archetype": "HKB Corporate Middle Manager",
-        "favors": 1,
-        "region": "HK",
-        "types": [
-          "Corporate"
-        ],
-        "description": "CMP 2083-05 Precious Cargo (Liao Fa Deng, Male Human Corporate Middle Manager)"
-      },
-      {
-        "name": "Liao Fa Ren",
-        "connection": 3,
-        "loyalty": 2,
-        "archetype": "HK Rookie Journalist",
-        "favors": 1,
-        "region": "HK",
-        "types": [
-          "General"
-        ],
-        "description": "CMP 2083-05 Precious Cargo (Female Human Rookie Journalist, top marks on port raid story)"
+        "id": "high_charisma_drain_synergy",
+        "title": "Musok Charisma Drain Resistance",
+        "category": "mechanics",
+        "description": "Drain resistance utilizes Willpower + Charisma (enhanced by Sustained Attribute spells up to +4 per attribute).",
+        "source": "SR6 Core p. 132 / rules_and_downtime.qmd",
+        "gm": "Tabletop Baseline",
+        "active": true
       }
-    ]
+    ],
+    "rules_doc": "rules/rules.html"
   }
 };
     window.__SR6_DATA_BUNDLE__ = CHARACTERS_DATA;
@@ -2467,8 +3609,37 @@
       renderActiveCharacter();
     }
 
+    function toggleBuff(toggleKey, currentActive) {
+      const nextVal = currentActive ? -1 : 1;
+      setRuntimeMod(activeCharId, toggleKey, nextVal);
+      renderActiveCharacter();
+    }
+
     function toggleInitDrawer() {
       isInitDrawerOpen = !isInitDrawerOpen;
+      renderActiveCharacter();
+    }
+
+    function updateChannelingState(spiritKey, forceVal) {
+      setRuntimeMod(activeCharId, "channeling_spirit", spiritKey);
+      setRuntimeMod(activeCharId, "channeling_force", parseInt(forceVal, 10) || 0);
+      renderActiveCharacter();
+      if (spiritKey !== "none" && forceVal > 0) {
+        showToast(`⚡ Channeling active: Force ${forceVal} ${spiritKey.toUpperCase()}`);
+      } else {
+        showToast("⚡ Spirit Channeling deactivated");
+      }
+    }
+
+    function updateChannelingOption(powerName, optionVal) {
+      const optKey = "channeling_opt_" + powerName.toLowerCase().replace(/[^a-z0-9]/g, "_");
+      setRuntimeMod(activeCharId, optKey, optionVal);
+      renderActiveCharacter();
+    }
+
+    function toggleChannelingOptionalPower(powerName, isSelected) {
+      const toggleKey = "channeling_opt_power_" + powerName.toLowerCase().replace(/[^a-z0-9]/g, "_");
+      setRuntimeMod(activeCharId, toggleKey, isSelected ? 1 : 0);
       renderActiveCharacter();
     }
 
@@ -2592,7 +3763,11 @@
 
       // Check if any active modifiers exist for this character
       const charMods = RUNTIME_MODIFIERS[activeCharId] || {};
-      const hasActiveMods = Object.keys(charMods).some(k => charMods[k] !== 0);
+      const hasActiveMods = Object.keys(charMods).some(k => {
+        const val = charMods[k];
+        if (k === "channeling_spirit") return val && val !== "none";
+        return val !== 0 && val !== "" && val !== null && val !== undefined;
+      });
       const resetBtn = document.getElementById("resetAllModsBtn");
       if (resetBtn) {
         resetBtn.style.display = hasActiveMods ? "inline-flex" : "none";
@@ -2616,13 +3791,29 @@
       const attrsList = char.attributes_list || [];
       const liveAttrs = {};
 
+      // Spirit Channeling Active State Calculation
+      const hasChanneling = !!(char.identity && char.identity.has_channeling);
+      const activeSpiritKey = getRuntimeMod(activeCharId, "channeling_spirit") || "none";
+      const activeSpiritForce = parseInt(getRuntimeMod(activeCharId, "channeling_force") || 0, 10);
+      const spiritCatalog = (char.powers && char.powers.spirit_channeling_catalog) || char.spirit_channeling_catalog || {};
+      const activeSpirit = (activeSpiritKey !== "none" && spiritCatalog[activeSpiritKey]) ? spiritCatalog[activeSpiritKey] : null;
+      let channelingPhysicalBoost = 0;
+      let channelingWoundsIgnored = 0;
+      if (hasChanneling && activeSpirit && activeSpiritForce > 0) {
+        channelingPhysicalBoost = Math.max(1, Math.floor(activeSpiritForce / 2));
+        channelingWoundsIgnored = activeSpiritForce;
+      }
+
       // First pass: compute live physical, mental, special attributes
+      const physicalCodes = ["bod", "agi", "rea", "str"];
       attrsList.forEach((attr) => {
-        const key = "attr_" + attr.code.toLowerCase();
+        const code = attr.code.toLowerCase();
+        const key = "attr_" + code;
         const delta = getRuntimeMod(activeCharId, key);
         if (!attr.linked_mental) {
           const baseAug = attr.buffed;
-          liveAttrs[attr.code.toLowerCase()] = Math.max(0, baseAug + delta);
+          const chanBonus = physicalCodes.includes(code) ? channelingPhysicalBoost : 0;
+          liveAttrs[code] = Math.max(0, baseAug + delta + chanBonus);
         }
       });
 
@@ -2921,6 +4112,28 @@
         qList.innerHTML = qHtml;
       }
 
+      // Exceptions & Tabletop Rulings Rendering
+      const excList = document.getElementById("exceptionsList");
+      if (excList) {
+        const excs = char.exceptions || [];
+        if (excs.length === 0) {
+          excList.innerHTML = '<div style="color: var(--text-muted); font-size: 0.8rem;">No custom tabletop exceptions recorded (Standard Core rules apply).</div>';
+        } else {
+          excList.innerHTML = excs.map(e => `
+            <div style="background: rgba(0,0,0,0.35); border: 1px solid var(--border-accent); border-radius: 8px; padding: 8px 12px; margin-bottom: 6px;">
+              <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                <span style="font-weight: 700; color: var(--gold-primary); font-size: 0.85rem;">⚡ ${e.title}</span>
+                <span class="power-badge" style="text-transform: uppercase;">${e.category || 'Ruling'}</span>
+              </div>
+              <div style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 3px; line-height: 1.35;">${e.description}</div>
+              <div style="font-size: 0.68rem; color: var(--text-muted); margin-top: 4px;">
+                <strong>Source:</strong> ${e.source || 'Campaign Ruling'} | <strong>Authority:</strong> ${e.gm || 'GM Ruling'}
+              </div>
+            </div>
+          `).join("");
+        }
+      }
+
       // Skills Tab with Interactive +/- Steppers
       const sList = document.getElementById("skillsList");
       sList.innerHTML = "";
@@ -2939,7 +4152,46 @@
         
         const specHtml = s.specialization ? `<span class="skill-spec">+2 ${s.specialization}</span>` : "";
         const deltaBadge = isManualMod ? `<span class="mod-delta-badge ${delta > 0 ? 'pos' : 'neg'}">${delta > 0 ? '+' + delta : delta}</span>` : "";
-        const buffsHtml = s.buffs.map(b => `<div class="buff-chip">${b.active ? '✔' : '⚡'} ${b.source} (+${b.value})</div>`).join("");
+
+        // Calculate dynamic buffs based on toggle state
+        let buffsDelta = 0;
+        const buffsHtml = s.buffs.map(b => {
+          const modToggleKey = "toggle_" + skillKey + "_" + b.source.toLowerCase().replace(/[^a-z0-9]/g, "_");
+          // Check if disabled by user (defaults to active if b.active is true)
+          const isEnabled = getRuntimeMod(activeCharId, modToggleKey) !== -1;
+          if (!isEnabled && b.active) {
+            buffsDelta -= b.value;
+          }
+          const ruleLinkHtml = b.rule_anchor ? ` <a class="doc-link-inline" href="${getDocUrl(activeCharId, b.rule_anchor)}" target="_blank" rel="noopener" title="View Rule">📖</a>` : '';
+          return `
+            <div class="buff-chip ${isEnabled ? 'buff-active' : 'buff-disabled'}" style="cursor: pointer;" onclick="toggleBuff('${modToggleKey}', ${isEnabled ? 1 : 0}); event.stopPropagation();">
+              <span>${isEnabled ? '☑' : '☐'} <strong>${b.source}</strong> (+${b.value})${ruleLinkHtml}</span>
+            </div>
+          `;
+        }).join("");
+
+        // Dynamically incorporate changes in the linked attribute
+        const attrMap = {
+          "body": "bod", "agility": "agi", "reaction": "rea", "strength": "str",
+          "willpower": "wil", "logic": "log", "intuition": "int", "charisma": "cha",
+          "edge": "edg", "magic": "mag", "resonance": "res",
+          "bod": "bod", "agi": "agi", "rea": "rea", "str": "str",
+          "wil": "wil", "log": "log", "int": "int", "cha": "cha",
+          "edg": "edg", "mag": "mag", "res": "res"
+        };
+        const rawAttrStr = (s.attribute || "").toLowerCase();
+        const shortCode = attrMap[rawAttrStr] || rawAttrStr;
+        const baseAugAttr = (char.attributes && (char.attributes[rawAttrStr] !== undefined ? char.attributes[rawAttrStr] : char.attributes[shortCode])) !== undefined
+          ? (char.attributes[rawAttrStr] !== undefined ? char.attributes[rawAttrStr] : char.attributes[shortCode])
+          : (s.base_pool - s.rating);
+        const liveAttrVal = liveAttrs[shortCode] !== undefined ? liveAttrs[shortCode] : (liveAttrs[rawAttrStr] !== undefined ? liveAttrs[rawAttrStr] : baseAugAttr);
+        const attrDelta = liveAttrVal - baseAugAttr;
+
+        const totalPool = Math.max(0, defaultPool + delta + buffsDelta + attrDelta);
+        const effectiveBoughtHits = Math.floor(totalPool / 4);
+        const effectiveSpecPool = s.specialization ? (totalPool + 2) : totalPool;
+        const effectiveSpecHits = Math.floor(effectiveSpecPool / 4);
+
         const docLink = s.doc_link ? `<a class="doc-link-btn" href="${getDocUrl(activeCharId, s.doc_link)}" target="_blank" rel="noopener">📖 View Rules & Mechanics ↗</a>` : "";
 
         item.innerHTML = `
@@ -2958,19 +4210,19 @@
             <div class="stepper-pool-wrap">
               <button class="stepper-btn minus" onclick="stepModifier('${skillKey}', -1)" title="Decrease Pool by 1">-</button>
               <div class="pool-target" title="Tap to Copy">
-                <span class="pool-d6">${currentPool}d6</span>
-                <span class="pool-sublabel">Base: ${s.base_pool}d6 | Default: ${s.buffed_pool}d6 ${s.specialization ? `| Spec: ${specPool}d6` : ''}</span>
+                <span class="pool-d6">${totalPool}d6</span>
+                <span class="pool-sublabel">Base: ${s.base_pool}d6 | Default: ${s.buffed_pool}d6 ${s.specialization ? `| Spec: ${effectiveSpecPool}d6` : ''}</span>
               </div>
               <button class="stepper-btn plus" onclick="stepModifier('${skillKey}', 1)" title="Increase Pool by 1">+</button>
             </div>
             <div class="bought-hits-box">
-              <span class="bought-hits-num">${boughtHits}</span>
+              <span class="bought-hits-num">${effectiveBoughtHits}</span>
               <span class="bought-hits-lbl">Bought Hits</span>
             </div>
           </div>
           <div class="breakdown-drawer">
             <div class="breakdown-math">📊 ${s.breakdown_text} ${isManualMod ? `| Live Modifier: ${delta > 0 ? '+' + delta : delta}` : ''}</div>
-            ${s.specialization ? `<div style="font-size: 0.8rem; color: var(--gold-primary); margin-bottom: 4px;"><strong>Specialized Action:</strong> ${specPool}d6 (${specHits} Bought Hits)</div>` : ''}
+            ${s.specialization ? `<div style="font-size: 0.8rem; color: var(--gold-primary); margin-bottom: 4px;"><strong>Specialized Action:</strong> ${effectiveSpecPool}d6 (${effectiveSpecHits} Bought Hits)</div>` : ''}
             <div class="buff-checklist">
               ${buffsHtml || '<div class="buff-chip">No active buffs</div>'}
             </div>
@@ -2980,7 +4232,7 @@
 
         // Click target to copy/toast
         item.querySelector(".pool-target").addEventListener("click", () => {
-          showToast(`⚡ ${s.name}: ${currentPool}d6 (${boughtHits} Hits)${s.specialization ? ` [${s.specialization}: ${specPool}d6]` : ''}`);
+          showToast(`⚡ ${s.name}: ${totalPool}d6 (${effectiveBoughtHits} Hits)${s.specialization ? ` [${s.specialization}: ${effectiveSpecPool}d6]` : ''}`);
         });
 
         const isDrawerOpen = openDrawers.has(skillKey);
@@ -3079,6 +4331,187 @@
       const echoes = char.powers.echoes || [];
       const monad = char.powers.monad_abilities || [];
       const augs = char.powers.augmentations || [];
+
+      // ⚡ Spirit Channeling Inhabitation Console for Mages with Conjuring & Channeling
+      if (hasChanneling) {
+        const mageMagic = parseInt(char.attributes.magic || 6, 10);
+        const maxAllowedForce = Math.max(1, mageMagic - 1);
+        const spiritCatalog = (char.powers && char.powers.spirit_channeling_catalog) || char.spirit_channeling_catalog || {};
+        const spiritKeys = Object.keys(spiritCatalog);
+
+        // Build Spirit dropdown options
+        let spiritOptsHtml = `<option value="none" ${activeSpiritKey === 'none' ? 'selected' : ''}>— None (Inactive / Astral Standby) —</option>`;
+        spiritKeys.forEach(k => {
+          const sp = spiritCatalog[k];
+          const isSel = (activeSpiritKey === k);
+          spiritOptsHtml += `<option value="${k}" ${isSel ? 'selected' : ''}>${sp.name} (${sp.category})</option>`;
+        });
+
+        // Build Force dropdown options (1 to Magic - 1 per user specification)
+        let forceOptsHtml = "";
+        for (let f = 1; f <= maxAllowedForce; f++) {
+          const isSel = (activeSpiritForce === f) || (!activeSpiritForce && f === Math.min(3, maxAllowedForce));
+          forceOptsHtml += `<option value="${f}" ${isSel ? 'selected' : ''}>Force ${f} (+${Math.max(1, Math.floor(f/2))} Phys, ${f} Wounds Ignored)</option>`;
+        }
+
+        // Optional Powers UI per SR6 Core: 1 optional power for every 3 full points of Force
+        let optionalPowersHtml = "";
+        let powerChoiceHtml = "";
+        if (activeSpirit && activeSpiritForce > 0) {
+          const optionalList = activeSpirit.optional_powers || [];
+          const maxOptionalAllowed = Math.floor(activeSpiritForce / 3);
+
+          if (optionalList.length > 0) {
+            if (maxOptionalAllowed > 0) {
+              const currentlyCheckedPowers = optionalList.filter(op => {
+                const optToggleKey = "channeling_opt_power_" + op.name.toLowerCase().replace(/[^a-z0-9]/g, "_");
+                return getRuntimeMod(activeCharId, optToggleKey) === 1;
+              });
+
+              optionalPowersHtml = `
+                <div style="margin-top: 10px; padding: 10px; background: rgba(0,0,0,0.3); border-radius: 8px; border-left: 3px solid var(--purple-accent);">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <div style="font-size: 0.78rem; font-weight: 700; color: var(--purple-accent); text-transform: uppercase;">
+                      🌟 Optional Powers (${currentlyCheckedPowers.length} / ${maxOptionalAllowed} Selected)
+                    </div>
+                    <div style="font-size: 0.70rem; color: var(--text-muted); font-style: italic;">
+                      1 per 3 full points of Force (SR6 Core p. 147)
+                    </div>
+                  </div>
+                  <div style="display: flex; flex-direction: column; gap: 6px;">
+                    ${optionalList.map(op => {
+                      const optToggleKey = "channeling_opt_power_" + op.name.toLowerCase().replace(/[^a-z0-9]/g, "_");
+                      const isOptChecked = getRuntimeMod(activeCharId, optToggleKey) === 1;
+                      const disableCheck = (!isOptChecked && currentlyCheckedPowers.length >= maxOptionalAllowed);
+                      return `
+                        <label style="display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: ${disableCheck ? 'var(--text-muted)' : 'var(--text-primary)'}; cursor: ${disableCheck ? 'not-allowed' : 'pointer'}; opacity: ${disableCheck ? '0.6' : '1'};">
+                          <input type="checkbox" ${isOptChecked ? 'checked' : ''} ${disableCheck ? 'disabled' : ''} onchange="toggleChannelingOptionalPower('${op.name}', this.checked)">
+                          <span><strong>${op.name}</strong> <em style="color: var(--text-muted); font-size: 0.75rem;">— ${op.effect}</em></span>
+                        </label>
+                      `;
+                    }).join("")}
+                  </div>
+                </div>
+              `;
+            } else {
+              optionalPowersHtml = `
+                <div style="margin-top: 10px; padding: 8px 10px; background: rgba(0,0,0,0.18); border-radius: 6px; border: 1px dashed var(--border-subtle); font-size: 0.76rem; color: var(--text-muted);">
+                  ℹ️ <em>Optional powers unlock at Force 3+ (1 for every 3 full points of Force: Force 1–2 receive 0, Force 3–5 receive 1, Force 6–8 receive 2).</em>
+                </div>
+              `;
+            }
+          }
+        }
+
+        // Specific Choice input for configurable powers (e.g. Skill for Spirit of Task, Innate Spell for Spirit of Kin)
+        const configurablePowers = (activeSpirit && activeSpirit.powers) ? activeSpirit.powers.filter(p => p.requires_choice) : [];
+        if (configurablePowers.length > 0) {
+          powerChoiceHtml = configurablePowers.map(cp => {
+            const optKey = "channeling_opt_" + cp.name.toLowerCase().replace(/[^a-z0-9]/g, "_");
+            const currentVal = getRuntimeMod(activeCharId, optKey) || "";
+            return `
+              <div style="margin-top: 8px; padding: 8px 10px; background: rgba(0,0,0,0.25); border-radius: 6px; border: 1px dashed var(--border-accent);">
+                <div style="font-size: 0.76rem; color: var(--gold-primary); font-weight: 600; margin-bottom: 4px;">
+                  ⚙️ ${cp.choice_label || cp.name + ' Specification'}:
+                </div>
+                <input type="text" class="search-input" style="padding: 4px 8px; font-size: 0.8rem;" placeholder="e.g. Electronics, Engineering, or Spell Name" value="${currentVal}" onchange="updateChannelingOption('${cp.name}', this.value)">
+              </div>
+            `;
+          }).join("");
+        }
+
+        // Active channeling status banner
+        const isChannelingActive = (activeSpirit && activeSpiritForce > 0);
+        const statusBanner = isChannelingActive ? `
+          <div style="margin-top: 10px; padding: 10px 12px; background: rgba(217, 70, 239, 0.12); border: 1px solid var(--border-accent); border-radius: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-weight: 700; color: var(--gold-primary); font-size: 0.88rem;">
+                ⚡ Channeling Inhabited: ${activeSpirit.name} (Force ${activeSpiritForce})
+              </span>
+              <span class="power-badge" style="background: rgba(217,70,239,0.25); color: #f0abfc;">Dual-Natured</span>
+            </div>
+            <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 4px; line-height: 1.4;">
+              • <strong>Physical Augmentation:</strong> +${channelingPhysicalBoost} to BOD, AGI, REA, STR (reflected in live attributes & pools)<br>
+              • <strong>Somatic Resilience:</strong> Ignores up to <strong>${channelingWoundsIgnored} boxes</strong> of wound penalties<br>
+              • <strong>Perception:</strong> Simultaneous Astral & Physical Plane interaction without projecting
+              ${activeSpirit.weakness ? `<br>• <span style="color: #fca5a5;"><strong>Weakness:</strong> ${activeSpirit.weakness}</span>` : ''}
+            </div>
+            <div style="margin-top: 6px;">
+              <a class="doc-link-btn" href="${getDocUrl(activeCharId, activeSpirit.doc_link)}" target="_blank" rel="noopener">📖 View Channeling Protocols ↗</a>
+            </div>
+          </div>
+        ` : `
+          <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 6px;">
+            Select a spirit and Force to channel into physical form. Max Force is limited to <strong>Magic - 1</strong> (Force ${maxAllowedForce}).
+          </div>
+        `;
+
+        pContent.innerHTML += `
+          <div class="card" style="border: 1px solid var(--border-accent); box-shadow: 0 0 12px rgba(217, 70, 239, 0.15);">
+            <div class="card-title" style="display: flex; justify-content: space-between; align-items: center;">
+              <span>⚡ Spirit Channeling Inhabitation Console</span>
+              <span class="power-badge" style="text-transform: uppercase;">Street Wyrd p. 122</span>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 140px; gap: 8px; margin-top: 8px;">
+              <div>
+                <label style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; display: block; margin-bottom: 3px;">Channeled Spirit</label>
+                <select id="channelingSpiritSelect" class="char-select" style="font-size: 0.88rem; padding: 6px 10px;" onchange="updateChannelingState(this.value, document.getElementById('channelingForceSelect').value)">
+                  ${spiritOptsHtml}
+                </select>
+              </div>
+              <div>
+                <label style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; display: block; margin-bottom: 3px;">Force (1 - ${maxAllowedForce})</label>
+                <select id="channelingForceSelect" class="char-select" style="font-size: 0.88rem; padding: 6px 10px;" onchange="updateChannelingState(document.getElementById('channelingSpiritSelect').value, this.value)">
+                  ${forceOptsHtml}
+                </select>
+              </div>
+            </div>
+
+            ${powerChoiceHtml}
+            ${optionalPowersHtml}
+            ${statusBanner}
+          </div>
+        `;
+
+        // If channeling is active, inject the spirit powers into the active powers list
+        if (isChannelingActive) {
+          const spiritPowers = activeSpirit.powers || [];
+          const activeOptionalPowers = (activeSpirit.optional_powers || []).filter(op => {
+            const optToggleKey = "channeling_opt_power_" + op.name.toLowerCase().replace(/[^a-z0-9]/g, "_");
+            return getRuntimeMod(activeCharId, optToggleKey) === 1;
+          });
+
+          const allChanneledPowers = [...spiritPowers, ...activeOptionalPowers];
+          const channeledCardsHtml = allChanneledPowers.map(p => {
+            const optKey = "channeling_opt_" + p.name.toLowerCase().replace(/[^a-z0-9]/g, "_");
+            const optVal = getRuntimeMod(activeCharId, optKey);
+            const choiceLabel = optVal ? ` [<strong>${optVal}</strong>]` : "";
+            return `
+              <div class="power-item" style="border-left: 3px solid var(--purple-accent);">
+                <div class="power-header">
+                  <strong style="color: var(--purple-accent);">${p.name}${choiceLabel}</strong>
+                  <span class="power-badge">${p.action}</span>
+                </div>
+                <div style="font-size: 0.8rem; color: var(--gold-primary); margin-top: 2px;">Target: ${p.target}</div>
+                <div style="font-size: 0.82rem; color: var(--text-secondary); margin-top: 4px;">${p.effect}</div>
+                <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 4px;">
+                  Channeled from ${activeSpirit.name} (Force ${activeSpiritForce}) | <strong>Source:</strong> ${activeSpirit.source}
+                </div>
+              </div>
+            `;
+          }).join("");
+
+          pContent.innerHTML += `
+            <div class="card">
+              <div class="card-title" style="color: var(--purple-accent);">
+                ✨ Active Channeled Spirit Powers (${activeSpirit.name} F${activeSpiritForce})
+              </div>
+              ${channeledCardsHtml}
+            </div>
+          `;
+        }
+      }
 
       if (cf.length > 0) {
         let cfItems = cf.map(c => `
