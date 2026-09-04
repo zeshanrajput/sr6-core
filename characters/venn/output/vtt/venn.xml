@@ -17,26 +17,26 @@
       <attributes id="MAGIC" value="0" />
    </attributes>
    <qualities>
-      <quality lang="en" ref="augmentation_acclimation" uuid="fe7c28fb-1140-49c4-bc9e-f5eb0f6bde4a" value="9" />
-      <quality lang="en" ref="redliner" uuid="ae0877e7-b112-44a8-962f-6fac08b12407" />
-      <quality lang="en" ref="cyber_singularity_seeker" uuid="683ed57a-4519-45cc-8f1e-0036a18267f5" />
-      <quality lang="en" ref="maximum_overdrive" uuid="4f57b4ed-f23b-44f2-879c-3a5c1a48ac79" />
-      <quality lang="en" ref="cyberpsychosis" uuid="ddabc94c-e50f-4029-b4d8-c9a9b1f3918a" value="3" />
-      <quality lang="en" ref="hooder" uuid="09da0eb5-6964-40f2-a051-e24dec0a5f64" value="3" />
+      <quality lang="en" ref="augmentation_acclimation" uuid="8b30ac0d-a6db-4b78-a836-d20063cfa5f9" value="9" />
+      <quality lang="en" ref="redliner" uuid="671469c8-7568-4937-84d5-920b182c9062" />
+      <quality lang="en" ref="cyber_singularity_seeker" uuid="4256f884-1737-41a8-b192-7b74c1f49f79" />
+      <quality lang="en" ref="maximum_overdrive" uuid="8cb9b658-67bb-46d2-b9f1-9515897662b4" />
+      <quality lang="en" ref="cyberpsychosis" uuid="de769f7d-4d16-474a-9fc1-c9a3ceb4fae1" value="3" />
+      <quality lang="en" ref="hooder" uuid="dc754172-fbae-4e76-b488-b9a6b7a31248" value="3" />
    </qualities>
    <skills>
-      <skill lang="en" ref="electronics" uuid="3051fad9-1b4f-4913-866f-6961fad3b28e" value="6">
+      <skill lang="en" ref="electronics" uuid="8b48b457-e4ab-4e92-8d8e-ee6f65766cd2" value="6">
          <skillspec lang="en" ref="computer" />
       </skill>
-      <skill lang="en" ref="athletics" uuid="98d36871-7059-4a49-aa53-b1e1f820e069" value="1" />
-      <skill lang="en" ref="language_english" uuid="47446c59-32b6-46b6-bb69-b53977891820" value="4" />
-      <skill lang="en" ref="language_mindspeech" uuid="f3216063-73fe-4ccd-a9f8-7f90fb5b4366" value="4" />
+      <skill lang="en" ref="athletics" uuid="3690d12d-4400-406b-8f8d-67e5ba6d8fb7" value="1" />
+      <skill lang="en" ref="language_english" uuid="ba4b1058-e534-4fc4-a961-b8f8097d032e" value="4" />
+      <skill lang="en" ref="language_mindspeech" uuid="204ff10c-5ad1-4c92-867f-3f2932e5e1bf" value="4" />
    </skills>
    <items>
-      <item lang="en" mode="CARRIED" ref="colt_manhunter" uuid="4ff3134f-188a-47f9-9e71-03740209e47c">
+      <item lang="en" mode="CARRIED" ref="colt_manhunter" uuid="a12c9472-05db-4c4f-ad05-ac42c371eac7">
          <accessories>
-            <item lang="en" mode="EMBEDDED" ref="smartlink" uuid="d92527e9-79a8-4eee-bbee-cae0a8db33ae" />
-            <item lang="en" mode="EMBEDDED" ref="silencer" uuid="75fbdfea-c21c-49d0-9617-4c6e6aa8ecdd" />
+            <item lang="en" mode="EMBEDDED" ref="smartlink" uuid="65dd424b-1113-423b-9604-62a8858e94a6" />
+            <item lang="en" mode="EMBEDDED" ref="silencer" uuid="bd7c6f4b-7daa-4932-87e1-3ad6478f8911" />
          </accessories>
       </item>
    </items>

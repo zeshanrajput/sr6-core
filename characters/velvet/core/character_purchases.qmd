@@ -3,7 +3,7 @@
 ```{python}
 #| echo: false
 #| include: false
-from sr6core.log_engine import inc, inc_many, assign, state, adept_power, spell
+from sr6core.log_engine import inc, inc_many, assign, state, adept_power, spell, metamagic
 
 # Initial Starting Resources from Chargen
 assign("Karma", 0)

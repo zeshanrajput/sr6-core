@@ -52,9 +52,9 @@ jobs:
         env:
           QUARTO_PYTHON: ${{ github.workspace }}/.venv/bin/python
         run: |
-          cd characters/reiko && quarto render && cd ../..
-          cd characters/velvet && quarto render && cd ../..
-          cd characters/venn && quarto render && cd ../..
+          (cd characters/reiko && quarto render)
+          (cd characters/velvet && quarto render)
+          (cd characters/venn && quarto render)
 
       - name: Assemble Static Distribution
         run: |

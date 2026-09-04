@@ -10,6 +10,7 @@ Cost: 5 karma each
 - Threat Analyzer
 - Resonance Wires
 - Enhance Autosoft
+- Enlighten Automaton
 
 ### Resonance
 
