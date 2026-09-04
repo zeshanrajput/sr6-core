@@ -3,7 +3,7 @@ Canonical SRM Contacts Registry based on Shadowrun Missions Guide (SRM 2081) App
 Provides immutable connection ratings, canonical descriptions, types, and regions for all official SRM contacts.
 """
 
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, List, Union
 
 CANONICAL_CONTACTS: Dict[str, Dict[str, Any]] = {
     # --- SEATTLE CONTACTS (SRM 2081) ---
@@ -316,3 +316,40 @@ def get_canonical_contact(name: str) -> Optional[Dict[str, Any]]:
 def is_canonical_contact(name: str) -> bool:
     """Checks whether a contact name is an official SRM canonical contact."""
     return name.strip() in CANONICAL_CONTACTS
+
+
+def normalize_contacts_list(contacts_data: Any) -> List[Dict[str, Any]]:
+    """
+    Normalizes contacts data whether structured as:
+      - A dictionary: {name: contact_dict, ...}
+      - A list of dictionaries: [contact_dict, ...]
+      - A list of string names: [name, ...]
+    Guarantees a list of dictionaries with 'name' populated.
+    """
+    if not contacts_data:
+        return []
+
+    result: List[Dict[str, Any]] = []
+
+    if isinstance(contacts_data, dict):
+        for k, v in contacts_data.items():
+            if isinstance(v, dict):
+                item = dict(v)
+                if not item.get("name"):
+                    item["name"] = str(k)
+                result.append(item)
+            elif isinstance(v, str):
+                result.append({"name": str(k), "notes": v})
+            else:
+                result.append({"name": str(k)})
+        return result
+
+    if isinstance(contacts_data, list):
+        for item in contacts_data:
+            if isinstance(item, dict):
+                result.append(dict(item))
+            elif isinstance(item, str):
+                result.append({"name": item})
+        return result
+
+    return result

@@ -16,6 +16,7 @@ from sr6core.creation.point_buy import audit_point_buy
 from sr6core.exporters.roll20_json import export_roll20_json
 from sr6core.exporters.vtt_text import export_vtt_text
 from sr6core.exporters.genesis_xml import export_genesis_xml
+from sr6core.contacts import normalize_contacts_list
 
 
 class CharacterManager:
@@ -122,7 +123,7 @@ class CharacterManager:
                                     data["modifiers"].append(dm)
                                     existing_ids.add(dm.get("id"))
 
-                        for field_key in ["Spells", "Complex_Forms", "Adept_Powers", "Metamagic", "Echoes", "Knowledge_Skills"]:
+                        for field_key in ["Spells", "Complex_Forms", "Adept_Powers", "Metamagic", "Echoes", "Knowledge_Skills", "Monad_Abilities"]:
                             if field_key in totals and totals[field_key]:
                                 yaml_key = field_key.lower()
                                 data.setdefault(yaml_key, [])
@@ -138,12 +139,22 @@ class CharacterManager:
                         if "Nuyen" in totals:
                             data["identity"]["nuyen"] = totals["Nuyen"]
                         if "Contacts" in totals and totals["Contacts"]:
-                            data.setdefault("contacts", [])
-                            existing_contact_names = {c.get("name", "").lower() for c in data["contacts"] if isinstance(c, dict)}
-                            for c in totals["Contacts"]:
-                                if c.get("name", "").lower() not in existing_contact_names:
-                                    data["contacts"].append(c)
-                                    existing_contact_names.add(c.get("name", "").lower())
+                            log_contacts = normalize_contacts_list(totals["Contacts"])
+                            if isinstance(data.get("contacts"), dict):
+                                for c in log_contacts:
+                                    cname = c.get("name")
+                                    if cname:
+                                        if cname not in data["contacts"]:
+                                            data["contacts"][cname] = c
+                                        elif isinstance(data["contacts"][cname], dict):
+                                            data["contacts"][cname].update(c)
+                            else:
+                                data.setdefault("contacts", [])
+                                existing_contact_names = {c.get("name", "").lower() for c in data["contacts"] if isinstance(c, dict)}
+                                for c in log_contacts:
+                                    if c.get("name", "").lower() not in existing_contact_names:
+                                        data["contacts"].append(c)
+                                        existing_contact_names.add(c.get("name", "").lower())
                 except Exception:
                     pass
 

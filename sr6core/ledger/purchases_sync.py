@@ -64,8 +64,8 @@ class PurchasesSyncEngine:
 
         # Keywords that represent sub-headers or nested sub-items, not top-level modifications
         ignore_mod_prefixes = [
-            'stores ', 'wearable', 'accessories', 'crimson wasp', 'mct gnat',
-            'm-toc ii', 'foundation host', 'stores'
+            'stores ', 'wearable', 'accessories', 'crimson wasp', 'red fox',
+            'han ', 'mct gnat', 'm-toc ii', 'foundation host', 'stores'
         ]
 
         for line in lines:

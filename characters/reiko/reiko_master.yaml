@@ -1137,15 +1137,16 @@ drones:
   - Pop-Out Concealment (Standard) x2
   - Chameleon Coating 2
   - Drone Rack (Small)
+  - Used Synthetic Cyberarm (Left, 8 Capacity)
+  - Armor Increase 6
+  - Built-In MedKit
+  - Used Synthetic Cyberarm (Right, 8 Capacity)
   - Tesla Coil
-  - Wrist Shield
-  - Armor Increase 5
   - Increased Structural Integrity 5
   - Realistic Features 4
   - Secondary Propulsion (Rotor)
-  - Increased Sensors 9
-  - Retractable Skates
-  - Built-In MedKit
+  - Increased Sensors 6
+  - Secondary Propulsion (Wheeled)
   - Satellite Link
   - Laser Jack
 - name: Kwonsham Dream Genie
@@ -1181,18 +1182,31 @@ drones:
   - Integrated Engineering & Repair Tool Package
 weapons:
   ranged:
-  - name: Crimson Wasp Array (2x Link-Fired)
-    damage: 7P
-    attack_rating: 22/20/17/12/-
-    mode: SA
-    ammo: 15(c)
+  - name: Red Fox Array (2x Link-Fired)
+    damage: 9P
+    attack_rating: 19/21/21/14/-
+    mode: SA/BF/SS
+    ammo: 30(c)
     smartlink: true
     is_vehicle_mounted: true
     link_fired_count: 2
     accessories:
     - Smartlink
     - Drone Mount (+2 AR)
-    - Link-Fired (2x Crimson Wasps)
+    - Link-Fired (2x Red Foxes, Minor Action)
+    notes: Link-fired 2x Red Foxes in Eye Mounts (Costs Minor Action; +2 DV, +1 AR). 1 Wild Die. Decreases by 3P at Medium range.
+  - name: Single Red Fox (Eye Mount)
+    damage: 7P
+    attack_rating: 18/20/20/13/-
+    mode: SA/BF/SS
+    ammo: 30(c)
+    smartlink: true
+    is_vehicle_mounted: true
+    link_fired_count: 1
+    accessories:
+    - Smartlink
+    - Drone Mount (+2 AR)
+    notes: Independent Eye Mount (NO Minor Action required). 1 Wild Die. Decreases by 3P at Medium range.
   - name: Tesla Coil
     damage: 5S(e)
     attack_rating: 10/12/-/-/-
@@ -1216,7 +1230,7 @@ weapons:
       (ItNW). 1 Wild Die.
 armors: []
 gear:
-- name: 5x Peak-Discharge Laser Battery Clips (Crimson Wasp)
+- name: 5x Peak-Discharge Laser Battery Clips (Red Fox)
   qty: 5
 - name: 10x Glitter Grenades
   qty: 10

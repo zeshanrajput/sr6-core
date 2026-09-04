@@ -11,26 +11,29 @@ This document establishes Venn's post-chargen augmentation roadmap, tracking Ess
 * **Full Used/Standard Sell-Back**: Non-cultured cyberware and standard bioware can be sold back at their full purchased value (Used grade = 50% base retail credit; Standard grade = 100% base retail credit).
 * **Cultured Bioware Alphaware Policy**: Because cultured bioware is genetically tailored to the host's DNA and **cannot be sold back or upgraded for trade-in nuyen credit** (0¥ resale), **all new cultured bioware is strictly purchased at Alphaware grade** on initial implantation. This permanently locks in the 20% Essence savings ($0.8\times$ multiplier) without risking stranded capital.
 * **Used Grade Multipliers**: Used augmentations have an Essence multiplier of **1.1×** and a Nuyen cost multiplier of **0.5×** (50% retail).
-* **Essence Hole Mechanics**: Removed augmentations create an Essence Hole equal to the Essence they consumed. New augmentations fill this hole first before touching remaining biological Essence (**0.43 Biological Essence baseline**).
+* **Essence Hole Mechanics**: Removed augmentations create an Essence Hole equal to the Essence they consumed. New augmentations fill this hole first before touching remaining biological Essence (**0.66 Biological Essence baseline**).
 * **Quality Compliance**: Biological Essence remains at $\le 1.00$ at all times, permanently maintaining legal compliance for **Cyberpsychosis (Rank 3)** (+24 Karma).
 
 ---
 
 ## 2. Starting Chargen Baseline & Augmentation State
 
-Venn begins play with **0.59 Biological Essence** (6.00 Base + 1.00 Augmentation Acclimation R10 buffer $- 6.41$ Total Consumed):
+Venn begins play with **0.66 Biological Essence** (6.00 Base + 1.00 Augmentation Acclimation R10 buffer $- 6.34$ Total Consumed):
 
-| Augmentation | Grade | Base Ess | Grade Mult | Final Ess | Purchase Cost | Key Function & Tabletop Synergy |
-| :--- | :---: | :---: | :---: | :---: | :---: | :--- |
-| **Left Synthetic Cyberarm** | Standard | 1.00 | 1.0× | **1.00 Ess** | 35,000¥ | Agility [+3] Mod; 5 Capacity Open. Operates at AGI 7 / STR 4 (9/6 Overdriven). |
-| **Right Synthetic Cyberarm** | Standard | 1.00 | 1.0× | **1.00 Ess** | 35,000¥ | Agility [+3] Mod; 5 Capacity Open. Operates at AGI 7 / STR 4 (9/6 Overdriven). |
-| **Left Synthetic Cyberleg** | Standard | 1.00 | 1.0× | **1.00 Ess** | 35,000¥ | Agility [+3] Mod; 7 Capacity Open. Operates at AGI 7 / STR 4 (9/6 Overdriven). |
-| **Right Synthetic Cyberleg** | Standard | 1.00 | 1.0× | **1.00 Ess** | 35,000¥ | Agility [+3] Mod; 7 Capacity Open. Operates at AGI 7 / STR 4 (9/6 Overdriven). |
-| **Bone Density Augmentation R4** | Betaware | 1.20 | 0.7× | **0.84 Ess** | 30,000¥ | +4 Body for damage resistance soak (9 unarmored soak), 4P Unarmed DV, +3 AR. |
-| **Skilljack R6** | Used | 0.60 | 1.1× | **0.66 Ess** | 60,000¥ | Runs Activesofts up to R6; Wireless limit = R6 × 4 = 24. |
-| **Skillwires R6** | Used | 0.60 | 1.1× | **0.66 Ess** | 60,000¥ | Wireless-ON: +1 dice pool modifier to all skills routed through skillwires. |
-| **Math SPU** | Standard | 0.25 | 1.0× | **0.25 Ess** | 25,000¥ | -1 Edge cost on Logic tests (-2 when overdriven with +1 wild die); 0 Bad Luck. |
-| **TOTAL CONSUMED** | | | | **6.41 Ess** | **310,000¥** | **Remaining Biological Essence: 0.59 Ess** |
+| Augmentation | Grade | Base Ess | Grade Mult | Adapsin (-10%) | Final Ess | Purchase Cost | Key Function & Tabletop Synergy |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
+| **Adapsin Therapy** | Gene | 0.10 | 1.0× | — | **0.10 Ess** | 30,000¥ | Therapeutic Geneware. Reduces Essence cost of all cyberware by 10% (round down) post-grade! |
+| **Left Synthetic Cyberarm** | Used | 1.00 | 1.1× | 0.9× | **0.99 Ess** | 17,500¥ | Agility [+3] Mod; Built-in Utility Kit (2 Cap), Shock Hand (2 Cap). 1 Cap open. |
+| **Right Synthetic Cyberarm** | Used | 1.00 | 1.1× | 0.9× | **0.99 Ess** | 17,500¥ | Agility [+3] Mod; Built-in Medkit (4 Cap) housing Savior Medkit R6. 1 Cap open. |
+| **Left Synthetic Cyberleg** | Used | 1.00 | 1.1× | 0.9× | **0.99 Ess** | 17,500¥ | Agility [+3] Mod, Bulk Mod R2 (12 Cap). Houses Used Nanohive R3, Skates, Gecko Tips (12/12 Cap). |
+| **Right Synthetic Cyberleg** | Used | 1.00 | 1.1× | 0.9× | **0.99 Ess** | 17,500¥ | Agility [+3] Mod, Bulk Mod R2 (12 Cap). Houses Used Nanohive R3, Skates, Gecko Tips (12/12 Cap). |
+| **Left Leg Nanohive R3** | Used | 0.60 | In Limb | [6 Cap] | **0.00 Ess** | 22,500¥ | Consumes Capacity only (0.00 Ess). Controls 3 colonies, manages 9 NV, replenishes 3 NV/hr. |
+| **Right Leg Nanohive R3** | Used | 0.60 | In Limb | [6 Cap] | **0.00 Ess** | 22,500¥ | Consumes Capacity only (0.00 Ess). Controls 3 colonies, manages 9 NV, replenishes 3 NV/hr. |
+| **Bone Density Augmentation R4** | Beta | 1.20 | 0.7× | — | **0.84 Ess** | 30,000¥ | +4 Body for damage resistance soak (9 unarmored soak), 4P Unarmed DV, +3 AR. |
+| **Skilljack R6** | Used | 0.60 | 1.1× | 0.9× | **0.59 Ess** | 60,000¥ | Runs Activesofts up to R6; Wireless limit = R6 × 4 = 24. |
+| **Skillwires R6** | Used | 0.60 | 1.1× | 0.9× | **0.59 Ess** | 60,000¥ | Wireless-ON: +1 dice pool modifier to all skills routed through skillwires. |
+| **Math SPU** | Used | 0.25 | 1.1× | 0.9× | **0.25 Ess** | 12,500¥ | -1 Edge cost on Logic tests (-2 when overdriven with +1 wild die); 0 Bad Luck. |
+| **TOTAL CONSUMED** | | | | | **6.34 Ess** | **311,000¥** | **Remaining Biological Essence: 0.66 Ess** (Acclimation R10 buffer +1.00; leaves 0.66 Ess cushion) |
 
 ---
 
@@ -169,14 +172,24 @@ Because every augmentation upgrade utilizes an **Essence Hole** or cyberlimb cap
   * *Essence Hole Balance*: $+0.80 - 0.48 - 0.16 = \mathbf{+0.16\text{ Ess Hole remaining}}$ (Biological Essence intact at **0.49**).
   * *Game Effect*: **Logic 10** (+3 Boosters + 1 Enhancer), Living Persona Data Processing **11**, Matrix Attack/Hacking pools **17d6–19d6**.
 
-#### Step 2: Interleaved Karma Spend 1 — 8P Kick Engine & 1-Edge Instant Blackout (12 Karma)
+#### Step 2: Interleaved Karma & Nanite Spend 1 — 10P Flying Kick Engine & 1-Edge Instant Blackout
 
-* **1. Sangre y Acero (7 Karma)** (*Body Shop*, p. 5):
-  * Unlocks **Iron Limbs** (Signature Technique: +1 DV base unarmed, +2 dice Body soak vs physical attacks) and unlocks Melee weapon category access.
-  * *Damage Spike*: Stacks with Day 1 Tae Kwon Do for a devastating **8P Base Physical Damage** leaping kick!
-* **2. Mean Right Hook (5 Karma)** (*Firing Squad*, p. 104):
+* **1. Martial Arts: Tae Kwon Do & Techniques (12 Karma)** (*Firing Squad*, p. 89, 102):
+  * **Tae Kwon Do Style (7 Karma)**: Unlocks the formal unarmed striking style.
+  * **Kick Attack (5 Karma)**: Adds **+1 DV** to all kicking attacks.
+  * **Flying Kick (5 Karma)**: Adds **+2 DV** (stacks with Kick Attack for **+3 DV total**; extends Close range bracket by 0.5m/hit).
+* **2. Sangre y Acero: Iron Limbs (7 Karma)** (*Body Shop*, p. 5 / *Firing Squad*, p. 103):
+  * Unlocks **Iron Limbs** (Signature Technique: **+1 DV** base unarmed damage).
+* **3. Mean Right Hook (5 Karma)** (*Firing Squad*, p. 104):
   * Reduces the Edge cost of the *Knockout Blow* Edge Action from 2 Edge $\rightarrow$ **1 Edge**.
-  * *Instant Subdual*: Spend 1 Edge on an 8P kick strike; because 8P exceeds the target's Willpower ($\text{Damage} > \text{WIL}$), the target's Stun track is instantly and completely filled, knocking them unconscious in 1 single blow!
+* **4. Toughskin Colony Template Acquisition (12,000¥ / 1.7 Karma Streetdoc)** (*Body Shop*, p. 86):
+  * Permanent template loaded into Nanohive forge software.
+  * *Passive Armor*: Adds **+1 to Defense Rating** per 2 NV bound into the structure (up to +3 DR).
+  * *Extruded Microspines (Minor Action)*: Microscopic carbon-nanotube spines extrude through skin/covering, adding **+1 DV to unarmed attacks** and inflicting 1P retaliatory damage on anyone grappling barehanded!
+* **The 10P Kinetic Subdual Engine Calculation**:
+  $$\text{4P (Bone Density 4)} + \text{1P (Iron Limbs)} + \text{1P (Neuromuscular Amp)} + \text{1P (Toughskin Spines)} + \text{3P (Flying Kick)} = \mathbf{10P\text{ Base Physical Damage!}}$$
+  * *Net Hits Scaling*: With Agility 10 (Overdriven) + Athletics + Close Combat, 4 net hits yields **14P Physical Damage**!
+  * *1-Edge Instant Blackout*: Spending **1 Edge on Knockout Blow** instantly drops any opponent unconscious whose Willpower or Body is $\le$ the damage inflicted!
 
 #### Step 3: Streetdoc Move 2 — The 52-Capacity Bulk Expansion (10.2 Karma / 71,500¥)
 
@@ -269,14 +282,14 @@ By trading **1 Knowledge Skill** for **Athletics (Rating 1)** at chargen (0 CP, 
 
 | Milestone / Upgrade Event | Ess Hole Freed | Ess Hole Consumed | Ess Hole Pool | Biological Essence | Cyberpsychosis Cap Status |
 | :--- | :---: | :---: | :---: | :---: | :--- |
-| **Chargen Baseline** | — | — | 0.00 | **0.49 Ess** | **LEGAL** ($\le 1.00$ Ess) |
-| **Move 1: 4x Limbs $\rightarrow$ Alphaware** | +0.80 Ess | — | +0.80 Ess | 0.49 Ess | **LEGAL** ($\le 1.00$ Ess) |
-| **Move 1: Alphaware Cerebral R3 & Enhancer** | — | 0.64 Ess | +0.16 Ess | 0.49 Ess | **LEGAL** ($\le 1.00$ Ess) |
-| **Move 2: 52-Cap Bulk Modification** | — | — (0 Ess) | +0.16 Ess | 0.49 Ess | **LEGAL** ($\le 1.00$ Ess) |
-| **Move 3: Skilljack/Wires $\rightarrow$ Alpha** | +0.36 Ess | — | +0.52 Ess | 0.49 Ess | **LEGAL** ($\le 1.00$ Ess) |
-| **Move 3: Alphaware Cerebellum R3** | — | 0.48 Ess | +0.04 Ess | 0.49 Ess | **LEGAL** ($\le 1.00$ Ess) |
-| **Move 4: Cerebellum Enhancer** | — | 0.16 Ess | 0.00 Ess | **0.37 Ess** | **LEGAL** ($\le 1.00$ Ess) |
-| **Move 4: Platelet Factories** | — | 0.16 Ess | 0.00 Ess | **0.21 Ess** | **LEGAL** ($\le 1.00$ Ess) |
+| **Chargen Baseline** | — | — | 0.00 | **0.66 Ess** | **LEGAL** ($\le 1.00$ Ess) |
+| **Move 1: 4x Limbs $\rightarrow$ Alphaware** | +0.80 Ess | — | +0.80 Ess | 0.66 Ess | **LEGAL** ($\le 1.00$ Ess) |
+| **Move 1: Alphaware Cerebral R3 & Enhancer** | — | 0.64 Ess | +0.16 Ess | 0.66 Ess | **LEGAL** ($\le 1.00$ Ess) |
+| **Move 2: 52-Cap Bulk Modification** | — | — (0 Ess) | +0.16 Ess | 0.66 Ess | **LEGAL** ($\le 1.00$ Ess) |
+| **Move 3: Skilljack/Wires $\rightarrow$ Alpha** | +0.36 Ess | — | +0.52 Ess | 0.66 Ess | **LEGAL** ($\le 1.00$ Ess) |
+| **Move 3: Alphaware Cerebellum R3** | — | 0.48 Ess | +0.04 Ess | 0.66 Ess | **LEGAL** ($\le 1.00$ Ess) |
+| **Move 4: Cerebellum Enhancer** | — | 0.16 Ess | 0.00 Ess | **0.54 Ess** | **LEGAL** ($\le 1.00$ Ess) |
+| **Move 4: Platelet Factories** | — | 0.16 Ess | 0.00 Ess | **0.38 Ess** | **LEGAL** ($\le 1.00$ Ess) |
 
 ---
 
@@ -286,9 +299,9 @@ By trading **1 Knowledge Skill** for **Athletics (Rating 1)** at chargen (0 CP, 
                DEVELOPMENT VALUE BY AXIS (POST-OPTIMIZATION)
 +-----------------------------------------------------------------------------------+
 | AXIS 1: COMPUTATIONAL SUPREMACY   | LOG 10 / INT 9 / Living Persona ASDF: 2/10/11/9 |
-| AXIS 2: 8P KINETIC SUBDUAL ENGINE | 8P Base Kick + 1-Edge KO + 15m Skating Blitz  |
+| AXIS 2: 10P KINETIC SUBDUAL ENGINE | 10P Base Kick + 1-Edge KO + 15m Skating Blitz |
 | AXIS 3: STRUCTURAL BREACHING      | Monofilament Saw (6P / 2x vs Barriers) + Setae |
 | AXIS 4: TRAUMA & FIRST AID SUITE  | Built-in Mil-Spec Medkit + Automated Treatment |
-| AXIS 5: ESSENCE INTEGRITY         | Biological 0.49 -> 0.21 (100% Cyberpsychosis)  |
+| AXIS 5: ESSENCE INTEGRITY         | Biological 0.66 -> 0.38 (100% Cyberpsychosis)  |
 +-----------------------------------------------------------------------------------+
 ```

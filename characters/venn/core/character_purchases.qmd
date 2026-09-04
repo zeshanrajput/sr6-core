@@ -6,73 +6,71 @@
 from sr6core.log_engine import inc, inc_many, modifier
 ```
 
-This ledger itemizes character creation augmentations, tactical gear, activesofts, identities, and operational maintenance.
+This ledger itemizes character creation augmentations, nanite colonies, tactical gear, activesofts, identities, and operational maintenance.
 
 ---
 
 ### Cyberware, Bioware & Geneware Augmentations
 
-* **Two Full Synthetic Cyberarms (Standard Grade w/ Agility +3 Enhancement):** *(SR6 Core, p. 288 & p. 247 — 70,000¥ / 2.00 Ess)*
-  * 1.00 Ess each (2.00 Ess total), ¥20,000 base + ¥15,000 Agility [+3] mod each (¥70,000 total).
-  * Capacity: 8 each (3 used for AGI+3 $\rightarrow$ **5 Open Capacity each**), Avail 5.
+* **Adapsin Therapy (Therapeutic Geneware):** *(Body Shop, p. 4, 10 — 30,000¥ / 0.10 Ess)*
+  * Reduces Essence cost of all installed cyberware by 10% (round down) post-grade calculations.
+* **Two Full Synthetic Cyberarms (Used Grade w/ Agility +3 Enhancement):** *(SR6 Core, p. 288 & p. 247; Body Shop, p. 5 — 35,000¥ / 1.98 Ess total)*
+  * Capacity: 8 each (3 used for AGI+3 $\rightarrow$ **5 Open Capacity each**), Avail 4.
   * With Redliner operates at **Agility 7 / Strength 4** (surges to **Agility 9 / Strength 6** when overdriven).
-* **Two Full Synthetic Cyberlegs (Standard Grade w/ Agility +3 Enhancement):** *(SR6 Core, p. 288 & p. 247 — 70,000¥ / 2.00 Ess)*
-  * 1.00 Ess each (2.00 Ess total), ¥20,000 base + ¥15,000 Agility [+3] mod each (¥70,000 total).
-  * Capacity: 10 each (3 used for AGI+3 $\rightarrow$ **7 Open Capacity each**), Avail 5.
+* **Two Full Synthetic Cyberlegs (Used Grade w/ Agility +3 Enhancement & Bulk Mod R2):** *(SR6 Core, p. 288 & p. 247; Body Shop, p. 5, 44 — 37,000¥ / 1.98 Ess total)*
+  * Capacity: 12 each (3 AGI+3 + 6 Nanohive + 2 Inline Skates + 1 Gecko Tips = 12/12 Capacity fully utilized!), Avail 4.
   * With Redliner operates at **Agility 7 / Strength 4** (surges to **Agility 9 / Strength 6** when overdriven).
+* **Two Nanohives Rating 3 (Used Grade, Installed in Left & Right Cyberlegs):** *(Body Shop, p. 4, 10 — 45,000¥ / 0.00 Ess)*
+  * 6/6 Capacity in each leg; combined Rating 6 Nanohive capacity, supporting up to 18 Nanite Volume (24 wireless) and replenishing 6 NV/hr.
+* **Retractable Inline Skates (2x Cyberlegs):** *(Body Shop, p. 48 — 500¥, 4 Cap total)*
+  * 10m high-speed ground glide.
+* **Gecko Tips (2x Cyberlegs):** *(Body Shop, p. 45 — 1,000¥, 2 Cap total)*
+  * Setae on soles for climbing.
+* **Gecko Tape Gloves:** *(City Edition: Seattle, p. 5 — 250¥)*
+  * Hands + feet setae grants Non-Magical Wall Running on Day 1.
 * **Betaware Bone Density Augmentation (Rating 4):** *(SR6 Core, p. 286 & Body Shop, p. 101 — 30,000¥ / 0.84 Ess)*
-  * 0.84 Ess (1.2 x 0.7), ¥30,000 (20,000 x 1.5), Avail 6L.
   * +4 Body for damage resistance soak (9 Soak unarmored), 4P Unarmed DV, +3 Attack Rating.
-* **Used Skilljack (Rating 6):** *(SR6 Core, p. 247 — 60,000¥ / 0.66 Ess)*
-  * Base ¥120,000 / 0.60 Ess $\rightarrow$ Used 0.5x cost = ¥60,000, 0.66 Ess, Avail 3.
+* **Used Skilljack (Rating 6):** *(SR6 Core, p. 247 — 60,000¥ / 0.59 Ess)*
   * Supports up to Rating 6 skillsofts; total rating capacity = 24.
-* **Used Skillwires (Rating 6):** *(SR6 Core, p. 247 — 60,000¥ / 0.66 Ess)*
-  * Base ¥120,000 / 0.60 Ess $\rightarrow$ Used 0.5x cost = ¥60,000, 0.66 Ess, Avail 3.
-  * Wireless Bonus: Grants +1 dice pool modifier to all skills routed through skillwires.
-* **Standard Math SPU:** *(Body Shop, p. 5 — 25,000¥ / 0.25 Ess)*
-  * 0.25 Ess, ¥25,000, Avail 4.
-  * Lowers Edge boost cost by 1 (or by 2 when overdriven with +1 wild die); 0 Bad Luck penalty.
-* **Alphaware Cerebral Booster Enhancer:** *(Body Shop, p. 5 — 48,000¥ / 0.16 Ess)* `{python} modifier("Cerebral Booster Enhancer", "attribute:logic", 1, type="augmentation", rule_anchor="rules/rules_and_downtime.html")`
-  * 0.16 Ess (0.20 x 0.8), ¥48,000 (40,000 x 1.2), Avail 6L.
-  * Geneware augmentics permanently granting **+1 Logic** (stacks with future Cerebral Boosters).
+* **Used Skillwires (Rating 6):** *(SR6 Core, p. 247 — 60,000¥ / 0.59 Ess)*
+  * Wireless Bonus: Grants +1 dice pool modifier to active skills routed via skillwires.
+* **Used Math SPU:** *(Body Shop, p. 5 — 12,500¥ / 0.25 Ess)*
+  * Lowers Edge boost cost by 1 (to minimum 1) on Cracking, Electronics, and Build/Repair tests; lowers by 2 when overdriven with +1 wild die.
 
 ---
 
-### Activesoft Roster & Software Library
+### Nanite Colony Suite (2 Templates + 6 Prioritized Bioamplifiers)
 
-* **Close Combat Activesoft (Rating 6):** Purchased with Nuyen (¥30,000). Paired with Cyberarm Agility 7 and Wireless-ON Skillwires (+1) for **14d6 attack pool** (surges to **16d6** when Overdriven to AGI 9).
-* **Cracking Activesoft (Rating 6):** Purchased with Nuyen (¥30,000). Paired with Wireless-ON Skillwires (+1) and Logic 6 for **13d6 matrix attack pool** (surges to **17d6** with Logic 10 post-chargen).
+* **Dynamic Features Colony Template (Permanent Nanohive Software):** *(Body Shop, p. 4 — 12,500¥, 1-3 NV)*
+  * Reshapes skin and facial features; grants +1 situational Edge on disguise Con tests.
+* **Neuromuscular Amplifier Colony Template (Permanent Nanohive Software):** *(Body Shop, p. 4, 86 — 15,000¥, 2 NV)*
+  * Adds +1 DV to all melee and unarmed attacks (5P Unarmed base DV).
+* **Pre-Built Bio-Response Override Colony (Dose):** *(Body Shop, p. 4 — 3,500¥, 3 NV)*
+  * Increases Willpower attribute by +1 (WIL 8) and adds +1 box to Stun Condition Monitor (13 boxes).
+* **Pre-Built Neurochemical Regulator Colony (Dose):** *(Body Shop, p. 4 — 4,500¥, 2 NV)*
+  * Increases Charisma by +1 in social situations and composure tests (CHA 3 / Persona Attack 3).
+* **Pre-Built Neocortical Neural Amplifier Colony (Dose):** *(Body Shop, p. 4 — 5,500¥, 2 NV)*
+  * Grants +1 dice pool modifier on all skill tests linked to Logic (Cracking, Electronics, Biotech, etc.).
+* **Pre-Built Limbic Neural Amplifier Colony (Dose):** *(Body Shop, p. 4 — 6,500¥, 2 NV)*
+  * Grants +1 dice pool modifier on all skill tests linked to Intuition (Perception, Stealth, etc.).
+* **Pre-Built Neural Pattern Reinforcement Colony (Dose):** *(Body Shop, p. 4 — 7,000¥, 2 NV)*
+  * Grants +1 dice pool modifier on all skill tests linked to Agility (Athletics, Firearms, Close Combat, etc.).
+* **Pre-Built Tech Infestation Colony (Dose):** *(Body Shop, p. 4, 86 — 3,500¥, 1+ NV)*
+  * Direct hardware hijacking into Living Persona without physical data tap.
 
 ---
 
-### Weapons & Ballistic Outerwear
+### Activesoft Roster & Field Equipment
 
+* **Cracking Activesoft (Rating 6 — Commercial License):** *(30,000¥)*
+  * Commercial license running via Skilljack/Skillwires with full wireless Edge access.
 * **Colt Manhunter (Heavy Pistol):** *(1,500¥)*
-  * Laser Sight / Smartlink (+2 AR), Concealed Holster, Silencer
-  * 5 Spare Clips, 100 Regular Ammo, 100 Gel Ammo
+  * Smartlink (+2 AR), Concealed Holster, Silencer, 5 spare clips, 100 regular, 100 gel rounds.
 * **Securetech SkinShield (w/ Ballistic Hood):** *(Firing Squad p. 3 / Seattle p. 5 — 3,150¥)*
-  * +2 Defense Rating form-fitting under-armor, +1 Defense Rating Ballistic Hood, Capacity 2, Avail 3, Social Mod 0 (Invisible under normal street clothes).
-
----
-
-### Tactical & Sensory Gear
-
-* **Contacts (Rating 3):** *(1,500¥)*
-  * Smartlink Integration & Flare Compensation
-* **Savior Medkit (Rating 6 w/ 1x Refill):** *(2,300¥)*
-
----
-
-### Matrix Hardware & Commlink Software
-
+  * +2 DR form-fitting under-armor, +1 DR Ballistic Hood, Capacity 2, Avail 3, Social Mod 0.
+* **Contacts (Rating 3 w/ Smartlink & Flare Compensation):** *(2,850¥, 3/3 Cap)*
+* **Earbuds (Rating 2 w/ Audio Enhancement & Soundlink):** *(630¥, 2/2 Cap)*
 * **Renraku Sensei Commlink:** *(1,000¥)*
   * DR 3 | DP 3 | FW 1; everyday burner SIN broadcast. Veronica uses Monad Living Persona for all Shadow Matrix operations.
-
----
-
-### Identities, Licenses & Lifestyle
-
-* **Fake Licenses (Rating 4 x2):** *(1,600¥)*
-  * Fake License: Firearms (Rating 4)
-  * Fake License: Concealed Carry (Rating 4)
+* **Fake License (Rating 4 — Firearms):** *(800¥)*
 * **Low Lifestyle (Off-Grid Coastal Boathouse):** *(2,000¥ / 1st month prepaid)*

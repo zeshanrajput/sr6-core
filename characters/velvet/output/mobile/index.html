@@ -1167,6 +1167,13 @@
 
     <!-- Tab 5: Drones & Gear -->
     <section id="tab-drones" class="tab-pane">
+      <div id="augmentationsCard" class="card" style="margin-bottom: 14px;">
+        <div class="card-title">Cyberware & Bioware Augmentations</div>
+        <div id="augmentationsList">
+          <!-- Generated via JS -->
+        </div>
+      </div>
+
       <div id="dronesCard" class="card" style="margin-bottom: 14px;">
         <div class="card-title">Vehicles & Rigged Drones</div>
         <div id="vehiclesList">
@@ -1350,7 +1357,7 @@
         "is_buffed": false,
         "buffs": [],
         "breakdown": "Base 3",
-        "doc_link": "chapters/rules_and_downtime.html"
+        "doc_link": "rules/rules_and_downtime.html"
       },
       {
         "name": "Intuition",
@@ -1832,6 +1839,7 @@
     "sprite_powers": [],
     "monad_abilities": [],
     "augmentations": [],
+    "nanohive": null,
     "spirit_channeling_catalog": {
       "air": {
         "name": "Spirit of Air",
@@ -2658,6 +2666,7 @@
       ],
       "monad_abilities": [],
       "augmentations": [],
+      "nanohive": null,
       "spirit_channeling_catalog": {
         "air": {
           "name": "Spirit of Air",
@@ -3540,7 +3549,218 @@
       }
     ],
     "lifestyles": [],
-    "contacts": [],
+    "contacts": [
+      {
+        "name": "Brynne Taggart",
+        "connection": 4,
+        "loyalty": 2,
+        "archetype": "Fixer",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "Criminal",
+          "Street"
+        ],
+        "description": "Uses: Getting jobs, fencing gear, gangs (Shadowrun Missions Seattle) | Types: Criminal, Street"
+      },
+      {
+        "name": "Vincent Grisome",
+        "connection": 5,
+        "loyalty": 3,
+        "archetype": "Magic Prof.",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "Magic"
+        ],
+        "description": "Chargen Contact"
+      },
+      {
+        "name": "Ni Ni Xiaolu",
+        "connection": 3,
+        "loyalty": 2,
+        "archetype": "Triad Johnson",
+        "favors": 2,
+        "region": "SEA",
+        "types": [
+          "Criminal"
+        ],
+        "description": "Uses: Getting jobs, drugs, street rumors, triads (Shadowrun Missions Seattle) | Types: Criminal"
+      },
+      {
+        "name": "Whiskey",
+        "connection": 2,
+        "loyalty": 3,
+        "archetype": "Street Doc",
+        "favors": 1,
+        "region": "SEA",
+        "types": [
+          "Medical"
+        ],
+        "description": "Uses: Medicine, street docs (Shadowrun Missions Seattle) | Types: Medical"
+      },
+      {
+        "name": "Claudette Laurier",
+        "connection": 5,
+        "loyalty": 4,
+        "archetype": "Order of the Golden Dawn Librarian",
+        "favors": 0,
+        "region": "NOLA",
+        "types": [
+          "Criminal",
+          "Matrix"
+        ],
+        "description": "Uses: Getting jobs, magical traditions | Types: Criminal, Matrix"
+      },
+      {
+        "name": "Le Tigre",
+        "connection": 5,
+        "loyalty": 1,
+        "archetype": "Epoch Model",
+        "favors": 0,
+        "region": "NOLA",
+        "types": [
+          "Corporate",
+          "Magic"
+        ],
+        "description": "Uses: Getting jobs, parties, modeling | Types: Corporate, Magic"
+      },
+      {
+        "name": "Hana",
+        "connection": 6,
+        "loyalty": 6,
+        "archetype": "Wuxing Talismonger / Pop Idol",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "General"
+        ],
+        "description": "Chargen Contact"
+      },
+      {
+        "name": "Guild of Freelance Assets",
+        "connection": 7,
+        "loyalty": 8,
+        "archetype": "Conclave",
+        "favors": 0,
+        "region": "GEN",
+        "types": [
+          "General"
+        ],
+        "description": "Chargen Contact (Conclave C7 L8)"
+      },
+      {
+        "name": "Ms. Snow",
+        "connection": 5,
+        "loyalty": 1,
+        "archetype": "Shadow Chapters Johnson",
+        "favors": 1,
+        "region": "SEA",
+        "types": [
+          "Corporate",
+          "Government"
+        ],
+        "description": "Uses: Corporate rumors, getting jobs, military (Shadowrun Missions Seattle) | Types: Corporate, Government"
+      },
+      {
+        "name": "Bookie",
+        "connection": 3,
+        "loyalty": 1,
+        "archetype": "Ancients Bookie",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "General"
+        ],
+        "description": "SRM 2081-07 Bootleg Bliss"
+      },
+      {
+        "name": "Trudy",
+        "connection": 2,
+        "loyalty": 1,
+        "archetype": "Cutters Lieutenant",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "General"
+        ],
+        "description": "SRM 2081-07 Bootleg Bliss"
+      },
+      {
+        "name": "Eddie Wei",
+        "connection": 4,
+        "loyalty": 1,
+        "archetype": "Triad Johnson",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "Criminal",
+          "Matrix"
+        ],
+        "description": "Uses: Business and economics, getting jobs, triads (Shadowrun Missions Seattle) | Types: Criminal, Matrix"
+      },
+      {
+        "name": "Kingston",
+        "connection": 2,
+        "loyalty": 2,
+        "archetype": "Shadowrunner/Street Samurai",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "Criminal",
+          "Street"
+        ],
+        "description": "Uses: Shadowrunners, street rumors (Shadowrun Missions Seattle) | Types: Criminal, Street"
+      },
+      {
+        "name": "Ms. Margaret",
+        "connection": 1,
+        "loyalty": 1,
+        "archetype": "Hospital Volunteer",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "General"
+        ],
+        "description": "SRM 2081-02 Urgent Care (Elderly Human Hospital Volunteer who needs her roof fixed)"
+      },
+      {
+        "name": "Simon Andrews",
+        "connection": 5,
+        "loyalty": 1,
+        "archetype": "S-K Johnson",
+        "favors": 0,
+        "region": "AMS",
+        "types": [
+          "General"
+        ],
+        "description": "CMP 2083-01 Nonplushed (S-K Johnson)"
+      },
+      {
+        "name": "Mr. Fa",
+        "connection": 4,
+        "loyalty": 1,
+        "archetype": "HKB Corporate Middle Manager",
+        "favors": 1,
+        "region": "HK",
+        "types": [
+          "Corporate"
+        ],
+        "description": "CMP 2083-05 Precious Cargo (Liao Fa Deng, Male Human)"
+      },
+      {
+        "name": "Liao Fa Ren",
+        "connection": 3,
+        "loyalty": 2,
+        "archetype": "HK Rookie Journalist",
+        "favors": 1,
+        "region": "HK",
+        "types": [
+          "General"
+        ],
+        "description": "CMP 2083-05 Precious Cargo (Female Human, top marks on port raid)"
+      }
+    ],
     "exceptions": [
       {
         "id": "srm_monthly_expenses",
@@ -3570,6 +3790,7 @@
         "active": true
       }
     ],
+    "modifiers": [],
     "rules_doc": "rules/rules.html"
   }
 };
@@ -3581,9 +3802,11 @@
     const openDrawers = new Set();
     const RUNTIME_MODIFIERS = {};
 
-    function getRuntimeMod(charId, key) {
+    function getRuntimeMod(charId, key, fallback = 0) {
       if (!RUNTIME_MODIFIERS[charId]) RUNTIME_MODIFIERS[charId] = {};
-      return RUNTIME_MODIFIERS[charId][key] || 0;
+      const val = RUNTIME_MODIFIERS[charId][key];
+      if (val !== undefined && val !== null) return val;
+      return fallback;
     }
 
     function setRuntimeMod(charId, key, val) {
@@ -3595,7 +3818,7 @@
     }
 
     function stepModifier(key, step) {
-      const cur = getRuntimeMod(activeCharId, key);
+      const cur = parseInt(getRuntimeMod(activeCharId, key, 0) || 0, 10);
       let next = cur + step;
       if (key.startsWith("dmg_")) {
         next = Math.max(0, next);
@@ -3641,6 +3864,137 @@
       const toggleKey = "channeling_opt_power_" + powerName.toLowerCase().replace(/[^a-z0-9]/g, "_");
       setRuntimeMod(activeCharId, toggleKey, isSelected ? 1 : 0);
       renderActiveCharacter();
+    }
+
+    function rollDice(count, label) {
+      const c = Math.max(1, parseInt(count, 10) || 1);
+      let hits = 0;
+      let ones = 0;
+      const rolls = [];
+      for (let i = 0; i < c; i++) {
+        const r = Math.floor(Math.random() * 6) + 1;
+        rolls.push(r);
+        if (r >= 5) hits++;
+        if (r === 1) ones++;
+      }
+      const isGlitch = ones > Math.floor(c / 2);
+      const glitchStr = isGlitch ? (hits === 0 ? " 💥 CRITICAL GLITCH!" : " ⚠️ GLITCH!") : "";
+      showToast(`🎲 ${label || 'Roll'}: ${hits} Hits (${c}d6: [${rolls.join(", ")}])${glitchStr}`);
+    }
+
+    function getMonadNV(cid) {
+      const raw = getRuntimeMod(cid, "monad_current_nv", null);
+      if (raw === null || raw === undefined || raw === "" || isNaN(raw)) return 6;
+      return Math.max(0, Math.min(10, parseInt(raw, 10)));
+    }
+
+    function updateMonadNV(delta) {
+      const cur = getMonadNV(activeCharId);
+      const next = Math.max(0, Math.min(10, cur + delta));
+      setRuntimeMod(activeCharId, "monad_current_nv", next);
+      renderActiveCharacter();
+      showToast(`🧬 Monad Biological NV: ${next}`);
+    }
+
+    function setMonadNV(val) {
+      const next = Math.max(0, Math.min(10, parseInt(val, 10) || 0));
+      setRuntimeMod(activeCharId, "monad_current_nv", next);
+      renderActiveCharacter();
+      showToast(`🧬 Monad Biological NV set to ${next}`);
+    }
+
+    function isNanohiveColonyActive(cid, colonyId, defActive) {
+      const raw = getRuntimeMod(cid, "nanohive_colony_" + colonyId, null);
+      if (raw === null || raw === undefined || raw === "") {
+        return !!defActive;
+      }
+      return raw === 1 || raw === true || raw === "1";
+    }
+
+    function getNanohiveColonyNV(cid, colonyId, defNv) {
+      const raw = getRuntimeMod(cid, "nanohive_nv_" + colonyId, null);
+      if (raw === null || raw === undefined || raw === "" || isNaN(raw)) {
+        return defNv;
+      }
+      return parseInt(raw, 10);
+    }
+
+    function toggleNanohiveColony(colonyId, isChecked) {
+      const char = CHARACTERS_DATA[activeCharId];
+      const nh = (char && char.nanohive) || {};
+      const catalog = nh.catalog || {};
+      const maxColonies = nh.max_colonies || 6;
+      const maxVol = nh.max_volume || 18;
+
+      if (isChecked) {
+        let activeCount = 0;
+        let totalVol = 0;
+        Object.keys(catalog).forEach(k => {
+          const c = catalog[k];
+          const curAct = (k === colonyId) ? true : isNanohiveColonyActive(activeCharId, k, !!c.active_by_default);
+          if (curAct) {
+            activeCount++;
+            const curNv = getNanohiveColonyNV(activeCharId, k, c.default_nv);
+            totalVol += curNv;
+          }
+        });
+        if (activeCount > maxColonies) {
+          showToast(`⚠️ Max ${maxColonies} active colonies supported by Nanohive!`);
+          renderActiveCharacter();
+          return;
+        }
+        if (totalVol > maxVol) {
+          showToast(`⚠️ Warning: Exceeds internal capacity (${totalVol}/${maxVol} NV)!`);
+        }
+      }
+      setRuntimeMod(activeCharId, "nanohive_colony_" + colonyId, isChecked ? 1 : 0);
+      renderActiveCharacter();
+      const colName = catalog[colonyId] ? catalog[colonyId].name : colonyId;
+      showToast(isChecked ? `🧫 Active: ${colName}` : `⏸️ Dormant: ${colName}`);
+    }
+
+    function stepNanohiveColonyNV(colonyId, delta) {
+      const char = CHARACTERS_DATA[activeCharId];
+      const nh = (char && char.nanohive) || {};
+      const catalog = nh.catalog || {};
+      const c = catalog[colonyId];
+      if (!c) return;
+      const minNv = c.min_nv || 1;
+      const maxNv = c.max_nv || 3;
+      const curNv = getNanohiveColonyNV(activeCharId, colonyId, c.default_nv);
+      const nextNv = Math.max(minNv, Math.min(maxNv, curNv + delta));
+      setRuntimeMod(activeCharId, "nanohive_nv_" + colonyId, nextNv);
+      renderActiveCharacter();
+      showToast(`🧫 ${c.name} allocated: ${nextNv} NV`);
+    }
+
+    function applyNanohivePreset(presetKey) {
+      const char = CHARACTERS_DATA[activeCharId];
+      const nh = (char && char.nanohive) || {};
+      const presets = nh.presets || {};
+      const p = presets[presetKey];
+      if (!p) return;
+      const catalog = nh.catalog || {};
+      Object.keys(catalog).forEach(k => {
+        const shouldBeActive = p.active_colonies.includes(k);
+        setRuntimeMod(activeCharId, "nanohive_colony_" + k, shouldBeActive ? 1 : 0);
+        if (p.volumes && p.volumes[k] !== undefined) {
+          setRuntimeMod(activeCharId, "nanohive_nv_" + k, p.volumes[k]);
+        }
+      });
+      renderActiveCharacter();
+      showToast(`⚡ Nanohive Preset: ${p.name}`);
+    }
+
+    function clearAllNanohiveColonies() {
+      const char = CHARACTERS_DATA[activeCharId];
+      const nh = (char && char.nanohive) || {};
+      const catalog = nh.catalog || {};
+      Object.keys(catalog).forEach(k => {
+        setRuntimeMod(activeCharId, "nanohive_colony_" + k, 0);
+      });
+      renderActiveCharacter();
+      showToast("⏸️ All Nanohive colonies set to standby");
     }
 
     function resetCharMods(charId) {
@@ -3766,6 +4120,8 @@
       const hasActiveMods = Object.keys(charMods).some(k => {
         const val = charMods[k];
         if (k === "channeling_spirit") return val && val !== "none";
+        if (k === "monad_current_nv") return val !== 6;
+        if (k.startsWith("nanohive_colony_") || k.startsWith("nanohive_nv_")) return true;
         return val !== 0 && val !== "" && val !== null && val !== undefined;
       });
       const resetBtn = document.getElementById("resetAllModsBtn");
@@ -3791,6 +4147,12 @@
       const attrsList = char.attributes_list || [];
       const liveAttrs = {};
 
+      // Monad and Nanohive State Detection
+      const isMonad = !!(char.identity && char.identity.is_monad);
+      const isBioRespActive = isMonad ? isNanohiveColonyActive(activeCharId, "bio_response_override", true) : false;
+      const isNeurochemActive = isMonad ? isNanohiveColonyActive(activeCharId, "neurochemical_regulator", true) : false;
+      const monadNV = isMonad ? getMonadNV(activeCharId) : 0;
+
       // Spirit Channeling Active State Calculation
       const hasChanneling = !!(char.identity && char.identity.has_channeling);
       const activeSpiritKey = getRuntimeMod(activeCharId, "channeling_spirit") || "none";
@@ -3811,7 +4173,12 @@
         const key = "attr_" + code;
         const delta = getRuntimeMod(activeCharId, key);
         if (!attr.linked_mental) {
-          const baseAug = attr.buffed;
+          let baseAug = attr.buffed;
+          if (isMonad) {
+            if (code === "wil" && !isBioRespActive) baseAug = Math.max(0, baseAug - 1);
+            if (code === "cha" && !isNeurochemActive) baseAug = Math.max(0, baseAug - 1);
+            if (code === "nv") baseAug = monadNV;
+          }
           const chanBonus = physicalCodes.includes(code) ? channelingPhysicalBoost : 0;
           liveAttrs[code] = Math.max(0, baseAug + delta + chanBonus);
         }
@@ -4013,8 +4380,11 @@
       }
 
       // Condition Monitors & Wound Calculation
-      const maxPhys = char.derived.physical_boxes || 10;
-      const maxStun = char.derived.stun_boxes || 11;
+      let maxPhys = char.derived.physical_boxes || 10;
+      let maxStun = char.derived.stun_boxes || 11;
+      if (isMonad && !isBioRespActive) {
+        maxStun = Math.max(1, maxStun - 1);
+      }
       const physDmg = getRuntimeMod(activeCharId, "dmg_phys");
       const stunDmg = getRuntimeMod(activeCharId, "dmg_stun");
       const physRem = Math.max(0, maxPhys - physDmg);
@@ -4026,14 +4396,18 @@
       document.getElementById("stunRemainLbl").textContent = `${stunRem} Boxes Left (${stunDmg} Dmg)`;
 
       // SR6 Wound Penalty: -1 dice per full 3 damage boxes on either track
-      const woundPenalty = Math.floor(physDmg / 3) + Math.floor(stunDmg / 3);
+      // Monad Toughness shifts wound penalty down by 1 level
+      let woundPenalty = Math.floor(physDmg / 3) + Math.floor(stunDmg / 3);
+      if (isMonad && monadNV >= 2 && woundPenalty > 0) {
+        woundPenalty = Math.max(0, woundPenalty - 1);
+      }
       const woundBanner = document.getElementById("woundPenaltyBanner");
       if (woundBanner) {
         if (woundPenalty > 0) {
           woundBanner.className = "wound-banner";
           woundBanner.style.display = "flex";
           woundBanner.innerHTML = `
-            <span>⚠️ <strong>Wound Penalty: -${woundPenalty} Dice</strong> to all tests (${physDmg} Phys, ${stunDmg} Stun)</span>
+            <span>⚠️ <strong>Wound Penalty: -${woundPenalty} Dice</strong> to all tests (${physDmg} Phys, ${stunDmg} Stun${isMonad && monadNV >= 2 ? ' • Monad Toughness -1 lvl' : ''})</span>
             <button class="reset-all-btn" onclick="setRuntimeMod(activeCharId, 'dmg_phys', 0); setRuntimeMod(activeCharId, 'dmg_stun', 0); renderActiveCharacter();">Clear Damage</button>
           `;
         } else {
@@ -4187,7 +4561,20 @@
         const liveAttrVal = liveAttrs[shortCode] !== undefined ? liveAttrs[shortCode] : (liveAttrs[rawAttrStr] !== undefined ? liveAttrs[rawAttrStr] : baseAugAttr);
         const attrDelta = liveAttrVal - baseAugAttr;
 
-        const totalPool = Math.max(0, defaultPool + delta + buffsDelta + attrDelta);
+        // Nanohive cognitive/motor colony toggles & Monad Swarm depletion check
+        let colonySkillMod = 0;
+        if (isMonad) {
+          const isNeocorticalActive = isNanohiveColonyActive(activeCharId, "neocortical_neural_amp", true);
+          const isLimbicActive = isNanohiveColonyActive(activeCharId, "limbic_neural_amp", true);
+          const isNeuralPatternActive = isNanohiveColonyActive(activeCharId, "neural_pattern_reinforcement", true);
+          if (shortCode === "log" && !isNeocorticalActive) colonySkillMod -= 1;
+          if (shortCode === "int" && !isLimbicActive) colonySkillMod -= 1;
+          if (shortCode === "agi" && !isNeuralPatternActive) colonySkillMod -= 1;
+          if (monadNV <= 1) colonySkillMod -= 2;
+          else if (monadNV <= 4) colonySkillMod -= 1;
+        }
+
+        const totalPool = Math.max(0, defaultPool + delta + buffsDelta + attrDelta + colonySkillMod);
         const effectiveBoughtHits = Math.floor(totalPool / 4);
         const effectiveSpecPool = s.specialization ? (totalPool + 2) : totalPool;
         const effectiveSpecHits = Math.floor(effectiveSpecPool / 4);
@@ -4265,6 +4652,17 @@
         char.weapons.forEach(w => {
           const wCard = document.createElement("div");
           wCard.className = "weapon-card";
+          let effectiveDamage = w.damage;
+          if (isMonad && w.is_melee) {
+            const isNeuromuscularActive = isNanohiveColonyActive(activeCharId, "neuromuscular_amplifier", true);
+            if (!isNeuromuscularActive) {
+              const dvMatch = (w.damage || "").match(/^(\d+)([PS]?.*)$/);
+              if (dvMatch) {
+                const dvVal = Math.max(1, parseInt(dvMatch[1], 10) - 1);
+                effectiveDamage = `${dvVal}${dvMatch[2]}`;
+              }
+            }
+          }
           const arBands = Array.isArray(w.attack_rating) ? w.attack_rating : [10, 10, 8, 0, 0];
           const labels = ["C", "N", "M", "F", "E"];
           const arHtml = labels.map((lbl, idx) => `
@@ -4286,7 +4684,7 @@
             <div class="weapon-header">
               <span class="weapon-name">${w.name}</span>
               <div style="display: flex; align-items: center; gap: 8px;">
-                <span class="weapon-dv">${w.damage}</span>
+                <span class="weapon-dv">${effectiveDamage}</span>
                 <button class="info-btn" title="Weapon Breakdown">ℹ</button>
               </div>
             </div>
@@ -4588,43 +4986,238 @@
         `;
       }
 
+      if (isMonad) {
+        // 🧬 Console 1: Monad Biological Swarm Console
+        let cohesionStatus = "Optimal Swarm Cohesion";
+        let cohesionBadgeStyle = "background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid #059669;";
+        if (monadNV >= 8) {
+          cohesionStatus = "⚡ Overcharged Swarm (Surge)";
+          cohesionBadgeStyle = "background: rgba(6, 182, 212, 0.25); color: #22d3ee; border: 1px solid #0891b2;";
+        } else if (monadNV <= 1) {
+          cohesionStatus = "⚠️ Critical Depletion (Powers Offline)";
+          cohesionBadgeStyle = "background: rgba(239, 68, 68, 0.25); color: #f87171; border: 1px solid #dc2626;";
+        } else if (monadNV <= 4) {
+          cohesionStatus = "⚠️ Depleted Swarm (-1 Test Pool)";
+          cohesionBadgeStyle = "background: rgba(245, 158, 11, 0.25); color: #fbbf24; border: 1px solid #d97706;";
+        }
+
+        const toughnessBoxes = Math.floor(monadNV / 2);
+        const physBonus = Math.ceil(toughnessBoxes * 2 / 3);
+        const stunBonus = toughnessBoxes - physBonus;
+
+        pContent.innerHTML += `
+          <div class="card" style="border: 1px solid var(--cyan-accent); box-shadow: 0 0 14px rgba(6, 182, 212, 0.18);">
+            <div class="card-title" style="display: flex; justify-content: space-between; align-items: center;">
+              <span>🧬 Monad Biological Swarm Console</span>
+              <span class="power-badge" style="background: rgba(6, 182, 212, 0.2); color: var(--cyan-accent); border: 1px solid var(--cyan-accent);">Monad p. 110</span>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.35); border-radius: 8px; padding: 10px 14px; margin-top: 8px; border: 1px solid var(--border-subtle);">
+              <div>
+                <div style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Biological Nanite Volume</div>
+                <div style="display: flex; align-items: baseline; gap: 8px; margin-top: 2px;">
+                  <span style="font-family: var(--font-mono); font-size: 1.6rem; font-weight: 800; color: var(--cyan-accent);">${monadNV} <span style="font-size: 0.95rem; color: var(--text-muted);">/ 10 NV</span></span>
+                  <span style="font-size: 0.75rem; padding: 3px 8px; border-radius: 6px; font-weight: 600; ${cohesionBadgeStyle}">${cohesionStatus}</span>
+                </div>
+              </div>
+              <div style="display: flex; gap: 6px; align-items: center;">
+                <button class="stepper-btn" style="width: 34px; height: 34px; font-size: 1.1rem;" onclick="updateMonadNV(-1); event.stopPropagation();" title="Expend 1 NV">-1</button>
+                <button class="stepper-btn" style="width: 34px; height: 34px; font-size: 1.1rem;" onclick="updateMonadNV(1); event.stopPropagation();" title="Gain 1 NV">+1</button>
+                <button class="reset-all-btn" style="padding: 6px 10px; font-size: 0.75rem;" onclick="setMonadNV(6); event.stopPropagation();" title="Reset to Base 6 NV">Base (6)</button>
+                <button class="reset-all-btn" style="padding: 6px 10px; font-size: 0.75rem;" onclick="setMonadNV(10); event.stopPropagation();" title="Full Nanite Volume">Max (10)</button>
+              </div>
+            </div>
+
+            <div style="margin-top: 10px; padding: 10px 12px; background: rgba(6, 182, 212, 0.08); border-radius: 8px; border-left: 3px solid var(--cyan-accent); font-size: 0.8rem; color: var(--text-secondary); line-height: 1.45;">
+              <div>• <strong>Monad Toughness:</strong> +${toughnessBoxes} Total Boxes (+${physBonus} Phys, +${stunBonus} Stun) | Wound penalties shifted <strong>-1 level</strong></div>
+              <div>• <strong>Matrix Persona Co-Processing:</strong> Living Persona synthesizes A:${char.attributes.cha || 5} S:${char.attributes.int || 5} D:${char.attributes.log || 6} F:${(char.attributes.wil || 5) + 2} (${char.derived.matrix_defense || 15}d6 Full Matrix Def)</div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 6px; margin-top: 10px;">
+              <button class="action-roll-btn" onclick="rollDice(${monadNV}, 'Monad Swarm Test (${monadNV}d6)');" style="padding: 7px 10px; font-size: 0.78rem; font-weight: 700; background: rgba(6, 182, 212, 0.2); border: 1px solid var(--cyan-accent); border-radius: 6px; color: #e0f2fe; cursor: pointer;">
+                🎲 Roll NV (${monadNV}d6)
+              </button>
+              <button class="action-roll-btn" onclick="rollDice(${monadNV}, 'Rapid Cellular Healing (${monadNV}d6)');" style="padding: 7px 10px; font-size: 0.78rem; font-weight: 700; background: rgba(16, 185, 129, 0.2); border: 1px solid #10b981; border-radius: 6px; color: #d1fae5; cursor: pointer;">
+                ❤️ Rapid Healing
+              </button>
+              <button class="action-roll-btn" onclick="rollDice(${monadNV}, 'Mental Attribute Boost (${monadNV}d6)');" style="padding: 7px 10px; font-size: 0.78rem; font-weight: 700; background: rgba(168, 85, 247, 0.2); border: 1px solid #a855f7; border-radius: 6px; color: #f3e8ff; cursor: pointer;">
+                ⚡ Mental Boost
+              </button>
+              <button class="action-roll-btn" onclick="rollDice(${monadNV}, 'Physical Attribute Boost (${monadNV}d6)');" style="padding: 7px 10px; font-size: 0.78rem; font-weight: 700; background: rgba(245, 158, 11, 0.2); border: 1px solid #f59e0b; border-radius: 6px; color: #fef3c7; cursor: pointer;">
+                🏃 Physical Boost
+              </button>
+            </div>
+          </div>
+        `;
+
+        // 🧫 Console 2: Nanohive Colony & Volume Manager
+        const nh = char.nanohive || {};
+        const catalog = nh.catalog || {};
+        const presets = nh.presets || {};
+        const maxColonies = nh.max_colonies || 6;
+        const maxVol = nh.max_volume || 18;
+
+        let activeCount = 0;
+        let totalAllocatedNV = 0;
+        Object.keys(catalog).forEach(k => {
+          const c = catalog[k];
+          const isAct = isNanohiveColonyActive(activeCharId, k, !!c.active_by_default);
+          if (isAct) {
+            activeCount++;
+            const curNv = getNanohiveColonyNV(activeCharId, k, c.default_nv);
+            totalAllocatedNV += curNv;
+          }
+        });
+
+        const pct = Math.min(100, Math.round((totalAllocatedNV / maxVol) * 100));
+        let barColor = "var(--cyan-accent)";
+        if (totalAllocatedNV > maxVol) barColor = "#ef4444";
+        else if (totalAllocatedNV > 14) barColor = "#f59e0b";
+
+        let presetButtonsHtml = Object.keys(presets).map(pk => {
+          const p = presets[pk];
+          return `<button class="filter-chip" style="font-size: 0.74rem; padding: 4px 8px;" onclick="applyNanohivePreset('${pk}'); event.stopPropagation();">${p.name}</button>`;
+        }).join("");
+        presetButtonsHtml += `<button class="filter-chip" style="font-size: 0.74rem; padding: 4px 8px; color: #f87171;" onclick="clearAllNanohiveColonies(); event.stopPropagation();">Standby All</button>`;
+
+        let colonyCardsHtml = Object.keys(catalog).map(k => {
+          const c = catalog[k];
+          const isAct = isNanohiveColonyActive(activeCharId, k, !!c.active_by_default);
+          const curNv = getNanohiveColonyNV(activeCharId, k, c.default_nv);
+          const minNv = c.min_nv || 1;
+          const maxNv = c.max_nv || 3;
+          const isVariable = !c.fixed_nv && (maxNv > minNv);
+
+          const stepperHtml = isVariable ? `
+            <div class="stepper-inline" style="gap: 3px;">
+              <button class="stepper-btn" style="width: 22px; height: 22px; font-size: 0.8rem;" onclick="stepNanohiveColonyNV('${k}', -1); event.stopPropagation();">-</button>
+              <span style="font-family: var(--font-mono); font-weight: 700; font-size: 0.82rem; min-width: 32px; text-align: center; color: var(--gold-primary);">${isAct ? '−' : ''}${curNv} NV</span>
+              <button class="stepper-btn" style="width: 22px; height: 22px; font-size: 0.8rem;" onclick="stepNanohiveColonyNV('${k}', 1); event.stopPropagation();">+</button>
+            </div>
+          ` : `<span class="power-badge" style="font-family: var(--font-mono); font-weight: 700; font-size: 0.78rem; color: ${isAct ? 'var(--cyan-accent)' : 'var(--text-muted)'}; background: ${isAct ? 'rgba(6, 182, 212, 0.15)' : 'rgba(255,255,255,0.05)'}; border: 1px solid ${isAct ? 'rgba(6, 182, 212, 0.35)' : 'var(--border-subtle)'}; padding: 2px 7px;">${isAct ? '−' : ''}${curNv} NV</span>`;
+
+          const bonusLabel = c.stat_effects && c.stat_effects.notes ? `<span class="buff-chip" style="font-size: 0.72rem; padding: 2px 6px;">⚡ ${c.stat_effects.notes}</span>` : '';
+
+          return `
+            <div style="background: ${isAct ? 'rgba(6, 182, 212, 0.08)' : 'rgba(0,0,0,0.25)'}; border: 1px solid ${isAct ? 'rgba(6, 182, 212, 0.35)' : 'var(--border-subtle)'}; border-radius: 8px; padding: 8px 10px; margin-bottom: 6px; transition: all 0.2s ease;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.88rem; font-weight: 700; color: ${isAct ? 'var(--text-primary)' : 'var(--text-muted)'};">
+                  <input type="checkbox" ${isAct ? 'checked' : ''} onchange="toggleNanohiveColony('${k}', this.checked)">
+                  <span>${c.name}</span>
+                </label>
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <span class="power-badge" style="font-size: 0.68rem;">${c.type.toUpperCase()}</span>
+                  ${stepperHtml}
+                </div>
+              </div>
+              <div style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 4px; line-height: 1.35;">${c.effect}</div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 6px; font-size: 0.70rem; color: var(--text-muted);">
+                <span>${c.source} • ${c.category}</span>
+                ${bonusLabel}
+              </div>
+            </div>
+          `;
+        }).join("");
+
+        pContent.innerHTML += `
+          <div class="card" style="border: 1px solid var(--border-accent); box-shadow: 0 0 12px rgba(6, 182, 212, 0.12);">
+            <div class="card-title" style="display: flex; justify-content: space-between; align-items: center;">
+              <span>🧫 Nanohive Colony & Volume Manager</span>
+              <span class="power-badge">Dual R3 Nanohives (Rating 6)</span>
+            </div>
+
+            <!-- Sustaining Rule Banner -->
+            <div style="margin-top: 8px; padding: 8px 10px; background: rgba(0,0,0,0.25); border-radius: 6px; border-left: 3px solid var(--gold-primary); font-size: 0.74rem; color: var(--text-secondary); line-height: 1.35;">
+              ℹ️ <strong>Colony Sustaining Rule (Body Shop p. 108):</strong> Nanohive colonies must be actively sustained by nanohive volume or they degrade and die within 1 week. Pre-bought doses are single colonies requiring their designated NV (Bio-Response: 3 NV; Neurochemical: 2 NV; Neural Amps: 2 NV each). Templates (Neuromuscular Amp [min 2 NV], Dynamic Features [1-3 NV]) can be allocated extra volume for overdriving.
+            </div>
+
+            <!-- Capacity summary & progress bar -->
+            <div style="margin-top: 8px; background: rgba(0,0,0,0.3); border-radius: 8px; padding: 10px 12px; border: 1px solid var(--border-subtle);">
+              <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                <div>
+                  <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Active Colonies: </span>
+                  <strong style="color: ${activeCount > maxColonies ? '#f87171' : 'var(--gold-primary)'}; font-size: 0.95rem;">${activeCount} / ${maxColonies} Max</strong>
+                </div>
+                <div>
+                  <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Nanohive Reserve NV: </span>
+                  <strong style="color: ${totalAllocatedNV > maxVol ? '#f87171' : 'var(--cyan-accent)'}; font-size: 0.95rem;">${Math.max(0, maxVol - totalAllocatedNV)} / ${maxVol} NV Free</strong>
+                </div>
+              </div>
+              
+              <!-- Progress Bar -->
+              <div style="width: 100%; height: 8px; background: rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden; margin: 8px 0 6px 0;">
+                <div style="width: ${pct}%; height: 100%; background: ${barColor}; transition: width 0.3s ease;"></div>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 0.70rem; color: var(--text-muted);">
+                <span>Replenishment: <strong>6 NV / hour</strong> (Dual R3)</span>
+                <span>Allocated: <strong>${totalAllocatedNV} NV used</strong> (${Math.max(0, maxVol - totalAllocatedNV)} NV free reserve)</span>
+              </div>
+            </div>
+
+            <!-- Presets Row -->
+            <div style="margin-top: 10px;">
+              <div style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-bottom: 4px;">Operational Presets:</div>
+              <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                ${presetButtonsHtml}
+              </div>
+            </div>
+
+            <!-- Colony items -->
+            <div style="margin-top: 10px;">
+              ${colonyCardsHtml}
+            </div>
+          </div>
+        `;
+      }
+
+      // 🔮 Monad Swarm Protocols / Abilities list
       if (monad.length > 0) {
         let monadItems = monad.map(m => `
-          <div class="power-item">
+          <div class="power-item" style="border-left: 3px solid var(--cyan-accent);">
             <div class="power-header">
               <strong style="color: var(--cyan-accent);">${m.name}</strong>
+              <span class="power-badge">${m.action || 'Passive'}</span>
             </div>
-            <div style="color: var(--text-secondary); font-size: 0.82rem; margin-top: 4px;">${m.effect}</div>
+            <div style="color: var(--text-secondary); font-size: 0.82rem; margin-top: 4px; line-height: 1.35;">${m.effect}</div>
             ${m.doc_link ? `<a class="doc-link-btn" href="${getDocUrl(activeCharId, m.doc_link)}" target="_blank" rel="noopener">📖 View Monad Protocols ↗</a>` : ""}
           </div>
         `).join("");
 
         pContent.innerHTML += `
           <div class="card">
-            <div class="card-title">Monad Swarm Abilities</div>
+            <div class="card-title" style="color: var(--cyan-accent);">Monad Swarm Protocols</div>
             ${monadItems}
           </div>
         `;
       }
 
-      if (augs.length > 0) {
-        let augItems = augs.map(a => `
-          <div class="power-item">
-            <div class="power-header">
-              <strong>${a.name} ${a.rating ? `R${a.rating}` : ""}</strong>
-              <span class="power-badge">[${a.grade}] ${a.essence ? `${a.essence} Ess` : ''}</span>
-            </div>
-            ${a.notes ? `<div style="font-size: 0.78rem; color: var(--gold-primary); margin-top: 4px;">${a.notes}</div>` : ""}
-            ${a.doc_link ? `<a class="doc-link-btn" href="${getDocUrl(activeCharId, a.doc_link)}" target="_blank" rel="noopener">📖 View Augmentation Rules ↗</a>` : ""}
-          </div>
-        `).join("");
-
-        pContent.innerHTML += `
-          <div class="card">
-            <div class="card-title">Cyberware & Bioware Augmentations</div>
-            ${augItems}
-          </div>
-        `;
+      // Cyberware & Bioware Augmentations (Gear & Drones Tab)
+      const augCard = document.getElementById("augmentationsCard");
+      const augList = document.getElementById("augmentationsList");
+      if (augCard && augList) {
+        augList.innerHTML = "";
+        if (augs.length === 0) {
+          augCard.style.display = "none";
+        } else {
+          augCard.style.display = "block";
+          augs.forEach(a => {
+            const div = document.createElement("div");
+            div.className = "gear-card";
+            div.style.marginBottom = "8px";
+            div.innerHTML = `
+              <div class="gear-header">
+                <span class="gear-title"><strong>${a.name}</strong> ${a.rating ? `R${a.rating}` : ""}</span>
+                <div style="display: flex; gap: 4px;">
+                  <span class="gear-badge rating">[${a.grade || 'Standard'}]</span>
+                  ${a.essence ? `<span class="gear-badge qty">${a.essence} Ess</span>` : ''}
+                </div>
+              </div>
+              ${a.notes ? `<div style="font-size: 0.78rem; color: var(--gold-primary); margin-top: 3px;">${a.notes}</div>` : ''}
+              ${a.doc_link ? `<div style="margin-top: 4px;"><a class="doc-link-btn" href="${getDocUrl(activeCharId, a.doc_link)}" target="_blank" rel="noopener">📖 View Augmentation Rules ↗</a></div>` : ''}
+            `;
+            augList.appendChild(div);
+          });
+        }
       }
 
       // Vehicles & Drones Tab

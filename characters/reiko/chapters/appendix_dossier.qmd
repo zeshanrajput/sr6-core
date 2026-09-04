@@ -26,10 +26,16 @@ format: html
 
 ## Tactical Weapon Arrays
 
-::: {.callout-note icon=false title="⚔️ WEAPON: Crimson Wasp Array (2x Link-Fired) (General)"}
+::: {.callout-note icon=false title="⚔️ WEAPON: Red Fox Array (2x Link-Fired) (General)"}
 | Damage | Attack Rating (C/N/M/F/E) | Modes | Ammo | Avail | Cost |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **7P** | 24 / 22 / 17 / 12 / — | SA | 15(c) | 1 | — |
+| **9P** | 21 / 23 / 21 / 14 / — | SA/BF/SS | 30(c) | 1 | — |
+:::
+
+::: {.callout-note icon=false title="⚔️ WEAPON: Single Red Fox (Eye Mount) (General)"}
+| Damage | Attack Rating (C/N/M/F/E) | Modes | Ammo | Avail | Cost |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **7P** | 20 / 22 / 20 / 13 / — | SA/BF/SS | 30(c) | 1 | — |
 :::
 
 ::: {.callout-note icon=false title="⚔️ WEAPON: Tesla Coil (General)"}

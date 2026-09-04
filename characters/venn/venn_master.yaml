@@ -61,14 +61,99 @@ skills:
   notes: Veronica's native DI/Resonance ideational language (Null Value); direct non-acoustic
     neural communication.
 modifiers:
-- id: cerebral_booster_enhancer
-  name: Cerebral Booster Enhancer
-  target: attribute:logic
+- id: bone_density_augmentation
+  name: Bone Density Augmentation
+  target: damage:unarmed
+  value: 4
+  type: augmentation
+  sub_skill: null
+  rule_anchor: rules/rules_and_downtime.html#augmentation-stacking
+  notes: 4P Base Unarmed DV, +4 Body soak
+  enabled: true
+- id: skillwires_wireless_on_-_close_combat
+  name: Skillwires (Wireless ON - Close Combat)
+  target: skill:close_combat
+  value: 1
+  type: other
+  sub_skill: null
+  rule_anchor: rules/rules_and_downtime.html#skillwires-protocols
+  notes: +1 dice pool modifier to active skills routed via skillwires
+  enabled: true
+- id: skillwires_wireless_on_-_cracking
+  name: Skillwires (Wireless ON - Cracking)
+  target: skill:cracking
+  value: 1
+  type: other
+  sub_skill: null
+  rule_anchor: rules/rules_and_downtime.html#skillwires-protocols
+  notes: +1 dice pool modifier to active skills routed via skillwires
+  enabled: true
+- id: math_spu
+  name: Math SPU
+  target: edge_boost_cost:logic_skills
+  value: 1
+  type: gear
+  sub_skill: null
+  rule_anchor: rules/rules_and_downtime.html#cyberware-overdrive
+  notes: Reduces Edge boost cost by 1 (min 1) on Cracking, Electronics, and Build/Repair
+    tests; overdrive reduces cost by 2 with +1 wild die
+  enabled: true
+- id: neuromuscular_amplifier
+  name: Neuromuscular Amplifier
+  target: damage:unarmed
   value: 1
   type: augmentation
   sub_skill: null
-  rule_anchor: rules/rules_and_downtime.html
-  notes: null
+  rule_anchor: rules/rules_and_downtime.html#monad-nanite-boosts
+  notes: +1 DV to all melee and unarmed attacks
+  enabled: true
+- id: bio-response_override
+  name: Bio-Response Override
+  target: attribute:willpower
+  value: 1
+  type: augmentation
+  sub_skill: null
+  rule_anchor: rules/rules_and_downtime.html#monad-nanite-boosts
+  notes: +1 Willpower, +1 box to Stun Condition Monitor
+  enabled: true
+- id: neurochemical_regulator
+  name: Neurochemical Regulator
+  target: attribute:charisma
+  value: 1
+  type: augmentation
+  sub_skill: null
+  rule_anchor: rules/rules_and_downtime.html#monad-nanite-boosts
+  notes: +1 Charisma on social and composure tests
+  enabled: true
+- id: neocortical_neural_amp
+  name: Neocortical Neural Amp
+  target: attribute:logic
+  value: 1
+  type: skill bonus
+  sub_skill: null
+  rule_anchor: rules/rules_and_downtime.html#monad-nanite-boosts
+  notes: +1 dice pool on all skill tests linked to Logic (Cracking, Electronics, Biotech,
+    etc.)
+  enabled: true
+- id: limbic_neural_amp
+  name: Limbic Neural Amp
+  target: attribute:intuition
+  value: 1
+  type: skill bonus
+  sub_skill: null
+  rule_anchor: rules/rules_and_downtime.html#monad-nanite-boosts
+  notes: +1 dice pool on all skill tests linked to Intuition (Perception, Stealth,
+    etc.)
+  enabled: true
+- id: neural_pattern_reinforcement
+  name: Neural Pattern Reinforcement
+  target: attribute:agility
+  value: 1
+  type: skill bonus
+  sub_skill: null
+  rule_anchor: rules/rules_and_downtime.html#monad-nanite-boosts
+  notes: +1 dice pool on all skill tests linked to Agility (Athletics, Firearms, Close
+    Combat, etc.)
   enabled: true
 meta_echoes: []
 knowledge_skills:
@@ -192,18 +277,8 @@ activesofts:
   notes: Purchased with Nuyen (30,000Â¥). Runs on Skillwires R6 with Wireless-ON (+1)
     for 7 skill dice (13d6 with LOG 6; 17d6 with LOG 10 post-chargen).
 sprite_powers: []
-sins:
-- name: 'Fake Licenses (Rating 4 x2): (1,600¥)'
-  rating: 1
-- name: 'Low Lifestyle (Off-Grid Coastal Boathouse): (2,000¥ / 1st month prepaid)'
-  rating: 1
-licenses:
-- name: 'Fake License: Firearms'
-  rating: 4
-  sin: 'Fake Licenses (Rating 4 x2): (1,600¥)'
-- name: 'Fake License: Concealed Carry'
-  rating: 4
-  sin: 'Fake Licenses (Rating 4 x2): (1,600¥)'
+sins: []
+licenses: []
 living_persona:
   asdf_bonuses:
     attack: 0
@@ -214,4 +289,57 @@ living_persona:
     5 + NV 1 = 6, Data Processing=LOG 6 + NV 2 = 8, Firewall=WIL 7 + NV 2 = 9 boosted
     by 6 Nanite Volume (NV=6) points -> A:2 S:6 D:8 F:9 with 15d6 Full Matrix Defense
     (17d6 active).'
+monad_abilities:
+- name: Monad Matrix Attributes
+  ref: monad_matrix_attributes
+  effect: 'Synthesizes Living Persona ASDF (Attack: CHA, Sleaze: INT, Data Processing:
+    LOG, Firewall: WIL) via internal nanite matrix co-processing.'
+  action: Passive
+  notes: 'Synthesizes Living Persona ASDF (Attack: CHA, Sleaze: INT, Data Processing:
+    LOG, Firewall: WIL) via internal nanite matrix co-processing.'
+  doc_link: rules/rules_and_downtime.html#monad-nanite-boosts
+- name: Mental Attribute Boost
+  ref: mental_attribute_boost
+  effect: 'Minor Action: roll NV test (6 dice). Each hit can increase any Mental Attribute
+    (Logic, Intuition, Willpower, Charisma) by +1 (up to NV 6 or +4 max boost) for
+    hits in combat rounds.'
+  action: Minor Action
+  notes: 'Minor Action: roll NV test (6 dice). Each hit can increase any Mental Attribute
+    (Logic, Intuition, Willpower, Charisma) by +1 (up to NV 6 or +4 max boost) for
+    hits in combat rounds.'
+  doc_link: rules/rules_and_downtime.html#monad-nanite-boosts
+- name: Monad Toughness
+  ref: monad_toughness
+  effect: Adds one-half Nanite Volume (+3 boxes at NV 6) to Condition Monitors (+2
+    Physical, +1 Stun), and shifts all Wound Modifiers down by one level.
+  action: Passive
+  notes: Adds one-half Nanite Volume (+3 boxes at NV 6) to Condition Monitors (+2
+    Physical, +1 Stun), and shifts all Wound Modifiers down by one level.
+  doc_link: rules/rules_and_downtime.html#monad-nanite-boosts
+- name: Physical Attribute Boost
+  ref: physical_attribute_boost
+  effect: 'Minor Action: roll NV test (6 dice). Each hit can add +1 Minor Action per
+    combat round or boost a physical attribute for duration.'
+  action: Minor Action
+  notes: 'Minor Action: roll NV test (6 dice). Each hit can add +1 Minor Action per
+    combat round or boost a physical attribute for duration.'
+  doc_link: rules/rules_and_downtime.html#monad-nanite-boosts
+- name: Rapid Cellular Healing
+  ref: rapid_cellular_healing
+  effect: 'Minor or Major Action: roll NV test (6 dice) to reduce Condition Monitor
+    damage boxes by hits (Major Action heals double hits and grants +1 situational
+    Edge).'
+  action: Minor or Major Action
+  notes: 'Minor or Major Action: roll NV test (6 dice) to reduce Condition Monitor
+    damage boxes by hits (Major Action heals double hits and grants +1 situational
+    Edge).'
+  doc_link: rules/rules_and_downtime.html#monad-nanite-boosts
+- name: Adrenal Control
+  ref: adrenal_control
+  effect: 'Minor Action: WIL + NV test to remain conscious and active when physical
+    or stun condition monitors are full.'
+  action: Minor Action
+  notes: 'Minor Action: WIL + NV test to remain conscious and active when physical
+    or stun condition monitors are full.'
+  doc_link: rules/rules_and_downtime.html#monad-nanite-boosts
 synergies: {}

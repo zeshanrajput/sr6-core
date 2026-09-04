@@ -122,13 +122,17 @@ def modifier(
     Allowed types:
       - 'teamwork': skills/activesofts/autosofts, capped at that skill's rating
       - 'augmentation': cyberware, bioware, magic, adept powers, drugs (+4 cap for attribute/skill)
+      - 'skill bonus': adds bonus dice to all skill tests linked to that attribute (e.g. nanite neural amps/pattern reinforcement)
       - 'specialization': adds +2 to that skill in that sub-skill
       - 'expertise': adds +3 to that skill in that sub-skill
+      - 'gear': items/gear providing specific situational or Edge benefits
       - 'other': weird things like adrenaline pumps, suprathyroid glands, wireless on skillwires
     """
     global _GLOBAL_LOG_STATE
     valid_type = type.lower().strip()
-    if valid_type not in ["teamwork", "augmentation", "specialization", "expertise", "other", "focus", "symbiosis", "gear", "attribute_substitution"]:
+    if valid_type in ["skill bonus", "skill_bonus", "skill-bonus"]:
+        valid_type = "skill bonus"
+    elif valid_type not in ["teamwork", "augmentation", "specialization", "expertise", "other", "focus", "symbiosis", "gear", "attribute_substitution"]:
         valid_type = "other"
 
     val_num = int(value) if isinstance(value, (int, float)) or (isinstance(value, str) and value.lstrip("-+").isdigit()) else value
@@ -288,6 +292,26 @@ def sprite_power(
     }
     _GLOBAL_LOG_STATE.setdefault("Sprite_Powers", []).append(entry)
     return f"**Sprite Power ({name})**: {power_type} via {source} [{origin.title()}]"
+
+
+def monad_ability(
+    name: str,
+    effect: Optional[str] = None,
+    action: str = "Minor Action",
+    notes: Optional[str] = None,
+    doc_link: Optional[str] = None
+) -> str:
+    global _GLOBAL_LOG_STATE
+    entry = {
+        "name": name,
+        "ref": name.lower().replace(" ", "_"),
+        "effect": effect or notes or "",
+        "action": action,
+        "notes": notes or effect or "",
+        "doc_link": doc_link or "rules/rules_and_downtime.html#monad-nanite-boosts"
+    }
+    _GLOBAL_LOG_STATE.setdefault("Monad_Abilities", []).append(entry)
+    return f"**Monad Ability ({name})**: {action} [{effect or notes or ''}]"
 
 
 def knowledge_skill(name: str, rating: Optional[int] = None, notes: Optional[str] = None) -> str:
@@ -734,7 +758,7 @@ def get_log_totals(log_path: Optional[Any] = None) -> Dict[str, Any]:
         if not re.match(r'^#{2,3}\s+\*\*', section.strip()):
             continue
 
-        header_match = re.search(r'#{2,3}\s+\*\*(?:(\d{4}-[A-Za-z]{3}-\d{2}|\d{4}-\d{2}-\d{2}):\s*)?([^*]+)\*\*(?:`\{python\}\s*start_mission\((.*?)\)`|\s*)', section)
+        header_match = re.search(r'#{2,3}\s+\*\*(?:(\d{4}-[A-Za-z]{3}-\d{2}|\d{4}-\d{2}-\d{2}):\s*)?([^*]+)\*\*(?:\s*`\{python\}\s*start_mission\((.*?)\)`|\s*)', section)
         if not header_match:
             continue
 
@@ -809,5 +833,6 @@ def get_log_totals(log_path: Optional[Any] = None) -> Dict[str, Any]:
         "Echoes": _GLOBAL_LOG_STATE.get("Echoes", []),
         "Sprite_Powers": _GLOBAL_LOG_STATE.get("Sprite_Powers", []),
         "Knowledge_Skills": _GLOBAL_LOG_STATE.get("Knowledge_Skills", []),
+        "Monad_Abilities": _GLOBAL_LOG_STATE.get("Monad_Abilities", []),
         "Session_Logs": session_logs
     }

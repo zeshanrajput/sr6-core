@@ -73,7 +73,7 @@ This landing hub consolidates Reiko's downtime protocols, calculation shortcuts,
 
 ### [WEAPONS_TACTICAL]
 
-* **Primary Array**: 2x Crimson Wasp Laser Array (Eye Mounts, Link-Fired)
+* **Primary Array**: 2x Red Fox Laser Array (Eye Mounts, Link-Fired or Independent)
 * **Laser Ammo System**: Peak-Discharge Batteries (5 clips)
 * **Secondary Tactical**: Tesla Coil (Area Cone) & Amalgam Cestas (Anti-Spirit CQC)
 * **[View Weapons & Tactical Protocols](rules_combat.qmd)**
@@ -92,4 +92,4 @@ Select a domain reference for full formulas, dice pool breakdowns, step-by-step 
 
 2. **[Sprites & Resonance Protocols](rules_sprites.qmd)**: Complex Forms roster, step-by-step compiling & registering downtime math, Technoshaman fading mitigation, and Resonance Focus fading calculations.
 3. **[Drones & Rigging Protocols](rules_drones.qmd)**: Detailed drone stat blocks (Shiawase Man-at-Arms, MCT Gnat), retractable skates rules, standardized drone action pools, Jumped-In vs Remote AI attribute mapping rules, and Sensor Lock mechanics.
-4. **[Weapons & Tactical Gear Protocols](rules_combat.qmd)**: Standardized weapon attack tables (Crimson Wasp array, Tesla Coil, Amalgam Cestas), firing mode rules, Attack Rating modification breakdown, and laser battery rules.
+4. **[Weapons & Tactical Gear Protocols](rules_combat.qmd)**: Standardized weapon attack tables (Red Fox array & single mode, Tesla Coil, Amalgam Cestas), firing mode rules, Attack Rating modification breakdown, and laser battery rules.

@@ -395,10 +395,10 @@ def get_monad_strategy_table(char_id: str = "venn") -> str:
     rows = [
         "| Operational Mode | Active Augmentations & State | Effective Attributes | Primary Action Pools & Modifiers | Derived Defenses & Hits |",
         "| :--- | :--- | :--- | :--- | :--- |",
-        "| **1. Meatspace Baseline (Chrome Active, Wireless ON)** | 4 Synthetic Cyberlimbs (AGI+3 enhancements)<br>Redliner (+2 AGI, +2 STR to limbs)<br>Used Skillwires R6 (Wireless ON: +1)<br>Used Skilljack R6 | **AGI 7** *(Cyberarms/legs)*<br>**STR 4** *(Cyberarms/legs)*<br>BOD 5, REA 2, LOG 6, INT 5, WIL 7 | **Close Combat (Unarmed)**: **14d6** (3 Hits) *(Activesoft 6 + AGI 7 + Wires 1)*<br>**Cracking (Matrix Attack)**: **13d6** (3 Hits) *(Activesoft 6 + LOG 6 + Wires 1)*<br>**Athletics**: **8d6** (2 Hits) *(Athletics 1 + AGI 7)* | **Physical Defense**: **7d6** (1 Hit) *(REA 2 + INT 5)*<br>**Damage Soak**: **9d6** (2 Hits) *(BOD 5 + Bone Density R4 [4P DV])*<br>**Defense Rating**: **6 DR** (SkinShield w/ Hood)<br>**Physical Initiative**: **7 + 1D6** |",
-        "| **2. Cyberlimb Overdrive & Leaping Assault** | Overdriving Cyberlimbs (+2 AGI / +2 STR with 1 wild die)<br>Hydraulic Jacks R2 + Retractable Inline Skates<br>Generates +1 Edge via *Maximum Overdrive* | **AGI 9** *(Overdriven)*<br>**STR 6** *(Overdriven)*<br>WIL 7 | **Close Combat (Leaping Kick)**: **16d6** (4 Hits) *(4P Bone Density + 1 Kick Attack + 2 Flying Kick = **7P Base DV**)*<br>**Wall Running / Parkour**: **10d6** *(Athletics + Gecko Tips/Gloves)* | **High-Speed Glide**: 10m/rnd Sprint<br>**Flying Kick Threshold**: 1 hit (via Jacks R2)<br>**Falling Absorption**: 4 boxes absorbed |",
-        "| **3. Matrix Living Persona (Veronica Co-Processing)** | Monad Living Persona (Whisper Nets: **A:2 S:6 D:8 F:9**)<br>NV 6 Allocated: +2 FW, +2 DP, +1 Sleaze<br>Hot-Sim VR Matrix Inhabitation | LOG 6<br>INT 5<br>WIL 7<br>CHA 2 | **Offensive Cracking**: **13d6** (3 Hits) *(Activesoft 6 + LOG 6 + Wires 1)*<br>**Electronics (Computer)**: **13d6** (3 Hits, 15d6 Computer)<br>**Matrix Perception**: **11d6** (2 Hits)<br>**Full Matrix Defense**: **16d6** (4 Hits) *(WIL 7 + FW 9)* | **Full Matrix Defense**: **16d6** (4 Hits)<br>**Matrix Initiative**: **13 + 3D6 (Hot-Sim VR)**<br>**Matrix Soak**: **9d6** (Firewall 9) |",
-        "| **4. Monad Physical Attribute Boost** | **Monad NV Boost**: Minor Action, NV test (6 dice). Rolling $\ge 3$ hits adds **+4 Minor Actions** for duration.<br>With 4-Edge boost rolls 13 exploding dice. | **AGI 7–9**<br>**STR 4–6**<br>NV 6 | **Turn 1 Action Economy**: Converts to **3 Major Actions and 1 Minor Action** per combat round!<br>**Rapid Cellular Healing**: NV test reduces damage boxes | **Exhaustion Risk**: After boost ends, NV temporarily decreases by total boost for 1 minute.<br>**Adrenal Control**: WIL + NV (2) test (13d6) to remain conscious when monitors are full |"
+        "| **1. Meatspace Baseline (Chrome Active, Wireless ON)** | 4 Synthetic Cyberlimbs (AGI+3 enhancements)<br>Redliner (+2 AGI, +2 STR to limbs)<br>Used Skillwires R6 (Wireless ON: +1)<br>Used Skilljack R6<br>Dual Nanohives R3 (6 Active NV Bioamplifiers) | **AGI 7** *(Cyberarms/legs)*<br>**STR 4** *(Cyberarms/legs)*<br>BOD 5, REA 2, LOG 6, INT 5<br>**WIL 8** *(Bio-Response Override)*<br>**CHA 3** *(Neurochem Regulator)* | **Close Combat (Unarmed)**: **15d6** (3 Hits, **5P DV**) *(Activesoft 6 + AGI 7 + Wires 1 + Neural Pattern 1; Bone Density 4P + Neuromuscular Amp +1P)*<br>**Cracking (Matrix Attack)**: **14d6** (3 Hits) *(Activesoft 6 + LOG 6 + Wires 1 + Neocortical Amp 1)*<br>**Electronics (Computer)**: **13d6** (3 Hits, 15d6 Computer) *(Electronics 6 + LOG 6 + Neocortical Amp 1)*<br>**Athletics**: **9d6** (2 Hits) *(Athletics 1 + AGI 7 + Neural Pattern 1)* | **Physical Defense**: **7d6** (1 Hit) *(REA 2 + INT 5)*<br>**Damage Soak**: **9d6** (2 Hits) *(BOD 5 + Bone Density R4)*<br>**Defense Rating**: **6 DR** (SkinShield w/ Hood)<br>**Physical Initiative**: **7 + 1D6**<br>**Condition Monitors**: 11 Phys / 13 Stun (+1 Stun Box via Bio-Response Override) |",
+        "| **2. Cyberlimb Overdrive & Leaping Assault** | Overdriving Cyberlimbs (+2 AGI / +2 STR with 1 wild die)<br>Retractable Inline Skates + Gecko Tips / Tape Gloves<br>Generates +1 Edge via *Maximum Overdrive* | **AGI 9** *(Overdriven)*<br>**STR 6** *(Overdriven)*<br>WIL 8 | **Close Combat (Flying Kick Engine)**: **17d6** (4 Hits) *(Base 5P + 1 Iron Limbs + 3 Flying Kick = **9P Base DV**, surging to **10P Base DV** with Toughskin Spines)*<br>**Wall Running / Parkour**: **11d6** *(Athletics + Gecko Tips/Gloves)* | **High-Speed Glide**: 10m/rnd Sprint<br>**Flying Kick Threshold**: 1 hit (via Parkour/Athletics)<br>**Falling Absorption**: 4 boxes absorbed |",
+        "| **3. Matrix Living Persona (Veronica Co-Processing)** | Monad Living Persona (Whisper Nets: **A:3 S:6 D:7 F:10**)<br>NV 6 Allocated: +2 FW, +1 DP, +1 Sleaze<br>Hot-Sim VR Matrix Inhabitation | LOG 6<br>INT 5<br>WIL 8<br>CHA 3 | **Offensive Cracking**: **14d6** (3 Hits) *(Activesoft 6 + LOG 6 + Wires 1 + Neocortical Amp 1)*<br>**Electronics (Computer)**: **13d6** (3 Hits, 15d6 Computer)<br>**Matrix Perception**: **11d6** (2 Hits)<br>**Full Matrix Defense**: **18d6** (4 Hits) *(WIL 8 + FW 10)* | **Full Matrix Defense**: **18d6** (4 Hits)<br>**Matrix Initiative**: **12 + 3D6 (Hot-Sim VR)**<br>**Matrix Soak**: **10d6** (Firewall 10) |",
+        "| **4. Monad Physical Attribute Boost** | **Monad NV Boost**: Minor Action, NV test (6 dice). Rolling $\\ge 3$ hits adds **+4 Minor Actions** for duration.<br>With 4-Edge boost rolls 13 exploding dice. | **AGI 7–9**<br>**STR 4–6**<br>NV 6 | **Turn 1 Action Economy**: Converts to **3 Major Actions and 1 Minor Action** per combat round!<br>**Rapid Cellular Healing**: NV test reduces damage boxes | **Exhaustion Risk**: After boost ends, NV temporarily decreases by total boost for 1 minute.<br>**Adrenal Control**: WIL + NV (2) test (14d6) to remain conscious when monitors are full |"
     ]
     return "\n".join(rows)
 
@@ -453,14 +453,25 @@ def get_weapon_attack_table(char_id: str) -> str:
                 out.append("—")
         return " / ".join(out)
 
-    # 1. Crimson Wasp Array (2x Link-Fired - Eye Mounts)
-    wasp_stat = get_weapon_stats("crimson_wasp") or {"dv": "5P", "ar": [16, 14, 11, 6]}
-    wasp_base_dv = int(re.sub(r"[^\d]", "", wasp_stat["dv"])) if re.search(r"\d", wasp_stat["dv"]) else 5
-    # Base + 1 link-fired + 3 smartlink + 2 mount = +6 AR, +2 DV
-    wasp_ss_ar = format_ar(wasp_stat["ar"], ar_bonus=6, burst_pen=0)
-    wasp_sa_ar = format_ar(wasp_stat["ar"], ar_bonus=6, burst_pen=1)
-    rows.append(f"| **Crimson Wasp Array (2x Link-Fired)** | **SS** (1/gun) | {wasp_base_dv + 2}P | **{wasp_ss_ar}** | Link-fired 2x Crimson Wasps in Eye Mounts (+2 DV array bonus, +1 AR). **1 round/gun** (2 rounds total) per attack. |")
-    rows.append(f"| | **SA** (2/gun) | {wasp_base_dv + 3}P | **{wasp_sa_ar}** | Link-fired array (Drone mount halves SA penalty). **2 rounds/gun** (4 rounds total) per attack. |")
+    # 1. Red Fox Array (2x Link-Fired - Eye Mounts)
+    fox_stat = get_weapon_stats("red_fox") or {"dv": "6P", "ar": [14, 16, 16, 9]}
+    fox_base_dv = int(re.sub(r"[^\d]", "", fox_stat["dv"])) if re.search(r"\d", fox_stat["dv"]) else 6
+    # Link-fired: Base + 1 link-fired + 3 smartlink + 2 mount = +6 AR, +2 DV
+    fox_link_ss_ar = format_ar(fox_stat["ar"], ar_bonus=6, burst_pen=0)
+    fox_link_sa_ar = format_ar(fox_stat["ar"], ar_bonus=6, burst_pen=1)
+    fox_link_bf_ar = format_ar(fox_stat["ar"], ar_bonus=6, burst_pen=2)
+    rows.append(f"| **Red Fox Array (2x Link-Fired)** | **SS** (1/gun) | {fox_base_dv + 2}P* | **{fox_link_ss_ar}** | Link-fired 2x Red Foxes in Eye Mounts (Costs Minor Action; +2 DV, +1 AR). **1 round/gun** (2 rds total). 1 Wild Die. *Decreases by 3P at Medium. |")
+    rows.append(f"| | **SA** (2/gun) | {fox_base_dv + 3}P* | **{fox_link_sa_ar}** | Link-fired array (Drone mount halves SA penalty). **2 rounds/gun** (4 rds total). *Decreases by 3P at Medium. |")
+    rows.append(f"| | **BF** (4/gun) | {fox_base_dv + 4}P* | **{fox_link_bf_ar}** | Link-fired array (Drone mount halves BF penalty). **4 rounds/gun** (8 rds total). *Decreases by 3P at Medium. |")
+
+    # 1b. Single Red Fox (Independent - Eye Mount)
+    # Non-link-fired: NO Minor Action required. +3 smartlink + 2 mount = +5 AR
+    fox_single_ss_ar = format_ar(fox_stat["ar"], ar_bonus=5, burst_pen=0)
+    fox_single_sa_ar = format_ar(fox_stat["ar"], ar_bonus=5, burst_pen=1)
+    fox_single_bf_ar = format_ar(fox_stat["ar"], ar_bonus=5, burst_pen=2)
+    rows.append(f"| **Single Red Fox (Independent)** | **SS** (1) | {fox_base_dv}P* | **{fox_single_ss_ar}** | Independent Eye Mount (NO Minor Action required). **1 round**. 1 Wild Die. *Decreases by 3P at Medium. |")
+    rows.append(f"| | **SA** (2) | {fox_base_dv + 1}P* | **{fox_single_sa_ar}** | Independent mount (Drone mount halves SA penalty). **2 rounds**. *Decreases by 3P at Medium. |")
+    rows.append(f"| | **BF** (4) | {fox_base_dv + 2}P* | **{fox_single_bf_ar}** | Independent mount (Drone mount halves BF penalty). **4 rounds**. *Decreases by 3P at Medium. |")
 
     # 2. Tesla Coil
     rows.append("| **Tesla Coil (MAA Cyberarm)** | **SS** (1) | 5S(e) | **10 / 12* / — / — / —** | Max 20m, 20m Cone Area Attack (Flamethrower rules), Cyberarm Mount (+2 AR). |")
@@ -583,6 +594,277 @@ def get_matrix_asdf_derivation_table(char_id: str = "reiko") -> str:
         f"| **Firewall (F)** | {base.get('firewall', 3)} | Network Tuning (+{tuning.get('firewall', 6)}) | **{asdf.get('firewall', 9)}** |"
     ]
     return "\n".join(rows)
+
+
+# ============================================================================
+# Multi-Modifier Derived Interaction Engine
+# ============================================================================
+
+def get_multi_modifier_interactions(char_id: str, threshold: int = 2) -> List[Dict[str, Any]]:
+    """
+    Identifies all test pools, attributes, and derived statistics for a character that
+    utilize more than `threshold` (default > 2) modifiers, collating their mechanics,
+    stacking legality, and operational constraints for dynamic rules page generation.
+    """
+    from sr6core.exporters.mobile_json import export_mobile_json
+
+    cm = CharacterManager()
+    char = cm.load_character(char_id)
+    if not char:
+        return []
+
+    data = char["data"]
+    char_repo = cm.get_character_repo_dir(char_id)
+    mob_data = export_mobile_json(data, char_repo_path=char_repo)
+    declared_mods = data.get("modifiers", [])
+    identity = mob_data.get("identity", {})
+    attrs = data.get("attributes", {})
+
+    results = []
+
+    # 1. Evaluate Skills & Tests
+    for s in mob_data.get("skills", []):
+        s_name = s.get("name", "")
+        buffs = s.get("buffs", [])
+        linked_attr = s.get("attribute", "").lower()
+        mods_list = []
+        for b in buffs:
+            mods_list.append({
+                "source": b.get("source", "Modifier"),
+                "value": b.get("value", 0),
+                "type": b.get("type", "skill"),
+                "notes": b.get("notes", "") or "Active modifier",
+                "rule_anchor": b.get("rule_anchor", "")
+            })
+
+        # Check gear/qualities affecting logic skills
+        if linked_attr == "logic":
+            math_spu = next((m for m in declared_mods if m.get("id") == "math_spu"), None)
+            if math_spu:
+                mods_list.append({
+                    "source": "Math SPU",
+                    "value": "-1 Edge",
+                    "type": "gear",
+                    "notes": "Reduces Edge boost cost by 1 (min 1) on Logic-linked skills; overdrive reduces cost by 2 with +1 wild die",
+                    "rule_anchor": "rules/rules_and_downtime.html#cyberware-overdrive"
+                })
+
+        # Close Combat special handling
+        if s_name.lower().startswith("close combat"):
+            bd = next((m for m in declared_mods if "bone_density" in m.get("id", "")), None)
+            if bd:
+                mods_list.append({
+                    "source": "Bone Density Augmentation R4",
+                    "value": "+4P DV",
+                    "type": "augmentation",
+                    "notes": "Replaces standard unarmed strike (1S) with 4P Physical DV, +4 soak dice",
+                    "rule_anchor": "rules/rules_and_downtime.html#augmentation-stacking"
+                })
+            nm = next((m for m in declared_mods if "neuromuscular" in m.get("id", "")), None)
+            if nm:
+                mods_list.append({
+                    "source": "Neuromuscular Amplifier Colony",
+                    "value": "+1P DV",
+                    "type": "augmentation",
+                    "notes": "+1 DV to all melee and unarmed attacks (sustained by 2 NV in Nanohive)",
+                    "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts"
+                })
+            mods_list.append({
+                "source": "Flying Kick (Martial Art Maneuver)",
+                "value": "+3P DV",
+                "type": "technique",
+                "notes": "Requires 1 Net Hit on Athletics/Parkour leap to add +3 DV (surges base unarmed to 8P-10P DV)",
+                "rule_anchor": "rules/rules_and_downtime.html#tactical-combat"
+            })
+
+        # Social skills special handling (e.g. Velvet)
+        if s_name.lower().startswith("influence") or s_name.lower().startswith("con"):
+            adept_powers = data.get("adept_powers", [])
+            kinesics = next((p for p in adept_powers if "kinesics" in p.get("name", "").lower()), None)
+            if kinesics:
+                mods_list.append({
+                    "source": f"Kinesics (Rating {kinesics.get('rating', 3)})",
+                    "value": f"+{kinesics.get('rating', 3)}",
+                    "type": "adept power",
+                    "notes": "Adept micro-expression control adds bonus dice to social defense and deception",
+                    "rule_anchor": "rules_and_downtime.html#adept-powers"
+                })
+            voice_mod = next((p for p in adept_powers if "voice modulation" in p.get("name", "").lower()), None)
+            if voice_mod:
+                mods_list.append({
+                    "source": "Voice Modulation",
+                    "value": "+2",
+                    "type": "adept power",
+                    "notes": "Pitch and harmonic modulation adds +2 dice to verbal Influence and Con tests",
+                    "rule_anchor": "rules_and_downtime.html#adept-powers"
+                })
+
+        if len(mods_list) > threshold:
+            legality = "All active modifiers stack legally. "
+            constraints = ""
+            if any(m["type"] == "augmentation" for m in mods_list):
+                legality += "Total augmentation bonuses remain within the SRMG +4 Augmentation Cap. "
+            if any("Skillwires" in m["source"] for m in mods_list):
+                constraints += "Requires Skillwires to be 'Wireless ON' to spend Edge on associated tests. "
+            if any("Colony" in m["source"] or "Amplifier" in m["source"] for m in mods_list):
+                constraints += "Colonies require dedicated internal Nanite Volume (NV) in the Nanohive to sustain. "
+            if any("Math SPU" in m["source"] for m in mods_list):
+                constraints += "Math SPU reduces Edge boost costs by 1 (min 1). "
+
+            results.append({
+                "category": "Skill & Action Pools",
+                "name": s_name,
+                "total_pool": f"{s.get('buffed_pool', s.get('pool', 0))}d6",
+                "base_summary": s.get("breakdown_text") or s.get("breakdown") or f"{linked_attr.upper()} {attrs.get(linked_attr, 0)} + Skill {s.get('base_rating', 0)}",
+                "modifiers": mods_list,
+                "stacking_legality": legality.strip(),
+                "operational_constraints": constraints.strip() or "Standard action test resolution.",
+                "count": len(mods_list)
+            })
+
+    # 2. Living Persona & Matrix Defenses (Venn & Reiko)
+    if identity.get("is_monad") or data.get("living_persona") or int(attrs.get("resonance", 0)) > 0:
+        if identity.get("is_monad"):
+            fw_mods = [
+                {
+                    "source": "Natural Willpower Base",
+                    "value": attrs.get("willpower", 7),
+                    "type": "attribute",
+                    "notes": "Base biological willpower",
+                    "rule_anchor": ""
+                },
+                {
+                    "source": "Bio-Response Override Colony",
+                    "value": "+1",
+                    "type": "augmentation",
+                    "notes": "Nanite sensory damping structures boost Willpower by +1 (sustained by 3 NV in Nanohive)",
+                    "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts"
+                },
+                {
+                    "source": "Nanite Volume Emulation (NV 2)",
+                    "value": "+2",
+                    "type": "monad ability",
+                    "notes": "Emulates hardware firewall pathways (+2 FW per Whisper Nets p. 149)",
+                    "rule_anchor": "rules/rules_and_downtime.html#monad-matrix-attributes"
+                },
+                {
+                    "source": "Full Matrix Defense Action",
+                    "value": "+WIL (8)",
+                    "type": "matrix defense",
+                    "notes": "Adds augmented Willpower (8) to Firewall (10) for 18d6 Full Matrix Defense (4 Bought Hits)",
+                    "rule_anchor": "rules/rules_and_downtime.html#tactical-combat"
+                }
+            ]
+            if len(fw_mods) > threshold:
+                results.append({
+                    "category": "Matrix Defense & Living Persona",
+                    "name": "Firewall & Full Matrix Defense",
+                    "total_pool": "FW 10 / 18d6 Full Defense (4 Bought Hits)",
+                    "base_summary": "Base WIL 7 + Bio-Response (+1) + NV Emulation (+2) + Full Defense (+WIL 8)",
+                    "modifiers": fw_mods,
+                    "stacking_legality": "Bio-Response Override (+1) operates well within the SRMG +4 Augmentation Cap. Monad NV allocation emulates unbrickable biological hardware architecture. Full Matrix Defense stacks augmented Willpower directly with Firewall.",
+                    "operational_constraints": "Bio-Response Override requires 3 NV sustained by the cyberleg Nanohives. Degrades in 1 week without hive maintenance.",
+                    "count": len(fw_mods)
+                })
+        elif int(attrs.get("resonance", 0)) > 0:
+            # Reiko Technomancer Living Persona
+            asdf_mods = [
+                {"source": "Base ASDF Array", "value": "A:3 S:5 D:3 F:5", "type": "base", "notes": "Living Persona base stats", "rule_anchor": ""},
+                {"source": "Network Tuning / Symbiosis", "value": "+4 to all ASDF", "type": "technomancer synergy", "notes": "Living persona tuning adds +4 across all Matrix attributes", "rule_anchor": "rules_matrix.html"},
+                {"source": "Taz Symbiosis", "value": "+4 Tasking", "type": "teamwork", "notes": "Companion sprite assistance adds +4 teamwork dice", "rule_anchor": "rules_sprites.html"},
+                {"source": "Resonance Focus R4", "value": "+4 Focus", "type": "focus", "notes": "Applies +4 dice to Resonance-linked action tests", "rule_anchor": "rules_matrix.html"}
+            ]
+            if len(asdf_mods) > threshold:
+                results.append({
+                    "category": "Resonance & Living Persona",
+                    "name": "Technomancer ASDF & Resonance Operations",
+                    "total_pool": "A:7 S:9 D:7 F:9 (Resonance 8 + Focus 4 = 12d6 Base)",
+                    "base_summary": "Base ASDF + Network Tuning (+4) + Taz Symbiosis (+4) + Resonance Focus (+4)",
+                    "modifiers": asdf_mods,
+                    "stacking_legality": "Network Tuning provides +4 augmented Matrix attributes, respecting the SRMG +4 limit. Taz Symbiosis provides teamwork dice capped at skill rating. Focus bonus applies as an untyped magical tool bonus.",
+                    "operational_constraints": "Sustaining complex forms requires Resonance bond. Taz must remain registered and in PAN proximity.",
+                    "count": len(asdf_mods)
+                })
+
+    # 3. Damage Resistance & Armor
+    bod = int(attrs.get("body", 1))
+    bd_mod = next((m for m in declared_mods if "bone_density" in m.get("id", "")), None)
+    if bd_mod:
+        soak_mods = [
+            {"source": "Natural Body Base", "value": bod, "type": "attribute", "notes": "Base natural Body attribute", "rule_anchor": ""},
+            {"source": "Bone Density Augmentation R4", "value": "+4 Soak", "type": "augmentation", "notes": "+4 dice for damage resistance soak (reaches the +4 SRMG Augmentation Soak limit)", "rule_anchor": "rules/rules_and_downtime.html#augmentation-stacking"},
+            {"source": "Securetech SkinShield", "value": "+2 DR", "type": "armor gear", "notes": "Form-fitting under-armor layer adds +2 to Defense Rating", "rule_anchor": "rules/rules_and_downtime.html#tactical-combat"},
+            {"source": "Ballistic Hood", "value": "+1 DR", "type": "armor gear", "notes": "Integrated head protection adds +1 to Defense Rating", "rule_anchor": "rules/rules_and_downtime.html#tactical-combat"}
+        ]
+        if len(soak_mods) > threshold:
+            results.append({
+                "category": "Damage Resistance & Protection",
+                "name": "Damage Resistance Soak & Defense Rating (DR)",
+                "total_pool": f"{bod + 4}d6 Soak / 6 DR",
+                "base_summary": f"Body {bod} + Bone Density R4 (+4) + SkinShield (+2 DR) + Ballistic Hood (+1 DR)",
+                "modifiers": soak_mods,
+                "stacking_legality": "Bone Density provides +4 Body soak dice, reaching the +4 SRMG Augmentation Soak limit. Armor layers provide Defense Rating (DR) rather than soak dice, obeying SR6 unbundled armor rules.",
+                "operational_constraints": "SkinShield has 0 Social Modifier, allowing full concealment in formal, corporate, or street environments.",
+                "count": len(soak_mods)
+            })
+
+    # 4. Condition Monitors & Wound Mitigation (Venn)
+    if identity.get("is_monad"):
+        wil = int(attrs.get("willpower", 1))
+        stun_mods = [
+            {"source": "Natural Willpower Formula", "value": f"{(wil + 1) // 2 + 8} boxes", "type": "attribute", "notes": f"Base formula: ceil(WIL {wil} / 2) + 8", "rule_anchor": ""},
+            {"source": "Bio-Response Override Colony", "value": "+1 box", "type": "augmentation", "notes": "+1 box to Stun Condition Monitor", "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts"},
+            {"source": "Monad Toughness Swarm Protocol", "value": "+1 box", "type": "monad ability", "notes": "Internal nanite swarm absorbs shock (+1 Stun box, +1 Phys box)", "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts"},
+            {"source": "Wound Penalty Threshold Shift", "value": "-1 wound step", "type": "monad ability", "notes": "Shifts all wound penalty thresholds down by 1 box, ignoring initial damage penalties", "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts"}
+        ]
+        if len(stun_mods) > threshold:
+            results.append({
+                "category": "Health & Condition Monitors",
+                "name": "Stun Condition Monitor & Wound Resistance",
+                "total_pool": "13 Stun Boxes (Wound Shift -1)",
+                "base_summary": f"Base 12 boxes + Bio-Response (+1) + Monad Toughness (+1 Stun, -1 Wound Step)",
+                "modifiers": stun_mods,
+                "stacking_legality": "Bio-Response Override and Monad Toughness expand monitor capacity rather than modifying test pools, avoiding SRMG dice pool caps entirely.",
+                "operational_constraints": "Wound penalties only begin after taking 4 boxes of damage instead of the standard 3 boxes.",
+                "count": len(stun_mods)
+            })
+
+    return results
+
+
+def render_multi_modifier_interactions(char_id: str, threshold: int = 2) -> str:
+    """
+    Renders structured Markdown callout boxes and breakdown tables for any test pool,
+    attribute, or derived stat with more than `threshold` active modifiers.
+    """
+    interactions = get_multi_modifier_interactions(char_id, threshold=threshold)
+    if not interactions:
+        return "*(No pools currently exceed the multi-modifier interaction threshold)*\n"
+
+    sections = []
+    sections.append(f"> **Automated Multi-Modifier Audit**: The following {len(interactions)} tests, pools, and derived statistics utilize **more than {threshold} active modifiers**, requiring explicit mechanical interaction auditing under SRMG rules.\n")
+
+    for item in interactions:
+        title = f"⚡ {item['category'].upper()}: {item['name']} ({item['total_pool']})"
+        rows = [
+            f"::: {{.callout-note icon=false title=\"{title}\"}}",
+            f"**Derivation**: `{item['base_summary']}`  ",
+            f"**Active Interacting Modifiers ({item['count']})**:\n",
+            "| Modifier Source | Type | Value / Effect | Notes & Operational Mechanism | Citation / Link |",
+            "| :--- | :---: | :---: | :--- | :--- |"
+        ]
+        for m in item["modifiers"]:
+            source_link = f"[{m['source']}]({m['rule_anchor']})" if m.get("rule_anchor") else f"**{m['source']}**"
+            val_str = f"+{m['value']}" if isinstance(m['value'], int) and m['value'] > 0 else str(m['value'])
+            rows.append(f"| {source_link} | `{m['type']}` | **{val_str}** | {m['notes']} | `{m.get('rule_anchor') or 'Core Rules'}` |")
+
+        rows.append(f"\n* **Stacking Legality & Caps Check**: {item['stacking_legality']}")
+        rows.append(f"* **Operational Constraints & Interdependencies**: {item['operational_constraints']}")
+        rows.append(":::\n")
+        sections.append("\n".join(rows))
+
+    return "\n\n".join(sections)
+
 
 
 

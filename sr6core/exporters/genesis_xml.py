@@ -15,6 +15,7 @@ from typing import Dict, Any, Optional
 from sr6core.rules_db import DEFAULT_DB_PATH
 from sr6core.log_engine import get_log_totals
 from sr6core.srm_contacts import get_official_srm_contact
+from sr6core.contacts import normalize_contacts_list
 
 MONTH_MAP = {
     "jan": "01", "january": "01",
@@ -477,7 +478,7 @@ def export_genesis_xml(char_data: Dict[str, Any], char_repo_path: Optional[str] 
     contacts_el = ET.SubElement(root, "contacts")
     merged_contacts = {}
 
-    for c in char_data.get("contacts", []):
+    for c in normalize_contacts_list(char_data.get("contacts", [])):
         cname = c.get("name")
         if cname:
             merged_contacts[cname] = c
@@ -837,7 +838,7 @@ def patch_genesis_xml(input_xml_path: str, char_data: Dict[str, Any], output_xml
         if contacts_el is None:
             contacts_el = ET.SubElement(root, "contacts")
 
-        merged_contacts = {c.get("name"): c for c in char_data.get("contacts", []) if c.get("name")}
+        merged_contacts = {c.get("name"): c for c in normalize_contacts_list(char_data.get("contacts", [])) if c.get("name")}
         if log_totals.get("Contacts"):
             for cname, cinfo in log_totals["Contacts"].items():
                 if cname in merged_contacts:

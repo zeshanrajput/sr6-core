@@ -16,6 +16,7 @@ from typing import Dict, Any, List, Optional
 from sr6core.log_engine import get_log_totals
 from sr6core.modifiers import ModifierEngine
 from sr6core.vehicles import parse_vehicle_modifications, calculate_drone_action_pools
+from sr6core.contacts import normalize_contacts_list
 
 MAX_LINE_WIDTH = 76
 
@@ -270,7 +271,7 @@ def export_base_sheet(char_data: Dict[str, Any], char_repo_path: Optional[str] =
 def export_contacts_sheet(char_data: Dict[str, Any]) -> str:
     """Generates the Contacts Directory strictly within 76-character line bounds."""
     identity = char_data.get("identity", {})
-    contacts = char_data.get("contacts", [])
+    contacts = normalize_contacts_list(char_data.get("contacts", []))
     handle = identity.get("handle", "Unknown").upper() if isinstance(identity, dict) else "UNKNOWN"
     lines = []
     lines.append("=" * MAX_LINE_WIDTH)

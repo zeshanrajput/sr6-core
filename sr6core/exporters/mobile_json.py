@@ -13,6 +13,8 @@ from sr6core.modifiers import ModifierEngine, PoolModifier
 from sr6core.vehicles import calculate_drone_action_pools
 from sr6core.log_engine import get_log_totals
 from sr6core.rules_spirits import SPIRIT_CATALOG
+from sr6core.rules_nanotech import NANOHIVE_CATALOG, NANOHIVE_PRESETS
+from sr6core.contacts import normalize_contacts_list
 
 
 def _get_name(item: Any, default: str = "") -> str:
@@ -104,22 +106,49 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
     mdef = ModifierEngine.get_full_matrix_defense(char_data)
     matrix_init = ModifierEngine.get_matrix_initiative(char_data)
 
-    # Calculate Buffed Attributes (dynamic enhancement engine handles sustaining spells & boosts)
-    buffed_cha = cha
-    buffed_wil = wil
+    # Calculate Buffed Attributes (dynamic enhancement engine handles sustaining spells, boosts & declared modifiers)
+    declared_mods = char_data.get("modifiers", [])
+    attr_mods_map: Dict[str, List[Dict[str, Any]]] = {}
+    for dm in declared_mods:
+        if isinstance(dm, dict):
+            tgt = str(dm.get("target", "")).lower().strip()
+            if tgt.startswith("attribute:"):
+                attr_name = tgt.split(":", 1)[1].strip()
+                attr_mods_map.setdefault(attr_name, []).append(dm)
+            elif tgt in ["body", "agility", "reaction", "strength", "willpower", "logic", "intuition", "charisma", "bod", "agi", "rea", "str", "wil", "log", "int", "cha"]:
+                attr_mods_map.setdefault(tgt, []).append(dm)
 
-    buffed_agi = agi
-    buffed_rea = rea
-    buffed_str = str_val
-    buffed_bod = bod
-    buffed_log = log_val
-    buffed_int = int_val
+    def _get_attr_bonus(keys: List[str]) -> int:
+        tot = 0
+        for k in keys:
+            for m in attr_mods_map.get(k, []):
+                m_type = str(m.get("type", "")).lower().strip()
+                if m_type in ["skill bonus", "skill_bonus"]:
+                    continue
+                v = m.get("value", 0)
+                if isinstance(v, (int, float)):
+                    tot += int(v)
+        return min(tot, 4)  # SRM Augmented attribute cap
 
-    # Condition Monitors: Strictly based on BASE attributes!
+    buffed_cha = min(cha + _get_attr_bonus(["charisma", "cha"]), cha + 4)
+    buffed_wil = min(wil + _get_attr_bonus(["willpower", "wil"]), wil + 4)
+    buffed_agi = min(agi + _get_attr_bonus(["agility", "agi"]), agi + 4)
+    buffed_rea = min(rea + _get_attr_bonus(["reaction", "rea"]), rea + 4)
+    buffed_str = min(str_val + _get_attr_bonus(["strength", "str"]), str_val + 4)
+    buffed_bod = min(bod + _get_attr_bonus(["body", "bod"]), bod + 4)
+    buffed_log = min(log_val + _get_attr_bonus(["logic", "log"]), log_val + 4)
+    buffed_int = min(int_val + _get_attr_bonus(["intuition", "int"]), int_val + 4)
+
+    # Condition Monitors: Strictly based on BASE attributes (plus Monad Toughness and Stun Monitor boosts)!
     nv = int(identity.get("nanite_volume", 0))
     monad_toughness = (nv // 2) if (is_monad or nv > 0) else 0
+    stun_bonus = 0
+    for m in attr_mods_map.get("willpower", []) + attr_mods_map.get("wil", []):
+        notes_str = str(m.get("notes", "")).lower()
+        if "stun condition" in notes_str or "+1 box" in notes_str:
+            stun_bonus += 1
     phys_boxes = 8 + ((bod + 1) // 2) + monad_toughness
-    stun_boxes = 8 + ((wil + 1) // 2) + monad_toughness
+    stun_boxes = 8 + ((wil + 1) // 2) + monad_toughness + stun_bonus
 
     # Derived Pools (using buffed attributes)
     composure = buffed_wil + buffed_cha
@@ -249,139 +278,132 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
         ]
     else:
         # Standard Metatypes (Velvet, Venn/Union)
-        attributes_list = [
-            {
-                "name": "Body",
-                "code": "BOD",
-                "base": bod,
-                "buffed": buffed_bod,
-                "is_buffed": buffed_bod != bod or is_monad,
-                "buffs": [{"source": "Bone Density Augmentation R4", "value": 4, "notes": "+4 unarmored soak (8 Soak)"}] if is_monad else [],
-                "breakdown": f"Base {bod}" + (" (+4 Bone Density soak)" if is_monad else ""),
-                "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking" if is_monad else "chapters/rules_and_downtime.html"
-            },
-            {
-                "name": "Agility",
-                "code": "AGI",
-                "base": agi,
-                "buffed": buffed_agi,
-                "is_buffed": buffed_agi != agi,
-                "buffs": [],
-                "breakdown": f"Base {agi}",
-                "doc_link": "rules/rules_and_downtime.html" if is_monad else "rules/rules_and_downtime.html"
-            },
-            {
-                "name": "Reaction",
-                "code": "REA",
-                "base": rea,
-                "buffed": buffed_rea,
-                "is_buffed": buffed_rea != rea,
-                "buffs": [],
-                "breakdown": f"Base {rea}",
-                "doc_link": "rules/rules_and_downtime.html" if is_monad else "rules/rules_and_downtime.html"
-            },
-            {
-                "name": "Strength",
-                "code": "STR",
-                "base": str_val,
-                "buffed": buffed_str,
-                "is_buffed": buffed_str != str_val,
-                "buffs": [],
-                "breakdown": f"Base {str_val}",
-                "doc_link": "rules/rules_and_downtime.html" if is_monad else "rules/rules_and_downtime.html"
-            },
-            {
-                "name": "Willpower",
-                "code": "WIL",
-                "base": wil,
-                "buffed": buffed_wil,
-                "is_buffed": buffed_wil != wil,
-                "buffs": [{"source": "Increase Attribute Spell (F4)", "value": buffed_wil - wil, "notes": "Sustained via Focused Concentration R3"}] if buffed_wil != wil else [],
-                "breakdown": f"Base {wil} + Increase Attribute (+{buffed_wil - wil}) = {buffed_wil}" if buffed_wil != wil else f"Base {wil}",
-                "doc_link": "chapters/rules_and_downtime.html#sustained-spells" if is_velvet else "chapters/rules_and_downtime.html"
-            },
-            {
-                "name": "Logic",
-                "code": "LOG",
-                "base": log_val,
-                "buffed": buffed_log,
-                "is_buffed": buffed_log != log_val or is_monad,
-                "buffs": [{"source": "Monad Mental Boost (NV)", "value": 4, "notes": "Surges to Logic 10 / Math SPU +1"}] if is_monad else [],
-                "breakdown": f"Base {log_val}" + (" (Surges to 10 under Monad Boost)" if is_monad else ""),
-                "doc_link": "chapters/rules_and_downtime.html#monad-nanite-boosts" if is_monad else "chapters/rules_and_downtime.html"
-            },
-            {
-                "name": "Intuition",
-                "code": "INT",
-                "base": int_val,
-                "buffed": buffed_int,
-                "is_buffed": buffed_int != int_val,
-                "buffs": [],
-                "breakdown": f"Base {int_val}",
-                "doc_link": "chapters/rules_and_downtime.html"
-            },
-            {
-                "name": "Charisma",
-                "code": "CHA",
-                "base": cha,
-                "buffed": buffed_cha,
-                "is_buffed": buffed_cha != cha,
-                "buffs": [{"source": "Increase Attribute Spell (F4)", "value": buffed_cha - cha, "notes": "Sustained via Focused Concentration R3"}] if buffed_cha != cha else [],
-                "breakdown": f"Base {cha} + Increase Attribute (+{buffed_cha - cha}) = {buffed_cha}" if buffed_cha != cha else f"Base {cha}",
-                "doc_link": "chapters/rules_and_downtime.html#sustained-spells" if is_velvet else "chapters/rules_and_downtime.html"
+        def _build_attr_entry(name: str, code: str, base_val: int, buffed_val: int, default_doc: str, extra_buffs: Optional[List[Dict[str, Any]]] = None) -> Dict[str, Any]:
+            buffs = []
+            for m in attr_mods_map.get(name.lower(), []) + attr_mods_map.get(code.lower(), []):
+                buffs.append({
+                    "source": m.get("name", "Modifier"),
+                    "value": m.get("value", 1),
+                    "type": m.get("type", "augmentation"),
+                    "notes": m.get("notes", ""),
+                    "rule_anchor": m.get("rule_anchor", default_doc)
+                })
+            if extra_buffs:
+                for eb in extra_buffs:
+                    buffs.append({
+                        "source": eb.get("source", "Bonus"),
+                        "value": eb.get("value", 0),
+                        "type": eb.get("type", "situational"),
+                        "notes": eb.get("notes", ""),
+                        "rule_anchor": eb.get("rule_anchor", default_doc)
+                    })
+            is_b = (buffed_val != base_val) or bool(buffs)
+            doc_l = buffs[0].get("rule_anchor", default_doc) if buffs else default_doc
+            if buffs:
+                aug_buffs = [b for b in buffs if b.get("type") not in ["skill bonus", "skill_bonus", "situational"]]
+                skill_buffs = [b for b in buffs if b.get("type") in ["skill bonus", "skill_bonus"]]
+                sit_buffs = [b for b in buffs if b.get("type") == "situational"]
+                parts = [f"Base {base_val}"]
+                if aug_buffs:
+                    parts.extend([f"{b['source']} (+{b['value']})" for b in aug_buffs])
+                breakdown = " + ".join(parts)
+                if buffed_val != base_val and not aug_buffs:
+                    breakdown += f" = {buffed_val}"
+                elif aug_buffs:
+                    breakdown += f" = {buffed_val}"
+                if skill_buffs:
+                    sb_str = ", ".join([f"+{b['value']} on skill tests ({b['source']})" for b in skill_buffs])
+                    breakdown += f" [{sb_str}]"
+                if sit_buffs:
+                    sit_str = ", ".join([f"{b['source']} ({b.get('notes', '')})" for b in sit_buffs])
+                    breakdown += f" ({sit_str})"
+            elif buffed_val != base_val:
+                breakdown = f"Base {base_val} -> Buffed {buffed_val}"
+            else:
+                breakdown = f"Base {base_val}"
+            return {
+                "name": name,
+                "code": code,
+                "base": base_val,
+                "buffed": buffed_val,
+                "is_buffed": is_b,
+                "buffs": buffs,
+                "breakdown": breakdown,
+                "doc_link": doc_l
             }
+
+        bod_extra = [{"source": "Bone Density Augmentation R4", "value": 4, "notes": "+4 unarmored soak (9 Soak)", "rule_anchor": "chapters/rules_and_downtime.html#augmentation-stacking"}] if is_monad else []
+        wil_extra = [{"source": "Increase Attribute Spell (F4)", "value": buffed_wil - wil, "notes": "Sustained via Focused Concentration R3", "rule_anchor": "chapters/rules_and_downtime.html#sustained-spells"}] if (is_velvet and buffed_wil != wil) else []
+        cha_extra = [{"source": "Increase Attribute Spell (F4)", "value": buffed_cha - cha, "notes": "Sustained via Focused Concentration R3", "rule_anchor": "chapters/rules_and_downtime.html#sustained-spells"}] if (is_velvet and buffed_cha != cha) else []
+        log_extra = [{"source": "Monad Mental Boost (NV)", "value": 4, "notes": "Surges to Logic 10 via NV", "rule_anchor": "chapters/rules_and_downtime.html#monad-nanite-boosts"}] if is_monad else []
+
+        attributes_list = [
+            _build_attr_entry("Body", "BOD", bod, buffed_bod, "chapters/rules_and_downtime.html#augmentation-stacking" if is_monad else "chapters/rules_and_downtime.html", bod_extra),
+            _build_attr_entry("Agility", "AGI", agi, buffed_agi, "rules/rules_and_downtime.html"),
+            _build_attr_entry("Reaction", "REA", rea, buffed_rea, "rules/rules_and_downtime.html"),
+            _build_attr_entry("Strength", "STR", str_val, buffed_str, "rules/rules_and_downtime.html"),
+            _build_attr_entry("Willpower", "WIL", wil, buffed_wil, "chapters/rules_and_downtime.html#sustained-spells" if is_velvet else "rules/rules_and_downtime.html", wil_extra),
+            _build_attr_entry("Logic", "LOG", log_val, buffed_log, "chapters/rules_and_downtime.html#monad-nanite-boosts" if is_monad else "rules/rules_and_downtime.html", log_extra),
+            _build_attr_entry("Intuition", "INT", int_val, buffed_int, "chapters/rules_and_downtime.html"),
+            _build_attr_entry("Charisma", "CHA", cha, buffed_cha, "chapters/rules_and_downtime.html#sustained-spells" if is_velvet else "rules/rules_and_downtime.html", cha_extra),
         ]
 
         if is_monad:
             # Monad Living Persona ASDF (Row 3: ATT, SLZ, DP, FW all on a single line)
+            # Living Persona uses buffed mental attributes and allocated NV tuning
+            att_buffs = [{"source": "Neurochemical Regulator", "value": buffed_cha - cha, "notes": "Monad Attack derived from Charisma", "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts"}] if buffed_cha != cha else []
+            fw_buffs = [{"source": "Nanite Volume (NV 2)", "value": 2, "notes": "NV allocated to Firewall", "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts"}]
+            if buffed_wil != wil:
+                fw_buffs.append({"source": "Bio-Response Override", "value": buffed_wil - wil, "notes": "Monad Firewall derived from Willpower", "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts"})
+
             attributes_list.extend([
                 {
                     "name": "Attack (Living Persona)",
                     "code": "ATT",
                     "base": cha,
-                    "buffed": cha,
+                    "buffed": buffed_cha,
                     "linked_mental": "cha",
                     "tuning_bonus": 0,
-                    "is_buffed": False,
-                    "buffs": [],
-                    "breakdown": f"Monad Living Persona Attack (Charisma {cha})",
-                    "doc_link": "chapters/rules_and_downtime.html#monad-matrix-attributes"
+                    "is_buffed": buffed_cha != cha,
+                    "buffs": att_buffs,
+                    "breakdown": f"Monad Living Persona Attack (Charisma {buffed_cha})" if not att_buffs else f"Monad Living Persona Attack (Charisma {cha} + Neurochemical Regulator [{buffed_cha - cha}] = {buffed_cha})",
+                    "doc_link": "rules/rules_and_downtime.html#monad-matrix-attributes"
                 },
                 {
                     "name": "Sleaze (Living Persona)",
                     "code": "SLZ",
                     "base": int_val,
-                    "buffed": int_val,
+                    "buffed": buffed_int + 1,
                     "linked_mental": "int",
-                    "tuning_bonus": 0,
-                    "is_buffed": False,
-                    "buffs": [],
-                    "breakdown": f"Monad Living Persona Sleaze (Intuition {int_val})",
-                    "doc_link": "chapters/rules_and_downtime.html#monad-matrix-attributes"
+                    "tuning_bonus": 1,
+                    "is_buffed": True,
+                    "buffs": [{"source": "Nanite Volume (NV 1)", "value": 1, "notes": "NV allocated to Sleaze", "rule_anchor": "rules/rules_and_downtime.html#monad-matrix-attributes"}],
+                    "breakdown": f"Monad Living Persona Sleaze (Intuition {int_val} + NV 1 = {buffed_int + 1})",
+                    "doc_link": "rules/rules_and_downtime.html#monad-matrix-attributes"
                 },
                 {
                     "name": "Data Processing (Living Persona)",
                     "code": "DP",
                     "base": log_val,
-                    "buffed": log_val,
+                    "buffed": buffed_log + 1,
                     "linked_mental": "log",
-                    "tuning_bonus": 0,
-                    "is_buffed": False,
-                    "buffs": [],
-                    "breakdown": f"Monad Living Persona Data Processing (Logic {log_val})",
-                    "doc_link": "chapters/rules_and_downtime.html#monad-matrix-attributes"
+                    "tuning_bonus": 1,
+                    "is_buffed": True,
+                    "buffs": [{"source": "Nanite Volume (NV 1)", "value": 1, "notes": "NV allocated to DP", "rule_anchor": "rules/rules_and_downtime.html#monad-matrix-attributes"}],
+                    "breakdown": f"Monad Living Persona Data Processing (Logic {log_val} + NV 1 = {buffed_log + 1})",
+                    "doc_link": "rules/rules_and_downtime.html#monad-matrix-attributes"
                 },
                 {
                     "name": "Firewall (Living Persona)",
                     "code": "FW",
                     "base": wil,
-                    "buffed": wil,
+                    "buffed": buffed_wil + 2,
                     "linked_mental": "wil",
-                    "tuning_bonus": 0,
-                    "is_buffed": False,
-                    "buffs": [],
-                    "breakdown": f"Monad Living Persona Firewall (Willpower {wil})",
-                    "doc_link": "chapters/rules_and_downtime.html#monad-matrix-attributes"
+                    "tuning_bonus": 2,
+                    "is_buffed": True,
+                    "buffs": fw_buffs,
+                    "breakdown": f"Monad Living Persona Firewall (Willpower {wil} + " + " + ".join([f"{b['source']} ({b['value']})" for b in fw_buffs]) + f" = {buffed_wil + 2})",
+                    "doc_link": "rules/rules_and_downtime.html#monad-matrix-attributes"
                 }
             ])
 
@@ -454,6 +476,8 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
                 "type": m.type,
                 "value": m.value,
                 "target": m.target,
+                "rule_anchor": getattr(m, "rule_anchor", None),
+                "notes": getattr(m, "notes", None),
                 "active": True
             })
         if s_spec:
@@ -491,7 +515,6 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
                 continue
             soft_name = soft.get("name", "Activesoft")
             base_r = int(soft.get("rating", 6))
-            # Skillwires R6 Wireless-ON bonus (+1 to skill rating)
             aug_r = base_r + 1
             soft_attr = soft.get("attribute", "agility").lower()
             if "firearms" in soft_name.lower():
@@ -521,28 +544,57 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
             )
             base_attr_val = int(attrs.get(soft_attr, 1))
 
-            extra_mod = 0
-            extra_mod_name = ""
-            if "firearms" in soft_name.lower():
-                extra_mod = 1
-                extra_mod_name = "Reflex Recorder (+1)"
-            elif "engineering" in soft_name.lower():
-                extra_mod = 1
-                extra_mod_name = "Math SPU (+1)"
+            clean_soft = soft_name.lower().replace(" activesoft", "").strip()
+            # Query declared modifiers targeting this activesoft skill OR attribute skill bonus
+            matching_mods = []
+            for dm in declared_mods:
+                if isinstance(dm, dict):
+                    tgt = str(dm.get("target", "")).lower().strip()
+                    m_type = str(dm.get("type", "")).lower().strip()
+                    if tgt in [f"skill:{clean_soft}", f"skill:{clean_soft.replace(' ', '_')}", clean_soft, clean_soft.replace(" ", "_")]:
+                        matching_mods.append(dm)
+                    elif tgt in [f"attribute:{soft_attr}", soft_attr] and m_type in ["skill bonus", "skill_bonus"]:
+                        matching_mods.append(dm)
 
-            total_pool = attr_val + aug_r + extra_mod
+            buff_list = []
+            extra_mod = 0
+            breakdown_parts = [f"{soft_attr[:3].upper()} {attr_val}", f"{base_r} Base Soft"]
+
+            has_wires_in_mods = any("skillwire" in str(mm.get("name", "")).lower() for mm in matching_mods)
+            if not has_wires_in_mods:
+                buff_list.append({
+                    "source": "Skillwires Wireless ON",
+                    "type": "cyberware",
+                    "value": 1,
+                    "target": "skill",
+                    "rule_anchor": "rules/rules_and_downtime.html#skillwires-protocols",
+                    "active": True
+                })
+                breakdown_parts.append("Skillwires (+1)")
+
+            for mm in matching_mods:
+                m_val = int(mm.get("value", 1))
+                m_name = mm.get("name", "Modifier")
+                buff_list.append({
+                    "source": m_name,
+                    "type": mm.get("type", "augmentation"),
+                    "value": m_val,
+                    "target": "skill",
+                    "notes": mm.get("notes", ""),
+                    "rule_anchor": mm.get("rule_anchor", "rules/rules_and_downtime.html"),
+                    "active": True
+                })
+                extra_mod += m_val
+                breakdown_parts.append(f"{m_name} (+{m_val})")
+
+            if "firearms" in soft_name.lower() and not any("reflex recorder" in str(mm.get("name", "")).lower() for mm in matching_mods):
+                buff_list.append({"source": "Reflex Recorder (+1)", "type": "augmentation", "value": 1, "target": "skill", "active": True})
+                extra_mod += 1
+                breakdown_parts.append("Reflex Recorder (+1)")
+
+            total_pool = attr_val + base_r + (1 if not has_wires_in_mods else 0) + extra_mod
             base_pool = base_attr_val + base_r
             bought_hits = total_pool // 4
-
-            buff_list = [
-                {"source": "Skillwires Wireless ON", "type": "cyberware", "value": 1, "target": "skill", "active": True}
-            ]
-            if extra_mod:
-                buff_list.append({"source": extra_mod_name, "type": "augmentation", "value": extra_mod, "target": "skill", "active": True})
-
-            breakdown_parts = [f"{soft_attr[:3].upper()} {attr_val}", f"{base_r} Base Soft", "Skillwires (+1)"]
-            if extra_mod_name:
-                breakdown_parts.append(extra_mod_name)
 
             clean_display_name = soft_name.replace(" Activesoft", "").replace(" activesoft", "")
 
@@ -563,7 +615,7 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
                 "is_attribute_overridden": False,
                 "breakdown_text": " + ".join(breakdown_parts) + f" = {total_pool}d6",
                 "buffs": buff_list,
-                "doc_link": "chapters/rules_and_downtime.html#activesofts-and-skillwires"
+                "doc_link": "rules/rules_and_downtime.html#skillwires-protocols"
             })
 
     # Qualities
@@ -855,9 +907,40 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
         if isinstance(ma, dict):
             monad_abilities.append({
                 "name": ma.get("name", "Ability"),
+                "action": ma.get("action", "Passive"),
                 "effect": ma.get("effect", ma.get("notes", "")),
-                "doc_link": "chapters/rules_and_downtime.html#monad-nanite-boosts"
+                "notes": ma.get("notes", ""),
+                "doc_link": ma.get("doc_link", "chapters/rules_and_downtime.html#monad-nanite-boosts")
             })
+
+    nanohive_data = None
+    if is_monad:
+        nanohive_data = {
+            "rating": 6,
+            "max_colonies": 6,
+            "max_volume": 18,
+            "replenish_rate": "6 NV / hour",
+            "catalog": NANOHIVE_CATALOG,
+            "presets": NANOHIVE_PRESETS,
+            "default_active": [
+                "neuromuscular_amplifier",
+                "bio_response_override",
+                "neurochemical_regulator",
+                "neocortical_neural_amp",
+                "limbic_neural_amp",
+                "neural_pattern_reinforcement"
+            ],
+            "default_volumes": {
+                "dynamic_features": 1,
+                "neuromuscular_amplifier": 2,
+                "bio_response_override": 3,
+                "neurochemical_regulator": 2,
+                "neocortical_neural_amp": 2,
+                "limbic_neural_amp": 2,
+                "neural_pattern_reinforcement": 2,
+                "tech_infestation": 1
+            }
+        }
 
     # Augmentations (Cyberware / Bioware) with Deep Links
     augmentations = []
@@ -1014,7 +1097,7 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
     program_names = [p["name"] for p in compiled_software]
 
     # Contacts with explicit sorting fields & parsed types
-    raw_contacts = char_data.get("contacts", [])
+    raw_contacts = normalize_contacts_list(char_data.get("contacts", []))
     compiled_contacts = []
     for c in raw_contacts:
         if isinstance(c, dict):
@@ -1175,6 +1258,7 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
         "sprite_powers": sprite_powers,
         "monad_abilities": monad_abilities,
         "augmentations": augmentations,
+        "nanohive": nanohive_data,
         "spirit_channeling_catalog": SPIRIT_CATALOG if has_channeling else {},
         "powers": {
             "complex_forms": complex_forms,
@@ -1184,6 +1268,7 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
             "adept_powers": adept_powers,
             "monad_abilities": monad_abilities,
             "augmentations": augmentations,
+            "nanohive": nanohive_data,
             "spirit_channeling_catalog": SPIRIT_CATALOG if has_channeling else {}
         },
         "inventory": {
@@ -1205,5 +1290,6 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
         "lifestyles": compiled_lifestyles,
         "contacts": compiled_contacts,
         "exceptions": char_data.get("exceptions", []),
+        "modifiers": char_data.get("modifiers", []),
         "rules_doc": f"rules/rules.html"
     }

@@ -48,7 +48,13 @@ Submersion_Grade = state["Submersion_Grade"]
 
 ---
 
-### **2026-Apr-24: SMH 2083-02 EggHunt at the Jackalope Ranch** `{python} start_mission('SMH 2083-02')`
+### **2026-Apr-24: SMH 2083-02 EggHunt at the Jackalope Ranch**
+
+```{python}
+#| echo: false
+start_mission('SMH 2083-02')
+```
+
 
 * **GM:** JaGator 
 * **Difficulty:** Normal/Adult
@@ -75,7 +81,13 @@ Submersion_Grade = state["Submersion_Grade"]
 
 ---
 
-### **2026-Apr-25: CMP First Taste : Top Chef - Seattle** `{python} start_mission('CMP First Taste')`
+### **2026-Apr-25: CMP First Taste : Top Chef - Seattle**
+
+```{python}
+#| echo: false
+start_mission('CMP First Taste')
+```
+
 
 * **GM:** JaGator  
 * **Rewards:** `{python} inc('Karma', 3)`, `{python} inc('Nuyen', 2600)`  
@@ -88,7 +100,13 @@ Submersion_Grade = state["Submersion_Grade"]
 
 ---
 
-### **2026-Apr-29: SRM 2083-03: Unofficial Dunkelzahn Fan Club** `{python} start_mission('SRM 2083-03')`
+### **2026-Apr-29: SRM 2083-03: Unofficial Dunkelzahn Fan Club**
+
+```{python}
+#| echo: false
+start_mission('SRM 2083-03')
+```
+
 
 * **GM:** JaGator  
 * **Rewards:** `{python} inc('Karma', 8)`, `{python} inc('Nuyen', 9000)`  
@@ -102,7 +120,13 @@ Submersion_Grade = state["Submersion_Grade"]
 
 ---
 
-### **2026-May-02: CMP 2081-09 | Bring me Prince Charming** `{python} start_mission('CMP 2081-09')`
+### **2026-May-02: CMP 2081-09 | Bring me Prince Charming**
+
+```{python}
+#| echo: false
+start_mission('CMP 2081-09')
+```
+
 
 * **Summary:** The team met their Johnson duo, Baby Face and The Butcher, at Mama Appeltaart in Amsterdam and took on the job to kidnap the Vory Líder Grisha Semyonovich who basically never leaves the Vory controlled hookah bar "Sasha Lounge". After some scouting the team just entered as guests, found Grisha and convinced him to look at their car and maybe come along for a ride. Soon after that, a tranq patch sealed the deal. The team went to the safehouse as instructed, only to learn that a hostile armada was heading their way. Even though 7 players led to 35 gangers, they tore through their ranks via stun grenades and burst fire, leaving only few of them still somewhat alive by the time of the reinforcements. The cavalry at round 5 proved unnecessary. They assured that Grisha would leave the chat as alive as promised and left before the execution of the traitor happened.  
 * **Team:** Bast (teapot_tempest), Elknar (elknar), Mithral (mithral_gleaming), P!X (danthebuilder), Rei (snowcrash3969), Robuki Fox (jagator), Yuriko Star (wardr)  
@@ -119,7 +143,13 @@ Submersion_Grade = state["Submersion_Grade"]
 
 ---
 
-### **2026-May-13: CMP 2081-18 | Blue Kentucky Girl** `{python} start_mission('CMP 2081-18')`
+### **2026-May-13: CMP 2081-18 | Blue Kentucky Girl**
+
+```{python}
+#| echo: false
+start_mission('CMP 2081-18')
+```
+
 
 * **GM:** JaGator  
 * **Difficulty Level:** Veteran  
@@ -135,7 +165,13 @@ Submersion_Grade = state["Submersion_Grade"]
 
 ---
 
-### **2026-May-14: CMP 2081-10 | A Diamond in The Rough** `{python} start_mission('CMP 2081-10')`
+### **2026-May-14: CMP 2081-10 | A Diamond in The Rough**
+
+```{python}
+#| echo: false
+start_mission('CMP 2081-10')
+```
+
 
 * **Summary:** After getting hired by "Ms. Johnson" alias Kiara Shaw in the restaurant "Le GastroGnome" high in the "Space Needle-like" Europort Mast, the team travelled from Europort to Antwerp to enter the historical sewers of the Ruien and find a forgotten back door into the archives of a local security firm, Sinjoor Incorporated. After passing by some locals and hiring two former shadowrunners as guides, the team got ambushed by the rats living close to the door, but blasted through them. Gotten to the archives, their hacker took care of the host and all of the security features, making the copying of the data go swimmingly. The team got back to their Ms. Johnson, but did take a look at the plans and got a hunch of something bigger: they did copy security plans of the shops in Antwerp where the Queen of the United Netherlands, Amalia, got the ring for her daughter and her upcoming wedding.  
 * **Team:** Elknar (elknar), Frostbyte (dash2059), Rei (snowcrash3969), Robuki Fox (jagator), Yuriko Star (wardr)  
@@ -153,7 +189,13 @@ Submersion_Grade = state["Submersion_Grade"]
 
 ---
 
-### **2026-May-25: CMP 2081-11 | Paved with good intentions** `{python} start_mission('CMP 2081-11')`
+### **2026-May-25: CMP 2081-11 | Paved with good intentions**
+
+```{python}
+#| echo: false
+start_mission('CMP 2081-11')
+```
+
 
 * **Summary:** The group met S-K Johnson Simon Andrews in an all-yellow interior bar at Utrecht and took on the mission to steal some crates off a secured convoy. They rescued an informant out of a soccer bar, learned some details and went about the heist as the vehicles got stuck in traffic. Using an Ares Scylla, they fried the convoy, got the stuff and left as quickly as they came.  
 * **Team:** Elknar (elknar), Frostbyte (dash2059), Queen of Foxes (orrfieldmedic), Rei (snowcrash3969), Robuki Fox (jagator), Yuriko Star (wardr)  
@@ -171,7 +213,13 @@ Submersion_Grade = state["Submersion_Grade"]
 
 ---
 
-### **2026-May-30: CMP 2081-19: The Blue Moon of Kentucky** `{python} start_mission('CMP 2081-19')`
+### **2026-May-30: CMP 2081-19: The Blue Moon of Kentucky**
+
+```{python}
+#| echo: false
+start_mission('CMP 2081-19')
+```
+
 
 * **Summary:** Dr Laureline Dodd discovered a lost city of T'In'Abula from the 4th age of the Dawn of Civilization. She protected the discovery, with help from the Governor, KSP, the artist sometimes known as Fox, and the local Naga Pit, from an incursion by Global Security.  
 * **Team:** Oli K, Caitlin/Artemis (Kira), Snowcrash, Yuriko Star (Zeshan/WarDoctor), Dan the Builder, Dreamwalker, Hibiki54  
@@ -189,7 +237,13 @@ Submersion_Grade = state["Submersion_Grade"]
 
 ---
 
-### **2026-June-03: SRM 2081-17: Framed in Blood** `{python} start_mission('SRM 2081-17')`
+### **2026-June-03: SRM 2081-17: Framed in Blood**
+
+```{python}
+#| echo: false
+start_mission('SRM 2081-17')
+```
+
 
 * **Summary:** Duan Yuhai hired the team to eliminate a rival triad's leader, David Guo. David and his team had been invested by blood spirits tracing back to blood sacrifice rituals in Central America hundreds of years ago.  
 * **Team:** Poe (Dreamwalker), Caitlin/Artemis (Kira Capalu), Yuriko Star  
@@ -210,7 +264,13 @@ Submersion_Grade = state["Submersion_Grade"]
 
 ---
 
-### **2026-June-06: CMP 2081-20: In the Cold Kentucky Rain** `{python} start_mission('CMP 2081-20')`
+### **2026-June-06: CMP 2081-20: In the Cold Kentucky Rain**
+
+```{python}
+#| echo: false
+start_mission('CMP 2081-20')
+```
+
 
 * **Team:** Rei (Snowcrash), June (Hibiki), Frostbyte (Dreamwalker), Line (OliK), Yuriko  
 * **GM:** JaGator  
@@ -229,7 +289,13 @@ Submersion_Grade = state["Submersion_Grade"]
 
 ---
 
-### **2026-June-07: SRM 2081-21: Grudge Match Gladiators** `{python} start_mission('SRM 2081-21')`
+### **2026-June-07: SRM 2081-21: Grudge Match Gladiators**
+
+```{python}
+#| echo: false
+start_mission('SRM 2081-21')
+```
+
 
 * **Team:** Bast, Rei (Dreamwalker), Esme (JaGator), James Kon, Caitlin (Kira Capalu), Yuriko  
 * **GM:** Medtec28  
@@ -242,7 +308,13 @@ Submersion_Grade = state["Submersion_Grade"]
 
 ---
 
-### **2026-June-12: CMP 2081-12 | Uneasy lies the head** `{python} start_mission('CMP 2081-12')`
+### **2026-June-12: CMP 2081-12 | Uneasy lies the head**
+
+```{python}
+#| echo: false
+start_mission('CMP 2081-12')
+```
+
 
 * **Summary:** While the talk about and protests against the engagement of crown princess Emma reached their boiling point, the team got called by the orkish shadowrunner Sigrûn to The Hague's Noordeinde Paleis, where she reveals herself to be princess Emma's personal bodyguard and hires them to protect two palace officials during a trip through the city. As they tricked their way through a group of protesters they found out that the trip was about creating a chemsniffer primed on the chemical that's supposed to be used on an upcoming terrorist attack.  
   Back in the palace they learned that 1) their Ms. Johnson happened to be this mysterious fiancée, 2) the engagement ring was secretly turned into the attack vessel and 3) none of that mattered as groups of armed terrorists flooded the hallways. Tasked with defending the door to the princess, they let the attackers run into the area of effect of gas grenades and mowed them down with automatic weapons. Their Ms. Johnson was happy, and while she got her knight and princess yuri happy ending, the group returned to America, only to receive a medal months later, welcoming them into the Order of the Lion of the United Netherlands.
@@ -258,7 +330,13 @@ Submersion_Grade = state["Submersion_Grade"]
 
 ---
 
-### **2026-June-19: CMP 2083-14 | A Day at the Beach** `{python} start_mission('CMP 2083-14')`
+### **2026-June-19: CMP 2083-14 | A Day at the Beach**
+
+```{python}
+#| echo: false
+start_mission('CMP 2083-14')
+```
+
 
 * **Summary:**: Arrived in Malta and asked by Thunder Corps to ensure that the demonstration of an the 'Silent Knight' Experimental Submarine went off without sabotage during a war game. After locating the submarine, we discovered a Leviathan attacking it. We were able to free the Leviathan from being controlled and rescued the submarine. Yuriko was yet again without matrix activity (due to being under a km of sea water and forced to inhabit a submarine).
 * **Team:**: Angus (Male Ork Street Sam), Thallium (F Elf Shaman), Nova (Elf Mage), Dirk (Ork Phys Adept), Yuriko 
@@ -278,7 +356,13 @@ Submersion_Grade = state["Submersion_Grade"]
 
 ---
 
-### **2026-June-20: CMP 2083-16 | War Never Changes** `{python} start_mission('CMP 2083-16')`
+### **2026-June-20: CMP 2083-16 | War Never Changes**
+
+```{python}
+#| echo: false
+start_mission('CMP 2083-16')
+```
+
 
 * **Summary:**: Hired by Col. Deborah Kentwell (Thunder Corps) to infiltrate Hardwater Security Svcs and procure evidence of cheating. Later re-hired to win the final War Game (CTF). Yuriko was forced to inhabit an Ares ShadowDancer WarMech (Deadly Arts).
 * **Team:**: Bast, Mithral, Ice Lily, Yuriko
@@ -300,7 +384,13 @@ Submersion_Grade = state["Submersion_Grade"]
 
 --- 
 
-### **2026-June-20: SRM 2083-19 | The Hallow Feast** `{python} start_mission('SRM 2083-19')`
+### **2026-June-20: SRM 2083-19 | The Hallow Feast**
+
+```{python}
+#| echo: false
+start_mission('SRM 2083-19')
+```
+
 
 * **Summary:**: Hired by Monsieur Johnson to ascertain the whereabouts of Snaggletooth. Ultimately found him long since dead and possessed by a spirit attempting to destroy the world. 
 * **Team:**: Eris Pomme, Ice Lily, Jolee, Bob, Yuriko
@@ -317,7 +407,13 @@ Submersion_Grade = state["Submersion_Grade"]
 
 ---
 
-### **2026-June-25: SRM 2081-05 | This is Renton** `{python} start_mission('SRM 2081-05')`
+### **2026-June-25: SRM 2081-05 | This is Renton**
+
+```{python}
+#| echo: false
+start_mission('SRM 2081-05')
+```
+
 
 * **Summary:** The team was hired by upcoming rapper Swango to investigate death threats, discovering that her previous fixer, Brynne Taggart, had gone missing. While a summoned spirit tracked Brynne, the team traced the messages to a used electronics store in a mall hangout for the Night Hunters gang. Intimidating a member revealed their employer: a retired LoneStar captain leading the local Neighborhood Watch. Following the spirit's lead to a shabby hotel, the runners located Brynne, who confirmed their findings. Forewarned of an approaching hit squad, the team easily repelled them. Swango then hired them as concert security. During the performance, they repelled a frontal gang assault, and one runner took a bullet to protect Swango from a backstage assassin.
 * **Team:** Jolthead (Zombie), Marcon (Trax), Poe (Dreamwalker), Yuriko Star (Zeshan/WarDoctor), Xiao (Inirlan)
@@ -338,7 +434,13 @@ Submersion_Grade = state["Submersion_Grade"]
 
 ---
 
-### **2026-June-30: CMP 2083-01: NONPLUSHED** `{python} start_mission('CMP 2083-01')`
+### **2026-June-30: CMP 2083-01: NONPLUSHED**
+
+```{python}
+#| echo: false
+start_mission('CMP 2083-01')
+```
+
 
 * **Summary:** Hired to locate and return a missing convoy of S-K trucks. Simon called, asking for information on why they were stolen. Trucks located, liberated, and returned. Lost two Johnsons on this one - Simon's looking into it.
 * **Team:** Mithral, Elknar, Jolthead, Panda, Yuriko
@@ -358,7 +460,13 @@ Submersion_Grade = state["Submersion_Grade"]
 
 ---
 
-### **2026-July-07: SRM 2081-08 Child's Play** `{python} start_mission('SRM 2081-08')`
+### **2026-July-07: SRM 2081-08 Child's Play**
+
+```{python}
+#| echo: false
+start_mission('SRM 2081-08')
+```
+
 
 * **Summary:**: Hired by a CorpoKid to bodyguard him while he developed and sold a new neural interface for drones. A corp tried to steal it, but they failed. 
 * **Team:**: Rei, Jolthead, Yuriko, Poe, Jack Diamond, Panda
@@ -372,12 +480,18 @@ Submersion_Grade = state["Submersion_Grade"]
 * **Downtime Actions (3 Minors):**
   * *Rent & Working for the People (Hooder):* `{python} inc_many(('Karma', 1), ('Nuyen', -4000))`
   * Add four dice to any single downtime Matrix Search (upcoming M-TOC II purchase)
-  * Modifying Man-At-Arms: Removing megalodon, adding Red Fox and two Crimson Wasps
+  * Modifying Man-At-Arms: Removing megalodon, adding two Red Foxes
 * **Other bonuses:** 3 sprites registered during in-session downtime: `{python} add_sprite('Sprite-M18a', 7, 'Modular', 'Shield')`, `{python} add_sprite('Sprite-M18b', 7, 'Modular', 'Death Mark')`, `{python} add_sprite('Sprite-M18c', 7, 'Modular', 'Death Mark')`
 
 ---
 
-### **2026-July-09: SRM 2081-07 | Bootleg Bliss** `{python} start_mission('SRM 2081-07')`
+### **2026-July-09: SRM 2081-07 | Bootleg Bliss**
+
+```{python}
+#| echo: false
+start_mission('SRM 2081-07')
+```
+
 
 * **Summary:** Hired by Ni Ni to eliminate a fool who was pawning off poor quality illicit drugs as Triad goods. 
 * **Team:** Poe, Jolthead, Cassandra, Babel, Baakfu, Yuriko
@@ -399,7 +513,13 @@ Submersion_Grade = state["Submersion_Grade"]
 
 ---
 
-### **2026-July-10: SRM 2081-06 | Cutting Strings** `{python} start_mission('SRM 2081-06')`
+### **2026-July-10: SRM 2081-06 | Cutting Strings**
+
+```{python}
+#| echo: false
+start_mission('SRM 2081-06')
+```
+
 
 * **Summary:** Hired by a Johnson to find a friend.
 * **Team:** Poe, Baakfu, Yuriko, He-nu, Jolthead, Georges Baptiste, Babel, Havoc, Marcon
@@ -418,7 +538,13 @@ Submersion_Grade = state["Submersion_Grade"]
 
 ---
 
-### **2026-Jul-14: CMP 2083-04 | Hog Wild** `{python} start_mission('CMP 2083-04')`
+### **2026-Jul-14: CMP 2083-04 | Hog Wild**
+
+```{python}
+#| echo: false
+start_mission('CMP 2083-04')
+```
+
 
 * **Summary:** Sigs asked us to track someone down for her and bring them back. 
 * **Team:** Mithral, Jolthead, Yuriko, BPex
@@ -438,7 +564,13 @@ Submersion_Grade = state["Submersion_Grade"]
 
 ---
 
-### **2026-July-21: CMP 2083-05 | Precious Cargo** `{python} start_mission('CMP 2083-05')`
+### **2026-July-21: CMP 2083-05 | Precious Cargo**
+
+```{python}
+#| echo: false
+start_mission('CMP 2083-05')
+```
+
 
 * **Summary:** HK Police raided an abandoned Red Dragon Triad operation at Kwai Chung Container Port. Reports indicate a human trafficking operation was broken up by a small team of Shadowrunners (including a pixie and a wolf) before police arrived. Additionally, Liao Fa Ren got top marks on her paper, which was published in the school paper and picked up by local outlets.
 * **Team:** Medtec28, Jolthead, Lord Hattington, Yuriko Star (WarDoctor)
@@ -459,7 +591,13 @@ Submersion_Grade = state["Submersion_Grade"]
 
 ---
 
-### **2026-July-24: SRM 2083-12 | When You're Smiling** `{python} start_mission('SRM 2083-12')`
+### **2026-July-24: SRM 2083-12 | When You're Smiling**
+
+```{python}
+#| echo: false
+start_mission('SRM 2083-12')
+```
+
 
 * **Summary:** NOLA Network News at 9 reported evidence linking Zobop / Red Tide Hitman, Mackenson “Mr. Smiley” Salomon to Blood Magic, Sacrifice, and murder was turned over to NOMS by a concerned citizen and member of the Koslowski family. Mr. Smiley seems to have departed the NOLA area.
 * **Team:** Jolthead, Lord Hattington, Dreamwalker, Silicon Mage, Yuriko Star (WarDoctor), Havoc (ShuiroHanaya1)
@@ -483,7 +621,13 @@ Submersion_Grade = state["Submersion_Grade"]
 
 ---
 
-### **2026-Jul-30: SRM 2083-17 | Haute Blooded** `{python} start_mission('SRM 2083-17')`
+### **2026-Jul-30: SRM 2083-17 | Haute Blooded**
+
+```{python}
+#| echo: false
+start_mission('SRM 2083-17')
+```
+
 
 * **Summary:** Jolene Price asked us to investigate the Crescent City Creative Culture Expo and get dirt on both Aurelian and Enoch. We then sabotaged Aurelian so that investments in Enoch skyrocketed.
 * **Team:** Griz, Deckeyon, Mustang Sally, Jeeves, Yuriko
@@ -504,7 +648,13 @@ Submersion_Grade = state["Submersion_Grade"]
 
 ---
 
-### **2026-Aug-01: SRM 2083-20 | The Fallacy of Plans** `{python} start_mission('SRM 2083-20')`
+### **2026-Aug-01: SRM 2083-20 | The Fallacy of Plans**
+
+```{python}
+#| echo: false
+start_mission('SRM 2083-20')
+```
+
 
 * **Summary:** NOLA Detective Remy LeBlanc is framed for the serial killings of the Ghoul of Gentilly. Renée asked Yuriko and her team to secure the detective. We also rescued a few other 'notable' people who were kidnapped by the Ghoul during the op.
 * **Team:** Sersha, Colin, Samurai Jack, John Mick, Sammy, Yuriko
@@ -526,7 +676,13 @@ Submersion_Grade = state["Submersion_Grade"]
 
 ---
 
-### **2026-Aug-01: SRM 2083-18 | Some Kind of Voodoo?** `{python} start_mission('SRM 2083-18')`
+### **2026-Aug-01: SRM 2083-18 | Some Kind of Voodoo?**
+
+```{python}
+#| echo: false
+start_mission('SRM 2083-18')
+```
+
 
 * **Summary:** Voodoo practitioners in NOLA were going missing. Renée Martin and The Old Man asked Yuriko to investigate. 
 * **Team:** Fast Eddie, Rocky Robadeau, Harold Goodlaner, Technoviking, Gung Ho, Yuriko
@@ -552,7 +708,13 @@ Submersion_Grade = state["Submersion_Grade"]
 
 ---
 
-### **2026-Aug-01: CMP 2083-15 | By Land, Sea, and Hair** `{python} start_mission('CMP 2083-15')`
+### **2026-Aug-01: CMP 2083-15 | By Land, Sea, and Hair**
+
+```{python}
+#| echo: false
+start_mission('CMP 2083-15')
+```
+
 
 * **Summary:** Thunder Corps lost contact with an airplane carrying precious cargo. So they arranged for air-to-air insertion for Yuriko and her team.
 * **Team:** Colin, John Mick, Samurai Jack, Eidolon, TSF, Brick House, Yuriko, Zeid
@@ -571,7 +733,13 @@ Submersion_Grade = state["Submersion_Grade"]
 
 ---
 
-### **2026-Aug-19: CMP 2083-02 | ROYAL ROAD** `{python} start_mission('CMP 2083-02')`
+### **2026-Aug-19: CMP 2083-02 | ROYAL ROAD**
+
+```{python}
+#| echo: false
+start_mission('CMP 2083-02')
+```
+
 
 * **Summary:** Conflicting reports led to a hunt for terrorists across the Hague. Police blockades combined with a small blizzard and heavy jamming prevented people from getting their Trids and MeFeed. Maas-Walker claimed the matter was completely under control.
 * **Team:** Mithral, Arrogant Ninja (Dwarf Mage), Rei, Yuriko
@@ -588,7 +756,13 @@ Submersion_Grade = state["Submersion_Grade"]
 
 ---
 
-### **2026-Aug-20: SRM 2081-18 | Friendships Never Grow Rust** `{python} start_mission('SRM 2081-18')`
+### **2026-Aug-20: SRM 2081-18 | Friendships Never Grow Rust**
+
+```{python}
+#| echo: false
+start_mission('SRM 2081-18')
+```
+
 
 * **Summary:** An unidentified helicopter crashed into the Strait of Juan de Fuca NE of Whidbey Island (presumed lost with no recoveries per Kiro News @7). Sam the Cat reported unrest within the 88s Triad with factions not playing nice with each other.
 * **Team:** Cherry (connor2847), Yuriko, Arrogant Ninja

@@ -16,7 +16,7 @@ assign("Lifetime_Nuyen", 90000)
 
 * Amalgam Cestas (obtained in SRM 2083-18)
   * Personalized Grip `{python} inc('Nuyen', -200)`
-* Crimson Wasp x2 `{python} inc('Nuyen', -1500 * 2)`
+* Red Fox x2 `{python} inc('Nuyen', -2800 * 2)`
   * Smartgun System (Internal) `{python} modifier('Smartlink (Wireless)', 'autosoft:targeting', 1, type='other', rule_anchor='rules_combat.html#tactical-weapon-arrays', notes='Wireless bonus: +1 dice pool to attack tests (SR6 p. 261)')`
   * Peak-Discharge Laser Battery Clips x5 `{python} inc('Nuyen', -500)`
 * Glitter Grenades x10 `{python} inc('Nuyen', -1000)`
@@ -98,19 +98,19 @@ Software with karma costs have been learned via the **Software Emulator** echo.
 * Shiawase Man-At-Arms `{python} inc('Nuyen', -4500*.9)`
   * Weapon Mount - Standard x2 `{python} inc('Nuyen', -1600/2)`
   * Pop-Out Concealment - Standard x2 `{python} inc('Nuyen', -4000/2)`
-    * Crimson Wasp x2 (Eye laser mounts)
+    * Red Fox x2 (Eye laser mounts)
   * Chameleon Coating 2 `{python} inc('Nuyen', -9000/2)`
   * Drone Rack (Small) `{python} inc('Nuyen', -3000/2)`
     * Stores 3 Small Drones (Sky Commander, Dream Genie, Utility-One)
-  * Tesla Coil `{python} inc('Nuyen', -15000/2)`
-  * Wrist Shield `{python} inc('Nuyen', -2000/2)`
-  * Armor Increase 5 `{python} inc('Nuyen', -25000/2)`
+  * Used Synthetic Cyberarm (Right, 8 Capacity) `{python} inc('Nuyen', -10000)`
+    * Tesla Coil `{python} inc('Nuyen', -15000/2)`
   * Increased Structural Integrity 5 `{python} inc('Nuyen', -25000/2)`
-  * Realistic Features 4 `{python} inc('Nuyen', -10000/2)`
-  * Secondary Propulsion (Rotor): `{python} inc('Nuyen', -50000/2)`  
-  * Increased Sensors 9 `{python} inc('Nuyen', -45000/2)`
-  * Retractible Skates x2 `{python} inc('Nuyen',-500/2)`
-  * Built-In MedKit `{python} inc('Nuyen', -1000/2)`
+  * Realistic Features 4 `{python} inc('Nuyen', -4 * 10 * 1000 / 2)`
+  * Secondary Propulsion (Rotor): `{python} inc('Nuyen', -50000/2)`
+    * HAN 5, ACC 10, SPD 20/120  
+  * Increased Sensors 6 `{python} inc('Nuyen', -30000/2)`
+  * Secondary Propulsion (Wheeled): `{python} inc('Nuyen', -10000/2)`
+    * HAN 3/4, ACC 10, SPD 15/120
   * Accessories
     * Satellite Link
     * Laser Jack
@@ -131,13 +131,12 @@ Drone mods include a 50% discount on mods Yuriko installed herself (DC p. 120). 
 
 ### Electronics
 
-* Software Tag x10 `{python} inc('Nuyen', -100 * 10)`
-* Laser Jack x10 `{python} inc('Nuyen', -100 * 10)`
+* Software Tag x5 `{python} inc('Nuyen', -100 * 5)`
+* Laser Jack x5 `{python} inc('Nuyen', -100 * 5)`
 * Satellite Link x2 `{python} inc('Nuyen', -500 * 2)`
 
 ### Other Supplies
 
-* Engineering Kit `{python} inc('Nuyen', -500)`
 * Medkit R1 `{python} inc('Nuyen', -250)`
 * Narcoject x10 `{python} inc('Nuyen', -50 * 10)`
 * Cyanide x5 `{python} inc('Nuyen', -70 * 5)`

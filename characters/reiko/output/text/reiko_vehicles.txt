@@ -17,12 +17,14 @@
  * SHIAWASE MAN-AT-ARMS
    HAN:3/3 | ACC:5/5 | SPD:10 (INT 15) | BOD:10 | ARM:8 | PIL:2 | SEN:3 | STS:-
    Mods: Weapon Mount (Standard) x2, Pop-Out Concealment (Standard) x2,
-         Chameleon Coating 2, Drone Rack (Small), Tesla Coil, Wrist Shield,
-         Armor Increase 5, Increased Structural Integrity 5, Realistic
-         Features 4, Secondary Propulsion (Rotor), Increased Sensors 9,
-         Retractable Skates, Built-In MedKit, Satellite Link, Laser Jack
-   Rigged Action Pools: Piloting 23d6 (5H) | Gunnery 25d6 (6H) | Evasion
-                        24d6 (6H) | Perception 24d6 (6H) | Stealth 26d6 (6H)
+         Chameleon Coating 2, Drone Rack (Small), Used Synthetic Cyberarm
+         (Left, 8 Capacity), Armor Increase 6, Built-In MedKit, Used
+         Synthetic Cyberarm (Right, 8 Capacity), Tesla Coil, Increased
+         Structural Integrity 5, Realistic Features 4, Secondary Propulsion
+         (Rotor), Increased Sensors 6, Secondary Propulsion (Wheeled),
+         Satellite Link, Laser Jack
+   Rigged Action Pools: Piloting 23d6 (5H) | Gunnery 22d6 (5H) | Evasion
+                        24d6 (6H) | Perception 21d6 (5H) | Stealth 26d6 (6H)
 ----------------------------------------------------------------------------
  * KWONSHAM DREAM GENIE
    HAN:2/4 | ACC:10/10 | SPD:10 (INT 15) | BOD:2 | ARM:0 | PIL:1 | SEN:1 | STS:-

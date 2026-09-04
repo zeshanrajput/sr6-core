@@ -18,10 +18,14 @@
   Matrix Initiative   : 9 + 3D6 (AR) / 13 + 3D6 (Hot-Sim VR)
 ----------------------------------------------------------------------------
  ACTIVE SKILLS & TABLE-RELEVANT DICE POOLS:
-  - Electronics         : 12d6  [LOG 6 + 6 Rtg]
-  - Athletics           : 8d6  [AGI 7 + 1 Rtg]
-  - Native Language (English): 10d6  [LOG 6 + 4 Rtg]
-  - Native Language (Mindspeech): 10d6  [LOG 6 + 4 Rtg]
+  - Electronics         : 13d6  [LOG 6 + 6 Rtg + +1 Neocortical Neural Amp
+    (Skill Bonus)]
+  - Athletics           : 9d6  [AGI 7 + 1 Rtg + +1 Neural Pattern
+    Reinforcement (Skill Bonus)]
+  - Native Language (English): 11d6  [LOG 6 + 4 Rtg + +1 Neocortical Neural
+    Amp (Skill Bonus)]
+  - Native Language (Mindspeech): 11d6  [LOG 6 + 4 Rtg + +1 Neocortical
+    Neural Amp (Skill Bonus)]
 ----------------------------------------------------------------------------
  QUALITIES:
   Positive: Augmentation Acclimation, Redliner, Cyber Singularity Seeker,

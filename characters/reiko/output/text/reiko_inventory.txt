@@ -8,7 +8,7 @@
             HUD (R6), Thermal Mood Reading, Vocal Tension Detection
 ----------------------------------------------------------------------------
  FIELD GEAR, MUNITIONS & AMMUNITION:
-  - [Qty: 5] 5x Peak-Discharge Laser Battery Clips (Crimson Wasp)
+  - [Qty: 5] 5x Peak-Discharge Laser Battery Clips (Red Fox)
   - [Qty: 10] 10x Glitter Grenades
   - [Qty: 1] Built-in Medkit (Man-at-Arms)
 ----------------------------------------------------------------------------

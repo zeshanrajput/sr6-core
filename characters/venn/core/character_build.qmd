@@ -76,7 +76,7 @@ def inc_many(*pairs):
         res.append(f"{name} {op} {abs(amount)}")
     return ", ".join(res)
 
-from sr6core.log_engine import knowledge_skill, language
+from sr6core.log_engine import knowledge_skill, language, modifier, monad_ability
 ```
 
 Shadowrunners built with the Point Buy method start with **100 Character Points (CP)** and **50 customization Karma**.
@@ -95,19 +95,19 @@ Shadowrunners built with the Point Buy method start with **100 Character Points 
 
 ---
 
-## 2. Choose Special Heritage & Mundane Status
+## 2. Metatype, Heritage & Biological Nanite Volume
 
 * Heritage: Monad — Dual Consciousness Monad `{python} inc('Character_Points', -10)` *(Whisper Nets, p. 149)*
   * **Monad Dual Identity:** Nathan (Human biological host) & Veronica (AI fork sister).
   * Monads start with baseline **Nanite Volume (NV) = 1**: `{python} assign('Nanite_Volume', 1)`
   * **Nanite Volume Increments (5 Adjustment Points @ 4 CP each):** `{python} inc_many(('Nanite_Volume', 5), ('Character_Points', -20))` *(Nanite Volume raised from 1 to **`{python} Nanite_Volume`**)*
   * **Monad Abilities Purchase (*Sixth World Companion*, p. 27 & *Whisper Nets*, p. 145):** In Point Buy, special abilities (spells, complex forms, monad abilities) are purchased at **2 CP or 5 Karma each**. We purchase **6 Monad Abilities** with Karma (`-30 Karma`): `{python} inc('Karma', -30)`
-    1. **Monad Matrix Attributes:** Synthesizes Living Persona ASDF (A:2 S:6 D:8 F:9) with 15d6 Full Matrix Defense (17d6 active under Willpower 7).
-    2. **Resculpt:** Extended INT + NV (16, 1 combat round) test to alter physical biological appearance and voice.
-    3. **Monad Toughness:** Adds one-half Nanite Volume (+`{python} Nanite_Volume // 2` boxes at NV `{python} Nanite_Volume`) to Condition Monitors (+`{python} (Nanite_Volume // 2) - (Nanite_Volume // 4)` Physical, +`{python} Nanite_Volume // 4` Stun), and shifts all Wound Modifiers down by one.
-    4. **Physical Attribute Boost:** Minor Action; roll NV test (`{python} Nanite_Volume` dice). With a 4-Edge boost (13 exploding dice), rolling $\ge 3$ hits (89.4%) or $\ge 4$ hits (76.2%) adds **+4 Minor Actions** or physical attribute boosts for hits in combat rounds.
-    5. **Rapid Healing:** Minor or Major Action cellular nanite repair. Minor Action rolls an NV test (6 dice) to reduce Condition Monitor damage by hits; Major Action grants +1 situational Edge and heals double hits.
-    6. **Adrenal Control:** Minor Action; WIL + NV (2) test (13d6 pool) to remain conscious when condition monitors are full.
+    1. **Monad Matrix Attributes:** `{python} monad_ability("Monad Matrix Attributes", effect="Synthesizes Living Persona ASDF (Attack: CHA, Sleaze: INT, Data Processing: LOG, Firewall: WIL) via internal nanite matrix co-processing.", action="Passive")`
+    2. **Mental Attribute Boost:** `{python} monad_ability("Mental Attribute Boost", effect="Minor Action: roll NV test (6 dice). Each hit can increase any Mental Attribute (Logic, Intuition, Willpower, Charisma) by +1 (up to NV 6 or +4 max boost) for hits in combat rounds.", action="Minor Action")`
+    3. **Monad Toughness:** `{python} monad_ability("Monad Toughness", effect="Adds one-half Nanite Volume (+3 boxes at NV 6) to Condition Monitors (+2 Physical, +1 Stun), and shifts all Wound Modifiers down by one level.", action="Passive")`
+    4. **Physical Attribute Boost:** `{python} monad_ability("Physical Attribute Boost", effect="Minor Action: roll NV test (6 dice). Each hit can add +1 Minor Action per combat round or boost a physical attribute for duration.", action="Minor Action")`
+    5. **Rapid Cellular Healing:** `{python} monad_ability("Rapid Cellular Healing", effect="Minor or Major Action: roll NV test (6 dice) to reduce Condition Monitor damage boxes by hits (Major Action heals double hits and grants +1 situational Edge).", action="Minor or Major Action")`
+    6. **Adrenal Control:** `{python} monad_ability("Adrenal Control", effect="Minor Action: WIL + NV test to remain conscious and active when physical or stun condition monitors are full.", action="Minor Action")`
 
 ---
 
@@ -123,15 +123,15 @@ Shadowrunners built with the Point Buy method start with **100 Character Points 
 
 Under standard SR6 character creation rules (*SR6 Core*, p. 65), characters can select a maximum of **6 total qualities** (excluding racial traits). We select exactly 4 Positive Qualities and 2 Negative Qualities:
 
-### Positive Qualities (4 Slots / 45 Karma)
-* **Augmentation Acclimation (Rating 9):** `{python} inc_many(('Karma', -18), ('Positive_Quality_Karma', -18), ('Essence', 0.90))` *(Sixth World Companion, p. 132)*
-  * Reduces total Essence loss from installed cyberware and bioware by **0.90 Essence** (0.10 Essence per rating level).
+### Positive Qualities (4 Slots / 47 Karma)
+* **Augmentation Acclimation (Rating 10 — MAX):** `{python} inc_many(('Karma', -20), ('Positive_Quality_Karma', -20), ('Essence', 1.00))` *(Sixth World Companion, p. 132)*
+  * Reduces total Essence loss from installed cyberware and bioware by the full maximum of **1.00 Essence** (0.10 Essence per rating level).
 * **Redliner:** `{python} inc_many(('Karma', -10), ('Positive_Quality_Karma', -10))` *(Body Shop, p. 101)*
   * With 4 full cyberlimbs (2 pairs: arms and legs), all cyberlimbs gain **+2 Strength and +2 Agility**! Grants +1 Physical Condition Monitor box per full pair (+2 boxes total).
 * **Cyber Singularity Seeker:** `{python} inc_many(('Karma', -10), ('Positive_Quality_Karma', -10))` *(Body Shop, p. 101)*
   * With 4 full cyberlimbs (2 pairs), gain **+2 Willpower** (raising natural Willpower from 5 to **7**).
 * **Maximum Overdrive:** `{python} inc_many(('Karma', -7), ('Positive_Quality_Karma', -7))` *(Sixth World Companion, p. 129)*
-  * Gain +1 Edge whenever overdriving cyberware (e.g. Math SPU, Cyberlimbs).
+  * Gain +1 Edge whenever overdriving cyberware (e.g. Math SPU, Cyberlimbs, Attention Coprocessor, Nanohives).
 
 ### Negative Qualities (2 Slots / +39 Karma)
 * **Cyberpsychosis (Rank 3 — MAX):** `{python} inc_many(('Karma', 24), ('Negative_Quality_Karma', 24))` *(Sixth World Companion, p. 136)*
@@ -180,9 +180,9 @@ Every character receives **4 Free Attribute Points** (0 CP cost). Additional att
 | Attribute | Natural Value | Augmented / Quality Value | Racial Maximum |
 | :--- | :---: | :---: | :---: |
 | **Body** | **`{python} Body`** | **`{python} Body`** *(+4 Soak from Bone Density 4)* | 6 |
-| **Agility** | **`{python} Agility`** | **7** *(2 Base + 2 Redliner + 3 Limb Mod; 9 Overdriven)* | 6 |
+| **Agility** | **`{python} Agility`** | **7** *(2 Base + 2 Redliner; +2 Overdriven)* | 6 |
 | **Reaction** | **`{python} Reaction`** | **`{python} Reaction`** *(Monad Boost adds +4 Minor Actions)* | 6 |
-| **Strength** | **`{python} Strength`** | **4** *(2 Base + 2 Redliner; 6 Overdriven)* | 6 |
+| **Strength** | **`{python} Strength`** | **4** *(2 Base + 2 Redliner; +2 Overdriven)* | 6 |
 | **Willpower** | **`{python} Willpower`** | **7** *(5 Base + 2 Cyber Singularity Seeker)* | 6 |
 | **Logic** | **`{python} Logic`** | **`{python} Logic`** *(Natural Maximum; pushes to 10 post-chargen)* | 6 |
 | **Intuition** | **`{python} Intuition`** | **`{python} Intuition`** | 6 |
@@ -190,7 +190,7 @@ Every character receives **4 Free Attribute Points** (0 CP cost). Additional att
 | **Edge** | **`{python} Edge`** | **`{python} Edge` (MAX)** | **7** |
 | **Nanite Volume** | **`{python} Nanite_Volume`** | **`{python} Nanite_Volume`** | `{python} 2 * Body` |
 
-* **Combat Action Economy (Monad Physical Boost):** Spending 1 Minor Action + 4 Edge on Turn 1 rolls **13 exploding dice** (NV 6 + Edge 7), yielding **+4 Minor Actions** for 4 rounds (convertible to **3 Major Actions and 1 Minor Action per round**).
+* **Combat Action Economy (Monad Physical Boost):** Spending 1 Minor Action + 4 Edge on Turn 1 rolls **13 exploding dice** (NV 6 + Edge 7), yielding **+4 Minor Actions** for 4 rounds (convertible to **2 Major Actions and 1 Minor Action per round**).
 * **Cyberlimb Overdrive:** Overdriving cyberlimbs grants +2 Agility and +2 Strength $\rightarrow$ **Agility 9, Strength 6** (with wild die), and generates **+1 Edge** via Maximum Overdrive.
 
 ---
@@ -218,55 +218,58 @@ We use our **4 remaining free skill points** to acquire **4 Knowledge Skills** (
 * **English (CAS Dialect):** Native language (Nathan) `{python} language('English', rating=4, notes='CAS dialect')`
 * **Mindspeech:** Native ideational language (Veronica) `{python} language('Mindspeech', rating=4, notes='Direct ideation, resonance non-acoustic')`
 
-### Martial Arts Chargen Investment
-
-* **Tae Kwon Do Style & Signature Bundle (7 Karma):** `{python} inc('Karma', -7)` *(Firing Squad, p. 101)*
-  * **Kick Attack:** Adds **+1 DV** and **+2 meters** to Close attack range on all unarmed kicks.
-  * **Flying Kick (Signature Technique):** Minor Action + Athletics + Agility (3) test (threshold reduced to **1 hit** by Hydraulic Jacks R2) to add **+2 DV** and leap across the room.
-  * *Day 1 Combat Impact*: Bone Density 4 (4P) + Kick Attack (+1) + Flying Kick (+2) = **7P Base Physical Damage** leaping kick strikes from Day 1!
+### Martial Arts & Kinetic Training
+* Martial Arts techniques (such as Tae Kwon Do Style, Kick Attack, and Flying Kick) do not double in cost post-chargen (unlike Qualities). To maximize permanent chargen benefits, we invest our Karma into **Augmentation Acclimation Rating 10** at launch and acquire formal Martial Arts training during early post-chargen downtime.
 
 ### Activesofts & Software Licenses
 
-* **Close Combat Activesoft (Rating 6 — Purchased with Nuyen):** `{python} assign('Close_Combat', 6)` *(¥30,000 market value — 14d6 attack pool with Cyberarm AGI 7 and Wires-ON [+1]; 16d6 when Overdriven to AGI 9)*
-* **Cracking Activesoft (Rating 6 — Purchased with Nuyen):** `{python} assign('Cracking', 6)` *(¥30,000 market value — 13d6 matrix attack pool with LOG 6 and Wires-ON [+1]; 17d6 with Logic 10 post-chargen)*
+* **Close Combat Activesoft (Rating 6 — Downloaded via Matrix Subscription):** `{python} assign('Close_Combat', 6)` *(Downloaded on-demand via matrix skillsoft subscription for 0¥ retail capital — 15d6 attack pool with Cyberarm AGI 7, Wires-ON [+1], and Neural Pattern Reinforcement [+1]; 17d6 when Overdriven to AGI 9)*
+* **Cracking Activesoft (Rating 6 — Purchased with Nuyen):** `{python} assign('Cracking', 6)` *(¥30,000 market value — 14d6 baseline matrix attack pool with LOG 6, Wires-ON [+1], and Neocortical Neural Amp [+1]; up to 18d6 with Monad Mental Attribute Boost)*
 
 ### Resource Allocation (Starting Nuyen)
 
 * **Base Starting Resources (*Sixth World Companion*, p. 29-30):** ¥10,000 base starting allowance: `{python} assign('Nuyen', 10000)`
 * **Resource Purchase (20 CP):** 20 CP spent @ 20,000 Nuyen / CP = **+¥400,000 Nuyen**:
   * `{python} inc_many(('Character_Points', -20), ('Nuyen', 400000))`
-* **Total Chargen Capital:** **¥410,000 Nuyen** *(¥10,000 base + ¥400,000 purchased)*.
+* **Karma Conversion to Starting Funds (*SR6 Core*, p. 66):** 1 Karma converted at 1 Karma : 2,000 Nuyen:
+  * `{python} inc_many(('Karma', -1), ('Nuyen', 2000))`
+* **Total Chargen Capital:** **¥412,000 Nuyen** *(¥10,000 base + ¥400,000 CP + ¥2,000 Karma conversion; leaves exactly 5 Karma carryover)*.
 
-### Cyberware, Bioware & Limb Enhancements
+### Geneware, Cyberware & Dual Cyberleg Nanohives
 
-* **Two Full Synthetic Cyberarms (Standard Grade w/ Agility +3 Enhancement):** `{python} inc_many(('Nuyen', -70000), ('Essence', -2.00))` *(SR6 Core, p. 288 & p. 247 — 1.00 Ess each [2.00 Ess total], ¥20,000 base + ¥15,000 Agility [+3] each [¥70,000 total], 16 Total Capacity [8 each, 3 used for AGI+3 -> 5 Open Capacity each], Avail 5)*
-* **Two Full Synthetic Cyberlegs (Standard Grade w/ Agility +3 Enhancement):** `{python} inc_many(('Nuyen', -70000), ('Essence', -2.00))` *(SR6 Core, p. 288 & p. 247 — 1.00 Ess each [2.00 Ess total], ¥20,000 base + ¥15,000 Agility [+3] each [¥70,000 total], 20 Total Capacity [10 each, 3 used for AGI+3 -> 7 Open Capacity each], Avail 5)*
-* **Betaware Bone Density Augmentation (Rating 4):** `{python} inc_many(('Nuyen', -30000), ('Essence', -0.84))` *(SR6 Core, p. 286 & Body Shop, p. 101 — 0.84 Ess [1.2 x 0.7], ¥30,000 [20,000 x 1.5], Avail 6L; +4 Body for damage resistance soak, 4P Unarmed DV, +3 AR)*
-* **Skilljack (Rating 6, Used Grade):** `{python} inc_many(('Nuyen', -60000), ('Essence', -0.66))` *(SR6 Core, p. 247 — Base Rating x 20,000¥ = 120k; Used 0.5x cost = ¥60,000, 0.66 Ess, Avail 3; supports up to Rating 6 skillsofts)*
-* **Skillwires (Rating 6, Used Grade):** `{python} inc_many(('Nuyen', -60000), ('Essence', -0.66))` *(SR6 Core, p. 247 — Base Rating x 20,000¥ = 120k; Used 0.5x cost = ¥60,000, 0.66 Ess, Avail 3; +1 dice pool modifier to all skills routed through skillwires)*
-* **Math SPU (Standard Grade):** `{python} inc_many(('Nuyen', -25000), ('Essence', -0.25))` *(Body Shop, p. 5 — 0.25 Ess, ¥25,000, Avail 4; lowers Edge boost cost by 1, or by 2 when overdriven with +1 wild die; 0 Bad Luck penalty)*
-
-### Cyberleg Modular Mobility Suite (Installed at Chargen)
-
-* **Retractable Inline Skates (2x Legs):** `{python} inc('Nuyen', -500)` *(Body Shop, p. 48 — 2 Cap each [4 Cap total], 250¥ each [500¥ total]; 10m high-speed ground glide)*
-* **Hydraulic Jacks Rating 2 (2x Legs):** `{python} inc('Nuyen', -10000)` *(SR6 Core, p. 289 — 2 Cap each [4 Cap total], 5,000¥ each [10,000¥ total]; Flying Kick launch threshold = 1 hit; absorbs 4 falling boxes)*
-* **Hidden Slide (Left Leg):** `{python} inc('Nuyen', -3000)` *(SR6 Core, p. 289 — 3 Cap [Left Leg full: 10/10 Cap], 3,000¥; quick-deploy slide)*
-* **Built-in Utility Kit (Right Leg):** `{python} inc('Nuyen', -1000)` *(Body Shop, p. 44 — 2 Cap, 1,000¥; micro-soldering, fiber taps, hardware bypass)*
-* **Gecko Tips (2x Feet):** `{python} inc('Nuyen', -1000)` *(Body Shop, p. 45 — 1 Cap each [2 Cap total], 500¥ each [1,000¥ total]; microscopic setae on soles)*
+* **Adapsin Therapy (Therapeutic Geneware):** `{python} inc_many(('Nuyen', -30000), ('Essence', -0.10))` *(Body Shop, p. 4, 10 — 0.10 Ess, ¥30,000, Avail 5(L), 2 weeks treatment time. Implantation reduces the Essence cost of all installed cyberware by 10% [round down], applied after grade adjustments!)*
+* **Two Full Synthetic Cyberarms (Used Grade w/ Agility +3 Enhancement):** `{python} inc_many(('Nuyen', -35000), ('Essence', -1.98))` *(SR6 Core, p. 288 & p. 247; Body Shop, p. 5 — Used 0.5x cost: ¥10,000 base + ¥7,500 Agility [+3] each [¥35,000 total]; Essence: 1.00 x 1.1 [Used] x 0.9 [Adapsin] = 0.99 Ess each [1.98 Ess total]; 16 Total Capacity [8 each, 3 used for AGI+3 -> 5 Capacity in each arm for integrated tactical modifications], Avail 4)*
+* **Two Full Synthetic Cyberlegs (Used Grade w/ Agility +3 Enhancement & Bulk Mod R2):** `{python} inc_many(('Nuyen', -35000), ('Essence', -1.98))` *(SR6 Core, p. 288 & p. 247; Body Shop, p. 5, 44 — Used 0.5x cost: ¥10,000 base + ¥7,500 Agility [+3] each [¥35,000 total]; Essence: 1.00 x 1.1 [Used] x 0.9 [Adapsin] = 0.99 Ess each [1.98 Ess total]; Bulk Modification R2 adds +2 Capacity per leg [12 Capacity total each], Avail 4)*
+* **Bulk Modification Rating 2 (2x Cyberlegs):** `{python} inc('Nuyen', -2000)` *(Body Shop, p. 44 — (Rating) x 500¥ = 1,000¥ per leg [2,000¥ total]; expands each cyberleg to **12 Capacity** with 0.00 Essence cost)*
+* **Two Nanohives Rating 3 (Used Grade, Installed in Left & Right Cyberlegs):** `{python} inc('Nuyen', -45000)` *(Body Shop, p. 4, 10 — Used 0.5x cost: 3 x 15,000¥ x 0.5 = 22,500¥ each [¥45,000 total], Avail 3; installed into cyberlegs consuming `[3 x 2] = [6]` Capacity in each leg and **0.00 Essence**! Together they provide combined **Rating 6 Nanohive capacity**, managing up to 6 simultaneous colonies, supporting up to 18 Nanite Volume [24 wireless], and replenishing 6 NV/hr)*
+* **Retractable Inline Skates (2x Legs):** `{python} inc('Nuyen', -500)` *(Body Shop, p. 48 — 2 Cap each in cyberlegs [4 Cap total], 250¥ each [500¥ total]; 10m high-speed ground glide)*
+* **Gecko Tips (2x Feet):** `{python} inc('Nuyen', -1000)` *(Body Shop, p. 45 — 1 Cap each in cyberlegs [2 Cap total], 500¥ each [1,000¥ total]; microscopic setae on soles; cyberlegs fully utilize 12/12 Capacity each: 3 AGI + 6 Nanohive + 2 Skates + 1 Gecko Tips)*
 * **Gecko Tape Gloves:** `{python} inc('Nuyen', -250)` *(City Edition: Seattle, p. 5 — 250¥; hands + feet setae grants **Non-Magical Wall Running** on Day 1!)*
+* **Betaware Bone Density Augmentation (Rating 4):** `{python} inc_many(('Nuyen', -30000), ('Essence', -0.84))` `{python} modifier("Bone Density Augmentation", "damage:unarmed", 4, type="augmentation", rule_anchor="rules/rules_and_downtime.html#augmentation-stacking", notes="4P Base Unarmed DV, +4 Body soak")` *(SR6 Core, p. 286 & Body Shop, p. 101 — 0.84 Ess [1.2 x 0.7 Betaware], ¥30,000 [20,000 x 1.5], Avail 6L; +4 Body for damage resistance soak, 4P Unarmed DV, +3 AR)*
+* **Skilljack (Rating 6, Used Grade):** `{python} inc_many(('Nuyen', -60000), ('Essence', -0.59))` *(SR6 Core, p. 247 — Base Rating x 20,000¥ = 120k; Used 0.5x cost = ¥60,000; Essence: 0.60 x 1.1 x 0.9 [Adapsin] = 0.59 Ess, Avail 3; supports up to Rating 6 skillsofts)*
+* **Skillwires (Rating 6, Used Grade):** `{python} inc_many(('Nuyen', -60000), ('Essence', -0.59))` `{python} modifier("Skillwires (Wireless ON - Close Combat)", "skill:close_combat", 1, type="other", rule_anchor="rules/rules_and_downtime.html#skillwires-protocols", notes="+1 dice pool modifier to active skills routed via skillwires")` `{python} modifier("Skillwires (Wireless ON - Cracking)", "skill:cracking", 1, type="other", rule_anchor="rules/rules_and_downtime.html#skillwires-protocols", notes="+1 dice pool modifier to active skills routed via skillwires")` *(SR6 Core, p. 247 — Base Rating x 20,000¥ = 120k; Used 0.5x cost = ¥60,000; Essence: 0.60 x 1.1 x 0.9 [Adapsin] = 0.59 Ess, Avail 3; +1 dice pool modifier to all skills routed through skillwires)*
+* **Math SPU (Used Grade):** `{python} inc_many(('Nuyen', -12500), ('Essence', -0.25))` `{python} modifier("Math SPU", "edge_boost_cost:logic_skills", 1, type="gear", rule_anchor="rules/rules_and_downtime.html#cyberware-overdrive", notes="Reduces Edge boost cost by 1 (min 1) on Cracking, Electronics, and Build/Repair tests; overdrive reduces cost by 2 with +1 wild die")` *(Body Shop, p. 5 — Used 0.5x cost = ¥12,500; Essence: 0.25 x 1.1 x 0.9 [Adapsin] = 0.25 Ess, Avail 3; lowers Edge boost cost by 1, or by 2 when overdriven with +1 wild die; 0 Bad Luck penalty)*
+### Nanite Colony Suite (2 Permanent Templates + 6 Prioritized Bioamplifiers)
+
+* **Dynamic Features Colony Template (Permanent Nanohive Software):** `{python} inc('Nuyen', -12500)` *(Body Shop, p. 4 — 12,500¥, Avail 3(L), 1-3 NV; permanent template loaded into Nanohive forge. Nanites extruded through pores in 30s [1 round overdriven] reshape skin and facial features to match preprogrammed photos or biometrics; grants **+1 situational Edge** on Con tests influenced by appearance. Swapped into active volume whenever infiltration disguise is needed!)*
+* **Neuromuscular Amplifier Colony Template (Permanent Nanohive Software):** `{python} inc('Nuyen', -15000)` `{python} modifier("Neuromuscular Amplifier", "damage:unarmed", 1, type="augmentation", rule_anchor="rules/rules_and_downtime.html#monad-nanite-boosts", notes="+1 DV to all melee and unarmed attacks")` *(Body Shop, p. 4, 86 — 15,000¥, Avail 5(I), min 2 NV; permanent template loaded into Nanohive forge. Requires at least 2 NV to form the colony, but additional NV can be assigned for overdriving. Skeletal muscle biopolymers: **adds +1 DV to all melee attacks** [Punch/Kick base 5P physical damage]; permanently synthesizable on demand!)*
+* **Pre-Built Bio-Response Override Colony (Dose):** `{python} inc('Nuyen', -3500)` `{python} modifier("Bio-Response Override", "attribute:willpower", 1, type="augmentation", rule_anchor="rules/rules_and_downtime.html#monad-nanite-boosts", notes="+1 Willpower, +1 box to Stun Condition Monitor")` *(Body Shop, p. 4 — 3,500¥, Avail 5(I), 3 NV; single colony unit requiring 3 NV from the nanohive to sustain [dies in 1 week without hive maintenance]; sensory damping structures: **increases Willpower attribute by +1** [raising natural WIL from 7 to **8**], adds **+1 box to Stun Condition Monitor**; Overdrive offsets wound penalties)*
+* **Pre-Built Neurochemical Regulator Colony (Dose):** `{python} inc('Nuyen', -4500)` `{python} modifier("Neurochemical Regulator", "attribute:charisma", 1, type="augmentation", rule_anchor="rules/rules_and_downtime.html#monad-nanite-boosts", notes="+1 Charisma on social and composure tests")` *(Body Shop, p. 4 — 4,500¥, Avail 5(I), 2 NV; single colony unit requiring 2 NV from the nanohive to sustain [dies in 1 week without hive maintenance]; emotional stabilization structures: **increases Charisma by +1 in all social situations and composure tests**; Overdrive adds bonus dice on Charisma tests)*
+* **Pre-Built Neocortical Neural Amplifier Colony (Dose):** `{python} inc('Nuyen', -5500)` `{python} modifier("Neocortical Neural Amp", "attribute:logic", 1, type="skill bonus", rule_anchor="rules/rules_and_downtime.html#monad-nanite-boosts", notes="+1 dice pool on all skill tests linked to Logic (Cracking, Electronics, Biotech, etc.)")` *(Body Shop, p. 4 — 5,500¥, Avail 3(I), 2 NV; single colony unit requiring 2 NV from the nanohive to sustain [dies in 1 week without hive maintenance]; constructs frontal lobe nanostructures granting **+1 dice pool modifier on all skill tests linked to Logic** [Cracking, Electronics, Biotech, etc.]; Overdrive adds +1 die per NV burnt)*
+* **Pre-Built Limbic Neural Amplifier Colony (Dose):** `{python} inc('Nuyen', -6500)` `{python} modifier("Limbic Neural Amp", "attribute:intuition", 1, type="skill bonus", rule_anchor="rules/rules_and_downtime.html#monad-nanite-boosts", notes="+1 dice pool on all skill tests linked to Intuition (Perception, Stealth, etc.)")` *(Body Shop, p. 4 — 6,500¥, Avail 4(I), 2 NV; single colony unit requiring 2 NV from the nanohive to sustain [dies in 1 week without hive maintenance]; supplemental parallel neural sensory pathways granting **+1 dice pool modifier on all skill tests linked to Intuition** [Perception, Stealth, etc.]; Overdrive adds +1 die per NV burnt)*
+* **Pre-Built Neural Pattern Reinforcement Colony (Dose):** `{python} inc('Nuyen', -7000)` `{python} modifier("Neural Pattern Reinforcement", "attribute:agility", 1, type="skill bonus", rule_anchor="rules/rules_and_downtime.html#monad-nanite-boosts", notes="+1 dice pool on all skill tests linked to Agility (Athletics, Firearms, Close Combat, etc.)")` *(Body Shop, p. 4 — 7,000¥, Avail 5(I), 2 NV; single colony unit requiring 2 NV from the nanohive to sustain [dies in 1 week without hive maintenance]; refined muscle memory pathways granting **+1 dice pool modifier on all skill tests linked to Agility** [Athletics, Firearms, Close Combat, etc.]; Overdrive adds +1 die per NV burnt)*
+* **Pre-Built Tech Infestation Colony (Dose):** `{python} inc('Nuyen', -3500)` *(Body Shop, p. 4, 86 — 3,500¥, Avail 5(I), 1+ NV; single colony unit requiring 1+ NV from the nanohive to sustain [dies in 1 week without hive maintenance]; monad-derived free-floating nanites extruded from palms over 30 seconds into electronic hardware, wiring, or maglocks; rolls Nanohive Rating 6 + Colony NV vs. Willpower + Firewall to hijack User/Admin access directly into Venn's Living Persona or nanohive without needing a physical data tap!)*
 
 ### Additional Field Gear, Weapons & Lifestyle
 
-* **Close Combat Activesoft (Rating 6):** `{python} inc('Nuyen', -30000)` *(Commercial activesoft software license)*
-* **Cracking Activesoft (Rating 6):** `{python} inc('Nuyen', -30000)` *(Commercial activesoft software license)*
+* **Cracking Activesoft (Rating 6 — Commercial License):** `{python} inc('Nuyen', -30000)` *(Commercial activesoft software license — runs via Skilljack/Skillwires with full wireless Edge access without taking up active skill slots)*
 * **Colt Manhunter (Heavy Pistol):** `{python} inc('Nuyen', -1500)` *(w/ Smartlink, Concealed Holster, Silencer, 5 spare clips, 100 regular, 100 gel rounds)*
 * **Securetech SkinShield (w/ Ballistic Hood):** `{python} inc('Nuyen', -3150)` *(Firing Squad, p. 3 / Seattle, p. 5 — +2 DR form-fitting under-armor, +1 DR Ballistic Hood, Capacity 2, Avail 3, Social Mod 0)*
-* **Contacts (Rating 3):** `{python} inc('Nuyen', -1500)` *(w/ Flare Compensation, Smartlink)*
-* **Savior Medkit (Rating 6 w/ 1x Refill):** `{python} inc('Nuyen', -2300)`
+* **Contacts (Rating 3 w/ Smartlink & Flare Compensation):** `{python} inc('Nuyen', -2850)` *(SR6 Core, p. 274 — Rating 3 [600¥, 3 Cap], Smartlink [+2,000¥, 2 Cap], Flare Compensation [+250¥, 1 Cap]; total 2,850¥, 3/3 Capacity; provides direct wireless optical targeting HUD and flash protection without invasive ocular cyberware)*
+* **Earbuds (Rating 2 w/ Audio Enhancement & Soundlink):** `{python} inc('Nuyen', -630)` *(SR6 Core, p. 275 & SRMG v2.4, p. 20 — Rating 2 [100¥, 2 Cap], Audio Enhancement Rating 1 [+500¥, 1 Cap], Soundlink [+30¥, 1 Cap]; total 630¥, 2/2 Capacity; acoustic hearing enhancement and audio DNI routing)*
 * **Commlink: Renraku Sensei:** `{python} inc('Nuyen', -1000)` *(DR 3 | DP 3 | FW 1; everyday burner SIN broadcast)*
-* **Fake Licenses (Rating 4 x2):** `{python} inc('Nuyen', -1600)` *(Firearms, Concealed Carry)*
-* **Low Lifestyle (1st Month Prepaid):** `{python} inc('Nuyen', -2000)` *(Off-Grid Coastal Boathouse)*
-* **Specialty Ammo & Narcoject Payload:** `{python} inc('Nuyen', -1200)` *(20 Injection Darts + DMSO + Narcoject non-lethal subdual cocktail)*
+* **Fake License (Rating 4 — Firearms):** `{python} inc('Nuyen', -800)` *(Firearms license for Colt Manhunter)*
+* **Low Lifestyle (1 Month Prepaid):** `{python} inc('Nuyen', -2000)` *(Off-Grid Coastal Boathouse; includes ongoing nanohive precursor fluid and basic sustenance)*
 
 ---
 
@@ -288,6 +291,6 @@ Gain **6 * Charisma** contact points to spend:
 
 * **Total Character Points Remaining:** `{python} Character_Points`
 * **Total Liquid Nuyen Remaining:** ¥`{python} f"{Nuyen:,}"` *(100% compliant with SRM ≤ ¥5,000 carryover cap)*
-* **Remaining Essence:** `{python} f"{Essence:.2f}"` *(Raw: 6.41 Ess consumed | Buffer: +0.90 Ess | Biological: 0.49 Ess | Cyberpsychosis Rank 3 active)*
+* **Remaining Essence:** `{python} f"{Essence:.2f}"` *(Raw: 6.34 Ess consumed | Buffer: +1.00 Ess | Biological: 0.66 Ess | Cyberpsychosis Rank 3 active [≤ 1.00 Ess])*
 * **Total Starting Karma Remaining:** `{python} Karma` *(100% compliant with SRM ≤ 5 Karma carryover cap)*
 * **Total Contact Points:** `{python} Contact_Points`

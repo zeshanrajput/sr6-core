@@ -19,13 +19,15 @@ def test_parse_purchases_qmd_reiko():
     assert "drone_modifications" in parsed
     mods = parsed["drone_modifications"]
 
-    # Verify Shiawase Man-at-Arms has Increased Sensors 9
+    # Verify Shiawase Man-at-Arms has cyberarms and Increased Sensors 6
     maa_key = next((k for k in mods if "man-at-arms" in k.lower()), None)
     assert maa_key is not None
     maa_mods = mods[maa_key]
-    assert any("increased sensors 9" in m.lower() for m in maa_mods)
-    assert any("retractable skates" in m.lower() for m in maa_mods)
-    assert any("secondary propulsion" in m.lower() for m in maa_mods)
+    assert any("increased sensors 6" in m.lower() for m in maa_mods)
+    assert any("used synthetic cyberarm (left" in m.lower() for m in maa_mods)
+    assert any("used synthetic cyberarm (right" in m.lower() for m in maa_mods)
+    assert any("secondary propulsion (wheeled)" in m.lower() for m in maa_mods)
+    assert any("secondary propulsion (rotor)" in m.lower() for m in maa_mods)
 
     # Verify Autosofts list
     assert "autosofts" in parsed

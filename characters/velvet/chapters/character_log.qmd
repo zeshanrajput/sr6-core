@@ -13,11 +13,13 @@ from sr6core.log_engine import (
     inc, inc_many, contact, add_rep, start_mission, state, assign, print_contacts_summary, initiate, add_spirit
 )
 
-# Initial baseline values
-assign("Karma", 0)
-assign("Lifetime_Karma", 0)
-assign("Nuyen", 50000) # 50,000¥ Chargen Resources
-assign("Lifetime_Nuyen", 50000)
+# Initial baseline values (fallback if evaluating character_log independently)
+if "Nuyen" not in state or state.get("Nuyen", 0) == 0:
+    assign("Nuyen", 50000) # 50,000¥ Chargen Resources
+    assign("Lifetime_Nuyen", 50000)
+if "Karma" not in state:
+    assign("Karma", 0)
+    assign("Lifetime_Karma", 0)
 assign("Initiation_Grade", 0)
 assign("Coven_Loyalty", 8)
 assign("Heat", 0)
@@ -39,7 +41,13 @@ contact("Guild of Freelance Assets", connection=7, loyalty=8, type_name="Conclav
 
 ---
 
-## **2026-Jul-01: Build-A-Runner (GM Credit)** `{python} start_mission('Build-A-Runner')`
+## **2026-Jul-01: Build-A-Runner (GM Credit)**
+
+```{python}
+#| echo: false
+start_mission('Build-A-Runner')
+```
+
 
 * **GM:** WarDoctor CDT 1077
 * **Karma:** `{python} inc('Karma', 1)`
@@ -47,7 +55,13 @@ contact("Guild of Freelance Assets", connection=7, loyalty=8, type_name="Conclav
 
 ---
 
-## **SRM 2081-09 | Eviction Notice** `{python} start_mission('SRM 2081-09')`
+## **SRM 2081-09 | Eviction Notice**
+
+```{python}
+#| echo: false
+start_mission('SRM 2081-09')
+```
+
 
 * **Date:** 2026-Jul-17
 * **PCs:** Poe, BunnyR, YankeeDoodle, Groucho, Jolthead
@@ -73,7 +87,13 @@ GM Reward correction: `{python} inc('Nuyen', 1000)`
 
 ---
 
-## **SRM 2081-07 | Bootleg Bliss** `{python} start_mission('SRM 2081-07')`
+## **SRM 2081-07 | Bootleg Bliss**
+
+```{python}
+#| echo: false
+start_mission('SRM 2081-07')
+```
+
 
 * **Date:** 2026-Jul-26
 * **GM:** CDT Agent Kira Capalu (#TBD)
@@ -96,7 +116,13 @@ GM Reward correction: `{python} inc('Nuyen', 1000)`
 
 ---
 
-## **SRM 2081-01 | Death of a Fixer** `{python} start_mission('SRM 2081-01')`
+## **SRM 2081-01 | Death of a Fixer**
+
+```{python}
+#| echo: false
+start_mission('SRM 2081-01')
+```
+
 
 * **Date:** 2026-Aug-07
 * **GM:** WarDoctor
@@ -113,7 +139,13 @@ GM Reward correction: `{python} inc('Nuyen', 1000)`
 
 ---
 
-## **SRM 2081-02 | Urgent Care** `{python} start_mission('SRM 2081-02')`
+## **SRM 2081-02 | Urgent Care**
+
+```{python}
+#| echo: false
+start_mission('SRM 2081-02')
+```
+
 
 * **Date:** 2026-Aug-22
 * **GM:** WarDoctor CDT 1077
@@ -138,7 +170,13 @@ GM Reward correction: `{python} inc('Nuyen', 1000)`
 
 ---
 
-## **CMP 2083-01 | Nonplushed** `{python} start_mission('CMP 2083-01')`
+## **CMP 2083-01 | Nonplushed**
+
+```{python}
+#| echo: false
+start_mission('CMP 2083-01')
+```
+
 
 * **Date:** 2026-Aug-22
 * **GM:** CDT Agent Kira Capalu (#TBD)
@@ -169,7 +207,13 @@ GM Reward correction: `{python} inc('Nuyen', 1000)`
 
 ---
 
-## **CMP 2083-05 | Precious Cargo** `{python} start_mission('CMP 2083-05')`
+## **CMP 2083-05 | Precious Cargo**
+
+```{python}
+#| echo: false
+start_mission('CMP 2083-05')
+```
+
 
 * **Date:** 2026-Aug-25
 * **GM:** JaGator

@@ -8,33 +8,34 @@ This section aggregates core cheat sheets, downtime registration formulas, monad
 from sr6core.character_manager import CharacterManager
 
 cm = CharacterManager()
-_char = cm.get_character_data("union") or {}
+_char = cm.get_character_data("venn") or cm.get_character_data("union") or {}
 attrs = _char.get("attributes", {})
 
 # Core Base Attributes
 Body = attrs.get("body", 5)
-Agility = attrs.get("agility", 5)
+Agility = attrs.get("agility", 7)        # Cyberarms/legs AGI 7 (Base 2 + 3 Cybersuite + 2 Redliner)
 Reaction = attrs.get("reaction", 2)
-Strength = attrs.get("strength", 2)
-Willpower = attrs.get("willpower", 5)
+Strength = attrs.get("strength", 4)      # Cyberarms/legs STR 4 (Base 2 + 2 Redliner)
+Willpower = attrs.get("willpower", 7)
 Logic = attrs.get("logic", 6)
 Intuition = attrs.get("intuition", 5)
 Charisma = attrs.get("charisma", 2)
 Resonance = attrs.get("resonance", 0)
 Edge = attrs.get("edge", 7)
-Essence = attrs.get("essence", 0.06)
+Essence = attrs.get("essence", 0.66)
 
-# Augmented Ratings
-Agility_Aug = Agility + 2       # Muscle Toner R2 = 7
-Reaction_Aug = Reaction + 2     # Synaptic Booster R2 = 4
-Strength_Aug = Strength + 2     # Muscle Augmentation R2 = 4
-Body_Soak = Body + 4            # Bone Density R4 = 9
+# Augmented Ratings & Bioamplifiers
+Willpower_Aug = Willpower + 1            # Bio-Response Override = 8
+Charisma_Aug = Charisma + 1              # Neurochemical Regulator = 3
+Body_Soak = Body + 4                     # Bone Density R4 = 9
 
 # Derived Pools
-Physical_Initiative_Base = f"{Reaction_Aug + Intuition} + 2D6"
-Defense_Pool_Base = Reaction_Aug + Intuition
-Damage_Soak_Base = Body_Soak + 2 + 1  # Bone Density 9 + Skinshield 2 + Hood 1 = 12 (Platelets -1 Phys dmg)
-Firearms_Pool_Base = Agility_Aug + 6 + 1 + 1 + 2  # AGI 7 + Activesoft 6 + Wires Wireless 1 + Reflex Recorder 1 + Smartlink 2 = 17
+Physical_Initiative_Base = f"{Reaction + Intuition} + 1D6"  # 7 + 1D6
+Defense_Pool_Base = Reaction + Intuition                    # 7d6 (1 Hit)
+Damage_Soak_Base = Body_Soak + 2 + 1     # Bone Density 9 + Skinshield 2 + Hood 1 = 12
+Close_Combat_Pool_Base = Agility + 6 + 1 + 1  # AGI 7 + Activesoft 6 + Wires 1 + Neural Pattern 1 = 15d6 (5P DV)
+Cracking_Pool_Base = Logic + 6 + 1 + 1        # LOG 6 + Activesoft 6 + Wires 1 + Neocortical Amp 1 = 14d6
+Firearms_Pool_Base = Agility + 6 + 1 + 1 + 2  # AGI 7 + Activesoft 6 + Wires 1 + Neural Pattern 1 + Smartlink 2 = 17d6
 ```
 
 ---
@@ -87,33 +88,33 @@ Venn relies on an implanted **Skilljack (Used Grade, Rating 6)** and **Skillwire
 
 *Authoritative Rules Citations: Whisper Nets (p. 149) & Collapsing Now (p. 154–161)*
 
-As a dual-entity Monad (Nathan Turrent & Veronica), Venn commands a resident internal nanite colony (Nanite Volume 4) that manipulates flesh, neural architecture, and wireless persona emulation:
+As a dual-entity Monad (Nathan Turrent & Veronica), Venn commands a resident internal nanite colony (Nanite Volume 6 supported by dual Nanohives R3 in cyberlegs) that manipulates flesh, neural architecture, and wireless persona emulation:
 
 ::: {.callout-note icon=false title="🧬 MONAD ABILITY: Monad Matrix Attributes (Living Persona)"}
 * **Source**: *Whisper Nets*, p. 149
 * **Living Persona ASDF**: Internal nanite swarms emulate hardware pathways to project an un-brickable Living Persona:
-  * **Attack**: $\text{Charisma} = \mathbf{2}$
+  * **Attack**: $\text{Charisma} = \mathbf{3}$ *(Neurochemical Regulator)*
   * **Sleaze**: $\text{Intuition} + 1 = \mathbf{6}$
   * **Data Processing**: $\text{Logic} + 1 = \mathbf{7}$
-  * **Firewall**: $\text{Willpower} + 2 = \mathbf{7}$
-* **Matrix Defense**: **12d6 Full Matrix Defense** ($\text{WIL } 5 + \text{FW } 7$), surging to **14d6** when the Adrenaline Pump activates.
+  * **Firewall**: $\text{Willpower} + 2 = \mathbf{10}$ *(Willpower 8 via Bio-Response Override + 2 NV)*
+* **Matrix Defense**: **18d6 Full Matrix Defense** ($\text{WIL } 8 + \text{FW } 10 \rightarrow \mathbf{4\text{ Bought Hits}}$).
 :::
 
 ::: {.callout-note icon=false title="🧬 MONAD ABILITY: Resculpt (Biological Disguise)"}
 * **Source**: *Collapsing Now*, p. 154–161
-* **Action / Test**: Extended **Intuition + NV (16, 1 combat round)** test (**9d6 $\rightarrow$ Buys 2 Hits/round**; complete transformation in 8 rounds / 24 seconds).
+* **Action / Test**: Extended **Intuition + NV (16, 1 combat round)** test (**11d6 $\rightarrow$ Buys 2 Hits/round**; complete transformation in 8 rounds / 24 seconds).
 * **Effect**: Nanites physically reform cartilage, facial bone geometry, epidermal pigmentation, hair growth, and vocal cord thickness to pass perfectly as a new individual or alter demographic markers without cosmetic surgery or magic.
 :::
 
 ::: {.callout-note icon=false title="🧬 MONAD ABILITY: Monad Toughness & Wound Negation"}
 * **Source**: *Collapsing Now*, p. 154–161
-* **Condition Monitor Boost**: Adds $+\lfloor \text{NV}/2 \rfloor = \mathbf{+2}$ Condition boxes (+1 Physical box $\rightarrow$ **12 Physical Boxes**, +1 Stun box $\rightarrow$ **12 Stun Boxes**).
+* **Condition Monitor Boost**: Adds $+\lfloor \text{NV}/2 \rfloor = \mathbf{+3}$ Condition boxes (+1 Physical box $\rightarrow$ **11 Physical Boxes**, +1 Stun box + 1 Bio-Response Override $\rightarrow$ **13 Stun Boxes**).
 * **Wound Threshold Shift**: Shifts all wound penalty thresholds down by **1 box**, allowing Venn to take heavier physical punishment before incurring dice pool penalties.
 :::
 
 ::: {.callout-note icon=false title="🧬 MONAD ABILITY: Physical Attribute Boost & Action Surge"}
 * **Source**: *Whisper Nets*, p. 149
-* **Action**: **Minor Action** | **Test**: Roll a **Nanite Volume (NV) test** (4 dice for Venn $\rightarrow$ 1 Bought Hit).
+* **Action**: **Minor Action** | **Test**: Roll a **Nanite Volume (NV) test** (6 dice for Venn $\rightarrow$ 2 Bought Hits).
 * **Hit Allocation**:
   * For **each hit**, increase any **Physical Attribute (BOD, AGI, REA, STR) by +1**, OR add **+1 Minor Action**.
   * Hits may be stacked on a single attribute or distributed across multiple attributes and/or Minor Actions on the same test.
@@ -139,15 +140,58 @@ As a dual-entity Monad (Nathan Turrent & Veronica), Venn commands a resident int
 
 ---
 
-## SRMG Augmentation & Adrenaline Pump Stacking Rules{#augmentation-stacking}
+## Nanohive Colony Maintenance & Sustaining Protocols{#nanoware-protocols}
+
+*Authoritative Rules Citations: Body Shop, p. 108–111*
+
+Nanohive colonies represent delicate artificial microscopic biosystems resident in the host's body. To remain functional without degrading, they obey specific sustaining and maintenance rules:
+
+### 1. The 1-Week Sustaining Rule & Degradation
+* **Host Dependency**: Injected nanite colonies cannot survive indefinitely on cellular nutrients alone. Without continuous replenishment, calibration, and micro-repair signals from an active internal **Nanohive**, a colony degrades and dies within **1 week**.
+* **Nanohive Inactivation / EMP / Disruption**: If Venn's cyberleg Nanohives are shut down, damaged, or depleted of precursor fluid, a 7-day countdown begins before active bioamplifiers permanently cease functioning.
+
+### 2. Pre-Bought Doses as Sustained Colony Units
+Each pre-purchased single-dose colony represents an active physical swarm unit requiring dedicated internal Nanohive Volume (NV) to sustain:
+* **Bio-Response Override**: Requires **3 NV** to sustain (+1 WIL, +1 Stun box).
+* **Neurochemical Regulator**: Requires **2 NV** to sustain (+1 CHA on social/composure tests).
+* **Neocortical Neural Amplifier**: Requires **2 NV** to sustain (+1 dice pool on Logic-linked skills).
+* **Limbic Neural Amplifier**: Requires **2 NV** to sustain (+1 dice pool on Intuition-linked skills).
+* **Neural Pattern Reinforcement**: Requires **2 NV** to sustain (+1 dice pool on Agility-linked skills).
+* **Tech Infestation**: Requires **1+ NV** to sustain (rolls Hive Rtg + NV vs WIL + FW to hijack electronics).
+
+### 3. Permanent Software Templates & On-Demand Synthesis
+Permanent software blueprints stored in the Nanohive forge memory can be synthesized and reconfigured on demand using raw nanite mass:
+* **Neuromuscular Amplifier Template**: Requires **at least 2 NV** to form the base colony (+1 melee/unarmed DV), but additional NV (up to 4+ NV) can be allocated for overdriving strike vectors.
+* **Dynamic Features Template**: Requires **1–3 NV** to shift skin, facial geometry, and epidermal pigmentation (+1 situational Edge on appearance-based Con).
+
+### 4. Hardware Capacity Budget
+* Venn's dual Used Nanohives R3 in left and right cyberlegs provide combined **Rating 6 Nanohive capacity** (max 6 active colonies, 18 NV internal capacity [24 wireless], 6 NV/hr replenishment).
+* Sustaining the 6 default colonies consumes **13 NV** ($2 + 3 + 2 + 2 + 2 + 2$), leaving **5 NV in reserve** for overdriving or dynamic template synthesis.
+
+---
+
+## Multi-Modifier Pool Interactions & Stacking Analysis{#multi-modifier-interactions}
+
+This section is dynamically derived from Venn's current active character state. Any test pool, attribute, or combat stat that utilizes **more than 2 active modifiers** is automatically audited below for SRMG stacking legality, +4 augmentation maximum compliance, wireless/overdrive requirements, and interdependencies.
+
+```{python}
+#| echo: false
+#| output: asis
+from sr6core.rules_engine import render_multi_modifier_interactions
+print(render_multi_modifier_interactions("venn", threshold=2))
+```
+
+---
+
+## SRMG Augmentation & Stacking Rules{#augmentation-stacking}
 
 Per the **Shadowrun Missions Guide (SRMG)** rules on augmentation stacking:
 
 ::: {.callout-note icon=false title="SRMG Rule: What Augmentation Bonuses Stack?"}
 
-1. **Drugs stack with augmentations that normally do not stack.** The **Adrenaline Pump** is pumping an active hormonal/chemical drug into your system, so its attribute boosts stack with items like Synaptic Boosters and Muscle Toners.
-2. **Attribute Maximums**: Total augmented attribute bonuses are clamped to the standard **+4 SRMG Augmentation Cap** above natural maximum.
-3. **Initiative Dice**: Initiative Dice do not stack unless explicitly stated; instead, the character uses the highest available rating (**2D6** from Synaptic Booster R2).
+1. **Augmentation Stacking**: Multiple augmentations targeting the same attribute stack up to the **+4 SRMG Augmentation Cap** above natural maximum. Bone Density Augmentation R4 provides +4 Body for damage resistance soak, reaching the cap unarmored.
+2. **Skill Bonus Exemption**: Nanite Neural Amplifiers and Pattern Reinforcement provide direct skill dice rather than attribute increases, stacking alongside cyberware and gear bonuses without violating attribute caps.
+3. **Initiative Dice**: Initiative Dice do not stack unless explicitly stated; instead, the character uses the highest available rating.
 
 :::
 
@@ -157,7 +201,7 @@ Per the **Shadowrun Missions Guide (SRMG)** rules on augmentation stacking:
 
 - **Mechanism**: Spend a **Minor Action** to set a single cyberware system to overdrive, increasing the rating of any attribute-boosting cyberware by **+2 for a single action**. This bonus may exceed the augmented maximum.
 - **Wild Die Requirement**: One of the bonus dice rolled must be a **Wild Die**.
-- **Bioware Limitation**: Bioware (such as Synaptic Boosters, Muscle Toners, Muscle Augmentation, and Adrenaline Pump) **cannot be overdriven**, only cyberware systems (e.g. Math SPU).
+- **Bioware Limitation**: Bioware cannot be overdriven, only cyberware systems (e.g. Math SPU).
 - **Glitch & Critical Glitch Costs**:
   - **Glitch**: The affected cyberware system cramps up and **shuts down for a number of combat rounds equal to its rating**.
   - **Critical Glitch**: Seizes the muscle/neural bus and **reduces the affected attribute to 0 for a number of combat rounds equal to its rating**.

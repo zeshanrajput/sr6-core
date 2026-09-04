@@ -355,8 +355,9 @@ def test_weapon_attack_table_renderer():
     from sr6core.rules_engine import get_weapon_attack_table
     table_md = get_weapon_attack_table("reiko")
     assert "| Weapon Name | Mode (Rounds) | Final DV | Final Effective AR (C / N / M / F / E) | Notes & Constraints |" in table_md
-    assert "**Crimson Wasp Array (2x Link-Fired)**" in table_md
-    assert "7P" in table_md
+    assert "**Red Fox Array (2x Link-Fired)**" in table_md
+    assert "**Single Red Fox (Independent)**" in table_md
+    assert "8P*" in table_md
     assert "**Tesla Coil" in table_md
     assert "**Amalgam Cestas" in table_md
 

@@ -31,13 +31,13 @@ print(get_weapon_attack_table("yuriko"))
 #| output: asis
 from sr6core.rules_engine import render_weapon_card
 
-print(render_weapon_card("crimson_wasp"))
+print(render_weapon_card("red_fox"))
 ```
 
 ### Attack Rating (AR) Modifiers Summary
 
-* All smartlinked weapons have +3 AR (Smartgun + network bonus) (Crimson Wasp).
-* All drone mounted weapons have +2 AR (drone mount AR bonus) (Crimson Wasp, Tesla Coil).
+* All smartlinked weapons have +3 AR (Smartgun + network bonus) (Red Fox).
+* All drone mounted weapons have +2 AR (drone mount AR bonus) (Red Fox, Tesla Coil).
 * All held/melee weapons (Amalgam Cestas (+2)) have personalized grips.
 
 ---
@@ -77,10 +77,10 @@ Reference: *Scotophobia* (p. 181)
 * **Smartlink System (+3 AR Total)**: Integrated smartlink (+2 AR) plus networked smartgun software (+1 AR).
 * **Personalized Grip (+1 / +2 AR)**: Custom grip adds +1 AR to Close & Near ranges for ranged weapons, +2 AR for melee.
 * **Vehicle / Drone Mount (+2 AR, Halve Burst Penalty)**: Mounted weapons gain +2 AR and halve burst fire AR penalties (*Double Clutch* p. 142).
-* **Link-Firing Bonus (+1 AR per secondary weapon)**: Adds +1 AR to primary weapon per secondary weapon in array.
+* **Link-Firing Bonus (+1 AR, +2 DV)**: When spending a Minor Action to link-fire, adds +1 AR and +2 DV per secondary weapon (*Double Clutch* p. 142). If Reiko does not spend the Minor Action, weapons fire independently in Single Mode with standard AR (+5 total: Smartlink + Mount).
 
 ### 3. Laser Weapon Ammunition & Batteries (Firing Squad p. 44)
 
 * **Peak-Discharge Batteries**:
-  * **Crimson Wasp**: 15 shots per Peak-Discharge Battery Clip (100¥).
+  * **Red Fox**: 30 shots per Peak-Discharge Battery Clip (100¥). Uses Wild Die on attack tests.
 * **Field Ammunition**: Yuriko carries 5x Peak-Discharge Battery Clips (500¥ total).

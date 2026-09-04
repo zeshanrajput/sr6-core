@@ -300,31 +300,9 @@
   "vehicles": [],
   "drones": [],
   "lifestyles": [],
-  "sins": [
-    {
-      "name": "Fake Licenses (Rating 4 x2): (1,600\u00a5)",
-      "description": null,
-      "quality": 1
-    },
-    {
-      "name": "Low Lifestyle (Off-Grid Coastal Boathouse): (2,000\u00a5 / 1st month prepaid)",
-      "description": null,
-      "quality": 1
-    }
-  ],
+  "sins": [],
   "contacts": [],
-  "licenses": [
-    {
-      "name": "Fake License: Firearms",
-      "rating": 4,
-      "sin": "Fake Licenses (Rating 4 x2): (1,600\u00a5)"
-    },
-    {
-      "name": "Fake License: Concealed Carry",
-      "rating": 4,
-      "sin": "Fake Licenses (Rating 4 x2): (1,600\u00a5)"
-    }
-  ],
+  "licenses": [],
   "matrixItems": [],
   "martialArts": [],
   "signatureManeuvers": [],

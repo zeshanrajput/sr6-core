@@ -6,6 +6,7 @@ from typing import Dict, Any, Optional
 
 from sr6core.rules_db import DEFAULT_DB_PATH
 from sr6core.log_engine import get_log_totals
+from sr6core.contacts import normalize_contacts_list
 
 SKILL_ATTR_MAP = {
     "astral": "intuition",
@@ -307,7 +308,7 @@ def export_roll20_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
 
     # Contacts
     contacts_list = []
-    for c in (log_totals.get("Contacts") or char_data.get("contacts", [])):
+    for c in normalize_contacts_list(log_totals.get("Contacts") or char_data.get("contacts", [])):
         if isinstance(c, dict):
             contacts_list.append({
                 "name": c.get("name", ""),

@@ -534,6 +534,18 @@ class ModifierEngine:
                                 id_=m_id
                             ))
                             breakdown_parts.append(f"+{clamped_aug} {m_name}")
+                    elif m_type in ["skill bonus", "skill_bonus"]:
+                        running_pool += m_val
+                        applied_modifiers.append(PoolModifier(
+                            target=target,
+                            type_="skill bonus",
+                            source=m_name,
+                            value=m_val,
+                            is_srm_capped=False,
+                            rule_anchor=m_anchor,
+                            id_=m_id
+                        ))
+                        breakdown_parts.append(f"+{m_val} {m_name} (Skill Bonus)")
                     elif m_type == "other":
                         running_pool += m_val
                         applied_modifiers.append(PoolModifier(
@@ -546,6 +558,20 @@ class ModifierEngine:
                             id_=m_id
                         ))
                         breakdown_parts.append(f"+{m_val} {m_name}")
+                # Matches linked attribute (e.g. 'attribute:logic', 'attribute:intuition', 'attribute:agility') for skill bonus
+                elif target in [f"attribute:{effective_attr_name}", effective_attr_name]:
+                    if m_type in ["skill bonus", "skill_bonus"]:
+                        running_pool += m_val
+                        applied_modifiers.append(PoolModifier(
+                            target=target,
+                            type_="skill bonus",
+                            source=m_name,
+                            value=m_val,
+                            is_srm_capped=False,
+                            rule_anchor=m_anchor,
+                            id_=m_id
+                        ))
+                        breakdown_parts.append(f"+{m_val} {m_name} (Skill Bonus)")
 
         return {
             "skill_name": skill_name,

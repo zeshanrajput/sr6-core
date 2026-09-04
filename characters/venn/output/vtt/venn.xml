@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<sr6char gender="MALE" meta="human" karmaF="0" karmaI="0" nuyen="3950">
-   <lifestyles>
-      <lifestyle lang="en" ref="low" comfort="low" entert="low" necess="low" neigh="low" security="low" space="low" value="1" />
-   </lifestyles>
+<sr6char gender="MALE" meta="human" karmaF="1" karmaI="0" nuyen="5000">
    <type>METAHUMAN</type>
    <name>Venn</name>
+   <realName>Nathan &amp; Veronica Turrent</realName>
    <attributes>
       <attributes id="BODY" value="5" />
       <attributes id="AGILITY" value="7" />
       <attributes id="REACTION" value="2" />
       <attributes id="STRENGTH" value="4" />
       <attributes id="WILLPOWER" value="7" />
-      <attributes id="LOGIC" value="7" />
+      <attributes id="LOGIC" value="6" />
       <attributes id="INTUITION" value="5" />
       <attributes id="CHARISMA" value="2" />
       <attributes id="EDGE" value="7" />
@@ -19,26 +17,26 @@
       <attributes id="MAGIC" value="0" />
    </attributes>
    <qualities>
-      <quality lang="en" ref="augmentation_acclimation" uuid="959ebf07-a487-4528-b1eb-622d742140e5" value="10" />
-      <quality lang="en" ref="redliner" uuid="0989a180-cde5-4c57-9eba-9b4427823758" />
-      <quality lang="en" ref="cyber_singularity_seeker" uuid="b41ca0a6-8a98-483d-9bda-67994de926d7" />
-      <quality lang="en" ref="maximum_overdrive" uuid="34ea6ee6-41ef-4b44-895d-ef9797bdbbd0" />
-      <quality lang="en" ref="cyberpsychosis" uuid="764b6073-ac15-40eb-8fe7-13ee2e64c5a4" value="3" />
-      <quality lang="en" ref="hooder" uuid="3e6d6c8f-23cc-43f8-81fd-7051a34c1228" value="3" />
+      <quality lang="en" ref="augmentation_acclimation" uuid="fe7c28fb-1140-49c4-bc9e-f5eb0f6bde4a" value="9" />
+      <quality lang="en" ref="redliner" uuid="ae0877e7-b112-44a8-962f-6fac08b12407" />
+      <quality lang="en" ref="cyber_singularity_seeker" uuid="683ed57a-4519-45cc-8f1e-0036a18267f5" />
+      <quality lang="en" ref="maximum_overdrive" uuid="4f57b4ed-f23b-44f2-879c-3a5c1a48ac79" />
+      <quality lang="en" ref="cyberpsychosis" uuid="ddabc94c-e50f-4029-b4d8-c9a9b1f3918a" value="3" />
+      <quality lang="en" ref="hooder" uuid="09da0eb5-6964-40f2-a051-e24dec0a5f64" value="3" />
    </qualities>
    <skills>
-      <skill lang="en" ref="electronics" uuid="d8ea477f-8413-4377-9c27-ce84574ed749" value="6">
+      <skill lang="en" ref="electronics" uuid="3051fad9-1b4f-4913-866f-6961fad3b28e" value="6">
          <skillspec lang="en" ref="computer" />
       </skill>
-      <skill lang="en" ref="language" uuid="d13add61-7165-4b9a-80fd-cfd7f9cda5a3" value="4">
-         <decision choice="a7103ee4-31fa-435d-ac42-08f7d4d1e80c" value="Native Language (English)" />
-      </skill>
+      <skill lang="en" ref="athletics" uuid="98d36871-7059-4a49-aa53-b1e1f820e069" value="1" />
+      <skill lang="en" ref="language_english" uuid="47446c59-32b6-46b6-bb69-b53977891820" value="4" />
+      <skill lang="en" ref="language_mindspeech" uuid="f3216063-73fe-4ccd-a9f8-7f90fb5b4366" value="4" />
    </skills>
    <items>
-      <item lang="en" mode="CARRIED" ref="colt_manhunter" uuid="66c49dd9-564f-4de7-8ca6-a78dff4bd1e8">
+      <item lang="en" mode="CARRIED" ref="colt_manhunter" uuid="4ff3134f-188a-47f9-9e71-03740209e47c">
          <accessories>
-            <item lang="en" mode="EMBEDDED" ref="smartlink" uuid="e3fefdd2-a441-4b4a-8710-f5a5fbeb22e4" />
-            <item lang="en" mode="EMBEDDED" ref="silencer" uuid="8580e712-6cd2-4f75-b4e3-9bd56c5e7cd6" />
+            <item lang="en" mode="EMBEDDED" ref="smartlink" uuid="d92527e9-79a8-4eee-bbee-cae0a8db33ae" />
+            <item lang="en" mode="EMBEDDED" ref="silencer" uuid="75fbdfea-c21c-49d0-9617-4c6e6aa8ecdd" />
          </accessories>
       </item>
    </items>

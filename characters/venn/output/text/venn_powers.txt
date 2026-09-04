@@ -1,6 +1,29 @@
 ============================================================================
  POWERS, COMPLEX FORMS, ABILITIES & CYBERWARE: VENN
 ============================================================================
+ MONAD ABILITIES & NANITE SWARM TRAITS (NV 6):
+  * Monad Matrix Attributes
+    Synthesizes Living Persona ASDF (Attack: CHA, Sleaze: INT, Data
+    Processing: LOG, Firewall: WIL) via internal nanite matrix
+    co-processing.
+  * Mental Attribute Boost
+    Minor Action: roll NV test (6 dice). Each hit can increase any Mental
+    Attribute (Logic, Intuition, Willpower, Charisma) by +1 (up to NV 6 or
+    +4 max boost) for hits in combat rounds.
+  * Monad Toughness
+    Adds one-half Nanite Volume (+3 boxes at NV 6) to Condition Monitors (+2
+    Physical, +1 Stun), and shifts all Wound Modifiers down by one level.
+  * Physical Attribute Boost
+    Minor Action: roll NV test (6 dice). Each hit can add +1 Minor Action
+    per combat round or boost a physical attribute for duration.
+  * Rapid Cellular Healing
+    Minor or Major Action: roll NV test (6 dice) to reduce Condition Monitor
+    damage boxes by hits (Major Action heals double hits and grants +1
+    situational Edge).
+  * Adrenal Control
+    Minor Action: WIL + NV test to remain conscious and active when physical
+    or stun condition monitors are full.
+----------------------------------------------------------------------------
  CYBERWARE & BIOWARE AUGMENTATIONS:
   - Left Synthetic Cyberarm         [Standard Grade]
   - Right Synthetic Cyberarm        [Standard Grade]

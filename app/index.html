@@ -1167,6 +1167,13 @@
 
     <!-- Tab 5: Drones & Gear -->
     <section id="tab-drones" class="tab-pane">
+      <div id="augmentationsCard" class="card" style="margin-bottom: 14px;">
+        <div class="card-title">Cyberware & Bioware Augmentations</div>
+        <div id="augmentationsList">
+          <!-- Generated via JS -->
+        </div>
+      </div>
+
       <div id="dronesCard" class="card" style="margin-bottom: 14px;">
         <div class="card-title">Vehicles & Rigged Drones</div>
         <div id="vehiclesList">
@@ -1267,7 +1274,7 @@
       "mortype": "",
       "gender": "DIVERSE",
       "age": "~ 10",
-      "nuyen": 10000.0,
+      "nuyen": 650.0,
       "lifetime_nuyen": 377300,
       "karma": 0,
       "karma_avail": 0,
@@ -1503,6 +1510,8 @@
             "type": "teamwork",
             "value": 4,
             "target": "skill:cracking",
+            "rule_anchor": "rules_sprites.html#sprite-symbiosis-powers",
+            "notes": null,
             "active": true
           },
           {
@@ -1535,6 +1544,8 @@
             "type": "teamwork",
             "value": 4,
             "target": "skill:electronics",
+            "rule_anchor": "rules_sprites.html#sprite-symbiosis-powers",
+            "notes": null,
             "active": true
           },
           {
@@ -1655,34 +1666,68 @@
     },
     "weapons": [
       {
-        "name": "Crimson Wasp Array (2x Link-Fired)",
+        "name": "Red Fox Array (2x Link-Fired)",
+        "is_melee": false,
+        "category": "general",
+        "damage": "9P",
+        "base_damage": "9P",
+        "attack_rating": [
+          21,
+          23,
+          21,
+          14,
+          0
+        ],
+        "attack_rating_str": "21 / 23 / 21 / 14 / —",
+        "base_attack_rating_str": "19 / 21 / 21 / 14 / —",
+        "modes": [
+          "SA",
+          "BF",
+          "SS"
+        ],
+        "modes_str": "SA/BF/SS",
+        "base_modes_str": "SA/BF/SS",
+        "ammo": "30(c)",
+        "base_ammo": "30(c)",
+        "loaded_ammo": null,
+        "accessories": [
+          "Smartlink",
+          "Drone Mount (+2 AR)",
+          "Link-Fired (2x Red Foxes, Minor Action)"
+        ],
+        "notes": "Link-fired 2x Red Foxes in Eye Mounts (Costs Minor Action; +2 DV, +1 AR). 1 Wild Die. Decreases by 3P at Medium range.",
+        "doc_link": "chapters/rules_combat.html#tactical-weapon-arrays"
+      },
+      {
+        "name": "Single Red Fox (Eye Mount)",
         "is_melee": false,
         "category": "general",
         "damage": "7P",
         "base_damage": "7P",
         "attack_rating": [
-          24,
+          20,
           22,
-          17,
-          12,
+          20,
+          13,
           0
         ],
-        "attack_rating_str": "24 / 22 / 17 / 12 / —",
-        "base_attack_rating_str": "22 / 20 / 17 / 12 / —",
+        "attack_rating_str": "20 / 22 / 20 / 13 / —",
+        "base_attack_rating_str": "18 / 20 / 20 / 13 / —",
         "modes": [
-          "SA"
+          "SA",
+          "BF",
+          "SS"
         ],
-        "modes_str": "SA",
-        "base_modes_str": "SA",
-        "ammo": "15(c)",
-        "base_ammo": "15(c)",
+        "modes_str": "SA/BF/SS",
+        "base_modes_str": "SA/BF/SS",
+        "ammo": "30(c)",
+        "base_ammo": "30(c)",
         "loaded_ammo": null,
         "accessories": [
           "Smartlink",
-          "Drone Mount (+2 AR)",
-          "Link-Fired (2x Crimson Wasps)"
+          "Drone Mount (+2 AR)"
         ],
-        "notes": "",
+        "notes": "Independent Eye Mount (NO Minor Action required). 1 Wild Die. Decreases by 3P at Medium range.",
         "doc_link": "chapters/rules_combat.html#tactical-weapon-arrays"
       },
       {
@@ -1894,11 +1939,11 @@
         "interval": 5,
         "body": 16,
         "base_body": 10,
-        "armor": 17,
+        "armor": 14,
         "base_armor": 8,
         "pilot": 9,
         "base_pilot": 2,
-        "sensor": 13,
+        "sensor": 10,
         "base_sensor": 3,
         "seats": "-",
         "modifications": [
@@ -1906,27 +1951,27 @@
           "Pop-Out Concealment (Standard) x2",
           "Chameleon Coating 2",
           "Drone Rack (Small)",
+          "Used Synthetic Cyberarm (Left, 8 Capacity)",
+          "Armor Increase 6",
+          "Built-In MedKit",
+          "Used Synthetic Cyberarm (Right, 8 Capacity)",
           "Tesla Coil",
-          "Wrist Shield",
-          "Armor Increase 5",
           "Increased Structural Integrity 5",
           "Realistic Features 4",
           "Secondary Propulsion (Rotor)",
-          "Increased Sensors 9",
-          "Retractable Skates",
-          "Built-In MedKit",
+          "Increased Sensors 6",
+          "Secondary Propulsion (Wheeled)",
           "Satellite Link",
           "Laser Jack"
         ],
         "profile_notes": [
           "Network Sensor Upgrade (+1)",
-          "Armor Increase (+5 ARM)",
+          "Armor Increase (+6 ARM)",
           "Structural Integrity (+5 BOD)",
-          "Enhanced Sensors (+9 SEN)",
-          "Wrist Shield (+4 ARM)",
+          "Enhanced Sensors (+6 SEN)",
           "Designer Quality (+1 Pilot, 2 Noise Reduction on Home Device)"
         ],
-        "mobility_str": "Rotor: Han 5, Acc 10, SPD 120 (20). Skates: 10/30/+2",
+        "mobility_str": "Rotor: Han 5, Acc 10, SPD 120 (20). Wheeled: Han 3/4, Acc 10, SPD 15/120",
         "rigged_pools": {
           "piloting": {
             "pool": 23,
@@ -1934,9 +1979,9 @@
             "breakdown": "Maneuvering 7 + Pilot/RES 9 + Focus 4 + Taz Diagnosis 3 = 23d6"
           },
           "gunnery": {
-            "pool": 25,
-            "hits": 6,
-            "breakdown": "Targeting 7 + Sensor 13 + Taz Symbiosis 4 + Smartlink (Wireless) 1 = 25d6"
+            "pool": 22,
+            "hits": 5,
+            "breakdown": "Targeting 7 + Sensor 10 + Taz Symbiosis 4 + Smartlink (Wireless) 1 = 22d6"
           },
           "evasion": {
             "pool": 24,
@@ -1944,9 +1989,9 @@
             "breakdown": "Evasion 7 + Pilot/RES 9 + Focus 4 + Taz Symbiosis 4 = 24d6"
           },
           "perception": {
-            "pool": 24,
-            "hits": 6,
-            "breakdown": "Clearsight 7 + Sensor 13 + Taz Symbiosis 4 = 24d6"
+            "pool": 21,
+            "hits": 5,
+            "breakdown": "Clearsight 7 + Sensor 10 + Taz Symbiosis 4 = 21d6"
           },
           "stealth": {
             "pool": 26,
@@ -2190,11 +2235,11 @@
         "interval": 5,
         "body": 16,
         "base_body": 10,
-        "armor": 17,
+        "armor": 14,
         "base_armor": 8,
         "pilot": 9,
         "base_pilot": 2,
-        "sensor": 13,
+        "sensor": 10,
         "base_sensor": 3,
         "seats": "-",
         "modifications": [
@@ -2202,27 +2247,27 @@
           "Pop-Out Concealment (Standard) x2",
           "Chameleon Coating 2",
           "Drone Rack (Small)",
+          "Used Synthetic Cyberarm (Left, 8 Capacity)",
+          "Armor Increase 6",
+          "Built-In MedKit",
+          "Used Synthetic Cyberarm (Right, 8 Capacity)",
           "Tesla Coil",
-          "Wrist Shield",
-          "Armor Increase 5",
           "Increased Structural Integrity 5",
           "Realistic Features 4",
           "Secondary Propulsion (Rotor)",
-          "Increased Sensors 9",
-          "Retractable Skates",
-          "Built-In MedKit",
+          "Increased Sensors 6",
+          "Secondary Propulsion (Wheeled)",
           "Satellite Link",
           "Laser Jack"
         ],
         "profile_notes": [
           "Network Sensor Upgrade (+1)",
-          "Armor Increase (+5 ARM)",
+          "Armor Increase (+6 ARM)",
           "Structural Integrity (+5 BOD)",
-          "Enhanced Sensors (+9 SEN)",
-          "Wrist Shield (+4 ARM)",
+          "Enhanced Sensors (+6 SEN)",
           "Designer Quality (+1 Pilot, 2 Noise Reduction on Home Device)"
         ],
-        "mobility_str": "Rotor: Han 5, Acc 10, SPD 120 (20). Skates: 10/30/+2",
+        "mobility_str": "Rotor: Han 5, Acc 10, SPD 120 (20). Wheeled: Han 3/4, Acc 10, SPD 15/120",
         "rigged_pools": {
           "piloting": {
             "pool": 23,
@@ -2230,9 +2275,9 @@
             "breakdown": "Maneuvering 7 + Pilot/RES 9 + Focus 4 + Taz Diagnosis 3 = 23d6"
           },
           "gunnery": {
-            "pool": 25,
-            "hits": 6,
-            "breakdown": "Targeting 7 + Sensor 13 + Taz Symbiosis 4 + Smartlink (Wireless) 1 = 25d6"
+            "pool": 22,
+            "hits": 5,
+            "breakdown": "Targeting 7 + Sensor 10 + Taz Symbiosis 4 + Smartlink (Wireless) 1 = 22d6"
           },
           "evasion": {
             "pool": 24,
@@ -2240,9 +2285,9 @@
             "breakdown": "Evasion 7 + Pilot/RES 9 + Focus 4 + Taz Symbiosis 4 = 24d6"
           },
           "perception": {
-            "pool": 24,
-            "hits": 6,
-            "breakdown": "Clearsight 7 + Sensor 13 + Taz Symbiosis 4 = 24d6"
+            "pool": 21,
+            "hits": 5,
+            "breakdown": "Clearsight 7 + Sensor 10 + Taz Symbiosis 4 = 21d6"
           },
           "stealth": {
             "pool": 26,
@@ -2440,6 +2485,7 @@
     ],
     "monad_abilities": [],
     "augmentations": [],
+    "nanohive": null,
     "spirit_channeling_catalog": {},
     "powers": {
       "complex_forms": [
@@ -2532,6 +2578,7 @@
       "adept_powers": [],
       "monad_abilities": [],
       "augmentations": [],
+      "nanohive": null,
       "spirit_channeling_catalog": {}
     },
     "inventory": {
@@ -2542,7 +2589,7 @@
       "software": [],
       "autosofts": [],
       "gear": [
-        "5x Peak-Discharge Laser Battery Clips (Crimson Wasp)",
+        "5x Peak-Discharge Laser Battery Clips (Red Fox)",
         "10x Glitter Grenades",
         "Built-in Medkit (Man-at-Arms)",
         "Facial Scanner",
@@ -2554,7 +2601,7 @@
       ],
       "gear_items": [
         {
-          "name": "5x Peak-Discharge Laser Battery Clips (Crimson Wasp)",
+          "name": "5x Peak-Discharge Laser Battery Clips (Red Fox)",
           "qty": 5,
           "rating": null,
           "category": "Field Gear",
@@ -2641,7 +2688,7 @@
     },
     "gear_items": [
       {
-        "name": "5x Peak-Discharge Laser Battery Clips (Crimson Wasp)",
+        "name": "5x Peak-Discharge Laser Battery Clips (Red Fox)",
         "qty": 5,
         "rating": null,
         "category": "Field Gear",
@@ -2727,7 +2774,717 @@
       }
     ],
     "lifestyles": [],
-    "contacts": [],
+    "contacts": [
+      {
+        "name": "Brynne Taggart",
+        "connection": 4,
+        "loyalty": 3,
+        "archetype": "Fixer",
+        "favors": 3,
+        "region": "SEA",
+        "types": [
+          "Criminal",
+          "Street"
+        ],
+        "description": "Uses: Getting jobs, fencing gear, gangs (Shadowrun Missions Seattle) | Types: Criminal, Street"
+      },
+      {
+        "name": "Whiskey",
+        "connection": 2,
+        "loyalty": 4,
+        "archetype": "Street Doc",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "Medical"
+        ],
+        "description": "Uses: Medicine, street docs (Shadowrun Missions Seattle) | Types: Medical"
+      },
+      {
+        "name": "Indomitable Will",
+        "connection": 3,
+        "loyalty": 3,
+        "archetype": "River People Sysop",
+        "favors": 0,
+        "region": "NOLA",
+        "types": [
+          "Corporate",
+          "Matrix"
+        ],
+        "description": "Uses: Banking, HVAC systems, Matrix | Types: Corporate, Matrix"
+      },
+      {
+        "name": "Roanoke",
+        "connection": 3,
+        "loyalty": 3,
+        "archetype": "Ecological Activist",
+        "favors": 2,
+        "region": "NOLA",
+        "types": [
+          "Criminal",
+          "Matrix"
+        ],
+        "description": "Uses: Getting jobs, environmental science, shamanism | Types: Criminal, Matrix"
+      },
+      {
+        "name": "Piotr Krolik",
+        "connection": 4,
+        "loyalty": 1,
+        "archetype": "NOLA Vory Borjevik",
+        "favors": 0,
+        "region": "NOLA",
+        "types": [
+          "Criminal"
+        ],
+        "description": "SMH 2083-02 EggHunt at the Jackalope Ranch"
+      },
+      {
+        "name": "Le Tigre",
+        "connection": 5,
+        "loyalty": 2,
+        "archetype": "Epoch Model",
+        "favors": 0,
+        "region": "NOLA",
+        "types": [
+          "Corporate",
+          "Magic"
+        ],
+        "description": "Uses: Getting jobs, parties, modeling | Types: Corporate, Magic"
+      },
+      {
+        "name": "White Jackalope",
+        "connection": 2,
+        "loyalty": 1,
+        "archetype": "Emergent Lifeform",
+        "favors": 0,
+        "region": "GEN",
+        "types": [
+          "General"
+        ],
+        "description": "SMH 2083-02 EggHunt at the Jackalope Ranch"
+      },
+      {
+        "name": "Big Louie",
+        "connection": 3,
+        "loyalty": 1,
+        "archetype": "SEA Fixer",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "Fixer"
+        ],
+        "description": "CMP First Taste : Top Chef - Seattle"
+      },
+      {
+        "name": "Dominique Augustin",
+        "connection": 4,
+        "loyalty": 1,
+        "archetype": "NOLA Wolverine Security",
+        "favors": 1,
+        "region": "NOLA",
+        "types": [
+          "General"
+        ],
+        "description": "2083-03 Unofficial Dunkelzahn Fan Club"
+      },
+      {
+        "name": "Daniel Fortune",
+        "connection": 3,
+        "loyalty": 1,
+        "archetype": "NOLA",
+        "favors": 0,
+        "region": "NOLA",
+        "types": [
+          "General"
+        ],
+        "description": "2083-03 Unofficial Dunkelzahn Fan Club"
+      },
+      {
+        "name": "Renée Martin",
+        "connection": 4,
+        "loyalty": 2,
+        "archetype": "League of Laveau Liaison",
+        "favors": 1,
+        "region": "NOLA",
+        "types": [
+          "Corporate",
+          "Magic"
+        ],
+        "description": "Uses: Getting jobs, magic, voodoo, zombies | Types: Corporate, Magic"
+      },
+      {
+        "name": "The Frisian",
+        "connection": 6,
+        "loyalty": 1,
+        "archetype": "AMS Crime Lord of the Dutch Penose syndicate",
+        "favors": 0,
+        "region": "AMS",
+        "types": [
+          "General"
+        ],
+        "description": "CMP 2081-09 Bring me Prince Charming"
+      },
+      {
+        "name": "Ree 'Dolly' Hacker",
+        "connection": 4,
+        "loyalty": 1,
+        "archetype": "KY Talismonger and Racer",
+        "favors": 1,
+        "region": "KY",
+        "types": [
+          "General"
+        ],
+        "description": "CMP 2081-18 Blue Kentucky Girl"
+      },
+      {
+        "name": "Granny",
+        "connection": 6,
+        "loyalty": 1,
+        "archetype": "KY Lady of the Autumn Wind",
+        "favors": 1,
+        "region": "KY",
+        "types": [
+          "General"
+        ],
+        "description": "CMP 2081-18 Blue Kentucky Girl"
+      },
+      {
+        "name": "Kiara Shaw",
+        "connection": 4,
+        "loyalty": 2,
+        "archetype": "AMS Knight Errant Company Suit",
+        "favors": 0,
+        "region": "AMS",
+        "types": [
+          "General"
+        ],
+        "description": "CMP 2081-10 A Diamond in The Rough"
+      },
+      {
+        "name": "Simon Andrews",
+        "connection": 5,
+        "loyalty": 2,
+        "archetype": "AMS S-K Johnson",
+        "favors": 1,
+        "region": "AMS",
+        "types": [
+          "General"
+        ],
+        "description": "CMP 2081-11 Paved with good intentions"
+      },
+      {
+        "name": "Squint",
+        "connection": 2,
+        "loyalty": 1,
+        "archetype": "AMS Smuggler",
+        "favors": 0,
+        "region": "AMS",
+        "types": [
+          "General"
+        ],
+        "description": "CMP 2081-11 Paved with good intentions"
+      },
+      {
+        "name": "Dr. Laureline Dodd",
+        "connection": 5,
+        "loyalty": 1,
+        "archetype": "KY Arcano-Archeologist",
+        "favors": 1,
+        "region": "KY",
+        "types": [
+          "General"
+        ],
+        "description": "CMP 2081-19 The Blue Moon of Kentucky"
+      },
+      {
+        "name": "Thaddeus",
+        "connection": 3,
+        "loyalty": 1,
+        "archetype": "KY Street Samurai",
+        "favors": 0,
+        "region": "KY",
+        "types": [
+          "Street"
+        ],
+        "description": "CMP 2081-19 The Blue Moon of Kentucky"
+      },
+      {
+        "name": "Duan Yuhai",
+        "connection": 3,
+        "loyalty": 1,
+        "archetype": "SEA Minor 88s Johnson",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "General"
+        ],
+        "description": "SRM 2081-17 Framed in Blood"
+      },
+      {
+        "name": "Xiong Giuyin",
+        "connection": 4,
+        "loyalty": 1,
+        "archetype": "SEA Wuxing",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "General"
+        ],
+        "description": "SRM 2081-17 Framed in Blood"
+      },
+      {
+        "name": "Reilly Dragman",
+        "connection": 1,
+        "loyalty": 1,
+        "archetype": "Magic",
+        "favors": 1,
+        "region": "KY",
+        "types": [
+          "Magic"
+        ],
+        "description": "Magic | Types: Magic"
+      },
+      {
+        "name": "Queen Brane",
+        "connection": 12,
+        "loyalty": 1,
+        "archetype": "Magic",
+        "favors": 0,
+        "region": "KY",
+        "types": [
+          "Magic"
+        ],
+        "description": "Magic (Special Note: This contact cannot be called during a mission.) | Types: Magic"
+      },
+      {
+        "name": "Kirt Liger",
+        "connection": 3,
+        "loyalty": 1,
+        "archetype": "SEA Body Mod/Engineering Cybercatman",
+        "favors": 1,
+        "region": "SEA",
+        "types": [
+          "Engineering"
+        ],
+        "description": "SRM 2081-21 Grudge Match Gladiators"
+      },
+      {
+        "name": "Sigrún",
+        "connection": 5,
+        "loyalty": 3,
+        "archetype": "AMS House Orange-Nassau Johnson",
+        "favors": 1,
+        "region": "AMS",
+        "types": [
+          "General"
+        ],
+        "description": "CMP 2081-12 Uneasy lies the head"
+      },
+      {
+        "name": "Dixie L'Amin",
+        "connection": 4,
+        "loyalty": 1,
+        "archetype": "DW Naga",
+        "favors": 1,
+        "region": "DW",
+        "types": [
+          "General"
+        ],
+        "description": "CMP 2083-14 A Day at the Beach"
+      },
+      {
+        "name": "Ayanda 'Shieldbearer' Mahlangu",
+        "connection": 3,
+        "loyalty": 1,
+        "archetype": "DW 'Mystic Edge' Producer",
+        "favors": 0,
+        "region": "DW",
+        "types": [
+          "General"
+        ],
+        "description": "CMP 2083-14 A Day at the Beach"
+      },
+      {
+        "name": "Ebon Abirashur",
+        "connection": 1,
+        "loyalty": 1,
+        "archetype": "DW Leviathan Dragon",
+        "favors": 1,
+        "region": "DW",
+        "types": [
+          "General"
+        ],
+        "description": "CMP 2083-14 A Day at the Beach"
+      },
+      {
+        "name": "Col. Deborah Kentwell",
+        "connection": 5,
+        "loyalty": 1,
+        "archetype": "DW Thunder Corps Fixer",
+        "favors": 1,
+        "region": "DW",
+        "types": [
+          "Fixer"
+        ],
+        "description": "CMP 2083-16 War Never Changes"
+      },
+      {
+        "name": "Polyphemous 'Paul' Pellagios",
+        "connection": 1,
+        "loyalty": 1,
+        "archetype": "DW Background Actor",
+        "favors": 0,
+        "region": "DW",
+        "types": [
+          "General"
+        ],
+        "description": "CMP 2083-16 War Never Changes"
+      },
+      {
+        "name": "Fernand Anato",
+        "connection": 4,
+        "loyalty": 1,
+        "archetype": "Kozlowski Capo",
+        "favors": 0,
+        "region": "NOLA",
+        "types": [
+          "Criminal",
+          "Street"
+        ],
+        "description": "Uses: Getting jobs, fencing gear, organized crime | Types: Criminal, Street"
+      },
+      {
+        "name": "Monsieur Johnson",
+        "connection": 5,
+        "loyalty": 2,
+        "archetype": "NOLA Johnson",
+        "favors": 0,
+        "region": "NOLA",
+        "types": [
+          "General"
+        ],
+        "description": "SRM 2083-19 The Hallow Feast"
+      },
+      {
+        "name": "Swango",
+        "connection": 3,
+        "loyalty": 2,
+        "archetype": "SEA Rapper",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "General"
+        ],
+        "description": "SRM 2081-05 This is Renton"
+      },
+      {
+        "name": "Toil",
+        "connection": 4,
+        "loyalty": 1,
+        "archetype": "Fixer",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "Criminal",
+          "Street"
+        ],
+        "description": "Uses: Drugs, exotic dancer clubs, getting jobs (Shadowrun Missions Seattle) | Types: Criminal, Street"
+      },
+      {
+        "name": "Trubble",
+        "connection": 1,
+        "loyalty": 1,
+        "archetype": "Bodyguard",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "Magic"
+        ],
+        "description": "Uses: Bodyguards, insults, talismans (Shadowrun Missions Seattle) | Types: Magic"
+      },
+      {
+        "name": "SpiiniCop",
+        "connection": 2,
+        "loyalty": 1,
+        "archetype": "AMS Penose Spider",
+        "favors": 0,
+        "region": "AMS",
+        "types": [
+          "General"
+        ],
+        "description": "CMP 2083-01 NONPLUSHED"
+      },
+      {
+        "name": "Eddie Wei",
+        "connection": 4,
+        "loyalty": 1,
+        "archetype": "Triad Johnson",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "Criminal",
+          "Matrix"
+        ],
+        "description": "Uses: Business and economics, getting jobs, triads (Shadowrun Missions Seattle) | Types: Criminal, Matrix"
+      },
+      {
+        "name": "Julian Müntefering",
+        "connection": 1,
+        "loyalty": 1,
+        "archetype": "Corporate Kid",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "Corporate",
+          "Engineering"
+        ],
+        "description": "Uses: Corporate playground rumors, drones, rigging research (Shadowrun Missions Seattle) | Types: Corporate, Engineering"
+      },
+      {
+        "name": "Ni Ni Xiaolu",
+        "connection": 3,
+        "loyalty": 2,
+        "archetype": "Triad Johnson",
+        "favors": 2,
+        "region": "SEA",
+        "types": [
+          "Criminal"
+        ],
+        "description": "Uses: Getting jobs, drugs, street rumors, triads (Shadowrun Missions Seattle) | Types: Criminal"
+      },
+      {
+        "name": "Bookie",
+        "connection": 3,
+        "loyalty": 1,
+        "archetype": "SEA Ancients Bookie",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "General"
+        ],
+        "description": "SRM 2081-07 Bootleg Bliss"
+      },
+      {
+        "name": "Trudy",
+        "connection": 2,
+        "loyalty": 1,
+        "archetype": "SEA Cutter Lieutenant",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "General"
+        ],
+        "description": "SRM 2081-07 Bootleg Bliss"
+      },
+      {
+        "name": "Saint James",
+        "connection": 8,
+        "loyalty": 2,
+        "archetype": "Fixer",
+        "favors": 1,
+        "region": "SEA",
+        "types": [
+          "Criminal",
+          "Street"
+        ],
+        "description": "Uses: Corporations, getting jobs (Shadowrun Missions Seattle), fencing gear, gangs | Types: Criminal, Street"
+      },
+      {
+        "name": "Jeanie Trudel",
+        "connection": 1,
+        "loyalty": 1,
+        "archetype": "SEA Bartender",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "General"
+        ],
+        "description": "SRM 2081-06 Cutting Strings"
+      },
+      {
+        "name": "Kingston",
+        "connection": 2,
+        "loyalty": 1,
+        "archetype": "Shadowrunner/Street Samurai",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "Criminal",
+          "Street"
+        ],
+        "description": "Uses: Shadowrunners, street rumors (Shadowrun Missions Seattle) | Types: Criminal, Street"
+      },
+      {
+        "name": "Kaatje",
+        "connection": 2,
+        "loyalty": 1,
+        "archetype": "AMS Young Entertainer",
+        "favors": 0,
+        "region": "AMS",
+        "types": [
+          "General"
+        ],
+        "description": "CMP 2083-04 Hog Wild"
+      },
+      {
+        "name": "Mr. Fa",
+        "connection": 4,
+        "loyalty": 1,
+        "archetype": "HKB Corporate Middle Manager",
+        "favors": 1,
+        "region": "HK",
+        "types": [
+          "Corporate"
+        ],
+        "description": "CMP 2083-05 Precious Cargo"
+      },
+      {
+        "name": "Liao Fa Ren",
+        "connection": 3,
+        "loyalty": 2,
+        "archetype": "HK Rookie Journalist",
+        "favors": 0,
+        "region": "HK",
+        "types": [
+          "General"
+        ],
+        "description": "CMP 2083-05 Precious Cargo"
+      },
+      {
+        "name": "Aloysius Springinsguth",
+        "connection": 3,
+        "loyalty": 2,
+        "archetype": "NOLA Sound of Silence Music Shop Owner",
+        "favors": 0,
+        "region": "NOLA",
+        "types": [
+          "General"
+        ],
+        "description": "SRM 2083-12 When You're Smiling"
+      },
+      {
+        "name": "Jolene Price",
+        "connection": 7,
+        "loyalty": 2,
+        "archetype": "Riverboat Alliance Leader",
+        "favors": 0,
+        "region": "NOLA",
+        "types": [
+          "Corporate",
+          "Street"
+        ],
+        "description": "Uses: Getting jobs, dragons, mafia | Types: Corporate, Street"
+      },
+      {
+        "name": "Coffin Girls",
+        "connection": 3,
+        "loyalty": 4,
+        "archetype": "NOLA Independent Courtesans Group",
+        "favors": 0,
+        "region": "NOLA",
+        "types": [
+          "General"
+        ],
+        "description": ""
+      },
+      {
+        "name": "Cedar",
+        "connection": 3,
+        "loyalty": 1,
+        "archetype": "NOLA Talismonger",
+        "favors": 0,
+        "region": "NOLA",
+        "types": [
+          "General"
+        ],
+        "description": "SRM 2083-20 The Fallacy of Plans"
+      },
+      {
+        "name": "Detective Remy LeBlanc",
+        "connection": 3,
+        "loyalty": 2,
+        "archetype": "NOLA Detective",
+        "favors": 0,
+        "region": "NOLA",
+        "types": [
+          "General"
+        ],
+        "description": "SRM 2083-20 The Fallacy of Plans"
+      },
+      {
+        "name": "Claudette Laurier",
+        "connection": 5,
+        "loyalty": 1,
+        "archetype": "Order of the Golden Dawn Librarian",
+        "favors": 0,
+        "region": "NOLA",
+        "types": [
+          "Criminal",
+          "Matrix"
+        ],
+        "description": "Uses: Getting jobs, magical traditions | Types: Criminal, Matrix"
+      },
+      {
+        "name": "League of Laveau",
+        "connection": 6,
+        "loyalty": 3,
+        "archetype": "NOLA Voodoo Organization",
+        "favors": 1,
+        "region": "NOLA",
+        "types": [
+          "General"
+        ],
+        "description": "SRM 2083-18 Some Kind of Voodoo?"
+      },
+      {
+        "name": "Zobop",
+        "connection": 6,
+        "loyalty": 3,
+        "archetype": "NOLA Voodoo Organization",
+        "favors": 1,
+        "region": "NOLA",
+        "types": [
+          "General"
+        ],
+        "description": "SRM 2083-18 Some Kind of Voodoo?"
+      },
+      {
+        "name": "Col. Treylor",
+        "connection": 3,
+        "loyalty": 1,
+        "archetype": "DW Thunder Corps Fixer",
+        "favors": 1,
+        "region": "DW",
+        "types": [
+          "Fixer"
+        ],
+        "description": "CMP 2083-15 | By Land, Sea, and Hair"
+      },
+      {
+        "name": "Moenen",
+        "connection": 5,
+        "loyalty": 1,
+        "archetype": "UNL infobroker",
+        "favors": 1,
+        "region": "AMS",
+        "types": [
+          "General"
+        ],
+        "description": "CMP 2083-02 ROYAL ROAD"
+      },
+      {
+        "name": "Blackstone",
+        "connection": 3,
+        "loyalty": 1,
+        "archetype": "SEA Contact",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "General"
+        ],
+        "description": "SRM 2081-18 Friendships Never Grow Rust"
+      }
+    ],
     "exceptions": [
       {
         "id": "omegaware_discount",
@@ -2782,6 +3539,63 @@
         "source": "Body Shop p. 47 / rules_drones.qmd",
         "gm": "Tabletop Baseline",
         "active": true
+      }
+    ],
+    "modifiers": [
+      {
+        "id": "resonance_focus",
+        "name": "Resonance Focus",
+        "target": "attribute:resonance",
+        "value": 4,
+        "type": "augmentation",
+        "sub_skill": null,
+        "rule_anchor": "rules/rules_matrix.html#foci",
+        "notes": null,
+        "enabled": true
+      },
+      {
+        "id": "taz_symbiosis_electronics",
+        "name": "Taz Symbiosis (Electronics)",
+        "target": "skill:electronics",
+        "value": 4,
+        "type": "teamwork",
+        "sub_skill": null,
+        "rule_anchor": "rules_sprites.html#sprite-symbiosis-powers",
+        "notes": null,
+        "enabled": true
+      },
+      {
+        "id": "taz_symbiosis_cracking",
+        "name": "Taz Symbiosis (Cracking)",
+        "target": "skill:cracking",
+        "value": 4,
+        "type": "teamwork",
+        "sub_skill": null,
+        "rule_anchor": "rules_sprites.html#sprite-symbiosis-powers",
+        "notes": null,
+        "enabled": true
+      },
+      {
+        "id": "taz_diagnosis_engineering",
+        "name": "Taz Diagnosis (Engineering)",
+        "target": "skill:engineering",
+        "value": 3,
+        "type": "other",
+        "sub_skill": null,
+        "rule_anchor": "rules_sprites.html#sprite-symbiosis-powers",
+        "notes": null,
+        "enabled": true
+      },
+      {
+        "id": "smartlink_wireless",
+        "name": "Smartlink (Wireless)",
+        "target": "autosoft:targeting",
+        "value": 1,
+        "type": "other",
+        "sub_skill": null,
+        "rule_anchor": "rules_combat.html#tactical-weapon-arrays",
+        "notes": "Wireless bonus: +1 dice pool to attack tests (SR6 p. 261)",
+        "enabled": true
       }
     ],
     "rules_doc": "rules/rules.html"
@@ -2880,7 +3694,7 @@
         "is_buffed": false,
         "buffs": [],
         "breakdown": "Base 3",
-        "doc_link": "chapters/rules_and_downtime.html"
+        "doc_link": "rules/rules_and_downtime.html"
       },
       {
         "name": "Intuition",
@@ -3362,6 +4176,7 @@
     "sprite_powers": [],
     "monad_abilities": [],
     "augmentations": [],
+    "nanohive": null,
     "spirit_channeling_catalog": {
       "air": {
         "name": "Spirit of Air",
@@ -4188,6 +5003,7 @@
       ],
       "monad_abilities": [],
       "augmentations": [],
+      "nanohive": null,
       "spirit_channeling_catalog": {
         "air": {
           "name": "Spirit of Air",
@@ -5070,7 +5886,218 @@
       }
     ],
     "lifestyles": [],
-    "contacts": [],
+    "contacts": [
+      {
+        "name": "Brynne Taggart",
+        "connection": 4,
+        "loyalty": 2,
+        "archetype": "Fixer",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "Criminal",
+          "Street"
+        ],
+        "description": "Uses: Getting jobs, fencing gear, gangs (Shadowrun Missions Seattle) | Types: Criminal, Street"
+      },
+      {
+        "name": "Vincent Grisome",
+        "connection": 5,
+        "loyalty": 3,
+        "archetype": "Magic Prof.",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "Magic"
+        ],
+        "description": "Chargen Contact"
+      },
+      {
+        "name": "Ni Ni Xiaolu",
+        "connection": 3,
+        "loyalty": 2,
+        "archetype": "Triad Johnson",
+        "favors": 2,
+        "region": "SEA",
+        "types": [
+          "Criminal"
+        ],
+        "description": "Uses: Getting jobs, drugs, street rumors, triads (Shadowrun Missions Seattle) | Types: Criminal"
+      },
+      {
+        "name": "Whiskey",
+        "connection": 2,
+        "loyalty": 3,
+        "archetype": "Street Doc",
+        "favors": 1,
+        "region": "SEA",
+        "types": [
+          "Medical"
+        ],
+        "description": "Uses: Medicine, street docs (Shadowrun Missions Seattle) | Types: Medical"
+      },
+      {
+        "name": "Claudette Laurier",
+        "connection": 5,
+        "loyalty": 4,
+        "archetype": "Order of the Golden Dawn Librarian",
+        "favors": 0,
+        "region": "NOLA",
+        "types": [
+          "Criminal",
+          "Matrix"
+        ],
+        "description": "Uses: Getting jobs, magical traditions | Types: Criminal, Matrix"
+      },
+      {
+        "name": "Le Tigre",
+        "connection": 5,
+        "loyalty": 1,
+        "archetype": "Epoch Model",
+        "favors": 0,
+        "region": "NOLA",
+        "types": [
+          "Corporate",
+          "Magic"
+        ],
+        "description": "Uses: Getting jobs, parties, modeling | Types: Corporate, Magic"
+      },
+      {
+        "name": "Hana",
+        "connection": 6,
+        "loyalty": 6,
+        "archetype": "Wuxing Talismonger / Pop Idol",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "General"
+        ],
+        "description": "Chargen Contact"
+      },
+      {
+        "name": "Guild of Freelance Assets",
+        "connection": 7,
+        "loyalty": 8,
+        "archetype": "Conclave",
+        "favors": 0,
+        "region": "GEN",
+        "types": [
+          "General"
+        ],
+        "description": "Chargen Contact (Conclave C7 L8)"
+      },
+      {
+        "name": "Ms. Snow",
+        "connection": 5,
+        "loyalty": 1,
+        "archetype": "Shadow Chapters Johnson",
+        "favors": 1,
+        "region": "SEA",
+        "types": [
+          "Corporate",
+          "Government"
+        ],
+        "description": "Uses: Corporate rumors, getting jobs, military (Shadowrun Missions Seattle) | Types: Corporate, Government"
+      },
+      {
+        "name": "Bookie",
+        "connection": 3,
+        "loyalty": 1,
+        "archetype": "Ancients Bookie",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "General"
+        ],
+        "description": "SRM 2081-07 Bootleg Bliss"
+      },
+      {
+        "name": "Trudy",
+        "connection": 2,
+        "loyalty": 1,
+        "archetype": "Cutters Lieutenant",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "General"
+        ],
+        "description": "SRM 2081-07 Bootleg Bliss"
+      },
+      {
+        "name": "Eddie Wei",
+        "connection": 4,
+        "loyalty": 1,
+        "archetype": "Triad Johnson",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "Criminal",
+          "Matrix"
+        ],
+        "description": "Uses: Business and economics, getting jobs, triads (Shadowrun Missions Seattle) | Types: Criminal, Matrix"
+      },
+      {
+        "name": "Kingston",
+        "connection": 2,
+        "loyalty": 2,
+        "archetype": "Shadowrunner/Street Samurai",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "Criminal",
+          "Street"
+        ],
+        "description": "Uses: Shadowrunners, street rumors (Shadowrun Missions Seattle) | Types: Criminal, Street"
+      },
+      {
+        "name": "Ms. Margaret",
+        "connection": 1,
+        "loyalty": 1,
+        "archetype": "Hospital Volunteer",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "General"
+        ],
+        "description": "SRM 2081-02 Urgent Care (Elderly Human Hospital Volunteer who needs her roof fixed)"
+      },
+      {
+        "name": "Simon Andrews",
+        "connection": 5,
+        "loyalty": 1,
+        "archetype": "S-K Johnson",
+        "favors": 0,
+        "region": "AMS",
+        "types": [
+          "General"
+        ],
+        "description": "CMP 2083-01 Nonplushed (S-K Johnson)"
+      },
+      {
+        "name": "Mr. Fa",
+        "connection": 4,
+        "loyalty": 1,
+        "archetype": "HKB Corporate Middle Manager",
+        "favors": 1,
+        "region": "HK",
+        "types": [
+          "Corporate"
+        ],
+        "description": "CMP 2083-05 Precious Cargo (Liao Fa Deng, Male Human)"
+      },
+      {
+        "name": "Liao Fa Ren",
+        "connection": 3,
+        "loyalty": 2,
+        "archetype": "HK Rookie Journalist",
+        "favors": 1,
+        "region": "HK",
+        "types": [
+          "General"
+        ],
+        "description": "CMP 2083-05 Precious Cargo (Female Human, top marks on port raid)"
+      }
+    ],
     "exceptions": [
       {
         "id": "srm_monthly_expenses",
@@ -5100,6 +6127,7 @@
         "active": true
       }
     ],
+    "modifiers": [],
     "rules_doc": "rules/rules.html"
   },
   "venn": {
@@ -5148,10 +6176,12 @@
           {
             "source": "Bone Density Augmentation R4",
             "value": 4,
-            "notes": "+4 unarmored soak (8 Soak)"
+            "type": "situational",
+            "notes": "+4 unarmored soak (9 Soak)",
+            "rule_anchor": "chapters/rules_and_downtime.html#augmentation-stacking"
           }
         ],
-        "breakdown": "Base 5 (+4 Bone Density soak)",
+        "breakdown": "Base 5 (Bone Density Augmentation R4 (+4 unarmored soak (9 Soak)))",
         "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
       },
       {
@@ -5159,10 +6189,18 @@
         "code": "AGI",
         "base": 7,
         "buffed": 7,
-        "is_buffed": false,
-        "buffs": [],
-        "breakdown": "Base 7",
-        "doc_link": "rules/rules_and_downtime.html"
+        "is_buffed": true,
+        "buffs": [
+          {
+            "source": "Neural Pattern Reinforcement",
+            "value": 1,
+            "type": "skill bonus",
+            "notes": "+1 dice pool on all skill tests linked to Agility (Athletics, Firearms, Close Combat, etc.)",
+            "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts"
+          }
+        ],
+        "breakdown": "Base 7 [+1 on skill tests (Neural Pattern Reinforcement)]",
+        "doc_link": "rules/rules_and_downtime.html#monad-nanite-boosts"
       },
       {
         "name": "Reaction",
@@ -5188,11 +6226,19 @@
         "name": "Willpower",
         "code": "WIL",
         "base": 7,
-        "buffed": 7,
-        "is_buffed": false,
-        "buffs": [],
-        "breakdown": "Base 7",
-        "doc_link": "chapters/rules_and_downtime.html"
+        "buffed": 8,
+        "is_buffed": true,
+        "buffs": [
+          {
+            "source": "Bio-Response Override",
+            "value": 1,
+            "type": "augmentation",
+            "notes": "+1 Willpower, +1 box to Stun Condition Monitor",
+            "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts"
+          }
+        ],
+        "breakdown": "Base 7 + Bio-Response Override (+1) = 8",
+        "doc_link": "rules/rules_and_downtime.html#monad-nanite-boosts"
       },
       {
         "name": "Logic",
@@ -5202,81 +6248,140 @@
         "is_buffed": true,
         "buffs": [
           {
+            "source": "Neocortical Neural Amp",
+            "value": 1,
+            "type": "skill bonus",
+            "notes": "+1 dice pool on all skill tests linked to Logic (Cracking, Electronics, Biotech, etc.)",
+            "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts"
+          },
+          {
             "source": "Monad Mental Boost (NV)",
             "value": 4,
-            "notes": "Surges to Logic 10 / Math SPU +1"
+            "type": "situational",
+            "notes": "Surges to Logic 10 via NV",
+            "rule_anchor": "chapters/rules_and_downtime.html#monad-nanite-boosts"
           }
         ],
-        "breakdown": "Base 6 (Surges to 10 under Monad Boost)",
-        "doc_link": "chapters/rules_and_downtime.html#monad-nanite-boosts"
+        "breakdown": "Base 6 [+1 on skill tests (Neocortical Neural Amp)] (Monad Mental Boost (NV) (Surges to Logic 10 via NV))",
+        "doc_link": "rules/rules_and_downtime.html#monad-nanite-boosts"
       },
       {
         "name": "Intuition",
         "code": "INT",
         "base": 5,
         "buffed": 5,
-        "is_buffed": false,
-        "buffs": [],
-        "breakdown": "Base 5",
-        "doc_link": "chapters/rules_and_downtime.html"
+        "is_buffed": true,
+        "buffs": [
+          {
+            "source": "Limbic Neural Amp",
+            "value": 1,
+            "type": "skill bonus",
+            "notes": "+1 dice pool on all skill tests linked to Intuition (Perception, Stealth, etc.)",
+            "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts"
+          }
+        ],
+        "breakdown": "Base 5 [+1 on skill tests (Limbic Neural Amp)]",
+        "doc_link": "rules/rules_and_downtime.html#monad-nanite-boosts"
       },
       {
         "name": "Charisma",
         "code": "CHA",
         "base": 2,
-        "buffed": 2,
-        "is_buffed": false,
-        "buffs": [],
-        "breakdown": "Base 2",
-        "doc_link": "chapters/rules_and_downtime.html"
+        "buffed": 3,
+        "is_buffed": true,
+        "buffs": [
+          {
+            "source": "Neurochemical Regulator",
+            "value": 1,
+            "type": "augmentation",
+            "notes": "+1 Charisma on social and composure tests",
+            "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts"
+          }
+        ],
+        "breakdown": "Base 2 + Neurochemical Regulator (+1) = 3",
+        "doc_link": "rules/rules_and_downtime.html#monad-nanite-boosts"
       },
       {
         "name": "Attack (Living Persona)",
         "code": "ATT",
         "base": 2,
-        "buffed": 2,
+        "buffed": 3,
         "linked_mental": "cha",
         "tuning_bonus": 0,
-        "is_buffed": false,
-        "buffs": [],
-        "breakdown": "Monad Living Persona Attack (Charisma 2)",
-        "doc_link": "chapters/rules_and_downtime.html#monad-matrix-attributes"
+        "is_buffed": true,
+        "buffs": [
+          {
+            "source": "Neurochemical Regulator",
+            "value": 1,
+            "notes": "Monad Attack derived from Charisma",
+            "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts"
+          }
+        ],
+        "breakdown": "Monad Living Persona Attack (Charisma 2 + Neurochemical Regulator [1] = 3)",
+        "doc_link": "rules/rules_and_downtime.html#monad-matrix-attributes"
       },
       {
         "name": "Sleaze (Living Persona)",
         "code": "SLZ",
         "base": 5,
-        "buffed": 5,
+        "buffed": 6,
         "linked_mental": "int",
-        "tuning_bonus": 0,
-        "is_buffed": false,
-        "buffs": [],
-        "breakdown": "Monad Living Persona Sleaze (Intuition 5)",
-        "doc_link": "chapters/rules_and_downtime.html#monad-matrix-attributes"
+        "tuning_bonus": 1,
+        "is_buffed": true,
+        "buffs": [
+          {
+            "source": "Nanite Volume (NV 1)",
+            "value": 1,
+            "notes": "NV allocated to Sleaze",
+            "rule_anchor": "rules/rules_and_downtime.html#monad-matrix-attributes"
+          }
+        ],
+        "breakdown": "Monad Living Persona Sleaze (Intuition 5 + NV 1 = 6)",
+        "doc_link": "rules/rules_and_downtime.html#monad-matrix-attributes"
       },
       {
         "name": "Data Processing (Living Persona)",
         "code": "DP",
         "base": 6,
-        "buffed": 6,
+        "buffed": 7,
         "linked_mental": "log",
-        "tuning_bonus": 0,
-        "is_buffed": false,
-        "buffs": [],
-        "breakdown": "Monad Living Persona Data Processing (Logic 6)",
-        "doc_link": "chapters/rules_and_downtime.html#monad-matrix-attributes"
+        "tuning_bonus": 1,
+        "is_buffed": true,
+        "buffs": [
+          {
+            "source": "Nanite Volume (NV 1)",
+            "value": 1,
+            "notes": "NV allocated to DP",
+            "rule_anchor": "rules/rules_and_downtime.html#monad-matrix-attributes"
+          }
+        ],
+        "breakdown": "Monad Living Persona Data Processing (Logic 6 + NV 1 = 7)",
+        "doc_link": "rules/rules_and_downtime.html#monad-matrix-attributes"
       },
       {
         "name": "Firewall (Living Persona)",
         "code": "FW",
         "base": 7,
-        "buffed": 7,
+        "buffed": 10,
         "linked_mental": "wil",
-        "tuning_bonus": 0,
-        "is_buffed": false,
-        "buffs": [],
-        "breakdown": "Monad Living Persona Firewall (Willpower 7)",
-        "doc_link": "chapters/rules_and_downtime.html#monad-matrix-attributes"
+        "tuning_bonus": 2,
+        "is_buffed": true,
+        "buffs": [
+          {
+            "source": "Nanite Volume (NV 2)",
+            "value": 2,
+            "notes": "NV allocated to Firewall",
+            "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts"
+          },
+          {
+            "source": "Bio-Response Override",
+            "value": 1,
+            "notes": "Monad Firewall derived from Willpower",
+            "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts"
+          }
+        ],
+        "breakdown": "Monad Living Persona Firewall (Willpower 7 + Nanite Volume (NV 2) (2) + Bio-Response Override (1) = 10)",
+        "doc_link": "rules/rules_and_downtime.html#monad-matrix-attributes"
       },
       {
         "name": "Edge",
@@ -5310,14 +6415,14 @@
       }
     ],
     "derived": {
-      "composure": 9,
-      "judge_intentions": 12,
-      "memory": 13,
+      "composure": 11,
+      "judge_intentions": 13,
+      "memory": 14,
       "lift_carry": 9,
       "physical_defense": 7,
       "defense_rating": 3,
       "physical_boxes": 14,
-      "stun_boxes": 15
+      "stun_boxes": 16
     },
     "matrix": {
       "asdf": {
@@ -5358,14 +6463,23 @@
         "attribute": "Logic",
         "specialization": "Computer",
         "base_pool": 12,
-        "buffed_pool": 12,
+        "buffed_pool": 13,
         "bought_hits": 3,
-        "specialized_pool": 14,
+        "specialized_pool": 15,
         "specialized_hits": 3,
         "effective_attribute": "logic",
         "is_attribute_overridden": false,
-        "breakdown_text": "LOG 6 + 6 Rtg",
+        "breakdown_text": "LOG 6 + 6 Rtg + +1 Neocortical Neural Amp (Skill Bonus)",
         "buffs": [
+          {
+            "source": "Neocortical Neural Amp",
+            "type": "skill bonus",
+            "value": 1,
+            "target": "attribute:logic",
+            "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts",
+            "notes": null,
+            "active": true
+          },
           {
             "source": "Specialization: Computer",
             "type": "specialization",
@@ -5383,14 +6497,24 @@
         "attribute": "Agility",
         "specialization": null,
         "base_pool": 8,
-        "buffed_pool": 8,
+        "buffed_pool": 9,
         "bought_hits": 2,
-        "specialized_pool": 8,
+        "specialized_pool": 9,
         "specialized_hits": 2,
         "effective_attribute": "agility",
         "is_attribute_overridden": false,
-        "breakdown_text": "AGI 7 + 1 Rtg",
-        "buffs": [],
+        "breakdown_text": "AGI 7 + 1 Rtg + +1 Neural Pattern Reinforcement (Skill Bonus)",
+        "buffs": [
+          {
+            "source": "Neural Pattern Reinforcement",
+            "type": "skill bonus",
+            "value": 1,
+            "target": "attribute:agility",
+            "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts",
+            "notes": null,
+            "active": true
+          }
+        ],
         "doc_link": "chapters/rules_and_downtime.html"
       },
       {
@@ -5400,14 +6524,24 @@
         "attribute": "Logic",
         "specialization": null,
         "base_pool": 10,
-        "buffed_pool": 10,
+        "buffed_pool": 11,
         "bought_hits": 2,
-        "specialized_pool": 10,
+        "specialized_pool": 11,
         "specialized_hits": 2,
         "effective_attribute": "logic",
         "is_attribute_overridden": false,
-        "breakdown_text": "LOG 6 + 4 Rtg",
-        "buffs": [],
+        "breakdown_text": "LOG 6 + 4 Rtg + +1 Neocortical Neural Amp (Skill Bonus)",
+        "buffs": [
+          {
+            "source": "Neocortical Neural Amp",
+            "type": "skill bonus",
+            "value": 1,
+            "target": "attribute:logic",
+            "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts",
+            "notes": null,
+            "active": true
+          }
+        ],
         "doc_link": "chapters/rules_and_downtime.html"
       },
       {
@@ -5417,14 +6551,24 @@
         "attribute": "Logic",
         "specialization": null,
         "base_pool": 10,
-        "buffed_pool": 10,
+        "buffed_pool": 11,
         "bought_hits": 2,
-        "specialized_pool": 10,
+        "specialized_pool": 11,
         "specialized_hits": 2,
         "effective_attribute": "logic",
         "is_attribute_overridden": false,
-        "breakdown_text": "LOG 6 + 4 Rtg",
-        "buffs": [],
+        "breakdown_text": "LOG 6 + 4 Rtg + +1 Neocortical Neural Amp (Skill Bonus)",
+        "buffs": [
+          {
+            "source": "Neocortical Neural Amp",
+            "type": "skill bonus",
+            "value": 1,
+            "target": "attribute:logic",
+            "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts",
+            "notes": null,
+            "active": true
+          }
+        ],
         "doc_link": "chapters/rules_and_downtime.html"
       },
       {
@@ -5436,23 +6580,34 @@
         "attribute": "agility",
         "specialization": null,
         "base_pool": 13,
-        "buffed_pool": 14,
+        "buffed_pool": 15,
         "bought_hits": 3,
-        "specialized_pool": 14,
+        "specialized_pool": 15,
         "specialized_hits": 3,
         "effective_attribute": "agility",
         "is_attribute_overridden": false,
-        "breakdown_text": "AGI 7 + 6 Base Soft + Skillwires (+1) = 14d6",
+        "breakdown_text": "AGI 7 + 6 Base Soft + Skillwires (Wireless ON - Close Combat) (+1) + Neural Pattern Reinforcement (+1) = 15d6",
         "buffs": [
           {
-            "source": "Skillwires Wireless ON",
-            "type": "cyberware",
+            "source": "Skillwires (Wireless ON - Close Combat)",
+            "type": "other",
             "value": 1,
             "target": "skill",
+            "notes": "+1 dice pool modifier to active skills routed via skillwires",
+            "rule_anchor": "rules/rules_and_downtime.html#skillwires-protocols",
+            "active": true
+          },
+          {
+            "source": "Neural Pattern Reinforcement",
+            "type": "skill bonus",
+            "value": 1,
+            "target": "skill",
+            "notes": "+1 dice pool on all skill tests linked to Agility (Athletics, Firearms, Close Combat, etc.)",
+            "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts",
             "active": true
           }
         ],
-        "doc_link": "chapters/rules_and_downtime.html#activesofts-and-skillwires"
+        "doc_link": "rules/rules_and_downtime.html#skillwires-protocols"
       },
       {
         "name": "Cracking (Activesoft)",
@@ -5463,23 +6618,34 @@
         "attribute": "logic",
         "specialization": null,
         "base_pool": 12,
-        "buffed_pool": 13,
+        "buffed_pool": 14,
         "bought_hits": 3,
-        "specialized_pool": 13,
+        "specialized_pool": 14,
         "specialized_hits": 3,
         "effective_attribute": "logic",
         "is_attribute_overridden": false,
-        "breakdown_text": "LOG 6 + 6 Base Soft + Skillwires (+1) = 13d6",
+        "breakdown_text": "LOG 6 + 6 Base Soft + Skillwires (Wireless ON - Cracking) (+1) + Neocortical Neural Amp (+1) = 14d6",
         "buffs": [
           {
-            "source": "Skillwires Wireless ON",
-            "type": "cyberware",
+            "source": "Skillwires (Wireless ON - Cracking)",
+            "type": "other",
             "value": 1,
             "target": "skill",
+            "notes": "+1 dice pool modifier to active skills routed via skillwires",
+            "rule_anchor": "rules/rules_and_downtime.html#skillwires-protocols",
+            "active": true
+          },
+          {
+            "source": "Neocortical Neural Amp",
+            "type": "skill bonus",
+            "value": 1,
+            "target": "skill",
+            "notes": "+1 dice pool on all skill tests linked to Logic (Cracking, Electronics, Biotech, etc.)",
+            "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts",
             "active": true
           }
         ],
-        "doc_link": "chapters/rules_and_downtime.html#activesofts-and-skillwires"
+        "doc_link": "rules/rules_and_downtime.html#skillwires-protocols"
       }
     ],
     "qualities": {
@@ -5572,7 +6738,50 @@
     "adept_powers": [],
     "complex_forms": [],
     "sprite_powers": [],
-    "monad_abilities": [],
+    "monad_abilities": [
+      {
+        "name": "Monad Matrix Attributes",
+        "action": "Passive",
+        "effect": "Synthesizes Living Persona ASDF (Attack: CHA, Sleaze: INT, Data Processing: LOG, Firewall: WIL) via internal nanite matrix co-processing.",
+        "notes": "Synthesizes Living Persona ASDF (Attack: CHA, Sleaze: INT, Data Processing: LOG, Firewall: WIL) via internal nanite matrix co-processing.",
+        "doc_link": "rules/rules_and_downtime.html#monad-nanite-boosts"
+      },
+      {
+        "name": "Mental Attribute Boost",
+        "action": "Minor Action",
+        "effect": "Minor Action: roll NV test (6 dice). Each hit can increase any Mental Attribute (Logic, Intuition, Willpower, Charisma) by +1 (up to NV 6 or +4 max boost) for hits in combat rounds.",
+        "notes": "Minor Action: roll NV test (6 dice). Each hit can increase any Mental Attribute (Logic, Intuition, Willpower, Charisma) by +1 (up to NV 6 or +4 max boost) for hits in combat rounds.",
+        "doc_link": "rules/rules_and_downtime.html#monad-nanite-boosts"
+      },
+      {
+        "name": "Monad Toughness",
+        "action": "Passive",
+        "effect": "Adds one-half Nanite Volume (+3 boxes at NV 6) to Condition Monitors (+2 Physical, +1 Stun), and shifts all Wound Modifiers down by one level.",
+        "notes": "Adds one-half Nanite Volume (+3 boxes at NV 6) to Condition Monitors (+2 Physical, +1 Stun), and shifts all Wound Modifiers down by one level.",
+        "doc_link": "rules/rules_and_downtime.html#monad-nanite-boosts"
+      },
+      {
+        "name": "Physical Attribute Boost",
+        "action": "Minor Action",
+        "effect": "Minor Action: roll NV test (6 dice). Each hit can add +1 Minor Action per combat round or boost a physical attribute for duration.",
+        "notes": "Minor Action: roll NV test (6 dice). Each hit can add +1 Minor Action per combat round or boost a physical attribute for duration.",
+        "doc_link": "rules/rules_and_downtime.html#monad-nanite-boosts"
+      },
+      {
+        "name": "Rapid Cellular Healing",
+        "action": "Minor or Major Action",
+        "effect": "Minor or Major Action: roll NV test (6 dice) to reduce Condition Monitor damage boxes by hits (Major Action heals double hits and grants +1 situational Edge).",
+        "notes": "Minor or Major Action: roll NV test (6 dice) to reduce Condition Monitor damage boxes by hits (Major Action heals double hits and grants +1 situational Edge).",
+        "doc_link": "rules/rules_and_downtime.html#monad-nanite-boosts"
+      },
+      {
+        "name": "Adrenal Control",
+        "action": "Minor Action",
+        "effect": "Minor Action: WIL + NV test to remain conscious and active when physical or stun condition monitors are full.",
+        "notes": "Minor Action: WIL + NV test to remain conscious and active when physical or stun condition monitors are full.",
+        "doc_link": "rules/rules_and_downtime.html#monad-nanite-boosts"
+      }
+    ],
     "augmentations": [
       {
         "name": "Left Synthetic Cyberarm",
@@ -5639,6 +6848,256 @@
         "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
       }
     ],
+    "nanohive": {
+      "rating": 6,
+      "max_colonies": 6,
+      "max_volume": 18,
+      "replenish_rate": "6 NV / hour",
+      "catalog": {
+        "dynamic_features": {
+          "id": "dynamic_features",
+          "name": "Dynamic Features",
+          "type": "template",
+          "default_nv": 1,
+          "min_nv": 1,
+          "max_nv": 3,
+          "fixed_nv": false,
+          "source": "Body Shop p. 110",
+          "doc_link": "chapters/rules_and_downtime.html#nanoware-protocols",
+          "category": "Infiltration / Biometric",
+          "effect": "Dynamically shifts epidermal pigmentation, melanin, hair follicles, and subcutaneous facial geometry on command. 1 NV: Cosmetic alterations; 2 NV: Full facial reconstruction (+1 Edge on Disguise); 3 NV: Real-time biometric identity mimicry (+2 Edge on Disguise/Impersonation).",
+          "active_by_default": false,
+          "stat_effects": {
+            "type": "situational",
+            "notes": "Cosmetic to full facial shift (+1 to +2 Edge on disguise)"
+          }
+        },
+        "neuromuscular_amplifier": {
+          "id": "neuromuscular_amplifier",
+          "name": "Neuromuscular Amplifier",
+          "type": "template",
+          "default_nv": 2,
+          "min_nv": 2,
+          "max_nv": 4,
+          "fixed_nv": false,
+          "source": "Body Shop p. 110",
+          "doc_link": "chapters/rules_and_downtime.html#nanoware-protocols",
+          "category": "Combat Augmentation",
+          "effect": "Reinforces skeletal myofibrils and strike vectors through micro-hydraulic nanite lattice networks. Requires at least 2 NV to form the colony, but additional NV (up to 4+ NV) can be assigned for overdriving or enhanced strike amplification. Grants +1 Melee DV to all unarmed and physical strikes (synergizes with Iron Limbs, Bone Density R4, and Toughskin Spines for 10P Flying Kick).",
+          "active_by_default": true,
+          "stat_effects": {
+            "target": "damage:unarmed",
+            "value": 1,
+            "type": "augmentation",
+            "notes": "+1 DV to all melee/unarmed attacks (min 2 NV; overdriving capable)"
+          }
+        },
+        "bio_response_override": {
+          "id": "bio_response_override",
+          "name": "Bio-Response Override",
+          "type": "dose",
+          "default_nv": 3,
+          "min_nv": 3,
+          "max_nv": 3,
+          "fixed_nv": true,
+          "source": "Body Shop p. 110",
+          "doc_link": "chapters/rules_and_downtime.html#nanoware-protocols",
+          "category": "Physiological / Resilience",
+          "effect": "Single pre-bought dose colony requiring 3 NV from the nanohive to sustain (dies in 1 week without hive maintenance). Suppresses nociceptors and autonomous shock reactions while stabilizing neurochemical homeostasis. Grants +1 Willpower (buffing Composure, Judge Intentions, Memory, and Living Persona Firewall) and adds +1 box to the Stun Condition Monitor.",
+          "active_by_default": true,
+          "stat_effects": {
+            "target": "attribute:willpower",
+            "value": 1,
+            "type": "augmentation",
+            "notes": "+1 Willpower, +1 Stun Condition box (requires 3 NV to sustain)"
+          }
+        },
+        "neurochemical_regulator": {
+          "id": "neurochemical_regulator",
+          "name": "Neurochemical Regulator",
+          "type": "dose",
+          "default_nv": 2,
+          "min_nv": 2,
+          "max_nv": 2,
+          "fixed_nv": true,
+          "source": "Body Shop p. 110",
+          "doc_link": "chapters/rules_and_downtime.html#nanoware-protocols",
+          "category": "Social / Psychological",
+          "effect": "Single pre-bought dose colony requiring 2 NV from the nanohive to sustain (dies in 1 week without hive maintenance). Modulates endocrine flows, suppressing erratic micro-expressions and voice stress while enhancing charisma projecting. Grants +1 Charisma on social interactions and composure tests.",
+          "active_by_default": true,
+          "stat_effects": {
+            "target": "attribute:charisma",
+            "value": 1,
+            "type": "augmentation",
+            "notes": "+1 Charisma on social and composure tests (requires 2 NV to sustain)"
+          }
+        },
+        "neocortical_neural_amp": {
+          "id": "neocortical_neural_amp",
+          "name": "Neocortical Neural Amp",
+          "type": "dose",
+          "default_nv": 2,
+          "min_nv": 2,
+          "max_nv": 2,
+          "fixed_nv": true,
+          "source": "Body Shop p. 110",
+          "doc_link": "chapters/rules_and_downtime.html#nanoware-protocols",
+          "category": "Cognitive Augmentation",
+          "effect": "Single pre-bought dose colony requiring 2 NV from the nanohive to sustain (dies in 1 week without hive maintenance). Accelerates synaptic transmission across neocortical columns. Grants +1 dice pool bonus to all Logic-linked skill tests (Biotech, Cracking, Electronics, Engineering). Stacks with Math SPU Edge cost reductions.",
+          "active_by_default": true,
+          "stat_effects": {
+            "target": "attribute:logic",
+            "value": 1,
+            "type": "skill bonus",
+            "notes": "+1 on all Logic skill tests (requires 2 NV to sustain)"
+          }
+        },
+        "limbic_neural_amp": {
+          "id": "limbic_neural_amp",
+          "name": "Limbic Neural Amp",
+          "type": "dose",
+          "default_nv": 2,
+          "min_nv": 2,
+          "max_nv": 2,
+          "fixed_nv": true,
+          "source": "Body Shop p. 110",
+          "doc_link": "chapters/rules_and_downtime.html#nanoware-protocols",
+          "category": "Cognitive Augmentation",
+          "effect": "Single pre-bought dose colony requiring 2 NV from the nanohive to sustain (dies in 1 week without hive maintenance). Sharpens amygdala and hippocampal sensory processing pathways. Grants +1 dice pool bonus to all Intuition-linked skill tests (Perception, Stealth, Tracking).",
+          "active_by_default": true,
+          "stat_effects": {
+            "target": "attribute:intuition",
+            "value": 1,
+            "type": "skill bonus",
+            "notes": "+1 on all Intuition skill tests (requires 2 NV to sustain)"
+          }
+        },
+        "neural_pattern_reinforcement": {
+          "id": "neural_pattern_reinforcement",
+          "name": "Neural Pattern Reinforcement",
+          "type": "dose",
+          "default_nv": 2,
+          "min_nv": 2,
+          "max_nv": 2,
+          "fixed_nv": true,
+          "source": "Body Shop p. 110",
+          "doc_link": "chapters/rules_and_downtime.html#nanoware-protocols",
+          "category": "Motor / Physical Augmentation",
+          "effect": "Single pre-bought dose colony requiring 2 NV from the nanohive to sustain (dies in 1 week without hive maintenance). Hardens motor cortex engrams and neuromuscular kinesthetic pathways. Grants +1 dice pool bonus to all Agility-linked skill tests (Athletics, Close Combat, Firearms).",
+          "active_by_default": true,
+          "stat_effects": {
+            "target": "attribute:agility",
+            "value": 1,
+            "type": "skill bonus",
+            "notes": "+1 on all Agility skill tests (requires 2 NV to sustain)"
+          }
+        },
+        "tech_infestation": {
+          "id": "tech_infestation",
+          "name": "Tech Infestation",
+          "type": "dose",
+          "default_nv": 1,
+          "min_nv": 1,
+          "max_nv": 3,
+          "fixed_nv": false,
+          "source": "Body Shop p. 111",
+          "doc_link": "chapters/rules_and_downtime.html#nanoware-protocols",
+          "category": "Hardware / Infiltration",
+          "effect": "Nanites extrude through dermal contact points into target electronic, commlink, or cyberware hardware circuitry. Provides physical datajack bridging without requiring a cyberware datajack; enables contact hijacking and direct device control.",
+          "active_by_default": false,
+          "stat_effects": {
+            "type": "situational",
+            "notes": "Direct dermal datajack bridge & contact hijacking without cyberware datajack"
+          }
+        }
+      },
+      "presets": {
+        "default_combat": {
+          "name": "Combat & Stealth (Default)",
+          "description": "Standard field deployment maximizing melee strike power, neural perception, and cognitive speed.",
+          "active_colonies": [
+            "neuromuscular_amplifier",
+            "bio_response_override",
+            "neurochemical_regulator",
+            "neocortical_neural_amp",
+            "limbic_neural_amp",
+            "neural_pattern_reinforcement"
+          ],
+          "volumes": {
+            "neuromuscular_amplifier": 2,
+            "bio_response_override": 3,
+            "neurochemical_regulator": 2,
+            "neocortical_neural_amp": 2,
+            "limbic_neural_amp": 2,
+            "neural_pattern_reinforcement": 2
+          },
+          "total_nv": 13,
+          "active_count": 6
+        },
+        "social_infil": {
+          "name": "Deep Social Infiltration",
+          "description": "Sacrifices strike amplification to run Dynamic Features R3 for full biometric disguise alongside emotional stabilization.",
+          "active_colonies": [
+            "dynamic_features",
+            "bio_response_override",
+            "neurochemical_regulator",
+            "neocortical_neural_amp",
+            "limbic_neural_amp",
+            "tech_infestation"
+          ],
+          "volumes": {
+            "dynamic_features": 3,
+            "bio_response_override": 3,
+            "neurochemical_regulator": 2,
+            "neocortical_neural_amp": 2,
+            "limbic_neural_amp": 2,
+            "tech_infestation": 1
+          },
+          "total_nv": 13,
+          "active_count": 6
+        },
+        "cyber_hijack": {
+          "name": "Cyber & Hardware Hijacking",
+          "description": "Prioritizes Tech Infestation for dermal physical hijacking and Dynamic Features for evasion during electronic breaches.",
+          "active_colonies": [
+            "tech_infestation",
+            "neocortical_neural_amp",
+            "limbic_neural_amp",
+            "neural_pattern_reinforcement",
+            "bio_response_override",
+            "dynamic_features"
+          ],
+          "volumes": {
+            "tech_infestation": 2,
+            "neocortical_neural_amp": 2,
+            "limbic_neural_amp": 2,
+            "neural_pattern_reinforcement": 2,
+            "bio_response_override": 3,
+            "dynamic_features": 1
+          },
+          "total_nv": 12,
+          "active_count": 6
+        }
+      },
+      "default_active": [
+        "neuromuscular_amplifier",
+        "bio_response_override",
+        "neurochemical_regulator",
+        "neocortical_neural_amp",
+        "limbic_neural_amp",
+        "neural_pattern_reinforcement"
+      ],
+      "default_volumes": {
+        "dynamic_features": 1,
+        "neuromuscular_amplifier": 2,
+        "bio_response_override": 3,
+        "neurochemical_regulator": 2,
+        "neocortical_neural_amp": 2,
+        "limbic_neural_amp": 2,
+        "neural_pattern_reinforcement": 2,
+        "tech_infestation": 1
+      }
+    },
     "spirit_channeling_catalog": {},
     "powers": {
       "complex_forms": [],
@@ -5646,7 +7105,50 @@
       "sprite_powers": [],
       "spells": [],
       "adept_powers": [],
-      "monad_abilities": [],
+      "monad_abilities": [
+        {
+          "name": "Monad Matrix Attributes",
+          "action": "Passive",
+          "effect": "Synthesizes Living Persona ASDF (Attack: CHA, Sleaze: INT, Data Processing: LOG, Firewall: WIL) via internal nanite matrix co-processing.",
+          "notes": "Synthesizes Living Persona ASDF (Attack: CHA, Sleaze: INT, Data Processing: LOG, Firewall: WIL) via internal nanite matrix co-processing.",
+          "doc_link": "rules/rules_and_downtime.html#monad-nanite-boosts"
+        },
+        {
+          "name": "Mental Attribute Boost",
+          "action": "Minor Action",
+          "effect": "Minor Action: roll NV test (6 dice). Each hit can increase any Mental Attribute (Logic, Intuition, Willpower, Charisma) by +1 (up to NV 6 or +4 max boost) for hits in combat rounds.",
+          "notes": "Minor Action: roll NV test (6 dice). Each hit can increase any Mental Attribute (Logic, Intuition, Willpower, Charisma) by +1 (up to NV 6 or +4 max boost) for hits in combat rounds.",
+          "doc_link": "rules/rules_and_downtime.html#monad-nanite-boosts"
+        },
+        {
+          "name": "Monad Toughness",
+          "action": "Passive",
+          "effect": "Adds one-half Nanite Volume (+3 boxes at NV 6) to Condition Monitors (+2 Physical, +1 Stun), and shifts all Wound Modifiers down by one level.",
+          "notes": "Adds one-half Nanite Volume (+3 boxes at NV 6) to Condition Monitors (+2 Physical, +1 Stun), and shifts all Wound Modifiers down by one level.",
+          "doc_link": "rules/rules_and_downtime.html#monad-nanite-boosts"
+        },
+        {
+          "name": "Physical Attribute Boost",
+          "action": "Minor Action",
+          "effect": "Minor Action: roll NV test (6 dice). Each hit can add +1 Minor Action per combat round or boost a physical attribute for duration.",
+          "notes": "Minor Action: roll NV test (6 dice). Each hit can add +1 Minor Action per combat round or boost a physical attribute for duration.",
+          "doc_link": "rules/rules_and_downtime.html#monad-nanite-boosts"
+        },
+        {
+          "name": "Rapid Cellular Healing",
+          "action": "Minor or Major Action",
+          "effect": "Minor or Major Action: roll NV test (6 dice) to reduce Condition Monitor damage boxes by hits (Major Action heals double hits and grants +1 situational Edge).",
+          "notes": "Minor or Major Action: roll NV test (6 dice) to reduce Condition Monitor damage boxes by hits (Major Action heals double hits and grants +1 situational Edge).",
+          "doc_link": "rules/rules_and_downtime.html#monad-nanite-boosts"
+        },
+        {
+          "name": "Adrenal Control",
+          "action": "Minor Action",
+          "effect": "Minor Action: WIL + NV test to remain conscious and active when physical or stun condition monitors are full.",
+          "notes": "Minor Action: WIL + NV test to remain conscious and active when physical or stun condition monitors are full.",
+          "doc_link": "rules/rules_and_downtime.html#monad-nanite-boosts"
+        }
+      ],
       "augmentations": [
         {
           "name": "Left Synthetic Cyberarm",
@@ -5713,6 +7215,256 @@
           "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
         }
       ],
+      "nanohive": {
+        "rating": 6,
+        "max_colonies": 6,
+        "max_volume": 18,
+        "replenish_rate": "6 NV / hour",
+        "catalog": {
+          "dynamic_features": {
+            "id": "dynamic_features",
+            "name": "Dynamic Features",
+            "type": "template",
+            "default_nv": 1,
+            "min_nv": 1,
+            "max_nv": 3,
+            "fixed_nv": false,
+            "source": "Body Shop p. 110",
+            "doc_link": "chapters/rules_and_downtime.html#nanoware-protocols",
+            "category": "Infiltration / Biometric",
+            "effect": "Dynamically shifts epidermal pigmentation, melanin, hair follicles, and subcutaneous facial geometry on command. 1 NV: Cosmetic alterations; 2 NV: Full facial reconstruction (+1 Edge on Disguise); 3 NV: Real-time biometric identity mimicry (+2 Edge on Disguise/Impersonation).",
+            "active_by_default": false,
+            "stat_effects": {
+              "type": "situational",
+              "notes": "Cosmetic to full facial shift (+1 to +2 Edge on disguise)"
+            }
+          },
+          "neuromuscular_amplifier": {
+            "id": "neuromuscular_amplifier",
+            "name": "Neuromuscular Amplifier",
+            "type": "template",
+            "default_nv": 2,
+            "min_nv": 2,
+            "max_nv": 4,
+            "fixed_nv": false,
+            "source": "Body Shop p. 110",
+            "doc_link": "chapters/rules_and_downtime.html#nanoware-protocols",
+            "category": "Combat Augmentation",
+            "effect": "Reinforces skeletal myofibrils and strike vectors through micro-hydraulic nanite lattice networks. Requires at least 2 NV to form the colony, but additional NV (up to 4+ NV) can be assigned for overdriving or enhanced strike amplification. Grants +1 Melee DV to all unarmed and physical strikes (synergizes with Iron Limbs, Bone Density R4, and Toughskin Spines for 10P Flying Kick).",
+            "active_by_default": true,
+            "stat_effects": {
+              "target": "damage:unarmed",
+              "value": 1,
+              "type": "augmentation",
+              "notes": "+1 DV to all melee/unarmed attacks (min 2 NV; overdriving capable)"
+            }
+          },
+          "bio_response_override": {
+            "id": "bio_response_override",
+            "name": "Bio-Response Override",
+            "type": "dose",
+            "default_nv": 3,
+            "min_nv": 3,
+            "max_nv": 3,
+            "fixed_nv": true,
+            "source": "Body Shop p. 110",
+            "doc_link": "chapters/rules_and_downtime.html#nanoware-protocols",
+            "category": "Physiological / Resilience",
+            "effect": "Single pre-bought dose colony requiring 3 NV from the nanohive to sustain (dies in 1 week without hive maintenance). Suppresses nociceptors and autonomous shock reactions while stabilizing neurochemical homeostasis. Grants +1 Willpower (buffing Composure, Judge Intentions, Memory, and Living Persona Firewall) and adds +1 box to the Stun Condition Monitor.",
+            "active_by_default": true,
+            "stat_effects": {
+              "target": "attribute:willpower",
+              "value": 1,
+              "type": "augmentation",
+              "notes": "+1 Willpower, +1 Stun Condition box (requires 3 NV to sustain)"
+            }
+          },
+          "neurochemical_regulator": {
+            "id": "neurochemical_regulator",
+            "name": "Neurochemical Regulator",
+            "type": "dose",
+            "default_nv": 2,
+            "min_nv": 2,
+            "max_nv": 2,
+            "fixed_nv": true,
+            "source": "Body Shop p. 110",
+            "doc_link": "chapters/rules_and_downtime.html#nanoware-protocols",
+            "category": "Social / Psychological",
+            "effect": "Single pre-bought dose colony requiring 2 NV from the nanohive to sustain (dies in 1 week without hive maintenance). Modulates endocrine flows, suppressing erratic micro-expressions and voice stress while enhancing charisma projecting. Grants +1 Charisma on social interactions and composure tests.",
+            "active_by_default": true,
+            "stat_effects": {
+              "target": "attribute:charisma",
+              "value": 1,
+              "type": "augmentation",
+              "notes": "+1 Charisma on social and composure tests (requires 2 NV to sustain)"
+            }
+          },
+          "neocortical_neural_amp": {
+            "id": "neocortical_neural_amp",
+            "name": "Neocortical Neural Amp",
+            "type": "dose",
+            "default_nv": 2,
+            "min_nv": 2,
+            "max_nv": 2,
+            "fixed_nv": true,
+            "source": "Body Shop p. 110",
+            "doc_link": "chapters/rules_and_downtime.html#nanoware-protocols",
+            "category": "Cognitive Augmentation",
+            "effect": "Single pre-bought dose colony requiring 2 NV from the nanohive to sustain (dies in 1 week without hive maintenance). Accelerates synaptic transmission across neocortical columns. Grants +1 dice pool bonus to all Logic-linked skill tests (Biotech, Cracking, Electronics, Engineering). Stacks with Math SPU Edge cost reductions.",
+            "active_by_default": true,
+            "stat_effects": {
+              "target": "attribute:logic",
+              "value": 1,
+              "type": "skill bonus",
+              "notes": "+1 on all Logic skill tests (requires 2 NV to sustain)"
+            }
+          },
+          "limbic_neural_amp": {
+            "id": "limbic_neural_amp",
+            "name": "Limbic Neural Amp",
+            "type": "dose",
+            "default_nv": 2,
+            "min_nv": 2,
+            "max_nv": 2,
+            "fixed_nv": true,
+            "source": "Body Shop p. 110",
+            "doc_link": "chapters/rules_and_downtime.html#nanoware-protocols",
+            "category": "Cognitive Augmentation",
+            "effect": "Single pre-bought dose colony requiring 2 NV from the nanohive to sustain (dies in 1 week without hive maintenance). Sharpens amygdala and hippocampal sensory processing pathways. Grants +1 dice pool bonus to all Intuition-linked skill tests (Perception, Stealth, Tracking).",
+            "active_by_default": true,
+            "stat_effects": {
+              "target": "attribute:intuition",
+              "value": 1,
+              "type": "skill bonus",
+              "notes": "+1 on all Intuition skill tests (requires 2 NV to sustain)"
+            }
+          },
+          "neural_pattern_reinforcement": {
+            "id": "neural_pattern_reinforcement",
+            "name": "Neural Pattern Reinforcement",
+            "type": "dose",
+            "default_nv": 2,
+            "min_nv": 2,
+            "max_nv": 2,
+            "fixed_nv": true,
+            "source": "Body Shop p. 110",
+            "doc_link": "chapters/rules_and_downtime.html#nanoware-protocols",
+            "category": "Motor / Physical Augmentation",
+            "effect": "Single pre-bought dose colony requiring 2 NV from the nanohive to sustain (dies in 1 week without hive maintenance). Hardens motor cortex engrams and neuromuscular kinesthetic pathways. Grants +1 dice pool bonus to all Agility-linked skill tests (Athletics, Close Combat, Firearms).",
+            "active_by_default": true,
+            "stat_effects": {
+              "target": "attribute:agility",
+              "value": 1,
+              "type": "skill bonus",
+              "notes": "+1 on all Agility skill tests (requires 2 NV to sustain)"
+            }
+          },
+          "tech_infestation": {
+            "id": "tech_infestation",
+            "name": "Tech Infestation",
+            "type": "dose",
+            "default_nv": 1,
+            "min_nv": 1,
+            "max_nv": 3,
+            "fixed_nv": false,
+            "source": "Body Shop p. 111",
+            "doc_link": "chapters/rules_and_downtime.html#nanoware-protocols",
+            "category": "Hardware / Infiltration",
+            "effect": "Nanites extrude through dermal contact points into target electronic, commlink, or cyberware hardware circuitry. Provides physical datajack bridging without requiring a cyberware datajack; enables contact hijacking and direct device control.",
+            "active_by_default": false,
+            "stat_effects": {
+              "type": "situational",
+              "notes": "Direct dermal datajack bridge & contact hijacking without cyberware datajack"
+            }
+          }
+        },
+        "presets": {
+          "default_combat": {
+            "name": "Combat & Stealth (Default)",
+            "description": "Standard field deployment maximizing melee strike power, neural perception, and cognitive speed.",
+            "active_colonies": [
+              "neuromuscular_amplifier",
+              "bio_response_override",
+              "neurochemical_regulator",
+              "neocortical_neural_amp",
+              "limbic_neural_amp",
+              "neural_pattern_reinforcement"
+            ],
+            "volumes": {
+              "neuromuscular_amplifier": 2,
+              "bio_response_override": 3,
+              "neurochemical_regulator": 2,
+              "neocortical_neural_amp": 2,
+              "limbic_neural_amp": 2,
+              "neural_pattern_reinforcement": 2
+            },
+            "total_nv": 13,
+            "active_count": 6
+          },
+          "social_infil": {
+            "name": "Deep Social Infiltration",
+            "description": "Sacrifices strike amplification to run Dynamic Features R3 for full biometric disguise alongside emotional stabilization.",
+            "active_colonies": [
+              "dynamic_features",
+              "bio_response_override",
+              "neurochemical_regulator",
+              "neocortical_neural_amp",
+              "limbic_neural_amp",
+              "tech_infestation"
+            ],
+            "volumes": {
+              "dynamic_features": 3,
+              "bio_response_override": 3,
+              "neurochemical_regulator": 2,
+              "neocortical_neural_amp": 2,
+              "limbic_neural_amp": 2,
+              "tech_infestation": 1
+            },
+            "total_nv": 13,
+            "active_count": 6
+          },
+          "cyber_hijack": {
+            "name": "Cyber & Hardware Hijacking",
+            "description": "Prioritizes Tech Infestation for dermal physical hijacking and Dynamic Features for evasion during electronic breaches.",
+            "active_colonies": [
+              "tech_infestation",
+              "neocortical_neural_amp",
+              "limbic_neural_amp",
+              "neural_pattern_reinforcement",
+              "bio_response_override",
+              "dynamic_features"
+            ],
+            "volumes": {
+              "tech_infestation": 2,
+              "neocortical_neural_amp": 2,
+              "limbic_neural_amp": 2,
+              "neural_pattern_reinforcement": 2,
+              "bio_response_override": 3,
+              "dynamic_features": 1
+            },
+            "total_nv": 12,
+            "active_count": 6
+          }
+        },
+        "default_active": [
+          "neuromuscular_amplifier",
+          "bio_response_override",
+          "neurochemical_regulator",
+          "neocortical_neural_amp",
+          "limbic_neural_amp",
+          "neural_pattern_reinforcement"
+        ],
+        "default_volumes": {
+          "dynamic_features": 1,
+          "neuromuscular_amplifier": 2,
+          "bio_response_override": 3,
+          "neurochemical_regulator": 2,
+          "neocortical_neural_amp": 2,
+          "limbic_neural_amp": 2,
+          "neural_pattern_reinforcement": 2,
+          "tech_infestation": 1
+        }
+      },
       "spirit_channeling_catalog": {}
     },
     "inventory": {
@@ -5744,23 +7496,7 @@
           "notes": ""
         }
       ],
-      "sins": [
-        {
-          "name": "Fake Licenses (Rating 4 x2): (1,600¥)",
-          "rating": 1,
-          "quality": "Standard",
-          "licenses": [
-            "Fake License: Firearms",
-            "Fake License: Concealed Carry"
-          ]
-        },
-        {
-          "name": "Low Lifestyle (Off-Grid Coastal Boathouse): (2,000¥ / 1st month prepaid)",
-          "rating": 1,
-          "quality": "Standard",
-          "licenses": []
-        }
-      ],
+      "sins": [],
       "lifestyles": []
     },
     "gear_items": [
@@ -5783,23 +7519,7 @@
     ],
     "matrix_devices": [],
     "software": [],
-    "sins": [
-      {
-        "name": "Fake Licenses (Rating 4 x2): (1,600¥)",
-        "rating": 1,
-        "quality": "Standard",
-        "licenses": [
-          "Fake License: Firearms",
-          "Fake License: Concealed Carry"
-        ]
-      },
-      {
-        "name": "Low Lifestyle (Off-Grid Coastal Boathouse): (2,000¥ / 1st month prepaid)",
-        "rating": 1,
-        "quality": "Standard",
-        "licenses": []
-      }
-    ],
+    "sins": [],
     "lifestyles": [],
     "contacts": [],
     "exceptions": [
@@ -5831,6 +7551,118 @@
         "active": true
       }
     ],
+    "modifiers": [
+      {
+        "id": "bone_density_augmentation",
+        "name": "Bone Density Augmentation",
+        "target": "damage:unarmed",
+        "value": 4,
+        "type": "augmentation",
+        "sub_skill": null,
+        "rule_anchor": "rules/rules_and_downtime.html#augmentation-stacking",
+        "notes": "4P Base Unarmed DV, +4 Body soak",
+        "enabled": true
+      },
+      {
+        "id": "skillwires_wireless_on_-_close_combat",
+        "name": "Skillwires (Wireless ON - Close Combat)",
+        "target": "skill:close_combat",
+        "value": 1,
+        "type": "other",
+        "sub_skill": null,
+        "rule_anchor": "rules/rules_and_downtime.html#skillwires-protocols",
+        "notes": "+1 dice pool modifier to active skills routed via skillwires",
+        "enabled": true
+      },
+      {
+        "id": "skillwires_wireless_on_-_cracking",
+        "name": "Skillwires (Wireless ON - Cracking)",
+        "target": "skill:cracking",
+        "value": 1,
+        "type": "other",
+        "sub_skill": null,
+        "rule_anchor": "rules/rules_and_downtime.html#skillwires-protocols",
+        "notes": "+1 dice pool modifier to active skills routed via skillwires",
+        "enabled": true
+      },
+      {
+        "id": "math_spu",
+        "name": "Math SPU",
+        "target": "edge_boost_cost:logic_skills",
+        "value": 1,
+        "type": "gear",
+        "sub_skill": null,
+        "rule_anchor": "rules/rules_and_downtime.html#cyberware-overdrive",
+        "notes": "Reduces Edge boost cost by 1 (min 1) on Cracking, Electronics, and Build/Repair tests; overdrive reduces cost by 2 with +1 wild die",
+        "enabled": true
+      },
+      {
+        "id": "neuromuscular_amplifier",
+        "name": "Neuromuscular Amplifier",
+        "target": "damage:unarmed",
+        "value": 1,
+        "type": "augmentation",
+        "sub_skill": null,
+        "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts",
+        "notes": "+1 DV to all melee and unarmed attacks",
+        "enabled": true
+      },
+      {
+        "id": "bio-response_override",
+        "name": "Bio-Response Override",
+        "target": "attribute:willpower",
+        "value": 1,
+        "type": "augmentation",
+        "sub_skill": null,
+        "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts",
+        "notes": "+1 Willpower, +1 box to Stun Condition Monitor",
+        "enabled": true
+      },
+      {
+        "id": "neurochemical_regulator",
+        "name": "Neurochemical Regulator",
+        "target": "attribute:charisma",
+        "value": 1,
+        "type": "augmentation",
+        "sub_skill": null,
+        "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts",
+        "notes": "+1 Charisma on social and composure tests",
+        "enabled": true
+      },
+      {
+        "id": "neocortical_neural_amp",
+        "name": "Neocortical Neural Amp",
+        "target": "attribute:logic",
+        "value": 1,
+        "type": "skill bonus",
+        "sub_skill": null,
+        "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts",
+        "notes": "+1 dice pool on all skill tests linked to Logic (Cracking, Electronics, Biotech, etc.)",
+        "enabled": true
+      },
+      {
+        "id": "limbic_neural_amp",
+        "name": "Limbic Neural Amp",
+        "target": "attribute:intuition",
+        "value": 1,
+        "type": "skill bonus",
+        "sub_skill": null,
+        "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts",
+        "notes": "+1 dice pool on all skill tests linked to Intuition (Perception, Stealth, etc.)",
+        "enabled": true
+      },
+      {
+        "id": "neural_pattern_reinforcement",
+        "name": "Neural Pattern Reinforcement",
+        "target": "attribute:agility",
+        "value": 1,
+        "type": "skill bonus",
+        "sub_skill": null,
+        "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts",
+        "notes": "+1 dice pool on all skill tests linked to Agility (Athletics, Firearms, Close Combat, etc.)",
+        "enabled": true
+      }
+    ],
     "rules_doc": "rules/rules.html"
   }
 };
@@ -5842,9 +7674,11 @@
     const openDrawers = new Set();
     const RUNTIME_MODIFIERS = {};
 
-    function getRuntimeMod(charId, key) {
+    function getRuntimeMod(charId, key, fallback = 0) {
       if (!RUNTIME_MODIFIERS[charId]) RUNTIME_MODIFIERS[charId] = {};
-      return RUNTIME_MODIFIERS[charId][key] || 0;
+      const val = RUNTIME_MODIFIERS[charId][key];
+      if (val !== undefined && val !== null) return val;
+      return fallback;
     }
 
     function setRuntimeMod(charId, key, val) {
@@ -5856,7 +7690,7 @@
     }
 
     function stepModifier(key, step) {
-      const cur = getRuntimeMod(activeCharId, key);
+      const cur = parseInt(getRuntimeMod(activeCharId, key, 0) || 0, 10);
       let next = cur + step;
       if (key.startsWith("dmg_")) {
         next = Math.max(0, next);
@@ -5902,6 +7736,137 @@
       const toggleKey = "channeling_opt_power_" + powerName.toLowerCase().replace(/[^a-z0-9]/g, "_");
       setRuntimeMod(activeCharId, toggleKey, isSelected ? 1 : 0);
       renderActiveCharacter();
+    }
+
+    function rollDice(count, label) {
+      const c = Math.max(1, parseInt(count, 10) || 1);
+      let hits = 0;
+      let ones = 0;
+      const rolls = [];
+      for (let i = 0; i < c; i++) {
+        const r = Math.floor(Math.random() * 6) + 1;
+        rolls.push(r);
+        if (r >= 5) hits++;
+        if (r === 1) ones++;
+      }
+      const isGlitch = ones > Math.floor(c / 2);
+      const glitchStr = isGlitch ? (hits === 0 ? " 💥 CRITICAL GLITCH!" : " ⚠️ GLITCH!") : "";
+      showToast(`🎲 ${label || 'Roll'}: ${hits} Hits (${c}d6: [${rolls.join(", ")}])${glitchStr}`);
+    }
+
+    function getMonadNV(cid) {
+      const raw = getRuntimeMod(cid, "monad_current_nv", null);
+      if (raw === null || raw === undefined || raw === "" || isNaN(raw)) return 6;
+      return Math.max(0, Math.min(10, parseInt(raw, 10)));
+    }
+
+    function updateMonadNV(delta) {
+      const cur = getMonadNV(activeCharId);
+      const next = Math.max(0, Math.min(10, cur + delta));
+      setRuntimeMod(activeCharId, "monad_current_nv", next);
+      renderActiveCharacter();
+      showToast(`🧬 Monad Biological NV: ${next}`);
+    }
+
+    function setMonadNV(val) {
+      const next = Math.max(0, Math.min(10, parseInt(val, 10) || 0));
+      setRuntimeMod(activeCharId, "monad_current_nv", next);
+      renderActiveCharacter();
+      showToast(`🧬 Monad Biological NV set to ${next}`);
+    }
+
+    function isNanohiveColonyActive(cid, colonyId, defActive) {
+      const raw = getRuntimeMod(cid, "nanohive_colony_" + colonyId, null);
+      if (raw === null || raw === undefined || raw === "") {
+        return !!defActive;
+      }
+      return raw === 1 || raw === true || raw === "1";
+    }
+
+    function getNanohiveColonyNV(cid, colonyId, defNv) {
+      const raw = getRuntimeMod(cid, "nanohive_nv_" + colonyId, null);
+      if (raw === null || raw === undefined || raw === "" || isNaN(raw)) {
+        return defNv;
+      }
+      return parseInt(raw, 10);
+    }
+
+    function toggleNanohiveColony(colonyId, isChecked) {
+      const char = CHARACTERS_DATA[activeCharId];
+      const nh = (char && char.nanohive) || {};
+      const catalog = nh.catalog || {};
+      const maxColonies = nh.max_colonies || 6;
+      const maxVol = nh.max_volume || 18;
+
+      if (isChecked) {
+        let activeCount = 0;
+        let totalVol = 0;
+        Object.keys(catalog).forEach(k => {
+          const c = catalog[k];
+          const curAct = (k === colonyId) ? true : isNanohiveColonyActive(activeCharId, k, !!c.active_by_default);
+          if (curAct) {
+            activeCount++;
+            const curNv = getNanohiveColonyNV(activeCharId, k, c.default_nv);
+            totalVol += curNv;
+          }
+        });
+        if (activeCount > maxColonies) {
+          showToast(`⚠️ Max ${maxColonies} active colonies supported by Nanohive!`);
+          renderActiveCharacter();
+          return;
+        }
+        if (totalVol > maxVol) {
+          showToast(`⚠️ Warning: Exceeds internal capacity (${totalVol}/${maxVol} NV)!`);
+        }
+      }
+      setRuntimeMod(activeCharId, "nanohive_colony_" + colonyId, isChecked ? 1 : 0);
+      renderActiveCharacter();
+      const colName = catalog[colonyId] ? catalog[colonyId].name : colonyId;
+      showToast(isChecked ? `🧫 Active: ${colName}` : `⏸️ Dormant: ${colName}`);
+    }
+
+    function stepNanohiveColonyNV(colonyId, delta) {
+      const char = CHARACTERS_DATA[activeCharId];
+      const nh = (char && char.nanohive) || {};
+      const catalog = nh.catalog || {};
+      const c = catalog[colonyId];
+      if (!c) return;
+      const minNv = c.min_nv || 1;
+      const maxNv = c.max_nv || 3;
+      const curNv = getNanohiveColonyNV(activeCharId, colonyId, c.default_nv);
+      const nextNv = Math.max(minNv, Math.min(maxNv, curNv + delta));
+      setRuntimeMod(activeCharId, "nanohive_nv_" + colonyId, nextNv);
+      renderActiveCharacter();
+      showToast(`🧫 ${c.name} allocated: ${nextNv} NV`);
+    }
+
+    function applyNanohivePreset(presetKey) {
+      const char = CHARACTERS_DATA[activeCharId];
+      const nh = (char && char.nanohive) || {};
+      const presets = nh.presets || {};
+      const p = presets[presetKey];
+      if (!p) return;
+      const catalog = nh.catalog || {};
+      Object.keys(catalog).forEach(k => {
+        const shouldBeActive = p.active_colonies.includes(k);
+        setRuntimeMod(activeCharId, "nanohive_colony_" + k, shouldBeActive ? 1 : 0);
+        if (p.volumes && p.volumes[k] !== undefined) {
+          setRuntimeMod(activeCharId, "nanohive_nv_" + k, p.volumes[k]);
+        }
+      });
+      renderActiveCharacter();
+      showToast(`⚡ Nanohive Preset: ${p.name}`);
+    }
+
+    function clearAllNanohiveColonies() {
+      const char = CHARACTERS_DATA[activeCharId];
+      const nh = (char && char.nanohive) || {};
+      const catalog = nh.catalog || {};
+      Object.keys(catalog).forEach(k => {
+        setRuntimeMod(activeCharId, "nanohive_colony_" + k, 0);
+      });
+      renderActiveCharacter();
+      showToast("⏸️ All Nanohive colonies set to standby");
     }
 
     function resetCharMods(charId) {
@@ -6027,6 +7992,8 @@
       const hasActiveMods = Object.keys(charMods).some(k => {
         const val = charMods[k];
         if (k === "channeling_spirit") return val && val !== "none";
+        if (k === "monad_current_nv") return val !== 6;
+        if (k.startsWith("nanohive_colony_") || k.startsWith("nanohive_nv_")) return true;
         return val !== 0 && val !== "" && val !== null && val !== undefined;
       });
       const resetBtn = document.getElementById("resetAllModsBtn");
@@ -6052,6 +8019,12 @@
       const attrsList = char.attributes_list || [];
       const liveAttrs = {};
 
+      // Monad and Nanohive State Detection
+      const isMonad = !!(char.identity && char.identity.is_monad);
+      const isBioRespActive = isMonad ? isNanohiveColonyActive(activeCharId, "bio_response_override", true) : false;
+      const isNeurochemActive = isMonad ? isNanohiveColonyActive(activeCharId, "neurochemical_regulator", true) : false;
+      const monadNV = isMonad ? getMonadNV(activeCharId) : 0;
+
       // Spirit Channeling Active State Calculation
       const hasChanneling = !!(char.identity && char.identity.has_channeling);
       const activeSpiritKey = getRuntimeMod(activeCharId, "channeling_spirit") || "none";
@@ -6072,7 +8045,12 @@
         const key = "attr_" + code;
         const delta = getRuntimeMod(activeCharId, key);
         if (!attr.linked_mental) {
-          const baseAug = attr.buffed;
+          let baseAug = attr.buffed;
+          if (isMonad) {
+            if (code === "wil" && !isBioRespActive) baseAug = Math.max(0, baseAug - 1);
+            if (code === "cha" && !isNeurochemActive) baseAug = Math.max(0, baseAug - 1);
+            if (code === "nv") baseAug = monadNV;
+          }
           const chanBonus = physicalCodes.includes(code) ? channelingPhysicalBoost : 0;
           liveAttrs[code] = Math.max(0, baseAug + delta + chanBonus);
         }
@@ -6274,8 +8252,11 @@
       }
 
       // Condition Monitors & Wound Calculation
-      const maxPhys = char.derived.physical_boxes || 10;
-      const maxStun = char.derived.stun_boxes || 11;
+      let maxPhys = char.derived.physical_boxes || 10;
+      let maxStun = char.derived.stun_boxes || 11;
+      if (isMonad && !isBioRespActive) {
+        maxStun = Math.max(1, maxStun - 1);
+      }
       const physDmg = getRuntimeMod(activeCharId, "dmg_phys");
       const stunDmg = getRuntimeMod(activeCharId, "dmg_stun");
       const physRem = Math.max(0, maxPhys - physDmg);
@@ -6287,14 +8268,18 @@
       document.getElementById("stunRemainLbl").textContent = `${stunRem} Boxes Left (${stunDmg} Dmg)`;
 
       // SR6 Wound Penalty: -1 dice per full 3 damage boxes on either track
-      const woundPenalty = Math.floor(physDmg / 3) + Math.floor(stunDmg / 3);
+      // Monad Toughness shifts wound penalty down by 1 level
+      let woundPenalty = Math.floor(physDmg / 3) + Math.floor(stunDmg / 3);
+      if (isMonad && monadNV >= 2 && woundPenalty > 0) {
+        woundPenalty = Math.max(0, woundPenalty - 1);
+      }
       const woundBanner = document.getElementById("woundPenaltyBanner");
       if (woundBanner) {
         if (woundPenalty > 0) {
           woundBanner.className = "wound-banner";
           woundBanner.style.display = "flex";
           woundBanner.innerHTML = `
-            <span>⚠️ <strong>Wound Penalty: -${woundPenalty} Dice</strong> to all tests (${physDmg} Phys, ${stunDmg} Stun)</span>
+            <span>⚠️ <strong>Wound Penalty: -${woundPenalty} Dice</strong> to all tests (${physDmg} Phys, ${stunDmg} Stun${isMonad && monadNV >= 2 ? ' • Monad Toughness -1 lvl' : ''})</span>
             <button class="reset-all-btn" onclick="setRuntimeMod(activeCharId, 'dmg_phys', 0); setRuntimeMod(activeCharId, 'dmg_stun', 0); renderActiveCharacter();">Clear Damage</button>
           `;
         } else {
@@ -6448,7 +8433,20 @@
         const liveAttrVal = liveAttrs[shortCode] !== undefined ? liveAttrs[shortCode] : (liveAttrs[rawAttrStr] !== undefined ? liveAttrs[rawAttrStr] : baseAugAttr);
         const attrDelta = liveAttrVal - baseAugAttr;
 
-        const totalPool = Math.max(0, defaultPool + delta + buffsDelta + attrDelta);
+        // Nanohive cognitive/motor colony toggles & Monad Swarm depletion check
+        let colonySkillMod = 0;
+        if (isMonad) {
+          const isNeocorticalActive = isNanohiveColonyActive(activeCharId, "neocortical_neural_amp", true);
+          const isLimbicActive = isNanohiveColonyActive(activeCharId, "limbic_neural_amp", true);
+          const isNeuralPatternActive = isNanohiveColonyActive(activeCharId, "neural_pattern_reinforcement", true);
+          if (shortCode === "log" && !isNeocorticalActive) colonySkillMod -= 1;
+          if (shortCode === "int" && !isLimbicActive) colonySkillMod -= 1;
+          if (shortCode === "agi" && !isNeuralPatternActive) colonySkillMod -= 1;
+          if (monadNV <= 1) colonySkillMod -= 2;
+          else if (monadNV <= 4) colonySkillMod -= 1;
+        }
+
+        const totalPool = Math.max(0, defaultPool + delta + buffsDelta + attrDelta + colonySkillMod);
         const effectiveBoughtHits = Math.floor(totalPool / 4);
         const effectiveSpecPool = s.specialization ? (totalPool + 2) : totalPool;
         const effectiveSpecHits = Math.floor(effectiveSpecPool / 4);
@@ -6526,6 +8524,17 @@
         char.weapons.forEach(w => {
           const wCard = document.createElement("div");
           wCard.className = "weapon-card";
+          let effectiveDamage = w.damage;
+          if (isMonad && w.is_melee) {
+            const isNeuromuscularActive = isNanohiveColonyActive(activeCharId, "neuromuscular_amplifier", true);
+            if (!isNeuromuscularActive) {
+              const dvMatch = (w.damage || "").match(/^(\d+)([PS]?.*)$/);
+              if (dvMatch) {
+                const dvVal = Math.max(1, parseInt(dvMatch[1], 10) - 1);
+                effectiveDamage = `${dvVal}${dvMatch[2]}`;
+              }
+            }
+          }
           const arBands = Array.isArray(w.attack_rating) ? w.attack_rating : [10, 10, 8, 0, 0];
           const labels = ["C", "N", "M", "F", "E"];
           const arHtml = labels.map((lbl, idx) => `
@@ -6547,7 +8556,7 @@
             <div class="weapon-header">
               <span class="weapon-name">${w.name}</span>
               <div style="display: flex; align-items: center; gap: 8px;">
-                <span class="weapon-dv">${w.damage}</span>
+                <span class="weapon-dv">${effectiveDamage}</span>
                 <button class="info-btn" title="Weapon Breakdown">ℹ</button>
               </div>
             </div>
@@ -6849,43 +8858,238 @@
         `;
       }
 
+      if (isMonad) {
+        // 🧬 Console 1: Monad Biological Swarm Console
+        let cohesionStatus = "Optimal Swarm Cohesion";
+        let cohesionBadgeStyle = "background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid #059669;";
+        if (monadNV >= 8) {
+          cohesionStatus = "⚡ Overcharged Swarm (Surge)";
+          cohesionBadgeStyle = "background: rgba(6, 182, 212, 0.25); color: #22d3ee; border: 1px solid #0891b2;";
+        } else if (monadNV <= 1) {
+          cohesionStatus = "⚠️ Critical Depletion (Powers Offline)";
+          cohesionBadgeStyle = "background: rgba(239, 68, 68, 0.25); color: #f87171; border: 1px solid #dc2626;";
+        } else if (monadNV <= 4) {
+          cohesionStatus = "⚠️ Depleted Swarm (-1 Test Pool)";
+          cohesionBadgeStyle = "background: rgba(245, 158, 11, 0.25); color: #fbbf24; border: 1px solid #d97706;";
+        }
+
+        const toughnessBoxes = Math.floor(monadNV / 2);
+        const physBonus = Math.ceil(toughnessBoxes * 2 / 3);
+        const stunBonus = toughnessBoxes - physBonus;
+
+        pContent.innerHTML += `
+          <div class="card" style="border: 1px solid var(--cyan-accent); box-shadow: 0 0 14px rgba(6, 182, 212, 0.18);">
+            <div class="card-title" style="display: flex; justify-content: space-between; align-items: center;">
+              <span>🧬 Monad Biological Swarm Console</span>
+              <span class="power-badge" style="background: rgba(6, 182, 212, 0.2); color: var(--cyan-accent); border: 1px solid var(--cyan-accent);">Monad p. 110</span>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.35); border-radius: 8px; padding: 10px 14px; margin-top: 8px; border: 1px solid var(--border-subtle);">
+              <div>
+                <div style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Biological Nanite Volume</div>
+                <div style="display: flex; align-items: baseline; gap: 8px; margin-top: 2px;">
+                  <span style="font-family: var(--font-mono); font-size: 1.6rem; font-weight: 800; color: var(--cyan-accent);">${monadNV} <span style="font-size: 0.95rem; color: var(--text-muted);">/ 10 NV</span></span>
+                  <span style="font-size: 0.75rem; padding: 3px 8px; border-radius: 6px; font-weight: 600; ${cohesionBadgeStyle}">${cohesionStatus}</span>
+                </div>
+              </div>
+              <div style="display: flex; gap: 6px; align-items: center;">
+                <button class="stepper-btn" style="width: 34px; height: 34px; font-size: 1.1rem;" onclick="updateMonadNV(-1); event.stopPropagation();" title="Expend 1 NV">-1</button>
+                <button class="stepper-btn" style="width: 34px; height: 34px; font-size: 1.1rem;" onclick="updateMonadNV(1); event.stopPropagation();" title="Gain 1 NV">+1</button>
+                <button class="reset-all-btn" style="padding: 6px 10px; font-size: 0.75rem;" onclick="setMonadNV(6); event.stopPropagation();" title="Reset to Base 6 NV">Base (6)</button>
+                <button class="reset-all-btn" style="padding: 6px 10px; font-size: 0.75rem;" onclick="setMonadNV(10); event.stopPropagation();" title="Full Nanite Volume">Max (10)</button>
+              </div>
+            </div>
+
+            <div style="margin-top: 10px; padding: 10px 12px; background: rgba(6, 182, 212, 0.08); border-radius: 8px; border-left: 3px solid var(--cyan-accent); font-size: 0.8rem; color: var(--text-secondary); line-height: 1.45;">
+              <div>• <strong>Monad Toughness:</strong> +${toughnessBoxes} Total Boxes (+${physBonus} Phys, +${stunBonus} Stun) | Wound penalties shifted <strong>-1 level</strong></div>
+              <div>• <strong>Matrix Persona Co-Processing:</strong> Living Persona synthesizes A:${char.attributes.cha || 5} S:${char.attributes.int || 5} D:${char.attributes.log || 6} F:${(char.attributes.wil || 5) + 2} (${char.derived.matrix_defense || 15}d6 Full Matrix Def)</div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 6px; margin-top: 10px;">
+              <button class="action-roll-btn" onclick="rollDice(${monadNV}, 'Monad Swarm Test (${monadNV}d6)');" style="padding: 7px 10px; font-size: 0.78rem; font-weight: 700; background: rgba(6, 182, 212, 0.2); border: 1px solid var(--cyan-accent); border-radius: 6px; color: #e0f2fe; cursor: pointer;">
+                🎲 Roll NV (${monadNV}d6)
+              </button>
+              <button class="action-roll-btn" onclick="rollDice(${monadNV}, 'Rapid Cellular Healing (${monadNV}d6)');" style="padding: 7px 10px; font-size: 0.78rem; font-weight: 700; background: rgba(16, 185, 129, 0.2); border: 1px solid #10b981; border-radius: 6px; color: #d1fae5; cursor: pointer;">
+                ❤️ Rapid Healing
+              </button>
+              <button class="action-roll-btn" onclick="rollDice(${monadNV}, 'Mental Attribute Boost (${monadNV}d6)');" style="padding: 7px 10px; font-size: 0.78rem; font-weight: 700; background: rgba(168, 85, 247, 0.2); border: 1px solid #a855f7; border-radius: 6px; color: #f3e8ff; cursor: pointer;">
+                ⚡ Mental Boost
+              </button>
+              <button class="action-roll-btn" onclick="rollDice(${monadNV}, 'Physical Attribute Boost (${monadNV}d6)');" style="padding: 7px 10px; font-size: 0.78rem; font-weight: 700; background: rgba(245, 158, 11, 0.2); border: 1px solid #f59e0b; border-radius: 6px; color: #fef3c7; cursor: pointer;">
+                🏃 Physical Boost
+              </button>
+            </div>
+          </div>
+        `;
+
+        // 🧫 Console 2: Nanohive Colony & Volume Manager
+        const nh = char.nanohive || {};
+        const catalog = nh.catalog || {};
+        const presets = nh.presets || {};
+        const maxColonies = nh.max_colonies || 6;
+        const maxVol = nh.max_volume || 18;
+
+        let activeCount = 0;
+        let totalAllocatedNV = 0;
+        Object.keys(catalog).forEach(k => {
+          const c = catalog[k];
+          const isAct = isNanohiveColonyActive(activeCharId, k, !!c.active_by_default);
+          if (isAct) {
+            activeCount++;
+            const curNv = getNanohiveColonyNV(activeCharId, k, c.default_nv);
+            totalAllocatedNV += curNv;
+          }
+        });
+
+        const pct = Math.min(100, Math.round((totalAllocatedNV / maxVol) * 100));
+        let barColor = "var(--cyan-accent)";
+        if (totalAllocatedNV > maxVol) barColor = "#ef4444";
+        else if (totalAllocatedNV > 14) barColor = "#f59e0b";
+
+        let presetButtonsHtml = Object.keys(presets).map(pk => {
+          const p = presets[pk];
+          return `<button class="filter-chip" style="font-size: 0.74rem; padding: 4px 8px;" onclick="applyNanohivePreset('${pk}'); event.stopPropagation();">${p.name}</button>`;
+        }).join("");
+        presetButtonsHtml += `<button class="filter-chip" style="font-size: 0.74rem; padding: 4px 8px; color: #f87171;" onclick="clearAllNanohiveColonies(); event.stopPropagation();">Standby All</button>`;
+
+        let colonyCardsHtml = Object.keys(catalog).map(k => {
+          const c = catalog[k];
+          const isAct = isNanohiveColonyActive(activeCharId, k, !!c.active_by_default);
+          const curNv = getNanohiveColonyNV(activeCharId, k, c.default_nv);
+          const minNv = c.min_nv || 1;
+          const maxNv = c.max_nv || 3;
+          const isVariable = !c.fixed_nv && (maxNv > minNv);
+
+          const stepperHtml = isVariable ? `
+            <div class="stepper-inline" style="gap: 3px;">
+              <button class="stepper-btn" style="width: 22px; height: 22px; font-size: 0.8rem;" onclick="stepNanohiveColonyNV('${k}', -1); event.stopPropagation();">-</button>
+              <span style="font-family: var(--font-mono); font-weight: 700; font-size: 0.82rem; min-width: 32px; text-align: center; color: var(--gold-primary);">${isAct ? '−' : ''}${curNv} NV</span>
+              <button class="stepper-btn" style="width: 22px; height: 22px; font-size: 0.8rem;" onclick="stepNanohiveColonyNV('${k}', 1); event.stopPropagation();">+</button>
+            </div>
+          ` : `<span class="power-badge" style="font-family: var(--font-mono); font-weight: 700; font-size: 0.78rem; color: ${isAct ? 'var(--cyan-accent)' : 'var(--text-muted)'}; background: ${isAct ? 'rgba(6, 182, 212, 0.15)' : 'rgba(255,255,255,0.05)'}; border: 1px solid ${isAct ? 'rgba(6, 182, 212, 0.35)' : 'var(--border-subtle)'}; padding: 2px 7px;">${isAct ? '−' : ''}${curNv} NV</span>`;
+
+          const bonusLabel = c.stat_effects && c.stat_effects.notes ? `<span class="buff-chip" style="font-size: 0.72rem; padding: 2px 6px;">⚡ ${c.stat_effects.notes}</span>` : '';
+
+          return `
+            <div style="background: ${isAct ? 'rgba(6, 182, 212, 0.08)' : 'rgba(0,0,0,0.25)'}; border: 1px solid ${isAct ? 'rgba(6, 182, 212, 0.35)' : 'var(--border-subtle)'}; border-radius: 8px; padding: 8px 10px; margin-bottom: 6px; transition: all 0.2s ease;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.88rem; font-weight: 700; color: ${isAct ? 'var(--text-primary)' : 'var(--text-muted)'};">
+                  <input type="checkbox" ${isAct ? 'checked' : ''} onchange="toggleNanohiveColony('${k}', this.checked)">
+                  <span>${c.name}</span>
+                </label>
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <span class="power-badge" style="font-size: 0.68rem;">${c.type.toUpperCase()}</span>
+                  ${stepperHtml}
+                </div>
+              </div>
+              <div style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 4px; line-height: 1.35;">${c.effect}</div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 6px; font-size: 0.70rem; color: var(--text-muted);">
+                <span>${c.source} • ${c.category}</span>
+                ${bonusLabel}
+              </div>
+            </div>
+          `;
+        }).join("");
+
+        pContent.innerHTML += `
+          <div class="card" style="border: 1px solid var(--border-accent); box-shadow: 0 0 12px rgba(6, 182, 212, 0.12);">
+            <div class="card-title" style="display: flex; justify-content: space-between; align-items: center;">
+              <span>🧫 Nanohive Colony & Volume Manager</span>
+              <span class="power-badge">Dual R3 Nanohives (Rating 6)</span>
+            </div>
+
+            <!-- Sustaining Rule Banner -->
+            <div style="margin-top: 8px; padding: 8px 10px; background: rgba(0,0,0,0.25); border-radius: 6px; border-left: 3px solid var(--gold-primary); font-size: 0.74rem; color: var(--text-secondary); line-height: 1.35;">
+              ℹ️ <strong>Colony Sustaining Rule (Body Shop p. 108):</strong> Nanohive colonies must be actively sustained by nanohive volume or they degrade and die within 1 week. Pre-bought doses are single colonies requiring their designated NV (Bio-Response: 3 NV; Neurochemical: 2 NV; Neural Amps: 2 NV each). Templates (Neuromuscular Amp [min 2 NV], Dynamic Features [1-3 NV]) can be allocated extra volume for overdriving.
+            </div>
+
+            <!-- Capacity summary & progress bar -->
+            <div style="margin-top: 8px; background: rgba(0,0,0,0.3); border-radius: 8px; padding: 10px 12px; border: 1px solid var(--border-subtle);">
+              <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                <div>
+                  <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Active Colonies: </span>
+                  <strong style="color: ${activeCount > maxColonies ? '#f87171' : 'var(--gold-primary)'}; font-size: 0.95rem;">${activeCount} / ${maxColonies} Max</strong>
+                </div>
+                <div>
+                  <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Nanohive Reserve NV: </span>
+                  <strong style="color: ${totalAllocatedNV > maxVol ? '#f87171' : 'var(--cyan-accent)'}; font-size: 0.95rem;">${Math.max(0, maxVol - totalAllocatedNV)} / ${maxVol} NV Free</strong>
+                </div>
+              </div>
+              
+              <!-- Progress Bar -->
+              <div style="width: 100%; height: 8px; background: rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden; margin: 8px 0 6px 0;">
+                <div style="width: ${pct}%; height: 100%; background: ${barColor}; transition: width 0.3s ease;"></div>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 0.70rem; color: var(--text-muted);">
+                <span>Replenishment: <strong>6 NV / hour</strong> (Dual R3)</span>
+                <span>Allocated: <strong>${totalAllocatedNV} NV used</strong> (${Math.max(0, maxVol - totalAllocatedNV)} NV free reserve)</span>
+              </div>
+            </div>
+
+            <!-- Presets Row -->
+            <div style="margin-top: 10px;">
+              <div style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-bottom: 4px;">Operational Presets:</div>
+              <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                ${presetButtonsHtml}
+              </div>
+            </div>
+
+            <!-- Colony items -->
+            <div style="margin-top: 10px;">
+              ${colonyCardsHtml}
+            </div>
+          </div>
+        `;
+      }
+
+      // 🔮 Monad Swarm Protocols / Abilities list
       if (monad.length > 0) {
         let monadItems = monad.map(m => `
-          <div class="power-item">
+          <div class="power-item" style="border-left: 3px solid var(--cyan-accent);">
             <div class="power-header">
               <strong style="color: var(--cyan-accent);">${m.name}</strong>
+              <span class="power-badge">${m.action || 'Passive'}</span>
             </div>
-            <div style="color: var(--text-secondary); font-size: 0.82rem; margin-top: 4px;">${m.effect}</div>
+            <div style="color: var(--text-secondary); font-size: 0.82rem; margin-top: 4px; line-height: 1.35;">${m.effect}</div>
             ${m.doc_link ? `<a class="doc-link-btn" href="${getDocUrl(activeCharId, m.doc_link)}" target="_blank" rel="noopener">📖 View Monad Protocols ↗</a>` : ""}
           </div>
         `).join("");
 
         pContent.innerHTML += `
           <div class="card">
-            <div class="card-title">Monad Swarm Abilities</div>
+            <div class="card-title" style="color: var(--cyan-accent);">Monad Swarm Protocols</div>
             ${monadItems}
           </div>
         `;
       }
 
-      if (augs.length > 0) {
-        let augItems = augs.map(a => `
-          <div class="power-item">
-            <div class="power-header">
-              <strong>${a.name} ${a.rating ? `R${a.rating}` : ""}</strong>
-              <span class="power-badge">[${a.grade}] ${a.essence ? `${a.essence} Ess` : ''}</span>
-            </div>
-            ${a.notes ? `<div style="font-size: 0.78rem; color: var(--gold-primary); margin-top: 4px;">${a.notes}</div>` : ""}
-            ${a.doc_link ? `<a class="doc-link-btn" href="${getDocUrl(activeCharId, a.doc_link)}" target="_blank" rel="noopener">📖 View Augmentation Rules ↗</a>` : ""}
-          </div>
-        `).join("");
-
-        pContent.innerHTML += `
-          <div class="card">
-            <div class="card-title">Cyberware & Bioware Augmentations</div>
-            ${augItems}
-          </div>
-        `;
+      // Cyberware & Bioware Augmentations (Gear & Drones Tab)
+      const augCard = document.getElementById("augmentationsCard");
+      const augList = document.getElementById("augmentationsList");
+      if (augCard && augList) {
+        augList.innerHTML = "";
+        if (augs.length === 0) {
+          augCard.style.display = "none";
+        } else {
+          augCard.style.display = "block";
+          augs.forEach(a => {
+            const div = document.createElement("div");
+            div.className = "gear-card";
+            div.style.marginBottom = "8px";
+            div.innerHTML = `
+              <div class="gear-header">
+                <span class="gear-title"><strong>${a.name}</strong> ${a.rating ? `R${a.rating}` : ""}</span>
+                <div style="display: flex; gap: 4px;">
+                  <span class="gear-badge rating">[${a.grade || 'Standard'}]</span>
+                  ${a.essence ? `<span class="gear-badge qty">${a.essence} Ess</span>` : ''}
+                </div>
+              </div>
+              ${a.notes ? `<div style="font-size: 0.78rem; color: var(--gold-primary); margin-top: 3px;">${a.notes}</div>` : ''}
+              ${a.doc_link ? `<div style="margin-top: 4px;"><a class="doc-link-btn" href="${getDocUrl(activeCharId, a.doc_link)}" target="_blank" rel="noopener">📖 View Augmentation Rules ↗</a></div>` : ''}
+            `;
+            augList.appendChild(div);
+          });
+        }
       }
 
       // Vehicles & Drones Tab
