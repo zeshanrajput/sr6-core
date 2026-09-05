@@ -281,14 +281,13 @@ Velvet's somatic and metaphysical abilities combine Adept Powers, Qi Foci, and M
 * **Mechanic**: Mystically shrouds and masks Velvet's aura. Imposes a **-1 dice pool penalty** on all hostile Assensing and Astral Perception tests attempting to read Velvet's aura, detect magical tradition, or pierce mystical covers.
 :::
 
-::: {.callout-note icon=false title="🌟 ADEPT POWER: Sharp Tongue (Rating 4 Qi Focus)"}
-* **Source**: *Smooth Operations*, p. 105 (SO-0253) | **Cost**: 1.0 PP (bound via Rating 4 Qi Focus) | **Activation**: Major Action
-* **Attack Roll**: **Charisma + Magic vs. Intuition + Willpower** (**20d6 vs. INT + WIL under Sustained Charisma 14 $\rightarrow$ Buys 5 Hits**).
-* **Effect**: Net hits inflict **unresisted Stun damage** directly to the target's aura and central nervous system. (Target must be in line of sight and able to understand the verbal barb).
-* **Stun Alternative**: Alternatively, the adept may choose before rolling to stun the target: if net hits $\ge$ target's Willpower, the target immediately suffers the **Dazed** status (*SR6*, p. 52).
+::: {.callout-note icon=false title="✨ BONDED FOCUS: Power Focus (Rating 3)"}
+* **Source**: *City Edition: Hong Kong*, p. 247 (*SR6 Core*) | **Cost**: ¥54,000 / 18 Karma bonding | **Force**: 3
+* **Mechanic**: Channels pure mana directly into Velvet's astral and magical framework. Adds **+3 to Magic** for tests where Magic applies (Spellcasting, Counterspelling, Ritual Sorcery, Conjuring, and Channeling tests).
 :::
 
 ---
+
 
 ## Social Leverage & Inspire Competence
 

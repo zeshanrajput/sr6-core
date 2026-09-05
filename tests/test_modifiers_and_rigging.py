@@ -451,13 +451,13 @@ def test_magic_and_social_action_pools_and_tables():
 
     # Enhanced mode (Default)
     magic_pools_enh = ModifierEngine.get_magic_action_pools(char, enhanced=True)
-    assert magic_pools_enh["spellcasting"].total_pool == 13  # Sorcery 5 + MAG 6 + Spec (Spellcasting) 2 = 13d6 (3 Hits)
-    assert magic_pools_enh["spellcasting"].bought_hits == 3
+    assert magic_pools_enh["spellcasting"].total_pool == 16  # Sorcery 5 + MAG 6 + Focus 3 + Spec (Spellcasting) 2 = 16d6 (4 Hits)
+    assert magic_pools_enh["spellcasting"].bought_hits == 4
     assert magic_pools_enh["drain_resistance"].total_pool == 23  # WIL 9 + CHA 14 = 23d6 (5 Hits)
     assert magic_pools_enh["drain_resistance"].bought_hits == 5
     assert "channeling" in magic_pools_enh
-    assert magic_pools_enh["channeling"].total_pool == 14  # Conjuring 6 + MAG 6 + Initiate Grade 2 = 14d6 (3 Hits)
-    assert magic_pools_enh["channeling"].bought_hits == 3
+    assert magic_pools_enh["channeling"].total_pool == 17  # Conjuring 6 + MAG 6 + Focus 3 + Initiate Grade 2 = 17d6 (4 Hits)
+    assert magic_pools_enh["channeling"].bought_hits == 4
 
     # Baseline mode
     magic_pools_base = ModifierEngine.get_magic_action_pools(char, enhanced=False)
@@ -481,9 +481,9 @@ def test_magic_and_social_action_pools_and_tables():
     magic_table = get_magic_action_table("velvet")
     assert "Spellcasting (Sorcery)" in magic_table
     assert "**11d6**" in magic_table
-    assert "**2 Hits**" in magic_table
+    assert "**16d6**" in magic_table
     assert "Spirit Channeling" in magic_table
-    assert "**14d6**" in magic_table
+    assert "**17d6**" in magic_table
 
     social_table = get_social_action_table("velvet")
     assert "Social Negotiation" in social_table

@@ -3,7 +3,7 @@
 ```{python}
 #| echo: false
 #| include: false
-from sr6core.log_engine import inc, inc_many, assign, state, adept_power, spell, metamagic
+from sr6core.log_engine import inc, inc_many, assign, state, adept_power, spell, metamagic, modifier
 
 # Initial Starting Resources from Chargen
 assign("Karma", 0)
@@ -79,7 +79,7 @@ This ledger itemizes character creation gear, matrix devices, identities, softwa
 
 ### Foci & Magical Assets
 
-* **Qi Focus (Rating 4) — Sharp Tongue:** `{python} inc('Nuyen', -12000)` `{python} inc('Karma', -8)` `{python} adept_power('Sharp Tongue', rating=1, cost_pp=1.0, action='Major Action', source='Qi Focus (Rating 4)', notes='CHA + Magic vs INT + WIL. Net hits inflict unresisted Stun damage.')` *(Post-chargen Qi Focus, Smooth Operations p. 1)*
+* **Power Focus (Rating 3):** `{python} inc('Nuyen', -54000)` `{python} inc('Karma', -18)` `{python} modifier("Power Focus", "attribute:magic", 3, type="focus", rule_anchor="rules/rules_and_downtime.html#foci", notes="+3 to Magic for tests where Magic applies")` *(Acquired and bonded in CMP 2081-10 Downtime)*
 
 ---
 
@@ -91,7 +91,5 @@ This ledger itemizes character creation gear, matrix devices, identities, softwa
 
 ### Weaponry & Field Armaments
 
-* **Beretta 101T Light Pistol x2:** *(Loot: CMP 2083-01 Nonplushed)*
-* **Sap x2:** *(Loot: CMP 2083-01 Nonplushed)*
-* **Yamaha Raiden Assault Rifle x1:** *(Loot: CMP 2083-01 Nonplushed)*
-* **Stun Baton x1:** *(Loot: CMP 2083-01 Nonplushed)*
+* **Beretta 101T Light Pistol x2, Sap x2, Yamaha Raiden x1, Stun Baton x1:** *(Loot: CMP 2083-01 Nonplushed; Fenced in CMP 2081-10 Downtime for ¥2,290)* `{python} inc('Nuyen', 2290)`
+

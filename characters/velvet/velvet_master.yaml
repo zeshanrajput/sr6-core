@@ -14,10 +14,10 @@ identity:
   eye_color: Obsidian
   skin_color: White
   system: shadowrun6e
-  karma: 27
+  karma: 17
   lifetime_karma: 55
-  nuyen: 39915
-  lifetime_nuyen: 115300
+  nuyen: 205
+  lifetime_nuyen: 117590
   heat: 0
 attributes:
   body: 2
@@ -100,7 +100,16 @@ skills:
   attribute: Logic
   rating: 1
   is_knowledge: true
-modifiers: []
+modifiers:
+- id: power_focus
+  name: Power Focus
+  target: attribute:magic
+  value: 3
+  type: focus
+  sub_skill: null
+  rule_anchor: rules/rules_and_downtime.html#foci
+  notes: +3 to Magic for tests where Magic applies
+  enabled: true
 spells:
 - name: Increase Attribute
   ref: increase_attribute
@@ -152,14 +161,6 @@ adept_powers:
   action: Passive
   source: natural
   notes: -1 dice pool penalty to hostile Assensing tests.
-- name: Sharp Tongue
-  ref: sharp_tongue
-  rating: 1
-  cost: 1.0 PP
-  cost_pp: 1.0
-  action: Major Action
-  source: Qi Focus (Rating 4)
-  notes: CHA + Magic vs INT + WIL. Net hits inflict unresisted Stun damage.
 metamagic:
 - name: Channeling
   ref: channeling
@@ -475,19 +476,7 @@ reputation:
   Southeast Asia: 2
 total_reputation: 6
 drones: []
-weapons:
-- name: Beretta 101T
-  ref: beretta_101T
-  qty: 2
-- name: Sap
-  ref: sap
-  qty: 2
-- name: Yamaha Raiden
-  ref: yamaha_raiden
-  qty: 1
-- name: Stun Baton
-  ref: stun_baton
-  qty: 1
+weapons: []
 armors:
 - name: Ares SecureTech Skinshield
   ref: securetech_skinshield
@@ -523,8 +512,10 @@ licenses:
 living_persona: {}
 synergies:
   foci:
-  - name: Qi Focus (Sharp Tongue)
-    ref: qi_focus
-    rating: 4
+  - name: Power Focus (Rating 3)
+    ref: power_focus
+    rating: 3
     bonded: true
-    power: Sharp Tongue
+    applies_to: magic
+    notes: +3 to Magic for tests where Magic applies (Spellcasting, Counterspelling, Ritual Sorcery, Conjuring, Channeling)
+

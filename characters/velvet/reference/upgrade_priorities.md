@@ -12,13 +12,14 @@ This document tracks character upgrades, mechanical evaluations, karma/nuyen tar
 
 ## 1. Executive Summary & Resource Balances
 
-* **Current Available Karma:** 22 Karma (33 Spent)
-* **Current Nuyen Balance:** ¥39,915
+* **Current Available Karma:** 17 Karma (Banked towards *Mentor Spirit: Wise Warrior* [20 Karma target; 3 Karma deficit])
+* **Current Nuyen Balance:** ¥205
 * **Magic:** 6 | **Power Points:** 3.0 (2.0 on *Cosmetic Control R2*, 1.0 on *Linguistics, Command Presence, Cloak R1*)
-* **Active Foci Bonded:** Rating 4 Qi Focus (*Sharp Tongue*, 4 Force / 18 Max Bonding Limit)
+* **Active Foci Bonded:** Rating 3 Power Focus (3 Force / 18 Max Bonding Limit)
 * **Initiation Grade:** 2 (Metamagics: *Channeling*, *Power Point*)
 * **Coven Affiliation:** Guild of Freelance Assets (Conclave Connection 7, Loyalty 8)
   * *Downtime Logistics:* SRM campaign rules require dedicating every other Major Downtime Action to coven maintenance to retain access to initiation backing and conclave resources.
+* **Immediate Target:** Banking through the next mission to cross the 20 Karma threshold and unlock **Mentor Spirit: Wise Warrior** (Edge discount on Influence/Leadership + 1 free rank of Improved Ability).
 * **Post-Chargen Quality Cost Rule:** In SRM, purchasing positive qualities during play costs **double the listed Karma** (e.g., a 4K quality costs **8K**, 6K costs **12K**, 12K costs **24K**), while **Mentor Spirit** has a fixed cost of **20 Karma**.
 * **Focus Bonding Cap Rule:** Maximum bonded focus Force is $\text{Magic} \times 3$ (18 Force at Magic 6; 21 Force at Magic 7; 24 Force at Magic 8).
 
@@ -206,12 +207,12 @@ This document tracks character upgrades, mechanical evaluations, karma/nuyen tar
 
 | Step | Target Upgrade | Cost | Downtime Actions Needed | Funding Mechanism |
 | :--- | :--- | :--- | :--- | :--- |
-| **01** | **Power Focus (Rating 3)** | ¥54,000 / 18 K | Procure via Conclave / Vincent | Nuyen + Banked Karma |
+| **01** | **Power Focus (Rating 3)** | ¥54,000 / 18 K | Procure via Conclave / Vincent | **ACQUIRED & BONDED** (CMP 2081-10) |
 | **02** | **Core Charisma Spell: `Charm`** | 5 Karma | Study | Banked Karma |
 | **03** | **Opportunity Event 1: Initiation Grade 3 (Psychometry)** | **5 Karma** | 1 Major Downtime Action | Session-funded (Object Memory & The Path of the Thousand Lives) |
 | **04** | **Tactical Utility Spell Suite 1 (`Fashion`, `Physical Barrier`)** | 10 Karma | Study | Banked Karma |
 | **05** | **Untrained Skill Suite 1 (Astral 1, Perception 1)** | 10 Karma | None (Between runs) | Banked Karma |
-| **06** | **Early Quality: `Mentor Spirit (Wise Warrior)`** | 20 Karma | Spiritual Quests | Banked Karma (Edge discount + 0.5 PP Adept combat perk) |
+| **06** | **Early Quality: `Mentor Spirit (Wise Warrior)`** | 20 Karma | Spiritual Quests | **ACTIVE TARGET** (17/20 K Banked; purchase on next mission payout) |
 | **07** | **Mandatory Coven Action** | — | 1 Major Downtime Action | Coven Maintenance |
 | **08** | **Opportunity Event 2: Initiation Grade 4 (Centering)** | **6 Karma** | 1 Major Downtime Action | Session-funded (+4 Drain Soak Dice) |
 | **09** | **Untrained Skill Suite 2 (Stealth 1, Athletics 1)** | 10 Karma | None | Banked Karma |

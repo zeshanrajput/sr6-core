@@ -93,7 +93,7 @@ chapter_tiers:
       - "21 ~"
       - "22 C Sharp"
       - "24 Symlink (Martyrdom Resolution & Sprite Link)"
-      - "25 Renraku's Edge (The Amuse-Bouche / Curator Prelude)"
+      - "25 DelTree (The Amuse-Bouche / Curator Prelude)"
       - "XX_4 Leaving the Nest (Technoshamanic Parenthood)"
       - "XX_n Saturation (Sensory Trade in Eniac & Coffin Girls Refuge)"
 

@@ -8,10 +8,10 @@ identity:
   gender: DIVERSE
   age: ~ 10
   system: shadowrun6e
-  karma: 0
-  lifetime_karma: 229
-  nuyen: -3450.0
-  lifetime_nuyen: 367300
+  karma: 4
+  lifetime_karma: 238
+  nuyen: 2550.0
+  lifetime_nuyen: 387300
   heat: 1
 attributes:
   body: 5
@@ -151,6 +151,13 @@ complex_forms:
   target: Character with wireless cyberware
   notes: Electronics + RES vs BOD + Essence. Deals 1 Physical damage per net hit and
     stresses installed ware.
+- name: Resonance Wires
+  ref: resonance_wires
+  fading: 2
+  duration: Sustained
+  target: Device
+  notes: Electronics + RES vs Threshold 2 + Noise. Establishes a remote direct connection
+    to target device wirelessly, bypassing host firewalls and wireless-off defenses.
 meta_echoes:
 - name: New Sprite Type
   ref: new_sprite_type

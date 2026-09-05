@@ -6,7 +6,7 @@
 
 #### 1. Second Cyberarm & Internal Nanohive Architecture
 
-To integrate an internal nanohive into her custom Shiawase Man-at-Arms anthrodrone (matching the narrative developments from Chapter 25 *Renraku's Edge*), Reiko requires a second cyberarm to supply the necessary capacity:
+To integrate an internal nanohive into her custom Shiawase Man-at-Arms anthrodrone (matching the narrative developments from Chapter 25 *DelTree*), Reiko requires a second cyberarm to supply the necessary capacity:
 
 - **Used Synthetic Cyberarm (Left)**
   - **Base Capacity**: 8
@@ -42,7 +42,7 @@ Cost: 5 karma each
 
 - Smartgun Amplifier
 - Threat Analyzer
-- Resonance Wires
+- ~~Resonance Wires~~ *(Acquired in SRM 2083-14 Downtime — 5 Karma)*
 - Enhance Autosoft
 - Enlighten Automaton
 
