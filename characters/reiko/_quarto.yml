@@ -59,6 +59,7 @@ book:
         - chapters/22 C Sharp.md
         - chapters/23 Tea with a Ghost.md
         - chapters/24 Symlink.md
+        - chapters/25 Renraku's Edge.md
     - part: "Reference & Specifications"
       chapters:
         - reference/visual_anchors.md

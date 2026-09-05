@@ -87,6 +87,9 @@ class Drone(BaseModel):
     accel_on: int = 0
     accel_off: int = 0
     weapons: List[Dict[str, Any]] = Field(default_factory=list)
+    modifications: List[Any] = Field(default_factory=list)
+    accessories: List[Any] = Field(default_factory=list)
+    shifted_slots: Optional[Dict[str, int]] = None
 
 
 class CreationBudget(BaseModel):

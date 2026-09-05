@@ -60,7 +60,7 @@ format: html
 - **Inspire Competence** (5 Karma) — [Sixth World Companion (p. 9)]
 - **Low-Light Vision** (0 Karma) — [Sixth World Companion (p. 9)]
 - **Focused Concentration** (5 Karma) — [SR6 Core]
-- **Chronic Pain** (5 Karma) — [Sixth World Companion (p. 9)]
+- **Injury Prone** (5 Karma) — [Sixth World Companion (p. 9)]
 - **Hooder** (5 Karma) — [Sixth World Companion (p. 9)]
 - **Allergy (Spices, Common Moderate)** (5 Karma) — [SR6 Core]
 

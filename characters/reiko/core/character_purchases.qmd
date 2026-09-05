@@ -91,9 +91,11 @@ Software with karma costs have been learned via the **Software Emulator** echo.
 * Kwonsham Dream Genie `{python} inc('Nuyen', -2000)`
   * Trid Projector
   * Smart Tires
+  * Laser Jack
 
 * Vulcan Systems Utility-One `{python} inc('Nuyen', -3500)`
   * Wearable Smart Toolbox & Repair Drone
+  * Laser Jack
 
 * Shiawase Man-At-Arms `{python} inc('Nuyen', -4500*.9)`
   * Weapon Mount - Standard x2 `{python} inc('Nuyen', -1600/2)`
@@ -107,10 +109,24 @@ Software with karma costs have been learned via the **Software Emulator** echo.
   * Increased Structural Integrity 5 `{python} inc('Nuyen', -25000/2)`
   * Realistic Features 4 `{python} inc('Nuyen', -4 * 10 * 1000 / 2)`
   * Secondary Propulsion (Rotor): `{python} inc('Nuyen', -50000/2)`
-    * HAN 5, ACC 10, SPD 20/120  
+    * HAN 5, ACC 10, SPD 20/120 
+  * Nitro Boost: `{python} inc('Nuyen',-5000/2)` 
   * Increased Sensors 6 `{python} inc('Nuyen', -30000/2)`
+    * (Rating 1) Camera w/ image link
+    * (Rating 2) Low-light Vision
+    * Omni-directional mic with sound link
+    * (Rating 3) Flare compensation
+    * Spatial recognizer
+    * Atmosphere sensor
+    * (Rating 4) Laser range finder
+    * (Rating 5) Motion sensor
+    * (Rating 6) Ultrasound
+    * (Rating 7) Olfactory Sensor
+    * (Rating 8) Oral chemical analyzer
+    * (Rating 9) Tactile Sensors (from the EVO Orderly, DA p. 178. Taken for RP purposes only - I will not be using the Biotech bonus)
   * Secondary Propulsion (Wheeled): `{python} inc('Nuyen', -10000/2)`
-    * HAN 3/4, ACC 10, SPD 15/120
+    * Smart Tires `{python} inc('Nuyen', -1200/2)`
+    * HAN 3/4, ACC 15, SPD 25/120
   * Accessories
     * Satellite Link
     * Laser Jack
@@ -123,6 +139,7 @@ Software with karma costs have been learned via the **Software Emulator** echo.
   * Enhanced Sensors 2
   * Retrans Unit
   * Satellite Link
+  * Laser Jack
   * Integrated Matrix Dock x2 `{python} inc('Nuyen', -800)`
     * M-TOC II
     * Foundation Host (R2)
@@ -131,8 +148,8 @@ Drone mods include a 50% discount on mods Yuriko installed herself (DC p. 120). 
 
 ### Electronics
 
-* Software Tag x5 `{python} inc('Nuyen', -100 * 5)`
-* Laser Jack x5 `{python} inc('Nuyen', -100 * 5)`
+* Software Tag x10 `{python} inc('Nuyen', -100 * 10)`
+* Laser Jack x10 `{python} inc('Nuyen', -100 * 10)`
 * Satellite Link x2 `{python} inc('Nuyen', -500 * 2)`
 
 ### Other Supplies

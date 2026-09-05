@@ -15,9 +15,9 @@ identity:
   skin_color: White
   system: shadowrun6e
   karma: 27
-  lifetime_karma: 47
-  nuyen: 89360
-  lifetime_nuyen: 105800
+  lifetime_karma: 55
+  nuyen: 39915
+  lifetime_nuyen: 115300
   heat: 0
 attributes:
   body: 2
@@ -50,8 +50,8 @@ qualities:
     ref: focused_concentration
     rating: 3
   negative:
-  - name: Chronic Pain
-    ref: chronic_pain
+  - name: Injury Prone
+    ref: injury_prone
   - name: Hooder
     ref: hooder
     rating: 3
@@ -455,11 +455,25 @@ contacts:
       L0, +4 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
     - Auto-Promoted to Loyalty 2 (-2 FP)
+  Kiara Shaw:
+    name: Kiara Shaw
+    canonical_name: Kiara Shaw
+    is_canonical: false
+    connection: 4
+    loyalty: 1
+    favors: 1
+    type: Knight Errant Company Suit
+    region: AMS
+    description: CMP 2081-10 A Diamond In The Rough (Knight Errant Company Suit)
+    notes: CMP 2081-10 A Diamond In The Rough (Knight Errant Company Suit)
+    history:
+    - 'CMP 2081-10 A Diamond In The Rough (Knight Errant Company Suit) (Met: C4 L0, +2 FP)'
+    - Auto-Promoted to Loyalty 1 (-1 FP)
 reputation:
   SEA: 4
-  UNL: -1
+  UNL: 0
   Southeast Asia: 2
-total_reputation: 5
+total_reputation: 6
 drones: []
 weapons:
 - name: Beretta 101T

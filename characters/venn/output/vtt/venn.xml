@@ -1,7 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <sr6char gender="MALE" meta="human" karmaF="1" karmaI="0" nuyen="5000">
+   <essenceChanges>
+      <valmod id="519afcf1-be2a-44cb-9986-93859d399b7d" ref="cyberarm" set="AUGMENTED" type="CARRIED" value="100" />
+      <valmod id="d0bc8400-1abf-414c-b3f2-7bab07d72405" ref="cyberarm" set="AUGMENTED" type="CARRIED" value="100" />
+      <valmod id="c8c058da-67fa-4aea-adf5-feb1f329f1c0" ref="cyberleg" set="AUGMENTED" type="CARRIED" value="100" />
+      <valmod id="26b4557b-36b5-41ef-9df8-322de8f37e8a" ref="cyberleg" set="AUGMENTED" type="CARRIED" value="100" />
+      <valmod id="9845bf17-2578-46f6-97f8-a35e323e7376" ref="bone_density_augmentation" set="AUGMENTED" type="CARRIED" value="840" />
+      <valmod id="57295e6d-d187-4383-8e26-6fb1d3584aae" ref="skilljack" set="AUGMENTED" type="CARRIED" value="600" />
+      <valmod id="c14c1084-3d61-458b-808f-ab86c58decaa" ref="skillwires" set="AUGMENTED" type="CARRIED" value="600" />
+      <valmod id="9dee3642-d1fa-4753-ba72-1eb054cb0f69" ref="math_spu" set="AUGMENTED" type="CARRIED" value="100" />
+      <valmod ref="augmentation_acclimation" type="QUALITY" value="-100" />
+      <valmod ref="augmentation_acclimation" type="QUALITY" value="-100" />
+      <valmod ref="augmentation_acclimation" type="QUALITY" value="-100" />
+      <valmod ref="augmentation_acclimation" type="QUALITY" value="-100" />
+      <valmod ref="augmentation_acclimation" type="QUALITY" value="-100" />
+      <valmod ref="augmentation_acclimation" type="QUALITY" value="-100" />
+      <valmod ref="augmentation_acclimation" type="QUALITY" value="-100" />
+      <valmod ref="augmentation_acclimation" type="QUALITY" value="-100" />
+      <valmod ref="augmentation_acclimation" type="QUALITY" value="-100" />
+   </essenceChanges>
    <type>METAHUMAN</type>
+   <qualities>
+      <quality lang="en" ref="augmentation_acclimation" uuid="5cf58bd1-fb22-4ab6-b613-b886f124b9e7" value="9" />
+      <quality lang="en" ref="redliner" uuid="54f07ca0-f67a-4e77-b52b-692d513e1d67" />
+      <quality lang="en" ref="cyber_singularity_seeker" uuid="81ea7abf-de79-4b05-9ad9-805d0f039a8c" />
+      <quality lang="en" ref="maximum_overdrive" uuid="61d41a4c-0761-49e4-9086-4703876d4c39" />
+      <quality lang="en" ref="cyber_psychosis" uuid="2d5f4004-be7c-498a-8c13-ce870e4f2bef" value="3" />
+      <quality lang="en" ref="hooder" uuid="b10e6599-06bb-451b-8e26-bd4ef3b7e5b3" value="3" />
+   </qualities>
    <name>Venn</name>
+   <datasets mode="ALL" />
+   <rules>
+      <set rule="CAREER_UNDO_FROM_CAREER" to="true" />
+      <set rule="CAREER_PAY_GEAR" to="true" />
+   </rules>
    <realName>Nathan &amp; Veronica Turrent</realName>
    <attributes>
       <attributes id="BODY" value="5" />
@@ -16,28 +48,65 @@
       <attributes id="RESONANCE" value="0" />
       <attributes id="MAGIC" value="0" />
    </attributes>
-   <qualities>
-      <quality lang="en" ref="augmentation_acclimation" uuid="8b30ac0d-a6db-4b78-a836-d20063cfa5f9" value="9" />
-      <quality lang="en" ref="redliner" uuid="671469c8-7568-4937-84d5-920b182c9062" />
-      <quality lang="en" ref="cyber_singularity_seeker" uuid="4256f884-1737-41a8-b192-7b74c1f49f79" />
-      <quality lang="en" ref="maximum_overdrive" uuid="8cb9b658-67bb-46d2-b9f1-9515897662b4" />
-      <quality lang="en" ref="cyberpsychosis" uuid="de769f7d-4d16-474a-9fc1-c9a3ceb4fae1" value="3" />
-      <quality lang="en" ref="hooder" uuid="dc754172-fbae-4e76-b488-b9a6b7a31248" value="3" />
-   </qualities>
    <skills>
-      <skill lang="en" ref="electronics" uuid="8b48b457-e4ab-4e92-8d8e-ee6f65766cd2" value="6">
+      <skill lang="en" ref="electronics" uuid="d5e899f7-41b9-4ecb-839e-d63fe4842a31" value="6">
          <skillspec lang="en" ref="computer" />
       </skill>
-      <skill lang="en" ref="athletics" uuid="3690d12d-4400-406b-8f8d-67e5ba6d8fb7" value="1" />
-      <skill lang="en" ref="language_english" uuid="ba4b1058-e534-4fc4-a961-b8f8097d032e" value="4" />
-      <skill lang="en" ref="language_mindspeech" uuid="204ff10c-5ad1-4c92-867f-3f2932e5e1bf" value="4" />
+      <skill lang="en" ref="athletics" uuid="eac70f92-164d-466c-a3af-67851a18b07c" value="1" />
+      <skill lang="en" ref="language" uuid="2699b8cd-c20a-4fcc-a2a8-837579834c72" value="4">
+         <decision choice="a7103ee4-31fa-435d-ac42-08f7d4d1e80c" value="English" />
+      </skill>
+      <skill lang="en" ref="language" uuid="f907168b-6a84-4a4a-ab30-e5c30310bc45" value="4">
+         <decision choice="a7103ee4-31fa-435d-ac42-08f7d4d1e80c" value="Mindspeech" />
+      </skill>
+      <skill lang="en" ref="knowledge" uuid="8117cc60-d433-49cd-b5d6-488eb2589124" value="1">
+         <decision choice="89ebc659-ba06-4732-b347-6b832842a55b" value="Small Unit Tactics" />
+      </skill>
+      <skill lang="en" ref="knowledge" uuid="c8b5344f-ada4-423f-9d49-80bb60a419c4" value="1">
+         <decision choice="89ebc659-ba06-4732-b347-6b832842a55b" value="Espionage Techniques" />
+      </skill>
+      <skill lang="en" ref="knowledge" uuid="fae6fd46-e370-48c6-9a24-070d42217c65" value="1">
+         <decision choice="89ebc659-ba06-4732-b347-6b832842a55b" value="Security Systems" />
+      </skill>
+      <skill lang="en" ref="knowledge" uuid="b9816565-4568-48a2-b3d5-8e9fd31f0143" value="1">
+         <decision choice="89ebc659-ba06-4732-b347-6b832842a55b" value="Resonance Realms" />
+      </skill>
    </skills>
+   <charGenUsed>free</charGenUsed>
+   <strictness>srm</strictness>
    <items>
-      <item lang="en" mode="CARRIED" ref="colt_manhunter" uuid="a12c9472-05db-4c4f-ad05-ac42c371eac7">
+      <item lang="en" mode="CARRIED" ref="colt_manhunter" uuid="3b78e76e-b59c-4d6f-8c2a-eeafae382a2d">
          <accessories>
-            <item lang="en" mode="EMBEDDED" ref="smartlink" uuid="65dd424b-1113-423b-9604-62a8858e94a6" />
-            <item lang="en" mode="EMBEDDED" ref="silencer" uuid="bd7c6f4b-7daa-4932-87e1-3ad6478f8911" />
+            <item lang="en" mode="EMBEDDED" ref="smartlink" slot="TOP" uuid="e80f2deb-035c-455b-8b50-bcefbbec6e3a" />
+            <item lang="en" mode="EMBEDDED" ref="silencer" slot="BARREL" uuid="1eaa5158-928e-4e0e-a003-47bf39a83ad5" />
          </accessories>
+      </item>
+      <item lang="en" mode="IMPLANTED" ref="cyberarm" uuid="519afcf1-be2a-44cb-9986-93859d399b7d">
+         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170c" value="STANDARD" />
+      </item>
+      <item lang="en" mode="IMPLANTED" ref="cyberarm" uuid="d0bc8400-1abf-414c-b3f2-7bab07d72405">
+         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170c" value="STANDARD" />
+      </item>
+      <item lang="en" mode="IMPLANTED" ref="cyberleg" uuid="c8c058da-67fa-4aea-adf5-feb1f329f1c0">
+         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170c" value="STANDARD" />
+      </item>
+      <item lang="en" mode="IMPLANTED" ref="cyberleg" uuid="26b4557b-36b5-41ef-9df8-322de8f37e8a">
+         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170c" value="STANDARD" />
+      </item>
+      <item lang="en" mode="IMPLANTED" ref="bone_density_augmentation" uuid="9845bf17-2578-46f6-97f8-a35e323e7376">
+         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="4" />
+         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170c" value="BETA" />
+      </item>
+      <item lang="en" mode="IMPLANTED" ref="skilljack" uuid="57295e6d-d187-4383-8e26-6fb1d3584aae">
+         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="6" />
+         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170c" value="USED" />
+      </item>
+      <item lang="en" mode="IMPLANTED" ref="skillwires" uuid="c14c1084-3d61-458b-808f-ab86c58decaa">
+         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="6" />
+         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170c" value="USED" />
+      </item>
+      <item lang="en" mode="IMPLANTED" ref="math_spu" uuid="9dee3642-d1fa-4753-ba72-1eb054cb0f69">
+         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170c" value="STANDARD" />
       </item>
    </items>
    <contacts />

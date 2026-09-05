@@ -1,7 +1,7 @@
 ============================================================================
  FINANCIAL & ADVANCEMENT LEDGER: YURIKO STAR
 ============================================================================
- Available Nuyen Balance : 650.0¥
- Available Karma Pool    : 0 Karma
- Lifetime Career Karma   : 229 Karma
+ Available Nuyen Balance : 4,550.0¥
+ Available Karma Pool    : 8 Karma
+ Lifetime Career Karma   : 237 Karma
 ============================================================================

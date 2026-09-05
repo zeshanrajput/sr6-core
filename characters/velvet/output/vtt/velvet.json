@@ -10,9 +10,9 @@
   "gender": "DIVERSE",
   "heat": 0,
   "reputation": 0,
-  "karma": 47,
-  "freeKarma": 19,
-  "nuyen": 30735,
+  "karma": 55,
+  "freeKarma": 27,
+  "nuyen": 39915,
   "initiation": 2,
   "submersion": 0,
   "attributes": [
@@ -189,12 +189,12 @@
       "description": ""
     },
     {
-      "name": "Chronic Pain",
-      "id": "chronic_pain",
+      "name": "Injury Prone",
+      "id": "injury_prone",
       "choice": "",
       "positive": false,
       "rating": 0,
-      "page": "Sixth World Companion 136",
+      "page": "Sixth World Companion 9",
       "description": ""
     },
     {

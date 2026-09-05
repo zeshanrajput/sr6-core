@@ -88,19 +88,108 @@ def normalize_iso_date(date_str: str) -> str:
     return "2026-01-01T00:00:00.000Z"
 
 
+QUALITY_CHOICE_UUIDS = {
+    "exceptional_attribute": "4096584c-eb76-49b2-be6b-1a6c0ca9e50a",
+    "metagenetic_attribute_improvement": "dbb18bb4-89a4-4435-bede-3077ee600bc5",
+    "allergy": "794d4562-8ca6-4958-81df-cf3cee81087d",
+}
+
+SIN_RATING_ENUM_MAP = {
+    "1": "ANYONE",
+    "2": "ROUGH_MATCH",
+    "3": "GOOD_MATCH",
+    "4": "SUPERFICIALLY_PLAUSIBLE",
+    "5": "HIGHLY_PLAUSIBLE",
+    "6": "SECOND_LIFE",
+    1: "ANYONE",
+    2: "ROUGH_MATCH",
+    3: "GOOD_MATCH",
+    4: "SUPERFICIALLY_PLAUSIBLE",
+    5: "HIGHLY_PLAUSIBLE",
+    6: "SECOND_LIFE",
+}
+
+CANONICAL_REF_ALIASES = {
+    "cyberpsychosis": "cyber_psychosis",
+    "authoritative_tone": "authorative_tone",
+}
+
+
+def get_accessory_slot(acc_ref: str) -> str:
+    """Determines canonical CommLink accessory slot name to prevent null-parent formula exceptions."""
+    r = acc_ref.lower()
+    if any(k in r for k in ["silencer", "suppressor", "gas_vent", "barrel"]):
+        return "BARREL"
+    if any(k in r for k in ["smartlink", "scope", "sight", "imaging"]):
+        return "TOP"
+    if any(k in r for k in ["bipod", "tripod", "laser", "flashlight"]):
+        return "UNDERBARREL"
+    if any(k in r for k in ["image_link", "flare_comp", "thermo", "low_light", "vision"]):
+        return "OPTICAL"
+    if any(k in r for k in ["audio", "sound", "ear", "spatial"]):
+        return "AUDIO"
+    if any(k in r for k in ["hood", "ballistic", "chem", "fire", "insul", "shock_frills", "holster"]):
+        return "ARMOR"
+    if any(k in r for k in ["fashion", "chic"]):
+        return "FASHION"
+    if any(k in r for k in ["soft", "p-ice", "assistant", "program", "app"]):
+        return "SOFTWARE"
+    if any(k in r for k in ["satellite", "rigger", "autopilot"]):
+        return "VEHICLE_ELECTRONICS"
+    if any(k in r for k in ["upgrade", "dongle", "comhack", "securelink"]):
+        return "ELECTRONIC_ACCESSORY"
+    return "ARMOR"
+
+
+def generate_commlink_metadata(
+    char_data: Dict[str, Any],
+    char_uuid: str,
+    xml_filename: str,
+    attachment_uuid: Optional[str] = None
+) -> str:
+    """Generates standard metadata.properties file required by CommLink6 player save directories."""
+    att_id = attachment_uuid or str(uuid.uuid4())
+    identity = char_data.get("identity", {})
+    name = identity.get("handle") or identity.get("name", "Runner")
+    meta = identity.get("metatype", "Human")
+    archetype = identity.get("archetype") or identity.get("role", "")
+    mortype = identity.get("mortype", "")
+    gender = str(identity.get("gender", "diverse")).lower()
+    desc_parts = [p for p in [meta, mortype or archetype, gender] if p]
+    desc = ", ".join(desc_parts) or "Shadowrun 6th Edition Character"
+
+    return (
+        "#Do not edit\n"
+        f"attachment.{att_id}.type=CHARACTER\n"
+        f"name={name}\n"
+        f"attachment.{att_id}.format=RULESPECIFIC\n"
+        f"attachment.{att_id}.file={xml_filename}\n"
+        f"uuid={char_uuid}\n"
+        "sync=true\n"
+        f"desc={desc}\n"
+    )
+
+
 def lookup_canonical_ref(item_name_or_ref: str, category: str, db_path: str = DEFAULT_DB_PATH) -> str:
     if not item_name_or_ref:
         return "unknown"
 
     clean_str = item_name_or_ref.strip()
     norm_str = clean_str.lower().replace(" ", "_")
+    if norm_str in CANONICAL_REF_ALIASES:
+        clean_str = CANONICAL_REF_ALIASES[norm_str]
+        norm_str = clean_str
 
     tbl_map = {
         "quality": "ref_qualities",
         "spell": "ref_spells",
         "complex_form": "ref_complex_forms",
         "gear": "ref_gear",
-        "contact": "ref_contacts"
+        "contact": "ref_contacts",
+        "cyberware": "ref_cyberware",
+        "bioware": "ref_cyberware",
+        "augmentation": "ref_cyberware",
+        "weapon": "ref_weapons"
     }
     tbl = tbl_map.get(category, "ref_gear")
 
@@ -161,7 +250,7 @@ def _safe_item_list(raw_section: Any) -> list:
 
 
 def get_all_character_items(char_data: Dict[str, Any]) -> list:
-    """Gathers all items across weapons, armors, matrix_devices, software, items, gear, and drones."""
+    """Gathers all items across weapons, armors, matrix_devices, software, items, gear, drones, cyberware, and bioware."""
     all_raw = []
     for sec in ["weapons", "armors", "matrix_devices", "items", "gear", "drones"]:
         val = char_data.get(sec, [])
@@ -170,9 +259,19 @@ def get_all_character_items(char_data: Dict[str, Any]) -> list:
     res = []
     for item in all_raw:
         if isinstance(item, dict):
-            res.append(item)
+            res.append(dict(item))
         elif isinstance(item, str):
-            res.append({"name": item, "ref": item})
+            res.append({"name": item, "ref": item, "mode": "CARRIED"})
+
+    # Gather cyberware, bioware, and augmentations
+    for aug_sec in ["cyberware", "bioware", "augmentations"]:
+        for aug in _safe_item_list(char_data.get(aug_sec, [])):
+            if isinstance(aug, dict):
+                aug_dict = dict(aug)
+                aug_dict.setdefault("mode", "IMPLANTED")
+                res.append(aug_dict)
+            elif isinstance(aug, str):
+                res.append({"name": aug, "ref": aug, "mode": "IMPLANTED"})
     return res
 
 
@@ -184,16 +283,24 @@ def is_valid_gear_template(ref_str: Optional[str], db_path: str = DEFAULT_DB_PAT
     try:
         conn = sqlite3.connect(db_path)
         cursor = conn.cursor()
-        row = cursor.execute("SELECT id FROM ref_gear WHERE id = ?", (ref_str,)).fetchone()
+        for tbl in ["ref_gear", "ref_weapons", "ref_cyberware", "ref_vehicles"]:
+            try:
+                row = cursor.execute(f"SELECT id FROM {tbl} WHERE id = ? OR lower(id) = ?", (ref_str, ref_str.lower())).fetchone()
+                if row:
+                    conn.close()
+                    return True
+            except Exception:
+                pass
         conn.close()
-        return row is not None
+        return False
     except Exception:
         return True
 
 
 def export_genesis_xml(char_data: Dict[str, Any], char_repo_path: Optional[str] = None, db_path: str = DEFAULT_DB_PATH) -> str:
     """
-    Generates a 100% CommLink6 compliant XML document matching Java Unmarshaller3 schema.
+    Generates a 100% CommLink6 compliant XML document matching Java Unmarshaller3 schema de novo.
+    Includes augmentations, essence tracking, complex forms, and accurate choice UUIDs.
     """
     log_totals = get_log_totals(char_repo_path) if char_repo_path and os.path.exists(char_repo_path) else {}
 
@@ -229,6 +336,65 @@ def export_genesis_xml(char_data: Dict[str, Any], char_repo_path: Optional[str] 
             if "sin" in ls:
                 l_el.set("sin", str(ls["sin"]))
 
+    # Essence Changes / Augmentations Tracking (<essenceChanges>)
+    pos_qualities = char_data.get("qualities", {}).get("positive", [])
+    neg_qualities = char_data.get("qualities", {}).get("negative", [])
+
+    acclimation_rating = 0
+    cyborg_rating = 0
+    for q in pos_qualities:
+        q_name = q.get("name", "").lower()
+        if "acclimation" in q_name:
+            acclimation_rating = int(q.get("rating", 1))
+        elif "cyborg" in q_name:
+            cyborg_rating = int(q.get("rating", 1))
+
+    all_items = get_all_character_items(char_data)
+    implanted_items = [it for it in all_items if it.get("mode") == "IMPLANTED"]
+
+    if implanted_items or acclimation_rating > 0 or cyborg_rating > 0:
+        ec_el = ET.SubElement(root, "essenceChanges")
+        for aug in implanted_items:
+            aug_ref = lookup_canonical_ref(aug.get("ref") or aug.get("name", ""), "cyberware", db_path=db_path)
+            aug_uuid = aug.get("uuid")
+            if not aug_uuid:
+                aug_uuid = str(uuid.uuid4())
+                aug["uuid"] = aug_uuid
+
+            ess_val = None
+            if "essence" in aug:
+                try:
+                    ess_val = float(aug["essence"])
+                except Exception:
+                    pass
+            if ess_val is None and "notes" in aug:
+                m = re.search(r'(\d+(?:\.\d+)?)\s*Ess', str(aug["notes"]), re.I)
+                if m:
+                    ess_val = float(m.group(1))
+            if ess_val is None:
+                r_val = float(aug.get("rating") or 1)
+                ess_val = 0.1 * r_val
+
+            val_millies = int(round(ess_val * 1000))
+            val_el = ET.SubElement(ec_el, "valmod")
+            val_el.set("id", aug_uuid)
+            val_el.set("ref", aug_ref)
+            val_el.set("set", "AUGMENTED")
+            val_el.set("type", "CARRIED")
+            val_el.set("value", str(val_millies))
+
+        for _ in range(acclimation_rating):
+            vm = ET.SubElement(ec_el, "valmod")
+            vm.set("ref", "augmentation_acclimation")
+            vm.set("type", "QUALITY")
+            vm.set("value", "-100")
+
+        for _ in range(cyborg_rating):
+            vm = ET.SubElement(ec_el, "valmod")
+            vm.set("ref", "cyborg")
+            vm.set("type", "QUALITY")
+            vm.set("value", "-100")
+
     # Type, Mortype & Tradition
     type_el = ET.SubElement(root, "type")
     type_el.text = "METAHUMAN"
@@ -244,9 +410,153 @@ def export_genesis_xml(char_data: Dict[str, Any], char_repo_path: Optional[str] 
         t_el = ET.SubElement(root, "tradition")
         t_el.text = t_ref
 
+    # Qualities
+    qualities_el = ET.SubElement(root, "qualities")
+    for q in pos_qualities + neg_qualities:
+        q_el = ET.SubElement(qualities_el, "quality")
+        q_el.set("lang", "en")
+        q_ref = lookup_canonical_ref(q.get("ref") or q.get("name", ""), "quality", db_path=db_path)
+        q_el.set("ref", q_ref)
+        q_el.set("uuid", q.get("uuid") or str(uuid.uuid4()))
+        if "rating" in q and q["rating"] > 1:
+            q_el.set("value", str(q["rating"]))
+        if "choice" in q:
+            choice_uuid = QUALITY_CHOICE_UUIDS.get(q_ref, str(uuid.uuid4()))
+            dec_el = ET.SubElement(q_el, "decision")
+            dec_el.set("choice", choice_uuid)
+            raw_choice = str(q["choice"]).strip()
+            if q_ref in ["exceptional_attribute", "metagenetic_attribute_improvement"]:
+                raw_choice = raw_choice.upper()
+            dec_el.set("value", raw_choice)
+
+    # Spells
+    spells = char_data.get("spells", [])
+    if spells:
+        spells_el = ET.SubElement(root, "spells")
+        for sp in spells:
+            sp_el = ET.SubElement(spells_el, "spell")
+            sp_el.set("lang", "en")
+            sp_ref = lookup_canonical_ref(sp.get("ref") or sp.get("name", ""), "spell", db_path=db_path)
+            sp_el.set("ref", sp_ref)
+
+    # Adept Powers
+    powers = char_data.get("adept_powers", [])
+    if powers:
+        powers_el = ET.SubElement(root, "adeptPowers")
+        for p in powers:
+            p_source = str(p.get("source", "")).lower()
+            if p_source in ["focus", "qi_focus", "qi focus"]:
+                continue
+            p_el = ET.SubElement(powers_el, "adeptpower")
+            p_el.set("lang", "en")
+            p_ref = p.get("ref") or p.get("name", "").lower().replace(" ", "_")
+            if p_ref in ["authoritative_tone", "authorative_tone"]:
+                p_ref = "authorative_tone"
+            p_el.set("ref", p_ref)
+            if "rating" in p and int(p["rating"]) > 0 and p_ref not in ["linguistics"]:
+                p_el.set("value", str(p["rating"]))
+
+    # Complex Forms
+    cforms = char_data.get("complex_forms", [])
+    if cforms:
+        cf_container = ET.SubElement(root, "complexforms")
+        for cf in cforms:
+            cf_ref = lookup_canonical_ref(cf.get("ref") or cf.get("name", ""), "complex_form", db_path=db_path)
+            c_el = ET.SubElement(cf_container, "complexforms")
+            c_el.set("lang", "en")
+            c_el.set("ref", cf_ref)
+
+    # Meta Echoes / Metamagics / Submersion Echoes
+    meta_echoes = char_data.get("meta_echoes", [])
+    if meta_echoes:
+        echoes_el = ET.SubElement(root, "metaEchoes")
+        for me in meta_echoes:
+            me_el = ET.SubElement(echoes_el, "metaEcho")
+            me_el.set("lang", "en")
+            me_ref = me.get("ref") or me.get("name", "").lower().replace(" ", "_")
+            if me_ref in ["power_point", "power_points", "powerpoint"]:
+                me_ref = "power_points"
+                val = me.get("rating") or me.get("value") or 1
+                me_el.set("value", str(val))
+            elif "rating" in me and int(me["rating"]) > 0:
+                me_el.set("value", str(me["rating"]))
+            elif "value" in me and int(me["value"]) > 0:
+                me_el.set("value", str(me["value"]))
+            me_el.set("ref", me_ref)
+
+    # SINs & Licenses
+    sins = char_data.get("sins", [])
+    if sins:
+        sins_el = ET.SubElement(root, "sins")
+        sin_uuid_map = {}
+        for s in sins:
+            s_node = ET.SubElement(sins_el, "sin")
+            s_node.set("name", s.get("name", "SIN"))
+            raw_qual = s.get("quality", s.get("rating", "SECOND_LIFE"))
+            mapped_qual = SIN_RATING_ENUM_MAP.get(str(raw_qual), str(raw_qual).upper())
+            s_node.set("quality", mapped_qual)
+            s_uuid = s.get("uuid") or str(uuid.uuid4())
+            s_node.set("uniqueid", s_uuid)
+            sin_uuid_map[s.get("name")] = s_uuid
+
+        licenses = char_data.get("licenses", [])
+        if licenses:
+            lic_el = ET.SubElement(root, "licenses")
+            for lic in licenses:
+                l_node = ET.SubElement(lic_el, "licenses")
+                l_node.set("name", str(lic.get("name", "License")))
+                raw_rat = lic.get("rating", "SECOND_LIFE")
+                mapped_rat = SIN_RATING_ENUM_MAP.get(str(raw_rat), str(raw_rat).upper())
+                l_node.set("rating", mapped_rat)
+                l_sin_name = lic.get("sin")
+                l_node.set("sin", sin_uuid_map.get(l_sin_name, l_sin_name or str(uuid.uuid4())))
+                l_node.set("uniqueid", lic.get("uuid") or str(uuid.uuid4()))
+
+    # Foci
+    foci_list = char_data.get("synergies", {}).get("foci", []) or [
+        it for it in char_data.get("items", []) if isinstance(it, dict) and "focus" in it.get("ref", "").lower()
+    ]
+    valid_foci = [f for f in foci_list if "qi" in f.get("ref", "") or "qi" in str(f.get("name", "")).lower()]
+    if valid_foci:
+        foci_el = ET.SubElement(root, "foci")
+        for f in valid_foci:
+            f_node = ET.SubElement(foci_el, "focus")
+            f_node.set("lang", "en")
+            f_rating = str(f.get("rating", 4))
+            f_node.set("ref", "qi_focus")
+            f_node.set("value", f_rating)
+
+            dec_rating = ET.SubElement(f_node, "decision")
+            dec_rating.set("choice", "c2d17c87-1cfe-4355-9877-a20fe09c170d")
+            dec_rating.set("value", f_rating)
+
+            power_choice = f.get("power")
+            if not power_choice:
+                # Look for power in adept powers with focus source
+                for ap in char_data.get("adept_powers", []):
+                    if "focus" in str(ap.get("source", "")).lower():
+                        power_choice = ap.get("ref") or ap.get("name")
+                        break
+            if power_choice:
+                dec_power = ET.SubElement(f_node, "decision")
+                dec_power.set("choice", "37026c81-d5a0-44fe-8fa9-9263acb6059f")
+                dec_power.set("value", str(power_choice).lower().replace(" ", "_"))
+
     # Name node
     name_el = ET.SubElement(root, "name")
     name_el.text = identity.get("handle", "Unknown")
+
+    # Datasets mode and Career rules
+    ds_el = ET.SubElement(root, "datasets")
+    ds_el.set("mode", "ALL")
+
+    rules_el = ET.SubElement(root, "rules")
+    r1 = ET.SubElement(rules_el, "set")
+    r1.set("rule", "CAREER_UNDO_FROM_CAREER")
+    r1.set("to", "true")
+    r2 = ET.SubElement(rules_el, "set")
+    r2.set("rule", "CAREER_PAY_GEAR")
+    r2.set("to", "true")
 
     # Real Name node
     if "real_name" in identity:
@@ -283,148 +593,97 @@ def export_genesis_xml(char_data: Dict[str, Any], char_repo_path: Optional[str] 
         attr_el.set("id", attr.upper())
         attr_el.set("value", str(val))
 
-    # Qualities
-    qualities_el = ET.SubElement(root, "qualities")
-    pos_qualities = char_data.get("qualities", {}).get("positive", [])
-    neg_qualities = char_data.get("qualities", {}).get("negative", [])
-
-    for q in pos_qualities + neg_qualities:
-        q_el = ET.SubElement(qualities_el, "quality")
-        q_el.set("lang", "en")
-        q_ref = lookup_canonical_ref(q.get("ref") or q.get("name", ""), "quality", db_path=db_path)
-        q_el.set("ref", q_ref)
-        q_el.set("uuid", str(uuid.uuid4()))
-        if "rating" in q and q["rating"] > 1:
-            q_el.set("value", str(q["rating"]))
-        if "choice" in q:
-            dec_el = ET.SubElement(q_el, "decision")
-            dec_el.set("choice", str(uuid.uuid4()))
-            dec_el.set("value", str(q["choice"]))
-
-    # Skills
+    # Skills (Active, Knowledge, Language)
     skills_el = ET.SubElement(root, "skills")
+    exported_langs = set()
+    exported_knowledge = set()
+
     for s in char_data.get("skills", []):
-        sk_el = ET.SubElement(skills_el, "skill")
-        sk_el.set("lang", "en")
         sk_ref = s.get("id", s.get("name", "").lower().replace(" ", "_"))
         if s.get("is_knowledge"):
+            k_name = s.get("name", "Knowledge")
+            if k_name.lower() in exported_knowledge:
+                continue
+            sk_el = ET.SubElement(skills_el, "skill")
+            sk_el.set("lang", "en")
             sk_el.set("ref", "knowledge")
-            sk_el.set("uuid", str(uuid.uuid4()))
+            sk_el.set("uuid", s.get("uuid") or str(uuid.uuid4()))
             sk_el.set("value", str(s.get("rating", 1)))
             dec_el = ET.SubElement(sk_el, "decision")
             dec_el.set("choice", "89ebc659-ba06-4732-b347-6b832842a55b")
-            dec_el.set("value", s.get("name", ""))
-        elif sk_ref == "language":
+            dec_el.set("value", k_name)
+            exported_knowledge.add(k_name.lower())
+        elif sk_ref == "language" or sk_ref.startswith("language_"):
+            lang_name = s.get("name", "Native Language")
+            # If name is formatted like "Native Language (English)", extract the actual language name
+            m = re.search(r'\((.*?)\)', lang_name)
+            if m:
+                lang_name = m.group(1)
+            elif sk_ref.startswith("language_"):
+                lang_name = sk_ref.replace("language_", "").title()
+            if lang_name.lower() in exported_langs:
+                continue
+            sk_el = ET.SubElement(skills_el, "skill")
+            sk_el.set("lang", "en")
             sk_el.set("ref", "language")
-            sk_el.set("uuid", str(uuid.uuid4()))
+            sk_el.set("uuid", s.get("uuid") or str(uuid.uuid4()))
             sk_el.set("value", str(s.get("rating", 1)))
             dec_el = ET.SubElement(sk_el, "decision")
             dec_el.set("choice", "a7103ee4-31fa-435d-ac42-08f7d4d1e80c")
-            dec_el.set("value", s.get("name", "Native Language"))
+            dec_el.set("value", lang_name)
+            exported_langs.add(lang_name.lower())
         else:
+            sk_el = ET.SubElement(skills_el, "skill")
+            sk_el.set("lang", "en")
             sk_el.set("ref", sk_ref)
-            sk_el.set("uuid", str(uuid.uuid4()))
+            sk_el.set("uuid", s.get("uuid") or str(uuid.uuid4()))
             sk_el.set("value", str(s.get("rating", 1)))
             if "specialization" in s and s["specialization"]:
                 spec_el = ET.SubElement(sk_el, "skillspec")
                 spec_el.set("lang", "en")
                 spec_el.set("ref", s["specialization"].lower().replace(" ", "_"))
 
-    # Spells
-    spells = char_data.get("spells", [])
-    if spells:
-        spells_el = ET.SubElement(root, "spells")
-        for sp in spells:
-            sp_el = ET.SubElement(spells_el, "spell")
-            sp_el.set("lang", "en")
-            sp_ref = lookup_canonical_ref(sp.get("ref") or sp.get("name", ""), "spell", db_path=db_path)
-            sp_el.set("ref", sp_ref)
-
-    # Adept Powers
-    powers = char_data.get("adept_powers", [])
-    if powers:
-        powers_el = ET.SubElement(root, "adeptPowers")
-        for p in powers:
-            if p.get("source"):
+    # Top-level knowledge skills list if segregated
+    for ks in char_data.get("knowledge_skills", []):
+        k_name = ks.get("name", "Knowledge")
+        is_lang = ks.get("is_native") or ks.get("is_linguasoft") or ks.get("level") in ["Native", "Basic", "Specialist", "Linguasoft"]
+        if is_lang:
+            if k_name.lower() in exported_langs:
                 continue
-            p_el = ET.SubElement(powers_el, "adeptpower")
-            p_el.set("lang", "en")
-            p_ref = p.get("ref") or p.get("name", "").lower().replace(" ", "_")
-            if p_ref in ["authoritative_tone", "authorative_tone"]:
-                p_ref = "authorative_tone"
-            p_el.set("ref", p_ref)
-            if "rating" in p and int(p["rating"]) > 0 and p_ref not in ["linguistics"]:
-                p_el.set("value", str(p["rating"]))
+            sk_el = ET.SubElement(skills_el, "skill")
+            sk_el.set("lang", "en")
+            sk_el.set("ref", "language")
+            sk_el.set("uuid", ks.get("uuid") or str(uuid.uuid4()))
+            r_val = ks.get("rating")
+            sk_el.set("value", str(r_val if r_val is not None else 1))
+            dec_el = ET.SubElement(sk_el, "decision")
+            dec_el.set("choice", "a7103ee4-31fa-435d-ac42-08f7d4d1e80c")
+            dec_el.set("value", k_name)
+            exported_langs.add(k_name.lower())
+        else:
+            if k_name.lower() in exported_knowledge:
+                continue
+            sk_el = ET.SubElement(skills_el, "skill")
+            sk_el.set("lang", "en")
+            sk_el.set("ref", "knowledge")
+            sk_el.set("uuid", ks.get("uuid") or str(uuid.uuid4()))
+            r_val = ks.get("rating")
+            sk_el.set("value", str(r_val if r_val is not None else 1))
+            dec_el = ET.SubElement(sk_el, "decision")
+            dec_el.set("choice", "89ebc659-ba06-4732-b347-6b832842a55b")
+            dec_el.set("value", ks.get("name", "Knowledge"))
+            exported_knowledge.add(k_name.lower())
 
-    # Meta Echoes / Metamagics / Submersion Echoes
-    meta_echoes = char_data.get("meta_echoes", [])
-    if meta_echoes:
-        echoes_el = ET.SubElement(root, "metaEchoes")
-        for me in meta_echoes:
-            me_el = ET.SubElement(echoes_el, "metaEcho")
-            me_el.set("lang", "en")
-            me_ref = me.get("ref") or me.get("name", "").lower().replace(" ", "_")
-            if me_ref in ["power_point", "power_points", "powerpoint"]:
-                me_ref = "power_points"
-                val = me.get("rating") or me.get("value") or 1
-                me_el.set("value", str(val))
-            elif "rating" in me and int(me["rating"]) > 0:
-                me_el.set("value", str(me["rating"]))
-            elif "value" in me and int(me["value"]) > 0:
-                me_el.set("value", str(me["value"]))
-            me_el.set("ref", me_ref)
+    # Chargen Used and Strictness
+    cg_el = ET.SubElement(root, "charGenUsed")
+    cg_el.text = "free"
 
-    # SINs & Licenses
-    sins = char_data.get("sins", [])
-    if sins:
-        sins_el = ET.SubElement(root, "sins")
-        sin_uuid_map = {}
-        for s in sins:
-            s_node = ET.SubElement(sins_el, "sin")
-            s_node.set("name", s.get("name", "SIN"))
-            s_node.set("quality", s.get("quality", "SECOND_LIFE"))
-            s_uuid = s.get("uuid") or str(uuid.uuid4())
-            s_node.set("uniqueid", s_uuid)
-            sin_uuid_map[s.get("name")] = s_uuid
+    strict_el = ET.SubElement(root, "strictness")
+    strict_el.text = "srm"
 
-        licenses = char_data.get("licenses", [])
-        if licenses:
-            lic_el = ET.SubElement(root, "licenses")
-            for lic in licenses:
-                l_node = ET.SubElement(lic_el, "licenses")
-                l_node.set("name", lic.get("name", "License"))
-                l_node.set("rating", lic.get("rating", "SECOND_LIFE"))
-                l_sin_name = lic.get("sin")
-                l_node.set("sin", sin_uuid_map.get(l_sin_name, l_sin_name or str(uuid.uuid4())))
-                l_node.set("uniqueid", lic.get("uuid") or str(uuid.uuid4()))
-
-    # Foci
-    foci_list = char_data.get("synergies", {}).get("foci", []) or [
-        it for it in char_data.get("items", []) if isinstance(it, dict) and "focus" in it.get("ref", "").lower()
-    ]
-    if foci_list:
-        foci_el = ET.SubElement(root, "foci")
-        for f in foci_list:
-            f_node = ET.SubElement(foci_el, "focus")
-            f_node.set("lang", "en")
-            f_ref = f.get("ref", "qi_focus")
-            f_rating = str(f.get("rating", 4))
-            f_node.set("ref", f_ref)
-            f_node.set("value", f_rating)
-
-            dec_rating = ET.SubElement(f_node, "decision")
-            dec_rating.set("choice", "c2d17c87-1cfe-4355-9877-a20fe09c170d")
-            dec_rating.set("value", f_rating)
-
-            if "power" in f and f["power"]:
-                dec_power = ET.SubElement(f_node, "decision")
-                dec_power.set("choice", "37026c81-d5a0-44fe-8fa9-9263acb6059f")
-                dec_power.set("value", f["power"].lower().replace(" ", "_"))
-
-    # Items / Gear / Weapons / Armor / Devices / Drones
+    # Items / Gear / Weapons / Armor / Devices / Drones / Cyberware / Bioware
     items_el = ET.SubElement(root, "items")
-    gear_items = get_all_character_items(char_data)
-    for g in gear_items:
+    for g in all_items:
         g_ref = lookup_canonical_ref(g.get("ref") or g.get("name", ""), "gear", db_path=db_path)
         if not is_valid_gear_template(g_ref, db_path=db_path):
             continue
@@ -434,20 +693,53 @@ def export_genesis_xml(char_data: Dict[str, Any], char_repo_path: Optional[str] 
         g_mode = g.get("mode", "CARRIED").upper()
         g_el.set("mode", g_mode)
         g_el.set("ref", g_ref)
-        g_el.set("uuid", str(uuid.uuid4()))
+        item_uuid = g.get("uuid") or str(uuid.uuid4())
+        g_el.set("uuid", item_uuid)
 
         count_val = g.get("qty") or g.get("count", 1)
         if count_val and int(count_val) > 1:
             g_el.set("count", str(count_val))
 
         rating_val = g.get("rating")
-        if rating_val and int(rating_val) > 0 and g_ref in ["contacts", "earbuds", "personal_assistant"]:
+        if rating_val and int(rating_val) > 0 and (g_mode == "IMPLANTED" or g_ref in ["contacts", "earbuds", "personal_assistant"]):
             dec_el = ET.SubElement(g_el, "decision")
             dec_el.set("choice", "c2d17c87-1cfe-4355-9877-a20fe09c170d")
             dec_el.set("value", str(rating_val))
 
-        # Check accessories
-        accs = g.get("accessories", [])
+        # Grade choice for cyberware/bioware
+        if g_mode == "IMPLANTED":
+            grade_raw = str(g.get("grade", "STANDARD")).upper()
+            grade_map = {
+                "STANDARD": "STANDARD", "USED": "USED", "ALPHAWARE": "ALPHA",
+                "ALPHA": "ALPHA", "BETAWARE": "BETA", "BETA": "BETA",
+                "DELTAWARE": "DELTA", "DELTA": "DELTA", "OMEGA": "OMEGA"
+            }
+            dec_grade = ET.SubElement(g_el, "decision")
+            dec_grade.set("choice", "c2d17c87-1cfe-4355-9877-a20fe09c170c")
+            dec_grade.set("value", grade_map.get(grade_raw, "STANDARD"))
+
+        # Ammunition type decision
+        if g_ref.startswith("ammo_") or "ammo" in g_ref:
+            ammo_type = "REGULAR"
+            name_check = (str(g.get("name", "")) + " " + g_ref).upper()
+            if "APDS" in name_check:
+                ammo_type = "APDS"
+            elif "GEL" in name_check:
+                ammo_type = "GEL"
+            elif "FLECHETTE" in name_check:
+                ammo_type = "FLECHETTE"
+            elif "EX-EX" in name_check or "EXPLOSIVE" in name_check:
+                ammo_type = "EXPLOSIVE"
+            elif "STICK" in name_check:
+                ammo_type = "STICK_N_SHOCK"
+            elif "TRACER" in name_check:
+                ammo_type = "TRACER"
+            dec_ammo = ET.SubElement(g_el, "decision")
+            dec_ammo.set("choice", "b015341d-24dc-42bb-a46b-781a5340e0b3")
+            dec_ammo.set("value", ammo_type)
+
+        # Check accessories & modifications
+        accs = g.get("accessories", []) or g.get("modifications", [])
         if accs:
             acc_el = ET.SubElement(g_el, "accessories")
             for acc in accs:
@@ -459,6 +751,7 @@ def export_genesis_xml(char_data: Dict[str, Any], char_repo_path: Optional[str] 
                 a_sub.set("lang", "en")
                 a_sub.set("mode", "EMBEDDED")
                 a_sub.set("ref", acc_ref)
+                a_sub.set("slot", get_accessory_slot(acc_ref))
                 a_sub.set("uuid", str(uuid.uuid4()))
 
         # If drone lists Satellite Link in master YAML modifications, append accessory
@@ -932,8 +1225,8 @@ def patch_genesis_xml(input_xml_path: str, char_data: Dict[str, Any], output_xml
 
                 for lic in licenses:
                     l_node = ET.SubElement(lic_el, "licenses")
-                    l_node.set("name", lic.get("name", "License"))
-                    l_node.set("rating", lic.get("rating", "SECOND_LIFE"))
+                    l_node.set("name", str(lic.get("name", "License")))
+                    l_node.set("rating", str(lic.get("rating", "SECOND_LIFE")))
                     l_sin_name = lic.get("sin")
                     l_node.set("sin", sin_uuid_map.get(l_sin_name, l_sin_name or str(uuid.uuid4())))
                     l_node.set("uniqueid", lic.get("uuid") or str(uuid.uuid4()))
@@ -950,21 +1243,28 @@ def patch_genesis_xml(input_xml_path: str, char_data: Dict[str, Any], output_xml
                 foci_el.clear()
 
             for f in foci_list:
-                f_node = ET.SubElement(foci_el, "focus")
-                f_node.set("lang", "en")
                 f_ref = f.get("ref", "qi_focus")
-                f_rating = str(f.get("rating", 4))
-                f_node.set("ref", f_ref)
-                f_node.set("value", f_rating)
+                if "qi" in f_ref or "qi" in str(f.get("name", "")).lower():
+                    f_node = ET.SubElement(foci_el, "focus")
+                    f_node.set("lang", "en")
+                    f_rating = str(f.get("rating", 4))
+                    f_node.set("ref", "qi_focus")
+                    f_node.set("value", f_rating)
 
-                dec_rating = ET.SubElement(f_node, "decision")
-                dec_rating.set("choice", "c2d17c87-1cfe-4355-9877-a20fe09c170d")
-                dec_rating.set("value", f_rating)
+                    dec_rating = ET.SubElement(f_node, "decision")
+                    dec_rating.set("choice", "c2d17c87-1cfe-4355-9877-a20fe09c170d")
+                    dec_rating.set("value", f_rating)
 
-                if "power" in f and f["power"]:
-                    dec_power = ET.SubElement(f_node, "decision")
-                    dec_power.set("choice", "37026c81-d5a0-44fe-8fa9-9263acb6059f")
-                    dec_power.set("value", f["power"].lower().replace(" ", "_"))
+                    power_choice = f.get("power")
+                    if not power_choice:
+                        for ap in char_data.get("adept_powers", []):
+                            if "focus" in str(ap.get("source", "")).lower():
+                                power_choice = ap.get("ref") or ap.get("name")
+                                break
+                    if power_choice:
+                        dec_power = ET.SubElement(f_node, "decision")
+                        dec_power.set("choice", "37026c81-d5a0-44fe-8fa9-9263acb6059f")
+                        dec_power.set("value", str(power_choice).lower().replace(" ", "_"))
 
         # DYNAMIC LIFESTYLES SYNC
         lifestyles = char_data.get("lifestyles", [])

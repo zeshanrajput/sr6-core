@@ -12,8 +12,8 @@ This document tracks character upgrades, mechanical evaluations, karma/nuyen tar
 
 ## 1. Executive Summary & Resource Balances
 
-* **Current Available Karma:** 14 Karma (33 Spent)
-* **Current Nuyen Balance:** ¥30,735
+* **Current Available Karma:** 22 Karma (33 Spent)
+* **Current Nuyen Balance:** ¥39,915
 * **Magic:** 6 | **Power Points:** 3.0 (2.0 on *Cosmetic Control R2*, 1.0 on *Linguistics, Command Presence, Cloak R1*)
 * **Active Foci Bonded:** Rating 4 Qi Focus (*Sharp Tongue*, 4 Force / 18 Max Bonding Limit)
 * **Initiation Grade:** 2 (Metamagics: *Channeling*, *Power Point*)

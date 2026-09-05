@@ -122,6 +122,8 @@ Active campaign stories written during play:
 * **[Chapter 21: ~](chapters/21 ~.md)**
 * **[Chapter 22: C Sharp](chapters/22 C Sharp.md)**
 * **[Chapter 23: Tea with a Ghost](chapters/23 Tea with a Ghost.md)**
+* **[Chapter 24: Symlink](chapters/24 Symlink.md)**
+* **[Chapter 25: Renraku's Edge](chapters/25 Renraku's Edge.md)**
 
 ### 5. Reference & Specifications
 Design rules, faction dossiers, and visual anchor specifications:

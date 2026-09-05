@@ -115,3 +115,11 @@ AI characters with **Pilot Origins** [HnS p. 119] operate drones using two disti
 
 * **Locked On Status**: Target cannot spend Edge while defending against attacks originating from the vehicle that established lock. Lasts until Cover IV is achieved or ended by Break Sensor Lock.
 * **Break Sensor Lock**: Reaction + Piloting (or Intuition + Reaction) vs. Electronics + Intuition (or Clearsight + Sensor) (Major Action).
+
+--- 
+
+## Nitro Boost
+
+DC p. 135. Nitro boost is a vehicle modification that can be used to temporarily increase the acceleration of a vehicle for 1D6 rounds. When triggered via Minor Action, nitro boost doubles the Acceleration of a vehicle for 1D6 rounds. Vehicle tests made during this time convert one die to a Wild Die.
+
+Few modern vehicles still employ internal combustion, but “nitrous oxide” still carries a colloquial understanding among gearheads as a temporary acceleration booster, even if it’s actually a custom industrial capacitor. These mods are invariably installed along with drag chutes or similar drastic braking options, meaning this temporary attribute increase can be applied to both stopping and accelerating.

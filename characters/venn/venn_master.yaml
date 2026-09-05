@@ -36,6 +36,7 @@ qualities:
   - name: Maximum Overdrive
   negative:
   - name: Cyberpsychosis
+    ref: cyber_psychosis
     rating: 3
   - name: Hooder
     rating: 3

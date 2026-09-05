@@ -12,7 +12,7 @@ from typing import Dict, Any, List, Optional, Set
 from sr6core.rules_db import RulesDB, DEFAULT_DB_PATH
 from sr6core.character_manager import CharacterManager
 from sr6core.modifiers import ModifierEngine
-from sr6core.vehicles import parse_vehicle_modifications, calculate_drone_action_pools
+from sr6core.vehicles import parse_vehicle_modifications, calculate_drone_action_pools, format_vehicle_mod_tables
 
 
 def normalize_name(name: str) -> str:
@@ -180,7 +180,14 @@ def get_drone_statblock_table(char_id: str, drone_identifier: str) -> str:
         f"| **Pilot (PLT)** | **{profile['pilot_str']}** | Base {profile['base_pilot']} | Override when inhabited |",
         f"| **Sensor (SEN)** | **{profile['augmented_sensor']}** | Base {profile['base_sensor']} + Enhanced Sensors + Sensor Upgrade |"
     ]
-    return "\n".join(rows)
+    if profile.get("mobility_str"):
+        rows.append(f"| **Propulsion Modes** | **{profile['mobility_str']}** | Secondary & Special Propulsion Profiles |")
+    attr_table = "\n".join(rows)
+
+    mod_tables = format_vehicle_mod_tables(profile.get("mod_slots", {}))
+    if mod_tables:
+        return attr_table + "\n\n" + mod_tables
+    return attr_table
 
 
 def get_drone_action_table(char_id: str, drone_identifier: str = "butler", mode: str = "inhabited_override") -> str:

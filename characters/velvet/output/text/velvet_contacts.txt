@@ -84,3 +84,8 @@
       History / Changes: CMP 2083-05 Precious Cargo (Female Human, top marks
       on port raid)
 ----------------------------------------------------------------------------
+ [18] KIARA SHAW (Knight Errant Company Suit) [AMS]
+      Connection: 4 (Fixed) | Loyalty: 1 | Active Favors: 1
+      History / Changes: CMP 2081-10 A Diamond In The Rough (Knight Errant
+      Company Suit)
+----------------------------------------------------------------------------

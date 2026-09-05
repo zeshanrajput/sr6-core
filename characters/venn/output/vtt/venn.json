@@ -190,7 +190,7 @@
     },
     {
       "name": "Cyberpsychosis",
-      "id": "cyberpsychosis",
+      "id": "cyber_psychosis",
       "choice": "",
       "positive": false,
       "rating": 3,

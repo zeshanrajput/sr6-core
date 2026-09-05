@@ -786,5 +786,30 @@ start_mission('SRM 2081-18')
     * `{python} add_sprite('Sprite-M29b', 7, 'Modular')`
   * **Lifestyle:** 1 month High Lifestyle granted at no additional cost (no real coffee addictions). Monthly expenses (lifestyle + hooder) are normally paid every other SRM (ignoring non-SRM mission types); because 1 month High is complimentary and Hooder is covered via Working for the People, regular rent payment is waived for this cycle.
 
+---
+
+### **2026-Sep-03: SRM 2083-14 | Deepest Roots**
+
+```{python}
+#| echo: false
+start_mission('SRM 2083-14')
+```
+
+* **Summary:** *Placeholder — full session writeup pending.*
+* **Team:** Buddy, Croaker, Mamba, Arrogant Ninja, Jessy, Cherry.exe, Yuriko
+* **GM:** JaGator
+* **Difficulty Level:** Normal
+* **Rewards:** `{python} inc('Karma', 8)`, `{python} inc('Nuyen', 10000)`
+* **Reputation:** 0
+* **Heat:** 0 (Earned 1 Heat; paid `{python} inc('Nuyen', -2000)` to remove it)
+* **Contacts:** *TBD*
+* **Downtime Actions (1 Major & 1 Minor):**
+  * *Major Action:* TBD
+  * *Minor Action:* TBD
+* **Monthly Expenses & Lifestyle Note:**
+  * SRM 2081-18 was the 1st SRM of the bi-monthly cycle where High Lifestyle was granted complimentary and Hooder was covered via Working for the People.
+  * SRM 2083-14 is the 2nd SRM of the bi-monthly cycle. Per SRM rules, monthly expenses are paid every other SRM. No expenses are due for this mission (due next cycle).
+
+
 
 

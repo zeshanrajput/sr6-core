@@ -1,7 +1,7 @@
 ============================================================================
  FINANCIAL & ADVANCEMENT LEDGER: VELVET
 ============================================================================
- Available Nuyen Balance : 30,735¥
- Available Karma Pool    : 19 Karma
- Lifetime Career Karma   : 47 Karma
+ Available Nuyen Balance : 39,915¥
+ Available Karma Pool    : 27 Karma
+ Lifetime Career Karma   : 55 Karma
 ============================================================================

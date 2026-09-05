@@ -10,7 +10,7 @@ identity:
   system: shadowrun6e
   karma: 0
   lifetime_karma: 229
-  nuyen: 650.0
+  nuyen: -3450.0
   lifetime_nuyen: 367300
   heat: 1
 attributes:
@@ -1101,6 +1101,7 @@ drones:
   - Enhanced Sensors 2
   - Retrans Unit
   - Satellite Link
+  - Laser Jack
   - Integrated Matrix Dock x2
   framework_host:
     name: The Holy Wild Sanctuary Host (Compact Studio & Glade Portal)
@@ -1142,8 +1143,23 @@ drones:
   - Increased Structural Integrity 5
   - Realistic Features 4
   - Secondary Propulsion (Rotor)
+  - Nitro Boost
   - Increased Sensors 6
+  - (Rating 1) Camera w/ image link
+  - (Rating 2) Low-light Vision
+  - Omni-directional mic with sound link
+  - (Rating 3) Flare compensation
+  - Spatial recognizer
+  - Atmosphere sensor
+  - (Rating 4) Laser range finder
+  - (Rating 5) Motion sensor
+  - (Rating 6) Ultrasound
+  - (Rating 7) Olfactory Sensor
+  - (Rating 8) Oral chemical analyzer
+  - (Rating 9) Tactile Sensors (from the EVO Orderly, DA p. 178. Taken for RP purposes
+    only - I will not be using the Biotech bonus)
   - Secondary Propulsion (Wheeled)
+  - Smart Tires
   - Satellite Link
   - Laser Jack
 - name: Kwonsham Dream Genie
@@ -1162,6 +1178,7 @@ drones:
   modifications:
   - Trid Projector
   - Smart Tires
+  - Laser Jack
 - name: Vulcan Systems Utility-One
   ref: vulcansystemsutilityone
   body: 2
@@ -1176,7 +1193,7 @@ drones:
   speed_interval_on: 5
   page: DC 122 / SRMG 2.4
   modifications:
-  - Integrated Engineering & Repair Tool Package
+  - Laser Jack
 weapons:
   ranged:
   - name: Red Fox Array (2x Link-Fired)

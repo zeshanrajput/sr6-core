@@ -18,7 +18,7 @@
       </quality>
       <quality lang="en" ref="inspire_competence" uuid="3a73ed9e-46af-4cb7-b481-e14a279514f6"/>
       <quality lang="en" ref="hooder" uuid="3efad21e-154a-44e6-aae2-d9fdbc19822c" value="3"/>
-      <quality lang="en" ref="chronic_pain" uuid="77c5e97c-d84e-46c2-a0b4-53f804d50c63"/>
+      <quality lang="en" ref="injury_prone" uuid="77c5e97c-d84e-46c2-a0b4-53f804d50c63"/>
       <quality lang="en" ref="focused_concentration" uuid="dc02cc90-1c48-433c-90e2-0f635aa49db9" value="3"/>
       <quality lang="en" ref="low-light_vision"/>
    </qualities>

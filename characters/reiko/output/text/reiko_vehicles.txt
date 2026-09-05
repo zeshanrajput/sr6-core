@@ -10,7 +10,7 @@
  * FEDERATED-BOEING SKY COMMANDER (SEATTLE RETRANS RELAY)
    HAN:4/4 | ACC:10/10 | SPD:120 (INT 15) | BOD:3 | ARM:0 | PIL:3 | SEN:3 | STS:-
    Mods: Drone Bay (Micro/Mini), RAM Plating 4, ECM 6, Enhanced Sensors 2,
-         Retrans Unit, Satellite Link, Integrated Matrix Dock x2
+         Retrans Unit, Satellite Link, Laser Jack, Integrated Matrix Dock x2
    Rigged Action Pools: Piloting 10d6 (2H) | Gunnery 13d6 (3H) | Evasion
                         10d6 (2H) | Perception 13d6 (3H) | Stealth 10d6 (2H)
 ----------------------------------------------------------------------------
@@ -19,21 +19,28 @@
    Mods: Weapon Mount (Standard) x2, Pop-Out Concealment (Standard) x2,
          Chameleon Coating 2, Drone Rack (Small), Used Synthetic Cyberarm
          (Right, 8 Capacity), Tesla Coil, Increased Structural Integrity 5,
-         Realistic Features 4, Secondary Propulsion (Rotor), Increased
-         Sensors 6, Secondary Propulsion (Wheeled), Satellite Link, Laser
-         Jack
+         Realistic Features 4, Secondary Propulsion (Rotor), Nitro Boost,
+         Increased Sensors 6, (Rating 1) Camera w/ image link, (Rating 2)
+         Low-light Vision, Omni-directional mic with sound link, (Rating 3)
+         Flare compensation, Spatial recognizer, Atmosphere sensor, (Rating
+         4) Laser range finder, (Rating 5) Motion sensor, (Rating 6)
+         Ultrasound, (Rating 7) Olfactory Sensor, (Rating 8) Oral chemical
+         analyzer, (Rating 9) Tactile Sensors (from the EVO Orderly, DA p.
+         178. Taken for RP purposes only - I will not be using the Biotech
+         bonus), Secondary Propulsion (Wheeled), Smart Tires, Satellite
+         Link, Laser Jack
    Rigged Action Pools: Piloting 23d6 (5H) | Gunnery 22d6 (5H) | Evasion
                         24d6 (6H) | Perception 21d6 (5H) | Stealth 26d6 (6H)
 ----------------------------------------------------------------------------
  * KWONSHAM DREAM GENIE
    HAN:2/4 | ACC:10/10 | SPD:10 (INT 15) | BOD:2 | ARM:0 | PIL:1 | SEN:1 | STS:-
-   Mods: Trid Projector, Smart Tires
+   Mods: Trid Projector, Smart Tires, Laser Jack
    Rigged Action Pools: Piloting 8d6 (2H) | Gunnery 9d6 (2H) | Evasion 8d6
                         (2H) | Perception 9d6 (2H) | Stealth 8d6 (2H)
 ----------------------------------------------------------------------------
  * VULCAN SYSTEMS UTILITY-ONE
    HAN:3/3 | ACC:3/3 | SPD:5 (INT 15) | BOD:2 | ARM:0 | PIL:1 | SEN:1 | STS:-
-   Mods: Integrated Engineering & Repair Tool Package
+   Mods: Laser Jack
    Rigged Action Pools: Piloting 8d6 (2H) | Gunnery 9d6 (2H) | Evasion 8d6
                         (2H) | Perception 9d6 (2H) | Stealth 8d6 (2H)
 ----------------------------------------------------------------------------

@@ -189,12 +189,12 @@
       "description": ""
     },
     {
-      "name": "Chronic Pain",
-      "id": "chronic_pain",
+      "name": "Injury Prone",
+      "id": "injury_prone",
       "choice": "",
       "positive": false,
       "rating": 0,
-      "page": "Sixth World Companion 136",
+      "page": "Sixth World Companion 9",
       "description": ""
     },
     {

@@ -20,6 +20,7 @@ class PurchasesSyncEngine:
         cleaned = re.sub(r'\{python[^\}]*\}', '', cleaned)
         cleaned = re.sub(r'`\s*inc(_many)?[^\`]*`', '', cleaned)
         cleaned = re.sub(r'`[^`]*`', '', cleaned)
+        cleaned = re.sub(r'inc(_many)?\([^\)]*\)', '', cleaned)
         # Strip any remaining backticks
         cleaned = re.sub(r'`+', '', cleaned)
         # Strip bold/italic markdown

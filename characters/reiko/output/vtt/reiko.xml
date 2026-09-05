@@ -1,10 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<sr6char gender="DIVERSE" meta="ai-pilot ai" karmaF="1" karmaI="228" nuyen="5000">
-   <lifestyles>
-      <lifestyle lang="en" ref="low" comfort="low" entert="low" necess="low" neigh="low" security="low" space="low" value="1" />
-   </lifestyles>
+<sr6char gender="DIVERSE" meta="ai-pilot ai" karmaF="8" karmaI="229" nuyen="4550">
    <type>METAHUMAN</type>
+   <qualities>
+      <quality lang="en" ref="natural_hacker" uuid="c4ba2e8d-c9cd-476d-92c5-5ba18b4af78a" />
+      <quality lang="en" ref="technoshaman" uuid="65a4c64e-9bbb-4796-a3f8-3d9de1157f3a" />
+      <quality lang="en" ref="designer" uuid="c2234ae7-237e-4dec-9b0c-e13a5f22cd51" />
+      <quality lang="en" ref="sensor_upgrade" uuid="52b03537-e8e6-4a81-bd84-24a8def27bf7" />
+      <quality lang="en" ref="pilot_origins" uuid="653dca3a-2606-437d-9eb3-52f2a3abf1a4" />
+      <quality lang="en" ref="buddy_system" uuid="4521fbdc-18d5-4884-b4d8-ff51fd9faf65" />
+      <quality lang="en" ref="sprite_bane" uuid="30591cd0-4f81-4444-92a1-f02df919467c">
+         <decision choice="d0899843-31fb-497e-99cd-f09af8aa6e28" value="Primal Sprite" />
+      </quality>
+      <quality lang="en" ref="hooder" uuid="259f3c6b-40a4-41ea-a26a-f6107f476716" value="2" />
+   </qualities>
+   <complexforms>
+      <complexforms lang="en" ref="technoregeneration" />
+      <complexforms lang="en" ref="cleaner" />
+      <complexforms lang="en" ref="diffusion" />
+      <complexforms lang="en" ref="puppeteer" />
+      <complexforms lang="en" ref="cyber_spike" />
+   </complexforms>
+   <metaEchoes>
+      <metaEcho lang="en" ref="new_sprite_type" />
+      <metaEcho lang="en" ref="sprite_conduit" />
+   </metaEchoes>
+   <sins>
+      <sin name="Yuriko Star" quality="SECOND_LIFE" uniqueid="67093f3b-0720-44c7-8345-c7ec248e18e7" />
+   </sins>
+   <licenses>
+      <licenses name="Drone License" rating="SECOND_LIFE" sin="67093f3b-0720-44c7-8345-c7ec248e18e7" uniqueid="1abfa38d-ab31-463e-a7d2-e48a573ea34d" />
+      <licenses name="Firearms License" rating="SECOND_LIFE" sin="67093f3b-0720-44c7-8345-c7ec248e18e7" uniqueid="d3bad59f-b49f-4d94-97af-7984747853e9" />
+   </licenses>
    <name>Yuriko Star</name>
+   <datasets mode="ALL" />
+   <rules>
+      <set rule="CAREER_UNDO_FROM_CAREER" to="true" />
+      <set rule="CAREER_PAY_GEAR" to="true" />
+   </rules>
    <realName>r31k0 Takahashi</realName>
    <age>~ 10</age>
    <attributes>
@@ -19,66 +51,44 @@
       <attributes id="EDGE" value="4" />
       <attributes id="RESONANCE" value="8" />
    </attributes>
-   <qualities>
-      <quality lang="en" ref="natural_hacker" uuid="b1f07785-3878-4b4b-ac62-9c2608c05bb6" />
-      <quality lang="en" ref="technoshaman" uuid="2f65425a-f838-4b13-979a-7fd3c8ceb7ab" />
-      <quality lang="en" ref="designer" uuid="fb9399ed-9a4e-4717-8d6b-9b58b656b455" />
-      <quality lang="en" ref="sensor_upgrade" uuid="b79da216-b197-4014-83eb-e92a277f3126" />
-      <quality lang="en" ref="pilot_origins" uuid="c94b8663-4f60-4849-8629-7d4ec62c10eb" />
-      <quality lang="en" ref="buddy_system" uuid="3cda234f-3105-4827-8f46-f87fe313e0c4" />
-      <quality lang="en" ref="sprite_bane" uuid="12420a10-100d-4abe-831e-18b0e2bee2b9">
-         <decision choice="d916a0bd-672b-4eb8-a2f7-1f3687b4a242" value="Primal Sprite" />
-      </quality>
-      <quality lang="en" ref="hooder" uuid="f596365e-b4a9-416e-aa6f-34ec0f1e27ff" value="2" />
-   </qualities>
    <skills>
-      <skill lang="en" ref="tasking" uuid="77323902-205c-4862-a45c-18a3d0657362" value="6">
+      <skill lang="en" ref="tasking" uuid="41b77dd3-8463-44e1-b459-aeebd5020282" value="6">
          <skillspec lang="en" ref="registering" />
       </skill>
-      <skill lang="en" ref="cracking" uuid="df143efd-ab75-4813-a050-d2caf1dad397" value="5">
+      <skill lang="en" ref="cracking" uuid="4a5911fa-71e1-4dca-941f-4608762febec" value="5">
          <skillspec lang="en" ref="hacking" />
       </skill>
-      <skill lang="en" ref="electronics" uuid="7b8af60d-bce4-4b8d-a742-7bfc34a241b2" value="5">
+      <skill lang="en" ref="electronics" uuid="220615d8-25d2-4e68-a5e3-502dcf2a1db8" value="5">
          <skillspec lang="en" ref="software" />
       </skill>
-      <skill lang="en" ref="influence" uuid="bf3a6d60-8385-4dff-a3e2-56670faf6f6f" value="1" />
-      <skill lang="en" ref="con" uuid="0b388516-be46-4ab0-b718-3dd3d8dd08da" value="1" />
-      <skill lang="en" ref="language" uuid="3e4328e3-4798-4e7f-8a66-4e84f6b17d90" value="4">
+      <skill lang="en" ref="influence" uuid="f38c8786-d63b-4663-a314-f72a6c6f315c" value="1" />
+      <skill lang="en" ref="con" uuid="2d4a3f32-4170-4162-9c4c-f273b6f31ad1" value="1" />
+      <skill lang="en" ref="language" uuid="cc60fd2d-da67-454d-bf1a-5c3359f27e49" value="4">
          <decision choice="a7103ee4-31fa-435d-ac42-08f7d4d1e80c" value="Native Language" />
       </skill>
+      <skill lang="en" ref="language" uuid="054a5fae-7c19-4ba2-a8e5-ac1b5fe4a6a0" value="4">
+         <decision choice="a7103ee4-31fa-435d-ac42-08f7d4d1e80c" value="Mindspeech" />
+      </skill>
+      <skill lang="en" ref="language" uuid="c77a2463-13a7-4efe-abbd-d33d00c0238e" value="5">
+         <decision choice="a7103ee4-31fa-435d-ac42-08f7d4d1e80c" value="Japanese" />
+      </skill>
+      <skill lang="en" ref="language" uuid="7361bd11-e08d-4df4-a8c0-70fb46e2bacb" value="5">
+         <decision choice="a7103ee4-31fa-435d-ac42-08f7d4d1e80c" value="English" />
+      </skill>
+      <skill lang="en" ref="language" uuid="7890ba99-bb5c-4925-9fb6-be16d8f5074b" value="5">
+         <decision choice="a7103ee4-31fa-435d-ac42-08f7d4d1e80c" value="Cantonese" />
+      </skill>
+      <skill lang="en" ref="language" uuid="a94ca757-9656-42dd-894e-7914dfe2f8a6" value="5">
+         <decision choice="a7103ee4-31fa-435d-ac42-08f7d4d1e80c" value="Mandarin" />
+      </skill>
    </skills>
-   <metaEchoes>
-      <metaEcho lang="en" ref="hybrid_sprites" />
-      <metaEcho lang="en" ref="new_sprite_type" />
-      <metaEcho lang="en" ref="sprite_conduit" />
-      <metaEcho lang="en" ref="sprite_symbiosis" />
-      <metaEcho lang="en" ref="living_network" />
-      <metaEcho lang="en" ref="transcendent_network" />
-      <metaEcho lang="en" ref="overclocking" />
-      <metaEcho lang="en" ref="software_emulator" />
-      <metaEcho lang="en" ref="sprite_link" />
-   </metaEchoes>
-   <sins>
-      <sin name="Yuriko Star" quality="SECOND_LIFE" uniqueid="49f0c374-470d-4354-9204-cb4adc9cf284" />
-   </sins>
-   <licenses>
-      <licenses name="Drone License" rating="SECOND_LIFE" sin="49f0c374-470d-4354-9204-cb4adc9cf284" uniqueid="0ea98691-8e3b-487e-b15f-f5f4a3d8047a" />
-      <licenses name="Firearms License" rating="SECOND_LIFE" sin="49f0c374-470d-4354-9204-cb4adc9cf284" uniqueid="6c652477-3eae-4040-aa89-e66a431acd37" />
-   </licenses>
-   <foci>
-      <focus lang="en" ref="qi_focus" value="4">
-         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="4" />
-      </focus>
-      <focus lang="en" ref="qi_focus" value="4">
-         <decision choice="c2d17c87-1cfe-4355-9877-a20fe09c170d" value="4" />
-      </focus>
-   </foci>
+   <charGenUsed>free</charGenUsed>
+   <strictness>srm</strictness>
    <items>
-      <item lang="en" mode="CARRIED" ref="hermes_ikon" uuid="80b4d538-fde4-45c4-88c2-ac75491c31e1" />
-      <item lang="en" mode="CARRIED" ref="facial_scanner" uuid="4ed30649-4e08-4acc-bb1f-f6c004fa5af3" />
-      <item lang="en" mode="CARRIED" ref="p-ice_spines" uuid="727b9932-3f93-4f0b-a0aa-989676a04ee7" />
-      <item lang="en" mode="CARRIED" ref="thermal_mood_reading" uuid="c356fea0-8be8-4570-96a7-6d77c3798820" />
-      <item lang="en" mode="CARRIED" ref="vocal_tension_detection" uuid="9e6c3e13-bb3d-4f24-acc1-e248af7d1aec" />
+      <item lang="en" mode="CARRIED" ref="facial_scanner" uuid="32c6f653-4408-488d-926d-be7886b56ef9" />
+      <item lang="en" mode="CARRIED" ref="p-ice_spines" uuid="c28fa50b-03c8-485d-bbe4-e52ca324d84d" />
+      <item lang="en" mode="CARRIED" ref="thermal_mood_reading" uuid="92e7372e-0b1c-4bf9-8e6e-e141aa3e749b" />
+      <item lang="en" mode="CARRIED" ref="vocal_tension_detection" uuid="b655fedc-d73e-49ff-af73-f186143d1063" />
    </items>
    <contacts>
       <contact name="Brynne Taggart" rat="4" type="STREET" typename="Fixer" loy="3" favors="3">
@@ -366,6 +376,10 @@
       </reward>
       <reward date="2026-08-20T00:00:00.000Z" exp="7" money="8250">
          <title>SRM 2081-18 | Friendships Never Grow Rust</title>
+         <gamemaster>JaGator</gamemaster>
+      </reward>
+      <reward date="2026-09-03T00:00:00.000Z" exp="8" money="10000">
+         <title>SRM 2083-14 | Deepest Roots</title>
          <gamemaster>JaGator</gamemaster>
       </reward>
    </rewards>

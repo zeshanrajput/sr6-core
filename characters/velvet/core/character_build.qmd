@@ -170,7 +170,7 @@ Shadowrunners are built with 100 Character Points (CP). You still gain 50 points
 * Exceptional Attribute (CHA): `{python} inc('Karma', -12)`
 * Hooder (R3): `{python} inc('Karma', 15)`
 * Inspire Competence: `{python} inc('Karma', -11)`
-* Chronic Pain: `{python} inc('Karma', 15)`
+* Injury Prone: `{python} inc('Karma', 15)`
 * Focused Concentration (R3): `{python} inc('Karma', -36)`
 
 ### Gear

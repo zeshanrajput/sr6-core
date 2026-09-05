@@ -239,6 +239,36 @@ start_mission('CMP 2083-05')
 
 ---
 
+## **CMP 2081-10 | A Diamond In The Rough**
+
+```{python}
+#| echo: false
+start_mission('CMP 2081-10')
+```
+
+
+* **Date:** 2026-Sep-04
+* **GM:** CDT Agent Kira Capalu (#TBD)
+* **Player:** Velvet (WarDoctor)
+* **Team:** Cherry.exe (Connor2847), Jolthead (Zombiemiles), Mamba (Dreamwalker), Ninja (ArrogantNinja), Velvet (WarDoctor), Yankee Doodle (Inirlan)
+* **Difficulty:** Veteran
+* **Summary:** While being in the United Netherlands for one reason or another, the team got hired by “Ms. Johnson” (alias Kiara Shaw) to travel to Antwerp, take a trip through its historic underground of the Ruien and use a hidden back door to enter the archive of a security firm with the aim to copy some physical files from a drawer. In the sewers they befriended the locals and hired two teenage girls as guides, which got them through the maze relatively easily. They found the walls near the door infested with rats and destroyed them. In the archive they copied the file, dealt with a security patrol via magic and left Neo-Anarchist graffiti as a distraction. Back in the sewers they ran across a gangs ambush, intimidated them to let them pass, and glimpsed at the files on their way back to Europort. They turned out to be security plans for stores within Antwerp’s Diamond District… the same shops the queen herself visited days later to buy an engagement ring for her daughter. A coincidence?
+* **Rewards:** `{python} inc('Nuyen', 9500)`, `{python} inc('Karma', 7)` *(7,500¥ Getting copies + 2,000¥ Veteran; 6 + 1 Veteran Karma)*
+* **Reputation:** `{python} add_rep('UNL', 1)` *(+1 Reputation United Netherlands)*
+* **Heat:** ±0 *(Roll 3+5, Base ±0, Bribes ±0)*
+* **Contacts & Favor Points:**
+  * `{python} contact("Kiara Shaw", connection=4, fp=2, type_name="Knight Errant Company Suit", region="AMS", notes="CMP 2081-10 A Diamond In The Rough (Knight Errant Company Suit)")`
+
+### Downtime & Character Advancement (CMP 2 Minor Actions)
+
+* **Minor Downtime Action 1 (Community Service):** *Working for the People* — `{python} inc('Karma', 1)` (+1 Karma banked towards Power Focus Rating 3).
+* **Minor Downtime Action 2 (Binding Spirits):** Re-bound standard 8-level spirit package (Force 5 Spirit of Fire [2 tasks/missions] & Force 3 Spirit of Kin [4 tasks/missions]) per downtime protocol to replenish exhausted fire ancestor: `{python} inc('Nuyen', -320)` (16 drams of reagents).
+  * `{python} add_spirit("Spirit of Fire", force=5, spirit_type="Fire", tasks=2, details="2 Bound Tasks / 2 SRM Missions, Combat & Channeling")`
+  * `{python} add_spirit("Spirit of Kin", force=3, spirit_type="Kin", tasks=4, details="4 Bound Tasks / 4 SRM Missions, Infiltration & Sustaining")`
+* **Advancement & Capital Savings:** Saving Karma and Nuyen towards **Power Focus (Rating 3)** (Goal: 18 Karma / ¥54,000; currently at **22 Karma** [18K target reached!] and **¥39,915** / ¥54,000).
+
+---
+
 ## **Active Contacts Summary**
 
 ```{python}
