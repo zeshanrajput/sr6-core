@@ -808,8 +808,8 @@ start_mission('SRM 2083-14')
   * `{python} contact("Alexander Sloane", connection=4, fp=1, type_name="NOLA Etoile PI / Fixer", notes="SRM 2083-14 Deepest Roots")` *(Met at Connection 4, +1 FP; auto-promotes to Loyalty 1 with 0 FP banked)*
 * **Downtime Actions (1 Major Traded for 2 Minors $\rightarrow$ 3 Minor Actions):**
   * *Minor Action 1 (Learn Complex Form — Resonance Wires):* `{python} inc('Karma', -5)` `{python} complex_form('Resonance Wires', fading=2, duration='Sustained', target='Device', notes='Electronics + RES vs Threshold 2 + Noise. Establishes a remote direct connection to target device wirelessly, bypassing host firewalls and wireless-off defenses.')`
-  * *Minor Action 2 (Working for the People):* `{python} inc_many(('Karma', 1), ('Nuyen', -2000))`
-  * *Minor Action 3 (Register Sprite):* `{python} add_sprite('Sprite-M30', 7, 'Modular')`
+  * *Minor Action 2 (Repair & Modify Drone — Shiawase Man-at-Arms):* Maintenance, nanite decontamination, and component modifications on the Shiawase Cyber-5 "Man-at-Arms" anthrodrone (accounting for custom DIY structural, propulsion, sensor, and cyberarm upgrades).
+  * *Minor Action 3 (Working for the People):* `{python} inc_many(('Karma', 1), ('Nuyen', -2000))`
 * **Monthly Expenses & Lifestyle Note:**
   * SRM 2081-18 was the 1st SRM of the bi-monthly cycle where High Lifestyle was granted complimentary and Hooder was covered via Working for the People.
   * SRM 2083-14 is the 2nd SRM of the bi-monthly cycle. Per SRM rules, monthly expenses are paid every other SRM. No expenses are due for this mission (due next cycle).
