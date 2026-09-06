@@ -1274,11 +1274,11 @@
       "mortype": "",
       "gender": "DIVERSE",
       "age": "~ 10",
-      "nuyen": 4550.0,
+      "nuyen": 2550.0,
       "lifetime_nuyen": 387300,
-      "karma": 8,
-      "karma_avail": 8,
-      "lifetime_karma": 237,
+      "karma": 4,
+      "karma_avail": 4,
+      "lifetime_karma": 238,
       "nanite_volume": 0,
       "is_ai": true,
       "is_monad": false,
@@ -2475,6 +2475,14 @@
         "target": "Character with wireless cyberware",
         "notes": "Electronics + RES vs BOD + Essence. Deals 1 Physical damage per net hit and stresses installed ware.",
         "doc_link": "chapters/rules_sprites.html#complex-forms"
+      },
+      {
+        "name": "Resonance Wires",
+        "fading": 2,
+        "duration": "Sustained",
+        "target": "Device",
+        "notes": "Electronics + RES vs Threshold 2 + Noise. Establishes a remote direct connection to target device wirelessly, bypassing host firewalls and wireless-off defenses.",
+        "doc_link": "chapters/rules_sprites.html#complex-forms"
       }
     ],
     "sprite_powers": [
@@ -2555,6 +2563,14 @@
           "duration": "Immediate",
           "target": "Character with wireless cyberware",
           "notes": "Electronics + RES vs BOD + Essence. Deals 1 Physical damage per net hit and stresses installed ware.",
+          "doc_link": "chapters/rules_sprites.html#complex-forms"
+        },
+        {
+          "name": "Resonance Wires",
+          "fading": 2,
+          "duration": "Sustained",
+          "target": "Device",
+          "notes": "Electronics + RES vs Threshold 2 + Noise. Establishes a remote direct connection to target device wirelessly, bypassing host firewalls and wireless-off defenses.",
           "doc_link": "chapters/rules_sprites.html#complex-forms"
         }
       ],
@@ -2844,9 +2860,9 @@
       {
         "name": "Roanoke",
         "connection": 3,
-        "loyalty": 3,
+        "loyalty": 4,
         "archetype": "Ecological Activist",
-        "favors": 2,
+        "favors": 1,
         "region": "NOLA",
         "types": [
           "Criminal",
@@ -3418,14 +3434,14 @@
       {
         "name": "Cedar",
         "connection": 3,
-        "loyalty": 1,
-        "archetype": "NOLA Talismonger",
-        "favors": 0,
+        "loyalty": 2,
+        "archetype": "Talismonger",
+        "favors": 2,
         "region": "NOLA",
         "types": [
-          "General"
+          "Magic"
         ],
-        "description": "SRM 2083-20 The Fallacy of Plans"
+        "description": "Uses: Talismongering, magical supplies, Salish artifacts | Types: Magic"
       },
       {
         "name": "Detective Remy LeBlanc",
@@ -3511,6 +3527,19 @@
           "General"
         ],
         "description": "SRM 2081-18 Friendships Never Grow Rust"
+      },
+      {
+        "name": "Alexander Sloane",
+        "connection": 4,
+        "loyalty": 1,
+        "archetype": "Etoile PI / Fixer",
+        "favors": 0,
+        "region": "NOLA",
+        "types": [
+          "Criminal",
+          "Law Enforcement"
+        ],
+        "description": "Uses: Private investigation, bounty hunting, police contacts, job offers | Types: Criminal, Law Enforcement"
       }
     ],
     "exceptions": [
@@ -3582,6 +3611,17 @@
         "enabled": true
       },
       {
+        "id": "smartlink_wireless",
+        "name": "Smartlink (Wireless)",
+        "target": "autosoft:targeting",
+        "value": 1,
+        "type": "other",
+        "sub_skill": null,
+        "rule_anchor": "rules_combat.html#tactical-weapon-arrays",
+        "notes": "Wireless bonus: +1 dice pool to attack tests (SR6 p. 261)",
+        "enabled": true
+      },
+      {
         "id": "taz_symbiosis_electronics",
         "name": "Taz Symbiosis (Electronics)",
         "target": "skill:electronics",
@@ -3613,17 +3653,6 @@
         "rule_anchor": "rules_sprites.html#sprite-symbiosis-powers",
         "notes": null,
         "enabled": true
-      },
-      {
-        "id": "smartlink_wireless",
-        "name": "Smartlink (Wireless)",
-        "target": "autosoft:targeting",
-        "value": 1,
-        "type": "other",
-        "sub_skill": null,
-        "rule_anchor": "rules_combat.html#tactical-weapon-arrays",
-        "notes": "Wireless bonus: +1 dice pool to attack tests (SR6 p. 261)",
-        "enabled": true
       }
     ],
     "rules_doc": "rules/rules.html"
@@ -3639,10 +3668,10 @@
       "mortype": "mystic adept",
       "gender": "DIVERSE",
       "age": 20,
-      "nuyen": 39915,
-      "lifetime_nuyen": 115300,
-      "karma": 27,
-      "karma_avail": 27,
+      "nuyen": 205,
+      "lifetime_nuyen": 117590,
+      "karma": 17,
+      "karma_avail": 17,
       "lifetime_karma": 55,
       "nanite_volume": 0,
       "is_ai": false,
@@ -3807,10 +3836,10 @@
         "attribute": "Magic",
         "specialization": "Spellcasting",
         "base_pool": 11,
-        "buffed_pool": 11,
-        "bought_hits": 2,
-        "specialized_pool": 13,
-        "specialized_hits": 3,
+        "buffed_pool": 14,
+        "bought_hits": 3,
+        "specialized_pool": 16,
+        "specialized_hits": 4,
         "effective_attribute": "magic",
         "is_attribute_overridden": false,
         "breakdown_text": "MAG 6 + 5 Rtg",
@@ -3832,9 +3861,9 @@
         "attribute": "Magic",
         "specialization": null,
         "base_pool": 12,
-        "buffed_pool": 12,
+        "buffed_pool": 15,
         "bought_hits": 3,
-        "specialized_pool": 12,
+        "specialized_pool": 15,
         "specialized_hits": 3,
         "effective_attribute": "magic",
         "is_attribute_overridden": false,
@@ -4016,112 +4045,7 @@
         }
       ]
     },
-    "weapons": [
-      {
-        "name": "Beretta 101T",
-        "is_melee": false,
-        "category": "general",
-        "damage": "3P",
-        "base_damage": "3P",
-        "attack_rating": [
-          10,
-          10,
-          8,
-          0,
-          0
-        ],
-        "attack_rating_str": "10 / 10 / 8 / — / —",
-        "base_attack_rating_str": "10 / 10 / 8 / — / —",
-        "modes": [
-          "SA"
-        ],
-        "modes_str": "SA",
-        "base_modes_str": "SA",
-        "ammo": "—",
-        "base_ammo": "—",
-        "loaded_ammo": null,
-        "accessories": [],
-        "notes": "",
-        "doc_link": "chapters/rules_and_downtime.html#weapon-attack-table"
-      },
-      {
-        "name": "Sap",
-        "is_melee": true,
-        "category": "general",
-        "damage": "3P",
-        "base_damage": "3P",
-        "attack_rating": [
-          10,
-          10,
-          8,
-          0,
-          0
-        ],
-        "attack_rating_str": "10 / 10 / 8 / — / —",
-        "base_attack_rating_str": "10 / 10 / 8 / — / —",
-        "modes": [],
-        "modes_str": "Melee",
-        "base_modes_str": "Melee",
-        "ammo": "—",
-        "base_ammo": "—",
-        "loaded_ammo": null,
-        "accessories": [],
-        "notes": "",
-        "doc_link": "chapters/rules_and_downtime.html#weapon-attack-table"
-      },
-      {
-        "name": "Yamaha Raiden",
-        "is_melee": false,
-        "category": "general",
-        "damage": "3P",
-        "base_damage": "3P",
-        "attack_rating": [
-          10,
-          10,
-          8,
-          0,
-          0
-        ],
-        "attack_rating_str": "10 / 10 / 8 / — / —",
-        "base_attack_rating_str": "10 / 10 / 8 / — / —",
-        "modes": [
-          "SA"
-        ],
-        "modes_str": "SA",
-        "base_modes_str": "SA",
-        "ammo": "—",
-        "base_ammo": "—",
-        "loaded_ammo": null,
-        "accessories": [],
-        "notes": "",
-        "doc_link": "chapters/rules_and_downtime.html#weapon-attack-table"
-      },
-      {
-        "name": "Stun Baton",
-        "is_melee": true,
-        "category": "general",
-        "damage": "3P",
-        "base_damage": "3P",
-        "attack_rating": [
-          10,
-          10,
-          8,
-          0,
-          0
-        ],
-        "attack_rating_str": "10 / 10 / 8 / — / —",
-        "base_attack_rating_str": "10 / 10 / 8 / — / —",
-        "modes": [],
-        "modes_str": "Melee",
-        "base_modes_str": "Melee",
-        "ammo": "—",
-        "base_ammo": "—",
-        "loaded_ammo": null,
-        "accessories": [],
-        "notes": "",
-        "doc_link": "chapters/rules_and_downtime.html#weapon-attack-table"
-      }
-    ],
+    "weapons": [],
     "armors": [
       {
         "name": "Ares SecureTech Skinshield",
@@ -4190,13 +4114,6 @@
         "cost": "0.25 PP",
         "rating": 1,
         "notes": "-1 dice pool penalty to hostile Assensing tests.",
-        "doc_link": "chapters/rules_and_downtime.html#adept-powers"
-      },
-      {
-        "name": "Sharp Tongue",
-        "cost": "1.0 PP",
-        "rating": 1,
-        "notes": "CHA + Magic vs INT + WIL. Net hits inflict unresisted Stun damage.",
         "doc_link": "chapters/rules_and_downtime.html#adept-powers"
       }
     ],
@@ -5019,13 +4936,6 @@
           "cost": "0.25 PP",
           "rating": 1,
           "notes": "-1 dice pool penalty to hostile Assensing tests.",
-          "doc_link": "chapters/rules_and_downtime.html#adept-powers"
-        },
-        {
-          "name": "Sharp Tongue",
-          "cost": "1.0 PP",
-          "rating": 1,
-          "notes": "CHA + Magic vs INT + WIL. Net hits inflict unresisted Stun damage.",
           "doc_link": "chapters/rules_and_downtime.html#adept-powers"
         }
       ],
@@ -6167,7 +6077,19 @@
         "active": true
       }
     ],
-    "modifiers": [],
+    "modifiers": [
+      {
+        "id": "power_focus",
+        "name": "Power Focus",
+        "target": "attribute:magic",
+        "value": 3,
+        "type": "focus",
+        "sub_skill": null,
+        "rule_anchor": "rules/rules_and_downtime.html#foci",
+        "notes": "+3 to Magic for tests where Magic applies",
+        "enabled": true
+      }
+    ],
     "rules_doc": "rules/rules.html"
   },
   "venn": {

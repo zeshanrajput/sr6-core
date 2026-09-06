@@ -119,7 +119,8 @@ def compile_character(char_id: str) -> Dict[str, Any]:
         "licenses": purchases_data.get("licenses", existing_char.get("licenses", [])),
         "living_persona": existing_char.get("living_persona", {}),
         "monad_abilities": totals.get("Monad_Abilities", []) or existing_char.get("monad_abilities", []),
-        "synergies": existing_char.get("synergies", {})
+        "synergies": existing_char.get("synergies", {}),
+        "exceptions": ExceptionsRegistry.get_character_exceptions(char_id, repo_dir)
     }
 
     # Clean out empty top-level lists if not applicable

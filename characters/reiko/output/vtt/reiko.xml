@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<sr6char gender="DIVERSE" meta="ai-pilot ai" karmaF="8" karmaI="229" nuyen="4550">
+<sr6char gender="DIVERSE" meta="ai-pilot ai" karmaF="4" karmaI="234" nuyen="2550">
    <type>METAHUMAN</type>
    <qualities>
-      <quality lang="en" ref="natural_hacker" uuid="c4ba2e8d-c9cd-476d-92c5-5ba18b4af78a" />
-      <quality lang="en" ref="technoshaman" uuid="65a4c64e-9bbb-4796-a3f8-3d9de1157f3a" />
-      <quality lang="en" ref="designer" uuid="c2234ae7-237e-4dec-9b0c-e13a5f22cd51" />
-      <quality lang="en" ref="sensor_upgrade" uuid="52b03537-e8e6-4a81-bd84-24a8def27bf7" />
-      <quality lang="en" ref="pilot_origins" uuid="653dca3a-2606-437d-9eb3-52f2a3abf1a4" />
-      <quality lang="en" ref="buddy_system" uuid="4521fbdc-18d5-4884-b4d8-ff51fd9faf65" />
-      <quality lang="en" ref="sprite_bane" uuid="30591cd0-4f81-4444-92a1-f02df919467c">
-         <decision choice="d0899843-31fb-497e-99cd-f09af8aa6e28" value="Primal Sprite" />
+      <quality lang="en" ref="natural_hacker" uuid="16a59a50-9772-4b0c-b4e5-40b67f994f28" />
+      <quality lang="en" ref="technoshaman" uuid="eda1cf6f-7924-4da7-9a37-47a77346bca8" />
+      <quality lang="en" ref="designer" uuid="51c83c2e-aa16-4a13-a951-bcc4e7585762" />
+      <quality lang="en" ref="sensor_upgrade" uuid="bdbaf2c1-7e2d-4d5f-8846-58805ea23145" />
+      <quality lang="en" ref="pilot_origins" uuid="2bcc4e86-1ad8-4387-a5a9-c60ad35eb45a" />
+      <quality lang="en" ref="buddy_system" uuid="35252964-3644-488d-a225-5c6a530a2cc3" />
+      <quality lang="en" ref="sprite_bane" uuid="417bcfbc-1ff2-4e4a-9fd9-07e039daa8f7">
+         <decision choice="ff83f6ab-3efe-43c0-99d8-b3f165b4471f" value="Primal Sprite" />
       </quality>
-      <quality lang="en" ref="hooder" uuid="259f3c6b-40a4-41ea-a26a-f6107f476716" value="2" />
+      <quality lang="en" ref="hooder" uuid="49909905-106f-4121-ad7e-dc718b854444" value="2" />
    </qualities>
    <complexforms>
       <complexforms lang="en" ref="technoregeneration" />
@@ -19,17 +19,18 @@
       <complexforms lang="en" ref="diffusion" />
       <complexforms lang="en" ref="puppeteer" />
       <complexforms lang="en" ref="cyber_spike" />
+      <complexforms lang="en" ref="resonance_wires" />
    </complexforms>
    <metaEchoes>
       <metaEcho lang="en" ref="new_sprite_type" />
       <metaEcho lang="en" ref="sprite_conduit" />
    </metaEchoes>
    <sins>
-      <sin name="Yuriko Star" quality="SECOND_LIFE" uniqueid="67093f3b-0720-44c7-8345-c7ec248e18e7" />
+      <sin name="Yuriko Star" quality="SECOND_LIFE" uniqueid="bc1c5aaa-713f-4cef-b70b-7a94d786acc4" />
    </sins>
    <licenses>
-      <licenses name="Drone License" rating="SECOND_LIFE" sin="67093f3b-0720-44c7-8345-c7ec248e18e7" uniqueid="1abfa38d-ab31-463e-a7d2-e48a573ea34d" />
-      <licenses name="Firearms License" rating="SECOND_LIFE" sin="67093f3b-0720-44c7-8345-c7ec248e18e7" uniqueid="d3bad59f-b49f-4d94-97af-7984747853e9" />
+      <licenses name="Drone License" rating="SECOND_LIFE" sin="bc1c5aaa-713f-4cef-b70b-7a94d786acc4" uniqueid="f63066fc-76d2-478b-84f6-255cd24d41ee" />
+      <licenses name="Firearms License" rating="SECOND_LIFE" sin="bc1c5aaa-713f-4cef-b70b-7a94d786acc4" uniqueid="bcc77db6-e2f4-452f-943d-e19c9029d375" />
    </licenses>
    <name>Yuriko Star</name>
    <datasets mode="ALL" />
@@ -52,43 +53,43 @@
       <attributes id="RESONANCE" value="8" />
    </attributes>
    <skills>
-      <skill lang="en" ref="tasking" uuid="41b77dd3-8463-44e1-b459-aeebd5020282" value="6">
+      <skill lang="en" ref="tasking" uuid="ac246b68-e9ce-4d29-9085-6c5536f86867" value="6">
          <skillspec lang="en" ref="registering" />
       </skill>
-      <skill lang="en" ref="cracking" uuid="4a5911fa-71e1-4dca-941f-4608762febec" value="5">
+      <skill lang="en" ref="cracking" uuid="61d2298b-12a6-48a7-9cb3-f890b1a9a0c6" value="5">
          <skillspec lang="en" ref="hacking" />
       </skill>
-      <skill lang="en" ref="electronics" uuid="220615d8-25d2-4e68-a5e3-502dcf2a1db8" value="5">
+      <skill lang="en" ref="electronics" uuid="d507c078-5308-4600-8e9f-4f9e5edde3d3" value="5">
          <skillspec lang="en" ref="software" />
       </skill>
-      <skill lang="en" ref="influence" uuid="f38c8786-d63b-4663-a314-f72a6c6f315c" value="1" />
-      <skill lang="en" ref="con" uuid="2d4a3f32-4170-4162-9c4c-f273b6f31ad1" value="1" />
-      <skill lang="en" ref="language" uuid="cc60fd2d-da67-454d-bf1a-5c3359f27e49" value="4">
+      <skill lang="en" ref="influence" uuid="22d9f82c-ee90-41d9-a976-66b35ea0e2c2" value="1" />
+      <skill lang="en" ref="con" uuid="b8618414-881d-4b97-9b12-db46ee5ffbd1" value="1" />
+      <skill lang="en" ref="language" uuid="797067df-a5f5-4025-861e-9090a1578e68" value="4">
          <decision choice="a7103ee4-31fa-435d-ac42-08f7d4d1e80c" value="Native Language" />
       </skill>
-      <skill lang="en" ref="language" uuid="054a5fae-7c19-4ba2-a8e5-ac1b5fe4a6a0" value="4">
+      <skill lang="en" ref="language" uuid="f5f6259e-1a1c-4dc3-be0b-9bea3542c451" value="4">
          <decision choice="a7103ee4-31fa-435d-ac42-08f7d4d1e80c" value="Mindspeech" />
       </skill>
-      <skill lang="en" ref="language" uuid="c77a2463-13a7-4efe-abbd-d33d00c0238e" value="5">
+      <skill lang="en" ref="language" uuid="98699278-5cbf-4fdd-80e3-4193e6d93065" value="5">
          <decision choice="a7103ee4-31fa-435d-ac42-08f7d4d1e80c" value="Japanese" />
       </skill>
-      <skill lang="en" ref="language" uuid="7361bd11-e08d-4df4-a8c0-70fb46e2bacb" value="5">
+      <skill lang="en" ref="language" uuid="854985d1-8d60-45f0-810e-ddc69dd49160" value="5">
          <decision choice="a7103ee4-31fa-435d-ac42-08f7d4d1e80c" value="English" />
       </skill>
-      <skill lang="en" ref="language" uuid="7890ba99-bb5c-4925-9fb6-be16d8f5074b" value="5">
+      <skill lang="en" ref="language" uuid="27a93260-3ba4-45b2-a3ef-da7d18ac6b97" value="5">
          <decision choice="a7103ee4-31fa-435d-ac42-08f7d4d1e80c" value="Cantonese" />
       </skill>
-      <skill lang="en" ref="language" uuid="a94ca757-9656-42dd-894e-7914dfe2f8a6" value="5">
+      <skill lang="en" ref="language" uuid="635da3c7-2950-4143-8db9-a99ab3d6aeff" value="5">
          <decision choice="a7103ee4-31fa-435d-ac42-08f7d4d1e80c" value="Mandarin" />
       </skill>
    </skills>
    <charGenUsed>free</charGenUsed>
    <strictness>srm</strictness>
    <items>
-      <item lang="en" mode="CARRIED" ref="facial_scanner" uuid="32c6f653-4408-488d-926d-be7886b56ef9" />
-      <item lang="en" mode="CARRIED" ref="p-ice_spines" uuid="c28fa50b-03c8-485d-bbe4-e52ca324d84d" />
-      <item lang="en" mode="CARRIED" ref="thermal_mood_reading" uuid="92e7372e-0b1c-4bf9-8e6e-e141aa3e749b" />
-      <item lang="en" mode="CARRIED" ref="vocal_tension_detection" uuid="b655fedc-d73e-49ff-af73-f186143d1063" />
+      <item lang="en" mode="CARRIED" ref="facial_scanner" uuid="bb0f67f8-1818-406a-87d8-e39eb311d440" />
+      <item lang="en" mode="CARRIED" ref="p-ice_spines" uuid="cccaa6ce-960a-4f0a-a572-3ad1077e07e7" />
+      <item lang="en" mode="CARRIED" ref="thermal_mood_reading" uuid="d9e8b76a-cda2-4fc7-9298-a8942ed3bf2a" />
+      <item lang="en" mode="CARRIED" ref="vocal_tension_detection" uuid="3cef1e09-730e-4f6f-8781-3cc609a8b358" />
    </items>
    <contacts>
       <contact name="Brynne Taggart" rat="4" type="STREET" typename="Fixer" loy="3" favors="3">
@@ -100,7 +101,7 @@
       <contact name="Indomitable Will" rat="3" type="MATRIX" typename="River People Sysop" loy="3" favors="0">
          <description>Uses: Banking, HVAC systems, Matrix | Types: Corporate, Matrix</description>
       </contact>
-      <contact name="Roanoke" rat="3" type="MATRIX" typename="Ecological Activist" loy="3" favors="2">
+      <contact name="Roanoke" rat="3" type="MATRIX" typename="Ecological Activist" loy="4" favors="1">
          <description>Uses: Getting jobs, environmental science, shamanism | Types: Criminal, Matrix</description>
       </contact>
       <contact name="Piotr Krolik" rat="4" type="CRIMINAL" typename="NOLA Vory Borjevik" loy="1" favors="0">
@@ -239,8 +240,8 @@
          <description>Uses: Getting jobs, dragons, mafia | Types: Corporate, Street</description>
       </contact>
       <contact name="Coffin Girls" rat="3" type="STREET" typename="NOLA Independent Courtesans Group" loy="4" favors="0" />
-      <contact name="Cedar" rat="3" type="MAGIC" typename="NOLA Talismonger" loy="1" favors="0">
-         <description>SRM 2083-20 The Fallacy of Plans</description>
+      <contact name="Cedar" rat="3" type="MAGIC" typename="Talismonger" loy="2" favors="2">
+         <description>Uses: Talismongering, magical supplies, Salish artifacts | Types: Magic</description>
       </contact>
       <contact name="Detective Remy LeBlanc" rat="3" type="STREET" typename="NOLA Detective" loy="2" favors="0">
          <description>SRM 2083-20 The Fallacy of Plans</description>
@@ -262,6 +263,9 @@
       </contact>
       <contact name="Blackstone" rat="3" type="STREET" typename="SEA Contact" loy="1" favors="0">
          <description>SRM 2081-18 Friendships Never Grow Rust</description>
+      </contact>
+      <contact name="Alexander Sloane" rat="4" type="STREET" typename="Etoile PI / Fixer" loy="1" favors="0">
+         <description>Uses: Private investigation, bounty hunting, police contacts, job offers | Types: Criminal, Law Enforcement</description>
       </contact>
    </contacts>
    <rewards>

@@ -261,6 +261,33 @@ CANONICAL_CONTACTS: Dict[str, Dict[str, Any]] = {
         "types": "Criminal, Matrix",
         "description": "Uses: Getting jobs, environmental science, shamanism | Types: Criminal, Matrix"
     },
+    "Cedar": {
+        "job": "Talismonger",
+        "connection": 3,
+        "region": "NOLA",
+        "missions": "SRM 2083-20, SRM 2083-14",
+        "uses": "Talismongering, magical supplies, Salish artifacts",
+        "types": "Magic",
+        "description": "Uses: Talismongering, magical supplies, Salish artifacts | Types: Magic"
+    },
+    "Alexander Sloane": {
+        "job": "Etoile PI / Fixer",
+        "connection": 4,
+        "region": "NOLA",
+        "missions": "SRM 2083-14",
+        "uses": "Private investigation, bounty hunting, police contacts, job offers",
+        "types": "Criminal, Law Enforcement",
+        "description": "Uses: Private investigation, bounty hunting, police contacts, job offers | Types: Criminal, Law Enforcement"
+    },
+    "Alexander Sloan": {
+        "job": "Etoile PI / Fixer",
+        "connection": 4,
+        "region": "NOLA",
+        "missions": "SRM 2083-14",
+        "uses": "Private investigation, bounty hunting, police contacts, job offers",
+        "types": "Criminal, Law Enforcement",
+        "description": "Uses: Private investigation, bounty hunting, police contacts, job offers | Types: Criminal, Law Enforcement"
+    },
 
     # --- KENTUCKY FRIED SHADOWS 2 CONTACTS ---
     "Doc Coughlin": {

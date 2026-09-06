@@ -1274,11 +1274,11 @@
       "mortype": "",
       "gender": "DIVERSE",
       "age": "~ 10",
-      "nuyen": 4550.0,
+      "nuyen": 2550.0,
       "lifetime_nuyen": 387300,
-      "karma": 8,
-      "karma_avail": 8,
-      "lifetime_karma": 237,
+      "karma": 4,
+      "karma_avail": 4,
+      "lifetime_karma": 238,
       "nanite_volume": 0,
       "is_ai": true,
       "is_monad": false,
@@ -2475,6 +2475,14 @@
         "target": "Character with wireless cyberware",
         "notes": "Electronics + RES vs BOD + Essence. Deals 1 Physical damage per net hit and stresses installed ware.",
         "doc_link": "chapters/rules_sprites.html#complex-forms"
+      },
+      {
+        "name": "Resonance Wires",
+        "fading": 2,
+        "duration": "Sustained",
+        "target": "Device",
+        "notes": "Electronics + RES vs Threshold 2 + Noise. Establishes a remote direct connection to target device wirelessly, bypassing host firewalls and wireless-off defenses.",
+        "doc_link": "chapters/rules_sprites.html#complex-forms"
       }
     ],
     "sprite_powers": [
@@ -2555,6 +2563,14 @@
           "duration": "Immediate",
           "target": "Character with wireless cyberware",
           "notes": "Electronics + RES vs BOD + Essence. Deals 1 Physical damage per net hit and stresses installed ware.",
+          "doc_link": "chapters/rules_sprites.html#complex-forms"
+        },
+        {
+          "name": "Resonance Wires",
+          "fading": 2,
+          "duration": "Sustained",
+          "target": "Device",
+          "notes": "Electronics + RES vs Threshold 2 + Noise. Establishes a remote direct connection to target device wirelessly, bypassing host firewalls and wireless-off defenses.",
           "doc_link": "chapters/rules_sprites.html#complex-forms"
         }
       ],
@@ -2844,9 +2860,9 @@
       {
         "name": "Roanoke",
         "connection": 3,
-        "loyalty": 3,
+        "loyalty": 4,
         "archetype": "Ecological Activist",
-        "favors": 2,
+        "favors": 1,
         "region": "NOLA",
         "types": [
           "Criminal",
@@ -3418,14 +3434,14 @@
       {
         "name": "Cedar",
         "connection": 3,
-        "loyalty": 1,
-        "archetype": "NOLA Talismonger",
-        "favors": 0,
+        "loyalty": 2,
+        "archetype": "Talismonger",
+        "favors": 2,
         "region": "NOLA",
         "types": [
-          "General"
+          "Magic"
         ],
-        "description": "SRM 2083-20 The Fallacy of Plans"
+        "description": "Uses: Talismongering, magical supplies, Salish artifacts | Types: Magic"
       },
       {
         "name": "Detective Remy LeBlanc",
@@ -3511,6 +3527,19 @@
           "General"
         ],
         "description": "SRM 2081-18 Friendships Never Grow Rust"
+      },
+      {
+        "name": "Alexander Sloane",
+        "connection": 4,
+        "loyalty": 1,
+        "archetype": "Etoile PI / Fixer",
+        "favors": 0,
+        "region": "NOLA",
+        "types": [
+          "Criminal",
+          "Law Enforcement"
+        ],
+        "description": "Uses: Private investigation, bounty hunting, police contacts, job offers | Types: Criminal, Law Enforcement"
       }
     ],
     "exceptions": [
@@ -3582,6 +3611,17 @@
         "enabled": true
       },
       {
+        "id": "smartlink_wireless",
+        "name": "Smartlink (Wireless)",
+        "target": "autosoft:targeting",
+        "value": 1,
+        "type": "other",
+        "sub_skill": null,
+        "rule_anchor": "rules_combat.html#tactical-weapon-arrays",
+        "notes": "Wireless bonus: +1 dice pool to attack tests (SR6 p. 261)",
+        "enabled": true
+      },
+      {
         "id": "taz_symbiosis_electronics",
         "name": "Taz Symbiosis (Electronics)",
         "target": "skill:electronics",
@@ -3612,17 +3652,6 @@
         "sub_skill": null,
         "rule_anchor": "rules_sprites.html#sprite-symbiosis-powers",
         "notes": null,
-        "enabled": true
-      },
-      {
-        "id": "smartlink_wireless",
-        "name": "Smartlink (Wireless)",
-        "target": "autosoft:targeting",
-        "value": 1,
-        "type": "other",
-        "sub_skill": null,
-        "rule_anchor": "rules_combat.html#tactical-weapon-arrays",
-        "notes": "Wireless bonus: +1 dice pool to attack tests (SR6 p. 261)",
         "enabled": true
       }
     ],

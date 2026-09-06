@@ -263,6 +263,26 @@ OFFICIAL_SRM_CONTACTS = [
         "source": "SRMG v2.4"
     },
     {
+        "id": "cedar",
+        "name": "Cedar",
+        "connection": 3,
+        "archetype": "Talismonger",
+        "region": "New Orleans",
+        "types": "Magic",
+        "uses": "Talismongering, magical supplies, Salish artifacts",
+        "source": "SRM 2083-14"
+    },
+    {
+        "id": "alexander_sloane",
+        "name": "Alexander Sloane",
+        "connection": 4,
+        "archetype": "Etoile PI / Fixer",
+        "region": "New Orleans",
+        "types": "Criminal, Law Enforcement",
+        "uses": "Private investigation, bounty hunting, police contacts, job offers",
+        "source": "SRM 2083-14"
+    },
+    {
         "id": "doc_coughlin",
         "name": "Doc Coughlin",
         "connection": 3,

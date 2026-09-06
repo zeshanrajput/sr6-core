@@ -83,6 +83,15 @@ modifiers:
   rule_anchor: rules/rules_matrix.html#foci
   notes: null
   enabled: true
+- id: smartlink_wireless
+  name: Smartlink (Wireless)
+  target: autosoft:targeting
+  value: 1
+  type: other
+  sub_skill: null
+  rule_anchor: rules_combat.html#tactical-weapon-arrays
+  notes: 'Wireless bonus: +1 dice pool to attack tests (SR6 p. 261)'
+  enabled: true
 - id: taz_symbiosis_electronics
   name: Taz Symbiosis (Electronics)
   target: skill:electronics
@@ -109,15 +118,6 @@ modifiers:
   sub_skill: null
   rule_anchor: rules_sprites.html#sprite-symbiosis-powers
   notes: null
-  enabled: true
-- id: smartlink_wireless
-  name: Smartlink (Wireless)
-  target: autosoft:targeting
-  value: 1
-  type: other
-  sub_skill: null
-  rule_anchor: rules_combat.html#tactical-weapon-arrays
-  notes: 'Wireless bonus: +1 dice pool to attack tests (SR6 p. 261)'
   enabled: true
 complex_forms:
 - name: Technoregeneration
@@ -247,8 +247,8 @@ contacts:
     canonical_name: Roanoke
     is_canonical: true
     connection: 3
-    loyalty: 3
-    favors: 2
+    loyalty: 4
+    favors: 1
     type: Ecological Activist
     region: NOLA
     description: 'Uses: Getting jobs, environmental science, shamanism | Types: Criminal,
@@ -259,6 +259,8 @@ contacts:
     - 'Character Creation (Met: C3 L3)'
     - SRM 2083-17 Haute Blooded (+1 FP)
     - SRM 2083-20 The Fallacy of Plans (+1 FP)
+    - SRM 2083-14 Deepest Roots (+3 FP)
+    - Auto-Promoted to Loyalty 4 (-4 FP)
   Piotr Krolik:
     name: Piotr Krolik
     canonical_name: Piotr Krolik
@@ -951,17 +953,20 @@ contacts:
   Cedar:
     name: Cedar
     canonical_name: Cedar
-    is_canonical: false
+    is_canonical: true
     connection: 3
-    loyalty: 1
-    favors: 0
-    type: NOLA Talismonger
+    loyalty: 2
+    favors: 2
+    type: Talismonger
     region: NOLA
-    description: SRM 2083-20 The Fallacy of Plans
-    notes: SRM 2083-20 The Fallacy of Plans
+    description: 'Uses: Talismongering, magical supplies, Salish artifacts | Types:
+      Magic'
+    notes: 'Uses: Talismongering, magical supplies, Salish artifacts | Types: Magic'
     history:
     - 'SRM 2083-20 The Fallacy of Plans (Met: C3 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
+    - SRM 2083-14 Deepest Roots (+4 FP)
+    - Auto-Promoted to Loyalty 2 (-2 FP)
   Detective Remy LeBlanc:
     name: Detective Remy LeBlanc
     canonical_name: Detective Remy LeBlanc
@@ -1058,6 +1063,22 @@ contacts:
     notes: SRM 2081-18 Friendships Never Grow Rust
     history:
     - 'SRM 2081-18 Friendships Never Grow Rust (Met: C3 L0, +1 FP)'
+    - Auto-Promoted to Loyalty 1 (-1 FP)
+  Alexander Sloane:
+    name: Alexander Sloane
+    canonical_name: Alexander Sloane
+    is_canonical: true
+    connection: 4
+    loyalty: 1
+    favors: 0
+    type: Etoile PI / Fixer
+    region: NOLA
+    description: 'Uses: Private investigation, bounty hunting, police contacts, job
+      offers | Types: Criminal, Law Enforcement'
+    notes: 'Uses: Private investigation, bounty hunting, police contacts, job offers
+      | Types: Criminal, Law Enforcement'
+    history:
+    - 'SRM 2083-14 Deepest Roots (Met: C4 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
 reputation:
   Vory: 2
@@ -1401,10 +1422,3 @@ exceptions:
   source: Body Shop p. 47 / rules_drones.qmd
   gm: Tabletop Baseline
   active: true
-echoes:
-- name: New Sprite Type
-  ref: new_sprite_type
-  notes: ''
-- name: Sprite Conduit
-  ref: sprite_conduit
-  notes: ''

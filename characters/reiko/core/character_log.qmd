@@ -795,14 +795,17 @@ start_mission('SRM 2081-18')
 start_mission('SRM 2083-14')
 ```
 
-* **Summary:** *Placeholder — full session writeup pending.*
-* **Team:** Buddy, Croaker, Mamba, Arrogant Ninja, Jessy, Cherry.exe, Yuriko
+* **Summary:** The team was hired to track down the notorious "Cancer Alley Skinner"—Oliver Rasmussen, a rogue monad operative exhibiting unnatural cyberware enhancements and lethal nanite volumes hunting talismongers and street youth across the toxic bayou shallows. After discovering his submerged lair, the team engaged and neutralized the crazed killer when he violently resisted arrest. While an ork teen street-kid had tragically perished prior to the rescue, one victim wishing to remain anonymous was saved. Retired NOMs Detective Alexander Sloan claimed the official bounty and credit on NOLA News @ 9, while local media also covered Japanese pop duo Kitsune Wisdom extending their tour at the Gnome's Groove. During the swamp breach, Reiko's chassis suffered acute nanite contamination, forcing emergency firewall overhauls and localized data-spikes to incinerate the intruder swarm in her servos.
+* **Team:** Croaker  (Wyntr), Jessy (Oli K), Mamba (Dreamwalker), Ninja (ArrogantNinja), Buddy (Medtec28), Cherry.exe (connor2847), Yuriko (WarDoctor)
 * **GM:** JaGator
-* **Difficulty Level:** Normal
-* **Rewards:** `{python} inc('Karma', 8)`, `{python} inc('Nuyen', 10000)`
-* **Reputation:** 0
-* **Heat:** 0 (Earned 1 Heat; paid `{python} inc('Nuyen', -2000)` to remove it)
-* **Contacts:** *TBD*
+* **Difficulty Level:** Veteran
+* **Rewards:** `{python} inc('Karma', 8)`, `{python} inc('Nuyen', 10000)` (8 Karma on Veteran; +1 Karma bonus granted to un-awakened former-awakened characters Jessy, Buddy, and Ninja)
+* **Reputation:** ±0 (No Reputation)
+* **Heat:** ±0 (Earned 1 Heat; negated via 2,000¥ post-run bribe per SRM Guide v2.4 / 6WC p. 195: `{python} inc('Nuyen', -2000)`)
+* **Contacts:**
+  * `{python} contact("Cedar", connection=3, fp=4, type_name="NOLA Talismonger", notes="SRM 2083-14 Deepest Roots")` *(Earned +3 FP base + 1 FP Reiko bonus = +4 FP; auto-promotes to Loyalty 2 with 2 FP banked)*
+  * `{python} contact("Roanoke", connection=3, fp=3, type_name="NOLA Ecological Activist", notes="SRM 2083-14 Deepest Roots")` *(Earned +3 FP; auto-promotes to Loyalty 4 with 1 FP banked)*
+  * `{python} contact("Alexander Sloane", connection=4, fp=1, type_name="NOLA Etoile PI / Fixer", notes="SRM 2083-14 Deepest Roots")` *(Met at Connection 4, +1 FP; auto-promotes to Loyalty 1 with 0 FP banked)*
 * **Downtime Actions (1 Major Traded for 2 Minors $\rightarrow$ 3 Minor Actions):**
   * *Minor Action 1 (Learn Complex Form — Resonance Wires):* `{python} inc('Karma', -5)` `{python} complex_form('Resonance Wires', fading=2, duration='Sustained', target='Device', notes='Electronics + RES vs Threshold 2 + Noise. Establishes a remote direct connection to target device wirelessly, bypassing host firewalls and wireless-off defenses.')`
   * *Minor Action 2 (Working for the People):* `{python} inc_many(('Karma', 1), ('Nuyen', -2000))`
@@ -810,7 +813,3 @@ start_mission('SRM 2083-14')
 * **Monthly Expenses & Lifestyle Note:**
   * SRM 2081-18 was the 1st SRM of the bi-monthly cycle where High Lifestyle was granted complimentary and Hooder was covered via Working for the People.
   * SRM 2083-14 is the 2nd SRM of the bi-monthly cycle. Per SRM rules, monthly expenses are paid every other SRM. No expenses are due for this mission (due next cycle).
-
-
-
-

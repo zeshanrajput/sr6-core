@@ -8,4 +8,5 @@
   - Diffusion                  | FV: 4  | Dur: S
   - Puppeteer                  | FV: 5  | Dur: S
   - Cyber Spike                | FV: 3  | Dur: I
+  - Resonance Wires            | FV: 2  | Dur: S
 ----------------------------------------------------------------------------
