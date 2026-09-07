@@ -53,7 +53,7 @@ sr6velvet/
 │   ├── philosophical_framework.md # Metaphysical grounding of the Thousand Lives
 │   ├── karmic_persona_log.md # Master registry of lived personas, somatics & neuro-somatic echoes
 │   ├── philosophical_framework_report.md # 45-page comprehensive philosophical treatise
-│   ├── upgrade_priorities.md # Mechanical upgrade matrix & 3-arc progression milestones
+│   ├── mechanical_plan.md    # Mechanical upgrade matrix & 3-arc progression milestones
 │   ├── story_arc1.md         # Arc 1: Manufactured Solace & The Honeytrap (Ch 01–08)
 │   ├── story_arc2.md         # Arc 2: The Sovereign Underground (Ch 09–18+)
 │   ├── story_arc3.md         # Arc 3: The Pacific Reckoning (Ch 19+)

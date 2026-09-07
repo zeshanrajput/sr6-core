@@ -3,7 +3,7 @@
 ============================================================================
  Real Name : r31k0 Takahashi    | Metatype : AI-Pilot AI (Technoshamans)
  Submersion: Grade 8            | Gender   : DIVERSE (Age: ~ 10)
- Available Nuyen : 2,550.0¥ | Karma: 4 Pool (238 Lifetime)
+ Available Nuyen : 2,550.0¥ | Karma: 0 Pool (238 Lifetime)
 ----------------------------------------------------------------------------
  ATTRIBUTES & DERIVED RATINGS:
   ATT (STR): 7  | SLZ (REA): 9  | DP (AGI): 7  | FW (BOD): 9 
@@ -24,7 +24,8 @@
     Symbiosis (Cracking) (Teamwork)]
   - Electronics         : 21d6  [RES 8 + 5 Rtg + Resonance Focus 4 + +4 Taz
     Symbiosis (Electronics) (Teamwork)]
-  - Influence           : 5d6  [CHA 4 + 1 Rtg]
+  - Influence           : 6d6  [CHA 4 + 1 Rtg + +1 Taz Symbiosis (Influence)
+    (Teamwork)]
   - Con                 : 5d6  [CHA 4 + 1 Rtg]
   - Native Language     : 8d6  [LOG 4 + 4 Rtg]
 ----------------------------------------------------------------------------

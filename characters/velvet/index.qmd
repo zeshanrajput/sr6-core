@@ -7,7 +7,7 @@ Welcome to the consolidated magic portfolio for **Kim Jin-Young**, operating in 
 #| include: false
 from sr6core.log_engine import get_log_totals
 
-log_totals = get_log_totals(["chapters/character_log.qmd", "chapters/character_purchases.qmd"])
+log_totals = get_log_totals(["core/character_log.qmd", "core/character_purchases.qmd"])
 ```
 
 ::: {.grid}
@@ -104,14 +104,13 @@ Use the sidebar or the indexes below to traverse this portfolio:
 
 ### 1. Core Character Profile
 * **[Identity Core](chapters/identity_core.md)**: Detailed background history, trauma origin, and lore.
-* **[Character Build (Point Buy)](chapters/character_build_point_buy.qmd)**: Official character creation point buy allocation.
+* **[Character Build (Point Buy)](core/character_build.qmd)**: Official character creation point buy allocation.
 * **[Character Dossier & Modular Sheets](chapters/character_sheet.qmd)**: Full character sheet and dedicated modular sheets (Base, Combat, Inventory, Powers & Spells, Contacts) plus PDF and VTT downloads.
-* **[Career Totals & Networks](chapters/character_totals.qmd)**: Live dashboard of Karma, Nuyen, Initiation grade, Coven loyalty, and Contact Registry Sync.
-* **[Session Chronicles](chapters/character_log.qmd)**: Full database of past campaign runs, GMs, nuyen payouts, and Karma adjustments.
-* **[Equipment & Advancement Ledger](chapters/character_purchases.qmd)**: Itemized gear, nanocosmetics, SINs, spells, and lifestyle expenses.
+* **[Session Chronicles](core/character_log.qmd)**: Full database of past campaign runs, GMs, nuyen payouts, and Karma adjustments.
+* **[Equipment & Advancement Ledger](core/character_purchases.qmd)**: Itemized gear, nanocosmetics, SINs, spells, and lifestyle expenses.
 * **[Twenty Questions](chapters/twenty_questions.qmd)**: Standard character questionnaire defining personality, trauma, ethics, and relationships.
-* **[Rules & Downtime Protocols](chapters/rules_and_downtime.qmd)**: Spellcasting formulas, drain calculations, and coven downtime protocols.
-* **[Life Path Build (Archived)](chapters/character_build.qmd)**: Archived experimental Life Path build.
+* **[Rules & Downtime Protocols](rules/rules_and_downtime.qmd)**: Spellcasting formulas, drain calculations, and coven downtime protocols.
+* **[Life Path Build (Archived)](reference/character_build_lifepath_archive.qmd)**: Archived experimental Life Path build.
 
 ### 2. Background & Campaign Narratives
 * **[01. The Transaction](narrative/01_transaction.md)**: Manila slums flashback (Age 5) triggered in Redmond mud.
@@ -130,7 +129,7 @@ Use the sidebar or the indexes below to traverse this portfolio:
 * **[Philosophical & Spiritual Framework](reference/philosophical_framework.md)**: Grounding of the Thousand Lives (*Anattā*, *Musok*, *Mansin*, *Upāya*, and the Sacred Mirror *Kagami*).
 * **[Karmic Persona Log: The Living Mosaic](reference/karmic_persona_log.md)**: Master registry of all lived personas, somatic shift mechanics, and neuro-somatic echoes.
 * **[Philosophical Framework Deep-Dive Report](reference/philosophical_framework_report.md)**: 45-page comprehensive philosophical and literary treatise on artificial reincarnation.
-* **[Upgrade Priorities & Mechanical Roadmap](reference/upgrade_priorities.md)**: Tiered progression matrix aligned to Arc 1 (Chargen), Arc 2 (100 TKE), and Arc 3 (200+ TKE).
+* **[Mechanical Plan & Upgrade Roadmap](reference/mechanical_plan.md)**: Standardized step-based progression matrix aligned to Arc 1 (Chargen), Arc 2 (100 TKE), and Arc 3 (200+ TKE).
 * **[Voice Specification & Sensory Schema](reference/voice_spec.md)**: Character voice rules, somatic shift discipline, and TTS fluency constraints.
 * **[Story Arc 1: Manufactured Solace & The Honeytrap](reference/story_arc1.md)**: Arc 1 plot beats, Sinbyeong internal state, and chargen basis.
 * **[Story Arc 2: The Sovereign Underground](reference/story_arc2.md)**: Arc 2 plot beats, Living Mosaic internal state, and 100 TKE basis.

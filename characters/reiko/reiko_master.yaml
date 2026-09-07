@@ -8,7 +8,7 @@ identity:
   gender: DIVERSE
   age: ~ 10
   system: shadowrun6e
-  karma: 4
+  karma: 0
   lifetime_karma: 238
   nuyen: 2550.0
   lifetime_nuyen: 387300
@@ -120,6 +120,16 @@ modifiers:
   sub_skill: null
   rule_anchor: rules_sprites.html#sprite-symbiosis-powers
   notes: null
+  enabled: true
+- id: taz_symbiosis_influence
+  name: Taz Symbiosis (Influence)
+  target: skill:influence
+  value: 4
+  type: teamwork
+  sub_skill: null
+  rule_anchor: rules_sprites.html#sprite-symbiosis-powers
+  notes: Taz Level 7 teamwork bonus (up to +4, dynamically clamped to Reiko Influence
+    rating)
   enabled: true
 complex_forms:
 - name: Technoregeneration

@@ -1,4 +1,4 @@
-# Character Advancement & Upgrade Priorities: Velvet
+# Character Advancement & Mechanical Plan: Velvet
 
 This document tracks character upgrades, mechanical evaluations, karma/nuyen targets, and downtime action logistics for **Velvet (Kim Jin-Young)**, structured across the **3-Arc Mechanical Milestones**:
 
@@ -27,25 +27,29 @@ This document tracks character upgrades, mechanical evaluations, karma/nuyen tar
 
 ## 2. Master Priority Upgrade Matrix (3-Arc Mechanical Roadmap)
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│ TIER 1: IMMEDIATE CORE ENGINE, PRIMARY MULTIPLIERS & EARLY SPECIALIZATION   │
+│ STEP 0: ZERO-WAIT & MICRO-UPGRADES (Immediate Pool / 0–5 Karma)              │
 ├────────────────────────────────┬──────────────┬──────────────┬──────────────┤
 │ Upgrade Item                   │ Type         │ Cost         │ Primary Role │
 ├────────────────────────────────┼──────────────┼──────────────┼──────────────┤
-│ Power Focus (Rating 3)         │ Focus        │ ¥54k + 18 K  │ Magic Engine │
 │ Charm                          │ Spell        │ 5 Karma      │ +4 Infl/Con  │
 │ Fashion                        │ Spell        │ 5 Karma      │ Wardrobe/Cover│
 │ Physical Barrier               │ Spell        │ 5 Karma      │ Combat Control│
 │ Untrained Core Skills 1 (R1)   │ Skills       │ 10 Karma tot │ +2 Dice Each │
 │   ├─ Astral 1 (Intuition)      │ Skill R1     │ 5 Karma      │ Assensing/Ward│
-│   └─ Perception 1 (Intuition)  │ Skill R1     │ 5 Karma      │ Notice Ambushes│
-│ Mentor Spirit: Wise Warrior    │ Quality      │ 20 Karma     │ Edge Disc/0.5PP│
+│   └─ Perception 1 (Intuition)  │ Skill R1     │ 5 Karma      │ Notice Ambush│
 │ Untrained Core Skills 2 (R1)   │ Skills       │ 10 Karma tot │ +2 Dice Each │
 │   ├─ Stealth 1 (Agility)       │ Skill R1     │ 5 Karma      │ Infiltration │
 │   └─ Athletics 1 (Agility)     │ Skill R1     │ 5 Karma      │ Mobility     │
 ├────────────────────────────────┴──────────────┴──────────────┴──────────────┤
-│ OPPORTUNITY PRIORITY: METAMAGIC PROGRESSION (Session-Funded on Odd Cycles)  │
+│ STEP 1: IMMEDIATE CORE ENGINE & PRIMARY MULTIPLIERS (15–20 Karma / ¥50k+)   │
+├────────────────────────────────┬──────────────┬──────────────┬──────────────┤
+│ Power Focus (Rating 3)         │ Focus        │ ¥54k + 18 K  │ [ACQUIRED]   │
+│ Mentor Spirit: Wise Warrior    │ Quality      │ 20 Karma     │ [ACTIVE TGT] │
+│                                │              │              │ (17/20 Banked)│
+├────────────────────────────────┴──────────────┴──────────────┴──────────────┤
+│ OPPORTUNITY STEP: METAMAGIC PROGRESSION (Session-Funded on Odd Cycles)      │
 ├────────────────────────────────┬──────────────┬──────────────┬──────────────┤
 │ Initiation Grade 3             │ Metamagic    │ 5 Karma*     │ Object Memory│
 │   (Psychometry)                │              │              │ & Legwork Clue│
@@ -59,7 +63,7 @@ This document tracks character upgrades, mechanical evaluations, karma/nuyen tar
 │ Initiation Grade 8 (Flexible   │ Metamagic    │ 10 Karma*    │ Astral Trace │
 │   Signature) [Req. Magic 8]    │              │              │ Erasure      │
 ├────────────────────────────────┴──────────────┴──────────────┴──────────────┤
-│ TIER 2: ATTRIBUTE ACCRETION & OFFENSIVE POWER-PEAK (Sorcery +3 Focus)      │
+│ STEP 2: ATTRIBUTE ACCRETION & OFFENSIVE POWER-PEAK (Sorcery +3 Focus)       │
 ├────────────────────────────────┬──────────────┬──────────────┬──────────────┤
 │ Magic 7                        │ Attribute    │ 35 Karma     │ +1 Mag/Cap 21F│
 │ Qi Focus: Improved Sorcery R3  │ Qi Focus     │ ¥36k + 24 K  │ +3 Sorcery    │
@@ -70,7 +74,7 @@ This document tracks character upgrades, mechanical evaluations, karma/nuyen tar
 │ Heal                           │ Spell        │ 5 Karma      │ Magic Recovery│
 │ Dream Work                     │ Quality (HnS)│ 12 Karma(2x6)│ +1 Die Inspire│
 ├────────────────────────────────┴──────────────┴──────────────┴──────────────┤
-│ TIER 3: LATE-ARC CAPSTONES (God-Tier Force 8 Channeling & Defense)         │
+│ STEP 3: LATE-ARC CAPSTONES (God-Tier Force 8 Channeling & Defense)          │
 ├────────────────────────────────┬──────────────┬──────────────┬──────────────┤
 │ Magic 8                        │ Attribute    │ 40 Karma     │ +1 Mag/Cap 24F│
 │ Qi Focus: Improved Conjuring R3│ Qi Focus     │ ¥36k + 24 K  │ 20d / 5 Hits  │
@@ -103,7 +107,7 @@ This document tracks character upgrades, mechanical evaluations, karma/nuyen tar
   * **All/Social Benefit:** Grants an **Edge boost cost discount on Influence and Leadership tests** (cutting Edge costs for rerolls and social leverage across all face interactions).
   * **Adept Choice (Upfront):** Taking the **Adept advantage** grants **1 free level of Improved Ability** on a Combat skill (e.g., Close Combat / Sorcery combat / Firearms), providing an immediate +1 die combat benefit worth 0.5 PP without casting a spell or risking drain.
   * **Adept Synergy with *Magician's Way* (Grade 7):** When paired later with *The Magician's Way*, it unlocks the **Magician benefit** (Edge boost discounts on Combat spells) and allows Adept drain to be resisted with Body + Charisma (12 dice!).
-  * Taking it in Tier 1 immediately sharpens Velvet's core competence across both Social and Magic encounters.
+  * Taking it in Step 1 immediately sharpens Velvet's core competence across both Social and Magic encounters.
 
 ---
 
@@ -111,7 +115,7 @@ This document tracks character upgrades, mechanical evaluations, karma/nuyen tar
 
 * **The Mechanic:** In SR6, Air Spirits possess the innate spirit power **`Energy Attack (Electricity)`**.
 * **The Channeling Synergy:** Because Velvet already possesses the **`Channeling`** metamagic (Grade 1), Velvet can summon and house an Air Spirit directly within their physical form. While channeled, Velvet manifests the spirit's ranged electricity attack directly through their hands/eyes.
-* **The Task Economy vs. Drain Economy:** Using spirit powers while channeled expends the spirit's **services/tasks**, incurring **zero spell drain** in combat. Together with **Sharp Tongue** (Qi Focus R4: 20–26 dice vs INT+WIL, 0 drain), Velvet's primary offensive combat output is completely drain-free. *Wreck (Drones)* is therefore safely de-prioritized to Tier 2.
+* **The Task Economy vs. Drain Economy:** Using spirit powers while channeled expends the spirit's **services/tasks**, incurring **zero spell drain** in combat. Together with **Sharp Tongue** (Qi Focus R4: 20–26 dice vs INT+WIL, 0 drain), Velvet's primary offensive combat output is completely drain-free. *Wreck (Drones)* is therefore safely de-prioritized to Step 2.
 
 ---
 

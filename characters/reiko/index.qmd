@@ -7,7 +7,7 @@ Welcome to the consolidated resonance portfolio for **r31-K0 ("Reiko")**, operat
 #| include: false
 from sr6core.log_engine import get_log_totals
 
-log_totals = get_log_totals(["chapters/character_log.qmd", "chapters/character_purchases.qmd"])
+log_totals = get_log_totals(["core/character_log.qmd", "core/character_purchases.qmd"])
 ```
 
 ::: {.grid}
@@ -77,53 +77,52 @@ Use the sidebar or the indexes below to traverse the sub-grids of this portfolio
 
 ### 1. Core Character Profile
 * **[Identity Core](chapters/identity_core.qmd)**: Detailed background history and lore.
-* **[Character Build (Point Buy)](chapters/character_build_point_buy.qmd)**: Character creation point buy allocation.
+* **[Character Build (Point Buy)](core/character_build.qmd)**: Character creation point buy allocation.
 * **[Character Dossier & Modular Sheets](chapters/character_sheet.qmd)**: Full character sheet and dedicated modular sheets (Base, Combat, Vehicles, Inventory, Powers, Contacts) plus PDF and VTT downloads.
-* **[Career Totals & Active Sprites](chapters/character_totals.qmd)**: Live dashboard of Karma, Nuyen, Heat, Submersion grade, regional Reputation, and Active Sprite stable.
-* **[Session Chronicles](chapters/character_log.qmd)**: Full database of past campaign runs, GMs, nuyen payouts, and Karma adjustments.
-* **[Historical Purchases](chapters/character_purchases.qmd)**: Itemized gear, matrix software, autosofts, drone mods, and SIN purchase ledgers.
+* **[Session Chronicles](core/character_log.qmd)**: Full database of past campaign runs, GMs, nuyen payouts, and Karma adjustments.
+* **[Historical Purchases](core/character_purchases.qmd)**: Itemized gear, matrix software, autosofts, drone mods, and SIN purchase ledgers.
 * **[Twenty Questions](chapters/twenty_questions.qmd)**: Standard character questionnaire defining personality, quirks, and ethics.
-* **[A Drone in Every Port](chapters/dronomancy.md)**: A DI-to-DI guide on remote drone operation, casemodding, and rigging mechanics.
+* **[A Drone in Every Port](rules/dronomancy.md)**: A DI-to-DI guide on remote drone operation, casemodding, and rigging mechanics.
 
 ### 2. Rules & Downtime Protocols
-* **[Rules & Downtime Landing Hub](chapters/rules_and_downtime.qmd)**: Consolidated protocol hub and calculation shortcuts.
-* **[Matrix & Network Protocols](chapters/rules_matrix.qmd)**: ASDF attributes, action pools, decking cheat sheet, remote host architecture.
-* **[Sprites & Resonance Protocols](chapters/rules_sprites.qmd)**: Complex forms, compiling/registering downtime formulas, focus fading math.
-* **[Drones & Rigging Protocols](chapters/rules_drones.qmd)**: Drone stat blocks, drone action pools, rigger/remote attribute mapping, sensor locks.
-* **[Weapons & Tactical Protocols](chapters/rules_combat.qmd)**: Weapon attack tables, link-fired arrays, laser ammo, Krime splash table.
+* **[Rules & Downtime Landing Hub](rules/rules_and_downtime.qmd)**: Consolidated protocol hub and calculation shortcuts.
+* **[Matrix & Network Protocols](rules/rules_matrix.qmd)**: ASDF attributes, action pools, decking cheat sheet, remote host architecture.
+* **[Sprites & Resonance Protocols](rules/rules_sprites.qmd)**: Complex forms, compiling/registering downtime formulas, focus fading math.
+* **[Drones & Rigging Protocols](rules/rules_drones.qmd)**: Drone stat blocks, drone action pools, rigger/remote attribute mapping, sensor locks.
+* **[Weapons & Tactical Protocols](rules/rules_combat.qmd)**: Weapon attack tables, link-fired arrays, laser ammo, Krime splash table.
 
 ### 3. Background Stories
 Chronological records of Reiko's backstory before the campaign:
 
-* **[Chapter 01: The Weight of Zero](chapters/01 The Weight of Zero.md)**
-* **[Chapter 02: Color Blind Mathematics](chapters/02 Color Blind Mathematics.md)**
-* **[Chapter 03: The Soul Broker's Stall](chapters/03 The Soul Broker's Stall.md)**
-* **[Chapter 04: The War Crime](chapters/04 The War Crime.md)**
-* **[Chapter 05: A SINner's Loan](chapters/05 A SINner's Loan.md)**
-* **[Chapter 06: The Ghost in the Ledger](chapters/06 The Ghost in the Ledger.md)**
-* **[Chapter 07: Sunday at r3sP@wn](chapters/07 Sunday at r3sP@wn.md)**
+* **[Chapter 01: The Weight of Zero](narrative/01 The Weight of Zero.md)**
+* **[Chapter 02: Color Blind Mathematics](narrative/02 Color Blind Mathematics.md)**
+* **[Chapter 03: The Soul Broker's Stall](narrative/03 The Soul Broker's Stall.md)**
+* **[Chapter 04: The War Crime](narrative/04 The War Crime.md)**
+* **[Chapter 05: A SINner's Loan](narrative/05 A SINner's Loan.md)**
+* **[Chapter 06: The Ghost in the Ledger](narrative/06 The Ghost in the Ledger.md)**
+* **[Chapter 07: Sunday at r3sP@wn](narrative/07 Sunday at r3sP@wn.md)**
 
 ### 4. Out-of-Session Narratives
 Active campaign stories written during play:
 
-* **[Chapter 08: Abandoning Tourism](chapters/08 Abandoning Tourism.md)**
-* **[Chapter 09: Triangulation](chapters/09 Triangulation.md)**
-* **[Chapter 10: Game Theory](chapters/10 Game Theory.md)**
-* **[Chapter 11: Integrating over Infinity](chapters/11 Integrating over Infinity.md)**
-* **[Chapter 12: Defrag](chapters/12 Defrag.md)**
-* **[Chapter 13: Field Trip](chapters/13 Field Trip.md)**
-* **[Chapter 14: A Point of Favor](chapters/14 A Point of Favor.md)**
-* **[Chapter 15: Core](chapters/15 Core.md)**
-* **[Chapter 16: Faith](chapters/16 Faith.md)**
-* **[Chapter 17: Sheets](chapters/17 Sheets.md)**
-* **[Chapter 18: The Geometry of the Sieve](chapters/18 The Geometry of a Sieve.md)**
-* **[Chapter 19: Legacy Code](chapters/19 Legacy Code.md)**
-* **[Chapter 20: The Price of Silk](chapters/20 The Price of Silk.md)**
-* **[Chapter 21: ~](chapters/21 ~.md)**
-* **[Chapter 22: C Sharp](chapters/22 C Sharp.md)**
-* **[Chapter 23: Tea with a Ghost](chapters/23 Tea with a Ghost.md)**
-* **[Chapter 24: Symlink](chapters/24 Symlink.md)**
-* **[Chapter 25: DelTree](chapters/25 DelTree.md)**
+* **[Chapter 08: Abandoning Tourism](narrative/08 Abandoning Tourism.md)**
+* **[Chapter 09: Triangulation](narrative/09 Triangulation.md)**
+* **[Chapter 10: Game Theory](narrative/10 Game Theory.md)**
+* **[Chapter 11: Integrating over Infinity](narrative/11 Integrating over Infinity.md)**
+* **[Chapter 12: Defrag](narrative/12 Defrag.md)**
+* **[Chapter 13: Field Trip](narrative/13 Field Trip.md)**
+* **[Chapter 14: A Point of Favor](narrative/14 A Point of Favor.md)**
+* **[Chapter 15: Core](narrative/15 Core.md)**
+* **[Chapter 16: Faith](narrative/16 Faith.md)**
+* **[Chapter 17: Sheets](narrative/17 Sheets.md)**
+* **[Chapter 18: The Geometry of the Sieve](narrative/18 The Geometry of a Sieve.md)**
+* **[Chapter 19: Legacy Code](narrative/19 Legacy Code.md)**
+* **[Chapter 20: The Price of Silk](narrative/20 The Price of Silk.md)**
+* **[Chapter 21: ~](narrative/21 ~.md)**
+* **[Chapter 22: C Sharp](narrative/22 C Sharp.md)**
+* **[Chapter 23: Tea with a Ghost](narrative/23 Tea with a Ghost.md)**
+* **[Chapter 24: Symlink](narrative/24 Symlink.md)**
+* **[Chapter 25: DelTree](narrative/25 DelTree.md)**
 
 ### 5. Reference & Specifications
 Design rules, faction dossiers, and visual anchor specifications:
@@ -132,3 +131,4 @@ Design rules, faction dossiers, and visual anchor specifications:
 * **[River People Faction Dossier](reference/river_people.md)**: Background and connection details for the River People technomancer/punk network.
 * **[The Coffin Girls Faction Dossier](reference/coffin_girls.md)**: Sovereign courtesans and DI haven sanctuary.
 * **[Voice Specification & Sensory Schema](reference/voice_spec.md)**: Character voice rules, animistic phenomenology, sensory lens, and kinship terminology.
+* **[Advancement & Mechanical Plan](reference/mechanical_plan.md)**: Standardized step-based priority progression matrix.

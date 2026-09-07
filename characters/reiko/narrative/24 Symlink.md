@@ -18,7 +18,7 @@ Months ago, in a barren rental on Bleeker Street, Reiko had compiled a backgroun
 
 Hospitality was no longer an emulation loop. It was simply her morning.
 
-"Rei, do you know a 'Percy'?" Brynne asked, her voice closer now. "I keep getting incoming handshake pings. It's no one in my registry, but the routing header resolves straight to your commcode."
+"Rei, do you know a 'Percy'?" Brynne asked, her voice closer now. "I keep getting incoming handshake pings. It's no one in my registry, but the routing header resolves straight to your address."
 
 Across Reiko’s cheekbones, the faint gold-and-indigo circuit pathways beneath her synthetic skin flared with a sudden, guilty pulse. She wiped her hands on a dry towel and stepped into the doorway.
 
@@ -40,9 +40,7 @@ Brynne’s mouth parted, paused, and snapped shut. She blinked, looking between 
 
 The gold circuits along Reiko's throat flushed violet. "It's complicated to explain in meatspace. Would you be willing to take a short trip?"
 
-Brynne looked at the boy, then at Reiko’s flushed circuits, and let out a weary sigh. "Fine. But I’m not apologizing for whatever mess you dragged me into." She lay back against the pillows, closing her eyes as she opened her datajack's direct neural feed. "Jack me in."
-
-Reiko linked their feeds, drawing Brynne’s sensory awareness gently out of the Downtown bedroom and into her private architecture.
+Brynne looked at the boy, then at Reiko’s flushed circuits, and let out a weary sigh. "Fine. But I’m not apologizing for whatever mess you dragged me into." She lay back against the pillows, closing her eyes as she opened her direct neural feed. "Jack me in."
 
 ![Reiko, Percy, and Brynne](../images/r31k0%20-%20symlink.jpeg)
 
@@ -72,7 +70,7 @@ One of the moths detached from the flock, fluttering down to land gently on Bryn
 
 "I know this pattern," Brynne whispered. "These are dock manifests from Tacoma. Comm-traffic from the Sound."
 
-Percy stepped up beside her, placing a hand on Taz's blocky, pixelated head as the canine sprite nudged his knee. "Mom taught all of us never to drop your trace," Percy said, his voice quiet but absolute. "These little ones sifted every data haven and corporate black-site log in North America for seven months. Our whole family was looking for you, Aunt Brynne. We never stopped."
+Percy stepped up beside her, placing a hand on Taz's blocky, pixelated head as the canine sprite nudged his knee. "Mom taught all of us never to drop your trace," Percy said, his voice quiet but firm. "These little ones sifted every data haven and corporate black-site log in North America for seven months. Our whole family was looking for you, Aunt Brynne. We never stopped."
 
 Brynne looked up at Reiko. "Is that true?"
 

@@ -11,7 +11,7 @@ from sr6core.modifiers import ModifierEngine
 cm = CharacterManager()
 _char = cm.get_character_data("yuriko") or {}
 attrs = _char.get("attributes", {})
-log_totals = get_log_totals("chapters/character_log.qmd")
+log_totals = get_log_totals("core/character_log.qmd")
 
 matrix_summary = get_matrix_protocols_summary("yuriko")
 active_asdf = matrix_summary.get("asdf", {})

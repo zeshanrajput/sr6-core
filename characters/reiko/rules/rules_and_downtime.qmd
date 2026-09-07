@@ -10,7 +10,7 @@ from sr6core.rules_engine import get_matrix_protocols_summary
 cm = CharacterManager()
 _char = cm.get_character_data("yuriko") or {}
 attrs = _char.get("attributes", {})
-log_totals = get_log_totals("chapters/character_log.qmd")
+log_totals = get_log_totals("core/character_log.qmd")
 
 RESONANCE = attrs.get("resonance", 8)
 WILLPOWER = attrs.get("willpower", 6)

@@ -1,10 +1,71 @@
-# Mechanical Plan & Progression Roadmap
+# Character Advancement & Mechanical Plan: Venn
 
 This document establishes Venn's post-chargen augmentation roadmap, tracking Essence holes, sell-back credits, cyberlimb capacity utilization, and Karma/Nuyen conversions via the **Working for the Streetdoc** Major Downtime Activity (*Shadowrun Missions Guide v2.4*, p. 20).
 
+*(Note: Internal reference document; not published in the Quarto narrative book).*
+
 ---
 
-## 1. Core Downtime & Campaign Rules
+## 1. Executive Summary & Resource Balances
+
+* **Current Available Karma:** 1 Karma (Banked towards *Move 1: Streetdoc Conversion* [14 Karma target; 13 Karma deficit])
+* **Lifetime Karma:** 1 Karma
+* **Current Nuyen Balance:** ¥5,000 | **Lifetime Nuyen:** ¥5,000
+* **Biological Essence:** 0.66 Biological Essence Cushion (6.00 Base + 1.00 Augmentation Acclimation R10 buffer $- 6.34$ Consumed = 0.66 Ess; strict $\le 1.00$ cap maintains 100% legal compliance for **Cyberpsychosis R3**)
+* **Living Persona Baseline:** ASDF 2 / 10 / 9 / 11 (Overdriven Logic 10 / Intuition 9 post-Move 1/3)
+* **Active Nanite Volume:** 6 NV across dual leg nanohives (controls 6 colonies, replenishes 6 NV/hr)
+* **Immediate Target:** Banking 14 Karma to execute **Move 1: Streetdoc Alphaware Limb Trade-In + Alphaware Cerebral Boosters R3 & Enhancer** (Logic 10, Data Processing 11, +0.16 Ess Hole buffer).
+* **Key Operating Constraint:** Biological Essence must strictly remain $\le 1.00$ at all times to preserve **Cyberpsychosis (Rank 3)** (+24 Karma chargen advantage). All new cultured bioware is strictly acquired at Alphaware grade to prevent stranded resale capital.
+
+---
+
+## 2. Master Priority Upgrade Matrix
+
+```text
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ STEP 0: ZERO-WAIT & MICRO-UPGRADES (Immediate Pool / 0–5 Karma / Free)       │
+├────────────────────────────────┬──────────────┬──────────────┬──────────────┤
+│ Upgrade Item                   │ Type         │ Cost         │ Primary Role │
+├────────────────────────────────┼──────────────┼──────────────┼──────────────┤
+│ Free Athletics (Rating 1)      │ Skill Tuning │ 0 Karma (CP) │ [ACQUIRED]   │
+│                                │              │              │ Elimin. Unsk.│
+│ Sense the Breeze               │ Quality (BS) │ 5 Karma      │ Shunt to Stun│
+├────────────────────────────────┴──────────────┴──────────────┴──────────────┤
+│ STEP 1: ESSENCE MINE & COMPUTATIONAL PEAK (Move 1 & Interval 1 / ~26 Karma)  │
+├────────────────────────────────┬──────────────┬──────────────┬──────────────┤
+│ 4x Cyberlimbs -> Alphaware     │ Cyberware    │ 16k¥ (2.3 K) │ +0.80 Ess Hole│
+│ Alphaware Cerebral Boosters R3 │ Cultured Bio │ 113.4k¥(11.7K│ LOG 10 / DP 11│
+│ Cerebral Booster Enhancer      │ Geneware     │ 48k¥ (6.9 K) │ Matrix Attack │
+│ Tae Kwon Do (Kick/Flying Kick) │ Martial Art  │ 12 Karma     │ +3 DV Kick   │
+│ Sangre y Acero: Iron Limbs     │ MA Technique │ 7 Karma      │ +1 DV Unarmed│
+│ Mean Right Hook                │ Quality (FS) │ 5 Karma      │ 1-Edge KO Blow│
+│ Toughskin Colony Template      │ Nanite Prog. │ 12k¥ (1.7 K) │ +1 DV & +3 DR│
+├────────────────────────────────┴──────────────┴──────────────┴──────────────┤
+│ STEP 2: 52-CAP BULK OVERHAUL & TACTICAL MELEE (Move 2 & Interval 2 / ~28 K)  │
+├────────────────────────────────┬──────────────┬──────────────┬──────────────┤
+│ Bulk Modification Rating 4 (x4)│ Limb Mod     │ 8,000¥ (1.1K)│ 52 Total Cap │
+│ Agility Enhancement [+4] (x4)  │ Limb Mod     │ 20k¥ (2.8 K) │ AGI 8 (10 OD)│
+│ Tesla Coil (Spray Attack)      │ Implanted Wpn│ 15k¥ (2.1 K) │ 5S(e) Area   │
+│ Built-in Mil-Spec Medkit R6    │ Paramedic Mod│ 4,000¥ (0.6K)│ Paramedic 0-P│
+│ Monofilament Combat Chainsaw   │ Structural Wp│ 3,000¥ (0.4K)│ 6P (2x vs Bar│
+│ Smuggling Compartment          │ Conceal Mod  │ 6,000¥ (0.9K)│ -4 Search Mod│
+│ Analytical Mind                │ Quality (6WC)│ 6 Karma      │ +1 Edge Logic│
+│ Extended Overdrive Rank 1      │ Quality (6WC)│ 12 Karma     │ 1 Round OD   │
+├────────────────────────────────┴──────────────┴──────────────┴──────────────┤
+│ STEP 3: HIGH-TIER TRANSCENDENCE & DEFENSIVE PEAKS (Moves 3–4 / ~48 Karma)   │
+├────────────────────────────────┬──────────────┬──────────────┬──────────────┤
+│ Skilljack & Wires -> Alpha     │ Cyberware    │ 168k¥ (24 K) │ +0.36 Ess Hole│
+│ Alphaware Cerebellum Boost. R3 │ Cultured Bio │ 180k¥ (14 K+)│ INT 8/Sleaze 9│
+│ Cerebellum Booster Enhancer    │ Geneware     │ 48k¥ (6.9 K) │ INT 9/Sleaze10│
+│ Platelet Factories (Alphaware) │ Bioware      │ 20.4k¥(2.9 K)│ -1 Phys Dmg  │
+│ Extended Overdrive Rank 2 & 3  │ Quality (6WC)│ 24 Karma tot │ 3 Rounds OD  │
+│ Bending of the Reed (Melee/Rng)│ MA Techniques│ 10 Karma tot │ +1 Edge Dodge│
+└────────────────────────────────┴──────────────┴──────────────┴──────────────┘
+```
+
+---
+
+## 3. Core Downtime & Campaign Rules
 
 * **Shadow Healthcare Community Membership**: Unlocks the *Working for the Streetdoc* Major Downtime Activity (*SRMG v2.4*, p. 20).
 * **Augmentation Conversion Rate**: Convert unlimited Karma to Nuyen at **1 Karma = 7,000¥** (must be spent on augmentations for yourself).
@@ -16,7 +77,7 @@ This document establishes Venn's post-chargen augmentation roadmap, tracking Ess
 
 ---
 
-## 2. Starting Chargen Baseline & Augmentation State
+## 4. Starting Chargen Baseline & Augmentation State
 
 Venn begins play with **0.66 Biological Essence** (6.00 Base + 1.00 Augmentation Acclimation R10 buffer $- 6.34$ Total Consumed):
 
@@ -37,7 +98,7 @@ Venn begins play with **0.66 Biological Essence** (6.00 Base + 1.00 Augmentation
 
 ---
 
-## 3. Cyberlimb Capacity Architecture (52 Total Capacity with Bulk R4)
+## 5. Cyberlimb Capacity Architecture (52 Total Capacity with Bulk R4)
 
 ```text
                     +------------------------------------------------+
@@ -124,7 +185,7 @@ Under standard SR6 augmentation rules, cyberware modifications installed directl
 
 ---
 
-## 4. Downtime Progression Roadmap (12–14 Karma "Moves")
+## 6. Downtime Progression Roadmap (12–14 Karma "Moves")
 
 All augmentation progression is synchronized around the **Working for the Streetdoc** downtime move (*Body Shop*, p. 101: **7,000¥ per Karma spent**). To fit real-table pacing (accessing the streetdoc roughly every other mission), upgrades are organized into discrete **12–14 Karma "bites"**.
 
@@ -247,7 +308,7 @@ Because every augmentation upgrade utilizes an **Essence Hole** or cyberlimb cap
 
 ---
 
-## 5. Activesoft Acquisition Strategy: Pure Nuyen vs. Karma
+## 7. Activesoft Acquisition Strategy: Pure Nuyen vs. Karma
 
 Because *Working for the Streetdoc* yields **7,000¥ per Karma** on augmentations, while the *Programming* downtime move (*Hack and Slash*, p. 86) yields only **4,000¥ per Karma** on software:
 
@@ -266,7 +327,7 @@ Because *Working for the Streetdoc* yields **7,000¥ per Karma** on augmentation
 
 ---
 
-## 6. Chargen Skill Tuning: Free Athletics (Rating 1) Allocation
+## 8. Chargen Skill Tuning: Free Athletics (Rating 1) Allocation
 
 In Point Buy chargen, characters receive **12 Free Skill Points**. Venn spent 7 points on Electronics 6 + Specialization, and 5 points on Knowledge Skills.
 
@@ -278,7 +339,7 @@ By trading **1 Knowledge Skill** for **Athletics (Rating 1)** at chargen (0 CP, 
 
 ---
 
-## 7. Lifetime Essence Accounting Ledger
+## 9. Lifetime Essence Accounting Ledger
 
 | Milestone / Upgrade Event | Ess Hole Freed | Ess Hole Consumed | Ess Hole Pool | Biological Essence | Cyberpsychosis Cap Status |
 | :--- | :---: | :---: | :---: | :---: | :--- |
@@ -293,7 +354,7 @@ By trading **1 Knowledge Skill** for **Athletics (Rating 1)** at chargen (0 CP, 
 
 ---
 
-## 8. Strategic Multi-Axis Priority Analysis
+## 10. Strategic Multi-Axis Priority Analysis
 
 ```text
                DEVELOPMENT VALUE BY AXIS (POST-OPTIMIZATION)

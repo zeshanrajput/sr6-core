@@ -813,3 +813,6 @@ start_mission('SRM 2083-14')
 * **Monthly Expenses & Lifestyle Note:**
   * SRM 2081-18 was the 1st SRM of the bi-monthly cycle where High Lifestyle was granted complimentary and Hooder was covered via Working for the People.
   * SRM 2083-14 is the 2nd SRM of the bi-monthly cycle. Per SRM rules, monthly expenses are paid every other SRM. No expenses are due for this mission (due next cycle).
+* **Character Advancement & Ally Sprite Training:**
+  * *Taz Skill Training (Influence):* `{python} inc('Karma', -4)` Spent 4 Karma to teach Taz the Influence skill (*Hack and Slash*, p. 156: adding a non-matrix skill to an existing ally sprite costs $2 \times 2 = 4\text{ Karma}$). Taz (Level 7) grants a teamwork bonus of up to +4 dice, which the engine dynamically clamps to Reiko's underlying skill rating (*SR6 Core*, p. 17; currently +1 die with Influence 1).
+  * `{python} modifier('Taz Symbiosis (Influence)', 'skill:influence', 4, type='teamwork', rule_anchor='rules_sprites.html#sprite-symbiosis-powers', notes='Taz Level 7 teamwork bonus (up to +4, dynamically clamped to Reiko Influence rating)')`

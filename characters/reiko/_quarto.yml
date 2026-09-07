@@ -42,24 +42,24 @@ book:
         - narrative/07 Sunday at r3sP@wn.md
     - part: "Out-of-Session Narratives"
       chapters:
-        - chapters/08 Abandoning Tourism.md
-        - chapters/09 Triangulation.md
-        - chapters/10 Game Theory.md
-        - chapters/11 Integrating over Infinity.md
-        - chapters/12 Defrag.md
-        - chapters/13 Field Trip.md
-        - chapters/14 A Point of Favor.md
-        - chapters/15 Core.md
-        - chapters/16 Faith.md
-        - chapters/17 Sheets.md
-        - chapters/18 The Geometry of a Sieve.md
-        - chapters/19 Legacy Code.md
-        - chapters/20 The Price of Silk.md
-        - chapters/21 ~.md
-        - chapters/22 C Sharp.md
-        - chapters/23 Tea with a Ghost.md
-        - chapters/24 Symlink.md
-        - chapters/25 DelTree.md
+        - narrative/08 Abandoning Tourism.md
+        - narrative/09 Triangulation.md
+        - narrative/10 Game Theory.md
+        - narrative/11 Integrating over Infinity.md
+        - narrative/12 Defrag.md
+        - narrative/13 Field Trip.md
+        - narrative/14 A Point of Favor.md
+        - narrative/15 Core.md
+        - narrative/16 Faith.md
+        - narrative/17 Sheets.md
+        - narrative/18 The Geometry of a Sieve.md
+        - narrative/19 Legacy Code.md
+        - narrative/20 The Price of Silk.md
+        - narrative/21 ~.md
+        - narrative/22 C Sharp.md
+        - narrative/23 Tea with a Ghost.md
+        - narrative/24 Symlink.md
+        - narrative/25 DelTree.md
     - part: "Reference & Specifications"
       chapters:
         - reference/visual_anchors.md
