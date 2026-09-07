@@ -38,6 +38,15 @@ def run_sync_all():
         repo_dir = os.path.dirname(cfile_path) if os.path.isfile(cfile_path) else cfile_path
         print(f"--- Processing Portfolio: {cname} ({cid}) ---")
 
+        # 0. Recompile Master YAML from Markdown Trio (single source of truth) & Sync Purchases
+        try:
+            from sr6core.compiler import rebuild_character_yaml
+            from sr6core.ledger.purchases_sync import PurchasesSyncEngine
+            rebuild_character_yaml(cid)
+            PurchasesSyncEngine.sync_character_purchases(cid)
+            print(f"  [0/5] Recompiled Master YAML  : Synced from Markdown Trio & Purchases")
+        except Exception as e:
+            print(f"  [0/5] Recompiled Master YAML  : Warning ({e})")
 
         # 1. Deep Audit
         audit = deep_audit_character(cid)
@@ -332,7 +341,8 @@ def main():
 
     # build subcommand (single-source build)
     build_parser = subparsers.add_parser("build", help="Rebuild master YAMLs from Markdown Trio, sync purchases, and build single-file offline PWA app/index.html")
-    build_parser.add_argument("--rebuild-yaml", action="store_true", help="Recompile master YAML files completely from Markdown Trio (single source of truth)")
+    build_parser.add_argument("--rebuild-yaml", action="store_true", default=True, help="Recompile master YAML files completely from Markdown Trio (default: True)")
+    build_parser.add_argument("--skip-rebuild-yaml", action="store_false", dest="rebuild_yaml", help="Skip recompiling master YAML files")
     build_parser.add_argument("--skip-npm", action="store_true", help="Skip npm build step")
 
     args = parser.parse_args()
@@ -354,7 +364,7 @@ def main():
         console.print("[bold cyan]============================================================[/bold cyan]\n")
 
         # 1. Rebuild Master YAMLs from Markdown Trio if requested
-        if getattr(args, "rebuild_yaml", False):
+        if getattr(args, "rebuild_yaml", True):
             from sr6core.compiler import rebuild_character_yaml
             console.print("[bold green][1/4] Recompiling master YAML dossiers from Markdown Trio...[/bold green]")
             for c in cm.list_characters():

@@ -150,18 +150,13 @@ def test_mobile_json_export_velvet():
     assert con is not None
     assert con["base_pool"] == 14   # Base CHA 10 + 4 Rtg = 14d6
 
-    # Verify Sap and Stun Baton are melee weapons with no fire modes
-    sap = next((w for w in res["weapons"] if "sap" in w["name"].lower()), None)
-    assert sap is not None
-    assert sap["is_melee"] is True
-    assert sap["modes_str"] == "Melee"
-    assert sap["ammo"] == "—"
-
-    stun_baton = next((w for w in res["weapons"] if "stun baton" in w["name"].lower()), None)
-    assert stun_baton is not None
-    assert stun_baton["is_melee"] is True
-    assert stun_baton["modes_str"] == "Melee"
-    assert stun_baton["ammo"] == "—"
+    # Verify Magic attribute reflects Power Focus (+3)
+    mag = next((a for a in res["attributes_list"] if a["code"] == "MAG"), None)
+    assert mag is not None
+    assert mag["base"] == 6
+    assert mag["buffed"] == 9
+    assert mag["is_buffed"] is True
+    assert any("Power Focus" in b.get("source", "") for b in mag["buffs"])
 
     # Verify Spells: Increase Reflexes (Drain 5) and Increase Attribute (Drain 3)
     inc_refl = next((sp for sp in res["spells"] if "increase reflexes" in sp["name"].lower()), None)
@@ -179,8 +174,11 @@ def test_mobile_json_export_velvet():
     assert cosmetic is not None
     assert cosmetic["rating"] == 2
 
-    sharp_tongue = next((p for p in res["adept_powers"] if "sharp tongue" in p["name"].lower()), None)
-    assert sharp_tongue is not None
+    cmd_presence = next((p for p in res["adept_powers"] if "command presence" in p["name"].lower()), None)
+    assert cmd_presence is not None
+
+    cloak = next((p for p in res["adept_powers"] if "cloak" in p["name"].lower()), None)
+    assert cloak is not None
 
     # Verify Velvet's Physical Initiative (Base REA 2 + INT 3 = 5, 1d6) and Gear
     v_init = res.get("initiative")

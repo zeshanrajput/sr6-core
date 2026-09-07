@@ -10,7 +10,7 @@ This log chronicles out-of-session missions, downtime decisions, Karma expenditu
 #| echo: false
 #| include: false
 from sr6core.log_engine import (
-    inc, inc_many, contact, add_rep, start_mission, state, assign, print_contacts_summary, initiate, add_spirit
+    inc, inc_many, contact, add_rep, start_mission, state, assign, print_contacts_summary, initiate, add_spirit, modifier
 )
 
 # Initial baseline values (fallback if evaluating character_log independently)
@@ -265,7 +265,7 @@ start_mission('CMP 2081-10')
 * **Minor Downtime Action 2 (Binding Spirits):** Re-bound standard 8-level spirit package (Force 5 Spirit of Fire [2 tasks/missions] & Force 3 Spirit of Kin [4 tasks/missions]) per downtime protocol to replenish exhausted fire ancestor: `{python} inc('Nuyen', -320)` (16 drams of reagents).
   * `{python} add_spirit("Spirit of Fire", force=5, spirit_type="Fire", tasks=2, details="2 Bound Tasks / 2 SRM Missions, Combat & Channeling")`
   * `{python} add_spirit("Spirit of Kin", force=3, spirit_type="Kin", tasks=4, details="4 Bound Tasks / 4 SRM Missions, Infiltration & Sustaining")`
-* **Advancement & Focus Bonding:** Fenced looted field armaments (Yamaha Raiden assault rifle, Stun Baton, 2x Beretta 101T pistols, 2x Saps) for **+¥2,290** (retaining 2x Renraku Sensei commlinks). Acquired and bonded **Power Focus (Rating 3)** (`-¥54,000`, `-18 Karma` itemized in Equipment Ledger). Final liquid reserves: **17 Karma** and **¥205**.
+* **Advancement & Focus Bonding:** Fenced looted field armaments (Yamaha Raiden assault rifle, Stun Baton, 2x Beretta 101T pistols, 2x Saps) for **+¥2,290** (retaining 2x Renraku Sensei commlinks). Acquired and bonded **Power Focus (Rating 3)** (`-¥54,000`, `-18 Karma` itemized in Equipment Ledger) `{python} modifier("Power Focus", "attribute:magic", 3, type="focus", rule_anchor="rules/rules_and_downtime.html#foci", notes="+3 to Magic for tests where Magic applies")`. Final liquid reserves: **17 Karma** and **¥205**.
 
 ---
 

@@ -10,3 +10,6 @@
   - Cyber Spike                | FV: 3  | Dur: I
   - Resonance Wires            | FV: 2  | Dur: S
 ----------------------------------------------------------------------------
+ BONDED FOCI & MAGICAL TOOLS:
+  - Resonance Focus            | Target: attribute:resonance (+4)
+----------------------------------------------------------------------------

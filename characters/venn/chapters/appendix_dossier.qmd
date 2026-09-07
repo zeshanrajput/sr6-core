@@ -28,10 +28,28 @@ format: html
 
 ## Tactical Weapon Arrays
 
+::: {.callout-note icon=false title="⚔️ WEAPON: FN P93 Praetor (submachine_gun)"}
+| Damage | Attack Rating (C/N/M/F/E) | Modes | Ammo | Avail | Cost |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **5P** | 14 / 13 / 7 / — / — | SA | 50(c) | 1 | — |
+:::
+
 ::: {.callout-note icon=false title="⚔️ WEAPON: Colt Manhunter (heavy_pistol)"}
 | Damage | Attack Rating (C/N/M/F/E) | Modes | Ammo | Avail | Cost |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **4P** | 10 / 10 / 6 / — / — | SA | 16(c) | 1 | — |
+:::
+
+::: {.callout-note icon=false title="⚔️ WEAPON: Monofilament Whip (close_combat)"}
+| Damage | Attack Rating (C/N/M/F/E) | Modes | Ammo | Avail | Cost |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **4P** | 14 / — / — / — / — | — | — | 1 | — |
+:::
+
+::: {.callout-note icon=false title="⚔️ WEAPON: Narcoject Hornet (light_pistol)"}
+| Damage | Attack Rating (C/N/M/F/E) | Modes | Ammo | Avail | Cost |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **2S** | 15 / 12 / — / — / — | SA | 12(c) | 1 | — |
 :::
 
 

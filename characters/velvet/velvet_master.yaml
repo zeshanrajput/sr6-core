@@ -169,7 +169,6 @@ metamagic:
 - name: Power Point
   ref: power_point
   notes: Grants 1.0 Adept Power Point.
-meta_echoes: []
 knowledge_skills:
 - name: Korean
   rating: 4
@@ -468,7 +467,8 @@ contacts:
     description: CMP 2081-10 A Diamond In The Rough (Knight Errant Company Suit)
     notes: CMP 2081-10 A Diamond In The Rough (Knight Errant Company Suit)
     history:
-    - 'CMP 2081-10 A Diamond In The Rough (Knight Errant Company Suit) (Met: C4 L0, +2 FP)'
+    - 'CMP 2081-10 A Diamond In The Rough (Knight Errant Company Suit) (Met: C4 L0,
+      +2 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
 reputation:
   SEA: 4
@@ -517,5 +517,30 @@ synergies:
     rating: 3
     bonded: true
     applies_to: magic
-    notes: +3 to Magic for tests where Magic applies (Spellcasting, Counterspelling, Ritual Sorcery, Conjuring, Channeling)
-
+    notes: +3 to Magic for tests where Magic applies (Spellcasting, Counterspelling,
+      Ritual Sorcery, Conjuring, Channeling)
+exceptions:
+- id: srm_monthly_expenses
+  title: SRM Bi-Monthly Expense & Downtime Cadence
+  category: lifestyle
+  description: Every 2nd SRM mission, settle monthly lifestyle obligations and perform
+    1 Major and 1 Minor downtime action.
+  source: rules_and_downtime.qmd
+  gm: SRM Campaign Baseline
+  active: true
+- id: adept_sorcery_stacking
+  title: Adept Improved Ability (Sorcery) Stacking
+  category: mechanics
+  description: Improved Ability adept power grants bonus dice to Sorcery spellcasting
+    within adept power limits.
+  source: Street Wyrd / rules_and_downtime.qmd
+  gm: Tabletop Baseline
+  active: true
+- id: high_charisma_drain_synergy
+  title: Musok Charisma Drain Resistance
+  category: mechanics
+  description: Drain resistance utilizes Willpower + Charisma (enhanced by Sustained
+    Attribute spells up to +4 per attribute).
+  source: SR6 Core p. 132 / rules_and_downtime.qmd
+  gm: Tabletop Baseline
+  active: true

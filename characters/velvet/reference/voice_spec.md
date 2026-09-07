@@ -16,6 +16,7 @@ Velvet (Kim Jin-Young) is an engineered, bio-sculpted Elf Mystic Adept built by 
 3. **Charisma 10 (14) Horror & Cognitive Distrust**: Charisma 10 (14 with buff spells) is an existential and psychological horror—the pinnacle of unrestricted corporate engineering. When someone is in a room with a creature engineered to warp how they feel, it becomes impossible for them to know whether their own thoughts, pity, attraction, or compliance are their own or the product of an imperceptible biological manipulation they cannot detect. This creates an uncanny, suffocating gravity around Velvet that terrifies hardened street veterans (Whiskey, Ni Ni Xiaolu, Johnsons)—and forms Velvet's deepest personal tragedy: he can never be certain if anyone's care for him is authentic, or merely their nervous system falling into his manufactured gravity.
 4. **Shinto-Musok Astral Phenomenology**: Mana is not high-fantasy sparks; it is perceived as spirit ribbons, ancestor presence, talismanic resonance, and subtle emotional hue shifts in metahuman auras.
 5. **The Path of the Thousand Lives (*Mansin* & *Upāya*)**: See [reference/philosophical_framework.md](file:///c:/GitHub/sr6velvet/reference/philosophical_framework.md). Forced corporate transformations evolve into an artificial reincarnation cycle. Velvet retains neuro-somatic skills, virtues, and grief from every lived persona (*The Echo Phenomenon*). The journey transitions from traumatic fragmentation (*Sinbyeong*) to becoming an empty vessel (*Bin Geureut*) and master of ten thousand lived spirits (*Mansin*), utilizing multiple personas as skillful means (*Upāya*) to protect the vulnerable and dismantle corporate tyranny.
+6. **The Trap of Moral Retreat vs. The Bodhisattva with Claws**: Evaluators and writers must not flatten Velvet into a passive, toothless saint or ascetic martyr. After the trauma of Singapore, the honeytrap, and the quiet triage of Kang Anning (*Burns*), Velvet faces the temptation of moral retreat—hiding in coarse wool, nursing sewer burns, and pretending that staying poor with an empty ledger keeps his hands clean. In Amsterdam (*Silence*), Min-seo shatters this delusion (*"Stop playing the martyr behind a child's face"*), proving that his clean hands were an unearned luxury subsidized by Hana's compliance locks and executive treason. From Chapter 11 onward, Velvet's empathy is inseparable from **sovereign responsibility and teeth**: the realization that the lotus only grows in muck, and that sanctuaries must be defended with formidable force. Wielding the repurposed *MCI-EXP-884-LUNA* Power Focus R3 is not a stat bonus, but an ammunition crate and an active blood debt.
 
 ---
 
@@ -35,11 +36,11 @@ arc_chronology:
 
   arc_2_the_sovereign_underground:
     chapters: "10 – 18+"
-    narrative_state: "Emergence in the deep Seattle underground and Ork Underground after the honeytrap revelation; recognizing that passive evasion is suicide; proactive push to amass real shadow, magical, and political power to survive against the dual megacorp jaws and fight for both their survival."
-    expressivity: "Fluid, deliberate persona deployment backed by raw, unmasked sovereignty; the Living Mosaic beginning to braid past personas into composite capability; shedding performative compliance in favor of formidable street and shadow authority."
-    cognitive_bias: "Ruthless strategic pragmatism fused with protective empathy; actively harvesting and honoring the lessons of each assumed identity; treating the shadows as an arena to build sovereign leverage and spiritual resonance."
-    visual_palette: "Underground neon, geothermal steam, spirit ribbons in deep twilight hues, blood-oaths, Seattle underworld shadows, un-synthesized street broth."
-    mechanical_state: "Advanced initiation (Channeling, Invocation, Adept Metamagics, expanded spell suite); deep syndicate alliances (Octagon Triad, Cutters, Ancients, Conclave)."
+    narrative_state: "Shattering the ascetic delusion in Amsterdam (Chapter 11 Silence) after the honeytrap revelation; accepting the reforged MCI-EXP-884-LUNA Power Focus R3 as an ammunition crate; emergence in the deep Seattle and Ork Underground; recognizing that passive evasion is suicide; proactive push to amass real shadow, magical, and political power to defend sanctuaries with teeth."
+    expressivity: "Fluid, deliberate persona deployment backed by raw, unmasked sovereignty; the Living Mosaic beginning to braid past personas into composite capability; shedding performative compliance and ascetic retreat in favor of formidable street, shadow, and ritual authority."
+    cognitive_bias: "Rejection of quietist moral retreat; understanding that clean hands are an indulgence if allies bear compliance locks; ruthless strategic pragmatism fused with protective empathy; treating the shadows as an arena to build sovereign counterweight; wielding the reforged collar focus as a sacred blood debt."
+    visual_palette: "Underground neon, geothermal steam, spirit ribbons in deep twilight hues, blood-oaths, Seattle underworld shadows, un-synthesized street broth, the cool weight of white jade and surgical titanium."
+    mechanical_state: "Advanced initiation (Channeling, Invocation, Adept Metamagics, expanded spell suite); Power Focus Rating 3 (reforged MCI-EXP-884-LUNA); deep syndicate alliances (Octagon Triad, Cutters, Ancients, Conclave)."
 ```
 
 ---
@@ -69,6 +70,7 @@ chapter_tiers:
       - "08 Tea in Tacoma (Tea Ceremony with Ni Ni Xiaolu)"
       - "09 Heat (Europort Tradecraft & Wool Merchant Infiltration)"
       - "10 Burns (Sham Shui Po Triage, Daesul & The Emergence of Kang Anning)"
+      - "11 Silence (The Reforged Collar, Shattering the Ascetic Delusion & Min-seo Confrontation)"
 
   tier_3_atmospheric_bridges:
     passing_threshold: "8.0 / 10"
@@ -173,7 +175,7 @@ domain_vocabulary_rules:
       - "glowing magic missile / generic mana blast"
 
   linguistic_identity_and_pronoun_rule:
-    rule: "Pronouns and demeanor strictly locked to active biological form: Lee Ji-yoo = she/her (soft, algorithmic elegance); Tanaka Ryo = he/him (masculine, clean corporate authority); Mei Jing = she/her; Zhang Wei = he/him (calm senior freight authority); Leung Hoi-ching = she/her (working-class Tanka dockside); Kang Anning = she/her (quiet, low-register Cantonese, unadorned and restorative human herbalist/triage persona); un-sculpted Jin-Young = he/they/raw self."
+    rule: "Pronouns and demeanor strictly locked to active biological form: Lee Ji-yoo = she/her (soft, algorithmic elegance); Tanaka Ryo = he/him (masculine, clean corporate authority); Mei Jing = she/her; Zhang Wei = he/him (calm senior freight authority); Leung Hoi-ching = she/her (working-class Tanka dockside); Kang Anning = she/her (quiet, low-register Cantonese, unadorned and restorative human herbalist/triage persona); Anouk van der Meer (\"Noekie\") = she/her (bright, slightly cracked teen register, flat Rotterdam-accented Dutch, coltish street-ball runner); un-sculpted Jin-Young = he/they/raw self."
 
 ```
 

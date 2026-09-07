@@ -114,16 +114,17 @@ Use the sidebar or the indexes below to traverse this portfolio:
 * **[Life Path Build (Archived)](chapters/character_build.qmd)**: Archived experimental Life Path build.
 
 ### 2. Background & Campaign Narratives
-* **[01. The Transaction](chapters/01_transaction.md)**: Manila slums flashback (Age 5) triggered in Redmond mud.
-* **[02. The Faceless Mirror](chapters/02_faceless_mirror.md)**: The clinical erasure of identity and bio-sculpting in Tokyo (Age 10).
-* **[03. The Dark Wings](chapters/03_dark_wings.md)**: The astral panopticon and connection with Hana (Age 17).
-* **[04. The Sabotage](chapters/04_sabotage.md)**: Sabotaging the Singapore mega-ritual and escaping into the conduits (Age 18).
-* **[05. The First Negotiation](chapters/05_first_negotiation.md)**: Deploying Lee Ji-yoo in Seattle for a zero-nuyen contract (Age 19).
-* **[06. The Seattle Web](chapters/06_seattle_web.md)**: The corporate joint-venture trap and running offensive in the shadows (Age 19-20).
-* **[07. Bliss](chapters/07_bliss.md)**: Un-manufactured solace over real pork-bone broth in West Seattle (Age 20).
-* **[08. Tea in Tacoma](chapters/08_Tea_in_Tacoma.md)**: Dropping corporate gravity with Ni Ni Xiaolu over un-taxed Tieguanyin tea (Age 20).
-* **[09. Heat](chapters/09_Heat.md)**: Surviving the North Sea cold in Europort and anchoring Lawrence Duval (Age 20).
-* **[10. Burns](chapters/10_Burns.md)**: Sacred field triage in Sham Shui Po, paying the sacred deficit (*Daesul*), and the emergence of Kang Anning (Age 20).
+* **[01. The Transaction](narrative/01_transaction.md)**: Manila slums flashback (Age 5) triggered in Redmond mud.
+* **[02. The Faceless Mirror](narrative/02_faceless_mirror.md)**: The clinical erasure of identity and bio-sculpting in Tokyo (Age 10).
+* **[03. The Dark Wings](narrative/03_dark_wings.md)**: The astral panopticon and connection with Hana (Age 17).
+* **[04. The Sabotage](narrative/04_sabotage.md)**: Sabotaging the Singapore mega-ritual and escaping into the conduits (Age 18).
+* **[05. The First Negotiation](narrative/05_first_negotiation.md)**: Deploying Lee Ji-yoo in Seattle for a zero-nuyen contract (Age 19).
+* **[06. The Seattle Web](narrative/06_seattle_web.md)**: The corporate joint-venture trap and running offensive in the shadows (Age 19-20).
+* **[07. Bliss](narrative/07_bliss.md)**: Un-manufactured solace over real pork-bone broth in West Seattle (Age 20).
+* **[08. Tea in Tacoma](narrative/08_Tea_in_Tacoma.md)**: Dropping corporate gravity with Ni Ni Xiaolu over un-taxed Tieguanyin tea (Age 20).
+* **[09. Heat](narrative/09_Heat.md)**: Surviving the North Sea cold in Europort and anchoring Lawrence Duval (Age 20).
+* **[10. Burns](narrative/10_Burns.md)**: Sacred field triage in Sham Shui Po, paying the sacred deficit (*Daesul*), and the emergence of Kang Anning (Age 20).
+* **[11. Silence](narrative/11_Silence.md)**: Shattering the ascetic delusion in Amsterdam, the ballast stone realization, and receiving the reforged collar focus from Min-seo (Age 20).
 
 ### 3. Foundational Reference, Philosophy & Specifications
 * **[Philosophical & Spiritual Framework](reference/philosophical_framework.md)**: Grounding of the Thousand Lives (*Anattā*, *Musok*, *Mansin*, *Upāya*, and the Sacred Mirror *Kagami*).

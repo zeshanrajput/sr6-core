@@ -836,8 +836,10 @@ def calculate_drone_action_pools(
 
     drone_profile = parse_vehicle_modifications(drone_dict, char_data=char_data)
     sensor_val = drone_profile["augmented_sensor"]
-    focus_bonus = 4 if (res > 0 and is_home_device) else 0
-    taz_symbiosis = 4
+    focus_mods = ModifierEngine.get_focus_modifiers(char_data, "resonance") if is_home_device else []
+    focus_bonus = sum(fm.value for fm in focus_mods)
+    companion_mods = ModifierEngine.get_companion_modifiers(char_data, "cracking")
+    taz_symbiosis = sum(cm.value for cm in companion_mods) if companion_mods else 4
     taz_diagnosis = 3
 
     # Check for declared 'other' modifiers targeting targeting autosofts (e.g. Smartlink wireless bonus)

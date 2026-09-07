@@ -2,11 +2,28 @@
  COMBAT, WEAPON ARRAYS & BALLISTICS: VENN
 ============================================================================
  WEAPONS & TACTICAL ARRAYS:
+  * FN P93 PRAETOR
+    DV: 5P     | Modes: SA/BF/FA | Ammo: 50(c)    | AR: 14 / 13 / 7 / - / -
+    Accessories/Mods: Smartlink, Suppressor, Shock Pad
+    Tactical Notes  : Internal Smartgun (+2 AR, +2 Attack Dice), Suppressor,
+    Shock Pad (-1 burst penalty). 50(c) clip.
+----------------------------------------------------------------------------
   * COLT MANHUNTER
-    DV: 4P     | Modes: SA       | Ammo: 16(c)    | AR: 10 / 10 / 6 / - / -
+    DV: 4P     | Modes: SS/SA    | Ammo: 16(c)    | AR: 10 / 10 / 6 / - / -
     Accessories/Mods: Smartlink, Silencer, Concealed Holster
-    Tactical Notes  : Smartlink (+2 AR), Concealed holster, Silencer, 5
-    spare clips, 100 regular, 100 gel rounds.
+    Tactical Notes  : Laser Sight / Smartlink (+2 AR, +2 Attack Dice),
+    Silencer, Concealed Holster. 16(c) clip.
+----------------------------------------------------------------------------
+  * MONOFILAMENT WHIP
+    DV: 4P     | Modes: Melee    | Ammo: -        | AR: 14 / - / - / - / -
+    Tactical Notes  : Retractable whip from fingertip/skin pocket, Wireless
+    ON (+2 AR). Concealed housing.
+----------------------------------------------------------------------------
+  * NARCOJECT HORNET
+    DV: 2S     | Modes: SA       | Ammo: 12(c)    | AR: 15 / 12 / - / - / -
+    Accessories/Mods: Smartlink
+    Tactical Notes  : External Smartgun (+2 AR, +2 Attack Dice). Loaded with
+    Narcoject tranquilizer toxin (12 darts).
 ----------------------------------------------------------------------------
  BALLISTIC ARMOR & DEFENSIVE PROTECTION:
   * SECURETECH SKINSHIELD (W/ BALLISTIC HOOD) (Defense Rating Bonus: +3)

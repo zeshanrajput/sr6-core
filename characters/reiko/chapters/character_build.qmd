@@ -166,7 +166,7 @@ Gain 6 * Charisma contact points to spend.
 
 ### Gear
 
-* Resonance Focus (R4) - `{python} inc('Karma', -4)`
+* Resonance Focus (R4) - `{python} inc('Karma', -4)` `{python} modifier("Resonance Focus", "attribute:resonance", 4, type="focus", rule_anchor="rules/rules_matrix.html#foci", notes="+4 dice to tests using Resonance attribute (Tasking, Cracking, Electronics via Natural Hacker, Inhabited Drone Override). Fading Value: 2 (WIL 6 + LOG 4 soak)")`
 
 :::{.callout-note title="Unable to Rebuild Gear"}
 Logs of what gear the character had at character generation aren't available. 

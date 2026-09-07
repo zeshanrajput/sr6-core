@@ -28,7 +28,7 @@ graph TD
         M_PUY["<b>Puyallup (Ch 07 Bliss):</b><br/>Grid Saboteur (Industrial Mechanic)"]
         M_TAC["<b>Tacoma Docks (Ch 08):</b><br/>Dockside Tea Courier"]
         M_MED["<b>Seattle Slums (SRM 2081-02):</b><br/>Clinic Triage Assistant"]
-        M_EURO["<b>Europort (Ch 09 Heat):</b><br/>Wool Merchant (Maritime Trader)"]
+        M_EURO["<b>Europort & Amsterdam (Ch 09 & 11):</b><br/>Wool Merchant &rarr; Noekie (Harbor Courier)"]
         M_FUTURE["<i>[...Dynamic Horizon Missions...]</i>"]
     end
 
@@ -336,6 +336,48 @@ neuro_somatic_echoes:
 ```
 
 * **Ludonarrative Function (*Upāya*):** The Yaksa (약사) healer and compassionate sanctuary. Emerged in the immediate aftermath of **CMP 2083-05 (*Precious Cargo*)** as the somatic embodiment of Musok triage. Her entire form is as human and vanilla as can be—possessing the deep, restorative grounding of a cup of chai in which a vanilla bean pod is steeping. Deployed when Velvet must step down all aggressive metahuman social gravity and corporate performative masks to offer un-monetized human comfort, soothe traumatic shock, and unbind spiritual knots (*Ssikkim-gut*) for vulnerable victims.
+
+---
+
+### Persona 04d: Anouk van der Meer ("Noekie" / "De Spil")
+
+| Parameter | Specification |
+| :--- | :--- |
+| **Origin & Design** | Schiedam–Rotterdam canal basins & Amsterdam/Antwerp transit corridors, United Netherlands. |
+| **Active Biological Pronouns** | `she/her` |
+| **Cover Call-Sign & Nickname** | "Noekie" / "De Spil" (The Pivot) |
+| **Apparent Age & Metatype** | 13–14 year-old human girl (coltish adolescent build, 1.55m / 5'1", wiry frame). |
+| **Registered Role & Underworld Alignment** | Academy midfielder for *VV Spangenberg Jeugd* (local amateur youth club) • Part-time ball runner, canal errand girl, and low-stakes document runner around the Schiedam–Rotterdam canal basins. |
+| **Legal / System Profile** | Low-tier United Netherlands National SIN; registered pupil at a state vocational school (*VMBO-basis*) in Rotterdam-West. |
+| **Somatic & Physical Profile** | Lean, wiry 1.55m frame drawn down from the Lee Ji-yoo corporate baseline via Cosmetic Control R2; softened cheeks with wind-chafing over the zygomatics, masking Mitsuhama's mathematical adult symmetry; rounded jawline stripped of razor-edge corporate definition; sandy blonde hair roughly cropped; patch of light freckles across the nose bridge to break up corporate light-reflection facial scans; turf burns and faded scabs over both knees; bruised shins mapped beneath cheap aramid shin guards. |
+| **Vocal Cadence & Tone** | Bright, slightly cracked teen register speaking fluent, flat Rotterdam-accented Dutch (*Rijnlands* dialect) layered with local canal slang; drops into quick, clipped English only when dealing with foreign freight crews. |
+| **Lived Epoch & Deployment Event** | **Antwerp, Rotterdam & Amsterdam Operations • Ch 11 (*Silence*)** (Ascetic evasion and courier tradecraft following Singapore and Kowloon triage). |
+| **Task Spirit Attunement** | **`Athletics`** *(Spec: Sprinting / Ball Control / Evasion)* + **Knowledge:** *Rotterdam Canal Basins, Low-Stakes Dead Drops & Dutch Football Underground* (provides seamless rooftop slipping, canal barge hopping, and low-threat surveillance evasion). |
+| **Operational Cover & Logistics** | Exploits the blind spot of authority: Rotterdam and Europort harbor security, Penose lookouts, and corporate drones track logistics brokers, dock syndics, and heavy runners—a scruffy teenage girl kicking a ball against floodwalls draws zero tactical paranoia. Kicking an errant ball into restricted canal yards, maintenance ramps, automated container berths, or behind customs checkpoints creates an immediate, mundane alibi to retrieve dead drops, place bugs, or visually scout terminal defenses. |
+| **Active Lifestyle & Atmospheric Anchors** | Squatter / Canal Basin Loft; scent profile of damp canal water, chicory coffee, wet coarse wool, synthetic turf rubber, and cold North Sea river fog. |
+| **Associated Equipment & Props** | Oversized water-resistant training windbreaker in faded orange and navy (*VV Spangenberg* crest peeling at chest) over a mud-stained technical jersey; salt-stained track trousers tucked into scuffed synthetic turf boots with molded rubber studs; scuffed, waterlogged *Derbystar* synthetic football held in an elastic mesh carry-net or bounced on a muddy toe during idle moments; Erika Elite commlink in an internal neoprene waistband pouch beneath the jersey slaved to an inductive wristband disguised as a cheap fitness tracker; certified credsticks stashed inside the hollow sole-insert of a spare boot. |
+| **The Ghent Resonance** | Grounded in Velvet's memories of the canal pitch near Ghent—where hardened Penose mobsters and dock smugglers forgot their sidearms to cheer on their daughters in the pouring rain. Anouk operates on the exact same muddy sidelines, providing an unmonitored sanctuary among youth sport clubs and harbor families where syndicate grudges briefly go cold. |
+
+```yaml
+somatic_mechanics:
+  transition_time: "1 Major Action (Cosmetic Control R2)"
+  baseline_shift: "Severe somatic compression drawn down from Lee Ji-yoo baseline; stature drops to lean, wiry 1.55m (approx. 5'1\"); spinal column compresses with familiar, dull throb across lower vertebrae, shortening reach and narrowing clavicles to mimic coltish adolescent growth spurt"
+  jaw_and_osteology: "Softened cheek geometry, wind-chafed zygomatics, jawline rounded out to eliminate adult corporate symmetry; elven ears fully compacted into rounded human lobes"
+  vocal_tract_tuning: "Larynx resets to bright, slightly cracked teen register; fluent flat Rotterdam-accented Dutch (Rijnlands dialect) with local canal slang and clipped English"
+  iris_and_pigmentation: "Pale Nordic skin tone with winter chapping and light nose freckles; watery grey-blue irises stripping away obsidian mana-glare"
+  biological_tax: "Acute spinal compression ache; dull throbbing behind sternum and collarbones from skeletal compaction; knee cartilage tightness"
+
+neuro_somatic_echoes:
+  psychological_reflex: "Trauma regression and ascetic avoidance; the subconscious desire to return to a pre-corporate, pre-blood childhood state; convincing oneself that staying small, bruised, and poor in the gutters constitutes moral purity"
+  innate_capabilities:
+    - "Total corporate telemetry invisibility (authority blind spot: port security and drones ignore a scruffy girl kicking a football against floodwalls)"
+    - "Mundane physical infiltration: Kicking an errant ball into restricted container yards or customs ramps to retrieve dead drops, place bugs, or scout defenses"
+    - "Ghent sideline sanctuary: Operating within youth sport clubs where Penose mobsters and harbor families let syndicate grudges go cold"
+    - "Acoustic disarming: Adult targets instinctively drop operational aggression in the presence of a bruised, coltish street child"
+  grief_signature_han: "The despair of stolen childhood—the visceral ache of children weaponized, bought, and overwritten by corporate conglomerates."
+```
+
+* **Ludonarrative Function (*Upāya*):** The ascetic shelter, the blind spot of authority, and the weaponized child's face. Deployed in the Low Countries as an attempt at moral retreat: Jin-Young convinced himself that running low-stakes errands as Anouk ("Noekie") and nursing sewer burns kept his ledger empty and his soul clean. In Chapter 11 (*Silence*), Min-seo shatters this illusion (*"She needs teeth, Jin-Young. Stop playing the martyr behind a child's face"*), forcing him to recognize that hiding behind street children is operational cowardice, and that his clean hands were an indulgence subsidized by Hana's compliance locks. Noekie remains in the mosaic as a permanent reminder of the trap of quietism—and the sacred imperative to defend sanctuaries with claws.
 
 ---
 

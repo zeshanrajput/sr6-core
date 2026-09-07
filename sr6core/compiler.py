@@ -99,6 +99,7 @@ def compile_character(char_id: str) -> Dict[str, Any]:
         "adept_powers": totals.get("Adept_Powers", []),
         "metamagic": totals.get("Metamagic", []),
         "meta_echoes": totals.get("Echoes", []),
+        "echoes": totals.get("Echoes", []),
         "knowledge_skills": totals.get("Knowledge_Skills", []),
         "contacts": totals.get("Contacts", []),
         "reputation": totals.get("Reputation", {}),
@@ -132,6 +133,10 @@ def compile_character(char_id: str) -> Dict[str, Any]:
         del compiled["adept_powers"]
     if not compiled["metamagic"]:
         del compiled["metamagic"]
+    if not compiled.get("echoes"):
+        compiled.pop("echoes", None)
+    if not compiled.get("meta_echoes"):
+        compiled.pop("meta_echoes", None)
     if not compiled.get("monad_abilities"):
         compiled.pop("monad_abilities", None)
 

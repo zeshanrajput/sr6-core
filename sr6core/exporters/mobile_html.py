@@ -2041,11 +2041,12 @@ def get_mobile_html_template(character_data_bundle: Dict[str, Any], initial_char
           "wil": "wil", "log": "log", "int": "int", "cha": "cha",
           "edg": "edg", "mag": "mag", "res": "res"
         }};
-        const rawAttrStr = (s.attribute || "").toLowerCase();
+        const rawAttrStr = (s.effective_attribute || s.attribute || "").toLowerCase();
         const shortCode = attrMap[rawAttrStr] || rawAttrStr;
-        const baseAugAttr = (char.attributes && (char.attributes[rawAttrStr] !== undefined ? char.attributes[rawAttrStr] : char.attributes[shortCode])) !== undefined
+        const attrObj = attrsList.find(a => a.code.toLowerCase() === shortCode || a.name.toLowerCase() === rawAttrStr);
+        const baseAugAttr = attrObj ? attrObj.buffed : ((char.attributes && (char.attributes[rawAttrStr] !== undefined ? char.attributes[rawAttrStr] : char.attributes[shortCode])) !== undefined
           ? (char.attributes[rawAttrStr] !== undefined ? char.attributes[rawAttrStr] : char.attributes[shortCode])
-          : (s.base_pool - s.rating);
+          : (s.base_pool - s.rating));
         const liveAttrVal = liveAttrs[shortCode] !== undefined ? liveAttrs[shortCode] : (liveAttrs[rawAttrStr] !== undefined ? liveAttrs[rawAttrStr] : baseAugAttr);
         const attrDelta = liveAttrVal - baseAugAttr;
 

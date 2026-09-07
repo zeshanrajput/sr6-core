@@ -22,6 +22,23 @@ Story Arc 2 chronicles Velvet’s **emergence into the deep Seattle underground*
 
 In Arc 1, Velvet learned what empathy was by building un-monetized sanctuaries. In Arc 2, Velvet learns that **sanctuaries must be defended with teeth**. He transitions from a fleeing corporate fugitive into an authoritative, formidable shadow operator—an Adept Face who commands respect across syndicate backrooms, smuggling routes, and magical conclaves.
 
+```text
+[Arc 1: The Hollow Asset]
+  │  Calculated corporate performance; bone-deep trauma; accidental discovery of empathy.
+  ▼
+[Early Arc 2: The Ascetic Delusion]
+  │  "If I stay poor, quiet, and wear sewer wool, my hands will be clean."
+  │  (Shattered by Min-seo in Amsterdam)
+  ▼
+[Mid-to-Late Arc 2: The Bodhisattva's Dilemma]
+  │  Stepping into the mudsprawl; accumulating power, alliances, and violence without rotting inside.
+  │  Defending sanctuaries with teeth; the realization that the lotus only grows in muck.
+  ▼
+[Arc 3: The Sovereign Mansin]
+     Transcendence through immersion: wielding overwhelming power not for dominance, 
+     but to smash corporate cages from the inside out.
+```
+
 ---
 
 ## Key Narrative Pillars & Campaign Threads
@@ -70,10 +87,20 @@ In Arc 1, Velvet learned what empathy was by building un-monetized sanctuaries. 
 
 ---
 
+### Thread 6: Shattering the Ascetic Delusion & The Crucible of the Reforged Collar
+
+* **The Hazard of Moral Retreat:** After the trauma of Singapore, the horror of the honeytrap, and the quiet grace of Kang Anning in Kowloon (*Burns*), Velvet faces the temptation of ascetic quietism—seeking an unearned moral retreat. Convinced that staying poor, nursing sewer burns, drinking chicory, and remaining bruised in European gutters keeps his ledger empty and his soul clean, Jin-Young attempts to hide from the war he started.
+* **The Weaponization of the Child's Face:** In Amsterdam (*Silence*), Min-seo confronts him across the table while he wears the scuffed boots, scraped knees, and oversized windbreaker of thirteen-year-old Noekie (Anouk van der Meer, youth academy midfielder and canal ball-runner). Her rebuke—*"She needs teeth, Jin-Young. Stop playing the martyr behind a child's face"*—cuts through his physical cover, exposes his psychological trauma regression, and brands his low-stakes European evasion as operational cowardice.
+* **The Ballast Stone Realization:** Velvet is forced to confront the brutal truth: his clean hands were bought with Hana's compliance locks, and his quiet tea and sewer sanctuaries were subsidized by her daily, calculated treason on the Wuxing executive floor. Empathy matures from passive solace into active, heavy responsibility.
+* **The Power Focus as Ideological Crucible:** The Rating 3 Power Focus is not a statistical bonus; it is the repurposed *MCI-EXP-884-LUNA* harvesting collar that nearly severed Hana's cervical spine in Singapore. It functions as an **ammunition crate** and a permanent blood debt. To protect those he loves, Velvet must take the very metal designed to consume them and wield it as a sovereign weapon.
+* **The Bodhisattva with Claws:** Velvet wanted to be an *Arhat* resting on a mountaintop of private purity. Hana and Min-seo demand that he become a *Bodhisattva with claws*—stepping directly back into the neon mudsprawl because **the lotus only grows in muck**, and like a Musok Mudang dancing with brass blades, entering the crossfire to hack away collective *Han*.
+
+---
+
 ## Summary of Narrative Arc 2 Progression
 
 | Phase | Story Focus | Emotional Benchmark |
 | :--- | :--- | :--- |
-| **Phase I: Emergence & Trans-Sprawl Corridors** (Ch 10–13) | Subterranean relocation and Pacific Rim tradecraft (Hong Kong triage in *Burns*); establishing safehouses in the Ork Underground and deep corridors; evading initial corporate tracker teams. | Shock and anger channeled into ice-cold focus. Shedding corporate conditioning; reclaiming the true sovereign self through *Daesul* and un-monetized care. |
+| **Phase I: Emergence, Trans-Sprawl Corridors & The Amsterdam Pivot** (Ch 10–13) | Subterranean relocation, Pacific Rim triage (Hong Kong triage in *Burns*), and European courier evasion; Chapter 11 (*Silence*) shatters the ascetic delusion via Min-seo and delivers the reforged collar focus; establishing safehouses in the Ork Underground and deep corridors. | Shedding the delusion of ascetic retreat; confronting the ballast stone realization that clean hands were bought with Hana's compliance locks; transforming shock and trauma into ice-cold tactical focus; accepting the blood debt of the reforged collar. |
 | **Phase II: Accumulation & Initiation** | Veteran shadowruns; advancing Initiation Grades (*Channeling*, *Invocation*); forging syndicate blood-oaths with Ni Ni Xiaolu and the Conclave; the **Living Mosaic** begins to braid multiple lived identities into emergent capability. | Confidence rooted in authentic power and accumulated human insight rather than corporate performance; building a fortress of shadow allies. |
 | **Phase III: The Fortress of Deterrence** | Reaching shadow parity; turning the Seattle underground into an impenetrable barrier against Mitsuhama and Wuxing recovery ops; laying the foundation for the Neo-Seoul campaign; stepping into sovereign *Mansin* emanation. | The realization that they are no longer running—they are building an empire capable of striking back, grounded in the unshakeable wisdom of a thousand lived truths. |

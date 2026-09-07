@@ -1417,16 +1417,18 @@
         "name": "Resonance",
         "code": "RES",
         "base": 8,
-        "buffed": 8,
+        "buffed": 12,
         "is_buffed": true,
         "buffs": [
           {
-            "source": "Resonance Focus (+4)",
+            "source": "Resonance Focus",
             "value": 4,
-            "notes": "Applies +4 dice to Resonance-linked action tests"
+            "type": "focus",
+            "notes": "+4 dice to tests using Resonance attribute (Tasking, Cracking, Electronics via Natural Hacker, Inhabited Drone Override). Fading Value: 2 (WIL 6 + LOG 4 soak)",
+            "rule_anchor": "rules/rules_matrix.html#foci"
           }
         ],
-        "breakdown": "Base 8 (+4 Focus on tests)",
+        "breakdown": "Base 8 + Resonance Focus (+4) = 12",
         "doc_link": "chapters/rules_matrix.html#matrix-action-pools"
       }
     ],
@@ -1478,8 +1480,17 @@
         "specialized_hits": 5,
         "effective_attribute": "resonance",
         "is_attribute_overridden": true,
-        "breakdown_text": "RES 8 + 6 Rtg",
+        "breakdown_text": "RES 8 + 6 Rtg + Resonance Focus 4",
         "buffs": [
+          {
+            "source": "Resonance Focus",
+            "type": "focus",
+            "value": 4,
+            "target": "attribute:resonance",
+            "rule_anchor": "rules/rules_matrix.html#foci",
+            "notes": "+4 dice to tests using Resonance attribute (Tasking, Cracking, Electronics via Natural Hacker, Inhabited Drone Override). Fading Value: 2 (WIL 6 + LOG 4 soak)",
+            "active": true
+          },
           {
             "source": "Specialization: Registering",
             "type": "specialization",
@@ -1503,8 +1514,17 @@
         "specialized_hits": 5,
         "effective_attribute": "resonance",
         "is_attribute_overridden": true,
-        "breakdown_text": "RES 8 + 5 Rtg + +4 Taz Symbiosis (Cracking) (Teamwork)",
+        "breakdown_text": "RES 8 + 5 Rtg + Resonance Focus 4 + +4 Taz Symbiosis (Cracking) (Teamwork)",
         "buffs": [
+          {
+            "source": "Resonance Focus",
+            "type": "focus",
+            "value": 4,
+            "target": "attribute:resonance",
+            "rule_anchor": "rules/rules_matrix.html#foci",
+            "notes": "+4 dice to tests using Resonance attribute (Tasking, Cracking, Electronics via Natural Hacker, Inhabited Drone Override). Fading Value: 2 (WIL 6 + LOG 4 soak)",
+            "active": true
+          },
           {
             "source": "Taz Symbiosis (Cracking)",
             "type": "teamwork",
@@ -1537,8 +1557,17 @@
         "specialized_hits": 5,
         "effective_attribute": "resonance",
         "is_attribute_overridden": true,
-        "breakdown_text": "RES 8 + 5 Rtg + +4 Taz Symbiosis (Electronics) (Teamwork)",
+        "breakdown_text": "RES 8 + 5 Rtg + Resonance Focus 4 + +4 Taz Symbiosis (Electronics) (Teamwork)",
         "buffs": [
+          {
+            "source": "Resonance Focus",
+            "type": "focus",
+            "value": 4,
+            "target": "attribute:resonance",
+            "rule_anchor": "rules/rules_matrix.html#foci",
+            "notes": "+4 dice to tests using Resonance attribute (Tasking, Cracking, Electronics via Natural Hacker, Inhabited Drone Override). Fading Value: 2 (WIL 6 + LOG 4 soak)",
+            "active": true
+          },
           {
             "source": "Taz Symbiosis (Electronics)",
             "type": "teamwork",
@@ -3604,10 +3633,10 @@
         "name": "Resonance Focus",
         "target": "attribute:resonance",
         "value": 4,
-        "type": "augmentation",
+        "type": "focus",
         "sub_skill": null,
         "rule_anchor": "rules/rules_matrix.html#foci",
-        "notes": null,
+        "notes": "+4 dice to tests using Resonance attribute (Tasking, Cracking, Electronics via Natural Hacker, Inhabited Drone Override). Fading Value: 2 (WIL 6 + LOG 4 soak)",
         "enabled": true
       },
       {
@@ -3787,11 +3816,19 @@
         "name": "Magic",
         "code": "MAG",
         "base": 6,
-        "buffed": 6,
-        "is_buffed": false,
-        "buffs": [],
-        "breakdown": "Base 6",
-        "doc_link": "chapters/rules_and_downtime.html#foci-protocols"
+        "buffed": 9,
+        "is_buffed": true,
+        "buffs": [
+          {
+            "source": "Power Focus",
+            "value": 3,
+            "type": "focus",
+            "notes": "+3 to Magic for tests where Magic applies",
+            "rule_anchor": "rules/rules_and_downtime.html#foci"
+          }
+        ],
+        "breakdown": "Base 6 + Power Focus (+3) = 9",
+        "doc_link": "rules/rules_and_downtime.html#foci-protocols"
       }
     ],
     "derived": {
@@ -3842,8 +3879,17 @@
         "specialized_hits": 4,
         "effective_attribute": "magic",
         "is_attribute_overridden": false,
-        "breakdown_text": "MAG 6 + 5 Rtg",
+        "breakdown_text": "MAG 6 + 5 Rtg + Power Focus 3",
         "buffs": [
+          {
+            "source": "Power Focus",
+            "type": "focus",
+            "value": 3,
+            "target": "attribute:magic",
+            "rule_anchor": "rules/rules_and_downtime.html#foci",
+            "notes": "+3 to Magic for tests where Magic applies",
+            "active": true
+          },
           {
             "source": "Specialization: Spellcasting",
             "type": "specialization",
@@ -3867,8 +3913,18 @@
         "specialized_hits": 3,
         "effective_attribute": "magic",
         "is_attribute_overridden": false,
-        "breakdown_text": "MAG 6 + 6 Rtg",
-        "buffs": [],
+        "breakdown_text": "MAG 6 + 6 Rtg + Power Focus 3",
+        "buffs": [
+          {
+            "source": "Power Focus",
+            "type": "focus",
+            "value": 3,
+            "target": "attribute:magic",
+            "rule_anchor": "rules/rules_and_downtime.html#foci",
+            "notes": "+3 to Magic for tests where Magic applies",
+            "active": true
+          }
+        ],
         "doc_link": "chapters/rules_and_downtime.html"
       },
       {
@@ -6654,6 +6710,39 @@
     },
     "weapons": [
       {
+        "name": "FN P93 Praetor",
+        "is_melee": false,
+        "category": "submachine_gun",
+        "damage": "5P",
+        "base_damage": "5P",
+        "attack_rating": [
+          14,
+          13,
+          7,
+          0,
+          0
+        ],
+        "attack_rating_str": "14 / 13 / 7 / — / —",
+        "base_attack_rating_str": "12 / 11 / 7 / — / —",
+        "modes": [
+          "SA",
+          "BF",
+          "FA"
+        ],
+        "modes_str": "SA/BF/FA",
+        "base_modes_str": "SA/BF/FA",
+        "ammo": "50(c)",
+        "base_ammo": "50(c)",
+        "loaded_ammo": null,
+        "accessories": [
+          "Smartlink",
+          "Suppressor",
+          "Shock Pad"
+        ],
+        "notes": "Internal Smartgun (+2 AR, +2 Attack Dice), Suppressor, Shock Pad (-1 burst penalty). 50(c) clip.",
+        "doc_link": "chapters/rules_and_downtime.html#weapon-attack-table"
+      },
+      {
         "name": "Colt Manhunter",
         "is_melee": false,
         "category": "heavy_pistol",
@@ -6669,10 +6758,11 @@
         "attack_rating_str": "10 / 10 / 6 / — / —",
         "base_attack_rating_str": "8 / 8 / 6 / — / —",
         "modes": [
+          "SS",
           "SA"
         ],
-        "modes_str": "SA",
-        "base_modes_str": "SA",
+        "modes_str": "SS/SA",
+        "base_modes_str": "SS/SA",
         "ammo": "16(c)",
         "base_ammo": "16(c)",
         "loaded_ammo": null,
@@ -6681,7 +6771,61 @@
           "Silencer",
           "Concealed Holster"
         ],
-        "notes": "Smartlink (+2 AR), Concealed holster, Silencer, 5 spare clips, 100 regular, 100 gel rounds.",
+        "notes": "Laser Sight / Smartlink (+2 AR, +2 Attack Dice), Silencer, Concealed Holster. 16(c) clip.",
+        "doc_link": "chapters/rules_and_downtime.html#weapon-attack-table"
+      },
+      {
+        "name": "Monofilament Whip",
+        "is_melee": true,
+        "category": "close_combat",
+        "damage": "4P",
+        "base_damage": "4P",
+        "attack_rating": [
+          14,
+          0,
+          0,
+          0,
+          0
+        ],
+        "attack_rating_str": "14 / — / — / — / —",
+        "base_attack_rating_str": "14 / — / — / — / —",
+        "modes": [],
+        "modes_str": "Melee",
+        "base_modes_str": "Melee",
+        "ammo": "—",
+        "base_ammo": "—",
+        "loaded_ammo": null,
+        "accessories": [],
+        "notes": "Retractable whip from fingertip/skin pocket, Wireless ON (+2 AR). Concealed housing.",
+        "doc_link": "chapters/rules_and_downtime.html#weapon-attack-table"
+      },
+      {
+        "name": "Narcoject Hornet",
+        "is_melee": false,
+        "category": "light_pistol",
+        "damage": "2S",
+        "base_damage": "2S",
+        "attack_rating": [
+          15,
+          12,
+          0,
+          0,
+          0
+        ],
+        "attack_rating_str": "15 / 12 / — / — / —",
+        "base_attack_rating_str": "13 / 10 / — / — / —",
+        "modes": [
+          "SA"
+        ],
+        "modes_str": "SA",
+        "base_modes_str": "SA",
+        "ammo": "12(c)",
+        "base_ammo": "12(c)",
+        "loaded_ammo": null,
+        "accessories": [
+          "Smartlink"
+        ],
+        "notes": "External Smartgun (+2 AR, +2 Attack Dice). Loaded with Narcoject tranquilizer toxin (12 darts).",
         "doc_link": "chapters/rules_and_downtime.html#weapon-attack-table"
       }
     ],
@@ -8387,11 +8531,12 @@
           "wil": "wil", "log": "log", "int": "int", "cha": "cha",
           "edg": "edg", "mag": "mag", "res": "res"
         };
-        const rawAttrStr = (s.attribute || "").toLowerCase();
+        const rawAttrStr = (s.effective_attribute || s.attribute || "").toLowerCase();
         const shortCode = attrMap[rawAttrStr] || rawAttrStr;
-        const baseAugAttr = (char.attributes && (char.attributes[rawAttrStr] !== undefined ? char.attributes[rawAttrStr] : char.attributes[shortCode])) !== undefined
+        const attrObj = attrsList.find(a => a.code.toLowerCase() === shortCode || a.name.toLowerCase() === rawAttrStr);
+        const baseAugAttr = attrObj ? attrObj.buffed : ((char.attributes && (char.attributes[rawAttrStr] !== undefined ? char.attributes[rawAttrStr] : char.attributes[shortCode])) !== undefined
           ? (char.attributes[rawAttrStr] !== undefined ? char.attributes[rawAttrStr] : char.attributes[shortCode])
-          : (s.base_pool - s.rating);
+          : (s.base_pool - s.rating));
         const liveAttrVal = liveAttrs[shortCode] !== undefined ? liveAttrs[shortCode] : (liveAttrs[rawAttrStr] !== undefined ? liveAttrs[rawAttrStr] : baseAugAttr);
         const attrDelta = liveAttrVal - baseAugAttr;
 

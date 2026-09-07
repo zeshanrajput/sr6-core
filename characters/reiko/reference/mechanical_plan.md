@@ -45,6 +45,7 @@ Cost: 5 karma each
 - ~~Resonance Wires~~ *(Acquired in SRM 2083-14 Downtime — 5 Karma)*
 - Enhance Autosoft
 - Enlighten Automaton
+- Search History
 
 ### Resonance
 

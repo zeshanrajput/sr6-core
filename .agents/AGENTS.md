@@ -88,7 +88,7 @@ Draft `v1` is dispatched simultaneously to all **7 sub-agent evaluators**:
 ### Stage 5: Publishing & State Tracking
 Upon successful panel approval:
 1. **Narrative Output**: Emits the final polished prose as a clean Quarto markdown file (`.qmd`) in `chapters/` (e.g., `chapters/chapter_04.qmd`).
-2. **State Diff Proposal**: Emits an explicit YAML patch proposing updates to `character_master.yaml` for changes in nuyen, ammunition, physical/stun damage, Karma, or contact relationships.
+2. **State Diff Proposal (Markdown Trio as Single Source of Truth)**: Tabletop state updates (nuyen, Karma, contacts, foci, ammo, purchases) must ALWAYS be proposed/recorded in the core Markdown Trio (`character_log.qmd`, `character_purchases.qmd`, `character_build.qmd`). **NEVER edit `*_master.yaml` by hand.** The master YAML is compiled from scratch from the core markdown files via `sr6 sync-all` or `sr6 build`.
 
 ### Stage 6: Refinement Mode for Existing `.qmd` Files
 When requested to refine an existing chapter (`.qmd`):

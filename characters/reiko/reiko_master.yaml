@@ -78,10 +78,12 @@ modifiers:
   name: Resonance Focus
   target: attribute:resonance
   value: 4
-  type: augmentation
+  type: focus
   sub_skill: null
   rule_anchor: rules/rules_matrix.html#foci
-  notes: null
+  notes: '+4 dice to tests using Resonance attribute (Tasking, Cracking, Electronics
+    via Natural Hacker, Inhabited Drone Override). Fading Value: 2 (WIL 6 + LOG 4
+    soak)'
   enabled: true
 - id: smartlink_wireless
   name: Smartlink (Wireless)
@@ -158,13 +160,14 @@ complex_forms:
   target: Device
   notes: Electronics + RES vs Threshold 2 + Noise. Establishes a remote direct connection
     to target device wirelessly, bypassing host firewalls and wireless-off defenses.
-meta_echoes:
+meta_echoes: &id001
 - name: New Sprite Type
   ref: new_sprite_type
   notes: ''
 - name: Sprite Conduit
   ref: sprite_conduit
   notes: ''
+echoes: *id001
 knowledge_skills:
 - name: Mindspeech
   rating: 4

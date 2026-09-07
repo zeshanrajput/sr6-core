@@ -148,7 +148,13 @@ def modifier(
         "notes": notes,
         "enabled": enabled
     }
-    _GLOBAL_LOG_STATE.setdefault("Modifiers", []).append(mod_entry)
+    existing_mods = _GLOBAL_LOG_STATE.setdefault("Modifiers", [])
+    for idx, em in enumerate(existing_mods):
+        if em.get("id") == mod_entry["id"] and em.get("target") == mod_entry["target"]:
+            existing_mods[idx] = mod_entry
+            val_disp = f"+{val_num}" if isinstance(val_num, int) and val_num > 0 else f"{val_num}"
+            return f"**{name}**: {applies_to} ({val_disp} [{valid_type}])"
+    existing_mods.append(mod_entry)
     
     val_disp = f"+{val_num}" if isinstance(val_num, int) and val_num > 0 else f"{val_num}"
     return f"**{name}**: {applies_to} ({val_disp} [{valid_type}])"

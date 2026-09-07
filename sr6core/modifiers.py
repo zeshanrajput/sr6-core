@@ -27,7 +27,8 @@ class PoolModifier:
         rule_anchor: Optional[str] = None,
         id_: Optional[str] = None,
         enabled: bool = True,
-        sub_skill: Optional[str] = None
+        sub_skill: Optional[str] = None,
+        notes: Optional[str] = None
     ):
         self.target = target
         self.type = type_.lower().strip()
@@ -39,6 +40,7 @@ class PoolModifier:
         self.id = id_ or source.lower().replace(" ", "_").replace("(", "").replace(")", "").replace("+", "")
         self.enabled = enabled
         self.sub_skill = sub_skill
+        self.notes = notes
 
     def __repr__(self) -> str:
         return f"<PoolModifier {self.target} +{self.value} ({self.source}) [{self.type}]>"
@@ -393,27 +395,60 @@ class ModifierEngine:
 
     @staticmethod
     def get_focus_modifiers(char_data: Dict[str, Any], target_attribute: str) -> List[PoolModifier]:
-        """Evaluates focus bonuses (e.g. Resonance Focus). Focuses apply to a single component."""
+        """Evaluates focus bonuses (e.g. Power Focus, Resonance Focus). Focuses apply to a single component."""
         modifiers = []
+        target_clean = target_attribute.lower().strip()
+        seen_ids = set()
+
+        # 1. Check explicitly declared modifiers (from modifier() helper)
+        declared_mods = char_data.get("modifiers", [])
+        if isinstance(declared_mods, list):
+            for dm in declared_mods:
+                if not isinstance(dm, dict) or not dm.get("enabled", True):
+                    continue
+                m_type = str(dm.get("type", "")).lower().strip()
+                if m_type != "focus":
+                    continue
+                tgt = str(dm.get("target", "")).lower().strip()
+                if tgt in [f"attribute:{target_clean}", target_clean]:
+                    m_id = dm.get("id") or dm.get("name", "focus").lower().replace(" ", "_")
+                    val = int(dm.get("value", 0))
+                    if val > 0 and m_id not in seen_ids:
+                        seen_ids.add(m_id)
+                        modifiers.append(PoolModifier(
+                            target=f"attribute:{target_clean}",
+                            type_="focus",
+                            source=dm.get("name", "Focus"),
+                            value=val,
+                            is_srm_capped=True,
+                            rule_anchor=dm.get("rule_anchor"),
+                            id_=m_id,
+                            notes=dm.get("notes")
+                        ))
+
+        # 2. Check synergies.foci (legacy or explicitly configured foci)
         synergies = char_data.get("synergies", {})
         foci = synergies.get("foci", [])
-
-        if not foci:
-            res = char_data.get("attributes", {}).get("resonance", 0)
-            if res > 0:
-                foci = [{"name": "Focus", "rating": 4, "applies_to": "resonance"}]
 
         for f in foci:
             if not isinstance(f, dict):
                 continue
             applies_to = f.get("applies_to", "").lower()
-            if applies_to == target_attribute.lower():
+            f_name = f.get("name", "Focus")
+            f_ref = f.get("ref") or f_name.lower().replace(" ", "_")
+            if f_ref in seen_ids:
+                continue
+            if applies_to == target_clean:
+                val = int(f.get("rating", 4))
+                seen_ids.add(f_ref)
                 modifiers.append(PoolModifier(
                     target=f"attribute:{applies_to}",
                     type_="focus",
-                    source=f"Focus",
-                    value=int(f.get("rating", 4)),
-                    is_srm_capped=True
+                    source=f_name,
+                    value=val,
+                    is_srm_capped=True,
+                    id_=f_ref,
+                    notes=f.get("notes")
                 ))
 
         return modifiers
@@ -457,6 +492,8 @@ class ModifierEngine:
         focus_mods = cls.get_focus_modifiers(char_data, effective_attr_name)
         for fm in focus_mods:
             running_pool += fm.value
+            applied_modifiers.append(fm)
+            breakdown_parts.append(f"{fm.source} {fm.value}")
         aug_total = 0
         # Check char_data for explicitly declared modifiers (from modifier() calls in Trio)
         declared_mods = char_data.get("modifiers", [])
@@ -1012,10 +1049,11 @@ class ModifierEngine:
         # 3. Conjuring & Summoning
         c_skill = PoolComponent("Conjuring", conj_r, "skill")
         c_attr = PoolComponent("Magic", mag, "attribute", focus_mods)
+        conj_pool_tot = c_skill.effective_value + c_attr.effective_value
         conj_opt = PoolOptimization(
             name="Conjuring & Spirit Summoning",
             components=[c_skill, c_attr],
-            notes="Summoning & Binding Spirits (Conjuring + MAG = 11d6 -> 2 Hits)"
+            notes=f"Summoning & Binding Spirits (Conjuring + MAG = {conj_pool_tot}d6 -> {conj_pool_tot // 4} Hits)"
         )
 
         # 4. Spirit Channeling (if Channeling metamagic is unlocked)

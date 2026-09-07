@@ -47,12 +47,17 @@ buy_gear_hits = matrix_pools["buy_gear"].bought_hits
 programming_pool = matrix_pools["programming"].total_pool
 programming_hits = matrix_pools["programming"].bought_hits
 
-CRACKING_RATING = 5
-CRACKING_HACKING = 7
-ELECTRONICS_RATING = 5
-ELECTRONICS_SOFTWARE = 7
-RESONANCE_FOCUS = 4
-ALLY_SPRITE_TEAMWORK = 4
+skills_map = {s["name"].lower(): s for s in _char.get("skills", [])}
+CRACKING_RATING = skills_map.get("cracking", {}).get("rating", 5)
+CRACKING_HACKING = CRACKING_RATING + (2 if "hack" in str(skills_map.get("cracking", {}).get("specialization", "")).lower() else 0)
+ELECTRONICS_RATING = skills_map.get("electronics", {}).get("rating", 5)
+ELECTRONICS_SOFTWARE = ELECTRONICS_RATING + (2 if "soft" in str(skills_map.get("electronics", {}).get("specialization", "")).lower() else 0)
+
+focus_mods = ModifierEngine.get_focus_modifiers(_char, "resonance")
+RESONANCE_FOCUS = sum(m.value for m in focus_mods) if focus_mods else 4
+
+companion_mods = ModifierEngine.get_companion_modifiers(_char, "cracking")
+ALLY_SPRITE_TEAMWORK = sum(m.value for m in companion_mods) if companion_mods else 4
 OVERCLOCK_BONUS = 2
 ECM_WARRIOR_BONUS = 2
 ```

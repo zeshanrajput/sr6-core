@@ -26,7 +26,7 @@ Use this skill to audit narrative drafts and downtime proposals for state consis
 
 3. **Sub-Agent Audit Report & State Diff Generation**:
    - **Continuity Score**: Rate from **1 to 10** (Pass threshold: **8.5+**).
-   - **State Diff Output**: Generate an explicit YAML patch/diff for `*_master.yaml` summarizing state changes.
+   - **State Diff Output**: Propose state changes targeting the core Markdown Trio (`character_log.qmd`, `character_purchases.qmd`, or `character_build.qmd`). Never propose direct hand edits to `*_master.yaml`, which is compiled automatically.
 
 ---
 

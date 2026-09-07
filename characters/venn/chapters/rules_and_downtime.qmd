@@ -6,6 +6,7 @@ This section aggregates core cheat sheets, downtime registration formulas, monad
 #| echo: false
 #| include: false
 from sr6core.character_manager import CharacterManager
+from sr6core.modifiers import ModifierEngine
 
 cm = CharacterManager()
 _char = cm.get_character_data("venn") or cm.get_character_data("union") or {}
@@ -29,13 +30,14 @@ Willpower_Aug = Willpower + 1            # Bio-Response Override = 8
 Charisma_Aug = Charisma + 1              # Neurochemical Regulator = 3
 Body_Soak = Body + 4                     # Bone Density R4 = 9
 
-# Derived Pools
+# Derived Pools declaratively queried from ModifierEngine
+tactical_pools = ModifierEngine.get_tactical_action_pools(_char, scene_mode="baseline")
 Physical_Initiative_Base = f"{Reaction + Intuition} + 1D6"  # 7 + 1D6
-Defense_Pool_Base = Reaction + Intuition                    # 7d6 (1 Hit)
-Damage_Soak_Base = Body_Soak + 2 + 1     # Bone Density 9 + Skinshield 2 + Hood 1 = 12
-Close_Combat_Pool_Base = Agility + 6 + 1 + 1  # AGI 7 + Activesoft 6 + Wires 1 + Neural Pattern 1 = 15d6 (5P DV)
-Cracking_Pool_Base = Logic + 6 + 1 + 1        # LOG 6 + Activesoft 6 + Wires 1 + Neocortical Amp 1 = 14d6
-Firearms_Pool_Base = Agility + 6 + 1 + 1 + 2  # AGI 7 + Activesoft 6 + Wires 1 + Neural Pattern 1 + Smartlink 2 = 17d6
+Defense_Pool_Base = tactical_pools["defense"].total_pool if "defense" in tactical_pools else (Reaction + Intuition)
+Damage_Soak_Base = tactical_pools["soak"].total_pool if "soak" in tactical_pools else (Body_Soak + 3)
+Close_Combat_Pool_Base = tactical_pools["close_combat"].total_pool if "close_combat" in tactical_pools else 16
+Cracking_Pool_Base = tactical_pools["engineering"].total_pool if "engineering" in tactical_pools else 14
+Firearms_Pool_Base = tactical_pools["firearms"].total_pool if "firearms" in tactical_pools else 19
 ```
 
 ---

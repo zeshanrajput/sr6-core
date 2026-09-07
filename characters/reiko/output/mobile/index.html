@@ -1417,16 +1417,18 @@
         "name": "Resonance",
         "code": "RES",
         "base": 8,
-        "buffed": 8,
+        "buffed": 12,
         "is_buffed": true,
         "buffs": [
           {
-            "source": "Resonance Focus (+4)",
+            "source": "Resonance Focus",
             "value": 4,
-            "notes": "Applies +4 dice to Resonance-linked action tests"
+            "type": "focus",
+            "notes": "+4 dice to tests using Resonance attribute (Tasking, Cracking, Electronics via Natural Hacker, Inhabited Drone Override). Fading Value: 2 (WIL 6 + LOG 4 soak)",
+            "rule_anchor": "rules/rules_matrix.html#foci"
           }
         ],
-        "breakdown": "Base 8 (+4 Focus on tests)",
+        "breakdown": "Base 8 + Resonance Focus (+4) = 12",
         "doc_link": "chapters/rules_matrix.html#matrix-action-pools"
       }
     ],
@@ -1478,8 +1480,17 @@
         "specialized_hits": 5,
         "effective_attribute": "resonance",
         "is_attribute_overridden": true,
-        "breakdown_text": "RES 8 + 6 Rtg",
+        "breakdown_text": "RES 8 + 6 Rtg + Resonance Focus 4",
         "buffs": [
+          {
+            "source": "Resonance Focus",
+            "type": "focus",
+            "value": 4,
+            "target": "attribute:resonance",
+            "rule_anchor": "rules/rules_matrix.html#foci",
+            "notes": "+4 dice to tests using Resonance attribute (Tasking, Cracking, Electronics via Natural Hacker, Inhabited Drone Override). Fading Value: 2 (WIL 6 + LOG 4 soak)",
+            "active": true
+          },
           {
             "source": "Specialization: Registering",
             "type": "specialization",
@@ -1503,8 +1514,17 @@
         "specialized_hits": 5,
         "effective_attribute": "resonance",
         "is_attribute_overridden": true,
-        "breakdown_text": "RES 8 + 5 Rtg + +4 Taz Symbiosis (Cracking) (Teamwork)",
+        "breakdown_text": "RES 8 + 5 Rtg + Resonance Focus 4 + +4 Taz Symbiosis (Cracking) (Teamwork)",
         "buffs": [
+          {
+            "source": "Resonance Focus",
+            "type": "focus",
+            "value": 4,
+            "target": "attribute:resonance",
+            "rule_anchor": "rules/rules_matrix.html#foci",
+            "notes": "+4 dice to tests using Resonance attribute (Tasking, Cracking, Electronics via Natural Hacker, Inhabited Drone Override). Fading Value: 2 (WIL 6 + LOG 4 soak)",
+            "active": true
+          },
           {
             "source": "Taz Symbiosis (Cracking)",
             "type": "teamwork",
@@ -1537,8 +1557,17 @@
         "specialized_hits": 5,
         "effective_attribute": "resonance",
         "is_attribute_overridden": true,
-        "breakdown_text": "RES 8 + 5 Rtg + +4 Taz Symbiosis (Electronics) (Teamwork)",
+        "breakdown_text": "RES 8 + 5 Rtg + Resonance Focus 4 + +4 Taz Symbiosis (Electronics) (Teamwork)",
         "buffs": [
+          {
+            "source": "Resonance Focus",
+            "type": "focus",
+            "value": 4,
+            "target": "attribute:resonance",
+            "rule_anchor": "rules/rules_matrix.html#foci",
+            "notes": "+4 dice to tests using Resonance attribute (Tasking, Cracking, Electronics via Natural Hacker, Inhabited Drone Override). Fading Value: 2 (WIL 6 + LOG 4 soak)",
+            "active": true
+          },
           {
             "source": "Taz Symbiosis (Electronics)",
             "type": "teamwork",
@@ -3604,10 +3633,10 @@
         "name": "Resonance Focus",
         "target": "attribute:resonance",
         "value": 4,
-        "type": "augmentation",
+        "type": "focus",
         "sub_skill": null,
         "rule_anchor": "rules/rules_matrix.html#foci",
-        "notes": null,
+        "notes": "+4 dice to tests using Resonance attribute (Tasking, Cracking, Electronics via Natural Hacker, Inhabited Drone Override). Fading Value: 2 (WIL 6 + LOG 4 soak)",
         "enabled": true
       },
       {
@@ -4417,11 +4446,12 @@
           "wil": "wil", "log": "log", "int": "int", "cha": "cha",
           "edg": "edg", "mag": "mag", "res": "res"
         };
-        const rawAttrStr = (s.attribute || "").toLowerCase();
+        const rawAttrStr = (s.effective_attribute || s.attribute || "").toLowerCase();
         const shortCode = attrMap[rawAttrStr] || rawAttrStr;
-        const baseAugAttr = (char.attributes && (char.attributes[rawAttrStr] !== undefined ? char.attributes[rawAttrStr] : char.attributes[shortCode])) !== undefined
+        const attrObj = attrsList.find(a => a.code.toLowerCase() === shortCode || a.name.toLowerCase() === rawAttrStr);
+        const baseAugAttr = attrObj ? attrObj.buffed : ((char.attributes && (char.attributes[rawAttrStr] !== undefined ? char.attributes[rawAttrStr] : char.attributes[shortCode])) !== undefined
           ? (char.attributes[rawAttrStr] !== undefined ? char.attributes[rawAttrStr] : char.attributes[shortCode])
-          : (s.base_pool - s.rating);
+          : (s.base_pool - s.rating));
         const liveAttrVal = liveAttrs[shortCode] !== undefined ? liveAttrs[shortCode] : (liveAttrs[rawAttrStr] !== undefined ? liveAttrs[rawAttrStr] : baseAugAttr);
         const attrDelta = liveAttrVal - baseAugAttr;
 

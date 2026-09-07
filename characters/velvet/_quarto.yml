@@ -3,6 +3,7 @@ project:
   output-dir: _book
   resources:
     - chapters/audio/
+    - narrative/audio/
     - output/vtt/
     - output/text/
   pre-render:
@@ -36,6 +37,7 @@ book:
         - narrative/08_Tea_in_Tacoma.md
         - narrative/09_Heat.md
         - narrative/10_Burns.md
+        - narrative/11_Silence.md
 
     - part: "Reference & Specifications"
       chapters:

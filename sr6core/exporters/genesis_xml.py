@@ -513,34 +513,71 @@ def export_genesis_xml(char_data: Dict[str, Any], char_repo_path: Optional[str] 
                 l_node.set("uniqueid", lic.get("uuid") or str(uuid.uuid4()))
 
     # Foci
-    foci_list = char_data.get("synergies", {}).get("foci", []) or [
-        it for it in char_data.get("items", []) if isinstance(it, dict) and "focus" in it.get("ref", "").lower()
-    ]
-    valid_foci = [f for f in foci_list if "qi" in f.get("ref", "") or "qi" in str(f.get("name", "")).lower()]
-    if valid_foci:
+    foci_list = list(char_data.get("synergies", {}).get("foci", []))
+    if not foci_list:
+        foci_list = [
+            it for it in char_data.get("items", []) if isinstance(it, dict) and "focus" in it.get("ref", "").lower()
+        ]
+    # Check declared focus modifiers as well
+    existing_f_names = {str(f.get("name", "")).lower() for f in foci_list}
+    for m in char_data.get("modifiers", []):
+        if isinstance(m, dict) and m.get("type") == "focus":
+            m_name = m.get("name", "Focus")
+            if m_name.lower() not in existing_f_names:
+                foci_list.append({
+                    "name": m_name,
+                    "ref": m.get("id", "power_focus"),
+                    "rating": m.get("value", 3),
+                    "bonded": True,
+                    "applies_to": m.get("target", "magic").replace("attribute:", "")
+                })
+
+    if foci_list:
         foci_el = ET.SubElement(root, "foci")
-        for f in valid_foci:
+        for f in foci_list:
+            f_name = str(f.get("name", "")).lower()
+            f_ref = str(f.get("ref", "")).lower()
+            if "qi" in f_ref or "qi" in f_name:
+                canonical_ref = "qi_focus"
+            elif "power" in f_ref or "power" in f_name:
+                canonical_ref = "power_focus"
+            elif "sustaining" in f_ref or "sustaining" in f_name:
+                canonical_ref = "sustaining_focus"
+            elif "weapon" in f_ref or "weapon" in f_name:
+                canonical_ref = "weapon_focus"
+            elif "counterspelling" in f_ref or "counterspelling" in f_name:
+                canonical_ref = "counterspelling_focus"
+            elif "spellcasting" in f_ref or "spellcasting" in f_name:
+                canonical_ref = "spellcasting_focus"
+            elif "summoning" in f_ref or "summoning" in f_name:
+                canonical_ref = "summoning_focus"
+            elif "banishing" in f_ref or "banishing" in f_name:
+                canonical_ref = "banishing_focus"
+            else:
+                canonical_ref = f_ref or "power_focus"
+
             f_node = ET.SubElement(foci_el, "focus")
             f_node.set("lang", "en")
-            f_rating = str(f.get("rating", 4))
-            f_node.set("ref", "qi_focus")
+            f_rating = str(f.get("rating", 3))
+            f_node.set("ref", canonical_ref)
             f_node.set("value", f_rating)
 
             dec_rating = ET.SubElement(f_node, "decision")
             dec_rating.set("choice", "c2d17c87-1cfe-4355-9877-a20fe09c170d")
             dec_rating.set("value", f_rating)
 
-            power_choice = f.get("power")
-            if not power_choice:
-                # Look for power in adept powers with focus source
-                for ap in char_data.get("adept_powers", []):
-                    if "focus" in str(ap.get("source", "")).lower():
-                        power_choice = ap.get("ref") or ap.get("name")
-                        break
-            if power_choice:
-                dec_power = ET.SubElement(f_node, "decision")
-                dec_power.set("choice", "37026c81-d5a0-44fe-8fa9-9263acb6059f")
-                dec_power.set("value", str(power_choice).lower().replace(" ", "_"))
+            if canonical_ref == "qi_focus":
+                power_choice = f.get("power")
+                if not power_choice:
+                    # Look for power in adept powers with focus source
+                    for ap in char_data.get("adept_powers", []):
+                        if "focus" in str(ap.get("source", "")).lower():
+                            power_choice = ap.get("ref") or ap.get("name")
+                            break
+                if power_choice:
+                    dec_power = ET.SubElement(f_node, "decision")
+                    dec_power.set("choice", "37026c81-d5a0-44fe-8fa9-9263acb6059f")
+                    dec_power.set("value", str(power_choice).lower().replace(" ", "_"))
 
     # Name node
     name_el = ET.SubElement(root, "name")

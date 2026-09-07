@@ -420,20 +420,6 @@ def get_weapon_attack_table(char_id: str) -> str:
     if not char:
         return f"*(Character '{char_id}' not found)*"
 
-    if char_id.lower() in ["venn", "union"]:
-        rows = [
-            "| Weapon Name | Mode (Rounds) | Final DV | Final Effective AR (C / N / M / F / E) | Notes & Constraints |",
-            "| :--- | :---: | :---: | :---: | :--- |",
-            "| **FN P93 Praetor** | **SA** (2) | 5P | **14 / 13 / 9 / — / —** | Internal Smartgun (+2 AR, +2 Attack Dice), Suppressor, Shock Pad (-1 burst penalty). 50(c) clip. |",
-            "| | **BF** (4) | 6P | **12 / 11 / 7 / — / —** | 4-round narrow burst. Shock pad halves recoil penalty. |",
-            "| | **FA** (10) | 7P | **10 / 9 / 5 / — / —** | 10-round full auto burst. |",
-            "| **Colt Manhunter** | **SS** (1) | 3P | **12 / 12 / 10 / — / —** | Laser Sight / Smartlink (+2 AR, +2 Attack Dice), Silencer, Concealed Holster. 16(c) clip. |",
-            "| | **SA** (2) | 4P | **10 / 10 / 8 / — / —** | 2-round semi-auto burst. |",
-            "| **Monofilament Whip** | **Melee** | 4P | **14 / — / — / — / —** | Retractable whip from fingertip/skin pocket, Wireless ON (+2 AR). Concealed housing. |",
-            "| **Narcoject Hornet** | **SA** (2) | 2S | **13 / 10 / — / — / —** | External Smartgun (+2 AR, +2 Attack Dice). Loaded with Narcoject tranquilizer toxin (12 darts). |"
-        ]
-        return "\n".join(rows)
-
     data = char["data"]
     weapons_sec = data.get("weapons", {})
     ranged_list = weapons_sec.get("ranged", []) if isinstance(weapons_sec, dict) else []
@@ -444,47 +430,111 @@ def get_weapon_attack_table(char_id: str) -> str:
     else:
         flat_list = ranged_list + melee_list
 
+    def format_ar_array(base_ar: list, ar_bonus: int = 0, burst_pen: int = 0, grip_cn_bonus: int = 0) -> str:
+        out = []
+        for i in range(5):
+            val = base_ar[i] if i < len(base_ar) and base_ar[i] is not None else None
+            if val is not None and val > 0:
+                cn_extra = grip_cn_bonus if i in [0, 1] else 0
+                calc = max(0, val + ar_bonus + cn_extra - burst_pen)
+                out.append(str(calc))
+            else:
+                out.append("—")
+        return " / ".join(out)
+
     rows = [
         "| Weapon Name | Mode (Rounds) | Final DV | Final Effective AR (C / N / M / F / E) | Notes & Constraints |",
         "| :--- | :---: | :---: | :---: | :--- |"
     ]
 
-    def format_ar(base_ar: list, ar_bonus: int, burst_pen: int = 0, grip_cn_bonus: int = 0) -> str:
-        out = []
-        for i in range(5):
-            val = base_ar[i] if i < len(base_ar) and base_ar[i] is not None else None
-            if val is not None:
-                cn_extra = grip_cn_bonus if i in [0, 1] else 0
-                out.append(str(val + ar_bonus + cn_extra - burst_pen))
+    if char_id.lower() in ["reiko", "yuriko"]:
+        # Reiko / Yuriko uses drone-mounted weapon systems
+        def format_ar(base_ar: list, ar_bonus: int, burst_pen: int = 0, grip_cn_bonus: int = 0) -> str:
+            out = []
+            for i in range(5):
+                val = base_ar[i] if i < len(base_ar) and base_ar[i] is not None else None
+                if val is not None:
+                    cn_extra = grip_cn_bonus if i in [0, 1] else 0
+                    out.append(str(val + ar_bonus + cn_extra - burst_pen))
+                else:
+                    out.append("—")
+            return " / ".join(out)
+
+        # 1. Red Fox Array (2x Link-Fired - Eye Mounts)
+        fox_stat = get_weapon_stats("red_fox") or {"dv": "6P", "ar": [14, 16, 16, 9]}
+        fox_base_dv = int(re.sub(r"[^\d]", "", fox_stat["dv"])) if re.search(r"\d", fox_stat["dv"]) else 6
+        # Link-fired: Base + 1 link-fired + 3 smartlink + 2 mount = +6 AR, +2 DV
+        fox_link_ss_ar = format_ar(fox_stat["ar"], ar_bonus=6, burst_pen=0)
+        fox_link_sa_ar = format_ar(fox_stat["ar"], ar_bonus=6, burst_pen=1)
+        fox_link_bf_ar = format_ar(fox_stat["ar"], ar_bonus=6, burst_pen=2)
+        rows.append(f"| **Red Fox Array (2x Link-Fired)** | **SS** (1/gun) | {fox_base_dv + 2}P* | **{fox_link_ss_ar}** | Link-fired 2x Red Foxes in Eye Mounts (Costs Minor Action; +2 DV, +1 AR). **1 round/gun** (2 rds total). 1 Wild Die. *Decreases by 3P at Medium. |")
+        rows.append(f"| | **SA** (2/gun) | {fox_base_dv + 3}P* | **{fox_link_sa_ar}** | Link-fired array (Drone mount halves SA penalty). **2 rounds/gun** (4 rds total). *Decreases by 3P at Medium. |")
+        rows.append(f"| | **BF** (4/gun) | {fox_base_dv + 4}P* | **{fox_link_bf_ar}** | Link-fired array (Drone mount halves BF penalty). **4 rounds/gun** (8 rds total). *Decreases by 3P at Medium. |")
+
+        # 1b. Single Red Fox (Independent - Eye Mount)
+        fox_single_ss_ar = format_ar(fox_stat["ar"], ar_bonus=5, burst_pen=0)
+        fox_single_sa_ar = format_ar(fox_stat["ar"], ar_bonus=5, burst_pen=1)
+        fox_single_bf_ar = format_ar(fox_stat["ar"], ar_bonus=5, burst_pen=2)
+        rows.append(f"| **Single Red Fox (Independent)** | **SS** (1) | {fox_base_dv}P* | **{fox_single_ss_ar}** | Independent Eye Mount (NO Minor Action required). **1 round**. 1 Wild Die. *Decreases by 3P at Medium. |")
+        rows.append(f"| | **SA** (2) | {fox_base_dv + 1}P* | **{fox_single_sa_ar}** | Independent mount (Drone mount halves SA penalty). **2 rounds**. *Decreases by 3P at Medium. |")
+        rows.append(f"| | **BF** (4) | {fox_base_dv + 2}P* | **{fox_single_bf_ar}** | Independent mount (Drone mount halves BF penalty). **4 rounds**. *Decreases by 3P at Medium. |")
+
+        # 2. Tesla Coil
+        rows.append("| **Tesla Coil (MAA Cyberarm)** | **SS** (1) | 5S(e) | **10 / 12* / — / — / —** | Max 20m, 20m Cone Area Attack (Flamethrower rules), Cyberarm Mount (+2 AR). |")
+
+        # 3. Amalgam Cestas
+        rows.append("| **Amalgam Cestas (Man-at-Arms - Phys)** | **Melee** | 3P | **12 / — / — / — / —** | Personalized Grip +2 AR. Overrides Immunity to Normal Weapons. 1 Wild Die. |")
+        return "\n".join(rows)
+
+    if flat_list:
+        for w in flat_list:
+            if not isinstance(w, dict):
+                continue
+            w_name = w.get("name", "Unknown Weapon")
+            w_modes = str(w.get("modes", "SA")).split("/")
+            w_dv = str(w.get("damage", "3P"))
+            w_notes = w.get("notes", "")
+            raw_ar = w.get("attack_rating", "")
+            if isinstance(raw_ar, list):
+                base_ar = raw_ar
+            elif isinstance(raw_ar, str):
+                base_ar = [int(p.strip()) if p.strip().isdigit() else 0 for p in raw_ar.replace("–", "-").split("/")]
             else:
-                out.append("—")
-        return " / ".join(out)
+                base_ar = [10, 10, 8, 0, 0]
 
-    # 1. Red Fox Array (2x Link-Fired - Eye Mounts)
-    fox_stat = get_weapon_stats("red_fox") or {"dv": "6P", "ar": [14, 16, 16, 9]}
-    fox_base_dv = int(re.sub(r"[^\d]", "", fox_stat["dv"])) if re.search(r"\d", fox_stat["dv"]) else 6
-    # Link-fired: Base + 1 link-fired + 3 smartlink + 2 mount = +6 AR, +2 DV
-    fox_link_ss_ar = format_ar(fox_stat["ar"], ar_bonus=6, burst_pen=0)
-    fox_link_sa_ar = format_ar(fox_stat["ar"], ar_bonus=6, burst_pen=1)
-    fox_link_bf_ar = format_ar(fox_stat["ar"], ar_bonus=6, burst_pen=2)
-    rows.append(f"| **Red Fox Array (2x Link-Fired)** | **SS** (1/gun) | {fox_base_dv + 2}P* | **{fox_link_ss_ar}** | Link-fired 2x Red Foxes in Eye Mounts (Costs Minor Action; +2 DV, +1 AR). **1 round/gun** (2 rds total). 1 Wild Die. *Decreases by 3P at Medium. |")
-    rows.append(f"| | **SA** (2/gun) | {fox_base_dv + 3}P* | **{fox_link_sa_ar}** | Link-fired array (Drone mount halves SA penalty). **2 rounds/gun** (4 rds total). *Decreases by 3P at Medium. |")
-    rows.append(f"| | **BF** (4/gun) | {fox_base_dv + 4}P* | **{fox_link_bf_ar}** | Link-fired array (Drone mount halves BF penalty). **4 rounds/gun** (8 rds total). *Decreases by 3P at Medium. |")
+            m = re.match(r"^(\d+)([A-Za-z]+.*)$", w_dv)
+            base_dmg_num = int(m.group(1)) if m else 3
+            dmg_type = m.group(2) if m else "P"
 
-    # 1b. Single Red Fox (Independent - Eye Mount)
-    # Non-link-fired: NO Minor Action required. +3 smartlink + 2 mount = +5 AR
-    fox_single_ss_ar = format_ar(fox_stat["ar"], ar_bonus=5, burst_pen=0)
-    fox_single_sa_ar = format_ar(fox_stat["ar"], ar_bonus=5, burst_pen=1)
-    fox_single_bf_ar = format_ar(fox_stat["ar"], ar_bonus=5, burst_pen=2)
-    rows.append(f"| **Single Red Fox (Independent)** | **SS** (1) | {fox_base_dv}P* | **{fox_single_ss_ar}** | Independent Eye Mount (NO Minor Action required). **1 round**. 1 Wild Die. *Decreases by 3P at Medium. |")
-    rows.append(f"| | **SA** (2) | {fox_base_dv + 1}P* | **{fox_single_sa_ar}** | Independent mount (Drone mount halves SA penalty). **2 rounds**. *Decreases by 3P at Medium. |")
-    rows.append(f"| | **BF** (4) | {fox_base_dv + 2}P* | **{fox_single_bf_ar}** | Independent mount (Drone mount halves BF penalty). **4 rounds**. *Decreases by 3P at Medium. |")
-
-    # 2. Tesla Coil
-    rows.append("| **Tesla Coil (MAA Cyberarm)** | **SS** (1) | 5S(e) | **10 / 12* / — / — / —** | Max 20m, 20m Cone Area Attack (Flamethrower rules), Cyberarm Mount (+2 AR). |")
-
-    # 3. Amalgam Cestas
-    rows.append("| **Amalgam Cestas (Man-at-Arms - Phys)** | **Melee** | 3P | **12 / — / — / — / —** | Personalized Grip +2 AR. Overrides Immunity to Normal Weapons. 1 Wild Die. |")
+            first_mode = True
+            for mode in w_modes:
+                mode_clean = mode.strip().upper()
+                name_cell = f"**{w_name}**" if first_mode else ""
+                
+                if mode_clean == "MELEE":
+                    ar_str = format_ar_array(base_ar)
+                    rows.append(f"| {name_cell} | **Melee** | {w_dv} | **{ar_str}** | {w_notes if first_mode else ''} |")
+                elif mode_clean == "SS":
+                    ar_str = format_ar_array(base_ar)
+                    ss_notes = w_notes if first_mode else "Single shot mode."
+                    rows.append(f"| {name_cell} | **SS** (1) | {base_dmg_num - (1 if 'SA' in w_modes else 0)}{dmg_type} | **{ar_str if not 'SA' in w_modes else format_ar_array([x + 2 if x > 0 else 0 for x in base_ar])}** | {ss_notes} |")
+                elif mode_clean == "SA":
+                    has_shock_pad = "shock pad" in str(w.get("accessories", [])).lower() or "shock pad" in w_notes.lower()
+                    ar_str = format_ar_array(base_ar)
+                    sa_notes = w_notes if first_mode else ("2-round semi-auto burst." if not has_shock_pad else "2-round narrow burst.")
+                    rows.append(f"| {name_cell} | **SA** (2) | {w_dv} | **{ar_str}** | {sa_notes} |")
+                elif mode_clean == "BF":
+                    has_shock_pad = "shock pad" in str(w.get("accessories", [])).lower() or "shock pad" in w_notes.lower()
+                    pen = 2 if has_shock_pad else 4
+                    bf_ar = format_ar_array([max(0, x - pen) if x > 0 else 0 for x in base_ar])
+                    rows.append(f"| {name_cell} | **BF** (4) | {base_dmg_num + 1}{dmg_type} | **{bf_ar}** | 4-round narrow burst. Shock pad halves recoil penalty. |")
+                elif mode_clean == "FA":
+                    has_shock_pad = "shock pad" in str(w.get("accessories", [])).lower() or "shock pad" in w_notes.lower()
+                    pen = 4 if has_shock_pad else 6
+                    fa_ar = format_ar_array([max(0, x - pen) if x > 0 else 0 for x in base_ar])
+                    rows.append(f"| {name_cell} | **FA** (10) | {base_dmg_num + 2}{dmg_type} | **{fa_ar}** | 10-round full auto burst. |")
+                first_mode = False
+        return "\n".join(rows)
 
     return "\n".join(rows)
 
@@ -518,7 +568,7 @@ def get_scene_strategy_table(char_id: str = "velvet") -> str:
             "| Operational Mode | Active Adept Powers & Spells | Effective Attributes | Primary Action Pools & Modifiers | Derived Defenses & Hits |",
             "| :--- | :--- | :--- | :--- | :--- |",
             "| **1. Social & Legwork Mode** | Enhanced Social Stance, Kinesics R3, Voice Modulation | **CHA 14**, **WIL 9**, **INT 7** | **Influence**: **19d6** (4 Hits)<br>**Con / Deception**: **19d6** (4 Hits) | **Composure**: **23d6** (5 Hits)<br>**Judge Intentions**: **16d6** (4 Hits)<br>**Drain Soak**: **23d6** (5 Hits) |",
-            "| **2. Combat Mode** | Combat Reflexes, Spell Defense Shield, Elemental Strike | **REA 8**, **AGI 6**, **BOD 5** | **Sorcery (Combat Spells)**: **15d6** (3 Hits)<br>**Close Combat**: **13d6** (3 Hits) | **Physical Defense**: **15d6** (3 Hits)<br>**Damage Soak**: **12d6** (3 Hits)<br>**Initiative**: **12 + 3D6** |"
+            "| **2. Combat Mode** | Combat Reflexes, Spell Defense Shield, Elemental Strike | **REA 8**, **AGI 6**, **BOD 5** | **Sorcery (Spellcasting)**: **16d6** (4 Hits)<br>**Close Combat**: **13d6** (3 Hits) | **Physical Defense**: **15d6** (3 Hits)<br>**Damage Soak**: **12d6** (3 Hits)<br>**Initiative**: **12 + 3D6** |"
         ]
         return "\n".join(rows)
     return get_monad_strategy_table(char_id)
@@ -835,6 +885,113 @@ def get_multi_modifier_interactions(char_id: str, threshold: int = 2) -> List[Di
                 "operational_constraints": "Wound penalties only begin after taking 4 boxes of damage instead of the standard 3 boxes.",
                 "count": len(stun_mods)
             })
+
+    # 5. Magic Actions & Foci Protocols (Velvet & Awakened)
+    mag_val = int(attrs.get("magic", 0))
+    if mag_val > 0:
+        magic_pools = ModifierEngine.get_magic_action_pools(data, enhanced=True)
+
+        # 1. Spellcasting & Sorcery
+        spell_opt = magic_pools.get("spellcasting")
+        if spell_opt:
+            sorc_mods = []
+            for c in spell_opt.components:
+                for m in c.modifiers:
+                    if m.enabled:
+                        sorc_mods.append({
+                            "source": m.source,
+                            "value": f"+{m.value}",
+                            "type": m.type,
+                            "notes": getattr(m, "notes", None) or "Magic-linked focus or attribute augmentation",
+                            "rule_anchor": getattr(m, "rule_anchor", None) or "rules/rules_and_downtime.html#foci"
+                        })
+            if spell_opt.specialization:
+                sorc_mods.append({
+                    "source": spell_opt.specialization.source,
+                    "value": f"+{spell_opt.specialization.value}",
+                    "type": "specialization",
+                    "notes": "Applies +2 bonus dice to Spellcasting tests",
+                    "rule_anchor": "rules/rules_and_downtime.html#spellcasting"
+                })
+            for m in spell_opt.tactical_modifiers:
+                sorc_mods.append({
+                    "source": m.source,
+                    "value": f"+{m.value}",
+                    "type": m.type,
+                    "notes": getattr(m, "notes", None) or "Adept ability enhancement",
+                    "rule_anchor": getattr(m, "rule_anchor", None) or "rules/rules_and_downtime.html#adept-powers"
+                })
+            if len(sorc_mods) >= threshold:
+                results.append({
+                    "category": "Magic & Foci Protocols",
+                    "name": "Spellcasting (Sorcery)",
+                    "total_pool": f"{spell_opt.total_pool}d6 ({spell_opt.bought_hits} Bought Hits)",
+                    "base_summary": f"{spell_opt.get_base_stat_skill_string()} + {spell_opt.get_modifiers_breakdown_string()}",
+                    "modifiers": sorc_mods,
+                    "stacking_legality": "Power Focus (+3) operates within the SRMG +4 Augmentation limit for Magic. Skill Specialization (+2) is an exempt modifier under SRMG multi-component rules.",
+                    "operational_constraints": "Requires Power Focus to be bonded and carried. Sustained spells maintained via Focused Concentration R3.",
+                    "count": len(sorc_mods)
+                })
+
+        # 2. Spirit Channeling Inhabitation
+        chan_opt = magic_pools.get("channeling")
+        if chan_opt:
+            chan_mods = []
+            for c in chan_opt.components:
+                for m in c.modifiers:
+                    if m.enabled:
+                        chan_mods.append({
+                            "source": m.source,
+                            "value": f"+{m.value}",
+                            "type": m.type,
+                            "notes": getattr(m, "notes", None) or "Magic-linked focus bonus",
+                            "rule_anchor": getattr(m, "rule_anchor", None) or "rules/rules_and_downtime.html#foci"
+                        })
+            for m in chan_opt.action_modifiers:
+                chan_mods.append({
+                    "source": m.source,
+                    "value": f"+{m.value}",
+                    "type": m.type,
+                    "notes": "Initiate Grade bonus added to Channeling test (Street Wyrd p. 122)",
+                    "rule_anchor": "rules/rules_and_downtime.html#channeling-and-spirit-protocols"
+                })
+            if len(chan_mods) >= threshold:
+                results.append({
+                    "category": "Magic & Spirit Protocols",
+                    "name": "Spirit Channeling (Inhabitation)",
+                    "total_pool": f"{chan_opt.total_pool}d6 ({chan_opt.bought_hits} Bought Hits)",
+                    "base_summary": f"{chan_opt.get_base_stat_skill_string()} + {chan_opt.get_modifiers_breakdown_string()}",
+                    "modifiers": chan_mods,
+                    "stacking_legality": "Power Focus (+3) applies directly to Magic component. Initiate Grade applies as an action-component modifier, stacking legally.",
+                    "operational_constraints": "Requires conscious inhabitation of an existing bound spirit (Force 3 or Force 5). Grants dual natured state and physical attribute boosts.",
+                    "count": len(chan_mods)
+                })
+
+        # 3. Drain Resistance Soak
+        drain_opt = magic_pools.get("drain_resistance")
+        if drain_opt:
+            drain_mods = []
+            for c in drain_opt.components:
+                for m in c.modifiers:
+                    if m.enabled:
+                        drain_mods.append({
+                            "source": f"{c.name}: {m.source}",
+                            "value": f"+{m.value}",
+                            "type": m.type,
+                            "notes": "Sustained Increase Attribute Health spell (+4 SRMG Augmentation Cap)",
+                            "rule_anchor": "rules/rules_and_downtime.html#sustained-spells"
+                        })
+            if len(drain_mods) >= threshold:
+                results.append({
+                    "category": "Magic & Tradition Defenses",
+                    "name": "Drain Resistance (Shinto / Musok)",
+                    "total_pool": f"{drain_opt.total_pool}d6 ({drain_opt.bought_hits} Bought Hits)",
+                    "base_summary": f"{drain_opt.get_base_stat_skill_string()} + {drain_opt.get_modifiers_breakdown_string()}",
+                    "modifiers": drain_mods,
+                    "stacking_legality": "Increase Attribute spells boost Willpower (+4) and Charisma (+4) up to the SRMG +4 Augmentation limit per attribute, stacking across the two tradition components.",
+                    "operational_constraints": "Sustained with 0 sustaining penalties under Focused Concentration (Rating 3).",
+                    "count": len(drain_mods)
+                })
 
     return results
 

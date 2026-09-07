@@ -35,3 +35,73 @@ def test_multi_modifier_interactions_threshold():
 
     rendered_empty = render_multi_modifier_interactions("venn", threshold=10)
     assert "No pools currently exceed" in rendered_empty
+
+def test_multi_modifier_interactions_velvet():
+    interactions = get_multi_modifier_interactions("velvet", threshold=2)
+    assert len(interactions) >= 3, f"Expected at least 3 multi-modifier pools for Velvet, got {len(interactions)}"
+
+    names = [i["name"] for i in interactions]
+    assert any("Spellcasting" in n for n in names)
+    assert any("Channeling" in n for n in names)
+    assert any("Drain Resistance" in n for n in names)
+
+    # Spellcasting should reflect Power Focus (+3) and Specialization (+2) -> 16d6
+    sc = next(i for i in interactions if "Spellcasting" in i["name"])
+    assert "16d6" in sc["total_pool"]
+    sc_sources = [m["source"] for m in sc["modifiers"]]
+    assert any("Power Focus" in s for s in sc_sources)
+    assert any("Specialization" in s for s in sc_sources)
+
+    # Channeling should reflect Power Focus (+3) and Initiate Grade (+2) -> 17d6
+    ch = next(i for i in interactions if "Channeling" in i["name"])
+    assert "17d6" in ch["total_pool"]
+    ch_sources = [m["source"] for m in ch["modifiers"]]
+    assert any("Power Focus" in s for s in ch_sources)
+    assert any("Initiate Grade" in s for s in ch_sources)
+
+    # Drain Resistance should reflect Sustained Spells -> 23d6
+    dr = next(i for i in interactions if "Drain Resistance" in i["name"])
+    assert "23d6" in dr["total_pool"]
+
+    # Verify Markdown rendering
+    rendered = render_multi_modifier_interactions("velvet", threshold=2)
+    assert "⚡" in rendered
+    assert "Spellcasting (Sorcery)" in rendered
+    assert "Power Focus" in rendered
+    assert "16d6" in rendered
+    assert "Spirit Channeling" in rendered
+    assert "17d6" in rendered
+
+
+def test_multi_modifier_interactions_reiko():
+    interactions = get_multi_modifier_interactions("reiko", threshold=2)
+    assert len(interactions) >= 3, f"Expected at least 3 multi-modifier pools for Reiko, got {len(interactions)}"
+
+    names = [i["name"] for i in interactions]
+    assert any("Cracking" in n for n in names)
+    assert any("Electronics" in n for n in names)
+    assert any("ASDF" in n or "Resonance" in n for n in names)
+
+    # Check Cracking pool details (21d6 with Resonance Focus, Taz Symbiosis, Specialization)
+    cr = next(i for i in interactions if "Cracking" in i["name"])
+    assert "21d6" in cr["total_pool"]
+    rf_mod = next(m for m in cr["modifiers"] if "Resonance Focus" in m["source"])
+    assert rf_mod["value"] == 4
+    assert rf_mod["type"] == "focus"
+    assert "rules_matrix.html#foci" in rf_mod["rule_anchor"]
+
+    # Check Electronics pool details (21d6)
+    el = next(i for i in interactions if "Electronics" in i["name"])
+    assert "21d6" in el["total_pool"]
+    el_sources = [m["source"] for m in el["modifiers"]]
+    assert any("Resonance Focus" in s for s in el_sources)
+
+    # Verify Markdown rendering
+    rendered = render_multi_modifier_interactions("reiko", threshold=2)
+    assert "⚡" in rendered
+    assert "Automated Multi-Modifier Audit" in rendered
+    assert "Cracking" in rendered
+    assert "Resonance Focus" in rendered
+    assert "21d6" in rendered
+
+

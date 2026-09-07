@@ -173,6 +173,18 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
         slz_val = asdf.get("sleaze", 9)
         dp_val = asdf.get("data_processing", 7)
         fw_val = asdf.get("firewall", 9)
+        ai_res_focus_mods = ModifierEngine.get_focus_modifiers(char_data, "resonance")
+        ai_res_focus_val = sum(fm.value for fm in ai_res_focus_mods)
+        ai_res_buffs = [
+            {
+                "source": fm.source,
+                "value": fm.value,
+                "type": "focus",
+                "notes": getattr(fm, "notes", None) or "+4 dice to tests using Resonance attribute",
+                "rule_anchor": getattr(fm, "rule_anchor", None) or "rules/rules_matrix.html#foci"
+            } for fm in ai_res_focus_mods
+        ]
+        ai_res_breakdown = (f"Base {res} + " + " + ".join([f"{fm.source} (+{fm.value})" for fm in ai_res_focus_mods]) + f" = {res + ai_res_focus_val}") if ai_res_focus_mods else f"Base {res}"
 
         attributes_list = [
             {
@@ -269,10 +281,10 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
                 "name": "Resonance",
                 "code": "RES",
                 "base": res,
-                "buffed": res,
-                "is_buffed": True,
-                "buffs": [{"source": "Resonance Focus (+4)", "value": 4, "notes": "Applies +4 dice to Resonance-linked action tests"}],
-                "breakdown": f"Base {res} (+4 Focus on tests)",
+                "buffed": res + ai_res_focus_val,
+                "is_buffed": bool(ai_res_focus_mods),
+                "buffs": ai_res_buffs,
+                "breakdown": ai_res_breakdown,
                 "doc_link": "chapters/rules_matrix.html#matrix-action-pools"
             }
         ]
@@ -408,6 +420,22 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
             ])
 
         # Special attributes (Row 4)
+        standard_focus_mods = ModifierEngine.get_focus_modifiers(char_data, "magic") if mag > 0 else (ModifierEngine.get_focus_modifiers(char_data, "resonance") if res > 0 else [])
+        standard_focus_val = sum(fm.value for fm in standard_focus_mods)
+        standard_focus_buffs = [
+            {
+                "source": fm.source,
+                "value": fm.value,
+                "type": "focus",
+                "notes": getattr(fm, "notes", None) or ("+3 to Magic for tests where Magic applies" if mag > 0 else "+4 dice to tests using Resonance attribute"),
+                "rule_anchor": getattr(fm, "rule_anchor", None) or ("rules/rules_and_downtime.html#foci" if mag > 0 else "rules/rules_matrix.html#foci")
+            } for fm in standard_focus_mods
+        ]
+        standard_special_breakdown = (
+            (f"Base {mag if mag > 0 else res} + " + " + ".join([f"{fm.source} (+{fm.value})" for fm in standard_focus_mods]) + f" = {(mag if mag > 0 else res) + standard_focus_val}")
+            if standard_focus_mods else f"Base {mag if mag > 0 else (res if res > 0 else (nv if is_monad else f'{ess:.2f}'))}"
+        )
+
         attributes_list.extend([
             {
                 "name": "Edge",
@@ -423,11 +451,11 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
                 "name": "Magic" if mag > 0 else ("Resonance" if res > 0 else ("Nanite Volume" if is_monad else "Essence")),
                 "code": "MAG" if mag > 0 else ("RES" if res > 0 else ("NV" if is_monad else "ESS")),
                 "base": mag if mag > 0 else (res if res > 0 else (nv if is_monad else ess)),
-                "buffed": mag if mag > 0 else (res if res > 0 else (nv if is_monad else ess)),
-                "is_buffed": False,
-                "buffs": [],
-                "breakdown": f"Base {mag if mag > 0 else (res if res > 0 else (nv if is_monad else f'{ess:.2f}'))}",
-                "doc_link": "chapters/rules_and_downtime.html#monad-matrix-attributes" if is_monad else ("chapters/rules_and_downtime.html#foci-protocols" if mag > 0 else "chapters/rules_and_downtime.html")
+                "buffed": ((mag if mag > 0 else res) + standard_focus_val) if (mag > 0 or res > 0) else (nv if is_monad else ess),
+                "is_buffed": bool(standard_focus_mods),
+                "buffs": standard_focus_buffs,
+                "breakdown": standard_special_breakdown,
+                "doc_link": "rules/rules_and_downtime.html#foci-protocols" if mag > 0 else ("chapters/rules_matrix.html#matrix-action-pools" if res > 0 else ("chapters/rules_and_downtime.html#monad-matrix-attributes" if is_monad else "chapters/rules_and_downtime.html"))
             }
         ])
 

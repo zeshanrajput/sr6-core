@@ -728,6 +728,34 @@ def export_powers_sheet(char_data: Dict[str, Any]) -> str:
                 lines.append(f"  - {str(ap)}")
         lines.append("-" * MAX_LINE_WIDTH)
 
+    # Bonded Foci & Magical Tools
+    foci_list = []
+    seen_foci = set()
+    for dm in char_data.get("modifiers", []):
+        if isinstance(dm, dict) and str(dm.get("type", "")).lower() == "focus":
+            f_name = dm.get("name", "Focus")
+            f_id = dm.get("id") or f_name.lower().replace(" ", "_")
+            if f_id not in seen_foci:
+                seen_foci.add(f_id)
+                val = dm.get("value", 1)
+                tgt = dm.get("target", "magic")
+                foci_list.append(f"  - {f_name:<26} | Target: {tgt} (+{val})")
+
+    for sf in _safe_item_list(char_data.get("synergies", {}).get("foci", [])):
+        if isinstance(sf, dict):
+            sf_name = sf.get("name", "Focus")
+            sf_ref = sf.get("ref") or sf_name.lower().replace(" ", "_")
+            if sf_ref not in seen_foci:
+                seen_foci.add(sf_ref)
+                sf_rtg = sf.get("rating", 1)
+                sf_app = sf.get("applies_to", "magic")
+                foci_list.append(f"  - {sf_name:<26} | Target: {sf_app} (+{sf_rtg})")
+
+    if foci_list:
+        lines.append(" BONDED FOCI & MAGICAL TOOLS:")
+        lines.extend(foci_list)
+        lines.append("-" * MAX_LINE_WIDTH)
+
     # Augmentations (Cyberware & Bioware)
     augmentations = _safe_item_list(char_data.get("cyberware")) + _safe_item_list(char_data.get("bioware")) + _safe_item_list(char_data.get("augmentations"))
     if augmentations:

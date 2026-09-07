@@ -1274,10 +1274,10 @@
       "mortype": "mystic adept",
       "gender": "DIVERSE",
       "age": 20,
-      "nuyen": 39915,
-      "lifetime_nuyen": 115300,
-      "karma": 27,
-      "karma_avail": 27,
+      "nuyen": 205,
+      "lifetime_nuyen": 117590,
+      "karma": 17,
+      "karma_avail": 17,
       "lifetime_karma": 55,
       "nanite_volume": 0,
       "is_ai": false,
@@ -1393,11 +1393,19 @@
         "name": "Magic",
         "code": "MAG",
         "base": 6,
-        "buffed": 6,
-        "is_buffed": false,
-        "buffs": [],
-        "breakdown": "Base 6",
-        "doc_link": "chapters/rules_and_downtime.html#foci-protocols"
+        "buffed": 9,
+        "is_buffed": true,
+        "buffs": [
+          {
+            "source": "Power Focus",
+            "value": 3,
+            "type": "focus",
+            "notes": "+3 to Magic for tests where Magic applies",
+            "rule_anchor": "rules/rules_and_downtime.html#foci"
+          }
+        ],
+        "breakdown": "Base 6 + Power Focus (+3) = 9",
+        "doc_link": "rules/rules_and_downtime.html#foci-protocols"
       }
     ],
     "derived": {
@@ -1442,14 +1450,23 @@
         "attribute": "Magic",
         "specialization": "Spellcasting",
         "base_pool": 11,
-        "buffed_pool": 11,
-        "bought_hits": 2,
-        "specialized_pool": 13,
-        "specialized_hits": 3,
+        "buffed_pool": 14,
+        "bought_hits": 3,
+        "specialized_pool": 16,
+        "specialized_hits": 4,
         "effective_attribute": "magic",
         "is_attribute_overridden": false,
-        "breakdown_text": "MAG 6 + 5 Rtg",
+        "breakdown_text": "MAG 6 + 5 Rtg + Power Focus 3",
         "buffs": [
+          {
+            "source": "Power Focus",
+            "type": "focus",
+            "value": 3,
+            "target": "attribute:magic",
+            "rule_anchor": "rules/rules_and_downtime.html#foci",
+            "notes": "+3 to Magic for tests where Magic applies",
+            "active": true
+          },
           {
             "source": "Specialization: Spellcasting",
             "type": "specialization",
@@ -1467,14 +1484,24 @@
         "attribute": "Magic",
         "specialization": null,
         "base_pool": 12,
-        "buffed_pool": 12,
+        "buffed_pool": 15,
         "bought_hits": 3,
-        "specialized_pool": 12,
+        "specialized_pool": 15,
         "specialized_hits": 3,
         "effective_attribute": "magic",
         "is_attribute_overridden": false,
-        "breakdown_text": "MAG 6 + 6 Rtg",
-        "buffs": [],
+        "breakdown_text": "MAG 6 + 6 Rtg + Power Focus 3",
+        "buffs": [
+          {
+            "source": "Power Focus",
+            "type": "focus",
+            "value": 3,
+            "target": "attribute:magic",
+            "rule_anchor": "rules/rules_and_downtime.html#foci",
+            "notes": "+3 to Magic for tests where Magic applies",
+            "active": true
+          }
+        ],
         "doc_link": "chapters/rules_and_downtime.html"
       },
       {
@@ -1651,112 +1678,7 @@
         }
       ]
     },
-    "weapons": [
-      {
-        "name": "Beretta 101T",
-        "is_melee": false,
-        "category": "general",
-        "damage": "3P",
-        "base_damage": "3P",
-        "attack_rating": [
-          10,
-          10,
-          8,
-          0,
-          0
-        ],
-        "attack_rating_str": "10 / 10 / 8 / — / —",
-        "base_attack_rating_str": "10 / 10 / 8 / — / —",
-        "modes": [
-          "SA"
-        ],
-        "modes_str": "SA",
-        "base_modes_str": "SA",
-        "ammo": "—",
-        "base_ammo": "—",
-        "loaded_ammo": null,
-        "accessories": [],
-        "notes": "",
-        "doc_link": "chapters/rules_and_downtime.html#weapon-attack-table"
-      },
-      {
-        "name": "Sap",
-        "is_melee": true,
-        "category": "general",
-        "damage": "3P",
-        "base_damage": "3P",
-        "attack_rating": [
-          10,
-          10,
-          8,
-          0,
-          0
-        ],
-        "attack_rating_str": "10 / 10 / 8 / — / —",
-        "base_attack_rating_str": "10 / 10 / 8 / — / —",
-        "modes": [],
-        "modes_str": "Melee",
-        "base_modes_str": "Melee",
-        "ammo": "—",
-        "base_ammo": "—",
-        "loaded_ammo": null,
-        "accessories": [],
-        "notes": "",
-        "doc_link": "chapters/rules_and_downtime.html#weapon-attack-table"
-      },
-      {
-        "name": "Yamaha Raiden",
-        "is_melee": false,
-        "category": "general",
-        "damage": "3P",
-        "base_damage": "3P",
-        "attack_rating": [
-          10,
-          10,
-          8,
-          0,
-          0
-        ],
-        "attack_rating_str": "10 / 10 / 8 / — / —",
-        "base_attack_rating_str": "10 / 10 / 8 / — / —",
-        "modes": [
-          "SA"
-        ],
-        "modes_str": "SA",
-        "base_modes_str": "SA",
-        "ammo": "—",
-        "base_ammo": "—",
-        "loaded_ammo": null,
-        "accessories": [],
-        "notes": "",
-        "doc_link": "chapters/rules_and_downtime.html#weapon-attack-table"
-      },
-      {
-        "name": "Stun Baton",
-        "is_melee": true,
-        "category": "general",
-        "damage": "3P",
-        "base_damage": "3P",
-        "attack_rating": [
-          10,
-          10,
-          8,
-          0,
-          0
-        ],
-        "attack_rating_str": "10 / 10 / 8 / — / —",
-        "base_attack_rating_str": "10 / 10 / 8 / — / —",
-        "modes": [],
-        "modes_str": "Melee",
-        "base_modes_str": "Melee",
-        "ammo": "—",
-        "base_ammo": "—",
-        "loaded_ammo": null,
-        "accessories": [],
-        "notes": "",
-        "doc_link": "chapters/rules_and_downtime.html#weapon-attack-table"
-      }
-    ],
+    "weapons": [],
     "armors": [
       {
         "name": "Ares SecureTech Skinshield",
@@ -1825,13 +1747,6 @@
         "cost": "0.25 PP",
         "rating": 1,
         "notes": "-1 dice pool penalty to hostile Assensing tests.",
-        "doc_link": "chapters/rules_and_downtime.html#adept-powers"
-      },
-      {
-        "name": "Sharp Tongue",
-        "cost": "1.0 PP",
-        "rating": 1,
-        "notes": "CHA + Magic vs INT + WIL. Net hits inflict unresisted Stun damage.",
         "doc_link": "chapters/rules_and_downtime.html#adept-powers"
       }
     ],
@@ -2654,13 +2569,6 @@
           "cost": "0.25 PP",
           "rating": 1,
           "notes": "-1 dice pool penalty to hostile Assensing tests.",
-          "doc_link": "chapters/rules_and_downtime.html#adept-powers"
-        },
-        {
-          "name": "Sharp Tongue",
-          "cost": "1.0 PP",
-          "rating": 1,
-          "notes": "CHA + Magic vs INT + WIL. Net hits inflict unresisted Stun damage.",
           "doc_link": "chapters/rules_and_downtime.html#adept-powers"
         }
       ],
@@ -3802,7 +3710,19 @@
         "active": true
       }
     ],
-    "modifiers": [],
+    "modifiers": [
+      {
+        "id": "power_focus",
+        "name": "Power Focus",
+        "target": "attribute:magic",
+        "value": 3,
+        "type": "focus",
+        "sub_skill": null,
+        "rule_anchor": "rules/rules_and_downtime.html#foci",
+        "notes": "+3 to Magic for tests where Magic applies",
+        "enabled": true
+      }
+    ],
     "rules_doc": "rules/rules.html"
   }
 };
@@ -4565,11 +4485,12 @@
           "wil": "wil", "log": "log", "int": "int", "cha": "cha",
           "edg": "edg", "mag": "mag", "res": "res"
         };
-        const rawAttrStr = (s.attribute || "").toLowerCase();
+        const rawAttrStr = (s.effective_attribute || s.attribute || "").toLowerCase();
         const shortCode = attrMap[rawAttrStr] || rawAttrStr;
-        const baseAugAttr = (char.attributes && (char.attributes[rawAttrStr] !== undefined ? char.attributes[rawAttrStr] : char.attributes[shortCode])) !== undefined
+        const attrObj = attrsList.find(a => a.code.toLowerCase() === shortCode || a.name.toLowerCase() === rawAttrStr);
+        const baseAugAttr = attrObj ? attrObj.buffed : ((char.attributes && (char.attributes[rawAttrStr] !== undefined ? char.attributes[rawAttrStr] : char.attributes[shortCode])) !== undefined
           ? (char.attributes[rawAttrStr] !== undefined ? char.attributes[rawAttrStr] : char.attributes[shortCode])
-          : (s.base_pool - s.rating);
+          : (s.base_pool - s.rating));
         const liveAttrVal = liveAttrs[shortCode] !== undefined ? liveAttrs[shortCode] : (liveAttrs[rawAttrStr] !== undefined ? liveAttrs[rawAttrStr] : baseAugAttr);
         const attrDelta = liveAttrVal - baseAugAttr;
 

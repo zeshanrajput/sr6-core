@@ -25,22 +25,26 @@ WILLPOWER = attrs.get("willpower", 6)
 CHARISMA = attrs.get("charisma", 4)
 INTUITION = attrs.get("intuition", 2)
 LOGIC = attrs.get("logic", 4)
-EDGE = attrs.get("edge", 5)
-TASKING = 6
-REGISTERING = TASKING + 2
-RESONANCE_FOCUS = 4
+skills_map = {s["name"].lower(): s for s in _char.get("skills", [])}
+TASKING = skills_map.get("tasking", {}).get("rating", 6)
+REGISTERING = TASKING + (2 if skills_map.get("tasking", {}).get("specialization") else 0)
+
+focus_mods = ModifierEngine.get_focus_modifiers(_char, "resonance")
+RESONANCE_FOCUS = sum(m.value for m in focus_mods) if focus_mods else 4
 SUBMERSION_GRADE = log_totals.get("Submersion_Grade", 7)
 
-CRACKING_RATING = 5
-CRACKING_HACKING = 7
-ELECTRONICS_RATING = 5
-ELECTRONICS_SOFTWARE = 7
-ALLY_SPRITE_TEAMWORK = 4
+CRACKING_RATING = skills_map.get("cracking", {}).get("rating", 5)
+CRACKING_HACKING = CRACKING_RATING + (2 if "hack" in str(skills_map.get("cracking", {}).get("specialization", "")).lower() else 0)
+ELECTRONICS_RATING = skills_map.get("electronics", {}).get("rating", 5)
+ELECTRONICS_SOFTWARE = ELECTRONICS_RATING + (2 if "soft" in str(skills_map.get("electronics", {}).get("specialization", "")).lower() else 0)
+
+companion_mods = ModifierEngine.get_companion_modifiers(_char, "cracking")
+SPRITE_SYMBIOSIS = sum(m.value for m in companion_mods) if companion_mods else 4
+ALLY_SPRITE_TEAMWORK = SPRITE_SYMBIOSIS
 OVERCLOCK_BONUS = 2
 ECM_WARRIOR_BONUS = 2
 
 SPRITE_LEVEL = 7
-SPRITE_SYMBIOSIS = 4
 
 sp_downtime = ModifierEngine.get_sprite_downtime_pools(_char, sprite_level=SPRITE_LEVEL)
 compiling_pool = sp_downtime["compiling_pool"]

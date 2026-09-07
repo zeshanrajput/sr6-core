@@ -60,6 +60,16 @@ In Tibetan Buddhist tantra, the practitioner practices two reciprocal stages of 
 * **Generation Stage (*Utpattikrama*):** The practitioner dissolves ordinary ego-attachment into the void (*Śūnyatā*), then consciously manifests the divine form of the *Yidam*—complete with distinct garments, posture, acoustic resonance, and spiritual attributes. Velvet’s somatic shifting via *Cosmetic Control* operates as a conscious *Utpattikrama*, constructing physical bone alignment, vocal cadence, and aura without egoic clinging.
 * **Completion Stage (*Sampannakrama*):** Upon concluding the rite, the form is mindfully dissolved back into luminous stillness. Velvet utilizes *Sampannakrama* at the end of runs to dissolve mission personas back into the quiet baseline, preventing psychological fragmentation or attachment to a false face.
 
+#### The Arhat's Moral Retreat vs. The Bodhisattva in the Mudsprawl
+
+A central spiritual and narrative hazard for the Awakened practitioner is the **temptation of moral retreat**. After the trauma of corporate overwriting (*Sinbyeong*) and the horror of betrayal, the initiate naturally yearns for private purity—seeking an ascetic sanctuary (*Arhatship*) where one can wrap oneself in coarse wool, nurse wounds in isolation, keep an empty ledger, and pretend that remaining small, poor, and bruised in the shadows means one's hands are clean.
+
+In the Mahayana framework, this quietism is rejected as spiritual cowardice. The *Arhat* seeks personal detachment and individual liberation by retreating to a mountaintop. In contrast, the **Bodhisattva** vows never to enter final nirvana while others remain trapped in the burning house—turning around to walk directly back into the fire, filth, and violence of the Samsaric world. **The lotus only grows in the muck.**
+
+* **The Amsterdam Pivot (Chapter 11 *Silence*):** Velvet's romanticized asceticism (hiding in European sewers, assuming the face of thirteen-year-old Noekie [Anouk van der Meer], surviving on dry bread with "clean hands") is shattered by Min-seo. He is forced to confront the brutal truth: his private moral purity was an unearned indulgence subsidized by Hana's compliance locks, cervical servo audits, and daily executive treason on the Wuxing board.
+* **The Bodhisattva with Claws:** True *Upāya* in the Sixth World cannot be toothless empathy. To liberate the trapped, the Bodhisattva must cultivate formidable, dangerous power—accumulating leverage, sovereign magical force, and underworld alliances without letting the corporate rot poison the core.
+* **The Reforged Collar (*MCI-EXP-884-LUNA*) as Crucible:** The Power Focus Rating 3 is not a comfortable keepsake or an escape route; it is an ammunition crate and a sacred blood debt. Holding the very metal designed to consume Hana and turning it into a sovereign magical anchor marks the death of the ascetic and the birth of the Bodhisattva with teeth.
+
 ---
 
 ### B. Korean Musok (Animist Shamanism) & The Somatics of the Vessel
@@ -70,7 +80,7 @@ In Tibetan Buddhist tantra, the practitioner practices two reciprocal stages of 
 | **Naerim-gut (Initiation Rite)** *(내림굿)* | The ritual reconciliation where the initiate ceases fighting the spirits and enthrones them as sacred partners. | Velvet's transition from resisting manufactured covers to consciously hosting them with reverence, discipline, and ritual care. |
 | **Mansin (Ten Thousand Spirits)** *(만신 / 萬神)* | An accomplished Mudang capable of hosting, understanding, and speaking for ten thousand divine and ancestral spirits. | Velvet becomes the *Mansin* of his own lived lives. Past personas form an internal ancestral conclave whose collective wisdom and grief are honored. |
 | **Bin Geureut (The Hollow Vessel)** *(빈 그릇)* | The total clearing of the ego to become an unblemished conduit for divine presence and ancestral spirit communion. | Stepping down the conscious ego to permit fluid spirit channeling, somatic hospitality, and heightened combat assumption. |
-| **Wonhan-puri (Resolving Grief)** *(원한풀이)* | The sacred labor of unbinding and resolving *Han* (deep collective sorrow and unrequited resentment). | Across shadow operations, Velvet uncovers the hidden grief of exploited wage-slaves, bunraku puppets, and street outcasts, dedicating resources to untie their trauma. |
+| **Wonhan-puri (Resolving Grief)** *(원한풀이)* | The sacred labor of unbinding and resolving *Han* (deep collective sorrow and unrequited resentment). | In traditional Musok, the *Mudang* does not sit in quiet contemplation while spirits scream; she enters the *Gut* armed with brass mirrors and iron blades to hack away trauma. Across shadow operations, Velvet enters the corporate crossfire to actively untie the knots of collective tragedy (*Han*) binding Hana, exploited wage-slaves, and street outcasts. |
 
 #### The Somatics & Tabletop Reality of Spirit Channeling
 
@@ -187,47 +197,61 @@ When active infiltration covers are burned in crossfire (such as *Zhang Wei* and
 
 ## 4. Unified Evolutionary Progression & Pedagogical Horizon
 
-Velvet’s thematic, psychological, and magical progression across the campaign traces a unified trajectory—braiding his three overarching campaign phases with his internal pedagogical learning curve:
+Velvet’s thematic, psychological, and magical progression across the campaign traces a unified trajectory—braiding his overarching campaign phases with his internal pedagogical learning curve and ideological tests:
 
 ```text
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│  PHASE 1: THE BROKEN VESSEL (Arc 1: Chapters 01–09)                         │
-│  [Pedagogical Stage 1: Somatic Reflex & Corporate Diagnostics]             │
+│  PHASE 1: THE HOLLOW ASSET (Arc 1: Chapters 01–09)                          │
+│  [Pedagogical Stage 1: Somatic Reflex & Corporate Diagnostics]              │
 │  • Dissociation & terror of baseline void • Bone-latch friction & migraines │
-│  • Algorithmic social calculation • Discovery of un-monetized sanctuaries   │
+│  • Calculated corporate performance • Accidental discovery of empathy       │
 └──────────────────────────────────────┬──────────────────────────────────────┘
                                        │
                                        ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│  PHASE 2: THE LIVING MOSAIC (Arc 2: Chapters 10–18+)                        │
-│  [Pedagogical Stages 2 & 3: Cultural Vocabulary & Conscious Hospitality]   │
-│  • Accretion of past covers • Personas as living archives (Tanaka/Ji-yoo)  │
-│  • Mudang & street mentors name the reflex • Fortified underground leverage │
+│  PHASE 2A: THE ASCETIC DELUSION (Early Arc 2: Chapters 10–11)               │
+│  [The Hazard of Moral Retreat & Quietist Solace]                            │
+│  • "Clean hands, empty ledger" • Hiding behind coarse wool & children's faces│
+│  • Shattered by Min-seo in Amsterdam • Confronting the ballast stone truth  │
 └──────────────────────────────────────┬──────────────────────────────────────┘
                                        │
                                        ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│  PHASE 3: THE SOVEREIGN VESSEL (Arc 3: Late Campaign / Transcendence)       │
+│  PHASE 2B: THE BODHISATTVA'S DILEMMA (Mid-to-Late Arc 2: Chapters 12–18+)   │
+│  [Pedagogical Stages 2 & 3: Stepping into the Mudsprawl with Claws]         │
+│  • Power Focus R3 (MCI-EXP-884-LUNA) as ammunition crate & sacred blood debt│
+│  • The lotus only grows in muck • Defending sanctuaries with teeth          │
+│  • Syndicate blood-oaths (Triad, Cutters, Ancients) • Fortified underground │
+└──────────────────────────────────────┬──────────────────────────────────────┘
+                                       │
+                                       ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  PHASE 3: THE SOVEREIGN MANSIN (Arc 3: Late Campaign / Transcendence)       │
 │  [Pedagogical Stage 4: Sovereign Mansin & The Sacred Mirror]                │
 │  • Realization of Anattā & Upāya • Shifting as sacred liturgy (Gyo)         │
-│  • Channeled ancestral conclave • Charisma as Shinkyō • Pan-Pacific strikes │
+│  • Transcendence through immersion • Charisma as Shinkyō • Pan-Pacific strike│
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
-### Phase 1: The Broken Vessel (Arc 1: Chapters 01–09)
+### Phase 1: The Hollow Asset (Arc 1: Chapters 01–09)
 * **Internal State & Learning Curve (Stage 1):** Profound terror of the un-sculpted obsidian baseline. The conviction that beneath corporate masks, Jin-Young is merely a void. Empathy is experienced as an alarming "programming glitch" or anomaly within clinical telemetry.
 * **Somatic Experience:** Shifting is visceral trauma (*Sinbyeong*)—wet bone-clicks of resetting zygomatics, burning DNA re-keying, cold disinfectant, and acute migraines.
 * **Theological Reality:** Corporate technocratic firmware. Spirits are forced through the frame as volatile batteries.
 * **Relational Dynamic:** Emotional interactions are modeled as calculated algorithms. Authentic empathy surfaces hesitatingly in quiet, un-monetized sanctuaries (pork broth in West Seattle, roasted Tieguanyin with Ni Ni Xiaolu).
 
-### Phase 2: The Living Mosaic (Arc 2: Chapters 10–18+)
-* **Internal State & Learning Curve (Stages 2 & 3):** Encounters with authentic practitioners (Musok mudangs, Daoist masters, street elders) provide cultural vocabulary (*Han, Sonnim, Wonhan-puri*) for Velvet's physical reflexes. Recognition that past personas do not vanish when covers are retired; they form a living archive.
+### Phase 2A: The Ascetic Delusion (Early Arc 2: Chapters 10–11)
+* **Internal State & Learning Curve:** The temptation of moral retreat. After the trauma of Singapore and the honeytrap, Jin-Young retreats into ascetic quietism (*Arhatship*)—nursing sewer burns, wearing coarse wool, surviving on dry bread, and assuming the face of thirteen-year-old Noekie (Anouk van der Meer). He convinces himself that staying poor, small, and bruised in the shadows keeps his hands clean and his soul pure.
+* **The Shattering Confrontation (Chapter 11 *Silence*):** Min-seo exposes the regression (*"Stop playing the martyr behind a child's face"*) and delivers the ballast stone realization: clean hands and quiet sewer sanctuaries were an unearned luxury subsidized by Hana's compliance locks and daily executive treason on the Wuxing board.
+* **The Relational Crucible:** Empathy matures from passive solace into active responsibility. Accepting the repurposed *MCI-EXP-884-LUNA* Power Focus R3 not as a stat-stick, but as an ammunition crate and a sacred blood debt.
+
+### Phase 2B: The Bodhisattva's Dilemma (Mid-to-Late Arc 2: Chapters 12–18+)
+* **Internal State & Learning Curve (Stages 2 & 3):** Stepping into the mudsprawl with teeth. Velvet accepts that the lotus only grows in muck. To protect sanctuaries and liberate the trapped, one cannot hide; one must accumulate power, alliances, and violence without rotting from the inside out.
 * **Somatic Experience:** Shifting remains physically demanding, but friction transitions from traumatic violation into disciplined athletic and magical exertion (*Naerim-gut* integration).
-* **Theological Reality:** Conscious hospitality. Velvet recontextualizes *Bin Geureut* from a hollow void into a sacred capacity, welcoming spirits as honored kin.
+* **Theological Reality:** Conscious hospitality and the Bodhisattva vow. Like a Musok Mudang entering the *Gut* armed with brass blades to untie *Han*, Velvet steps into the crossfire to hack away collective trauma.
 * **Relational Dynamic:** Weaving durable syndicate blood-oaths (Octagon Triad, Cutters, Ancients, Conclave). Establishing fortified underground sanctuaries and resolving collective *Han*.
 
-### Phase 3: The Sovereign Vessel (Arc 3: Late Campaign / Transcendence)
-* **Internal State & Learning Curve (Stage 4):** Full realization of *Anattā* (Non-Self) and *Upāya* (Skillful Means). Velvet no longer fears losing Kim Jin-Young; the baseline is the quiet shrine holding a thousand human stories.
+### Phase 3: The Sovereign Mansin (Arc 3: Late Campaign / Transcendence)
+* **Internal State & Learning Curve (Stage 4):** Full realization of *Anattā* (Non-Self) and *Upāya* (Skillful Means). Velvet no longer fears losing Kim Jin-Young; the baseline is the quiet shrine holding a thousand human stories. Transcendence through immersion: wielding overwhelming power not for domination, but to smash corporate cages from the inside out.
 * **Somatic Experience:** Shifting becomes a sacred Shinto-Musok liturgy—a conscious donning of spiritual garments. The biological tax is paid as ritual asceticism (*Gyo* / 고행).
 * **Theological Reality:** The *Mansin* state. In trance or spellcasting, the spectral reflections of all lived personas and ancestral spirits stand in quiet communion.
 * **Relational Dynamic:** Charisma 10 (14) becomes the *Shinkyō* (Sacred Bronze Mirror), cutting through deception and reflecting unvarnished truths to allies and enemies alike. Conducting asymmetric transnational strikes to liberate Hana and dismantle corporate geomantic slavery.
@@ -236,13 +260,13 @@ Velvet’s thematic, psychological, and magical progression across the campaign 
 
 ### Comparative Evolution Matrix
 
-| Dimension | Phase 1: The Broken Vessel | Phase 2: The Living Mosaic | Phase 3: The Sovereign Vessel |
-| :--- | :--- | :--- | :--- |
-| **Core Self-Concept** | Traumatized corporate asset; alienated unperson. | Living archive; composite practitioner. | Sovereign Bodhisattva-Mudang; empty vessel of grace. |
-| **Somatic Shifting** | Wet bone-clicks, acute migraines, cellular agony. | Controlled strain; disciplined athletic exertion. | Sacred liturgy (*Gyo*); conscious donning of garments. |
-| **Theological Stance** | Unresolved *Sinbyeong*; firmware extraction. | *Naerim-gut* integration; conscious hospitality. | Full *Mansin* state; realization of *Anattā* and *Upāya*. |
-| **Interpersonal Praxis** | Algorithmic calculation; guarded transactions. | Empathetic solidarity; defensive street leverage. | The Sacred Mirror (*Shinkyō*); piercing ethical clarity. |
-| **Magic & Drain Praxis** | High-stress survival drain; fear of burnout. | Methodical drain soak; tactical spell deployment. | Effortless Centering (21–25 dice); sovereign conduit. |
+| Dimension | Phase 1: The Hollow Asset | Phase 2A: The Ascetic Delusion | Phase 2B: The Bodhisattva's Dilemma | Phase 3: The Sovereign Mansin |
+| :--- | :--- | :--- | :--- | :--- |
+| **Core Self-Concept** | Traumatized corporate asset; alienated unperson. | Ascetic quietist; hiding behind a child's face. | Bodhisattva with claws; conscious counterweight. | Sovereign Bodhisattva-Mudang; empty vessel of grace (*Mansin*). |
+| **Somatic Shifting** | Wet bone-clicks, acute migraines, cellular agony. | Regression into small, juvenile, bruised covers (Noekie). | Controlled strain; disciplined athletic and tactical exertion. | Sacred liturgy (*Gyo*); conscious donning of garments. |
+| **Theological Stance** | Unresolved *Sinbyeong*; firmware extraction. | The *Arhat's* retreat; quietism and false purity. | *Naerim-gut* integration; mudsprawl Bodhisattva; blade-wielding Mudang. | Full *Mansin* state; realization of *Anattā* and *Upāya*. |
+| **Interpersonal Praxis** | Algorithmic calculation; guarded transactions. | Unearned moral retreat; subsidized by others' locks. | Empathetic solidarity backed by teeth; syndicate blood-pacts. | The Sacred Mirror (*Shinkyō*); piercing ethical clarity. |
+| **Magic & Drain Praxis** | High-stress survival drain; fear of burnout. | Minimal magic; reluctance to draw corporate eyes. | Power Focus R3 (*LUNA* collar) as ammunition crate; tactical focus. | Effortless Centering (21–25 dice); sovereign conduit. |
 
 ---
 
