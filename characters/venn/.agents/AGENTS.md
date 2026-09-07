@@ -1,6 +1,6 @@
 # Workspace Agent Instructions: sr6union (Venn Portfolio)
 
-This document defines character-specific bindings and constraints for **Venn (Nathan Turrent & Veronica)** in the `sr6union` repository. Core workflow orchestration, the 6-stage lifecycle, 7-axis evaluation metrics, and anti-slop rules are inherited directly from the **`sr6-narrative-suite`** plugin ([`.agents/plugins.json`](file:///c:/GitHub/sr6union/.agents/plugins.json)).
+This document defines character-specific bindings and constraints for **Venn (Nathan Turrent & Veronica)** in the `sr6union` repository. Core workflow orchestration, the 6-stage lifecycle, 7-axis evaluation metrics, and anti-slop rules are inherited directly from the **`sr6-narrative-suite`** plugin (`.agents/plugins.json`).
 
 ---
 
@@ -10,12 +10,12 @@ When executing narrative generation, evaluation, or state tracking for Venn, bin
 
 | Dimension | Primary Workspace File | Purpose |
 | :--- | :--- | :--- |
-| **Character Dossier** | [`union_master.yaml`](file:///c:/GitHub/sr6union/union_master.yaml) | Authoritative tabletop play state (attributes, living persona, qualities, skillwires R6, activesofts, karma, nuyen balances). |
-| **Voice Specification** | [`reference/voice_spec.md`](file:///c:/GitHub/sr6union/reference/voice_spec.md) | Character voice rules, dual-consciousness cognitive bias, domain vocabulary, TTS fluency, and chapter tier calibrations (Extends `sr6-core/reference/default_voice_spec.md`). |
-| **Identity Core & Backstory** | [`chapters/identity_core.qmd`](file:///c:/GitHub/sr6union/chapters/identity_core.qmd)<br>[`chapters/twenty_questions.qmd`](file:///c:/GitHub/sr6union/chapters/twenty_questions.qmd) | Metatype, 3-2-1 background framework, Twenty Questions depth, and Monad origin. |
-| **Visual & Sensory Anchors** | [`reference/visual_anchors.md`](file:///c:/GitHub/sr6union/reference/visual_anchors.md) | Visual design anchors, sensory palettes, physical/digital contrasts, and generative prompt templates. |
-| **Story Continuity** | [`reference/story_continuity.md`](file:///c:/GitHub/sr6union/reference/story_continuity.md) | Continuity index, contact favor points, and entity heatmaps maintained via `sr6 continuity .`. |
-| **Narrative Anthology** | [`chapters/`](file:///c:/GitHub/sr6union/chapters/) & [`_quarto.yml`](file:///c:/GitHub/sr6union/_quarto.yml) | Published story chapters (`.qmd`), narrative outline (`narrative_outline.qmd`), and modular dossier sheets. |
+| **Character Dossier** | `union_master.yaml` | Authoritative tabletop play state (attributes, living persona, qualities, skillwires R6, activesofts, karma, nuyen balances). |
+| **Voice Specification** | `reference/voice_spec.md` | Character voice rules, dual-consciousness cognitive bias, domain vocabulary, TTS fluency, and chapter tier calibrations (Extends `reference/default_voice_spec.md`). |
+| **Identity Core & Backstory** | `chapters/identity_core.qmd`<br>`chapters/twenty_questions.qmd` | Metatype, 3-2-1 background framework, Twenty Questions depth, and Monad origin. |
+| **Visual & Sensory Anchors** | `reference/visual_anchors.md` | Visual design anchors, sensory palettes, physical/digital contrasts, and generative prompt templates. |
+| **Story Continuity** | `reference/story_continuity.md` | Continuity index, contact favor points, and entity heatmaps maintained via `sr6 continuity .`. |
+| **Narrative Anthology** | `chapters/` & `_quarto.yml` | Published story chapters (`.qmd`), narrative outline (`narrative_outline.qmd`), and modular dossier sheets. |
 
 ---
 

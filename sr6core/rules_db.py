@@ -45,6 +45,9 @@ def get_default_converted_dir() -> str:
     if os.path.exists(onedrive_converted):
         return onedrive_converted
 
+    return str(local_repo_converted)
+
+
 def get_default_pdf_dir() -> str:
     env_pdf = os.getenv("SR6_EBOOKS_DIR")
     if env_pdf and os.path.exists(env_pdf):

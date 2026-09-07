@@ -1,6 +1,6 @@
 # Workspace Agent Instructions: sr6velvet (Velvet Portfolio)
 
-This document defines character-specific bindings and constraints for **Velvet (Kim Jin-Young)** in the `sr6velvet` repository. Core workflow orchestration, the 6-stage lifecycle, 7-axis evaluation metrics, and anti-slop rules are inherited directly from the **`sr6-narrative-suite`** plugin ([`.agents/plugins.json`](file:///c:/GitHub/sr6velvet/.agents/plugins.json)).
+This document defines character-specific bindings and constraints for **Velvet (Kim Jin-Young)** in the `sr6velvet` repository. Core workflow orchestration, the 6-stage lifecycle, 7-axis evaluation metrics, and anti-slop rules are inherited directly from the **`sr6-narrative-suite`** plugin (`.agents/plugins.json`).
 
 ---
 
@@ -10,12 +10,12 @@ When executing narrative generation, evaluation, or state tracking for Velvet, b
 
 | Dimension | Primary Workspace File | Purpose |
 | :--- | :--- | :--- |
-| **Character Dossier** | [`velvet_master.yaml`](file:///c:/GitHub/sr6velvet/velvet_master.yaml) | Authoritative tabletop play state (attributes, skills, spells, adept powers, inventory, karma, nuyen balances). |
-| **Voice Specification** | [`reference/voice_spec.md`](file:///c:/GitHub/sr6velvet/reference/voice_spec.md) | Character voice rules, somatic shift discipline, TTS fluency, domain vocabulary, and chapter tier calibrations (Extends `sr6-core/reference/default_voice_spec.md`). |
-| **Philosophical Framework** | [`reference/philosophical_framework.md`](file:///c:/GitHub/sr6velvet/reference/philosophical_framework.md)<br>[`reference/karmic_persona_log.md`](file:///c:/GitHub/sr6velvet/reference/karmic_persona_log.md) | Metaphysical grounding of the Thousand Lives (*Anatta*, *Mansin*, *Upāya*, *Kagami*) and master registry of lived personas & somatic shift mechanics. |
-| **Active Story Arcs** | [`reference/story_arc1.md`](file:///c:/GitHub/sr6velvet/reference/story_arc1.md)<br>[`reference/story_arc2.md`](file:///c:/GitHub/sr6velvet/reference/story_arc2.md) | Arc 1: *Manufactured Solace & The Honeytrap* (Ch 01–08)<br>Arc 2: *The Sovereign Underground* (Ch 09–18+) |
-| **Story Continuity** | [`reference/story_continuity.md`](file:///c:/GitHub/sr6velvet/reference/story_continuity.md) | Continuity index, contact favor points, and entity heatmaps maintained via `sr6 continuity .`. |
-| **Quarto Narrative Book** | [`chapters/`](file:///c:/GitHub/sr6velvet/chapters/) & [`_quarto.yml`](file:///c:/GitHub/sr6velvet/_quarto.yml) | Published Quarto story anthology and modular dossier chapters. |
+| **Character Dossier** | `velvet_master.yaml` | Authoritative tabletop play state (attributes, skills, spells, adept powers, inventory, karma, nuyen balances). |
+| **Voice Specification** | `reference/voice_spec.md` | Character voice rules, somatic shift discipline, TTS fluency, domain vocabulary, and chapter tier calibrations (Extends `reference/default_voice_spec.md`). |
+| **Philosophical Framework** | `reference/philosophical_framework.md`<br>`reference/karmic_persona_log.md` | Metaphysical grounding of the Thousand Lives (*Anatta*, *Mansin*, *Upāya*, *Kagami*) and master registry of lived personas & somatic shift mechanics. |
+| **Active Story Arcs** | `reference/story_arc1.md`<br>`reference/story_arc2.md` | Arc 1: *Manufactured Solace & The Honeytrap* (Ch 01–08)<br>Arc 2: *The Sovereign Underground* (Ch 09–18+) |
+| **Story Continuity** | `reference/story_continuity.md` | Continuity index, contact favor points, and entity heatmaps maintained via `sr6 continuity .`. |
+| **Quarto Narrative Book** | `chapters/` & `_quarto.yml` | Published Quarto story anthology and modular dossier chapters. |
 
 ---
 
@@ -53,7 +53,7 @@ Pronouns and demeanor are strictly locked to Velvet's active biological persona:
 ### E. The Path of the Thousand Lives (*Mansin* & *Upāya*)
 
 - Respect the 3-phase progression from identity erasure trauma (*Sinbyeong*) to the composite mosaic (*Echo phenomenon*) and sovereign emanation (*Upāya* / *Mansin*).
-- Past personas are not disposable lies; each contributes a permanent neuro-somatic layer of human wisdom, virtue, and coping capacity. (See [`reference/philosophical_framework.md`](file:///c:/GitHub/sr6velvet/reference/philosophical_framework.md)).
+- Past personas are not disposable lies; each contributes a permanent neuro-somatic layer of human wisdom, virtue, and coping capacity. (See `reference/philosophical_framework.md`).
 
 ---
 

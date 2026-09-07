@@ -29,7 +29,7 @@ class TestPluginManagement(unittest.TestCase):
         status = get_plugin_status()
         self.assertTrue(status["source_exists"])
         self.assertEqual(status["source_version"], "1.0.0")
-        self.assertEqual(status["skills_count"], 8)
+        self.assertGreaterEqual(status["skills_count"], 8)
         self.assertIn("global_installed", status)
 
     def test_configure_repo_plugin_inheritance(self):

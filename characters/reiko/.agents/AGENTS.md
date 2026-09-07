@@ -1,6 +1,6 @@
 # Workspace Agent Instructions: sr6yuriko (Yuriko Star Portfolio)
 
-This document defines character-specific bindings and constraints for **Yuriko Star (`r31k0` Takahashi)** in the `sr6yuriko` repository. Core workflow orchestration, the 6-stage lifecycle, 7-axis evaluation metrics, and anti-slop rules are inherited directly from the **`sr6-narrative-suite`** plugin ([`.agents/plugins.json`](file:///c:/GitHub/sr6yuriko/.agents/plugins.json)).
+This document defines character-specific bindings and constraints for **Yuriko Star (`r31k0` Takahashi)** in the `sr6yuriko` repository. Core workflow orchestration, the 6-stage lifecycle, 7-axis evaluation metrics, and anti-slop rules are inherited directly from the **`sr6-narrative-suite`** plugin (`.agents/plugins.json`).
 
 ---
 
@@ -10,11 +10,11 @@ When executing narrative generation, evaluation, or state tracking for Yuriko, b
 
 | Dimension | Primary Workspace File | Purpose |
 | :--- | :--- | :--- |
-| **Character Dossier** | [`yuriko_master.yaml`](file:///c:/GitHub/sr6yuriko/yuriko_master.yaml) | Authoritative tabletop play state (attributes, skills, complex forms, registered sprites, drone fleet, karma, nuyen balances). |
-| **Voice Specification** | [`reference/voice_spec.md`](file:///c:/GitHub/sr6yuriko/reference/voice_spec.md) | Character voice rules, dual-nature cognitive bias, domain vocabulary, TTS fluency, and chapter tier calibrations (Extends `sr6-core/reference/default_voice_spec.md`). |
-| **Story Continuity** | [`reference/story_continuity.md`](file:///c:/GitHub/sr6yuriko/reference/story_continuity.md) | Continuity index, contact favor points, and entity heatmaps maintained via `sr6 continuity .`. |
-| **Worldbuilding References** | [`reference/visual_anchors.md`](file:///c:/GitHub/sr6yuriko/reference/visual_anchors.md)<br>[`reference/coffin_girls.md`](file:///c:/GitHub/sr6yuriko/reference/coffin_girls.md)<br>[`reference/river_people.md`](file:///c:/GitHub/sr6yuriko/reference/river_people.md) | Visual iconography, Eniac / Coffin Girls sanctuary details, and Snohomish River People faction lore. |
-| **Narrative Anthology** | [`chapters/`](file:///c:/GitHub/sr6yuriko/chapters/) & [`_quarto.yml`](file:///c:/GitHub/sr6yuriko/_quarto.yml) | Published story chapters (`.md`) and modular dossier sheets (`.qmd`). |
+| **Character Dossier** | `yuriko_master.yaml` | Authoritative tabletop play state (attributes, skills, complex forms, registered sprites, drone fleet, karma, nuyen balances). |
+| **Voice Specification** | `reference/voice_spec.md` | Character voice rules, dual-nature cognitive bias, domain vocabulary, TTS fluency, and chapter tier calibrations (Extends `reference/default_voice_spec.md`). |
+| **Story Continuity** | `reference/story_continuity.md` | Continuity index, contact favor points, and entity heatmaps maintained via `sr6 continuity .`. |
+| **Worldbuilding References** | `reference/visual_anchors.md`<br>`reference/coffin_girls.md`<br>`reference/river_people.md` | Visual iconography, Eniac / Coffin Girls sanctuary details, and Snohomish River People faction lore. |
+| **Narrative Anthology** | `chapters/` & `_quarto.yml` | Published story chapters (`.md`) and modular dossier sheets (`.qmd`). |
 
 ---
 

@@ -1,34 +1,59 @@
 ---
 name: continuity-tracker
-description: Cross-checks gear, ammunition, spell drain, damage state, nuyen balances, and contact locations against character_master.yaml and past log context. Proactively retrieves canonical item stats via 'sr6 card' to validate downtime moves and propose explicit YAML state diffs.
+description: Track story continuity, gear, damage, and ledger state.
+version: 1.0.0
+author: Zeshan Rajput (zeshanrajput), Hermes Agent
+license: MIT
+platforms: [linux, macos, windows]
+metadata:
+  hermes:
+    tags: [shadowrun, sr6, continuity, ledger, character-sheet]
+    related_skills: [sr6-rules, sr6-downtime-ledger, narrative-director]
 ---
 
 # Story Continuity & State Tracker Skill (`continuity-tracker`)
 
-Use this skill to audit narrative drafts and downtime proposals for state consistency against the character's `*_master.yaml` dossier (e.g., `union_master.yaml`, `yuriko_master.yaml`, `velvet_master.yaml`) and prior chapter log context.
+Use this skill to audit narrative drafts and downtime proposals for state consistency against the character's compiled dossier (`*_master.yaml`) and prior chapter log context within the `sr6-core` pipeline.
 
----
+## When to Use
 
-## Evaluation Workflow
+- Auditing narrative chapters during Stage 3 of the narrative pipeline.
+- Cross-referencing ammo expenditure, damage tracks, nuyen, karma, and contact favor points against canonical character records.
+- Verifying downtime purchases and proposing drop-in `{python} inc(...)` state adjustments for the Markdown Trio.
 
-1. **State Baseline Ingestion & Tabletop Play Firewall**:
-   - Locate and read the target character's dossier (`*_master.yaml`).
-   - Query recent chapter log context via `sr6 continuity <repo_path>` or narrative index.
-   - **The Tabletop Play Firewall**: Master dossiers (`*_master.yaml`) track **tabletop play session records only**. Fiction chapters serve as atmospheric framing between sessions.
-   - **Continuity Verification (Non-Destructive)**: Verify that fiction does not violate existing capabilities (e.g., spending millions not owned, wielding unowned implants, or resurrecting deceased contacts). Do **NOT** propose patches to `*_master.yaml` for casual fiction purchases or background flavour costs.
+## How to Run
 
-2. **State & Inventory Audit Criteria**:
-   - **Pre-Validation of Purchases / Installs**: When auditing or proposing downtime acquisitions, always verify stats via `uv run sr6 card "<item>"` to confirm exact Essence cost, Nuyen price, and Availability before writing state changes.
-   - **Capability Consistency**: Ensure gear, spells, and implants depicted in fiction exist on the character sheet.
-   - **Narrative Anchor Consistency**: Ensure contact names, locations, and relationships align with established campaign history.
-   - **Chronological Causal Matrix Audit**: Cross-reference chapter dates and timeline headers against intra-chapter backstory references (e.g., character age, dates of surgical procedures, and death/burial dates of key NPCs). Ensure causality flows consistently forward without temporal paradoxes.
+Execute deterministic continuity audits and ledger parsing via the `terminal` tool:
 
+```bash
+# Run campaign timeline & story continuity indexer
+uv run sr6 continuity "characters/<char_id>"
 
-3. **Sub-Agent Audit Report & State Diff Generation**:
-   - **Continuity Score**: Rate from **1 to 10** (Pass threshold: **8.5+**).
-   - **State Diff Output**: Propose state changes targeting the core Markdown Trio (`character_log.qmd`, `character_purchases.qmd`, or `character_build.qmd`). Never propose direct hand edits to `*_master.yaml`, which is compiled automatically.
+# Parse combat ledger actions, ammo spent, and damage deltas from chapter prose
+uv run sr6 ledger parse "characters/<char_id>/chapters/<file>.qmd"
 
----
+# Verify exact item stats, nuyen price, and Essence cost before proposing updates
+uv run sr6 card "<item_name>"
+```
+
+## Tabletop Play Firewall & Markdown Trio Rules
+
+1. **The Tabletop Play Firewall**: Master dossiers (`*_master.yaml`) track **tabletop play session records only**. Fiction chapters serve as atmospheric framing between sessions. Fiction cannot spend unearned millions, wield unowned military hardware, or resurrect deceased contacts.
+2. **Markdown Trio as Single Source of Truth**:
+   - Tabletop state changes (nuyen, Karma, contacts, foci, ammo, purchases) must ALWAYS be recorded in the core Markdown Trio (`character_log.qmd`, `character_purchases.qmd`, `character_build.qmd`).
+   - **NEVER propose direct edits or diffs to `*_master.yaml`.** Master YAML is auto-compiled from scratch via `sr6 sync-all` or `sr6 build`.
+   - **Deliver drop-in snippets in chat**: Provide adjustments as ready-to-paste `{python} inc(...)` snippets or markdown list items.
+
+## State & Inventory Audit Criteria
+
+1. **Pre-Validation of Purchases / Installs:**
+   - Always run `uv run sr6 card "<item>"` to confirm exact Essence cost, Nuyen price, and Availability before proposing state changes.
+2. **Capability Consistency:**
+   - Ensure gear, spells, and implants depicted in fiction exist on the character sheet.
+3. **Narrative Anchor Consistency:**
+   - Ensure contact names, locations, and relationships align with established campaign history.
+4. **Chronological Causal Matrix Audit:**
+   - Cross-reference chapter dates and timeline headers against intra-chapter backstory references (character age, dates of surgical procedures, death/burial dates of NPCs). Ensure causality flows consistently forward without temporal paradoxes.
 
 ## Audit Report Format
 
@@ -38,8 +63,14 @@ Use this skill to audit narrative drafts and downtime proposals for state consis
 * **Continuity Score**: [Score]/10 (Threshold: 8.5)
 
 #### Capability & Continuity Verification
-- **Capability Compliance**: [Pass / Violations (e.g., using unowned spells/gear)]
+- **Capability Compliance**: [Pass / Violations (e.g. using unowned spells/gear)]
 - **Contact & Location Anchors**: [Pass / Consistency with established contacts]
 - **Tabletop Firewall**: Verified (Fiction does not alter official play ledger)
-```
+- **Chronological Causal Flow**: [Pass / Temporal contradictions detected]
 
+#### Proposed Markdown Trio Adjustments (Drop-in Snippets)
+```markdown
+* **Ammo Expenditure (Ares Predator VI):** `{python} inc('Ammo_Heavy_Pistol', -6)`
+* **Medical Patch Use (Trauma Patch):** `{python} inc('Trauma_Patch', -1)`
+```
+```
