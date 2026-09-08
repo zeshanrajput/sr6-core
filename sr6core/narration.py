@@ -486,7 +486,7 @@ def retag_narratives(target_path: str = ".", char_id: Optional[str] = None) -> L
     else:
         # Target is directory
         # 1. Match markdown chapters in target_path or target_path/chapters
-        search_dirs = [abs_target, os.path.join(abs_target, "chapters")]
+        search_dirs = [abs_target, os.path.join(abs_target, "narrative"), os.path.join(abs_target, "chapters")]
         for s_dir in search_dirs:
             if not os.path.exists(s_dir):
                 continue
@@ -517,8 +517,9 @@ def list_narratives(target_path: str = ".", char_id: Optional[str] = None) -> Li
         mp3_candidates = [abs_target]
     else:
         for root, dirs, files in os.walk(abs_target):
+            dirs[:] = [d for d in dirs if d not in ("_book", ".quarto", "scratch", ".venv", "_site")]
             for file in files:
-                if file.endswith(".mp3") and ("audio" in root.lower() or "chapters" in root.lower()):
+                if file.endswith(".mp3") and "audio" in root.lower():
                     mp3_candidates.append(os.path.join(root, file))
 
     for mp3 in sorted(mp3_candidates):
@@ -654,7 +655,7 @@ def batch_generate_narrations(target_path: str = ".", pacing: str = "balanced", 
     """Batch synthesizes TTS narration audio for all numbered narrative chapters in target directory, reusing the Kokoro pipeline."""
     import glob
     abs_target = os.path.abspath(target_path)
-    search_dirs = [abs_target, os.path.join(abs_target, "chapters")]
+    search_dirs = [abs_target, os.path.join(abs_target, "narrative"), os.path.join(abs_target, "chapters")]
     chapter_files = []
     seen = set()
     for s_dir in search_dirs:

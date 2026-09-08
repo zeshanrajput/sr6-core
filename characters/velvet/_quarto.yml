@@ -2,7 +2,6 @@ project:
   type: book
   output-dir: _book
   resources:
-    - chapters/audio/
     - narrative/audio/
     - output/vtt/
     - output/text/

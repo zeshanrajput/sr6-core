@@ -25,6 +25,7 @@ WILLPOWER = attrs.get("willpower", 6)
 CHARISMA = attrs.get("charisma", 4)
 INTUITION = attrs.get("intuition", 2)
 LOGIC = attrs.get("logic", 4)
+EDGE = attrs.get("edge", 5)
 skills_map = {s["name"].lower(): s for s in _char.get("skills", [])}
 TASKING = skills_map.get("tasking", {}).get("rating", 6)
 REGISTERING = TASKING + (2 if skills_map.get("tasking", {}).get("specialization") else 0)

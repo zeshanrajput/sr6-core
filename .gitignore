@@ -25,5 +25,5 @@ cache_index.json
 characters/*/scratch/
 *.wav
 *.mp3
-!characters/*/chapters/audio/*.mp3
-!characters/*/chapters/audio/*.wav
+!characters/*/narrative/audio/*.mp3
+!characters/*/narrative/audio/*.wav
