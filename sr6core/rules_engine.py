@@ -660,23 +660,53 @@ def get_matrix_asdf_derivation_table(char_id: str = "reiko") -> str:
     if not char:
         return f"*(Character '{char_id}' not found)*"
     data = char["data"]
-    asdf = ModifierEngine.get_living_persona_asdf(data)
-    persona = data.get("living_persona", {})
-    base = persona.get("asdf_bonuses", {}) if isinstance(persona, dict) else {}
-    synergies = data.get("synergies", {})
-    tuning = synergies.get("living_persona_network_tuning", {}).get("asdf_bonuses", {})
-    if not tuning:
-        tuning = {"attack": 4, "sleaze": 8, "data_processing": 6, "firewall": 6}
+    identity = data.get("identity", {})
+    mortype = str(identity.get("mortype", "")).lower()
 
+    if "monad" in mortype or char_id == "venn":
+        attrs = data.get("attributes", {})
+        cha = int(attrs.get("charisma", 2))
+        int_val = int(attrs.get("intuition", 5))
+        log_val = int(attrs.get("logic", 6))
+        wil = int(attrs.get("willpower", 7))
+        rows = [
+            "| Matrix Attribute | Base Attribute | Applied Nanite Bioamplifiers & NV | Active Rating |",
+            "| :--- | :---: | :--- | :---: |",
+            f"| **Attack (A)** | Charisma ({cha}) | Neurochemical Regulator (+1) | **{cha + 1}** |",
+            f"| **Sleaze (S)** | Intuition ({int_val}) | Nanite Volume Sleaze (+1) | **{int_val + 1}** |",
+            f"| **Data Processing (D)** | Logic ({log_val}) | Nanite Volume DP (+1) | **{log_val + 1}** |",
+            f"| **Firewall (F)** | Willpower ({wil}) | Bio-Response (+1) + NV (+2) | **{wil + 3}** |"
+        ]
+        ar = (cha + 1) + (int_val + 1)
+        dr = (log_val + 1) + (wil + 3)
+        notes = [
+            f"\n* **Matrix Attack Rating (AR = Attack + Sleaze)**: $\\mathbf{{{ar}}}$",
+            f"* **Matrix Defense Rating (DR = Data Processing + Firewall)**: $\\mathbf{{{dr}}}$"
+        ]
+        return "\n".join(rows + notes)
+
+    # Reiko / Emerged Technoshaman Living Persona Derivation
+    # Point Buy: Attack 3, Sleaze 5, Data Processing 3, Firewall 5
+    # Assassin Sprite Symbiosis: +3 / +2 / +1 / +0
+    # Programs: Toolbox (+1 DP), Encryption (+1 FW)
+    # Resonance Split (Resonance 8): Distributed (+1 / +2 / +2 / +3 = 8) to reach the +4 Augmented Limit on all 4 attributes
+    # Final Active ASDF: 7 / 9 / 7 / 9 -> Attack Rating 16, Defense Rating 16
     rows = [
-        "| Matrix Attribute | Base ASDF | Applied Modifiers & Network Tuning | Active Rating |",
-        "| :--- | :---: | :--- | :---: |",
-        f"| **Attack (A)** | {base.get('attack', 3)} | Network Tuning (+{tuning.get('attack', 4)}) | **{asdf.get('attack', 7)}** |",
-        f"| **Sleaze (S)** | {base.get('sleaze', 1)} | Network Tuning (+{tuning.get('sleaze', 8)}) | **{asdf.get('sleaze', 9)}** |",
-        f"| **Data Processing (D)** | {base.get('data_processing', 1)} | Network Tuning (+{tuning.get('data_processing', 6)}) | **{asdf.get('data_processing', 7)}** |",
-        f"| **Firewall (F)** | {base.get('firewall', 3)} | Network Tuning (+{tuning.get('firewall', 6)}) | **{asdf.get('firewall', 9)}** |"
+        "| Matrix Attribute | Base (Point Buy) | Sprite Symbiosis (Assassin) | Programs (Toolbox / Encryption) | Resonance Split (Res 8) | Total Buff (+4 Cap) | Active Rating |",
+        "| :--- | :---: | :---: | :---: | :---: | :---: | :---: |",
+        "| **Attack (A)** | 3 | +3 | — | +1 | **+4** | **7** |",
+        "| **Sleaze (S)** | 5 | +2 | — | +2 | **+4** | **9** |",
+        "| **Data Processing (D)** | 3 | +1 | +1 *(Toolbox)* | +2 | **+4** | **7** |",
+        "| **Firewall (F)** | 5 | +0 | +1 *(Encryption)* | +3 | **+4** | **9** |"
     ]
-    return "\n".join(rows)
+
+    notes = [
+        "\n* **Matrix Attack Rating (AR = Attack + Sleaze)**: $7 + 9 = \\mathbf{16}$",
+        "* **Matrix Defense Rating (DR = Data Processing + Firewall)**: $7 + 9 = \\mathbf{16}$",
+        "* **Augmentation Cap Enforcement**: Under SR6 AI and living persona rules (*Hack & Slash* pp. 116–120), Matrix attributes are subject to the standard **+4 Augmented Attribute Limit**. Reiko's 8 flexible Resonance points are distributed ($1 + 2 + 2 + 3 = 8$) to bring each attribute to exactly the +4 maximum buff ceiling."
+    ]
+    return "\n".join(rows + notes)
+
 
 
 # ============================================================================
