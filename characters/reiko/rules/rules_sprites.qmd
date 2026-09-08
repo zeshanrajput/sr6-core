@@ -9,11 +9,11 @@ from sr6core.modifiers import ModifierEngine
 from sr6core.rules_engine import get_sprite_action_table, get_matrix_protocols_summary
 
 cm = CharacterManager()
-_char = cm.get_character_data("yuriko") or {}
+_char = cm.get_character_data("reiko") or cm.get_character_data("yuriko") or {}
 attrs = _char.get("attributes", {})
 log_totals = get_log_totals("core/character_log.qmd")
 
-matrix_summary = get_matrix_protocols_summary("yuriko")
+matrix_summary = get_matrix_protocols_summary("reiko")
 active_asdf = matrix_summary.get("asdf", {})
 ACTIVE_A = active_asdf.get("attack", 7)
 ACTIVE_S = active_asdf.get("sleaze", 9)
@@ -148,7 +148,14 @@ Through deep **Sprite Symbiosis** with **Taz** (Level 7 Assassin Sprite), Reiko 
 ```{python}
 #| echo: false
 #| output: asis
-print(get_sprite_action_table("yuriko", sprite_level=SPRITE_LEVEL))
+from sr6core.rules_engine import render_downtime_binding_markdown
+print(render_downtime_binding_markdown("reiko"))
+```
+
+```{python}
+#| echo: false
+#| output: asis
+print(get_sprite_action_table("reiko", sprite_level=SPRITE_LEVEL))
 ```
 
 * **Minor Downtime Action**: Register up to 8 levels of sprites (up to Rating `{python} SPRITE_LEVEL` sprite).

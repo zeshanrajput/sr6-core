@@ -19,7 +19,7 @@ Breakdown of base weapon statistics, applied modifiers (Smartlink, Network Smart
 #| output: asis
 from sr6core.rules_engine import get_weapon_attack_table
 
-print(get_weapon_attack_table("yuriko"))
+print(get_weapon_attack_table("reiko"))
 ```
 
 ---

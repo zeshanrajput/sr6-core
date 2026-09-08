@@ -218,7 +218,7 @@ Comparison of Venn's four operational modes: Meatspace Baseline, Adrenaline Surg
 #| echo: false
 #| output: asis
 from sr6core.rules_engine import get_monad_strategy_table
-print(get_monad_strategy_table("union"))
+print(get_monad_strategy_table("venn"))
 ```
 
 ---
@@ -231,7 +231,7 @@ Standardized physical action pools, activesoft streaming, defense tests, damage 
 #| echo: false
 #| output: asis
 from sr6core.rules_engine import get_tactical_action_table
-print(get_tactical_action_table("union"))
+print(get_tactical_action_table("venn"))
 ```
 
 ---
@@ -244,7 +244,7 @@ Breakdown of FN P93 Praetor, Colt Manhunter, Monofilament Whip, and Narcoject Ho
 #| echo: false
 #| output: asis
 from sr6core.rules_engine import get_weapon_attack_table
-print(get_weapon_attack_table("union"))
+print(get_weapon_attack_table("venn"))
 ```
 
 ---
@@ -257,5 +257,5 @@ Breakdown of Monad Living Persona matrix tests (**A:2 S:6 D:7 F:8**, derived per
 #| echo: false
 #| output: asis
 from sr6core.rules_engine import get_matrix_action_table
-print(get_matrix_action_table("union"))
+print(get_matrix_action_table("venn"))
 ```

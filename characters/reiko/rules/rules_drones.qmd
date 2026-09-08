@@ -5,7 +5,7 @@
 #| include: false
 from sr6core.rules_engine import get_drone_statblock_table, get_drone_action_table, get_matrix_protocols_summary
 
-matrix_summary = get_matrix_protocols_summary("yuriko")
+matrix_summary = get_matrix_protocols_summary("reiko")
 active_asdf = matrix_summary.get("asdf", {})
 ACTIVE_A = active_asdf.get("attack", 7)
 ACTIVE_S = active_asdf.get("sleaze", 9)
@@ -26,7 +26,7 @@ Stat blocks list active drones in official **SR6 Vehicle/Drone Stat Block Order*
 ```{python}
 #| echo: false
 #| output: asis
-print(get_drone_statblock_table("yuriko", "man-at-arms"))
+print(get_drone_statblock_table("reiko", "man-at-arms"))
 ```
 
 ### 2. MCT Gnat (Microdrone)
@@ -34,7 +34,7 @@ print(get_drone_statblock_table("yuriko", "man-at-arms"))
 ```{python}
 #| echo: false
 #| output: asis
-print(get_drone_statblock_table("yuriko", "gnat"))
+print(get_drone_statblock_table("reiko", "gnat"))
 ```
 
 ### 3. Kwonsham Dream Genie (Small Wheeled Drone)
@@ -42,7 +42,7 @@ print(get_drone_statblock_table("yuriko", "gnat"))
 ```{python}
 #| echo: false
 #| output: asis
-print(get_drone_statblock_table("yuriko", "dream"))
+print(get_drone_statblock_table("reiko", "dream"))
 ```
 
 ### 4. Vulcan Systems Utility-One (Small Special Drone)
@@ -50,7 +50,7 @@ print(get_drone_statblock_table("yuriko", "dream"))
 ```{python}
 #| echo: false
 #| output: asis
-print(get_drone_statblock_table("yuriko", "utility"))
+print(get_drone_statblock_table("reiko", "utility"))
 ```
 
 ### Retractable Skates Alternate Movement
@@ -69,7 +69,7 @@ All anthrodrones feature **Retractable Skates** [BS p. 47]:
 ```{python}
 #| echo: false
 #| output: asis
-print(get_drone_action_table("yuriko", "man-at-arms", mode="remote_ar"))
+print(get_drone_action_table("reiko", "man-at-arms", mode="remote_ar"))
 ```
 
 ### 2. Inhabited Override Operation (Sprite Power *Override*)
@@ -79,7 +79,7 @@ Reiko can also operate drones using the *Override* Sprite Power [SR6H p. 194], w
 ```{python}
 #| echo: false
 #| output: asis
-print(get_drone_action_table("yuriko", "man-at-arms", mode="inhabited_override"))
+print(get_drone_action_table("reiko", "man-at-arms", mode="inhabited_override"))
 ```
 
 ---

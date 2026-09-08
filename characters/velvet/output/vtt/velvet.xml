@@ -4,18 +4,18 @@
    <mortype>mysticadept</mortype>
    <tradition>shinto</tradition>
    <qualities>
-      <quality lang="en" ref="metagenetic_attribute_improvement" uuid="55e5607b-c5ee-4d83-9abc-6690e0a65431">
+      <quality lang="en" ref="metagenetic_attribute_improvement" uuid="e9935e80-ff8f-4367-a119-674c60147c4b">
          <decision choice="dbb18bb4-89a4-4435-bede-3077ee600bc5" value="CHARISMA" />
       </quality>
-      <quality lang="en" ref="exceptional_attribute" uuid="a6cf2011-7944-4228-9a42-9d661d615ec5">
+      <quality lang="en" ref="exceptional_attribute" uuid="addf1a8e-640f-4b00-8f96-5ebfdcb79d69">
          <decision choice="4096584c-eb76-49b2-be6b-1a6c0ca9e50a" value="CHARISMA" />
       </quality>
-      <quality lang="en" ref="inspire_competence" uuid="7bc5dc73-3a94-4111-93b3-1f4de465e3f1" />
-      <quality lang="en" ref="low-light_vision" uuid="061a0489-5681-496d-8c42-4d03085ed155" />
-      <quality lang="en" ref="focused_concentration" uuid="cc915737-43a1-4556-8205-49e8480984bd" value="3" />
-      <quality lang="en" ref="injury_prone" uuid="473daf1c-7219-41c3-b068-7b8fdd713009" />
-      <quality lang="en" ref="hooder" uuid="639aa124-dd14-4ba2-808e-fbe3549cf346" value="3" />
-      <quality lang="en" ref="allergy" uuid="5c697eb7-fc60-4dfd-90d0-5861f62584d7">
+      <quality lang="en" ref="inspire_competence" uuid="f64d2e6f-e7ea-4eb7-a74b-af002ec8db87" />
+      <quality lang="en" ref="low-light_vision" uuid="4ac1f1a8-7e01-480f-95c5-0774cc420f64" />
+      <quality lang="en" ref="focused_concentration" uuid="87847979-13fe-400b-b174-ee524ac73877" value="3" />
+      <quality lang="en" ref="injury_prone" uuid="7cfe6814-bb4f-4a2c-9c3c-d0b4a722ce33" />
+      <quality lang="en" ref="hooder" uuid="d7b6a4e2-52bf-4037-8fba-fe54dc4276d0" value="3" />
+      <quality lang="en" ref="allergy" uuid="bd01af9d-0680-4dc2-acd6-a87b28d8de96">
          <decision choice="794d4562-8ca6-4958-81df-cf3cee81087d" value="Spices" />
       </quality>
    </qualities>
@@ -30,11 +30,11 @@
       <adeptpower lang="en" ref="cloak" value="1" />
    </adeptPowers>
    <sins>
-      <sin name="Fake SIN: Lee Ji-Yoo:  (Second Life Quality)" quality="SECOND_LIFE" uniqueid="bf103aeb-5f32-4cce-a59e-1feed950f04e" />
-      <sin name="Fake SIN: Tanaka Ryo:  (Second Life Quality)" quality="SECOND_LIFE" uniqueid="d87e6ba8-07e1-4739-b26e-baf1712a3ddc" />
+      <sin name="Fake SIN: Lee Ji-Yoo:  (Second Life Quality)" quality="SECOND_LIFE" uniqueid="0674b753-aba3-40ae-89d5-10d55ef38863" />
+      <sin name="Fake SIN: Tanaka Ryo:  (Second Life Quality)" quality="SECOND_LIFE" uniqueid="5904f60b-2b34-4833-8cf5-148124eef22a" />
    </sins>
    <licenses>
-      <licenses name="Fake License: Magician" rating="SECOND_LIFE" sin="bf103aeb-5f32-4cce-a59e-1feed950f04e" uniqueid="bc1b1e52-3c16-45b6-b9c6-b8a434239604" />
+      <licenses name="Fake License: Magician" rating="SECOND_LIFE" sin="0674b753-aba3-40ae-89d5-10d55ef38863" uniqueid="996a3e34-7b56-4a3b-880d-affa9ef60ea3" />
    </licenses>
    <foci>
       <focus lang="en" ref="power_focus" value="3">
@@ -71,48 +71,48 @@
       <attributes id="RESONANCE" value="0" />
    </attributes>
    <skills>
-      <skill lang="en" ref="sorcery" uuid="52f7a043-da88-440b-a8d9-2e43b7bf682c" value="5">
+      <skill lang="en" ref="sorcery" uuid="376eab06-0f43-434f-9e37-7f0175b71340" value="5">
          <skillspec lang="en" ref="spellcasting" />
       </skill>
-      <skill lang="en" ref="conjuring" uuid="9b55bc11-f530-4a77-a47e-00586acd3a0b" value="6" />
-      <skill lang="en" ref="influence" uuid="44121ff8-a587-41c5-9f66-2b887578c89a" value="5" />
-      <skill lang="en" ref="con" uuid="9bdcccf9-c476-49c3-8599-bc7ab9096210" value="4" />
-      <skill lang="en" ref="language" uuid="10ab1aa3-7802-4a0f-991c-261a1abf33b3" value="4">
+      <skill lang="en" ref="conjuring" uuid="07eeb2c7-a0df-4bb7-8e16-30f43f8ca299" value="6" />
+      <skill lang="en" ref="influence" uuid="68338ccf-30bb-4c63-8557-937a19892027" value="5" />
+      <skill lang="en" ref="con" uuid="f835123b-b020-4888-a74c-552c61a0951f" value="4" />
+      <skill lang="en" ref="language" uuid="da17a899-7cb9-459c-b2e2-8435826ae7be" value="4">
          <decision choice="a7103ee4-31fa-435d-ac42-08f7d4d1e80c" value="Native Language" />
       </skill>
-      <skill lang="en" ref="knowledge" uuid="bdcd0a2a-b6ce-4193-83ae-4cffb8ef350d" value="1">
+      <skill lang="en" ref="knowledge" uuid="063e3782-c6fa-4623-89c0-36d77fed36f0" value="1">
          <decision choice="89ebc659-ba06-4732-b347-6b832842a55b" value="Small Unit Tactics" />
       </skill>
-      <skill lang="en" ref="knowledge" uuid="859bf847-eefe-49f0-944c-f9a6dc226dc9" value="1">
+      <skill lang="en" ref="knowledge" uuid="76c24e46-7982-4910-bdbc-98e0c7efd7e5" value="1">
          <decision choice="89ebc659-ba06-4732-b347-6b832842a55b" value="MCT" />
       </skill>
-      <skill lang="en" ref="knowledge" uuid="d0ca18a4-c3b1-40ba-8395-8abc073b9452" value="1">
+      <skill lang="en" ref="knowledge" uuid="1da2ef01-75d7-403c-ae7e-2cf7ce647176" value="1">
          <decision choice="89ebc659-ba06-4732-b347-6b832842a55b" value="Wuxing" />
       </skill>
-      <skill lang="en" ref="knowledge" uuid="7f348b3e-0669-4972-8fd9-4ab558d61260" value="1">
+      <skill lang="en" ref="knowledge" uuid="c68c825d-f085-4ec9-a8c9-e1ccbc624eb2" value="1">
          <decision choice="89ebc659-ba06-4732-b347-6b832842a55b" value="East Asian Media" />
       </skill>
-      <skill lang="en" ref="language" uuid="67778673-fd54-45d0-8db4-42dff3d98e1b" value="4">
+      <skill lang="en" ref="language" uuid="1f1f4a76-d5b1-4456-b0e8-93b8d1f1c174" value="4">
          <decision choice="a7103ee4-31fa-435d-ac42-08f7d4d1e80c" value="Korean" />
       </skill>
-      <skill lang="en" ref="language" uuid="ee13e6c5-cc58-4414-b589-74f3fa769c15" value="2">
+      <skill lang="en" ref="language" uuid="d33963a0-ac8d-4f2e-940e-a0f731d38ec7" value="2">
          <decision choice="a7103ee4-31fa-435d-ac42-08f7d4d1e80c" value="English" />
       </skill>
-      <skill lang="en" ref="language" uuid="010b784e-ad62-4d22-8c7f-571364fa49fc" value="1">
+      <skill lang="en" ref="language" uuid="232470b9-be90-460a-b1a2-03d3509d6f97" value="1">
          <decision choice="a7103ee4-31fa-435d-ac42-08f7d4d1e80c" value="Japanese" />
       </skill>
    </skills>
    <charGenUsed>free</charGenUsed>
    <strictness>srm</strictness>
    <items>
-      <item lang="en" mode="CARRIED" ref="securetech_skinshield" uuid="a796a13a-2e17-48fe-9f31-7ef52c2524fd">
+      <item lang="en" mode="CARRIED" ref="securetech_skinshield" uuid="4ba4c5ea-a32b-4163-afa4-6e68a981b88c">
          <accessories>
-            <item lang="en" mode="EMBEDDED" ref="concealable_holster" slot="ARMOR" uuid="8eb26230-f484-4fad-8b8e-f90b4ccef63e" />
-            <item lang="en" mode="EMBEDDED" ref="ballistic_hood" slot="ARMOR" uuid="6a28f68c-fdeb-4990-92e6-7b93498dc5c5" />
+            <item lang="en" mode="EMBEDDED" ref="concealable_holster" slot="ARMOR" uuid="f4adecfb-c1c3-4160-8fa2-d4603fcdbea5" />
+            <item lang="en" mode="EMBEDDED" ref="ballistic_hood" slot="ARMOR" uuid="858cfb01-233e-4e20-9c1e-559d4dd50b34" />
          </accessories>
       </item>
-      <item lang="en" mode="CARRIED" ref="nanopaste_disguise_kit" uuid="e4a4bc9c-81a9-4c55-8543-f50ddc7ee74d" />
-      <item lang="en" mode="CARRIED" ref="nanocosmetics_kit" uuid="41c85def-f15c-45c2-bbc2-4f76c590eaf3" />
+      <item lang="en" mode="CARRIED" ref="nanopaste_disguise_kit" uuid="d4f94878-6459-4dce-a699-702dd0ee7078" />
+      <item lang="en" mode="CARRIED" ref="nanocosmetics_kit" uuid="2d3e9d47-6a73-4c52-8f49-716a219011e1" />
    </items>
    <contacts>
       <contact name="Brynne Taggart" rat="4" type="STREET" typename="Fixer" loy="2" favors="0">

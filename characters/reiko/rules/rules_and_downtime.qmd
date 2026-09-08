@@ -8,7 +8,7 @@ from sr6core.character_manager import CharacterManager
 from sr6core.rules_engine import get_matrix_protocols_summary
 
 cm = CharacterManager()
-_char = cm.get_character_data("yuriko") or {}
+_char = cm.get_character_data("reiko") or cm.get_character_data("yuriko") or {}
 attrs = _char.get("attributes", {})
 log_totals = get_log_totals("core/character_log.qmd")
 
@@ -21,7 +21,7 @@ LOGIC = attrs.get("logic", 4)
 SUBMERSION_GRADE = log_totals.get("Submersion_Grade", 7)
 edge_storage = 5 + SUBMERSION_GRADE
 
-matrix_summary = get_matrix_protocols_summary("yuriko")
+matrix_summary = get_matrix_protocols_summary("reiko")
 active_asdf = matrix_summary.get("asdf_str", "A:7 S:9 D:7 F:9").replace("A:", "").replace(" S:", "").replace(" D:", "").replace(" F:", "")
 full_def_hits = matrix_summary.get("full_defense_hits", 8)
 full_def_pool = matrix_summary.get("full_defense_pool", 35)

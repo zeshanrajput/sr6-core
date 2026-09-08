@@ -1147,5 +1147,12 @@ def render_multi_modifier_interactions(char_id: str, threshold: int = 2) -> str:
     return "\n\n".join(sections)
 
 
+# ============================================================================
+# Dynamic Rules Page Re-exports
+# ============================================================================
 
-
+from sr6core.rules_matrix_actions import render_matrix_actions_markdown
+from sr6core.rules_conjuring_tables import (
+    render_downtime_binding_markdown,
+    calculate_downtime_binding_table,
+)

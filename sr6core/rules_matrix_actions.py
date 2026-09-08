@@ -5,7 +5,7 @@ Computes character-specific dice pools, specialization bonuses (+2d6) or experti
 and opposed defense formulas for tabletop roleplay reference.
 """
 
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List, Optional, Union
 
 
 SRM_MATRIX_TAXONOMY = [
@@ -262,8 +262,15 @@ def calculate_matrix_action_pool(char_data: Dict[str, Any], skill_name: str, spe
     }
 
 
-def render_matrix_actions_markdown(char_data: Dict[str, Any]) -> str:
+def render_matrix_actions_markdown(char_input: Union[str, Dict[str, Any]]) -> str:
     """Renders SRM-compliant Markdown tables for character rules chapters."""
+    if isinstance(char_input, str):
+        from sr6core.character_manager import CharacterManager
+        cm = CharacterManager()
+        char_data = cm.get_character_data(char_input) or {}
+    else:
+        char_data = char_input
+
     sections = []
 
     for group in SRM_MATRIX_TAXONOMY:

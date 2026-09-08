@@ -184,18 +184,12 @@ Velvet's Initiate Grade 2 metamagic foundation is optimized for deep-cover infil
 
 ### Maximum Spirit Force Analysis (Buying Hits)
 
-Under official **Shadowrun Missions (SRM / SRMG)** rules, downtime tests and standard threshold evaluations utilize bought hits (4 dice = 1 hit). With base Conjuring 6 + Magic 6 + Power Focus 3 = **15d6 $\rightarrow$ 3 Bought Hits** (Channeling: **17d6 $\rightarrow$ 4 Bought Hits**):
-
-| Spirit Force | Spirit Defense Pool (Force $\times$ 2) | Spirit Bought Hits | Conjuring Net Hits (15d6 $\rightarrow$ 3 Hits) | Channeling Net Hits (17d6 $\rightarrow$ 4 Hits) | Standard Bound Duration & Role |
-| :---: | :---: | :---: | :---: | :---: | :--- |
-| **Force 1** | 2d6 | 0 Hits | **+3 Net Hits** (3 Services) | **+4 Net Hits** | Minor utility & errand runner |
-| **Force 2** | 4d6 | 1 Hit | **+2 Net Hits** (2 Services) | **+3 Net Hits** | Standard elemental |
-| **Force 3** | **6d6** | **1 Hit** | **+2 Net Hits** (2 Services) | **+3 Net Hits** | **4 Bound Tasks (4 Missions)** / Social & Stealth Anchor |
-| **Force 4** | 8d6 | 2 Hits | **+1 Net Hit** (1 Service) | **+2 Net Hits** | 2 Bound Tasks (2 Missions) |
-| **Force 5** | **10d6** | **2 Hits** | **+1 Net Hit** (1 Service) | **+2 Net Hits** | **2 Bound Tasks (2 Missions)** / Heavy Combat & Blaster |
-| **Force 6+** | 12d6+ | 3+ Hits | 0 Net Hits | **+1 Net Hit (F6)** | High risk summoning; Force 6 inhabitation reliable under Channeling (17d6 vs 12d6) |
-
-> **Deterministic Threshold**: Base **Conjuring 6** augmented by the **Rating 3 Power Focus** reliably summons and binds both **Force 3** and **Force 5** spirits with 100% certainty and 0 drain without requiring any conjuring specializations.
+```{python}
+#| echo: false
+#| output: asis
+from sr6core.rules_engine import render_downtime_binding_markdown
+print(render_downtime_binding_markdown("velvet"))
+```
 
 ---
 

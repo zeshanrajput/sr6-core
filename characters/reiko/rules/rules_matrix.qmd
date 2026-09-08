@@ -9,11 +9,11 @@ from sr6core.rules_engine import get_matrix_action_table, get_matrix_protocols_s
 from sr6core.modifiers import ModifierEngine
 
 cm = CharacterManager()
-_char = cm.get_character_data("yuriko") or {}
+_char = cm.get_character_data("reiko") or cm.get_character_data("yuriko") or {}
 attrs = _char.get("attributes", {})
 log_totals = get_log_totals("core/character_log.qmd")
 
-matrix_summary = get_matrix_protocols_summary("yuriko")
+matrix_summary = get_matrix_protocols_summary("reiko")
 active_asdf = matrix_summary.get("asdf", {})
 ACTIVE_A = active_asdf.get("attack", 7)
 ACTIVE_S = active_asdf.get("sleaze", 9)
@@ -68,13 +68,16 @@ This reference details Reiko's Matrix attributes, action pool breakdowns, networ
 
 ## Matrix Attributes{#matrix-attributes}
 
-Reiko's base ASDF is 3535. She gains +6 from sprite symbiosis with Taz, +1 from Toolbox, +1 from Encryption, and +8 from her Resonance. This gives a total of +16. 
-
 ::: {.callout-note} 
 Under SR6 AI rules (*Hack & Slash* pp. 116–120), Matrix ASDF attributes represent the intrinsic physical and mental characteristics of Artificial Intelligences (AI) and Emergent Intelligences (EI), making them subject to the standard **+4 Augmented Attribute Limit**.
 :::
 
-We therefore add +4 to all of Reiko's ASDF attributes. This gives her a total of 3535 + 4444 = 7979.
+```{python}
+#| echo: false
+#| output: asis
+from sr6core.rules_engine import get_matrix_asdf_derivation_table
+print(get_matrix_asdf_derivation_table("reiko"))
+```
 
 ---
 
@@ -85,8 +88,9 @@ Transparent breakdown of base attributes, applied modifiers math (Natural Hacker
 ```{python}
 #| echo: false
 #| output: asis
-print(get_matrix_action_table("yuriko"))
+print(get_matrix_action_table("reiko"))
 ```
+
 
 ### Programming
 
@@ -172,33 +176,15 @@ print(get_matrix_action_table("yuriko"))
 
 ## Decking Protocols Cheat Sheet
 
-Standardized action categorization grouped strictly by Skill & Specialization, incorporating **Natural Hacker** (Resonance attribute substitution), **Resonance Focus (+4)**, **Taz Ally Sprite Teamwork (+4)**, **Overclocking (+2, 1 wild die)**, and **Tactical Software**:
+Standardized action categorization grouped strictly by Skill & Specialization per the SRM FAQ, incorporating **Natural Hacker** (Resonance attribute substitution), active specialization bonuses, and opposed resistance tests:
 
-### 1. Cracking Tests (Cracking + RES via Natural Hacker)
+```{python}
+#| echo: false
+#| output: asis
+from sr6core.rules_engine import render_matrix_actions_markdown
+print(render_matrix_actions_markdown("reiko"))
+```
 
-* **Hacking Specialization**: **`{python} cracking_hacking_pool`d6 (1 wild)** $\rightarrow$ **`{python} cracking_hacking_hits` Bought Hits**
-  * *Applied Modifiers*: Base Cracking (`{python} CRACKING_RATING`) + RES (`{python} RESONANCE`) + RES Focus (+`{python} RESONANCE_FOCUS`) + Hacking Spec (+2) + Taz Teamwork (+`{python} ALLY_SPRITE_TEAMWORK`) + Overclock (+`{python} OVERCLOCK_BONUS`, 1 wild) + ECM Warrior II (+`{python} ECM_WARRIOR_BONUS`)
-  * *Actions*: Backdoor Entry, Crack File, Delayed Command, Garbage In / Garbage Out, Known Exploit, Metahuman in the Middle, Probe, Puppet Cyberware, Spoof Command.
-* **Cybercombat Specialization**: **`{python} cracking_other_pool`d6 (1 wild)** $\rightarrow$ **`{python} cracking_other_hits` Bought Hits**
-  * *Applied Modifiers*: Base Cracking (`{python} CRACKING_RATING`) + RES (`{python} RESONANCE`) + RES Focus (+`{python} RESONANCE_FOCUS`) + Taz Teamwork (+`{python} ALLY_SPRITE_TEAMWORK`) + Overclock (+`{python} OVERCLOCK_BONUS`, 1 wild) + ECM Warrior II (+`{python} ECM_WARRIOR_BONUS`)
-  * *Actions*: Brute Force, Crash Program, Data Spike, Device Lock, Disarm Data Bomb, Resonance Spike, Tar Pit.
-* **Electronic Warfare Specialization**: **`{python} cracking_other_pool`d6 (1 wild)** $\rightarrow$ **`{python} cracking_other_hits` Bought Hits**
-  * *Applied Modifiers*: Base Cracking (`{python} CRACKING_RATING`) + RES (`{python} RESONANCE`) + RES Focus (+`{python} RESONANCE_FOCUS`) + Taz Teamwork (+`{python} ALLY_SPRITE_TEAMWORK`) + Overclock (+`{python} OVERCLOCK_BONUS`, 1 wild) + ECM Warrior II (+`{python} ECM_WARRIOR_BONUS`)
-  * *Actions*: Calibration, Check OS, Hide, Jam Signals, Masquerade, Popup, Snoop, Watchdog.
-
-### 2. Electronics Tests (Electronics + RES via Natural Hacker)
-
-* **Software Specialization**: **`{python} electronics_software_pool`d6 (1 wild)** $\rightarrow$ **`{python} electronics_software_hits` Bought Hits**
-  * *Applied Modifiers*: Base Electronics (`{python} ELECTRONICS_RATING`) + RES (`{python} RESONANCE`) + RES Focus (+`{python} RESONANCE_FOCUS`) + Software Spec (+2) + Taz Teamwork (+`{python} ALLY_SPRITE_TEAMWORK`) + Overclock (+`{python} OVERCLOCK_BONUS`, 1 wild)
-  * *Actions*: Control Device, Format Device, Jack Out, Jump into Rigged Device, Reboot Device, Set Data Bomb, Trace Icon.
-* **Computer Specialization**: **`{python} electronics_other_pool`d6 (1 wild)** $\rightarrow$ **`{python} electronics_other_hits` Bought Hits**
-  * *Applied Modifiers*: Base Electronics (`{python} ELECTRONICS_RATING`) + RES (`{python} RESONANCE`) + RES Focus (+`{python} RESONANCE_FOCUS`) + Taz Teamwork (+`{python} ALLY_SPRITE_TEAMWORK`) + Overclock (+`{python} OVERCLOCK_BONUS`, 1 wild)
-  * *Actions*: Edit File, Encrypt File, Erase Matrix Signature, Hash Check, Matrix Perception, Matrix Search, Modify Icon, Threat Analysis.
-* **Hardware Specialization**: **`{python} electronics_other_pool`d6 (1 wild)** $\rightarrow$ **`{python} electronics_other_hits` Bought Hits**
-  * *Applied Modifiers*: Base Electronics (`{python} ELECTRONICS_RATING`) + RES (`{python} RESONANCE`) + RES Focus (+`{python} RESONANCE_FOCUS`) + Taz Teamwork (+`{python} ALLY_SPRITE_TEAMWORK`) + Overclock (+`{python} OVERCLOCK_BONUS`, 1 wild)
-  * *Actions*: Denial of Service, Squelch, Subvert Infrastructure, Turning off Wireless, removing headjammer, keycard copier, tag eraser, bug scanner.
-* **Complex Forms (Electronics-based)**: **`{python} electronics_other_pool`d6 (1 wild)** $\rightarrow$ **`{python} electronics_other_hits` Bought Hits**
-  * *Applied Modifiers*: Base Electronics (`{python} ELECTRONICS_RATING`) + RES (`{python} RESONANCE`) + RES Focus (+`{python} RESONANCE_FOCUS`) + Taz Teamwork (+`{python} ALLY_SPRITE_TEAMWORK`) + Overclock (+`{python} OVERCLOCK_BONUS`, 1 wild)
 
 ### 3. Matrix Defense Protocols
 
