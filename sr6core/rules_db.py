@@ -187,6 +187,13 @@ class RulesDB:
                 except Exception:
                     pass
 
+            # Ensure dataset table columns and v_cyberware_grades view exist
+            try:
+                from sr6core.dataset_compiler import migrate_existing_dataset_tables
+                migrate_existing_dataset_tables(self.conn)
+            except Exception:
+                pass
+
     def compile_vault(self, force: bool = False) -> Tuple[int, str]:
         """Scans vault markdown files and indexes them into SQLite."""
         if not os.path.exists(self.vault_dir):
@@ -303,15 +310,17 @@ class RulesDB:
         limit: int = 10,
         category: Optional[str] = None,
         consolidate_editions: bool = True,
-        attach_statblocks: bool = True
+        attach_statblocks: bool = True,
+        enable_semantic: bool = False
     ) -> List[Dict[str, Any]]:
         """
-        Unified 5-stage hybrid search across rules vault:
+        Unified 6-stage hybrid search across rules vault:
         1. Exact topic / name match (O(1))
         2. Multi-word topic containment (all words in topic)
         3. Topic prefix / title containment
         4. FTS5 BM25 weighted search with stop-word cleaning (AND + OR fallback)
         5. Fallback LIKE search
+        6. Local semantic vector search (sqlite-vec / embeddings) with Reciprocal Rank Fusion
         Followed by canonical edition deduplication and Pydantic stat block attachment.
         """
         if not query or not query.strip():
@@ -455,6 +464,25 @@ class RulesDB:
                     raw_results.append(d)
                     seen.add(d["id"])
 
+        # 6. Local Semantic Vector Search (sqlite-vec / embeddings) with RRF
+        is_conceptual = any(q_word in norm_q for q_word in [
+            "how do", "how to", "how can", "heal", "penalty", "difference", "why", "reduce", "when can", "recoil"
+        ])
+        if enable_semantic or (is_conceptual and len(raw_results) < limit):
+            try:
+                from sr6core.rag.embeddings import VectorVault
+                vec_hits = VectorVault.search_vector(self.conn, query, limit=limit)
+                if vec_hits:
+                    vec_rules = []
+                    for v in vec_hits:
+                        v_rule = self.query_rule(v["id"])
+                        if v_rule:
+                            v_rule["semantic_score"] = v.get("score", 0.0)
+                            vec_rules.append(v_rule)
+                    raw_results = VectorVault.reciprocal_rank_fusion(raw_results, vec_rules, limit=limit * 2)
+            except Exception:
+                pass
+
         # Consolidate editions across regional versions if requested
         if consolidate_editions:
             results = consolidate_edition_matches(raw_results)[:limit]
@@ -589,3 +617,126 @@ class RulesDB:
                 val = parts[1].strip().strip("'\"")
                 fm[key] = val
         return fm
+
+    def get_cyberware_with_grades(self, identifier: str) -> Optional[Dict[str, Any]]:
+        """
+        Retrieves cyberware record with calculated grades (Standard, Alpha, Beta, Delta, Used)
+        from v_cyberware_grades.
+        """
+        if not identifier or not identifier.strip():
+            return None
+        clean_id = identifier.strip()
+        norm_id = clean_id.lower().replace(" ", "_")
+        cursor = self.conn.cursor()
+        try:
+            row = cursor.execute(
+                "SELECT * FROM v_cyberware_grades WHERE id = ? OR lower(id) = ? OR lower(name) = ? OR lower(name) = ?",
+                (clean_id, norm_id, clean_id.lower(), norm_id.replace("_", " "))
+            ).fetchone()
+            if row:
+                d = dict(row)
+                if d.get("modifiers_json"):
+                    import json
+                    try:
+                        d["modifiers"] = json.loads(d["modifiers_json"])
+                    except Exception:
+                        d["modifiers"] = []
+                d["grades"] = {
+                    "standard": {"essence": d.get("standard_essence"), "cost": d.get("standard_cost")},
+                    "alphaware": {
+                        "essence": d.get("alpha_essence") if d.get("alpha_essence") is not None else d.get("alphaware_essence"),
+                        "cost": d.get("alpha_cost") if d.get("alpha_cost") is not None else d.get("alphaware_cost")
+                    },
+                    "betaware": {
+                        "essence": d.get("beta_essence") if d.get("beta_essence") is not None else d.get("betaware_essence"),
+                        "cost": d.get("beta_cost") if d.get("beta_cost") is not None else d.get("betaware_cost")
+                    },
+                    "deltaware": {
+                        "essence": d.get("delta_essence") if d.get("delta_essence") is not None else d.get("deltaware_essence"),
+                        "cost": d.get("delta_cost") if d.get("delta_cost") is not None else d.get("deltaware_cost")
+                    },
+                    "used": {"essence": d.get("used_essence"), "cost": d.get("used_cost")},
+                }
+                return d
+        except Exception:
+            pass
+        return None
+
+    def get_weapon_mounts_and_accessories(self, identifier: str) -> Optional[Dict[str, Any]]:
+        """
+        Retrieves weapon slots, available mounts (TOP, BARREL, UNDER, INTERNAL),
+        accessory requirements, and embedded accessories.
+        """
+        if not identifier or not identifier.strip():
+            return None
+        clean_id = identifier.strip()
+        norm_id = clean_id.lower().replace(" ", "_")
+        cursor = self.conn.cursor()
+        try:
+            row = cursor.execute(
+                """SELECT id, name, category, damage, ap, attack_rating, modes, ammo, cost, avail,
+                          mounts, mount_top, mount_barrel, mount_under, mount_internal,
+                          requirements_json, embedded_accessories_json, modifiers_json
+                   FROM ref_weapons
+                   WHERE id = ? OR lower(id) = ? OR lower(name) = ? OR lower(name) = ?""",
+                (clean_id, norm_id, clean_id.lower(), norm_id.replace("_", " "))
+            ).fetchone()
+            if row:
+                d = dict(row)
+                import json
+                for k in ["requirements_json", "embedded_accessories_json", "modifiers_json"]:
+                    if d.get(k):
+                        try:
+                            d[k.replace("_json", "")] = json.loads(d[k])
+                        except Exception:
+                            d[k.replace("_json", "")] = []
+                    else:
+                        d[k.replace("_json", "")] = []
+                d["mount_list"] = [m.strip() for m in (d.get("mounts") or "").split(",") if m.strip()]
+                d["raw_mounts"] = d.get("mounts", "")
+                d["mounts"] = d["mount_list"]
+                return d
+        except Exception:
+            pass
+        return None
+
+    def get_item_structured_modifiers(self, table: str, identifier: str, rating: int = 1) -> List[Dict[str, Any]]:
+        """
+        Retrieves passive mechanical deltas from modifiers_json for a given item,
+        evaluating $RATING formulas against the provided rating.
+        """
+        if not identifier or not identifier.strip() or table not in [
+            "ref_cyberware", "ref_qualities", "ref_spells", "ref_adept_powers", "ref_weapons"
+        ]:
+            return []
+
+        clean_id = identifier.strip()
+        norm_id = clean_id.lower().replace(" ", "_")
+        cursor = self.conn.cursor()
+        try:
+            row = cursor.execute(
+                f"SELECT id, name, modifiers_json FROM {table} WHERE id = ? OR lower(id) = ? OR lower(name) = ? OR lower(name) = ?",
+                (clean_id, norm_id, clean_id.lower(), norm_id.replace("_", " "))
+            ).fetchone()
+            if not row or not row["modifiers_json"]:
+                return []
+
+            import json
+            raw_mods = json.loads(row["modifiers_json"])
+            evaluated = []
+            for m in raw_mods:
+                mod_copy = dict(m)
+                val_formula = str(mod_copy.get("raw_value", ""))
+                if "$RATING" in val_formula:
+                    expr = val_formula.replace("$RATING", str(rating)).replace("*", " * ")
+                    try:
+                        mod_copy["value"] = int(float(eval(expr, {"__builtins__": None}, {})))
+                    except Exception:
+                        mod_copy["value"] = rating
+                elif mod_copy.get("is_rating_multiplier"):
+                    mod_copy["value"] = int(mod_copy.get("value", 1)) * rating
+                evaluated.append(mod_copy)
+            return evaluated
+        except Exception:
+            return []
+

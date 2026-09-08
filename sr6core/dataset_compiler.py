@@ -7,6 +7,7 @@ into structured SQLite tables in rules_index.db.
 import os
 import re
 import glob
+import json
 import sqlite3
 import zipfile
 import xml.etree.ElementTree as ET
@@ -41,6 +42,246 @@ def find_latest_commlink_jar(search_dir: str = COMMLINK_DEFAULT_DIR) -> Optional
     return sorted_jars[0]
 
 
+def extract_modifications_json(elem: Any) -> str:
+    """Extracts structured passive modifiers from XML modification elements."""
+    if isinstance(elem, str):
+        try:
+            elem = ET.fromstring(elem)
+        except Exception:
+            return "[]"
+    mods = []
+    search_nodes = elem.findall(".//modifications/*") + elem.findall(".//bonus/*")
+    for mod in search_nodes:
+        tag = mod.tag.lower()
+        if tag in ["valmod", "checkmod", "attrmod", "attribute"]:
+            m_type = mod.get("type", "").lower()
+            ref = (mod.get("ref") or mod.get("name", "")).lower()
+            val_str = mod.get("value", "")
+            what = mod.get("what", "")
+            apply_to = mod.get("apply", "")
+            is_rating = "$RATING" in val_str
+            val_num = None
+            try:
+                val_num = float(val_str) if "." in val_str else int(val_str)
+            except Exception:
+                pass
+            mods.append({
+                "tag": tag,
+                "type": m_type,
+                "ref": ref,
+                "raw_value": val_str,
+                "value": val_num if val_num is not None else 1,
+                "is_rating_multiplier": is_rating,
+                "what": what,
+                "apply": apply_to
+            })
+    return json.dumps(mods) if mods else "[]"
+
+
+def extract_weapon_features(elem: Any) -> Dict[str, Any]:
+    """Extracts weapon slots/mounts, requirements, and embedded accessories."""
+    if isinstance(elem, str):
+        try:
+            elem = ET.fromstring(elem)
+        except Exception:
+            return {
+                "mounts": "",
+                "mount_top": 0, "mount_barrel": 0, "mount_under": 0, "mount_internal": 0,
+                "requirements_json": "[]", "embedded_accessories_json": "[]", "modifiers_json": "[]"
+            }
+
+    mounts = []
+    search_mounts = elem.findall(".//modifications/itemmod") + elem.findall(".//accessory_mounts/mount")
+    for itemmod in search_mounts:
+        if itemmod.get("type") == "HOOK" or itemmod.tag == "mount":
+            ref = (itemmod.get("ref") or itemmod.get("id", "")).upper()
+            if ref and ref not in mounts:
+                mounts.append(ref)
+
+    embedded = []
+    search_embed = elem.findall(".//modifications/embed") + elem.findall(".//embedded_accessories/item")
+    for emb in search_embed:
+        embedded.append({
+            "type": emb.get("type", "GEAR"),
+            "ref": emb.get("ref") or emb.get("id", ""),
+            "mount": emb.get("intoRef", ""),
+            "included": emb.get("included", "false").lower() == "true"
+        })
+
+    reqs = []
+    for req in elem.findall(".//requires/*"):
+        reqs.append({
+            "tag": req.tag,
+            "type": req.get("type", ""),
+            "ref": req.get("ref", ""),
+            "value": req.get("value", "")
+        })
+
+    return {
+        "mounts": ",".join(mounts),
+        "mount_top": 1 if "TOP" in mounts else 0,
+        "mount_barrel": 1 if "BARREL" in mounts else 0,
+        "mount_under": 1 if "UNDER" in mounts else 0,
+        "mount_internal": 1 if "INTERNAL" in mounts else 0,
+        "requirements_json": json.dumps(reqs) if reqs else "[]",
+        "embedded_accessories_json": json.dumps(embedded) if embedded else "[]",
+        "modifiers_json": extract_modifications_json(elem)
+    }
+
+
+def extract_cyberware_stats(elem: Any) -> Tuple[float, int]:
+    """Extracts base essence cost and price accounting for dynamic formulas or tables."""
+    if isinstance(elem, str):
+        try:
+            elem = ET.fromstring(elem)
+        except Exception:
+            return 0.0, 0
+
+    ess_str = elem.get("ess") or elem.get("essence")
+    if not ess_str:
+        usage = elem.find(".//usage[@mode='IMPLANTED']")
+        if usage is not None:
+            ess_str = usage.get("value")
+        if not ess_str:
+            attr = elem.find(".//attrdef[@id='ESSENCECOST']")
+            if attr is not None:
+                ess_str = attr.get("value")
+
+    essence = 0.0
+    if ess_str:
+        val = ess_str.replace("$RATING", "1").replace("*", " * ")
+        try:
+            essence = float(eval(val, {"__builtins__": None}, {}))
+        except Exception:
+            pass
+
+    cost_str = elem.get("cost") or elem.get("price")
+    if not cost_str or cost_str == "0":
+        attr = elem.find(".//attrdef[@id='PRICE']")
+        if attr is not None:
+            tbl = attr.get("table")
+            if tbl:
+                cost_str = tbl.split(",")[0]
+            else:
+                cost_str = attr.get("value")
+
+    cost = 0
+    if cost_str:
+        val = cost_str.replace("$RATING", "1").replace("*", " * ")
+        try:
+            cost = int(float(eval(val, {"__builtins__": None}, {})))
+        except Exception:
+            pass
+
+    return essence, cost
+
+
+
+def migrate_existing_dataset_tables(conn: sqlite3.Connection):
+    """Adds missing columns, views, and backfills existing dataset tables from raw_xml."""
+    cursor = conn.cursor()
+    
+    # 1. ref_weapons
+    try:
+        w_cols = [r[1] for r in cursor.execute("PRAGMA table_info(ref_weapons)").fetchall()]
+        if w_cols:
+            for col_name, col_type in [
+                ("mounts", "TEXT"),
+                ("mount_top", "INTEGER DEFAULT 0"),
+                ("mount_barrel", "INTEGER DEFAULT 0"),
+                ("mount_under", "INTEGER DEFAULT 0"),
+                ("mount_internal", "INTEGER DEFAULT 0"),
+                ("requirements_json", "TEXT"),
+                ("embedded_accessories_json", "TEXT"),
+                ("modifiers_json", "TEXT")
+            ]:
+                if col_name not in w_cols:
+                    cursor.execute(f"ALTER TABLE ref_weapons ADD COLUMN {col_name} {col_type}")
+
+            # Backfill weapons if mounts or modifiers_json is NULL
+            weapons = cursor.execute("SELECT id, raw_xml FROM ref_weapons WHERE mounts IS NULL OR modifiers_json IS NULL").fetchall()
+            for wid, raw_xml in weapons:
+                if not raw_xml:
+                    continue
+                try:
+                    elem = ET.fromstring(raw_xml)
+                    feats = extract_weapon_features(elem)
+                    cursor.execute("""
+                        UPDATE ref_weapons
+                        SET mounts = ?, mount_top = ?, mount_barrel = ?, mount_under = ?, mount_internal = ?,
+                            requirements_json = ?, embedded_accessories_json = ?, modifiers_json = ?
+                        WHERE id = ?
+                    """, (
+                        feats["mounts"], feats["mount_top"], feats["mount_barrel"], feats["mount_under"],
+                        feats["mount_internal"], feats["requirements_json"], feats["embedded_accessories_json"],
+                        feats["modifiers_json"], wid
+                    ))
+                except Exception:
+                    pass
+    except Exception:
+        pass
+
+    # 2. ref_cyberware, ref_qualities, ref_spells, ref_adept_powers
+    for tbl in ["ref_cyberware", "ref_qualities", "ref_spells", "ref_adept_powers"]:
+        try:
+            cols = [r[1] for r in cursor.execute(f"PRAGMA table_info({tbl})").fetchall()]
+            if tbl == "ref_cyberware":
+                items = cursor.execute("SELECT id, raw_xml FROM ref_cyberware WHERE modifiers_json IS NULL OR cost = 0 OR essence = 0.0").fetchall()
+            else:
+                items = cursor.execute(f"SELECT id, raw_xml FROM {tbl} WHERE modifiers_json IS NULL").fetchall()
+            for iid, raw_xml in items:
+                if not raw_xml:
+                    continue
+                try:
+                    elem = ET.fromstring(raw_xml)
+                    m_json = extract_modifications_json(elem)
+                    if tbl == "ref_cyberware":
+                        ess_parsed, cost_parsed = extract_cyberware_stats(elem)
+                        cursor.execute("""
+                            UPDATE ref_cyberware
+                            SET modifiers_json = ?,
+                                essence = CASE WHEN (essence = 0.0 OR essence IS NULL) AND ? > 0 THEN ? ELSE essence END,
+                                cost = CASE WHEN (cost = 0 OR cost IS NULL) AND ? > 0 THEN ? ELSE cost END
+                            WHERE id = ?
+                        """, (m_json, ess_parsed, ess_parsed, cost_parsed, cost_parsed, iid))
+                    else:
+                        cursor.execute(f"UPDATE {tbl} SET modifiers_json = ? WHERE id = ?", (m_json, iid))
+                except Exception:
+                    pass
+        except Exception:
+            pass
+
+    # 3. v_cyberware_grades View
+    try:
+        cursor.execute("DROP VIEW IF EXISTS v_cyberware_grades")
+        cursor.execute("""
+            CREATE VIEW IF NOT EXISTS v_cyberware_grades AS
+            SELECT 
+                id,
+                name,
+                category,
+                essence AS standard_essence,
+                cost AS standard_cost,
+                ROUND(essence * 0.8, 2) AS alpha_essence,
+                CAST(ROUND(cost * 1.2) AS INTEGER) AS alpha_cost,
+                ROUND(essence * 0.7, 2) AS beta_essence,
+                CAST(ROUND(cost * 1.5) AS INTEGER) AS beta_cost,
+                ROUND(essence * 0.5, 2) AS delta_essence,
+                CAST(ROUND(cost * 2.5) AS INTEGER) AS delta_cost,
+                ROUND(essence * 1.2, 2) AS used_essence,
+                CAST(ROUND(cost * 0.8) AS INTEGER) AS used_cost,
+                capacity,
+                avail,
+                source,
+                modifiers_json
+            FROM ref_cyberware;
+        """)
+    except Exception:
+        pass
+
+    conn.commit()
+
+
 def init_dataset_tables(conn: sqlite3.Connection):
     with conn:
         conn.execute("""
@@ -57,7 +298,8 @@ def init_dataset_tables(conn: sqlite3.Connection):
                 quality_type TEXT,
                 max_rating INTEGER,
                 source TEXT,
-                raw_xml TEXT
+                raw_xml TEXT,
+                modifiers_json TEXT
             )
         """)
         conn.execute("""
@@ -69,7 +311,8 @@ def init_dataset_tables(conn: sqlite3.Connection):
                 range TEXT,
                 duration TEXT,
                 source TEXT,
-                raw_xml TEXT
+                raw_xml TEXT,
+                modifiers_json TEXT
             )
         """)
         conn.execute("""
@@ -107,7 +350,15 @@ def init_dataset_tables(conn: sqlite3.Connection):
                 cost INTEGER,
                 avail TEXT,
                 source TEXT,
-                raw_xml TEXT
+                raw_xml TEXT,
+                mounts TEXT,
+                mount_top INTEGER DEFAULT 0,
+                mount_barrel INTEGER DEFAULT 0,
+                mount_under INTEGER DEFAULT 0,
+                mount_internal INTEGER DEFAULT 0,
+                requirements_json TEXT,
+                embedded_accessories_json TEXT,
+                modifiers_json TEXT
             )
         """)
         conn.execute("""
@@ -120,7 +371,8 @@ def init_dataset_tables(conn: sqlite3.Connection):
                 cost INTEGER,
                 avail TEXT,
                 source TEXT,
-                raw_xml TEXT
+                raw_xml TEXT,
+                modifiers_json TEXT
             )
         """)
         conn.execute("""
@@ -130,7 +382,8 @@ def init_dataset_tables(conn: sqlite3.Connection):
                 cost REAL,
                 max_rating INTEGER,
                 source TEXT,
-                raw_xml TEXT
+                raw_xml TEXT,
+                modifiers_json TEXT
             )
         """)
         conn.execute("""
@@ -168,6 +421,7 @@ def init_dataset_tables(conn: sqlite3.Connection):
                 raw_xml TEXT
             )
         """)
+        migrate_existing_dataset_tables(conn)
 
 
 def compile_commlink_datasets(jar_path: Optional[str] = None, db_path: str = DEFAULT_DB_PATH) -> Tuple[bool, str]:
@@ -227,10 +481,11 @@ def compile_commlink_datasets(jar_path: Optional[str] = None, db_path: str = DEF
                         max_r = int(q.get("max", 1)) if q.get("max", "").isdigit() else 1
                         name = q.get("name", qid.replace("_", " ").title())
                         raw_xml = ET.tostring(q, encoding="utf-8").decode("utf-8")
+                        mods_json = extract_modifications_json(q)
 
                         cursor.execute(
-                            "INSERT OR REPLACE INTO ref_qualities VALUES (?, ?, ?, ?, ?, ?, ?)",
-                            (qid, name, karma, qtype, max_r, source_set, raw_xml)
+                            "INSERT OR REPLACE INTO ref_qualities (id, name, karma, quality_type, max_rating, source, raw_xml, modifiers_json) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                            (qid, name, karma, qtype, max_r, source_set, raw_xml, mods_json)
                         )
                         stats["qualities"] += 1
 
@@ -246,10 +501,11 @@ def compile_commlink_datasets(jar_path: Optional[str] = None, db_path: str = DEF
                         rng = s.get("range", "LOS")
                         dur = s.get("duration", "Instant")
                         raw_xml = ET.tostring(s, encoding="utf-8").decode("utf-8")
+                        mods_json = extract_modifications_json(s)
 
                         cursor.execute(
-                            "INSERT OR REPLACE INTO ref_spells VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-                            (sid, name, cat, drain, rng, dur, source_set, raw_xml)
+                            "INSERT OR REPLACE INTO ref_spells (id, name, category, drain, range, duration, source, raw_xml, modifiers_json) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                            (sid, name, cat, drain, rng, dur, source_set, raw_xml, mods_json)
                         )
                         stats["spells"] += 1
 
@@ -281,10 +537,11 @@ def compile_commlink_datasets(jar_path: Optional[str] = None, db_path: str = DEF
                         cost = float(pow_elem.get("cost", 0.5)) if pow_elem.get("cost", "").replace(".", "").isdigit() else 0.5
                         max_r = int(pow_elem.get("max", 1)) if pow_elem.get("max", "").isdigit() else 1
                         raw_xml = ET.tostring(pow_elem, encoding="utf-8").decode("utf-8")
+                        mods_json = extract_modifications_json(pow_elem)
 
                         cursor.execute(
-                            "INSERT OR REPLACE INTO ref_adept_powers VALUES (?, ?, ?, ?, ?, ?)",
-                            (pid, name, cost, max_r, source_set, raw_xml)
+                            "INSERT OR REPLACE INTO ref_adept_powers (id, name, cost, max_rating, source, raw_xml, modifiers_json) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                            (pid, name, cost, max_r, source_set, raw_xml, mods_json)
                         )
                         stats["adept_powers"] += 1
 
@@ -311,19 +568,31 @@ def compile_commlink_datasets(jar_path: Optional[str] = None, db_path: str = DEF
                             modes = item.get("mode", item.get("modes", "-"))
                             ammo = item.get("ammo", "-")
                             cat = item.get("category", fname.replace("gear_", "").replace(".xml", "").title())
+                            w_feats = extract_weapon_features(item)
                             cursor.execute(
-                                "INSERT OR REPLACE INTO ref_weapons VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                                (iid, name, cat, dmg, ap, ar, modes, ammo, cost, avail, source_set, raw_xml)
+                                """INSERT OR REPLACE INTO ref_weapons 
+                                   (id, name, category, damage, ap, attack_rating, modes, ammo, cost, avail, source,
+                                    mounts, mount_top, mount_barrel, mount_under, mount_internal, requirements_json, embedded_accessories_json, modifiers_json, raw_xml)
+                                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                                (iid, name, cat, dmg, ap, ar, modes, ammo, cost, avail, source_set,
+                                 w_feats["mounts"], w_feats["mount_top"], w_feats["mount_barrel"], w_feats["mount_under"],
+                                 w_feats["mount_internal"], w_feats["requirements_json"], w_feats["embedded_accessories_json"],
+                                 w_feats["modifiers_json"], raw_xml)
                             )
                             stats["weapons"] += 1
 
                         elif is_cyber:
-                            ess = float(item.get("ess", item.get("essence", 0.0))) if item.get("ess", "").replace(".", "").isdigit() else 0.0
+                            ess_parsed, cost_parsed = extract_cyberware_stats(item)
+                            ess = ess_parsed if ess_parsed > 0.0 else (float(item.get("ess", item.get("essence", 0.0))) if item.get("ess", "").replace(".", "").isdigit() else 0.0)
                             cap = item.get("capacity", item.get("cap", "-"))
                             cat = item.get("category", fname.replace("gear_", "").replace(".xml", "").title())
+                            cost = cost_parsed if cost_parsed > 0 else (int(item.get("cost", 0)) if item.get("cost", "").isdigit() else 0)
+                            mods_json = extract_modifications_json(item)
                             cursor.execute(
-                                "INSERT OR REPLACE INTO ref_cyberware VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                                (iid, name, cat, ess, cap, cost, avail, source_set, raw_xml)
+                                """INSERT OR REPLACE INTO ref_cyberware 
+                                   (id, name, category, essence, capacity, cost, avail, source, modifiers_json, raw_xml)
+                                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                                (iid, name, cat, ess, cap, cost, avail, source_set, mods_json, raw_xml)
                             )
                             stats["cyberware"] += 1
 

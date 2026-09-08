@@ -44,17 +44,18 @@ def construct_fts5_query(terms: List[str], mode: str = "AND") -> str:
     return f" {mode} ".join(formatted_terms)
 
 
-def search_rules_db(db_path: str, user_query: str, limit: int = 15) -> List[Dict[str, Any]]:
+def search_rules_db(db_path: str, user_query: str, limit: int = 15, enable_semantic: Optional[bool] = None) -> List[Dict[str, Any]]:
     """
     Searches the rules database using unified 5-stage hybrid search (O(1) exact, multi-word containment,
-    topic prefix, BM25 weighted FTS5 with column boosts, and fallback) enriched with CommLink6 dataset stat blocks.
+    topic prefix, BM25 weighted FTS5 with column boosts, semantic vector search, and fallback)
+    enriched with CommLink6 dataset stat blocks.
     """
     if not os.path.exists(db_path):
         return []
 
     from sr6core.rules_db import RulesDB
     db = RulesDB(db_path=db_path)
-    results = db.search_rules(user_query, limit=limit, consolidate_editions=False, attach_statblocks=True)
+    results = db.search_rules(user_query, limit=limit, consolidate_editions=False, attach_statblocks=True, enable_semantic=enable_semantic)
 
     # Enrich rules with CommLink6 dataset stat blocks if matching
     conn = db.conn

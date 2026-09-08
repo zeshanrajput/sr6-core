@@ -111,8 +111,8 @@ class RAGEngine:
         except Exception:
             return ""
 
-    def search(self, query: str, limit: int = 15) -> List[Dict[str, Any]]:
-        raw = search_rules_db(self.db_path, query, limit=limit)
+    def search(self, query: str, limit: int = 15, enable_semantic: Optional[bool] = None) -> List[Dict[str, Any]]:
+        raw = search_rules_db(self.db_path, query, limit=limit, enable_semantic=enable_semantic)
         return deduplicate_and_resolve_conflicts(raw)
 
     def get_rule(self, identifier: str) -> Optional[Dict[str, Any]]:
@@ -130,9 +130,10 @@ class RAGEngine:
         provider_name: Optional[str] = None,
         llama_url: Optional[str] = None,
         char_id: Optional[str] = None,
-        use_session: bool = False
+        use_session: bool = False,
+        enable_semantic: Optional[bool] = None
     ) -> Dict[str, Any]:
-        rules = self.search(user_query, limit=limit)
+        rules = self.search(user_query, limit=limit, enable_semantic=enable_semantic)
         rules_context = format_context_for_llm(rules)
 
         char_context = self._build_char_context(char_id) if char_id else ""

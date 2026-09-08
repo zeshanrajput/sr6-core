@@ -454,6 +454,83 @@ class ModifierEngine:
         return modifiers
 
     @classmethod
+    def get_passive_modifiers_from_dossier(
+        cls,
+        char_data: Dict[str, Any],
+        db_path: Optional[str] = None
+    ) -> List[PoolModifier]:
+        """
+        Extracts passive mechanical modifiers directly from SQLite (modifiers_json)
+        for all cyberware, qualities, spells, and adept powers on the character.
+        """
+        try:
+            from sr6core.rules_db import RulesDB
+            db = RulesDB(db_path=db_path)
+        except Exception:
+            return []
+
+        modifiers: List[PoolModifier] = []
+        seen_keys = set()
+
+        def _process_items(items, table, default_type):
+            if not items:
+                return
+            for it in items:
+                ref = it.get("ref") or it.get("id") or it.get("name", "") if isinstance(it, dict) else str(it)
+                name = it.get("name") or ref if isinstance(it, dict) else str(it)
+                rating = int(it.get("rating", 1)) if isinstance(it, dict) else 1
+
+                raw_mods = db.get_item_structured_modifiers(table, ref, rating=rating)
+                if not raw_mods and name != ref:
+                    raw_mods = db.get_item_structured_modifiers(table, name, rating=rating)
+
+                for m in raw_mods:
+                    m_type_raw = m.get("type", "").lower()
+                    target_ref = m.get("ref", "").lower()
+                    val = int(m.get("value", 1))
+                    if not target_ref or val == 0:
+                        continue
+
+                    if m_type_raw in ["attribute", "attr"]:
+                        target = f"attribute:{target_ref}"
+                    elif m_type_raw in ["skill"]:
+                        target = f"skill:{target_ref}"
+                    else:
+                        target = f"{m_type_raw}:{target_ref}"
+
+                    dedup_key = f"{target}:{name.lower()}:{val}"
+                    if dedup_key in seen_keys:
+                        continue
+                    seen_keys.add(dedup_key)
+
+                    modifiers.append(PoolModifier(
+                        target=target,
+                        type_=default_type,
+                        source=name,
+                        value=val,
+                        is_srm_capped=True,
+                        id_=f"{name.lower().replace(' ', '_')}_{target_ref}",
+                        notes=m.get("what")
+                    ))
+
+        # 1. Cyberware / Bioware
+        _process_items(char_data.get("cyberware", []), "ref_cyberware", "augmentation")
+
+        # 2. Qualities
+        qualities = char_data.get("qualities", {})
+        if isinstance(qualities, dict):
+            _process_items(qualities.get("positive", []), "ref_qualities", "quality")
+            _process_items(qualities.get("negative", []), "ref_qualities", "quality")
+
+        # 3. Adept Powers
+        _process_items(char_data.get("adept_powers", []), "ref_adept_powers", "magic")
+
+        # 4. Spells
+        _process_items(char_data.get("spells", []), "ref_spells", "magic")
+
+        return modifiers
+
+    @classmethod
     def calculate_skill_pool(
         cls,
         char_data: Dict[str, Any],

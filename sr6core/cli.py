@@ -238,6 +238,7 @@ def main():
     import_parser.add_argument("--jar", type=str, help="Path to CommLink6 JAR file (optional)")
     db_sub.add_parser("compile-vault", help="Re-index Shadowrun Rules Vault markdown files into SQLite")
     db_sub.add_parser("sync-commlink", help="Push XML character sheets directly to CommLink6 GUI player saves")
+    db_sub.add_parser("embed-vault", help="Precompute local 384-d dense vector embeddings for all SQLite vault rules into vec_rules / rule_embeddings")
     db_sub.add_parser("info", help="Display rules database status and CommLink6 dataset statistics")
 
     # rag subcommand
@@ -251,10 +252,12 @@ def main():
     rag_query_parser.add_argument("--url", type=str, default=None, help="Local llama.cpp URL")
     rag_query_parser.add_argument("--char", type=str, default=None, help="Active character dossier context ID (reiko, velvet, venn)")
     rag_query_parser.add_argument("--effort", type=str, choices=["high", "medium", "low"], default=None, help="Thinking effort level")
+    rag_query_parser.add_argument("--semantic", action="store_true", help="Enable local dense vector embedding search + RRF hybrid ranking")
     rag_query_parser.add_argument("--compact", action="store_true", help="Output clean Markdown without ASCII box art")
 
     rag_search_parser = rag_sub.add_parser("search", help="Perform FTS rules search with authority ranking")
     rag_search_parser.add_argument("query", type=str, help="Search terms")
+    rag_search_parser.add_argument("--semantic", action="store_true", help="Enable local dense vector embedding search + RRF hybrid ranking")
     rag_search_parser.add_argument("--compact", action="store_true", help="Output clean Markdown without ASCII box art")
 
     rag_get_parser = rag_sub.add_parser("get", help="Retrieve full rule markdown chunk by ID or topic directly from SQLite")
@@ -276,6 +279,11 @@ def main():
     eval_parser.add_argument("target", type=str, help="Path to chapter .qmd file or prose text")
     eval_parser.add_argument("--tier", type=int, choices=[1, 2, 3], default=2, help="Chapter Tier (1=Keystone 9.0, 2=Narrative Evolution 8.5, 3=Atmospheric Bridge 8.0)")
     eval_parser.add_argument("--char", type=str, default=None, help="Character ID context (reiko, velvet, venn)")
+
+    # validate-dossier subcommand
+    val_parser = subparsers.add_parser("validate-dossier", help="Validate character YAML items against SQLite catalog keys")
+    val_parser.add_argument("char_id", type=str, nargs="?", default=None, help="Character ID (reiko, velvet, venn) or omit to validate all")
+    val_parser.add_argument("--strict", action="store_true", help="Exit with non-zero code on any unresolved catalog keys")
 
     # ledger subcommand
     ledger_parser = subparsers.add_parser("ledger", help="Tabletop automation & combat ledger parsing")
@@ -334,6 +342,7 @@ def main():
     c_att.add_argument("--def-pool", type=int, default=8, help="Defender defense pool")
     c_att.add_argument("--def-dr", type=int, default=8, help="Defender Defense Rating (DR)")
     c_att.add_argument("--def-soak", type=int, default=8, help="Defender soak pool")
+    c_att.add_argument("-x", "--exploding", action="store_true", default=False, help="Enable Rule of Six exploding dice")
     # serve subcommand
     serve_parser = subparsers.add_parser("serve", help="Launch local live-sync server & web tactical PWA")
     serve_parser.add_argument("--port", type=int, default=8080, help="HTTP port (default: 8080)")
@@ -525,6 +534,17 @@ def main():
             for cid, ok, msg in res:
                 print(f" - [{cid}]: {msg}")
             print()
+        elif args.subcommand == "embed-vault":
+            import sqlite3
+            from sr6core.rag.embeddings import VectorVault
+            from sr6core.rules_db import DEFAULT_DB_PATH
+            print(f"Precomputing local dense vector embeddings for vault rules into '{DEFAULT_DB_PATH}'...")
+            conn = sqlite3.connect(DEFAULT_DB_PATH)
+            def progress(current, total):
+                print(f"\r  Indexed {current}/{total} rules...", end="", flush=True)
+            total = VectorVault.index_vault(conn, batch_size=64, progress_callback=progress)
+            conn.close()
+            print(f"\n[OK] Successfully indexed {total} rules into local vector vault.")
         elif args.subcommand == "info" or not args.subcommand:
             info = get_dataset_info()
             print("\n=== Rules Database Status & CommLink6 Datasets ===")
@@ -622,7 +642,8 @@ def main():
         elif args.subcommand == "search" or (not args.subcommand and hasattr(args, "query")):
             q = getattr(args, "query", "")
             compact = getattr(args, "compact", False)
-            results = rag_engine.search(q, limit=10)
+            semantic = getattr(args, "semantic", False)
+            results = rag_engine.search(q, limit=10, enable_semantic=semantic)
             print_search_results_rich(q, results, compact=compact)
 
         elif args.subcommand == "query" or hasattr(args, "prompt"):
@@ -634,6 +655,7 @@ def main():
             char_choice = getattr(args, "char", None)
             effort_choice = getattr(args, "effort", None)
             compact = getattr(args, "compact", False)
+            semantic = getattr(args, "semantic", False)
 
             res = rag_engine.query(
                 prompt,
@@ -642,7 +664,8 @@ def main():
                 model_name=model_choice,
                 llama_url=llama_url,
                 char_id=char_choice,
-                effort_level=effort_choice
+                effort_level=effort_choice,
+                enable_semantic=semantic
             )
             render_rag_result_rich(res, show_context=True, compact=compact)
 
@@ -667,6 +690,19 @@ def main():
         from sr6core.evaluator import evaluate_chapter_draft, print_scorecard_rich
         report = evaluate_chapter_draft(args.target, tier=args.tier, char_id=args.char)
         print_scorecard_rich(report)
+
+    elif args.command == "validate-dossier":
+        from sr6core.validation import DossierValidator
+        validator = DossierValidator()
+        target_chars = [args.char_id] if args.char_id else ["velvet", "reiko", "venn"]
+        has_errors = False
+        for cid in target_chars:
+            res = validator.validate_character(cid)
+            print(validator.format_cli_report(res))
+            if not res.get("valid", False):
+                has_errors = True
+        if args.strict and has_errors:
+            sys.exit(1)
 
     elif args.command == "ledger":
         from sr6core.ledger_parser import parse_combat_ledger_prose, format_ledger_patch_markdown
