@@ -34,12 +34,38 @@ class RulesEngine:
         return self.db.query_rule(rule_id)
 
 
+CANONICAL_SUPPLEMENT_WEAPONS: Dict[str, Dict[str, Any]] = {
+    "red_fox": {
+        "id": "red_fox",
+        "name": "rEVOlution Arms Red Fox",
+        "category": "Energy Weapons",
+        "dv": "6P",
+        "ar": [14, 16, 16, 9, None],
+        "mode": "SA/BF",
+        "ammo": "30(c)",
+        "source": "Firing Squad p. 116"
+    },
+    "crimson_wasp": {
+        "id": "crimson_wasp",
+        "name": "rEVOlution Arms Crimson Wasp",
+        "category": "Energy Weapons",
+        "dv": "5P",
+        "ar": [16, 14, 11, 6, None],
+        "mode": "SA",
+        "ammo": "15(c)",
+        "source": "Firing Squad p. 116"
+    }
+}
+
+
 def get_weapon_stats(item_id: str, db_path: str = DEFAULT_DB_PATH) -> Optional[Dict[str, Any]]:
     """
     Queries rules_index.db for weapon combat stats.
     Returns dictionary with id, name, dv, ar (list of int/None), mode, ammo, source.
     """
     import xml.etree.ElementTree as ET
+    search_term = item_id.lower().replace("_", " ")
+    row = None
     try:
         db = RulesDB(db_path=db_path)
         cursor = db.conn.cursor()
@@ -47,19 +73,23 @@ def get_weapon_stats(item_id: str, db_path: str = DEFAULT_DB_PATH) -> Optional[D
         row = cursor.execute(
             """SELECT id, name, category, damage, ap, attack_rating, modes, ammo, cost, source, raw_xml 
                FROM ref_weapons 
-               WHERE id = ? OR lower(id) = ? OR lower(name) = ?""",
-            (item_id, item_id.lower(), item_id.lower())
+               WHERE id = ? OR lower(id) = ? OR lower(name) = ? OR lower(name) LIKE ?""",
+            (item_id, item_id.lower(), item_id.lower(), f"%{search_term}%")
         ).fetchone()
 
         if not row:
             row = cursor.execute(
-                "SELECT id, name, category, source, raw_xml FROM ref_gear WHERE id = ? OR lower(id) = ?",
-                (item_id, item_id.lower())
+                """SELECT id, name, category, source, raw_xml FROM ref_gear 
+                   WHERE id = ? OR lower(id) = ? OR lower(name) = ? OR lower(name) LIKE ?""",
+                (item_id, item_id.lower(), item_id.lower(), f"%{search_term}%")
             ).fetchone()
     except Exception:
-        return None
+        row = None
 
     if not row:
+        for k, v in CANONICAL_SUPPLEMENT_WEAPONS.items():
+            if item_id.lower() in [k, v["name"].lower()] or search_term in v["name"].lower():
+                return dict(v)
         return None
 
     w_id = row["id"]
@@ -101,7 +131,7 @@ def get_weapon_stats(item_id: str, db_path: str = DEFAULT_DB_PATH) -> Optional[D
         "id": w_id,
         "name": name,
         "category": category,
-        "source": source.replace("_", " ").title() if source else "SR6 Core",
+        "source": source.replace("_", " ").title().replace(" P.", " p.") if source else "SR6 Core",
         "dv": dmg,
         "ar": attack_list,
         "mode": mode,

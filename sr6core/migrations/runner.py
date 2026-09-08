@@ -265,6 +265,22 @@ def _migration_001_core_rules(conn: sqlite3.Connection):
                 ("ruger_super_warhawk", "Ruger Super Warhawk", "Heavy Pistols", "4P", "-", "10/9/6/-/-", "SS", "6(cy)", 450, "2", "SR6 Core p. 256",
                  '<weapon id="ruger_super_warhawk" dmg="4P" attack="10,9,6" mode="SS" ammo="6(cy)"/>')
             )
+
+        # Ensure canonical supplement weapons (e.g. Firing Squad laser weapons) exist
+        conn.execute(
+            """INSERT OR IGNORE INTO ref_weapons 
+               (id, name, category, damage, ap, attack_rating, modes, ammo, cost, avail, source, raw_xml)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+            ("red_fox", "rEVOlution Arms Red Fox", "Energy Weapons", "6P", "-", "14/16/16/9/-", "SA/BF", "30(c)", 2800, "6(I)", "Firing Squad p. 116",
+             '<weapon id="red_fox" name="rEVOlution Arms Red Fox" cat="Energy Weapons" dmg="6P" attack="14,16,16,9" mode="SA/BF" ammo="30(c)" cost="2800" avail="6(I)" src="FS 116"/>')
+        )
+        conn.execute(
+            """INSERT OR IGNORE INTO ref_weapons 
+               (id, name, category, damage, ap, attack_rating, modes, ammo, cost, avail, source, raw_xml)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+            ("crimson_wasp", "rEVOlution Arms Crimson Wasp", "Energy Weapons", "5P", "-", "16/14/11/6/-", "SA", "15(c)", 1500, "6(I)", "Firing Squad p. 116",
+             '<weapon id="crimson_wasp" name="rEVOlution Arms Crimson Wasp" cat="Energy Weapons" dmg="5P" attack="16,14,11,6" mode="SA" ammo="15(c)" cost="1500" avail="6(I)" src="FS 116"/>')
+        )
         row_sp = conn.execute("SELECT COUNT(*) FROM ref_spells").fetchone()
         if not row_sp or row_sp[0] == 0:
             conn.execute(
@@ -411,11 +427,67 @@ def _migration_004_rule_embeddings(conn: sqlite3.Connection):
     """)
 
 
+def _migration_005_canonical_supplement_weapons(conn: sqlite3.Connection):
+    """Seed canonical supplement weapons (e.g. Firing Squad laser weapons) into ref_weapons."""
+    # Ensure ref_weapons has all required standard columns if upgrading from a partial legacy schema
+    for col, col_type in [
+        ("category", "TEXT"), ("damage", "TEXT"), ("ap", "TEXT"),
+        ("attack_rating", "TEXT"), ("modes", "TEXT"), ("ammo", "TEXT"),
+        ("cost", "INTEGER"), ("avail", "TEXT"), ("source", "TEXT"),
+        ("raw_xml", "TEXT")
+    ]:
+        if not _table_has_column(conn, "ref_weapons", col):
+            try:
+                conn.execute(f"ALTER TABLE ref_weapons ADD COLUMN {col} {col_type}")
+            except Exception:
+                pass
+
+    supplement_weapons = [
+        (
+            "red_fox",
+            "rEVOlution Arms Red Fox",
+            "Energy Weapons",
+            "6P",
+            "-",
+            "14/16/16/9/-",
+            "SA/BF",
+            "30(c)",
+            2800,
+            "6(I)",
+            "Firing Squad p. 116",
+            '<weapon id="red_fox" name="rEVOlution Arms Red Fox" cat="Energy Weapons" dmg="6P" attack="14,16,16,9" mode="SA/BF" ammo="30(c)" cost="2800" avail="6(I)" src="FS 116"/>'
+        ),
+        (
+            "crimson_wasp",
+            "rEVOlution Arms Crimson Wasp",
+            "Energy Weapons",
+            "5P",
+            "-",
+            "16/14/11/6/-",
+            "SA",
+            "15(c)",
+            1500,
+            "6(I)",
+            "Firing Squad p. 116",
+            '<weapon id="crimson_wasp" name="rEVOlution Arms Crimson Wasp" cat="Energy Weapons" dmg="5P" attack="16,14,11,6" mode="SA" ammo="15(c)" cost="1500" avail="6(I)" src="FS 116"/>'
+        )
+    ]
+    for w in supplement_weapons:
+        conn.execute(
+            """INSERT OR REPLACE INTO ref_weapons 
+               (id, name, category, damage, ap, attack_rating, modes, ammo, cost, avail, source, raw_xml)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+            w
+        )
+        conn.execute("DELETE FROM ref_gear WHERE id = ?", (w[0],))
+
+
 MIGRATIONS: List[Tuple[int, str, Callable[[sqlite3.Connection], None]]] = [
     (1, "001_core_rules", _migration_001_core_rules),
     (2, "002_gameplay_tables", _migration_002_gameplay_tables),
     (3, "003_srm_contacts_and_rulings", _migration_003_srm_contacts_and_rulings),
     (4, "004_rule_embeddings", _migration_004_rule_embeddings),
+    (5, "005_canonical_supplement_weapons", _migration_005_canonical_supplement_weapons),
 ]
 
 

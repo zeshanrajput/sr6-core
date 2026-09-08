@@ -118,3 +118,15 @@ def test_downtime_binding_table_buying_hits_exact_cutoffs():
     assert "SRM Downtime Binding Table: Spirits" in md
     assert "Force 7" in md
     assert "Ceases at Force 8" in md
+
+
+def test_render_weapon_card_red_fox():
+    """Verifies that render_weapon_card correctly renders Firing Squad laser weapon cards like red_fox."""
+    from sr6core.rules_engine import render_weapon_card
+    card_md = render_weapon_card("red_fox")
+    assert "rEVOlution Arms Red Fox" in card_md
+    assert "6P" in card_md
+    assert "14 / 16 / 16 / 9" in card_md
+    assert "SA/BF" in card_md
+    assert "30(c)" in card_md
+    assert "Firing Squad" in card_md
