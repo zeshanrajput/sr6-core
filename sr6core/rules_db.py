@@ -144,82 +144,14 @@ class RulesDB:
             return ["id", "topic", "chapter", "source", "content"]
 
     def _init_db(self):
-        with self.conn:
-            self.conn.execute("""
-                CREATE TABLE IF NOT EXISTS rules (
-                    id TEXT PRIMARY KEY,
-                    topic TEXT,
-                    chapter TEXT,
-                    source TEXT,
-                    page TEXT,
-                    authority_level INTEGER DEFAULT 3,
-                    tags TEXT,
-                    content TEXT
-                )
-            """)
-            self.conn.execute("""
-                CREATE TABLE IF NOT EXISTS sub_items (
-                    id TEXT,
-                    name TEXT,
-                    namespace TEXT,
-                    content TEXT,
-                    PRIMARY KEY (id, name)
-                )
-            """)
-            try:
-                self.conn.execute("""
-                    CREATE VIRTUAL TABLE IF NOT EXISTS rules_fts USING fts5(
-                        id, topic, chapter, tags, content
-                    )
-                """)
-            except sqlite3.OperationalError:
-                pass
+        from sr6core.migrations.runner import run_migrations
+        run_migrations(self.conn)
 
-            cols = [row[1] for row in self.conn.execute("PRAGMA table_info(rules)").fetchall()]
-            if "page" not in cols:
-                try:
-                    self.conn.execute("ALTER TABLE rules ADD COLUMN page TEXT")
-                except Exception:
-                    pass
-            if "authority_level" not in cols:
-                try:
-                    self.conn.execute("ALTER TABLE rules ADD COLUMN authority_level INTEGER DEFAULT 3")
-                except Exception:
-                    pass
-
-            # Ensure dataset table columns and v_cyberware_grades view exist
-            try:
-                from sr6core.dataset_compiler import migrate_existing_dataset_tables
-                migrate_existing_dataset_tables(self.conn)
-            except Exception:
-                pass
-
-            # Ensure gameplay tables (ref_actions, ref_status_effects, ref_edge_boosts) exist and populated
-            try:
-                from sr6core.gameplay_tables import populate_gameplay_tables
-                populate_gameplay_tables(self.conn)
-            except Exception:
-                pass
-
-            # Ensure SRM metagame metadata and rulings exist
-            try:
-                from sr6core.srm_metadata import populate_srm_metadata
-                populate_srm_metadata(self.conn)
-            except Exception:
-                pass
-
-            # Ensure official SRM contacts are populated with city & season
-            try:
-                from sr6core.srm_contacts import populate_srm_contacts_table
-                populate_srm_contacts_table(db_path=self.db_path)
-            except Exception:
-                pass
-
-            # Ensure sub_items are populated
-            try:
-                self.populate_sub_items()
-            except Exception:
-                pass
+        # Ensure sub_items are populated if needed
+        try:
+            self.populate_sub_items()
+        except Exception:
+            pass
 
     def compile_vault(self, force: bool = False) -> Tuple[int, str]:
         """Scans vault markdown files and indexes them into SQLite."""

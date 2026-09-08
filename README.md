@@ -1,6 +1,8 @@
 # SR6 Core (`sr6-core`)
 
-The master engine, dataset compiler, and CLI portfolio manager for Shadowrun 6th Edition character portfolios (**Yuriko**, **Velvet**, **Union**), multi-agent narrative orchestration, campaign narrative engines, creation auditing, multi-format exporters, and RAG rules assistance.
+The master engine, dataset compiler, and CLI portfolio manager for Shadowrun 6th Edition character portfolios (**Reiko**, **Velvet**, **Venn**), multi-agent narrative orchestration, campaign narrative engines, creation auditing, multi-format exporters, and RAG rules assistance.
+
+> **Core Tabletop Philosophy**: `sr6-core` is built to empower **physical tabletop roleplay**. It handles the computational overhead of Shadowrun 6E—calculating complex situational modifiers, stacking bonuses, computing final dice pools, and presenting contextual rules in real-time. It strictly avoids digital dice rolling in favor of presenting clean, accurate pools for physical dice rolling at the table.
 
 ---
 

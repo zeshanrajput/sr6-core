@@ -1,0 +1,47 @@
+name: CI Test & Quality Gate
+
+on:
+  push:
+    branches:
+      - master
+      - main
+  pull_request:
+    branches:
+      - master
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test-and-audit:
+    name: Pytest & Character Audit Gate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Monorepo
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Set up Astral uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Install dependencies
+        run: |
+          uv sync
+          echo "$GITHUB_WORKSPACE/.venv/bin" >> $GITHUB_PATH
+
+      - name: Run Test Suite (pytest)
+        run: |
+          uv run pytest
+
+      - name: Run Character Dossier Audits
+        run: |
+          uv run sr6 characters audit

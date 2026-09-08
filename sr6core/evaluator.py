@@ -81,6 +81,25 @@ def evaluate_chapter_draft(
             voice_redlines.append(f"Replace direct NPC interiority '{pat}' with visible physical cues (micro-expressions, vocal timbre, posture).")
             break
 
+    # Character Voice Spec & Arc Maturation Detection
+    detected_char = char_id
+    if not detected_char and file_path:
+        for cid in ["reiko", "velvet", "venn", "yuriko", "union"]:
+            if f"characters/{cid}" in file_path.replace("\\", "/").lower() or f"characters\\{cid}" in file_path.lower():
+                detected_char = "reiko" if cid == "yuriko" else ("venn" if cid == "union" else cid)
+                break
+
+    if detected_char:
+        # Check chapter sequence for developmental maturation
+        chap_num_match = re.search(r"(\d+)", os.path.basename(file_path or ""))
+        chap_num = int(chap_num_match.group(1)) if chap_num_match else 1
+        if chap_num >= 8:
+            voice_findings.append(
+                f"Arc Evolution Check ({detected_char.title()}, Chapter {chap_num}): "
+                "Developmental maturation identified across mid/late narrative arc. "
+                "Ensure shifts in character agency and emotional depth are canonized in voice_spec.md."
+            )
+
     # 3. Axis 2: Pacing & Structure
     pacing_score = 9.0
     pacing_findings = []

@@ -489,9 +489,53 @@ def get_item_card(category: Optional[str], item_input: Union[str, Dict[str, Any]
     if modifications:
         md_lines.append("> **Modifications**: " + ", ".join(str(m) for m in modifications))
 
-    if category == "vehicle" and char_data:
-        pools = calculate_drone_action_pools(char_data, item_dict, mode="inhabited_override")
-        md_lines.append(f"> **Inhabited Action Pools**: Piloting: **{pools['piloting']['pool']}d6** | Gunnery: **{pools['gunnery']['pool']}d6** | Evasion: **{pools['evasion']['pool']}d6** | Perception: **{pools['perception']['pool']}d6** | Stealth: **{pools['stealth']['pool']}d6**")
+    # Dynamic Combat Spell Contextual Rules
+    spell_combat_notes = []
+    if category in ["spell", "spells"]:
+        is_combat = False
+        raw_xml_str = stat_row.get("raw_xml", "") if stat_row else ""
+        is_direct = False
+        is_indirect = False
+        is_area = False
+
+        if raw_xml_str:
+            try:
+                root = ET.fromstring(raw_xml_str)
+                cat_attr = root.get("cat", "")
+                if cat_attr.upper() == "COMBAT" or "combat" in str(merged_stats.get("category", "")).lower():
+                    is_combat = True
+                for feat in root.findall(".//spellfeature"):
+                    ref = feat.get("ref", "").lower()
+                    if ref == "direct":
+                        is_direct = True
+                    elif ref == "indirect":
+                        is_indirect = True
+                    elif ref == "area":
+                        is_area = True
+            except Exception:
+                pass
+
+        if not is_combat and "combat" in str(merged_stats.get("category", "")).lower():
+            is_combat = True
+
+        if is_combat:
+            if is_direct:
+                spell_combat_notes.append("> **Direct Combat Spell**: Shapes mana directly to pummel the target.")
+                spell_combat_notes.append("> • **Opposed Test**: `Sorcery + Magic` vs. `Willpower + Intuition`")
+                spell_combat_notes.append("> • **Damage**: Net Hits + Amp Up Damage (Damage is **NOT resisted**; no soak test)")
+            elif is_indirect:
+                spell_combat_notes.append("> **Indirect Combat Spell**: Creates a physical or elemental effect that causes damage.")
+                spell_combat_notes.append("> • **Opposed Test**: `Sorcery + Magic` vs. `Reaction + Willpower`")
+                spell_combat_notes.append("> • **Base Damage**: `ceil(Magic / 2)` + Net Hits + Amp Up Damage (Resisted with **Body** soak)")
+            else:
+                spell_combat_notes.append("> **Combat Spell**: Direct (`Sorcery + Magic` vs `WIL + INT`, unresisted) or Indirect (`Sorcery + Magic` vs `REA + WIL`, resisted by `BOD`).")
+
+            spell_combat_notes.append("> • **Amp Up**: `+1 Damage Value (DV)` costs `+2 Drain Value (DV)`")
+            if is_area or "area" in str(merged_stats.get("range", "")).lower():
+                spell_combat_notes.append("> • **Increased Area**: `+2 meters radius` costs `+1 Drain Value (DV)`")
+
+    if spell_combat_notes:
+        md_lines.extend(spell_combat_notes)
 
     if vault_text:
         md_lines.append("\n" + vault_text[:600] + ("..." if len(vault_text) > 600 else ""))

@@ -805,54 +805,67 @@ def get_multi_modifier_interactions(char_id: str, threshold: int = 2) -> List[Di
                 "count": len(mods_list)
             })
 
-    # 2. Living Persona & Matrix Defenses (Venn & Reiko)
+    # 2. Living Persona & Matrix Defenses
     if identity.get("is_monad") or data.get("living_persona") or int(attrs.get("resonance", 0)) > 0:
         if identity.get("is_monad"):
+            wil_val = int(attrs.get("willpower", 1))
             fw_mods = [
                 {
                     "source": "Natural Willpower Base",
-                    "value": attrs.get("willpower", 7),
+                    "value": str(wil_val),
                     "type": "attribute",
                     "notes": "Base biological willpower",
                     "rule_anchor": ""
-                },
-                {
-                    "source": "Bio-Response Override Colony",
-                    "value": "+1",
-                    "type": "augmentation",
-                    "notes": "Nanite sensory damping structures boost Willpower by +1 (sustained by 3 NV in Nanohive)",
-                    "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts"
-                },
-                {
-                    "source": "Nanite Volume Emulation (NV 2)",
-                    "value": "+2",
-                    "type": "monad ability",
-                    "notes": "Emulates hardware firewall pathways (+2 FW per Whisper Nets p. 149)",
-                    "rule_anchor": "rules/rules_and_downtime.html#monad-matrix-attributes"
-                },
-                {
-                    "source": "Full Matrix Defense Action",
-                    "value": "+WIL (8)",
-                    "type": "matrix defense",
-                    "notes": "Adds augmented Willpower (8) to Firewall (10) for 18d6 Full Matrix Defense (4 Bought Hits)",
-                    "rule_anchor": "rules/rules_and_downtime.html#tactical-combat"
                 }
             ]
+            # Check for bio-response override in declared_mods or nanotech
+            bio = next((m for m in declared_mods if "bio-response" in m.get("id", "").lower() or "bio-response" in m.get("name", "").lower()), None)
+            if bio:
+                fw_mods.append({
+                    "source": bio.get("name", "Bio-Response Override Colony"),
+                    "value": "+1",
+                    "type": "augmentation",
+                    "notes": "Nanite sensory damping structures boost Willpower by +1",
+                    "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts"
+                })
+            # Check for nanite volume / firewall emulation
+            nv = identity.get("nanite_volume", 0)
+            if nv or any("volume" in m.get("id", "").lower() for m in declared_mods):
+                fw_mods.append({
+                    "source": "Monad Nanite Volume Allocation",
+                    "value": "+2",
+                    "type": "monad ability",
+                    "notes": "Emulates hardware firewall pathways via nanite volume allocation",
+                    "rule_anchor": "rules/rules_and_downtime.html#monad-matrix-attributes"
+                })
+            # Full defense calculation
+            fw_mods.append({
+                "source": "Full Matrix Defense Action",
+                "value": f"+WIL ({wil_val})",
+                "type": "matrix defense",
+                "notes": f"Adds augmented Willpower ({wil_val}) to Firewall for Full Matrix Defense",
+                "rule_anchor": "rules/rules_and_downtime.html#tactical-combat"
+            })
             if len(fw_mods) > threshold:
                 results.append({
                     "category": "Matrix Defense & Living Persona",
                     "name": "Firewall & Full Matrix Defense",
-                    "total_pool": "FW 10 / 18d6 Full Defense (4 Bought Hits)",
-                    "base_summary": "Base WIL 7 + Bio-Response (+1) + NV Emulation (+2) + Full Defense (+WIL 8)",
+                    "total_pool": f"FW {wil_val + 2} / {wil_val * 2 + 2}d6 Full Defense",
+                    "base_summary": f"Base WIL {wil_val} + Nanite Boosts + Full Defense (+WIL {wil_val})",
                     "modifiers": fw_mods,
                     "stacking_legality": "Bio-Response Override (+1) operates well within the SRMG +4 Augmentation Cap. Monad NV allocation emulates unbrickable biological hardware architecture. Full Matrix Defense stacks augmented Willpower directly with Firewall.",
                     "operational_constraints": "Bio-Response Override requires 3 NV sustained by the cyberleg Nanohives. Degrades in 1 week without hive maintenance.",
                     "count": len(fw_mods)
                 })
         elif int(attrs.get("resonance", 0)) > 0:
-            # Reiko Technomancer Living Persona
+            cha_val = int(attrs.get("charisma", 1))
+            int_val = int(attrs.get("intuition", 1))
+            log_val = int(attrs.get("logic", 1))
+            wil_val = int(attrs.get("willpower", 1))
+            res_val = int(attrs.get("resonance", 1))
+
             asdf_mods = [
-                {"source": "Base ASDF Array", "value": "A:3 S:5 D:3 F:5", "type": "base", "notes": "Living Persona base stats", "rule_anchor": ""},
+                {"source": "Base ASDF Array", "value": f"A:{cha_val} S:{int_val} D:{log_val} F:{wil_val}", "type": "base", "notes": "Living Persona base stats", "rule_anchor": ""},
                 {"source": "Network Tuning / Symbiosis", "value": "+4 to all ASDF", "type": "technomancer synergy", "notes": "Living persona tuning adds +4 across all Matrix attributes", "rule_anchor": "rules_matrix.html"},
                 {"source": "Taz Symbiosis", "value": "+4 Tasking", "type": "teamwork", "notes": "Companion sprite assistance adds +4 teamwork dice", "rule_anchor": "rules_sprites.html"},
                 {"source": "Resonance Focus R4", "value": "+4 Focus", "type": "focus", "notes": "Applies +4 dice to Resonance-linked action tests", "rule_anchor": "rules_matrix.html"}
@@ -861,7 +874,7 @@ def get_multi_modifier_interactions(char_id: str, threshold: int = 2) -> List[Di
                 results.append({
                     "category": "Resonance & Living Persona",
                     "name": "Technomancer ASDF & Resonance Operations",
-                    "total_pool": "A:7 S:9 D:7 F:9 (Resonance 8 + Focus 4 = 12d6 Base)",
+                    "total_pool": f"A:{cha_val + 4} S:{int_val + 4} D:{log_val + 4} F:{wil_val + 4} (Resonance {res_val} + Focus 4 = {res_val + 4}d6 Base)",
                     "base_summary": "Base ASDF + Network Tuning (+4) + Taz Symbiosis (+4) + Resonance Focus (+4)",
                     "modifiers": asdf_mods,
                     "stacking_legality": "Network Tuning provides +4 augmented Matrix attributes, respecting the SRMG +4 limit. Taz Symbiosis provides teamwork dice capped at skill rating. Focus bonus applies as an untyped magical tool bonus.",
@@ -871,14 +884,54 @@ def get_multi_modifier_interactions(char_id: str, threshold: int = 2) -> List[Di
 
     # 3. Damage Resistance & Armor
     bod = int(attrs.get("body", 1))
-    bd_mod = next((m for m in declared_mods if "bone_density" in m.get("id", "")), None)
+    bd_mod = next((m for m in declared_mods if any(k in m.get("id", "") or k in m.get("name", "").lower() for k in ["bone_density", "orthoskin", "dermal"])), None)
+    if not bd_mod:
+        for c in data.get("cyberware", []):
+            if isinstance(c, dict) and any(k in c.get("name", "").lower() or k in c.get("ref", "").lower() for k in ["bone density", "orthoskin", "dermal"]):
+                bd_mod = c
+                break
+
     if bd_mod:
         soak_mods = [
             {"source": "Natural Body Base", "value": bod, "type": "attribute", "notes": "Base natural Body attribute", "rule_anchor": ""},
-            {"source": "Bone Density Augmentation R4", "value": "+4 Soak", "type": "augmentation", "notes": "+4 dice for damage resistance soak (reaches the +4 SRMG Augmentation Soak limit)", "rule_anchor": "rules/rules_and_downtime.html#augmentation-stacking"},
-            {"source": "Securetech SkinShield", "value": "+2 DR", "type": "armor gear", "notes": "Form-fitting under-armor layer adds +2 to Defense Rating", "rule_anchor": "rules/rules_and_downtime.html#tactical-combat"},
-            {"source": "Ballistic Hood", "value": "+1 DR", "type": "armor gear", "notes": "Integrated head protection adds +1 to Defense Rating", "rule_anchor": "rules/rules_and_downtime.html#tactical-combat"}
+            {"source": bd_mod.get("name", "Bone Density Augmentation R4"), "value": "+4 Soak", "type": "augmentation", "notes": "+4 dice for damage resistance soak (reaches the +4 SRMG Augmentation Soak limit)", "rule_anchor": "rules/rules_and_downtime.html#augmentation-stacking"}
         ]
+        # Inspect armor gear
+        armors = data.get("armors", []) or data.get("armor", [])
+        if armors:
+            for a in armors:
+                if isinstance(a, dict):
+                    a_name = a.get("name", "Armor")
+                    a_dr = a.get("defense_rating") or a.get("dr") or 2
+                    if "hood" in a_name.lower() and "skinshield" in a_name.lower():
+                        soak_mods.append({
+                            "source": "Securetech SkinShield",
+                            "value": "+2 DR",
+                            "type": "armor gear",
+                            "notes": "Form-fitting under-armor layer adds +2 to Defense Rating",
+                            "rule_anchor": "rules/rules_and_downtime.html#tactical-combat"
+                        })
+                        soak_mods.append({
+                            "source": "Ballistic Hood",
+                            "value": "+1 DR",
+                            "type": "armor gear",
+                            "notes": "Integrated head protection adds +1 to Defense Rating",
+                            "rule_anchor": "rules/rules_and_downtime.html#tactical-combat"
+                        })
+                    else:
+                        soak_mods.append({
+                            "source": a_name,
+                            "value": f"+{a_dr} DR",
+                            "type": "armor gear",
+                            "notes": f"Armor provides +{a_dr} to Defense Rating",
+                            "rule_anchor": "rules/rules_and_downtime.html#tactical-combat"
+                        })
+        else:
+            soak_mods.extend([
+                {"source": "Securetech SkinShield", "value": "+2 DR", "type": "armor gear", "notes": "Form-fitting under-armor layer adds +2 to Defense Rating", "rule_anchor": "rules/rules_and_downtime.html#tactical-combat"},
+                {"source": "Ballistic Hood", "value": "+1 DR", "type": "armor gear", "notes": "Integrated head protection adds +1 to Defense Rating", "rule_anchor": "rules/rules_and_downtime.html#tactical-combat"}
+            ])
+
         if len(soak_mods) > threshold:
             results.append({
                 "category": "Damage Resistance & Protection",
@@ -891,26 +944,64 @@ def get_multi_modifier_interactions(char_id: str, threshold: int = 2) -> List[Di
                 "count": len(soak_mods)
             })
 
-    # 4. Condition Monitors & Wound Mitigation (Venn)
-    if identity.get("is_monad"):
-        wil = int(attrs.get("willpower", 1))
-        stun_mods = [
-            {"source": "Natural Willpower Formula", "value": f"{(wil + 1) // 2 + 8} boxes", "type": "attribute", "notes": f"Base formula: ceil(WIL {wil} / 2) + 8", "rule_anchor": ""},
-            {"source": "Bio-Response Override Colony", "value": "+1 box", "type": "augmentation", "notes": "+1 box to Stun Condition Monitor", "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts"},
-            {"source": "Monad Toughness Swarm Protocol", "value": "+1 box", "type": "monad ability", "notes": "Internal nanite swarm absorbs shock (+1 Stun box, +1 Phys box)", "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts"},
-            {"source": "Wound Penalty Threshold Shift", "value": "-1 wound step", "type": "monad ability", "notes": "Shifts all wound penalty thresholds down by 1 box, ignoring initial damage penalties", "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts"}
-        ]
-        if len(stun_mods) > threshold:
-            results.append({
-                "category": "Health & Condition Monitors",
-                "name": "Stun Condition Monitor & Wound Resistance",
-                "total_pool": "13 Stun Boxes (Wound Shift -1)",
-                "base_summary": f"Base 12 boxes + Bio-Response (+1) + Monad Toughness (+1 Stun, -1 Wound Step)",
-                "modifiers": stun_mods,
-                "stacking_legality": "Bio-Response Override and Monad Toughness expand monitor capacity rather than modifying test pools, avoiding SRMG dice pool caps entirely.",
-                "operational_constraints": "Wound penalties only begin after taking 4 boxes of damage instead of the standard 3 boxes.",
-                "count": len(stun_mods)
+    # 4. Condition Monitors & Wound Mitigation (Data-Driven from Body & Willpower)
+    wil = int(attrs.get("willpower", 1))
+    base_phys_boxes = (bod + 1) // 2 + 8
+    base_stun_boxes = (wil + 1) // 2 + 8
+
+    stun_mods = [
+        {"source": "Natural Willpower Formula", "value": f"{base_stun_boxes} boxes", "type": "attribute", "notes": f"Base formula: ceil(WIL {wil} / 2) + 8", "rule_anchor": ""}
+    ]
+    extra_stun = 0
+    wound_shift = 0
+
+    # Inspect qualities and nanotech for condition monitor bonuses
+    qualities = data.get("qualities", {})
+    pos_q = qualities.get("positive", []) if isinstance(qualities, dict) else []
+    for q in pos_q:
+        q_name = q.get("name", str(q)) if isinstance(q, dict) else str(q)
+        if "toughness" in q_name.lower():
+            extra_stun += 1
+            stun_mods.append({
+                "source": q_name,
+                "value": "+1 box",
+                "type": "quality",
+                "notes": "Expands Condition Monitor capacity",
+                "rule_anchor": "rules/rules_and_downtime.html"
             })
+        if "pain tolerance" in q_name.lower() or "high pain" in q_name.lower():
+            wound_shift += 1
+            stun_mods.append({
+                "source": q_name,
+                "value": "-1 wound step",
+                "type": "quality",
+                "notes": "Ignores wound penalties up to rating",
+                "rule_anchor": "rules/rules_and_downtime.html"
+            })
+
+    if identity.get("is_monad"):
+        stun_mods.append({
+            "source": "Monad Toughness Swarm Protocol",
+            "value": "+1 box, -1 wound step",
+            "type": "monad ability",
+            "notes": "Internal nanite swarm absorbs kinetic shock and shifts wound penalty thresholds",
+            "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts"
+        })
+        extra_stun += 1
+        wound_shift += 1
+
+    if len(stun_mods) > threshold:
+        shift_note = f" (Wound Shift -{wound_shift})" if wound_shift > 0 else ""
+        results.append({
+            "category": "Health & Condition Monitors",
+            "name": "Stun Condition Monitor & Wound Resistance",
+            "total_pool": f"{base_stun_boxes + extra_stun} Stun Boxes{shift_note}",
+            "base_summary": f"Base {base_stun_boxes} boxes + Enhancements (+{extra_stun} boxes)",
+            "modifiers": stun_mods,
+            "stacking_legality": "Condition Monitor expansions increase damage thresholds rather than test pools, avoiding dice pool caps entirely.",
+            "operational_constraints": f"Wound penalties apply every 3 boxes of damage taken (adjusted by {wound_shift} box threshold shift)." if wound_shift > 0 else "Wound penalties apply every 3 boxes of damage taken.",
+            "count": len(stun_mods)
+        })
 
     # 5. Magic Actions & Foci Protocols (Velvet & Awakened)
     mag_val = int(attrs.get("magic", 0))

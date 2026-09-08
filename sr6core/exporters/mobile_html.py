@@ -955,6 +955,48 @@ def get_mobile_html_template(character_data_bundle: Dict[str, Any], initial_char
       transform: translateX(-50%) translateY(0);
     }}
 
+    /* Tactical Statuses & Tabletop Modifiers Tray */
+    .status-tray {{
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 10px;
+      margin-top: 8px;
+    }}
+    .status-chip {{
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      font-size: 0.76rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.12s ease;
+      user-select: none;
+    }}
+    .status-chip:hover {{
+      background: rgba(255, 255, 255, 0.12);
+      border-color: var(--border-accent);
+      color: var(--text-primary);
+    }}
+    .status-chip.active {{
+      background: rgba(245, 158, 11, 0.2);
+      border-color: var(--gold-primary);
+      color: var(--gold-primary);
+      font-weight: 700;
+      box-shadow: 0 0 8px var(--gold-glow);
+    }}
+    .status-chip.active.danger {{
+      background: rgba(244, 63, 94, 0.2);
+      border-color: var(--rose-accent);
+      color: var(--rose-accent);
+      box-shadow: 0 0 8px rgba(244, 63, 94, 0.3);
+    }}
+
     /* Interactive Steppers & Modifiers */
     .stepper-pool-wrap {{
       display: flex;
@@ -1135,6 +1177,15 @@ def get_mobile_html_template(character_data_bundle: Dict[str, Any], initial_char
         </div>
         <div id="initDrawerArea"></div>
         <div id="woundPenaltyBanner" style="display: none;"></div>
+
+        <!-- Tactical Statuses & Tabletop Modifiers Tray -->
+        <div class="card-title" style="margin-top: 16px; display: flex; justify-content: space-between; align-items: center;">
+          <span>Tactical Statuses & Modifiers</span>
+          <button class="reset-all-btn" onclick="resetAllStatuses();" title="Clear all active statuses and damage">↺ Reset Statuses</button>
+        </div>
+        <div class="status-tray" id="statusTray">
+          <!-- Rendered via JS -->
+        </div>
 
         <div class="card-title" style="margin-top: 16px;">Derived Pools & Ratings</div>
         <div class="derived-grid" id="derivedGrid">
@@ -1354,20 +1405,35 @@ def get_mobile_html_template(character_data_bundle: Dict[str, Any], initial_char
       renderActiveCharacter();
     }}
 
-    function rollDice(count, label) {{
-      const c = Math.max(1, parseInt(count, 10) || 1);
-      let hits = 0;
-      let ones = 0;
-      const rolls = [];
-      for (let i = 0; i < c; i++) {{
-        const r = Math.floor(Math.random() * 6) + 1;
-        rolls.push(r);
-        if (r >= 5) hits++;
-        if (r === 1) ones++;
-      }}
-      const isGlitch = ones > Math.floor(c / 2);
-      const glitchStr = isGlitch ? (hits === 0 ? " 💥 CRITICAL GLITCH!" : " ⚠️ GLITCH!") : "";
-      showToast(`🎲 ${{label || 'Roll'}}: ${{hits}} Hits (${{c}}d6: [${{rolls.join(", ")}}])${{glitchStr}}`);
+    function toggleStatus(statusKey) {{
+      const cur = parseInt(getRuntimeMod(activeCharId, "status_" + statusKey, 0) || 0, 10);
+      setRuntimeMod(activeCharId, "status_" + statusKey, cur ? 0 : 1);
+      renderActiveCharacter();
+      showToast(cur ? `Status cleared: ${{statusKey}}` : `Status active: ${{statusKey}}`);
+    }}
+
+    function setCover(level) {{
+      setRuntimeMod(activeCharId, "status_cover", parseInt(level, 10));
+      renderActiveCharacter();
+      showToast(level > 0 ? `Cover set: +${{level}} DR` : "Cover cleared");
+    }}
+
+    function setStance(stance) {{
+      setRuntimeMod(activeCharId, "status_stance", stance);
+      renderActiveCharacter();
+      showToast(`Stance set: ${{stance}}`);
+    }}
+
+    function resetAllStatuses() {{
+      const keysToReset = [
+        "status_cover", "status_stance", "status_dazed",
+        "status_stunned", "status_blinded", "status_burning",
+        "dmg_phys", "dmg_stun"
+      ];
+      keysToReset.forEach(k => setRuntimeMod(activeCharId, k, 0));
+      setRuntimeMod(activeCharId, "status_stance", "standing");
+      renderActiveCharacter();
+      showToast("↺ All statuses & damage reset to baseline");
     }}
 
     function getMonadNV(cid) {{
@@ -1903,12 +1969,50 @@ def get_mobile_html_template(character_data_bundle: Dict[str, Any], initial_char
         }}
       }}
 
-      // Derived Ratings (Live calculated from attributes + modifier deltas)
+      // Render Tactical Status Tray
+      const sTray = document.getElementById("statusTray");
+      const activeCover = parseInt(getRuntimeMod(activeCharId, "status_cover", 0) || 0, 10);
+      const activeStance = getRuntimeMod(activeCharId, "status_stance", "standing");
+      const dazedActive = parseInt(getRuntimeMod(activeCharId, "status_dazed", 0) || 0, 10) === 1;
+      const stunnedActive = parseInt(getRuntimeMod(activeCharId, "status_stunned", 0) || 0, 10) === 1;
+      const blindedActive = parseInt(getRuntimeMod(activeCharId, "status_blinded", 0) || 0, 10) === 1;
+      const burningActive = parseInt(getRuntimeMod(activeCharId, "status_burning", 0) || 0, 10) === 1;
+
+      if (sTray) {{
+        sTray.innerHTML = `
+          <div style="display: flex; flex-direction: column; gap: 8px; width: 100%;">
+            <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+              <span style="font-size: 0.72rem; color: var(--text-muted); min-width: 60px;">🛡️ Cover:</span>
+              <button class="status-chip ${{activeCover === 0 ? 'active' : ''}}" onclick="setCover(0);">None</button>
+              <button class="status-chip ${{activeCover === 2 ? 'active' : ''}}" onclick="setCover(2);">Partial (+2 DR)</button>
+              <button class="status-chip ${{activeCover === 4 ? 'active' : ''}}" onclick="setCover(4);">Full (+4 DR)</button>
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+              <span style="font-size: 0.72rem; color: var(--text-muted); min-width: 60px;">🏃 Stance:</span>
+              <button class="status-chip ${{activeStance === 'standing' ? 'active' : ''}}" onclick="setStance('standing');">Standing</button>
+              <button class="status-chip ${{activeStance === 'prone' ? 'active' : ''}}" onclick="setStance('prone');">Prone (+2 Ranged / -2 Melee DR)</button>
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+              <span style="font-size: 0.72rem; color: var(--text-muted); min-width: 60px;">⚠️ Statuses:</span>
+              <button class="status-chip ${{dazedActive ? 'active danger' : ''}}" onclick="toggleStatus('dazed');">Dazed (-2d)</button>
+              <button class="status-chip ${{stunnedActive ? 'active danger' : ''}}" onclick="toggleStatus('stunned');">Stunned (-2d)</button>
+              <button class="status-chip ${{blindedActive ? 'active danger' : ''}}" onclick="toggleStatus('blinded');">Blinded (-4d)</button>
+              <button class="status-chip ${{burningActive ? 'active danger' : ''}}" onclick="toggleStatus('burning');">🔥 Burning</button>
+            </div>
+          </div>
+        `;
+      }}
+
+      // Derived Ratings (Live calculated from attributes + modifier deltas + cover/stance)
       const compBase = wilVal + chaVal;
       const judgeBase = wilVal + intVal;
       const memBase = wilVal + logVal;
       const physDefBase = reaVal + intVal;
-      const defRating = char.derived.defense_rating;
+      const baseDefRating = char.derived.defense_rating || 6;
+      const liveDefRating = baseDefRating + activeCover;
+      let drNote = "Armor + Soak";
+      if (activeCover > 0) drNote += ` | Cover (+${{activeCover}} DR)`;
+      if (activeStance === "prone") drNote += " | Prone (+2 Ranged / -2 Melee)";
       const matDefBase = wilVal + fwVal;
 
       const dGrid = document.getElementById("derivedGrid");
@@ -1930,8 +2034,8 @@ def get_mobile_html_template(character_data_bundle: Dict[str, Any], initial_char
           <div style="font-size: 0.72rem; color: var(--text-muted);">REA (${{reaVal}}) + INT (${{intVal}})</div>
         </div>
         <div class="derived-item">
-          <strong>Defense Rating:</strong> ${{defRating}} DR
-          <div style="font-size: 0.72rem; color: var(--text-muted);">Armor + Soak</div>
+          <strong>Defense Rating:</strong> ${{liveDefRating}} DR
+          <div style="font-size: 0.72rem; color: var(--text-muted);">${{drNote}}</div>
         </div>
         <div class="derived-item">
           <strong>Full Matrix Def:</strong> ${{matDefBase}}d6 (${{Math.floor(matDefBase/4)}}H)
@@ -1996,18 +2100,29 @@ def get_mobile_html_template(character_data_bundle: Dict[str, Any], initial_char
         }}
       }}
 
-      // Skills Tab with Interactive +/- Steppers
+      // Base tactical penalty from statuses (Dazed -2, Stunned -2)
+      let baseStatusPenalty = 0;
+      if (dazedActive) baseStatusPenalty += 2;
+      if (stunnedActive) baseStatusPenalty += 2;
+
+      // Skills Tab with Interactive +/- Steppers & Reactive Tabletop Modifiers
       const sList = document.getElementById("skillsList");
       sList.innerHTML = "";
       char.skills.forEach(s => {{
         const skillKey = "skill_" + (s.id || s.name.toLowerCase().replace(/[^a-z0-9]/g, "_"));
         const delta = getRuntimeMod(activeCharId, skillKey);
+        const sLower = s.name.toLowerCase();
+        let sPenalty = baseStatusPenalty;
+        if (blindedActive && (sLower.includes("perception") || sLower.includes("firearms") || sLower.includes("close combat") || sLower.includes("athletics"))) {{
+          sPenalty += 4;
+        }}
+        const totalPenalty = woundPenalty + sPenalty;
         const defaultPool = s.buffed_pool;
-        const currentPool = Math.max(0, defaultPool + delta);
+        const currentPool = Math.max(0, defaultPool + delta - totalPenalty);
         const boughtHits = Math.floor(currentPool / 4);
         const specPool = s.specialization ? (currentPool + 2) : currentPool;
         const specHits = Math.floor(specPool / 4);
-        const isManualMod = delta !== 0;
+        const isManualMod = (delta !== 0 || totalPenalty > 0);
 
         const item = document.createElement("div");
         item.className = "pool-item" + (isManualMod ? " manual-modified" : "");

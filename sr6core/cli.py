@@ -120,7 +120,11 @@ def run_sync_all():
         except Exception as e:
             print(f"  [4/5] Appendix Character Dossier: Error {e}")
 
-        # 5. Expand Quarto Shortcodes in Chapter Files
+        # 5. Expand Quarto Shortcodes & Inject Narration Audio Players
+        from sr6core.quarto_enricher import inject_chapter_audio_players
+        injected_audio = inject_chapter_audio_players(repo_dir)
+        audio_info = f" (+{injected_audio} audio players)" if injected_audio > 0 else ""
+
         linter_count = 0
         if os.path.exists(chap_dir):
             for f in os.listdir(chap_dir):
@@ -136,7 +140,7 @@ def run_sync_all():
                                 file.write(expanded)
                     except Exception:
                         pass
-        print(f"  [5/5] Chapter Shortcodes & Files : Processed {linter_count} chapters in {chap_dir}\n")
+        print(f"  [5/5] Shortcodes & Narration Audio : Processed {linter_count} chapters{audio_info} in {chap_dir}\n")
 
     # Build Master Multi-Character PWA at app/index.html
     try:

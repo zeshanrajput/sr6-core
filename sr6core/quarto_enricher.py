@@ -148,3 +148,80 @@ def generate_character_dossier_appendix(char_id: str, output_qmd_path: str) -> b
         f.write("\n".join(lines) + "\n")
 
     return True
+
+
+def inject_chapter_audio_players(char_repo_path: str) -> int:
+    """
+    Scans character narrative and chapters directories.
+    If an accompanying MP3 exists in audio/ or narrative/audio/, ensures a clean
+    HTML5 <audio> player element is present in the markdown text.
+    Returns the count of injected or updated audio players.
+    """
+    import urllib.parse
+
+    injected_count = 0
+    subdirs = ["narrative", "chapters"]
+
+    for sub in subdirs:
+        target_dir = os.path.join(char_repo_path, sub)
+        if not os.path.exists(target_dir):
+            continue
+
+        # Check possible audio locations
+        audio_dirs = [
+            os.path.join(target_dir, "audio"),
+            os.path.join(char_repo_path, "narrative", "audio"),
+            os.path.join(char_repo_path, "chapters", "audio"),
+        ]
+        available_mp3s = {}
+        for ad in audio_dirs:
+            if os.path.exists(ad):
+                for f in os.listdir(ad):
+                    if f.endswith(".mp3"):
+                        stem = os.path.splitext(f)[0].lower()
+                        available_mp3s[stem] = f
+
+        if not available_mp3s:
+            continue
+
+        for fname in os.listdir(target_dir):
+            if fname.endswith(".md") or fname.endswith(".qmd"):
+                fpath = os.path.join(target_dir, fname)
+                stem = os.path.splitext(fname)[0].lower()
+
+                matched_mp3 = available_mp3s.get(stem)
+                if not matched_mp3:
+                    continue
+
+                try:
+                    with open(fpath, "r", encoding="utf-8") as file:
+                        text = file.read()
+
+                    # Check if audio tag already present
+                    if "<audio" in text:
+                        continue
+
+                    quoted_src = urllib.parse.quote(matched_mp3)
+                    audio_tag = f'<audio controls src="audio/{quoted_src}" style="width: 100%; margin-bottom: 20px;"></audio>\n\n'
+
+                    # Place right after first # Title line
+                    lines = text.splitlines(keepends=True)
+                    inserted = False
+                    for idx, l in enumerate(lines):
+                        if l.startswith("# "):
+                            # Insert audio tag after title
+                            lines.insert(idx + 1, "\n" + audio_tag)
+                            inserted = True
+                            break
+
+                    if not inserted:
+                        lines.insert(0, audio_tag)
+
+                    with open(fpath, "w", encoding="utf-8") as file:
+                        file.writelines(lines)
+
+                    injected_count += 1
+                except Exception:
+                    pass
+
+    return injected_count
