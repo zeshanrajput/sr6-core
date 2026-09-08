@@ -745,7 +745,7 @@ def get_scene_strategy_table(char_id: str = "velvet") -> str:
         f"**Drain Soak**: **{drain_final}d6** ({fmt_hits(drain_final)}) |"
     )
 
-    # Mode 2: Tactical Combat
+    # Mode 2: Tactical Combat (Kindred Spirit L5 with Psychokinesis, Sustained Slot 3: Increase Reflexes)
     refl_bonus = inc_attr_bonus
     rea_eff_combat = rea_chan + refl_bonus
     phys_def_combat = rea_eff_combat + int_val
@@ -753,17 +753,25 @@ def get_scene_strategy_table(char_id: str = "velvet") -> str:
     init_score_combat = rea_eff_combat + int_val
     init_dice_combat = 1 + (bought_hits // 2)
 
+    psychokinesis_pool = mag + wil_eff
+    psychokinesis_focus = mag + power_focus + wil_eff
+    confusion_pool = mag + wil_eff
+    confusion_focus = mag + power_focus + wil_eff
+
     row2 = (
         f"| **2. Tactical Combat Mode** | "
-        f"**Channeled Spirit of Air (Level {spirit_level})**:<br>"
+        f"**Channeled Kindred Spirit (Level {spirit_level})**:<br>"
         f"* Physicals Bonus: **+{spirit_phys_bonus}** to BOD, AGI, REA, STR<br>"
-        f"* Spirit Powers: *Elemental Attack (Electricity)*, *Engulf*, *Movement*, *Accident*<br><br>"
+        f"* Bonus Power: *Psychokinesis* (Minor Action telekinetic manipulation)<br>"
+        f"* Spirit Powers: *Influence*, *Confusion*, *Accident*, *Guard*, *Concealment*<br><br>"
         f"**Sustained Slot 3**:<br>* **Increase Reflexes** (+{refl_bonus} REA, +{bought_hits // 2}D6 Init) | "
         f"**CHA {cha_eff}**, **WIL {wil_eff}**, **REA {rea_eff_combat}**<br>"
         f"BOD {bod_chan}, AGI {agi_chan}, STR {str_chan}, INT {int_val}, LOG {log_val} | "
-        f"**Elemental Attack (Electricity)**: **{spirit_level * 2}d6** ({fmt_hits(spirit_level * 2)}, Base **{spirit_level}S(e) DV**)<br>"
+        f"**Channeled Influence Power**: **{channeled_influence_base}d6** ({fmt_hits(channeled_influence_base)}) *(MAG {mag} + CHA {cha_eff}{f' / {channeled_influence_focus}d6 w/ Focus' if power_focus else ''} vs WIL+LOG)*<br>"
+        f"**Channeled Psychokinesis**: **{psychokinesis_pool}d6** ({fmt_hits(psychokinesis_pool)}) *(MAG {mag} + WIL {wil_eff}{f' / {psychokinesis_focus}d6 w/ Focus' if power_focus else ''}; STR/AGI = {psychokinesis_pool // 4})*<br>"
+        f"**Channeled Confusion**: **{confusion_pool}d6** ({fmt_hits(confusion_pool)}) *(vs WIL+LOG; inflicts Dazed & Confused)*<br>"
         f"**Sorcery (Spellcasting)**: **{casting_pool}d6** ({fmt_hits(casting_pool)})<br>"
-        f"**Close Combat (Unarmed)**: **{agi_chan}d6** ({fmt_hits(agi_chan)}) | "
+        f"*(Guard: Glitch immunity; Concealment: -{spirit_level} enemy perception)* | "
         f"**Physical Defense**: **{phys_def_combat}d6** ({fmt_hits(phys_def_combat)})<br>"
         f"**Full Defense**: **{full_def_combat}d6** ({fmt_hits(full_def_combat)})<br>"
         f"**Initiative**: **{init_score_combat} + {init_dice_combat}D6**<br>"
