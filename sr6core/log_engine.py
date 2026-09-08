@@ -723,6 +723,19 @@ def get_log_totals(log_path: Optional[Any] = None) -> Dict[str, Any]:
     else:
         files = []
 
+    def _trio_sort_key(fpath: str) -> int:
+        base = os.path.basename(fpath).lower()
+        if "build" in base:
+            return 0
+        if "purchase" in base or "gear" in base or "equipment" in base:
+            return 1
+        if "log" in base or "session" in base:
+            return 2
+        return 3
+
+    files.sort(key=_trio_sort_key)
+
+
     contents = []
     for fpath in files:
         with open(fpath, "r", encoding="utf-8") as f:
