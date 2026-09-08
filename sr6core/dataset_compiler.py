@@ -225,6 +225,8 @@ def migrate_existing_dataset_tables(conn: sqlite3.Connection):
     for tbl in ["ref_cyberware", "ref_qualities", "ref_spells", "ref_adept_powers"]:
         try:
             cols = [r[1] for r in cursor.execute(f"PRAGMA table_info({tbl})").fetchall()]
+            if cols and "modifiers_json" not in cols:
+                cursor.execute(f"ALTER TABLE {tbl} ADD COLUMN modifiers_json TEXT")
             if tbl == "ref_cyberware":
                 items = cursor.execute("SELECT id, raw_xml FROM ref_cyberware WHERE modifiers_json IS NULL OR cost = 0 OR essence = 0.0").fetchall()
             else:
