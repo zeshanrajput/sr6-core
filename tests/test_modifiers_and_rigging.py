@@ -504,6 +504,8 @@ def test_magic_and_social_action_pools_and_tables():
     assert "Universal Anchor 2 (Cast Second)" in strategy_table
     assert "Channeled Influence Power" in strategy_table
     assert "**20d6**" in strategy_table
+    assert "Physicals Bonus: **+2**" in strategy_table
+    assert "**REA 8**" in strategy_table
 
 
 def test_tactical_action_pools_and_tables_union():

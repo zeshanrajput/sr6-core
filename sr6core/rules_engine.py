@@ -673,13 +673,15 @@ def get_scene_strategy_table(char_id: str = "velvet") -> str:
     drain_mid = wil + cha_eff
     drain_final = wil_eff + cha_eff
 
-    # Channeled spirit mechanics: Level = Magic - 1, Physical bonus = Level // 3
+    # Channeled spirit mechanics (Street Wyrd p. 122): Force = Magic - 1
+    # Any physical attribute with rank < Force increases by Force // 2 (max +4)
+    # Magician ignores points of wound modifiers equal to spirit Force
     spirit_level = max(1, mag - 1)
-    spirit_phys_bonus = spirit_level // 3
-    bod_chan = bod + spirit_phys_bonus
-    agi_chan = agi + spirit_phys_bonus
-    rea_chan = rea + spirit_phys_bonus
-    str_chan = str_val + spirit_phys_bonus
+    spirit_phys_bonus = spirit_level // 2
+    bod_chan = bod + spirit_phys_bonus if bod < spirit_level else bod
+    agi_chan = agi + spirit_phys_bonus if agi < spirit_level else agi
+    rea_chan = rea + spirit_phys_bonus if rea < spirit_level else rea
+    str_chan = str_val + spirit_phys_bonus if str_val < spirit_level else str_val
 
     # Check for learned spells
     spells = [s.get("name", "").lower() for s in data.get("spells", [])]
@@ -729,7 +731,7 @@ def get_scene_strategy_table(char_id: str = "velvet") -> str:
     row1 = (
         f"| **1. Social & Legwork Mode** | "
         f"**Channeled Kindred Spirit (Level {spirit_level})**:<br>"
-        f"* Physicals Bonus: **+{spirit_phys_bonus}** to BOD, AGI, REA, STR<br>"
+        f"* Physicals Bonus: **+{spirit_phys_bonus}** to BOD, AGI, REA, STR (Force/2)<br>"
         f"* Bonus Power: *Innate Spell (Increase Attribute: Intuition)* (+{inc_attr_bonus} INT)<br>"
         f"* Spirit Power: *Influence* (Channeled: MAG + CHA vs WIL+LOG)<br><br>"
         f"**Sustained Slot 3**:<br>* {slot3_social} | "
@@ -761,7 +763,7 @@ def get_scene_strategy_table(char_id: str = "velvet") -> str:
     row2 = (
         f"| **2. Tactical Combat Mode** | "
         f"**Channeled Kindred Spirit (Level {spirit_level})**:<br>"
-        f"* Physicals Bonus: **+{spirit_phys_bonus}** to BOD, AGI, REA, STR<br>"
+        f"* Physicals Bonus: **+{spirit_phys_bonus}** to BOD, AGI, REA, STR (Force/2)<br>"
         f"* Bonus Power: *Psychokinesis* (Minor Action telekinetic manipulation)<br>"
         f"* Spirit Powers: *Influence*, *Confusion*, *Accident*, *Guard*, *Concealment*<br><br>"
         f"**Sustained Slot 3**:<br>* **Increase Reflexes** (+{refl_bonus} REA, +{bought_hits // 2}D6 Init) | "
@@ -771,7 +773,7 @@ def get_scene_strategy_table(char_id: str = "velvet") -> str:
         f"**Channeled Psychokinesis**: **{psychokinesis_pool}d6** ({fmt_hits(psychokinesis_pool)}) *(MAG {mag} + WIL {wil_eff}{f' / {psychokinesis_focus}d6 w/ Focus' if power_focus else ''}; STR/AGI = {psychokinesis_pool // 4})*<br>"
         f"**Channeled Confusion**: **{confusion_pool}d6** ({fmt_hits(confusion_pool)}) *(vs WIL+LOG; inflicts Dazed & Confused)*<br>"
         f"**Sorcery (Spellcasting)**: **{casting_pool}d6** ({fmt_hits(casting_pool)})<br>"
-        f"*(Guard: Glitch immunity; Concealment: -{spirit_level} enemy perception)* | "
+        f"*(Guard: Glitch immunity; Concealment: -{spirit_level} enemy perception; ignores {spirit_level} wound points)* | "
         f"**Physical Defense**: **{phys_def_combat}d6** ({fmt_hits(phys_def_combat)})<br>"
         f"**Full Defense**: **{full_def_combat}d6** ({fmt_hits(full_def_combat)})<br>"
         f"**Initiative**: **{init_score_combat} + {init_dice_combat}D6**<br>"
@@ -790,7 +792,7 @@ def get_scene_strategy_table(char_id: str = "velvet") -> str:
     row3 = (
         f"| **3. Investigation & Technical Mode** | "
         f"**Channeled Task Spirit (Level {spirit_level})**:<br>"
-        f"* Physicals Bonus: **+{spirit_phys_bonus}** to BOD, AGI, REA, STR<br>"
+        f"* Physicals Bonus: **+{spirit_phys_bonus}** to BOD, AGI, REA, STR (Force/2)<br>"
         f"* Channeled Skills: *Electronics {spirit_level}*, *Engineering {spirit_level}*<br>"
         f"* Spirit Powers: *Search* ({spirit_level * 2}d6), *Psychokinesis*<br><br>"
         f"**Sustained Slot 3**:<br>* **Increase Attribute: Intuition (+{inc_attr_bonus})** | "
