@@ -176,6 +176,79 @@ def extract_cyberware_stats(elem: Any) -> Tuple[float, int]:
     return essence, cost
 
 
+def extract_weapon_combat_stats(elem: Any) -> Dict[str, Any]:
+    """
+    Extracts damage, attack rating, firing modes, ammo, and price/cost from CommLink6 XML item.
+    Accounts for nested <weapon> and <firearm> tags, plus <attrdef id='PRICE'> or price attribute.
+    """
+    if isinstance(elem, str):
+        try:
+            elem = ET.fromstring(elem)
+        except Exception:
+            return {
+                "damage": "-",
+                "attack_rating": "-",
+                "modes": "-",
+                "ammo": "-",
+                "cost": 0
+            }
+
+    w_node = elem.find(".//weapon")
+    if w_node is None:
+        w_node = elem.find(".//firearm")
+
+    dmg = elem.get("damage", "-")
+    ar_raw = elem.get("ar", elem.get("attack", "-"))
+    modes = elem.get("mode", elem.get("modes", "-"))
+    ammo = elem.get("ammo", "-")
+
+    if w_node is not None:
+        dmg = w_node.get("dmg", w_node.get("damage", dmg))
+        ar_raw = w_node.get("attack", w_node.get("ar", ar_raw))
+        modes = w_node.get("mode", w_node.get("modes", modes))
+        ammo = w_node.get("ammo", ammo)
+
+    # Format attack rating: e.g. "10,10,8,," or "10,10,8,0,0" -> "10/10/8/-/-"
+    if ar_raw and ar_raw != "-":
+        if "," in ar_raw:
+            parts = [p.strip() for p in ar_raw.rstrip(",").split(",")]
+            while len(parts) < 5:
+                parts.append("-")
+            formatted_ar = "/".join([p if (p and p != "0") else "-" for p in parts[:5]])
+        elif "/" in ar_raw:
+            formatted_ar = ar_raw
+        else:
+            formatted_ar = ar_raw
+    else:
+        formatted_ar = "-"
+
+    # Price resolution
+    cost = 0
+    cost_str = elem.get("price") or elem.get("cost")
+    if not cost_str or cost_str == "0":
+        attr = elem.find(".//attrdef[@id='PRICE']")
+        if attr is not None:
+            tbl = attr.get("table")
+            if tbl:
+                cost_str = tbl.split(",")[0]
+            else:
+                cost_str = attr.get("value")
+
+    if cost_str:
+        val = str(cost_str).replace("$RATING", "1").replace("*", " * ")
+        try:
+            cost = int(float(eval(val, {"__builtins__": None}, {})))
+        except Exception:
+            pass
+
+    return {
+        "damage": dmg or "-",
+        "attack_rating": formatted_ar or "-",
+        "modes": modes or "-",
+        "ammo": ammo or "-",
+        "cost": cost
+    }
+
 
 def migrate_existing_dataset_tables(conn: sqlite3.Connection):
     """Adds missing columns, views, and backfills existing dataset tables from raw_xml."""
@@ -198,26 +271,41 @@ def migrate_existing_dataset_tables(conn: sqlite3.Connection):
                 if col_name not in w_cols:
                     cursor.execute(f"ALTER TABLE ref_weapons ADD COLUMN {col_name} {col_type}")
 
-            # Backfill weapons if mounts or modifiers_json is NULL
-            weapons = cursor.execute("SELECT id, raw_xml FROM ref_weapons WHERE mounts IS NULL OR modifiers_json IS NULL").fetchall()
+            # Backfill weapons: mounts, modifiers_json, combat stats, and prices
+            weapons = cursor.execute("SELECT id, raw_xml FROM ref_weapons").fetchall()
             for wid, raw_xml in weapons:
                 if not raw_xml:
                     continue
                 try:
                     elem = ET.fromstring(raw_xml)
                     feats = extract_weapon_features(elem)
+                    stats = extract_weapon_combat_stats(elem)
                     cursor.execute("""
                         UPDATE ref_weapons
                         SET mounts = ?, mount_top = ?, mount_barrel = ?, mount_under = ?, mount_internal = ?,
-                            requirements_json = ?, embedded_accessories_json = ?, modifiers_json = ?
+                            requirements_json = ?, embedded_accessories_json = ?, modifiers_json = ?,
+                            damage = CASE WHEN (damage = '-' OR damage IS NULL OR damage = '') AND ? != '-' THEN ? ELSE damage END,
+                            attack_rating = CASE WHEN (attack_rating = '-' OR attack_rating IS NULL OR attack_rating = '') AND ? != '-' THEN ? ELSE attack_rating END,
+                            modes = CASE WHEN (modes = '-' OR modes IS NULL OR modes = '') AND ? != '-' THEN ? ELSE modes END,
+                            ammo = CASE WHEN (ammo = '-' OR ammo IS NULL OR ammo = '') AND ? != '-' THEN ? ELSE ammo END,
+                            cost = CASE WHEN (cost = 0 OR cost IS NULL) AND ? > 0 THEN ? ELSE cost END
                         WHERE id = ?
                     """, (
                         feats["mounts"], feats["mount_top"], feats["mount_barrel"], feats["mount_under"],
                         feats["mount_internal"], feats["requirements_json"], feats["embedded_accessories_json"],
-                        feats["modifiers_json"], wid
+                        feats["modifiers_json"],
+                        stats["damage"], stats["damage"],
+                        stats["attack_rating"], stats["attack_rating"],
+                        stats["modes"], stats["modes"],
+                        stats["ammo"], stats["ammo"],
+                        stats["cost"], stats["cost"],
+                        wid
                     ))
                 except Exception:
                     pass
+
+            # Clean up weapons duplicated into ref_gear
+            cursor.execute("DELETE FROM ref_gear WHERE id IN (SELECT id FROM ref_weapons)")
     except Exception:
         pass
 
@@ -253,7 +341,12 @@ def migrate_existing_dataset_tables(conn: sqlite3.Connection):
         except Exception:
             pass
 
-    # 3. v_cyberware_grades View
+    # 3. v_cyberware_grades View with exact official multipliers and availability modifiers:
+    # Used/Omegaware: x1.1 ess, x0.5 cost, -1 avail
+    # Alphaware: x0.8 ess, x1.2 cost, +1 avail
+    # Betaware: x0.7 ess, x1.5 cost, +2 avail
+    # Deltaware: x0.5 ess, x2.5 cost, +3 avail
+    # Exoware: x1.1 ess, x0.8 cost, 0 avail
     try:
         cursor.execute("DROP VIEW IF EXISTS v_cyberware_grades")
         cursor.execute("""
@@ -264,14 +357,22 @@ def migrate_existing_dataset_tables(conn: sqlite3.Connection):
                 category,
                 essence AS standard_essence,
                 cost AS standard_cost,
+                0 AS standard_avail_mod,
+                ROUND(essence * 1.1, 2) AS used_essence,
+                CAST(ROUND(cost * 0.5) AS INTEGER) AS used_cost,
+                -1 AS used_avail_mod,
                 ROUND(essence * 0.8, 2) AS alpha_essence,
                 CAST(ROUND(cost * 1.2) AS INTEGER) AS alpha_cost,
+                1 AS alpha_avail_mod,
                 ROUND(essence * 0.7, 2) AS beta_essence,
                 CAST(ROUND(cost * 1.5) AS INTEGER) AS beta_cost,
+                2 AS beta_avail_mod,
                 ROUND(essence * 0.5, 2) AS delta_essence,
                 CAST(ROUND(cost * 2.5) AS INTEGER) AS delta_cost,
-                ROUND(essence * 1.2, 2) AS used_essence,
-                CAST(ROUND(cost * 0.8) AS INTEGER) AS used_cost,
+                3 AS delta_avail_mod,
+                ROUND(essence * 1.1, 2) AS exoware_essence,
+                CAST(ROUND(cost * 0.8) AS INTEGER) AS exoware_cost,
+                0 AS exoware_avail_mod,
                 capacity,
                 avail,
                 source,
@@ -558,17 +659,26 @@ def compile_commlink_datasets(jar_path: Optional[str] = None, db_path: str = DEF
                         avail = item.get("avail", "1")
                         raw_xml = ET.tostring(item, encoding="utf-8").decode("utf-8")
 
-                        is_weapon = any(w in fname for w in ["firearm", "weapon", "melee", "underbarrel"]) or item.get("damage") or item.get("attack")
+                        is_weapon = (
+                            any(w in fname for w in ["firearm", "weapon", "melee", "underbarrel"]) or
+                            item.find(".//weapon") is not None or
+                            item.find(".//firearm") is not None or
+                            "WEAPON" in (item.get("type") or "").upper() or
+                            bool(item.get("damage")) or
+                            bool(item.get("attack"))
+                        )
                         is_cyber = any(c in fname for c in ["cyberware", "bioware", "headware", "bodyware", "eyeware", "earware", "cyberlimb", "geneware", "nanoware"])
                         is_vehicle = any(v in fname for v in ["vehicle", "drone"])
                         is_program = "software" in fname or "program" in fname
 
                         if is_weapon:
-                            dmg = item.get("damage", "-")
+                            w_stats = extract_weapon_combat_stats(item)
+                            dmg = w_stats["damage"]
                             ap = item.get("ap", "0")
-                            ar = item.get("ar", item.get("attack", "-"))
-                            modes = item.get("mode", item.get("modes", "-"))
-                            ammo = item.get("ammo", "-")
+                            ar = w_stats["attack_rating"]
+                            modes = w_stats["modes"]
+                            ammo = w_stats["ammo"]
+                            cost = w_stats["cost"]
                             cat = item.get("category", fname.replace("gear_", "").replace(".xml", "").title())
                             w_feats = extract_weapon_features(item)
                             cursor.execute(

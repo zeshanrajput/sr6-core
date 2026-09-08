@@ -194,6 +194,33 @@ class RulesDB:
             except Exception:
                 pass
 
+            # Ensure gameplay tables (ref_actions, ref_status_effects, ref_edge_boosts) exist and populated
+            try:
+                from sr6core.gameplay_tables import populate_gameplay_tables
+                populate_gameplay_tables(self.conn)
+            except Exception:
+                pass
+
+            # Ensure SRM metagame metadata and rulings exist
+            try:
+                from sr6core.srm_metadata import populate_srm_metadata
+                populate_srm_metadata(self.conn)
+            except Exception:
+                pass
+
+            # Ensure official SRM contacts are populated with city & season
+            try:
+                from sr6core.srm_contacts import populate_srm_contacts_table
+                populate_srm_contacts_table(db_path=self.db_path)
+            except Exception:
+                pass
+
+            # Ensure sub_items are populated
+            try:
+                self.populate_sub_items()
+            except Exception:
+                pass
+
     def compile_vault(self, force: bool = False) -> Tuple[int, str]:
         """Scans vault markdown files and indexes them into SQLite."""
         if not os.path.exists(self.vault_dir):
@@ -642,20 +669,41 @@ class RulesDB:
                     except Exception:
                         d["modifiers"] = []
                 d["grades"] = {
-                    "standard": {"essence": d.get("standard_essence"), "cost": d.get("standard_cost")},
+                    "standard": {
+                        "essence": d.get("standard_essence"),
+                        "cost": d.get("standard_cost"),
+                        "avail_mod": d.get("standard_avail_mod", 0)
+                    },
+                    "used": {
+                        "essence": d.get("used_essence"),
+                        "cost": d.get("used_cost"),
+                        "avail_mod": d.get("used_avail_mod", -1)
+                    },
+                    "omegaware": {
+                        "essence": d.get("used_essence"),
+                        "cost": d.get("used_cost"),
+                        "avail_mod": d.get("used_avail_mod", -1)
+                    },
                     "alphaware": {
-                        "essence": d.get("alpha_essence") if d.get("alpha_essence") is not None else d.get("alphaware_essence"),
-                        "cost": d.get("alpha_cost") if d.get("alpha_cost") is not None else d.get("alphaware_cost")
+                        "essence": d.get("alpha_essence"),
+                        "cost": d.get("alpha_cost"),
+                        "avail_mod": d.get("alpha_avail_mod", 1)
                     },
                     "betaware": {
-                        "essence": d.get("beta_essence") if d.get("beta_essence") is not None else d.get("betaware_essence"),
-                        "cost": d.get("beta_cost") if d.get("beta_cost") is not None else d.get("betaware_cost")
+                        "essence": d.get("beta_essence"),
+                        "cost": d.get("beta_cost"),
+                        "avail_mod": d.get("beta_avail_mod", 2)
                     },
                     "deltaware": {
-                        "essence": d.get("delta_essence") if d.get("delta_essence") is not None else d.get("deltaware_essence"),
-                        "cost": d.get("delta_cost") if d.get("delta_cost") is not None else d.get("deltaware_cost")
+                        "essence": d.get("delta_essence"),
+                        "cost": d.get("delta_cost"),
+                        "avail_mod": d.get("delta_avail_mod", 3)
                     },
-                    "used": {"essence": d.get("used_essence"), "cost": d.get("used_cost")},
+                    "exoware": {
+                        "essence": d.get("exoware_essence"),
+                        "cost": d.get("exoware_cost"),
+                        "avail_mod": d.get("exoware_avail_mod", 0)
+                    },
                 }
                 return d
         except Exception:
@@ -739,4 +787,180 @@ class RulesDB:
             return evaluated
         except Exception:
             return []
+
+    def populate_sub_items(self, force: bool = False) -> int:
+        """
+        Parses granular sub-items (Submersion Echoes, Metamagics, Matrix Actions,
+        Combat Actions, and Special Powers) out of monolithic rules chunks and indexes them
+        into sub_items for instant O(1) queryable retrieval.
+        """
+        cursor = self.conn.cursor()
+        if not force:
+            try:
+                count = cursor.execute("SELECT COUNT(*) FROM sub_items").fetchone()[0]
+                if count > 30:
+                    return count
+            except Exception:
+                pass
+
+        CANONICAL_SUBITEMS = [
+            # Submersion Echoes
+            ("echo_skinlink", "Skinlink", "echoes", "You can connect to a device as if using a direct neural interface (DNI) simply by touching it with bare skin. Eliminates the need for data cables or wireless broadcast."),
+            ("echo_living_network", "Living Network", "echoes", "Your living persona can participate in and form a Personal Area Network (PAN) as the master device, slaving physical gear, weapons, and commlinks directly to your Resonance persona."),
+            ("echo_machine_mind", "Machine Mind", "echoes", "You gain the subconscious neural interfaces of a Rating 1 Control Rig. When jumped into a drone or vehicle, gain control rig threshold reductions and dice pool bonuses."),
+            ("echo_matrix_upgrade", "Matrix Attribute Upgrade", "echoes", "Permanently increase one of your living persona's Matrix Attributes (Attack, Sleaze, Data Processing, or Firewall) by 1. Can be taken twice per attribute."),
+            ("echo_neurofilter", "NeuroFilter", "echoes", "Adds a +1 dice pool bonus to resist biofeedback damage from black IC and Matrix attacks. May be taken up to twice for +2 resistance."),
+            ("echo_overclocking", "Overclocking", "echoes", "You accelerate your living persona to act at blinding speeds in the Matrix. Gain +1 additional Minor Action and +1D6 Initiative Dice while in hot-sim VR."),
+            ("echo_resonance_link", "Resonance Link", "echoes", "Establish an empathic one-way sensory link with another technomancer. You instantly discern their emotional state, trauma, physical danger, and Matrix alarms."),
+            ("echo_aura_link", "Aura Link", "echoes", "Requires Skinlink. You can wirelessly link to devices as if touching them, reading digital signatures across the astral-digital threshold."),
+            ("echo_mind_over_machine", "Mind Over Machine", "echoes", "Treat your living persona as an installed Rigger Command Console (RCC), allowing you to share autosofts and command multiple slaved drones simultaneously."),
+            ("echo_buffer", "Buffer", "echoes", "Creates a protective Resonance cushion that absorbs up to 2 boxes of Matrix or biofeedback damage per encounter before hitting your persona condition monitor."),
+            ("echo_data_haven", "Data Haven", "echoes", "Allows you to store encrypted files, stolen paydata, and node images directly inside your living persona's Resonance matrix memory with complete immunity to external trace actions."),
+            ("echo_deconstruct", "Deconstruct", "echoes", "Adds +2 DV to Matrix damage inflicted against IC programs and constructs inside host environments."),
+
+            # Metamagics
+            ("meta_centering", "Centering", "metamagic", "Use vocal chants, mantras, or physical gestures to reduce negative situational dice pool modifiers and sustaining penalties by your initiate grade."),
+            ("meta_adept_centering", "Adept Centering", "metamagic", "Physical adepts channel ki flow to reduce physical penalties to combat tests by their initiate grade."),
+            ("meta_cleansing", "Cleansing", "metamagic", "Scrub background counts, astral signatures, and magical pollution from a physical area through ritual cleansing."),
+            ("meta_fixation", "Fixation", "metamagic", "Allows an initiate to make a quickened spell permanent without continuous Karma sustaining drain."),
+            ("meta_masking", "Masking", "metamagic", "Alter the appearance of your astral aura to appear mundane, conceal your Magic rating, or disguise your initiate grade against assensing."),
+            ("meta_extended_masking", "Extended Masking", "metamagic", "Requires Masking. Extend your masking aura to disguise bonded foci, sustained spells, and allied spirits."),
+            ("meta_quickening", "Quickening", "metamagic", "Sustain a spell indefinitely by bonding Karma into the spell matrix, freeing your concentration from sustaining penalties."),
+            ("meta_shielding", "Shielding", "metamagic", "Channel astral barrier energy into your spell defense pool, increasing counterspelling dice by your initiate grade."),
+            ("meta_absorption", "Absorption", "metamagic", "Requires Shielding. Absorb intercepted spell energy to replenish your physical stamina or reduce active drain."),
+            ("meta_flexible_signature", "Flexible Signature", "metamagic", "Alter the astral signature left by your spellcasting to mimic another tradition or accelerate signature decay."),
+            ("meta_power_point", "Power Point", "metamagic", "Gain 1 additional Power Point for adept powers upon initiation instead of a standard metamagic technique.")
+        ]
+
+        inserted = 0
+        for iid, name, ns, content in CANONICAL_SUBITEMS:
+            cursor.execute(
+                "INSERT OR REPLACE INTO sub_items (id, name, namespace, content) VALUES (?, ?, ?, ?)",
+                (iid, name, ns, content)
+            )
+            inserted += 1
+
+        # Also dynamically parse matching bullet items from monolithic rules chunks
+        try:
+            target_rules = cursor.execute("""
+                SELECT id, topic, content FROM rules 
+                WHERE topic LIKE '%echo%' OR topic LIKE '%metamagic%' OR topic LIKE '%matrix action%' 
+                   OR topic LIKE '%minor action%' OR topic LIKE '%major action%'
+            """).fetchall()
+
+            import re
+            for r in target_rules:
+                rule_id, topic, content = r[0], r[1], r[2]
+                if content.startswith("---"):
+                    parts = content.split("---", 2)
+                    if len(parts) >= 3:
+                        content = parts[2].strip()
+
+                top_low = topic.lower()
+                if "echo" in top_low:
+                    ns = "echoes"
+                elif "metamagic" in top_low:
+                    ns = "metamagic"
+                elif "matrix" in top_low:
+                    ns = "matrix_actions"
+                else:
+                    ns = "combat_actions"
+
+                pattern = r"(?:^|\n)(?:[-*]\s*)?(?:\*\*([^*:\n]+)\*\*|([A-Z][A-Za-z0-9\s/–—\-]{2,35}))\s*:\s*(.*?)(?=\n(?:[-*]\s*)?(?:\*\*[^*:\n]+\*\*|[A-Z][A-Za-z0-9\s/–—\-]{2,35}\s*:)|$)"
+                for m in re.finditer(pattern, content, re.DOTALL):
+                    name = (m.group(1) or m.group(2) or "").strip()
+                    desc = m.group(3).strip()
+                    if len(name) >= 3 and len(desc) >= 20 and not name.lower().startswith("note") and not name.lower().startswith("example"):
+                        clean_id = f"{rule_id}_{name.lower().replace(' ', '_')}"
+                        cursor.execute(
+                            "INSERT OR IGNORE INTO sub_items (id, name, namespace, content) VALUES (?, ?, ?, ?)",
+                            (clean_id, name, ns, desc)
+                        )
+                        inserted += 1
+        except Exception:
+            pass
+
+        self.conn.commit()
+        return inserted
+
+    def get_sub_item(self, name_or_id: str, namespace: Optional[str] = None) -> Optional[Dict[str, Any]]:
+        """Retrieves a granular sub-item (echo, metamagic, action, quality) from sub_items."""
+        if not name_or_id or not name_or_id.strip():
+            return None
+        clean_target = name_or_id.strip().lower()
+        norm_target = clean_target.replace(" ", "_").replace("-", "_")
+        cursor = self.conn.cursor()
+        if namespace:
+            query = """
+                SELECT id, name, namespace, content
+                FROM sub_items
+                WHERE namespace = ? AND (lower(id) = ? OR lower(name) = ? OR lower(id) = ? OR lower(name) = ?)
+            """
+            row = cursor.execute(query, (namespace, clean_target, clean_target, norm_target, norm_target.replace("_", " "))).fetchone()
+        else:
+            query = """
+                SELECT id, name, namespace, content
+                FROM sub_items
+                WHERE lower(id) = ? OR lower(name) = ? OR lower(id) = ? OR lower(name) = ?
+            """
+            row = cursor.execute(query, (clean_target, clean_target, norm_target, norm_target.replace("_", " "))).fetchone()
+
+        if row:
+            return dict(row)
+        return None
+
+    def get_action(self, identifier: str) -> Optional[Dict[str, Any]]:
+        """Retrieves action details from ref_actions by ID or name."""
+        if not identifier or not identifier.strip():
+            return None
+        clean = identifier.strip().lower()
+        norm = clean.replace(" ", "_").replace("-", "_")
+        cursor = self.conn.cursor()
+        row = cursor.execute(
+            "SELECT * FROM ref_actions WHERE id = ? OR lower(name) = ? OR lower(id) = ? OR lower(name) = ?",
+            (clean, clean, norm, norm.replace("_", " "))
+        ).fetchone()
+        return dict(row) if row else None
+
+    def get_status_effect(self, identifier: str) -> Optional[Dict[str, Any]]:
+        """Retrieves status effect condition details from ref_status_effects."""
+        if not identifier or not identifier.strip():
+            return None
+        clean = identifier.strip().lower()
+        norm = clean.replace(" ", "_").replace("-", "_")
+        cursor = self.conn.cursor()
+        row = cursor.execute(
+            "SELECT * FROM ref_status_effects WHERE id = ? OR lower(name) = ? OR lower(id) = ? OR lower(name) = ?",
+            (clean, clean, norm, norm.replace("_", " "))
+        ).fetchone()
+        return dict(row) if row else None
+
+    def get_edge_boost(self, identifier: str) -> Optional[Dict[str, Any]]:
+        """Retrieves Edge boost mechanics from ref_edge_boosts."""
+        if not identifier or not identifier.strip():
+            return None
+        clean = identifier.strip().lower()
+        norm = clean.replace(" ", "_").replace("-", "_")
+        cursor = self.conn.cursor()
+        row = cursor.execute(
+            "SELECT * FROM ref_edge_boosts WHERE id = ? OR lower(name) = ? OR lower(id) = ? OR lower(name) = ?",
+            (clean, clean, norm, norm.replace("_", " "))
+        ).fetchone()
+        return dict(row) if row else None
+
+    def get_srm_ruling(self, identifier: str) -> Optional[Dict[str, Any]]:
+        """Retrieves official SRM FAQ ruling or campaign exception from srm_rulings."""
+        if not identifier or not identifier.strip():
+            return None
+        clean = identifier.strip().lower()
+        norm = clean.replace(" ", "_").replace("-", "_")
+        cursor = self.conn.cursor()
+        row = cursor.execute(
+            """SELECT * FROM srm_rulings 
+               WHERE id = ? OR lower(topic) = ? OR rule_or_item_id = ? OR lower(id) = ?
+                  OR lower(topic) LIKE ? OR lower(ruling) LIKE ?""",
+            (clean, clean, norm, norm, f"%{clean}%", f"%{clean}%")
+        ).fetchone()
+        return dict(row) if row else None
+
 

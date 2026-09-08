@@ -7,6 +7,7 @@ Exposes high-level Markdown table renderers for Quarto rules chapters and dossie
 import os
 import re
 import json
+import xml.etree.ElementTree as ET
 from typing import Dict, Any, List, Optional, Set
 
 from sr6core.rules_db import RulesDB, DEFAULT_DB_PATH
@@ -44,30 +45,55 @@ def get_weapon_stats(item_id: str, db_path: str = DEFAULT_DB_PATH) -> Optional[D
         cursor = db.conn.cursor()
 
         row = cursor.execute(
-            "SELECT id, name, category, source, raw_xml FROM ref_gear WHERE id = ? OR lower(id) = ?",
-            (item_id, item_id.lower())
+            """SELECT id, name, category, damage, ap, attack_rating, modes, ammo, cost, source, raw_xml 
+               FROM ref_weapons 
+               WHERE id = ? OR lower(id) = ? OR lower(name) = ?""",
+            (item_id, item_id.lower(), item_id.lower())
         ).fetchone()
+
+        if not row:
+            row = cursor.execute(
+                "SELECT id, name, category, source, raw_xml FROM ref_gear WHERE id = ? OR lower(id) = ?",
+                (item_id, item_id.lower())
+            ).fetchone()
     except Exception:
         return None
 
     if not row:
         return None
 
-    w_id, name, category, source, raw_xml = row["id"], row["name"], row["category"], row["source"], row["raw_xml"]
+    w_id = row["id"]
+    name = row["name"]
+    category = row["category"]
+    source = row["source"]
+    raw_xml = row["raw_xml"]
 
-    dmg, attack_list, mode, ammo = "0P", [], "SS", "—"
-    if raw_xml:
+    dmg = row["damage"] if "damage" in row.keys() and row["damage"] and row["damage"] != "-" else "0P"
+    mode = row["modes"] if "modes" in row.keys() and row["modes"] and row["modes"] != "-" else "SS"
+    ammo = row["ammo"] if "ammo" in row.keys() and row["ammo"] and row["ammo"] != "-" else "—"
+
+    attack_list = []
+    if "attack_rating" in row.keys() and row["attack_rating"] and row["attack_rating"] != "-":
+        for p in str(row["attack_rating"]).replace("–", "-").split("/"):
+            attack_list.append(int(p.strip()) if p.strip().isdigit() else None)
+
+    if raw_xml and (dmg in ["0P", "-", "—", ""] or not attack_list):
         try:
             root = ET.fromstring(raw_xml)
-            weapon_node = root.find("weapon")
+            weapon_node = root.find(".//weapon")
+            if weapon_node is None:
+                weapon_node = root.find(".//firearm")
             if weapon_node is not None:
-                dmg = weapon_node.get("dmg", "0P")
-                attack_raw = weapon_node.get("attack", "")
-                if attack_raw:
+                if dmg in ["0P", "-", "—", ""]:
+                    dmg = weapon_node.get("dmg", weapon_node.get("damage", "0P"))
+                attack_raw = weapon_node.get("attack", weapon_node.get("ar", ""))
+                if attack_raw and not attack_list:
                     for p in attack_raw.rstrip(",").split(","):
                         attack_list.append(int(p) if p.isdigit() else None)
-                mode = weapon_node.get("mode", "SS")
-                ammo = weapon_node.get("ammo", "—")
+                if mode in ["SS", "-", ""]:
+                    mode = weapon_node.get("mode", weapon_node.get("modes", "SS"))
+                if ammo in ["—", "-", ""]:
+                    ammo = weapon_node.get("ammo", "—")
         except Exception:
             pass
 

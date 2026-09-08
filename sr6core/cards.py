@@ -340,8 +340,15 @@ def get_item_card(category: Optional[str], item_input: Union[str, Dict[str, Any]
     raw_vault_text = ""
     source_citation = ""
 
+    # Check granular sub_items table first (Echoes, Metamagics, Matrix Actions, Qualities)
+    sub_rec = rdb.get_sub_item(clean_search_name) or rdb.get_sub_item(raw_id)
+    if sub_rec:
+        raw_vault_text = sub_rec["content"]
+        ns_label = sub_rec.get("namespace", "Rules").replace("_", " ").title()
+        source_citation = f"[SR6 {ns_label}]"
+
     # Special Precision Handler for Meta Echoes
-    if category == "meta_echo":
+    elif category == "meta_echo":
         hns_rule = rdb.query_rule("HnS-0205")
         core_rule = rdb.query_rule("6WB-0887") or rdb.query_rule("SR6H-0884")
         hns_text = hns_rule.get("content", "") if hns_rule else ""

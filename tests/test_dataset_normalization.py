@@ -80,12 +80,35 @@ def test_cyberware_grades_view_and_queries():
     assert "betaware" in grades
     assert "deltaware" in grades
     assert "used" in grades
+    assert "exoware" in grades
 
     std_ess = grades["standard"]["essence"]
-    alpha_ess = grades["alphaware"]["essence"]
-    assert alpha_ess == round(std_ess * 0.8, 2)
-    assert grades["alphaware"]["cost"] == round(grades["standard"]["cost"] * 1.2)
+    std_cost = grades["standard"]["cost"]
+
+    # Used / Omegaware: x1.1 ess, x0.5 cost, -1 avail
+    assert grades["used"]["essence"] == round(std_ess * 1.1, 2)
+    assert grades["used"]["cost"] == round(std_cost * 0.5)
+    assert grades["used"]["avail_mod"] == -1
+
+    # Alphaware: x0.8 ess, x1.2 cost, +1 avail
+    assert grades["alphaware"]["essence"] == round(std_ess * 0.8, 2)
+    assert grades["alphaware"]["cost"] == round(std_cost * 1.2)
+    assert grades["alphaware"]["avail_mod"] == 1
+
+    # Betaware: x0.7 ess, x1.5 cost, +2 avail
+    assert grades["betaware"]["essence"] == round(std_ess * 0.7, 2)
+    assert grades["betaware"]["cost"] == round(std_cost * 1.5)
+    assert grades["betaware"]["avail_mod"] == 2
+
+    # Deltaware: x0.5 ess, x2.5 cost, +3 avail
     assert grades["deltaware"]["essence"] == round(std_ess * 0.5, 2)
+    assert grades["deltaware"]["cost"] == round(std_cost * 2.5)
+    assert grades["deltaware"]["avail_mod"] == 3
+
+    # Exoware: x1.1 ess, x0.8 cost, 0 avail
+    assert grades["exoware"]["essence"] == round(std_ess * 1.1, 2)
+    assert grades["exoware"]["cost"] == round(std_cost * 0.8)
+    assert grades["exoware"]["avail_mod"] == 0
 
 
 def test_weapon_mounts_query():

@@ -331,6 +331,48 @@ OFFICIAL_SRM_CONTACTS = [
         "types": "Magic",
         "uses": "Forbidden magic (Cannot be called during missions)",
         "source": "SRMG v2.4"
+    },
+    # Chicago Contacts (SRM Season 8 / Containment Zone)
+    {
+        "id": "becky_99",
+        "name": "Becky 99",
+        "connection": 3,
+        "archetype": "Fixer / Gang Leader",
+        "region": "Chicago",
+        "types": "Criminal, Street",
+        "uses": "Desolation Angels, getting jobs, Chicago CZ smuggling",
+        "source": "SRM Season 8 (Chicago)"
+    },
+    {
+        "id": "dr_martin_tate",
+        "name": "Dr. Martin Tate",
+        "connection": 4,
+        "archetype": "Street Doc",
+        "region": "Chicago",
+        "types": "Medical, Street",
+        "uses": "Cyberware surgery, bug spirit trauma, containment zone medicine",
+        "source": "SRM Season 8 (Chicago)"
+    },
+    # Neo-Tokyo Contacts (SRM Season 9)
+    {
+        "id": "kenji_sato",
+        "name": "Kenji Sato",
+        "connection": 4,
+        "archetype": "Corporate Fixer",
+        "region": "Neo-Tokyo",
+        "types": "Corporate, Matrix",
+        "uses": "Renraku contracts, Neo-Tokyo paydata, import/export",
+        "source": "SRM Season 9 (Neo-Tokyo)"
+    },
+    {
+        "id": "ayumi_tanaka",
+        "name": "Ayumi Tanaka",
+        "connection": 3,
+        "archetype": "Yakuza Oyabun Contact",
+        "region": "Neo-Tokyo",
+        "types": "Criminal",
+        "uses": "Watada-rengo introductions, safehouses, katana procurement",
+        "source": "SRM Season 9 (Neo-Tokyo)"
     }
 ]
 
@@ -348,15 +390,47 @@ def populate_srm_contacts_table(db_path: str = DEFAULT_DB_PATH) -> int:
             region TEXT,
             types TEXT,
             uses TEXT,
-            source TEXT
+            source TEXT,
+            city TEXT,
+            season TEXT
         )
     """)
 
+    cols = [r[1] for r in cursor.execute("PRAGMA table_info(ref_contacts)").fetchall()]
+    if "city" not in cols:
+        try:
+            cursor.execute("ALTER TABLE ref_contacts ADD COLUMN city TEXT")
+        except Exception:
+            pass
+    if "season" not in cols:
+        try:
+            cursor.execute("ALTER TABLE ref_contacts ADD COLUMN season TEXT")
+        except Exception:
+            pass
+
     count = 0
     for c in OFFICIAL_SRM_CONTACTS:
+        city = c.get("city") or c.get("region", "Seattle").split("/")[0].strip()
+        region_low = c.get("region", "").lower()
+        source_low = c.get("source", "").lower()
+
+        if "neo-tokyo" in region_low or "neo tokyo" in region_low or "tokyo" in region_low:
+            season = c.get("season") or "Season 9 (Neo-Tokyo)"
+            city = "Neo-Tokyo"
+        elif "chicago" in region_low:
+            season = c.get("season") or "Season 8 (Chicago)"
+            city = "Chicago"
+        elif "seattle" in region_low or "2081" in source_low:
+            season = c.get("season") or "Season 10 (Seattle 2081)"
+            city = "Seattle"
+        else:
+            season = c.get("season") or "SRM Global / Special"
+
         cursor.execute(
-            "INSERT OR REPLACE INTO ref_contacts VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-            (c["id"], c["name"], c["connection"], c["archetype"], c["region"], c["types"], c["uses"], c["source"])
+            """INSERT OR REPLACE INTO ref_contacts 
+               (id, name, connection, archetype, region, types, uses, source, city, season)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+            (c["id"], c["name"], c["connection"], c["archetype"], c["region"], c["types"], c["uses"], c["source"], city, season)
         )
         count += 1
 
