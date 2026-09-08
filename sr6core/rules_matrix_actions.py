@@ -197,68 +197,70 @@ SRM_MATRIX_TAXONOMY = [
 
 
 def calculate_matrix_action_pool(char_data: Dict[str, Any], skill_name: str, specialization_name: str, linked_attr: str) -> Dict[str, Any]:
-    """Calculates effective tabletop dice pool and status for a specific Matrix action."""
-    attrs = char_data.get("attributes", {})
-    attr_val = int(attrs.get(linked_attr.lower(), 1))
+    """
+    Calculates effective tabletop dice pool and status for a specific Matrix action,
+    deriving directly from ModifierEngine.get_matrix_action_pools for complete rules consistency.
+    """
+    from sr6core.modifiers import ModifierEngine
 
-    # Natural Hacker swap: Resonance replaces mental attributes for Matrix actions
-    qualities = char_data.get("qualities", {})
-    pos_q = qualities.get("positive", []) if isinstance(qualities, dict) else []
-    is_natural_hacker = any("natural hacker" in str(q).lower() for q in pos_q)
-    if is_natural_hacker and "resonance" in attrs and int(attrs.get("resonance", 0)) > 0:
-        attr_val = int(attrs.get("resonance"))
-        linked_attr = "Resonance"
+    pools = ModifierEngine.get_matrix_action_pools(char_data)
 
     skills = char_data.get("skills", [])
-    skill_rec = None
-    for s in skills:
-        if isinstance(s, dict) and s.get("name", "").lower() == skill_name.lower():
-            skill_rec = s
-            break
+    skill_rec = next((s for s in skills if isinstance(s, dict) and s.get("name", "").lower() == skill_name.lower()), None)
+    specs = []
+    if skill_rec:
+        specs = list(skill_rec.get("specializations", []))
+        if isinstance(skill_rec.get("specialization"), str):
+            specs.append(skill_rec.get("specialization"))
 
-    if not skill_rec:
-        return {
-            "pool": max(0, attr_val - 1),
-            "breakdown": f"Defaulting: {linked_attr.upper()} {attr_val} - 1",
-            "tier": "Defaulting",
-            "bonus_dice": 0
-        }
-
-    skill_rating = int(skill_rec.get("rating", 1))
-    specs = skill_rec.get("specializations", [])
-    if isinstance(skill_rec.get("specialization"), str):
-        specs.append(skill_rec.get("specialization"))
-
-    bonus = 0
-    tier = "Base Skill"
+    has_spec = False
+    is_expert = False
     for sp in specs:
-        if isinstance(sp, dict):
-            sp_name = sp.get("name", "")
-            is_expert = sp.get("expertise", False)
-        else:
-            sp_name = str(sp)
-            is_expert = "expertise" in sp_name.lower()
-
+        sp_name = sp.get("name", "") if isinstance(sp, dict) else str(sp)
+        is_exp = sp.get("expertise", False) if isinstance(sp, dict) else ("expertise" in sp_name.lower())
         if specialization_name.lower() in sp_name.lower():
-            if is_expert:
-                bonus = 3
-                tier = "Expert (+3d)"
-            else:
-                bonus = 2
-                tier = "Specialized (+2d)"
+            has_spec = True
+            if is_exp:
+                is_expert = True
             break
 
-    # Add tool / living persona / wires bonuses if applicable
-    total_pool = skill_rating + attr_val + bonus
-    breakdown_parts = [f"{skill_name} {skill_rating}", f"{linked_attr.title()} {attr_val}"]
-    if bonus > 0:
-        breakdown_parts.append(f"{specialization_name} +{bonus}")
+    tier = "Expert (+3d)" if is_expert else ("Specialized (+2d)" if has_spec else "Base Skill")
+    bonus_dice = 3 if is_expert else (2 if has_spec else 0)
+
+    if skill_name.lower() == "cracking":
+        if specialization_name.lower() == "hacking":
+            opt = pools.get("cracking_hacking")
+            total_pool = opt.total_pool if opt else 0
+            wild_dice = opt.wild_dice if opt else 0
+            breakdown = opt.get_modifiers_breakdown_string() if opt else "Cracking + Hacking"
+        else:
+            opt = pools.get("cracking_other")
+            base_p = opt.total_pool if opt else 0
+            wild_dice = opt.wild_dice if opt else 0
+            extra = bonus_dice if has_spec else 0
+            total_pool = base_p + extra
+            breakdown = opt.get_modifiers_breakdown_string() if opt else "Cracking + RES/LOG"
+    else:  # Electronics
+        if specialization_name.lower() == "software":
+            opt = pools.get("electronics_software")
+            total_pool = opt.total_pool if opt else 0
+            wild_dice = opt.wild_dice if opt else 0
+            breakdown = opt.get_modifiers_breakdown_string() if opt else "Electronics + Software"
+        else:
+            opt = pools.get("electronics_other")
+            base_p = opt.total_pool if opt else 0
+            wild_dice = opt.wild_dice if opt else 0
+            extra = bonus_dice if has_spec else 0
+            total_pool = base_p + extra
+            breakdown = opt.get_modifiers_breakdown_string() if opt else "Electronics + RES/INT/LOG"
 
     return {
         "pool": total_pool,
-        "breakdown": " + ".join(breakdown_parts),
+        "wild_dice": wild_dice,
+        "bought_hits": total_pool // 4,
+        "breakdown": breakdown,
         "tier": tier,
-        "bonus_dice": bonus
+        "bonus_dice": bonus_dice
     }
 
 
@@ -287,7 +289,9 @@ def render_matrix_actions_markdown(char_input: Union[str, Dict[str, Any]]) -> st
         for act in actions:
             pool_info = calculate_matrix_action_pool(char_data, skill, spec, act["linked_attr"])
             prof_badge = f"**{pool_info['tier']}**" if pool_info["bonus_dice"] > 0 else pool_info["tier"]
-            pool_badge = f"**{pool_info['pool']}d6**"
+            wild_badge = f" ({pool_info['wild_dice']} wild)" if pool_info.get("wild_dice") else ""
+            hits_badge = f" $\\rightarrow$ **{pool_info['bought_hits']} hit{'s' if pool_info['bought_hits'] != 1 else ''}**"
+            pool_badge = f"**{pool_info['pool']}d6**{wild_badge}{hits_badge}"
 
             row = (
                 f"| **{act['name']}** | {act['action_type']} | {pool_badge} "
@@ -298,3 +302,4 @@ def render_matrix_actions_markdown(char_input: Union[str, Dict[str, Any]]) -> st
         sections.append(header + "\n".join(table_rows))
 
     return "\n\n".join(sections)
+

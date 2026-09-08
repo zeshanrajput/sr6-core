@@ -185,17 +185,7 @@ from sr6core.rules_engine import render_matrix_actions_markdown
 print(render_matrix_actions_markdown("reiko"))
 ```
 
-
-### 3. Matrix Defense Protocols
-
-* **Full Matrix Defense**: **`{python} full_defense_pool`d6** $\rightarrow$ **`{python} full_defense_hits` Bought Hits**
-  * *Applied Modifiers*: RES (`{python} RESONANCE`) + RES Focus (+`{python} RESONANCE_FOCUS`) + FW (`{python} ACTIVE_F`) + Personal Assistant App R6 (+6) + Directional Shield Active DP (+`{python} ACTIVE_D`)
-* **Standard Matrix Defense (vs Attack Actions: Brute Force, Data Spike)**: **`{python} ACTIVE_F + RESONANCE + RESONANCE_FOCUS`d6** $\rightarrow$ **`{python} (ACTIVE_F + RESONANCE + RESONANCE_FOCUS) // 4` Bought Hits**
-  * *Applied Modifiers*: Firewall (`{python} ACTIVE_F`) + Natural Hacker RES (`{python} RESONANCE`) + RES Focus (+`{python} RESONANCE_FOCUS`)
-* **Standard Matrix Defense (vs Sleaze Actions: Probe, Backdoor Entry, Hack)**: **`{python} ACTIVE_F + RESONANCE + RESONANCE_FOCUS`d6** $\rightarrow$ **`{python} (ACTIVE_F + RESONANCE + RESONANCE_FOCUS) // 4` Bought Hits**
-  * *Applied Modifiers*: Firewall (`{python} ACTIVE_F`) + Natural Hacker RES (`{python} RESONANCE`) + RES Focus (+`{python} RESONANCE_FOCUS`)
-
-### 4. Matrix Edge Actions
+### 3. Matrix Edge Actions
 
 * **1 Edge**: Batch Exec, Emergency Boost, Paint Target.
 * **2 Edge**: Technobabble (CHA instead of LOG), Intervene, Hog, Signal Scream.

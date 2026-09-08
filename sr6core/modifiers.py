@@ -818,15 +818,40 @@ class ModifierEngine:
         int_val = int(attrs.get("intuition", 4))
         wil = int(attrs.get("willpower", 5))
 
+        skills_map = {s.get("name", "").lower(): s for s in char_data.get("skills", []) if isinstance(s, dict)}
+        cracking_rec = skills_map.get("cracking", {})
+        cracking_rating = int(cracking_rec.get("rating", 0))
+        electronics_rec = skills_map.get("electronics", {})
+        electronics_rating = int(electronics_rec.get("rating", 0))
+
+        def _get_spec_bonus(skill_dict, target_spec):
+            specs = list(skill_dict.get("specializations", []))
+            if isinstance(skill_dict.get("specialization"), str):
+                specs.append(skill_dict.get("specialization"))
+            for sp in specs:
+                sp_name = sp.get("name", "") if isinstance(sp, dict) else str(sp)
+                if target_spec.lower() in sp_name.lower():
+                    is_exp = sp.get("expertise", False) if isinstance(sp, dict) else ("expertise" in sp_name.lower())
+                    return 3 if is_exp else 2
+            return 0
+
+        hacking_spec_bonus = _get_spec_bonus(cracking_rec, "hacking")
+        software_spec_bonus = _get_spec_bonus(electronics_rec, "software")
+
         if "monad" in mortype or res == 0:
             # Monad Living Persona Matrix Pools (No Resonance, Focus, Overclock, or Sprite Allies)
+            c_skill_val = cracking_rating if cracking_rating > 0 else 5
+            e_skill_val = electronics_rating if electronics_rating > 0 else 6
+
             # 1. Offensive Cracking: Hacking
-            c_skill = PoolComponent("Cracking", 5, "skill")
+            c_skill = PoolComponent("Cracking", c_skill_val, "skill")
             c_attr = PoolComponent("Logic", log_val, "attribute")
+            h_spec = PoolModifier("skill:cracking", "specialization", "Hacking", hacking_spec_bonus) if hacking_spec_bonus else None
             hacking_opt = PoolOptimization(
                 name="Offensive Cracking: Hacking",
                 components=[c_skill, c_attr],
-                notes="Matrix Brute Force, Probe & Backdoor Exploits (Logic 7 + Cracking 5 = 12d6 -> 3 Hits)"
+                specialization=h_spec,
+                notes="Matrix Brute Force, Probe & Backdoor Exploits"
             )
 
             # 2. Offensive Cracking: Other
@@ -842,39 +867,42 @@ class ModifierEngine:
             mdef_opt = PoolOptimization(
                 name="Full Matrix Defense Test",
                 components=[c_def_wil, c_def_fw],
-                notes="Monad Living Persona defense (WIL 5 + FW 6/7 = 11-12d6 -> 3 Hits)"
+                notes="Monad Living Persona defense"
             )
 
             # 4. Electronics: Software Tests
-            e_skill_soft = PoolComponent("Electronics", 6, "skill")
+            e_skill_soft = PoolComponent("Electronics", e_skill_val, "skill")
             e_attr_soft = PoolComponent("Logic", log_val, "attribute")
+            s_spec = PoolModifier("skill:electronics", "specialization", "Software", software_spec_bonus) if software_spec_bonus else None
             electronics_soft_opt = PoolOptimization(
                 name="Electronics: Software Tests",
                 components=[e_skill_soft, e_attr_soft],
-                notes="Format Device, Edit File, Data Extraction (Logic 7 + Electronics 6 = 13d6 -> 3 Hits)"
+                specialization=s_spec,
+                notes="Format Device, Edit File, Data Extraction"
             )
 
             # 5. Electronics: Matrix Perception
-            e_skill_perc = PoolComponent("Electronics", 6, "skill")
+            e_skill_perc = PoolComponent("Electronics", e_skill_val, "skill")
             e_attr_perc = PoolComponent("Intuition", int_val, "attribute")
             electronics_other_opt = PoolOptimization(
                 name="Electronics: Matrix Perception",
                 components=[e_skill_perc, e_attr_perc],
-                notes="Matrix Spotting & Grid Analytics (Intuition 4 + Electronics 6 = 10d6 -> 2 Hits)"
+                notes="Matrix Spotting & Grid Analytics"
             )
 
             # 6. Downtime Buying Gear Test
             buy_gear_opt = PoolOptimization(
                 name="Downtime Buying Gear Test",
                 components=[e_skill_perc, e_attr_perc],
-                notes="Matrix Search & Legwork (Intuition 4 + Electronics 6 = 10d6 -> 2 Hits)"
+                notes="Matrix Search & Legwork"
             )
 
             # 7. Programming / Coding Tests
             programming_opt = PoolOptimization(
                 name="Programming / Coding Tests",
                 components=[e_skill_soft, e_attr_soft],
-                notes="Custom Scripting & Data Architecture (Logic 7 + Electronics 6 = 13d6 -> 3 Hits)"
+                specialization=s_spec,
+                notes="Custom Scripting & Data Architecture"
             )
 
             return {
@@ -887,16 +915,20 @@ class ModifierEngine:
                 "programming": programming_opt
             }
 
-        # Technomancer Pools (Yuriko)
+        # Technomancer Pools (Yuriko / Reiko)
+        c_skill_val = cracking_rating if cracking_rating > 0 else 5
+        e_skill_val = electronics_rating if electronics_rating > 0 else 5
         focus_bonus = 4 if res > 0 else 0
-        c_skill = PoolComponent("Cracking", 5, "skill")
+
+        c_skill = PoolComponent("Cracking", c_skill_val, "skill")
         c_attr = PoolComponent("Resonance", res, "attribute", [
             PoolModifier("attribute:resonance", "focus", "Focus", focus_bonus, is_srm_capped=True)
         ])
+        h_spec = PoolModifier("skill:cracking", "specialization", "Hacking", hacking_spec_bonus or 2)
         hacking_opt = PoolOptimization(
             name="Offensive Cracking: Hacking",
             components=[c_skill, c_attr],
-            specialization=PoolModifier("skill:cracking", "specialization", "Hacking", 2),
+            specialization=h_spec,
             teamwork=PoolModifier("skill:cracking", "teamwork", "Ally Teamwork", 4),
             tactical_modifiers=[
                 PoolModifier("test:matrix", "tactical", "Overclock", 2),
@@ -905,7 +937,7 @@ class ModifierEngine:
             wild_dice=1
         )
 
-        c_skill_other = PoolComponent("Cracking", 5, "skill")
+        c_skill_other = PoolComponent("Cracking", c_skill_val, "skill")
         c_attr_other = PoolComponent("Resonance", res, "attribute", [
             PoolModifier("attribute:resonance", "focus", "Focus", focus_bonus, is_srm_capped=True)
         ])
@@ -934,20 +966,22 @@ class ModifierEngine:
             ]
         )
 
-        e_skill_soft = PoolComponent("Electronics", 5, "skill")
+        e_skill_soft = PoolComponent("Electronics", e_skill_val, "skill")
         e_attr_soft = PoolComponent("Resonance", res, "attribute", [
             PoolModifier("attribute:resonance", "focus", "Focus", focus_bonus, is_srm_capped=True)
         ])
+        s_spec = PoolModifier("skill:electronics", "specialization", "Software", software_spec_bonus or 2)
         electronics_soft_opt = PoolOptimization(
             name="Electronics: Software Tests",
             components=[e_skill_soft, e_attr_soft],
-            specialization=PoolModifier("skill:electronics", "specialization", "Software", 2),
+            specialization=s_spec,
             teamwork=PoolModifier("skill:electronics", "teamwork", "Ally Teamwork", 4),
             tactical_modifiers=[
                 PoolModifier("test:matrix", "tactical", "Overclock", 2)
             ],
             wild_dice=1
         )
+
 
         e_skill_other = PoolComponent("Electronics", 5, "skill")
         e_attr_other = PoolComponent("Resonance", res, "attribute", [
