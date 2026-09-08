@@ -618,17 +618,192 @@ def get_sprite_commands_table(char_id: str = "reiko", sprite_level: int = 6) -> 
 
 def get_scene_strategy_table(char_id: str = "velvet") -> str:
     """
-    Renders a unified multi-mode strategy table for character scene profiles.
+    Renders a unified multi-mode strategy table for character scene profiles,
+    including universal sustained anchor spells, channeled spirits, and scene-calibrated pools.
     """
-    if char_id.lower() == "velvet":
-        rows = [
-            "| Operational Mode | Active Adept Powers & Spells | Effective Attributes | Primary Action Pools & Modifiers | Derived Defenses & Hits |",
-            "| :--- | :--- | :--- | :--- | :--- |",
-            "| **1. Social & Legwork Mode** | Enhanced Social Stance, Kinesics R3, Voice Modulation | **CHA 14**, **WIL 9**, **INT 7** | **Influence**: **19d6** (4 Hits)<br>**Con / Deception**: **19d6** (4 Hits) | **Composure**: **23d6** (5 Hits)<br>**Judge Intentions**: **16d6** (4 Hits)<br>**Drain Soak**: **23d6** (5 Hits) |",
-            "| **2. Combat Mode** | Combat Reflexes, Spell Defense Shield, Elemental Strike | **REA 8**, **AGI 6**, **BOD 5** | **Sorcery (Spellcasting)**: **16d6** (4 Hits)<br>**Close Combat**: **13d6** (3 Hits) | **Physical Defense**: **15d6** (3 Hits)<br>**Damage Soak**: **12d6** (3 Hits)<br>**Initiative**: **12 + 3D6** |"
-        ]
-        return "\n".join(rows)
-    return get_monad_strategy_table(char_id)
+    cm = CharacterManager()
+    char = cm.load_character(char_id)
+    if not char:
+        if char_id.lower() == "venn":
+            return get_monad_strategy_table(char_id)
+        return f"*(Character '{char_id}' not found)*"
+
+    data = char["data"]
+    attrs = data.get("attributes", {})
+    mag = int(attrs.get("magic", 0))
+
+    # If the character is not a magician/mystic adept or has no magic, fallback to monad/tactical table
+    if mag == 0:
+        return get_monad_strategy_table(char_id)
+
+    # Gather qualities, skills, modifiers
+    qualities = data.get("qualities", {})
+    pos_quals = qualities.get("positive", []) if isinstance(qualities, dict) else []
+    fc_qual = next(
+        (q for q in pos_quals if "focused_concentration" in str(q.get("ref", "")).lower() or "focused concentration" in str(q.get("name", "")).lower()),
+        None
+    )
+    fc_rating = fc_qual.get("rating", 3) if fc_qual else 3
+
+    skills = {s.get("name", "").lower(): s for s in data.get("skills", [])}
+    sorcery_data = skills.get("sorcery", {})
+    sorcery_rating = int(sorcery_data.get("rating", 0))
+    sorcery_spec = 2 if sorcery_data.get("specialization") else 0
+    power_focus_mods = ModifierEngine.get_focus_modifiers(data, "magic")
+    power_focus = sum(m.value for m in power_focus_mods)
+
+    casting_pool = sorcery_rating + sorcery_spec + mag + power_focus
+    bought_hits = casting_pool // 4
+    inc_attr_bonus = min(4, 1 + max(0, bought_hits - 1)) if bought_hits > 0 else 0
+
+    cha = int(attrs.get("charisma", 0))
+    wil = int(attrs.get("willpower", 0))
+    log_val = int(attrs.get("logic", 0))
+    int_val = int(attrs.get("intuition", 0))
+    bod = int(attrs.get("body", 0))
+    agi = int(attrs.get("agility", 0))
+    rea = int(attrs.get("reaction", 0))
+    str_val = int(attrs.get("strength", 0))
+
+    # Universal Sustained Anchors (Slots 1 & 2): Charisma first, Willpower second
+    cha_eff = cha + inc_attr_bonus
+    wil_eff = wil + inc_attr_bonus
+
+    drain_init = wil + cha
+    drain_mid = wil + cha_eff
+    drain_final = wil_eff + cha_eff
+
+    # Channeled spirit mechanics: Level = Magic - 1, Physical bonus = Level // 3
+    spirit_level = max(1, mag - 1)
+    spirit_phys_bonus = spirit_level // 3
+    bod_chan = bod + spirit_phys_bonus
+    agi_chan = agi + spirit_phys_bonus
+    rea_chan = rea + spirit_phys_bonus
+    str_chan = str_val + spirit_phys_bonus
+
+    # Check for learned spells
+    spells = [s.get("name", "").lower() for s in data.get("spells", [])]
+    has_charm = "charm" in spells
+
+    # Skills for action pools
+    inf_rating = int(skills.get("influence", {}).get("rating", 0))
+    con_rating = int(skills.get("con", {}).get("rating", 0))
+
+    def fmt_hits(pool: int) -> str:
+        h = pool // 4
+        return f"{h} {'Hit' if h == 1 else 'Hits'}"
+
+    # Callout / protocol description
+    protocol_callout = [
+        "> **Deterministic Universal Buffing Protocol (Always Cast First & Second):**",
+        "> ",
+        f"> Velvet sustains up to **{fc_rating} spells simultaneously with 0 sustaining penalties** via **Focused Concentration (Rating {fc_rating})**, reaching the maximum **+4 SRMG Augmentation Cap** deterministically by buying hits.",
+        "> ",
+        f"> * **Deterministic Casting Pool**: Sorcery {sorcery_rating} + Spec {sorcery_spec} + Magic {mag} + Power Focus {power_focus} = **{casting_pool}d6** $\\rightarrow$ **{fmt_hits(casting_pool)}** (1 base + {bought_hits - 1} net hits = **+{inc_attr_bonus} attribute boost**).",
+        f"> * **Universal Anchor 1 (Cast First)**: *Increase Attribute: Charisma (+{inc_attr_bonus})* $\\rightarrow$ Boosts Charisma from {cha} to **{cha_eff}**. Resisted by base Drain soak of **{drain_init}d6** ({fmt_hits(drain_init)} vs Drain 3) $\\rightarrow$ **0 Drain**.",
+        f"> * **Universal Anchor 2 (Cast Second)**: *Increase Attribute: Willpower (+{inc_attr_bonus})* $\\rightarrow$ Boosts Willpower from {wil} to **{wil_eff}**. Resisted by upgraded Drain soak of **{drain_mid}d6** ({fmt_hits(drain_mid)} vs Drain 3) $\\rightarrow$ **0 Drain**.",
+        f"> * **Peak Drain Soak**: With CHA **{cha_eff}** and WIL **{wil_eff}**, permanent Drain soak reaches **{drain_final}d6** ({fmt_hits(drain_final)}), completely absorbing all Drain from subsequent spells and spirit commands.",
+        ""
+    ]
+
+    # Mode 1: Social & Legwork
+    int_eff_social = int_val + inc_attr_bonus
+    if has_charm:
+        log_eff_social = log_val
+        slot3_social = "**Charm** (+4 to Con & Influence tests)"
+        inf_pool = inf_rating + cha_eff + 4
+        con_pool = con_rating + cha_eff + 4
+    else:
+        log_eff_social = log_val + inc_attr_bonus
+        slot3_social = f"**Increase Attribute: Logic (+{inc_attr_bonus})** *(Interim: boosts LOG to {log_eff_social} until Charm is learned)*"
+        inf_pool = inf_rating + cha_eff
+        con_pool = con_rating + cha_eff
+
+    judge_intentions_social = int_eff_social + wil_eff
+    composure_social = wil_eff + cha_eff
+    memory_social = log_eff_social + wil_eff
+
+    row1 = (
+        f"| **1. Social & Legwork Mode** | "
+        f"**Channeled Kindred Spirit (Level {spirit_level})**:<br>"
+        f"* Physicals Bonus: **+{spirit_phys_bonus}** to BOD, AGI, REA, STR<br>"
+        f"* Bonus Power: *Innate Spell (Increase Attribute: Intuition)* (+{inc_attr_bonus} INT)<br>"
+        f"* Spirit Power: *Influence* ({spirit_level * 2}d6)<br><br>"
+        f"**Sustained Slot 3**:<br>* {slot3_social} | "
+        f"**CHA {cha_eff}**, **WIL {wil_eff}**, **INT {int_eff_social}**, **LOG {log_eff_social}**<br>"
+        f"BOD {bod_chan}, AGI {agi_chan}, REA {rea_chan}, STR {str_chan} | "
+        f"**Influence**: **{inf_pool}d6** ({fmt_hits(inf_pool)})<br>"
+        f"**Con / Deception**: **{con_pool}d6** ({fmt_hits(con_pool)})<br>"
+        f"**Spirit Influence**: **{spirit_level * 2}d6** ({fmt_hits(spirit_level * 2)})<br>"
+        f"*(Cosmetic Control: -1 Edge on Con)* | "
+        f"**Composure**: **{composure_social}d6** ({fmt_hits(composure_social)})<br>"
+        f"**Judge Intentions**: **{judge_intentions_social}d6** ({fmt_hits(judge_intentions_social)})<br>"
+        f"**Memory Test**: **{memory_social}d6** ({fmt_hits(memory_social)})<br>"
+        f"**Drain Soak**: **{drain_final}d6** ({fmt_hits(drain_final)}) |"
+    )
+
+    # Mode 2: Tactical Combat
+    refl_bonus = inc_attr_bonus
+    rea_eff_combat = rea_chan + refl_bonus
+    phys_def_combat = rea_eff_combat + int_val
+    full_def_combat = phys_def_combat + wil_eff
+    init_score_combat = rea_eff_combat + int_val
+    init_dice_combat = 1 + (bought_hits // 2)
+
+    row2 = (
+        f"| **2. Tactical Combat Mode** | "
+        f"**Channeled Spirit of Air (Level {spirit_level})**:<br>"
+        f"* Physicals Bonus: **+{spirit_phys_bonus}** to BOD, AGI, REA, STR<br>"
+        f"* Spirit Powers: *Elemental Attack (Electricity)*, *Engulf*, *Movement*, *Accident*<br><br>"
+        f"**Sustained Slot 3**:<br>* **Increase Reflexes** (+{refl_bonus} REA, +{bought_hits // 2}D6 Init) | "
+        f"**CHA {cha_eff}**, **WIL {wil_eff}**, **REA {rea_eff_combat}**<br>"
+        f"BOD {bod_chan}, AGI {agi_chan}, STR {str_chan}, INT {int_val}, LOG {log_val} | "
+        f"**Elemental Attack (Electricity)**: **{spirit_level * 2}d6** ({fmt_hits(spirit_level * 2)}, Base **{spirit_level}S(e) DV**)<br>"
+        f"**Sorcery (Spellcasting)**: **{casting_pool}d6** ({fmt_hits(casting_pool)})<br>"
+        f"**Close Combat (Unarmed)**: **{agi_chan}d6** ({fmt_hits(agi_chan)}) | "
+        f"**Physical Defense**: **{phys_def_combat}d6** ({fmt_hits(phys_def_combat)})<br>"
+        f"**Full Defense**: **{full_def_combat}d6** ({fmt_hits(full_def_combat)})<br>"
+        f"**Initiative**: **{init_score_combat} + {init_dice_combat}D6**<br>"
+        f"**Damage Soak**: **{bod_chan}d6** *(+ Armor)*<br>"
+        f"**Drain Soak**: **{drain_final}d6** ({fmt_hits(drain_final)}) |"
+    )
+
+    # Mode 3: Investigation & Technical Mode
+    int_eff_invest = int_val + inc_attr_bonus
+    elec_pool = spirit_level + log_val
+    eng_pool = spirit_level + log_val
+    judge_intentions_invest = int_eff_invest + wil_eff
+    phys_def_invest = rea_chan + int_eff_invest
+    full_def_invest = phys_def_invest + wil_eff
+
+    row3 = (
+        f"| **3. Investigation & Technical Mode** | "
+        f"**Channeled Task Spirit (Level {spirit_level})**:<br>"
+        f"* Physicals Bonus: **+{spirit_phys_bonus}** to BOD, AGI, REA, STR<br>"
+        f"* Channeled Skills: *Electronics {spirit_level}*, *Engineering {spirit_level}*<br>"
+        f"* Spirit Powers: *Search* ({spirit_level * 2}d6), *Psychokinesis*<br><br>"
+        f"**Sustained Slot 3**:<br>* **Increase Attribute: Intuition (+{inc_attr_bonus})** | "
+        f"**CHA {cha_eff}**, **WIL {wil_eff}**, **INT {int_eff_invest}**<br>"
+        f"BOD {bod_chan}, AGI {agi_chan}, REA {rea_chan}, STR {str_chan}, LOG {log_val} | "
+        f"**Channeled Electronics**: **{elec_pool}d6** ({fmt_hits(elec_pool)})<br>"
+        f"**Channeled Engineering**: **{eng_pool}d6** ({fmt_hits(eng_pool)})<br>"
+        f"**Perception / Assensing**: **{int_eff_invest}d6** ({fmt_hits(int_eff_invest)}; + Search {spirit_level * 2}d6)<br>"
+        f"**Judge Intentions**: **{judge_intentions_invest}d6** ({fmt_hits(judge_intentions_invest)}) | "
+        f"**Composure**: **{drain_final}d6** ({fmt_hits(drain_final)})<br>"
+        f"**Physical Defense**: **{phys_def_invest}d6** ({fmt_hits(phys_def_invest)})<br>"
+        f"**Full Defense**: **{full_def_invest}d6** ({fmt_hits(full_def_invest)})<br>"
+        f"**Drain Soak**: **{drain_final}d6** ({fmt_hits(drain_final)}) |"
+    )
+
+    table_headers = [
+        "| Operational Mode | Channeled Spirit & Sustained Slot 3 | Effective Attributes | Primary Action Pools & Modifiers | Derived Defenses & Hits |",
+        "| :--- | :--- | :--- | :--- | :--- |",
+        row1,
+        row2,
+        row3
+    ]
+
+    return "\n".join(protocol_callout + table_headers)
 
 
 def get_character_table_pools(char_id: str) -> dict:

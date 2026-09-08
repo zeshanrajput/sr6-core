@@ -77,25 +77,7 @@ During an expense month, Velvet receives 1 Major Downtime Action and 1 Minor Dow
 
 ---
 
-## Sustained Attribute Spell Strategy (Focused Concentration R3){#sustained-spells}
-
-Velvet's primary source of attribute augmentations is the **Increase Attribute** Health spell. Under **Focused Concentration (Rating 3)**, Velvet can sustain up to **3 Increase Attribute spells simultaneously with 0 sustaining penalties**, reaching the maximum **+4 SRMG Augmentation Cap** across three key attributes.
-
-> **Deterministic Buffing Math (Buying Hits):**
-
-> * *Increase Attribute* grants a +1 base increase upon successful cast, plus +1 for each additional net hit (up to the +4 maximum augmented limit). 
-> * With Sorcery 5 + Magic 6 + Specialization (Spellcasting) 2 + Power Focus 3 = **16 dice** $\rightarrow$ **4 bought hits**, Velvet achieves the maximum **+4 attribute boost** deterministically without rolling (1 base increase + 3 net hits = +4).
-> * With an initial Drain pool of **15 dice** (buying 3 hits) scaling up to **23 dice** (buying 5 hits), Velvet takes **0 Drain** across the entire buffing sequence.
-
-1. **Universal Sustained Anchor 1 — Charisma (+4)**: Boosts Charisma from 10 to **14** *(Exceptional natural/metagenetic baseline + 4)*.
-2. **Universal Sustained Anchor 2 — Willpower (+4)**: Boosts Willpower from 5 to **9**.
-3. **Scene-Calibrated Sustained Anchor 3**:
-   - **Social & Legwork Scenes**: Boosts **Intuition (+4)** from 3 to **7** (Unlocks 16d6 Judge Intentions, 10d6 Cosmetic Control shifts, and 12d6 Memory).
-   - **Combat Scenes**:
-     - Boosts **Reaction (+4)** from 2 to **6** (Unlocks 9d6 Defense Test and 9 + 1D6 Physical Initiative).
-     - A conjured R5 Spirit increases all other physical attributes by +2. 
-
-### Operational Scene Strategy & Dice Pool Cheatsheet
+## Sustained Spell & Spirit Channeling Strategy (Focused Concentration R3){#sustained-spells}
 
 ```{python}
 #| echo: false
@@ -249,9 +231,9 @@ Velvet channels two cornerstone Health spells, sustained seamlessly via **Focuse
 * **Mechanic**: The touch of the caster temporarily raises one target attribute (chosen before casting). The caster rolls a **Sorcery + Magic (5 - Essence)** test (**`{python} Spellcasting_Pool`d6 $\rightarrow$ Buys `{python} Spellcasting_Pool // 4` Hits**).
 * **Attribute Increase**: Each net hit increases the selected attribute by **+1** (up to the maximum **+4 SRMG Augmented Attribute Cap**). For each net hit applied beyond the first, the Drain Value of the spell increases by **+1**. (Cannot affect Edge, Essence, Magic, or Resonance).
 * **Sustained Anchors**:
-  * **Charisma (+4)**: Boosts Charisma from 10 to **14**.
-  * **Willpower (+4)**: Boosts Willpower from 5 to **9**.
-  * **Intuition (+4)** / **Reaction (+4)**: Swapped flexibly based on social or combat scene requirements.
+  * **Slot 1**: Charisma (+4) — Boosts Charisma from 10 to **14**.
+  * **Slot 2**: Willpower (+4) — Boosts Willpower from 5 to **9**.
+  * **Slot 3 Allocation**: Calibrated flexibly by operational scene mode (see [Sustained Spell & Spirit Channeling Strategy](#sustained-spells) above).
 :::
 
 ::: {.callout-note icon=false title="✨ HEALTH SPELL: Increase Reflexes"}

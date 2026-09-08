@@ -495,7 +495,13 @@ def test_magic_and_social_action_pools_and_tables():
 
     strategy_table = get_scene_strategy_table("velvet")
     assert "Social & Legwork Mode" in strategy_table
-    assert "Combat Mode" in strategy_table
+    assert "Tactical Combat Mode" in strategy_table
+    assert "Investigation & Technical Mode" in strategy_table
+    assert "Channeled Kindred Spirit" in strategy_table
+    assert "Channeled Spirit of Air" in strategy_table
+    assert "Channeled Task Spirit" in strategy_table
+    assert "Universal Anchor 1 (Cast First)" in strategy_table
+    assert "Universal Anchor 2 (Cast Second)" in strategy_table
 
 
 def test_tactical_action_pools_and_tables_union():

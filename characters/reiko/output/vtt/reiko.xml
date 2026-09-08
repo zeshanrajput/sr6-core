@@ -2,16 +2,16 @@
 <sr6char gender="DIVERSE" meta="ai-pilot ai" karmaF="0" karmaI="238" nuyen="2550">
    <type>METAHUMAN</type>
    <qualities>
-      <quality lang="en" ref="natural_hacker" uuid="ca6e6b5c-56d5-49cc-9f87-f7ddbfbffa80" />
-      <quality lang="en" ref="technoshaman" uuid="8e5cf617-eee3-46d8-a53a-72c7fa8ba145" />
-      <quality lang="en" ref="designer" uuid="4b695de9-4a28-42bb-b979-b75817d2a3d0" />
-      <quality lang="en" ref="sensor_upgrade" uuid="729ab2a2-e0a5-4c19-8734-ade9389a5612" />
-      <quality lang="en" ref="pilot_origins" uuid="2325bcba-3b49-4e22-94a4-255bd33680da" />
-      <quality lang="en" ref="buddy_system" uuid="947a093d-9838-4af8-8cc2-b9157c9f4c37" />
-      <quality lang="en" ref="sprite_bane" uuid="209ac7cc-4a02-43e9-ac1e-0a504a0dc40a">
-         <decision choice="9f40776a-0062-4084-b98a-da702499e084" value="Primal Sprite" />
+      <quality lang="en" ref="natural_hacker" uuid="9047697d-b5b2-4549-99e7-39a7b7f1f446" />
+      <quality lang="en" ref="technoshaman" uuid="6efe4348-c4b9-4445-9f89-200fb5e7a6a5" />
+      <quality lang="en" ref="designer" uuid="d2e48c2a-9b01-42f7-b058-58da5068a12d" />
+      <quality lang="en" ref="sensor_upgrade" uuid="43354c92-ba46-44d1-a849-de063077ac25" />
+      <quality lang="en" ref="pilot_origins" uuid="7686d87f-092a-4e3c-af29-d3f81e14d282" />
+      <quality lang="en" ref="buddy_system" uuid="ecdfb00d-7e4e-45ca-804d-6cfddaa3dd51" />
+      <quality lang="en" ref="sprite_bane" uuid="e15b40c5-958b-42ab-822b-233c9c97b7a2">
+         <decision choice="aeb970ce-b16e-4659-b6e9-7f99429e350d" value="Primal Sprite" />
       </quality>
-      <quality lang="en" ref="hooder" uuid="a790f470-737f-424b-8d4e-0ce107d32eba" value="2" />
+      <quality lang="en" ref="hooder" uuid="af8863b8-e7b2-4ce5-81fa-21a816ae15bf" value="2" />
    </qualities>
    <complexforms>
       <complexforms lang="en" ref="technoregeneration" />
@@ -26,11 +26,11 @@
       <metaEcho lang="en" ref="sprite_conduit" />
    </metaEchoes>
    <sins>
-      <sin name="Yuriko Star" quality="SECOND_LIFE" uniqueid="71352bf3-99ec-4964-bf91-d13a1a9875f4" />
+      <sin name="Yuriko Star" quality="SECOND_LIFE" uniqueid="a1dbe0fb-8639-4dcb-9a20-1c7a420c2276" />
    </sins>
    <licenses>
-      <licenses name="Drone License" rating="SECOND_LIFE" sin="71352bf3-99ec-4964-bf91-d13a1a9875f4" uniqueid="f6649b89-0109-4b07-8188-bf8950cdb561" />
-      <licenses name="Firearms License" rating="SECOND_LIFE" sin="71352bf3-99ec-4964-bf91-d13a1a9875f4" uniqueid="2285ada5-881b-4350-97ed-404c2dcfb7b3" />
+      <licenses name="Drone License" rating="SECOND_LIFE" sin="a1dbe0fb-8639-4dcb-9a20-1c7a420c2276" uniqueid="4af3e776-5b9f-4284-b4f0-c3e03d24846f" />
+      <licenses name="Firearms License" rating="SECOND_LIFE" sin="a1dbe0fb-8639-4dcb-9a20-1c7a420c2276" uniqueid="80356802-207f-4e37-8cf6-38dcdc5a3b69" />
    </licenses>
    <foci>
       <focus lang="en" ref="power_focus" value="4">
@@ -58,43 +58,43 @@
       <attributes id="RESONANCE" value="8" />
    </attributes>
    <skills>
-      <skill lang="en" ref="tasking" uuid="60a16880-04ae-443a-b2b9-17051b2b913c" value="6">
+      <skill lang="en" ref="tasking" uuid="01e2d5e2-14c3-47f4-87d3-9ee3333f82f1" value="6">
          <skillspec lang="en" ref="registering" />
       </skill>
-      <skill lang="en" ref="cracking" uuid="c62f6c5b-1b12-411a-a95c-f27ad959b9fa" value="5">
+      <skill lang="en" ref="cracking" uuid="4321e775-8fc7-45f9-a946-9934b5d5d022" value="5">
          <skillspec lang="en" ref="hacking" />
       </skill>
-      <skill lang="en" ref="electronics" uuid="9db73607-4fc4-4dac-9b09-0a03aca7b6e5" value="5">
+      <skill lang="en" ref="electronics" uuid="762012d0-e170-473b-b959-bde84ab51c6a" value="5">
          <skillspec lang="en" ref="software" />
       </skill>
-      <skill lang="en" ref="influence" uuid="70747a1e-0539-41b1-b310-6aca994b8b7f" value="1" />
-      <skill lang="en" ref="con" uuid="7c1fa6b3-b7cb-4863-8012-dfc5e04078d8" value="1" />
-      <skill lang="en" ref="language" uuid="f1b59f8d-18f1-427f-8eb3-024be954d932" value="4">
+      <skill lang="en" ref="influence" uuid="142bb19d-0dd5-4654-b5d8-26fa174e1251" value="1" />
+      <skill lang="en" ref="con" uuid="602ecabd-7bdb-4aad-af08-874360f8d9db" value="1" />
+      <skill lang="en" ref="language" uuid="be98c35e-642f-4dd4-85ec-a5f449e3f9f2" value="4">
          <decision choice="a7103ee4-31fa-435d-ac42-08f7d4d1e80c" value="Native Language" />
       </skill>
-      <skill lang="en" ref="language" uuid="90290148-f48b-4096-b55b-b5fe718bd855" value="4">
+      <skill lang="en" ref="language" uuid="2b49bf97-1be3-46af-a76f-866d1dea603d" value="4">
          <decision choice="a7103ee4-31fa-435d-ac42-08f7d4d1e80c" value="Mindspeech" />
       </skill>
-      <skill lang="en" ref="language" uuid="75c6f0f5-ed8f-41cd-82ac-c255ea6841c8" value="5">
+      <skill lang="en" ref="language" uuid="4569707d-4c8e-4915-a236-f09dbcf76f37" value="5">
          <decision choice="a7103ee4-31fa-435d-ac42-08f7d4d1e80c" value="Japanese" />
       </skill>
-      <skill lang="en" ref="language" uuid="5328c613-634f-4a90-8fba-c8ab0d27fa55" value="5">
+      <skill lang="en" ref="language" uuid="01f74ee6-d887-4395-8bf9-b11770f22fc2" value="5">
          <decision choice="a7103ee4-31fa-435d-ac42-08f7d4d1e80c" value="English" />
       </skill>
-      <skill lang="en" ref="language" uuid="dda60dc2-f3ae-4c24-853d-9b97f971f11a" value="5">
+      <skill lang="en" ref="language" uuid="6688137c-1ede-43f3-9188-662f3fd2cda1" value="5">
          <decision choice="a7103ee4-31fa-435d-ac42-08f7d4d1e80c" value="Cantonese" />
       </skill>
-      <skill lang="en" ref="language" uuid="389fee11-5774-47ce-a714-265b38238d3b" value="5">
+      <skill lang="en" ref="language" uuid="d7e76d17-a1c9-4ce8-8b24-505e784aaaf5" value="5">
          <decision choice="a7103ee4-31fa-435d-ac42-08f7d4d1e80c" value="Mandarin" />
       </skill>
    </skills>
    <charGenUsed>free</charGenUsed>
    <strictness>srm</strictness>
    <items>
-      <item lang="en" mode="CARRIED" ref="facial_scanner" uuid="ce419947-4145-4473-b6fe-e2ed99f6caa4" />
-      <item lang="en" mode="CARRIED" ref="p-ice_spines" uuid="798fe68e-346e-4446-b8b2-2dd80b3b4913" />
-      <item lang="en" mode="CARRIED" ref="thermal_mood_reading" uuid="1c22e396-a124-4114-a183-910cd361a8d9" />
-      <item lang="en" mode="CARRIED" ref="vocal_tension_detection" uuid="0b5341c3-73c9-43a2-9ab4-9efb793c3b07" />
+      <item lang="en" mode="CARRIED" ref="facial_scanner" uuid="9481d1d1-dd05-40a6-971f-16b98e0adf76" />
+      <item lang="en" mode="CARRIED" ref="p-ice_spines" uuid="4bf50594-5fa9-4352-bf97-0ce5471df64b" />
+      <item lang="en" mode="CARRIED" ref="thermal_mood_reading" uuid="e013fd71-a27f-49db-95db-f936a5ef7e0f" />
+      <item lang="en" mode="CARRIED" ref="vocal_tension_detection" uuid="ca8496b5-1791-4304-9190-797da92f0ec5" />
    </items>
    <contacts>
       <contact name="Brynne Taggart" rat="4" type="STREET" typename="Fixer" loy="3" favors="3">
