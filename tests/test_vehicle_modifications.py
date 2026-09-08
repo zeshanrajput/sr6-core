@@ -251,7 +251,7 @@ def test_drone_statblock_table_rendering():
     """Verifies that get_drone_statblock_table renders the full categorized tables."""
     table_md = get_drone_statblock_table("yuriko", "man-at-arms")
     assert "| SR6 Attribute | Rating / Value | Applied Modifiers Math & Notes |" in table_md
-    assert "### Double Clutch Modification Slots & Capacity Summary" in table_md
+    assert "### Shiawase Man-at-Arms Modification Slots & Capacity Summary" in table_md
     assert "### Installed Modifications by Category" in table_md
     assert "### Installed Cyberlimbs & Internal Capacity" in table_md
 
@@ -278,6 +278,22 @@ def test_drone_statblock_table_rendering():
     # Check cyberlimb row
     assert "**Used Synthetic Cyberarm (Right, 8 Capacity)**" in table_md
     assert "Tesla Coil (8 Capacity, 5S(e) Spray 20m)" in table_md
+
+
+def test_gnat_stock_realistic_features_and_omits_mod_table():
+    """Verifies that MCT Gnat Realistic Features 4 is stock (0 slots) and mod slots table is omitted."""
+    gnat = {
+        "name": "MCT Gnat",
+        "ref": "mctgnat",
+        "body": 0,
+        "modifications": ["Realistic Features 4", "Laser Jack"]
+    }
+    slots = calculate_vehicle_mod_slots(gnat)
+    assert slots["raw_used"]["chassis"] == 0
+    assert slots["is_legal"] is True
+    # Verify get_drone_statblock_table omits mod table when no components consume slots
+    table_md = get_drone_statblock_table("reiko", "gnat")
+    assert "Modification Slots & Capacity Summary" not in table_md
 
 
 def test_smart_tires_mechanics():

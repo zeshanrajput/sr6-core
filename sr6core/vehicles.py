@@ -246,6 +246,7 @@ def calculate_vehicle_mod_slots(
       - Hardpoints: Base Standard Hardpoints = Body // 3.
     """
     name = drone_dict.get("name", "Drone")
+    ref = str(drone_dict.get("ref", "")).lower()
     body = int(drone_dict.get("body", 1))
     base_sensor = int(drone_dict.get("sensor", 1))
     is_anthro = any(k in name.lower() for k in ["butler", "man-at-arms", "man_at_arms", "samurai", "duelist", "anthro"]) or "anthro" in str(drone_dict.get("category", "")).lower()
@@ -433,13 +434,28 @@ def calculate_vehicle_mod_slots(
         real_m = re.search(r"realistic\s+features\s+(\d+)", m_low)
         if real_m:
             r_val = int(real_m.group(1))
+            is_gnat = "gnat" in name.lower() or "gnat" in ref
+            if is_gnat:
+                # DC p. 146: MCT Gnat includes Realistic Features 4 as stock equipment (0 slots)
+                slot_cost = max(0, r_val - 4)
+                notes = (
+                    f"Stock equipment per DC p. 146 (0 Chassis slots; Perception {r_val} threshold)"
+                    if slot_cost == 0
+                    else f"Upgraded stock Realistic Features (Differential: {r_val} - 4 = {slot_cost} slots)"
+                )
+                rule_ref = "DC p. 131, 146"
+            else:
+                slot_cost = r_val
+                notes = f"Perception ({r_val}) threshold to identify as artificial"
+                rule_ref = "DC p. 131"
+
             categorized["chassis"].append({
                 "name": m_str,
                 "category": "chassis",
                 "rating": r_val,
-                "slots_cost": r_val,
-                "notes": f"Perception ({r_val}) threshold to identify as artificial",
-                "rule_ref": "DC p. 131"
+                "slots_cost": slot_cost,
+                "notes": notes,
+                "rule_ref": rule_ref
             })
             continue
 
@@ -686,7 +702,7 @@ def calculate_vehicle_mod_slots(
     }
 
 
-def format_vehicle_mod_tables(mod_slots_data: Dict[str, Any]) -> str:
+def format_vehicle_mod_tables(mod_slots_data: Dict[str, Any], drone_name: Optional[str] = None) -> str:
     """
     Renders standard Markdown tables for:
       1. Modification Slots & Capacity Summary (with 2:1 shift annotations)
@@ -696,20 +712,28 @@ def format_vehicle_mod_tables(mod_slots_data: Dict[str, Any]) -> str:
     if not mod_slots_data or not isinstance(mod_slots_data, dict):
         return ""
 
+    raw_used = mod_slots_data.get("raw_used", {})
+    hp_used = mod_slots_data.get("hardpoints_used", 0)
+    cyberlimbs = mod_slots_data.get("cyberlimbs", [])
+
+    total_slots_consumed = sum(raw_used.values())
+    # Omit modification slots tables if there are no slot-consuming components, hardpoints used, or cyberlimbs
+    if total_slots_consumed == 0 and hp_used == 0 and not cyberlimbs:
+        return ""
+
     base_slots = mod_slots_data.get("base_slots", {})
     effective_cap = mod_slots_data.get("effective_cap", {})
-    raw_used = mod_slots_data.get("raw_used", {})
     remaining = mod_slots_data.get("remaining", {})
     shifts = mod_slots_data.get("shifts", [])
     categorized = mod_slots_data.get("categorized_mods", {})
-    cyberlimbs = mod_slots_data.get("cyberlimbs", [])
     base_hp = mod_slots_data.get("base_hardpoints", 0)
-    hp_used = mod_slots_data.get("hardpoints_used", 0)
     hp_rem = mod_slots_data.get("hardpoints_remaining", 0)
+
+    drone_label = drone_name or mod_slots_data.get("drone_name") or "Vehicle"
 
     # 1. Capacity Summary Table
     rows_summary = [
-        "### Double Clutch Modification Slots & Capacity Summary",
+        f"### {drone_label} Modification Slots & Capacity Summary",
         "",
         "| Category | Base Slots | Shifted Slots | Total Capacity | Used Slots | Remaining | Status |",
         "| :--- | :---: | :---: | :---: | :---: | :---: | :---: |"

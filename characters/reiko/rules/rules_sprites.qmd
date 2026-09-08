@@ -162,35 +162,6 @@ print(get_sprite_action_table("reiko", sprite_level=SPRITE_LEVEL))
 * **Schedule**: 1 per night's rest (7 hours registering, 3 hours restoration) or minor downtime action. Buying hits per SRMG p. 19.
 * **Standard Outcome**: Level `{python} SPRITE_LEVEL` Modular Sprite with `{python} total_services` services/powers for 3 missions.
 
-### 1. Compiling Phase
-
-* **Compiling Dice Pool**: Tasking (`{python} TASKING`) + RES (`{python} RESONANCE`) + Resonance Focus (`{python} RESONANCE_FOCUS`) = **`{python} compiling_pool`d6** → **`{python} compiling_hits` Bought Hits**.
-* **Sprite Defense Pool**: Level `{python} SPRITE_LEVEL` × 2 = **`{python} sprite_def_pool`d6** → **`{python} sprite_def_hits` Bought Hits**.
-* **Net Hits**: `{python} compiling_hits` - `{python} sprite_def_hits` = `{python} net_compiling_hits` net hit (**1 base service**).
-* **Technoshaman Stream Bonus**: +1 additional service on successful compiling. Total compiled services = **`{python} net_compiling_hits + 1` services/powers**.
-* **Fading Value (FV)**: Equal to sprite defense hits = **`{python} compiling_fade_fv` FV**.
-* **Technoshaman Mitigation**: Reduces compiling fade by 2 (`{python} compiling_fade_fv` - 2 = **`{python} compiling_fade_mitigated` FV**).
-* **Fading Resistance**: Willpower (`{python} WILLPOWER`) + Charisma (`{python} CHARISMA`) + Submersion Grade / Sprite Conduit (`{python} SUBMERSION_GRADE`) = **`{python} fade_res_pool`d6** → **`{python} fade_res_hits` Bought Hits**.
-* **Compiling Damage Taken**: `{python} compiling_fade_mitigated` FV - `{python} fade_res_hits` hits = **0 Damage**.
-
-### 2. Registering Phase
-
-* **Registering Dice Pool**: Registering (`{python} REGISTERING`) + RES (`{python} RESONANCE`) + RES Focus (`{python} RESONANCE_FOCUS`) = **`{python} registering_pool`d6** → **`{python} registering_hits` Bought Hits**.
-* **Sprite Defense Pool**: Level `{python} SPRITE_LEVEL` × 2 = **`{python} sprite_def_pool`d6** → **`{python} sprite_def_hits` Bought Hits**.
-* **Net Hits**: `{python} registering_hits` - `{python} sprite_def_hits` = **`{python} net_registering_hits` net hits** (`{python} net_registering_hits` registered services).
-* **Combined Total Services**: 2 (compiled) + `{python} net_registering_hits` (registered) = **`{python} total_services` total services/powers**.
-* **Fading Value (FV)**: Twice sprite defense hits (`{python} sprite_def_hits` × 2 = **`{python} registering_fade_fv` FV**).
-* **Fading Resistance**: Willpower (`{python} WILLPOWER`) + Charisma (`{python} CHARISMA`) + Submersion Grade (`{python} SUBMERSION_GRADE`) = **`{python} fade_res_pool`d6** → **`{python} fade_res_hits` Bought Hits**.
-* **Registering Damage Taken**: `{python} registering_fade_fv` FV - `{python} fade_res_hits` hits = **`{python} registering_damage` boxes of Stun damage**.
-
-### 3. Resonance Focus Protocols
-
-* **Resonance Focus (Rating 4)**: Encoded into the physical **Shiawase Man-at-Arms** drone chassis.
-  * **SRM Ruling**: Per the SRM Guide / FAQ, Resonance data structures function identically to magical foci.
-  * **Activation**: Passive and sustained while inhabiting the chassis (**no Minor Action required to activate**).
-  * **Fading**: Resonance Foci do not cause fading themselves (**0 Fading Value / 0 Damage**).
-  * **Bonus**: Adds **+`{python} RESONANCE_FOCUS` dice** (+1 Bought Hit) to any test using the Resonance attribute while inhabiting the chassis.
-
 ---
 
 ## Sprite Commands & Tactical Orders{#sprite-commands}

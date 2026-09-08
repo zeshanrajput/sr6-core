@@ -210,7 +210,8 @@ def get_drone_statblock_table(char_id: str, drone_identifier: str) -> str:
         rows.append(f"| **Propulsion Modes** | **{profile['mobility_str']}** | Secondary & Special Propulsion Profiles |")
     attr_table = "\n".join(rows)
 
-    mod_tables = format_vehicle_mod_tables(profile.get("mod_slots", {}))
+    drone_name = target_drone.get("name", "Drone")
+    mod_tables = format_vehicle_mod_tables(profile.get("mod_slots", {}), drone_name=drone_name)
     if mod_tables:
         return attr_table + "\n\n" + mod_tables
     return attr_table
