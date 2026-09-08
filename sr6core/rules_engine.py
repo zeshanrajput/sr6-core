@@ -322,7 +322,7 @@ def get_magic_action_table(char_id: str) -> str:
 def get_sprite_action_table(char_id: str, sprite_level: int = 6) -> str:
     """
     Renders a Markdown table of standardized Technomancer Sprite Actions (Compiling, Registering,
-    Decompiling, Resonance Focus Activation, and Fading Resistance).
+    Decompiling, Resonance Focus [Data Structure per SRM], and Fading Resistance).
     """
     cm = CharacterManager()
     char = cm.load_character(char_id)
@@ -346,7 +346,7 @@ def get_sprite_action_table(char_id: str, sprite_level: int = 6) -> str:
         "| :--- | :---: | :--- | :---: | :---: |",
         f"| **Compile Sprite (L{sprite_level})** | Tasking (Compiling) + Resonance | Base RES ({res}) + Tasking (6) + Focus (+{focus_bonus}) | **{compile_pool}d6** | **{compile_pool // 4} Hits** |",
         f"| **Register Sprite (L{sprite_level})** | Tasking (Registering) + Resonance | Base RES ({res}) + Tasking (6) + Focus (+{focus_bonus}) | **{register_pool}d6** | **{register_pool // 4} Hits** |",
-        f"| **Resonance Focus Activation** | Sustained Resonance Focus | Foci Rating (+{focus_bonus} to Resonance Tests) | **+{focus_bonus}d6** | **+{focus_bonus // 4} Hits** |",
+        f"| **Resonance Focus (Data Structure)** | Passive (SRM: No Action) | Rating (+{focus_bonus} to Resonance Tests; 0 Fading) | **+{focus_bonus}d6** | **+{focus_bonus // 4} Hits** |",
         f"| **Fading Resistance Test** | WIL ({wil}) + LOG ({log_val}) | Natural Drain/Fading Soak | **{fading_pool}d6** | **{fading_pool // 4} Hits** |"
     ]
     return "\n".join(rows)

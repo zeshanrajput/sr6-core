@@ -89,6 +89,6 @@ This landing hub consolidates Reiko's downtime protocols, calculation shortcuts,
 Select a domain reference for full formulas, dice pool breakdowns, step-by-step downtime guides, and action tables:
 
 1. **[Matrix & Network Protocols](rules_matrix.qmd)**: Base & Active ASDF attributes, standardized Matrix action pools, network benefits, learned programs, Full Matrix Defense step-by-step breakdown, remote node & Sanctuary Host architecture, and decking cheat sheet.
-2. **[Sprites & Resonance Protocols](rules_sprites.qmd)**: Complex Forms roster, step-by-step compiling & registering downtime math, Technoshaman fading mitigation, and Resonance Focus fading calculations.
+2. **[Sprites & Resonance Protocols](rules_sprites.qmd)**: Complex Forms roster, step-by-step compiling & registering downtime math, Technoshaman fading mitigation, and Resonance Focus protocols (SRM magical focus rules).
 3. **[Drones & Rigging Protocols](rules_drones.qmd)**: Detailed drone stat blocks (Shiawase Man-at-Arms, MCT Gnat), retractable skates rules, standardized drone action pools, Jumped-In vs Remote AI attribute mapping rules, and Sensor Lock mechanics.
 4. **[Weapons & Tactical Gear Protocols](rules_combat.qmd)**: Standardized weapon attack tables (Red Fox array & single mode, Tesla Coil, Amalgam Cestas), firing mode rules, Attack Rating modification breakdown, and laser battery rules.

@@ -1075,11 +1075,11 @@ class ModifierEngine:
         total_services = net_compiling_hits + 1 + net_registering_hits
         registering_damage = max(0, registering_fade_fv - fade_res_hits)
 
-        # Focus Fading: FV = Focus / 2 = 2. Resistance: WIL + LOG = 10d6 -> 2 Hits.
-        focus_fade_fv = focus_bonus // 2
+        # Resonance Focus: Per SRM Guide/FAQ, data structures function like magical foci (passive, no Minor Action, 0 Fading)
+        focus_fade_fv = 0
         focus_fade_res_pool = wil + log_val
         focus_fade_res_hits = focus_fade_res_pool // 4
-        focus_fade_damage = max(0, focus_fade_fv - focus_fade_res_hits)
+        focus_fade_damage = 0
 
         return {
             "compiling_pool": compiling_pool,

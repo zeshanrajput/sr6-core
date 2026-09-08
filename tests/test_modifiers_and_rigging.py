@@ -338,7 +338,8 @@ def test_sprite_action_table_renderer():
     table_md = get_sprite_action_table("reiko", sprite_level=7)
     assert "Compile Sprite (L7)" in table_md
     assert "Register Sprite (L7)" in table_md
-    assert "Resonance Focus Activation" in table_md
+    assert "Resonance Focus (Data Structure)" in table_md
+    assert "0 Fading" in table_md
 
 
 def test_deep_audit_synergies():

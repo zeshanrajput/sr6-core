@@ -71,14 +71,14 @@ focus_fade_res_hits = sp_downtime["focus_fade_res_hits"]
 focus_fade_damage = sp_downtime["focus_fade_damage"]
 ```
 
-This reference details Reiko's Complex Forms, sprite compiling and registering downtime protocols, and Resonance Focus fading calculations.
+This reference details Reiko's Complex Forms, sprite compiling and registering downtime protocols, and Resonance Focus protocols.
 
 ---
 
 ## Complex Forms{#complex-forms}
 
 * **Sprite Symbiosis Bonus**: +`{python} SPRITE_SYMBIOSIS`
-* **Resonance Focus Bonus**: +`{python} RESONANCE_FOCUS` (Fading Value: 2 for activation)
+* **Resonance Focus Bonus**: +`{python} RESONANCE_FOCUS` (SRM: Acts as magical focus; passive, no action, 0 Fading)
 
 ::: {.callout-note icon=false title="🌀 COMPLEX FORM: Technoregeneration"}
 * **Source**: *Hack and Slash*, p. 4 | **Target**: Electronic Device | **Duration**: Permanent (P) | **Fading Value**: Hits (Net 0 after mitigation)
@@ -186,10 +186,10 @@ print(get_sprite_action_table("reiko", sprite_level=SPRITE_LEVEL))
 ### 3. Resonance Focus Protocols
 
 * **Resonance Focus (Rating 4)**: Encoded into the physical **Shiawase Man-at-Arms** drone chassis.
-  * **Bonus**: Adds **+4 dice** to any test using the Resonance attribute while inhabiting the chassis.
-  * **Focus Fading FV**: Rating / 2 (`{python} RESONANCE_FOCUS` / 2 = **`{python} focus_fade_fv` FV**).
-  * **Fading Pool**: WIL (`{python} WILLPOWER`) + LOG (`{python} LOGIC`) = **`{python} focus_fade_res_pool`d6** → **`{python} focus_fade_res_hits` Bought Hits**.
-  * **Damage Taken**: `{python} focus_fade_fv` FV - `{python} focus_fade_res_hits` hits = **`{python} focus_fade_damage` Damage**.
+  * **SRM Ruling**: Per the SRM Guide / FAQ, Resonance data structures function identically to magical foci.
+  * **Activation**: Passive and sustained while inhabiting the chassis (**no Minor Action required to activate**).
+  * **Fading**: Resonance Foci do not cause fading themselves (**0 Fading Value / 0 Damage**).
+  * **Bonus**: Adds **+`{python} RESONANCE_FOCUS` dice** (+1 Bought Hit) to any test using the Resonance attribute while inhabiting the chassis.
 
 ---
 
