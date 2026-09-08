@@ -286,12 +286,13 @@ def parse_xml_stats(raw_xml: str) -> Dict[str, Any]:
         return {}
 
 
-def get_item_card(category: Optional[str], item_input: Union[str, Dict[str, Any]], db_path: str = DEFAULT_DB_PATH, char_data: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+def get_item_card(category: Optional[str], item_input: Union[str, Dict[str, Any]], db_path: Optional[str] = None, char_data: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
     """
     Looks up item stat fields in CommLink XML tables and rules vault text in SQLite.
     Resolves canonical OIDs and merges local dossier item attributes.
     If category is empty or 'auto', auto-detects category across all reference tables.
     """
+    db_path = db_path or os.environ.get("SR6_RULES_DB_PATH", DEFAULT_DB_PATH)
     item_dict = item_input if isinstance(item_input, dict) else {}
     raw_id = _extract_id(item_input)
     local_name = item_dict.get("name") if item_dict else (item_input if isinstance(item_input, str) else "")
@@ -299,11 +300,11 @@ def get_item_card(category: Optional[str], item_input: Union[str, Dict[str, Any]
     if not raw_id:
         return {"id": "unknown", "name": "Unknown Item", "category": category or "general", "markdown": ""}
 
-    canonical_oid, stat_row, resolved_cat = resolve_canonical_oid(category, raw_id, db_path=db_path)
-    category = resolved_cat or category or "gear"
-
     # Search rules vault for narrative description
     rdb = RulesDB(db_path=db_path)
+
+    canonical_oid, stat_row, resolved_cat = resolve_canonical_oid(category, raw_id, db_path=db_path)
+    category = resolved_cat or category or "gear"
     
     # Specific targeted queries based on category and clean names
     clean_search_name = re.sub(r"\s*\(.*?\)", "", local_name or raw_id).strip()
@@ -515,8 +516,16 @@ def get_item_card(category: Optional[str], item_input: Union[str, Dict[str, Any]
             except Exception:
                 pass
 
-        if not is_combat and "combat" in str(merged_stats.get("category", "")).lower():
-            is_combat = True
+        s_low = card_name.lower()
+        if not is_combat:
+            if any(s in s_low for s in ["bolt", "ball", "blast", "clout", "flame", "lightning", "acid"]):
+                is_combat = True
+
+        if is_combat and not is_direct and not is_indirect:
+            if any(d in s_low for d in ["manabolt", "powerbolt", "stunbolt", "manaball", "powerball", "stunball"]):
+                is_direct = True
+            elif any(ind in s_low for ind in ["fireball", "lightning", "flame", "acid", "toxic"]):
+                is_indirect = True
 
         if is_combat:
             if is_direct:

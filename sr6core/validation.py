@@ -19,6 +19,7 @@ from sr6core.creation.deep_audit import calculate_transaction_price
 class DossierValidator:
     def __init__(self, db_path: Optional[str] = None):
         self.db_path = db_path or os.environ.get("SR6_RULES_DB_PATH", DEFAULT_DB_PATH)
+        RulesDB(db_path=self.db_path)
         self.conn = sqlite3.connect(self.db_path)
         self.conn.row_factory = sqlite3.Row
         self._build_catalog_cache()

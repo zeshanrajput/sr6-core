@@ -132,6 +132,7 @@ def _migration_001_core_rules(conn: sqlite3.Connection):
             essence REAL,
             cost INTEGER,
             avail TEXT,
+            capacity TEXT,
             description TEXT,
             source TEXT,
             raw_xml TEXT,
@@ -196,6 +197,41 @@ def _migration_001_core_rules(conn: sqlite3.Connection):
             except Exception:
                 pass
 
+    # Ensure v_cyberware_grades view exists
+    try:
+        conn.execute("""
+            CREATE VIEW IF NOT EXISTS v_cyberware_grades AS
+            SELECT 
+                id,
+                name,
+                category,
+                essence AS standard_essence,
+                cost AS standard_cost,
+                0 AS standard_avail_mod,
+                ROUND(essence * 1.1, 2) AS used_essence,
+                CAST(ROUND(cost * 0.5) AS INTEGER) AS used_cost,
+                -1 AS used_avail_mod,
+                ROUND(essence * 0.8, 2) AS alpha_essence,
+                CAST(ROUND(cost * 1.2) AS INTEGER) AS alpha_cost,
+                1 AS alpha_avail_mod,
+                ROUND(essence * 0.7, 2) AS beta_essence,
+                CAST(ROUND(cost * 1.5) AS INTEGER) AS beta_cost,
+                2 AS beta_avail_mod,
+                ROUND(essence * 0.5, 2) AS delta_essence,
+                CAST(ROUND(cost * 2.5) AS INTEGER) AS delta_cost,
+                3 AS delta_avail_mod,
+                ROUND(essence * 1.1, 2) AS exoware_essence,
+                CAST(ROUND(cost * 0.8) AS INTEGER) AS exoware_cost,
+                0 AS exoware_avail_mod,
+                capacity,
+                avail,
+                source,
+                modifiers_json
+            FROM ref_cyberware;
+        """)
+    except Exception:
+        pass
+
     # Ensure rules columns exist for legacy databases
     for col, col_type in [("page", "TEXT"), ("authority_level", "INTEGER DEFAULT 3"), ("tags", "TEXT")]:
         if not _table_has_column(conn, "rules", col):
@@ -204,76 +240,96 @@ def _migration_001_core_rules(conn: sqlite3.Connection):
             except Exception:
                 pass
 
+    # Populate minimal canonical reference seeds if tables are empty
+    try:
+        row = conn.execute("SELECT COUNT(*) FROM ref_weapons").fetchone()
+        if not row or row[0] == 0:
+            conn.execute(
+                """INSERT OR REPLACE INTO ref_weapons 
+                   (id, name, category, damage, ap, attack_rating, modes, ammo, cost, avail, source, raw_xml)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                ("ares_predator_vi", "Ares Predator VI", "Heavy Pistols", "3P", "-", "10/10/8/-/-", "SA", "15(c)", 750, "3", "SR6 Core p. 256",
+                 '<weapon id="ares_predator_vi" dmg="3P" attack="10,10,8" mode="SA" ammo="15(c)"/>')
+            )
+            conn.execute(
+                """INSERT OR REPLACE INTO ref_weapons 
+                   (id, name, category, damage, ap, attack_rating, modes, ammo, cost, avail, source, raw_xml)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                ("ares_alpha", "Ares Alpha", "Assault Rifles", "4P", "-", "4/11/9/7/2", "SA/BF/FA", "42(c)", 2650, "4", "SR6 Core p. 257",
+                 '<weapon id="ares_alpha" dmg="4P" attack="4,11,9,7,2" mode="SA/BF/FA" ammo="42(c)"/>')
+            )
+            conn.execute(
+                """INSERT OR REPLACE INTO ref_weapons 
+                   (id, name, category, damage, ap, attack_rating, modes, ammo, cost, avail, source, raw_xml)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                ("ruger_super_warhawk", "Ruger Super Warhawk", "Heavy Pistols", "4P", "-", "10/9/6/-/-", "SS", "6(cy)", 450, "2", "SR6 Core p. 256",
+                 '<weapon id="ruger_super_warhawk" dmg="4P" attack="10,9,6" mode="SS" ammo="6(cy)"/>')
+            )
+        row_sp = conn.execute("SELECT COUNT(*) FROM ref_spells").fetchone()
+        if not row_sp or row_sp[0] == 0:
+            conn.execute(
+                """INSERT OR REPLACE INTO ref_spells 
+                   (id, name, category, duration, range, type, damage, drain, description, source, raw_xml)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                ("manabolt", "Manabolt", "Combat", "Instant", "LOS", "Mana", "P", "4", "A direct combat spell that channels raw mana.", "SR6 Core p. 135",
+                 '<spell id="manabolt" cat="Combat" drain="4" type="M" range="LOS" dur="I" dmg="P"><spellfeature ref="direct"/></spell>')
+            )
+            conn.execute(
+                """INSERT OR REPLACE INTO ref_spells 
+                   (id, name, category, duration, range, type, damage, drain, description, source, raw_xml)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                ("fireball", "Fireball", "Combat", "Instant", "LOS (A)", "Physical", "P", "5", "An indirect combat spell that explodes in flame.", "SR6 Core p. 134",
+                 '<spell id="fireball" cat="Combat" drain="5" type="P" range="LOS (A)" dur="I" dmg="P"><spellfeature ref="indirect"/><spellfeature ref="area"/></spell>')
+            )
+        row_cw = conn.execute("SELECT COUNT(*) FROM ref_cyberware").fetchone()
+        if not row_cw or row_cw[0] == 0:
+            conn.execute(
+                """INSERT OR REPLACE INTO ref_cyberware 
+                   (id, name, category, grade, essence, cost, avail, capacity, description, source, raw_xml, modifiers_json)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                ("wired_reflexes", "Wired Reflexes", "Bodyware", "standard", 2.0, 39000, "3", "-", "Neural accelerators grant reaction and initiative.", "SR6 Core p. 284",
+                 '<item id="wired_reflexes"><usage mode="IMPLANTED" value="2.0"/><attrdef id="PRICE" table="39000"/><bonus><attribute name="REACTION" value="1"/><attribute name="INITIATIVE_DICE" value="1"/></bonus></item>',
+                 '[{"type": "attribute", "ref": "reaction", "value": 1}, {"type": "attribute", "ref": "initiative_dice", "value": 1}]')
+            )
+            conn.execute(
+                """INSERT OR REPLACE INTO ref_cyberware 
+                   (id, name, category, grade, essence, cost, avail, description, source, raw_xml, modifiers_json)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                ("cybereyes", "Cybereyes", "Eyeware", "standard", 0.3, 6000, "2", "Replacement cybernetic optical sensors.", "SR6 Core p. 282",
+                 '<item id="cybereyes"><usage mode="IMPLANTED" value="0.3"/><attrdef id="PRICE" table="6000"/></item>',
+                 '[]')
+            )
+        row_q = conn.execute("SELECT COUNT(*) FROM ref_qualities").fetchone()
+        if not row_q or row_q[0] == 0:
+            conn.execute(
+                """INSERT OR REPLACE INTO ref_qualities 
+                   (id, name, karma, category, description, source, raw_xml, modifiers_json)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
+                ("quick_healer", "Quick Healer", 4, "Positive", "Gain +2 dice on healing tests.", "SR6 Core p. 74", '<quality id="quick_healer"/>', '[]')
+            )
+            conn.execute(
+                """INSERT OR REPLACE INTO ref_qualities 
+                   (id, name, karma, category, description, source, raw_xml, modifiers_json)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
+                ("sinner", "SINner", -8, "Negative", "Possesses a System Identification Number.", "SR6 Core p. 79", '<quality id="sinner"/>', '[]')
+            )
+        row_g = conn.execute("SELECT COUNT(*) FROM ref_gear").fetchone()
+        if not row_g or row_g[0] == 0:
+            conn.execute(
+                """INSERT OR REPLACE INTO ref_gear 
+                   (id, name, category, rating, cost, avail, description, source, raw_xml, modifiers_json)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                ("medkit", "Medkit", "Biotech", "3", 1500, "2", "Portable medical stabilization kit.", "SR6 Core p. 269", '<gear id="medkit"/>', '[]')
+            )
+    except Exception as e:
+        logger.warning(f"Could not populate baseline reference seeds: {e}")
+
 
 def _migration_002_gameplay_tables(conn: sqlite3.Connection):
     """Seed & relational tables for Action Economy, Status Effects, and Edge Boosts."""
-    conn.execute("""
-        CREATE TABLE IF NOT EXISTS ref_actions (
-            id TEXT PRIMARY KEY,
-            name TEXT,
-            action_type TEXT,
-            category TEXT,
-            test TEXT,
-            opposed TEXT,
-            threshold TEXT,
-            description TEXT,
-            source TEXT
-        )
-    """)
-    conn.execute("""
-        CREATE TABLE IF NOT EXISTS ref_status_effects (
-            id TEXT PRIMARY KEY,
-            name TEXT,
-            severity_levels TEXT,
-            category TEXT,
-            test TEXT,
-            recovery_test TEXT,
-            mechanical_effect TEXT,
-            source TEXT
-        )
-    """)
-    conn.execute("""
-        CREATE TABLE IF NOT EXISTS ref_edge_boosts (
-            id TEXT PRIMARY KEY,
-            name TEXT,
-            cost INTEGER,
-            category TEXT,
-            trigger TEXT,
-            timing TEXT,
-            mechanical_effect TEXT,
-            source TEXT
-        )
-    """)
-
-    # Populate seed data if empty
     try:
-        from sr6core.gameplay_tables import ACTIONS_DATA, STATUS_EFFECTS_DATA, EDGE_BOOSTS_DATA
-        row = conn.execute("SELECT COUNT(*) FROM ref_actions").fetchone()
-        if not row or row[0] == 0:
-            for item in ACTIONS_DATA:
-                conn.execute(
-                    """INSERT OR REPLACE INTO ref_actions 
-                       (id, name, action_type, category, test, opposed, threshold, description, source)
-                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
-                    (item["id"], item["name"], item["action_type"], item["category"],
-                     item["test"], item["opposed"], item["threshold"], item["description"], item["source"])
-                )
-            for item in STATUS_EFFECTS_DATA:
-                conn.execute(
-                    """INSERT OR REPLACE INTO ref_status_effects
-                       (id, name, severity_levels, category, test, recovery_test, mechanical_effect, source)
-                       VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
-                    (item["id"], item["name"], item["severity_levels"], item["category"],
-                     item["test"], item["recovery_test"], item["mechanical_effect"], item["source"])
-                )
-            for item in EDGE_BOOSTS_DATA:
-                conn.execute(
-                    """INSERT OR REPLACE INTO ref_edge_boosts
-                       (id, name, cost, category, trigger, timing, mechanical_effect, source)
-                       VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
-                    (item["id"], item["name"], item["cost"], item["category"],
-                     item["trigger"], item["timing"], item["mechanical_effect"], item["source"])
-                )
+        from sr6core.gameplay_tables import populate_gameplay_tables
+        populate_gameplay_tables(conn)
     except Exception as e:
         logger.warning(f"Could not populate gameplay table seeds: {e}")
 
@@ -284,12 +340,14 @@ def _migration_003_srm_contacts_and_rulings(conn: sqlite3.Connection):
         CREATE TABLE IF NOT EXISTS ref_contacts (
             id TEXT PRIMARY KEY,
             name TEXT,
-            archetypes TEXT,
             connection INTEGER,
-            loyalty INTEGER,
+            archetype TEXT,
+            region TEXT,
+            types TEXT,
+            uses TEXT,
             source TEXT,
-            notes TEXT,
-            services TEXT
+            city TEXT,
+            season TEXT
         )
     """)
     conn.execute("""
@@ -297,12 +355,50 @@ def _migration_003_srm_contacts_and_rulings(conn: sqlite3.Connection):
             id TEXT PRIMARY KEY,
             category TEXT,
             topic TEXT,
+            rule_or_item_id TEXT,
             ruling TEXT,
             source TEXT,
+            applies_to TEXT,
+            status TEXT,
             page TEXT,
             authority_level INTEGER DEFAULT 2
         )
     """)
+
+    try:
+        from sr6core.srm_contacts import OFFICIAL_SRM_CONTACTS
+        row = conn.execute("SELECT COUNT(*) FROM ref_contacts").fetchone()
+        if not row or row[0] == 0:
+            for c in OFFICIAL_SRM_CONTACTS:
+                city = c.get("city") or c.get("region", "Seattle").split("/")[0].strip()
+                region_low = c.get("region", "").lower()
+                source_low = c.get("source", "").lower()
+                if "neo-tokyo" in region_low or "neo tokyo" in region_low or "tokyo" in region_low:
+                    season = c.get("season") or "Season 9 (Neo-Tokyo)"
+                    city = "Neo-Tokyo"
+                elif "chicago" in region_low:
+                    season = c.get("season") or "Season 8 (Chicago)"
+                    city = "Chicago"
+                elif "seattle" in region_low or "2081" in source_low:
+                    season = c.get("season") or "Season 10 (Seattle 2081)"
+                    city = "Seattle"
+                else:
+                    season = c.get("season") or "SRM Global / Special"
+                conn.execute(
+                    """INSERT OR REPLACE INTO ref_contacts 
+                       (id, name, connection, archetype, region, types, uses, source, city, season)
+                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                    (c["id"], c["name"], c["connection"], c["archetype"], c["region"], c["types"], c["uses"], c["source"], city, season)
+                )
+    except Exception as e:
+        logger.warning(f"Could not populate ref_contacts seeds: {e}")
+
+    try:
+        from sr6core.srm_metadata import populate_srm_metadata
+        populate_srm_metadata(conn)
+    except Exception as e:
+        logger.warning(f"Could not populate srm_metadata seeds: {e}")
+
 
 
 def _migration_004_rule_embeddings(conn: sqlite3.Connection):

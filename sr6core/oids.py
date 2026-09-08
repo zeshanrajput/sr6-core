@@ -121,7 +121,7 @@ def normalize_oid(identifier: str) -> str:
 def resolve_canonical_oid(
     category: Optional[str],
     raw_input: str,
-    db_path: str = DEFAULT_DB_PATH
+    db_path: Optional[str] = None
 ) -> Tuple[str, Optional[Dict[str, Any]], str]:
     """
     Resolves a canonical OID and database row for a given category and item identifier or name.
@@ -130,6 +130,7 @@ def resolve_canonical_oid(
     Returns:
         (canonical_oid, db_record_or_none, resolved_category)
     """
+    db_path = db_path or os.environ.get("SR6_RULES_DB_PATH", DEFAULT_DB_PATH)
     if not raw_input:
         return "unknown", None, category or "general"
 
