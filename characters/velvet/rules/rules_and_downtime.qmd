@@ -214,8 +214,8 @@ Under the **Channeling** metamagic, Velvet draws a bound spirit into their physi
     * **Channeled Force 3**: $+1$ to Body ($2 \rightarrow \mathbf{3}$), Reaction ($2 \rightarrow \mathbf{3}$ [or $6 \rightarrow \mathbf{7}$ with spell]), Strength ($2 \rightarrow \mathbf{3}$).
     * **Channeled Force 5**: $+2$ to Body ($2 \rightarrow \mathbf{4}$), Agility ($3 \rightarrow \mathbf{5}$), Reaction ($2 \rightarrow \mathbf{4}$ [or $6 \rightarrow \mathbf{8}$ with spell]), Strength ($2 \rightarrow \mathbf{4}$).
   * **Wound Penalty Ignorance**: Ignores up to **Force wound penalty boxes** (3 boxes for F3, **5 boxes for F5**).
-  * **Continuous Powers (0 Services)**: Continuous access to all "Always" duration spirit powers.
   * **Active Spirit Powers (1 Service per use)**: Project 5P/6P *Elemental Attacks*, apply *Concealment*, *Influence*, or *Guard* directly from the physical form.
+  * **Channeled Power Pools (Vessel Attributes)**: Channeled powers project using Velvet's attributes. The **Influence** spirit power uses **Magic + Charisma vs Willpower + Logic** (**20d6 $\rightarrow$ 5 Bought Hits**, or **23d6** with Power Focus)—a devastating powerhouse move against target mental defenses.
 * **Delayed Departure Drain**: Resisted when channeling ends ($1\text{–}2\text{ DV}$ vs 23d6 soak) $\rightarrow$ **0 Drain Damage**.
 
 ---

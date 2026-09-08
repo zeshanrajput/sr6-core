@@ -502,6 +502,8 @@ def test_magic_and_social_action_pools_and_tables():
     assert "Channeled Task Spirit" in strategy_table
     assert "Universal Anchor 1 (Cast First)" in strategy_table
     assert "Universal Anchor 2 (Cast Second)" in strategy_table
+    assert "Channeled Influence Power" in strategy_table
+    assert "**20d6**" in strategy_table
 
 
 def test_tactical_action_pools_and_tables_union():

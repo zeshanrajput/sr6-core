@@ -723,18 +723,21 @@ def get_scene_strategy_table(char_id: str = "velvet") -> str:
     composure_social = wil_eff + cha_eff
     memory_social = log_eff_social + wil_eff
 
+    channeled_influence_base = mag + cha_eff
+    channeled_influence_focus = mag + power_focus + cha_eff
+
     row1 = (
         f"| **1. Social & Legwork Mode** | "
         f"**Channeled Kindred Spirit (Level {spirit_level})**:<br>"
         f"* Physicals Bonus: **+{spirit_phys_bonus}** to BOD, AGI, REA, STR<br>"
         f"* Bonus Power: *Innate Spell (Increase Attribute: Intuition)* (+{inc_attr_bonus} INT)<br>"
-        f"* Spirit Power: *Influence* ({spirit_level * 2}d6)<br><br>"
+        f"* Spirit Power: *Influence* (Channeled: MAG + CHA vs WIL+LOG)<br><br>"
         f"**Sustained Slot 3**:<br>* {slot3_social} | "
         f"**CHA {cha_eff}**, **WIL {wil_eff}**, **INT {int_eff_social}**, **LOG {log_eff_social}**<br>"
         f"BOD {bod_chan}, AGI {agi_chan}, REA {rea_chan}, STR {str_chan} | "
-        f"**Influence**: **{inf_pool}d6** ({fmt_hits(inf_pool)})<br>"
+        f"**Influence (Skill)**: **{inf_pool}d6** ({fmt_hits(inf_pool)})<br>"
         f"**Con / Deception**: **{con_pool}d6** ({fmt_hits(con_pool)})<br>"
-        f"**Spirit Influence**: **{spirit_level * 2}d6** ({fmt_hits(spirit_level * 2)})<br>"
+        f"**Channeled Influence Power**: **{channeled_influence_base}d6** ({fmt_hits(channeled_influence_base)}) *(MAG {mag} + CHA {cha_eff}{f' / {channeled_influence_focus}d6 w/ Focus' if power_focus else ''} vs WIL+LOG)*<br>"
         f"*(Cosmetic Control: -1 Edge on Con)* | "
         f"**Composure**: **{composure_social}d6** ({fmt_hits(composure_social)})<br>"
         f"**Judge Intentions**: **{judge_intentions_social}d6** ({fmt_hits(judge_intentions_social)})<br>"
