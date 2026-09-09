@@ -517,10 +517,10 @@ def add_sprite(name: str, rating: int = 7, sprite_type: str = "Registered", auto
 
 
 def add_spirit(
-    name: str,
+    name: str = "Spirit of Fire",
     force: int = 5,
-    spirit_type: str = "Kin",
-    tasks: int = 2,
+    spirit_type: str = "Fire",
+    tasks: int = 4,
     powers: str = "",
     is_great_form: bool = False,
     is_ally: bool = False,
@@ -530,6 +530,8 @@ def add_spirit(
     curr_m_idx = len(_GLOBAL_LOG_STATE.get("Missions", []))
     m_name = _GLOBAL_LOG_STATE["Missions"][-1] if curr_m_idx > 0 else "Character Creation"
     eff_details = details if details else powers
+    if not eff_details:
+        eff_details = f"{tasks} Bound Tasks / {tasks} SRM Missions, Combat & Channeling"
     s_info = {
         "name": name,
         "force": force,

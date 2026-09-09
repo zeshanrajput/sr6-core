@@ -107,26 +107,15 @@ print(render_downtime_binding_markdown("velvet"))
 
 ---
 
-### Standard Downtime Package: The 8-Level Spirit Allocation
+### Standard Downtime Spirit Binding
 
-*SRMG v2.4 Minor Downtime Action (Register/Bind up to 8 levels of spirits)*
+*SRMG v2.4 Minor Downtime Action (Register/Bind spirits)*
 
-In downtime, Velvet's standard minor action binds **8 total Force levels of spirits** split into a specialized duo:
+In downtime, Velvet's minor action binds a **Force 5 Spirit of Fire** (conjuring test = binding test = 2 services each = **4 total services / 4 SRM Missions**):
 
-1. **Spirit 1: Force 3 Spirit of Kin (4 Bound Tasks / 4 SRM Missions)**:
-   * **Reagent Cost**: $2 \times 3 = \mathbf{6\text{ drams / ¥120}}$ ($3\text{ hours}$ in lodge).
-   * **Summoning**: 15d6 (3 hits) vs 6d6 (1 hit) = **2 Base Services**.
-   * **Binding**: 15d6 (3 hits) vs 6d6 (1 hit) = **2 Bound Tasks**.
-   * **Total Longevity**: **4 Tasks / 4 SRM Missions** of active availability.
-   * **Role**: Infiltration, -3 Concealment, subconscious Influence, and sustaining buffs via *Innate Spell*.
-2. **Spirit 2: Force 5 Spirit of Fire (2 Bound Tasks / 2 SRM Missions)**:
-   * **Reagent Cost**: $2 \times 5 = \mathbf{10\text{ drams / ¥200}}$ ($5\text{ hours}$ in lodge).
-   * **Summoning**: 15d6 (3 hits) vs 10d6 (2 hits) = **1 Base Service**.
-   * **Binding**: 15d6 (3 hits) vs 10d6 (2 hits) = **1 Bound Task**.
-   * **Total Longevity**: **2 Tasks / 2 SRM Missions** of active availability.
-   * **Role**: High-threat combat, 5P Elemental Fire, Engulf, Energy Aura.
-
-* **Total Downtime Budget**: **16 drams (¥320)**, **8 hours**, and **0 Drain Damage** (resisted with 23d6 soak).
+* **Reagent Cost**: 10 drams (¥200) ($5\text{ hours}$ in lodge).
+* **Drain Soak**: 0 Drain Damage (resisted with 23d6 soak).
+* **Role**: High-threat combat, 5P Elemental Fire, Engulf, Energy Aura, and heavy Channeling augmentations.
 
 ---
 
