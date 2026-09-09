@@ -38,12 +38,15 @@ def test_multi_modifier_interactions_threshold():
 
 def test_multi_modifier_interactions_velvet():
     interactions = get_multi_modifier_interactions("velvet", threshold=2)
-    assert len(interactions) >= 3, f"Expected at least 3 multi-modifier pools for Velvet, got {len(interactions)}"
+    assert len(interactions) >= 6, f"Expected at least 6 multi-modifier pools for Velvet, got {len(interactions)}"
 
     names = [i["name"] for i in interactions]
     assert any("Spellcasting" in n for n in names)
     assert any("Channeling" in n for n in names)
     assert any("Drain Resistance" in n for n in names)
+    assert any("Leadership" in n for n in names)
+    assert any("Social Negotiation" in n for n in names)
+    assert any("Deception" in n for n in names)
 
     # Spellcasting should reflect Power Focus (+3) and Specialization (+2) -> 16d6
     sc = next(i for i in interactions if "Spellcasting" in i["name"])
@@ -63,6 +66,20 @@ def test_multi_modifier_interactions_velvet():
     dr = next(i for i in interactions if "Drain Resistance" in i["name"])
     assert "23d6" in dr["total_pool"]
 
+    # Influence (Leadership) should reflect Sustained Charisma (+4) and Command Presence (+2) -> 21d6
+    lead = next(i for i in interactions if "Leadership" in i["name"])
+    assert "21d6" in lead["total_pool"]
+    assert "+1 Edge" in lead["total_pool"]
+
+    # Social Negotiation should reflect Sustained Charisma (+4) -> 19d6 (Social Rating 18)
+    sn = next(i for i in interactions if "Social Negotiation" in i["name"])
+    assert "19d6" in sn["total_pool"]
+    assert "Social Rating 18" in sn["total_pool"]
+
+    # Deception & Fast-Talk should reflect Sustained Charisma (+4) -> 18d6 (-1 Edge Cost)
+    con = next(i for i in interactions if "Deception" in i["name"])
+    assert "18d6" in con["total_pool"]
+
     # Verify Markdown rendering
     rendered = render_multi_modifier_interactions("velvet", threshold=2)
     assert "⚡" in rendered
@@ -71,6 +88,12 @@ def test_multi_modifier_interactions_velvet():
     assert "16d6" in rendered
     assert "Spirit Channeling" in rendered
     assert "17d6" in rendered
+    assert "Influence (Leadership)" in rendered
+    assert "21d6" in rendered
+    assert "Social Negotiation" in rendered
+    assert "19d6" in rendered
+    assert "Deception & Fast-Talk" in rendered
+    assert "18d6" in rendered
 
 
 def test_multi_modifier_interactions_reiko():

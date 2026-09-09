@@ -697,7 +697,7 @@ def get_scene_strategy_table(char_id: str = "velvet") -> str:
 
     # Callout / protocol description
     protocol_callout = [
-        "> **Deterministic Universal Buffing Protocol (Always Cast First & Second):**",
+        "> **Deterministic Universal Buffing & Spirit Channeling Protocol:**",
         "> ",
         f"> Velvet sustains up to **{fc_rating} spells simultaneously with 0 sustaining penalties** via **Focused Concentration (Rating {fc_rating})**, reaching the maximum **+4 SRMG Augmentation Cap** deterministically by buying hits.",
         "> ",
@@ -705,6 +705,7 @@ def get_scene_strategy_table(char_id: str = "velvet") -> str:
         f"> * **Universal Anchor 1 (Cast First)**: *Increase Attribute: Charisma (+{inc_attr_bonus})* $\\rightarrow$ Boosts Charisma from {cha} to **{cha_eff}**. Resisted by base Drain soak of **{drain_init}d6** ({fmt_hits(drain_init)} vs Drain 3) $\\rightarrow$ **0 Drain**.",
         f"> * **Universal Anchor 2 (Cast Second)**: *Increase Attribute: Willpower (+{inc_attr_bonus})* $\\rightarrow$ Boosts Willpower from {wil} to **{wil_eff}**. Resisted by upgraded Drain soak of **{drain_mid}d6** ({fmt_hits(drain_mid)} vs Drain 3) $\\rightarrow$ **0 Drain**.",
         f"> * **Peak Drain Soak**: With CHA **{cha_eff}** and WIL **{wil_eff}**, permanent Drain soak reaches **{drain_final}d6** ({fmt_hits(drain_final)}), completely absorbing all Drain from subsequent spells and spirit commands.",
+        f"> * **Channeled Spirit Baseline**: All spirits are channeled at **Force {spirit_level}**, granting **+{spirit_phys_bonus} to all physical attributes** (Body {bod_chan}, Agility {agi_chan}, Reaction {rea_chan}, Strength {str_chan}) and ignoring up to **{spirit_level} points of wound modifiers**.",
         ""
     ]
 
@@ -717,7 +718,7 @@ def get_scene_strategy_table(char_id: str = "velvet") -> str:
         con_pool = con_rating + cha_eff + 4
     else:
         log_eff_social = log_val + inc_attr_bonus
-        slot3_social = f"**Increase Attribute: Logic (+{inc_attr_bonus})** *(Interim: boosts LOG to {log_eff_social} until Charm is learned)*"
+        slot3_social = f"**Increase Attribute: Logic (+{inc_attr_bonus})**<br>*(Interim until Charm learned)*"
         inf_pool = inf_rating + cha_eff
         con_pool = con_rating + cha_eff
 
@@ -728,24 +729,32 @@ def get_scene_strategy_table(char_id: str = "velvet") -> str:
     channeled_influence_base = mag + cha_eff
     channeled_influence_focus = mag + power_focus + cha_eff
 
-    row1 = (
-        f"| **1. Social & Legwork Mode** | "
+    col1_social = (
+        f"**1. Social & Legwork Mode**<br><br>"
+        f"**CHA {cha_eff}**, **WIL {wil_eff}**<br>"
+        f"**INT {int_eff_social}**, **LOG {log_eff_social}**<br>"
+        f"BOD {bod_chan}, AGI {agi_chan}<br>"
+        f"REA {rea_chan}, STR {str_chan}"
+    )
+    col2_social = (
         f"**Channeled Kindred Spirit (Level {spirit_level})**:<br>"
-        f"* Physicals Bonus: **+{spirit_phys_bonus}** to BOD, AGI, REA, STR (Force/2)<br>"
-        f"* Bonus Power: *Innate Spell (Increase Attribute: Intuition)* (+{inc_attr_bonus} INT)<br>"
-        f"* Spirit Power: *Influence* (Channeled: MAG + CHA vs WIL+LOG)<br><br>"
-        f"**Sustained Slot 3**:<br>* {slot3_social} | "
-        f"**CHA {cha_eff}**, **WIL {wil_eff}**, **INT {int_eff_social}**, **LOG {log_eff_social}**<br>"
-        f"BOD {bod_chan}, AGI {agi_chan}, REA {rea_chan}, STR {str_chan} | "
+        f"* *Innate Spell*: *Increase Attribute: Intuition (+{inc_attr_bonus})*<br>"
+        f"* *Influence* power (Channeled: MAG + CHA vs WIL+LOG)"
+    )
+    col3_social = slot3_social
+    col4_social = (
         f"**Influence (Skill)**: **{inf_pool}d6** ({fmt_hits(inf_pool)})<br>"
         f"**Con / Deception**: **{con_pool}d6** ({fmt_hits(con_pool)})<br>"
         f"**Channeled Influence Power**: **{channeled_influence_base}d6** ({fmt_hits(channeled_influence_base)}) *(MAG {mag} + CHA {cha_eff}{f' / {channeled_influence_focus}d6 w/ Focus' if power_focus else ''} vs WIL+LOG)*<br>"
-        f"*(Cosmetic Control: -1 Edge on Con)* | "
+        f"*(Cosmetic Control: -1 Edge on Con)*"
+    )
+    col5_social = (
         f"**Composure**: **{composure_social}d6** ({fmt_hits(composure_social)})<br>"
         f"**Judge Intentions**: **{judge_intentions_social}d6** ({fmt_hits(judge_intentions_social)})<br>"
         f"**Memory Test**: **{memory_social}d6** ({fmt_hits(memory_social)})<br>"
-        f"**Drain Soak**: **{drain_final}d6** ({fmt_hits(drain_final)}) |"
+        f"**Drain Soak**: **{drain_final}d6** ({fmt_hits(drain_final)})"
     )
+    row1 = f"| {col1_social} | {col2_social} | {col3_social} | {col4_social} | {col5_social} |"
 
     # Mode 2: Tactical Combat (Kindred Spirit L5 with Psychokinesis, Sustained Slot 3: Increase Reflexes)
     refl_bonus = inc_attr_bonus
@@ -754,33 +763,46 @@ def get_scene_strategy_table(char_id: str = "velvet") -> str:
     phys_def_combat = rea_eff_combat + int_val
     full_def_combat = phys_def_combat + wil_eff
     init_score_combat = rea_eff_combat + int_val
-    init_dice_combat = 1 + (bought_hits // 2)
+    # 1 base + 1 per hit (3 hits on Increase Reflexes -> +4D6 initiative dice -> total 5D6)
+    init_dice_combat = 1 + min(4, 1 + (bought_hits - 1))
 
     psychokinesis_pool = mag + wil_eff
     psychokinesis_focus = mag + power_focus + wil_eff
     confusion_pool = mag + wil_eff
     confusion_focus = mag + power_focus + wil_eff
 
-    row2 = (
-        f"| **2. Tactical Combat Mode** | "
+    col1_combat = (
+        f"**2. Tactical Combat Mode**<br><br>"
+        f"**CHA {cha_eff}**, **WIL {wil_eff}**<br>"
+        f"**REA {rea_eff_combat}** *(Aug Cap)*<br>"
+        f"INT {int_val}, LOG {log_val}<br>"
+        f"BOD {bod_chan}, AGI {agi_chan}, STR {str_chan}"
+    )
+    col2_combat = (
         f"**Channeled Kindred Spirit (Level {spirit_level})**:<br>"
-        f"* Physicals Bonus: **+{spirit_phys_bonus}** to BOD, AGI, REA, STR (Force/2)<br>"
-        f"* Bonus Power: *Psychokinesis* (Minor Action telekinetic manipulation)<br>"
-        f"* Spirit Powers: *Influence*, *Confusion*, *Accident*, *Guard*, *Concealment*<br><br>"
-        f"**Sustained Slot 3**:<br>* **Increase Reflexes** (+{refl_bonus} REA [Aug Cap: **{rea_eff_combat}**], +{bought_hits // 2}D6 Init) | "
-        f"**CHA {cha_eff}**, **WIL {wil_eff}**, **REA {rea_eff_combat}**<br>"
-        f"BOD {bod_chan}, AGI {agi_chan}, STR {str_chan}, INT {int_val}, LOG {log_val} | "
+        f"* Bonus Power: *Psychokinesis* (Minor Action telekinesis)<br>"
+        f"* Spirit Powers: *Influence*, *Confusion*, *Accident*, *Guard*, *Concealment*"
+    )
+    col3_combat = (
+        f"**Increase Reflexes**<br>"
+        f"* +{refl_bonus} REA *(Aug Cap: **{rea_eff_combat}**)*<br>"
+        f"* +4D6 Init Dice *(Total: **{init_dice_combat}D6**)*"
+    )
+    col4_combat = (
         f"**Channeled Influence Power**: **{channeled_influence_base}d6** ({fmt_hits(channeled_influence_base)}) *(MAG {mag} + CHA {cha_eff}{f' / {channeled_influence_focus}d6 w/ Focus' if power_focus else ''} vs WIL+LOG)*<br>"
-        f"**Channeled Psychokinesis**: **{psychokinesis_pool}d6** ({fmt_hits(psychokinesis_pool)}) *(MAG {mag} + WIL {wil_eff}{f' / {psychokinesis_focus}d6 w/ Focus' if power_focus else ''}; STR/AGI = {psychokinesis_pool // 4})*<br>"
+        f"**Channeled Psychokinesis**: **{psychokinesis_pool}d6** ({fmt_hits(psychokinesis_pool)}) *(MAG {mag} + WIL {wil_eff}; STR/AGI = {psychokinesis_pool // 4})*<br>"
         f"**Channeled Confusion**: **{confusion_pool}d6** ({fmt_hits(confusion_pool)}) *(vs WIL+LOG; inflicts Dazed & Confused)*<br>"
         f"**Sorcery (Spellcasting)**: **{casting_pool}d6** ({fmt_hits(casting_pool)})<br>"
-        f"*(Guard: Glitch immunity; Concealment: -{spirit_level} enemy perception; ignores {spirit_level} wound points)* | "
+        f"*(Guard: Glitch immunity; Concealment: -{spirit_level} enemy perception; ignores {spirit_level} wound points)*"
+    )
+    col5_combat = (
         f"**Physical Defense**: **{phys_def_combat}d6** ({fmt_hits(phys_def_combat)})<br>"
         f"**Full Defense**: **{full_def_combat}d6** ({fmt_hits(full_def_combat)})<br>"
         f"**Initiative**: **{init_score_combat} + {init_dice_combat}D6**<br>"
         f"**Damage Soak**: **{bod_chan}d6** *(+ Armor)*<br>"
-        f"**Drain Soak**: **{drain_final}d6** ({fmt_hits(drain_final)}) |"
+        f"**Drain Soak**: **{drain_final}d6** ({fmt_hits(drain_final)})"
     )
+    row2 = f"| {col1_combat} | {col2_combat} | {col3_combat} | {col4_combat} | {col5_combat} |"
 
     # Mode 3: Investigation & Technical Mode (Task Spirit L5, Sustained Slot 3: Increase Attribute: Logic)
     log_eff_invest = log_val + inc_attr_bonus
@@ -791,28 +813,39 @@ def get_scene_strategy_table(char_id: str = "velvet") -> str:
     phys_def_invest = rea_chan + int_eff_invest
     full_def_invest = phys_def_invest + wil_eff
 
-    row3 = (
-        f"| **3. Investigation & Technical Mode** | "
+    col1_invest = (
+        f"**3. Investigation & Technical Mode**<br><br>"
+        f"**CHA {cha_eff}**, **WIL {wil_eff}**<br>"
+        f"**LOG {log_eff_invest}**, INT {int_eff_invest}<br>"
+        f"BOD {bod_chan}, AGI {agi_chan}<br>"
+        f"REA {rea_chan}, STR {str_chan}"
+    )
+    col2_invest = (
         f"**Channeled Task Spirit (Level {spirit_level})**:<br>"
-        f"* Physicals Bonus: **+{spirit_phys_bonus}** to BOD, AGI, REA, STR (Force/2)<br>"
         f"* Channeled Skills: *Electronics {spirit_level}*, *Engineering {spirit_level}* *(1 task/test)*<br>"
-        f"* Spirit Powers: *Search* ({spirit_level * 2}d6), *Psychokinesis*<br><br>"
-        f"**Sustained Slot 3**:<br>* **Increase Attribute: Logic (+{inc_attr_bonus})** | "
-        f"**CHA {cha_eff}**, **WIL {wil_eff}**, **LOG {log_eff_invest}**, INT {int_eff_invest}<br>"
-        f"BOD {bod_chan}, AGI {agi_chan}, REA {rea_chan}, STR {str_chan} | "
+        f"* Spirit Powers: *Search* ({spirit_level * 2}d6), *Psychokinesis*"
+    )
+    col3_invest = (
+        f"**Increase Attribute: Logic (+{inc_attr_bonus})**<br>"
+        f"*(Boosts Logic to {log_eff_invest})*"
+    )
+    col4_invest = (
         f"**Channeled Electronics**: **{elec_pool}d6** ({fmt_hits(elec_pool)}) *(14d6 w/ specialization)*<br>"
         f"**Channeled Engineering**: **{eng_pool}d6** ({fmt_hits(eng_pool)})<br>"
         f"**Perception / Assensing**: **{int_eff_invest}d6** ({fmt_hits(int_eff_invest)}; + Search {spirit_level * 2}d6)<br>"
         f"**Judge Intentions**: **{judge_intentions_invest}d6** ({fmt_hits(judge_intentions_invest)})<br>"
-        f"*(Note: Task spirit expends 1 task per skill test)* | "
+        f"*(Note: Task spirit expends 1 task per skill test)*"
+    )
+    col5_invest = (
         f"**Composure**: **{drain_final}d6** ({fmt_hits(drain_final)})<br>"
         f"**Physical Defense**: **{phys_def_invest}d6** ({fmt_hits(phys_def_invest)})<br>"
         f"**Full Defense**: **{full_def_invest}d6** ({fmt_hits(full_def_invest)})<br>"
-        f"**Drain Soak**: **{drain_final}d6** ({fmt_hits(drain_final)}) |"
+        f"**Drain Soak**: **{drain_final}d6** ({fmt_hits(drain_final)})"
     )
+    row3 = f"| {col1_invest} | {col2_invest} | {col3_invest} | {col4_invest} | {col5_invest} |"
 
     table_headers = [
-        "| Operational Mode | Channeled Spirit & Sustained Slot 3 | Effective Attributes | Primary Action Pools & Modifiers | Derived Defenses & Hits |",
+        "| Operational Mode & Effective Attributes | Channeled Spirit (Force 5) | Sustained Slot 3 | Primary Action Pools & Modifiers | Derived Defenses & Hits |",
         "| :--- | :--- | :--- | :--- | :--- |",
         row1,
         row2,
@@ -1361,6 +1394,123 @@ def get_multi_modifier_interactions(char_id: str, threshold: int = 2) -> List[Di
                     "operational_constraints": "Sustained with 0 sustaining penalties under Focused Concentration (Rating 3).",
                     "count": len(drain_mods)
                 })
+
+        # 4. Social Test Pools (Leadership, Influence, Con)
+        social_pools = ModifierEngine.get_social_action_pools(data, enhanced=True)
+        if social_pools:
+            adept_list = data.get("adept_powers", [])
+            has_cmd_presence = any("command presence" in p.get("name", "").lower() for p in adept_list)
+            cosmetic_power = next((p for p in adept_list if "cosmetic" in p.get("name", "").lower()), None)
+            cosmetic_rating = cosmetic_power.get("rating", 0) if cosmetic_power else 0
+            cha_val = int(attrs.get("charisma", 0))
+
+            # 4a. Influence (Leadership)
+            infl_skill = next((s for s in data.get("skills", []) if s.get("name", "").lower() == "influence"), None)
+            if infl_skill:
+                infl_rating = infl_skill.get("rating", 0)
+                lead_mods = [
+                    {
+                        "source": "Charisma: Increase Attribute (+4 Sustained)",
+                        "value": "+4",
+                        "type": "spell",
+                        "notes": "Sustained Increase Attribute Health spell (+4 SRMG Augmentation Cap)",
+                        "rule_anchor": "rules/rules_and_downtime.html#sustained-spells"
+                    }
+                ]
+                if has_cmd_presence:
+                    lead_mods.append({
+                        "source": "Command Presence (Rating 1)",
+                        "value": "+2",
+                        "type": "adept_power",
+                        "notes": "Grants +2 dice and +1 Edge on Leadership tests; reduces Small Unit Tactics threshold by -2",
+                        "rule_anchor": "rules/rules_and_downtime.html#adept-powers"
+                    })
+
+                if len(lead_mods) >= threshold:
+                    cmd_bonus = 2 if has_cmd_presence else 0
+                    lead_total = infl_rating + cha_val + 4 + cmd_bonus
+                    lead_hits = lead_total // 4
+                    results.append({
+                        "category": "Social & Leadership Actions",
+                        "name": "Influence (Leadership)",
+                        "total_pool": f"{lead_total}d6 ({lead_hits} Bought Hits; +1 Edge)",
+                        "base_summary": f"Influence {infl_rating} + Charisma {cha_val} + Sustained CHA (+4) + Command Presence (+{cmd_bonus})",
+                        "modifiers": lead_mods,
+                        "stacking_legality": "Command Presence (+2 dice) is an adept power bonus stacking legally with sustained attribute augmentation (+4).",
+                        "operational_constraints": "Tactical commands and squad leadership. Grants +1 Edge on Leadership tests and reduces Small Unit Tactics threshold by -2.",
+                        "count": len(lead_mods)
+                    })
+
+                # 4b. Social Negotiation & Etiquette (Influence)
+                gear_items = (data.get("gear") or []) + (data.get("armors") or []) + (data.get("armor") or [])
+                has_tres_chic = any("chic" in str(g).lower() for g in gear_items)
+                infl_mods = [
+                    {
+                        "source": "Charisma: Increase Attribute (+4 Sustained)",
+                        "value": "+4",
+                        "type": "spell",
+                        "notes": "Sustained Increase Attribute Health spell (+4 SRMG Augmentation Cap)",
+                        "rule_anchor": "rules/rules_and_downtime.html#sustained-spells"
+                    }
+                ]
+                if has_tres_chic:
+                    infl_mods.append({
+                        "source": "Ares Skinshield (Très Chic x2)",
+                        "value": "+4 Social Rating",
+                        "type": "gear",
+                        "notes": f"Custom tailored high-fashion tailoring boosts Social Rating to {cha_val + 4 + 4} (CHA {cha_val + 4} + 4)",
+                        "rule_anchor": "rules/rules_and_downtime.html"
+                    })
+
+                if len(infl_mods) >= threshold:
+                    infl_total = infl_rating + cha_val + 4
+                    infl_hits = infl_total // 4
+                    results.append({
+                        "category": "Social & Face Actions",
+                        "name": "Social Negotiation & Etiquette (Influence)",
+                        "total_pool": f"{infl_total}d6 ({infl_hits} Bought Hits; Social Rating {cha_val + 4 + 4})",
+                        "base_summary": f"Influence {infl_rating} + Charisma {cha_val} + Sustained CHA (+4)",
+                        "modifiers": infl_mods,
+                        "stacking_legality": "Sustained Charisma (+4) operates within the +4 augmented attribute limit. Très Chic modifies Social Rating directly without modifying the dice pool, avoiding dice pool caps entirely.",
+                        "operational_constraints": "Standard social negotiation, etiquette, networking, and face protocols.",
+                        "count": len(infl_mods)
+                    })
+
+            # 4c. Deception & Fast-Talk (Con)
+            con_skill = next((s for s in data.get("skills", []) if s.get("name", "").lower() == "con"), None)
+            if con_skill:
+                con_rating = con_skill.get("rating", 0)
+                con_mods = [
+                    {
+                        "source": "Charisma: Increase Attribute (+4 Sustained)",
+                        "value": "+4",
+                        "type": "spell",
+                        "notes": "Sustained Increase Attribute Health spell (+4 SRMG Augmentation Cap)",
+                        "rule_anchor": "rules/rules_and_downtime.html#sustained-spells"
+                    }
+                ]
+                if cosmetic_rating:
+                    con_mods.append({
+                        "source": f"Cosmetic Control (Rating {cosmetic_rating})",
+                        "value": "-1 Edge cost",
+                        "type": "adept_power",
+                        "notes": "Reduces the cost of Edge Boosts by -1 for all Con tests (Acting, Disguise, Impersonation)",
+                        "rule_anchor": "rules/rules_and_downtime.html#adept-powers"
+                    })
+
+                if len(con_mods) >= threshold:
+                    con_total = con_rating + cha_val + 4
+                    con_hits = con_total // 4
+                    results.append({
+                        "category": "Social & Deception Actions",
+                        "name": "Deception & Fast-Talk (Con)",
+                        "total_pool": f"{con_total}d6 ({con_hits} Bought Hits; -1 Edge Cost)",
+                        "base_summary": f"Con {con_rating} + Charisma {cha_val} + Sustained CHA (+4)",
+                        "modifiers": con_mods,
+                        "stacking_legality": "Cosmetic Control provides an Edge economy discount rather than a direct dice pool bonus, stacking legally without capping constraints.",
+                        "operational_constraints": "Fast-talk, deception, impersonation, and blending personas.",
+                        "count": len(con_mods)
+                    })
 
     return results
 

@@ -1206,7 +1206,7 @@ class ModifierEngine:
         return res_pools
 
     @classmethod
-    def get_social_action_pools(cls, char_data: Dict[str, Any], scene_mode: str = "social_enhanced") -> Dict[str, PoolOptimization]:
+    def get_social_action_pools(cls, char_data: Dict[str, Any], scene_mode: str = "social_enhanced", enhanced: bool = None) -> Dict[str, PoolOptimization]:
         """
         Calculates optimal dice pools and bonus strategies for Social / Face actions
         (Influence, Negotiation, Disguise, Inspire Competence, Composure, Judge Intentions).
@@ -1217,7 +1217,7 @@ class ModifierEngine:
         wil = int(attrs.get("willpower", 1))
         int_val = int(attrs.get("intuition", 1))
 
-        is_enhanced = "enhanced" in scene_mode
+        is_enhanced = enhanced if enhanced is not None else ("enhanced" in scene_mode)
 
         # Skills
         skills = {s.get("name", ""): s for s in char_data.get("skills", []) if isinstance(s, dict)}
