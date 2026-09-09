@@ -749,7 +749,8 @@ def get_scene_strategy_table(char_id: str = "velvet") -> str:
 
     # Mode 2: Tactical Combat (Kindred Spirit L5 with Psychokinesis, Sustained Slot 3: Increase Reflexes)
     refl_bonus = inc_attr_bonus
-    rea_eff_combat = rea_chan + refl_bonus
+    # Enforce standard +4 attribute augmentation cap on Reaction (base rea=2 -> max 6)
+    rea_eff_combat = min(rea + 4, rea_chan + refl_bonus)
     phys_def_combat = rea_eff_combat + int_val
     full_def_combat = phys_def_combat + wil_eff
     init_score_combat = rea_eff_combat + int_val
@@ -766,7 +767,7 @@ def get_scene_strategy_table(char_id: str = "velvet") -> str:
         f"* Physicals Bonus: **+{spirit_phys_bonus}** to BOD, AGI, REA, STR (Force/2)<br>"
         f"* Bonus Power: *Psychokinesis* (Minor Action telekinetic manipulation)<br>"
         f"* Spirit Powers: *Influence*, *Confusion*, *Accident*, *Guard*, *Concealment*<br><br>"
-        f"**Sustained Slot 3**:<br>* **Increase Reflexes** (+{refl_bonus} REA, +{bought_hits // 2}D6 Init) | "
+        f"**Sustained Slot 3**:<br>* **Increase Reflexes** (+{refl_bonus} REA [Aug Cap: **{rea_eff_combat}**], +{bought_hits // 2}D6 Init) | "
         f"**CHA {cha_eff}**, **WIL {wil_eff}**, **REA {rea_eff_combat}**<br>"
         f"BOD {bod_chan}, AGI {agi_chan}, STR {str_chan}, INT {int_val}, LOG {log_val} | "
         f"**Channeled Influence Power**: **{channeled_influence_base}d6** ({fmt_hits(channeled_influence_base)}) *(MAG {mag} + CHA {cha_eff}{f' / {channeled_influence_focus}d6 w/ Focus' if power_focus else ''} vs WIL+LOG)*<br>"
@@ -781,10 +782,11 @@ def get_scene_strategy_table(char_id: str = "velvet") -> str:
         f"**Drain Soak**: **{drain_final}d6** ({fmt_hits(drain_final)}) |"
     )
 
-    # Mode 3: Investigation & Technical Mode
-    int_eff_invest = int_val + inc_attr_bonus
-    elec_pool = spirit_level + log_val
-    eng_pool = spirit_level + log_val
+    # Mode 3: Investigation & Technical Mode (Task Spirit L5, Sustained Slot 3: Increase Attribute: Logic)
+    log_eff_invest = log_val + inc_attr_bonus
+    int_eff_invest = int_val
+    elec_pool = spirit_level + log_eff_invest
+    eng_pool = spirit_level + log_eff_invest
     judge_intentions_invest = int_eff_invest + wil_eff
     phys_def_invest = rea_chan + int_eff_invest
     full_def_invest = phys_def_invest + wil_eff
@@ -793,15 +795,16 @@ def get_scene_strategy_table(char_id: str = "velvet") -> str:
         f"| **3. Investigation & Technical Mode** | "
         f"**Channeled Task Spirit (Level {spirit_level})**:<br>"
         f"* Physicals Bonus: **+{spirit_phys_bonus}** to BOD, AGI, REA, STR (Force/2)<br>"
-        f"* Channeled Skills: *Electronics {spirit_level}*, *Engineering {spirit_level}*<br>"
+        f"* Channeled Skills: *Electronics {spirit_level}*, *Engineering {spirit_level}* *(1 task/test)*<br>"
         f"* Spirit Powers: *Search* ({spirit_level * 2}d6), *Psychokinesis*<br><br>"
-        f"**Sustained Slot 3**:<br>* **Increase Attribute: Intuition (+{inc_attr_bonus})** | "
-        f"**CHA {cha_eff}**, **WIL {wil_eff}**, **INT {int_eff_invest}**<br>"
-        f"BOD {bod_chan}, AGI {agi_chan}, REA {rea_chan}, STR {str_chan}, LOG {log_val} | "
-        f"**Channeled Electronics**: **{elec_pool}d6** ({fmt_hits(elec_pool)})<br>"
+        f"**Sustained Slot 3**:<br>* **Increase Attribute: Logic (+{inc_attr_bonus})** | "
+        f"**CHA {cha_eff}**, **WIL {wil_eff}**, **LOG {log_eff_invest}**, INT {int_eff_invest}<br>"
+        f"BOD {bod_chan}, AGI {agi_chan}, REA {rea_chan}, STR {str_chan} | "
+        f"**Channeled Electronics**: **{elec_pool}d6** ({fmt_hits(elec_pool)}) *(14d6 w/ specialization)*<br>"
         f"**Channeled Engineering**: **{eng_pool}d6** ({fmt_hits(eng_pool)})<br>"
         f"**Perception / Assensing**: **{int_eff_invest}d6** ({fmt_hits(int_eff_invest)}; + Search {spirit_level * 2}d6)<br>"
-        f"**Judge Intentions**: **{judge_intentions_invest}d6** ({fmt_hits(judge_intentions_invest)}) | "
+        f"**Judge Intentions**: **{judge_intentions_invest}d6** ({fmt_hits(judge_intentions_invest)})<br>"
+        f"*(Note: Task spirit expends 1 task per skill test)* | "
         f"**Composure**: **{drain_final}d6** ({fmt_hits(drain_final)})<br>"
         f"**Physical Defense**: **{phys_def_invest}d6** ({fmt_hits(phys_def_invest)})<br>"
         f"**Full Defense**: **{full_def_invest}d6** ({fmt_hits(full_def_invest)})<br>"

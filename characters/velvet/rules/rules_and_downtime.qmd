@@ -6,7 +6,6 @@ This section aggregates core cheat sheets and templates for downtime registratio
 #| echo: false
 #| include: false
 from sr6core.character_manager import CharacterManager
-from sr6core.modifiers import ModifierEngine
 
 cm = CharacterManager()
 _char = cm.get_character_data("velvet") or {}
@@ -23,34 +22,6 @@ Intuition = attrs.get("intuition", 3)
 Charisma = attrs.get("charisma", 10)
 Magic = attrs.get("magic", 6)
 Edge = attrs.get("edge", 4)
-
-# Focus Modifiers
-focus_mods = ModifierEngine.get_focus_modifiers(_char, "magic")
-Power_Focus = sum(m.value for m in focus_mods)
-
-# Skills & Adept Bonuses
-skills_data = {s["name"]: s for s in _char.get("skills", [])}
-Sorcery = skills_data.get("Sorcery", {}).get("rating", 5)
-Sorcery_Spec = 2 if skills_data.get("Sorcery", {}).get("specialization") else 0
-Conjuring = skills_data.get("Conjuring", {}).get("rating", 6)
-Influence = skills_data.get("Influence", {}).get("rating", 5)
-Con = skills_data.get("Con", {}).get("rating", 4)
-
-# Adept Powers
-adept_dict = {p["name"]: p.get("rating", 0) for p in _char.get("adept_powers", [])}
-Improved_Ability_Sorcery = adept_dict.get("Improved Ability (Sorcery)", 0)
-
-# Initiation Grade
-Initiation_Grade = len(_char.get("meta_echoes", []))
-
-# Derived Pools
-Spellcasting_Pool = Sorcery + Sorcery_Spec + Improved_Ability_Sorcery + Magic + Power_Focus
-Conjuring_Pool = Conjuring + Magic + Power_Focus
-Channeling_Pool = Conjuring + Magic + Initiation_Grade + Power_Focus
-Drain_Resist_Pool = Willpower + Charisma
-Enhanced_Drain_Resist_Pool = (Willpower + 4) + (Charisma + 4)
-Influence_Pool = Influence + Charisma
-Con_Pool = Con + Charisma
 ```
 
 ---
@@ -88,7 +59,9 @@ print(get_scene_strategy_table("velvet"))
 
 ---
 
-## Optimal Magic Action & Protocol Table
+## Core Action Protocols & Modifier Synergies{#foci-protocols}
+
+### Optimal Magic Action & Protocol Table
 
 Breakdown of base statistics, foci, final effective dice pools, and bought hits.
 
@@ -101,7 +74,7 @@ print(get_magic_action_table("velvet"))
 
 ---
 
-## Optimal Social & Face Action Table
+### Optimal Social & Face Action Table
 
 Breakdown of social negotiation, leadership, disguise, composure, and micro-expression reading pools with applied wardrobe/cosmetic synergies.
 
@@ -114,7 +87,7 @@ print(get_social_action_table("velvet"))
 
 ---
 
-## Multi-Modifier Synergy & Legality Audit
+### Multi-Modifier Synergy & Legality Audit
 
 ```{python}
 #| echo: false
@@ -125,23 +98,10 @@ print(render_multi_modifier_interactions("velvet", threshold=2))
 
 ---
 
-## Spellcasting & Foci Integration{#foci-protocols}
-
-### **Tradition: Shinto / Musok (Willpower + Charisma)**
-
-* **Core Attributes**: Willpower `{python} Willpower`, Charisma `{python} Charisma`, Intuition `{python} Intuition`, Body `{python} Body`, Magic `{python} Magic`.
-* **Spellcasting Pool**: Sorcery (`{python} Sorcery`){python} ' + Spec (Spellcasting, 2)' if Sorcery_Spec else ''} + Magic (`{python} Magic`){python} f' + Power Focus ({Power_Focus})' if Power_Focus else ''} = **`{python} Spellcasting_Pool` dice** $\rightarrow$ **Buys `{python} Spellcasting_Pool // 4` Hits** (**`{python} Spellcasting_Pool`d6 $\rightarrow$ `{python} Spellcasting_Pool // 4` Hits**).
-* **Drain Resistance Pool**: Willpower (`{python} Willpower`) + Charisma (`{python} Charisma`) = **`{python} Drain_Resist_Pool` dice** $\rightarrow$ **Buys `{python} Drain_Resist_Pool // 4` Hits** `[SR6, Page 36]`.
-
----
-
 ## Conjuring & Spirit Protocols{#conjuring-and-spirit-protocols}
 
 This section details Velvet's conjuring thresholds, downtime spirit binding protocols, and active spirit channeling mechanics under **Channeling** and **Power Point** (*Linguistics, Command Presence, Cloak R1*) metamagics.
 
-* **Conjuring & Summoning Pool**: Conjuring (`{python} Conjuring`) + Magic (`{python} Magic`){python} f' + Power Focus ({Power_Focus})' if Power_Focus else ''} = **`{python} Conjuring_Pool`d6** $\rightarrow$ **Buys `{python} Conjuring_Pool // 4` Hits** (**`{python} Conjuring_Pool // 4` Hits**).
-* **Channeling Inhabitation Pool**: Conjuring (`{python} Conjuring`) + Magic (`{python} Magic`) + Initiate Grade (`{python} Initiation_Grade`){python} f' + Power Focus ({Power_Focus})' if Power_Focus else ''} = **`{python} Channeling_Pool`d6** $\rightarrow$ **Buys `{python} Channeling_Pool // 4` Hits** (**`{python} Channeling_Pool // 4` Hits**).
-* **Enhanced Drain Resistance Pool**: Sustained Willpower (9) + Sustained Charisma (14) = **`{python} Enhanced_Drain_Resist_Pool`d6** $\rightarrow$ **Buys `{python} Enhanced_Drain_Resist_Pool // 4` Hits** *(Baseline: `{python} Drain_Resist_Pool`d6 $\rightarrow$ `{python} Drain_Resist_Pool // 4` Hits)*.
 * **Maximum Bound Spirit Capacity**: Magic (`{python} Magic`) $\times$ 3 = **`{python} Magic * 3` Total Force** across all active bound spirits `[SR6, Page 147]`.
 
 ---
@@ -206,13 +166,13 @@ Under the **Channeling** metamagic, Velvet draws a bound spirit into their physi
 
 * **Action Economy**: Major Action to channel during a scene (using an existing bound spirit).
 * **Channeling Inhabitation Test**:
-  * **Channeling Dice Pool**: Conjuring (`{python} Conjuring`) + Magic (`{python} Magic`) + Initiate Grade (`{python} Initiation_Grade`){python} f' + Power Focus ({Power_Focus})' if Power_Focus else ''} = **`{python} Channeling_Pool`d6** $\rightarrow$ **`{python} Channeling_Pool // 4` Bought Hits**.
+  * **Channeling Dice Pool**: Conjuring (6) + Magic (6) + Initiate Grade (2) + Power Focus (3) = **17d6** $\rightarrow$ **4 Bought Hits**.
   * **Spirit Defense**: Force 3 (6d6 $\rightarrow$ 1 hit, **+3 extra services**) / Force 5 (10d6 $\rightarrow$ 2 hits, **+2 extra services**).
 * **Channeled Combat & Somatic Augmentations**:
   * **Dual Natured**: Perceives and interacts with astral and physical planes simultaneously without projecting.
   * **Physical Attribute Boost** ($\lfloor \text{Force}/2 \rfloor$ applied to any stat below Force):
-    * **Channeled Force 3**: $+1$ to Body ($2 \rightarrow \mathbf{3}$), Reaction ($2 \rightarrow \mathbf{3}$ [or $6 \rightarrow \mathbf{7}$ with spell]), Strength ($2 \rightarrow \mathbf{3}$).
-    * **Channeled Force 5**: $+2$ to Body ($2 \rightarrow \mathbf{4}$), Agility ($3 \rightarrow \mathbf{5}$), Reaction ($2 \rightarrow \mathbf{4}$ [or $6 \rightarrow \mathbf{8}$ with spell]), Strength ($2 \rightarrow \mathbf{4}$).
+    * **Channeled Force 3**: $+1$ to Body ($2 \rightarrow \mathbf{3}$), Reaction ($2 \rightarrow \mathbf{3}$ [capped at $\mathbf{6}$ with spell]), Strength ($2 \rightarrow \mathbf{3}$).
+    * **Channeled Force 5**: $+2$ to Body ($2 \rightarrow \mathbf{4}$), Agility ($3 \rightarrow \mathbf{5}$), Reaction ($2 \rightarrow \mathbf{4}$ [capped at $\mathbf{6}$ with spell]), Strength ($2 \rightarrow \mathbf{4}$).
   * **Wound Penalty Ignorance**: Ignores up to **Force wound penalty boxes** (3 boxes for F3, **5 boxes for F5**).
   * **Active Spirit Powers (1 Service per use)**: Project 5P/6P *Elemental Attacks*, apply *Concealment*, *Influence*, or *Guard* directly from the physical form.
   * **Channeled Power Pools (Vessel Attributes)**: Channeled powers project using Velvet's attributes. The **Influence** spirit power uses **Magic + Charisma vs Willpower + Logic** (**20d6 $\rightarrow$ 5 Bought Hits**, or **23d6** with Power Focus)—a devastating powerhouse move against target mental defenses.
@@ -228,7 +188,7 @@ Velvet channels two cornerstone Health spells, sustained seamlessly via **Focuse
 
 ::: {.callout-note icon=false title="✨ HEALTH SPELL: Increase Attribute"}
 * **Source**: *City Edition: Hong Kong*, p. 115 (*SR6 Core*) | **Category**: Health | **Type**: Physical (P) | **Range**: Touch | **Duration**: Sustained (S) | **Base Drain Value**: 3
-* **Mechanic**: The touch of the caster temporarily raises one target attribute (chosen before casting). The caster rolls a **Sorcery + Magic (5 - Essence)** test (**`{python} Spellcasting_Pool`d6 $\rightarrow$ Buys `{python} Spellcasting_Pool // 4` Hits**).
+* **Mechanic**: The touch of the caster temporarily raises one target attribute (chosen before casting). The caster rolls a **Sorcery + Magic (5 - Essence)** test (**16d6 $\rightarrow$ Buys 4 Hits**).
 * **Attribute Increase**: Each net hit increases the selected attribute by **+1** (up to the maximum **+4 SRMG Augmented Attribute Cap**). For each net hit applied beyond the first, the Drain Value of the spell increases by **+1**. (Cannot affect Edge, Essence, Magic, or Resonance).
 * **Sustained Anchors**:
   * **Slot 1**: Charisma (+4) — Boosts Charisma from 10 to **14**.
@@ -238,7 +198,7 @@ Velvet channels two cornerstone Health spells, sustained seamlessly via **Focuse
 
 ::: {.callout-note icon=false title="✨ HEALTH SPELL: Increase Reflexes"}
 * **Source**: *City Edition: Hong Kong*, p. 115 (*SR6 Core*) | **Category**: Health | **Type**: Physical (P) | **Range**: Touch | **Duration**: Sustained (S) | **Base Drain Value**: 5
-* **Mechanic**: The reaction time and speed of the target increase. The caster rolls a **Sorcery + Magic (5 - Essence)** test (**`{python} Spellcasting_Pool`d6 $\rightarrow$ Buys `{python} Spellcasting_Pool // 4` Hits**).
+* **Mechanic**: The reaction time and speed of the target increase. The caster rolls a **Sorcery + Magic (5 - Essence)** test (**16d6 $\rightarrow$ Buys 4 Hits**).
 * **Reaction & Initiative Dice**: The caster can select how many net hits to apply to the target to increase **both their Reaction score and number of Initiative Dice** at a rate of **+1 Reaction point and +1 Initiative Die per net hit**. For each net hit applied beyond the first, the Drain Value of the spell increases by **+1**.
 * **Drain Resistance**: Resisted with Willpower + Charisma (**23d6 soak under sustained buffs $\rightarrow$ 5 Bought Hits**), completely negating drain damage.
 :::
@@ -283,15 +243,17 @@ Velvet's somatic and metaphysical abilities combine Adept Powers, Qi Foci, and M
 
 ## Social Leverage & Inspire Competence
 
-* **Influence Pool:** Influence (`{python} Influence`) + Charisma (`{python} Charisma`) = **`{python} Influence_Pool` dice** $\rightarrow$ **Buys `{python} Influence_Pool // 4` Hits**.
-  * Nanopaste Disguise / Nanocosmetics: +1 Situational Edge.
-  * Social Rating: CHA (`{python} Charisma`) + 4 (Très Chic accessories).
+* **Influence Pool:** Active sustained Charisma (14) + Influence (5) = **19d6 $\rightarrow$ 4 Bought Hits** (*Base: 15d6 $\rightarrow$ 3 Hits*).
+  * **Channeled Influence (Kindred Spirit):** Magic (6) + Sustained Charisma (14) = **20d6 $\rightarrow$ 5 Bought Hits** (*opposed by target's WIL + LOG*).
+  * **Command Presence:** Adds **+2 dice pool bonus and +1 Edge** on all Influence (Leadership) tests (*Deadly Arts*, p. 5).
+  * **Social Rating:** Sustained Charisma (14) + 4 (Très Chic accessories) = **Social Rating 18**.
+  * **Nanopaste Disguise / Nanocosmetics:** Grants **+1 Situational Edge** on impersonation, disguise, and deception tests.
 
 ### Inspire Competence
 
-*6WC p. 133*
+*Sixth World Companion, p. 133*
 
-* **Pool:** Charisma (`{python} Charisma`) + Influence (`{python} Influence`) = **`{python} Influence_Pool` dice**
+* **Pool:** Sustained Charisma (14) + Influence (5) = **19d6 $\rightarrow$ 4 Bought Hits**
 * **Effect**:
-  * Hits function as a teamwork test to assist an ally's skill test.
-  * Target ally gains one (1) Edge.
+  * Hits function as a teamwork test assisting an ally's skill test (+4 bonus dice or +4 threshold reduction on an extended test).
+  * Target ally immediately gains one (1) free Edge.

@@ -1154,17 +1154,16 @@ class ModifierEngine:
         drain_opt = PoolOptimization(
             name="Drain Resistance (Shinto / Musok)",
             components=[d_wil, d_cha],
-            notes="Tradition: Willpower + Charisma (Enhanced: 23d6 -> 5 Hits)" if enhanced else "Tradition: Willpower + Charisma (Baseline)"
+            notes="Resisting drain via tradition attributes (Willpower + Charisma)"
         )
 
         # 3. Conjuring & Summoning
         c_skill = PoolComponent("Conjuring", conj_r, "skill")
         c_attr = PoolComponent("Magic", mag, "attribute", focus_mods)
-        conj_pool_tot = c_skill.effective_value + c_attr.effective_value
         conj_opt = PoolOptimization(
             name="Conjuring & Spirit Summoning",
             components=[c_skill, c_attr],
-            notes=f"Summoning & Binding Spirits (Conjuring + MAG = {conj_pool_tot}d6 -> {conj_pool_tot // 4} Hits)"
+            notes="Summoning and binding spirits"
         )
 
         # 4. Spirit Channeling (if Channeling metamagic is unlocked)
@@ -1182,7 +1181,7 @@ class ModifierEngine:
                 action_modifiers=[
                     PoolModifier("action:channeling", "metamagic", f"Initiate Grade ({init_grade})", init_grade)
                 ],
-                notes="Channeling spirits into physical vessel (Dual Natured, +Physical Attributes, Critter Powers)"
+                notes="Channeling spirits into physical vessel (dual-natured, somatic boosts, critter powers)"
             )
 
         # 5. Counterspelling / Dispelling
@@ -1192,7 +1191,7 @@ class ModifierEngine:
             name="Counterspelling & Dispelling",
             components=[disp_skill, disp_attr],
             tactical_modifiers=tact_mods,
-            notes="Dispelling active magical spells & magical defense"
+            notes="Dispelling active magical spells & spell defense"
         )
 
         res_pools = {
@@ -1243,7 +1242,7 @@ class ModifierEngine:
             action_modifiers=[
                 PoolModifier("test:social", "gear", "Ares Skinshield (Très Chic x2: +4 Social Rating)", 0)
             ],
-            notes="Negotiating with marks, Johnsons, contacts & fixers (Enhanced: 19d6 -> 4 Hits)" if is_enhanced else "Negotiating with marks, Johnsons & fixers (Baseline)"
+            notes="Negotiation, etiquette, and social leadership"
         )
 
         # 2. Inspire Competence (Teamwork Buff)
@@ -1252,7 +1251,7 @@ class ModifierEngine:
         insp_opt = PoolOptimization(
             name="Inspire Competence (Ally Teamwork Buff)",
             components=[insp_skill, insp_attr],
-            notes="Teamwork test assists ally test + grants 1 free Edge (Enhanced: 19d6 -> 4 Hits)" if is_enhanced else "Teamwork test assists ally test + grants 1 free Edge (Baseline)"
+            notes="Teamwork test to assist ally skill test; grants 1 Edge"
         )
 
         # 3. Deception & Impersonation (Con)
@@ -1261,7 +1260,7 @@ class ModifierEngine:
         con_opt = PoolOptimization(
             name="Deception & Impersonation (Con)",
             components=[con_skill, con_attr],
-            notes="Fast-talk, deep-cover impersonation, blending personas (Enhanced: 18d6 -> 4 Hits)" if is_enhanced else "Fast-talk, deep-cover impersonation, blending personas (Baseline: 14d6 -> 3 Hits)"
+            notes="Fast-talk, deception, and blending personas"
         )
 
         # 4. Disguise & Persona Shift (Cosmetic Control)
@@ -1276,7 +1275,7 @@ class ModifierEngine:
             name="Disguise & Persona Shift (Cosmetic Control)",
             components=[c_skill, c_attr],
             tactical_modifiers=c_mods,
-            notes="Shifting between Lee Ji-yoo, Tanaka Ryo, and custom identities (Enhanced: 13d6 -> 3 Hits)" if is_enhanced else "Shifting between Lee Ji-yoo, Tanaka Ryo, and custom identities (Baseline)"
+            notes="Biological disguise and physical identity transmutation"
         )
 
         # 5. Composure Test
@@ -1285,7 +1284,7 @@ class ModifierEngine:
         comp_opt = PoolOptimization(
             name="Composure (Social & Psychological Resistance)",
             components=[comp_wil, comp_cha],
-            notes="Resisting intimidation, manipulation, pressure (Enhanced: 23d6 -> 5 Hits)" if is_enhanced else "Resisting intimidation, manipulation, pressure (Baseline)"
+            notes="Resisting intimidation, manipulation, and psychological stress"
         )
 
         # 6. Judge Intentions Test
@@ -1294,7 +1293,7 @@ class ModifierEngine:
         judge_opt = PoolOptimization(
             name="Judge Intentions (Micro-Expression Reading)",
             components=[judge_int, judge_wil],
-            notes="Parsing mark deception, aura shifts, stress signals (Enhanced: 16d6 -> 4 Hits)" if is_enhanced else "Parsing mark deception, aura shifts, stress signals (Baseline)"
+            notes="Reading micro-expressions, deception, and emotional stress"
         )
 
         return {
