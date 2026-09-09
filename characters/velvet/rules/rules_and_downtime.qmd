@@ -124,7 +124,7 @@ In downtime, Velvet's standard minor action binds **8 total Force levels of spir
    * **Summoning**: 15d6 (3 hits) vs 10d6 (2 hits) = **1 Base Service**.
    * **Binding**: 15d6 (3 hits) vs 10d6 (2 hits) = **1 Bound Task**.
    * **Total Longevity**: **2 Tasks / 2 SRM Missions** of active availability.
-   * **Role**: High-threat combat, 5P Elemental Fire, Engulf, Energy Aura, and heavy Channeling augmentations (+2 to all physical stats, 5 wound boxes ignored).
+   * **Role**: High-threat combat, 5P Elemental Fire, Engulf, Energy Aura.
 
 * **Total Downtime Budget**: **16 drams (¥320)**, **8 hours**, and **0 Drain Damage** (resisted with 23d6 soak).
 

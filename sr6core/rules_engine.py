@@ -713,12 +713,12 @@ def get_scene_strategy_table(char_id: str = "velvet") -> str:
     int_eff_social = int_val + inc_attr_bonus
     if has_charm:
         log_eff_social = log_val
-        slot3_social = "**Charm** (+4 to Con & Influence tests)"
+        slot3_social = "**Charm**"
         inf_pool = inf_rating + cha_eff + 4
         con_pool = con_rating + cha_eff + 4
     else:
         log_eff_social = log_val + inc_attr_bonus
-        slot3_social = f"**Increase Attribute: Logic (+{inc_attr_bonus})**<br>*(Interim until Charm learned)*"
+        slot3_social = "**Increase Attribute: Logic**<br>*(Interim until Charm learned)*"
         inf_pool = inf_rating + cha_eff
         con_pool = con_rating + cha_eff
 
@@ -726,33 +726,31 @@ def get_scene_strategy_table(char_id: str = "velvet") -> str:
     composure_social = wil_eff + cha_eff
     memory_social = log_eff_social + wil_eff
 
-    channeled_influence_base = mag + cha_eff
     channeled_influence_focus = mag + power_focus + cha_eff
 
     col1_social = (
         f"**1. Social & Legwork Mode**<br><br>"
-        f"**CHA {cha_eff}**, **WIL {wil_eff}**<br>"
-        f"**INT {int_eff_social}**, **LOG {log_eff_social}**<br>"
-        f"BOD {bod_chan}, AGI {agi_chan}<br>"
-        f"REA {rea_chan}, STR {str_chan}"
+        f"BOD {bod_chan}, AGI {agi_chan}, REA {rea_chan}, STR {str_chan}<br>"
+        f"**WIL {wil_eff}**, **LOG {log_eff_social}**, **INT {int_eff_social}**, **CHA {cha_eff}**"
     )
     col2_social = (
         f"**Channeled Kindred Spirit (Level {spirit_level})**:<br>"
-        f"* *Innate Spell*: *Increase Attribute: Intuition (+{inc_attr_bonus})*<br>"
+        f"* *Innate Spell*: *Increase Attribute: Intuition*<br>"
         f"* *Influence* power (Channeled: MAG + CHA vs WIL+LOG)"
     )
     col3_social = slot3_social
     col4_social = (
         f"**Influence (Skill)**: **{inf_pool}d6** ({fmt_hits(inf_pool)})<br>"
         f"**Con / Deception**: **{con_pool}d6** ({fmt_hits(con_pool)})<br>"
-        f"**Channeled Influence Power**: **{channeled_influence_base}d6** ({fmt_hits(channeled_influence_base)}) *(MAG {mag} + CHA {cha_eff}{f' / {channeled_influence_focus}d6 w/ Focus' if power_focus else ''} vs WIL+LOG)*<br>"
+        f"**Channeled Influence Power**: **{channeled_influence_focus}d6** ({fmt_hits(channeled_influence_focus)}) *(MAG {mag} + CHA {cha_eff} + PwrF {power_focus} vs WIL+LOG)*<br>"
         f"*(Cosmetic Control: -1 Edge on Con)*"
     )
     col5_social = (
         f"**Composure**: **{composure_social}d6** ({fmt_hits(composure_social)})<br>"
         f"**Judge Intentions**: **{judge_intentions_social}d6** ({fmt_hits(judge_intentions_social)})<br>"
         f"**Memory Test**: **{memory_social}d6** ({fmt_hits(memory_social)})<br>"
-        f"**Drain Soak**: **{drain_final}d6** ({fmt_hits(drain_final)})"
+        f"**Drain Soak**: **{drain_final}d6** ({fmt_hits(drain_final)})<br>"
+        f"**Wound Tolerance**: Ignore {spirit_level} boxes"
     )
     row1 = f"| {col1_social} | {col2_social} | {col3_social} | {col4_social} | {col5_social} |"
 
@@ -766,17 +764,13 @@ def get_scene_strategy_table(char_id: str = "velvet") -> str:
     # 1 base + 1 per hit (3 hits on Increase Reflexes -> +4D6 initiative dice -> total 5D6)
     init_dice_combat = 1 + min(4, 1 + (bought_hits - 1))
 
-    psychokinesis_pool = mag + wil_eff
     psychokinesis_focus = mag + power_focus + wil_eff
-    confusion_pool = mag + wil_eff
     confusion_focus = mag + power_focus + wil_eff
 
     col1_combat = (
         f"**2. Tactical Combat Mode**<br><br>"
-        f"**CHA {cha_eff}**, **WIL {wil_eff}**<br>"
-        f"**REA {rea_eff_combat}** *(Aug Cap)*<br>"
-        f"INT {int_val}, LOG {log_val}<br>"
-        f"BOD {bod_chan}, AGI {agi_chan}, STR {str_chan}"
+        f"BOD {bod_chan}, AGI {agi_chan}, **REA {rea_eff_combat}**, STR {str_chan}<br>"
+        f"**WIL {wil_eff}**, LOG {log_val}, INT {int_val}, **CHA {cha_eff}**"
     )
     col2_combat = (
         f"**Channeled Kindred Spirit (Level {spirit_level})**:<br>"
@@ -785,22 +779,22 @@ def get_scene_strategy_table(char_id: str = "velvet") -> str:
     )
     col3_combat = (
         f"**Increase Reflexes**<br>"
-        f"* +{refl_bonus} REA *(Aug Cap: **{rea_eff_combat}**)*<br>"
         f"* +4D6 Init Dice *(Total: **{init_dice_combat}D6**)*"
     )
     col4_combat = (
-        f"**Channeled Influence Power**: **{channeled_influence_base}d6** ({fmt_hits(channeled_influence_base)}) *(MAG {mag} + CHA {cha_eff}{f' / {channeled_influence_focus}d6 w/ Focus' if power_focus else ''} vs WIL+LOG)*<br>"
-        f"**Channeled Psychokinesis**: **{psychokinesis_pool}d6** ({fmt_hits(psychokinesis_pool)}) *(MAG {mag} + WIL {wil_eff}; STR/AGI = {psychokinesis_pool // 4})*<br>"
-        f"**Channeled Confusion**: **{confusion_pool}d6** ({fmt_hits(confusion_pool)}) *(vs WIL+LOG; inflicts Dazed & Confused)*<br>"
+        f"**Channeled Influence Power**: **{channeled_influence_focus}d6** ({fmt_hits(channeled_influence_focus)}) *(MAG {mag} + CHA {cha_eff} + PwrF {power_focus} vs WIL+LOG)*<br>"
+        f"**Channeled Psychokinesis**: **{psychokinesis_focus}d6** ({fmt_hits(psychokinesis_focus)}) *(MAG {mag} + WIL {wil_eff} + PwrF {power_focus}; STR/AGI = {psychokinesis_focus // 4})*<br>"
+        f"**Channeled Confusion**: **{confusion_focus}d6** ({fmt_hits(confusion_focus)}) *(MAG {mag} + WIL {wil_eff} + PwrF {power_focus} vs WIL+LOG; inflicts Dazed & Confused)*<br>"
         f"**Sorcery (Spellcasting)**: **{casting_pool}d6** ({fmt_hits(casting_pool)})<br>"
-        f"*(Guard: Glitch immunity; Concealment: -{spirit_level} enemy perception; ignores {spirit_level} wound points)*"
+        f"*(Guard: Glitch immunity; Concealment: -{mag} enemy perception)*"
     )
     col5_combat = (
         f"**Physical Defense**: **{phys_def_combat}d6** ({fmt_hits(phys_def_combat)})<br>"
         f"**Full Defense**: **{full_def_combat}d6** ({fmt_hits(full_def_combat)})<br>"
         f"**Initiative**: **{init_score_combat} + {init_dice_combat}D6**<br>"
         f"**Damage Soak**: **{bod_chan}d6** *(+ Armor)*<br>"
-        f"**Drain Soak**: **{drain_final}d6** ({fmt_hits(drain_final)})"
+        f"**Drain Soak**: **{drain_final}d6** ({fmt_hits(drain_final)})<br>"
+        f"**Wound Tolerance**: Ignore {spirit_level} boxes"
     )
     row2 = f"| {col1_combat} | {col2_combat} | {col3_combat} | {col4_combat} | {col5_combat} |"
 
@@ -815,20 +809,15 @@ def get_scene_strategy_table(char_id: str = "velvet") -> str:
 
     col1_invest = (
         f"**3. Investigation & Technical Mode**<br><br>"
-        f"**CHA {cha_eff}**, **WIL {wil_eff}**<br>"
-        f"**LOG {log_eff_invest}**, INT {int_eff_invest}<br>"
-        f"BOD {bod_chan}, AGI {agi_chan}<br>"
-        f"REA {rea_chan}, STR {str_chan}"
+        f"BOD {bod_chan}, AGI {agi_chan}, REA {rea_chan}, STR {str_chan}<br>"
+        f"**WIL {wil_eff}**, **LOG {log_eff_invest}**, INT {int_eff_invest}, **CHA {cha_eff}**"
     )
     col2_invest = (
         f"**Channeled Task Spirit (Level {spirit_level})**:<br>"
         f"* Channeled Skills: *Electronics {spirit_level}*, *Engineering {spirit_level}* *(1 task/test)*<br>"
         f"* Spirit Powers: *Search* ({spirit_level * 2}d6), *Psychokinesis*"
     )
-    col3_invest = (
-        f"**Increase Attribute: Logic (+{inc_attr_bonus})**<br>"
-        f"*(Boosts Logic to {log_eff_invest})*"
-    )
+    col3_invest = "**Increase Attribute: Logic**"
     col4_invest = (
         f"**Channeled Electronics**: **{elec_pool}d6** ({fmt_hits(elec_pool)}) *(14d6 w/ specialization)*<br>"
         f"**Channeled Engineering**: **{eng_pool}d6** ({fmt_hits(eng_pool)})<br>"
@@ -840,7 +829,8 @@ def get_scene_strategy_table(char_id: str = "velvet") -> str:
         f"**Composure**: **{drain_final}d6** ({fmt_hits(drain_final)})<br>"
         f"**Physical Defense**: **{phys_def_invest}d6** ({fmt_hits(phys_def_invest)})<br>"
         f"**Full Defense**: **{full_def_invest}d6** ({fmt_hits(full_def_invest)})<br>"
-        f"**Drain Soak**: **{drain_final}d6** ({fmt_hits(drain_final)})"
+        f"**Drain Soak**: **{drain_final}d6** ({fmt_hits(drain_final)})<br>"
+        f"**Wound Tolerance**: Ignore {spirit_level} boxes"
     )
     row3 = f"| {col1_invest} | {col2_invest} | {col3_invest} | {col4_invest} | {col5_invest} |"
 
