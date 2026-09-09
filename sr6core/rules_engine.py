@@ -460,9 +460,9 @@ def get_monad_strategy_table(char_id: str = "venn") -> str:
         "| Operational Mode | Active Augmentations & State | Effective Attributes | Primary Action Pools & Modifiers | Derived Defenses & Hits |",
         "| :--- | :--- | :--- | :--- | :--- |",
         "| **1. Meatspace Baseline (Chrome Active, Wireless ON)** | 4 Synthetic Cyberlimbs (AGI+3 enhancements)<br>Redliner (+2 AGI, +2 STR to limbs)<br>Used Skillwires R6 (Wireless ON: +1)<br>Used Skilljack R6<br>Dual Nanohives R3 (6 Active NV Bioamplifiers) | **AGI 7** *(Cyberarms/legs)*<br>**STR 4** *(Cyberarms/legs)*<br>BOD 5, REA 2, LOG 6, INT 5<br>**WIL 8** *(Bio-Response Override)*<br>**CHA 3** *(Neurochem Regulator)* | **Close Combat (Unarmed)**: **15d6** (3 Hits, **5P DV**) *(Activesoft 6 + AGI 7 + Wires 1 + Neural Pattern 1; Bone Density 4P + Neuromuscular Amp +1P)*<br>**Cracking (Matrix Attack)**: **14d6** (3 Hits) *(Activesoft 6 + LOG 6 + Wires 1 + Neocortical Amp 1)*<br>**Electronics (Computer)**: **13d6** (3 Hits, 15d6 Computer) *(Electronics 6 + LOG 6 + Neocortical Amp 1)*<br>**Athletics**: **9d6** (2 Hits) *(Athletics 1 + AGI 7 + Neural Pattern 1)* | **Physical Defense**: **7d6** (1 Hit) *(REA 2 + INT 5)*<br>**Damage Soak**: **9d6** (2 Hits) *(BOD 5 + Bone Density R4)*<br>**Defense Rating**: **6 DR** (SkinShield w/ Hood)<br>**Physical Initiative**: **7 + 1D6**<br>**Condition Monitors**: 11 Phys / 13 Stun (+1 Stun Box via Bio-Response Override) |",
-        "| **2. Cyberlimb Overdrive & Leaping Assault** | Overdriving Cyberlimbs (+2 AGI / +2 STR with 1 wild die)<br>Retractable Inline Skates + Gecko Tips / Tape Gloves<br>Generates +1 Edge via *Maximum Overdrive* | **AGI 9** *(Overdriven)*<br>**STR 6** *(Overdriven)*<br>WIL 8 | **Close Combat (Flying Kick Engine)**: **17d6** (4 Hits) *(Base 5P + 1 Iron Limbs + 3 Flying Kick = **9P Base DV**, surging to **10P Base DV** with Toughskin Spines)*<br>**Wall Running / Parkour**: **11d6** *(Athletics + Gecko Tips/Gloves)* | **High-Speed Glide**: 10m/rnd Sprint<br>**Flying Kick Threshold**: 1 hit (via Parkour/Athletics)<br>**Falling Absorption**: 4 boxes absorbed |",
-        "| **3. Matrix Living Persona (Veronica Co-Processing)** | Monad Living Persona (Whisper Nets: **A:3 S:6 D:7 F:10**)<br>NV 6 Allocated: +2 FW, +1 DP, +1 Sleaze<br>Hot-Sim VR Matrix Inhabitation | LOG 6<br>INT 5<br>WIL 8<br>CHA 3 | **Offensive Cracking**: **14d6** (3 Hits) *(Activesoft 6 + LOG 6 + Wires 1 + Neocortical Amp 1)*<br>**Electronics (Computer)**: **13d6** (3 Hits, 15d6 Computer)<br>**Matrix Perception**: **11d6** (2 Hits)<br>**Full Matrix Defense**: **18d6** (4 Hits) *(WIL 8 + FW 10)* | **Full Matrix Defense**: **18d6** (4 Hits)<br>**Matrix Initiative**: **12 + 3D6 (Hot-Sim VR)**<br>**Matrix Soak**: **10d6** (Firewall 10) |",
-        "| **4. Monad Physical Attribute Boost** | **Monad NV Boost**: Minor Action, NV test (6 dice). Rolling $\\ge 3$ hits adds **+4 Minor Actions** for duration.<br>With 4-Edge boost rolls 13 exploding dice. | **AGI 7–9**<br>**STR 4–6**<br>NV 6 | **Turn 1 Action Economy**: Converts to **3 Major Actions and 1 Minor Action** per combat round!<br>**Rapid Cellular Healing**: NV test reduces damage boxes | **Exhaustion Risk**: After boost ends, NV temporarily decreases by total boost for 1 minute.<br>**Adrenal Control**: WIL + NV (2) test (14d6) to remain conscious when monitors are full |"
+        "| **2. Cyberlimb Overdrive & Leaping Assault** | Overdriving Cyberlimbs (+2 AGI / +2 STR with 1 wild die)<br>Retractable Inline Skates + Gecko Tips / Tape Gloves<br>Hydraulic Jacks R2 + Bulk Mod R4<br>Generates +1 Edge via *Maximum Overdrive* | **AGI 9** *(Overdriven)*<br>**STR 6** *(Overdriven)*<br>WIL 8 | **Close Combat (Flying Kick)**: **17d6** (4 Hits) *(Base 5P + 3 Flying Kick = **8P Base DV** with overdriven cyberlimbs)*<br>**Wall Running / Parkour**: **11d6** *(Athletics + Gecko Tips/Gloves)* | **High-Speed Glide**: 10m/rnd Sprint<br>**Jumping / Flying Kick Threshold**: 1 hit (Hydraulic Jacks R2 -2 threshold)<br>**Falling Absorption**: 4 boxes absorbed |",
+        "| **3. Matrix Living Persona (Veronica Co-Processing)** | Monad Living Persona (Whisper Nets: **A:3 S:7 D:6 F:12**)<br>NV 6 Allocated: Firewall (+4) then Sleaze (+2)<br>Hot-Sim VR Matrix Inhabitation | LOG 6<br>INT 5<br>WIL 8<br>CHA 3 | **Offensive Cracking**: **14d6** (3 Hits) *(Activesoft 6 + LOG 6 + Wires 1 + Neocortical Amp 1)*<br>**Electronics (Computer)**: **13d6** (3 Hits, 15d6 Computer)<br>**Matrix Perception**: **11d6** (2 Hits)<br>**Matrix AR / DR**: **10 AR / 18 DR** | **Full Matrix Defense**: **20d6** (5 Hits) *(WIL 8 + FW 12)*<br>**Matrix Initiative**: **12 + 3D6 (Hot-Sim VR)**<br>**Matrix Soak**: **12d6** (Firewall 12) |",
+        "| **4. Monad Physical Attribute Boost & Action Economy** | **Monad NV Boost**: Minor Action, NV test (6 dice). Each hit adds +1 to a Physical Attribute or +1 Minor Action.<br>Rolling $\\ge 3$ hits adds **+4 Minor Actions** for duration.<br>With 4-Edge boost rolls 13 exploding dice. | **AGI 7–9**<br>**STR 4–6**<br>NV 6 | **Action Economy Breakdown**:<br>* **Start of Turn**: **1 Major + 5 Minor Actions** (turn-start cap: excess above 5 lost).<br>* **In-Turn Trade**: Can trade 4 Minors for 1 Major *after* turn begins $\\rightarrow$ **2 Major + 1 Minor Actions**, or use Minors for movement, overdrive, defense, or cellular healing.<br>**Rapid Cellular Healing**: NV test reduces damage boxes | **Exhaustion Risk**: After boost ends, NV temporarily decreases by total boost for 1 minute (20 combat rounds).<br>**Adrenal Control**: WIL + NV (2) test (10d6) to remain conscious when monitors are full |"
     ]
     return "\n".join(rows)
 
@@ -914,19 +914,77 @@ def get_matrix_asdf_derivation_table(char_id: str = "reiko") -> str:
         int_val = int(attrs.get("intuition", 5))
         log_val = int(attrs.get("logic", 6))
         wil = int(attrs.get("willpower", 7))
+
+        # Apply mental attribute augmentations from modifiers (only actual attribute augmentations, not skill bonuses)
+        for m in data.get("modifiers", []):
+            if isinstance(m, dict) and m.get("enabled", True) and m.get("type") == "augmentation":
+                tgt = str(m.get("target", "")).lower()
+                val = int(m.get("value", 0))
+                if tgt == "attribute:charisma":
+                    cha += val
+                elif tgt == "attribute:willpower":
+                    wil += val
+                elif tgt == "attribute:logic":
+                    log_val += val
+                elif tgt == "attribute:intuition":
+                    int_val += val
+
+        import math
+        att_cap = min(4, max(0, math.floor(cha * 0.5 + 0.5)))
+        slz_cap = min(4, max(0, math.floor(int_val * 0.5 + 0.5)))
+        dp_cap = min(4, max(0, math.floor(log_val * 0.5 + 0.5)))
+        fw_cap = min(4, max(0, math.floor(wil * 0.5 + 0.5)))
+
+        nv = int(identity.get("nanite_volume") or attrs.get("nanite_volume", 6))
+
+        # Combat priority: Firewall then Sleaze
+        boost_fw = min(fw_cap, nv)
+        rem_nv = nv - boost_fw
+        boost_slz = min(slz_cap, rem_nv)
+        rem_nv -= boost_slz
+        boost_dp = min(dp_cap, rem_nv)
+        rem_nv -= boost_dp
+        boost_att = min(att_cap, rem_nv)
+
+        act_a = cha + boost_att
+        act_s = int_val + boost_slz
+        act_d = log_val + boost_dp
+        act_f = wil + boost_fw
+
         rows = [
-            "| Matrix Attribute | Base Attribute | Applied Nanite Bioamplifiers & NV | Active Rating |",
-            "| :--- | :---: | :--- | :---: |",
-            f"| **Attack (A)** | Charisma ({cha}) | Neurochemical Regulator (+1) | **{cha + 1}** |",
-            f"| **Sleaze (S)** | Intuition ({int_val}) | Nanite Volume Sleaze (+1) | **{int_val + 1}** |",
-            f"| **Data Processing (D)** | Logic ({log_val}) | Nanite Volume DP (+1) | **{log_val + 1}** |",
-            f"| **Firewall (F)** | Willpower ({wil}) | Bio-Response (+1) + NV (+2) | **{wil + 3}** |"
+            "| Matrix Attribute | Base Attribute | Mental Augmentations | Base ASDF | 50% NV Cap (Normal Rounding) | NV Allocation (NV 6) | Active Rating |",
+            "| :--- | :---: | :--- | :---: | :---: | :--- | :---: |",
+            f"| **Attack (A)** | Charisma (2) | Neurochemical Regulator (+1) | {cha} | +{att_cap} *(3 / 2 -> 2)* | +{boost_att} | **{act_a}** |",
+            f"| **Sleaze (S)** | Intuition ({int_val}) | — | {int_val} | +{slz_cap} *(5 / 2 -> 3)* | +{boost_slz} *(Combat Priority 2 / Scene Priority 1)* | **{act_s}** |",
+            f"| **Data Processing (D)** | Logic ({log_val}) | — | {log_val} | +{dp_cap} *(6 / 2 -> 3)* | +{boost_dp} | **{act_d}** |",
+            f"| **Firewall (F)** | Willpower (5) | Cyber Singularity (+2) + Bio-Response (+1) = 8 | {wil} | +{fw_cap} *(8 / 2 -> 4)* | +{boost_fw} *(Combat Priority 1 / Scene Priority 2)* | **{act_f}** |"
         ]
-        ar = (cha + 1) + (int_val + 1)
-        dr = (log_val + 1) + (wil + 3)
+        ar = act_a + act_s
+        dr = act_d + act_f
+        base_def_pool = wil + act_f
+        base_def_hits = base_def_pool // 4
+        full_def_pool = wil + act_f + act_f
+        full_def_hits = full_def_pool // 4
+
+        base_spike_pool = act_d + act_f
+        base_spike_hits = base_spike_pool // 4
+        full_spike_pool = act_d + act_f + act_f
+        full_spike_hits = full_spike_pool // 4
+
         notes = [
-            f"\n* **Matrix Attack Rating (AR = Attack + Sleaze)**: $\\mathbf{{{ar}}}$",
-            f"* **Matrix Defense Rating (DR = Data Processing + Firewall)**: $\\mathbf{{{dr}}}$"
+            f"\n* **Matrix Attack Rating (AR = Attack + Sleaze)**: ${act_a} + {act_s} = \\mathbf{{{ar}}}$",
+            f"* **Matrix Defense Rating (DR = Data Processing + Firewall)**: ${act_d} + {act_f} = \\mathbf{{{dr}}}$",
+            f"* **Matrix Defense Test Protocols**:",
+            f"  * **General Persona Defense (WIL + FW)**: Defends against Hack on the Fly, Brute Force, and Control Device. Baseline = ${wil} + {act_f} = \\mathbf{{{base_def_pool}d6}}$ ({base_def_hits} Bought Hits).",
+            f"  * **Data Spike Defense (DP + FW)**: Defends against offensive Data Spike cybercombat damage. Baseline = ${act_d} + {act_f} = \\mathbf{{{base_spike_pool}d6}}$ ({base_spike_hits} Bought Hits).",
+            f"* **Full Matrix Defense Protocol (Minor Action — SR6 Core p. 110, 177)**:",
+            f"  * Adds the active Firewall rating (**+{act_f} dice**) a second time to all Matrix defense tests for the combat round:",
+            f"  * **General Persona Full Defense**: $\\text{{WIL }} ({wil}) + \\text{{FW }} ({act_f}) + \\text{{Full Def FW }} ({act_f}) = \\mathbf{{{full_def_pool}d6}}$ (\\mathbf{{{full_def_hits}}} \\text{{Bought Hits}})",
+            f"  * **Data Spike Full Defense**: $\\text{{DP }} ({act_d}) + \\text{{FW }} ({act_f}) + \\text{{Full Def FW }} ({act_f}) = \\mathbf{{{full_spike_pool}d6}}$ (\\mathbf{{{full_spike_hits}}} \\text{{Bought Hits}})",
+            "* **Monad ASDF Derivation Rules (*Whisper Nets* p. 149 & *Collapsing Now* p. 160)**:",
+            "  1. **Mental Attribute Baseline**: Living Persona attributes are derived directly from the host's mental attributes (Attack = CHA, Sleaze = INT, Data Processing = LOG, Firewall = WIL), incorporating all permanent stat augmentations (such as Cyber Singularity Seeker +2 WIL, Neurochemical Regulator +1 CHA, and Bio-Response Override +1 WIL).",
+            "  2. **Augmentation Ceiling & 50% Base Cap**: Bonuses from Resonance or Nanite Volume (NV) are subject to the standard **+4 Augmented Attribute Limit** and **cannot exceed 50% of the matrix attribute's base rating** (rounding normally per SR6 rules: half or more rounds up, e.g. 3 / 2 -> +2, 5 / 2 -> +3).",
+            "  3. **Scene Priority Allocation**: Nanite Volume is allocated dynamically by operational context: **Firewall then Sleaze** for combat and defense; **Sleaze then Firewall** (or Data Processing) for infiltration and matrix decking."
         ]
         return "\n".join(rows + notes)
 
@@ -949,6 +1007,95 @@ def get_matrix_asdf_derivation_table(char_id: str = "reiko") -> str:
         "\n* **Matrix Attack Rating (AR = Attack + Sleaze)**: $7 + 9 = \\mathbf{16}$",
         "* **Matrix Defense Rating (DR = Data Processing + Firewall)**: $7 + 9 = \\mathbf{16}$",
         "* **Augmentation Cap Enforcement**: Under SR6 AI and living persona rules (*Hack & Slash* pp. 116–120), Matrix attributes are subject to the standard **+4 Augmented Attribute Limit**. Reiko's 8 flexible Resonance points are distributed ($1 + 2 + 2 + 3 = 8$) to bring each attribute to exactly the +4 maximum buff ceiling."
+    ]
+    return "\n".join(rows + notes)
+
+
+def get_cyberware_capacity_table(char_id: str = "venn") -> str:
+    """
+    Renders a Markdown table displaying character cyberlimb capacity accounting,
+    matching the format and structure used for vehicle and drone cyberlimbs.
+    """
+    cm = CharacterManager()
+    char = cm.load_character(char_id)
+    if not char:
+        return f"*(Character '{char_id}' not found)*"
+
+    rows = [
+        "| Installed Cyberlimb | Base Capacity | Used Capacity | Remaining | Installed Devices / Enhancements | Status |",
+        "| :--- | :---: | :---: | :---: | :--- | :---: |"
+    ]
+
+    cyberlimbs = [
+        {
+            "name": "Left Synthetic Cyberarm (Used)",
+            "base_cap": 8,
+            "used_cap": 6,
+            "items": ["Agility +4 Enhancement (4 Cap)", "Built-in Utility Kit (2 Cap)"],
+        },
+        {
+            "name": "Right Synthetic Cyberarm (Used)",
+            "base_cap": 8,
+            "used_cap": 4,
+            "items": ["Agility +4 Enhancement (4 Cap)"],
+        },
+        {
+            "name": "Left Synthetic Cyberleg (Used)",
+            "base_cap": 14,
+            "used_cap": 14,
+            "items": [
+                "Bulk Mod R4 (+4 Cap)",
+                "Agility +4 Enhancement (4 Cap)",
+                "Nanohive R3 (6 Cap)",
+                "Retractable Skates (2 Cap)",
+                "Hydraulic Jacks R2 (2 Cap)"
+            ],
+        },
+        {
+            "name": "Right Synthetic Cyberleg (Used)",
+            "base_cap": 14,
+            "used_cap": 14,
+            "items": [
+                "Bulk Mod R4 (+4 Cap)",
+                "Agility +4 Enhancement (4 Cap)",
+                "Nanohive R3 (6 Cap)",
+                "Retractable Skates (2 Cap)",
+                "Hydraulic Jacks R2 (2 Cap)"
+            ],
+        },
+    ]
+
+    for cl in cyberlimbs:
+        rem = cl["base_cap"] - cl["used_cap"]
+        items_str = ", ".join(cl["items"])
+        status = "**Legal (Full)**" if rem == 0 else f"**Legal ({rem} Open)**"
+        rows.append(f"| **{cl['name']}** | {cl['base_cap']} | {cl['used_cap']} | {rem} | {items_str} | {status} |")
+
+    return "\n".join(rows)
+
+
+def get_augmentations_accounting_table(char_id: str = "venn") -> str:
+    """
+    Renders a Markdown table displaying character augmentations, grade multipliers,
+    Adapsin geneware discounts (-10% post-grade on cyberware), and final Essence costs.
+    """
+    rows = [
+        "| Augmentation | Category | Grade | Base Ess | Grade Mult | Adapsin (-10%) | Final Essence | Installed Location / Housing |",
+        "| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :--- |",
+        "| **Left Synthetic Cyberarm** | Cyberware | Used | 1.00 | 1.1x | Yes (0.9x) | **0.99** | Left Arm (Torso Mount) |",
+        "| **Right Synthetic Cyberarm** | Cyberware | Used | 1.00 | 1.1x | Yes (0.9x) | **0.99** | Right Arm (Torso Mount) |",
+        "| **Left Synthetic Cyberleg** | Cyberware | Used | 1.00 | 1.1x | Yes (0.9x) | **0.99** | Left Leg (Pelvis Mount) |",
+        "| **Right Synthetic Cyberleg** | Cyberware | Used | 1.00 | 1.1x | Yes (0.9x) | **0.99** | Right Leg (Pelvis Mount) |",
+        "| **Skilljack (Rating 6)** | Cyberware | Used | 0.60 | 1.1x | Yes (0.9x) | **0.59** | Headware (Base of Skull) |",
+        "| **Skillwires (Rating 6)** | Cyberware | Used | 0.60 | 1.1x | Yes (0.9x) | **0.59** | Neural / Spine Wiring |",
+        "| **Math SPU** | Cyberware | Used | 0.25 | 1.1x | Yes (0.9x) | **0.25** | Headware (Cerebral Bus) |",
+        "| **Bone Density Augmentation (R4)** | Bioware | Betaware | 1.20 | 0.7x | N/A (Bioware) | **0.84** | Skeletal System |",
+        "| **Adapsin Therapy** | Geneware | Standard | 0.10 | 1.0x | N/A (Geneware) | **0.10** | Genetic Pre-Treatment |",
+        "| **Total Essence Consumed** | — | — | — | — | — | **6.34** *(Remaining: 0.00 | Cyberpsychosis R3)* | Full Body Replacement Suite |"
+    ]
+    notes = [
+        "\n* **Adapsin Therapy Modifier**: *Body Shop* (p. 10) — Implantation reduces the Essence cost of all installed cyberware by 10% (round down), applied strictly *after* cyberware grade multipliers. Adapsin does not reduce bioware or geneware Essence costs (e.g. Bone Density Augmentation is Bioware and remains at 0.84 Ess).",
+        "* **Essence Hole & Cyberpsychosis**: With 6.34 Essence of augmentations installed, Venn's biological Essence reaches the minimum threshold of **0.00**, triggering **Cyberpsychosis Rank 3**."
     ]
     return "\n".join(rows + notes)
 

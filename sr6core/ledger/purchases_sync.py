@@ -59,6 +59,7 @@ class PurchasesSyncEngine:
         autosofts: List[str] = []
         programs: List[str] = []
         commlink_apps: List[str] = []
+        activesofts: List[Dict[str, Any]] = []
         gear_items: List[str] = []
         sins: List[Dict[str, Any]] = []
         licenses: List[Dict[str, Any]] = []
@@ -169,11 +170,31 @@ class PurchasesSyncEngine:
                         "sin": current_sin or "Primary SIN"
                     })
 
+            # In Activesoft entries
+            if 'activesoft' in stripped.lower() and ('* **' in raw_line or '- **' in raw_line or current_section == 'activesofts'):
+                m_title = re.search(r'\*\*(.*?)\*\*', stripped)
+                title = m_title.group(1).strip() if m_title else cls.clean_item_text(stripped)
+                r_match = re.search(r'(?:Rating|R)\s*(\d+)', title, re.IGNORECASE)
+                rating = int(r_match.group(1)) if r_match else 6
+                name_clean = re.sub(r'\(.*?\)', '', title).replace(':', '').strip()
+                if not name_clean.lower().endswith("activesoft"):
+                    name_clean = f"{name_clean} Activesoft"
+                attr = "agility" if any(k in name_clean.lower() for k in ["combat", "firearm", "athletic", "stealth"]) else "logic"
+                if not any(a.get("name", "").lower() == name_clean.lower() for a in activesofts):
+                    activesofts.append({
+                        "name": name_clean,
+                        "rating": rating,
+                        "category": "activesoft",
+                        "attribute": attr,
+                        "notes": f"Rating {rating} activesoft synced from purchases.qmd. Runs on Skillwires R6 with Wireless-ON (+1) for {rating + 1} effective skill dice."
+                    })
+
         return {
             "drone_modifications": drone_mods,
             "autosofts": autosofts,
             "programs": programs,
             "commlink_apps": commlink_apps,
+            "activesofts": activesofts,
             "gear": gear_items,
             "sins": sins,
             "licenses": licenses
@@ -258,6 +279,14 @@ class PurchasesSyncEngine:
             if old_lics != lics_to_save:
                 data["licenses"] = lics_to_save
                 changes.append(f"Updated Licenses from purchases.qmd ({len(lics_to_save)} licenses synced)")
+
+        # 3. Sync Activesofts
+        parsed_activesofts = parsed.get("activesofts", [])
+        if parsed_activesofts:
+            old_softs = data.get("activesofts", [])
+            if old_softs != parsed_activesofts:
+                data["activesofts"] = parsed_activesofts
+                changes.append(f"Updated Activesofts from purchases.qmd ({len(parsed_activesofts)} softs synced)")
 
         # Save back to YAML if changes occurred
         if changes:

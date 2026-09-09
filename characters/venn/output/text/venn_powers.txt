@@ -6,10 +6,10 @@
     Synthesizes Living Persona ASDF (Attack: CHA, Sleaze: INT, Data
     Processing: LOG, Firewall: WIL) via internal nanite matrix
     co-processing.
-  * Mental Attribute Boost
-    Minor Action: roll NV test (6 dice). Each hit can increase any Mental
-    Attribute (Logic, Intuition, Willpower, Charisma) by +1 (up to NV 6 or
-    +4 max boost) for hits in combat rounds.
+  * Resculpt
+    Extended Intuition + NV (16, 1 combat round) test to alter facial
+    appearance, skin tone, and voice; grants +2 dice pool bonus on Disguise
+    tests.
   * Monad Toughness
     Adds one-half Nanite Volume (+3 boxes at NV 6) to Condition Monitors (+2
     Physical, +1 Stun), and shifts all Wound Modifiers down by one level.
@@ -25,12 +25,13 @@
     or stun condition monitors are full.
 ----------------------------------------------------------------------------
  CYBERWARE & BIOWARE AUGMENTATIONS:
-  - Left Synthetic Cyberarm         [Standard Grade]
-  - Right Synthetic Cyberarm        [Standard Grade]
-  - Left Synthetic Cyberleg         [Standard Grade]
-  - Right Synthetic Cyberleg        [Standard Grade]
+  - Left Synthetic Cyberarm         [Used Grade]
+  - Right Synthetic Cyberarm        [Used Grade]
+  - Left Synthetic Cyberleg         [Used Grade]
+  - Right Synthetic Cyberleg        [Used Grade]
   - Bone Density Augmentation R4    [Betaware Grade]
   - Skilljack R6                    [Used Grade]
   - Skillwires R6                   [Used Grade]
-  - Math SPU                        [Standard Grade]
+  - Math SPU                        [Used Grade]
+  - Adapsin Therapy                 [Standard Grade]
 ----------------------------------------------------------------------------

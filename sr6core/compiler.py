@@ -114,7 +114,7 @@ def compile_character(char_id: str) -> Dict[str, Any]:
             {"name": "Contacts (Rating 3 w/ Flare Comp, Image Link, Thermo)", "rating": 3}
         ] if char_id == "velvet" else existing_char.get("gear", []),
         "cyberware": existing_char.get("cyberware", []),
-        "activesofts": existing_char.get("activesofts", []),
+        "activesofts": purchases_data.get("activesofts") or existing_char.get("activesofts", []),
         "sprite_powers": totals.get("Sprite_Powers", []) or existing_char.get("sprite_powers", []),
         "sins": purchases_data.get("sins", existing_char.get("sins", [])),
         "licenses": purchases_data.get("licenses", existing_char.get("licenses", [])),

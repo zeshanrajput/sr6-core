@@ -6,29 +6,49 @@
 from sr6core.log_engine import inc, inc_many, modifier
 ```
 
-This ledger itemizes character creation augmentations, nanite colonies, tactical gear, activesofts, identities, and operational maintenance.
+This ledger itemizes character creation augmentations, nanite abilities, nanite colonies, tactical gear, activesofts, identities, and operational maintenance.
+
+---
+
+### Monad Nanite Abilities
+
+* **Monad Matrix Attributes:** *(Whisper Nets, p. 149 — Character Creation, 5 Karma)*
+  * Synthesizes Living Persona ASDF (Attack: CHA, Sleaze: INT, Data Processing: LOG, Firewall: WIL) via internal nanite matrix co-processing.
+* **Resculpt:** *(Collapsing Now, p. 11 / Whisper Nets, p. 145 — Character Creation, 5 Karma)*
+  * Extended Intuition + NV (16, 1 combat round) test to alter facial appearance, skin tone, and voice (+2 dice pool bonus on Disguise tests; provides physical embodiment vehicle for Veronica).
+* **Monad Toughness:** *(Collapsing Now, p. 154–161 — Character Creation, 5 Karma)*
+  * Adds one-half Nanite Volume (+3 boxes at NV 6) to Condition Monitors (+2 Physical, +1 Stun), and shifts all Wound Modifiers down by one level.
+* **Physical Attribute Boost:** *(Whisper Nets, p. 149 — Character Creation, 5 Karma)*
+  * Minor Action: roll NV test (6 dice). Each hit can add +1 Minor Action per combat round or boost a physical attribute for duration.
+* **Rapid Cellular Healing:** *(Collapsing Now, p. 154–161 — Character Creation, 5 Karma)*
+  * Minor or Major Action: roll NV test (6 dice) to reduce Condition Monitor damage boxes by hits (Major Action heals double hits and grants +1 situational Edge).
+* **Adrenal Control:** *(Collapsing Now, p. 154–161 — Character Creation, 5 Karma)*
+  * Minor Action: WIL + NV test to remain conscious and active when physical or stun condition monitors are full.
 
 ---
 
 ### Cyberware, Bioware & Geneware Augmentations
 
 * **Adapsin Therapy (Therapeutic Geneware):** *(Body Shop, p. 4, 10 — 30,000¥ / 0.10 Ess)*
-  * Reduces Essence cost of all installed cyberware by 10% (round down) post-grade calculations.
-* **Two Full Synthetic Cyberarms (Used Grade w/ Agility +3 Enhancement):** *(SR6 Core, p. 288 & p. 247; Body Shop, p. 5 — 35,000¥ / 1.98 Ess total)*
-  * Capacity: 8 each (3 used for AGI+3 $\rightarrow$ **5 Open Capacity each**), Avail 4.
-  * With Redliner operates at **Agility 7 / Strength 4** (surges to **Agility 9 / Strength 6** when overdriven).
-* **Two Full Synthetic Cyberlegs (Used Grade w/ Agility +3 Enhancement & Bulk Mod R2):** *(SR6 Core, p. 288 & p. 247; Body Shop, p. 5, 44 — 37,000¥ / 1.98 Ess total)*
-  * Capacity: 12 each (3 AGI+3 + 6 Nanohive + 2 Inline Skates + 1 Gecko Tips = 12/12 Capacity fully utilized!), Avail 4.
-  * With Redliner operates at **Agility 7 / Strength 4** (surges to **Agility 9 / Strength 6** when overdriven).
+  * Reduces Essence cost of all installed cyberware by 10% (round down) post-grade calculations (cyberware only; bioware and geneware are exempt).
+* **Two Full Synthetic Cyberarms (Used Grade w/ Agility +4 Enhancement):** *(SR6 Core, p. 288 & p. 247; Body Shop, p. 5 — 40,000¥ / 1.98 Ess total)*
+  * Capacity: 8 each (Left Arm: 4 AGI+4 + 2 Utility Kit -> **2 Open Capacity**; Right Arm: 4 AGI+4 -> **4 Open Capacity**), Avail 4.
+  * With Redliner operates at **Agility 8 / Strength 4** (surges to **Agility 10 / Strength 6** when overdriven).
+* **Built-in Utility Kit (Installed in Left Cyberarm):** *(Body Shop, p. 44 — 1,000¥ / 0.00 Ess, 2 Cap)*
+  * Integrated micro-soldering, lock diagnostics, and optical wire taps for zero-penalty hardware decker bypass.
+* **Two Full Synthetic Cyberlegs (Used Grade w/ Agility +4 Enhancement & Bulk Mod R4):** *(SR6 Core, p. 288 & p. 247; Body Shop, p. 5, 44 — 40,000¥ / 1.98 Ess total)*
+  * Capacity: 14 each (4 AGI+4 + 6 Nanohive + 2 Inline Skates + 2 Hydraulic Jacks R2 = 14/14 Capacity fully utilized!), Avail 4.
+  * With Redliner operates at **Agility 8 / Strength 4** (surges to **Agility 10 / Strength 6** when overdriven).
+* **Bulk Modification Rating 4 (2x Cyberlegs):** *(Body Shop, p. 44 — 4,000¥ / 0.00 Ess)*
+  * Expands each cyberleg to **14 Capacity**.
 * **Two Nanohives Rating 3 (Used Grade, Installed in Left & Right Cyberlegs):** *(Body Shop, p. 4, 10 — 45,000¥ / 0.00 Ess)*
   * 6/6 Capacity in each leg; combined Rating 6 Nanohive capacity, supporting up to 18 Nanite Volume (24 wireless) and replenishing 6 NV/hr.
+* **Hydraulic Jacks Rating 2 (Installed in 2x Cyberlegs):** *(SR6 Core, p. 289 — 5,000¥ / 0.00 Ess, 2 Cap each)*
+  * Reduces Athletics jumping and Flying Kick launch threshold by 2 (minimum threshold 1 hit); absorbs up to 4 boxes of falling damage.
 * **Retractable Inline Skates (2x Cyberlegs):** *(Body Shop, p. 48 — 500¥, 4 Cap total)*
   * 10m high-speed ground glide.
-* **Gecko Tips (2x Cyberlegs):** *(Body Shop, p. 45 — 1,000¥, 2 Cap total)*
-  * Setae on soles for climbing.
-* **Gecko Tape Gloves:** *(City Edition: Seattle, p. 5 — 250¥)*
-  * Hands + feet setae grants Non-Magical Wall Running on Day 1.
-* **Betaware Bone Density Augmentation (Rating 4):** *(SR6 Core, p. 286 & Body Shop, p. 101 — 30,000¥ / 0.84 Ess)*
+* **Betaware Bone Density Augmentation Rating 4 (Bioware):** *(SR6 Core, p. 286 & Body Shop, p. 101 — 30,000¥ / 0.84 Ess)*
+  * Bioware — exempt from Adapsin discount (cyberware only). Base 1.20 Ess x 0.7 Betaware = 0.84 Ess.
   * +4 Body for damage resistance soak (9 Soak unarmored), 4P Unarmed DV, +3 Attack Rating.
 * **Used Skilljack (Rating 6):** *(SR6 Core, p. 247 — 60,000¥ / 0.59 Ess)*
   * Supports up to Rating 6 skillsofts; total rating capacity = 24.
@@ -39,10 +59,8 @@ This ledger itemizes character creation augmentations, nanite colonies, tactical
 
 ---
 
-### Nanite Colony Suite (2 Templates + 6 Prioritized Bioamplifiers)
+### Nanite Colony Suite (1 Template + 6 Prioritized Bioamplifiers)
 
-* **Dynamic Features Colony Template (Permanent Nanohive Software):** *(Body Shop, p. 4 — 12,500¥, 1-3 NV)*
-  * Reshapes skin and facial features; grants +1 situational Edge on disguise Con tests.
 * **Neuromuscular Amplifier Colony Template (Permanent Nanohive Software):** *(Body Shop, p. 4, 86 — 15,000¥, 2 NV)*
   * Adds +1 DV to all melee and unarmed attacks (5P Unarmed base DV).
 * **Pre-Built Bio-Response Override Colony (Dose):** *(Body Shop, p. 4 — 3,500¥, 3 NV)*
@@ -62,8 +80,10 @@ This ledger itemizes character creation augmentations, nanite colonies, tactical
 
 ### Activesoft Roster & Field Equipment
 
+* **Close Combat Activesoft (Rating 6 — Matrix Subscription):** *(0¥ / Matrix Subscription)*
+  * Runs via Skillwires R6 with Wireless-ON (+1) for 7 skill dice (15d6 Unarmed pool with Cyberarm AGI 7 + Neural Pattern Reinforcement; 17d6 when Overdriven to AGI 9).
 * **Cracking Activesoft (Rating 6 — Commercial License):** *(30,000¥)*
-  * Commercial license running via Skilljack/Skillwires with full wireless Edge access.
+  * Commercial license running via Skilljack/Skillwires with full wireless Edge access (14d6 Cracking pool with LOG 6 + Neural Amp; 16d6 with Math SPU Overdrive).
 * **Colt Manhunter (Heavy Pistol):** *(1,500¥)*
   * Smartlink (+2 AR), Concealed Holster, Silencer, 5 spare clips, 100 regular, 100 gel rounds.
 * **Securetech SkinShield (w/ Ballistic Hood):** *(Firing Squad p. 3 / Seattle p. 5 — 3,150¥)*

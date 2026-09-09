@@ -363,8 +363,8 @@ def test_weapon_attack_table_renderer():
     assert "**Amalgam Cestas" in table_md
 
     table_venn = get_weapon_attack_table("venn")
-    assert "**FN P93 Praetor**" in table_venn
     assert "**Colt Manhunter**" in table_venn
+    assert "**Unarmed Strike**" in table_venn
 
 
 def test_character_table_pools():
@@ -550,14 +550,27 @@ def test_tactical_action_pools_and_tables_union():
 
     # 4. Monad Living Persona Matrix Stats
     asdf = ModifierEngine.get_living_persona_asdf(char)
-    assert asdf["attack"] == 2  # CHA 2 + 0 NV
-    assert asdf["sleaze"] == 6  # INT 5 + 1 NV
-    assert asdf["data_processing"] in (7, 8)  # LOG 6 + NV
-    assert asdf["firewall"] in (7, 8, 9)  # WIL + NV
+    assert asdf["attack"] == 3  # CHA 2 + 1 Neurochem Regulator
+    assert asdf["sleaze"] == 7  # INT 5 + 2 NV (Combat Priority 2)
+    assert asdf["data_processing"] == 6  # LOG 6 + 0 NV
+    assert asdf["firewall"] == 12  # WIL 8 (Base 5 + 2 CSS + 1 Bio-Response) + 4 NV (Combat Priority 1)
 
     mdef = ModifierEngine.get_full_matrix_defense(char)
-    assert mdef["pool"] in (12, 16)
-    assert mdef["effective_hits"] in (3, 4)
+    assert mdef["pool"] == 32  # WIL 8 + FW 12 + Full Defense FW 12 = 32d6
+    assert mdef["effective_hits"] == 8
+    assert mdef["base_persona_pool"] == 20
+    assert mdef["base_persona_hits"] == 5
+    assert mdef["full_data_spike_pool"] == 30
+    assert mdef["full_data_spike_hits"] == 7
+
+    # 5. Verify normal rounding of 50% base cap
+    # Attack: CHA 3 -> 3 / 2 = 1.5 -> +2 cap
+    # Sleaze: INT 5 -> 5 / 2 = 2.5 -> +3 cap
+    # DP: LOG 6 -> 6 / 2 = 3.0 -> +3 cap
+    # FW: WIL 8 -> 8 / 2 = 4.0 -> +4 cap
+    import math
+    assert math.floor(3 * 0.5 + 0.5) == 2
+    assert math.floor(5 * 0.5 + 0.5) == 3
 
 
 

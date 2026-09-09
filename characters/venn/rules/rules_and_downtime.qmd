@@ -7,37 +7,61 @@ This section aggregates core cheat sheets, downtime registration formulas, monad
 #| include: false
 from sr6core.character_manager import CharacterManager
 from sr6core.modifiers import ModifierEngine
+from sr6core.rules_engine import (
+    get_monad_strategy_table,
+    get_tactical_action_table,
+    get_weapon_attack_table,
+    get_matrix_action_table,
+    get_matrix_asdf_derivation_table,
+    get_cyberware_capacity_table,
+    get_augmentations_accounting_table,
+    render_multi_modifier_interactions,
+)
 
 cm = CharacterManager()
 _char = cm.get_character_data("venn") or cm.get_character_data("union") or {}
 attrs = _char.get("attributes", {})
+identity = _char.get("identity", {})
 
 # Core Base Attributes
 Body = attrs.get("body", 5)
-Agility = attrs.get("agility", 7)        # Cyberarms/legs AGI 7 (Base 2 + 3 Cybersuite + 2 Redliner)
+Agility = attrs.get("agility", 8)        # Cyberarms/legs AGI 8 (Base 2 + 4 Cybersuite + 2 Redliner)
 Reaction = attrs.get("reaction", 2)
 Strength = attrs.get("strength", 4)      # Cyberarms/legs STR 4 (Base 2 + 2 Redliner)
-Willpower = attrs.get("willpower", 7)
+Willpower = attrs.get("willpower", 7)    # Base 5 + 2 Cyber Singularity Seeker = 7
 Logic = attrs.get("logic", 6)
 Intuition = attrs.get("intuition", 5)
 Charisma = attrs.get("charisma", 2)
-Resonance = attrs.get("resonance", 0)
 Edge = attrs.get("edge", 7)
-Essence = attrs.get("essence", 0.66)
+Essence = attrs.get("essence", 0.0)
+Nanite_Volume = identity.get("nanite_volume", 6)
 
-# Augmented Ratings & Bioamplifiers
-Willpower_Aug = Willpower + 1            # Bio-Response Override = 8
-Charisma_Aug = Charisma + 1              # Neurochemical Regulator = 3
-Body_Soak = Body + 4                     # Bone Density R4 = 9
+# Augmented Mental Attributes (including colonies)
+Charisma_Aug = Charisma + 1              # Neurochemical Regulator (+1) = 3
+Willpower_Aug = Willpower + 1            # Bio-Response Override (+1) = 8
+Body_Soak = Body + 4                     # Bone Density Augmentation R4 (+4) = 9
 
-# Derived Pools declaratively queried from ModifierEngine
-tactical_pools = ModifierEngine.get_tactical_action_pools(_char, scene_mode="baseline")
-Physical_Initiative_Base = f"{Reaction + Intuition} + 1D6"  # 7 + 1D6
-Defense_Pool_Base = tactical_pools["defense"].total_pool if "defense" in tactical_pools else (Reaction + Intuition)
-Damage_Soak_Base = tactical_pools["soak"].total_pool if "soak" in tactical_pools else (Body_Soak + 3)
-Close_Combat_Pool_Base = tactical_pools["close_combat"].total_pool if "close_combat" in tactical_pools else 16
-Cracking_Pool_Base = tactical_pools["engineering"].total_pool if "engineering" in tactical_pools else 14
-Firearms_Pool_Base = tactical_pools["firearms"].total_pool if "firearms" in tactical_pools else 19
+# Matrix ASDF & Full Defense
+active_asdf = ModifierEngine.get_living_persona_asdf(_char)
+ACTIVE_A = active_asdf.get("attack", 3)
+ACTIVE_S = active_asdf.get("sleaze", 7)
+ACTIVE_D = active_asdf.get("data_processing", 6)
+ACTIVE_F = active_asdf.get("firewall", 12)
+
+matrix_defense = ModifierEngine.get_full_matrix_defense(_char)
+full_matrix_def_pool = matrix_defense.get("pool", 32)
+full_matrix_def_hits = matrix_defense.get("effective_hits", 8)
+base_persona_def_pool = matrix_defense.get("base_persona_pool", 20)
+base_persona_def_hits = matrix_defense.get("base_persona_hits", 5)
+base_data_spike_def_pool = matrix_defense.get("base_data_spike_pool", 18)
+full_data_spike_def_pool = matrix_defense.get("full_data_spike_pool", 30)
+
+# Derived Combat Pools
+Physical_Initiative_Base = f"{Reaction + Intuition} + 1D6"
+Defense_Pool_Base = Reaction + Intuition
+Damage_Soak_Base = Body_Soak
+Close_Combat_Pool_Base = 6 + Agility + 1 + 1  # Soft 6 + AGI 8 + Wires 1 + Pattern 1 = 16d6
+Cracking_Pool_Base = 6 + Logic + 1 + 1        # Soft 6 + LOG 6 + Wires 1 + Neocortical 1 = 14d6
 ```
 
 ---
@@ -51,15 +75,15 @@ Firearms_Pool_Base = tactical_pools["firearms"].total_pool if "firearms" in tact
 Every 2nd SRM mission, the following recurring obligations are deducted from liquid Nuyen:
 
 - **Lifestyle Expenses:** Low Lifestyle (¥2,000/mo) for the off-grid coastal boathouse on St. Simon's Island.
-- **Hooder Quality (Rating 2):** ¥2,000/mo obligation allocated to local off-grid free medical clinics, solar microgrids, and coastal refugee support.
-- **Medical Immunosuppressants & Stabilization:** ¥1,000/mo required to maintain 0.1 Essence cyberware tolerances and nanite fluid balances.
+- **Hooder Quality (Rating 3):** ¥3,000/mo obligation allocated to local off-grid free medical clinics, solar microgrids, and coastal refugee support.
+- **Total Monthly Obligation:** **¥5,000 / month**.
 
 ### 2. Mandatory Downtime Actions (Expense Months)
 
 During an expense month, Venn receives 1 Major Downtime Action and 1 Minor Downtime Action, allocated as follows:
 
-- **1 Minor Downtime Action:** Dedicated to maintaining Venn's connection with the Shadow Healthcare Community (Note: unsure if 'Working for the Streetdoc' major action fulfills this obligation or not)
-- **1 Minor Downtime Action:** *Working for the People* (funded directly by the Hooder ¥2,000 nuyen obligation, generating **+1 Karma** at no additional nuyen charge).
+- **1 Major Downtime Action:** Dedicated to **Working for the Streetdoc** (Shadow Healthcare Community network membership, converting Karma to Nuyen for augmentations at 1 Karma : ¥7,000) or cyberware diagnostic calibration.
+- **1 Minor Downtime Action:** *Working for the People* (funded directly by the Hooder ¥3,000 nuyen obligation, generating **+1 Karma** at no additional nuyen charge).
 
 ---
 
@@ -74,15 +98,35 @@ Venn relies on an implanted **Skilljack (Used Grade, Rating 6)** and **Skillwire
 - **Edge Restriction**: Edge cannot normally be spent with skills used through a skilljack.
 - **Wireless Bonus**: The Matrix connection expands the total rating limit to **Rating x 4 (24)**, and **Edge CAN be used in associated tests**.
 
-### Skillwires Mechanics & Dual Architecture
-- **Hardcoded Local Activesofts (Rating 6 — 18 Ranks Dedicated)**:
-  - Core Rating 6 Activesofts (**Firearms 6**, **Cracking 6**) are stored in local memory (zero-action swapping, offline resilient).
-- **Dynamic 4th Slot & On-Demand Subscription (¥4,000/month — 6 Ranks Floating)**:
-  - Provides dynamic access to any single skillsoft up to Rating 6.
-  - Minor action to change skillsoft.
-  - Must be wireless on to use.
-- **Skill Dice Calculation**:
-  - Any Rating 6 activesoft provides **7 skill dice** (Rating 6 + Skillwires Wireless ON +1).
+### Skillwires Mechanics & Streaming Roster
+- **Wireless Bonus**: Memory cache expanded, granting a **+1 dice pool modifier to all skills routed through skillwires**.
+- **Effective Skill Ranks**: Any Rating 6 activesoft provides **7 skill dice** (Rating 6 + Skillwires Wireless ON +1).
+- **Active Roster (Derived from Purchases Ledger)**:
+  - **Close Combat Activesoft (Rating 6)**: Runs via Skillwires for 7 skill dice (**15d6 Unarmed pool** with Cyberarm AGI 7 + Neural Pattern Reinforcement; **17d6** when Overdriven to AGI 9).
+  - **Cracking Activesoft (Rating 6)**: Runs via Skillwires for 7 skill dice (**14d6 Cracking pool** with LOG 6 + Neocortical Neural Amp; **16d6** when Overdriven with Math SPU).
+- **Dynamic Swapping**: Local memory allows zero-action swapping between stored softs.
+
+---
+
+## Cyberware Suite, Capacity & Augmentations Accounting{#cyberware-capacity}
+
+This section details Venn's full cybernetic conversion suite, cyberlimb capacity accounting, and deterministic Essence costs with **Adapsin Therapy**.
+
+### Installed Cyberlimbs & Internal Capacity
+
+```{python}
+#| echo: false
+#| output: asis
+print(get_cyberware_capacity_table("venn"))
+```
+
+### Augmentations, Essence & Grade Breakdown
+
+```{python}
+#| echo: false
+#| output: asis
+print(get_augmentations_accounting_table("venn"))
+```
 
 ---
 
@@ -92,51 +136,57 @@ Venn relies on an implanted **Skilljack (Used Grade, Rating 6)** and **Skillwire
 
 As a dual-entity Monad (Nathan Turrent & Veronica), Venn commands a resident internal nanite colony (Nanite Volume 6 supported by dual Nanohives R3 in cyberlegs) that manipulates flesh, neural architecture, and wireless persona emulation:
 
-::: {.callout-note icon=false title="🧬 MONAD ABILITY: Monad Matrix Attributes (Living Persona)"}
+### 1. Monad Matrix Attributes (Living Persona)
+
+Under SR6 Monad rules (*Whisper Nets* p. 149 & *Collapsing Now* p. 160), Monads synthesize an un-brickable Living Persona directly from their mental attributes, augmented by Nanite Volume (NV):
+
+```{python}
+#| echo: false
+#| output: asis
+print(get_matrix_asdf_derivation_table("venn"))
+```
+
+### 2. Physical Attribute Boost & Action Economy Rules
+
+::: {.callout-note icon=false title="🧬 MONAD ABILITY: Physical Attribute Boost & Action Surge"}
 * **Source**: *Whisper Nets*, p. 149
-* **Living Persona ASDF**: Internal nanite swarms emulate hardware pathways to project an un-brickable Living Persona:
-  * **Attack**: $\text{Charisma} = \mathbf{3}$ *(Neurochemical Regulator)*
-  * **Sleaze**: $\text{Intuition} + 1 = \mathbf{6}$
-  * **Data Processing**: $\text{Logic} + 1 = \mathbf{7}$
-  * **Firewall**: $\text{Willpower} + 2 = \mathbf{10}$ *(Willpower 8 via Bio-Response Override + 2 NV)*
-* **Matrix Defense**: **18d6 Full Matrix Defense** ($\text{WIL } 8 + \text{FW } 10 \rightarrow \mathbf{4\text{ Bought Hits}}$).
+* **Action**: **Minor Action** | **Test**: Roll a **Nanite Volume (NV) test** (`{python} Nanite_Volume` dice $\rightarrow$ 2 Bought Hits).
+* **Hit Allocation**:
+  * For **each hit**, increase any **Physical Attribute (BOD, AGI, REA, STR) by +1**, OR add **+1 Minor Action**.
+  * Hits may be stacked on a single attribute or distributed across multiple attributes and/or Minor Actions on the same test.
+* **SR6 Action Economy & Turn-Start Ceilings**:
+  * **Basic Action Allotment**: The basic action allotment for each character is **1 Major Action and 1 Minor Action** per combat round, plus **1 additional Minor Action for every Initiative Die** they possess (*SR6 Core* p. 40). With 1 Initiative Die base, Venn has **1 Major + 2 Minor Actions**.
+  * **Turn-Start 5 Minor Action Ceiling**: *"You cannot start your turn with more than 5 minor actions (all others are lost)"* (*SR6 Core* p. 40). Pushing +4 Minor Actions from NV Boost hits this hard ceiling (**1 Major + 5 Minor Actions**; the 6th is lost).
+  * **In-Turn Action Trading**: *"Players can trade Minor and Major Actions, using a Major Action to perform a Minor Action or using 4 Minor Actions to perform a Major Action"* (*SR6 Core* p. 40). Action trading occurs **after the character's turn begins**. Once their turn begins, Venn may trade 4 Minors for 1 Major (yielding **2 Major Actions and 1 Minor Action**), or spend those 5 Minors on tactical maneuvers (Movement, Take Aim, Avoid Incoming, Drop Prone, Stand Up, Matrix actions, or cellular healing).
+* **Duration**: Lasts for a number of combat rounds equal to the **number of hits rolled**.
+* **Exhaustion & NV Burn**:
+  * When the boost expires, NV temporarily decreases by the total sum of the boosts for **1 minute (20 combat turns)**.
+  * Any attribute increase pushed **beyond the racial maximum** inflicts **1 box of Physical damage** when the boost wears off.
 :::
+
+### 3. Additional Monad Abilities
 
 ::: {.callout-note icon=false title="🧬 MONAD ABILITY: Resculpt (Biological Disguise)"}
 * **Source**: *Collapsing Now*, p. 154–161
 * **Action / Test**: Extended **Intuition + NV (16, 1 combat round)** test (**11d6 $\rightarrow$ Buys 2 Hits/round**; complete transformation in 8 rounds / 24 seconds).
-* **Effect**: Nanites physically reform cartilage, facial bone geometry, epidermal pigmentation, hair growth, and vocal cord thickness to pass perfectly as a new individual or alter demographic markers without cosmetic surgery or magic.
+* **Effect**: Nanites physically reform cartilage, facial bone geometry, epidermal pigmentation, hair growth, and vocal cord thickness to pass perfectly as a new individual or alter demographic markers without cosmetic surgery or magic (+2 dice pool bonus on Disguise tests; provides physical embodiment vehicle for Veronica).
 :::
 
 ::: {.callout-note icon=false title="🧬 MONAD ABILITY: Monad Toughness & Wound Negation"}
 * **Source**: *Collapsing Now*, p. 154–161
-* **Condition Monitor Boost**: Adds $+\lfloor \text{NV}/2 \rfloor = \mathbf{+3}$ Condition boxes (+1 Physical box $\rightarrow$ **11 Physical Boxes**, +1 Stun box + 1 Bio-Response Override $\rightarrow$ **13 Stun Boxes**).
+* **Condition Monitor Boost**: Adds $+\lfloor \text{NV}/2 \rfloor = \mathbf{+3}$ Condition boxes (+2 Physical boxes $\rightarrow$ **11 Physical Boxes**, +1 Stun box + 1 Bio-Response Override $\rightarrow$ **13 Stun Boxes**).
 * **Wound Threshold Shift**: Shifts all wound penalty thresholds down by **1 box**, allowing Venn to take heavier physical punishment before incurring dice pool penalties.
-:::
-
-::: {.callout-note icon=false title="🧬 MONAD ABILITY: Physical Attribute Boost & Action Surge"}
-* **Source**: *Whisper Nets*, p. 149
-* **Action**: **Minor Action** | **Test**: Roll a **Nanite Volume (NV) test** (6 dice for Venn $\rightarrow$ 2 Bought Hits).
-* **Hit Allocation**:
-  * For **each hit**, increase any **Physical Attribute (BOD, AGI, REA, STR) by +1**, OR add **+1 Minor Action**.
-  * Hits may be stacked on a single attribute or distributed across multiple attributes and/or Minor Actions on the same test.
-  * **Direct NV Trading**: Monads can also trade available NV directly for additional Minor Actions (temporarily decreasing NV).
-* **Maximum Boost Cap**: $\min(\text{NV}, +4\text{ maximum attribute boost limit})$ (Maximum **+4** bonus).
-* **Duration**: Lasts for a number of combat rounds equal to the **number of hits rolled**.
-* **Exhaustion & NV Burn**:
-  * When the boost expires, the Monad's **NV temporarily decreases by the total sum of the boosts for 1 minute (20 combat turns)**.
-  * Any attribute increase pushed **beyond the racial maximum** inflicts **1 box of Physical damage** when the boost wears off.
 :::
 
 ::: {.callout-note icon=false title="🧬 MONAD ABILITY: Rapid Cellular Healing"}
 * **Source**: *Collapsing Now*, p. 154–161
-* **Action**: Minor or Major Action | **Test**: Nanite cellular reconstruction test.
-* **Effect**: Nanites re-knit damaged tissues, synthesize clotting agents, and purge lactic/toxic build-up to accelerate downtime recovery and heal physical/stun damage tracks between tactical engagements.
+* **Action**: Minor or Major Action | **Test**: Nanite cellular reconstruction test (`{python} Nanite_Volume` dice).
+* **Effect**: Nanites re-knit damaged tissues, synthesize clotting agents, and purge lactic/toxic build-up to accelerate downtime recovery and heal physical/stun damage tracks between tactical engagements (Major Action heals double hits and grants +1 situational Edge).
 :::
 
 ::: {.callout-note icon=false title="🧬 MONAD ABILITY: Adrenal Control & Trauma Resistance"}
 * **Source**: *Collapsing Now*, p. 154–161
-* **Action**: **Minor Action** | **Test**: **Willpower + NV (2)** test (**9d6 $\rightarrow$ 2 Bought Hits**).
+* **Action**: **Minor Action** | **Test**: **Willpower + NV (2)** test (**10d6 $\rightarrow$ 2 Bought Hits**).
 * **Effect**: Automatically stabilizes neural synapsing and maintains consciousness when suffering overflow damage or heavy stun trauma, resisting knockdown and unconsciousness.
 :::
 
@@ -159,16 +209,11 @@ Each pre-purchased single-dose colony represents an active physical swarm unit r
 * **Neocortical Neural Amplifier**: Requires **2 NV** to sustain (+1 dice pool on Logic-linked skills).
 * **Limbic Neural Amplifier**: Requires **2 NV** to sustain (+1 dice pool on Intuition-linked skills).
 * **Neural Pattern Reinforcement**: Requires **2 NV** to sustain (+1 dice pool on Agility-linked skills).
-* **Tech Infestation**: Requires **1+ NV** to sustain (rolls Hive Rtg + NV vs WIL + FW to hijack electronics).
+* **Neuromuscular Amplifier**: Requires **2 NV** to sustain (+1 melee/unarmed DV).
 
-### 3. Permanent Software Templates & On-Demand Synthesis
-Permanent software blueprints stored in the Nanohive forge memory can be synthesized and reconfigured on demand using raw nanite mass:
-* **Neuromuscular Amplifier Template**: Requires **at least 2 NV** to form the base colony (+1 melee/unarmed DV), but additional NV (up to 4+ NV) can be allocated for overdriving strike vectors.
-* **Dynamic Features Template**: Requires **1–3 NV** to shift skin, facial geometry, and epidermal pigmentation (+1 situational Edge on appearance-based Con).
-
-### 4. Hardware Capacity Budget
+### 3. Hardware Capacity Budget
 * Venn's dual Used Nanohives R3 in left and right cyberlegs provide combined **Rating 6 Nanohive capacity** (max 6 active colonies, 18 NV internal capacity [24 wireless], 6 NV/hr replenishment).
-* Sustaining the 6 default colonies consumes **13 NV** ($2 + 3 + 2 + 2 + 2 + 2$), leaving **5 NV in reserve** for overdriving or dynamic template synthesis.
+* Sustaining the 6 default colonies consumes **13 NV** ($3 + 2 + 2 + 2 + 2 + 2$), leaving **5 NV in reserve** for overdriving or dynamic template synthesis.
 
 ---
 
@@ -179,7 +224,6 @@ This section is dynamically derived from Venn's current active character state. 
 ```{python}
 #| echo: false
 #| output: asis
-from sr6core.rules_engine import render_multi_modifier_interactions
 print(render_multi_modifier_interactions("venn", threshold=2))
 ```
 
@@ -212,12 +256,11 @@ Per the **Shadowrun Missions Guide (SRMG)** rules on augmentation stacking:
 
 ## Monad Operational Strategy & Scene Comparison
 
-Comparison of Venn's four operational modes: Meatspace Baseline, Adrenaline Surge, Living Persona Matrix Inhabitation, and Monad Boost / Cyberware Overdrive.
+Comparison of Venn's four operational modes: Meatspace Baseline, Cyberlimb Overdrive & Leaping Assault, Living Persona Matrix Inhabitation, and Monad NV Boost / Action Economy.
 
 ```{python}
 #| echo: false
 #| output: asis
-from sr6core.rules_engine import get_monad_strategy_table
 print(get_monad_strategy_table("venn"))
 ```
 
@@ -230,20 +273,18 @@ Standardized physical action pools, activesoft streaming, defense tests, damage 
 ```{python}
 #| echo: false
 #| output: asis
-from sr6core.rules_engine import get_tactical_action_table
 print(get_tactical_action_table("venn"))
 ```
 
 ---
 
-## Standardized Weapon Attack Table (Praetor, Manhunter, Whip, Hornet){#weapon-attack-table}
+## Standardized Weapon Attack Table (Colt Manhunter & Unarmed Strike){#weapon-attack-table}
 
-Breakdown of FN P93 Praetor, Colt Manhunter, Monofilament Whip, and Narcoject Hornet combat profiles, firing modes, attack ratings, and smartlink bonuses.
+Breakdown of Colt Manhunter and Unarmed Strike combat profiles, firing modes, attack ratings, and smartlink bonuses.
 
 ```{python}
 #| echo: false
 #| output: asis
-from sr6core.rules_engine import get_weapon_attack_table
 print(get_weapon_attack_table("venn"))
 ```
 
@@ -251,11 +292,10 @@ print(get_weapon_attack_table("venn"))
 
 ## Living Persona Matrix Action Table (Veronica Co-Processing)
 
-Breakdown of Monad Living Persona matrix tests (**A:2 S:6 D:7 F:8**, derived per *Whisper Nets* p. 149 allocating NV 6 to Firewall +3, Sleaze +2, Data Processing +1), cracking, software, matrix perception, and full matrix defense (**13d6 / 3 Hits** via WIL 5 + FW 8).
+Breakdown of Monad Living Persona matrix tests (**A:3 S:7 D:6 F:12**, derived per *Whisper Nets* p. 149 allocating NV 6 to Firewall +4 and Sleaze +2), cracking, software, matrix perception, and full matrix defense (**32d6 / 8 Hits** via WIL 8 + FW 12 + Full Defense FW 12; or **30d6 / 7 Hits** vs Data Spike via DP 6 + FW 12 + Full Defense FW 12).
 
 ```{python}
 #| echo: false
 #| output: asis
-from sr6core.rules_engine import get_matrix_action_table
 print(get_matrix_action_table("venn"))
 ```

@@ -23,11 +23,28 @@ Use this skill to verify official Shadowrun 6th Edition (SR6) rules, matrix/dron
 
 ## How to Run
 
-Execute local rules queries via the `terminal` tool from the workspace root:
+Execute local rules queries via the `run_command` tool from the workspace root:
 
 ```bash
-# Display universal item reference card (weapons, qualities, spells, cyberware, drones)
+# Display universal item or PACK reference card (weapons, qualities, spells, cyberware, packs, drones)
 uv run sr6 card "<item_name>"
+uv run sr6 card pack "<pack_name>"
+
+# Search verbatim sourcebook chapters using book codes (6wc, bs, crb, hns, dc, fs, sw, cn, pp)
+uv run sr6 source <book_code> "<query>" [--context 12]
+
+# Calculate cyberlimb essence, cost, and capacity with enhancements and Adapsin
+uv run sr6 calc limb --limb cyberarm --grade used --adapsin --agi 4
+uv run sr6 calc limb --limb cyberleg --grade used --adapsin --agi 4 --bulk 4
+
+# Display tabletop rules cheatsheets (matrix, actions, monad, combat)
+uv run sr6 cheat <matrix|actions|monad|combat>
+
+# Query SQLite tables directly with read-only SQL (use --compact for clean Markdown tables)
+uv run sr6 db query "SELECT id, name, cost, essence, capacity FROM ref_cyberware WHERE name LIKE '%Cyberarm%'" --compact
+
+# Inspect table schemas and column definitions
+uv run sr6 db schema [table_name]
 
 # Search local 20,082-chunk FTS5 rules vault (--compact for agent mode)
 uv run sr6 rag search "<topic_or_keyword>" --compact
@@ -42,11 +59,17 @@ uv run sr6 search "<item_name>"
 uv run sr6 rag query "<rules_question>" --compact
 ```
 
+> [!IMPORTANT]
+> **Complete Database Schema & Table Reference**: See [database_schema.md](file:///c:/GitHub/sr6-core/reference/database_schema.md) for full documentation on all 16+ SQLite tables in `~/.sr6/rules_index.db`, column definitions, and SQL cheat sheets.
+>
+> **Strict Mandate: No Python Gymnastics**:
+> Never execute ad-hoc `python -c "..."` scripts or one-liners to query databases. PowerShell escaping strips internal quotes and creates brittle errors. Always use `uv run sr6 db query "<SQL>"`, `uv run sr6 db schema`, `uv run sr6 card`, or ripgrep in `converted_md/` for full book context.
+
 ## Mandatory Pre-Computation & Verification Protocols
 
 1. **Rule of Zero Memory Guessing**:
    - Never guess Essence costs, Nuyen prices, Availability ratings, or Karma costs.
-   - Always run `uv run sr6 card "<item>"` or `uv run sr6 rag get "<rule>"` before proposing mechanical moves, purchases, or ledger adjustments.
+   - Always run `uv run sr6 card "<item>"`, `uv run sr6 db query "<SQL>"`, or `uv run sr6 rag get "<rule>"` before proposing mechanical moves, purchases, or ledger adjustments.
 2. **Dynamic Tactical Arrays (`calculate_modified_weapon`)**:
    - Verify post-modification numbers depicted in narrative action:
      - **Smartlinks**: +2 Attack Rating, +2 Attack Dice (when using smartguns with DNI or smartlink goggle/eyeware).

@@ -12,6 +12,7 @@ Handles:
 """
 
 from typing import Dict, Any, List, Optional, Tuple, Set
+import math
 
 
 class PoolModifier:
@@ -715,21 +716,48 @@ class ModifierEngine:
 
         if "monad" in mortype or res == 0:
             # Monad Living Persona (Whisper Nets p. 149 & Collapsing Now p. 160)
-            cha = int(attrs.get("charisma", 3))
-            int_val = int(attrs.get("intuition", 4))
-            log_val = int(attrs.get("logic", 7))
-            wil = int(attrs.get("willpower", 5))
+            # 1) Base mental attributes include stat augmentations (qualities and colonies)
+            cha = int(attrs.get("charisma", 2))
+            int_val = int(attrs.get("intuition", 5))
+            log_val = int(attrs.get("logic", 6))
+            wil = int(attrs.get("willpower", 7))
 
-            nv_att = base_asdf.get("attack", 0)
-            nv_slz = base_asdf.get("sleaze", 2)
-            nv_dp = base_asdf.get("data_processing", 1)
-            nv_fw = base_asdf.get("firewall", 3)
+            for m in char_data.get("modifiers", []):
+                if isinstance(m, dict) and m.get("enabled", True) and m.get("type") == "augmentation":
+                    tgt = str(m.get("target", "")).lower()
+                    val = int(m.get("value", 0))
+                    if tgt == "attribute:charisma":
+                        cha += val
+                    elif tgt == "attribute:willpower":
+                        wil += val
+                    elif tgt == "attribute:logic":
+                        log_val += val
+                    elif tgt == "attribute:intuition":
+                        int_val += val
+
+            # 2) NV boost cap: min(+4, 50% of base attribute rounding normally)
+            # In Shadowrun, rounding is standard arithmetic (half or more rounds up: e.g. 3 / 2 -> 2, 5 / 2 -> 3)
+            att_cap = min(4, max(0, math.floor(cha * 0.5 + 0.5)))
+            slz_cap = min(4, max(0, math.floor(int_val * 0.5 + 0.5)))
+            dp_cap = min(4, max(0, math.floor(log_val * 0.5 + 0.5)))
+            fw_cap = min(4, max(0, math.floor(wil * 0.5 + 0.5)))
+
+            nv = int(char_data.get("identity", {}).get("nanite_volume") or attrs.get("nanite_volume", 6))
+
+            # Default priority for combat / defense: Firewall then Sleaze
+            boost_fw = min(fw_cap, nv)
+            rem_nv = nv - boost_fw
+            boost_slz = min(slz_cap, rem_nv)
+            rem_nv -= boost_slz
+            boost_dp = min(dp_cap, rem_nv)
+            rem_nv -= boost_dp
+            boost_att = min(att_cap, rem_nv)
 
             return {
-                "attack": cha + nv_att,
-                "sleaze": int_val + nv_slz,
-                "data_processing": log_val + nv_dp,
-                "firewall": wil + nv_fw
+                "attack": cha + boost_att,
+                "sleaze": int_val + boost_slz,
+                "data_processing": log_val + boost_dp,
+                "firewall": wil + boost_fw
             }
 
         synergies = char_data.get("synergies", {})
@@ -748,8 +776,14 @@ class ModifierEngine:
     def get_full_matrix_defense(cls, char_data: Dict[str, Any]) -> Dict[str, Any]:
         """
         Calculates Full Matrix Defense.
-        For Monads: Willpower + Firewall (cannot run personal assistant apps on living persona).
-        For Technomancers: RES + FW + PA + DP + Focus.
+        Full Matrix Defense adds the Firewall attribute again to the matrix defense pool
+        (SR6 Core p. 110, 177).
+        The defense test is dictated by the matrix action used against the defender:
+        - General Persona / Cracking Actions (Brute Force, Hack on the Fly, Control Device): Defended with WIL + FW.
+          Full Matrix Defense adds FW again -> WIL + FW + FW (e.g. 8 + 12 + 12 = 32d6 / 8 Bought Hits).
+        - Data Spike Actions: Defended with Data Processing + FW.
+          Full Matrix Defense adds FW again -> DP + FW + FW (e.g. 6 + 12 + 12 = 30d6 / 7 Bought Hits).
+        For Technomancers: RES + FW + PA + DP + Focus (34d6 / 8 Hits).
         """
         attrs = char_data.get("attributes", {})
         res = int(attrs.get("resonance", 0))
@@ -758,28 +792,48 @@ class ModifierEngine:
         mortype = str(identity.get("mortype", "")).lower()
         asdf = cls.get_living_persona_asdf(char_data)
         fw = asdf.get("firewall", 8)
+        dp = asdf.get("data_processing", 6)
 
         if "monad" in mortype or res == 0:
-            total_pool = wil + fw
+            for m in char_data.get("modifiers", []):
+                if isinstance(m, dict) and m.get("enabled", True) and str(m.get("target", "")).lower() == "attribute:willpower":
+                    wil += int(m.get("value", 0))
+            total_pool = wil + fw + fw
             effective_hits = total_pool // 4
-            breakdown = f"WIL {wil} + FW {fw} = {total_pool}d6"
+            breakdown = f"WIL {wil} + FW {fw} + Full Defense FW {fw} = {total_pool}d6"
             return {
                 "pool": total_pool,
                 "effective_hits": effective_hits,
-                "breakdown": breakdown
+                "breakdown": breakdown,
+                "base_persona_pool": wil + fw,
+                "base_persona_hits": (wil + fw) // 4,
+                "full_persona_pool": total_pool,
+                "full_persona_hits": effective_hits,
+                "base_data_spike_pool": dp + fw,
+                "base_data_spike_hits": (dp + fw) // 4,
+                "full_data_spike_pool": dp + fw + fw,
+                "full_data_spike_hits": (dp + fw + fw) // 4,
             }
 
-        dp = asdf.get("data_processing", 7)
+        dp_val = asdf.get("data_processing", 7)
         pa_rating = 6
         focus_bonus = 4 if res > 0 else 0
 
-        total_pool = res + fw + pa_rating + dp + focus_bonus
+        total_pool = res + fw + pa_rating + dp_val + focus_bonus
         effective_hits = total_pool // 4
-        breakdown = f"RES {res} + FW {fw} + PA {pa_rating} + DP {dp} + Focus {focus_bonus} = {total_pool}d6"
+        breakdown = f"RES {res} + FW {fw} + PA {pa_rating} + DP {dp_val} + Focus {focus_bonus} = {total_pool}d6"
         return {
             "pool": total_pool,
             "effective_hits": effective_hits,
-            "breakdown": breakdown
+            "breakdown": breakdown,
+            "base_persona_pool": res + fw,
+            "base_persona_hits": (res + fw) // 4,
+            "full_persona_pool": total_pool,
+            "full_persona_hits": effective_hits,
+            "base_data_spike_pool": dp_val + fw,
+            "base_data_spike_hits": (dp_val + fw) // 4,
+            "full_data_spike_pool": dp_val + fw + fw,
+            "full_data_spike_hits": (dp_val + fw + fw) // 4,
         }
 
     @classmethod
@@ -861,13 +915,27 @@ class ModifierEngine:
                 notes="Cybercombat & Electronic Warfare Tests (Data Spike, Erase Mark, Jamming)"
             )
 
-            # 3. Full Matrix Defense Test
+            # 3a. Full Matrix Defense Test: General Persona (WIL + FW + FW)
             c_def_wil = PoolComponent("Willpower", wil, "attribute")
             c_def_fw = PoolComponent("Firewall", fw, "attribute")
             mdef_opt = PoolOptimization(
                 name="Full Matrix Defense Test",
                 components=[c_def_wil, c_def_fw],
-                notes="Monad Living Persona defense"
+                action_modifiers=[
+                    PoolModifier("action:defense", "action", "Full Defense Firewall", fw)
+                ],
+                notes="Defends against Hack on the Fly, Brute Force, Control Device (WIL + FW + FW)"
+            )
+
+            # 3b. Full Matrix Defense Test: Data Spike (DP + FW + FW)
+            c_def_dp = PoolComponent("Data Processing", dp, "attribute")
+            mdef_spike_opt = PoolOptimization(
+                name="Full Matrix Defense: Data Spike",
+                components=[c_def_dp, c_def_fw],
+                action_modifiers=[
+                    PoolModifier("action:defense", "action", "Full Defense Firewall", fw)
+                ],
+                notes="Defends against offensive Data Spike cybercombat damage (DP + FW + FW)"
             )
 
             # 4. Electronics: Software Tests
@@ -909,6 +977,7 @@ class ModifierEngine:
                 "cracking_hacking": hacking_opt,
                 "cracking_other": cracking_other_opt,
                 "full_matrix_defense": mdef_opt,
+                "full_matrix_defense_spike": mdef_spike_opt,
                 "electronics_software": electronics_soft_opt,
                 "electronics_other": electronics_other_opt,
                 "buy_gear": buy_gear_opt,

@@ -111,11 +111,11 @@ print(render_downtime_binding_markdown("velvet"))
 
 *SRMG v2.4 Minor Downtime Action (Register/Bind spirits)*
 
-In downtime, Velvet's minor action binds a **Force 5 Spirit of Fire** (conjuring test = binding test = 2 services each = **4 total services / 4 SRM Missions**):
+In downtime, Velvet's minor action binds a **Force 5 Spirit of Fire** (conjuring test = binding test = 1 service each = **2 total services / 2 SRM Missions**):
 
 * **Reagent Cost**: 10 drams (¥200) ($5\text{ hours}$ in lodge).
 * **Drain Soak**: 0 Drain Damage (resisted with 23d6 soak).
-* **Role**: High-threat combat, 5P Elemental Fire, Engulf, Energy Aura, and heavy Channeling augmentations.
+* **Role**: High-threat combat, 5P Elemental Fire, Engulf, Energy Aura.
 
 ---
 

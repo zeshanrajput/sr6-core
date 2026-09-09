@@ -255,6 +255,120 @@ TOOLS_DEFINITIONS: List[Dict[str, Any]] = [
             },
             "required": ["attacker_pool", "defender_pool", "base_dv"]
         }
+    },
+    {
+        "name": "sr6_query_db",
+        "description": "Executes a read-only SQL query against the centralized rules database (~/.sr6/rules_index.db). Returns matching rows and columns.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "sql": {
+                    "type": "string",
+                    "description": "SQL SELECT query to execute (e.g. 'SELECT name, cost, essence FROM ref_cyberware WHERE name LIKE \"%Cyberarm%\"')."
+                }
+            },
+            "required": ["sql"]
+        }
+    },
+    {
+        "name": "sr6_get_schema",
+        "description": "Inspects table schemas, column types, and sample rows in the rules database.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "table": {
+                    "type": "string",
+                    "description": "Optional table name to inspect (e.g. 'ref_cyberware', 'ref_weapons', 'ref_packs'). If omitted, lists all tables."
+                }
+            }
+        }
+    },
+    {
+        "name": "sr6_source_search",
+        "description": "Searches raw sourcebook chapters in converted_md/ using short book codes (6wc, bs, crb, hns, dc, fs, sw, cn, pp).",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "book": {
+                    "type": "string",
+                    "description": "Book acronym or code (e.g. '6wc', 'bs', 'crb', 'hns', 'dc')."
+                },
+                "query": {
+                    "type": "string",
+                    "description": "Text, heading, or item to search for."
+                },
+                "context_lines": {
+                    "type": "integer",
+                    "default": 12,
+                    "description": "Lines of surrounding context."
+                }
+            },
+            "required": ["book", "query"]
+        }
+    },
+    {
+        "name": "sr6_calculate_limb",
+        "description": "Calculates cyberlimb cost, essence, capacity, enhancements, and attribute adjustments.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "limb": {
+                    "type": "string",
+                    "default": "cyberarm",
+                    "description": "Limb type ('cyberarm', 'cyberleg', 'cybertorso', 'cyberskull')."
+                },
+                "synthetic": {
+                    "type": "boolean",
+                    "default": True,
+                    "description": "True for Synthetic (natural appearance), False for Obvious."
+                },
+                "grade": {
+                    "type": "string",
+                    "default": "standard",
+                    "description": "Grade ('standard', 'used', 'alphaware', 'betaware', 'deltaware')."
+                },
+                "adapsin": {
+                    "type": "boolean",
+                    "default": False,
+                    "description": "Apply Adapsin 10% Essence reduction post-grade."
+                },
+                "agi_enhancement": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Agility enhancement rating (0-4)."
+                },
+                "str_enhancement": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Strength enhancement rating (0-4)."
+                },
+                "armor_enhancement": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Armor enhancement rating (0-4)."
+                },
+                "bulk_mod": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Bulk modification rating (0-4, adds capacity)."
+                }
+            }
+        }
+    },
+    {
+        "name": "sr6_get_cheatsheet",
+        "description": "Retrieves authoritative tabletop rules cheatsheet for Matrix, Action Economy, Monads, or Combat.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "topic": {
+                    "type": "string",
+                    "enum": ["matrix", "actions", "monad", "combat"],
+                    "description": "Subsystem topic."
+                }
+            },
+            "required": ["topic"]
+        }
     }
 ]
 
@@ -558,6 +672,65 @@ def handle_resolve_combat_test(arguments: Dict[str, Any]) -> str:
     return res.format_markdown()
 
 
+def handle_query_db(arguments: Dict[str, Any]) -> str:
+    from sr6core.rules_db import execute_db_query, format_query_results
+    sql = arguments.get("sql", "").strip()
+    if not sql:
+        return "Error: sql parameter is required."
+    try:
+        cols, rows = execute_db_query(sql)
+        return format_query_results(cols, rows, fmt="markdown")
+    except Exception as e:
+        return f"Error executing SQL: {e}"
+
+
+def handle_get_schema(arguments: Dict[str, Any]) -> str:
+    from sr6core.rules_db import get_db_schema, format_db_schema
+    table = arguments.get("table")
+    try:
+        info = get_db_schema(table)
+        return format_db_schema(info, fmt="markdown")
+    except Exception as e:
+        return f"Error getting schema: {e}"
+
+
+def handle_source_search(arguments: Dict[str, Any]) -> str:
+    from sr6core.source_explorer import search_source_book, format_source_results
+    book = arguments.get("book", "")
+    query = arguments.get("query", "")
+    ctx = int(arguments.get("context_lines", 12))
+    if not book or not query:
+        return "Error: book and query parameters are required."
+    res = search_source_book(book, query, context_lines=ctx)
+    return format_source_results(res, fmt="markdown")
+
+
+def handle_calculate_limb(arguments: Dict[str, Any]) -> str:
+    from sr6core.calculator import calculate_cyberlimb, format_limb_calculation
+    calc = calculate_cyberlimb(
+        limb=arguments.get("limb", "cyberarm"),
+        synthetic=arguments.get("synthetic", True),
+        grade=arguments.get("grade", "standard"),
+        adapsin=arguments.get("adapsin", False),
+        agi_enhancement=int(arguments.get("agi_enhancement", 0)),
+        str_enhancement=int(arguments.get("str_enhancement", 0)),
+        armor_enhancement=int(arguments.get("armor_enhancement", 0)),
+        bulk_mod=int(arguments.get("bulk_mod", 0))
+    )
+    return format_limb_calculation(calc)
+
+
+def handle_get_cheatsheet(arguments: Dict[str, Any]) -> str:
+    from sr6core.cheatsheets import get_cheatsheet, format_cheatsheets_index
+    topic = arguments.get("topic", "")
+    if not topic:
+        return format_cheatsheets_index()
+    cs = get_cheatsheet(topic)
+    if cs:
+        return cs["content"]
+    return f"Error: Unknown topic '{topic}'. Available: matrix, actions, monad, combat."
+
+
 TOOL_HANDLERS = {
     "sr6_search_rules": handle_search_rules,
     "sr6_query_rag": handle_query_rag,
@@ -569,6 +742,11 @@ TOOL_HANDLERS = {
     "sr6_get_item_card": handle_get_item_card,
     "sr6_roll_dice": handle_roll_dice,
     "sr6_resolve_combat_test": handle_resolve_combat_test,
+    "sr6_query_db": handle_query_db,
+    "sr6_get_schema": handle_get_schema,
+    "sr6_source_search": handle_source_search,
+    "sr6_calculate_limb": handle_calculate_limb,
+    "sr6_get_cheatsheet": handle_get_cheatsheet,
 }
 
 

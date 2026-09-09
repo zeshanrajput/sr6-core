@@ -300,11 +300,36 @@ def get_item_card(category: Optional[str], item_input: Union[str, Dict[str, Any]
     if not raw_id:
         return {"id": "unknown", "name": "Unknown Item", "category": category or "general", "markdown": ""}
 
+    if category in ("pack", "packs"):
+        from sr6core.packs_catalog import get_pack, format_pack_card
+        pack = get_pack(local_name or raw_id, db_path=db_path)
+        if pack:
+            return {
+                "id": pack["id"],
+                "name": pack["name"],
+                "category": "pack",
+                "markdown": format_pack_card(pack),
+                "pack_data": pack
+            }
+
     # Search rules vault for narrative description
     rdb = RulesDB(db_path=db_path)
 
     canonical_oid, stat_row, resolved_cat = resolve_canonical_oid(category, raw_id, db_path=db_path)
     category = resolved_cat or category or "gear"
+
+    # Fallback to PACK lookup if not found in reference tables
+    if not stat_row:
+        from sr6core.packs_catalog import get_pack, format_pack_card
+        pack = get_pack(local_name or raw_id, db_path=db_path)
+        if pack:
+            return {
+                "id": pack["id"],
+                "name": pack["name"],
+                "category": "pack",
+                "markdown": format_pack_card(pack),
+                "pack_data": pack
+            }
     
     # Specific targeted queries based on category and clean names
     clean_search_name = re.sub(r"\s*\(.*?\)", "", local_name or raw_id).strip()

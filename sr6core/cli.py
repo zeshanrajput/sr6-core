@@ -245,6 +245,18 @@ def main():
     db_sub.add_parser("embed-vault", help="Precompute local 384-d dense vector embeddings for all SQLite vault rules into vec_rules / rule_embeddings")
     db_sub.add_parser("info", help="Display rules database status and CommLink6 dataset statistics")
 
+    # db query / sql subcommand
+    query_parser = db_sub.add_parser("query", aliases=["sql"], help="Execute a read-only SQL query against ~/.sr6/rules_index.db")
+    query_parser.add_argument("sql", type=str, help="SQL SELECT query to execute")
+    query_parser.add_argument("--json", action="store_true", help="Output results as JSON")
+    query_parser.add_argument("--csv", action="store_true", help="Output results as CSV")
+    query_parser.add_argument("--compact", action="store_true", help="Output as clean Markdown table")
+
+    # db schema subcommand
+    schema_parser = db_sub.add_parser("schema", help="Inspect database schema and column definitions")
+    schema_parser.add_argument("table", nargs="?", default=None, help="Table name to inspect (or omit to list all tables)")
+    schema_parser.add_argument("--compact", action="store_true", help="Output as clean Markdown table")
+
     # rag subcommand
     rag_parser = subparsers.add_parser("rag", help="Query or search rules using the RAG subsystem")
     rag_sub = rag_parser.add_subparsers(dest="subcommand", help="RAG action to perform")
@@ -267,6 +279,40 @@ def main():
     rag_get_parser = rag_sub.add_parser("get", help="Retrieve full rule markdown chunk by ID or topic directly from SQLite")
     rag_get_parser.add_argument("identifier", type=str, help="Rule ID (e.g. BS-005, HnS-0205) or Topic name")
     rag_get_parser.add_argument("--compact", action="store_true", help="Output clean Markdown without ASCII box art")
+
+    # source subcommand
+    source_parser = subparsers.add_parser("source", help="Search raw sourcebook text in converted_md/ using short book codes")
+    source_parser.add_argument("book", type=str, help="Book acronym or code (e.g. 6wc, bs, crb, hns, dc, fs, sw, cn, pp)")
+    source_parser.add_argument("query", type=str, help="Item name, heading, or keyword to search for")
+    source_parser.add_argument("--context", type=int, default=12, help="Lines of context before and after matches (default: 12)")
+    source_parser.add_argument("--json", action="store_true", help="Output results as JSON")
+    source_parser.add_argument("--compact", action="store_true", help="Output clean Markdown table/block")
+
+    # calc subcommand
+    calc_parser = subparsers.add_parser("calc", help="Cyberlimb and augmentation cost, capacity, and essence calculator")
+    calc_sub = calc_parser.add_subparsers(dest="subcommand", help="Calculation mode")
+
+    c_limb = calc_sub.add_parser("limb", help="Calculate cyberlimb capacity, enhancements, and final costs")
+    c_limb.add_argument("--limb", type=str, default="cyberarm", choices=["cyberarm", "arm", "cyberleg", "leg", "cybertorso", "torso", "cyberskull", "skull"], help="Limb type")
+    c_limb.add_argument("--obvious", action="store_true", help="Obvious cyberlimb (defaults to Synthetic)")
+    c_limb.add_argument("--grade", type=str, default="standard", choices=["standard", "used", "alphaware", "alpha", "betaware", "beta", "deltaware", "delta"], help="Cyberware grade")
+    c_limb.add_argument("--adapsin", action="store_true", help="Apply Adapsin 10% post-grade Essence reduction")
+    c_limb.add_argument("--agi", type=int, default=0, help="Agility enhancement rating (0-4)")
+    c_limb.add_argument("--str", type=int, default=0, help="Strength enhancement rating (0-4)")
+    c_limb.add_argument("--armor", type=int, default=0, help="Armor enhancement rating (0-4)")
+    c_limb.add_argument("--bulk", type=int, default=0, help="Bulk Modification rating (0-4, adds capacity)")
+
+    c_ware = calc_sub.add_parser("ware", help="Calculate general cyberware/bioware grade scaling and Adapsin interaction")
+    c_ware.add_argument("name", type=str, help="Augmentation name")
+    c_ware.add_argument("--cost", type=int, required=True, help="Base Nuyen cost")
+    c_ware.add_argument("--essence", type=float, required=True, help="Base Essence cost")
+    c_ware.add_argument("--grade", type=str, default="standard", choices=["standard", "used", "alphaware", "alpha", "betaware", "beta", "deltaware", "delta"], help="Augmentation grade")
+    c_ware.add_argument("--bioware", action="store_true", help="Item is Bioware (Adapsin discount is exempt)")
+    c_ware.add_argument("--adapsin", action="store_true", help="Apply Adapsin therapy discount if eligible")
+
+    # cheat subcommand
+    cheat_parser = subparsers.add_parser("cheat", help="Display tabletop rules cheatsheets (matrix, actions, monad, combat)")
+    cheat_parser.add_argument("topic", type=str, nargs="?", default=None, choices=["matrix", "actions", "monad", "combat"], help="Subsystem topic (or omit to list all available)")
 
     # plugin subcommand
     plugin_parser = subparsers.add_parser("plugin", help="Manage SR6 Antigravity Agent Plugin")
@@ -465,7 +511,7 @@ def main():
 
     elif args.command == "card":
         from sr6core.cards import get_item_card
-        known_cats = {"quality", "qualities", "spell", "spells", "complex_form", "complexform", "weapon", "weapons", "cyberware", "bioware", "vehicle", "drone", "gear", "program", "contact", "contacts", "echo", "meta_echo"}
+        known_cats = {"quality", "qualities", "spell", "spells", "complex_form", "complexform", "weapon", "weapons", "cyberware", "bioware", "vehicle", "drone", "gear", "program", "contact", "contacts", "echo", "meta_echo", "pack", "packs"}
         if len(args.target) == 1:
             cat, item_name = "auto", args.target[0]
         else:
@@ -560,6 +606,22 @@ def main():
                 for tbl, cnt in info["counts"].items():
                     print(f"  - {tbl:<20}: {cnt:,}")
             print()
+        elif args.subcommand in ("query", "sql"):
+            from sr6core.rules_db import execute_db_query, format_query_results
+            fmt = "json" if getattr(args, "json", False) else ("csv" if getattr(args, "csv", False) else ("compact" if getattr(args, "compact", False) else "table"))
+            try:
+                columns, rows = execute_db_query(args.sql)
+                print(format_query_results(columns, rows, fmt=fmt))
+            except Exception as e:
+                print(f"[Error] SQL query failed: {e}")
+        elif args.subcommand == "schema":
+            from sr6core.rules_db import get_db_schema, format_db_schema
+            fmt = "compact" if getattr(args, "compact", False) else "table"
+            try:
+                schema_info = get_db_schema(args.table)
+                print(format_db_schema(schema_info, fmt=fmt))
+            except Exception as e:
+                print(f"[Error] Schema lookup failed: {e}")
 
     elif args.command == "lint":
         report, err = analyze_prose(args.target)
@@ -873,6 +935,52 @@ def main():
     elif args.command == "serve":
         from sr6core.server import run_server
         run_server(port=args.port, host=args.host)
+
+    elif args.command == "source":
+        from sr6core.source_explorer import search_source_book, format_source_results
+        res = search_source_book(args.book, args.query, context_lines=args.context)
+        if getattr(args, "json", False):
+            import json
+            print(json.dumps(res, indent=2))
+        else:
+            fmt = "compact" if getattr(args, "compact", False) else "markdown"
+            print(format_source_results(res, fmt=fmt))
+
+    elif args.command == "calc":
+        from sr6core.calculator import calculate_cyberlimb, calculate_ware, format_limb_calculation, format_ware_calculation
+        if args.subcommand == "limb" or not args.subcommand:
+            calc = calculate_cyberlimb(
+                limb=args.limb,
+                synthetic=not getattr(args, "obvious", False),
+                grade=args.grade,
+                adapsin=args.adapsin,
+                agi_enhancement=args.agi,
+                str_enhancement=args.str,
+                armor_enhancement=args.armor,
+                bulk_mod=args.bulk
+            )
+            print(format_limb_calculation(calc))
+        elif args.subcommand == "ware":
+            calc = calculate_ware(
+                name=args.name,
+                base_cost=args.cost,
+                base_essence=args.essence,
+                grade=args.grade,
+                is_bioware=args.bioware,
+                adapsin=args.adapsin
+            )
+            print(format_ware_calculation(calc))
+
+    elif args.command == "cheat":
+        from sr6core.cheatsheets import get_cheatsheet, format_cheatsheets_index
+        if not args.topic:
+            print(format_cheatsheets_index())
+        else:
+            cs = get_cheatsheet(args.topic)
+            if cs:
+                print(cs["content"])
+            else:
+                print(f"[Error] Unknown cheatsheet topic '{args.topic}'. Available: matrix, actions, monad, combat")
 
 
 

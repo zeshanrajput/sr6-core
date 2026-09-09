@@ -896,3 +896,208 @@ class RulesDB:
         return dict(row) if row else None
 
 
+def execute_db_query(
+    sql: str, db_path: Optional[str] = None
+) -> Tuple[List[str], List[Tuple[Any, ...]]]:
+    """
+    Executes a read-only SQL query against the rules database (~/.sr6/rules_index.db).
+    Returns (columns, rows).
+    """
+    path = db_path or DEFAULT_DB_PATH
+    if not os.path.exists(path):
+        raise FileNotFoundError(f"Database not found at '{path}'")
+
+    trimmed = sql.strip().rstrip(";")
+    if not trimmed:
+        return [], []
+
+    first_word = trimmed.split()[0].upper() if trimmed.split() else ""
+    if first_word not in ("SELECT", "PRAGMA", "EXPLAIN", "WITH"):
+        raise ValueError(
+            f"Only read-only queries (SELECT, PRAGMA, WITH, EXPLAIN) are permitted. Found: '{first_word}'"
+        )
+
+    upper_sql = trimmed.upper()
+    destructive = ["DROP ", "DELETE ", "INSERT ", "UPDATE ", "ALTER ", "ATTACH ", "DETACH ", "REPLACE ", "TRUNCATE "]
+    for d in destructive:
+        if d in upper_sql:
+            raise ValueError(f"Destructive SQL operations are prohibited ({d.strip()}).")
+
+    conn = sqlite3.connect(path)
+    try:
+        conn.execute("PRAGMA query_only = ON;")
+        cursor = conn.cursor()
+        cursor.execute(trimmed)
+        columns = [desc[0] for desc in cursor.description] if cursor.description else []
+        rows = cursor.fetchall()
+        return columns, rows
+    finally:
+        conn.close()
+
+
+def get_db_schema(
+    table_name: Optional[str] = None, db_path: Optional[str] = None
+) -> Dict[str, Any]:
+    """
+    Returns schema info for a specific table, or a list of all tables with row counts if table_name is None.
+    """
+    path = db_path or DEFAULT_DB_PATH
+    if not os.path.exists(path):
+        raise FileNotFoundError(f"Database not found at '{path}'")
+
+    conn = sqlite3.connect(path)
+    try:
+        cursor = conn.cursor()
+        if table_name:
+            table_row = cursor.execute(
+                "SELECT name FROM sqlite_master WHERE type IN ('table', 'view') AND lower(name) = ?",
+                (table_name.lower().strip(),)
+            ).fetchone()
+            if not table_row:
+                raise ValueError(f"Table or view '{table_name}' does not exist in the database.")
+            actual_name = table_row[0]
+            cols = cursor.execute(f"PRAGMA table_info('{actual_name}')").fetchall()
+            row_count = cursor.execute(f"SELECT count(*) FROM '{actual_name}'").fetchone()[0]
+            sample_row = cursor.execute(f"SELECT * FROM '{actual_name}' LIMIT 1").fetchone()
+            sample_dict = dict(zip([c[1] for c in cols], sample_row)) if sample_row else {}
+            return {
+                "table": actual_name,
+                "row_count": row_count,
+                "columns": [
+                    {
+                        "cid": c[0],
+                        "name": c[1],
+                        "type": c[2],
+                        "notnull": bool(c[3]),
+                        "dflt_value": c[4],
+                        "pk": bool(c[5])
+                    }
+                    for c in cols
+                ],
+                "sample": sample_dict
+            }
+        else:
+            tables = cursor.execute(
+                """SELECT name FROM sqlite_master 
+                   WHERE type IN ('table', 'view') 
+                     AND name NOT LIKE 'sqlite_%' 
+                     AND name NOT LIKE 'vec_%' 
+                     AND name NOT LIKE '%_data' 
+                     AND name NOT LIKE '%_idx' 
+                     AND name NOT LIKE '%_content' 
+                     AND name NOT LIKE '%_docsize' 
+                     AND name NOT LIKE '%_config' 
+                   ORDER BY name"""
+            ).fetchall()
+            table_list = []
+            for (tname,) in tables:
+                try:
+                    cnt = cursor.execute(f"SELECT count(*) FROM '{tname}'").fetchone()[0]
+                except Exception:
+                    cnt = 0
+                cols = cursor.execute(f"PRAGMA table_info('{tname}')").fetchall()
+                col_names = [c[1] for c in cols]
+                table_list.append({
+                    "name": tname,
+                    "row_count": cnt,
+                    "column_count": len(cols),
+                    "columns": col_names
+                })
+            return {"tables": table_list}
+    finally:
+        conn.close()
+
+
+def format_query_results(
+    columns: List[str], rows: List[Tuple[Any, ...]], fmt: str = "table"
+) -> str:
+    """
+    Formats SQL query results as a table, clean markdown, json, or csv.
+    """
+    if fmt == "json":
+        import json
+        records = [dict(zip(columns, row)) for row in rows]
+        return json.dumps(records, indent=2, default=str)
+
+    if fmt == "csv":
+        import io
+        import csv
+        buf = io.StringIO()
+        writer = csv.writer(buf)
+        writer.writerow(columns)
+        writer.writerows(rows)
+        return buf.getvalue().rstrip()
+
+    if not columns:
+        return "(0 results / No columns returned)"
+
+    # Markdown format (used for --compact or when plain text table is needed)
+    if fmt in ("markdown", "compact"):
+        lines = []
+        lines.append("| " + " | ".join(columns) + " |")
+        lines.append("| " + " | ".join(["---"] * len(columns)) + " |")
+        for row in rows:
+            clean_cells = [str(val).replace("\n", " ").replace("|", "\\|") if val is not None else "" for val in row]
+            lines.append("| " + " | ".join(clean_cells) + " |")
+        lines.append(f"\n*({len(rows)} rows returned)*")
+        return "\n".join(lines)
+
+    # Rich table format
+    try:
+        from rich.table import Table
+        from rich.console import Console
+        import io
+
+        table = Table(show_header=True, header_style="bold cyan", border_style="dim")
+        for col in columns:
+            table.add_column(str(col))
+        for row in rows:
+            table.add_row(*[str(val) if val is not None else "" for val in row])
+        console = Console(file=io.StringIO(), color_system=None, width=120)
+        console.print(table)
+        console.print(f"({len(rows)} rows returned)")
+        return console.file.getvalue().rstrip()
+    except Exception:
+        return format_query_results(columns, rows, fmt="markdown")
+
+
+def format_db_schema(schema_info: Dict[str, Any], fmt: str = "table") -> str:
+    """
+    Formats schema info for display.
+    """
+    if "tables" in schema_info:
+        cols = ["Table Name", "Row Count", "Columns", "Sample Columns"]
+        rows = []
+        for t in schema_info["tables"]:
+            rows.append((
+                t["name"],
+                f"{t['row_count']:,}",
+                t["column_count"],
+                ", ".join(t["columns"][:6]) + ("..." if len(t["columns"]) > 6 else "")
+            ))
+        header = "=== SQLite Rules Database Tables (~/.sr6/rules_index.db) ===\n\n"
+        return header + format_query_results(cols, rows, fmt=fmt)
+    else:
+        tname = schema_info["table"]
+        cnt = schema_info["row_count"]
+        cols = ["CID", "Column Name", "Type", "Not Null", "PK", "Default"]
+        rows = []
+        for c in schema_info["columns"]:
+            rows.append((
+                c["cid"],
+                c["name"],
+                c["type"],
+                "YES" if c["notnull"] else "NO",
+                "PRIMARY KEY" if c["pk"] else "",
+                str(c["dflt_value"]) if c["dflt_value"] is not None else ""
+            ))
+        table_rendered = format_query_results(cols, rows, fmt=fmt)
+        out = [f"=== Schema for Table: {tname} ({cnt:,} rows) ===\n", table_rendered]
+        if schema_info.get("sample"):
+            import json
+            out.append("\n**Sample Row:**")
+            out.append("```json\n" + json.dumps(schema_info["sample"], indent=2, default=str) + "\n```")
+        return "\n".join(out)
+
+
+

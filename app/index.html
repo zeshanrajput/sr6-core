@@ -3920,9 +3920,9 @@
         "data_processing": 4,
         "firewall": 8
       },
-      "matrix_defense": 13,
-      "matrix_defense_hits": 3,
-      "matrix_defense_breakdown": "WIL 5 + FW 8 = 13d6",
+      "matrix_defense": 21,
+      "matrix_defense_hits": 5,
+      "matrix_defense_breakdown": "WIL 5 + FW 8 + Full Defense FW 8 = 21d6",
       "matrix_initiative": "7 + 3D6 (AR) / 7 + 3D6 (Hot-Sim VR)"
     },
     "initiative": {
@@ -6231,11 +6231,11 @@
       "mortype": "",
       "gender": "Diverse",
       "age": "~",
-      "nuyen": 5000,
-      "lifetime_nuyen": 5000,
-      "karma": 1,
-      "karma_avail": 1,
-      "lifetime_karma": 1,
+      "nuyen": 570,
+      "lifetime_nuyen": 570,
+      "karma": 3,
+      "karma_avail": 3,
+      "lifetime_karma": 3,
       "nanite_volume": 6,
       "is_ai": false,
       "is_monad": true,
@@ -6516,15 +6516,15 @@
     },
     "matrix": {
       "asdf": {
-        "attack": 2,
-        "sleaze": 6,
-        "data_processing": 8,
-        "firewall": 9
+        "attack": 3,
+        "sleaze": 7,
+        "data_processing": 6,
+        "firewall": 12
       },
-      "matrix_defense": 16,
-      "matrix_defense_hits": 4,
-      "matrix_defense_breakdown": "WIL 7 + FW 9 = 16d6",
-      "matrix_initiative": "9 + 3D6 (AR) / 13 + 3D6 (Hot-Sim VR)"
+      "matrix_defense": 32,
+      "matrix_defense_hits": 8,
+      "matrix_defense_breakdown": "WIL 8 + FW 12 + Full Defense FW 12 = 32d6",
+      "matrix_initiative": "9 + 3D6 (AR) / 11 + 3D6 (Hot-Sim VR)"
     },
     "initiative": {
       "default_mode": "physical",
@@ -6782,39 +6782,6 @@
     },
     "weapons": [
       {
-        "name": "FN P93 Praetor",
-        "is_melee": false,
-        "category": "submachine_gun",
-        "damage": "5P",
-        "base_damage": "5P",
-        "attack_rating": [
-          14,
-          13,
-          7,
-          0,
-          0
-        ],
-        "attack_rating_str": "14 / 13 / 7 / — / —",
-        "base_attack_rating_str": "12 / 11 / 7 / — / —",
-        "modes": [
-          "SA",
-          "BF",
-          "FA"
-        ],
-        "modes_str": "SA/BF/FA",
-        "base_modes_str": "SA/BF/FA",
-        "ammo": "50(c)",
-        "base_ammo": "50(c)",
-        "loaded_ammo": null,
-        "accessories": [
-          "Smartlink",
-          "Suppressor",
-          "Shock Pad"
-        ],
-        "notes": "Internal Smartgun (+2 AR, +2 Attack Dice), Suppressor, Shock Pad (-1 burst penalty). 50(c) clip.",
-        "doc_link": "chapters/rules_and_downtime.html#weapon-attack-table"
-      },
-      {
         "name": "Colt Manhunter",
         "is_melee": false,
         "category": "heavy_pistol",
@@ -6847,20 +6814,20 @@
         "doc_link": "chapters/rules_and_downtime.html#weapon-attack-table"
       },
       {
-        "name": "Monofilament Whip",
+        "name": "Unarmed Strike",
         "is_melee": true,
         "category": "close_combat",
-        "damage": "4P",
-        "base_damage": "4P",
+        "damage": "5P",
+        "base_damage": "5P",
         "attack_rating": [
-          14,
+          13,
           0,
           0,
           0,
           0
         ],
-        "attack_rating_str": "14 / — / — / — / —",
-        "base_attack_rating_str": "14 / — / — / — / —",
+        "attack_rating_str": "13 / — / — / — / —",
+        "base_attack_rating_str": "13 / — / — / — / —",
         "modes": [],
         "modes_str": "Melee",
         "base_modes_str": "Melee",
@@ -6868,36 +6835,7 @@
         "base_ammo": "—",
         "loaded_ammo": null,
         "accessories": [],
-        "notes": "Retractable whip from fingertip/skin pocket, Wireless ON (+2 AR). Concealed housing.",
-        "doc_link": "chapters/rules_and_downtime.html#weapon-attack-table"
-      },
-      {
-        "name": "Narcoject Hornet",
-        "is_melee": false,
-        "category": "light_pistol",
-        "damage": "2S",
-        "base_damage": "2S",
-        "attack_rating": [
-          15,
-          12,
-          0,
-          0,
-          0
-        ],
-        "attack_rating_str": "15 / 12 / — / — / —",
-        "base_attack_rating_str": "13 / 10 / — / — / —",
-        "modes": [
-          "SA"
-        ],
-        "modes_str": "SA",
-        "base_modes_str": "SA",
-        "ammo": "12(c)",
-        "base_ammo": "12(c)",
-        "loaded_ammo": null,
-        "accessories": [
-          "Smartlink"
-        ],
-        "notes": "External Smartgun (+2 AR, +2 Attack Dice). Loaded with Narcoject tranquilizer toxin (12 darts).",
+        "notes": "Bone Density Augmentation R4 (4P base, +3 AR) + Neuromuscular Amplifier (+1 DV) -> 5P Physical DV.",
         "doc_link": "chapters/rules_and_downtime.html#weapon-attack-table"
       }
     ],
@@ -6925,10 +6863,10 @@
         "doc_link": "rules/rules_and_downtime.html#monad-nanite-boosts"
       },
       {
-        "name": "Mental Attribute Boost",
-        "action": "Minor Action",
-        "effect": "Minor Action: roll NV test (6 dice). Each hit can increase any Mental Attribute (Logic, Intuition, Willpower, Charisma) by +1 (up to NV 6 or +4 max boost) for hits in combat rounds.",
-        "notes": "Minor Action: roll NV test (6 dice). Each hit can increase any Mental Attribute (Logic, Intuition, Willpower, Charisma) by +1 (up to NV 6 or +4 max boost) for hits in combat rounds.",
+        "name": "Resculpt",
+        "action": "Extended Minor Actions",
+        "effect": "Extended Intuition + NV (16, 1 combat round) test to alter facial appearance, skin tone, and voice; grants +2 dice pool bonus on Disguise tests.",
+        "notes": "Extended Intuition + NV (16, 1 combat round) test to alter facial appearance, skin tone, and voice; grants +2 dice pool bonus on Disguise tests.",
         "doc_link": "rules/rules_and_downtime.html#monad-nanite-boosts"
       },
       {
@@ -6964,33 +6902,33 @@
       {
         "name": "Left Synthetic Cyberarm",
         "rating": null,
-        "grade": "standard",
+        "grade": "used",
         "essence": 0,
-        "notes": "Base AGI 2 / STR 2 + Agility [+3] mod (3 Cap used). With Redliner operates at AGI 7 / STR 4 (AGI 9 / STR 6 Overdriven). 5 Capacity Open.",
+        "notes": "Used Grade (0.99 Ess w/ Adapsin). Agility +3 Enhancement (3 Cap), Built-in Utility Kit (2 Cap) -> 5/8 Cap used (3 Open). Operates at AGI 7 / STR 4 (AGI 9 / STR 6 Overdriven).",
         "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
       },
       {
         "name": "Right Synthetic Cyberarm",
         "rating": null,
-        "grade": "standard",
+        "grade": "used",
         "essence": 0,
-        "notes": "Base AGI 2 / STR 2 + Agility [+3] mod (3 Cap used). With Redliner operates at AGI 7 / STR 4 (AGI 9 / STR 6 Overdriven). 5 Capacity Open.",
+        "notes": "Used Grade (0.99 Ess w/ Adapsin). Agility +3 Enhancement (3 Cap), Built-in Savior Medkit R6 (4 Cap) -> 7/8 Cap used (1 Open). Operates at AGI 7 / STR 4 (AGI 9 / STR 6 Overdriven).",
         "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
       },
       {
         "name": "Left Synthetic Cyberleg",
         "rating": null,
-        "grade": "standard",
+        "grade": "used",
         "essence": 0,
-        "notes": "Base AGI 2 / STR 2 + Agility [+3] mod (3 Cap), Retractable Inline Skates (2 Cap), Hydraulic Jacks R2 (2 Cap), Hidden Slide (3 Cap) -> 10/10 Capacity Full. Operates at AGI 7 / STR 4 (9/6 Overdriven).",
+        "notes": "Used Grade (0.99 Ess w/ Adapsin). Bulk Mod R4 (+4 Cap -> 14 Cap total). Agility +3 Enhancement (3 Cap), Nanohive R3 (6 Cap), Retractable Skates (2 Cap), Gecko Tips (1 Cap), Hydraulic Jacks R2 (2 Cap) -> 14/14 Cap Full. Operates at AGI 7 / STR 4 (9/6 Overdriven).",
         "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
       },
       {
         "name": "Right Synthetic Cyberleg",
         "rating": null,
-        "grade": "standard",
+        "grade": "used",
         "essence": 0,
-        "notes": "Base AGI 2 / STR 2 + Agility [+3] mod (3 Cap), Retractable Inline Skates (2 Cap), Hydraulic Jacks R2 (2 Cap), Built-in Utility Kit (2 Cap), Gecko Tips (1 Cap) -> 10/10 Capacity Full. Operates at AGI 7 / STR 4 (9/6 Overdriven).",
+        "notes": "Used Grade (0.99 Ess w/ Adapsin). Bulk Mod R4 (+4 Cap -> 14 Cap total). Agility +3 Enhancement (3 Cap), Nanohive R3 (6 Cap), Retractable Skates (2 Cap), Gecko Tips (1 Cap), Hydraulic Jacks R2 (2 Cap) -> 14/14 Cap Full. Operates at AGI 7 / STR 4 (9/6 Overdriven).",
         "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
       },
       {
@@ -6998,7 +6936,7 @@
         "rating": 4,
         "grade": "betaware",
         "essence": 0,
-        "notes": "+4 Body for damage resistance soak (9 Soak unarmored), 4P Unarmed DV, +3 Attack Rating (SR6 Core p. 286 / Body Shop p. 101; 0.84 Ess, 30,000Â¥, Avail 6L).",
+        "notes": "0.84 Ess, 30,000¥. +4 Body for damage resistance soak (9 Soak unarmored), 4P Unarmed DV, +3 AR.",
         "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
       },
       {
@@ -7006,7 +6944,7 @@
         "rating": 6,
         "grade": "used",
         "essence": 0,
-        "notes": "Base 120,000Â¥ / 0.60 Ess -> Used 60,000Â¥ / 0.66 Ess. Wireless Bonus: Max total rating limit = R6 x 4 = 24. Edge can be used on associated tests.",
+        "notes": "0.59 Ess w/ Adapsin, 60,000¥. Rating 6 x 4 = 24 wireless soft capacity. Edge can be used on associated tests.",
         "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
       },
       {
@@ -7014,15 +6952,23 @@
         "rating": 6,
         "grade": "used",
         "essence": 0,
-        "notes": "Base 120,000Â¥ / 0.60 Ess -> Used 60,000Â¥ / 0.66 Ess. Wireless Bonus: Memory cache expanded, grants +1 dice pool modifier to all skills used through skillwires.",
+        "notes": "0.59 Ess w/ Adapsin, 60,000¥. +1 dice pool modifier to all skills routed through skillwires.",
         "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
       },
       {
         "name": "Math SPU",
         "rating": null,
+        "grade": "used",
+        "essence": 0,
+        "notes": "0.25 Ess w/ Adapsin, 12,500¥. Lowers Edge boost cost by 1 on Logic skills (-2 when overdriven with +1 wild die); 0 Bad Luck penalty.",
+        "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+      },
+      {
+        "name": "Adapsin Therapy",
+        "rating": null,
         "grade": "standard",
         "essence": 0,
-        "notes": "-1 Edge cost on technical/Logic tests (-2 when overdriven with +1 wild die and +1 Edge gained via Maximum Overdrive); Body Shop p. 5; 0 Bad Luck penalty.",
+        "notes": "0.10 Ess, 30,000¥. Reduces Essence cost of all cyberware by 10% (round down) post-grade calculations.",
         "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
       }
     ],
@@ -7292,10 +7238,10 @@
           "doc_link": "rules/rules_and_downtime.html#monad-nanite-boosts"
         },
         {
-          "name": "Mental Attribute Boost",
-          "action": "Minor Action",
-          "effect": "Minor Action: roll NV test (6 dice). Each hit can increase any Mental Attribute (Logic, Intuition, Willpower, Charisma) by +1 (up to NV 6 or +4 max boost) for hits in combat rounds.",
-          "notes": "Minor Action: roll NV test (6 dice). Each hit can increase any Mental Attribute (Logic, Intuition, Willpower, Charisma) by +1 (up to NV 6 or +4 max boost) for hits in combat rounds.",
+          "name": "Resculpt",
+          "action": "Extended Minor Actions",
+          "effect": "Extended Intuition + NV (16, 1 combat round) test to alter facial appearance, skin tone, and voice; grants +2 dice pool bonus on Disguise tests.",
+          "notes": "Extended Intuition + NV (16, 1 combat round) test to alter facial appearance, skin tone, and voice; grants +2 dice pool bonus on Disguise tests.",
           "doc_link": "rules/rules_and_downtime.html#monad-nanite-boosts"
         },
         {
@@ -7331,33 +7277,33 @@
         {
           "name": "Left Synthetic Cyberarm",
           "rating": null,
-          "grade": "standard",
+          "grade": "used",
           "essence": 0,
-          "notes": "Base AGI 2 / STR 2 + Agility [+3] mod (3 Cap used). With Redliner operates at AGI 7 / STR 4 (AGI 9 / STR 6 Overdriven). 5 Capacity Open.",
+          "notes": "Used Grade (0.99 Ess w/ Adapsin). Agility +3 Enhancement (3 Cap), Built-in Utility Kit (2 Cap) -> 5/8 Cap used (3 Open). Operates at AGI 7 / STR 4 (AGI 9 / STR 6 Overdriven).",
           "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
         },
         {
           "name": "Right Synthetic Cyberarm",
           "rating": null,
-          "grade": "standard",
+          "grade": "used",
           "essence": 0,
-          "notes": "Base AGI 2 / STR 2 + Agility [+3] mod (3 Cap used). With Redliner operates at AGI 7 / STR 4 (AGI 9 / STR 6 Overdriven). 5 Capacity Open.",
+          "notes": "Used Grade (0.99 Ess w/ Adapsin). Agility +3 Enhancement (3 Cap), Built-in Savior Medkit R6 (4 Cap) -> 7/8 Cap used (1 Open). Operates at AGI 7 / STR 4 (AGI 9 / STR 6 Overdriven).",
           "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
         },
         {
           "name": "Left Synthetic Cyberleg",
           "rating": null,
-          "grade": "standard",
+          "grade": "used",
           "essence": 0,
-          "notes": "Base AGI 2 / STR 2 + Agility [+3] mod (3 Cap), Retractable Inline Skates (2 Cap), Hydraulic Jacks R2 (2 Cap), Hidden Slide (3 Cap) -> 10/10 Capacity Full. Operates at AGI 7 / STR 4 (9/6 Overdriven).",
+          "notes": "Used Grade (0.99 Ess w/ Adapsin). Bulk Mod R4 (+4 Cap -> 14 Cap total). Agility +3 Enhancement (3 Cap), Nanohive R3 (6 Cap), Retractable Skates (2 Cap), Gecko Tips (1 Cap), Hydraulic Jacks R2 (2 Cap) -> 14/14 Cap Full. Operates at AGI 7 / STR 4 (9/6 Overdriven).",
           "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
         },
         {
           "name": "Right Synthetic Cyberleg",
           "rating": null,
-          "grade": "standard",
+          "grade": "used",
           "essence": 0,
-          "notes": "Base AGI 2 / STR 2 + Agility [+3] mod (3 Cap), Retractable Inline Skates (2 Cap), Hydraulic Jacks R2 (2 Cap), Built-in Utility Kit (2 Cap), Gecko Tips (1 Cap) -> 10/10 Capacity Full. Operates at AGI 7 / STR 4 (9/6 Overdriven).",
+          "notes": "Used Grade (0.99 Ess w/ Adapsin). Bulk Mod R4 (+4 Cap -> 14 Cap total). Agility +3 Enhancement (3 Cap), Nanohive R3 (6 Cap), Retractable Skates (2 Cap), Gecko Tips (1 Cap), Hydraulic Jacks R2 (2 Cap) -> 14/14 Cap Full. Operates at AGI 7 / STR 4 (9/6 Overdriven).",
           "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
         },
         {
@@ -7365,7 +7311,7 @@
           "rating": 4,
           "grade": "betaware",
           "essence": 0,
-          "notes": "+4 Body for damage resistance soak (9 Soak unarmored), 4P Unarmed DV, +3 Attack Rating (SR6 Core p. 286 / Body Shop p. 101; 0.84 Ess, 30,000Â¥, Avail 6L).",
+          "notes": "0.84 Ess, 30,000¥. +4 Body for damage resistance soak (9 Soak unarmored), 4P Unarmed DV, +3 AR.",
           "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
         },
         {
@@ -7373,7 +7319,7 @@
           "rating": 6,
           "grade": "used",
           "essence": 0,
-          "notes": "Base 120,000Â¥ / 0.60 Ess -> Used 60,000Â¥ / 0.66 Ess. Wireless Bonus: Max total rating limit = R6 x 4 = 24. Edge can be used on associated tests.",
+          "notes": "0.59 Ess w/ Adapsin, 60,000¥. Rating 6 x 4 = 24 wireless soft capacity. Edge can be used on associated tests.",
           "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
         },
         {
@@ -7381,15 +7327,23 @@
           "rating": 6,
           "grade": "used",
           "essence": 0,
-          "notes": "Base 120,000Â¥ / 0.60 Ess -> Used 60,000Â¥ / 0.66 Ess. Wireless Bonus: Memory cache expanded, grants +1 dice pool modifier to all skills used through skillwires.",
+          "notes": "0.59 Ess w/ Adapsin, 60,000¥. +1 dice pool modifier to all skills routed through skillwires.",
           "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
         },
         {
           "name": "Math SPU",
           "rating": null,
+          "grade": "used",
+          "essence": 0,
+          "notes": "0.25 Ess w/ Adapsin, 12,500¥. Lowers Edge boost cost by 1 on Logic skills (-2 when overdriven with +1 wild die); 0 Bad Luck penalty.",
+          "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+        },
+        {
+          "name": "Adapsin Therapy",
+          "rating": null,
           "grade": "standard",
           "essence": 0,
-          "notes": "-1 Edge cost on technical/Logic tests (-2 when overdriven with +1 wild die and +1 Edge gained via Maximum Overdrive); Body Shop p. 5; 0 Bad Luck penalty.",
+          "notes": "0.10 Ess, 30,000¥. Reduces Essence cost of all cyberware by 10% (round down) post-grade calculations.",
           "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
         }
       ],

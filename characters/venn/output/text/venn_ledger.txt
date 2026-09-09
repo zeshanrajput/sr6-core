@@ -1,7 +1,7 @@
 ============================================================================
  FINANCIAL & ADVANCEMENT LEDGER: VENN
 ============================================================================
- Available Nuyen Balance : 5,000¥
- Available Karma Pool    : 1 Karma
- Lifetime Career Karma   : 1 Karma
+ Available Nuyen Balance : 570¥
+ Available Karma Pool    : 3 Karma
+ Lifetime Career Karma   : 3 Karma
 ============================================================================

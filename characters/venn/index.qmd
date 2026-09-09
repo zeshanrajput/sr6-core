@@ -15,12 +15,12 @@ log_totals = get_log_totals(["core/character_log.qmd", "core/character_purchases
 ::: {.g-col-6 .cyber-card}
 ### [CHARACTER_DOSSIER]
 
-* **VTT Designation:** Venn
+* **Callsign:** Venn
 * **Physical Driver:** Nathan Turrent
 * **Resonant AI Engine:** Veronica
 * **Entity Classification:** Monad (Consensual Human / AI Dual Consciousness)
 * **Neural Essence:** 0.1 *(Used Neural Chrome)*
-* **System Status:** ONLINE // CO-CONSCIOUS
+* **System Status:** OFFLINE (Pending Next SRM Season)
 :::
 
 ::: {.g-col-6 .cyber-card}
@@ -38,13 +38,13 @@ log_totals = get_log_totals(["core/character_log.qmd", "core/character_purchases
 
 ::: {.cyber-card}
 ### [CORE_SUMMARY & CREATIVE VISION]
-Born in 2065 on the salt marshes of St. Simon's Island, Georgia, Nathan Turrent was raised alongside Veronica—an emergent digital intelligence salvaged from the Renraku Arcology Shutdown. When heavy used neural chrome reduced Nathan's Essence to 0.1, triggering severe cyberpsychosis, Veronica voluntarily bonded with his nervous system to form **Venn**: a stable, sovereign Monad entity.
+Born in 2065 on the salt marshes of St. Simon's Island, Georgia, Nathan Turrent was raised alongside Veronica—an emergent digital intelligence salvaged from the Renraku Arcology Shutdown. When heavy used neural chrome reduced Nathan's Essence he developed severe cyberpsychosis, so Veronica voluntarily bonded with his nervous system to form **Venn**: a stable, sovereign Monad entity.
 
 This portfolio explores the tactile reality of dual-consciousness and cybernetic integration:
 
 * **The Shared Sensory Reservoir:** Overlapping meatspace telemetry and Matrix resonance without cartoon transformations or diagnostic jargon.
 * **Mutual Neural Grounding:** Veronica anchoring Nathan's fracturing human soul when the chrome goes cold, while Nathan provides a warm biological home in defiance of corporate extraction teams.
-* **Grassroots Stewardship (Hooder):** Operating out of an off-grid coastal boathouse, funding perimeter free clinics, and defending sovereign intelligences and refugees across the CAS and Atlanta shadows.
+* **Retaining Humanity at Low Essence:** Exploring the ethical and philosophical implications of extreme cyberware implantation and low essence.  
 :::
 
 ---
@@ -55,7 +55,7 @@ Use the sidebar or the quick links below to traverse this dossier:
 
 ### 1. Core Character Profile
 * **[Identity Core](chapters/identity_core.qmd)**: Narrative origin, Monad co-existence schema, and pronoun discipline.
-* **[Character Build (Point Buy)](core/character_build.qmd)**: Official 100 Karma point buy character creation mechanics.
+* **[Character Build (Point Buy)](core/character_build.qmd)**: Official point buy character creation mechanics.
 * **[Character Dossier & Modular Sheets](chapters/character_sheet.qmd)**: Full character sheet and modular exports (Base, Combat, Inventory, Augmentations, Contacts) plus PDF and VTT downloads.
 * **[Session Chronicles](core/character_log.qmd)**: Campaign run history, GMs, nuyen payouts, and Karma balances.
 * **[Equipment & Advancement Ledger](core/character_purchases.qmd)**: Itemized neural chrome, streamed activesofts, armor, SINs, and lifestyle expenses.
