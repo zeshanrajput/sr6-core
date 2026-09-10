@@ -17,6 +17,8 @@ from sr6core.mcp import TOOLS_DEFINITIONS, TOOL_HANDLERS
 
 def test_source_explorer_book_resolution():
     p, name = resolve_book_file("6wc")
+    if p is None:
+        pytest.skip("converted_md directory not present in test environment (skipping proprietary sourcebook resolution)")
     assert p is not None
     assert "Sixth_World_Companion" in name
 
@@ -30,6 +32,9 @@ def test_source_explorer_book_resolution():
 
 
 def test_source_explorer_search():
+    p, _ = resolve_book_file("6wc")
+    if p is None:
+        pytest.skip("converted_md directory not present in test environment (skipping proprietary sourcebook search)")
     res = search_source_book("6wc", "Cyberarm: Excellence", context_lines=4)
     assert "error" not in res
     assert res["total_matches"] > 0
@@ -37,7 +42,52 @@ def test_source_explorer_search():
     assert "Cyberarm: Excellence" in formatted
 
 
+def test_source_explorer_search_mock(tmp_path, monkeypatch):
+    mock_book = tmp_path / "CAT28005_Sixth_World_Companion.md"
+    mock_book.write_text(
+        "# Chapter 3: Character Generation\n\n"
+        "### Cyberarm: Excellence\n"
+        "Cost: 60,000¥ | Essence: 1.0\n"
+        "A standard cyberarm pack configured for top-tier agility.\n",
+        encoding="utf-8"
+    )
+    monkeypatch.setattr("sr6core.source_explorer.get_converted_md_dir", lambda: tmp_path)
+    res = search_source_book("6wc", "Cyberarm: Excellence", context_lines=2)
+    assert "error" not in res
+    assert res["total_matches"] >= 1
+    assert "Excellence" in res["matches"][0]["snippet"]
+
+
+def test_packs_catalog_parse_mock(tmp_path):
+    mock_file = tmp_path / "6wc_sample.md"
+    mock_file.write_text(
+        "## Cyberarm: Excellence\n"
+        "(60,000 nuyen)\n"
+        "Essence Cost: 1.0\n"
+        "Contents: Full Cyberarm, Agility Enhancement 4\n"
+        "Alternate grade costs: used 30,000 nuyen/1.1 Essence, alpha 72,000 nuyen/0.8 Essence\n",
+        encoding="utf-8"
+    )
+    packs = parse_6wc_packs(mock_file)
+    assert len(packs) >= 1
+    p = packs[0]
+    assert "Excellence" in p["name"]
+    assert p["cost"] == 60000
+    assert p["essence"] == 1.0
+
+
 def test_packs_catalog_parse_and_get():
+    p, _ = resolve_book_file("6wc")
+    if p is None:
+        # Verify fallback pack in ref_packs table is accessible without sourcebooks
+        pack = get_pack("Cyberarm: Excellence")
+        assert pack is not None
+        assert pack["cost"] == 60000
+        card_md = format_pack_card(pack)
+        assert "[PACK]" in card_md
+        assert "60,000¥" in card_md
+        pytest.skip("converted_md directory not present; tested fallback pack only")
+
     packs = parse_6wc_packs()
     assert len(packs) > 10
     names = [p["name"] for p in packs]

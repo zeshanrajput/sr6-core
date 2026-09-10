@@ -186,6 +186,19 @@ def _migration_001_core_rules(conn: sqlite3.Connection):
             source TEXT,
             raw_xml TEXT,
             modifiers_json TEXT
+        """,
+        "ref_packs": """
+            id TEXT PRIMARY KEY,
+            name TEXT NOT NULL,
+            category TEXT NOT NULL,
+            cost INTEGER NOT NULL,
+            essence REAL,
+            description TEXT,
+            contents TEXT,
+            alternate_grades_json TEXT,
+            raw_text TEXT,
+            source TEXT NOT NULL,
+            page TEXT
         """
     }
 
@@ -196,6 +209,9 @@ def _migration_001_core_rules(conn: sqlite3.Connection):
                 conn.execute(f"ALTER TABLE {tbl_name} ADD COLUMN modifiers_json TEXT")
             except Exception:
                 pass
+
+    conn.execute("CREATE INDEX IF NOT EXISTS idx_ref_packs_name ON ref_packs(name)")
+    conn.execute("CREATE INDEX IF NOT EXISTS idx_ref_packs_category ON ref_packs(category)")
 
     # Ensure v_cyberware_grades view exists
     try:
@@ -315,6 +331,14 @@ def _migration_001_core_rules(conn: sqlite3.Connection):
                  '<item id="cybereyes"><usage mode="IMPLANTED" value="0.3"/><attrdef id="PRICE" table="6000"/></item>',
                  '[]')
             )
+            conn.execute(
+                """INSERT OR REPLACE INTO ref_cyberware 
+                   (id, name, category, grade, essence, cost, avail, capacity, description, source, raw_xml, modifiers_json)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                ("dermal_plating", "Dermal Plating", "Bodyware", "standard", 0.5, 6000, "2", "-", "Subdermal armor plating.", "SR6 Core p. 284",
+                 '<item id="dermal_plating"><usage mode="IMPLANTED" value="0.5"/><attrdef id="PRICE" table="6000"/><bonus><attribute name="DEFENSE_RATING" value="1"/></bonus></item>',
+                 '[{"type": "attribute", "ref": "defense_rating", "value": 1}]')
+            )
         row_q = conn.execute("SELECT COUNT(*) FROM ref_qualities").fetchone()
         if not row_q or row_q[0] == 0:
             conn.execute(
@@ -336,6 +360,19 @@ def _migration_001_core_rules(conn: sqlite3.Connection):
                    (id, name, category, rating, cost, avail, description, source, raw_xml, modifiers_json)
                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
                 ("medkit", "Medkit", "Biotech", "3", 1500, "2", "Portable medical stabilization kit.", "SR6 Core p. 269", '<gear id="medkit"/>', '[]')
+            )
+        row_pk = conn.execute("SELECT COUNT(*) FROM ref_packs").fetchone()
+        if not row_pk or row_pk[0] == 0:
+            conn.execute(
+                """INSERT OR REPLACE INTO ref_packs 
+                   (id, name, category, cost, essence, description, contents, alternate_grades_json, raw_text, source, page)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                ("cyberarm_excellence", "Cyberarm: Excellence", "Cyberlimbs", 60000, 1.0,
+                 "Optimized agility cyberarm with smartlink and armor.",
+                 "Full Cyberarm, Agility Enhancement 4, Armor 2",
+                 '{"used": {"cost": 30000, "essence": 1.1}}',
+                 "Cyberarm: Excellence (60,000¥, 1.0 Ess)",
+                 "Sixth World Companion", "62")
             )
     except Exception as e:
         logger.warning(f"Could not populate baseline reference seeds: {e}")

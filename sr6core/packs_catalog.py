@@ -205,13 +205,13 @@ def compile_packs_to_db(db_path: Optional[str] = None) -> Tuple[int, str]:
     if not os.path.exists(path):
         return 0, f"Rules database not found at '{path}'"
 
-    packs = parse_6wc_packs()
-    if not packs:
-        return 0, "No PACKs could be parsed from Sixth World Companion."
-
     conn = sqlite3.connect(path)
     try:
         conn.executescript(get_packs_table_schema())
+        packs = parse_6wc_packs()
+        if not packs:
+            return 0, "No PACKs could be parsed from Sixth World Companion."
+
         cursor = conn.cursor()
         for p in packs:
             cursor.execute(
@@ -248,6 +248,7 @@ def get_pack(identifier: str, db_path: Optional[str] = None) -> Optional[Dict[st
         # Check if table exists, auto-compile if missing
         has_table = cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='ref_packs'").fetchone()
         if not has_table:
+            conn.executescript(get_packs_table_schema())
             compile_packs_to_db(path)
 
         row = cursor.execute(
