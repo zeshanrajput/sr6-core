@@ -51,6 +51,7 @@ def test_source_explorer_search_mock(tmp_path, monkeypatch):
         "A standard cyberarm pack configured for top-tier agility.\n",
         encoding="utf-8"
     )
+    monkeypatch.setattr("sr6core.rules.source_explorer.get_converted_md_dir", lambda: tmp_path)
     monkeypatch.setattr("sr6core.source_explorer.get_converted_md_dir", lambda: tmp_path)
     res = search_source_book("6wc", "Cyberarm: Excellence", context_lines=2)
     assert "error" not in res
