@@ -103,25 +103,6 @@ class TestMCPServer(unittest.TestCase):
         self.assertEqual(res["mimeType"], "application/json")
         self.assertIn("contacts", res["uri"])
 
-    def test_handle_roll_dice(self):
-        from sr6core.mcp import handle_roll_dice
-        res = handle_roll_dice({"pool": 12, "description": "Firearms Test"})
-        self.assertIn("Firearms Test", res)
-        self.assertIn("Hits", res)
-
-    def test_handle_resolve_combat_test(self):
-        from sr6core.mcp import handle_resolve_combat_test
-        res = handle_resolve_combat_test({
-            "attacker_pool": 14,
-            "defender_pool": 8,
-            "base_dv": 4,
-            "soak_pool": 10,
-            "attacker_name": "Yuriko",
-            "defender_name": "Grunt"
-        })
-        self.assertIn("Combat Test", res)
-        self.assertIn("Yuriko", res)
-
 
 if __name__ == "__main__":
     unittest.main()

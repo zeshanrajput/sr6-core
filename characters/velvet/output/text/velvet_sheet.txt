@@ -1,0 +1,38 @@
++--------------------------------------------------------------------------+
+|                          SR6 DOSSIER // VELVET                           |
++--------------------------------------------------------------------------+
+| METATYPE : Elf                  ARCHETYPE: Shinto / Musok                |
+| KARMA    : 17 avail               NUYEN    : 565 Nuyen                   |
+| HEAT     : 0                    REPUTATION: SEA:4, UNL:0, Southeast A... |
++-- ATTRIBUTES ------------------------------------------------------------+
+| B 2  A 3  R 2  S 2  W 5  L 3  I 3  C 10                                  |
+| ESS 6.0  ED 2  MAG 6(9)                                                  |
++-- DEFENSE & CONDITION TRACK ---------------------------------------------+
+| INITIATIVE: 5 + 1D6                | DEFENSE POOL: 8                     |
+| ARMOR DR  : 2                      | SOAK POOL   : 2                     |
+| PHYSICAL CM: [9] (BOD/2 + 8)       | STUN CM     : [11] (WIL/2 + 8)      |
++-- PRIMARY ACTION POOLS --------------------------------------------------+
+| Sorcery: (R5, 14d6)                | Conjuring: (R6, 15d6)               |
+|   -- Spellcasting: 16d6            | Influence: (R5, 15d6)               |
+| Con: (R4, 14d6)                    | Native Language: (R4, 7d6)          |
+| Small Unit Tactics: (R1, 4d6)      | MCT: (R1, 4d6)                      |
+| Wuxing: (R1, 4d6)                  | East Asian Media: (R1, 4d6)         |
++-- TACTICAL WEAPONS ------------------------------------------------------+
+| WEAPON                  DV     ATTACK RATING      AMMO     MODE          |
+| Unarmed Combat          2S     (STR+REA)/-/-/-/-  -        -             |
++-- MATRIX PROFILE --------------------------------------------------------+
+| DEVICE: Standard Commlink (Rt 2)   | MATRIX DEFENSE: 5                   |
++-- SPELLS & SORCERY ------------------------------------------------------+
+| SPELL                    TEST / EFFECT                  DRAIN  DUR       |
+| Increase Attribute       Sorcery + Magic                3      Sustaine  |
+| Increase Reflexes        Sorcery + Magic                5      Sustaine  |
++-- KEY QUALITIES ---------------------------------------------------------+
+| + Metagenetic Attribute Improvemen | + Exceptional Attribute (Charisma)  |
+| + Inspire Competence               | + Low-Light Vision                  |
+| + Focused Concentration            | + Injury Prone                      |
++-- FIELD GEAR SUMMARY ----------------------------------------------------+
+| Nanopaste Disguise Kit, Nanocosmetics Kit, Savior Medkit (Rating 6),     |
+| Contacts (Rating 3 w/ Flare Comp, Image Link, Thermo)                    |
++==========================================================================+
+| END DOSSIER // VELVET // SR6 TABLETOP COMPANION                          |
++==========================================================================+

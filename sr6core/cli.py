@@ -17,7 +17,6 @@ from sr6core.dataset_compiler import compile_commlink_datasets, get_dataset_info
 from sr6core.creation.deep_audit import deep_audit_character
 from sr6core.advancement import search_catalog, purchase_item_for_character
 from sr6core.quarto_enricher import generate_character_dossier_appendix, expand_quarto_shortcodes
-from sr6core.commlink_sync import push_to_commlink, push_all_to_commlink, scan_commlink_player_saves
 
 
 def run_sync_all():
@@ -56,40 +55,23 @@ def run_sync_all():
         for w in warnings_list:
             print(f"         +-- {w}")
 
-        # 2. Multi-Format Exports into standardized output/ subfolders
+        # 2. Tabletop Quick-Sheet & Mobile App Exports
         cm.clean_output_directory(repo_dir)
         text_dir = os.path.join(repo_dir, "output", "text")
-        vtt_dir = os.path.join(repo_dir, "output", "vtt")
-        for d in [text_dir, vtt_dir]:
+        mobile_dir = os.path.join(repo_dir, "output", "mobile")
+        for d in [text_dir, mobile_dir]:
             os.makedirs(d, exist_ok=True)
 
-        # Modular Text Exports
+        # 2-Page 76-Column ASCII Quick Sheet
         try:
-            text_sheets = cm.export_character(cid, fmt="text_modular")
-            for filename, sheet_content in text_sheets.items():
-                with open(os.path.join(text_dir, filename), "w", encoding="utf-8") as f:
-                    f.write(sheet_content)
+            sheet_content = cm.export_character(cid, fmt="quick_sheet")
+            sheet_path = os.path.join(text_dir, f"{cid}_sheet.txt")
+            with open(sheet_path, "w", encoding="utf-8") as f:
+                f.write(sheet_content)
         except Exception as e:
-            print(f"         +-- Export Modular Text error: {e}")
+            print(f"         +-- Export Quick-Sheet error: {e}")
 
-        # VTT Exports (Genesis XML + Roll20 JSON)
-        try:
-            xml_content = cm.export_character(cid, fmt="xml")
-            with open(os.path.join(vtt_dir, f"{cid}.xml"), "w", encoding="utf-8") as f:
-                f.write(xml_content)
-        except Exception as e:
-            print(f"         +-- Export XML error: {e}")
-
-        try:
-            json_content = cm.export_character(cid, fmt="roll20")
-            with open(os.path.join(vtt_dir, f"{cid}.json"), "w", encoding="utf-8") as f:
-                f.write(json_content)
-        except Exception as e:
-            print(f"         +-- Export JSON error: {e}")
-
-        # Mobile HTML App Export
-        mobile_dir = os.path.join(repo_dir, "output", "mobile")
-        os.makedirs(mobile_dir, exist_ok=True)
+        # Standalone Mobile PWA Export
         try:
             mobile_html_content = cm.export_character(cid, fmt="mobile_html")
             with open(os.path.join(mobile_dir, "index.html"), "w", encoding="utf-8") as f:
@@ -104,23 +86,18 @@ def run_sync_all():
         except Exception as e:
             print(f"         +-- Export Mobile App error: {e}")
 
-        print(f"  [2/5] Regenerated Exports     : Saved to {os.path.join(repo_dir, 'output')} (text, vtt, mobile)")
+        print(f"  [2/4] Regenerated Exports     : Saved to {os.path.join(repo_dir, 'output')} (text, mobile)")
 
-        # 3. CommLink6 GUI Save Sync
-        ok, msg = push_to_commlink(cid)
-        cl_status = "OK" if ok else "SKIPPED"
-        print(f"  [3/5] CommLink6 GUI Save Sync : {cl_status} ({msg})")
-
-        # 4. Generate Appendix Character Dossier (.qmd)
+        # 3. Generate Appendix Character Dossier (.qmd)
         chap_dir = os.path.join(repo_dir, "chapters")
         appendix_path = os.path.join(chap_dir, "appendix_dossier.qmd")
         try:
             generate_character_dossier_appendix(cid, appendix_path)
-            print(f"  [4/5] Appendix Character Dossier: Generated at {appendix_path}")
+            print(f"  [3/4] Appendix Character Dossier: Generated at {appendix_path}")
         except Exception as e:
-            print(f"  [4/5] Appendix Character Dossier: Error {e}")
+            print(f"  [3/4] Appendix Character Dossier: Error {e}")
 
-        # 5. Expand Quarto Shortcodes & Inject Narration Audio Players
+        # 4. Expand Quarto Shortcodes & Inject Narration Audio Players
         from sr6core.quarto_enricher import inject_chapter_audio_players
         injected_audio = inject_chapter_audio_players(repo_dir)
         audio_info = f" (+{injected_audio} audio players)" if injected_audio > 0 else ""
@@ -183,57 +160,97 @@ def main():
     # menu subcommand
     subparsers.add_parser("menu", help="Launch interactive CLI menu")
 
-    # sync-all subcommand
-    subparsers.add_parser("sync-all", help="Perform full ecosystem audit, export sync, and Quarto dossier generation")
+    # -------------------------------------------------------------
+    # 1. VERB: build (Primary single-source build pipeline)
+    # -------------------------------------------------------------
+    build_parser = subparsers.add_parser("build", aliases=["sync-all"], help="Rebuild master YAMLs, sync purchases, run audits, generate dossiers, and export quick-sheets")
+    build_parser.add_argument("--rebuild-yaml", action="store_true", default=True, help="Recompile master YAML files completely from Markdown Trio (default: True)")
+    build_parser.add_argument("--skip-rebuild-yaml", action="store_false", dest="rebuild_yaml", help="Skip recompiling master YAML files")
+    build_parser.add_argument("--skip-npm", action="store_true", help="Skip npm build step")
 
-    # search subcommand
-    search_parser = subparsers.add_parser("search", help="Search the rules vault database")
-    search_parser.add_argument("query", type=str, help="Search query string")
-
-    # card subcommand
-    card_parser = subparsers.add_parser("card", help="Display item reference card")
-    card_parser.add_argument("target", type=str, nargs="+", help="Item category and name, or just item name (e.g. 'bioware Cerebellum Booster' or 'Cerebellum Booster')")
-
-    # characters subcommand
-    char_parser = subparsers.add_parser("characters", help="Manage character portfolios (reiko, velvet, venn)")
+    # -------------------------------------------------------------
+    # 2. VERB: char (Character portfolio management)
+    # -------------------------------------------------------------
+    char_parser = subparsers.add_parser("char", aliases=["characters"], help="Manage character portfolios (reiko, velvet, venn)")
     char_sub = char_parser.add_subparsers(dest="subcommand", help="Action to perform")
     char_sub.add_parser("list", help="List all configured character portfolios")
+    show_parser = char_sub.add_parser("show", help="Show character dossier summary and pools")
+    show_parser.add_argument("char_id", type=str, help="Character ID (reiko, velvet, venn)")
+    sync_parser = char_sub.add_parser("sync", help="Recompile character master YAML from Markdown Trio")
+    sync_parser.add_argument("char_id", type=str, nargs="?", help="Character ID (or omit to sync all)")
     audit_parser = char_sub.add_parser("audit", help="Audit character creation compliance")
     audit_parser.add_argument("char_id", type=str, nargs="?", help="Character ID (reiko, velvet, venn)")
+    sheet_parser = char_sub.add_parser("sheet", help="Print or export 2-page ASCII quick-sheet")
+    sheet_parser.add_argument("char_id", type=str, help="Character ID (reiko, velvet, venn)")
+    sheet_parser.add_argument("--output", type=str, default=None, help="Custom output filepath")
     adv_parser = char_sub.add_parser("advance", help="Purchase gear/qualities for character")
     adv_parser.add_argument("char_id", type=str, help="Character ID")
     adv_parser.add_argument("item_ref", type=str, help="CommLink6 item reference ID")
 
-    # export subcommand
-    export_parser = subparsers.add_parser("export", help="Export character to Modular Text, Roll20 JSON, or Genesis XML")
-    export_parser.add_argument("char_id", type=str, help="Character ID (reiko, velvet, venn)")
-    export_parser.add_argument("--format", type=str, choices=["text_modular", "roll20", "vtt", "xml"], default="text_modular", help="Export format")
-    export_parser.add_argument("--output", type=str, default=None, help="Custom output filepath")
+    # -------------------------------------------------------------
+    # 3. VERB: rules (Rules lookup, cards, cheatsheets, query)
+    # -------------------------------------------------------------
+    rules_parser = subparsers.add_parser("rules", help="Rules lookup, cards, cheatsheets, and query")
+    rules_sub = rules_parser.add_subparsers(dest="subcommand", help="Rules action to perform")
+    r_search = rules_sub.add_parser("search", help="Search the rules vault database")
+    r_search.add_argument("query", type=str, help="Search query string")
+    r_card = rules_sub.add_parser("card", help="Display item reference card")
+    r_card.add_argument("target", type=str, nargs="+", help="Item category and name, or just item name")
+    r_card.add_argument("--plain", action="store_true", help="Display card as plaintext")
+    r_cheat = rules_sub.add_parser("cheat", help="Display tabletop rules cheatsheet")
+    r_cheat.add_argument("topic", type=str, nargs="?", default=None, help="Cheatsheet topic (matrix, actions, monad, combat)")
+    r_sql = rules_sub.add_parser("sql", aliases=["query"], help="Execute read-only SQL query")
+    r_sql.add_argument("sql", type=str, help="SQL query to execute")
+    r_sql.add_argument("--compact", action="store_true", help="Output as Markdown table")
+    r_sql.add_argument("--json", action="store_true", help="Output as JSON")
+    r_sql.add_argument("--csv", action="store_true", help="Output as CSV")
+    r_schema = rules_sub.add_parser("schema", help="Inspect database schema")
+    r_schema.add_argument("table", nargs="?", default=None, help="Table name to inspect")
+    r_schema.add_argument("--compact", action="store_true", help="Output as clean Markdown table")
 
-    # lint subcommand
-    lint_parser = subparsers.add_parser("lint", help="Lint Quarto chapter prose for style and AI buzzwords")
+    # -------------------------------------------------------------
+    # 4. VERB: story (Prose linting, continuity, narration)
+    # -------------------------------------------------------------
+    story_parser = subparsers.add_parser("story", help="Narrative prose linting, continuity, and audio narration")
+    story_sub = story_parser.add_subparsers(dest="subcommand", help="Story action to perform")
+    s_lint = story_sub.add_parser("lint", help="Lint chapter prose for style, ellipses, and AI buzzwords")
+    s_lint.add_argument("target", type=str, help="Path to chapter markdown/qmd file")
+    s_cont = story_sub.add_parser("continuity", help="Run campaign timeline & story continuity audit")
+    s_cont.add_argument("repo_path", type=str, help="Repository directory path")
+    s_narrate = story_sub.add_parser("narrate", help="Generate or manage TTS audio narration")
+    s_narrate.add_argument("target", type=str, nargs="?", default=".", help="Path to chapter file, directory, or audio file")
+    s_narrate.add_argument("--char", type=str, default=None, help="Character identifier")
+    s_narrate.add_argument("--retag", action="store_true", help="Update ID3 metadata tags without regenerating")
+    s_narrate.add_argument("--list", action="store_true", help="List narrative audio files")
+    s_narrate.add_argument("--voice", type=str, default="af_heart", help="Kokoro voice model")
+    s_narrate.add_argument("--pacing", type=str, choices=["tight", "balanced", "spacious"], default="balanced", help="Pacing profile")
+
+    # Standalone shortcut subcommands for backward compatibility:
+    search_parser = subparsers.add_parser("search", help="Search the rules vault database")
+    search_parser.add_argument("query", type=str, help="Search query string")
+
+    card_parser = subparsers.add_parser("card", help="Display item reference card")
+    card_parser.add_argument("target", type=str, nargs="+", help="Item category and name, or just item name")
+    card_parser.add_argument("--plain", action="store_true", help="Display card as plaintext")
+
+    lint_parser = subparsers.add_parser("lint", help="Lint Quarto chapter prose")
     lint_parser.add_argument("target", type=str, help="Path to chapter markdown/qmd file")
 
-    # continuity subcommand
     cont_parser = subparsers.add_parser("continuity", help="Run campaign timeline & story continuity audit")
     cont_parser.add_argument("repo_path", type=str, help="Repository directory path")
 
+    narrate_parser = subparsers.add_parser("narrate", help="Generate or manage TTS audio narration")
+    narrate_parser.add_argument("target", type=str, nargs="?", default=".", help="Path to chapter file, directory, or audio file")
+    narrate_parser.add_argument("--char", type=str, default=None, help="Character identifier")
+    narrate_parser.add_argument("--retag", action="store_true", help="Update ID3 metadata tags")
+    narrate_parser.add_argument("--list", action="store_true", help="List narrative audio files")
+    narrate_parser.add_argument("--voice", type=str, default="af_heart", help="Kokoro voice model")
+    narrate_parser.add_argument("--pacing", type=str, choices=["tight", "balanced", "spacious"], default="balanced", help="Pacing profile")
 
-    # audit subcommand
-    audit_parser = subparsers.add_parser("audit", help="Run AI sub-agent semantic narrative audit on a chapter")
-    audit_parser.add_argument("target", type=str, help="Path to chapter markdown/qmd file")
-    audit_parser.add_argument("--agent", type=str, default="no-ai-slop", choices=["no-ai-slop", "voice-internality", "pacing-structure", "panel"], help="Target sub-agent evaluator")
-    audit_parser.add_argument("--model", type=str, default="gemini-flash-latest", help="LLM Model for evaluation")
-    audit_parser.add_argument("--effort", type=str, choices=["high", "medium", "low"], default="medium", help="Thinking effort level")
-
-    # narrate subcommand
-    narrate_parser = subparsers.add_parser("narrate", help="Generate or manage TTS audio narration and character metadata tags")
-    narrate_parser.add_argument("target", type=str, nargs="?", default=".", help="Path to chapter file, directory, or audio file (default: .)")
-    narrate_parser.add_argument("--char", type=str, default=None, help="Character identifier (e.g. velvet, reiko, venn)")
-    narrate_parser.add_argument("--retag", action="store_true", help="Update ID3 metadata tags on existing MP3 files without re-synthesizing audio")
-    narrate_parser.add_argument("--list", action="store_true", help="List narrative audio files and their character metadata tags")
-    narrate_parser.add_argument("--voice", type=str, default="af_heart", help="Kokoro voice model identifier (default: af_heart)")
-    narrate_parser.add_argument("--pacing", type=str, choices=["tight", "balanced", "spacious"], default="balanced", help="Pause pacing profile")
+    export_parser = subparsers.add_parser("export", help="Export character to 2-Page ASCII Quick-Sheet or Standalone Mobile PWA")
+    export_parser.add_argument("char_id", type=str, help="Character ID (reiko, velvet, venn)")
+    export_parser.add_argument("--format", type=str, choices=["quick_sheet", "sheet", "mobile", "text"], default="quick_sheet", help="Export format")
+    export_parser.add_argument("--output", type=str, default=None, help="Custom output filepath")
 
     # db subcommand
     db_parser = subparsers.add_parser("db", help="Manage rules database & CommLink6 dataset imports")
@@ -241,7 +258,6 @@ def main():
     import_parser = db_sub.add_parser("import-commlink", help="Extract and index CommLink6 JAR XML datasets")
     import_parser.add_argument("--jar", type=str, help="Path to CommLink6 JAR file (optional)")
     db_sub.add_parser("compile-vault", help="Re-index Shadowrun Rules Vault markdown files into SQLite")
-    db_sub.add_parser("sync-commlink", help="Push XML character sheets directly to CommLink6 GUI player saves")
     db_sub.add_parser("embed-vault", help="Precompute local 384-d dense vector embeddings for all SQLite vault rules into vec_rules / rule_embeddings")
     db_sub.add_parser("info", help="Display rules database status and CommLink6 dataset statistics")
 
@@ -372,37 +388,11 @@ def main():
     v_pdf.add_argument("--input-dir", type=str, default=None, help="Input directory containing PDFs")
     v_pdf.add_argument("--output-dir", type=str, default=None, help="Output directory for markdown files")
 
-    # roll subcommand
-    roll_parser = subparsers.add_parser("roll", help="Roll an SR6 dice pool with exploding 6s (Rule of Six) or bought hits")
-    roll_parser.add_argument("pool", type=str, help="Dice pool size or formula (e.g. '14', '12d6', '12+2')")
-    roll_parser.add_argument("-x", "--exploding", action="store_true", help="Enable Rule of Six exploding dice")
-    roll_parser.add_argument("-b", "--buy", action="store_true", help="Buy hits automatically (1 hit per 4 dice)")
-    roll_parser.add_argument("--desc", type=str, default="Dice Test", help="Label or description for the test")
-
-    # combat subcommand
-    combat_parser = subparsers.add_parser("combat", help="Simulate SR6 combat exchanges and opposed tests")
-    combat_sub = combat_parser.add_subparsers(dest="subcommand", help="Combat action to perform")
-    c_att = combat_sub.add_parser("attack", help="Resolve an opposed ranged or melee attack test")
-    c_att.add_argument("--char", type=str, default=None, help="Attacker character ID (reiko, velvet, venn)")
-    c_att.add_argument("--weapon", type=str, default=None, help="Weapon name or ID")
-    c_att.add_argument("--pool", type=int, default=12, help="Attacker attack pool if no character specified")
-    c_att.add_argument("--base-dv", type=int, default=4, help="Base weapon damage value")
-    c_att.add_argument("--ar", type=int, default=10, help="Attacker Attack Rating (AR)")
-    c_att.add_argument("--defender", type=str, default="Target", help="Defender name")
-    c_att.add_argument("--def-pool", type=int, default=8, help="Defender defense pool")
-    c_att.add_argument("--def-dr", type=int, default=8, help="Defender Defense Rating (DR)")
-    c_att.add_argument("--def-soak", type=int, default=8, help="Defender soak pool")
-    c_att.add_argument("-x", "--exploding", action="store_true", default=False, help="Enable Rule of Six exploding dice")
     # serve subcommand
     serve_parser = subparsers.add_parser("serve", help="Launch local live-sync server & web tactical PWA")
     serve_parser.add_argument("--port", type=int, default=8080, help="HTTP port (default: 8080)")
     serve_parser.add_argument("--host", type=str, default="0.0.0.0", help="HTTP host (default: 0.0.0.0)")
 
-    # build subcommand (single-source build)
-    build_parser = subparsers.add_parser("build", help="Rebuild master YAMLs from Markdown Trio, sync purchases, and build single-file offline PWA app/index.html")
-    build_parser.add_argument("--rebuild-yaml", action="store_true", default=True, help="Recompile master YAML files completely from Markdown Trio (default: True)")
-    build_parser.add_argument("--skip-rebuild-yaml", action="store_false", dest="rebuild_yaml", help="Skip recompiling master YAML files")
-    build_parser.add_argument("--skip-npm", action="store_true", help="Skip npm build step")
 
     args = parser.parse_args()
     cm = CharacterManager()
@@ -474,16 +464,37 @@ def main():
             f.write(get_mobile_html_template(bundle, initial_char_id="velvet"))
         console.print(f"[green]  • Standalone mobile PWA refreshed: {app_html_path}[/green]")
 
-        # 3. Build single-file Vite PWA (if npm is available and not skipped)
-        if not getattr(args, "skip_npm", False):
-            console.print("\n[bold green][3/3] Compiling single-file offline PWA (app/index.html)...[/bold green]")
-            web_dir = os.path.join(os.path.dirname(__file__), "..", "web")
+        # 3. Optional Vite PWA build if web/package.json exists
+        web_dir = os.path.join(os.path.dirname(__file__), "..", "web")
+        if not getattr(args, "skip_npm", False) and os.path.exists(os.path.join(web_dir, "package.json")):
+            console.print("\n[bold green][3/3] Compiling single-file offline PWA via npm...[/bold green]")
             try:
                 res = subprocess.run(["npm", "run", "build"], cwd=web_dir, capture_output=True, text=True, check=True, shell=True)
                 out_html = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "app", "index.html"))
                 console.print(f"[bold green][OK] Single-file mobile PWA successfully built: {out_html}[/bold green]\n")
             except subprocess.CalledProcessError as e:
                 console.print(f"[bold red][Error] npm run build failed: {e.stderr}[/bold red]\n")
+
+        # 4. Generate 2-Page ASCII Quick-Sheets & Appendix Dossiers
+        console.print("\n[bold green][4/4] Generating 2-Page ASCII Quick-Sheets & Appendix Dossiers...[/bold green]")
+        for c in cm.list_characters():
+            cid = c["id"]
+            if c.get("exists"):
+                try:
+                    cfile_path = c.get("path")
+                    repo_dir = os.path.dirname(cfile_path) if os.path.isfile(cfile_path) else cfile_path
+                    text_dir = os.path.join(repo_dir, "output", "text")
+                    os.makedirs(text_dir, exist_ok=True)
+                    sheet_path = os.path.join(text_dir, f"{cid}_sheet.txt")
+                    cm.export_character(cid, fmt="quick_sheet", output_path=sheet_path)
+                    console.print(f"  • [{cid}] Quick-Sheet: {sheet_path}")
+
+                    appendix_path = os.path.join(repo_dir, "chapters", "appendix_dossier.qmd")
+                    generate_character_dossier_appendix(cid, appendix_path)
+                    console.print(f"  • [{cid}] Appendix Dossier: {appendix_path}")
+                except Exception as ex:
+                    console.print(f"  • [{cid}] Export error: {ex}")
+        console.print("\n[bold green][OK] Full SR6 Build Completed Successfully![/bold green]\n")
 
     elif args.command == "sync-all":
         run_sync_all()
@@ -523,15 +534,50 @@ def main():
                 cat = "auto"
                 item_name = " ".join(args.target)
         card_info = get_item_card(cat, item_name)
-        print(f"\n{card_info['markdown']}\n")
+        if getattr(args, "plain", False):
+            from sr6core.rules.cards import format_card
+            print(f"\n{format_card(card_info, fmt='plain')}\n")
+        else:
+            print(f"\n{card_info['markdown']}\n")
 
-    elif args.command == "characters":
+    elif args.command in ["char", "characters"]:
         if args.subcommand == "list" or not args.subcommand:
             print("\n=== Configured SR6 Character Portfolios ===")
             for char in cm.list_characters():
                 status_str = "EXISTS" if char["exists"] else "MISSING"
                 print(f"- [{char['id']}] {char['name']} | Metatype: {char['metatype']} | Role: {char['role']} | Status: {status_str}")
             print()
+
+        elif args.subcommand == "show":
+            from sr6core.character import load_character
+            char = load_character(args.char_id)
+            print(f"\n=== CHARACTER DOSSIER: {char.name.upper()} ({char.id}) ===")
+            print(f"  Metatype  : {char.metatype}")
+            print(f"  Nuyen     : {char.nuyen:,}¥ (Lifetime: {char.lifetime_nuyen:,}¥)")
+            print(f"  Karma     : {char.karma} (Lifetime: {char.lifetime_karma})")
+            print(f"  Heat      : {char.heat}")
+            print(f"  Attributes: {', '.join(f'{k.upper()}:{v}' for k, v in char.attributes.items())}")
+            print(f"  Key Pools : {', '.join(f'{k}:{v}d6' for k, v in list(char.pools.items())[:6])}")
+            print(f"  Inventory : {len(char.weapons)} weapons, {len(char.gear)} gear items, {len(char.cyberware)} augmentations")
+            print(f"  Contacts  : {len(char.contacts)} active contacts")
+            if char.custom_mechanics:
+                print(f"  Mechanics : {', '.join(char.custom_mechanics.keys())}")
+            print()
+
+        elif args.subcommand == "sync":
+            from sr6core.character import load_character
+            char_ids = [args.char_id] if getattr(args, "char_id", None) else [c["id"] for c in cm.list_characters()]
+            for cid in char_ids:
+                char = load_character(cid)
+                path = char.sync()
+                print(f"[OK] Rebuilt and synced master YAML for '{cid}': {path}")
+
+        elif args.subcommand == "sheet":
+            from sr6core.character import load_character
+            char = load_character(args.char_id)
+            out_p = getattr(args, "output", None)
+            sheet = char.export_quick_sheet(output_path=out_p)
+            print(sheet)
 
         elif args.subcommand == "audit":
             char_ids = [args.char_id] if args.char_id else [c["id"] for c in cm.list_characters()]
@@ -550,6 +596,94 @@ def main():
         elif args.subcommand == "advance":
             ok, msg = purchase_item_for_character(args.char_id, args.item_ref)
             print(f"\n{msg}\n")
+
+    elif args.command == "rules":
+        if args.subcommand == "search":
+            db = RulesDB()
+            results = db.search_rules(args.query)
+            print(f"Rules search results for '{args.query}':")
+            for r in results:
+                print(f"- [{r.get('id')}] {r.get('topic')} ({r.get('source')} p.{r.get('page')})")
+
+        elif args.subcommand == "card":
+            from sr6core.cards import get_item_card
+            known_cats = {"quality", "qualities", "spell", "spells", "complex_form", "complexform", "weapon", "weapons", "cyberware", "bioware", "vehicle", "drone", "gear", "program", "contact", "contacts", "echo", "meta_echo", "pack", "packs"}
+            if len(args.target) == 1:
+                cat, item_name = "auto", args.target[0]
+            else:
+                first = args.target[0].lower().strip()
+                if first in known_cats:
+                    cat = first
+                    item_name = " ".join(args.target[1:])
+                else:
+                    cat = "auto"
+                    item_name = " ".join(args.target)
+            card_info = get_item_card(cat, item_name)
+            if getattr(args, "plain", False):
+                from sr6core.rules.cards import format_card
+                print(f"\n{format_card(card_info, fmt='plain')}\n")
+            else:
+                print(f"\n{card_info['markdown']}\n")
+
+        elif args.subcommand == "cheat":
+            from sr6core.cheatsheets import get_cheatsheet, format_cheatsheets_index
+            if not getattr(args, "topic", None):
+                print(format_cheatsheets_index())
+            else:
+                cs = get_cheatsheet(args.topic)
+                if cs:
+                    print(cs["content"])
+                else:
+                    print(f"[Error] Unknown cheatsheet topic '{args.topic}'. Available: matrix, actions, monad, combat")
+
+        elif args.subcommand in ["sql", "query"]:
+            from sr6core.rules_db import execute_db_query, format_query_results
+            try:
+                cols, rows = execute_db_query(args.sql)
+                fmt = "json" if getattr(args, "json", False) else ("csv" if getattr(args, "csv", False) else "markdown")
+                print(format_query_results(cols, rows, fmt=fmt))
+            except Exception as e:
+                print(f"[SQL Error] {e}")
+
+        elif args.subcommand == "schema":
+            from sr6core.rules_db import get_db_schema, format_db_schema
+            schema_info = get_db_schema(getattr(args, "table", None))
+            print(format_db_schema(schema_info, fmt="markdown"))
+
+    elif args.command == "story":
+        if args.subcommand == "lint":
+            res, err = analyze_prose(args.target)
+            if err:
+                print(f"[Error] {err}")
+            else:
+                print_prose_report(res)
+
+        elif args.subcommand == "continuity":
+            rep, err = build_continuity_report(args.repo_path)
+            if err:
+                print(f"[Error] {err}")
+            else:
+                print_continuity_report(rep)
+
+        elif args.subcommand == "narrate":
+            if getattr(args, "retag", False):
+                retag_narratives(args.target, char_id=getattr(args, "char", None))
+            elif getattr(args, "list", False):
+                list_narratives(args.target, char_id=getattr(args, "char", None))
+            elif os.path.isdir(args.target):
+                batch_generate_narrations(
+                    args.target,
+                    pacing=getattr(args, "pacing", "balanced"),
+                    voice=getattr(args, "voice", "af_heart"),
+                    char_id=getattr(args, "char", None)
+                )
+            else:
+                generate_narration(
+                    args.target,
+                    pacing=getattr(args, "pacing", "balanced"),
+                    voice=getattr(args, "voice", "af_heart"),
+                    char_id=getattr(args, "char", None)
+                )
 
     elif args.command == "export":
         try:
@@ -577,13 +711,6 @@ def main():
             print(f"Re-indexing rules vault from 'C:\\Users\\zesha\\OneDrive\\Desktop\\SR6\\ebooks\\shadowrun_rules_vault'...")
             db = RulesDB()
             count, msg = db.compile_vault(force=True)
-            print(f"\n{msg}\n")
-        elif args.subcommand == "sync-commlink":
-            print("Syncing character sheets directly to CommLink6 GUI player saves...")
-            res = push_all_to_commlink()
-            for cid, ok, msg in res:
-                print(f" - [{cid}]: {msg}")
-            print()
         elif args.subcommand == "embed-vault":
             import sqlite3
             from sr6core.rag.embeddings import VectorVault
@@ -637,11 +764,6 @@ def main():
         else:
             print_continuity_report(report)
 
-
-    elif args.command == "audit":
-        from sr6core.audit import run_semantic_audit, print_audit_report
-        res = run_semantic_audit(args.target, agent=args.agent, model=args.model, effort=args.effort)
-        print_audit_report(res)
 
     elif args.command == "narrate":
         if args.list or args.target == "list":
@@ -753,9 +875,11 @@ def main():
             print_plugin_status_rich()
 
     elif args.command == "evaluate":
-        from sr6core.evaluator import evaluate_chapter_draft, print_scorecard_rich
-        report = evaluate_chapter_draft(args.target, tier=args.tier, char_id=args.char)
-        print_scorecard_rich(report)
+        res, err = analyze_prose(args.target)
+        if err:
+            print(f"[Error] {err}")
+        else:
+            print_prose_report(res)
 
     elif args.command == "validate-dossier":
         from sr6core.validation import DossierValidator
@@ -879,58 +1003,6 @@ def main():
             except Exception as e:
                 print(f"\n Gemini API Store Status: [Unavailable / {e}]")
             print()
-
-    elif args.command == "roll":
-        from sr6core.simulation.dice import roll_pool
-        from rich.console import Console
-        console = Console()
-
-        # Parse pool expression (e.g. "14", "12d6", "10+2-1")
-        pool_str = args.pool.lower().replace("d6", "").replace("d", "").strip()
-        try:
-            pool_val = int(eval(pool_str, {"__builtins__": None}, {}))
-        except Exception:
-            pool_val = 12
-
-        res = roll_pool(
-            pool=max(1, pool_val),
-            description=args.desc,
-            is_exploding=args.exploding,
-            buy_hits=args.buy,
-        )
-        console.print(res.format_terminal())
-
-    elif args.command == "combat":
-        from sr6core.simulation.combat import CombatResolver
-        from rich.console import Console
-        console = Console()
-
-        if args.subcommand == "attack" or not args.subcommand:
-            attacker_name = "Attacker"
-            weapon_name = args.weapon or "Colt Manhunter"
-            attack_pool = args.pool
-            base_dv = args.base_dv
-            attack_ar = args.ar
-
-            if args.char:
-                cm = CharacterManager()
-                c_data = cm.get_character_data(args.char)
-                if c_data:
-                    attacker_name = c_data.get("identity", {}).get("handle", args.char.title())
-
-            res = CombatResolver.resolve_attack(
-                attacker_pool=attack_pool,
-                defender_pool=args.def_pool,
-                base_dv=base_dv,
-                soak_pool=args.def_soak,
-                attacker_name=attacker_name,
-                defender_name=args.defender,
-                weapon_name=weapon_name,
-                attacker_ar=attack_ar,
-                defender_dr=args.def_dr,
-                is_exploding=args.exploding,
-            )
-            console.print(res.format_terminal())
 
     elif args.command == "serve":
         from sr6core.server import run_server

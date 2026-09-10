@@ -1,0 +1,56 @@
++--------------------------------------------------------------------------+
+|                        SR6 DOSSIER // YURIKO STAR                        |
++--------------------------------------------------------------------------+
+| METATYPE : AI-Pilot AI          ARCHETYPE: Technoshamans                 |
+| KARMA    : 0 avail               NUYEN    : 2,550 Nuyen                  |
+| HEAT     : 1                    REPUTATION: Vory:2, Seattle:7, AMS:2,... |
++-- ATTRIBUTES ------------------------------------------------------------+
+| A 3(7)  S 5(9)  D 3(7)  F 5(9)  W 6  L 4  I 2  C 4                       |
+| ED 4  RES 8(12)                                                          |
++-- DEFENSE & CONDITION TRACK ---------------------------------------------+
+| INITIATIVE: 10 + 4D6 (Hot-Sim)     | DEFENSE POOL: 7                     |
+| MATRIX CM : [11] (WIL/2 + 8)       | SOAK POOL   : 1                     |
++-- PRIMARY ACTION POOLS --------------------------------------------------+
+| Tasking: (R6, 18d6)                | Cracking: (R5, 21d6)                |
+|   -- Registering: 20d6             |   -- Hacking: 23d6                  |
+| Electronics: (R5, 21d6)            | Influence: (R1, 6d6)                |
+|   -- Software: 23d6                | Con: (R1, 5d6)                      |
+| Native Language: (R4, 8d6)         |                                     |
++-- TACTICAL WEAPONS ------------------------------------------------------+
+| WEAPON                  DV     ATTACK RATING      AMMO     MODE          |
+| Red Fox Array (2x Link  9P     21/23/21/14/-      30(c)    SA/BF/SS      |
+| Single Red Fox (Eye Mo  7P     20/22/20/13/-      30(c)    SA/BF/SS      |
+| Tesla Coil              5S(e)  10/12/-/-/-        -        SS            |
+| Dagger of the Sacred R  2P     9/1/-/-/-          -        Melee         |
+| Amalgam Cestas          3P     6/-/-/-/-          -        Melee         |
++-- MATRIX PROFILE --------------------------------------------------------+
+| LIVING PERSONA: A 7  S 9  D 7  F 9 | INIT: 10 + 4D6 (Hot-Sim)            |
++-- RESONANCE POWERS & COMPLEX FORMS --------------------------------------+
+| POWER                    TEST / EFFECT                  FADE   DUR       |
+| Technoregeneration (Ele  Electronics (Hardware) + RES   -1     Permanen  |
+| Cleaner (Devi)           Electronics + RES              2      Permanen  |
+| Diffusion (Fire)         Electronics + RES vs WIL + FW  4      Sustaine  |
+| Puppeteer (Devi)         Electronics + RES vs WIL + FW  5      Sustaine  |
+| Cyber Spike (Char)       Electronics + RES vs BOD + Es  3      Immediat  |
+| Resonance Wires (Devi)   Electronics + RES vs Threshol  2      Sustaine  |
++-- VEHICLES & RIGGING ASSETS ---------------------------------------------+
+| [DRONE] MCT Gnat                                                         |
+|   H:3/3  AC:4/4  SP:30  B:0  A:0  P:2  S:1(2)                            |
+|   POOLS: Piloting:9d6 | Gunnery:9d6 | Evasion:9d6 | Perception:9d6       |
+| [DRONE] Federated-Boeing Sky Commander (Seattle Retrans Relay)           |
+|   H:4/4  AC:10/10  SP:120  B:3  A:0(4)  P:3  S:3(6)                      |
+|   POOLS: Piloting:10d6 | Gunnery:13d6 | Evasion:10d6 | Perception:13d6   |
+| [DRONE] Shiawase Man-at-Arms                                             |
+|   H:3/3  AC:5/5  SP:10  B:10(16)  A:8  P:2(9)  S:3(10)                   |
+|   POOLS: Piloting:23d6 | Gunnery:22d6 | Evasion:24d6 | Perception:21d6   |
++-- KEY QUALITIES ---------------------------------------------------------+
+| + Natural Hacker                   | + Stream: Technoshamans             |
+| + Designer                         | + Sensor Upgrade                    |
+| + Pilot Origins                    | + Buddy System                      |
++-- FIELD GEAR SUMMARY ----------------------------------------------------+
+| 5x Peak-Discharge Laser Battery Clips (Red Fox), 10x Glitter Grenades,   |
+| Built-in Medkit (Man-at-Arms), Facial Scanner, P-ICE Spines, Personal    |
+| ... (+9 total gear items logged; see mobile PWA)                         |
++==========================================================================+
+| END DOSSIER // YURIKO STAR // SR6 TABLETOP COMPANION                     |
++==========================================================================+

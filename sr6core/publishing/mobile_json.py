@@ -1,0 +1,1326 @@
+"""
+Mobile JSON Exporter for SR6 Characters.
+Generates an enriched, self-contained data payload for mobile-first character sheet interfaces,
+including base vs effective buffed pools, bought hits, breakdown components, weapon stat blocks,
+drones with rigged pools, complex forms/spells/abilities, contacts with favor points, and financials.
+"""
+
+import os
+import re
+from typing import Dict, Any, List, Optional
+
+from sr6core.rules.modifiers import ModifierEngine, PoolModifier
+from sr6core.vehicles import calculate_drone_action_pools
+from sr6core.character.ledger import get_log_totals
+from sr6core.rules_spirits import SPIRIT_CATALOG
+from sr6core.rules_nanotech import NANOHIVE_CATALOG, NANOHIVE_PRESETS
+from sr6core.character.contacts import normalize_contacts_list
+
+
+def _get_name(item: Any, default: str = "") -> str:
+    if isinstance(item, str):
+        return item
+    if isinstance(item, dict):
+        return item.get("name") or item.get("ref") or item.get("id") or default
+    return str(item)
+
+
+def _safe_item_list(raw_section: Any) -> List[Any]:
+    if not raw_section:
+        return []
+    if isinstance(raw_section, list):
+        items = []
+        for elem in raw_section:
+            if isinstance(elem, list):
+                items.extend(_safe_item_list(elem))
+            else:
+                items.append(elem)
+        return items
+    if isinstance(raw_section, dict):
+        items = []
+        for k, v in raw_section.items():
+            if isinstance(v, list):
+                items.extend(_safe_item_list(v))
+            elif isinstance(v, dict):
+                items.append(v)
+            elif isinstance(v, str):
+                items.append({"name": v, "id": v})
+        return items
+    return []
+
+
+def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] = None) -> Dict[str, Any]:
+    """
+    Compiles enriched character JSON with full synergy derivations,
+    base vs buffed pools, bought hits, weapon/drone stat arrays,
+    and universal drill-down metadata.
+    """
+    identity = char_data.get("identity", {})
+    attrs = char_data.get("attributes", {})
+    skills_raw = char_data.get("skills", [])
+    qualities_raw = char_data.get("qualities", {})
+    synergies = char_data.get("synergies", {})
+
+    totals = get_log_totals(char_repo_path) if char_repo_path and os.path.exists(char_repo_path) else {}
+
+    handle = identity.get("handle", "Unknown Runner")
+    real_name = identity.get("real_name", "N/A")
+    metatype = identity.get("metatype", "Human")
+    role = identity.get("role", char_data.get("role", "Shadowrunner"))
+    stream = identity.get("stream", "")
+    tradition = identity.get("tradition", identity.get("mortype", ""))
+    mortype = str(identity.get("mortype", "")).lower()
+    gender = identity.get("gender", "Diverse")
+    age = identity.get("age", "~")
+    nuyen = totals.get("Nuyen", identity.get("nuyen", 0))
+    karma_avail = totals.get("Karma", identity.get("karma", 0))
+    karma_life = totals.get("Lifetime_Karma", identity.get("total_karma", karma_avail))
+
+    is_monad = "monad" in mortype or "monad" in str(metatype).lower() or "monad" in str(identity.get("archetype", "")).lower() or "monad" in str(identity.get("heritage", "")).lower() or bool(char_data.get("monad_abilities"))
+    is_ai = ("ai" in str(metatype).lower() or "pilot" in str(metatype).lower() or "yuriko" in handle.lower() or "reiko" in handle.lower() or "r31k0" in real_name.lower() or "ai" in stream.lower()) and not is_monad
+    is_velvet = "velvet" in handle.lower() or "kim jin-young" in real_name.lower()
+    
+    # Check if character has Channeling metamagic and Conjuring skill
+    all_metamagics = char_data.get("metamagic", []) + char_data.get("meta_echoes", []) + char_data.get("metamagics", [])
+    has_channeling = any(
+        (isinstance(m, dict) and "channeling" in m.get("name", "").lower()) or "channeling" in str(m).lower()
+        for m in all_metamagics
+    ) or is_velvet
+
+    # Base attributes
+    bod = int(attrs.get("body", 1))
+    agi = int(attrs.get("agility", 1))
+    rea = int(attrs.get("reaction", 1))
+    str_val = int(attrs.get("strength", 1))
+    wil = int(attrs.get("willpower", 1))
+    log_val = int(attrs.get("logic", 1))
+    int_val = int(attrs.get("intuition", 1))
+    cha = int(attrs.get("charisma", 1))
+    edg = int(attrs.get("edge", 1))
+    res = int(attrs.get("resonance", 0))
+    mag = int(attrs.get("magic", 0))
+    ess = float(attrs.get("essence", 6.0))
+
+    # Living Persona ASDF / Defenses
+    asdf = ModifierEngine.get_living_persona_asdf(char_data)
+    mdef = ModifierEngine.get_full_matrix_defense(char_data)
+    matrix_init = ModifierEngine.get_matrix_initiative(char_data)
+
+    # Calculate Buffed Attributes (dynamic enhancement engine handles sustaining spells, boosts & declared modifiers)
+    declared_mods = char_data.get("modifiers", [])
+    attr_mods_map: Dict[str, List[Dict[str, Any]]] = {}
+    for dm in declared_mods:
+        if isinstance(dm, dict):
+            tgt = str(dm.get("target", "")).lower().strip()
+            if tgt.startswith("attribute:"):
+                attr_name = tgt.split(":", 1)[1].strip()
+                attr_mods_map.setdefault(attr_name, []).append(dm)
+            elif tgt in ["body", "agility", "reaction", "strength", "willpower", "logic", "intuition", "charisma", "bod", "agi", "rea", "str", "wil", "log", "int", "cha"]:
+                attr_mods_map.setdefault(tgt, []).append(dm)
+
+    def _get_attr_bonus(keys: List[str]) -> int:
+        tot = 0
+        for k in keys:
+            for m in attr_mods_map.get(k, []):
+                m_type = str(m.get("type", "")).lower().strip()
+                if m_type in ["skill bonus", "skill_bonus"]:
+                    continue
+                v = m.get("value", 0)
+                if isinstance(v, (int, float)):
+                    tot += int(v)
+        return min(tot, 4)  # SRM Augmented attribute cap
+
+    buffed_cha = min(cha + _get_attr_bonus(["charisma", "cha"]), cha + 4)
+    buffed_wil = min(wil + _get_attr_bonus(["willpower", "wil"]), wil + 4)
+    buffed_agi = min(agi + _get_attr_bonus(["agility", "agi"]), agi + 4)
+    buffed_rea = min(rea + _get_attr_bonus(["reaction", "rea"]), rea + 4)
+    buffed_str = min(str_val + _get_attr_bonus(["strength", "str"]), str_val + 4)
+    buffed_bod = min(bod + _get_attr_bonus(["body", "bod"]), bod + 4)
+    buffed_log = min(log_val + _get_attr_bonus(["logic", "log"]), log_val + 4)
+    buffed_int = min(int_val + _get_attr_bonus(["intuition", "int"]), int_val + 4)
+
+    # Condition Monitors: Strictly based on BASE attributes (plus Monad Toughness and Stun Monitor boosts)!
+    nv = int(identity.get("nanite_volume", 0))
+    monad_toughness = (nv // 2) if (is_monad or nv > 0) else 0
+    stun_bonus = 0
+    for m in attr_mods_map.get("willpower", []) + attr_mods_map.get("wil", []):
+        notes_str = str(m.get("notes", "")).lower()
+        if "stun condition" in notes_str or "+1 box" in notes_str:
+            stun_bonus += 1
+    phys_boxes = 8 + ((bod + 1) // 2) + monad_toughness
+    stun_boxes = 8 + ((wil + 1) // 2) + monad_toughness + stun_bonus
+
+    # Derived Pools (using buffed attributes)
+    composure = buffed_wil + buffed_cha
+    judge_intentions = buffed_wil + buffed_int
+    memory = buffed_wil + buffed_log
+    lift_carry = buffed_bod + buffed_str
+
+    # Physical Defense & Defense Rating
+    phys_defense_pool = buffed_rea + buffed_int
+
+    # Attributes Grid / List Compilation with Base vs Buffed & Deep Links
+    attributes_list = []
+
+    if is_ai:
+        # AI Metatypes have Matrix Attributes (Attack, Sleaze, Data Processing, Firewall) instead of Physical Attributes
+        base_att = 3
+        base_slz = 5
+        base_dp = 3
+        base_fw = 5
+
+        att_val = asdf.get("attack", 7)
+        slz_val = asdf.get("sleaze", 9)
+        dp_val = asdf.get("data_processing", 7)
+        fw_val = asdf.get("firewall", 9)
+        ai_res_focus_mods = ModifierEngine.get_focus_modifiers(char_data, "resonance")
+        ai_res_focus_val = sum(fm.value for fm in ai_res_focus_mods)
+        ai_res_buffs = [
+            {
+                "source": fm.source,
+                "value": fm.value,
+                "type": "focus",
+                "notes": getattr(fm, "notes", None) or "+4 dice to tests using Resonance attribute",
+                "rule_anchor": getattr(fm, "rule_anchor", None) or "rules/rules_matrix.html#foci"
+            } for fm in ai_res_focus_mods
+        ]
+        ai_res_breakdown = (f"Base {res} + " + " + ".join([f"{fm.source} (+{fm.value})" for fm in ai_res_focus_mods]) + f" = {res + ai_res_focus_val}") if ai_res_focus_mods else f"Base {res}"
+
+        attributes_list = [
+            {
+                "name": "Attack",
+                "code": "ATT",
+                "base": base_att,
+                "buffed": att_val,
+                "is_buffed": att_val != base_att,
+                "buffs": [{"source": "Network Tuning / Symbiosis", "value": att_val - base_att, "notes": "Subject to +4 Augmented Attribute Limit"}],
+                "breakdown": f"Base {base_att} + Network Tuning (+{att_val - base_att}) = {att_val}",
+                "doc_link": "chapters/rules_matrix.html#matrix-attributes"
+            },
+            {
+                "name": "Sleaze",
+                "code": "SLZ",
+                "base": base_slz,
+                "buffed": slz_val,
+                "is_buffed": slz_val != base_slz,
+                "buffs": [{"source": "Network Tuning / Symbiosis", "value": slz_val - base_slz, "notes": "Subject to +4 Augmented Attribute Limit"}],
+                "breakdown": f"Base {base_slz} + Network Tuning (+{slz_val - base_slz}) = {slz_val}",
+                "doc_link": "chapters/rules_matrix.html#matrix-attributes"
+            },
+            {
+                "name": "Data Processing",
+                "code": "DP",
+                "base": base_dp,
+                "buffed": dp_val,
+                "is_buffed": dp_val != base_dp,
+                "buffs": [{"source": "Network Tuning / Symbiosis", "value": dp_val - base_dp, "notes": "Subject to +4 Augmented Attribute Limit"}],
+                "breakdown": f"Base {base_dp} + Network Tuning (+{dp_val - base_dp}) = {dp_val}",
+                "doc_link": "chapters/rules_matrix.html#matrix-attributes"
+            },
+            {
+                "name": "Firewall",
+                "code": "FW",
+                "base": base_fw,
+                "buffed": fw_val,
+                "is_buffed": fw_val != base_fw,
+                "buffs": [{"source": "Network Tuning / Symbiosis", "value": fw_val - base_fw, "notes": "Subject to +4 Augmented Attribute Limit"}],
+                "breakdown": f"Base {base_fw} + Network Tuning (+{fw_val - base_fw}) = {fw_val}",
+                "doc_link": "chapters/rules_matrix.html#matrix-attributes"
+            },
+            {
+                "name": "Willpower",
+                "code": "WIL",
+                "base": wil,
+                "buffed": buffed_wil,
+                "is_buffed": buffed_wil != wil,
+                "buffs": [],
+                "breakdown": f"Base {wil}",
+                "doc_link": "chapters/rules_matrix.html#matrix-attributes"
+            },
+            {
+                "name": "Logic",
+                "code": "LOG",
+                "base": log_val,
+                "buffed": buffed_log,
+                "is_buffed": buffed_log != log_val,
+                "buffs": [],
+                "breakdown": f"Base {log_val}",
+                "doc_link": "chapters/rules_matrix.html#matrix-attributes"
+            },
+            {
+                "name": "Intuition",
+                "code": "INT",
+                "base": int_val,
+                "buffed": buffed_int,
+                "is_buffed": buffed_int != int_val,
+                "buffs": [],
+                "breakdown": f"Base {int_val}",
+                "doc_link": "chapters/rules_matrix.html#matrix-attributes"
+            },
+            {
+                "name": "Charisma",
+                "code": "CHA",
+                "base": cha,
+                "buffed": buffed_cha,
+                "is_buffed": buffed_cha != cha,
+                "buffs": [],
+                "breakdown": f"Base {cha}",
+                "doc_link": "chapters/rules_matrix.html#matrix-attributes"
+            },
+            {
+                "name": "Edge",
+                "code": "EDG",
+                "base": edg,
+                "buffed": edg,
+                "is_buffed": False,
+                "buffs": [],
+                "breakdown": f"Base {edg}",
+                "doc_link": "chapters/rules_matrix.html#network-benefits"
+            },
+            {
+                "name": "Resonance",
+                "code": "RES",
+                "base": res,
+                "buffed": res + ai_res_focus_val,
+                "is_buffed": bool(ai_res_focus_mods),
+                "buffs": ai_res_buffs,
+                "breakdown": ai_res_breakdown,
+                "doc_link": "chapters/rules_matrix.html#matrix-action-pools"
+            }
+        ]
+    else:
+        # Standard Metatypes (Velvet, Venn/Union)
+        def _build_attr_entry(name: str, code: str, base_val: int, buffed_val: int, default_doc: str, extra_buffs: Optional[List[Dict[str, Any]]] = None) -> Dict[str, Any]:
+            buffs = []
+            for m in attr_mods_map.get(name.lower(), []) + attr_mods_map.get(code.lower(), []):
+                buffs.append({
+                    "source": m.get("name", "Modifier"),
+                    "value": m.get("value", 1),
+                    "type": m.get("type", "augmentation"),
+                    "notes": m.get("notes", ""),
+                    "rule_anchor": m.get("rule_anchor", default_doc)
+                })
+            if extra_buffs:
+                for eb in extra_buffs:
+                    buffs.append({
+                        "source": eb.get("source", "Bonus"),
+                        "value": eb.get("value", 0),
+                        "type": eb.get("type", "situational"),
+                        "notes": eb.get("notes", ""),
+                        "rule_anchor": eb.get("rule_anchor", default_doc)
+                    })
+            is_b = (buffed_val != base_val) or bool(buffs)
+            doc_l = buffs[0].get("rule_anchor", default_doc) if buffs else default_doc
+            if buffs:
+                aug_buffs = [b for b in buffs if b.get("type") not in ["skill bonus", "skill_bonus", "situational"]]
+                skill_buffs = [b for b in buffs if b.get("type") in ["skill bonus", "skill_bonus"]]
+                sit_buffs = [b for b in buffs if b.get("type") == "situational"]
+                parts = [f"Base {base_val}"]
+                if aug_buffs:
+                    parts.extend([f"{b['source']} (+{b['value']})" for b in aug_buffs])
+                breakdown = " + ".join(parts)
+                if buffed_val != base_val and not aug_buffs:
+                    breakdown += f" = {buffed_val}"
+                elif aug_buffs:
+                    breakdown += f" = {buffed_val}"
+                if skill_buffs:
+                    sb_str = ", ".join([f"+{b['value']} on skill tests ({b['source']})" for b in skill_buffs])
+                    breakdown += f" [{sb_str}]"
+                if sit_buffs:
+                    sit_str = ", ".join([f"{b['source']} ({b.get('notes', '')})" for b in sit_buffs])
+                    breakdown += f" ({sit_str})"
+            elif buffed_val != base_val:
+                breakdown = f"Base {base_val} -> Buffed {buffed_val}"
+            else:
+                breakdown = f"Base {base_val}"
+            return {
+                "name": name,
+                "code": code,
+                "base": base_val,
+                "buffed": buffed_val,
+                "is_buffed": is_b,
+                "buffs": buffs,
+                "breakdown": breakdown,
+                "doc_link": doc_l
+            }
+
+        bod_extra = [{"source": "Bone Density Augmentation R4", "value": 4, "notes": "+4 unarmored soak (9 Soak)", "rule_anchor": "chapters/rules_and_downtime.html#augmentation-stacking"}] if is_monad else []
+        wil_extra = [{"source": "Increase Attribute Spell (F4)", "value": buffed_wil - wil, "notes": "Sustained via Focused Concentration R3", "rule_anchor": "chapters/rules_and_downtime.html#sustained-spells"}] if (is_velvet and buffed_wil != wil) else []
+        cha_extra = [{"source": "Increase Attribute Spell (F4)", "value": buffed_cha - cha, "notes": "Sustained via Focused Concentration R3", "rule_anchor": "chapters/rules_and_downtime.html#sustained-spells"}] if (is_velvet and buffed_cha != cha) else []
+        log_extra = [{"source": "Monad Mental Boost (NV)", "value": 4, "notes": "Surges to Logic 10 via NV", "rule_anchor": "chapters/rules_and_downtime.html#monad-nanite-boosts"}] if is_monad else []
+
+        attributes_list = [
+            _build_attr_entry("Body", "BOD", bod, buffed_bod, "chapters/rules_and_downtime.html#augmentation-stacking" if is_monad else "chapters/rules_and_downtime.html", bod_extra),
+            _build_attr_entry("Agility", "AGI", agi, buffed_agi, "rules/rules_and_downtime.html"),
+            _build_attr_entry("Reaction", "REA", rea, buffed_rea, "rules/rules_and_downtime.html"),
+            _build_attr_entry("Strength", "STR", str_val, buffed_str, "rules/rules_and_downtime.html"),
+            _build_attr_entry("Willpower", "WIL", wil, buffed_wil, "chapters/rules_and_downtime.html#sustained-spells" if is_velvet else "rules/rules_and_downtime.html", wil_extra),
+            _build_attr_entry("Logic", "LOG", log_val, buffed_log, "chapters/rules_and_downtime.html#monad-nanite-boosts" if is_monad else "rules/rules_and_downtime.html", log_extra),
+            _build_attr_entry("Intuition", "INT", int_val, buffed_int, "chapters/rules_and_downtime.html"),
+            _build_attr_entry("Charisma", "CHA", cha, buffed_cha, "chapters/rules_and_downtime.html#sustained-spells" if is_velvet else "rules/rules_and_downtime.html", cha_extra),
+        ]
+
+        if is_monad:
+            # Monad Living Persona ASDF (Row 3: ATT, SLZ, DP, FW all on a single line)
+            # Living Persona uses buffed mental attributes and allocated NV tuning
+            att_buffs = [{"source": "Neurochemical Regulator", "value": buffed_cha - cha, "notes": "Monad Attack derived from Charisma", "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts"}] if buffed_cha != cha else []
+            fw_buffs = [{"source": "Nanite Volume (NV 2)", "value": 2, "notes": "NV allocated to Firewall", "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts"}]
+            if buffed_wil != wil:
+                fw_buffs.append({"source": "Bio-Response Override", "value": buffed_wil - wil, "notes": "Monad Firewall derived from Willpower", "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts"})
+
+            attributes_list.extend([
+                {
+                    "name": "Attack (Living Persona)",
+                    "code": "ATT",
+                    "base": cha,
+                    "buffed": buffed_cha,
+                    "linked_mental": "cha",
+                    "tuning_bonus": 0,
+                    "is_buffed": buffed_cha != cha,
+                    "buffs": att_buffs,
+                    "breakdown": f"Monad Living Persona Attack (Charisma {buffed_cha})" if not att_buffs else f"Monad Living Persona Attack (Charisma {cha} + Neurochemical Regulator [{buffed_cha - cha}] = {buffed_cha})",
+                    "doc_link": "rules/rules_and_downtime.html#monad-matrix-attributes"
+                },
+                {
+                    "name": "Sleaze (Living Persona)",
+                    "code": "SLZ",
+                    "base": int_val,
+                    "buffed": buffed_int + 1,
+                    "linked_mental": "int",
+                    "tuning_bonus": 1,
+                    "is_buffed": True,
+                    "buffs": [{"source": "Nanite Volume (NV 1)", "value": 1, "notes": "NV allocated to Sleaze", "rule_anchor": "rules/rules_and_downtime.html#monad-matrix-attributes"}],
+                    "breakdown": f"Monad Living Persona Sleaze (Intuition {int_val} + NV 1 = {buffed_int + 1})",
+                    "doc_link": "rules/rules_and_downtime.html#monad-matrix-attributes"
+                },
+                {
+                    "name": "Data Processing (Living Persona)",
+                    "code": "DP",
+                    "base": log_val,
+                    "buffed": buffed_log + 1,
+                    "linked_mental": "log",
+                    "tuning_bonus": 1,
+                    "is_buffed": True,
+                    "buffs": [{"source": "Nanite Volume (NV 1)", "value": 1, "notes": "NV allocated to DP", "rule_anchor": "rules/rules_and_downtime.html#monad-matrix-attributes"}],
+                    "breakdown": f"Monad Living Persona Data Processing (Logic {log_val} + NV 1 = {buffed_log + 1})",
+                    "doc_link": "rules/rules_and_downtime.html#monad-matrix-attributes"
+                },
+                {
+                    "name": "Firewall (Living Persona)",
+                    "code": "FW",
+                    "base": wil,
+                    "buffed": buffed_wil + 2,
+                    "linked_mental": "wil",
+                    "tuning_bonus": 2,
+                    "is_buffed": True,
+                    "buffs": fw_buffs,
+                    "breakdown": f"Monad Living Persona Firewall (Willpower {wil} + " + " + ".join([f"{b['source']} ({b['value']})" for b in fw_buffs]) + f" = {buffed_wil + 2})",
+                    "doc_link": "rules/rules_and_downtime.html#monad-matrix-attributes"
+                }
+            ])
+
+        # Special attributes (Row 4)
+        standard_focus_mods = ModifierEngine.get_focus_modifiers(char_data, "magic") if mag > 0 else (ModifierEngine.get_focus_modifiers(char_data, "resonance") if res > 0 else [])
+        standard_focus_val = sum(fm.value for fm in standard_focus_mods)
+        standard_focus_buffs = [
+            {
+                "source": fm.source,
+                "value": fm.value,
+                "type": "focus",
+                "notes": getattr(fm, "notes", None) or ("+3 to Magic for tests where Magic applies" if mag > 0 else "+4 dice to tests using Resonance attribute"),
+                "rule_anchor": getattr(fm, "rule_anchor", None) or ("rules/rules_and_downtime.html#foci" if mag > 0 else "rules/rules_matrix.html#foci")
+            } for fm in standard_focus_mods
+        ]
+        standard_special_breakdown = (
+            (f"Base {mag if mag > 0 else res} + " + " + ".join([f"{fm.source} (+{fm.value})" for fm in standard_focus_mods]) + f" = {(mag if mag > 0 else res) + standard_focus_val}")
+            if standard_focus_mods else f"Base {mag if mag > 0 else (res if res > 0 else (nv if is_monad else f'{ess:.2f}'))}"
+        )
+
+        attributes_list.extend([
+            {
+                "name": "Edge",
+                "code": "EDG",
+                "base": edg,
+                "buffed": edg,
+                "is_buffed": False,
+                "buffs": [],
+                "breakdown": f"Base {edg}",
+                "doc_link": "chapters/rules_and_downtime.html"
+            },
+            {
+                "name": "Magic" if mag > 0 else ("Resonance" if res > 0 else ("Nanite Volume" if is_monad else "Essence")),
+                "code": "MAG" if mag > 0 else ("RES" if res > 0 else ("NV" if is_monad else "ESS")),
+                "base": mag if mag > 0 else (res if res > 0 else (nv if is_monad else ess)),
+                "buffed": ((mag if mag > 0 else res) + standard_focus_val) if (mag > 0 or res > 0) else (nv if is_monad else ess),
+                "is_buffed": bool(standard_focus_mods),
+                "buffs": standard_focus_buffs,
+                "breakdown": standard_special_breakdown,
+                "doc_link": "rules/rules_and_downtime.html#foci-protocols" if mag > 0 else ("chapters/rules_matrix.html#matrix-action-pools" if res > 0 else ("chapters/rules_and_downtime.html#monad-matrix-attributes" if is_monad else "chapters/rules_and_downtime.html"))
+            }
+        ])
+
+        if is_monad:
+            attributes_list.append({
+                "name": "Essence",
+                "code": "ESS",
+                "base": ess,
+                "buffed": ess,
+                "is_buffed": False,
+                "buffs": [],
+                "breakdown": f"Base {ess:.2f}",
+                "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+            })
+
+    # Skills compilation: Specialization (+2) is NOT added to top-level buffed_pool
+    compiled_skills = []
+    for s in skills_raw:
+        if not isinstance(s, dict):
+            continue
+        s_name = s.get("name", "Skill")
+        s_rating = int(s.get("rating", 1))
+        s_attr = s.get("attribute", "logic")
+        s_spec = s.get("specialization")
+
+        calc = ModifierEngine.calculate_skill_pool(
+            char_data,
+            skill_name=s_name,
+            skill_rating=s_rating,
+            linked_attribute=s_attr,
+            specialization=s_spec
+        )
+
+        base_pool = calc["base_pool"]
+        # General effective pool (DO NOT add specialization +2 here)
+        general_effective_pool = calc["effective_pool"]
+
+        bought_hits = general_effective_pool // 4
+        specialized_pool = general_effective_pool + 2 if s_spec else general_effective_pool
+        specialized_hits = specialized_pool // 4
+
+        buff_list = []
+        for m in calc.get("applied_modifiers", []):
+            buff_list.append({
+                "source": m.source,
+                "type": m.type,
+                "value": m.value,
+                "target": m.target,
+                "rule_anchor": getattr(m, "rule_anchor", None),
+                "notes": getattr(m, "notes", None),
+                "active": True
+            })
+        if s_spec:
+            buff_list.append({
+                "source": f"Specialization: {s_spec}",
+                "type": "specialization",
+                "value": 2,
+                "target": "action",
+                "active": False  # Action-specific bonus
+            })
+
+        compiled_skills.append({
+            "name": s_name,
+            "id": s.get("id", s_name.lower().replace(" ", "_")),
+            "rating": s_rating,
+            "attribute": s_attr,
+            "specialization": s_spec,
+            "base_pool": base_pool,
+            "buffed_pool": general_effective_pool,
+            "bought_hits": bought_hits,
+            "specialized_pool": specialized_pool,
+            "specialized_hits": specialized_hits,
+            "effective_attribute": calc.get("effective_attribute", s_attr),
+            "is_attribute_overridden": calc.get("is_attribute_overridden", False),
+            "breakdown_text": calc.get("breakdown", f"{s_attr[:3].upper()} + {s_rating} Rtg"),
+            "buffs": buff_list,
+            "doc_link": "chapters/rules_matrix.html#matrix-action-pools" if is_ai else "chapters/rules_and_downtime.html"
+        })
+
+    # Activesofts (Software run on Skillwires R6 with +1 Wireless-ON bonus -> Rating 7)
+    activesofts_raw = char_data.get("activesofts", [])
+    if isinstance(activesofts_raw, list):
+        for soft in activesofts_raw:
+            if not isinstance(soft, dict):
+                continue
+            soft_name = soft.get("name", "Activesoft")
+            base_r = int(soft.get("rating", 6))
+            aug_r = base_r + 1
+            soft_attr = soft.get("attribute", "agility").lower()
+            if "firearms" in soft_name.lower():
+                soft_attr = "agility"
+            elif "cracking" in soft_name.lower():
+                soft_attr = "logic"
+            elif "perception" in soft_name.lower():
+                soft_attr = "intuition"
+            elif "engineering" in soft_name.lower():
+                soft_attr = "logic"
+            elif "stealth" in soft_name.lower():
+                soft_attr = "agility"
+            elif "close combat" in soft_name.lower():
+                soft_attr = "agility"
+
+            # Attribute value (augmented)
+            attr_val = buffed_agi if soft_attr == "agility" else (
+                buffed_log if soft_attr == "logic" else (
+                    buffed_int if soft_attr == "intuition" else (
+                        buffed_rea if soft_attr == "reaction" else (
+                            buffed_str if soft_attr == "strength" else (
+                                buffed_cha if soft_attr == "charisma" else int(attrs.get(soft_attr, 1))
+                            )
+                        )
+                    )
+                )
+            )
+            base_attr_val = int(attrs.get(soft_attr, 1))
+
+            clean_soft = soft_name.lower().replace(" activesoft", "").strip()
+            # Query declared modifiers targeting this activesoft skill OR attribute skill bonus
+            matching_mods = []
+            for dm in declared_mods:
+                if isinstance(dm, dict):
+                    tgt = str(dm.get("target", "")).lower().strip()
+                    m_type = str(dm.get("type", "")).lower().strip()
+                    if tgt in [f"skill:{clean_soft}", f"skill:{clean_soft.replace(' ', '_')}", clean_soft, clean_soft.replace(" ", "_")]:
+                        matching_mods.append(dm)
+                    elif tgt in [f"attribute:{soft_attr}", soft_attr] and m_type in ["skill bonus", "skill_bonus"]:
+                        matching_mods.append(dm)
+
+            buff_list = []
+            extra_mod = 0
+            breakdown_parts = [f"{soft_attr[:3].upper()} {attr_val}", f"{base_r} Base Soft"]
+
+            has_wires_in_mods = any("skillwire" in str(mm.get("name", "")).lower() for mm in matching_mods)
+            if not has_wires_in_mods:
+                buff_list.append({
+                    "source": "Skillwires Wireless ON",
+                    "type": "cyberware",
+                    "value": 1,
+                    "target": "skill",
+                    "rule_anchor": "rules/rules_and_downtime.html#skillwires-protocols",
+                    "active": True
+                })
+                breakdown_parts.append("Skillwires (+1)")
+
+            for mm in matching_mods:
+                m_val = int(mm.get("value", 1))
+                m_name = mm.get("name", "Modifier")
+                buff_list.append({
+                    "source": m_name,
+                    "type": mm.get("type", "augmentation"),
+                    "value": m_val,
+                    "target": "skill",
+                    "notes": mm.get("notes", ""),
+                    "rule_anchor": mm.get("rule_anchor", "rules/rules_and_downtime.html"),
+                    "active": True
+                })
+                extra_mod += m_val
+                breakdown_parts.append(f"{m_name} (+{m_val})")
+
+            if "firearms" in soft_name.lower() and not any("reflex recorder" in str(mm.get("name", "")).lower() for mm in matching_mods):
+                buff_list.append({"source": "Reflex Recorder (+1)", "type": "augmentation", "value": 1, "target": "skill", "active": True})
+                extra_mod += 1
+                breakdown_parts.append("Reflex Recorder (+1)")
+
+            total_pool = attr_val + base_r + (1 if not has_wires_in_mods else 0) + extra_mod
+            base_pool = base_attr_val + base_r
+            bought_hits = total_pool // 4
+
+            clean_display_name = soft_name.replace(" Activesoft", "").replace(" activesoft", "")
+
+            compiled_skills.append({
+                "name": f"{clean_display_name} (Activesoft)",
+                "id": soft_name.lower().replace(" ", "_"),
+                "rating": aug_r,
+                "base_rating": base_r,
+                "is_activesoft": True,
+                "attribute": soft_attr,
+                "specialization": None,
+                "base_pool": base_pool,
+                "buffed_pool": total_pool,
+                "bought_hits": bought_hits,
+                "specialized_pool": total_pool,
+                "specialized_hits": bought_hits,
+                "effective_attribute": soft_attr,
+                "is_attribute_overridden": False,
+                "breakdown_text": " + ".join(breakdown_parts) + f" = {total_pool}d6",
+                "buffs": buff_list,
+                "doc_link": "rules/rules_and_downtime.html#skillwires-protocols"
+            })
+
+    # Qualities
+    pos_raw = qualities_raw.get("positive", []) if isinstance(qualities_raw, dict) else []
+    neg_raw = qualities_raw.get("negative", []) if isinstance(qualities_raw, dict) else []
+    pos_qualities = []
+    for q in pos_raw:
+        if isinstance(q, dict):
+            pos_qualities.append({
+                "name": q.get("name", q.get("ref", "Quality")),
+                "rating": q.get("rating"),
+                "choice": q.get("choice"),
+                "notes": q.get("notes")
+            })
+        else:
+            pos_qualities.append({"name": str(q)})
+
+    neg_qualities = []
+    for q in neg_raw:
+        if isinstance(q, dict):
+            neg_qualities.append({
+                "name": q.get("name", q.get("ref", "Quality")),
+                "rating": q.get("rating"),
+                "choice": q.get("choice"),
+                "notes": q.get("notes")
+            })
+        else:
+            neg_qualities.append({"name": str(q)})
+
+    # Weapons compilation with Melee handling and Base vs Buffed stats
+    raw_weapons = _safe_item_list(char_data.get("weapons", []))
+    compiled_weapons = []
+    for w in raw_weapons:
+        if isinstance(w, dict):
+            w_name = w.get("name", w.get("ref", "Weapon"))
+            dmg = w.get("damage", w.get("dv", "3P"))
+            ar = w.get("attack_rating", w.get("ar", [10, 10, 8, 0, 0]))
+            category = str(w.get("category", "General")).lower()
+            modes = w.get("mode", w.get("modes", "SA"))
+            ammo = w.get("ammo", "—")
+            mods = w.get("accessories", w.get("modifications", []))
+            loaded_ammo = w.get("loaded_ammo") or w.get("ammo_type")
+            notes = w.get("notes", "")
+
+            # Check if melee / physical weapon (Sap, Stun Baton, Knives, Cestas, Unarmed)
+            is_melee = category in ["melee", "unarmed", "exotic_melee", "close_combat", "club", "clubs", "blade", "blades"] or any(
+                x in w_name.lower() for x in ["cesta", "cestas", "whip", "dagger", "sword", "knife", "blade", "unarmed", "fist", "club", "staff", "sap", "baton", "stun baton"]
+            )
+
+            # Store base stats before modification engine
+            base_dmg = dmg
+            base_ar = ar
+            base_modes = modes
+            base_ammo = ammo
+
+            # Attempt rules engine resolution if missing
+            if not dmg or not ar:
+                try:
+                    from sr6core.rules_engine import get_weapon_stats
+                    w_db = get_weapon_stats(w.get("ref", w_name))
+                    if w_db:
+                        dmg = dmg or w_db.get("dv", "3P")
+                        ar = ar or w_db.get("ar", [10, 10, 8, 0, 0])
+                        modes = modes or w_db.get("mode", "SA")
+                        ammo = ammo or w_db.get("ammo", "—")
+                        base_dmg = dmg
+                        base_ar = ar
+                        base_modes = modes
+                        base_ammo = ammo
+                except Exception:
+                    pass
+
+            # Calculate modified weapon stats if available
+            try:
+                from sr6core.character.model import WeaponStatBlock
+                from sr6core.vault.statblock_parser import calculate_modified_weapon
+                raw_ar_val = ar if isinstance(ar, list) else ([int(x.strip()) if x.strip().isdigit() else 0 for x in str(ar).split("/")] if "/" in str(ar) else [10, 10, 8, 0, 0])
+                base_w = WeaponStatBlock(
+                    name=w_name,
+                    category=category,
+                    damage=str(dmg),
+                    attack_rating=raw_ar_val,
+                    firing_modes=modes.split("/") if isinstance(modes, str) else list(modes),
+                    ammo_capacity=int(re.search(r"\d+", str(ammo)).group(0)) if ammo and re.search(r"\d+", str(ammo)) else None,
+                    ammo_feed="c",
+                )
+                mod_w = calculate_modified_weapon(base_w, accessories=mods, ammo_type=loaded_ammo)
+                dmg = mod_w.damage
+                ar = mod_w.attack_rating
+                if mod_w.ammo_capacity:
+                    ammo = f"{mod_w.ammo_capacity}({mod_w.ammo_feed or 'c'})"
+                if mod_w.firing_modes:
+                    modes = "/".join(mod_w.firing_modes)
+            except Exception:
+                pass
+
+            def _format_ar(val: Any) -> str:
+                if isinstance(val, list):
+                    return " / ".join([str(x) if (isinstance(x, (int, float)) and x > 0) or (isinstance(x, str) and x.isdigit() and int(x) > 0) else "—" for x in val])
+                if isinstance(val, str):
+                    if "/" in val:
+                        return " / ".join([p.strip() if p.strip() not in ["0", "-", "—", ""] else "—" for p in val.split("/")])
+                    return val if val not in ["0", "-", ""] else "—"
+                if isinstance(val, (int, float)):
+                    return str(val) if val > 0 else "—"
+                return str(val)
+
+            ar_str = _format_ar(ar)
+            base_ar_str = _format_ar(base_ar)
+
+            # For melee / physical weapons, fire modes and ammo do not apply
+            if is_melee:
+                modes = []
+                modes_str = "Melee"
+                ammo = "—"
+                base_modes_str = "Melee"
+                base_ammo = "—"
+            else:
+                modes_str = str(modes)
+                base_modes_str = str(base_modes)
+
+            # Determine doc link
+            doc_link = "chapters/rules_combat.html#amalgam-protocols" if "amalgam" in w_name.lower() or "cesta" in w_name.lower() else (
+                "chapters/rules_combat.html#tactical-weapon-arrays" if is_ai else "chapters/rules_and_downtime.html#weapon-attack-table"
+            )
+
+            compiled_weapons.append({
+                "name": w_name,
+                "is_melee": is_melee,
+                "category": category,
+                "damage": dmg,
+                "base_damage": base_dmg,
+                "attack_rating": ar if isinstance(ar, list) else [ar],
+                "attack_rating_str": ar_str,
+                "base_attack_rating_str": base_ar_str,
+                "modes": modes if isinstance(modes, list) else str(modes).split("/"),
+                "modes_str": modes_str,
+                "base_modes_str": base_modes_str,
+                "ammo": str(ammo),
+                "base_ammo": str(base_ammo),
+                "loaded_ammo": loaded_ammo,
+                "accessories": [str(m.get("name", m)) if isinstance(m, dict) else str(m) for m in mods],
+                "notes": notes,
+                "doc_link": doc_link
+            })
+
+    # Armor
+    raw_armors = _safe_item_list(char_data.get("armors", char_data.get("armor", [])))
+    compiled_armors = []
+    total_dr = 0
+    for a in raw_armors:
+        if isinstance(a, dict):
+            a_name = a.get("name", a.get("ref", "Armor"))
+            dr = int(a.get("defense_rating", a.get("rating", 0)))
+            total_dr += dr
+            mods = a.get("accessories", a.get("modifications", []))
+            notes = a.get("notes", "")
+            compiled_armors.append({
+                "name": a_name,
+                "defense_rating": dr,
+                "accessories": [str(m.get("name", m)) if isinstance(m, dict) else str(m) for m in mods],
+                "modifications": [str(m.get("name", m)) if isinstance(m, dict) else str(m) for m in mods],
+                "notes": notes
+            })
+
+    # Drones and Vehicles with Inhabited Action Pools and Base vs Mod Stats
+    from sr6core.vehicles import parse_vehicle_modifications, calculate_drone_action_pools
+    raw_drones = _safe_item_list(char_data.get("drones", []))
+    raw_vehicles = _safe_item_list(char_data.get("vehicles", []))
+
+    def _compile_vehicle_item(item: Dict[str, Any], is_drone: bool = False) -> Dict[str, Any]:
+        v_name = item.get("name", "Drone / Vehicle")
+        v_role = item.get("role", "")
+        han_on = item.get("handling_on", item.get("handling", 3))
+        han_off = item.get("handling_off", han_on)
+        acc_on = item.get("accel_on", item.get("accel", 10))
+        acc_off = item.get("accel_off", acc_on)
+        spd = item.get("speed", item.get("top_speed", 120))
+        interval = item.get("interval", item.get("speed_interval_on", 15))
+        v_bod = item.get("body", 1)
+        v_arm = item.get("armor", 0)
+        pil = item.get("pilot", 1)
+        sen = item.get("sensor", 1)
+        seats = item.get("seats", "-")
+        mods = [str(m.get("name", m)) if isinstance(m, dict) else str(m) for m in item.get("modifications", [])]
+
+        aug_profile = parse_vehicle_modifications(item, char_data=char_data)
+        action_pools = calculate_drone_action_pools(char_data, item)
+        formatted_pools = {}
+        if action_pools:
+            for p_key, p_val in action_pools.items():
+                if isinstance(p_val, dict):
+                    pool_num = p_val.get("pool", 0)
+                    formatted_pools[p_key] = {
+                        "pool": pool_num,
+                        "hits": pool_num // 4,
+                        "breakdown": p_val.get("breakdown", "")
+                    }
+
+        return {
+            "name": v_name,
+            "category": "drone" if is_drone else "vehicle",
+            "role": v_role,
+            "handling": aug_profile.get("handling_str", f"{han_on}/{han_off}"),
+            "accel": aug_profile.get("accel_str", f"{acc_on}/{acc_off}"),
+            "speed": aug_profile.get("speed_str", str(spd)),
+            "interval": interval,
+            "body": aug_profile.get("inhabited_body", v_bod),
+            "base_body": aug_profile.get("base_body", v_bod),
+            "armor": aug_profile.get("augmented_armor", v_arm),
+            "base_armor": aug_profile.get("base_armor", v_arm),
+            "pilot": aug_profile.get("inhabited_pilot", pil),
+            "base_pilot": aug_profile.get("base_pilot", pil),
+            "sensor": aug_profile.get("augmented_sensor", sen),
+            "base_sensor": aug_profile.get("base_sensor", sen),
+            "seats": seats,
+            "modifications": mods,
+            "profile_notes": aug_profile.get("notes", []),
+            "mobility_str": aug_profile.get("mobility_str", ""),
+            "rigged_pools": formatted_pools,
+            "doc_link": "chapters/rules_drones.html#tactical-drones" if is_ai else "chapters/rules_and_downtime.html"
+        }
+
+    compiled_drones = [_compile_vehicle_item(d, is_drone=True) for d in raw_drones if isinstance(d, dict)]
+    compiled_vehicles = [_compile_vehicle_item(v, is_drone=False) for v in raw_vehicles if isinstance(v, dict)]
+    all_vehicles = compiled_vehicles + compiled_drones
+
+    # Complex Forms, Spells, Adept Powers, Echoes, Monad Abilities, Sprite Powers with Deep Links
+    complex_forms = []
+    for cf in _safe_item_list(char_data.get("complex_forms", [])):
+        if isinstance(cf, dict):
+            cf_name = cf.get("name", cf.get("ref", "Complex Form"))
+            complex_forms.append({
+                "name": cf_name,
+                "fading": cf.get("fading", cf.get("fv", 0)),
+                "duration": cf.get("duration", "Instant"),
+                "target": cf.get("target", "Device/Persona"),
+                "notes": cf.get("notes", ""),
+                "doc_link": "chapters/rules_sprites.html#complex-forms"
+            })
+
+    submersion_echoes = []
+    for echo in _safe_item_list(char_data.get("meta_echoes", char_data.get("submersion_echoes", char_data.get("metamagics", [])))):
+        echo_name = _get_name(echo)
+        submersion_echoes.append({
+            "name": echo_name,
+            "doc_link": "chapters/rules_matrix.html#network-benefits"
+        })
+
+    sprite_powers = []
+    for sp in _safe_item_list(char_data.get("sprite_powers", [])):
+        if isinstance(sp, dict):
+            sprite_powers.append({
+                "name": sp.get("name", "Sprite Power"),
+                "type": sp.get("type", "Sprite Power (Symbiosis)"),
+                "target": sp.get("target", "PAN / Matrix Icon"),
+                "action": sp.get("action", "Minor Action"),
+                "effect": sp.get("effect", sp.get("notes", "")),
+                "doc_link": "chapters/rules_sprites.html#sprite-symbiosis-powers"
+            })
+
+    spells = []
+    for sp in _safe_item_list(char_data.get("spells", [])):
+        if isinstance(sp, dict):
+            sp_name = sp.get("name", sp.get("ref", "Spell"))
+            spells.append({
+                "name": sp_name,
+                "drain": sp.get("drain", 0),
+                "type": sp.get("type", "Physical"),
+                "range": sp.get("range", "Touch" if "increase" in sp_name.lower() else "LOS"),
+                "duration": sp.get("duration", "Sustained" if "increase" in sp_name.lower() else "Instant"),
+                "notes": sp.get("notes", ""),
+                "doc_link": sp.get("doc_link", "chapters/rules_and_downtime.html#spell-library")
+            })
+
+    adept_powers = []
+    for ap in _safe_item_list(char_data.get("powers", char_data.get("adept_powers", []))):
+        if isinstance(ap, dict):
+            adept_powers.append({
+                "name": ap.get("name", ap.get("ref", "Power")),
+                "cost": ap.get("cost", 0),
+                "rating": ap.get("rating"),
+                "notes": ap.get("notes", ""),
+                "doc_link": ap.get("doc_link", "chapters/rules_and_downtime.html#adept-powers")
+            })
+
+    monad_abilities = []
+    for ma in _safe_item_list(char_data.get("monad_abilities", [])):
+        if isinstance(ma, dict):
+            monad_abilities.append({
+                "name": ma.get("name", "Ability"),
+                "action": ma.get("action", "Passive"),
+                "effect": ma.get("effect", ma.get("notes", "")),
+                "notes": ma.get("notes", ""),
+                "doc_link": ma.get("doc_link", "chapters/rules_and_downtime.html#monad-nanite-boosts")
+            })
+
+    nanohive_data = None
+    if is_monad:
+        nanohive_data = {
+            "rating": 6,
+            "max_colonies": 6,
+            "max_volume": 18,
+            "replenish_rate": "6 NV / hour",
+            "catalog": NANOHIVE_CATALOG,
+            "presets": NANOHIVE_PRESETS,
+            "default_active": [
+                "neuromuscular_amplifier",
+                "bio_response_override",
+                "neurochemical_regulator",
+                "neocortical_neural_amp",
+                "limbic_neural_amp",
+                "neural_pattern_reinforcement"
+            ],
+            "default_volumes": {
+                "dynamic_features": 1,
+                "neuromuscular_amplifier": 2,
+                "bio_response_override": 3,
+                "neurochemical_regulator": 2,
+                "neocortical_neural_amp": 2,
+                "limbic_neural_amp": 2,
+                "neural_pattern_reinforcement": 2,
+                "tech_infestation": 1
+            }
+        }
+
+    # Augmentations (Cyberware / Bioware) with Deep Links
+    augmentations = []
+    for aug in _safe_item_list(char_data.get("cyberware")) + _safe_item_list(char_data.get("bioware")) + _safe_item_list(char_data.get("augmentations")):
+        if isinstance(aug, dict):
+            augmentations.append({
+                "name": aug.get("name", aug.get("ref", "Augmentation")),
+                "rating": aug.get("rating"),
+                "grade": aug.get("grade", "Standard"),
+                "essence": aug.get("essence", 0),
+                "notes": aug.get("notes", ""),
+                "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+            })
+
+    # Initiative Compilation
+    compiled_initiative = {
+        "default_mode": "vr_hotsim" if is_ai else "physical",
+        "modes": {}
+    }
+
+    if is_ai:
+        # Reiko: Technoshaman Living Persona VR Hot-Sim with Overclocking Echo (+1 Score, +1d6 Dice)
+        overclock_score = 1
+        overclock_dice = 1
+        hotsim_score = dp_val + int_val + overclock_score
+        hotsim_dice = 3 + overclock_dice
+        compiled_initiative["modes"]["vr_hotsim"] = {
+            "name": "VR Hot-Sim",
+            "score": hotsim_score,
+            "dice": hotsim_dice,
+            "dice_str": f"{hotsim_dice}d6",
+            "breakdown": f"DP ({dp_val}) + INT ({int_val}) + Overclocking Echo (+{overclock_score}) = {hotsim_score} + {hotsim_dice}d6 (3d6 Hot-Sim + 1d6 Echo)"
+        }
+    elif is_velvet:
+        # Velvet: Physical Initiative (Reaction + Intuition + 1d6), modified via Increase Reflexes spell
+        phys_score = buffed_rea + buffed_int
+        phys_dice = 1
+        compiled_initiative["modes"]["physical"] = {
+            "name": "Physical",
+            "score": phys_score,
+            "dice": phys_dice,
+            "dice_str": f"{phys_dice}d6",
+            "breakdown": f"REA ({buffed_rea}) + INT ({buffed_int}) + {phys_dice}d6 (Modifiable via Increase Reflexes spell)"
+        }
+    elif is_monad:
+        # Venn: Physical Initiative (Reaction + Intuition + 1d6, modifiable via Monad Boost) and VR Hot-Sim (Monad Persona DP 6 + INT 5 + 3d6)
+        phys_score = buffed_rea + buffed_int
+        phys_dice = 1
+        compiled_initiative["modes"]["physical"] = {
+            "name": "Physical",
+            "score": phys_score,
+            "dice": phys_dice,
+            "dice_str": f"{phys_dice}d6",
+            "breakdown": f"REA ({buffed_rea}) + INT ({buffed_int}) + {phys_dice}d6 (Modifiable via Monad Physical Boost)"
+        }
+        monad_dp = 6
+        monad_int = buffed_int
+        monad_hotsim_score = monad_dp + monad_int
+        compiled_initiative["modes"]["vr_hotsim"] = {
+            "name": "VR Hot-Sim",
+            "score": monad_hotsim_score,
+            "dice": 3,
+            "dice_str": "3d6",
+            "breakdown": f"DP ({monad_dp}) + INT ({monad_int}) + 3d6 (Monad Living Persona Hot-Sim)"
+        }
+    else:
+        phys_score = buffed_rea + buffed_int
+        phys_dice = 1
+        compiled_initiative["modes"]["physical"] = {
+            "name": "Physical",
+            "score": phys_score,
+            "dice": phys_dice,
+            "dice_str": f"{phys_dice}d6",
+            "breakdown": f"REA ({buffed_rea}) + INT ({buffed_int}) + {phys_dice}d6"
+        }
+
+    # Matrix Devices, Programs, Autosofts & Gear
+    raw_matrix_dict = char_data.get("matrix_devices", {})
+    hosts = raw_matrix_dict.get("hosts", []) if isinstance(raw_matrix_dict, dict) else []
+    raw_devs = raw_matrix_dict.get("commlinks", []) if isinstance(raw_matrix_dict, dict) else char_data.get("matrix_devices", [])
+    raw_comms = _safe_item_list(char_data.get("commlinks", []))
+    all_matrix_devs = _safe_item_list(raw_devs) + [c for c in raw_comms if c not in _safe_item_list(raw_devs)]
+    compiled_matrix_devices = []
+    for d in all_matrix_devs:
+        if isinstance(d, dict):
+            d_name = d.get("name", d.get("ref", "Commlink"))
+            d_rtg = d.get("device_rating", d.get("rating", 3))
+            d_dp = d.get("data_processing", 2)
+            d_fw = d.get("firewall", 2)
+            d_accs = d.get("accessories", [])
+            d_notes = d.get("notes", "")
+            d_qty = d.get("qty", 1)
+            compiled_matrix_devices.append({
+                "name": d_name,
+                "rating": d_rtg,
+                "data_processing": d_dp,
+                "firewall": d_fw,
+                "qty": d_qty,
+                "accessories": [str(a.get("name", a)) if isinstance(a, dict) else str(a) for a in d_accs],
+                "notes": d_notes
+            })
+
+    raw_software = _safe_item_list(char_data.get("software", [])) + _safe_item_list(char_data.get("programs", []))
+    compiled_software = []
+    for sw in raw_software:
+        if isinstance(sw, dict):
+            sw_name = sw.get("name", sw.get("ref", "Program"))
+            sw_rtg = sw.get("rating")
+            sw_cat = sw.get("cat", sw.get("category", "Matrix Program"))
+            compiled_software.append({
+                "name": sw_name,
+                "rating": sw_rtg,
+                "category": sw_cat
+            })
+        elif isinstance(sw, str):
+            compiled_software.append({
+                "name": sw,
+                "rating": None,
+                "category": "Matrix Program"
+            })
+
+    autosofts = [_get_name(a) for a in _safe_item_list(char_data.get("autosofts", []))]
+    
+    # Structured Field Gear Items
+    raw_gear_items = _safe_item_list(char_data.get("gear", [])) + _safe_item_list(char_data.get("items", []))
+    compiled_gear = []
+    for g in raw_gear_items:
+        if isinstance(g, dict):
+            g_name = g.get("name", g.get("ref", "Gear"))
+            g_qty = g.get("qty", g.get("quantity", 1))
+            g_rtg = g.get("rating", g.get("device_rating"))
+            g_cat = g.get("category", g.get("cat", "Field Gear"))
+            g_accs = g.get("accessories", g.get("modifications", []))
+            g_notes = g.get("notes", g.get("description", ""))
+            compiled_gear.append({
+                "name": g_name,
+                "qty": g_qty,
+                "rating": g_rtg,
+                "category": g_cat,
+                "accessories": [str(a.get("name", a)) if isinstance(a, dict) else str(a) for a in g_accs],
+                "notes": g_notes
+            })
+        elif isinstance(g, str):
+            compiled_gear.append({
+                "name": g,
+                "qty": 1,
+                "rating": None,
+                "category": "Field Gear",
+                "accessories": [],
+                "notes": ""
+            })
+
+    gear_names = [g["name"] for g in compiled_gear]
+    program_names = [p["name"] for p in compiled_software]
+
+    # Contacts with explicit sorting fields & parsed types
+    raw_contacts = normalize_contacts_list(char_data.get("contacts", []))
+    compiled_contacts = []
+    for c in raw_contacts:
+        if isinstance(c, dict):
+            desc = str(c.get("description", c.get("notes", "")))
+            # Strip '(Not available after ...)' per campaign rules
+            desc = re.sub(r'\s*\([Nn]ot available after[^\)]*\)', '', desc).strip()
+            types_list = list(c.get("types", [])) if isinstance(c.get("types"), list) else []
+
+            # Extract types from "Types: Criminal, Street" in description if not explicitly set
+            if not types_list and "Types:" in desc:
+                m = re.search(r'Types:\s*([^\|\)]+)', desc)
+                if m:
+                    raw_extracted = [t.strip().rstrip('.') for t in m.group(1).split(',') if t.strip()]
+                    types_list.extend(raw_extracted)
+
+            # If still empty, infer from archetype or description keywords
+            if not types_list:
+                arch = str(c.get("archetype", c.get("type", ""))).lower()
+                desc_lower = desc.lower()
+                for keyword, cat_name in [
+                    ("criminal", "Criminal"),
+                    ("street", "Street"),
+                    ("fixer", "Fixer"),
+                    ("corporate", "Corporate"),
+                    ("matrix", "Matrix"),
+                    ("magic", "Magic"),
+                    ("medical", "Medical"),
+                    ("engineering", "Engineering"),
+                    ("vory", "Criminal"),
+                    ("triad", "Criminal"),
+                    ("gang", "Street"),
+                ]:
+                    if (keyword in arch or keyword in desc_lower) and cat_name not in types_list:
+                        types_list.append(cat_name)
+
+            if not types_list:
+                types_list = ["General"]
+
+            # Clean region
+            reg = c.get("region", "SEA")
+            compiled_contacts.append({
+                "name": c.get("name", "Contact"),
+                "connection": c.get("connection", 1),
+                "loyalty": c.get("loyalty", 1),
+                "archetype": c.get("archetype", c.get("type", "Contact")),
+                "favors": c.get("favors", c.get("favor_balance", 0)),
+                "region": reg,
+                "types": types_list,
+                "description": desc
+            })
+
+    # SINs, Licenses & Lifestyles
+    raw_sins = _safe_item_list(char_data.get("sins", []))
+    raw_licenses = _safe_item_list(char_data.get("licenses", []))
+    raw_lifestyles = _safe_item_list(char_data.get("lifestyles", []))
+
+    compiled_sins = []
+    for s in raw_sins:
+        if isinstance(s, dict):
+            s_name = s.get("name", "Fake SIN")
+            s_lics = [lic.get("name", "License") for lic in raw_licenses if isinstance(lic, dict) and lic.get("sin") == s_name]
+            compiled_sins.append({
+                "name": s_name,
+                "rating": s.get("rating", 1),
+                "quality": s.get("quality", "Standard"),
+                "licenses": s_lics
+            })
+
+    # Unattached licenses (if any)
+    attached_lic_names = {lic.get("name") for lic in raw_licenses if isinstance(lic, dict) and lic.get("sin")}
+    for lic in raw_licenses:
+        if isinstance(lic, dict) and lic.get("name") not in attached_lic_names:
+            compiled_sins.append({
+                "name": f"Independent: {lic.get('name')}",
+                "rating": lic.get("rating", 1),
+                "quality": "License",
+                "licenses": [lic.get("name", "License")]
+            })
+
+    compiled_lifestyles = []
+    for life in raw_lifestyles:
+        if isinstance(life, dict):
+            compiled_lifestyles.append({
+                "name": life.get("name", "Lifestyle"),
+                "comfort": life.get("comfort", "Low"),
+                "entertainment": life.get("entertainment", "Low"),
+                "necessities": life.get("necessities", "Low"),
+                "neighborhood": life.get("neighborhood", "Low"),
+                "security": life.get("security", "Low")
+            })
+
+    return {
+        "identity": {
+            "handle": handle,
+            "real_name": real_name,
+            "metatype": metatype,
+            "role": role,
+            "stream": stream,
+            "tradition": tradition,
+            "mortype": mortype,
+            "gender": gender,
+            "age": age,
+            "nuyen": nuyen,
+            "lifetime_nuyen": totals.get("Lifetime_Nuyen", identity.get("lifetime_nuyen", nuyen)),
+            "karma": karma_avail,
+            "karma_avail": karma_avail,
+            "lifetime_karma": karma_life,
+            "nanite_volume": nv,
+            "is_ai": is_ai,
+            "is_monad": is_monad,
+            "has_channeling": has_channeling
+        },
+        "attributes": {
+            "body": bod,
+            "agility": agi,
+            "reaction": rea,
+            "strength": str_val,
+            "willpower": wil,
+            "logic": log_val,
+            "intuition": int_val,
+            "charisma": cha,
+            "edge": edg,
+            "resonance": res,
+            "magic": mag,
+            "essence": ess
+        },
+        "attributes_list": attributes_list,
+        "derived": {
+            "composure": composure,
+            "judge_intentions": judge_intentions,
+            "memory": memory,
+            "lift_carry": lift_carry,
+            "physical_defense": phys_defense_pool,
+            "defense_rating": total_dr,
+            "physical_boxes": phys_boxes,
+            "stun_boxes": stun_boxes
+        },
+        "matrix": {
+            "asdf": asdf,
+            "matrix_defense": mdef.get("pool", 0),
+            "matrix_defense_hits": mdef.get("effective_hits", 0),
+            "matrix_defense_breakdown": mdef.get("breakdown", ""),
+            "matrix_initiative": matrix_init
+        },
+        "initiative": compiled_initiative,
+        "skills": compiled_skills,
+        "qualities": {
+            "positive": pos_qualities,
+            "negative": neg_qualities
+        },
+        "weapons": compiled_weapons,
+        "armors": compiled_armors,
+        "drones": compiled_drones,
+        "vehicles": all_vehicles,
+        "spells": spells,
+        "adept_powers": adept_powers,
+        "complex_forms": complex_forms,
+        "sprite_powers": sprite_powers,
+        "monad_abilities": monad_abilities,
+        "augmentations": augmentations,
+        "nanohive": nanohive_data,
+        "spirit_channeling_catalog": SPIRIT_CATALOG if has_channeling else {},
+        "powers": {
+            "complex_forms": complex_forms,
+            "echoes": submersion_echoes,
+            "sprite_powers": sprite_powers,
+            "spells": spells,
+            "adept_powers": adept_powers,
+            "monad_abilities": monad_abilities,
+            "augmentations": augmentations,
+            "nanohive": nanohive_data,
+            "spirit_channeling_catalog": SPIRIT_CATALOG if has_channeling else {}
+        },
+        "inventory": {
+            "commlinks": [d["name"] for d in compiled_matrix_devices],
+            "matrix_devices": compiled_matrix_devices,
+            "hosts": hosts,
+            "programs": program_names,
+            "software": compiled_software,
+            "autosofts": autosofts,
+            "gear": gear_names,
+            "gear_items": compiled_gear,
+            "sins": compiled_sins,
+            "lifestyles": compiled_lifestyles
+        },
+        "gear_items": compiled_gear,
+        "matrix_devices": compiled_matrix_devices,
+        "software": compiled_software,
+        "sins": compiled_sins,
+        "lifestyles": compiled_lifestyles,
+        "contacts": compiled_contacts,
+        "exceptions": char_data.get("exceptions", []),
+        "modifiers": char_data.get("modifiers", []),
+        "rules_doc": f"rules/rules.html"
+    }
+
+
+generate_mobile_json_payload = export_mobile_json

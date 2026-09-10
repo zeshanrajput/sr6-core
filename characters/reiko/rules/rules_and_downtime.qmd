@@ -73,7 +73,7 @@ This landing hub consolidates Reiko's downtime protocols, calculation shortcuts,
 
 ### [WEAPONS_TACTICAL]
 
-* **Primary Array**: 2x Red Fox Laser Array (Eye Mounts, Link-Fired or Independent)
+* **Primary Array**: Red Fox Lasers (Eye Mounts, Link-Fired or Independent)
 * **Laser Ammo System**: Peak-Discharge Batteries (5 clips)
 * **Secondary Tactical**: Tesla Coil (Area Cone) & Amalgam Cestas (Anti-Spirit CQC)
 * **[View Weapons & Tactical Protocols](rules_combat.qmd)**

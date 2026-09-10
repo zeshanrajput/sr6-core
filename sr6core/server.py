@@ -13,8 +13,6 @@ from typing import Dict, Any
 
 from sr6core.character_manager import CharacterManager
 from sr6core.exporters.mobile_json import export_mobile_json
-from sr6core.simulation.dice import roll_pool
-from sr6core.simulation.combat import CombatResolver
 from sr6core.ledger.events import (
     KarmaAwardedEvent,
     KarmaSpentEvent,
@@ -102,31 +100,6 @@ class TacticalServerHandler(SimpleHTTPRequestHandler):
         path = parsed.path
         content_length = int(self.headers.get("Content-Length", 0))
         body_bytes = self.rfile.read(content_length)
-        body = json.loads(body_bytes.decode("utf-8")) if body_bytes else {}
-
-        if path == "/api/roll":
-            pool = int(body.get("pool", 12))
-            desc = body.get("description", "Action Test")
-            is_exp = bool(body.get("is_exploding", False))
-            buy_hits = bool(body.get("buy_hits", False))
-            res = roll_pool(pool=pool, description=desc, is_exploding=is_exp, buy_hits=buy_hits)
-            return self._send_json(res.model_dump())
-
-        elif path == "/api/combat/attack":
-            res = CombatResolver.resolve_attack(
-                attacker_pool=int(body.get("attacker_pool", 12)),
-                defender_pool=int(body.get("defender_pool", 8)),
-                base_dv=int(body.get("base_dv", 4)),
-                soak_pool=int(body.get("soak_pool", 0)),
-                attacker_name=body.get("attacker_name", "Attacker"),
-                defender_name=body.get("defender_name", "Defender"),
-                weapon_name=body.get("weapon_name", "Weapon"),
-                attacker_ar=int(body.get("attacker_ar", 0)),
-                defender_dr=int(body.get("defender_dr", 0)),
-                is_exploding=bool(body.get("is_exploding", False)),
-            )
-            return self._send_json(res.model_dump())
-
         return self._send_json({"error": "Endpoint not found"}, status=404)
 
 

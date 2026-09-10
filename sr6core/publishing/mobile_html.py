@@ -1,0 +1,3104 @@
+"""
+Mobile HTML Application Exporter for SR6 Characters.
+Generates an ultra-responsive, standalone, offline-ready mobile web application (PWA)
+with bottom tab navigation, multi-character switcher, high-contrast buffed pools as primary tap targets,
+universal drill-down information drawers, and deep links into character Quarto rule dossiers.
+"""
+
+import json
+from typing import Dict, Any, Optional
+
+from sr6core.publishing.mobile_json import export_mobile_json
+
+
+def get_mobile_html_template(character_data_bundle: Dict[str, Any], initial_char_id: str = "reiko") -> str:
+    """
+    Renders the complete self-contained HTML/CSS/JS mobile application.
+    """
+    bundle_json_str = json.dumps(character_data_bundle, indent=2, ensure_ascii=False)
+
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0b0f19">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>SR6 Tactical Character Dossier</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Chakra+Petch:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {{
+      --bg-base: #080c14;
+      --bg-card: rgba(16, 24, 40, 0.85);
+      --bg-card-hover: rgba(24, 36, 60, 0.95);
+      --bg-card-subtle: rgba(255, 255, 255, 0.03);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-accent: rgba(99, 102, 241, 0.4);
+      --gold-primary: #f59e0b;
+      --gold-glow: rgba(245, 158, 11, 0.25);
+      --indigo-primary: #6366f1;
+      --cyan-accent: #06b6d4;
+      --emerald-accent: #10b981;
+      --rose-accent: #f43f5e;
+      --purple-accent: #a855f7;
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Fira Code', monospace;
+      --nav-height: 64px;
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }}
+
+    /* Reiko Theme (Technoshaman AI - Matrix Cyan & Electric Purple) */
+    body[data-theme="reiko"], body[data-theme="yuriko"] {{
+      --bg-base: #060913;
+      --bg-card: rgba(11, 18, 33, 0.88);
+      --bg-card-hover: rgba(18, 30, 56, 0.95);
+      --border-accent: rgba(0, 240, 255, 0.45);
+      --gold-primary: #00f0ff;
+      --gold-glow: rgba(0, 240, 255, 0.25);
+      --indigo-primary: #8b5cf6;
+      --cyan-accent: #00f0ff;
+      --emerald-accent: #10b981;
+      --purple-accent: #a855f7;
+      background-image: radial-gradient(circle at top right, rgba(0, 240, 255, 0.12), transparent 45%),
+                        radial-gradient(circle at bottom left, rgba(168, 85, 247, 0.10), transparent 45%);
+    }}
+
+    /* Velvet Theme (Mystic Adept Face - Shinto Gold & Mana Pink) */
+    body[data-theme="velvet"] {{
+      --bg-base: #0a0614;
+      --bg-card: rgba(22, 13, 38, 0.88);
+      --bg-card-hover: rgba(36, 21, 61, 0.95);
+      --border-accent: rgba(217, 70, 239, 0.45);
+      --gold-primary: #f59e0b;
+      --gold-glow: rgba(245, 158, 11, 0.3);
+      --indigo-primary: #d946ef;
+      --cyan-accent: #00f0ff;
+      --emerald-accent: #10b981;
+      --purple-accent: #c084fc;
+      background-image: radial-gradient(circle at top right, rgba(217, 70, 239, 0.14), transparent 45%),
+                        radial-gradient(circle at bottom left, rgba(245, 158, 11, 0.10), transparent 45%);
+    }}
+
+    /* Venn Theme (Monad Street Samurai - Nanite Emerald & Overdrive Amber) */
+    body[data-theme="venn"], body[data-theme="union"] {{
+      --bg-base: #040a0b;
+      --bg-card: rgba(8, 20, 22, 0.88);
+      --bg-card-hover: rgba(12, 34, 38, 0.95);
+      --border-accent: rgba(0, 255, 157, 0.45);
+      --gold-primary: #00ff9d;
+      --gold-glow: rgba(0, 255, 157, 0.25);
+      --indigo-primary: #ffb700;
+      --cyan-accent: #06b6d4;
+      --emerald-accent: #00ff9d;
+      --rose-accent: #f87171;
+      --purple-accent: #14b8a6;
+      background-image: radial-gradient(circle at top right, rgba(0, 255, 157, 0.14), transparent 45%),
+                        radial-gradient(circle at bottom left, rgba(255, 183, 0, 0.10), transparent 45%);
+    }}
+
+    * {{
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }}
+
+    body {{
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      font-family: var(--font-display);
+      min-height: 100vh;
+      min-height: -webkit-fill-available;
+      overflow-x: hidden;
+      padding-bottom: calc(var(--nav-height) + var(--safe-bottom) + 24px);
+      user-select: none;
+      transition: background 0.3s ease, color 0.3s ease;
+    }}
+
+    /* Top App Bar */
+    header.app-bar {{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(8, 12, 20, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 12px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }}
+
+    .header-row {{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }}
+
+    .char-select-wrap {{
+      position: relative;
+      flex: 1;
+      max-width: 240px;
+    }}
+
+    .char-select {{
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border-accent);
+      color: var(--gold-primary);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.05rem;
+      padding: 6px 32px 6px 12px;
+      border-radius: 10px;
+      appearance: none;
+      outline: none;
+      cursor: pointer;
+    }}
+
+    .char-select-arrow {{
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      color: var(--gold-primary);
+      font-size: 0.8rem;
+    }}
+
+    .header-badges {{
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      flex-shrink: 0;
+    }}
+
+    .nuyen-badge {{
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      color: var(--gold-primary);
+      font-family: var(--font-mono);
+      font-weight: 600;
+      font-size: 0.82rem;
+      padding: 4px 8px;
+      border-radius: 8px;
+    }}
+
+    .karma-badge {{
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.35);
+      color: #a5b4fc;
+      font-family: var(--font-mono);
+      font-weight: 600;
+      font-size: 0.82rem;
+      padding: 4px 8px;
+      border-radius: 8px;
+    }}
+
+    .search-input {{
+      width: 100%;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      padding: 8px 12px;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.2s;
+    }}
+    .search-input:focus {{
+      border-color: var(--indigo-primary);
+    }}
+
+    /* Main Container */
+    main.content-area {{
+      padding: 16px;
+      max-width: 680px;
+      margin: 0 auto;
+    }}
+
+    .tab-pane {{
+      display: none;
+      animation: fadeIn 0.2s ease-out;
+    }}
+    .tab-pane.active {{
+      display: block;
+    }}
+
+    @keyframes fadeIn {{
+      from {{ opacity: 0; transform: translateY(4px); }}
+      to {{ opacity: 1; transform: translateY(0); }}
+    }}
+
+    /* Card System */
+    .card {{
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 14px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }}
+
+    .card-title {{
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }}
+
+    /* Attribute Grid with Interactive Drilldown */
+    .attr-grid {{
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }}
+
+    .attr-box {{
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 10px 4px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.15s ease;
+    }}
+    .attr-box:hover {{
+      background: var(--bg-card-hover);
+      border-color: var(--border-accent);
+    }}
+    .attr-box.augmented {{
+      border-color: rgba(245, 158, 11, 0.5);
+      background: rgba(245, 158, 11, 0.05);
+    }}
+
+    .attr-name {{
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      letter-spacing: 0.05em;
+    }}
+
+    .attr-val {{
+      font-family: var(--font-mono);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }}
+    .attr-box.augmented .attr-val {{
+      color: var(--gold-primary);
+      text-shadow: 0 0 8px var(--gold-glow);
+    }}
+
+    .attr-sublabel {{
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }}
+
+    /* Condition Monitors & Initiative Row (Single Line 3 Columns) */
+    .track-grid {{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-top: 8px;
+    }}
+
+    .track-card {{
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 6px 4px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 52px;
+    }}
+
+    .track-header {{
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      color: var(--text-secondary);
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }}
+
+    .track-boxes {{
+      font-family: var(--font-mono);
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: var(--cyan-accent);
+    }}
+
+    /* Derived Ratings Grid */
+    .derived-grid {{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      font-size: 0.85rem;
+    }}
+
+    .derived-item {{
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 8px 10px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }}
+    .derived-item:hover {{
+      border-color: var(--border-accent);
+      background: var(--bg-card-hover);
+    }}
+
+    /* Pool Row Component */
+    .pool-item {{
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: all 0.15s ease;
+    }}
+    .pool-item:hover {{
+      background: var(--bg-card-hover);
+      border-color: var(--border-accent);
+    }}
+
+    .pool-top {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }}
+
+    .skill-title-wrap {{
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      flex-wrap: wrap;
+    }}
+
+    .skill-name {{
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--text-primary);
+    }}
+
+    .skill-spec {{
+      font-size: 0.78rem;
+      color: var(--gold-primary);
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-weight: 600;
+    }}
+
+    .info-btn {{
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      color: #a5b4fc;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      flex-shrink: 0;
+    }}
+    .info-btn:hover {{
+      background: rgba(99, 102, 241, 0.3);
+      transform: scale(1.05);
+    }}
+
+    .pool-main {{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }}
+
+    .pool-target {{
+      flex: 1;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(245, 158, 11, 0.15));
+      border: 1px solid var(--border-accent);
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }}
+    .pool-target:active {{
+      transform: scale(0.98);
+    }}
+
+    .pool-d6 {{
+      font-family: var(--font-mono);
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #ffffff;
+      text-shadow: 0 0 12px var(--indigo-primary);
+    }}
+
+    .pool-sublabel {{
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }}
+
+    .bought-hits-box {{
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 10px;
+      padding: 10px 14px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }}
+
+    .bought-hits-num {{
+      font-family: var(--font-mono);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--emerald-accent);
+    }}
+
+    .bought-hits-lbl {{
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+    }}
+
+    /* Universal Expandable Breakdown Drawer */
+    .breakdown-drawer {{
+      display: none;
+      background: rgba(0, 0, 0, 0.45);
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-top: 6px;
+      border-left: 3px solid var(--indigo-primary);
+      font-size: 0.85rem;
+      animation: fadeIn 0.15s ease-out;
+    }}
+    .breakdown-drawer.open {{
+      display: block;
+    }}
+
+    .breakdown-math {{
+      font-family: var(--font-mono);
+      color: #cbd5e1;
+      margin-bottom: 6px;
+      font-size: 0.82rem;
+    }}
+
+    .buff-checklist {{
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 6px;
+    }}
+
+    .buff-chip {{
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      padding: 3px 6px;
+      border-radius: 6px;
+      transition: all 0.15s ease;
+    }}
+    .buff-chip.buff-active {{
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.12);
+    }}
+    .buff-chip.buff-disabled {{
+      color: var(--text-muted);
+      opacity: 0.55;
+      text-decoration: line-through;
+    }}
+    .doc-link-inline {{
+      color: var(--indigo-primary);
+      text-decoration: none;
+      font-size: 0.82rem;
+      margin-left: 4px;
+    }}
+    .doc-link-inline:hover {{
+      color: #ffffff;
+    }}
+
+    .doc-link-btn {{
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.35);
+      color: #c7d2fe;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      margin-top: 4px;
+      transition: all 0.15s ease;
+    }}
+    .doc-link-btn:hover {{
+      background: rgba(99, 102, 241, 0.3);
+      color: #ffffff;
+    }}
+
+    /* Initiative Card & Mode Switcher */
+    .init-compact-card {{
+      cursor: pointer;
+      border: 1px solid var(--border-accent);
+      background: rgba(0, 0, 0, 0.35);
+      transition: all 0.15s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }}
+    .init-compact-card:hover {{
+      background: var(--bg-card-hover);
+      border-color: var(--gold-primary);
+      box-shadow: 0 0 10px var(--gold-glow);
+    }}
+    .init-compact-card.open {{
+      border-color: var(--gold-primary);
+      background: rgba(0, 255, 157, 0.08);
+      box-shadow: 0 0 12px var(--gold-glow);
+    }}
+    .init-card {{
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border-accent);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-top: 10px;
+      margin-bottom: 6px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+      animation: fadeIn 0.15s ease-out;
+    }}
+    .init-header-row {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }}
+    .init-mode-pill {{
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }}
+    .init-mode-pill.active {{
+      background: rgba(0, 255, 157, 0.15);
+      border-color: var(--gold-primary);
+      color: var(--gold-primary);
+    }}
+    .init-val-box {{
+      font-family: var(--font-mono);
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--gold-primary);
+    }}
+
+    /* Gear Item Cards */
+    .gear-card {{
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      transition: all 0.15s ease;
+    }}
+    .gear-card:hover {{
+      border-color: var(--border-accent);
+      background: var(--bg-card-hover);
+    }}
+    .gear-header {{
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 4px;
+    }}
+    .gear-title {{
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+    }}
+    .gear-badge {{
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+    }}
+    .gear-badge.qty {{
+      background: rgba(255, 183, 0, 0.12);
+      border-color: rgba(255, 183, 0, 0.35);
+      color: #fbbf24;
+    }}
+    .gear-badge.rating {{
+      background: rgba(6, 182, 212, 0.12);
+      border-color: rgba(6, 182, 212, 0.35);
+      color: #38bdf8;
+    }}
+
+    /* Weapon Cards */
+    .weapon-card {{
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 12px;
+      transition: all 0.15s ease;
+    }}
+    .weapon-card:hover {{
+      border-color: var(--border-accent);
+      background: var(--bg-card-hover);
+    }}
+
+    .weapon-header {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }}
+
+    .weapon-name {{
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text-primary);
+    }}
+
+    .weapon-dv {{
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--rose-accent);
+      background: rgba(244, 63, 94, 0.12);
+      padding: 3px 8px;
+      border-radius: 6px;
+    }}
+
+    .range-bands {{
+      display: flex;
+      gap: 4px;
+      margin: 8px 0;
+    }}
+
+    .range-band {{
+      flex: 1;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 4px 2px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+    }}
+    .range-band .rb-lbl {{
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      display: block;
+      margin-bottom: 2px;
+    }}
+
+    /* Powers & Augmentations Cards */
+    .power-item {{
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      transition: all 0.15s ease;
+    }}
+    .power-item:hover {{
+      background: var(--bg-card-hover);
+      border-color: var(--border-accent);
+    }}
+
+    .power-header {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }}
+
+    .power-badge {{
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      color: #a5b4fc;
+    }}
+
+    /* Vehicle & Drone Cards */
+    .vehicle-card {{
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }}
+
+    .rigged-pool-badge {{
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(99, 102, 241, 0.12);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-family: var(--font-mono);
+      color: #c7d2fe;
+      margin: 2px 4px 2px 0;
+    }}
+
+    .quality-badge {{
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      margin: 2px 4px 4px 0;
+    }}
+    .quality-badge.pos {{
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #6ee7b7;
+    }}
+    .quality-badge.neg {{
+      background: rgba(244, 63, 94, 0.12);
+      border: 1px solid rgba(244, 63, 94, 0.35);
+      color: #fda4af;
+    }}
+
+    /* Contacts Directory & Filter Bar */
+    .filter-bar {{
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+    }}
+
+    .filter-chip {{
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }}
+    .filter-chip.active {{
+      background: var(--gold-primary);
+      color: #080c14;
+      border-color: var(--gold-primary);
+      font-weight: 700;
+    }}
+
+    .contact-item {{
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 8px;
+      transition: all 0.15s ease;
+    }}
+    .contact-item:hover {{
+      border-color: var(--border-accent);
+      background: var(--bg-card-hover);
+    }}
+
+    .contact-header {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }}
+
+    .favor-badge {{
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: var(--emerald-accent);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 6px;
+    }}
+
+    .contact-group-header {{
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 700;
+      color: var(--gold-primary);
+      margin: 14px 0 8px 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }}
+
+    /* Bottom Navigation Bar */
+    nav.bottom-nav {{
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: calc(var(--nav-height) + var(--safe-bottom));
+      padding-bottom: var(--safe-bottom);
+      background: rgba(8, 12, 20, 0.94);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      z-index: 100;
+    }}
+
+    .nav-tab {{
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: color 0.15s ease;
+      font-size: 0.72rem;
+      font-weight: 600;
+      gap: 4px;
+    }}
+    .nav-tab.active {{
+      color: var(--gold-primary);
+    }}
+    .nav-tab-icon {{
+      font-size: 1.25rem;
+    }}
+
+    /* Toast Notification */
+    .toast {{
+      position: fixed;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-20px);
+      background: var(--bg-card);
+      border: 1px solid var(--indigo-primary);
+      color: var(--text-primary);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s ease;
+      z-index: 200;
+    }}
+    .toast.show {{
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }}
+
+    /* Tactical Statuses & Tabletop Modifiers Tray */
+    .status-tray {{
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 10px;
+      margin-top: 8px;
+    }}
+    .status-chip {{
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      font-size: 0.76rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.12s ease;
+      user-select: none;
+    }}
+    .status-chip:hover {{
+      background: rgba(255, 255, 255, 0.12);
+      border-color: var(--border-accent);
+      color: var(--text-primary);
+    }}
+    .status-chip.active {{
+      background: rgba(245, 158, 11, 0.2);
+      border-color: var(--gold-primary);
+      color: var(--gold-primary);
+      font-weight: 700;
+      box-shadow: 0 0 8px var(--gold-glow);
+    }}
+    .status-chip.active.danger {{
+      background: rgba(244, 63, 94, 0.2);
+      border-color: var(--rose-accent);
+      color: var(--rose-accent);
+      box-shadow: 0 0 8px rgba(244, 63, 94, 0.3);
+    }}
+
+    /* Interactive Steppers & Modifiers */
+    .stepper-pool-wrap {{
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex: 1;
+    }}
+
+    .stepper-btn {{
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      width: 32px;
+      height: 36px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      cursor: pointer;
+      transition: all 0.12s ease;
+      flex-shrink: 0;
+      user-select: none;
+    }}
+    .stepper-btn:hover {{
+      background: rgba(255, 255, 255, 0.14);
+      border-color: var(--border-accent);
+      color: var(--gold-primary);
+    }}
+    .stepper-btn:active {{
+      transform: scale(0.92);
+      background: var(--border-accent);
+      color: #000;
+    }}
+
+    .stepper-inline {{
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 3px 6px;
+    }}
+
+    .mod-delta-badge {{
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 1px 5px;
+      border-radius: 4px;
+      background: rgba(245, 158, 11, 0.2);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: var(--gold-primary);
+      margin-left: 4px;
+      vertical-align: middle;
+      font-family: var(--font-mono);
+    }}
+    .mod-delta-badge.pos {{
+      background: rgba(16, 185, 129, 0.2);
+      border-color: rgba(16, 185, 129, 0.4);
+      color: #10b981;
+    }}
+    .mod-delta-badge.neg {{
+      background: rgba(239, 68, 68, 0.2);
+      border-color: rgba(239, 68, 68, 0.4);
+      color: #ef4444;
+    }}
+
+    .attr-box.manual-modified {{
+      border-color: var(--gold-primary);
+      box-shadow: 0 0 10px var(--gold-glow);
+    }}
+    .pool-item.manual-modified {{
+      border-color: var(--border-accent);
+    }}
+
+    .reset-all-btn {{
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s ease;
+      font-family: var(--font-display);
+    }}
+    .reset-all-btn:hover {{
+      border-color: var(--rose-accent, #ef4444);
+      color: var(--rose-accent, #ef4444);
+      background: rgba(239, 68, 68, 0.08);
+    }}
+
+    .wound-banner {{
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      color: #fca5a5;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }}
+
+  </style>
+</head>
+<body>
+
+  <!-- App Header -->
+  <header class="app-bar">
+    <div class="header-row">
+      <div class="char-select-wrap">
+        <select id="charSelect" class="char-select">
+          <!-- Populated by JS -->
+        </select>
+        <div class="char-select-arrow">▼</div>
+      </div>
+      <div class="header-badges">
+        <button id="resetAllModsBtn" class="reset-all-btn" style="display: none;" onclick="resetCharMods(activeCharId)" title="Reset all active modifiers to default">↺ Reset Mods</button>
+        <div id="nuyenBadge" class="nuyen-badge">¥ 0</div>
+        <div id="karmaBadge" class="karma-badge">0 K</div>
+      </div>
+    </div>
+    <input type="search" id="searchInput" class="search-input" placeholder="🔍 Search skills, weapons, powers, contacts...">
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="content-area">
+    
+    <!-- Tab 1: Core & Attributes -->
+    <section id="tab-core" class="tab-pane active">
+      <div class="card">
+        <div class="card-title">Identity & Baseline</div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+          <div><strong id="charRealName" style="color: #cbd5e1;">Real Name</strong></div>
+          <div id="charMetatype" style="color: var(--text-secondary);">Metatype</div>
+        </div>
+        <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;" id="charRoleTradition">Role & Tradition</div>
+
+        <div class="card-title" style="margin-top: 14px;">Attributes (Buffed vs Base)</div>
+        <div class="attr-grid" id="attrGrid">
+          <!-- Generated via JS -->
+        </div>
+
+        <div id="attrDrilldownArea" style="margin-top: 10px;"></div>
+
+        <div class="card-title" style="margin-top: 16px;">Condition & Initiative</div>
+        <div class="track-grid">
+          <div class="track-card">
+            <div class="track-header">PHYSICAL DMG</div>
+            <div class="stepper-inline" style="margin: 2px 0; justify-content: center; gap: 2px;">
+              <button class="stepper-btn" style="width: 22px; height: 22px; padding: 0; font-size: 0.85rem;" onclick="stepModifier('dmg_phys', -1)" title="Heal 1 Physical Box">-</button>
+              <span id="physBoxes" class="track-boxes" style="font-size: 0.95rem; min-width: 42px; text-align: center;">0 / 10</span>
+              <button class="stepper-btn" style="width: 22px; height: 22px; padding: 0; font-size: 0.85rem;" onclick="stepModifier('dmg_phys', 1)" title="Take 1 Physical Damage">+</button>
+            </div>
+            <div style="font-size: 0.65rem; color: var(--text-muted);" id="physRemainLbl">10 Left</div>
+          </div>
+          <div class="track-card">
+            <div class="track-header">STUN DMG</div>
+            <div class="stepper-inline" style="margin: 2px 0; justify-content: center; gap: 2px;">
+              <button class="stepper-btn" style="width: 22px; height: 22px; padding: 0; font-size: 0.85rem;" onclick="stepModifier('dmg_stun', -1)" title="Heal 1 Stun Box">-</button>
+              <span id="stunBoxes" class="track-boxes" style="font-size: 0.95rem; min-width: 42px; text-align: center;">0 / 11</span>
+              <button class="stepper-btn" style="width: 22px; height: 22px; padding: 0; font-size: 0.85rem;" onclick="stepModifier('dmg_stun', 1)" title="Take 1 Stun Damage">+</button>
+            </div>
+            <div style="font-size: 0.65rem; color: var(--text-muted);" id="stunRemainLbl">11 Left</div>
+          </div>
+          <div id="initCompactCard" class="track-card init-compact-card" onclick="toggleInitDrawer()" title="Click to expand/adjust initiative">
+            <!-- Generated via JS -->
+          </div>
+        </div>
+        <div id="initDrawerArea"></div>
+        <div id="woundPenaltyBanner" style="display: none;"></div>
+
+        <!-- Tactical Statuses & Tabletop Modifiers Tray -->
+        <div class="card-title" style="margin-top: 16px; display: flex; justify-content: space-between; align-items: center;">
+          <span>Tactical Statuses & Modifiers</span>
+          <button class="reset-all-btn" onclick="resetAllStatuses();" title="Clear all active statuses and damage">↺ Reset Statuses</button>
+        </div>
+        <div class="status-tray" id="statusTray">
+          <!-- Rendered via JS -->
+        </div>
+
+        <div class="card-title" style="margin-top: 16px;">Derived Pools & Ratings</div>
+        <div class="derived-grid" id="derivedGrid">
+          <!-- Generated via JS -->
+        </div>
+
+        <div class="card-title" style="margin-top: 16px;">Qualities & Edge Enhancements</div>
+        <div id="qualitiesList">
+          <!-- Generated via JS -->
+        </div>
+
+        <div class="card-title" style="margin-top: 16px;">Verified Exceptions & Tabletop Rulings</div>
+        <div id="exceptionsList">
+          <!-- Generated via JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 2: Skills & Dice Pools -->
+    <section id="tab-skills" class="tab-pane">
+      <div id="skillsList">
+        <!-- Generated via JS -->
+      </div>
+    </section>
+
+    <!-- Tab 3: Combat & Tactical Defense -->
+    <section id="tab-combat" class="tab-pane">
+      <div class="card">
+        <div class="card-title">Tactical Weapon Arrays</div>
+        <div id="weaponsList">
+          <!-- Generated via JS -->
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Ballistic Armor & Defense</div>
+        <div id="armorsList">
+          <!-- Generated via JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 4: Magic / Resonance / Powers -->
+    <section id="tab-powers" class="tab-pane">
+      <div id="powersContent">
+        <!-- Generated via JS -->
+      </div>
+    </section>
+
+    <!-- Tab 5: Drones & Gear -->
+    <section id="tab-drones" class="tab-pane">
+      <div id="augmentationsCard" class="card" style="margin-bottom: 14px;">
+        <div class="card-title">Cyberware & Bioware Augmentations</div>
+        <div id="augmentationsList">
+          <!-- Generated via JS -->
+        </div>
+      </div>
+
+      <div id="dronesCard" class="card" style="margin-bottom: 14px;">
+        <div class="card-title">Vehicles & Rigged Drones</div>
+        <div id="vehiclesList">
+          <!-- Generated via JS -->
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom: 14px;">
+        <div class="card-title">Tactical Field Gear & Equipment</div>
+        <div id="fieldGearList">
+          <!-- Generated via JS -->
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom: 14px;">
+        <div class="card-title">Matrix Hardware & Commlinks</div>
+        <div id="matrixHardwareList">
+          <!-- Generated via JS -->
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom: 14px;">
+        <div class="card-title">Software, Autosofts & Apps</div>
+        <div id="softwareList">
+          <!-- Generated via JS -->
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Identities, Licenses & Lifestyles</div>
+        <div id="sinsLifestyleList">
+          <!-- Generated via JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 6: Contacts & Network -->
+    <section id="tab-contacts" class="tab-pane">
+      <div class="card">
+        <div class="card-title">SRM Canonical Contacts</div>
+        <div class="filter-bar" id="contactFilterBar">
+          <button class="filter-chip active" data-sort="all">All Contacts</button>
+          <button class="filter-chip" data-sort="region">By Region</button>
+          <button class="filter-chip" data-sort="type">By Archetype</button>
+          <button class="filter-chip" data-sort="loyalty">Sort Loyalty</button>
+          <button class="filter-chip" data-sort="connection">Sort Connection</button>
+        </div>
+        <div id="contactsList">
+          <!-- Generated via JS -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Toast Element -->
+  <div id="toast" class="toast">Copied pool to clipboard</div>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <div class="nav-tab active" data-tab="tab-core">
+      <div class="nav-tab-icon">👤</div>
+      <span>Core</span>
+    </div>
+    <div class="nav-tab" data-tab="tab-skills">
+      <div class="nav-tab-icon">⚡</div>
+      <span>Skills</span>
+    </div>
+    <div class="nav-tab" data-tab="tab-combat">
+      <div class="nav-tab-icon">🎯</div>
+      <span>Combat</span>
+    </div>
+    <div class="nav-tab" data-tab="tab-powers">
+      <div class="nav-tab-icon">🔮</div>
+      <span>Powers</span>
+    </div>
+    <div class="nav-tab" data-tab="tab-drones">
+      <div class="nav-tab-icon">🎒</div>
+      <span>Gear & Drones</span>
+    </div>
+    <div class="nav-tab" data-tab="tab-contacts">
+      <div class="nav-tab-icon">🗂️</div>
+      <span>Contacts</span>
+    </div>
+  </nav>
+
+  <!-- Embedded Data Payload & Script -->
+  <script>
+    const CHARACTERS_DATA = {bundle_json_str};
+    window.__SR6_DATA_BUNDLE__ = CHARACTERS_DATA;
+    let activeCharId = "{initial_char_id}";
+    let contactFilterMode = "all";
+    let selectedAttrCode = null;
+    let isInitDrawerOpen = false;
+    const openDrawers = new Set();
+    const RUNTIME_MODIFIERS = {{}};
+
+    function getRuntimeMod(charId, key, fallback = 0) {{
+      if (!RUNTIME_MODIFIERS[charId]) RUNTIME_MODIFIERS[charId] = {{}};
+      const val = RUNTIME_MODIFIERS[charId][key];
+      if (val !== undefined && val !== null) return val;
+      return fallback;
+    }}
+
+    function setRuntimeMod(charId, key, val) {{
+      if (!RUNTIME_MODIFIERS[charId]) RUNTIME_MODIFIERS[charId] = {{}};
+      RUNTIME_MODIFIERS[charId][key] = val;
+      try {{
+        localStorage.setItem("sr6_mods_" + charId, JSON.stringify(RUNTIME_MODIFIERS[charId]));
+      }} catch(e) {{}}
+    }}
+
+    function stepModifier(key, step) {{
+      const cur = parseInt(getRuntimeMod(activeCharId, key, 0) || 0, 10);
+      let next = cur + step;
+      if (key.startsWith("dmg_")) {{
+        next = Math.max(0, next);
+      }}
+      setRuntimeMod(activeCharId, key, next);
+      renderActiveCharacter();
+    }}
+
+    function resetModifier(key) {{
+      setRuntimeMod(activeCharId, key, 0);
+      renderActiveCharacter();
+    }}
+
+    function toggleBuff(toggleKey, currentActive) {{
+      const nextVal = currentActive ? -1 : 1;
+      setRuntimeMod(activeCharId, toggleKey, nextVal);
+      renderActiveCharacter();
+    }}
+
+    function toggleInitDrawer() {{
+      isInitDrawerOpen = !isInitDrawerOpen;
+      renderActiveCharacter();
+    }}
+
+    function updateChannelingState(spiritKey, forceVal) {{
+      setRuntimeMod(activeCharId, "channeling_spirit", spiritKey);
+      setRuntimeMod(activeCharId, "channeling_force", parseInt(forceVal, 10) || 0);
+      renderActiveCharacter();
+      if (spiritKey !== "none" && forceVal > 0) {{
+        showToast(`⚡ Channeling active: Force ${{forceVal}} ${{spiritKey.toUpperCase()}}`);
+      }} else {{
+        showToast("⚡ Spirit Channeling deactivated");
+      }}
+    }}
+
+    function updateChannelingOption(powerName, optionVal) {{
+      const optKey = "channeling_opt_" + powerName.toLowerCase().replace(/[^a-z0-9]/g, "_");
+      setRuntimeMod(activeCharId, optKey, optionVal);
+      renderActiveCharacter();
+    }}
+
+    function toggleChannelingOptionalPower(powerName, isSelected) {{
+      const toggleKey = "channeling_opt_power_" + powerName.toLowerCase().replace(/[^a-z0-9]/g, "_");
+      setRuntimeMod(activeCharId, toggleKey, isSelected ? 1 : 0);
+      renderActiveCharacter();
+    }}
+
+    function toggleStatus(statusKey) {{
+      const cur = parseInt(getRuntimeMod(activeCharId, "status_" + statusKey, 0) || 0, 10);
+      setRuntimeMod(activeCharId, "status_" + statusKey, cur ? 0 : 1);
+      renderActiveCharacter();
+      showToast(cur ? `Status cleared: ${{statusKey}}` : `Status active: ${{statusKey}}`);
+    }}
+
+    function setCover(level) {{
+      setRuntimeMod(activeCharId, "status_cover", parseInt(level, 10));
+      renderActiveCharacter();
+      showToast(level > 0 ? `Cover set: +${{level}} DR` : "Cover cleared");
+    }}
+
+    function setStance(stance) {{
+      setRuntimeMod(activeCharId, "status_stance", stance);
+      renderActiveCharacter();
+      showToast(`Stance set: ${{stance}}`);
+    }}
+
+    function resetAllStatuses() {{
+      const keysToReset = [
+        "status_cover", "status_stance", "status_dazed",
+        "status_stunned", "status_blinded", "status_burning",
+        "dmg_phys", "dmg_stun"
+      ];
+      keysToReset.forEach(k => setRuntimeMod(activeCharId, k, 0));
+      setRuntimeMod(activeCharId, "status_stance", "standing");
+      renderActiveCharacter();
+      showToast("↺ All statuses & damage reset to baseline");
+    }}
+
+    function getMonadNV(cid) {{
+      const raw = getRuntimeMod(cid, "monad_current_nv", null);
+      if (raw === null || raw === undefined || raw === "" || isNaN(raw)) return 6;
+      return Math.max(0, Math.min(10, parseInt(raw, 10)));
+    }}
+
+    function updateMonadNV(delta) {{
+      const cur = getMonadNV(activeCharId);
+      const next = Math.max(0, Math.min(10, cur + delta));
+      setRuntimeMod(activeCharId, "monad_current_nv", next);
+      renderActiveCharacter();
+      showToast(`🧬 Monad Biological NV: ${{next}}`);
+    }}
+
+    function setMonadNV(val) {{
+      const next = Math.max(0, Math.min(10, parseInt(val, 10) || 0));
+      setRuntimeMod(activeCharId, "monad_current_nv", next);
+      renderActiveCharacter();
+      showToast(`🧬 Monad Biological NV set to ${{next}}`);
+    }}
+
+    function isNanohiveColonyActive(cid, colonyId, defActive) {{
+      const raw = getRuntimeMod(cid, "nanohive_colony_" + colonyId, null);
+      if (raw === null || raw === undefined || raw === "") {{
+        return !!defActive;
+      }}
+      return raw === 1 || raw === true || raw === "1";
+    }}
+
+    function getNanohiveColonyNV(cid, colonyId, defNv) {{
+      const raw = getRuntimeMod(cid, "nanohive_nv_" + colonyId, null);
+      if (raw === null || raw === undefined || raw === "" || isNaN(raw)) {{
+        return defNv;
+      }}
+      return parseInt(raw, 10);
+    }}
+
+    function toggleNanohiveColony(colonyId, isChecked) {{
+      const char = CHARACTERS_DATA[activeCharId];
+      const nh = (char && char.nanohive) || {{}};
+      const catalog = nh.catalog || {{}};
+      const maxColonies = nh.max_colonies || 6;
+      const maxVol = nh.max_volume || 18;
+
+      if (isChecked) {{
+        let activeCount = 0;
+        let totalVol = 0;
+        Object.keys(catalog).forEach(k => {{
+          const c = catalog[k];
+          const curAct = (k === colonyId) ? true : isNanohiveColonyActive(activeCharId, k, !!c.active_by_default);
+          if (curAct) {{
+            activeCount++;
+            const curNv = getNanohiveColonyNV(activeCharId, k, c.default_nv);
+            totalVol += curNv;
+          }}
+        }});
+        if (activeCount > maxColonies) {{
+          showToast(`⚠️ Max ${{maxColonies}} active colonies supported by Nanohive!`);
+          renderActiveCharacter();
+          return;
+        }}
+        if (totalVol > maxVol) {{
+          showToast(`⚠️ Warning: Exceeds internal capacity (${{totalVol}}/${{maxVol}} NV)!`);
+        }}
+      }}
+      setRuntimeMod(activeCharId, "nanohive_colony_" + colonyId, isChecked ? 1 : 0);
+      renderActiveCharacter();
+      const colName = catalog[colonyId] ? catalog[colonyId].name : colonyId;
+      showToast(isChecked ? `🧫 Active: ${{colName}}` : `⏸️ Dormant: ${{colName}}`);
+    }}
+
+    function stepNanohiveColonyNV(colonyId, delta) {{
+      const char = CHARACTERS_DATA[activeCharId];
+      const nh = (char && char.nanohive) || {{}};
+      const catalog = nh.catalog || {{}};
+      const c = catalog[colonyId];
+      if (!c) return;
+      const minNv = c.min_nv || 1;
+      const maxNv = c.max_nv || 3;
+      const curNv = getNanohiveColonyNV(activeCharId, colonyId, c.default_nv);
+      const nextNv = Math.max(minNv, Math.min(maxNv, curNv + delta));
+      setRuntimeMod(activeCharId, "nanohive_nv_" + colonyId, nextNv);
+      renderActiveCharacter();
+      showToast(`🧫 ${{c.name}} allocated: ${{nextNv}} NV`);
+    }}
+
+    function applyNanohivePreset(presetKey) {{
+      const char = CHARACTERS_DATA[activeCharId];
+      const nh = (char && char.nanohive) || {{}};
+      const presets = nh.presets || {{}};
+      const p = presets[presetKey];
+      if (!p) return;
+      const catalog = nh.catalog || {{}};
+      Object.keys(catalog).forEach(k => {{
+        const shouldBeActive = p.active_colonies.includes(k);
+        setRuntimeMod(activeCharId, "nanohive_colony_" + k, shouldBeActive ? 1 : 0);
+        if (p.volumes && p.volumes[k] !== undefined) {{
+          setRuntimeMod(activeCharId, "nanohive_nv_" + k, p.volumes[k]);
+        }}
+      }});
+      renderActiveCharacter();
+      showToast(`⚡ Nanohive Preset: ${{p.name}}`);
+    }}
+
+    function clearAllNanohiveColonies() {{
+      const char = CHARACTERS_DATA[activeCharId];
+      const nh = (char && char.nanohive) || {{}};
+      const catalog = nh.catalog || {{}};
+      Object.keys(catalog).forEach(k => {{
+        setRuntimeMod(activeCharId, "nanohive_colony_" + k, 0);
+      }});
+      renderActiveCharacter();
+      showToast("⏸️ All Nanohive colonies set to standby");
+    }}
+
+    function resetCharMods(charId) {{
+      RUNTIME_MODIFIERS[charId] = {{}};
+      try {{
+        localStorage.removeItem("sr6_mods_" + charId);
+      }} catch(e) {{}}
+      renderActiveCharacter();
+      showToast("↺ Modifiers reset to dossier defaults");
+    }}
+
+    function loadRuntimeMods() {{
+      try {{
+        Object.keys(CHARACTERS_DATA).forEach(cid => {{
+          const raw = localStorage.getItem("sr6_mods_" + cid);
+          if (raw) {{
+            RUNTIME_MODIFIERS[cid] = JSON.parse(raw);
+          }}
+        }});
+      }} catch(e) {{}}
+    }}
+
+    // Initialize DOM
+    document.addEventListener("DOMContentLoaded", () => {{
+      loadRuntimeMods();
+      initCharacterSelector();
+      setupTabs();
+      setupSearch();
+      setupContactFilters();
+      renderActiveCharacter();
+      registerServiceWorker();
+    }});
+
+    function showToast(msg) {{
+      const toast = document.getElementById("toast");
+      toast.textContent = msg;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 2000);
+    }}
+
+    function getDocUrl(charId, docLink) {{
+      if (!docLink) return "#";
+      const currentPath = window.location.pathname.split("\\\\").join("/");
+      if (currentPath.includes("/output/mobile/")) {{
+        return `../../_book/${{docLink}}`;
+      }} else {{
+        return `../characters/${{charId}}/_book/${{docLink}}`;
+      }}
+    }}
+
+    function initCharacterSelector() {{
+      const sel = document.getElementById("charSelect");
+      sel.innerHTML = "";
+      Object.keys(CHARACTERS_DATA).forEach(cid => {{
+        const c = CHARACTERS_DATA[cid];
+        const opt = document.createElement("option");
+        opt.value = cid;
+        opt.textContent = c.identity.handle || cid.toUpperCase();
+        if (cid === activeCharId) opt.selected = true;
+        sel.appendChild(opt);
+      }});
+
+      sel.addEventListener("change", (e) => {{
+        activeCharId = e.target.value;
+        renderActiveCharacter();
+      }});
+    }}
+
+    function setupTabs() {{
+      const tabs = document.querySelectorAll(".nav-tab");
+      tabs.forEach(tab => {{
+        tab.addEventListener("click", () => {{
+          tabs.forEach(t => t.classList.remove("active"));
+          document.querySelectorAll(".tab-pane").forEach(p => p.classList.remove("active"));
+          tab.classList.add("active");
+          const target = tab.getAttribute("data-tab");
+          document.getElementById(target).classList.add("active");
+          window.scrollTo({{ top: 0, behavior: "smooth" }});
+        }});
+      }});
+    }}
+
+    function setupSearch() {{
+      const input = document.getElementById("searchInput");
+      input.addEventListener("input", (e) => {{
+        const query = e.target.value.toLowerCase().trim();
+        filterContent(query);
+      }});
+    }}
+
+    function filterContent(query) {{
+      if (!query) {{
+        document.querySelectorAll(".pool-item, .weapon-card, .vehicle-card, .contact-item, .power-item, .attr-box").forEach(el => el.style.display = "");
+        return;
+      }}
+      document.querySelectorAll(".pool-item, .weapon-card, .vehicle-card, .contact-item, .power-item, .attr-box").forEach(el => {{
+        const text = el.textContent.toLowerCase();
+        el.style.display = text.includes(query) ? "" : "none";
+      }});
+    }}
+
+    function setupContactFilters() {{
+      const chips = document.querySelectorAll("#contactFilterBar .filter-chip");
+      chips.forEach(chip => {{
+        chip.addEventListener("click", () => {{
+          chips.forEach(c => c.classList.remove("active"));
+          chip.classList.add("active");
+          contactFilterMode = chip.getAttribute("data-sort");
+          renderContacts();
+        }});
+      }});
+    }}
+
+    function renderActiveCharacter() {{
+      const char = CHARACTERS_DATA[activeCharId];
+      if (!char) return;
+
+      // Apply dynamic character theme
+      document.body.dataset.theme = activeCharId.toLowerCase();
+
+      // Check if any active modifiers exist for this character
+      const charMods = RUNTIME_MODIFIERS[activeCharId] || {{}};
+      const hasActiveMods = Object.keys(charMods).some(k => {{
+        const val = charMods[k];
+        if (k === "channeling_spirit") return val && val !== "none";
+        if (k === "monad_current_nv") return val !== 6;
+        if (k.startsWith("nanohive_colony_") || k.startsWith("nanohive_nv_")) return true;
+        return val !== 0 && val !== "" && val !== null && val !== undefined;
+      }});
+      const resetBtn = document.getElementById("resetAllModsBtn");
+      if (resetBtn) {{
+        resetBtn.style.display = hasActiveMods ? "inline-flex" : "none";
+      }}
+
+      // Header Info
+      document.getElementById("nuyenBadge").textContent = `¥ ${{char.identity.nuyen ? char.identity.nuyen.toLocaleString() : 0}}`;
+      const karmaAvail = char.identity.karma_avail !== undefined ? char.identity.karma_avail : char.identity.karma;
+      const karmaLife = char.identity.lifetime_karma;
+      document.getElementById("karmaBadge").textContent = karmaLife && karmaLife !== karmaAvail ? `${{karmaAvail}} Karma (${{karmaLife}} Tot)` : `${{karmaAvail}} Karma`;
+      document.getElementById("charRealName").textContent = char.identity.real_name || "Unknown";
+      document.getElementById("charMetatype").textContent = char.identity.metatype || "Human";
+      document.getElementById("charRoleTradition").textContent = `${{char.identity.role || "Shadowrunner"}} • ${{char.identity.stream || char.identity.tradition || char.identity.mortype || "Street Runner"}}`;
+
+      // Attributes Map & Grid Rendering
+      const attrGrid = document.getElementById("attrGrid");
+      const attrDrillArea = document.getElementById("attrDrilldownArea");
+      attrGrid.innerHTML = "";
+      attrDrillArea.innerHTML = "";
+
+      const attrsList = char.attributes_list || [];
+      const liveAttrs = {{}};
+
+      // Monad and Nanohive State Detection
+      const isMonad = !!(char.identity && char.identity.is_monad);
+      const isBioRespActive = isMonad ? isNanohiveColonyActive(activeCharId, "bio_response_override", true) : false;
+      const isNeurochemActive = isMonad ? isNanohiveColonyActive(activeCharId, "neurochemical_regulator", true) : false;
+      const monadNV = isMonad ? getMonadNV(activeCharId) : 0;
+
+      // Spirit Channeling Active State Calculation
+      const hasChanneling = !!(char.identity && char.identity.has_channeling);
+      const activeSpiritKey = getRuntimeMod(activeCharId, "channeling_spirit") || "none";
+      const activeSpiritForce = parseInt(getRuntimeMod(activeCharId, "channeling_force") || 0, 10);
+      const spiritCatalog = (char.powers && char.powers.spirit_channeling_catalog) || char.spirit_channeling_catalog || {{}};
+      const activeSpirit = (activeSpiritKey !== "none" && spiritCatalog[activeSpiritKey]) ? spiritCatalog[activeSpiritKey] : null;
+      let channelingPhysicalBoost = 0;
+      let channelingWoundsIgnored = 0;
+      if (hasChanneling && activeSpirit && activeSpiritForce > 0) {{
+        channelingPhysicalBoost = Math.max(1, Math.floor(activeSpiritForce / 2));
+        channelingWoundsIgnored = activeSpiritForce;
+      }}
+
+      // First pass: compute live physical, mental, special attributes
+      const physicalCodes = ["bod", "agi", "rea", "str"];
+      attrsList.forEach((attr) => {{
+        const code = attr.code.toLowerCase();
+        const key = "attr_" + code;
+        const delta = getRuntimeMod(activeCharId, key);
+        if (!attr.linked_mental) {{
+          let baseAug = attr.buffed;
+          if (isMonad) {{
+            if (code === "wil" && !isBioRespActive) baseAug = Math.max(0, baseAug - 1);
+            if (code === "cha" && !isNeurochemActive) baseAug = Math.max(0, baseAug - 1);
+            if (code === "nv") baseAug = monadNV;
+          }}
+          const chanBonus = physicalCodes.includes(code) ? channelingPhysicalBoost : 0;
+          liveAttrs[code] = Math.max(0, baseAug + delta + chanBonus);
+        }}
+      }});
+
+      // Second pass: compute live ASDF matrix attributes linked to mental attributes
+      attrsList.forEach((attr) => {{
+        const key = "attr_" + attr.code.toLowerCase();
+        const delta = getRuntimeMod(activeCharId, key);
+        if (attr.linked_mental) {{
+          const parentVal = liveAttrs[attr.linked_mental] !== undefined ? liveAttrs[attr.linked_mental] : attr.base;
+          const tuning = attr.tuning_bonus || 0;
+          const dynamicBase = parentVal + tuning;
+          liveAttrs[attr.code.toLowerCase()] = Math.max(0, dynamicBase + delta);
+        }}
+      }});
+      
+      attrsList.forEach((attr) => {{
+        const key = "attr_" + attr.code.toLowerCase();
+        const delta = getRuntimeMod(activeCharId, key);
+        const effectiveVal = liveAttrs[attr.code.toLowerCase()];
+        const isManualMod = delta !== 0;
+        const isSelected = (selectedAttrCode === attr.code.toLowerCase());
+
+        let baseAug = attr.buffed;
+        let subLbl = "";
+        let breakdownMath = `📊 Base ${{attr.base}} | Default ${{baseAug}}`;
+
+        if (attr.linked_mental) {{
+          const mentalCode = attr.linked_mental.toUpperCase();
+          const parentVal = liveAttrs[attr.linked_mental] !== undefined ? liveAttrs[attr.linked_mental] : attr.base;
+          const tuning = attr.tuning_bonus || 0;
+          const dynamicBase = parentVal + tuning;
+          baseAug = dynamicBase;
+          subLbl = isManualMod ? `Default ${{dynamicBase}}` : (tuning ? `${{mentalCode}} +${{tuning}}` : `${{mentalCode}} (${{parentVal}})`);
+          breakdownMath = `📊 ${{mentalCode}} (${{parentVal}}) ${{tuning ? `+ Tuning (+${{tuning}})` : ''}} = ${{dynamicBase}} ${{isManualMod ? `| Live Mod: ${{delta > 0 ? '+' + delta : delta}}` : ''}}`;
+        }} else {{
+          subLbl = isManualMod ? `Default ${{baseAug}}` : (attr.is_buffed ? `Base ${{attr.base}}` : '');
+          breakdownMath = `📊 Base ${{attr.base}} | Default ${{baseAug}} ${{isManualMod ? `| Live Mod: ${{delta > 0 ? '+' + delta : delta}}` : ''}}`;
+        }}
+
+        const box = document.createElement("div");
+        box.className = "attr-box" + (attr.is_buffed ? " augmented" : "") + (isManualMod ? " manual-modified" : "") + (isSelected ? " selected" : "");
+        const displayVal = typeof effectiveVal === "number" ? (Number.isInteger(effectiveVal) ? effectiveVal : effectiveVal.toFixed(2)) : effectiveVal;
+        const deltaBadge = isManualMod ? `<span class="mod-delta-badge ${{delta > 0 ? 'pos' : 'neg'}}">${{delta > 0 ? '+' + delta : delta}}</span>` : '';
+
+        box.innerHTML = `
+          <span class="attr-name">${{attr.code}} ${{deltaBadge}}</span>
+          <span class="attr-val">${{displayVal}}</span>
+          ${{subLbl ? `<span class="attr-sublabel">${{subLbl}}</span>` : ""}}
+        `;
+
+        // Drilldown toggle
+        box.addEventListener("click", () => {{
+          selectedAttrCode = (selectedAttrCode === attr.code.toLowerCase()) ? null : attr.code.toLowerCase();
+          renderActiveCharacter();
+        }});
+
+        // If selected, render persistent open drawer
+        if (isSelected) {{
+          const buffsHtml = attr.buffs && attr.buffs.length ? 
+            attr.buffs.map(b => `<div class="buff-chip">✔ <strong>${{b.source}}</strong>: +${{b.value}} <span style="color: var(--text-muted);">(${{b.notes || ''}})</span></div>`).join("") :
+            (attr.linked_mental ? `<div class="buff-chip">✔ Derived from mental attribute <strong>${{attr.linked_mental.toUpperCase()}}</strong></div>` : '<div class="buff-chip">Baseline natural attribute value</div>');
+
+          const docLink = attr.doc_link ? `<a class="doc-link-btn" href="${{getDocUrl(activeCharId, attr.doc_link)}}" target="_blank" rel="noopener">📖 View Rules & Mechanics ↗</a>` : "";
+
+          attrDrillArea.innerHTML = `
+            <div class="breakdown-drawer open">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <div style="font-weight: 700; color: var(--gold-primary); font-size: 1.02rem;">
+                  ${{attr.name}} (${{attr.code}}): <strong>${{effectiveVal}}</strong>
+                </div>
+                <div class="stepper-inline">
+                  <button class="stepper-btn" onclick="stepModifier('${{key}}', -1); event.stopPropagation();" title="Decrease Attribute">-</button>
+                  <span style="font-family: var(--font-mono); font-weight: 700; padding: 0 4px; min-width: 24px; text-align: center;">${{effectiveVal}}</span>
+                  <button class="stepper-btn" onclick="stepModifier('${{key}}', 1); event.stopPropagation();" title="Increase Attribute">+</button>
+                  ${{isManualMod ? `<button class="reset-all-btn" onclick="resetModifier('${{key}}'); event.stopPropagation();" title="Reset to default">↺</button>` : ''}}
+                </div>
+              </div>
+              <div class="breakdown-math">${{breakdownMath}}</div>
+              <div class="buff-checklist">${{buffsHtml}}</div>
+              ${{docLink}}
+            </div>
+          `;
+        }}
+
+        attrGrid.appendChild(box);
+      }});
+
+      // Derived Attribute Values (Live from attributes + modifier deltas)
+      const wilVal = liveAttrs["wil"] !== undefined ? liveAttrs["wil"] : (char.attributes ? char.attributes.wil : 5);
+      const chaVal = liveAttrs["cha"] !== undefined ? liveAttrs["cha"] : (char.attributes ? char.attributes.cha : 5);
+      const intVal = liveAttrs["int"] !== undefined ? liveAttrs["int"] : (char.attributes ? char.attributes.int : 5);
+      const logVal = liveAttrs["log"] !== undefined ? liveAttrs["log"] : (char.attributes ? char.attributes.log : 5);
+      const reaVal = liveAttrs["rea"] !== undefined ? liveAttrs["rea"] : (char.attributes ? char.attributes.rea : 2);
+      const dpVal = liveAttrs["dp"] !== undefined ? liveAttrs["dp"] : (char.matrix && char.matrix.asdf ? char.matrix.asdf.data_processing : 6);
+      const fwVal = liveAttrs["fw"] !== undefined ? liveAttrs["fw"] : (char.matrix && char.matrix.asdf ? char.matrix.asdf.firewall : 5);
+
+      // Initiative Compact Card and Expandable Drawer Rendering
+      const initCompact = document.getElementById("initCompactCard");
+      const initDrawerArea = document.getElementById("initDrawerArea");
+      if (initCompact && char.initiative && char.initiative.modes) {{
+        const initModes = char.initiative.modes;
+        const availableModes = Object.keys(initModes);
+        let currentMode = getRuntimeMod(activeCharId, "init_mode") || char.initiative.default_mode || availableModes[0];
+        if (!initModes[currentMode]) currentMode = availableModes[0];
+        
+        const modeData = initModes[currentMode];
+        const scoreModKey = `init_score_${{currentMode}}`;
+        const diceModKey = `init_dice_${{currentMode}}`;
+        const scoreDelta = getRuntimeMod(activeCharId, scoreModKey);
+        const diceDelta = getRuntimeMod(activeCharId, diceModKey);
+
+        let liveBaseScore = modeData.score;
+        let dynamicBreakdown = modeData.breakdown;
+
+        if (currentMode === "physical") {{
+          liveBaseScore = reaVal + intVal;
+          dynamicBreakdown = `REA (${{reaVal}}) + INT (${{intVal}}) + ${{(modeData.dice + diceDelta)}}d6`;
+        }} else if (currentMode === "vr_hotsim") {{
+          const overclockScore = char.identity.is_ai ? 1 : 0;
+          liveBaseScore = dpVal + intVal + overclockScore;
+          dynamicBreakdown = `DP (${{dpVal}}) + INT (${{intVal}}) ${{overclockScore ? '+ Overclock Echo (+1)' : ''}} + ${{(modeData.dice + diceDelta)}}d6`;
+        }}
+
+        const effScore = Math.max(1, liveBaseScore + scoreDelta);
+        const effDice = Math.max(1, modeData.dice + diceDelta);
+        const isModified = (scoreDelta !== 0 || diceDelta !== 0);
+        const deltaBadge = isModified ? `<span class="mod-delta-badge ${{scoreDelta >= 0 ? 'pos' : 'neg'}}" style="font-size: 0.65rem; margin-left: 4px;">${{scoreDelta >= 0 ? '+' + scoreDelta : scoreDelta}}</span>` : '';
+
+        // Render Compact Card in the 3-column row
+        initCompact.className = "track-card init-compact-card" + (isInitDrawerOpen ? " open" : "");
+        initCompact.innerHTML = `
+          <div class="track-header" style="color: var(--gold-primary);">⚡ INITIATIVE</div>
+          <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 800; color: var(--gold-primary); margin: 2px 0; text-align: center;">
+            ${{effScore}} + ${{effDice}}d6 ${{deltaBadge}}
+          </div>
+          <div style="font-size: 0.65rem; color: var(--text-muted); text-align: center;">
+            ${{modeData.name}} ${{isInitDrawerOpen ? '▲' : '▼'}}
+          </div>
+        `;
+
+        // Render Expanded Drawer if active
+        if (isInitDrawerOpen) {{
+          let pillsHtml = "";
+          if (availableModes.length > 1) {{
+            pillsHtml = availableModes.map(m => `
+              <button class="init-mode-pill ${{m === currentMode ? 'active' : ''}}" onclick="setRuntimeMod(activeCharId, 'init_mode', '${{m}}'); renderActiveCharacter(); event.stopPropagation();">
+                ${{m === 'vr_hotsim' ? '⚡ Hot-Sim' : (m === 'physical' ? '🏃 Physical' : m.toUpperCase())}}
+              </button>
+            `).join("");
+          }}
+
+          initDrawerArea.innerHTML = `
+            <div class="init-card">
+              <div class="init-header-row">
+                <div style="font-weight: 700; font-size: 0.95rem; color: var(--gold-primary); display: flex; align-items: center; gap: 6px;">
+                  <span>⚡ Adjust ${{modeData.name}} Initiative</span>
+                </div>
+                <div style="display: flex; gap: 4px;">
+                  ${{pillsHtml}}
+                </div>
+              </div>
+
+              <div style="display: flex; align-items: center; justify-content: space-between; background: rgba(0,0,0,0.3); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 8px 12px;">
+                <div>
+                  <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Active Rating</div>
+                  <div class="init-val-box">${{effScore}} + ${{effDice}}d6</div>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 4px; align-items: flex-end;">
+                  <div style="display: flex; align-items: center; gap: 6px;">
+                    <span style="font-size: 0.72rem; color: var(--text-muted); min-width: 36px; text-align: right;">Score:</span>
+                    <div class="stepper-inline">
+                      <button class="stepper-btn" onclick="stepModifier('${{scoreModKey}}', -1); event.stopPropagation();" title="Decrease Initiative Score">-</button>
+                      <span style="font-family: var(--font-mono); font-weight: 700; min-width: 22px; text-align: center;">${{effScore}}</span>
+                      <button class="stepper-btn" onclick="stepModifier('${{scoreModKey}}', 1); event.stopPropagation();" title="Increase Initiative Score">+</button>
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 6px;">
+                    <span style="font-size: 0.72rem; color: var(--text-muted); min-width: 36px; text-align: right;">Dice:</span>
+                    <div class="stepper-inline">
+                      <button class="stepper-btn" onclick="stepModifier('${{diceModKey}}', -1); event.stopPropagation();" title="Decrease Initiative Dice">-</button>
+                      <span style="font-family: var(--font-mono); font-weight: 700; min-width: 22px; text-align: center;">+${{effDice}}d6</span>
+                      <button class="stepper-btn" onclick="stepModifier('${{diceModKey}}', 1); event.stopPropagation();" title="Increase Initiative Dice">+</button>
+                      ${{isModified ? `<button class="reset-all-btn" onclick="resetModifier('${{scoreModKey}}'); resetModifier('${{diceModKey}}'); event.stopPropagation();" title="Reset initiative adjustments">↺</button>` : ''}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 6px; line-height: 1.3;">
+                📊 ${{dynamicBreakdown}} ${{isModified ? `| <strong style="color: var(--gold-primary);">Extra Mod: ${{scoreDelta >= 0 ? '+' + scoreDelta : scoreDelta}} Score, ${{diceDelta >= 0 ? '+' + diceDelta : diceDelta}}d6</strong>` : ''}}
+              </div>
+            </div>
+          `;
+        }} else {{
+          initDrawerArea.innerHTML = "";
+        }}
+      }}
+
+      // Condition Monitors & Wound Calculation
+      let maxPhys = char.derived.physical_boxes || 10;
+      let maxStun = char.derived.stun_boxes || 11;
+      if (isMonad && !isBioRespActive) {{
+        maxStun = Math.max(1, maxStun - 1);
+      }}
+      const physDmg = getRuntimeMod(activeCharId, "dmg_phys");
+      const stunDmg = getRuntimeMod(activeCharId, "dmg_stun");
+      const physRem = Math.max(0, maxPhys - physDmg);
+      const stunRem = Math.max(0, maxStun - stunDmg);
+
+      document.getElementById("physBoxes").textContent = `${{physDmg}} / ${{maxPhys}}`;
+      document.getElementById("physRemainLbl").textContent = `${{physRem}} Boxes Left (${{physDmg}} Dmg)`;
+      document.getElementById("stunBoxes").textContent = `${{stunDmg}} / ${{maxStun}}`;
+      document.getElementById("stunRemainLbl").textContent = `${{stunRem}} Boxes Left (${{stunDmg}} Dmg)`;
+
+      // SR6 Wound Penalty: -1 dice per full 3 damage boxes on either track
+      // Monad Toughness shifts wound penalty down by 1 level
+      let woundPenalty = Math.floor(physDmg / 3) + Math.floor(stunDmg / 3);
+      if (isMonad && monadNV >= 2 && woundPenalty > 0) {{
+        woundPenalty = Math.max(0, woundPenalty - 1);
+      }}
+      const woundBanner = document.getElementById("woundPenaltyBanner");
+      if (woundBanner) {{
+        if (woundPenalty > 0) {{
+          woundBanner.className = "wound-banner";
+          woundBanner.style.display = "flex";
+          woundBanner.innerHTML = `
+            <span>⚠️ <strong>Wound Penalty: -${{woundPenalty}} Dice</strong> to all tests (${{physDmg}} Phys, ${{stunDmg}} Stun${{isMonad && monadNV >= 2 ? ' • Monad Toughness -1 lvl' : ''}})</span>
+            <button class="reset-all-btn" onclick="setRuntimeMod(activeCharId, 'dmg_phys', 0); setRuntimeMod(activeCharId, 'dmg_stun', 0); renderActiveCharacter();">Clear Damage</button>
+          `;
+        }} else {{
+          woundBanner.style.display = "none";
+        }}
+      }}
+
+      // Render Tactical Status Tray
+      const sTray = document.getElementById("statusTray");
+      const activeCover = parseInt(getRuntimeMod(activeCharId, "status_cover", 0) || 0, 10);
+      const activeStance = getRuntimeMod(activeCharId, "status_stance", "standing");
+      const dazedActive = parseInt(getRuntimeMod(activeCharId, "status_dazed", 0) || 0, 10) === 1;
+      const stunnedActive = parseInt(getRuntimeMod(activeCharId, "status_stunned", 0) || 0, 10) === 1;
+      const blindedActive = parseInt(getRuntimeMod(activeCharId, "status_blinded", 0) || 0, 10) === 1;
+      const burningActive = parseInt(getRuntimeMod(activeCharId, "status_burning", 0) || 0, 10) === 1;
+
+      if (sTray) {{
+        sTray.innerHTML = `
+          <div style="display: flex; flex-direction: column; gap: 8px; width: 100%;">
+            <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+              <span style="font-size: 0.72rem; color: var(--text-muted); min-width: 60px;">🛡️ Cover:</span>
+              <button class="status-chip ${{activeCover === 0 ? 'active' : ''}}" onclick="setCover(0);">None</button>
+              <button class="status-chip ${{activeCover === 2 ? 'active' : ''}}" onclick="setCover(2);">Partial (+2 DR)</button>
+              <button class="status-chip ${{activeCover === 4 ? 'active' : ''}}" onclick="setCover(4);">Full (+4 DR)</button>
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+              <span style="font-size: 0.72rem; color: var(--text-muted); min-width: 60px;">🏃 Stance:</span>
+              <button class="status-chip ${{activeStance === 'standing' ? 'active' : ''}}" onclick="setStance('standing');">Standing</button>
+              <button class="status-chip ${{activeStance === 'prone' ? 'active' : ''}}" onclick="setStance('prone');">Prone (+2 Ranged / -2 Melee DR)</button>
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+              <span style="font-size: 0.72rem; color: var(--text-muted); min-width: 60px;">⚠️ Statuses:</span>
+              <button class="status-chip ${{dazedActive ? 'active danger' : ''}}" onclick="toggleStatus('dazed');">Dazed (-2d)</button>
+              <button class="status-chip ${{stunnedActive ? 'active danger' : ''}}" onclick="toggleStatus('stunned');">Stunned (-2d)</button>
+              <button class="status-chip ${{blindedActive ? 'active danger' : ''}}" onclick="toggleStatus('blinded');">Blinded (-4d)</button>
+              <button class="status-chip ${{burningActive ? 'active danger' : ''}}" onclick="toggleStatus('burning');">🔥 Burning</button>
+            </div>
+          </div>
+        `;
+      }}
+
+      // Derived Ratings (Live calculated from attributes + modifier deltas + cover/stance)
+      const compBase = wilVal + chaVal;
+      const judgeBase = wilVal + intVal;
+      const memBase = wilVal + logVal;
+      const physDefBase = reaVal + intVal;
+      const baseDefRating = char.derived.defense_rating || 6;
+      const liveDefRating = baseDefRating + activeCover;
+      let drNote = "Armor + Soak";
+      if (activeCover > 0) drNote += ` | Cover (+${{activeCover}} DR)`;
+      if (activeStance === "prone") drNote += " | Prone (+2 Ranged / -2 Melee)";
+      const matDefBase = wilVal + fwVal;
+
+      const dGrid = document.getElementById("derivedGrid");
+      dGrid.innerHTML = `
+        <div class="derived-item">
+          <strong>Composure:</strong> ${{compBase}}d6 (${{Math.floor(compBase/4)}}H)
+          <div style="font-size: 0.72rem; color: var(--text-muted);">WIL (${{wilVal}}) + CHA (${{chaVal}})</div>
+        </div>
+        <div class="derived-item">
+          <strong>Judge Int:</strong> ${{judgeBase}}d6 (${{Math.floor(judgeBase/4)}}H)
+          <div style="font-size: 0.72rem; color: var(--text-muted);">WIL (${{wilVal}}) + INT (${{intVal}})</div>
+        </div>
+        <div class="derived-item">
+          <strong>Memory:</strong> ${{memBase}}d6 (${{Math.floor(memBase/4)}}H)
+          <div style="font-size: 0.72rem; color: var(--text-muted);">WIL (${{wilVal}}) + LOG (${{logVal}})</div>
+        </div>
+        <div class="derived-item">
+          <strong>Physical Def:</strong> ${{physDefBase}}d6 (${{Math.floor(physDefBase/4)}}H)
+          <div style="font-size: 0.72rem; color: var(--text-muted);">REA (${{reaVal}}) + INT (${{intVal}})</div>
+        </div>
+        <div class="derived-item">
+          <strong>Defense Rating:</strong> ${{liveDefRating}} DR
+          <div style="font-size: 0.72rem; color: var(--text-muted);">${{drNote}}</div>
+        </div>
+        <div class="derived-item">
+          <strong>Full Matrix Def:</strong> ${{matDefBase}}d6 (${{Math.floor(matDefBase/4)}}H)
+          <div style="font-size: 0.72rem; color: var(--text-muted);">WIL (${{wilVal}}) + FW (${{fwVal}})</div>
+        </div>
+      `;
+
+      // Qualities & Edge Enhancements Rendering
+      const qList = document.getElementById("qualitiesList");
+      if (qList && char.qualities) {{
+        qList.innerHTML = "";
+        const posQ = char.qualities.positive || [];
+        const negQ = char.qualities.negative || [];
+        
+        let qHtml = '<div style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 6px;">';
+        posQ.forEach(q => {{
+          const qName = typeof q === 'object' ? (q.name || q.ref) : q;
+          const choice = (typeof q === 'object' && q.choice) ? ` (${{q.choice}})` : "";
+          const rtg = (typeof q === 'object' && q.rating) ? ` R${{q.rating}}` : "";
+          qHtml += `<span class="quality-badge pos">✔ ${{qName}}${{rtg}}${{choice}}</span>`;
+        }});
+        negQ.forEach(q => {{
+          const qName = typeof q === 'object' ? (q.name || q.ref) : q;
+          const choice = (typeof q === 'object' && q.choice) ? ` (${{q.choice}})` : "";
+          const rtg = (typeof q === 'object' && q.rating) ? ` R${{q.rating}}` : "";
+          qHtml += `<span class="quality-badge neg">✖ ${{qName}}${{rtg}}${{choice}}</span>`;
+        }});
+        qHtml += '</div>';
+
+        const allQ = [...posQ, ...negQ];
+        const notesQ = allQ.filter(q => typeof q === 'object' && (q.notes || q.choice));
+        if (notesQ.length > 0) {{
+          qHtml += '<div style="margin-top: 6px; font-size: 0.75rem; color: var(--text-secondary); line-height: 1.4;">';
+          notesQ.forEach(q => {{
+            qHtml += `<div>• <strong>${{q.name || q.ref}}</strong>: ${{q.notes || q.choice}}</div>`;
+          }});
+          qHtml += '</div>';
+        }}
+
+        qList.innerHTML = qHtml;
+      }}
+
+      // Exceptions & Tabletop Rulings Rendering
+      const excList = document.getElementById("exceptionsList");
+      if (excList) {{
+        const excs = char.exceptions || [];
+        if (excs.length === 0) {{
+          excList.innerHTML = '<div style="color: var(--text-muted); font-size: 0.8rem;">No custom tabletop exceptions recorded (Standard Core rules apply).</div>';
+        }} else {{
+          excList.innerHTML = excs.map(e => `
+            <div style="background: rgba(0,0,0,0.35); border: 1px solid var(--border-accent); border-radius: 8px; padding: 8px 12px; margin-bottom: 6px;">
+              <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                <span style="font-weight: 700; color: var(--gold-primary); font-size: 0.85rem;">⚡ ${{e.title}}</span>
+                <span class="power-badge" style="text-transform: uppercase;">${{e.category || 'Ruling'}}</span>
+              </div>
+              <div style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 3px; line-height: 1.35;">${{e.description}}</div>
+              <div style="font-size: 0.68rem; color: var(--text-muted); margin-top: 4px;">
+                <strong>Source:</strong> ${{e.source || 'Campaign Ruling'}} | <strong>Authority:</strong> ${{e.gm || 'GM Ruling'}}
+              </div>
+            </div>
+          `).join("");
+        }}
+      }}
+
+      // Base tactical penalty from statuses (Dazed -2, Stunned -2)
+      let baseStatusPenalty = 0;
+      if (dazedActive) baseStatusPenalty += 2;
+      if (stunnedActive) baseStatusPenalty += 2;
+
+      // Skills Tab with Interactive +/- Steppers & Reactive Tabletop Modifiers
+      const sList = document.getElementById("skillsList");
+      sList.innerHTML = "";
+      char.skills.forEach(s => {{
+        const skillKey = "skill_" + (s.id || s.name.toLowerCase().replace(/[^a-z0-9]/g, "_"));
+        const delta = getRuntimeMod(activeCharId, skillKey);
+        const sLower = s.name.toLowerCase();
+        let sPenalty = baseStatusPenalty;
+        if (blindedActive && (sLower.includes("perception") || sLower.includes("firearms") || sLower.includes("close combat") || sLower.includes("athletics"))) {{
+          sPenalty += 4;
+        }}
+        const totalPenalty = woundPenalty + sPenalty;
+        const defaultPool = s.buffed_pool;
+        const currentPool = Math.max(0, defaultPool + delta - totalPenalty);
+        const boughtHits = Math.floor(currentPool / 4);
+        const specPool = s.specialization ? (currentPool + 2) : currentPool;
+        const specHits = Math.floor(specPool / 4);
+        const isManualMod = (delta !== 0 || totalPenalty > 0);
+
+        const item = document.createElement("div");
+        item.className = "pool-item" + (isManualMod ? " manual-modified" : "");
+        
+        const specHtml = s.specialization ? `<span class="skill-spec">+2 ${{s.specialization}}</span>` : "";
+        const deltaBadge = isManualMod ? `<span class="mod-delta-badge ${{delta > 0 ? 'pos' : 'neg'}}">${{delta > 0 ? '+' + delta : delta}}</span>` : "";
+
+        // Calculate dynamic buffs based on toggle state
+        let buffsDelta = 0;
+        const buffsHtml = s.buffs.map(b => {{
+          const modToggleKey = "toggle_" + skillKey + "_" + b.source.toLowerCase().replace(/[^a-z0-9]/g, "_");
+          // Check if disabled by user (defaults to active if b.active is true)
+          const isEnabled = getRuntimeMod(activeCharId, modToggleKey) !== -1;
+          if (!isEnabled && b.active) {{
+            buffsDelta -= b.value;
+          }}
+          const ruleLinkHtml = b.rule_anchor ? ` <a class="doc-link-inline" href="${{getDocUrl(activeCharId, b.rule_anchor)}}" target="_blank" rel="noopener" title="View Rule">📖</a>` : '';
+          return `
+            <div class="buff-chip ${{isEnabled ? 'buff-active' : 'buff-disabled'}}" style="cursor: pointer;" onclick="toggleBuff('${{modToggleKey}}', ${{isEnabled ? 1 : 0}}); event.stopPropagation();">
+              <span>${{isEnabled ? '☑' : '☐'}} <strong>${{b.source}}</strong> (+${{b.value}})${{ruleLinkHtml}}</span>
+            </div>
+          `;
+        }}).join("");
+
+        // Dynamically incorporate changes in the linked attribute
+        const attrMap = {{
+          "body": "bod", "agility": "agi", "reaction": "rea", "strength": "str",
+          "willpower": "wil", "logic": "log", "intuition": "int", "charisma": "cha",
+          "edge": "edg", "magic": "mag", "resonance": "res",
+          "bod": "bod", "agi": "agi", "rea": "rea", "str": "str",
+          "wil": "wil", "log": "log", "int": "int", "cha": "cha",
+          "edg": "edg", "mag": "mag", "res": "res"
+        }};
+        const rawAttrStr = (s.effective_attribute || s.attribute || "").toLowerCase();
+        const shortCode = attrMap[rawAttrStr] || rawAttrStr;
+        const attrObj = attrsList.find(a => a.code.toLowerCase() === shortCode || a.name.toLowerCase() === rawAttrStr);
+        const baseAugAttr = attrObj ? attrObj.buffed : ((char.attributes && (char.attributes[rawAttrStr] !== undefined ? char.attributes[rawAttrStr] : char.attributes[shortCode])) !== undefined
+          ? (char.attributes[rawAttrStr] !== undefined ? char.attributes[rawAttrStr] : char.attributes[shortCode])
+          : (s.base_pool - s.rating));
+        const liveAttrVal = liveAttrs[shortCode] !== undefined ? liveAttrs[shortCode] : (liveAttrs[rawAttrStr] !== undefined ? liveAttrs[rawAttrStr] : baseAugAttr);
+        const attrDelta = liveAttrVal - baseAugAttr;
+
+        // Nanohive cognitive/motor colony toggles & Monad Swarm depletion check
+        let colonySkillMod = 0;
+        if (isMonad) {{
+          const isNeocorticalActive = isNanohiveColonyActive(activeCharId, "neocortical_neural_amp", true);
+          const isLimbicActive = isNanohiveColonyActive(activeCharId, "limbic_neural_amp", true);
+          const isNeuralPatternActive = isNanohiveColonyActive(activeCharId, "neural_pattern_reinforcement", true);
+          if (shortCode === "log" && !isNeocorticalActive) colonySkillMod -= 1;
+          if (shortCode === "int" && !isLimbicActive) colonySkillMod -= 1;
+          if (shortCode === "agi" && !isNeuralPatternActive) colonySkillMod -= 1;
+          if (monadNV <= 1) colonySkillMod -= 2;
+          else if (monadNV <= 4) colonySkillMod -= 1;
+        }}
+
+        const totalPool = Math.max(0, defaultPool + delta + buffsDelta + attrDelta + colonySkillMod);
+        const effectiveBoughtHits = Math.floor(totalPool / 4);
+        const effectiveSpecPool = s.specialization ? (totalPool + 2) : totalPool;
+        const effectiveSpecHits = Math.floor(effectiveSpecPool / 4);
+
+        const docLink = s.doc_link ? `<a class="doc-link-btn" href="${{getDocUrl(activeCharId, s.doc_link)}}" target="_blank" rel="noopener">📖 View Rules & Mechanics ↗</a>` : "";
+
+        item.innerHTML = `
+          <div class="pool-top">
+            <div class="skill-title-wrap">
+              <span class="skill-name">${{s.name}}</span>
+              ${{specHtml}}
+              ${{deltaBadge}}
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              ${{isManualMod ? `<button class="reset-all-btn" onclick="resetModifier('${{skillKey}}')" title="Reset modifier">↺</button>` : ''}}
+              <button class="info-btn" title="Inspect Breakdown">ℹ</button>
+            </div>
+          </div>
+          <div class="pool-main">
+            <div class="stepper-pool-wrap">
+              <button class="stepper-btn minus" onclick="stepModifier('${{skillKey}}', -1)" title="Decrease Pool by 1">-</button>
+              <div class="pool-target" title="Tap to Copy">
+                <span class="pool-d6">${{totalPool}}d6</span>
+                <span class="pool-sublabel">Base: ${{s.base_pool}}d6 | Default: ${{s.buffed_pool}}d6 ${{s.specialization ? `| Spec: ${{effectiveSpecPool}}d6` : ''}}</span>
+              </div>
+              <button class="stepper-btn plus" onclick="stepModifier('${{skillKey}}', 1)" title="Increase Pool by 1">+</button>
+            </div>
+            <div class="bought-hits-box">
+              <span class="bought-hits-num">${{effectiveBoughtHits}}</span>
+              <span class="bought-hits-lbl">Bought Hits</span>
+            </div>
+          </div>
+          <div class="breakdown-drawer">
+            <div class="breakdown-math">📊 ${{s.breakdown_text}} ${{isManualMod ? `| Live Modifier: ${{delta > 0 ? '+' + delta : delta}}` : ''}}</div>
+            ${{s.specialization ? `<div style="font-size: 0.8rem; color: var(--gold-primary); margin-bottom: 4px;"><strong>Specialized Action:</strong> ${{effectiveSpecPool}}d6 (${{effectiveSpecHits}} Bought Hits)</div>` : ''}}
+            <div class="buff-checklist">
+              ${{buffsHtml || '<div class="buff-chip">No active buffs</div>'}}
+            </div>
+            ${{docLink}}
+          </div>
+        `;
+
+        // Click target to copy/toast
+        item.querySelector(".pool-target").addEventListener("click", () => {{
+          showToast(`⚡ ${{s.name}}: ${{totalPool}}d6 (${{effectiveBoughtHits}} Hits)${{s.specialization ? ` [${{s.specialization}}: ${{effectiveSpecPool}}d6]` : ''}}`);
+        }});
+
+        const isDrawerOpen = openDrawers.has(skillKey);
+        if (isDrawerOpen) {{
+          const drawer = item.querySelector(".breakdown-drawer");
+          if (drawer) drawer.classList.add("open");
+        }}
+
+        // Toggle Breakdown Drawer
+        item.querySelector(".info-btn").addEventListener("click", (e) => {{
+          e.stopPropagation();
+          if (openDrawers.has(skillKey)) {{
+            openDrawers.delete(skillKey);
+          }} else {{
+            openDrawers.add(skillKey);
+          }}
+          const drawer = item.querySelector(".breakdown-drawer");
+          if (drawer) drawer.classList.toggle("open");
+        }});
+
+        sList.appendChild(item);
+      }});
+
+      // Weapons Tab
+      const wList = document.getElementById("weaponsList");
+      wList.innerHTML = "";
+      if (char.weapons.length === 0) {{
+        wList.innerHTML = "<div style='color: var(--text-muted);'>No tactical weapons listed.</div>";
+      }} else {{
+        char.weapons.forEach(w => {{
+          const wCard = document.createElement("div");
+          wCard.className = "weapon-card";
+          let effectiveDamage = w.damage;
+          if (isMonad && w.is_melee) {{
+            const isNeuromuscularActive = isNanohiveColonyActive(activeCharId, "neuromuscular_amplifier", true);
+            if (!isNeuromuscularActive) {{
+              const dvMatch = (w.damage || "").match(/^(\\d+)([PS]?.*)$/);
+              if (dvMatch) {{
+                const dvVal = Math.max(1, parseInt(dvMatch[1], 10) - 1);
+                effectiveDamage = `${{dvVal}}${{dvMatch[2]}}`;
+              }}
+            }}
+          }}
+          const arBands = Array.isArray(w.attack_rating) ? w.attack_rating : [10, 10, 8, 0, 0];
+          const labels = ["C", "N", "M", "F", "E"];
+          const arHtml = labels.map((lbl, idx) => `
+            <div class="range-band">
+              <span class="rb-lbl">${{lbl}}</span>
+              <span>${{arBands[idx] > 0 ? arBands[idx] : "—"}}</span>
+            </div>
+          `).join("");
+
+          const docLink = w.doc_link ? `<a class="doc-link-btn" href="${{getDocUrl(activeCharId, w.doc_link)}}" target="_blank" rel="noopener">📖 View Weapon Protocols ↗</a>` : "";
+
+          const modeAmmoHtml = w.is_melee ? 
+            `<div style="font-size: 0.8rem; color: var(--gold-primary); margin-bottom: 4px;">⚔️ <strong>Physical Melee Weapon</strong> (No fire mode / ammo)</div>` :
+            `<div style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 4px;">
+              Modes: <strong>${{w.modes_str}}</strong> | Ammo: <strong>${{w.ammo}}</strong> ${{w.loaded_ammo ? `(${{w.loaded_ammo}})` : ""}}
+            </div>`;
+
+          wCard.innerHTML = `
+            <div class="weapon-header">
+              <span class="weapon-name">${{w.name}}</span>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="weapon-dv">${{effectiveDamage}}</span>
+                <button class="info-btn" title="Weapon Breakdown">ℹ</button>
+              </div>
+            </div>
+            ${{modeAmmoHtml}}
+            <div class="range-bands">${{arHtml}}</div>
+            ${{w.accessories.length ? `<div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Mods: ${{w.accessories.join(", ")}}</div>` : ""}}
+            ${{w.notes ? `<div style="font-size: 0.75rem; color: var(--gold-primary); margin-top: 4px;">${{w.notes}}</div>` : ""}}
+            <div class="breakdown-drawer">
+              <div class="breakdown-math">📊 Base Stats: ${{w.base_damage}} | AR: ${{w.base_attack_rating_str}} ${{w.is_melee ? '' : `| Modes: ${{w.base_modes_str}} | Cap: ${{w.base_ammo}}`}}</div>
+              ${{w.accessories.length ? `<div class="buff-checklist">${{w.accessories.map(a => `<div class="buff-chip">✔ ${{a}}</div>`).join("")}}</div>` : '<div class="buff-chip">Unmodified chassis</div>'}}
+              ${{docLink}}
+            </div>
+          `;
+
+          wCard.querySelector(".info-btn").addEventListener("click", () => {{
+            const drawer = wCard.querySelector(".breakdown-drawer");
+            drawer.classList.toggle("open");
+          }});
+
+          wList.appendChild(wCard);
+        }});
+      }}
+
+      // Armor Tab
+      const aList = document.getElementById("armorsList");
+      aList.innerHTML = "";
+      char.armors.forEach(a => {{
+        const div = document.createElement("div");
+        div.style.marginBottom = "8px";
+        div.innerHTML = `<strong>${{a.name}}</strong> (+${{a.defense_rating}} DR) ${{a.modifications.length ? `— <em>${{a.modifications.join(", ")}}</em>` : ""}}`;
+        aList.appendChild(div);
+      }});
+
+      // Powers Tab with Drilldowns and Doc Links
+      const pContent = document.getElementById("powersContent");
+      pContent.innerHTML = "";
+      
+      const cf = char.powers.complex_forms || [];
+      const spPowers = char.powers.sprite_powers || [];
+      const spells = char.powers.spells || [];
+      const adept = char.powers.adept_powers || [];
+      const echoes = char.powers.echoes || [];
+      const monad = char.powers.monad_abilities || [];
+      const augs = char.powers.augmentations || [];
+
+      // ⚡ Spirit Channeling Inhabitation Console for Mages with Conjuring & Channeling
+      if (hasChanneling) {{
+        const mageMagic = parseInt(char.attributes.magic || 6, 10);
+        const maxAllowedForce = Math.max(1, mageMagic - 1);
+        const spiritCatalog = (char.powers && char.powers.spirit_channeling_catalog) || char.spirit_channeling_catalog || {{}};
+        const spiritKeys = Object.keys(spiritCatalog);
+
+        // Build Spirit dropdown options
+        let spiritOptsHtml = `<option value="none" ${{activeSpiritKey === 'none' ? 'selected' : ''}}>— None (Inactive / Astral Standby) —</option>`;
+        spiritKeys.forEach(k => {{
+          const sp = spiritCatalog[k];
+          const isSel = (activeSpiritKey === k);
+          spiritOptsHtml += `<option value="${{k}}" ${{isSel ? 'selected' : ''}}>${{sp.name}} (${{sp.category}})</option>`;
+        }});
+
+        // Build Force dropdown options (1 to Magic - 1 per user specification)
+        let forceOptsHtml = "";
+        for (let f = 1; f <= maxAllowedForce; f++) {{
+          const isSel = (activeSpiritForce === f) || (!activeSpiritForce && f === Math.min(3, maxAllowedForce));
+          forceOptsHtml += `<option value="${{f}}" ${{isSel ? 'selected' : ''}}>Force ${{f}} (+${{Math.max(1, Math.floor(f/2))}} Phys, ${{f}} Wounds Ignored)</option>`;
+        }}
+
+        // Optional Powers UI per SR6 Core: 1 optional power for every 3 full points of Force
+        let optionalPowersHtml = "";
+        let powerChoiceHtml = "";
+        if (activeSpirit && activeSpiritForce > 0) {{
+          const optionalList = activeSpirit.optional_powers || [];
+          const maxOptionalAllowed = Math.floor(activeSpiritForce / 3);
+
+          if (optionalList.length > 0) {{
+            if (maxOptionalAllowed > 0) {{
+              const currentlyCheckedPowers = optionalList.filter(op => {{
+                const optToggleKey = "channeling_opt_power_" + op.name.toLowerCase().replace(/[^a-z0-9]/g, "_");
+                return getRuntimeMod(activeCharId, optToggleKey) === 1;
+              }});
+
+              optionalPowersHtml = `
+                <div style="margin-top: 10px; padding: 10px; background: rgba(0,0,0,0.3); border-radius: 8px; border-left: 3px solid var(--purple-accent);">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <div style="font-size: 0.78rem; font-weight: 700; color: var(--purple-accent); text-transform: uppercase;">
+                      🌟 Optional Powers (${{currentlyCheckedPowers.length}} / ${{maxOptionalAllowed}} Selected)
+                    </div>
+                    <div style="font-size: 0.70rem; color: var(--text-muted); font-style: italic;">
+                      1 per 3 full points of Force (SR6 Core p. 147)
+                    </div>
+                  </div>
+                  <div style="display: flex; flex-direction: column; gap: 6px;">
+                    ${{optionalList.map(op => {{
+                      const optToggleKey = "channeling_opt_power_" + op.name.toLowerCase().replace(/[^a-z0-9]/g, "_");
+                      const isOptChecked = getRuntimeMod(activeCharId, optToggleKey) === 1;
+                      const disableCheck = (!isOptChecked && currentlyCheckedPowers.length >= maxOptionalAllowed);
+                      return `
+                        <label style="display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: ${{disableCheck ? 'var(--text-muted)' : 'var(--text-primary)'}}; cursor: ${{disableCheck ? 'not-allowed' : 'pointer'}}; opacity: ${{disableCheck ? '0.6' : '1'}};">
+                          <input type="checkbox" ${{isOptChecked ? 'checked' : ''}} ${{disableCheck ? 'disabled' : ''}} onchange="toggleChannelingOptionalPower('${{op.name}}', this.checked)">
+                          <span><strong>${{op.name}}</strong> <em style="color: var(--text-muted); font-size: 0.75rem;">— ${{op.effect}}</em></span>
+                        </label>
+                      `;
+                    }}).join("")}}
+                  </div>
+                </div>
+              `;
+            }} else {{
+              optionalPowersHtml = `
+                <div style="margin-top: 10px; padding: 8px 10px; background: rgba(0,0,0,0.18); border-radius: 6px; border: 1px dashed var(--border-subtle); font-size: 0.76rem; color: var(--text-muted);">
+                  ℹ️ <em>Optional powers unlock at Force 3+ (1 for every 3 full points of Force: Force 1–2 receive 0, Force 3–5 receive 1, Force 6–8 receive 2).</em>
+                </div>
+              `;
+            }}
+          }}
+        }}
+
+        // Specific Choice input for configurable powers (e.g. Skill for Spirit of Task, Innate Spell for Spirit of Kin)
+        const configurablePowers = (activeSpirit && activeSpirit.powers) ? activeSpirit.powers.filter(p => p.requires_choice) : [];
+        if (configurablePowers.length > 0) {{
+          powerChoiceHtml = configurablePowers.map(cp => {{
+            const optKey = "channeling_opt_" + cp.name.toLowerCase().replace(/[^a-z0-9]/g, "_");
+            const currentVal = getRuntimeMod(activeCharId, optKey) || "";
+            return `
+              <div style="margin-top: 8px; padding: 8px 10px; background: rgba(0,0,0,0.25); border-radius: 6px; border: 1px dashed var(--border-accent);">
+                <div style="font-size: 0.76rem; color: var(--gold-primary); font-weight: 600; margin-bottom: 4px;">
+                  ⚙️ ${{cp.choice_label || cp.name + ' Specification'}}:
+                </div>
+                <input type="text" class="search-input" style="padding: 4px 8px; font-size: 0.8rem;" placeholder="e.g. Electronics, Engineering, or Spell Name" value="${{currentVal}}" onchange="updateChannelingOption('${{cp.name}}', this.value)">
+              </div>
+            `;
+          }}).join("");
+        }}
+
+        // Active channeling status banner
+        const isChannelingActive = (activeSpirit && activeSpiritForce > 0);
+        const statusBanner = isChannelingActive ? `
+          <div style="margin-top: 10px; padding: 10px 12px; background: rgba(217, 70, 239, 0.12); border: 1px solid var(--border-accent); border-radius: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-weight: 700; color: var(--gold-primary); font-size: 0.88rem;">
+                ⚡ Channeling Inhabited: ${{activeSpirit.name}} (Force ${{activeSpiritForce}})
+              </span>
+              <span class="power-badge" style="background: rgba(217,70,239,0.25); color: #f0abfc;">Dual-Natured</span>
+            </div>
+            <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 4px; line-height: 1.4;">
+              • <strong>Physical Augmentation:</strong> +${{channelingPhysicalBoost}} to BOD, AGI, REA, STR (reflected in live attributes & pools)<br>
+              • <strong>Somatic Resilience:</strong> Ignores up to <strong>${{channelingWoundsIgnored}} boxes</strong> of wound penalties<br>
+              • <strong>Perception:</strong> Simultaneous Astral & Physical Plane interaction without projecting
+              ${{activeSpirit.weakness ? `<br>• <span style="color: #fca5a5;"><strong>Weakness:</strong> ${{activeSpirit.weakness}}</span>` : ''}}
+            </div>
+            <div style="margin-top: 6px;">
+              <a class="doc-link-btn" href="${{getDocUrl(activeCharId, activeSpirit.doc_link)}}" target="_blank" rel="noopener">📖 View Channeling Protocols ↗</a>
+            </div>
+          </div>
+        ` : `
+          <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 6px;">
+            Select a spirit and Force to channel into physical form. Max Force is limited to <strong>Magic - 1</strong> (Force ${{maxAllowedForce}}).
+          </div>
+        `;
+
+        pContent.innerHTML += `
+          <div class="card" style="border: 1px solid var(--border-accent); box-shadow: 0 0 12px rgba(217, 70, 239, 0.15);">
+            <div class="card-title" style="display: flex; justify-content: space-between; align-items: center;">
+              <span>⚡ Spirit Channeling Inhabitation Console</span>
+              <span class="power-badge" style="text-transform: uppercase;">Street Wyrd p. 122</span>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 140px; gap: 8px; margin-top: 8px;">
+              <div>
+                <label style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; display: block; margin-bottom: 3px;">Channeled Spirit</label>
+                <select id="channelingSpiritSelect" class="char-select" style="font-size: 0.88rem; padding: 6px 10px;" onchange="updateChannelingState(this.value, document.getElementById('channelingForceSelect').value)">
+                  ${{spiritOptsHtml}}
+                </select>
+              </div>
+              <div>
+                <label style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; display: block; margin-bottom: 3px;">Force (1 - ${{maxAllowedForce}})</label>
+                <select id="channelingForceSelect" class="char-select" style="font-size: 0.88rem; padding: 6px 10px;" onchange="updateChannelingState(document.getElementById('channelingSpiritSelect').value, this.value)">
+                  ${{forceOptsHtml}}
+                </select>
+              </div>
+            </div>
+
+            ${{powerChoiceHtml}}
+            ${{optionalPowersHtml}}
+            ${{statusBanner}}
+          </div>
+        `;
+
+        // If channeling is active, inject the spirit powers into the active powers list
+        if (isChannelingActive) {{
+          const spiritPowers = activeSpirit.powers || [];
+          const activeOptionalPowers = (activeSpirit.optional_powers || []).filter(op => {{
+            const optToggleKey = "channeling_opt_power_" + op.name.toLowerCase().replace(/[^a-z0-9]/g, "_");
+            return getRuntimeMod(activeCharId, optToggleKey) === 1;
+          }});
+
+          const allChanneledPowers = [...spiritPowers, ...activeOptionalPowers];
+          const channeledCardsHtml = allChanneledPowers.map(p => {{
+            const optKey = "channeling_opt_" + p.name.toLowerCase().replace(/[^a-z0-9]/g, "_");
+            const optVal = getRuntimeMod(activeCharId, optKey);
+            const choiceLabel = optVal ? ` [<strong>${{optVal}}</strong>]` : "";
+            return `
+              <div class="power-item" style="border-left: 3px solid var(--purple-accent);">
+                <div class="power-header">
+                  <strong style="color: var(--purple-accent);">${{p.name}}${{choiceLabel}}</strong>
+                  <span class="power-badge">${{p.action}}</span>
+                </div>
+                <div style="font-size: 0.8rem; color: var(--gold-primary); margin-top: 2px;">Target: ${{p.target}}</div>
+                <div style="font-size: 0.82rem; color: var(--text-secondary); margin-top: 4px;">${{p.effect}}</div>
+                <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 4px;">
+                  Channeled from ${{activeSpirit.name}} (Force ${{activeSpiritForce}}) | <strong>Source:</strong> ${{activeSpirit.source}}
+                </div>
+              </div>
+            `;
+          }}).join("");
+
+          pContent.innerHTML += `
+            <div class="card">
+              <div class="card-title" style="color: var(--purple-accent);">
+                ✨ Active Channeled Spirit Powers (${{activeSpirit.name}} F${{activeSpiritForce}})
+              </div>
+              ${{channeledCardsHtml}}
+            </div>
+          `;
+        }}
+      }}
+
+      if (cf.length > 0) {{
+        let cfItems = cf.map(c => `
+          <div class="power-item">
+            <div class="power-header">
+              <strong>${{c.name}}</strong>
+              <span class="power-badge">FV: ${{c.fading}} | ${{c.duration}}</span>
+            </div>
+            <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 4px;">Target: ${{c.target}}</div>
+            ${{c.notes ? `<div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">${{c.notes}}</div>` : ""}}
+            ${{c.doc_link ? `<a class="doc-link-btn" href="${{getDocUrl(activeCharId, c.doc_link)}}" target="_blank" rel="noopener">📖 View Complex Form Rules ↗</a>` : ""}}
+          </div>
+        `).join("");
+
+        pContent.innerHTML += `
+          <div class="card">
+            <div class="card-title">Complex Forms & Resonance</div>
+            ${{cfItems}}
+            ${{echoes.length ? `<div style="margin-top: 10px; font-size: 0.85rem; color: var(--gold-primary);"><strong>Submersion Echoes:</strong> ${{echoes.map(e => typeof e === 'object' ? e.name : e).join(", ") }}</div>` : ""}}
+          </div>
+        `;
+      }}
+
+      if (spPowers.length > 0) {{
+        let spItems = spPowers.map(sp => `
+          <div class="power-item">
+            <div class="power-header">
+              <strong style="color: var(--cyan-accent);">${{sp.name}}</strong>
+              <span class="power-badge">${{sp.action}}</span>
+            </div>
+            <div style="font-size: 0.8rem; color: var(--gold-primary); margin-top: 2px;">Target: ${{sp.target}}</div>
+            <div style="font-size: 0.82rem; color: var(--text-secondary); margin-top: 4px;">${{sp.effect}}</div>
+            ${{sp.doc_link ? `<a class="doc-link-btn" href="${{getDocUrl(activeCharId, sp.doc_link)}}" target="_blank" rel="noopener">📖 View Symbiosis Rules ↗</a>` : ""}}
+          </div>
+        `).join("");
+
+        pContent.innerHTML += `
+          <div class="card">
+            <div class="card-title">⚡ Sprite Symbiosis Powers (Taz)</div>
+            ${{spItems}}
+          </div>
+        `;
+      }}
+
+      if (spells.length > 0 || adept.length > 0) {{
+        let spellItems = spells.map(s => `
+          <div class="power-item">
+            <div class="power-header">
+              <strong>${{s.name}}</strong>
+              <span class="power-badge">Drain: ${{s.drain}} | ${{s.duration}}</span>
+            </div>
+            ${{s.notes ? `<div style="font-size: 0.78rem; color: var(--gold-primary); margin-top: 4px;">${{s.notes}}</div>` : ""}}
+            ${{s.doc_link ? `<a class="doc-link-btn" href="${{getDocUrl(activeCharId, s.doc_link)}}" target="_blank" rel="noopener">📖 View Spellcasting Rules ↗</a>` : ""}}
+          </div>
+        `).join("");
+
+        let adeptItems = adept.map(a => `
+          <div class="power-item">
+            <div class="power-header">
+              <strong>${{a.name}}</strong>
+              <span class="power-badge">Cost: ${{a.cost}} PP</span>
+            </div>
+            ${{a.notes ? `<div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">${{a.notes}}</div>` : ""}}
+            ${{a.doc_link ? `<a class="doc-link-btn" href="${{getDocUrl(activeCharId, a.doc_link)}}" target="_blank" rel="noopener">📖 View Power Rules ↗</a>` : ""}}
+          </div>
+        `).join("");
+
+        pContent.innerHTML += `
+          <div class="card">
+            <div class="card-title">Spells & Adept Powers</div>
+            ${{spellItems}}
+            ${{adeptItems}}
+          </div>
+        `;
+      }}
+
+      if (isMonad) {{
+        // 🧬 Console 1: Monad Biological Swarm Console
+        let cohesionStatus = "Optimal Swarm Cohesion";
+        let cohesionBadgeStyle = "background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid #059669;";
+        if (monadNV >= 8) {{
+          cohesionStatus = "⚡ Overcharged Swarm (Surge)";
+          cohesionBadgeStyle = "background: rgba(6, 182, 212, 0.25); color: #22d3ee; border: 1px solid #0891b2;";
+        }} else if (monadNV <= 1) {{
+          cohesionStatus = "⚠️ Critical Depletion (Powers Offline)";
+          cohesionBadgeStyle = "background: rgba(239, 68, 68, 0.25); color: #f87171; border: 1px solid #dc2626;";
+        }} else if (monadNV <= 4) {{
+          cohesionStatus = "⚠️ Depleted Swarm (-1 Test Pool)";
+          cohesionBadgeStyle = "background: rgba(245, 158, 11, 0.25); color: #fbbf24; border: 1px solid #d97706;";
+        }}
+
+        const toughnessBoxes = Math.floor(monadNV / 2);
+        const physBonus = Math.ceil(toughnessBoxes * 2 / 3);
+        const stunBonus = toughnessBoxes - physBonus;
+
+        pContent.innerHTML += `
+          <div class="card" style="border: 1px solid var(--cyan-accent); box-shadow: 0 0 14px rgba(6, 182, 212, 0.18);">
+            <div class="card-title" style="display: flex; justify-content: space-between; align-items: center;">
+              <span>🧬 Monad Biological Swarm Console</span>
+              <span class="power-badge" style="background: rgba(6, 182, 212, 0.2); color: var(--cyan-accent); border: 1px solid var(--cyan-accent);">Monad p. 110</span>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.35); border-radius: 8px; padding: 10px 14px; margin-top: 8px; border: 1px solid var(--border-subtle);">
+              <div>
+                <div style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Biological Nanite Volume</div>
+                <div style="display: flex; align-items: baseline; gap: 8px; margin-top: 2px;">
+                  <span style="font-family: var(--font-mono); font-size: 1.6rem; font-weight: 800; color: var(--cyan-accent);">${{monadNV}} <span style="font-size: 0.95rem; color: var(--text-muted);">/ 10 NV</span></span>
+                  <span style="font-size: 0.75rem; padding: 3px 8px; border-radius: 6px; font-weight: 600; ${{cohesionBadgeStyle}}">${{cohesionStatus}}</span>
+                </div>
+              </div>
+              <div style="display: flex; gap: 6px; align-items: center;">
+                <button class="stepper-btn" style="width: 34px; height: 34px; font-size: 1.1rem;" onclick="updateMonadNV(-1); event.stopPropagation();" title="Expend 1 NV">-1</button>
+                <button class="stepper-btn" style="width: 34px; height: 34px; font-size: 1.1rem;" onclick="updateMonadNV(1); event.stopPropagation();" title="Gain 1 NV">+1</button>
+                <button class="reset-all-btn" style="padding: 6px 10px; font-size: 0.75rem;" onclick="setMonadNV(6); event.stopPropagation();" title="Reset to Base 6 NV">Base (6)</button>
+                <button class="reset-all-btn" style="padding: 6px 10px; font-size: 0.75rem;" onclick="setMonadNV(10); event.stopPropagation();" title="Full Nanite Volume">Max (10)</button>
+              </div>
+            </div>
+
+            <div style="margin-top: 10px; padding: 10px 12px; background: rgba(6, 182, 212, 0.08); border-radius: 8px; border-left: 3px solid var(--cyan-accent); font-size: 0.8rem; color: var(--text-secondary); line-height: 1.45;">
+              <div>• <strong>Monad Toughness:</strong> +${{toughnessBoxes}} Total Boxes (+${{physBonus}} Phys, +${{stunBonus}} Stun) | Wound penalties shifted <strong>-1 level</strong></div>
+              <div>• <strong>Matrix Persona Co-Processing:</strong> Living Persona synthesizes A:${{char.attributes.cha || 5}} S:${{char.attributes.int || 5}} D:${{char.attributes.log || 6}} F:${{(char.attributes.wil || 5) + 2}} (${{char.derived.matrix_defense || 15}}d6 Full Matrix Def)</div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 6px; margin-top: 10px;">
+              <button class="action-roll-btn" onclick="rollDice(${{monadNV}}, 'Monad Swarm Test (${{monadNV}}d6)');" style="padding: 7px 10px; font-size: 0.78rem; font-weight: 700; background: rgba(6, 182, 212, 0.2); border: 1px solid var(--cyan-accent); border-radius: 6px; color: #e0f2fe; cursor: pointer;">
+                🎲 Roll NV (${{monadNV}}d6)
+              </button>
+              <button class="action-roll-btn" onclick="rollDice(${{monadNV}}, 'Rapid Cellular Healing (${{monadNV}}d6)');" style="padding: 7px 10px; font-size: 0.78rem; font-weight: 700; background: rgba(16, 185, 129, 0.2); border: 1px solid #10b981; border-radius: 6px; color: #d1fae5; cursor: pointer;">
+                ❤️ Rapid Healing
+              </button>
+              <button class="action-roll-btn" onclick="rollDice(${{monadNV}}, 'Mental Attribute Boost (${{monadNV}}d6)');" style="padding: 7px 10px; font-size: 0.78rem; font-weight: 700; background: rgba(168, 85, 247, 0.2); border: 1px solid #a855f7; border-radius: 6px; color: #f3e8ff; cursor: pointer;">
+                ⚡ Mental Boost
+              </button>
+              <button class="action-roll-btn" onclick="rollDice(${{monadNV}}, 'Physical Attribute Boost (${{monadNV}}d6)');" style="padding: 7px 10px; font-size: 0.78rem; font-weight: 700; background: rgba(245, 158, 11, 0.2); border: 1px solid #f59e0b; border-radius: 6px; color: #fef3c7; cursor: pointer;">
+                🏃 Physical Boost
+              </button>
+            </div>
+          </div>
+        `;
+
+        // 🧫 Console 2: Nanohive Colony & Volume Manager
+        const nh = char.nanohive || {{}};
+        const catalog = nh.catalog || {{}};
+        const presets = nh.presets || {{}};
+        const maxColonies = nh.max_colonies || 6;
+        const maxVol = nh.max_volume || 18;
+
+        let activeCount = 0;
+        let totalAllocatedNV = 0;
+        Object.keys(catalog).forEach(k => {{
+          const c = catalog[k];
+          const isAct = isNanohiveColonyActive(activeCharId, k, !!c.active_by_default);
+          if (isAct) {{
+            activeCount++;
+            const curNv = getNanohiveColonyNV(activeCharId, k, c.default_nv);
+            totalAllocatedNV += curNv;
+          }}
+        }});
+
+        const pct = Math.min(100, Math.round((totalAllocatedNV / maxVol) * 100));
+        let barColor = "var(--cyan-accent)";
+        if (totalAllocatedNV > maxVol) barColor = "#ef4444";
+        else if (totalAllocatedNV > 14) barColor = "#f59e0b";
+
+        let presetButtonsHtml = Object.keys(presets).map(pk => {{
+          const p = presets[pk];
+          return `<button class="filter-chip" style="font-size: 0.74rem; padding: 4px 8px;" onclick="applyNanohivePreset('${{pk}}'); event.stopPropagation();">${{p.name}}</button>`;
+        }}).join("");
+        presetButtonsHtml += `<button class="filter-chip" style="font-size: 0.74rem; padding: 4px 8px; color: #f87171;" onclick="clearAllNanohiveColonies(); event.stopPropagation();">Standby All</button>`;
+
+        let colonyCardsHtml = Object.keys(catalog).map(k => {{
+          const c = catalog[k];
+          const isAct = isNanohiveColonyActive(activeCharId, k, !!c.active_by_default);
+          const curNv = getNanohiveColonyNV(activeCharId, k, c.default_nv);
+          const minNv = c.min_nv || 1;
+          const maxNv = c.max_nv || 3;
+          const isVariable = !c.fixed_nv && (maxNv > minNv);
+
+          const stepperHtml = isVariable ? `
+            <div class="stepper-inline" style="gap: 3px;">
+              <button class="stepper-btn" style="width: 22px; height: 22px; font-size: 0.8rem;" onclick="stepNanohiveColonyNV('${{k}}', -1); event.stopPropagation();">-</button>
+              <span style="font-family: var(--font-mono); font-weight: 700; font-size: 0.82rem; min-width: 32px; text-align: center; color: var(--gold-primary);">${{isAct ? '−' : ''}}${{curNv}} NV</span>
+              <button class="stepper-btn" style="width: 22px; height: 22px; font-size: 0.8rem;" onclick="stepNanohiveColonyNV('${{k}}', 1); event.stopPropagation();">+</button>
+            </div>
+          ` : `<span class="power-badge" style="font-family: var(--font-mono); font-weight: 700; font-size: 0.78rem; color: ${{isAct ? 'var(--cyan-accent)' : 'var(--text-muted)'}}; background: ${{isAct ? 'rgba(6, 182, 212, 0.15)' : 'rgba(255,255,255,0.05)'}}; border: 1px solid ${{isAct ? 'rgba(6, 182, 212, 0.35)' : 'var(--border-subtle)'}}; padding: 2px 7px;">${{isAct ? '−' : ''}}${{curNv}} NV</span>`;
+
+          const bonusLabel = c.stat_effects && c.stat_effects.notes ? `<span class="buff-chip" style="font-size: 0.72rem; padding: 2px 6px;">⚡ ${{c.stat_effects.notes}}</span>` : '';
+
+          return `
+            <div style="background: ${{isAct ? 'rgba(6, 182, 212, 0.08)' : 'rgba(0,0,0,0.25)'}}; border: 1px solid ${{isAct ? 'rgba(6, 182, 212, 0.35)' : 'var(--border-subtle)'}}; border-radius: 8px; padding: 8px 10px; margin-bottom: 6px; transition: all 0.2s ease;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.88rem; font-weight: 700; color: ${{isAct ? 'var(--text-primary)' : 'var(--text-muted)'}};">
+                  <input type="checkbox" ${{isAct ? 'checked' : ''}} onchange="toggleNanohiveColony('${{k}}', this.checked)">
+                  <span>${{c.name}}</span>
+                </label>
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <span class="power-badge" style="font-size: 0.68rem;">${{c.type.toUpperCase()}}</span>
+                  ${{stepperHtml}}
+                </div>
+              </div>
+              <div style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 4px; line-height: 1.35;">${{c.effect}}</div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 6px; font-size: 0.70rem; color: var(--text-muted);">
+                <span>${{c.source}} • ${{c.category}}</span>
+                ${{bonusLabel}}
+              </div>
+            </div>
+          `;
+        }}).join("");
+
+        pContent.innerHTML += `
+          <div class="card" style="border: 1px solid var(--border-accent); box-shadow: 0 0 12px rgba(6, 182, 212, 0.12);">
+            <div class="card-title" style="display: flex; justify-content: space-between; align-items: center;">
+              <span>🧫 Nanohive Colony & Volume Manager</span>
+              <span class="power-badge">Dual R3 Nanohives (Rating 6)</span>
+            </div>
+
+            <!-- Sustaining Rule Banner -->
+            <div style="margin-top: 8px; padding: 8px 10px; background: rgba(0,0,0,0.25); border-radius: 6px; border-left: 3px solid var(--gold-primary); font-size: 0.74rem; color: var(--text-secondary); line-height: 1.35;">
+              ℹ️ <strong>Colony Sustaining Rule (Body Shop p. 108):</strong> Nanohive colonies must be actively sustained by nanohive volume or they degrade and die within 1 week. Pre-bought doses are single colonies requiring their designated NV (Bio-Response: 3 NV; Neurochemical: 2 NV; Neural Amps: 2 NV each). Templates (Neuromuscular Amp [min 2 NV], Dynamic Features [1-3 NV]) can be allocated extra volume for overdriving.
+            </div>
+
+            <!-- Capacity summary & progress bar -->
+            <div style="margin-top: 8px; background: rgba(0,0,0,0.3); border-radius: 8px; padding: 10px 12px; border: 1px solid var(--border-subtle);">
+              <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                <div>
+                  <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Active Colonies: </span>
+                  <strong style="color: ${{activeCount > maxColonies ? '#f87171' : 'var(--gold-primary)'}}; font-size: 0.95rem;">${{activeCount}} / ${{maxColonies}} Max</strong>
+                </div>
+                <div>
+                  <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Nanohive Reserve NV: </span>
+                  <strong style="color: ${{totalAllocatedNV > maxVol ? '#f87171' : 'var(--cyan-accent)'}}; font-size: 0.95rem;">${{Math.max(0, maxVol - totalAllocatedNV)}} / ${{maxVol}} NV Free</strong>
+                </div>
+              </div>
+              
+              <!-- Progress Bar -->
+              <div style="width: 100%; height: 8px; background: rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden; margin: 8px 0 6px 0;">
+                <div style="width: ${{pct}}%; height: 100%; background: ${{barColor}}; transition: width 0.3s ease;"></div>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 0.70rem; color: var(--text-muted);">
+                <span>Replenishment: <strong>6 NV / hour</strong> (Dual R3)</span>
+                <span>Allocated: <strong>${{totalAllocatedNV}} NV used</strong> (${{Math.max(0, maxVol - totalAllocatedNV)}} NV free reserve)</span>
+              </div>
+            </div>
+
+            <!-- Presets Row -->
+            <div style="margin-top: 10px;">
+              <div style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-bottom: 4px;">Operational Presets:</div>
+              <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                ${{presetButtonsHtml}}
+              </div>
+            </div>
+
+            <!-- Colony items -->
+            <div style="margin-top: 10px;">
+              ${{colonyCardsHtml}}
+            </div>
+          </div>
+        `;
+      }}
+
+      // 🔮 Monad Swarm Protocols / Abilities list
+      if (monad.length > 0) {{
+        let monadItems = monad.map(m => `
+          <div class="power-item" style="border-left: 3px solid var(--cyan-accent);">
+            <div class="power-header">
+              <strong style="color: var(--cyan-accent);">${{m.name}}</strong>
+              <span class="power-badge">${{m.action || 'Passive'}}</span>
+            </div>
+            <div style="color: var(--text-secondary); font-size: 0.82rem; margin-top: 4px; line-height: 1.35;">${{m.effect}}</div>
+            ${{m.doc_link ? `<a class="doc-link-btn" href="${{getDocUrl(activeCharId, m.doc_link)}}" target="_blank" rel="noopener">📖 View Monad Protocols ↗</a>` : ""}}
+          </div>
+        `).join("");
+
+        pContent.innerHTML += `
+          <div class="card">
+            <div class="card-title" style="color: var(--cyan-accent);">Monad Swarm Protocols</div>
+            ${{monadItems}}
+          </div>
+        `;
+      }}
+
+      // Cyberware & Bioware Augmentations (Gear & Drones Tab)
+      const augCard = document.getElementById("augmentationsCard");
+      const augList = document.getElementById("augmentationsList");
+      if (augCard && augList) {{
+        augList.innerHTML = "";
+        if (augs.length === 0) {{
+          augCard.style.display = "none";
+        }} else {{
+          augCard.style.display = "block";
+          augs.forEach(a => {{
+            const div = document.createElement("div");
+            div.className = "gear-card";
+            div.style.marginBottom = "8px";
+            div.innerHTML = `
+              <div class="gear-header">
+                <span class="gear-title"><strong>${{a.name}}</strong> ${{a.rating ? `R${{a.rating}}` : ""}}</span>
+                <div style="display: flex; gap: 4px;">
+                  <span class="gear-badge rating">[${{a.grade || 'Standard'}}]</span>
+                  ${{a.essence ? `<span class="gear-badge qty">${{a.essence}} Ess</span>` : ''}}
+                </div>
+              </div>
+              ${{a.notes ? `<div style="font-size: 0.78rem; color: var(--gold-primary); margin-top: 3px;">${{a.notes}}</div>` : ''}}
+              ${{a.doc_link ? `<div style="margin-top: 4px;"><a class="doc-link-btn" href="${{getDocUrl(activeCharId, a.doc_link)}}" target="_blank" rel="noopener">📖 View Augmentation Rules ↗</a></div>` : ''}}
+            `;
+            augList.appendChild(div);
+          }});
+        }}
+      }}
+
+      // Vehicles & Drones Tab
+      const vList = document.getElementById("vehiclesList");
+      vList.innerHTML = "";
+      if (char.vehicles.length === 0) {{
+        vList.innerHTML = "<div style='color: var(--text-muted);'>No vehicles or drones deployed.</div>";
+      }} else {{
+        char.vehicles.forEach(v => {{
+          const vCard = document.createElement("div");
+          vCard.className = "vehicle-card";
+          
+          let poolsHtml = "";
+          if (v.rigged_pools) {{
+            Object.keys(v.rigged_pools).forEach(pk => {{
+              const p = v.rigged_pools[pk];
+              poolsHtml += `<span class="rigged-pool-badge">${{pk.toUpperCase()}}: ${{p.pool}}d6 (${{p.hits}}H)</span>`;
+            }});
+          }}
+
+          const docLink = v.doc_link ? `<a class="doc-link-btn" href="${{getDocUrl(activeCharId, v.doc_link)}}" target="_blank" rel="noopener">📖 View Drone Statblocks ↗</a>` : "";
+
+          vCard.innerHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+              <strong style="font-size: 1.05rem;">${{v.name}}</strong>
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="font-size: 0.8rem; color: var(--gold-primary);">${{v.role || ""}}</span>
+                <button class="info-btn" title="Drone Specs">ℹ</button>
+              </div>
+            </div>
+            <div style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 4px;">
+              HAN: ${{v.handling}} | ACC: ${{v.accel}} | SPD: ${{v.speed}} | BOD: ${{v.body}} | ARM: ${{v.armor}} | PIL: ${{v.pilot}} | SEN: ${{v.sensor}}
+            </div>
+            ${{v.mobility_str ? `<div style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--gold-primary); margin-bottom: 6px;">⚙️ ${{v.mobility_str}}</div>` : ""}}
+            ${{poolsHtml ? `<div style="margin: 6px 0;">${{poolsHtml}}</div>` : ""}}
+            ${{v.modifications.length ? `<div style="font-size: 0.75rem; color: var(--text-muted);">Mods: ${{v.modifications.join(", ")}}</div>` : ""}}
+            <div class="breakdown-drawer">
+              <div class="breakdown-math">📊 Base Stats: Base BOD ${{v.base_body || v.body}} | Base ARM ${{v.base_armor || v.armor}} | Base PIL ${{v.base_pilot || v.pilot}} | Base SEN ${{v.base_sensor || v.sensor}}</div>
+              ${{v.profile_notes && v.profile_notes.length ? `<div style="font-size: 0.75rem; color: var(--gold-primary); margin-bottom: 4px;"><strong>Active Enhancements:</strong> ${{v.profile_notes.join(" • ")}}</div>` : ""}}
+              ${{v.modifications.length ? `<div class="buff-checklist">${{v.modifications.map(m => `<div class="buff-chip">✔ ${{m}}</div>`).join("")}}</div>` : '<div class="buff-chip">Standard factory chassis</div>'}}
+              ${{docLink}}
+            </div>
+          `;
+
+          vCard.querySelector(".info-btn").addEventListener("click", () => {{
+            const drawer = vCard.querySelector(".breakdown-drawer");
+            drawer.classList.toggle("open");
+          }});
+
+          vList.appendChild(vCard);
+        }});
+      }}
+
+      // Field Gear & Equipment
+      const fgList = document.getElementById("fieldGearList");
+      const gearItems = char.gear_items || [];
+      if (gearItems.length === 0) {{
+        fgList.innerHTML = '<div style="color: var(--text-muted); font-size: 0.85rem;">Standard runner field equipment</div>';
+      }} else {{
+        fgList.innerHTML = gearItems.map(g => {{
+          const qtyBadge = (g.qty && g.qty > 1) ? `<span class="gear-badge qty">Qty: ${{g.qty}}</span>` : '';
+          const rtgBadge = g.rating ? `<span class="gear-badge rating">Rating ${{g.rating}}</span>` : '';
+          const accChips = (g.accessories && g.accessories.length) ? 
+            `<div style="display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px;">${{g.accessories.map(a => `<span class="buff-chip" style="font-size: 0.75rem;">✔ ${{a}}</span>`).join('')}}</div>` : '';
+          const notesText = g.notes ? `<div style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 3px;">${{g.notes}}</div>` : '';
+
+          return `
+            <div class="gear-card">
+              <div class="gear-header">
+                <span class="gear-title">${{g.name}}</span>
+                <div style="display: flex; gap: 4px;">${{qtyBadge}}${{rtgBadge}}</div>
+              </div>
+              ${{accChips}}
+              ${{notesText}}
+            </div>
+          `;
+        }}).join("");
+      }}
+
+      // Matrix Hardware & Commlinks
+      const mhList = document.getElementById("matrixHardwareList");
+      const mDevs = char.matrix_devices || [];
+      if (mDevs.length === 0) {{
+        mhList.innerHTML = '<div style="color: var(--text-muted); font-size: 0.85rem;">No external commlink hardware (Living Persona)</div>';
+      }} else {{
+        mhList.innerHTML = mDevs.map(d => {{
+          const rtgBadge = d.rating ? `<span class="gear-badge rating">Device Rating ${{d.rating}}</span>` : '';
+          const qtyBadge = (d.qty && d.qty > 1) ? `<span class="gear-badge qty">Qty: ${{d.qty}}</span>` : '';
+          const dpFw = `<div style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--gold-primary); margin-top: 2px;">Data Processing: ${{d.data_processing || 2}} | Firewall: ${{d.firewall || 2}}</div>`;
+          const accChips = (d.accessories && d.accessories.length) ? 
+            `<div style="display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px;">${{d.accessories.map(a => `<span class="buff-chip" style="font-size: 0.75rem;">✔ ${{a}}</span>`).join('')}}</div>` : '';
+          const notesText = d.notes ? `<div style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 3px;">${{d.notes}}</div>` : '';
+
+          return `
+            <div class="gear-card">
+              <div class="gear-header">
+                <span class="gear-title">${{d.name}}</span>
+                <div style="display: flex; gap: 4px;">${{qtyBadge}}${{rtgBadge}}</div>
+              </div>
+              ${{dpFw}}
+              ${{accChips}}
+              ${{notesText}}
+            </div>
+          `;
+        }}).join("");
+      }}
+
+      // Software & Apps
+      const swList = document.getElementById("softwareList");
+      const swItems = char.software || [];
+      const autos = (char.inventory && char.inventory.autosofts) || [];
+      let swHtml = "";
+      if (swItems.length > 0) {{
+        swHtml += swItems.map(s => {{
+          const rtgBadge = s.rating ? `<span class="gear-badge rating">R${{s.rating}}</span>` : '';
+          const catBadge = s.category ? `<span class="power-badge" style="font-size: 0.7rem;">${{s.category}}</span>` : '';
+          return `
+            <div class="gear-card" style="display: flex; justify-content: space-between; align-items: center; padding: 6px 10px;">
+              <span style="font-size: 0.88rem; font-weight: 600;">${{s.name}}</span>
+              <div style="display: flex; gap: 4px; align-items: center;">${{catBadge}}${{rtgBadge}}</div>
+            </div>
+          `;
+        }}).join("");
+      }}
+      if (autos.length > 0) {{
+        swHtml += `
+          <div style="margin-top: 8px; font-size: 0.78rem; font-weight: 700; color: var(--gold-primary);">Vehicle / Drone Autosofts:</div>
+          <div style="font-size: 0.82rem; color: var(--text-secondary); margin-top: 3px;">${{autos.join(", ")}}</div>
+        `;
+      }}
+      if (!swHtml) {{
+        swHtml = '<div style="color: var(--text-muted); font-size: 0.85rem;">Standard firmware only</div>';
+      }}
+      swList.innerHTML = swHtml;
+
+      // Identities & Lifestyles
+      const slList = document.getElementById("sinsLifestyleList");
+      const sins = char.sins || [];
+      const lifestyles = char.lifestyles || [];
+      let sinsContent = "";
+      if (sins.length > 0) {{
+        sinsContent += `<div style="font-size: 0.82rem; font-weight: 700; color: var(--gold-primary); margin-bottom: 6px;">Identities & Fake SINs</div>`;
+        sinsContent += sins.map(s => `
+          <div class="gear-card">
+            <div class="gear-header">
+              <span class="gear-title">${{s.name}}</span>
+              <span class="power-badge">R${{s.rating || 1}} ${{s.quality || ''}}</span>
+            </div>
+            ${{s.licenses && s.licenses.length ? `<div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 4px;"><strong>Licenses:</strong> ${{s.licenses.join(', ')}}</div>` : ''}}
+          </div>
+        `).join("");
+      }}
+      if (lifestyles.length > 0) {{
+        sinsContent += `<div style="font-size: 0.82rem; font-weight: 700; color: var(--gold-primary); margin-top: 10px; margin-bottom: 6px;">Lifestyles</div>`;
+        sinsContent += lifestyles.map(l => `
+          <div class="gear-card">
+            <div class="gear-header">
+              <span class="gear-title">${{l.name}}</span>
+            </div>
+            <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 2px;">
+              Comfort: ${{l.comfort || 'Low'}} | Security: ${{l.security || 'Low'}} | Neighborhood: ${{l.neighborhood || 'Low'}}
+            </div>
+          </div>
+        `).join("");
+      }}
+      if (!sinsContent) {{
+        sinsContent = '<div style="color: var(--text-muted); font-size: 0.85rem;">None recorded</div>';
+      }}
+      slList.innerHTML = sinsContent;
+
+      // Contacts Tab
+      renderContacts();
+    }}
+
+    function renderContacts() {{
+      const char = CHARACTERS_DATA[activeCharId];
+      if (!char) return;
+
+      const cList = document.getElementById("contactsList");
+      cList.innerHTML = "";
+      const rawContacts = [...(char.contacts || [])];
+
+      if (rawContacts.length === 0) {{
+        cList.innerHTML = "<div style='color: var(--text-muted);'>No recorded contacts.</div>";
+        return;
+      }}
+
+      let sorted = rawContacts;
+
+      if (contactFilterMode === "loyalty") {{
+        sorted.sort((a, b) => (b.loyalty || 0) - (a.loyalty || 0));
+      }} else if (contactFilterMode === "connection") {{
+        sorted.sort((a, b) => (b.connection || 0) - (a.connection || 0));
+      }} else if (contactFilterMode === "region") {{
+        const groups = {{}};
+        sorted.forEach(c => {{
+          const reg = c.region || "Seattle / Global";
+          if (!groups[reg]) groups[reg] = [];
+          groups[reg].push(c);
+        }});
+
+        Object.keys(groups).sort().forEach(reg => {{
+          const header = document.createElement("div");
+          header.className = "contact-group-header";
+          header.innerHTML = `📍 ${{reg}} (${{groups[reg].length}})`;
+          cList.appendChild(header);
+
+          groups[reg].forEach(c => {{
+            cList.appendChild(createContactElement(c));
+          }});
+        }});
+        return;
+      }} else if (contactFilterMode === "type") {{
+        const groups = {{}};
+        sorted.forEach(c => {{
+          const types = (c.types && c.types.length) ? c.types : [c.archetype || "Contact"];
+          types.forEach(t => {{
+            if (!groups[t]) groups[t] = [];
+            groups[t].push(c);
+          }});
+        }});
+
+        Object.keys(groups).sort().forEach(arch => {{
+          const header = document.createElement("div");
+          header.className = "contact-group-header";
+          header.innerHTML = `👥 ${{arch}} (${{groups[arch].length}})`;
+          cList.appendChild(header);
+
+          groups[arch].forEach(c => {{
+            cList.appendChild(createContactElement(c));
+          }});
+        }});
+        return;
+      }}
+
+      // Default rendering
+      sorted.forEach(c => {{
+        cList.appendChild(createContactElement(c));
+      }});
+    }}
+
+    function createContactElement(c) {{
+      const cItem = document.createElement("div");
+      cItem.className = "contact-item";
+      let typesHtml = "";
+      if (c.types && c.types.length) {{
+        typesHtml = `<div style="display: flex; gap: 4px; flex-wrap: wrap; margin-top: 4px;">${{c.types.map(t => `<span class="quality-badge pos" style="font-size: 0.68rem; padding: 1px 6px;">${{t}}</span>`).join("")}}</div>`;
+      }}
+      cItem.innerHTML = `
+        <div class="contact-header">
+          <strong style="color: var(--text-primary); font-size: 1.02rem;">${{c.name}} (${{c.archetype}})</strong>
+          ${{c.favors ? `<span class="favor-badge">+${{c.favors}} Favor</span>` : ""}}
+        </div>
+        <div style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 4px;">
+          Connection: <strong>${{c.connection}}</strong> | Loyalty: <strong>${{c.loyalty}}</strong> ${{c.region ? `| 📍 ${{c.region}}` : ""}}
+        </div>
+        ${{typesHtml}}
+        ${{c.description ? `<div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">${{c.description}}</div>` : ""}}
+      `;
+      return cItem;
+    }}
+
+    function registerServiceWorker() {{
+      if ('serviceWorker' in navigator) {{
+        navigator.serviceWorker.register('sw.js').catch(err => console.log('SW registration error', err));
+      }}
+    }}
+  </script>
+</body>
+</html>
+"""
+
+
+def export_mobile_html(char_data: Dict[str, Any], char_id: str = "reiko", char_repo_path: Optional[str] = None) -> str:
+    """
+    Exports a standalone single-character mobile HTML application.
+    """
+    char_json = export_mobile_json(char_data, char_repo_path=char_repo_path)
+    bundle = {char_id: char_json}
+    return get_mobile_html_template(bundle, initial_char_id=char_id)

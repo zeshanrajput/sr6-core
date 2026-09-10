@@ -3,7 +3,6 @@ project:
   output-dir: _book
   resources:
     - narrative/audio/
-    - output/vtt/
     - output/text/
   pre-render:
     - uv run --directory ../.. sr6 sync-all

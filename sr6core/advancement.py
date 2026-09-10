@@ -1,5 +1,5 @@
 """
-Interactive Character Advancement & Shopping Wizard Engine for SR6.
+Interactive Character Advancement & Shopping Engine for SR6.
 Enables searching CommLink6 datasets, calculating transaction prices with custom modifiers,
 and adding items, qualities, or spells to character dossiers.
 """
@@ -9,9 +9,10 @@ import sqlite3
 import yaml
 from typing import Dict, Any, List, Optional, Tuple
 
-from sr6core.rules_db import DEFAULT_DB_PATH
-from sr6core.character_manager import CharacterManager
-from sr6core.creation.deep_audit import calculate_transaction_price
+from sr6core.rules.db import DEFAULT_DB_PATH
+from sr6core.character.manager import CharacterManager
+from sr6core.character.audit import calculate_transaction_price
+from sr6core.character.purchases import *
 
 
 def search_catalog(query: str, db_path: str = DEFAULT_DB_PATH, limit: int = 15) -> List[Dict[str, Any]]:
@@ -29,14 +30,14 @@ def search_catalog(query: str, db_path: str = DEFAULT_DB_PATH, limit: int = 15) 
         ("ref_qualities", "quality"),
         ("ref_spells", "spell"),
         ("ref_complex_forms", "complex_form"),
-        ("ref_gear", "gear")
+        ("ref_gear", "gear"),
     ]
 
     for tbl, category in tables:
         try:
             rows = cursor.execute(
                 f"SELECT * FROM {tbl} WHERE lower(id) LIKE ? OR lower(name) LIKE ? LIMIT ?",
-                (clean_q, clean_q, limit)
+                (clean_q, clean_q, limit),
             ).fetchall()
             for r in rows:
                 item_dict = dict(r)
@@ -53,7 +54,7 @@ def purchase_item_for_character(
     char_id: str,
     item_ref: str,
     modifiers: Optional[Dict[str, Any]] = None,
-    db_path: str = DEFAULT_DB_PATH
+    db_path: str = DEFAULT_DB_PATH,
 ) -> Tuple[bool, str]:
     cm = CharacterManager()
     char_data = cm.get_character_data(char_id)
@@ -70,8 +71,16 @@ def purchase_item_for_character(
     item_row = None
     item_cat = "gear"
 
-    for tbl, cat in [("ref_gear", "gear"), ("ref_qualities", "quality"), ("ref_spells", "spell"), ("ref_complex_forms", "complex_form")]:
-        row = cursor.execute(f"SELECT * FROM {tbl} WHERE id = ? OR lower(name) = ?", (item_ref, item_ref.lower())).fetchone()
+    for tbl, cat in [
+        ("ref_gear", "gear"),
+        ("ref_qualities", "quality"),
+        ("ref_spells", "spell"),
+        ("ref_complex_forms", "complex_form"),
+    ]:
+        row = cursor.execute(
+            f"SELECT * FROM {tbl} WHERE id = ? OR lower(name) = ?",
+            (item_ref, item_ref.lower()),
+        ).fetchone()
         if row:
             item_row = dict(row)
             item_cat = cat
@@ -103,7 +112,7 @@ def purchase_item_for_character(
             "ref": item_row["id"],
             "base_cost": base_cost,
             "actual_cost": final_price,
-            "transaction_note": price_note
+            "transaction_note": price_note,
         })
     elif item_cat == "quality":
         if "qualities" not in raw_yaml:
@@ -112,7 +121,7 @@ def purchase_item_for_character(
         raw_yaml["qualities"][q_type].append({
             "name": item_name,
             "ref": item_row["id"],
-            "karma": int(item_row.get("karma", 0))
+            "karma": int(item_row.get("karma", 0)),
         })
 
     with open(char_path, "w", encoding="utf-8") as f:
