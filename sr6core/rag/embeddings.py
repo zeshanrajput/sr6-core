@@ -5,6 +5,7 @@ Integrates sentence embeddings, sqlite-vec extension with NumPy fallback, and Re
 
 import os
 import re
+import zlib
 import sqlite3
 import numpy as np
 from typing import Dict, Any, List, Optional, Tuple
@@ -58,40 +59,37 @@ class LocalEmbeddingEngine:
             return self._hash_projection_batch(texts)
 
         import torch
-        clean_texts = [re.sub(r"\s+", " ", t).strip()[:1000] for t in texts]
-        if not clean_texts:
-            return np.zeros((0, EMBEDDING_DIM), dtype=np.float32)
+
+        encoded = self.tokenizer(
+            texts,
+            padding=True,
+            truncation=True,
+            max_length=max_length,
+            return_tensors="pt"
+        ).to(self.device)
 
         with torch.no_grad():
-            encoded = self.tokenizer(
-                clean_texts,
-                padding=True,
-                truncation=True,
-                max_length=max_length,
-                return_tensors="pt"
-            ).to(self.device)
-
-            output = self.model(**encoded)
+            outputs = self.model(**encoded)
             # Mean pooling over attention mask
-            token_embeddings = output.last_hidden_state
+            token_embeddings = outputs.last_hidden_state
             attention_mask = encoded["attention_mask"].unsqueeze(-1).expand(token_embeddings.size()).float()
             sum_embeddings = torch.sum(token_embeddings * attention_mask, 1)
             sum_mask = torch.clamp(attention_mask.sum(1), min=1e-9)
             mean_pooled = sum_embeddings / sum_mask
 
-            # L2 normalization
+            # L2 normalize
             normalized = torch.nn.functional.normalize(mean_pooled, p=2, dim=1)
             return normalized.cpu().numpy().astype(np.float32)
 
     def _hash_projection_batch(self, texts: List[str]) -> np.ndarray:
-        """Lightweight offline n-gram pseudo-embedding fallback."""
+        """Lightweight offline n-gram pseudo-embedding fallback using deterministic CRC32 hashing."""
         vectors = np.zeros((len(texts), EMBEDDING_DIM), dtype=np.float32)
         for i, t in enumerate(texts):
             words = re.findall(r"\b\w+\b", t.lower())
             if not words:
                 continue
             for w in words:
-                h = hash(w) % EMBEDDING_DIM
+                h = zlib.crc32(w.encode("utf-8")) % EMBEDDING_DIM
                 vectors[i, h] += 1.0
             norm = np.linalg.norm(vectors[i])
             if norm > 0:
