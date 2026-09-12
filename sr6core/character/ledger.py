@@ -833,6 +833,16 @@ def add_sprite(
         eff_type = type_or_name
         eff_name = name or f"Sprite-{eff_type}"
 
+    if isinstance(count, str):
+        if not details:
+            details = count
+        count = 1
+    else:
+        try:
+            count = int(count)
+        except (ValueError, TypeError):
+            count = 1
+
     eff_details = details if details else autosofts
     curr_m_idx = len(_GLOBAL_LOG_STATE.get("Missions", []))
     m_name = _GLOBAL_LOG_STATE["Missions"][-1] if curr_m_idx > 0 else "Character Creation"
@@ -877,6 +887,17 @@ def add_spirit(
     global _GLOBAL_LOG_STATE
     curr_m_idx = len(_GLOBAL_LOG_STATE.get("Missions", []))
     m_name = _GLOBAL_LOG_STATE["Missions"][-1] if curr_m_idx > 0 else "Character Creation"
+
+    if isinstance(count, str):
+        if not details:
+            details = count
+        count = 1
+    else:
+        try:
+            count = int(count)
+        except (ValueError, TypeError):
+            count = 1
+
     eff_details = details if details else powers
 
     standard_spirits = ["Fire", "Water", "Air", "Earth", "Beast", "Man", "Guardian", "Guidance", "Plant", "Task"]

@@ -64,7 +64,7 @@ Submersion_Grade = state["Submersion_Grade"]
   * *Compiling and Registering Taz (Rank 1 Crack Ally Sprite):* `{python} inc('Karma', -6)`  
     * *Writing Code:* Software + RES (Natural Hacker) + RES Focus = 7 + 6 + 4 = 17 (4 Bought Hits)  
     * Compiling and Registering per Downtime Template
-  * `{python} add_sprite('Taz', 7, 'Assassin', 'Ally Sprite', is_ally=True)`
+  * `{python} add_sprite('Taz', 7, 'Assassin', details='Ally Sprite', is_ally=True)`
   * `{python} modifier('Taz Symbiosis (Electronics)', 'skill:electronics', 4, type='teamwork', rule_anchor='rules_sprites.html#sprite-symbiosis-powers')`
   * `{python} modifier('Taz Symbiosis (Cracking)', 'skill:cracking', 4, type='teamwork', rule_anchor='rules_sprites.html#sprite-symbiosis-powers')`
   * `{python} modifier('Taz Diagnosis (Engineering)', 'skill:engineering', 3, type='other', rule_anchor='rules_sprites.html#sprite-symbiosis-powers')`
