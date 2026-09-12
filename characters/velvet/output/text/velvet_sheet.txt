@@ -3,7 +3,7 @@
 +--------------------------------------------------------------------------+
 | METATYPE : Elf                  ARCHETYPE: Shinto / Musok                |
 | KARMA    : 17 avail               NUYEN    : 565 Nuyen                   |
-| HEAT     : 0                    REPUTATION: SEA:4, UNL:0, Southeast A... |
+| HEAT     : 0                    REPUTATION: SEA:4, AMS:0, HK:2           |
 +-- ATTRIBUTES ------------------------------------------------------------+
 | B 2  A 3  R 2  S 2  W 5  L 3  I 3  C 10                                  |
 | ESS 6.0  ED 2  MAG 6(9)                                                  |
@@ -26,6 +26,8 @@
 | SPELL                    TEST / EFFECT                  DRAIN  DUR       |
 | Increase Attribute       Sorcery + Magic                3      Sustaine  |
 | Increase Reflexes        Sorcery + Magic                5      Sustaine  |
+| Increase Attribute       Source: core                   3      Instant   |
+| Increase Reflexes        Source: core                   5      Instant   |
 +-- KEY QUALITIES ---------------------------------------------------------+
 | + Metagenetic Attribute Improvemen | + Exceptional Attribute (Charisma)  |
 | + Inspire Competence               | + Low-Light Vision                  |

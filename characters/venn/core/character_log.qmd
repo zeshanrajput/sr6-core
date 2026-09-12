@@ -3,16 +3,9 @@
 ```{python}
 #| echo: false
 #| include: false
-from sr6core.log_engine import (
-    inc, inc_many, contact, add_rep, start_mission, state, assign, print_contacts_summary
-)
+from sr6core.log_engine import init_character, state, print_contacts_summary
 
-# Initial chargen baseline
-assign("Karma", 3)
-assign("Lifetime_Karma", 3)
-assign("Nuyen", 570)
-assign("Lifetime_Nuyen", 570)
-assign("Total_Reputation", 0)
+init_character("venn")
 ```
 
 This ledger records complete campaign mission history, Karma earned and spent, liquid Nuyen balances, reputation, and contact favor progressions.
@@ -26,6 +19,7 @@ This ledger records complete campaign mission history, Karma earned and spent, l
 * **Current Nuyen:** ¥`{python} f"{state['Nuyen']:,}"`
 * **Lifetime Nuyen Earned:** ¥`{python} f"{state['Lifetime_Nuyen']:,}"`
 * **Total Reputation:** `{python} state.get('Total_Reputation', 0)`
+* **Monad Nanite Volume:** `{python} state.get('Nanite_Volume', 6)`
 
 ---
 

@@ -233,6 +233,15 @@ def main():
     card_parser.add_argument("target", type=str, nargs="+", help="Item category and name, or just item name")
     card_parser.add_argument("--plain", action="store_true", help="Display card as plaintext")
 
+    contacts_parser = subparsers.add_parser("contacts", aliases=["contact"], help="Search and browse SRM canonical and character contacts by type, region, and ratings")
+    contacts_parser.add_argument("query", nargs="?", default=None, help="Optional search text (name, job, uses, or description)")
+    contacts_parser.add_argument("--type", "-t", dest="contact_type", default=None, help="Filter by contact type/archetype (e.g. Matrix, Street, Corporate, Magic, Criminal)")
+    contacts_parser.add_argument("--region", "-r", dest="region", default=None, help="Filter by region (e.g. SEA, Seattle, NOLA, AMS, HK, KY, DW, GEN)")
+    contacts_parser.add_argument("--char", "-c", dest="char_id", default=None, help="Scope search to a specific character's roster (reiko, velvet, venn)")
+    contacts_parser.add_argument("--min-conn", type=int, default=None, help="Minimum Connection rating")
+    contacts_parser.add_argument("--min-loy", type=int, default=None, help="Minimum Loyalty rating")
+    contacts_parser.add_argument("--json", action="store_true", help="Output results in JSON format")
+
     lint_parser = subparsers.add_parser("lint", help="Lint Quarto chapter prose")
     lint_parser.add_argument("target", type=str, help="Path to chapter markdown/qmd file")
 
@@ -537,8 +546,42 @@ def main():
         if getattr(args, "plain", False):
             from sr6core.rules.cards import format_card
             print(f"\n{format_card(card_info, fmt='plain')}\n")
+    elif args.command in ["contacts", "contact"]:
+        from sr6core.character.contacts import search_contacts, format_contacts_table, STANDARD_CONTACT_TYPES, REGION_MAP
+        import json
+
+        results = search_contacts(
+            char_id=args.char_id,
+            contact_type=args.contact_type,
+            region=args.region,
+            query=args.query,
+            min_connection=args.min_conn,
+            min_loyalty=args.min_loy,
+        )
+
+        if getattr(args, "json", False):
+            print(json.dumps(results, indent=2))
         else:
-            print(f"\n{card_info['markdown']}\n")
+            scope = f"Character: {args.char_id.upper()}" if args.char_id else "Global SRM & Campaign Catalog"
+            filters = []
+            if args.region:
+                filters.append(f"Region: {args.region.upper()}")
+            if args.contact_type:
+                filters.append(f"Type: {args.contact_type}")
+            if args.query:
+                filters.append(f"Query: '{args.query}'")
+            if args.min_conn:
+                filters.append(f"Min Conn: {args.min_conn}")
+            if args.min_loy:
+                filters.append(f"Min Loy: {args.min_loy}")
+            filter_str = f" ({', '.join(filters)})" if filters else ""
+
+            title = f"Contacts [{scope}]{filter_str} — {len(results)} found"
+            print(f"\n{format_contacts_table(results, title=title)}\n")
+            if not results:
+                print("Available Types  : " + ", ".join(STANDARD_CONTACT_TYPES))
+                print("Available Regions: " + ", ".join(f"{k} ({v})" for k, v in REGION_MAP.items()))
+                print()
 
     elif args.command in ["char", "characters"]:
         if args.subcommand == "list" or not args.subcommand:

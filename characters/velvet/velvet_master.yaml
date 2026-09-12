@@ -127,6 +127,22 @@ spells:
   range: Touch
   drain: 5
   notes: Sorcery + Magic test. Net hits increase Reaction and Initiative Dice.
+- name: Increase Attribute
+  ref: increase_attribute
+  category: General
+  duration: Instant
+  type: Physical
+  range: TOUCH
+  drain: 3
+  notes: 'Source: core'
+- name: Increase Reflexes
+  ref: increase_reflexes
+  category: General
+  duration: Instant
+  type: Physical
+  range: TOUCH
+  drain: 5
+  notes: 'Source: core'
 adept_powers:
 - name: Cosmetic Control
   ref: cosmetic_control
@@ -201,122 +217,6 @@ knowledge_skills:
   rating: 1
   notes: ''
 contacts:
-  Brynne Taggart:
-    name: Brynne Taggart
-    canonical_name: Brynne Taggart
-    is_canonical: true
-    connection: 4
-    loyalty: 2
-    favors: 0
-    type: Fixer
-    region: SEA
-    description: 'Uses: Getting jobs, fencing gear, gangs (Shadowrun Missions Seattle)
-      | Types: Criminal, Street'
-    notes: 'Uses: Getting jobs, fencing gear, gangs (Shadowrun Missions Seattle) |
-      Types: Criminal, Street'
-    history:
-    - 'Chargen Contact (Met: C4 L1)'
-    - SRM 2081-01 Death of a Fixer (+2 FP)
-    - Auto-Promoted to Loyalty 2 (-2 FP)
-  Vincent Grisome:
-    name: Vincent Grisome
-    canonical_name: Vincent Grisome
-    is_canonical: false
-    connection: 5
-    loyalty: 3
-    favors: 0
-    type: Magic Prof.
-    region: SEA
-    description: Chargen Contact
-    notes: Chargen Contact
-    history:
-    - 'Chargen Contact (Met: C5 L3)'
-  Ni Ni Xiaolu:
-    name: Ni Ni Xiaolu
-    canonical_name: Ni Ni Xiaolu
-    is_canonical: true
-    connection: 3
-    loyalty: 2
-    favors: 2
-    type: Triad Johnson
-    region: SEA
-    description: 'Uses: Getting jobs, drugs, street rumors, triads (Shadowrun Missions
-      Seattle) | Types: Criminal'
-    notes: 'Uses: Getting jobs, drugs, street rumors, triads (Shadowrun Missions Seattle)
-      | Types: Criminal'
-    history:
-    - 'Chargen Contact (Met: C3 L1)'
-    - Chargen Contact | +2 FP SRM 2081-07 Bootleg Bliss (looking forward to date)
-      (+2 FP)
-    - Auto-Promoted to Loyalty 2 (-2 FP)
-    - Chargen Contact | +2 FP SRM 2081-07 Bootleg Bliss | SRM 2081-01  (+2 FP)
-  Whiskey:
-    name: Whiskey
-    canonical_name: Whiskey
-    is_canonical: true
-    connection: 2
-    loyalty: 3
-    favors: 1
-    type: Street Doc
-    region: SEA
-    description: 'Uses: Medicine, street docs (Shadowrun Missions Seattle) | Types:
-      Medical'
-    notes: 'Uses: Medicine, street docs (Shadowrun Missions Seattle) | Types: Medical'
-    history:
-    - 'Chargen Contact (Met: C2 L3)'
-    - SRM 2081-02 Urgent Care (+1 FP)
-  Claudette Laurier:
-    name: Claudette Laurier
-    canonical_name: Claudette Laurier
-    is_canonical: true
-    connection: 5
-    loyalty: 4
-    favors: 0
-    type: Order of the Golden Dawn Librarian
-    region: NOLA
-    description: 'Uses: Getting jobs, magical traditions | Types: Criminal, Matrix'
-    notes: 'Uses: Getting jobs, magical traditions | Types: Criminal, Matrix'
-    history:
-    - 'Chargen Contact (Met: C5 L4)'
-  Le Tigre:
-    name: Le Tigre
-    canonical_name: Le Tigre
-    is_canonical: true
-    connection: 5
-    loyalty: 1
-    favors: 0
-    type: Epoch Model
-    region: NOLA
-    description: 'Uses: Getting jobs, parties, modeling | Types: Corporate, Magic'
-    notes: 'Uses: Getting jobs, parties, modeling | Types: Corporate, Magic'
-    history:
-    - 'Chargen Contact (Met: C5 L1)'
-  Hana:
-    name: Hana
-    canonical_name: Hana
-    is_canonical: false
-    connection: 6
-    loyalty: 6
-    favors: 0
-    type: Wuxing Talismonger / Pop Idol
-    region: SEA
-    description: Chargen Contact
-    notes: Chargen Contact
-    history:
-    - 'Chargen Contact (Met: C6 L6)'
-  Guild of Freelance Assets:
-    name: Guild of Freelance Assets
-    canonical_name: Guild of Freelance Assets
-    is_canonical: false
-    connection: 7
-    loyalty: 8
-    favors: 0
-    type: Conclave
-    region: GEN
-    description: Chargen Contact (Conclave C7 L8)
-    notes: Chargen Contact (Conclave C7 L8)
-    history:
-    - 'Chargen Contact (Conclave C7 L8) (Met: C7 L8)'
   Ms. Snow:
     name: Ms. Snow
     canonical_name: Ms. Snow
@@ -326,13 +226,38 @@ contacts:
     favors: 1
     type: Shadow Chapters Johnson
     region: SEA
+    types:
+    - Corporate
+    - Government
+    types_str: Corporate, Government
     description: 'Uses: Corporate rumors, getting jobs, military (Shadowrun Missions
       Seattle) | Types: Corporate, Government'
     notes: 'Uses: Corporate rumors, getting jobs, military (Shadowrun Missions Seattle)
       | Types: Corporate, Government'
     history:
-    - 'SRM 2081-09 Eviction Notice (Elven female) (Met: C5 L0, +2 FP)'
+    - 'SRM.2081.09 (Met: C5 L0, +2 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
+  Ni Ni Xiaolu:
+    name: Ni Ni Xiaolu
+    canonical_name: Ni Ni Xiaolu
+    is_canonical: true
+    connection: 3
+    loyalty: 2
+    favors: 1
+    type: Triad Johnson
+    region: SEA
+    types:
+    - Criminal
+    types_str: Criminal
+    description: 'Uses: Getting jobs, drugs, street rumors, triads (Shadowrun Missions
+      Seattle) | Types: Criminal'
+    notes: 'Uses: Getting jobs, drugs, street rumors, triads (Shadowrun Missions Seattle)
+      | Types: Criminal'
+    history:
+    - 'SRM.2081.07 (Met: C3 L0, +2 FP)'
+    - Auto-Promoted to Loyalty 1 (-1 FP)
+    - SRM.2081.01 (+2 FP)
+    - Auto-Promoted to Loyalty 2 (-2 FP)
   Bookie:
     name: Bookie
     canonical_name: Bookie
@@ -342,10 +267,14 @@ contacts:
     favors: 0
     type: Ancients Bookie
     region: SEA
-    description: SRM 2081-07 Bootleg Bliss
-    notes: SRM 2081-07 Bootleg Bliss
+    types:
+    - Criminal
+    - Street
+    types_str: Criminal, Street
+    description: Ancients gang bookmaker and fence.
+    notes: Ancients gang bookmaker and fence.
     history:
-    - 'SRM 2081-07 Bootleg Bliss (Met: C3 L0, +1 FP)'
+    - 'SRM.2081.07 (Met: C3 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Trudy:
     name: Trudy
@@ -356,10 +285,34 @@ contacts:
     favors: 0
     type: Cutters Lieutenant
     region: SEA
-    description: SRM 2081-07 Bootleg Bliss
-    notes: SRM 2081-07 Bootleg Bliss
+    types:
+    - Criminal
+    - Street
+    types_str: Criminal, Street
+    description: Cutters ganger lieutenant.
+    notes: Cutters ganger lieutenant.
     history:
-    - 'SRM 2081-07 Bootleg Bliss (Met: C2 L0, +1 FP)'
+    - 'SRM.2081.07 (Met: C2 L0, +1 FP)'
+    - Auto-Promoted to Loyalty 1 (-1 FP)
+  Brynne Taggart:
+    name: Brynne Taggart
+    canonical_name: Brynne Taggart
+    is_canonical: true
+    connection: 4
+    loyalty: 1
+    favors: 1
+    type: Fixer
+    region: SEA
+    types:
+    - Criminal
+    - Street
+    types_str: Criminal, Street
+    description: 'Uses: Getting jobs, fencing gear, gangs (Shadowrun Missions Seattle)
+      | Types: Criminal, Street'
+    notes: 'Uses: Getting jobs, fencing gear, gangs (Shadowrun Missions Seattle) |
+      Types: Criminal, Street'
+    history:
+    - 'SRM.2081.01 (Met: C4 L0, +2 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Eddie Wei:
     name: Eddie Wei
@@ -370,12 +323,16 @@ contacts:
     favors: 0
     type: Triad Johnson
     region: SEA
+    types:
+    - Criminal
+    - Matrix
+    types_str: Criminal, Matrix
     description: 'Uses: Business and economics, getting jobs, triads (Shadowrun Missions
       Seattle) | Types: Criminal, Matrix (Not available after 2081-24)'
     notes: 'Uses: Business and economics, getting jobs, triads (Shadowrun Missions
       Seattle) | Types: Criminal, Matrix (Not available after 2081-24)'
     history:
-    - 'SRM 2081-02 Urgent Care (Met: C4 L0, +1 FP)'
+    - 'SRM.2081.02 (Met: C4 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Kingston:
     name: Kingston
@@ -386,14 +343,36 @@ contacts:
     favors: 0
     type: Shadowrunner/Street Samurai
     region: SEA
+    types:
+    - Criminal
+    - Street
+    types_str: Criminal, Street
     description: 'Uses: Shadowrunners, street rumors (Shadowrun Missions Seattle)
       | Types: Criminal, Street'
     notes: 'Uses: Shadowrunners, street rumors (Shadowrun Missions Seattle) | Types:
       Criminal, Street'
     history:
-    - 'SRM 2081-02 Urgent Care (Met: C2 L0, +3 FP)'
+    - 'SRM.2081.02 (Met: C2 L0, +3 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
     - Auto-Promoted to Loyalty 2 (-2 FP)
+  Whiskey:
+    name: Whiskey
+    canonical_name: Whiskey
+    is_canonical: true
+    connection: 2
+    loyalty: 1
+    favors: 0
+    type: Street Doc
+    region: SEA
+    types:
+    - Medical
+    types_str: Medical
+    description: 'Uses: Medicine, street docs (Shadowrun Missions Seattle) | Types:
+      Medical'
+    notes: 'Uses: Medicine, street docs (Shadowrun Missions Seattle) | Types: Medical'
+    history:
+    - 'SRM.2081.02 (Met: C2 L0, +1 FP)'
+    - Auto-Promoted to Loyalty 1 (-1 FP)
   Ms. Margaret:
     name: Ms. Margaret
     canonical_name: Ms. Margaret
@@ -403,13 +382,14 @@ contacts:
     favors: 0
     type: Hospital Volunteer
     region: SEA
-    description: SRM 2081-02 Urgent Care (Elderly Human Hospital Volunteer who needs
-      her roof fixed)
-    notes: SRM 2081-02 Urgent Care (Elderly Human Hospital Volunteer who needs her
-      roof fixed)
+    types:
+    - Medical
+    - Street
+    types_str: Medical, Street
+    description: Elderly hospital volunteer.
+    notes: Elderly hospital volunteer.
     history:
-    - 'SRM 2081-02 Urgent Care (Elderly Human Hospital Volunteer who needs her roof
-      fixed) (Met: C1 L0, +1 FP)'
+    - 'SRM.2081.02 (Met: C1 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Simon Andrews:
     name: Simon Andrews
@@ -418,12 +398,15 @@ contacts:
     connection: 5
     loyalty: 1
     favors: 0
-    type: S-K Johnson
+    type: Saeder-Krupp Johnson
     region: AMS
-    description: CMP 2083-01 Nonplushed (S-K Johnson)
-    notes: CMP 2083-01 Nonplushed (S-K Johnson)
+    types:
+    - Corporate
+    types_str: Corporate
+    description: Saeder-Krupp corporate Johnson operating out of Amsterdam.
+    notes: Saeder-Krupp corporate Johnson operating out of Amsterdam.
     history:
-    - 'CMP 2083-01 Nonplushed (S-K Johnson) (Met: C5 L0, +1 FP)'
+    - 'CMP.2083.01 (Met: C5 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Mr. Fa:
     name: Mr. Fa
@@ -432,12 +415,15 @@ contacts:
     connection: 4
     loyalty: 1
     favors: 1
-    type: HKB Corporate Middle Manager
+    type: Corporate Middle Manager
     region: HK
-    description: CMP 2083-05 Precious Cargo (Liao Fa Deng, Male Human)
-    notes: CMP 2083-05 Precious Cargo (Liao Fa Deng, Male Human)
+    types:
+    - Corporate
+    types_str: Corporate
+    description: Hong Kong corporate bureaucrat.
+    notes: Hong Kong corporate bureaucrat.
     history:
-    - 'CMP 2083-05 Precious Cargo (Liao Fa Deng, Male Human) (Met: C4 L0, +2 FP)'
+    - 'CMP.2083.05 (Met: C4 L0, +2 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Liao Fa Ren:
     name: Liao Fa Ren
@@ -446,13 +432,16 @@ contacts:
     connection: 3
     loyalty: 2
     favors: 1
-    type: HK Rookie Journalist
+    type: Rookie Journalist
     region: HK
-    description: CMP 2083-05 Precious Cargo (Female Human, top marks on port raid)
-    notes: CMP 2083-05 Precious Cargo (Female Human, top marks on port raid)
+    types:
+    - Street
+    - Academic
+    types_str: Street, Academic
+    description: Hong Kong investigative reporter.
+    notes: Hong Kong investigative reporter.
     history:
-    - 'CMP 2083-05 Precious Cargo (Female Human, top marks on port raid) (Met: C3
-      L0, +4 FP)'
+    - 'CMP.2083.05 (Met: C3 L0, +4 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
     - Auto-Promoted to Loyalty 2 (-2 FP)
   Kiara Shaw:
@@ -464,16 +453,19 @@ contacts:
     favors: 1
     type: Knight Errant Company Suit
     region: AMS
-    description: CMP 2081-10 A Diamond In The Rough (Knight Errant Company Suit)
-    notes: CMP 2081-10 A Diamond In The Rough (Knight Errant Company Suit)
+    types:
+    - Corporate
+    - Law Enforcement
+    types_str: Corporate, Law Enforcement
+    description: Knight Errant liaison and corporate fixer in Amsterdam.
+    notes: Knight Errant liaison and corporate fixer in Amsterdam.
     history:
-    - 'CMP 2081-10 A Diamond In The Rough (Knight Errant Company Suit) (Met: C4 L0,
-      +2 FP)'
+    - 'CMP.2081.10 (Met: C4 L0, +2 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
 reputation:
   SEA: 4
-  UNL: 0
-  Southeast Asia: 2
+  AMS: 0
+  HK: 2
 total_reputation: 6
 drones: []
 weapons: []

@@ -11,7 +11,73 @@ import textwrap
 import contextlib
 from typing import Dict, Any, List, Optional, Tuple, Union
 
-from sr6core.character.contacts import is_canonical_contact, get_canonical_contact
+from sr6core.character.contacts import (
+    is_canonical_contact,
+    get_canonical_contact,
+    get_contact,
+    parse_contact_types,
+    infer_contact_types,
+    search_contacts,
+    format_contacts_table,
+)
+from sr6core.character.missions import get_mission, normalize_mission_code
+
+CHARGEN_BASELINES: Dict[str, Dict[str, Any]] = {
+    "reiko": {
+        "Nuyen": 90000,
+        "Karma": 1,
+        "Submersion_Grade": 2,
+        "Resonance": 6,
+        "Heat": 0,
+    },
+    "velvet": {
+        "Nuyen": 50000,
+        "Karma": 0,
+        "Initiation_Grade": 0,
+        "Coven_Loyalty": 8,
+        "Heat": 0,
+    },
+    "venn": {
+        "Nuyen": 570,
+        "Karma": 3,
+        "Nanite_Volume": 6,
+        "Total_Reputation": 0,
+        "Heat": 0,
+    }
+}
+
+
+def init_character(char_id: str) -> str:
+    """
+    Declares the active character for this Quarto log.
+    If evaluating standalone, loads starting chargen resources/balances.
+    If evaluated as part of a Trio (after character_purchases.qmd), preserves existing ledger balances.
+    """
+    global _GLOBAL_LOG_STATE
+    cid = char_id.lower().strip()
+    _GLOBAL_LOG_STATE["Character"] = cid
+
+    baseline = CHARGEN_BASELINES.get(cid, {})
+    if cid == "venn":
+        _GLOBAL_LOG_STATE["Nuyen"] = baseline.get("Nuyen", 570)
+        _GLOBAL_LOG_STATE["Lifetime_Nuyen"] = baseline.get("Nuyen", 570)
+        _GLOBAL_LOG_STATE["Karma"] = baseline.get("Karma", 3)
+        _GLOBAL_LOG_STATE["Lifetime_Karma"] = baseline.get("Karma", 3)
+        _GLOBAL_LOG_STATE["Nanite_Volume"] = baseline.get("Nanite_Volume", 6)
+    else:
+        if _GLOBAL_LOG_STATE.get("Nuyen", 0) == 0:
+            _GLOBAL_LOG_STATE["Nuyen"] = baseline.get("Nuyen", 0)
+            _GLOBAL_LOG_STATE["Lifetime_Nuyen"] = baseline.get("Nuyen", 0)
+
+        if "Karma" not in _GLOBAL_LOG_STATE or _GLOBAL_LOG_STATE.get("Karma", 0) == 0:
+            _GLOBAL_LOG_STATE["Karma"] = baseline.get("Karma", 0)
+            _GLOBAL_LOG_STATE["Lifetime_Karma"] = baseline.get("Karma", 0)
+
+    for k, v in baseline.items():
+        if k not in ["Nuyen", "Karma", "Lifetime_Nuyen", "Lifetime_Karma"]:
+            _GLOBAL_LOG_STATE[k] = v
+
+    return ""
 
 # Global state dictionary for Quarto rendering scope
 _GLOBAL_LOG_STATE: Dict[str, Any] = {
@@ -23,6 +89,7 @@ _GLOBAL_LOG_STATE: Dict[str, Any] = {
     "Resonance": 6,
     "Submersion_Grade": 0,
     "Initiation_Grade": 0,
+    "Nanite_Volume": 0,
     "Reputation": {},
     "Sprites": [],
     "Spirits": [],
@@ -52,6 +119,7 @@ def reset_log_state():
         "Resonance": 6,
         "Submersion_Grade": 0,
         "Initiation_Grade": 0,
+        "Nanite_Volume": 0,
         "Reputation": {},
         "Sprites": [],
         "Spirits": [],
@@ -377,76 +445,92 @@ def inc_many(*args: Any) -> str:
 
 def contact(
     name: str,
-    connection: Optional[int] = None,
-    loyalty: Optional[int] = None,
     fp: int = 0,
+    loyalty: Optional[int] = None,
+    connection: Optional[int] = None,
     type_name: str = "",
     region: str = "",
+    types: Optional[Union[str, List[str]]] = None,
     notes: str = "",
     event: str = ""
-) -> Dict[str, Any]:
+) -> str:
     """
     Records or updates a campaign contact.
-    - Canonical SRM contacts: Connection rating is locked; description is locked to official SRM text.
-    - Non-canonical contacts: Connection and Loyalty can be raised; description fixed on first encounter.
+    - Master catalog (reference/contacts.yaml) automatically resolves connection, job, region, canonical status.
+    - Canonical SRM contacts: Connection rating is locked.
     - Favor points accumulate, and Loyalty automatically increases when enough favor is accumulated.
     """
     global _GLOBAL_LOG_STATE
     name_clean = name.strip()
-    canon_info = get_canonical_contact(name_clean)
-    is_canon = canon_info is not None
+    c_reg = get_contact(name_clean)
 
     contacts = _GLOBAL_LOG_STATE["Contacts"]
     
-    # Identify mission or event context
     curr_m_idx = len(_GLOBAL_LOG_STATE.get("Missions", []))
     m_name = _GLOBAL_LOG_STATE["Missions"][-1] if curr_m_idx > 0 else "Character Creation"
     event_label = event or notes or m_name
 
-    if not region:
+    if c_reg:
+        canonical_name = c_reg.get("name", name_clean)
+        is_canon = c_reg.get("canonical", False)
+        eff_conn = c_reg.get("connection", connection if connection is not None else 1)
+        eff_type = type_name or c_reg.get("job", "")
+        eff_region = region or c_reg.get("region", "GEN")
+        if is_canon:
+            eff_desc = c_reg.get("description", "") or notes
+        else:
+            eff_desc = notes or c_reg.get("description", "")
+    else:
+        canonical_name = name_clean
+        is_canon = is_canonical_contact(name_clean)
+        eff_conn = connection if connection is not None else 1
+        eff_type = type_name
+        eff_region = region if region else "GEN"
+        eff_desc = notes
+
+    if not eff_region:
         for prefix in ["SEA", "NOLA", "AMS", "KY", "DW", "HK", "GEN"]:
-            if type_name.startswith(prefix) or (notes and notes.startswith(prefix)):
-                region = prefix
+            if eff_type.startswith(prefix) or (notes and notes.startswith(prefix)):
+                eff_region = prefix
                 break
 
-    is_first_encounter = name_clean not in contacts
+    # Parse and normalize contact types
+    raw_types = types if types is not None else (c_reg.get("types") if c_reg else None)
+    eff_types = parse_contact_types(raw_types)
+    if not eff_types:
+        eff_types = infer_contact_types(eff_type, eff_desc)
+
+    is_first_encounter = canonical_name not in contacts
     promoted_levels = 0
 
     if is_first_encounter:
-        if is_canon:
-            eff_conn = canon_info["connection"]
-            eff_type = canon_info.get("job", type_name)
-            eff_region = canon_info.get("region", region or "GEN")
-            eff_desc = canon_info.get("description", "")
-        else:
-            eff_conn = connection if connection is not None else 1
-            eff_type = type_name
-            eff_region = region if region else "GEN"
-            eff_desc = notes
-
         eff_loyalty = loyalty if loyalty is not None else (1 if fp == 0 else 0)
         c_info = {
-            "name": name_clean,
-            "canonical_name": name_clean,
+            "name": canonical_name,
+            "canonical_name": canonical_name,
             "is_canonical": is_canon,
             "connection": eff_conn,
             "loyalty": eff_loyalty,
             "favors": fp,
             "type": eff_type,
-            "region": eff_region,
+            "region": eff_region or "GEN",
+            "types": eff_types,
+            "types_str": ", ".join(eff_types) if eff_types else "General",
             "description": eff_desc,
             "notes": eff_desc,
             "history": [f"{event_label} (Met: C{eff_conn} L{eff_loyalty}, +{fp} FP)" if fp else f"{event_label} (Met: C{eff_conn} L{eff_loyalty})"]
         }
-        contacts[name_clean] = c_info
+        contacts[canonical_name] = c_info
     else:
-        c_info = contacts[name_clean]
+        c_info = contacts[canonical_name]
+        if eff_types and not c_info.get("types"):
+            c_info["types"] = eff_types
+            c_info["types_str"] = ", ".join(eff_types)
         
         # Connection: immutable for canonical contacts; can increase for non-canon
         if not is_canon and connection is not None and connection > c_info["connection"]:
             c_info["connection"] = connection
         
-        # Loyalty: update if explicitly passed higher
         if loyalty is not None and loyalty > c_info["loyalty"]:
             c_info["loyalty"] = loyalty
 
@@ -467,22 +551,21 @@ def contact(
         promoted_levels += 1
         c_info["history"].append(f"Auto-Promoted to Loyalty {c_info['loyalty']} (-{cost} FP)")
 
-    # Formulate clean string output for Quarto rendering
+    type_str = f" ({c_info['type']})" if c_info.get("type") else ""
     if is_first_encounter:
-        type_str = f" ({c_info['type']})" if c_info.get("type") else ""
         if promoted_levels > 0:
-            return f"**{name_clean}**{type_str} [C:{c_info['connection']}] — Auto-Promoted to Loyalty {c_info['loyalty']}! ({c_info['favors']} FP remaining)"
+            return f"**{canonical_name}**{type_str} [C:{c_info['connection']}] — Auto-Promoted to Loyalty {c_info['loyalty']}! ({c_info['favors']} FP banked)"
         elif fp > 0:
-            return f"**{name_clean}**{type_str} [C:{c_info['connection']} L:{c_info['loyalty']}] (+{fp} Favor)"
+            return f"**{canonical_name}**{type_str} [C:{c_info['connection']} L:{c_info['loyalty']}] (+{fp} Favor)"
         else:
-            return f"**{name_clean}**{type_str} [C:{c_info['connection']} L:{c_info['loyalty']}]"
+            return f"**{canonical_name}**{type_str} [C:{c_info['connection']} L:{c_info['loyalty']}]"
     else:
         if promoted_levels > 0:
-            return f"**{name_clean}** (+{fp} Favor → Auto-Promoted to Loyalty {c_info['loyalty']}! [{c_info['favors']} FP remaining])"
+            return f"**{canonical_name}** (+{fp} Favor → Auto-Promoted to Loyalty {c_info['loyalty']}! [{c_info['favors']} FP banked])"
         elif fp != 0:
-            return f"**{name_clean}** ({'+' if fp >= 0 else ''}{fp} Favor → {c_info['favors']} FP total, Loyalty {c_info['loyalty']})"
+            return f"**{canonical_name}** ({'+' if fp >= 0 else ''}{fp} Favor → {c_info['favors']} FP total, Loyalty {c_info['loyalty']})"
         else:
-            return f"**{name_clean}** [C:{c_info['connection']} L:{c_info['loyalty']}]"
+            return f"**{canonical_name}** [C:{c_info['connection']} L:{c_info['loyalty']}]"
 
 
 def add_rep(faction: str, points: int) -> Dict[str, int]:
@@ -492,71 +575,346 @@ def add_rep(faction: str, points: int) -> Dict[str, int]:
     return rep
 
 
-def add_sprite(name: str, rating: int = 7, sprite_type: str = "Registered", autosofts: str = "", is_ally: bool = False, level: Optional[int] = None, type_name: Optional[str] = None, details: str = "") -> str:
-    global _GLOBAL_LOG_STATE
-    eff_rating = level if level is not None else rating
-    eff_type = type_name if type_name is not None else sprite_type
-    eff_details = details if details else autosofts
-    curr_m_idx = len(_GLOBAL_LOG_STATE.get("Missions", []))
-    m_name = _GLOBAL_LOG_STATE["Missions"][-1] if curr_m_idx > 0 else "Character Creation"
-    s_info = {
-        "name": name,
-        "rating": eff_rating,
-        "level": eff_rating,
-        "type": eff_type,
-        "autosofts": eff_details,
-        "details": eff_details,
-        "is_ally": is_ally,
-        "registered_mission": curr_m_idx,
-        "registered_mission_name": m_name,
-        "status": "Active"
-    }
-    _GLOBAL_LOG_STATE["Sprites"].append(s_info)
-    details_str = f" ({eff_details})" if eff_details else ""
-    return f"**{name}** (Rating {eff_rating} {eff_type}{details_str})"
-
-
-def add_spirit(
-    name: str = "Spirit of Fire",
-    force: int = 5,
-    spirit_type: str = "Fire",
-    tasks: int = 4,
-    powers: str = "",
-    is_great_form: bool = False,
-    is_ally: bool = False,
-    details: str = ""
+def mission(
+    code_or_title: str,
+    date: str = "",
+    karma: int = 0,
+    nuyen: int = 0,
+    rep: Union[int, Dict[str, int]] = 0,
+    heat: int = 0,
+    bribe: int = 0,
+    gm: str = "",
+    difficulty: str = "",
+    team: str = "",
+    summary: str = "",
+    expenses: int = 0
 ) -> str:
+    """
+    Consolidated mission runner.
+    Resolves official metadata from reference/missions.yaml, increments Karma/Nuyen balances,
+    applies regional reputation and post-run Heat/bribes, and registers session log entry.
+    When date is provided, formats as an automatic H3 section banner.
+    """
     global _GLOBAL_LOG_STATE
-    curr_m_idx = len(_GLOBAL_LOG_STATE.get("Missions", []))
-    m_name = _GLOBAL_LOG_STATE["Missions"][-1] if curr_m_idx > 0 else "Character Creation"
-    eff_details = details if details else powers
-    if not eff_details:
-        eff_details = f"{tasks} Bound Tasks / {tasks} SRM Missions, Combat & Channeling"
-    s_info = {
-        "name": name,
-        "force": force,
-        "type": spirit_type,
-        "tasks": tasks,
-        "powers": eff_details,
-        "details": eff_details,
-        "is_great_form": is_great_form,
-        "is_ally": is_ally,
-        "bound_mission": curr_m_idx,
-        "bound_mission_name": m_name,
-        "status": "Active"
+    m_info = get_mission(code_or_title)
+    if m_info:
+        code = m_info.get("id", code_or_title)
+        title = m_info.get("title", code_or_title)
+        region = m_info.get("region", "GEN")
+    else:
+        code = normalize_mission_code(code_or_title)
+        title = code_or_title
+        region = "GEN"
+
+    _GLOBAL_LOG_STATE["Missions"].append(code)
+
+    if karma != 0:
+        inc("Karma", karma)
+    if nuyen > 0:
+        inc("Nuyen", nuyen)
+    total_deductions = expenses + bribe
+    if total_deductions > 0:
+        inc("Nuyen", -total_deductions)
+
+    net_heat = heat
+    if bribe > 0:
+        reduction = max(1, bribe // 1000)
+        net_heat = max(0, net_heat - reduction)
+    if net_heat != 0:
+        inc("Heat", net_heat)
+
+    if isinstance(rep, int) and rep != 0:
+        add_rep(region, rep)
+    elif isinstance(rep, dict):
+        for r_faction, r_val in rep.items():
+            add_rep(r_faction, r_val)
+
+    session_entry = {
+        "title": f"{code} | {title}" if code != title else title,
+        "code": code,
+        "date": date,
+        "gm": gm,
+        "difficulty": difficulty,
+        "karma": karma,
+        "nuyen": nuyen,
+        "expenses": expenses + bribe,
+        "bribe": bribe,
+        "heat": net_heat,
+        "reputation": rep,
+        "summary": summary,
+        "team": team
     }
-    if "Spirits" not in _GLOBAL_LOG_STATE:
-        _GLOBAL_LOG_STATE["Spirits"] = []
-    _GLOBAL_LOG_STATE["Spirits"].append(s_info)
-    great_str = "Great Form " if is_great_form else ""
-    details_str = f" ({eff_details})" if eff_details else ""
-    return f"**{name}** ({great_str}Force {force} {spirit_type} Spirit, {tasks} Tasks/Missions{details_str})"
+    _GLOBAL_LOG_STATE.setdefault("Session_Logs", []).append(session_entry)
+
+    parts = []
+    if karma != 0:
+        parts.append(f"{'+' if karma > 0 else ''}{karma} Karma")
+    if nuyen != 0:
+        parts.append(f"{'+' if nuyen > 0 else ''}{nuyen:,}¥")
+    if rep:
+        rep_val = rep if isinstance(rep, int) else sum(rep.values())
+        parts.append(f"+{rep_val} Rep [{region}]")
+    if bribe > 0:
+        parts.append(f"-{bribe:,}¥ Bribe (Heat ±0)")
+    elif net_heat > 0:
+        parts.append(f"+{net_heat} Heat")
+    if expenses > 0:
+        parts.append(f"-{expenses:,}¥ Expenses")
+    meta = []
+    if gm:
+        meta.append(f"GM: {gm}")
+    if difficulty and difficulty.strip().lower() not in ["", "normal"]:
+        meta.append(difficulty)
+    meta_str = f"({' · '.join(meta)})" if meta else ""
+
+    summary_str = ", ".join(parts)
+    reward_str = f"*{summary_str}*" if summary_str else ""
+    banner_parts = [p for p in [meta_str, reward_str] if p]
+    banner = " — ".join(banner_parts)
+
+    if date:
+        heading = f"### {date} | {code}: {title}"
+        return f"{heading}\n\n{banner}" if banner else heading
+    else:
+        suffix = f" — {banner}" if banner else ""
+        return f"**{code}: {title}**{suffix}"
 
 
 def start_mission(code: str) -> str:
     global _GLOBAL_LOG_STATE
     _GLOBAL_LOG_STATE["Missions"].append(code)
     return ""
+
+
+def work_for_the_people(count: int = 1, nuyen_cost: int = 2000, funded: bool = False) -> str:
+    """SRM Downtime: Trade 2,000¥ for 1 Karma per count (or 0¥ if funded by Hooder)."""
+    cost = 0 if funded else nuyen_cost * count
+    inc("Karma", count)
+    if cost != 0:
+        inc("Nuyen", -cost)
+        return f"Working for the People ({count}x): +{count} Karma, -{cost:,}¥"
+    return f"Working for the People ({count}x): +{count} Karma (Funded by Hooder)"
+
+
+def work_for_the_man(count: int = 1) -> str:
+    """SRM Downtime: Trade 1 Karma for 2,000¥ per count."""
+    inc("Karma", -count)
+    inc("Nuyen", 2000 * count)
+    return f"Working for the Man ({count}x): +{2000 * count:,}¥, -{count} Karma"
+
+
+def bribe(amount: int = 1000, heat_reduced: int = 1) -> str:
+    """SRM Post-Run: Bribe authorities to negate Heat."""
+    inc("Nuyen", -amount)
+    curr_heat = _GLOBAL_LOG_STATE.get("Heat", 0)
+    _GLOBAL_LOG_STATE["Heat"] = max(0, curr_heat - heat_reduced)
+    return f"Bribe: -{amount:,}¥ (Heat -{heat_reduced})"
+
+
+LIFESTYLE_RATES = {
+    "Street": 0,
+    "Squatter": 500,
+    "Low": 2000,
+    "Middle": 5000,
+    "High": 10000,
+    "Luxury": 100000
+}
+
+
+def lifestyle(level: str = "High", cost: Optional[int] = None, waived: bool = False, notes: str = "") -> str:
+    """Tracks SRM bi-monthly lifestyle rent payment."""
+    if waived:
+        desc = f" ({notes})" if notes else ""
+        return f"Lifestyle [{level}]: Waived{desc}"
+    
+    actual_cost = cost if cost is not None else LIFESTYLE_RATES.get(level.title(), 10000)
+    inc("Nuyen", -actual_cost)
+    desc = f" ({notes})" if notes else ""
+    return f"Lifestyle [{level}]: -{actual_cost:,}¥{desc}"
+
+
+def _query_db_row(query: str, params: Tuple[Any, ...]) -> Optional[Dict[str, Any]]:
+    import sqlite3
+    db_candidates = [
+        os.environ.get("SR6_RULES_DB_PATH"),
+        os.path.join(os.path.expanduser("~"), ".sr6", "rules_index.db"),
+        os.path.join(os.getcwd(), "data", "sr6_rules.db"),
+        os.path.join(os.path.dirname(__file__), "..", "..", "data", "sr6_rules.db")
+    ]
+    for p in db_candidates:
+        if p and os.path.exists(p):
+            try:
+                conn = sqlite3.connect(p)
+                conn.row_factory = sqlite3.Row
+                cursor = conn.cursor()
+                cursor.execute(query, params)
+                row = cursor.fetchone()
+                conn.close()
+                if row:
+                    return dict(row)
+            except Exception:
+                pass
+    return None
+
+
+def learn_complex_form(name: str) -> str:
+    """Learns a Complex Form from database (-5 Karma)."""
+    clean_name = name.strip()
+    slug = clean_name.lower().replace(" ", "_")
+    row = _query_db_row("SELECT * FROM ref_complex_forms WHERE lower(name) = ? OR lower(id) = ?", (clean_name.lower(), slug))
+    fading = 2
+    duration = "Immediate"
+    target = "Device"
+    notes = ""
+    if row:
+        fading_raw = row.get("fade", "2")
+        fading = int(fading_raw) if str(fading_raw).isdigit() else 2
+        duration = row.get("duration", "Immediate")
+        target = row.get("target", "Device")
+        notes = f"Source: {row.get('source', '')}"
+
+    inc("Karma", -5)
+    complex_form(clean_name, fading=fading, duration=duration, target=target, notes=notes)
+    return f"Learned Complex Form: **{clean_name}** (-5 Karma) [Fading {fading}, {duration}, Target: {target}]"
+
+
+def learn_spell(name: str) -> str:
+    """Learns a Spell from database (-5 Karma)."""
+    clean_name = name.strip()
+    slug = clean_name.lower().replace(" ", "_")
+    row = _query_db_row("SELECT * FROM ref_spells WHERE lower(name) = ? OR lower(id) = ?", (clean_name.lower(), slug))
+    category = "Combat"
+    duration = "Instant"
+    spell_type = "Physical"
+    spell_range = "Line of Sight"
+    drain = 3
+    notes = ""
+    if row:
+        drain_raw = row.get("drain", "3")
+        drain = int(drain_raw) if str(drain_raw).isdigit() else 3
+        duration = row.get("duration", "Instant")
+        category = row.get("category", "Combat")
+        spell_type = row.get("type", "Physical")
+        spell_range = row.get("range", "Line of Sight")
+        notes = f"Source: {row.get('source', '')}"
+
+    inc("Karma", -5)
+    spell(clean_name, category=category, duration=duration, spell_type=spell_type, spell_range=spell_range, drain=drain, notes=notes)
+    return f"Learned Spell: **{clean_name}** (-5 Karma) [{category}, Drain {drain}, {duration}]"
+
+
+def add_sprite(
+    type_or_name: str = "Modular",
+    level: int = 7,
+    sprite_type: str = "Registered",
+    count: int = 1,
+    is_ally: bool = False,
+    name: Optional[str] = None,
+    details: str = "",
+    autosofts: str = "",
+    rating: Optional[int] = None,
+    type_name: Optional[str] = None
+) -> str:
+    global _GLOBAL_LOG_STATE
+    eff_level = rating if rating is not None else level
+    
+    # Handle both new add_sprite("Modular", 7) and legacy add_sprite("Sprite-M1", 7, "Modular")
+    standard_types = ["Modular", "Assassin", "Crack", "Courier", "Fault", "Machine", "Data", "Companion"]
+    if type_or_name in standard_types and not type_name and sprite_type in ["Registered", "Modular", ""]:
+        eff_type = type_or_name
+        eff_name = name or f"Sprite-{eff_type}"
+    elif type_name:
+        eff_type = type_name
+        eff_name = type_or_name
+    elif sprite_type not in ["Registered", ""]:
+        eff_type = sprite_type
+        eff_name = type_or_name
+    else:
+        eff_type = type_or_name
+        eff_name = name or f"Sprite-{eff_type}"
+
+    eff_details = details if details else autosofts
+    curr_m_idx = len(_GLOBAL_LOG_STATE.get("Missions", []))
+    m_name = _GLOBAL_LOG_STATE["Missions"][-1] if curr_m_idx > 0 else "Character Creation"
+
+    for i in range(count):
+        s_name = eff_name if count == 1 else f"{eff_name}_{i+1}"
+        s_info = {
+            "name": s_name,
+            "rating": eff_level,
+            "level": eff_level,
+            "type": eff_type,
+            "autosofts": eff_details,
+            "details": eff_details,
+            "is_ally": is_ally,
+            "registered_mission": curr_m_idx,
+            "registered_mission_name": m_name,
+            "status": "Active"
+        }
+        _GLOBAL_LOG_STATE["Sprites"].append(s_info)
+
+    if count > 1:
+        return f"Registered Sprites: **{eff_type}** (Rating {eff_level}) x{count}"
+    elif is_ally:
+        return f"Ally Sprite: **{eff_name}** (Rating {eff_level} {eff_type})"
+    else:
+        details_str = f" ({eff_details})" if eff_details else ""
+        return f"**{eff_name}** (Rating {eff_level} {eff_type}{details_str})"
+
+
+def add_spirit(
+    spirit_type_or_name: str = "Fire",
+    force: int = 5,
+    spirit_type: Optional[str] = None,
+    tasks: int = 4,
+    count: int = 1,
+    powers: str = "",
+    is_great_form: bool = False,
+    is_ally: bool = False,
+    details: str = "",
+    name: Optional[str] = None
+) -> str:
+    global _GLOBAL_LOG_STATE
+    curr_m_idx = len(_GLOBAL_LOG_STATE.get("Missions", []))
+    m_name = _GLOBAL_LOG_STATE["Missions"][-1] if curr_m_idx > 0 else "Character Creation"
+    eff_details = details if details else powers
+
+    standard_spirits = ["Fire", "Water", "Air", "Earth", "Beast", "Man", "Guardian", "Guidance", "Plant", "Task"]
+    if spirit_type_or_name in standard_spirits and not spirit_type:
+        eff_type = spirit_type_or_name
+        eff_name = name or f"Spirit of {eff_type}"
+    elif spirit_type:
+        eff_type = spirit_type
+        eff_name = spirit_type_or_name
+    else:
+        eff_type = spirit_type_or_name
+        eff_name = name or f"Spirit of {eff_type}"
+
+    if not eff_details:
+        eff_details = f"{tasks} Bound Tasks / {tasks} SRM Missions, Combat & Channeling"
+
+    for i in range(count):
+        s_name = eff_name if count == 1 else f"{eff_name}_{i+1}"
+        s_info = {
+            "name": s_name,
+            "force": force,
+            "type": eff_type,
+            "tasks": tasks,
+            "powers": eff_details,
+            "details": eff_details,
+            "is_great_form": is_great_form,
+            "is_ally": is_ally,
+            "bound_mission": curr_m_idx,
+            "bound_mission_name": m_name,
+            "status": "Active"
+        }
+        _GLOBAL_LOG_STATE.setdefault("Spirits", []).append(s_info)
+
+    great_str = "Great Form " if is_great_form else ""
+    if count > 1:
+        return f"Bound Spirits: **{great_str}{eff_type}** (Force {force}, {tasks} Tasks) x{count}"
+    else:
+        return f"**{eff_name}** ({great_str}Force {force} {eff_type} Spirit, {tasks} Tasks/Missions)"
 
 
 def get_active_sprites() -> List[Dict[str, Any]]:
@@ -620,12 +978,13 @@ def print_contacts_summary(contacts: Optional[Dict[str, Any]] = None):
     for reg in all_regions:
         if reg in grouped:
             print(f"#### {region_names.get(reg, reg)}\n")
-            print("| Contact Name | Connection | Loyalty | Favors | Type / Archetype | Notes |")
-            print("|---|:---:|:---:|:---:|---|---|")
+            print("| Contact Name | Connection | Loyalty | Favors | Types | Job / Archetype | Notes |")
+            print("|---|:---:|:---:|:---:|---|---|---|")
             for c in grouped[reg]:
+                c_types = c.get("types_str") or ", ".join(c.get("types", []))
                 c_type = c.get("type", "") or c.get("archetype", "")
                 c_notes = c.get("notes", "") or c.get("description", "")
-                print(f"| {c['name']} | {c['connection']} | {c['loyalty']} | {c.get('favors', 0)} | {c_type} | {c_notes} |")
+                print(f"| {c['name']} | {c['connection']} | {c['loyalty']} | {c.get('favors', 0)} | {c_types} | {c_type} | {c_notes} |")
             print("\n")
 
 
@@ -645,16 +1004,26 @@ def create_quarto_eval_env() -> Dict[str, Any]:
     """Returns an execution environment pre-populated with standard SR6 log helpers."""
     reset_log_state()
     return QuartoEvalEnv({
-        "inc": inc,
-        "inc_many": inc_many,
+        "init_character": init_character,
+        "mission": mission,
+        "start_mission": start_mission,
         "contact": contact,
         "add_rep": add_rep,
         "add_sprite": add_sprite,
         "add_spirit": add_spirit,
-        "start_mission": start_mission,
+        "work_for_the_people": work_for_the_people,
+        "work_for_the_man": work_for_the_man,
+        "bribe": bribe,
+        "lifestyle": lifestyle,
+        "learn_complex_form": learn_complex_form,
+        "learn_spell": learn_spell,
         "get_active_sprites": get_active_sprites,
         "get_active_spirits": get_active_spirits,
         "print_contacts_summary": print_contacts_summary,
+        "search_contacts": search_contacts,
+        "format_contacts_table": format_contacts_table,
+        "inc": inc,
+        "inc_many": inc_many,
         "assign": assign,
         "initiate": initiate,
         "submerge": submerge,
@@ -774,57 +1143,57 @@ def get_log_totals(log_path: Optional[Any] = None) -> Dict[str, Any]:
     final_nuyen = _GLOBAL_LOG_STATE.get("Nuyen", 0)
     final_lifetime_nuyen = _GLOBAL_LOG_STATE.get("Lifetime_Nuyen", final_nuyen)
 
-    session_sections = re.split(r'\n(?=#{2,3}\s+\*\*)', content)
-    session_logs = []
+    session_logs = list(_GLOBAL_LOG_STATE.get("Session_Logs", []))
+    if not session_logs:
+        session_sections = re.split(r'\n(?=#{2,3}\s+\*\*)', content)
+        for section in session_sections:
+            if not re.match(r'^#{2,3}\s+\*\*', section.strip()):
+                continue
 
-    for section in session_sections:
-        if not re.match(r'^#{2,3}\s+\*\*', section.strip()):
-            continue
+            header_match = re.search(r'#{2,3}\s+\*\*(?:(\d{4}-[A-Za-z]{3}-\d{2}|\d{4}-\d{2}-\d{2}):\s*)?([^*]+)\*\*(?:\s*`\{python\}\s*start_mission\((.*?)\)`|\s*)', section)
+            if not header_match:
+                continue
 
-        header_match = re.search(r'#{2,3}\s+\*\*(?:(\d{4}-[A-Za-z]{3}-\d{2}|\d{4}-\d{2}-\d{2}):\s*)?([^*]+)\*\*(?:\s*`\{python\}\s*start_mission\((.*?)\)`|\s*)', section)
-        if not header_match:
-            continue
+            date_str = header_match.group(1) or ""
+            title_str = header_match.group(2).strip()
 
-        date_str = header_match.group(1) or ""
-        title_str = header_match.group(2).strip()
+            if not date_str:
+                date_match = re.search(r'\*\s+\*\*Date:\*\*\s*(\d{4}-[A-Za-z]{3}-\d{2}|\d{4}-\d{2}-\d{2})', section)
+                if date_match:
+                    date_str = date_match.group(1).strip()
 
-        if not date_str:
-            date_match = re.search(r'\*\s+\*\*Date:\*\*\s*(\d{4}-[A-Za-z]{3}-\d{2}|\d{4}-\d{2}-\d{2})', section)
-            if date_match:
-                date_str = date_match.group(1).strip()
+            gm_match = re.search(r'\*\s+\*\*GM:\*\*\s*(.+)', section)
+            gm_str = gm_match.group(1).strip() if gm_match else ""
 
-        gm_match = re.search(r'\*\s+\*\*GM:\*\*\s*(.+)', section)
-        gm_str = gm_match.group(1).strip() if gm_match else ""
+            # Extract base mission rewards specifically from * **Rewards:** line or main body before Downtime
+            main_part = section.split("### Downtime")[0].split("### Purchases")[0]
+            rewards_line_match = re.search(r'\*\s+\*\*Rewards:\*\*\s*(.+)', main_part)
+            rewards_line = rewards_line_match.group(1) if rewards_line_match else main_part
 
-        # Extract base mission rewards specifically from * **Rewards:** line or main body before Downtime
-        main_part = section.split("### Downtime")[0].split("### Purchases")[0]
-        rewards_line_match = re.search(r'\*\s+\*\*Rewards:\*\*\s*(.+)', main_part)
-        rewards_line = rewards_line_match.group(1) if rewards_line_match else main_part
+            karma_val = 0
+            karma_matches = re.findall(r"inc\s*\(\s*'Karma'\s*,\s*(-?\d+)\s*\)|inc_many\s*\(\s*\(\s*'Karma'\s*,\s*(-?\d+)\s*\)", rewards_line)
+            for km in karma_matches:
+                k1, k2 = km
+                val = int(k1 or k2)
+                if val > 0:
+                    karma_val += val
 
-        karma_val = 0
-        karma_matches = re.findall(r"inc\s*\(\s*'Karma'\s*,\s*(-?\d+)\s*\)|inc_many\s*\(\s*\(\s*'Karma'\s*,\s*(-?\d+)\s*\)", rewards_line)
-        for km in karma_matches:
-            k1, k2 = km
-            val = int(k1 or k2)
-            if val > 0:
-                karma_val += val
+            nuyen_val = 0
+            nuyen_matches = re.findall(r"inc\s*\(\s*'Nuyen'\s*,\s*(-?\d+)\s*\)|inc_many\s*\(\s*\(\s*'Nuyen'\s*,\s*(-?\d+)\s*\)", rewards_line)
+            for nm in nuyen_matches:
+                n1, n2 = nm
+                val = int(n1 or n2)
+                if val > 0:
+                    nuyen_val += val
 
-        nuyen_val = 0
-        nuyen_matches = re.findall(r"inc\s*\(\s*'Nuyen'\s*,\s*(-?\d+)\s*\)|inc_many\s*\(\s*\(\s*'Nuyen'\s*,\s*(-?\d+)\s*\)", rewards_line)
-        for nm in nuyen_matches:
-            n1, n2 = nm
-            val = int(n1 or n2)
-            if val > 0:
-                nuyen_val += val
-
-        if karma_val > 0 or nuyen_val > 0 or "start_mission" in section:
-            session_logs.append({
-                "title": title_str,
-                "date": date_str,
-                "gm": gm_str,
-                "karma": karma_val,
-                "nuyen": nuyen_val
-            })
+            if karma_val > 0 or nuyen_val > 0 or "start_mission" in section:
+                session_logs.append({
+                    "title": title_str,
+                    "date": date_str,
+                    "gm": gm_str,
+                    "karma": karma_val,
+                    "nuyen": nuyen_val
+                })
 
     rep_dict = _GLOBAL_LOG_STATE.get("Reputation", {})
     total_rep = sum(rep_dict.values()) if isinstance(rep_dict, dict) else 0
@@ -838,6 +1207,8 @@ def get_log_totals(log_path: Optional[Any] = None) -> Dict[str, Any]:
         "Lifetime_Nuyen": final_lifetime_nuyen,
         "Heat": _GLOBAL_LOG_STATE.get("Heat", 0),
         "Submersion_Grade": _GLOBAL_LOG_STATE.get("Submersion_Grade", 0),
+        "Initiation_Grade": _GLOBAL_LOG_STATE.get("Initiation_Grade", 0),
+        "Nanite_Volume": _GLOBAL_LOG_STATE.get("Nanite_Volume", 6 if _GLOBAL_LOG_STATE.get("Character") == "venn" else 0),
         "Reputation": rep_dict,
         "Total_Reputation": total_rep,
         "Sprites": _GLOBAL_LOG_STATE.get("Sprites", []),

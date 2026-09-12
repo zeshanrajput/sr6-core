@@ -71,7 +71,14 @@ class Contact(BaseModel):
     loyalty: int = 1
     favors: int = 0
     type: Optional[str] = None
+    region: Optional[str] = "GEN"
+    types: List[str] = Field(default_factory=list)
+    types_str: Optional[str] = None
+    description: Optional[str] = ""
     notes: Optional[str] = ""
+    is_canonical: bool = False
+    history: List[str] = Field(default_factory=list)
+
 
 
 class Drone(BaseModel):

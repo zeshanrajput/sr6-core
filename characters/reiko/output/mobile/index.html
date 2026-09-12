@@ -2544,34 +2544,34 @@
       },
       {
         "name": "Diffusion",
-        "fading": 4,
-        "duration": "Sustained",
-        "target": "Firewall",
-        "notes": "Electronics + RES vs WIL + FW. Each net hit reduces target Firewall by 1.",
+        "fading": 2,
+        "duration": "Instant",
+        "target": "Device",
+        "notes": "Source: core",
         "doc_link": "chapters/rules_sprites.html#complex-forms"
       },
       {
         "name": "Puppeteer",
-        "fading": 5,
-        "duration": "Sustained",
+        "fading": 2,
+        "duration": "Instant",
         "target": "Device",
-        "notes": "Electronics + RES vs WIL + FW. Forces device to perform action.",
+        "notes": "Source: core",
         "doc_link": "chapters/rules_sprites.html#complex-forms"
       },
       {
         "name": "Cyber Spike",
-        "fading": 3,
-        "duration": "Immediate",
-        "target": "Character with wireless cyberware",
-        "notes": "Electronics + RES vs BOD + Essence. Deals 1 Physical damage per net hit and stresses installed ware.",
+        "fading": 2,
+        "duration": "Instant",
+        "target": "Device",
+        "notes": "Source: hack_slash",
         "doc_link": "chapters/rules_sprites.html#complex-forms"
       },
       {
         "name": "Resonance Wires",
         "fading": 2,
-        "duration": "Sustained",
+        "duration": "Instant",
         "target": "Device",
-        "notes": "Electronics + RES vs Threshold 2 + Noise. Establishes a remote direct connection to target device wirelessly, bypassing host firewalls and wireless-off defenses.",
+        "notes": "Source: hack_slash",
         "doc_link": "chapters/rules_sprites.html#complex-forms"
       }
     ],
@@ -2633,34 +2633,34 @@
         },
         {
           "name": "Diffusion",
-          "fading": 4,
-          "duration": "Sustained",
-          "target": "Firewall",
-          "notes": "Electronics + RES vs WIL + FW. Each net hit reduces target Firewall by 1.",
+          "fading": 2,
+          "duration": "Instant",
+          "target": "Device",
+          "notes": "Source: core",
           "doc_link": "chapters/rules_sprites.html#complex-forms"
         },
         {
           "name": "Puppeteer",
-          "fading": 5,
-          "duration": "Sustained",
+          "fading": 2,
+          "duration": "Instant",
           "target": "Device",
-          "notes": "Electronics + RES vs WIL + FW. Forces device to perform action.",
+          "notes": "Source: core",
           "doc_link": "chapters/rules_sprites.html#complex-forms"
         },
         {
           "name": "Cyber Spike",
-          "fading": 3,
-          "duration": "Immediate",
-          "target": "Character with wireless cyberware",
-          "notes": "Electronics + RES vs BOD + Essence. Deals 1 Physical damage per net hit and stresses installed ware.",
+          "fading": 2,
+          "duration": "Instant",
+          "target": "Device",
+          "notes": "Source: hack_slash",
           "doc_link": "chapters/rules_sprites.html#complex-forms"
         },
         {
           "name": "Resonance Wires",
           "fading": 2,
-          "duration": "Sustained",
+          "duration": "Instant",
           "target": "Device",
-          "notes": "Electronics + RES vs Threshold 2 + Noise. Establishes a remote direct connection to target device wirelessly, bypassing host firewalls and wireless-off defenses.",
+          "notes": "Source: hack_slash",
           "doc_link": "chapters/rules_sprites.html#complex-forms"
         }
       ],
@@ -2913,7 +2913,7 @@
         "name": "Brynne Taggart",
         "connection": 4,
         "loyalty": 3,
-        "archetype": "Fixer",
+        "archetype": "SEA Fixer",
         "favors": 3,
         "region": "SEA",
         "types": [
@@ -2926,7 +2926,7 @@
         "name": "Whiskey",
         "connection": 2,
         "loyalty": 4,
-        "archetype": "Street Doc",
+        "archetype": "SEA Street Doc",
         "favors": 0,
         "region": "SEA",
         "types": [
@@ -2938,7 +2938,7 @@
         "name": "Indomitable Will",
         "connection": 3,
         "loyalty": 3,
-        "archetype": "River People Sysop",
+        "archetype": "NOLA River People Sysop",
         "favors": 0,
         "region": "NOLA",
         "types": [
@@ -2951,7 +2951,7 @@
         "name": "Roanoke",
         "connection": 3,
         "loyalty": 4,
-        "archetype": "Ecological Activist",
+        "archetype": "NOLA Ecological Activist",
         "favors": 1,
         "region": "NOLA",
         "types": [
@@ -2964,13 +2964,14 @@
         "name": "Piotr Krolik",
         "connection": 4,
         "loyalty": 1,
-        "archetype": "NOLA Vory Borjevik",
+        "archetype": "Vory Borjevik",
         "favors": 0,
         "region": "NOLA",
         "types": [
-          "Criminal"
+          "Criminal",
+          "Street"
         ],
-        "description": "SMH 2083-02 EggHunt at the Jackalope Ranch"
+        "description": "NOLA Vory lieutenant at Jackalope Ranch."
       },
       {
         "name": "Le Tigre",
@@ -2991,47 +2992,50 @@
         "loyalty": 1,
         "archetype": "Emergent Lifeform",
         "favors": 0,
-        "region": "GEN",
+        "region": "NOLA",
         "types": [
-          "General"
+          "Matrix",
+          "Magic"
         ],
-        "description": "SMH 2083-02 EggHunt at the Jackalope Ranch"
+        "description": "Sentient emergent jackalope critter."
       },
       {
         "name": "Big Louie",
         "connection": 3,
         "loyalty": 1,
-        "archetype": "SEA Fixer",
+        "archetype": "Fixer",
         "favors": 0,
         "region": "SEA",
         "types": [
-          "Fixer"
+          "Criminal",
+          "Street"
         ],
-        "description": "CMP First Taste : Top Chef - Seattle"
+        "description": "Seattle fixer met during Top Chef."
       },
       {
         "name": "Dominique Augustin",
         "connection": 4,
         "loyalty": 1,
-        "archetype": "NOLA Wolverine Security",
+        "archetype": "Wolverine Security Officer",
         "favors": 1,
         "region": "NOLA",
         "types": [
-          "General"
+          "Corporate",
+          "Law Enforcement"
         ],
-        "description": "2083-03 Unofficial Dunkelzahn Fan Club"
+        "description": "Security officer at Wolverine Security."
       },
       {
         "name": "Daniel Fortune",
         "connection": 3,
         "loyalty": 1,
-        "archetype": "NOLA",
+        "archetype": "Local Guide",
         "favors": 0,
         "region": "NOLA",
         "types": [
-          "General"
+          "Street"
         ],
-        "description": "2083-03 Unofficial Dunkelzahn Fan Club"
+        "description": "NOLA contact met during Dunkelzahn Fan Club."
       },
       {
         "name": "Renée Martin",
@@ -3050,121 +3054,125 @@
         "name": "The Frisian",
         "connection": 6,
         "loyalty": 1,
-        "archetype": "AMS Crime Lord of the Dutch Penose syndicate",
+        "archetype": "Crime Lord of the Dutch Penose syndicate",
         "favors": 0,
         "region": "AMS",
         "types": [
-          "General"
+          "Criminal"
         ],
-        "description": "CMP 2081-09 Bring me Prince Charming"
+        "description": "Crime boss of the Amsterdam Penose syndicate."
       },
       {
         "name": "Ree 'Dolly' Hacker",
         "connection": 4,
         "loyalty": 1,
-        "archetype": "KY Talismonger and Racer",
+        "archetype": "Talismonger and Racer",
         "favors": 1,
         "region": "KY",
         "types": [
-          "General"
+          "Magic",
+          "Street"
         ],
-        "description": "CMP 2081-18 Blue Kentucky Girl"
+        "description": "Kentucky street racer and talismonger."
       },
       {
         "name": "Granny",
         "connection": 6,
         "loyalty": 1,
-        "archetype": "KY Lady of the Autumn Wind",
+        "archetype": "Lady of the Autumn Wind",
         "favors": 1,
         "region": "KY",
         "types": [
-          "General"
+          "Magic"
         ],
-        "description": "CMP 2081-18 Blue Kentucky Girl"
+        "description": "Elder spirit/druidic leader in Kentucky."
       },
       {
         "name": "Kiara Shaw",
         "connection": 4,
         "loyalty": 2,
-        "archetype": "AMS Knight Errant Company Suit",
+        "archetype": "Knight Errant Company Suit",
         "favors": 0,
         "region": "AMS",
         "types": [
-          "General"
+          "Corporate",
+          "Law Enforcement"
         ],
-        "description": "CMP 2081-10 A Diamond in The Rough"
+        "description": "Knight Errant liaison and corporate fixer in Amsterdam."
       },
       {
         "name": "Simon Andrews",
         "connection": 5,
         "loyalty": 2,
-        "archetype": "AMS S-K Johnson",
+        "archetype": "Saeder-Krupp Johnson",
         "favors": 1,
         "region": "AMS",
         "types": [
-          "General"
+          "Corporate"
         ],
-        "description": "CMP 2081-11 Paved with good intentions"
+        "description": "Saeder-Krupp corporate Johnson operating out of Amsterdam."
       },
       {
         "name": "Squint",
         "connection": 2,
         "loyalty": 1,
-        "archetype": "AMS Smuggler",
+        "archetype": "Smuggler",
         "favors": 0,
         "region": "AMS",
         "types": [
-          "General"
+          "Criminal",
+          "Street"
         ],
-        "description": "CMP 2081-11 Paved with good intentions"
+        "description": "Amsterdam boat and canal smuggler."
       },
       {
         "name": "Dr. Laureline Dodd",
         "connection": 5,
         "loyalty": 1,
-        "archetype": "KY Arcano-Archeologist",
+        "archetype": "Arcano-Archeologist",
         "favors": 1,
         "region": "KY",
         "types": [
-          "General"
+          "Academic",
+          "Magic"
         ],
-        "description": "CMP 2081-19 The Blue Moon of Kentucky"
+        "description": "Lead researcher exploring 4th World ruins in Kentucky."
       },
       {
         "name": "Thaddeus",
         "connection": 3,
         "loyalty": 1,
-        "archetype": "KY Street Samurai",
+        "archetype": "Street Samurai",
         "favors": 0,
         "region": "KY",
         "types": [
           "Street"
         ],
-        "description": "CMP 2081-19 The Blue Moon of Kentucky"
+        "description": "Kentucky mercenary and street fighter."
       },
       {
         "name": "Duan Yuhai",
-        "connection": 3,
+        "connection": 4,
         "loyalty": 1,
-        "archetype": "SEA Minor 88s Johnson",
+        "archetype": "Triad Sub-Boss",
         "favors": 0,
         "region": "SEA",
         "types": [
-          "General"
+          "Criminal"
         ],
-        "description": "SRM 2081-17 Framed in Blood"
+        "description": "88s Triad sub-boss in Seattle."
       },
       {
         "name": "Xiong Giuyin",
-        "connection": 4,
+        "connection": 1,
         "loyalty": 1,
-        "archetype": "SEA Wuxing",
+        "archetype": "",
         "favors": 0,
-        "region": "SEA",
+        "region": "GEN",
         "types": [
-          "General"
+          "Street"
         ],
-        "description": "SRM 2081-17 Framed in Blood"
+        "description": ""
       },
       {
         "name": "Reilly Dragman",
@@ -3194,85 +3202,90 @@
         "name": "Kirt Liger",
         "connection": 3,
         "loyalty": 1,
-        "archetype": "SEA Body Mod/Engineering Cybercatman",
+        "archetype": "Cybercatman / Body Modder",
         "favors": 1,
         "region": "SEA",
         "types": [
-          "Engineering"
+          "Engineering",
+          "Street"
         ],
-        "description": "SRM 2081-21 Grudge Match Gladiators"
+        "description": "Underground gladiator mechanic and body mod specialist."
       },
       {
         "name": "Sigrún",
         "connection": 5,
         "loyalty": 3,
-        "archetype": "AMS House Orange-Nassau Johnson",
+        "archetype": "House Oranje-Nassau Johnson",
         "favors": 1,
         "region": "AMS",
         "types": [
-          "General"
+          "Corporate",
+          "Government"
         ],
-        "description": "CMP 2081-12 Uneasy lies the head"
+        "description": "High-society Johnson representing Dutch royal interests."
       },
       {
         "name": "Dixie L'Amin",
         "connection": 4,
         "loyalty": 1,
-        "archetype": "DW Naga",
+        "archetype": "Desert Wars Naga",
         "favors": 1,
         "region": "DW",
         "types": [
-          "General"
+          "Magic",
+          "Street"
         ],
-        "description": "CMP 2083-14 A Day at the Beach"
+        "description": "Awakened Naga gladiator and Desert Wars personality."
       },
       {
         "name": "Ayanda 'Shieldbearer' Mahlangu",
         "connection": 3,
         "loyalty": 1,
-        "archetype": "DW 'Mystic Edge' Producer",
+        "archetype": "Mystic Edge Producer",
         "favors": 0,
         "region": "DW",
         "types": [
-          "General"
+          "Corporate",
+          "Street"
         ],
-        "description": "CMP 2083-14 A Day at the Beach"
+        "description": "Combat broadcast producer in Desert Wars."
       },
       {
         "name": "Ebon Abirashur",
         "connection": 1,
         "loyalty": 1,
-        "archetype": "DW Leviathan Dragon",
+        "archetype": "Leviathan Dragon",
         "favors": 1,
         "region": "DW",
         "types": [
-          "General"
+          "Magic"
         ],
-        "description": "CMP 2083-14 A Day at the Beach"
+        "description": "Submerged ocean dragon entity."
       },
       {
         "name": "Col. Deborah Kentwell",
         "connection": 5,
         "loyalty": 1,
-        "archetype": "DW Thunder Corps Fixer",
+        "archetype": "Thunder Corps Fixer",
         "favors": 1,
         "region": "DW",
         "types": [
-          "Fixer"
+          "Corporate",
+          "Government"
         ],
-        "description": "CMP 2083-16 War Never Changes"
+        "description": "Military fixer and officer with Thunder Corps."
       },
       {
         "name": "Polyphemous 'Paul' Pellagios",
         "connection": 1,
         "loyalty": 1,
-        "archetype": "DW Background Actor",
+        "archetype": "Background Actor",
         "favors": 0,
         "region": "DW",
         "types": [
-          "General"
+          "Street"
         ],
-        "description": "CMP 2083-16 War Never Changes"
+        "description": "Desert Wars trid extra."
       },
       {
         "name": "Fernand Anato",
@@ -3295,21 +3308,21 @@
         "favors": 0,
         "region": "NOLA",
         "types": [
-          "General"
+          "Corporate"
         ],
-        "description": "SRM 2083-19 The Hallow Feast"
+        "description": "French Quarter corporate Johnson."
       },
       {
         "name": "Swango",
         "connection": 3,
         "loyalty": 2,
-        "archetype": "SEA Rapper",
+        "archetype": "Rapper",
         "favors": 0,
         "region": "SEA",
         "types": [
-          "General"
+          "Street"
         ],
-        "description": "SRM 2081-05 This is Renton"
+        "description": "Renton street rapper and urban scout."
       },
       {
         "name": "Toil",
@@ -3340,13 +3353,14 @@
         "name": "SpiiniCop",
         "connection": 2,
         "loyalty": 1,
-        "archetype": "AMS Penose Spider",
+        "archetype": "Penose Spider",
         "favors": 0,
         "region": "AMS",
         "types": [
-          "General"
+          "Matrix",
+          "Criminal"
         ],
-        "description": "CMP 2083-01 NONPLUSHED"
+        "description": "Penose matrix security decker."
       },
       {
         "name": "Eddie Wei",
@@ -3390,25 +3404,27 @@
         "name": "Bookie",
         "connection": 3,
         "loyalty": 1,
-        "archetype": "SEA Ancients Bookie",
+        "archetype": "Ancients Bookie",
         "favors": 0,
         "region": "SEA",
         "types": [
-          "General"
+          "Criminal",
+          "Street"
         ],
-        "description": "SRM 2081-07 Bootleg Bliss"
+        "description": "Ancients gang bookmaker and fence."
       },
       {
         "name": "Trudy",
         "connection": 2,
         "loyalty": 1,
-        "archetype": "SEA Cutter Lieutenant",
+        "archetype": "Cutters Lieutenant",
         "favors": 0,
         "region": "SEA",
         "types": [
-          "General"
+          "Criminal",
+          "Street"
         ],
-        "description": "SRM 2081-07 Bootleg Bliss"
+        "description": "Cutters ganger lieutenant."
       },
       {
         "name": "Saint James",
@@ -3427,13 +3443,13 @@
         "name": "Jeanie Trudel",
         "connection": 1,
         "loyalty": 1,
-        "archetype": "SEA Bartender",
+        "archetype": "Bartender",
         "favors": 0,
         "region": "SEA",
         "types": [
-          "General"
+          "Street"
         ],
-        "description": "SRM 2081-06 Cutting Strings"
+        "description": "Downtown dive bartender."
       },
       {
         "name": "Kingston",
@@ -3452,49 +3468,51 @@
         "name": "Kaatje",
         "connection": 2,
         "loyalty": 1,
-        "archetype": "AMS Young Entertainer",
+        "archetype": "Young Entertainer",
         "favors": 0,
         "region": "AMS",
         "types": [
-          "General"
+          "Street"
         ],
-        "description": "CMP 2083-04 Hog Wild"
+        "description": "Amsterdam local singer/performer."
       },
       {
         "name": "Mr. Fa",
         "connection": 4,
         "loyalty": 1,
-        "archetype": "HKB Corporate Middle Manager",
+        "archetype": "Corporate Middle Manager",
         "favors": 1,
         "region": "HK",
         "types": [
           "Corporate"
         ],
-        "description": "CMP 2083-05 Precious Cargo"
+        "description": "Hong Kong corporate bureaucrat."
       },
       {
         "name": "Liao Fa Ren",
         "connection": 3,
         "loyalty": 2,
-        "archetype": "HK Rookie Journalist",
+        "archetype": "Rookie Journalist",
         "favors": 0,
         "region": "HK",
         "types": [
-          "General"
+          "Street",
+          "Academic"
         ],
-        "description": "CMP 2083-05 Precious Cargo"
+        "description": "Hong Kong investigative reporter."
       },
       {
         "name": "Aloysius Springinsguth",
         "connection": 3,
         "loyalty": 2,
-        "archetype": "NOLA Sound of Silence Music Shop Owner",
+        "archetype": "Sound of Silence Music Shop Owner",
         "favors": 0,
         "region": "NOLA",
         "types": [
-          "General"
+          "Magic",
+          "Street"
         ],
-        "description": "SRM 2083-12 When You're Smiling"
+        "description": "NOLA antique instrument dealer and talismonger."
       },
       {
         "name": "Jolene Price",
@@ -3517,9 +3535,10 @@
         "favors": 0,
         "region": "NOLA",
         "types": [
-          "General"
+          "Street",
+          "Criminal"
         ],
-        "description": ""
+        "description": "French Quarter courtesans and information guild."
       },
       {
         "name": "Cedar",
@@ -3541,9 +3560,9 @@
         "favors": 0,
         "region": "NOLA",
         "types": [
-          "General"
+          "Law Enforcement"
         ],
-        "description": "SRM 2083-20 The Fallacy of Plans"
+        "description": "NOMs police detective."
       },
       {
         "name": "Claudette Laurier",
@@ -3566,7 +3585,7 @@
         "favors": 1,
         "region": "NOLA",
         "types": [
-          "General"
+          "Magic"
         ],
         "description": "SRM 2083-18 Some Kind of Voodoo?"
       },
@@ -3578,7 +3597,8 @@
         "favors": 1,
         "region": "NOLA",
         "types": [
-          "General"
+          "Magic",
+          "Criminal"
         ],
         "description": "SRM 2083-18 Some Kind of Voodoo?"
       },
@@ -3586,37 +3606,40 @@
         "name": "Col. Treylor",
         "connection": 3,
         "loyalty": 1,
-        "archetype": "DW Thunder Corps Fixer",
+        "archetype": "Thunder Corps Fixer",
         "favors": 1,
         "region": "DW",
         "types": [
-          "Fixer"
+          "Corporate",
+          "Government"
         ],
-        "description": "CMP 2083-15 | By Land, Sea, and Hair"
+        "description": "Desert Wars logistical contact."
       },
       {
         "name": "Moenen",
         "connection": 5,
         "loyalty": 1,
-        "archetype": "UNL infobroker",
+        "archetype": "UNL Infobroker",
         "favors": 1,
         "region": "AMS",
         "types": [
-          "General"
+          "Matrix",
+          "Criminal"
         ],
-        "description": "CMP 2083-02 ROYAL ROAD"
+        "description": "Underground matrix broker across United Netherlands."
       },
       {
         "name": "Blackstone",
         "connection": 3,
         "loyalty": 1,
-        "archetype": "SEA Contact",
+        "archetype": "Street Contact",
         "favors": 0,
         "region": "SEA",
         "types": [
-          "General"
+          "Street",
+          "Criminal"
         ],
-        "description": "SRM 2081-18 Friendships Never Grow Rust"
+        "description": "Seattle underworld informant."
       },
       {
         "name": "Alexander Sloane",

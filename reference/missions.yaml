@@ -1,0 +1,313 @@
+Build-A-Runner:
+  id: Build-A-Runner
+  title: Build-A-Runner
+  type: Special
+  season: GEN
+  region: GEN
+  contacts: Character Creation / GM Credit
+SMH.2083.02:
+  id: SMH.2083.02
+  title: EggHunt at the Jackalope Ranch
+  type: SMH
+  season: '2083'
+  region: NOLA
+  contacts:
+  - piotr_krolik
+  - le_tigre
+  - white_jackalope
+CMP.2081.FT:
+  id: CMP.2081.FT
+  title: Top Chef - Seattle
+  type: CMP
+  season: '2081'
+  region: SEA
+  contacts:
+  - big_louie
+SRM.2083.03:
+  id: SRM.2083.03
+  title: Unofficial Dunkelzahn Fan Club
+  type: SRM
+  season: '2083'
+  region: NOLA
+  contacts:
+  - dominique_augustin
+  - daniel_fortune
+  - renee_martin
+CMP.2081.09:
+  id: CMP.2081.09
+  title: Bring me Prince Charming
+  type: CMP
+  season: '2081'
+  region: AMS
+  contacts:
+  - the_frisian
+CMP.2081.18:
+  id: CMP.2081.18
+  title: Blue Kentucky Girl
+  type: CMP
+  season: '2081'
+  region: KY
+  contacts:
+  - ree_dolly_hacker
+  - granny
+CMP.2081.10:
+  id: CMP.2081.10
+  title: A Diamond in The Rough
+  type: CMP
+  season: '2081'
+  region: AMS
+  contacts:
+  - kiara_shaw
+CMP.2081.11:
+  id: CMP.2081.11
+  title: Paved with good intentions
+  type: CMP
+  season: '2081'
+  region: AMS
+  contacts:
+  - simon_andrews
+  - squint
+CMP.2081.19:
+  id: CMP.2081.19
+  title: The Blue Moon of Kentucky
+  type: CMP
+  season: '2081'
+  region: KY
+  contacts:
+  - dr_laureline_dodd
+  - thaddeus
+SRM.2081.17:
+  id: SRM.2081.17
+  title: Framed in Blood
+  type: SRM
+  season: '2081'
+  region: SEA
+  contacts:
+  - duan_yuhai
+CMP.2081.20:
+  id: CMP.2081.20
+  title: In the Cold Kentucky Rain
+  type: CMP
+  season: '2081'
+  region: KY
+  contacts: []
+SRM.2081.21:
+  id: SRM.2081.21
+  title: Grudge Match Gladiators
+  type: SRM
+  season: '2081'
+  region: SEA
+  contacts:
+  - kirt_liger
+CMP.2081.12:
+  id: CMP.2081.12
+  title: Uneasy lies the head
+  type: CMP
+  season: '2081'
+  region: AMS
+  contacts:
+  - sigrun
+CMP.2083.14:
+  id: CMP.2083.14
+  title: A Day at the Beach
+  type: CMP
+  season: '2083'
+  region: DW
+  contacts:
+  - dixie_lamin
+  - ayanda_shieldbearer_mahlangu
+  - ebon_abirashur
+CMP.2083.16:
+  id: CMP.2083.16
+  title: War Never Changes
+  type: CMP
+  season: '2083'
+  region: DW
+  contacts:
+  - col_deborah_kentwell
+  - polyphemous_paul_pellagios
+SRM.2083.19:
+  id: SRM.2083.19
+  title: The Hallow Feast
+  type: SRM
+  season: '2083'
+  region: NOLA
+  contacts:
+  - fernand_anato
+  - monsieur_johnson
+SRM.2081.05:
+  id: SRM.2081.05
+  title: This is Renton
+  type: SRM
+  season: '2081'
+  region: SEA
+  contacts:
+  - brynne_taggart
+  - swango
+  - toil
+  - trubble
+CMP.2083.01:
+  id: CMP.2083.01
+  title: Nonplushed
+  type: CMP
+  season: '2083'
+  region: AMS
+  contacts:
+  - simon_andrews
+  - spiinicop
+SRM.2081.08:
+  id: SRM.2081.08
+  title: Child's Play
+  type: SRM
+  season: '2081'
+  region: SEA
+  contacts:
+  - eddie_wei
+  - julian_muntefering
+SRM.2081.07:
+  id: SRM.2081.07
+  title: Bootleg Bliss
+  type: SRM
+  season: '2081'
+  region: SEA
+  contacts:
+  - ni_ni_xiaolu
+  - bookie
+  - trudy
+SRM.2081.06:
+  id: SRM.2081.06
+  title: Cutting Strings
+  type: SRM
+  season: '2081'
+  region: SEA
+  contacts:
+  - saint_james
+  - jeanie_trudel
+  - kingston
+CMP.2083.04:
+  id: CMP.2083.04
+  title: Hog Wild
+  type: CMP
+  season: '2083'
+  region: AMS
+  contacts:
+  - sigrun
+  - simon_andrews
+  - kiara_shaw
+  - kaatje
+CMP.2083.05:
+  id: CMP.2083.05
+  title: Precious Cargo
+  type: CMP
+  season: '2083'
+  region: HK
+  contacts:
+  - mr_fa
+  - liao_fa_ren
+  - ni_ni_xiaolu
+SRM.2083.12:
+  id: SRM.2083.12
+  title: When You're Smiling
+  type: SRM
+  season: '2083'
+  region: NOLA
+  contacts:
+  - aloysius_springinsguth
+SRM.2083.17:
+  id: SRM.2083.17
+  title: Haute Blooded
+  type: SRM
+  season: '2083'
+  region: NOLA
+  contacts:
+  - jolene_price
+  - le_tigre
+  - roanoke
+SRM.2083.20:
+  id: SRM.2083.20
+  title: The Fallacy of Plans
+  type: SRM
+  season: '2083'
+  region: NOLA
+  contacts:
+  - cedar
+  - roanoke
+  - renee_martin
+  - detective_remy_leblanc
+  - claudette_laurier
+SRM.2083.18:
+  id: SRM.2083.18
+  title: Some Kind of Voodoo?
+  type: SRM
+  season: '2083'
+  region: NOLA
+  contacts:
+  - coffin_girls
+  - league_of_laveau
+  - zobop
+CMP.2083.15:
+  id: CMP.2083.15
+  title: By Land, Sea, and Hair
+  type: CMP
+  season: '2083'
+  region: DW
+  contacts:
+  - col_treylor
+  - le_tigre
+CMP.2083.02:
+  id: CMP.2083.02
+  title: ROYAL ROAD
+  type: CMP
+  season: '2083'
+  region: AMS
+  contacts:
+  - moenen
+  - sigrun
+SRM.2081.18:
+  id: SRM.2081.18
+  title: Friendships Never Grow Rust
+  type: SRM
+  season: '2081'
+  region: SEA
+  contacts:
+  - brynne_taggart
+  - ni_ni_xiaolu
+  - saint_james
+  - blackstone
+SRM.2083.14:
+  id: SRM.2083.14
+  title: Deepest Roots
+  type: SRM
+  season: '2083'
+  region: NOLA
+  contacts:
+  - cedar
+  - roanoke
+  - alexander_sloane
+SRM.2081.09:
+  id: SRM.2081.09
+  title: Eviction Notice
+  type: SRM
+  season: '2081'
+  region: SEA
+  contacts:
+  - ms_snow
+SRM.2081.01:
+  id: SRM.2081.01
+  title: Death of a Fixer
+  type: SRM
+  season: '2081'
+  region: SEA
+  contacts:
+  - brynne_taggart
+SRM.2081.02:
+  id: SRM.2081.02
+  title: Urgent Care
+  type: SRM
+  season: '2081'
+  region: SEA
+  contacts:
+  - eddie_wei
+  - kingston
+  - whiskey
+  - ms_margaret

@@ -1769,6 +1769,24 @@
         "duration": "Sustained",
         "notes": "Sorcery + Magic test. Net hits increase Reaction and Initiative Dice.",
         "doc_link": "chapters/rules_and_downtime.html#spell-library"
+      },
+      {
+        "name": "Increase Attribute",
+        "drain": 3,
+        "type": "Physical",
+        "range": "TOUCH",
+        "duration": "Instant",
+        "notes": "Source: core",
+        "doc_link": "chapters/rules_and_downtime.html#spell-library"
+      },
+      {
+        "name": "Increase Reflexes",
+        "drain": 5,
+        "type": "Physical",
+        "range": "TOUCH",
+        "duration": "Instant",
+        "notes": "Source: core",
+        "doc_link": "chapters/rules_and_downtime.html#spell-library"
       }
     ],
     "adept_powers": [
@@ -2590,6 +2608,24 @@
           "range": "Touch",
           "duration": "Sustained",
           "notes": "Sorcery + Magic test. Net hits increase Reaction and Initiative Dice.",
+          "doc_link": "chapters/rules_and_downtime.html#spell-library"
+        },
+        {
+          "name": "Increase Attribute",
+          "drain": 3,
+          "type": "Physical",
+          "range": "TOUCH",
+          "duration": "Instant",
+          "notes": "Source: core",
+          "doc_link": "chapters/rules_and_downtime.html#spell-library"
+        },
+        {
+          "name": "Increase Reflexes",
+          "drain": 5,
+          "type": "Physical",
+          "range": "TOUCH",
+          "duration": "Instant",
+          "notes": "Source: core",
           "doc_link": "chapters/rules_and_downtime.html#spell-library"
         }
       ],
@@ -3510,105 +3546,6 @@
     "lifestyles": [],
     "contacts": [
       {
-        "name": "Brynne Taggart",
-        "connection": 4,
-        "loyalty": 2,
-        "archetype": "Fixer",
-        "favors": 0,
-        "region": "SEA",
-        "types": [
-          "Criminal",
-          "Street"
-        ],
-        "description": "Uses: Getting jobs, fencing gear, gangs (Shadowrun Missions Seattle) | Types: Criminal, Street"
-      },
-      {
-        "name": "Vincent Grisome",
-        "connection": 5,
-        "loyalty": 3,
-        "archetype": "Magic Prof.",
-        "favors": 0,
-        "region": "SEA",
-        "types": [
-          "Magic"
-        ],
-        "description": "Chargen Contact"
-      },
-      {
-        "name": "Ni Ni Xiaolu",
-        "connection": 3,
-        "loyalty": 2,
-        "archetype": "Triad Johnson",
-        "favors": 2,
-        "region": "SEA",
-        "types": [
-          "Criminal"
-        ],
-        "description": "Uses: Getting jobs, drugs, street rumors, triads (Shadowrun Missions Seattle) | Types: Criminal"
-      },
-      {
-        "name": "Whiskey",
-        "connection": 2,
-        "loyalty": 3,
-        "archetype": "Street Doc",
-        "favors": 1,
-        "region": "SEA",
-        "types": [
-          "Medical"
-        ],
-        "description": "Uses: Medicine, street docs (Shadowrun Missions Seattle) | Types: Medical"
-      },
-      {
-        "name": "Claudette Laurier",
-        "connection": 5,
-        "loyalty": 4,
-        "archetype": "Order of the Golden Dawn Librarian",
-        "favors": 0,
-        "region": "NOLA",
-        "types": [
-          "Criminal",
-          "Matrix"
-        ],
-        "description": "Uses: Getting jobs, magical traditions | Types: Criminal, Matrix"
-      },
-      {
-        "name": "Le Tigre",
-        "connection": 5,
-        "loyalty": 1,
-        "archetype": "Epoch Model",
-        "favors": 0,
-        "region": "NOLA",
-        "types": [
-          "Corporate",
-          "Magic"
-        ],
-        "description": "Uses: Getting jobs, parties, modeling | Types: Corporate, Magic"
-      },
-      {
-        "name": "Hana",
-        "connection": 6,
-        "loyalty": 6,
-        "archetype": "Wuxing Talismonger / Pop Idol",
-        "favors": 0,
-        "region": "SEA",
-        "types": [
-          "General"
-        ],
-        "description": "Chargen Contact"
-      },
-      {
-        "name": "Guild of Freelance Assets",
-        "connection": 7,
-        "loyalty": 8,
-        "archetype": "Conclave",
-        "favors": 0,
-        "region": "GEN",
-        "types": [
-          "General"
-        ],
-        "description": "Chargen Contact (Conclave C7 L8)"
-      },
-      {
         "name": "Ms. Snow",
         "connection": 5,
         "loyalty": 1,
@@ -3622,6 +3559,18 @@
         "description": "Uses: Corporate rumors, getting jobs, military (Shadowrun Missions Seattle) | Types: Corporate, Government"
       },
       {
+        "name": "Ni Ni Xiaolu",
+        "connection": 3,
+        "loyalty": 2,
+        "archetype": "Triad Johnson",
+        "favors": 1,
+        "region": "SEA",
+        "types": [
+          "Criminal"
+        ],
+        "description": "Uses: Getting jobs, drugs, street rumors, triads (Shadowrun Missions Seattle) | Types: Criminal"
+      },
+      {
         "name": "Bookie",
         "connection": 3,
         "loyalty": 1,
@@ -3629,9 +3578,10 @@
         "favors": 0,
         "region": "SEA",
         "types": [
-          "General"
+          "Criminal",
+          "Street"
         ],
-        "description": "SRM 2081-07 Bootleg Bliss"
+        "description": "Ancients gang bookmaker and fence."
       },
       {
         "name": "Trudy",
@@ -3641,9 +3591,23 @@
         "favors": 0,
         "region": "SEA",
         "types": [
-          "General"
+          "Criminal",
+          "Street"
         ],
-        "description": "SRM 2081-07 Bootleg Bliss"
+        "description": "Cutters ganger lieutenant."
+      },
+      {
+        "name": "Brynne Taggart",
+        "connection": 4,
+        "loyalty": 1,
+        "archetype": "Fixer",
+        "favors": 1,
+        "region": "SEA",
+        "types": [
+          "Criminal",
+          "Street"
+        ],
+        "description": "Uses: Getting jobs, fencing gear, gangs (Shadowrun Missions Seattle) | Types: Criminal, Street"
       },
       {
         "name": "Eddie Wei",
@@ -3672,6 +3636,18 @@
         "description": "Uses: Shadowrunners, street rumors (Shadowrun Missions Seattle) | Types: Criminal, Street"
       },
       {
+        "name": "Whiskey",
+        "connection": 2,
+        "loyalty": 1,
+        "archetype": "Street Doc",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "Medical"
+        ],
+        "description": "Uses: Medicine, street docs (Shadowrun Missions Seattle) | Types: Medical"
+      },
+      {
         "name": "Ms. Margaret",
         "connection": 1,
         "loyalty": 1,
@@ -3679,45 +3655,47 @@
         "favors": 0,
         "region": "SEA",
         "types": [
-          "General"
+          "Medical",
+          "Street"
         ],
-        "description": "SRM 2081-02 Urgent Care (Elderly Human Hospital Volunteer who needs her roof fixed)"
+        "description": "Elderly hospital volunteer."
       },
       {
         "name": "Simon Andrews",
         "connection": 5,
         "loyalty": 1,
-        "archetype": "S-K Johnson",
+        "archetype": "Saeder-Krupp Johnson",
         "favors": 0,
         "region": "AMS",
         "types": [
-          "General"
+          "Corporate"
         ],
-        "description": "CMP 2083-01 Nonplushed (S-K Johnson)"
+        "description": "Saeder-Krupp corporate Johnson operating out of Amsterdam."
       },
       {
         "name": "Mr. Fa",
         "connection": 4,
         "loyalty": 1,
-        "archetype": "HKB Corporate Middle Manager",
+        "archetype": "Corporate Middle Manager",
         "favors": 1,
         "region": "HK",
         "types": [
           "Corporate"
         ],
-        "description": "CMP 2083-05 Precious Cargo (Liao Fa Deng, Male Human)"
+        "description": "Hong Kong corporate bureaucrat."
       },
       {
         "name": "Liao Fa Ren",
         "connection": 3,
         "loyalty": 2,
-        "archetype": "HK Rookie Journalist",
+        "archetype": "Rookie Journalist",
         "favors": 1,
         "region": "HK",
         "types": [
-          "General"
+          "Street",
+          "Academic"
         ],
-        "description": "CMP 2083-05 Precious Cargo (Female Human, top marks on port raid)"
+        "description": "Hong Kong investigative reporter."
       },
       {
         "name": "Kiara Shaw",
@@ -3727,9 +3705,10 @@
         "favors": 1,
         "region": "AMS",
         "types": [
-          "General"
+          "Corporate",
+          "Law Enforcement"
         ],
-        "description": "CMP 2081-10 A Diamond In The Rough (Knight Errant Company Suit)"
+        "description": "Knight Errant liaison and corporate fixer in Amsterdam."
       }
     ],
     "exceptions": [

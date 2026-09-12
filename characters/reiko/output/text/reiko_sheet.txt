@@ -3,7 +3,7 @@
 +--------------------------------------------------------------------------+
 | METATYPE : AI-Pilot AI          ARCHETYPE: Technoshamans                 |
 | KARMA    : 0 avail               NUYEN    : 2,550 Nuyen                  |
-| HEAT     : 1                    REPUTATION: Vory:2, Seattle:7, AMS:2,... |
+| HEAT     : -1                   REPUTATION: Vory:2, Seattle:7, AMS:2,... |
 +-- ATTRIBUTES ------------------------------------------------------------+
 | A 3(7)  S 5(9)  D 3(7)  F 5(9)  W 6  L 4  I 2  C 4                       |
 | ED 4  RES 8(12)                                                          |
@@ -29,10 +29,10 @@
 | POWER                    TEST / EFFECT                  FADE   DUR       |
 | Technoregeneration (Ele  Electronics (Hardware) + RES   -1     Permanen  |
 | Cleaner (Devi)           Electronics + RES              2      Permanen  |
-| Diffusion (Fire)         Electronics + RES vs WIL + FW  4      Sustaine  |
-| Puppeteer (Devi)         Electronics + RES vs WIL + FW  5      Sustaine  |
-| Cyber Spike (Char)       Electronics + RES vs BOD + Es  3      Immediat  |
-| Resonance Wires (Devi)   Electronics + RES vs Threshol  2      Sustaine  |
+| Diffusion (Devi)         Source: core                   2      Instant   |
+| Puppeteer (Devi)         Source: core                   2      Instant   |
+| Cyber Spike (Devi)       Source: hack_slash             2      Instant   |
+| Resonance Wires (Devi)   Source: hack_slash             2      Instant   |
 +-- VEHICLES & RIGGING ASSETS ---------------------------------------------+
 | [DRONE] MCT Gnat                                                         |
 |   H:3/3  AC:4/4  SP:30  B:0  A:0  P:2  S:1(2)                            |

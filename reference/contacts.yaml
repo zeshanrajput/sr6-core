@@ -1,0 +1,886 @@
+brynne_taggart:
+  id: brynne_taggart
+  name: Brynne Taggart
+  connection: 4
+  job: Fixer
+  region: SEA
+  canonical: true
+  missions:
+  - SRM 2081-01
+  - '03'
+  - '05'
+  - '06'
+  types: Criminal, Street
+  description: 'Uses: Getting jobs, fencing gear, gangs (Shadowrun Missions Seattle)
+    | Types: Criminal, Street'
+donovan_pyke:
+  id: donovan_pyke
+  name: Donovan Pyke
+  connection: 8
+  job: Shadow Chapters Leader
+  region: SEA
+  canonical: true
+  missions:
+  - SRM 2081-12
+  - '16'
+  types: Corporate, Magic
+  description: 'Uses: Getting jobs, politics, Shadow Chapters (Shadowrun Missions
+    Seattle) | Types: Corporate, Magic (Not available after 2081-24)'
+eddie_wei:
+  id: eddie_wei
+  name: Eddie Wei
+  connection: 4
+  job: Triad Johnson
+  region: SEA
+  canonical: true
+  missions:
+  - SRM 2081-02
+  - 08
+  - '12'
+  types: Criminal, Matrix
+  description: 'Uses: Business and economics, getting jobs, triads (Shadowrun Missions
+    Seattle) | Types: Criminal, Matrix (Not available after 2081-24)'
+julian_müntefering:
+  id: julian_müntefering
+  name: Julian Müntefering
+  connection: 1
+  job: Corporate Kid
+  region: SEA
+  canonical: true
+  missions:
+  - SRM 2081-08
+  types: Corporate, Engineering
+  description: 'Uses: Corporate playground rumors, drones, rigging research (Shadowrun
+    Missions Seattle) | Types: Corporate, Engineering'
+julian_muntefering:
+  id: julian_muntefering
+  name: Julian Muntefering
+  connection: 1
+  job: Corporate Kid
+  region: SEA
+  canonical: true
+  missions:
+  - SRM 2081-08
+  types: Corporate, Engineering
+  description: 'Uses: Corporate playground rumors, drones, rigging research (Shadowrun
+    Missions Seattle) | Types: Corporate, Engineering'
+kingston:
+  id: kingston
+  name: Kingston
+  connection: 2
+  job: Shadowrunner/Street Samurai
+  region: SEA
+  canonical: true
+  missions:
+  - SRM 2081-02
+  - '06'
+  types: Criminal, Street
+  description: 'Uses: Shadowrunners, street rumors (Shadowrun Missions Seattle) |
+    Types: Criminal, Street'
+maccallister:
+  id: maccallister
+  name: MacCallister
+  connection: 5
+  job: Fixer
+  region: SEA
+  canonical: true
+  missions:
+  - SRM 2081-04
+  types: Matrix, Street
+  description: 'Uses: Getting jobs, matrix, street scenes (Shadowrun Missions Seattle)
+    | Types: Matrix, Street'
+ms_snow:
+  id: ms_snow
+  name: Ms. Snow
+  connection: 5
+  job: Shadow Chapters Johnson
+  region: SEA
+  canonical: true
+  missions:
+  - SRM 2081-09
+  - '12'
+  types: Corporate, Government
+  description: 'Uses: Corporate rumors, getting jobs, military (Shadowrun Missions
+    Seattle) | Types: Corporate, Government'
+ni_ni_xiaolu:
+  id: ni_ni_xiaolu
+  name: Ni Ni Xiaolu
+  connection: 3
+  job: Triad Johnson
+  region: SEA
+  canonical: true
+  missions:
+  - SRM 2081-01
+  - '07'
+  - '11'
+  types: Criminal
+  description: 'Uses: Getting jobs, drugs, street rumors, triads (Shadowrun Missions
+    Seattle) | Types: Criminal'
+piper:
+  id: piper
+  name: Piper
+  connection: 2
+  job: Street Kid
+  region: SEA
+  canonical: true
+  missions:
+  - SRM 2081-04
+  - '12'
+  - '16'
+  types: Street
+  description: 'Uses: Seattle Underground guide, rumors, history (Shadowrun Missions
+    Seattle) | Types: Street'
+saint_james:
+  id: saint_james
+  name: Saint James
+  connection: 8
+  job: Fixer
+  region: SEA
+  canonical: true
+  missions:
+  - SRM 2081-06
+  - '18'
+  - '23'
+  - '24'
+  types: Criminal, Street
+  description: 'Uses: Corporations, getting jobs (Shadowrun Missions Seattle), fencing
+    gear, gangs | Types: Criminal, Street (Not available after 2081-24)'
+toil:
+  id: toil
+  name: Toil
+  connection: 4
+  job: Fixer
+  region: SEA
+  canonical: true
+  missions:
+  - SRM 2081-04
+  - '05'
+  - '10'
+  types: Criminal, Street
+  description: 'Uses: Drugs, exotic dancer clubs, getting jobs (Shadowrun Missions
+    Seattle) | Types: Criminal, Street'
+trubble:
+  id: trubble
+  name: Trubble
+  connection: 1
+  job: Bodyguard
+  region: SEA
+  canonical: true
+  missions:
+  - SRM 2081-04
+  - '05'
+  types: Magic
+  description: 'Uses: Bodyguards, insults, talismans (Shadowrun Missions Seattle)
+    | Types: Magic'
+vincent_grisome_thd_phd:
+  id: vincent_grisome_thd_phd
+  name: Vincent Grisome, Th.D., Ph.D.
+  connection: 5
+  job: Seattle University Professor
+  region: SEA
+  canonical: true
+  missions: []
+  types: Academic, Magic
+  description: 'Uses: Life Blood magic, thaumaturgy, Seattle University conclave (Shadowrun
+    Missions Seattle) | Types: Academic, Magic'
+whiskey:
+  id: whiskey
+  name: Whiskey
+  connection: 2
+  job: Street Doc
+  region: SEA
+  canonical: true
+  missions:
+  - SRM 2081-02
+  - 08
+  types: Medical
+  description: 'Uses: Medicine, street docs (Shadowrun Missions Seattle) | Types:
+    Medical'
+claudette_laurier:
+  id: claudette_laurier
+  name: Claudette Laurier
+  connection: 5
+  job: Order of the Golden Dawn Librarian
+  region: NOLA
+  canonical: true
+  missions: []
+  types: Criminal, Matrix
+  description: 'Uses: Getting jobs, magical traditions | Types: Criminal, Matrix'
+debass:
+  id: debass
+  name: deBass
+  connection: 3
+  job: Guild of Digital Killers Face
+  region: NOLA
+  canonical: true
+  missions: []
+  types: Criminal, Matrix
+  description: 'Uses: Arson, data broker, Matrix | Types: Criminal, Matrix'
+fernand_amato:
+  id: fernand_amato
+  name: Fernand Amato
+  connection: 4
+  job: Kozlowski Capo
+  region: NOLA
+  canonical: true
+  missions: []
+  types: Criminal, Street
+  description: 'Uses: Getting jobs, fencing gear, organized crime | Types: Criminal,
+    Street'
+fernand_anato:
+  id: fernand_anato
+  name: Fernand Anato
+  connection: 4
+  job: Kozlowski Capo
+  region: NOLA
+  canonical: true
+  missions: []
+  types: Criminal, Street
+  description: 'Uses: Getting jobs, fencing gear, organized crime | Types: Criminal,
+    Street'
+indomitable_will:
+  id: indomitable_will
+  name: Indomitable Will
+  connection: 3
+  job: River People Sysop
+  region: NOLA
+  canonical: true
+  missions: []
+  types: Corporate, Matrix
+  description: 'Uses: Banking, HVAC systems, Matrix | Types: Corporate, Matrix'
+jolene_price:
+  id: jolene_price
+  name: Jolene Price
+  connection: 7
+  job: Riverboat Alliance Leader
+  region: NOLA
+  canonical: true
+  missions: []
+  types: Corporate, Street
+  description: 'Uses: Getting jobs, dragons, mafia | Types: Corporate, Street'
+j_p_chakraborty:
+  id: j_p_chakraborty
+  name: J. P. Chakraborty
+  connection: 4
+  job: Aurelian Design Model
+  region: NOLA
+  canonical: true
+  missions: []
+  types: Corporate, Matrix
+  description: 'Uses: Business and economics, getting jobs, fashion | Types: Corporate,
+    Matrix'
+lanyap:
+  id: lanyap
+  name: Lanyap
+  connection: 4
+  job: Fixer
+  region: NOLA
+  canonical: true
+  missions: []
+  types: Criminal, Matrix
+  description: 'Uses: Getting jobs, fencing gear, gambling, Matrix | Types: Criminal,
+    Matrix'
+le_tigre:
+  id: le_tigre
+  name: Le Tigre
+  connection: 5
+  job: Epoch Model
+  region: NOLA
+  canonical: true
+  missions: []
+  types: Corporate, Magic
+  description: 'Uses: Getting jobs, parties, modeling | Types: Corporate, Magic'
+old_man:
+  id: old_man
+  name: Old Man
+  connection: 3
+  job: Zobop Lieutenant
+  region: NOLA
+  canonical: true
+  missions: []
+  types: Criminal, Magic
+  description: 'Uses: Getting jobs, gun smuggling, voodoo | Types: Criminal, Magic'
+renée_martin:
+  id: renée_martin
+  name: Renée Martin
+  connection: 4
+  job: League of Laveau Liaison
+  region: NOLA
+  canonical: true
+  missions: []
+  types: Corporate, Magic
+  description: 'Uses: Getting jobs, magic, voodoo, zombies | Types: Corporate, Magic'
+renee_martin:
+  id: renee_martin
+  name: Renee Martin
+  connection: 4
+  job: League of Laveau Liaison
+  region: NOLA
+  canonical: true
+  missions: []
+  types: Corporate, Magic
+  description: 'Uses: Getting jobs, magic, voodoo, zombies | Types: Corporate, Magic'
+roanoke:
+  id: roanoke
+  name: Roanoke
+  connection: 3
+  job: Ecological Activist
+  region: NOLA
+  canonical: true
+  missions: []
+  types: Criminal, Matrix
+  description: 'Uses: Getting jobs, environmental science, shamanism | Types: Criminal,
+    Matrix'
+cedar:
+  id: cedar
+  name: Cedar
+  connection: 3
+  job: Talismonger
+  region: NOLA
+  canonical: true
+  missions:
+  - SRM 2083-20
+  - SRM 2083-14
+  types: Magic
+  description: 'Uses: Talismongering, magical supplies, Salish artifacts | Types:
+    Magic'
+alexander_sloane:
+  id: alexander_sloane
+  name: Alexander Sloane
+  connection: 4
+  job: Etoile PI / Fixer
+  region: NOLA
+  canonical: true
+  missions:
+  - SRM 2083-14
+  types: Criminal, Law Enforcement
+  description: 'Uses: Private investigation, bounty hunting, police contacts, job
+    offers | Types: Criminal, Law Enforcement'
+alexander_sloan:
+  id: alexander_sloan
+  name: Alexander Sloan
+  connection: 4
+  job: Etoile PI / Fixer
+  region: NOLA
+  canonical: true
+  missions:
+  - SRM 2083-14
+  types: Criminal, Law Enforcement
+  description: 'Uses: Private investigation, bounty hunting, police contacts, job
+    offers | Types: Criminal, Law Enforcement'
+doc_coughlin:
+  id: doc_coughlin
+  name: Doc Coughlin
+  connection: 3
+  job: Medical
+  region: KY
+  canonical: true
+  missions: []
+  types: Medical
+  description: 'Medical | Types: Medical'
+garret_wade:
+  id: garret_wade
+  name: Garret Wade
+  connection: 3
+  job: Government
+  region: KY
+  canonical: true
+  missions: []
+  types: Government
+  description: 'Government | Types: Government'
+lady_siobhan:
+  id: lady_siobhan
+  name: Lady Siobhan
+  connection: 6
+  job: Magic
+  region: KY
+  canonical: true
+  missions: []
+  types: Magic
+  description: 'Magic | Types: Magic'
+reilly_dragman:
+  id: reilly_dragman
+  name: Reilly Dragman
+  connection: 1
+  job: Magic
+  region: KY
+  canonical: true
+  missions: []
+  types: Magic
+  description: 'Magic | Types: Magic'
+lady_brane_deigh:
+  id: lady_brane_deigh
+  name: Lady Brane Deigh
+  connection: 12
+  job: Magic
+  region: KY
+  canonical: true
+  missions: []
+  types: Magic
+  description: 'Magic (Special Note: This contact cannot be called during a mission.)
+    | Types: Magic'
+queen_brane:
+  id: queen_brane
+  name: Queen Brane
+  connection: 12
+  job: Magic
+  region: KY
+  canonical: true
+  missions: []
+  types: Magic
+  description: 'Magic (Special Note: This contact cannot be called during a mission.)
+    | Types: Magic'
+piotr_krolik:
+  name: Piotr Krolik
+  connection: 4
+  job: Vory Borjevik
+  region: NOLA
+  canonical: false
+  missions:
+  - SMH.2083.02
+  description: NOLA Vory lieutenant at Jackalope Ranch.
+  id: piotr_krolik
+  types: Criminal, Street
+white_jackalope:
+  name: White Jackalope
+  connection: 2
+  job: Emergent Lifeform
+  region: NOLA
+  canonical: false
+  missions:
+  - SMH.2083.02
+  description: Sentient emergent jackalope critter.
+  id: white_jackalope
+  types: Matrix, Magic
+big_louie:
+  name: Big Louie
+  connection: 3
+  job: Fixer
+  region: SEA
+  canonical: false
+  missions:
+  - CMP.2081.FT
+  description: Seattle fixer met during Top Chef.
+  id: big_louie
+  types: Criminal, Street
+dominique_augustin:
+  name: Dominique Augustin
+  connection: 4
+  job: Wolverine Security Officer
+  region: NOLA
+  canonical: false
+  missions:
+  - SRM.2083.03
+  description: Security officer at Wolverine Security.
+  id: dominique_augustin
+  types: Corporate, Law Enforcement
+daniel_fortune:
+  name: Daniel Fortune
+  connection: 3
+  job: Local Guide
+  region: NOLA
+  canonical: false
+  missions:
+  - SRM.2083.03
+  description: NOLA contact met during Dunkelzahn Fan Club.
+  id: daniel_fortune
+  types: Street
+the_frisian:
+  name: The Frisian
+  connection: 6
+  job: Crime Lord of the Dutch Penose syndicate
+  region: AMS
+  canonical: false
+  missions:
+  - CMP.2081.09
+  description: Crime boss of the Amsterdam Penose syndicate.
+  id: the_frisian
+  types: Criminal
+ree_dolly_hacker:
+  name: Ree 'Dolly' Hacker
+  connection: 4
+  job: Talismonger and Racer
+  region: KY
+  canonical: false
+  missions:
+  - CMP.2081.18
+  description: Kentucky street racer and talismonger.
+  id: ree_dolly_hacker
+  types: Magic, Street
+granny:
+  name: Granny
+  connection: 6
+  job: Lady of the Autumn Wind
+  region: KY
+  canonical: false
+  missions:
+  - CMP.2081.18
+  description: Elder spirit/druidic leader in Kentucky.
+  id: granny
+  types: Magic
+kiara_shaw:
+  name: Kiara Shaw
+  connection: 4
+  job: Knight Errant Company Suit
+  region: AMS
+  canonical: false
+  missions:
+  - CMP.2081.10
+  - CMP.2083.04
+  description: Knight Errant liaison and corporate fixer in Amsterdam.
+  id: kiara_shaw
+  types: Corporate, Law Enforcement
+simon_andrews:
+  name: Simon Andrews
+  connection: 5
+  job: Saeder-Krupp Johnson
+  region: AMS
+  canonical: false
+  missions:
+  - CMP.2081.11
+  - CMP.2083.01
+  - CMP.2083.04
+  description: Saeder-Krupp corporate Johnson operating out of Amsterdam.
+  id: simon_andrews
+  types: Corporate
+squint:
+  name: Squint
+  connection: 2
+  job: Smuggler
+  region: AMS
+  canonical: false
+  missions:
+  - CMP.2081.11
+  description: Amsterdam boat and canal smuggler.
+  id: squint
+  types: Criminal, Street
+dr_laureline_dodd:
+  name: Dr. Laureline Dodd
+  connection: 5
+  job: Arcano-Archeologist
+  region: KY
+  canonical: false
+  missions:
+  - CMP.2081.19
+  description: Lead researcher exploring 4th World ruins in Kentucky.
+  id: dr_laureline_dodd
+  types: Academic, Magic
+thaddeus:
+  name: Thaddeus
+  connection: 3
+  job: Street Samurai
+  region: KY
+  canonical: false
+  missions:
+  - CMP.2081.19
+  description: Kentucky mercenary and street fighter.
+  id: thaddeus
+  types: Street
+duan_yuhai:
+  name: Duan Yuhai
+  connection: 4
+  job: Triad Sub-Boss
+  region: SEA
+  canonical: false
+  missions:
+  - SRM.2081.17
+  description: 88s Triad sub-boss in Seattle.
+  id: duan_yuhai
+  types: Criminal
+kirt_liger:
+  name: Kirt Liger
+  connection: 3
+  job: Cybercatman / Body Modder
+  region: SEA
+  canonical: false
+  missions:
+  - SRM.2081.21
+  description: Underground gladiator mechanic and body mod specialist.
+  id: kirt_liger
+  types: Engineering, Street
+sigrún:
+  name: Sigrún
+  connection: 5
+  job: House Oranje-Nassau Johnson
+  region: AMS
+  canonical: false
+  missions:
+  - CMP.2081.12
+  - CMP.2083.04
+  - CMP.2083.02
+  description: High-society Johnson representing Dutch royal interests.
+  id: sigrún
+  types: Corporate, Government
+dixie_lamin:
+  name: Dixie L'Amin
+  connection: 4
+  job: Desert Wars Naga
+  region: DW
+  canonical: false
+  missions:
+  - CMP.2083.14
+  description: Awakened Naga gladiator and Desert Wars personality.
+  id: dixie_lamin
+  types: Magic, Street
+ayanda_shieldbearer_mahlangu:
+  name: Ayanda 'Shieldbearer' Mahlangu
+  connection: 3
+  job: Mystic Edge Producer
+  region: DW
+  canonical: false
+  missions:
+  - CMP.2083.14
+  description: Combat broadcast producer in Desert Wars.
+  id: ayanda_shieldbearer_mahlangu
+  types: Corporate, Street
+ebon_abirashur:
+  name: Ebon Abirashur
+  connection: 1
+  job: Leviathan Dragon
+  region: DW
+  canonical: false
+  missions:
+  - CMP.2083.14
+  description: Submerged ocean dragon entity.
+  id: ebon_abirashur
+  types: Magic
+col_deborah_kentwell:
+  name: Col. Deborah Kentwell
+  connection: 5
+  job: Thunder Corps Fixer
+  region: DW
+  canonical: false
+  missions:
+  - CMP.2083.16
+  description: Military fixer and officer with Thunder Corps.
+  id: col_deborah_kentwell
+  types: Corporate, Government
+polyphemous_paul_pellagios:
+  name: Polyphemous 'Paul' Pellagios
+  connection: 1
+  job: Background Actor
+  region: DW
+  canonical: false
+  missions:
+  - CMP.2083.16
+  description: Desert Wars trid extra.
+  id: polyphemous_paul_pellagios
+  types: Street
+monsieur_johnson:
+  name: Monsieur Johnson
+  connection: 5
+  job: NOLA Johnson
+  region: NOLA
+  canonical: false
+  missions:
+  - SRM.2083.19
+  description: French Quarter corporate Johnson.
+  id: monsieur_johnson
+  types: Corporate
+swango:
+  name: Swango
+  connection: 3
+  job: Rapper
+  region: SEA
+  canonical: false
+  missions:
+  - SRM.2081.05
+  description: Renton street rapper and urban scout.
+  id: swango
+  types: Street
+spiinicop:
+  name: SpiiniCop
+  connection: 2
+  job: Penose Spider
+  region: AMS
+  canonical: false
+  missions:
+  - CMP.2083.01
+  description: Penose matrix security decker.
+  id: spiinicop
+  types: Matrix, Criminal
+bookie:
+  name: Bookie
+  connection: 3
+  job: Ancients Bookie
+  region: SEA
+  canonical: false
+  missions:
+  - SRM.2081.07
+  description: Ancients gang bookmaker and fence.
+  id: bookie
+  types: Criminal, Street
+trudy:
+  name: Trudy
+  connection: 2
+  job: Cutters Lieutenant
+  region: SEA
+  canonical: false
+  missions:
+  - SRM.2081.07
+  description: Cutters ganger lieutenant.
+  id: trudy
+  types: Criminal, Street
+jeanie_trudel:
+  name: Jeanie Trudel
+  connection: 1
+  job: Bartender
+  region: SEA
+  canonical: false
+  missions:
+  - SRM.2081.06
+  description: Downtown dive bartender.
+  id: jeanie_trudel
+  types: Street
+kaatje:
+  name: Kaatje
+  connection: 2
+  job: Young Entertainer
+  region: AMS
+  canonical: false
+  missions:
+  - CMP.2083.04
+  description: Amsterdam local singer/performer.
+  id: kaatje
+  types: Street
+mr_fa:
+  name: Mr. Fa
+  connection: 4
+  job: Corporate Middle Manager
+  region: HK
+  canonical: false
+  missions:
+  - CMP.2083.05
+  description: Hong Kong corporate bureaucrat.
+  id: mr_fa
+  types: Corporate
+liao_fa_ren:
+  name: Liao Fa Ren
+  connection: 3
+  job: Rookie Journalist
+  region: HK
+  canonical: false
+  missions:
+  - CMP.2083.05
+  description: Hong Kong investigative reporter.
+  id: liao_fa_ren
+  types: Street, Academic
+aloysius_springinsguth:
+  name: Aloysius Springinsguth
+  connection: 3
+  job: Sound of Silence Music Shop Owner
+  region: NOLA
+  canonical: false
+  missions:
+  - SRM.2083.12
+  description: NOLA antique instrument dealer and talismonger.
+  id: aloysius_springinsguth
+  types: Magic, Street
+coffin_girls:
+  name: Coffin Girls
+  connection: 3
+  job: Independent Courtesans Group
+  region: NOLA
+  canonical: false
+  missions:
+  - SRM.2083.18
+  description: French Quarter courtesans and information guild.
+  id: coffin_girls
+  types: Street, Criminal
+league_of_laveau:
+  name: League of Laveau
+  connection: 6
+  job: Voodoo Organization
+  region: NOLA
+  canonical: false
+  missions:
+  - SRM.2083.18
+  description: Houngan and mambo conclave across New Orleans.
+  id: league_of_laveau
+  types: Magic
+zobop:
+  name: Zobop
+  connection: 6
+  job: Voodoo Organization
+  region: NOLA
+  canonical: false
+  missions:
+  - SRM.2083.18
+  description: Bokor sect operating in the shadows of New Orleans.
+  id: zobop
+  types: Magic, Criminal
+detective_remy_leblanc:
+  name: Detective Remy LeBlanc
+  connection: 3
+  job: NOLA Detective
+  region: NOLA
+  canonical: false
+  missions:
+  - SRM.2083.20
+  description: NOMs police detective.
+  id: detective_remy_leblanc
+  types: Law Enforcement
+col_treylor:
+  name: Col. Treylor
+  connection: 3
+  job: Thunder Corps Fixer
+  region: DW
+  canonical: false
+  missions:
+  - CMP.2083.15
+  description: Desert Wars logistical contact.
+  id: col_treylor
+  types: Corporate, Government
+moenen:
+  name: Moenen
+  connection: 5
+  job: UNL Infobroker
+  region: AMS
+  canonical: false
+  missions:
+  - CMP.2083.02
+  description: Underground matrix broker across United Netherlands.
+  id: moenen
+  types: Matrix, Criminal
+blackstone:
+  name: Blackstone
+  connection: 3
+  job: Street Contact
+  region: SEA
+  canonical: false
+  missions:
+  - SRM.2081.18
+  description: Seattle underworld informant.
+  id: blackstone
+  types: Street, Criminal
+hana:
+  name: Hana
+  connection: 6
+  job: Wuxing Talismonger / Pop Idol
+  region: SEA
+  canonical: false
+  missions: []
+  description: Wuxing-backed awakened pop star and talismonger.
+  id: hana
+  types: Magic, Corporate
+guild_of_freelance_assets:
+  name: Guild of Freelance Assets
+  connection: 7
+  job: Conclave
+  region: GEN
+  canonical: false
+  missions: []
+  description: International shadow asset conclave.
+  id: guild_of_freelance_assets
+  types: Corporate, Street
+ms_margaret:
+  name: Ms. Margaret
+  connection: 1
+  job: Hospital Volunteer
+  region: SEA
+  canonical: false
+  missions:
+  - SRM.2081.02
+  description: Elderly hospital volunteer.
+  id: ms_margaret
+  types: Medical, Street

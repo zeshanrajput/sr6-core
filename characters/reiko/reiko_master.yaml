@@ -12,7 +12,7 @@ identity:
   lifetime_karma: 238
   nuyen: 2550.0
   lifetime_nuyen: 387300
-  heat: 1
+  heat: -1
 attributes:
   body: 5
   agility: 3
@@ -146,30 +146,28 @@ complex_forms:
   notes: Electronics + RES test. Each hit reduces OS by 1.
 - name: Diffusion
   ref: diffusion
-  fading: 4
-  duration: Sustained
-  target: Firewall
-  notes: Electronics + RES vs WIL + FW. Each net hit reduces target Firewall by 1.
+  fading: 2
+  duration: Instant
+  target: Device
+  notes: 'Source: core'
 - name: Puppeteer
   ref: puppeteer
-  fading: 5
-  duration: Sustained
+  fading: 2
+  duration: Instant
   target: Device
-  notes: Electronics + RES vs WIL + FW. Forces device to perform action.
+  notes: 'Source: core'
 - name: Cyber Spike
   ref: cyber_spike
-  fading: 3
-  duration: Immediate
-  target: Character with wireless cyberware
-  notes: Electronics + RES vs BOD + Essence. Deals 1 Physical damage per net hit and
-    stresses installed ware.
+  fading: 2
+  duration: Instant
+  target: Device
+  notes: 'Source: hack_slash'
 - name: Resonance Wires
   ref: resonance_wires
   fading: 2
-  duration: Sustained
+  duration: Instant
   target: Device
-  notes: Electronics + RES vs Threshold 2 + Noise. Establishes a remote direct connection
-    to target device wirelessly, bypassing host firewalls and wireless-off defenses.
+  notes: 'Source: hack_slash'
 meta_echoes: &id001
 - name: New Sprite Type
   ref: new_sprite_type
@@ -217,16 +215,20 @@ contacts:
     connection: 4
     loyalty: 3
     favors: 3
-    type: Fixer
+    type: SEA Fixer
     region: SEA
+    types:
+    - Criminal
+    - Street
+    types_str: Criminal, Street
     description: 'Uses: Getting jobs, fencing gear, gangs (Shadowrun Missions Seattle)
       | Types: Criminal, Street'
     notes: 'Uses: Getting jobs, fencing gear, gangs (Shadowrun Missions Seattle) |
       Types: Criminal, Street'
     history:
     - 'Character Creation (Met: C4 L2)'
-    - SRM 2081-05 This is Renton (+2 FP)
-    - SRM 2081-18 Friendships Never Grow Rust (+4 FP)
+    - SRM.2081.05 (+2 FP)
+    - SRM.2081.18 (+4 FP)
     - Auto-Promoted to Loyalty 3 (-3 FP)
   Whiskey:
     name: Whiskey
@@ -235,8 +237,11 @@ contacts:
     connection: 2
     loyalty: 4
     favors: 0
-    type: Street Doc
+    type: SEA Street Doc
     region: SEA
+    types:
+    - Medical
+    types_str: Medical
     description: 'Uses: Medicine, street docs (Shadowrun Missions Seattle) | Types:
       Medical'
     notes: 'Uses: Medicine, street docs (Shadowrun Missions Seattle) | Types: Medical'
@@ -249,8 +254,12 @@ contacts:
     connection: 3
     loyalty: 3
     favors: 0
-    type: River People Sysop
+    type: NOLA River People Sysop
     region: NOLA
+    types:
+    - Corporate
+    - Matrix
+    types_str: Corporate, Matrix
     description: 'Uses: Banking, HVAC systems, Matrix | Types: Corporate, Matrix'
     notes: 'Uses: Banking, HVAC systems, Matrix | Types: Corporate, Matrix'
     history:
@@ -262,17 +271,21 @@ contacts:
     connection: 3
     loyalty: 4
     favors: 1
-    type: Ecological Activist
+    type: NOLA Ecological Activist
     region: NOLA
+    types:
+    - Criminal
+    - Matrix
+    types_str: Criminal, Matrix
     description: 'Uses: Getting jobs, environmental science, shamanism | Types: Criminal,
       Matrix'
     notes: 'Uses: Getting jobs, environmental science, shamanism | Types: Criminal,
       Matrix'
     history:
     - 'Character Creation (Met: C3 L3)'
-    - SRM 2083-17 Haute Blooded (+1 FP)
-    - SRM 2083-20 The Fallacy of Plans (+1 FP)
-    - SRM 2083-14 Deepest Roots (+3 FP)
+    - SRM.2083.17 (+1 FP)
+    - SRM.2083.20 (+1 FP)
+    - SRM.2083.14 (+3 FP)
     - Auto-Promoted to Loyalty 4 (-4 FP)
   Piotr Krolik:
     name: Piotr Krolik
@@ -281,12 +294,16 @@ contacts:
     connection: 4
     loyalty: 1
     favors: 0
-    type: NOLA Vory Borjevik
+    type: Vory Borjevik
     region: NOLA
-    description: SMH 2083-02 EggHunt at the Jackalope Ranch
-    notes: SMH 2083-02 EggHunt at the Jackalope Ranch
+    types:
+    - Criminal
+    - Street
+    types_str: Criminal, Street
+    description: NOLA Vory lieutenant at Jackalope Ranch.
+    notes: NOLA Vory lieutenant at Jackalope Ranch.
     history:
-    - 'SMH 2083-02 EggHunt at the Jackalope Ranch (Met: C4 L0, +1 FP)'
+    - 'SMH.2083.02 (Met: C4 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Le Tigre:
     name: Le Tigre
@@ -297,13 +314,17 @@ contacts:
     favors: 0
     type: Epoch Model
     region: NOLA
+    types:
+    - Corporate
+    - Magic
+    types_str: Corporate, Magic
     description: 'Uses: Getting jobs, parties, modeling | Types: Corporate, Magic'
     notes: 'Uses: Getting jobs, parties, modeling | Types: Corporate, Magic'
     history:
-    - 'SMH 2083-02 EggHunt at the Jackalope Ranch (Met: C5 L0, +1 FP)'
+    - 'SMH.2083.02 (Met: C5 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
-    - SRM 2083-17 Haute Blooded (+1 FP)
-    - CMP 2083-15 | By Land, Sea, and Hair (+1 FP)
+    - SRM.2083.17 (+1 FP)
+    - CMP.2083.15 (+1 FP)
     - Auto-Promoted to Loyalty 2 (-2 FP)
   White Jackalope:
     name: White Jackalope
@@ -313,11 +334,15 @@ contacts:
     loyalty: 1
     favors: 0
     type: Emergent Lifeform
-    region: GEN
-    description: SMH 2083-02 EggHunt at the Jackalope Ranch
-    notes: SMH 2083-02 EggHunt at the Jackalope Ranch
+    region: NOLA
+    types:
+    - Matrix
+    - Magic
+    types_str: Matrix, Magic
+    description: Sentient emergent jackalope critter.
+    notes: Sentient emergent jackalope critter.
     history:
-    - 'SMH 2083-02 EggHunt at the Jackalope Ranch (Met: C2 L0, +1 FP)'
+    - 'SMH.2083.02 (Met: C2 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Big Louie:
     name: Big Louie
@@ -326,12 +351,16 @@ contacts:
     connection: 3
     loyalty: 1
     favors: 0
-    type: SEA Fixer
+    type: Fixer
     region: SEA
-    description: 'CMP First Taste : Top Chef - Seattle'
-    notes: 'CMP First Taste : Top Chef - Seattle'
+    types:
+    - Criminal
+    - Street
+    types_str: Criminal, Street
+    description: Seattle fixer met during Top Chef.
+    notes: Seattle fixer met during Top Chef.
     history:
-    - 'CMP First Taste : Top Chef - Seattle (Met: C3 L0, +1 FP)'
+    - 'CMP.First.Taste (Met: C3 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Dominique Augustin:
     name: Dominique Augustin
@@ -340,12 +369,16 @@ contacts:
     connection: 4
     loyalty: 1
     favors: 1
-    type: NOLA Wolverine Security
+    type: Wolverine Security Officer
     region: NOLA
-    description: 2083-03 Unofficial Dunkelzahn Fan Club
-    notes: 2083-03 Unofficial Dunkelzahn Fan Club
+    types:
+    - Corporate
+    - Law Enforcement
+    types_str: Corporate, Law Enforcement
+    description: Security officer at Wolverine Security.
+    notes: Security officer at Wolverine Security.
     history:
-    - '2083-03 Unofficial Dunkelzahn Fan Club (Met: C4 L0, +2 FP)'
+    - 'SRM.2083.03 (Met: C4 L0, +2 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Daniel Fortune:
     name: Daniel Fortune
@@ -354,12 +387,15 @@ contacts:
     connection: 3
     loyalty: 1
     favors: 0
-    type: NOLA
+    type: Local Guide
     region: NOLA
-    description: 2083-03 Unofficial Dunkelzahn Fan Club
-    notes: 2083-03 Unofficial Dunkelzahn Fan Club
+    types:
+    - Street
+    types_str: Street
+    description: NOLA contact met during Dunkelzahn Fan Club.
+    notes: NOLA contact met during Dunkelzahn Fan Club.
     history:
-    - '2083-03 Unofficial Dunkelzahn Fan Club (Met: C3 L0, +1 FP)'
+    - 'SRM.2083.03 (Met: C3 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Renée Martin:
     name: Renée Martin
@@ -370,13 +406,17 @@ contacts:
     favors: 1
     type: League of Laveau Liaison
     region: NOLA
+    types:
+    - Corporate
+    - Magic
+    types_str: Corporate, Magic
     description: 'Uses: Getting jobs, magic, voodoo, zombies | Types: Corporate, Magic'
     notes: 'Uses: Getting jobs, magic, voodoo, zombies | Types: Corporate, Magic'
     history:
-    - '2083-03 Unofficial Dunkelzahn Fan Club (Met: C4 L0, +3 FP)'
+    - 'SRM.2083.03 (Met: C4 L0, +3 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
     - Auto-Promoted to Loyalty 2 (-2 FP)
-    - SRM 2083-20 The Fallacy of Plans (+1 FP)
+    - SRM.2083.20 (+1 FP)
   The Frisian:
     name: The Frisian
     canonical_name: The Frisian
@@ -384,12 +424,15 @@ contacts:
     connection: 6
     loyalty: 1
     favors: 0
-    type: AMS Crime Lord of the Dutch Penose syndicate
+    type: Crime Lord of the Dutch Penose syndicate
     region: AMS
-    description: CMP 2081-09 Bring me Prince Charming
-    notes: CMP 2081-09 Bring me Prince Charming
+    types:
+    - Criminal
+    types_str: Criminal
+    description: Crime boss of the Amsterdam Penose syndicate.
+    notes: Crime boss of the Amsterdam Penose syndicate.
     history:
-    - 'CMP 2081-09 Bring me Prince Charming (Met: C6 L0, +1 FP)'
+    - 'CMP.2081.09 (Met: C6 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Ree 'Dolly' Hacker:
     name: Ree 'Dolly' Hacker
@@ -398,12 +441,16 @@ contacts:
     connection: 4
     loyalty: 1
     favors: 1
-    type: KY Talismonger and Racer
+    type: Talismonger and Racer
     region: KY
-    description: CMP 2081-18 Blue Kentucky Girl
-    notes: CMP 2081-18 Blue Kentucky Girl
+    types:
+    - Magic
+    - Street
+    types_str: Magic, Street
+    description: Kentucky street racer and talismonger.
+    notes: Kentucky street racer and talismonger.
     history:
-    - 'CMP 2081-18 Blue Kentucky Girl (Met: C4 L0, +2 FP)'
+    - 'CMP.2081.18 (Met: C4 L0, +2 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Granny:
     name: Granny
@@ -412,14 +459,17 @@ contacts:
     connection: 6
     loyalty: 1
     favors: 1
-    type: KY Lady of the Autumn Wind
+    type: Lady of the Autumn Wind
     region: KY
-    description: CMP 2081-18 Blue Kentucky Girl
-    notes: CMP 2081-18 Blue Kentucky Girl
+    types:
+    - Magic
+    types_str: Magic
+    description: Elder spirit/druidic leader in Kentucky.
+    notes: Elder spirit/druidic leader in Kentucky.
     history:
-    - 'CMP 2081-18 Blue Kentucky Girl (Met: C6 L0, +1 FP)'
+    - 'CMP.2081.18 (Met: C6 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
-    - CMP 2081-20 In the Cold Kentucky Rain (+1 FP)
+    - CMP.2081.20 (+1 FP)
   Kiara Shaw:
     name: Kiara Shaw
     canonical_name: Kiara Shaw
@@ -427,14 +477,18 @@ contacts:
     connection: 4
     loyalty: 2
     favors: 0
-    type: AMS Knight Errant Company Suit
+    type: Knight Errant Company Suit
     region: AMS
-    description: CMP 2081-10 A Diamond in The Rough
-    notes: CMP 2081-10 A Diamond in The Rough
+    types:
+    - Corporate
+    - Law Enforcement
+    types_str: Corporate, Law Enforcement
+    description: Knight Errant liaison and corporate fixer in Amsterdam.
+    notes: Knight Errant liaison and corporate fixer in Amsterdam.
     history:
-    - 'CMP 2081-10 A Diamond in The Rough (Met: C4 L0, +2 FP)'
+    - 'CMP.2081.10 (Met: C4 L0, +2 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
-    - CMP 2083-04 Hog Wild (+1 FP)
+    - CMP.2083.04 (+1 FP)
     - Auto-Promoted to Loyalty 2 (-2 FP)
   Simon Andrews:
     name: Simon Andrews
@@ -443,16 +497,19 @@ contacts:
     connection: 5
     loyalty: 2
     favors: 1
-    type: AMS S-K Johnson
+    type: Saeder-Krupp Johnson
     region: AMS
-    description: CMP 2081-11 Paved with good intentions
-    notes: CMP 2081-11 Paved with good intentions
+    types:
+    - Corporate
+    types_str: Corporate
+    description: Saeder-Krupp corporate Johnson operating out of Amsterdam.
+    notes: Saeder-Krupp corporate Johnson operating out of Amsterdam.
     history:
-    - 'CMP 2081-11 Paved with good intentions (Met: C5 L0, +2 FP)'
+    - 'CMP.2081.11 (Met: C5 L0, +2 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
-    - CMP 2083-01 NONPLUSHED (+1 FP)
+    - CMP.2083.01 (+1 FP)
     - Auto-Promoted to Loyalty 2 (-2 FP)
-    - CMP 2083-04 Hog Wild (+1 FP)
+    - CMP.2083.04 (+1 FP)
   Squint:
     name: Squint
     canonical_name: Squint
@@ -460,12 +517,16 @@ contacts:
     connection: 2
     loyalty: 1
     favors: 0
-    type: AMS Smuggler
+    type: Smuggler
     region: AMS
-    description: CMP 2081-11 Paved with good intentions
-    notes: CMP 2081-11 Paved with good intentions
+    types:
+    - Criminal
+    - Street
+    types_str: Criminal, Street
+    description: Amsterdam boat and canal smuggler.
+    notes: Amsterdam boat and canal smuggler.
     history:
-    - 'CMP 2081-11 Paved with good intentions (Met: C2 L0, +1 FP)'
+    - 'CMP.2081.11 (Met: C2 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Dr. Laureline Dodd:
     name: Dr. Laureline Dodd
@@ -474,12 +535,16 @@ contacts:
     connection: 5
     loyalty: 1
     favors: 1
-    type: KY Arcano-Archeologist
+    type: Arcano-Archeologist
     region: KY
-    description: CMP 2081-19 The Blue Moon of Kentucky
-    notes: CMP 2081-19 The Blue Moon of Kentucky
+    types:
+    - Academic
+    - Magic
+    types_str: Academic, Magic
+    description: Lead researcher exploring 4th World ruins in Kentucky.
+    notes: Lead researcher exploring 4th World ruins in Kentucky.
     history:
-    - 'CMP 2081-19 The Blue Moon of Kentucky (Met: C5 L0, +2 FP)'
+    - 'CMP.2081.19 (Met: C5 L0, +2 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Thaddeus:
     name: Thaddeus
@@ -488,40 +553,49 @@ contacts:
     connection: 3
     loyalty: 1
     favors: 0
-    type: KY Street Samurai
+    type: Street Samurai
     region: KY
-    description: CMP 2081-19 The Blue Moon of Kentucky
-    notes: CMP 2081-19 The Blue Moon of Kentucky
+    types:
+    - Street
+    types_str: Street
+    description: Kentucky mercenary and street fighter.
+    notes: Kentucky mercenary and street fighter.
     history:
-    - 'CMP 2081-19 The Blue Moon of Kentucky (Met: C3 L0, +1 FP)'
+    - 'CMP.2081.19 (Met: C3 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Duan Yuhai:
     name: Duan Yuhai
     canonical_name: Duan Yuhai
     is_canonical: false
-    connection: 3
+    connection: 4
     loyalty: 1
     favors: 0
-    type: SEA Minor 88s Johnson
+    type: Triad Sub-Boss
     region: SEA
-    description: SRM 2081-17 Framed in Blood
-    notes: SRM 2081-17 Framed in Blood
+    types:
+    - Criminal
+    types_str: Criminal
+    description: 88s Triad sub-boss in Seattle.
+    notes: 88s Triad sub-boss in Seattle.
     history:
-    - 'SRM 2081-17 Framed in Blood (Met: C3 L0, +1 FP)'
+    - 'SRM.2081.17 (Met: C4 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Xiong Giuyin:
     name: Xiong Giuyin
     canonical_name: Xiong Giuyin
     is_canonical: false
-    connection: 4
+    connection: 1
     loyalty: 1
     favors: 0
-    type: SEA Wuxing
-    region: SEA
-    description: SRM 2081-17 Framed in Blood
-    notes: SRM 2081-17 Framed in Blood
+    type: ''
+    region: GEN
+    types:
+    - Street
+    types_str: Street
+    description: ''
+    notes: ''
     history:
-    - 'SRM 2081-17 Framed in Blood (Met: C4 L0, +1 FP)'
+    - 'SRM.2081.17 (Met: C1 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Reilly Dragman:
     name: Reilly Dragman
@@ -532,10 +606,13 @@ contacts:
     favors: 1
     type: Magic
     region: KY
+    types:
+    - Magic
+    types_str: Magic
     description: 'Magic | Types: Magic'
     notes: 'Magic | Types: Magic'
     history:
-    - 'CMP 2081-20 In the Cold Kentucky Rain (Met: C1 L0, +2 FP)'
+    - 'CMP.2081.20 (Met: C1 L0, +2 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Queen Brane:
     name: Queen Brane
@@ -546,12 +623,15 @@ contacts:
     favors: 0
     type: Magic
     region: KY
+    types:
+    - Magic
+    types_str: Magic
     description: 'Magic (Special Note: This contact cannot be called during a mission.)
       | Types: Magic'
     notes: 'Magic (Special Note: This contact cannot be called during a mission.)
       | Types: Magic'
     history:
-    - 'CMP 2081-20 In the Cold Kentucky Rain (Met: C12 L0, +1 FP)'
+    - 'CMP.2081.20 (Met: C12 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Kirt Liger:
     name: Kirt Liger
@@ -560,12 +640,16 @@ contacts:
     connection: 3
     loyalty: 1
     favors: 1
-    type: SEA Body Mod/Engineering Cybercatman
+    type: Cybercatman / Body Modder
     region: SEA
-    description: SRM 2081-21 Grudge Match Gladiators
-    notes: SRM 2081-21 Grudge Match Gladiators
+    types:
+    - Engineering
+    - Street
+    types_str: Engineering, Street
+    description: Underground gladiator mechanic and body mod specialist.
+    notes: Underground gladiator mechanic and body mod specialist.
     history:
-    - 'SRM 2081-21 Grudge Match Gladiators (Met: C3 L0, +2 FP)'
+    - 'SRM.2081.21 (Met: C3 L0, +2 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Sigrún:
     name: Sigrún
@@ -574,17 +658,21 @@ contacts:
     connection: 5
     loyalty: 3
     favors: 1
-    type: AMS House Orange-Nassau Johnson
+    type: House Oranje-Nassau Johnson
     region: AMS
-    description: CMP 2081-12 Uneasy lies the head
-    notes: CMP 2081-12 Uneasy lies the head
+    types:
+    - Corporate
+    - Government
+    types_str: Corporate, Government
+    description: High-society Johnson representing Dutch royal interests.
+    notes: High-society Johnson representing Dutch royal interests.
     history:
-    - 'CMP 2081-12 Uneasy lies the head (Met: C5 L0, +4 FP)'
+    - 'CMP.2081.12 (Met: C5 L0, +4 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
     - Auto-Promoted to Loyalty 2 (-2 FP)
-    - CMP 2083-04 Hog Wild (+2 FP)
+    - CMP.2083.04 (+2 FP)
     - Auto-Promoted to Loyalty 3 (-3 FP)
-    - CMP 2083-02 ROYAL ROAD (+1 FP)
+    - CMP.2083.02 (+1 FP)
   Dixie L'Amin:
     name: Dixie L'Amin
     canonical_name: Dixie L'Amin
@@ -592,12 +680,16 @@ contacts:
     connection: 4
     loyalty: 1
     favors: 1
-    type: DW Naga
+    type: Desert Wars Naga
     region: DW
-    description: CMP 2083-14 A Day at the Beach
-    notes: CMP 2083-14 A Day at the Beach
+    types:
+    - Magic
+    - Street
+    types_str: Magic, Street
+    description: Awakened Naga gladiator and Desert Wars personality.
+    notes: Awakened Naga gladiator and Desert Wars personality.
     history:
-    - 'CMP 2083-14 A Day at the Beach (Met: C4 L0, +2 FP)'
+    - 'CMP.2083.14 (Met: C4 L0, +2 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Ayanda 'Shieldbearer' Mahlangu:
     name: Ayanda 'Shieldbearer' Mahlangu
@@ -606,12 +698,16 @@ contacts:
     connection: 3
     loyalty: 1
     favors: 0
-    type: DW 'Mystic Edge' Producer
+    type: Mystic Edge Producer
     region: DW
-    description: CMP 2083-14 A Day at the Beach
-    notes: CMP 2083-14 A Day at the Beach
+    types:
+    - Corporate
+    - Street
+    types_str: Corporate, Street
+    description: Combat broadcast producer in Desert Wars.
+    notes: Combat broadcast producer in Desert Wars.
     history:
-    - 'CMP 2083-14 A Day at the Beach (Met: C3 L0, +1 FP)'
+    - 'CMP.2083.14 (Met: C3 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Ebon Abirashur:
     name: Ebon Abirashur
@@ -620,12 +716,15 @@ contacts:
     connection: 1
     loyalty: 1
     favors: 1
-    type: DW Leviathan Dragon
+    type: Leviathan Dragon
     region: DW
-    description: CMP 2083-14 A Day at the Beach
-    notes: CMP 2083-14 A Day at the Beach
+    types:
+    - Magic
+    types_str: Magic
+    description: Submerged ocean dragon entity.
+    notes: Submerged ocean dragon entity.
     history:
-    - 'CMP 2083-14 A Day at the Beach (Met: C1 L0, +2 FP)'
+    - 'CMP.2083.14 (Met: C1 L0, +2 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Col. Deborah Kentwell:
     name: Col. Deborah Kentwell
@@ -634,12 +733,16 @@ contacts:
     connection: 5
     loyalty: 1
     favors: 1
-    type: DW Thunder Corps Fixer
+    type: Thunder Corps Fixer
     region: DW
-    description: CMP 2083-16 War Never Changes
-    notes: CMP 2083-16 War Never Changes
+    types:
+    - Corporate
+    - Government
+    types_str: Corporate, Government
+    description: Military fixer and officer with Thunder Corps.
+    notes: Military fixer and officer with Thunder Corps.
     history:
-    - 'CMP 2083-16 War Never Changes (Met: C5 L0, +2 FP)'
+    - 'CMP.2083.16 (Met: C5 L0, +2 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Polyphemous 'Paul' Pellagios:
     name: Polyphemous 'Paul' Pellagios
@@ -648,12 +751,15 @@ contacts:
     connection: 1
     loyalty: 1
     favors: 0
-    type: DW Background Actor
+    type: Background Actor
     region: DW
-    description: CMP 2083-16 War Never Changes
-    notes: CMP 2083-16 War Never Changes
+    types:
+    - Street
+    types_str: Street
+    description: Desert Wars trid extra.
+    notes: Desert Wars trid extra.
     history:
-    - 'CMP 2083-16 War Never Changes (Met: C1 L0, +1 FP)'
+    - 'CMP.2083.16 (Met: C1 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Fernand Anato:
     name: Fernand Anato
@@ -664,11 +770,15 @@ contacts:
     favors: 0
     type: Kozlowski Capo
     region: NOLA
+    types:
+    - Criminal
+    - Street
+    types_str: Criminal, Street
     description: 'Uses: Getting jobs, fencing gear, organized crime | Types: Criminal,
       Street'
     notes: 'Uses: Getting jobs, fencing gear, organized crime | Types: Criminal, Street'
     history:
-    - 'SRM 2083-19 The Hallow Feast (Met: C4 L0, +1 FP)'
+    - 'SRM.2083.19 (Met: C4 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Monsieur Johnson:
     name: Monsieur Johnson
@@ -679,10 +789,13 @@ contacts:
     favors: 0
     type: NOLA Johnson
     region: NOLA
-    description: SRM 2083-19 The Hallow Feast
-    notes: SRM 2083-19 The Hallow Feast
+    types:
+    - Corporate
+    types_str: Corporate
+    description: French Quarter corporate Johnson.
+    notes: French Quarter corporate Johnson.
     history:
-    - 'SRM 2083-19 The Hallow Feast (Met: C5 L0, +3 FP)'
+    - 'SRM.2083.19 (Met: C5 L0, +3 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
     - Auto-Promoted to Loyalty 2 (-2 FP)
   Swango:
@@ -692,12 +805,15 @@ contacts:
     connection: 3
     loyalty: 2
     favors: 0
-    type: SEA Rapper
+    type: Rapper
     region: SEA
-    description: SRM 2081-05 This is Renton
-    notes: SRM 2081-05 This is Renton
+    types:
+    - Street
+    types_str: Street
+    description: Renton street rapper and urban scout.
+    notes: Renton street rapper and urban scout.
     history:
-    - 'SRM 2081-05 This is Renton (Met: C3 L0, +3 FP)'
+    - 'SRM.2081.05 (Met: C3 L0, +3 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
     - Auto-Promoted to Loyalty 2 (-2 FP)
   Toil:
@@ -709,12 +825,16 @@ contacts:
     favors: 0
     type: Fixer
     region: SEA
+    types:
+    - Criminal
+    - Street
+    types_str: Criminal, Street
     description: 'Uses: Drugs, exotic dancer clubs, getting jobs (Shadowrun Missions
       Seattle) | Types: Criminal, Street'
     notes: 'Uses: Drugs, exotic dancer clubs, getting jobs (Shadowrun Missions Seattle)
       | Types: Criminal, Street'
     history:
-    - 'SRM 2081-05 This is Renton (Met: C4 L0, +1 FP)'
+    - 'SRM.2081.05 (Met: C4 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Trubble:
     name: Trubble
@@ -725,12 +845,15 @@ contacts:
     favors: 0
     type: Bodyguard
     region: SEA
+    types:
+    - Magic
+    types_str: Magic
     description: 'Uses: Bodyguards, insults, talismans (Shadowrun Missions Seattle)
       | Types: Magic'
     notes: 'Uses: Bodyguards, insults, talismans (Shadowrun Missions Seattle) | Types:
       Magic'
     history:
-    - 'SRM 2081-05 This is Renton (Met: C1 L0, +1 FP)'
+    - 'SRM.2081.05 (Met: C1 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   SpiiniCop:
     name: SpiiniCop
@@ -739,12 +862,16 @@ contacts:
     connection: 2
     loyalty: 1
     favors: 0
-    type: AMS Penose Spider
+    type: Penose Spider
     region: AMS
-    description: CMP 2083-01 NONPLUSHED
-    notes: CMP 2083-01 NONPLUSHED
+    types:
+    - Matrix
+    - Criminal
+    types_str: Matrix, Criminal
+    description: Penose matrix security decker.
+    notes: Penose matrix security decker.
     history:
-    - 'CMP 2083-01 NONPLUSHED (Met: C2 L0, +1 FP)'
+    - 'CMP.2083.01 (Met: C2 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Eddie Wei:
     name: Eddie Wei
@@ -755,12 +882,16 @@ contacts:
     favors: 0
     type: Triad Johnson
     region: SEA
+    types:
+    - Criminal
+    - Matrix
+    types_str: Criminal, Matrix
     description: 'Uses: Business and economics, getting jobs, triads (Shadowrun Missions
       Seattle) | Types: Criminal, Matrix (Not available after 2081-24)'
     notes: 'Uses: Business and economics, getting jobs, triads (Shadowrun Missions
       Seattle) | Types: Criminal, Matrix (Not available after 2081-24)'
     history:
-    - 'SRM 2081-08 Child''s Play (Met: C4 L0, +1 FP)'
+    - 'SRM.2081.08 (Met: C4 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Julian Müntefering:
     name: Julian Müntefering
@@ -771,12 +902,16 @@ contacts:
     favors: 0
     type: Corporate Kid
     region: SEA
+    types:
+    - Corporate
+    - Engineering
+    types_str: Corporate, Engineering
     description: 'Uses: Corporate playground rumors, drones, rigging research (Shadowrun
       Missions Seattle) | Types: Corporate, Engineering'
     notes: 'Uses: Corporate playground rumors, drones, rigging research (Shadowrun
       Missions Seattle) | Types: Corporate, Engineering'
     history:
-    - 'SRM 2081-08 Child''s Play (Met: C1 L0, +1 FP)'
+    - 'SRM.2081.08 (Met: C1 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Ni Ni Xiaolu:
     name: Ni Ni Xiaolu
@@ -787,16 +922,19 @@ contacts:
     favors: 2
     type: Triad Johnson
     region: SEA
+    types:
+    - Criminal
+    types_str: Criminal
     description: 'Uses: Getting jobs, drugs, street rumors, triads (Shadowrun Missions
       Seattle) | Types: Criminal'
     notes: 'Uses: Getting jobs, drugs, street rumors, triads (Shadowrun Missions Seattle)
       | Types: Criminal'
     history:
-    - 'SRM 2081-07 Bootleg Bliss (Met: C3 L0, +3 FP)'
+    - 'SRM.2081.07 (Met: C3 L0, +3 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
     - Auto-Promoted to Loyalty 2 (-2 FP)
     - CMP 2083-05 Precious Cargo (+1 FP)
-    - SRM 2081-18 Friendships Never Grow Rust (+1 FP)
+    - SRM.2081.18 (+1 FP)
   Bookie:
     name: Bookie
     canonical_name: Bookie
@@ -804,12 +942,16 @@ contacts:
     connection: 3
     loyalty: 1
     favors: 0
-    type: SEA Ancients Bookie
+    type: Ancients Bookie
     region: SEA
-    description: SRM 2081-07 Bootleg Bliss
-    notes: SRM 2081-07 Bootleg Bliss
+    types:
+    - Criminal
+    - Street
+    types_str: Criminal, Street
+    description: Ancients gang bookmaker and fence.
+    notes: Ancients gang bookmaker and fence.
     history:
-    - 'SRM 2081-07 Bootleg Bliss (Met: C3 L0, +1 FP)'
+    - 'SRM.2081.07 (Met: C3 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Trudy:
     name: Trudy
@@ -818,12 +960,16 @@ contacts:
     connection: 2
     loyalty: 1
     favors: 0
-    type: SEA Cutter Lieutenant
+    type: Cutters Lieutenant
     region: SEA
-    description: SRM 2081-07 Bootleg Bliss
-    notes: SRM 2081-07 Bootleg Bliss
+    types:
+    - Criminal
+    - Street
+    types_str: Criminal, Street
+    description: Cutters ganger lieutenant.
+    notes: Cutters ganger lieutenant.
     history:
-    - 'SRM 2081-07 Bootleg Bliss (Met: C2 L0, +1 FP)'
+    - 'SRM.2081.07 (Met: C2 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Saint James:
     name: Saint James
@@ -834,15 +980,19 @@ contacts:
     favors: 1
     type: Fixer
     region: SEA
+    types:
+    - Criminal
+    - Street
+    types_str: Criminal, Street
     description: 'Uses: Corporations, getting jobs (Shadowrun Missions Seattle), fencing
       gear, gangs | Types: Criminal, Street (Not available after 2081-24)'
     notes: 'Uses: Corporations, getting jobs (Shadowrun Missions Seattle), fencing
       gear, gangs | Types: Criminal, Street (Not available after 2081-24)'
     history:
-    - 'SRM 2081-06 Cutting Strings (Met: C8 L0, +3 FP)'
+    - 'SRM.2081.06 (Met: C8 L0, +3 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
     - Auto-Promoted to Loyalty 2 (-2 FP)
-    - SRM 2081-18 Friendships Never Grow Rust (+1 FP)
+    - SRM.2081.18 (+1 FP)
   Jeanie Trudel:
     name: Jeanie Trudel
     canonical_name: Jeanie Trudel
@@ -850,12 +1000,15 @@ contacts:
     connection: 1
     loyalty: 1
     favors: 0
-    type: SEA Bartender
+    type: Bartender
     region: SEA
-    description: SRM 2081-06 Cutting Strings
-    notes: SRM 2081-06 Cutting Strings
+    types:
+    - Street
+    types_str: Street
+    description: Downtown dive bartender.
+    notes: Downtown dive bartender.
     history:
-    - 'SRM 2081-06 Cutting Strings (Met: C1 L0, +1 FP)'
+    - 'SRM.2081.06 (Met: C1 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Kingston:
     name: Kingston
@@ -866,12 +1019,16 @@ contacts:
     favors: 0
     type: Shadowrunner/Street Samurai
     region: SEA
+    types:
+    - Criminal
+    - Street
+    types_str: Criminal, Street
     description: 'Uses: Shadowrunners, street rumors (Shadowrun Missions Seattle)
       | Types: Criminal, Street'
     notes: 'Uses: Shadowrunners, street rumors (Shadowrun Missions Seattle) | Types:
       Criminal, Street'
     history:
-    - 'SRM 2081-06 Cutting Strings (Met: C2 L0, +1 FP)'
+    - 'SRM.2081.06 (Met: C2 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Kaatje:
     name: Kaatje
@@ -880,12 +1037,15 @@ contacts:
     connection: 2
     loyalty: 1
     favors: 0
-    type: AMS Young Entertainer
+    type: Young Entertainer
     region: AMS
-    description: CMP 2083-04 Hog Wild
-    notes: CMP 2083-04 Hog Wild
+    types:
+    - Street
+    types_str: Street
+    description: Amsterdam local singer/performer.
+    notes: Amsterdam local singer/performer.
     history:
-    - 'CMP 2083-04 Hog Wild (Met: C2 L0, +1 FP)'
+    - 'CMP.2083.04 (Met: C2 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Mr. Fa:
     name: Mr. Fa
@@ -894,12 +1054,15 @@ contacts:
     connection: 4
     loyalty: 1
     favors: 1
-    type: HKB Corporate Middle Manager
+    type: Corporate Middle Manager
     region: HK
-    description: CMP 2083-05 Precious Cargo
-    notes: CMP 2083-05 Precious Cargo
+    types:
+    - Corporate
+    types_str: Corporate
+    description: Hong Kong corporate bureaucrat.
+    notes: Hong Kong corporate bureaucrat.
     history:
-    - 'CMP 2083-05 Precious Cargo (Met: C4 L0, +2 FP)'
+    - 'CMP.2083.05 (Met: C4 L0, +2 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Liao Fa Ren:
     name: Liao Fa Ren
@@ -908,12 +1071,16 @@ contacts:
     connection: 3
     loyalty: 2
     favors: 0
-    type: HK Rookie Journalist
+    type: Rookie Journalist
     region: HK
-    description: CMP 2083-05 Precious Cargo
-    notes: CMP 2083-05 Precious Cargo
+    types:
+    - Street
+    - Academic
+    types_str: Street, Academic
+    description: Hong Kong investigative reporter.
+    notes: Hong Kong investigative reporter.
     history:
-    - 'CMP 2083-05 Precious Cargo (Met: C3 L0, +3 FP)'
+    - 'CMP.2083.05 (Met: C3 L0, +3 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
     - Auto-Promoted to Loyalty 2 (-2 FP)
   Aloysius Springinsguth:
@@ -923,12 +1090,16 @@ contacts:
     connection: 3
     loyalty: 2
     favors: 0
-    type: NOLA Sound of Silence Music Shop Owner
+    type: Sound of Silence Music Shop Owner
     region: NOLA
-    description: SRM 2083-12 When You're Smiling
-    notes: SRM 2083-12 When You're Smiling
+    types:
+    - Magic
+    - Street
+    types_str: Magic, Street
+    description: NOLA antique instrument dealer and talismonger.
+    notes: NOLA antique instrument dealer and talismonger.
     history:
-    - 'SRM 2083-12 When You''re Smiling (Met: C3 L0, +3 FP)'
+    - 'SRM.2083.12 (Met: C3 L0, +3 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
     - Auto-Promoted to Loyalty 2 (-2 FP)
   Jolene Price:
@@ -940,10 +1111,14 @@ contacts:
     favors: 0
     type: Riverboat Alliance Leader
     region: NOLA
+    types:
+    - Corporate
+    - Street
+    types_str: Corporate, Street
     description: 'Uses: Getting jobs, dragons, mafia | Types: Corporate, Street'
     notes: 'Uses: Getting jobs, dragons, mafia | Types: Corporate, Street'
     history:
-    - 'SRM 2083-17 Haute Blooded (Met: C7 L0, +3 FP)'
+    - 'SRM.2083.17 (Met: C7 L0, +3 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
     - Auto-Promoted to Loyalty 2 (-2 FP)
   Coffin Girls:
@@ -955,13 +1130,17 @@ contacts:
     favors: 0
     type: NOLA Independent Courtesans Group
     region: NOLA
-    description: ''
-    notes: ''
+    types:
+    - Street
+    - Criminal
+    types_str: Street, Criminal
+    description: French Quarter courtesans and information guild.
+    notes: French Quarter courtesans and information guild.
     history:
-    - 'SRM 2083-17 (Met: C3 L3, +1 FP)'
-    - SRM 2083-20 (+1 FP)
+    - 'SRM.2083.17 (Met: C3 L3, +1 FP)'
+    - SRM.2083.20 (+1 FP)
     - SRM 2083-18 Some Kind of Voodoo? (+1 FP)
-    - SRM 2083-18 (+1 FP)
+    - SRM.2083.18 (+1 FP)
     - Auto-Promoted to Loyalty 4 (-4 FP)
   Cedar:
     name: Cedar
@@ -972,13 +1151,16 @@ contacts:
     favors: 2
     type: Talismonger
     region: NOLA
+    types:
+    - Magic
+    types_str: Magic
     description: 'Uses: Talismongering, magical supplies, Salish artifacts | Types:
       Magic'
     notes: 'Uses: Talismongering, magical supplies, Salish artifacts | Types: Magic'
     history:
-    - 'SRM 2083-20 The Fallacy of Plans (Met: C3 L0, +1 FP)'
+    - 'SRM.2083.20 (Met: C3 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
-    - SRM 2083-14 Deepest Roots (+4 FP)
+    - SRM.2083.14 (+4 FP)
     - Auto-Promoted to Loyalty 2 (-2 FP)
   Detective Remy LeBlanc:
     name: Detective Remy LeBlanc
@@ -989,10 +1171,13 @@ contacts:
     favors: 0
     type: NOLA Detective
     region: NOLA
-    description: SRM 2083-20 The Fallacy of Plans
-    notes: SRM 2083-20 The Fallacy of Plans
+    types:
+    - Law Enforcement
+    types_str: Law Enforcement
+    description: NOMs police detective.
+    notes: NOMs police detective.
     history:
-    - 'SRM 2083-20 The Fallacy of Plans (Met: C3 L0, +3 FP)'
+    - 'SRM.2083.20 (Met: C3 L0, +3 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
     - Auto-Promoted to Loyalty 2 (-2 FP)
   Claudette Laurier:
@@ -1004,10 +1189,14 @@ contacts:
     favors: 0
     type: Order of the Golden Dawn Librarian
     region: NOLA
+    types:
+    - Criminal
+    - Matrix
+    types_str: Criminal, Matrix
     description: 'Uses: Getting jobs, magical traditions | Types: Criminal, Matrix'
     notes: 'Uses: Getting jobs, magical traditions | Types: Criminal, Matrix'
     history:
-    - 'SRM 2083-20 The Fallacy of Plans (Met: C5 L0, +1 FP)'
+    - 'SRM.2083.20 (Met: C5 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   League of Laveau:
     name: League of Laveau
@@ -1018,6 +1207,9 @@ contacts:
     favors: 1
     type: NOLA Voodoo Organization
     region: NOLA
+    types:
+    - Magic
+    types_str: Magic
     description: SRM 2083-18 Some Kind of Voodoo?
     notes: SRM 2083-18 Some Kind of Voodoo?
     history:
@@ -1031,6 +1223,10 @@ contacts:
     favors: 1
     type: NOLA Voodoo Organization
     region: NOLA
+    types:
+    - Magic
+    - Criminal
+    types_str: Magic, Criminal
     description: SRM 2083-18 Some Kind of Voodoo?
     notes: SRM 2083-18 Some Kind of Voodoo?
     history:
@@ -1042,12 +1238,16 @@ contacts:
     connection: 3
     loyalty: 1
     favors: 1
-    type: DW Thunder Corps Fixer
+    type: Thunder Corps Fixer
     region: DW
-    description: CMP 2083-15 | By Land, Sea, and Hair
-    notes: CMP 2083-15 | By Land, Sea, and Hair
+    types:
+    - Corporate
+    - Government
+    types_str: Corporate, Government
+    description: Desert Wars logistical contact.
+    notes: Desert Wars logistical contact.
     history:
-    - 'CMP 2083-15 | By Land, Sea, and Hair (Met: C3 L0, +2 FP)'
+    - 'CMP.2083.15 (Met: C3 L0, +2 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Moenen:
     name: Moenen
@@ -1056,12 +1256,16 @@ contacts:
     connection: 5
     loyalty: 1
     favors: 1
-    type: UNL infobroker
+    type: UNL Infobroker
     region: AMS
-    description: CMP 2083-02 ROYAL ROAD
-    notes: CMP 2083-02 ROYAL ROAD
+    types:
+    - Matrix
+    - Criminal
+    types_str: Matrix, Criminal
+    description: Underground matrix broker across United Netherlands.
+    notes: Underground matrix broker across United Netherlands.
     history:
-    - 'CMP 2083-02 ROYAL ROAD (Met: C5 L0, +2 FP)'
+    - 'CMP.2083.02 (Met: C5 L0, +2 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Blackstone:
     name: Blackstone
@@ -1070,12 +1274,16 @@ contacts:
     connection: 3
     loyalty: 1
     favors: 0
-    type: SEA Contact
+    type: Street Contact
     region: SEA
-    description: SRM 2081-18 Friendships Never Grow Rust
-    notes: SRM 2081-18 Friendships Never Grow Rust
+    types:
+    - Street
+    - Criminal
+    types_str: Street, Criminal
+    description: Seattle underworld informant.
+    notes: Seattle underworld informant.
     history:
-    - 'SRM 2081-18 Friendships Never Grow Rust (Met: C3 L0, +1 FP)'
+    - 'SRM.2081.18 (Met: C3 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
   Alexander Sloane:
     name: Alexander Sloane
@@ -1086,12 +1294,16 @@ contacts:
     favors: 0
     type: Etoile PI / Fixer
     region: NOLA
+    types:
+    - Criminal
+    - Law Enforcement
+    types_str: Criminal, Law Enforcement
     description: 'Uses: Private investigation, bounty hunting, police contacts, job
       offers | Types: Criminal, Law Enforcement'
     notes: 'Uses: Private investigation, bounty hunting, police contacts, job offers
       | Types: Criminal, Law Enforcement'
     history:
-    - 'SRM 2083-14 Deepest Roots (Met: C4 L0, +1 FP)'
+    - 'SRM.2083.14 (Met: C4 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
 reputation:
   Vory: 2
