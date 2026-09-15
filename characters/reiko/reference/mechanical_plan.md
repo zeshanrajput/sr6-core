@@ -36,8 +36,8 @@ This document tracks character upgrades, mechanical evaluations, karma/nuyen tar
 ├────────────────────────────────┬──────────────┬──────────────┬──────────────┤
 │ Electronics Spec: Computers    │ Specializ.   │ 5 Karma      │ +2 Matrix    │
 │                                │              │              │ Perception   │
-│ Electronics Spec: Software     │ Specializ.   │ 5 Karma      │ +2 Coding &  │
-│                                │              │              │ Sourcecraft  │
+│ Electronics Spec: Complex Forms│ Specializ.   │ 5 Karma      │ +2 Threading │
+│                                │              │              │              │
 │ Influence Rank 1 -> 2          │ Active Skill │ 10 Karma     │ +2 Net Dice  │
 │                                │              │              │ (Uncaps Taz) │
 │ Influence Spec: Negotiation    │ Specializ.   │ 5 Karma      │ +2 Social    │

@@ -2,7 +2,7 @@
 |                          SR6 DOSSIER // VELVET                           |
 +--------------------------------------------------------------------------+
 | METATYPE : Elf                  ARCHETYPE: Shinto / Musok                |
-| KARMA    : 17 avail               NUYEN    : 565 Nuyen                   |
+| KARMA(TKE): 17 (55)             NUYEN(TNE): 565 (117,590)                |
 | HEAT     : 0                    REPUTATION: SEA:4, AMS:0, HK:2           |
 +-- ATTRIBUTES ------------------------------------------------------------+
 | B 2  A 3  R 2  S 2  W 5  L 3  I 3  C 10                                  |

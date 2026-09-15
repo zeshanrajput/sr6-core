@@ -187,10 +187,10 @@ def test_character_portfolio_totals_exact_match():
     assert velvet["Lifetime_Nuyen"] == 117590
 
     reiko = get_log_totals("characters/reiko")
-    assert reiko["Karma"] == 0
-    assert reiko["Lifetime_Karma"] == 238
-    assert reiko["Nuyen"] == 2550.0
-    assert reiko["Lifetime_Nuyen"] == 387300
+    assert reiko["Karma"] == 7
+    assert reiko["Lifetime_Karma"] == 245
+    assert reiko["Nuyen"] == 22050.0
+    assert reiko["Lifetime_Nuyen"] == 396800
     assert reiko["Submersion_Grade"] == 8
 
 

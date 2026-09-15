@@ -22,6 +22,18 @@ from sr6core.character.contacts import (
 )
 from sr6core.character.missions import get_mission, normalize_mission_code
 
+
+class MarkdownStr(str):
+    """
+    String subclass that implements the IPython/Jupyter `_repr_markdown_` display protocol.
+    Enables inline `{python} mission(...)` expressions in Quarto to be parsed as raw Markdown
+    (such as H3 headings) rather than being escaped as plain paragraph text, while remaining
+    a fully compatible `str` for CLI, string manipulation, and pytest assertions.
+    """
+    def _repr_markdown_(self) -> str:
+        return self
+
+
 CHARGEN_BASELINES: Dict[str, Dict[str, Any]] = {
     "reiko": {
         "Nuyen": 90000,
@@ -674,10 +686,10 @@ def mission(
 
     if date:
         heading = f"### {date} | {code}: {title}"
-        return f"{heading}\n\n{banner}" if banner else heading
+        return MarkdownStr(f"{heading}\n\n{banner}" if banner else heading)
     else:
         suffix = f" — {banner}" if banner else ""
-        return f"**{code}: {title}**{suffix}"
+        return MarkdownStr(f"**{code}: {title}**{suffix}")
 
 
 def start_mission(code: str) -> str:

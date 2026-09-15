@@ -8,10 +8,10 @@ identity:
   gender: DIVERSE
   age: ~ 10
   system: shadowrun6e
-  karma: 0
-  lifetime_karma: 238
-  nuyen: 2550.0
-  lifetime_nuyen: 387300
+  karma: 7
+  lifetime_karma: 245
+  nuyen: 22050.0
+  lifetime_nuyen: 396800
   heat: -1
 attributes:
   body: 5
@@ -1305,6 +1305,45 @@ contacts:
     history:
     - 'SRM.2083.14 (Met: C4 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
+  Lanyap:
+    name: Lanyap
+    canonical_name: Lanyap
+    is_canonical: true
+    connection: 4
+    loyalty: 1
+    favors: 1
+    type: Fixer
+    region: NOLA
+    types:
+    - Criminal
+    - Matrix
+    types_str: Criminal, Matrix
+    description: 'Uses: Getting jobs, fencing gear, gambling, Matrix, ex-shadowrunner
+      network | Types: Criminal, Matrix'
+    notes: 'Uses: Getting jobs, fencing gear, gambling, Matrix, ex-shadowrunner network
+      | Types: Criminal, Matrix'
+    history:
+    - 'SRM.2083.15 (Met: C4 L0, +2 FP)'
+    - Auto-Promoted to Loyalty 1 (-1 FP)
+  Alice Krom:
+    name: Alice Krom
+    canonical_name: Alice Krom
+    is_canonical: true
+    connection: 2
+    loyalty: 1
+    favors: 0
+    type: Musician
+    region: NOLA
+    types:
+    - Entertainment
+    - Street
+    types_str: Entertainment, Street
+    description: 'Uses: Music, entertainment, local scene | Types: Entertainment,
+      Street'
+    notes: 'Uses: Music, entertainment, local scene | Types: Entertainment, Street'
+    history:
+    - 'SRM.2083.15 (Met: C2 L0, +1 FP)'
+    - Auto-Promoted to Loyalty 1 (-1 FP)
 reputation:
   Vory: 2
   Seattle: 7
@@ -1316,7 +1355,8 @@ reputation:
   UNL: 2
   Southeast Asia: 2
   DW: 2
-total_reputation: 33
+  Kozlowski Family: 2
+total_reputation: 35
 drones:
 - name: MCT Gnat
   ref: mctgnat
@@ -1378,7 +1418,7 @@ drones:
   body: 10
   armor: 8
   pilot: 2
-  sensor: 3
+  sensor: 2
   speed: 10
   handling_on: 3
   handling_off: 3
@@ -1397,7 +1437,7 @@ drones:
   - Realistic Features 4
   - Secondary Propulsion (Rotor)
   - Nitro Boost
-  - Increased Sensors 6
+  - Increased Sensors 2
   - (Rating 1) Camera w/ image link
   - (Rating 2) Low-light Vision
   - Omni-directional mic with sound link

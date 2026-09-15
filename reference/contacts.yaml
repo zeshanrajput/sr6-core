@@ -1,3 +1,14 @@
+alice_krom:
+  id: alice_krom
+  name: Alice Krom
+  connection: 2
+  job: Musician
+  region: NOLA
+  canonical: true
+  missions:
+  - SRM.2083.15
+  types: Entertainment, Street
+  description: 'Uses: Music, entertainment, local scene | Types: Entertainment, Street'
 brynne_taggart:
   id: brynne_taggart
   name: Brynne Taggart
@@ -276,9 +287,10 @@ lanyap:
   job: Fixer
   region: NOLA
   canonical: true
-  missions: []
+  missions:
+  - SRM.2083.15
   types: Criminal, Matrix
-  description: 'Uses: Getting jobs, fencing gear, gambling, Matrix | Types: Criminal,
+  description: 'Uses: Getting jobs, fencing gear, gambling, Matrix, ex-shadowrunner network | Types: Criminal,
     Matrix'
 le_tigre:
   id: le_tigre

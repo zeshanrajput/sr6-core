@@ -508,3 +508,19 @@ Submersion_Grade = state["Submersion_Grade"]
 * **Character Advancement & Ally Sprite Training:**
   * *Taz Skill Training (Influence):* `{python} inc('Karma', -4)` Spent 4 Karma to teach Taz the Influence skill (*Hack and Slash*, p. 156: adding a non-matrix skill to an existing ally sprite costs $2 \times 2 = 4\text{ Karma}$). Taz (Level 7) grants a teamwork bonus of up to +4 dice, which the engine dynamically clamps to Reiko's underlying skill rating (*SR6 Core*, p. 17; currently +1 die with Influence 1).
   * `{python} modifier('Taz Symbiosis (Influence)', 'skill:influence', 4, type='teamwork', rule_anchor='rules_sprites.html#sprite-symbiosis-powers', notes='Taz Level 7 teamwork bonus (up to +4, dynamically clamped to Reiko Influence rating)')`
+
+---
+
+`{python} mission("SRM.2083.15", date="2026-09-14", karma=7, nuyen=9500, bribe=1000, rep={'Kozlowski Family': 2})`
+
+* **Team:** Frostbyte, Rei, Fox, Croaker, Doom 7.5, Yuriko
+* **Summary:** During the unawakening, Lanyap hired us to find out why a metahuman Jazz group (the 'Gator Grip') was having trouble getting gigs, and to get them a booking at Club Incubus. After removing some Humanis sympathizers from the equation, things went well.
+* **Contacts:**
+  * `{python} contact("Lanyap", fp=2)`
+  * `{python} contact("Alice Krom", fp=1)`
+* **Downtime Actions (1 Major, 1 Minor):**
+  * *Major Action 1:* TBD.
+  * *Minor Action 2:* `{python} lifestyle('Middle', cost=2000)` | `{python} work_for_the_people()`
+* **Other**
+  * Adopted two g33k0s, Lizzie and Leonard
+  * Banking karma towards Influence 2 (2 karma remaining)

@@ -117,11 +117,17 @@ def export_quick_sheet(
     is_ai = bool(identity.get("is_ai")) or "ai" in str(metatype).lower()
 
     karma_avail = totals.get("Karma", char_data.get("karma", 0))
+    karma_life = totals.get("Lifetime_Karma", char_data.get("lifetime_karma", karma_avail))
     raw_nuyen = totals.get("Nuyen", char_data.get("nuyen", 0))
+    raw_life_nuyen = totals.get("Lifetime_Nuyen", char_data.get("lifetime_nuyen", raw_nuyen))
     try:
         nuyen_avail = int(float(raw_nuyen))
     except Exception:
         nuyen_avail = 0
+    try:
+        nuyen_life = int(float(raw_life_nuyen))
+    except Exception:
+        nuyen_life = 0
 
     heat = totals.get("Heat", 0)
     raw_rep = totals.get("Reputation", 0)
@@ -153,7 +159,9 @@ def export_quick_sheet(
     # 1. Header & Identity
     sheet.extend(_box_header(f"SR6 DOSSIER // {handle}"))
     sheet.append(_row(f"METATYPE : {metatype:<20} ARCHETYPE: {archetype}"))
-    sheet.append(_row(f"KARMA    : {karma_avail} avail               NUYEN    : {nuyen_avail:,} Nuyen"))
+    karma_field = f"KARMA(TKE): {karma_avail} ({karma_life})"
+    nuyen_field = f"NUYEN(TNE): {nuyen_avail:,} ({nuyen_life:,})"
+    sheet.append(_row(f"{karma_field:<31} {nuyen_field}"))
     sheet.append(_row(f"HEAT     : {str(heat):<20} REPUTATION: {rep[:32]}"))
 
     # 2. Attributes Row

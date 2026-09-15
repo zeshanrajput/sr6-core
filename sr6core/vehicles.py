@@ -57,6 +57,21 @@ def parse_vehicle_modifications(drone_dict: Dict[str, Any], char_data: Optional[
             sensor_bonus += 1
             notes_list.append("Network Sensor Upgrade (+1)")
 
+    # Anthroform Drone Detection & Sensor Package Size Caps (SR6 p. 277)
+    is_anthro = any(k in name.lower() for k in ["butler", "man-at-arms", "man_at_arms", "samurai", "duelist", "anthro"]) or "anthro" in str(drone_dict.get("category", "")).lower()
+    d_cat = str(drone_dict.get("category", "")).lower()
+    d_type = str(drone_dict.get("type", "")).lower()
+    if "micro" in d_cat or "micro" in d_type or "mini" in d_cat or "mini" in d_type or "small" in d_cat or "small" in d_type:
+        max_sensor_cap = 3
+    elif is_anthro or "medium" in d_cat or "medium" in d_type:
+        max_sensor_cap = 4
+    elif "large" in d_cat or "large" in d_type:
+        max_sensor_cap = 5
+    elif "motorcycle" in d_cat or "motorcycle" in d_type or "bike" in d_cat:
+        max_sensor_cap = 6
+    else:
+        max_sensor_cap = 7
+
     has_smart_tires = False
 
     # Parse Modifications
@@ -78,12 +93,17 @@ def parse_vehicle_modifications(drone_dict: Dict[str, Any], char_data: Optional[
             armor_bonus += a_val
             notes_list.append(f"Armor Increase (+{a_val} ARM)")
 
-        # 3. Enhanced / Increased Sensors (+Sensor)
+        # 3. Enhanced / Increased Sensors (Rating replacement / upgrade, DC p. 120, 142 / SR6 p. 277)
         sensor_match = re.search(r"(enhanced|increased)\s+sensors?\s+(\d+)", m_lower)
         if sensor_match:
             s_val = int(sensor_match.group(2))
-            sensor_bonus += s_val
-            notes_list.append(f"Enhanced Sensors (+{s_val} SEN)")
+            # Supports both additive rating (e.g. Rating 2 adding +2 to base 2 -> 4) or target rating (e.g. Rating 4)
+            target_hardware = min(max_sensor_cap, max(sensor + s_val, s_val))
+            if target_hardware > sensor:
+                sensor_bonus += (target_hardware - sensor)
+                notes_list.append(f"Enhanced Sensors ({sensor} -> {target_hardware} SEN)")
+            else:
+                notes_list.append(f"Enhanced Sensors (Rating {s_val})")
 
         # 4. Secondary Propulsion (Rotor)
         if "rotor" in m_lower:
@@ -117,7 +137,6 @@ def parse_vehicle_modifications(drone_dict: Dict[str, Any], char_data: Optional[
     # Anthroform Drone Armor Stacking:
     # Anthrodrones may wear metahuman armor (highest primary DR + cumulative layers) or use natural vehicle armor (whichever is higher).
     # Both can deploy a Wrist Shield for an additional +4 Defense Rating.
-    is_anthro = any(k in name.lower() for k in ["butler", "man-at-arms", "man_at_arms", "samurai", "duelist", "anthro"]) or "anthro" in str(drone_dict.get("category", "")).lower()
     
     shield_dr = 4 if has_wrist_shield else 0
     if has_wrist_shield and not any("Wrist Shield" in n for n in notes_list):
@@ -547,17 +566,19 @@ def calculate_vehicle_mod_slots(
             })
             continue
 
-        # 13. Enhanced / Increased Sensors
+        # 13. Enhanced / Increased Sensors (DC p. 120, 142)
         sens_m = re.search(r"(?:enhanced|increased)\s+sensors?\s+(\d+)", m_low)
         if sens_m:
             r_val = int(sens_m.group(1))
-            diff_cost = max(0, r_val - base_sensor)
+            # If rating represents an upgrade differential (e.g. Rating 6 replacing base 3), cost is differential.
+            # If rating represents an installed rating upgrade (e.g. Rating 2 adding +2), cost is 1 x Rating = r_val.
+            slots_cost = r_val - base_sensor if r_val > base_sensor else r_val
             categorized["electronic"].append({
                 "name": m_str,
                 "category": "electronic",
                 "rating": r_val,
-                "slots_cost": diff_cost,
-                "notes": f"Sensor {base_sensor} -> {r_val} (Differential cost: {r_val} - {base_sensor} = {diff_cost} slots)",
+                "slots_cost": slots_cost,
+                "notes": f"Enhanced Sensors Rating {r_val} ({slots_cost} slots)",
                 "rule_ref": "DC p. 120, 142"
             })
             continue

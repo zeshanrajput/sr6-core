@@ -284,6 +284,15 @@ SRM.2083.14:
   - cedar
   - roanoke
   - alexander_sloane
+SRM.2083.15:
+  id: SRM.2083.15
+  title: Dalliance with Decadence
+  type: SRM
+  season: '2083'
+  region: NOLA
+  contacts:
+  - lanyap
+  - alice_krom
 SRM.2081.09:
   id: SRM.2081.09
   title: Eviction Notice

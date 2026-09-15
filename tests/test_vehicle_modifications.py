@@ -188,10 +188,10 @@ def test_reiko_man_at_arms_complete_accounting():
       - Chassis (11 slots used): Structural Integrity 5 (5), Realistic Features 4 (4),
         Pop-Out Concealment x2 (2), Used Synthetic Cyberarm (0 per SRM).
       - Powertrain (6 or 8 slots used): Rotor (4), Wheeled (2), (Nitro Boost 2).
-      - Electronic (5 slots used): Chameleon Coating (2), Increased Sensors 6 (3).
+      - Electronic (4 slots used): Chameleon Coating (2), Increased Sensors 2 (2).
       - Hardpoints: 3/3 Standard used (2 Weapon Mounts + 1 Drone Rack).
       - Right Cyberarm: 8/8 Capacity used (Tesla Coil).
-      - Least-used conversion: Pulls 2 slots from Electronic (spare 5 > spare 2/4) @ 2:1 -> +1 Chassis.
+      - Least-used conversion: Pulls 2 slots from Electronic (spare 6 > spare 2/4) @ 2:1 -> +1 Chassis.
     """
     cm = CharacterManager()
     char = cm.load_character("reiko")
@@ -211,7 +211,7 @@ def test_reiko_man_at_arms_complete_accounting():
     # Check raw used slots
     assert slots["raw_used"]["chassis"] == 11
     assert slots["raw_used"]["powertrain"] in [6, 8]
-    assert slots["raw_used"]["electronic"] == 5
+    assert slots["raw_used"]["electronic"] == 4
 
     # Check auto 2:1 shift
     # Deficit of 1 in Chassis is filled by pulling 2 slots from Electronic (least-used resource)

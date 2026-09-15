@@ -2,7 +2,7 @@
 |                        SR6 DOSSIER // YURIKO STAR                        |
 +--------------------------------------------------------------------------+
 | METATYPE : AI-Pilot AI          ARCHETYPE: Technoshamans                 |
-| KARMA    : 0 avail               NUYEN    : 2,550 Nuyen                  |
+| KARMA(TKE): 7 (245)             NUYEN(TNE): 22,050 (396,800)             |
 | HEAT     : -1                   REPUTATION: Vory:2, Seattle:7, AMS:2,... |
 +-- ATTRIBUTES ------------------------------------------------------------+
 | A 3(7)  S 5(9)  D 3(7)  F 5(9)  W 6  L 4  I 2  C 4                       |
@@ -41,8 +41,8 @@
 |   H:4/4  AC:10/10  SP:120  B:3  A:0(4)  P:3  S:3(6)                      |
 |   POOLS: Piloting:10d6 | Gunnery:13d6 | Evasion:10d6 | Perception:13d6   |
 | [DRONE] Shiawase Man-at-Arms                                             |
-|   H:3/3  AC:5/5  SP:10  B:10(16)  A:8  P:2(9)  S:3(10)                   |
-|   POOLS: Piloting:23d6 | Gunnery:22d6 | Evasion:24d6 | Perception:21d6   |
+|   H:3/3  AC:5/5  SP:10  B:10(16)  A:8  P:2(9)  S:2(5)                    |
+|   POOLS: Piloting:23d6 | Gunnery:17d6 | Evasion:24d6 | Perception:16d6   |
 +-- KEY QUALITIES ---------------------------------------------------------+
 | + Natural Hacker                   | + Stream: Technoshamans             |
 | + Designer                         | + Sensor Upgrade                    |

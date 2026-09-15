@@ -2,7 +2,7 @@
 |                           SR6 DOSSIER // VENN                            |
 +--------------------------------------------------------------------------+
 | METATYPE : Human                ARCHETYPE: Shadowrunner                  |
-| KARMA    : 3 avail               NUYEN    : 570 Nuyen                    |
+| KARMA(TKE): 3 (3)               NUYEN(TNE): 570 (570)                    |
 | HEAT     : 0                    REPUTATION:                              |
 +-- ATTRIBUTES ------------------------------------------------------------+
 | B 5  A 7  R 2  S 4  W 7(8)  L 6  I 5  C 2(3)                             |

@@ -85,7 +85,7 @@ def test_mobile_json_export_reiko():
     assert maa["body"] == 16      # 10 base + 5 structural integrity + 1 home device
     assert maa["pilot"] == 9     # Replaced by Reiko's RES 8 + 1 Designer
     assert maa["armor"] == 8     # 8 base (armor increase stripped for legal nuyen balance)
-    assert maa["sensor"] == 10   # 3 base + 6 increased sensors + 1 sensor upgrade quality
+    assert maa["sensor"] == 5    # 4 enhanced/max medium drone sensor + 1 sensor upgrade quality
 
     # Verify secondary drones (Kwonsham Dream Genie, Utility-One) have native base pilot 1 (no override/designer bonus)
     genie = next((v for v in res["vehicles"] if "dream genie" in v["name"].lower()), None)
