@@ -2,7 +2,7 @@
 |                        SR6 DOSSIER // YURIKO STAR                        |
 +--------------------------------------------------------------------------+
 | METATYPE : AI-Pilot AI          ARCHETYPE: Technoshamans                 |
-| KARMA(TKE): 7 (245)             NUYEN(TNE): 22,050 (396,800)             |
+| KARMA(TKE): 3 (246)             NUYEN(TNE): 550 (396,800)                |
 | HEAT     : -1                   REPUTATION: Vory:2, Seattle:7, AMS:2,... |
 +-- ATTRIBUTES ------------------------------------------------------------+
 | A 3(7)  S 5(9)  D 3(7)  F 5(9)  W 6  L 4  I 2  C 4                       |

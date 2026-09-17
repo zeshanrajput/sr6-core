@@ -518,9 +518,13 @@ Submersion_Grade = state["Submersion_Grade"]
 * **Contacts:**
   * `{python} contact("Lanyap", fp=2)`
   * `{python} contact("Alice Krom", fp=1)`
-* **Downtime Actions (1 Major, 1 Minor):**
-  * *Major Action 1:* TBD.
-  * *Minor Action 2:* `{python} lifestyle('Middle', cost=2000)` | `{python} work_for_the_people()`
+* **Downtime Actions (1 Major Traded for 2 Minors $\rightarrow$ 3 Minor Actions):**
+  * *Minor Action 1 (Learn Complex Form — Enlighten Automaton):* `{python} learn_complex_form("Enlighten Automaton")`
+  * *Minor Action 2 (Register Sprites — 2 days downtime):*
+    * `{python} add_sprite("Modular", 7)`
+    * `{python} add_sprite("Modular", 7)`
+  * *Minor Action 3:* `{python} lifestyle('Middle', cost=2000)` | `{python} work_for_the_people()`
 * **Other**
   * Adopted two g33k0s, Lizzie and Leonard
-  * Banking karma towards Influence 2 (2 karma remaining)
+  * Installed second used synthetic cyberarm (Left, 8 Capacity) housing Rating 5 Sensor Array, upgraded to Increased Sensors 3.
+  * 3 Karma remaining banked.

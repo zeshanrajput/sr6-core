@@ -8,9 +8,9 @@ identity:
   gender: DIVERSE
   age: ~ 10
   system: shadowrun6e
-  karma: 7
-  lifetime_karma: 245
-  nuyen: 22050.0
+  karma: 3
+  lifetime_karma: 246
+  nuyen: 550.0
   lifetime_nuyen: 396800
   heat: -1
 attributes:
@@ -81,9 +81,7 @@ modifiers:
   type: focus
   sub_skill: null
   rule_anchor: rules/rules_matrix.html#foci
-  notes: '+4 dice to tests using Resonance attribute (Tasking, Cracking, Electronics
-    via Natural Hacker, Inhabited Drone Override). Fading Value: 2 (WIL 6 + LOG 4
-    soak)'
+  notes: +4 dice to tests using RES
   enabled: true
 - id: smartlink_wireless
   name: Smartlink (Wireless)
@@ -164,6 +162,12 @@ complex_forms:
   notes: 'Source: hack_slash'
 - name: Resonance Wires
   ref: resonance_wires
+  fading: 2
+  duration: Instant
+  target: Device
+  notes: 'Source: hack_slash'
+- name: Enlighten Automaton
+  ref: enlighten_automaton
   fading: 2
   duration: Instant
   target: Device
@@ -1429,28 +1433,27 @@ drones:
   modifications:
   - Weapon Mount (Standard) x2
   - Pop-Out Concealment (Standard) x2
-  - Chameleon Coating 2
+  - Chameleon Coating 4
+  - Passive Stealth Features
   - Drone Rack (Small)
   - Used Synthetic Cyberarm (Right, 8 Capacity)
   - Tesla Coil
+  - Used Synthetic Cyberarm (Left, 8 Capacity)
+  - Sensor Housing (Max Rating 5 Array, [5] Capacity)
   - Increased Structural Integrity 5
   - Realistic Features 4
   - Secondary Propulsion (Rotor)
   - Nitro Boost
-  - Increased Sensors 2
-  - (Rating 1) Camera w/ image link
-  - (Rating 2) Low-light Vision
+  - Increased Sensors 3
+  - Camera w/ image link
+  - Low-light Vision
   - Omni-directional mic with sound link
-  - (Rating 3) Flare compensation
-  - Spatial recognizer
-  - Atmosphere sensor
-  - (Rating 4) Laser range finder
-  - (Rating 5) Motion sensor
-  - (Rating 6) Ultrasound
-  - (Rating 7) Olfactory Sensor
-  - (Rating 8) Oral chemical analyzer
-  - (Rating 9) Tactile Sensors (from the EVO Orderly, DA p. 178. Taken for RP purposes
-    only - I will not be using the Biotech bonus)
+  - Flare compensation
+  - Ultrasound
+  - Olfactory Sensor
+  - Oral chemical analyzer
+  - Tactile Sensors (from the EVO Orderly, DA p. 178. Taken for RP purposes only -
+    I will not be using the Biotech bonus)
   - Secondary Propulsion (Wheeled)
   - Smart Tires
   - Satellite Link

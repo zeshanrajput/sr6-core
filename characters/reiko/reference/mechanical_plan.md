@@ -101,14 +101,14 @@ This document tracks character upgrades, mechanical evaluations, karma/nuyen tar
 | Step | Target Upgrade | Cost | Downtime Actions Needed | Funding Mechanism & Status |
 | :---: | :--- | :--- | :--- | :--- |
 | **01** | **Taz Symbiosis: Influence** | **4 Karma** | None (Post-mission training) | **ACQUIRED** (SRM 2083-14 Post-Mission) |
-| **02** | **Tasking Spec: Compiling** | 5 Karma | None (Between runs) | **ACTIVE TARGET** (0/5 Karma Banked) |
-| **03** | **Electronics Spec: Computers** | 5 Karma | None (Between runs) | Banked Karma (+2 Matrix Perception) |
-| **04** | **Electronics Spec: Software** | 5 Karma | None (Between runs) | Banked Karma (+2 Coding / Sourcecraft) |
-| **05** | **Influence Rank 1 $\rightarrow$ 2** | 10 Karma | None (Between runs) | Banked Karma (Uncaps Taz to +2 teamwork) |
-| **06** | **Influence Spec: Negotiation** | 5 Karma | None (Between runs) | Banked Karma (+2 Social Wheelhouse) |
-| **07** | **Complex Form: Enhance Autosoft** | 5 Karma | 1 Minor Action (Study) | Banked Karma (Drone Buffing) |
-| **08** | **Complex Form: Enlighten Automaton** | 5 Karma | 1 Minor Action (Study) | Banked Karma (Drone Autonomy) |
-| **09** | **Second Cyberarm (Left, Used)** | ¥10,000 | 1 Minor Action (Install) | Mission Nuyen (8 Cap for Nanohive) |
+| **02** | **Complex Form: Enlighten Automaton** | **5 Karma** | 1 Major Action (Study) | **ACQUIRED** (SRM 2083-15 Post-Mission) |
+| **03** | **Second Cyberarm (Left, Used)** | **¥10,000** | 1 Minor Action (Install) | **ACQUIRED** (SRM 2083-15 Post-Mission) |
+| **04** | **Tasking Spec: Compiling** | 5 Karma | None (Between runs) | **ACTIVE TARGET** (3/5 Karma Banked) |
+| **05** | **Electronics Spec: Computers** | 5 Karma | None (Between runs) | Banked Karma (+2 Matrix Perception) |
+| **06** | **Electronics Spec: Software** | 5 Karma | None (Between runs) | Banked Karma (+2 Coding / Sourcecraft) |
+| **07** | **Influence Rank 1 $\rightarrow$ 2** | 10 Karma | None (Between runs) | Banked Karma (Uncaps Taz to +2 teamwork) |
+| **08** | **Influence Spec: Negotiation** | 5 Karma | None (Between runs) | Banked Karma (+2 Social Wheelhouse) |
+| **09** | **Complex Form: Enhance Autosoft** | 5 Karma | 1 Minor Action (Study) | Banked Karma (Drone Buffing) |
 | **10** | **Nanohive Rating 6 (Used)** | ¥45,000 | 1 Minor Action (Install) | Mission Nuyen (Hunter/Infest Nanites) |
 | **11** | **Hydrocarbon Fuel Converter** | ¥7,500 | 1 Minor Action (Install) | Mission Nuyen (Metabolic Power) |
 | **12** | **Influence Rank 2 $\rightarrow$ 3** | 15 Karma | None (Between runs) | Banked Karma (Uncaps Taz to +3 teamwork) |

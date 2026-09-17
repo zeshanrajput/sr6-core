@@ -101,29 +101,28 @@ Software with karma costs have been learned via the **Software Emulator** echo.
   * Weapon Mount - Standard x2 `{python} inc('Nuyen', -1600/2)`
   * Pop-Out Concealment - Standard x2 `{python} inc('Nuyen', -4000/2)`
     * Red Fox x2 (Eye laser mounts)
-  * Chameleon Coating 2 `{python} inc('Nuyen', -9000/2)`
+  * Chameleon Coating 4 `{python} inc('Nuyen', -18000/2)`
+  * Passive Stealth Features `{python} inc('Nuyen', -1000/2)`
   * Drone Rack (Small) `{python} inc('Nuyen', -3000/2)`
     * Stores 3 Small Drones (Sky Commander, Dream Genie, Utility-One)
   * Used Synthetic Cyberarm (Right, 8 Capacity) `{python} inc('Nuyen', -10000)`
     * Tesla Coil `{python} inc('Nuyen', -15000/2)`
+  * Used Synthetic Cyberarm (Left, 8 Capacity) `{python} inc('Nuyen', -10000)`
+    * Sensor Housing (Max Rating 5 Array, [5] Capacity)
   * Increased Structural Integrity 5 `{python} inc('Nuyen', -25000/2)`
   * Realistic Features 4 `{python} inc('Nuyen', -4 * 10 * 1000 / 2)`
   * Secondary Propulsion (Rotor): `{python} inc('Nuyen', -50000/2)`
     * HAN 5, ACC 10, SPD 20/120 
   * Nitro Boost: `{python} inc('Nuyen',-5000/2)` 
-  * Increased Sensors 2 `{python} inc('Nuyen', -10000/2)`
-    * (Rating 1) Camera w/ image link
-    * (Rating 2) Low-light Vision
+  * Increased Sensors 3 `{python} inc('Nuyen', -15000/2)`
+    * Camera w/ image link
+    * Low-light Vision
     * Omni-directional mic with sound link
-    * (Rating 3) Flare compensation
-    * Spatial recognizer
-    * Atmosphere sensor
-    * (Rating 4) Laser range finder
-    * (Rating 5) Motion sensor
-    * (Rating 6) Ultrasound
-    * (Rating 7) Olfactory Sensor
-    * (Rating 8) Oral chemical analyzer
-    * (Rating 9) Tactile Sensors (from the EVO Orderly, DA p. 178. Taken for RP purposes only - I will not be using the Biotech bonus)
+    * Flare compensation
+    * Ultrasound
+    * Olfactory Sensor
+    * Oral chemical analyzer
+    * Tactile Sensors (from the EVO Orderly, DA p. 178. Taken for RP purposes only - I will not be using the Biotech bonus)
   * Secondary Propulsion (Wheeled): `{python} inc('Nuyen', -10000/2)`
     * Smart Tires `{python} inc('Nuyen', -1200/2)`
     * HAN 3/4, ACC 15, SPD 25/120
@@ -148,7 +147,6 @@ Drone mods include a 50% discount on mods Yuriko installed herself (DC p. 120). 
 
 ### Electronics
 
-* Software Tag x10 `{python} inc('Nuyen', -100 * 10)`
 * Laser Jack x10 `{python} inc('Nuyen', -100 * 10)`
 * Satellite Link x2 `{python} inc('Nuyen', -500 * 2)`
 
