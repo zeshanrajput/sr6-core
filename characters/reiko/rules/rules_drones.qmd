@@ -67,19 +67,19 @@ Understanding Reiko's drone pools requires distinguishing tests derived from the
    * **Inhabited Override**: Reiko's Sprite Power *Override* [SR6H p. 194] replaces the drone's Pilot with herself, acting as a sprite with Level equal to her Resonance (8) plus the Designer quality (+1 Pilot on Home Device) for an effective **Pilot 9**.
    * **Resonance Focus Synergy**: Because these tests directly employ her Resonance attribute, her **Resonance Focus (Rating 4)** applies (+4 dice) [HnS p. 71].
    * **Sprite Teamwork**: Taz (Level 7 Assassin Sprite) provides Level/2 rounded up (+4 dice) via *Sprite Symbiosis* on shared skills (Stealth, Evasion), or a +3 teamwork bonus via the *Diagnosis* power on Piloting.
-   * **Effective Autosofts**: Autosoft ratings are capped by Reiko's Living Persona Data Processing (`{python} ACTIVE_D` = 7).
+   * **Effective Autosofts**: Autosoft ratings are capped by Reiko's Living Persona Data Processing (`{python} ACTIVE_D`).
    * **Resulting Pools**: Piloting **23d6**, Evasion **24d6**, and Stealth **26d6**.
 
 2. **Sensor-Based Tests (Gunnery / Targeting, Perception / Clearsight)**:
    * **Sensor Attribute Pairing**: These tests pair the relevant autosoft (effective rating 7 from Data Processing) with the drone's **Sensor attribute**.
    * **No Resonance Focus**: Resonance Focus does *not* apply because the pool is anchored in the drone's physical Sensor attribute rather than a Resonance test.
    * **Sensor Array vs. Sensor Attribute Rules (SR6 p. 277)**:
-     * *Hardware Array Rating*: Capped at **Rating 4** for Medium anthrodrones. Auxiliary sensor arrays mounted in cyberarms add specialized sensory capabilities (e.g., ultrasound, thermographics) but do not replace the drone's native Sensor attribute.
-     * *Home Device Tuning*: Reiko designates the Man-at-Arms as her active AI Home Device, shifting +1 tuning bonus from Body into the **Sensor attribute**.
-     * *Network Sensor Upgrade*: Reiko's positive quality contributes **+1** to all connected sensor operations.
+     * *Hardware Array Rating*: Capped at **Rating 4** for Medium anthrodrones. Any auxiliary sensor arrays mounted in cyberarms add specialized sensory capabilities (e.g., ultrasound, thermographics) but do not replace the drone's native Sensor attribute.
+     * *Home Device Tuning*: Reiko designates the Man-at-Arms as her active AI Home Device, electing to use her +1 tuning bonus for the **Sensor attribute**.
+     * *Network Sensor Upgrade*: Reiko's Sensor Upgrade quality contributes **+1** to all connected sensor operations.
      * *Baseline Sensor Attribute*: $\text{Hardware (4)} + \text{Home Device (1)} + \text{Quality (1)} =$ **6**.
      * *Enlighten Automaton Buff*: When sustained, the *Enlighten Automaton* complex form adds hits up to double the drone's base rating (base 2 $\rightarrow$ **+2 dice** max) [HnS p. 74], elevating the Sensor attribute up to **8**.
-   * **Sustaining Strategy**: Until Reiko acquires *Focused Concentration (Rating 1)* (planned at 24 Karma post-chargen), she tasks a registered Modular Sprite to sustain *Enlighten Automaton* whenever those extra 2 dice matter, completely bypassing the standard -2 sustaining penalty.
+   * **Sustaining Strategy**: Until Reiko acquires *Focused Concentration (Rating 1)* (planned at 24 Karma post-chargen), she tasks a registered Modular Sprite to sustain *Enlighten Automaton* whenever those extra 2 dice matter, avoiding the standard -2 sustaining penalty.
    * **Tactical Smartlink Bonus**: Wireless smartlinked weapons (such as her internal Red Fox eye lasers) grant an 'other' modification bonus of **+1 die** to Targeting tests [SR6 p. 261].
    * **Resulting Pools**:
      * **Drone Weapon Attack (Gunnery)**: Targeting (7) + Sensor (6) + Taz Symbiosis (4) + Smartlink (1) = **18d6** baseline (**20d6** when *Enlighten Automaton* is sustained).
@@ -123,3 +123,4 @@ print(get_drone_action_table("reiko", "man-at-arms", mode="remote_ar"))
 * **Establishing**: Electronics + Logic (or Sensor + Clearsight) vs. Reaction + Piloting (or Pilot + Evasion) (Major Action).
 * **Locked On Status**: Target cannot spend Edge while defending against attacks originating from the vehicle that established lock. Lasts until Cover IV is achieved or ended by Break Sensor Lock.
 * **Break Sensor Lock**: Reaction + Piloting (or Intuition + Reaction) vs. Electronics + Intuition (or Clearsight + Sensor) (Major Action).
+* **Smartsoft**: This rigging program allows Reiko to share Target Locks with any drone on the network.
