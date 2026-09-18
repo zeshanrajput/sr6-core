@@ -57,35 +57,63 @@ print(get_drone_statblock_table("reiko", "utility"))
 
 ## Standardized Drone Action Pools
 
-### 1. Remote AR Operation (Control Device via AI ASDF)
+Reiko operates drones through two distinct operating paradigms: **Inhabited Override Operation** (via Sprite Power *Override*) and **Remote AR Operation** (via Matrix *Control Device*).
 
-Reiko can control drones using the Control Device matrix action. 
+### 1. The Core Pool Architecture: Pilot-Based vs. Sensor-Based Tests
 
-* When controlling via VR, she must use mental attributes [SR6 198]. Reiko never does this.
-* When controlling via AR, she uses her "physical" attributes [SR6 180] (via the Matrix equivalent values [HnS 118]).
-  * Body → Firewall (`{python} ACTIVE_F`)
-  * Agility → Data Processing (`{python} ACTIVE_D`)
-  * Reaction → Sleaze (`{python} ACTIVE_S`)
-  * Strength → Attack (`{python} ACTIVE_A`)
-* Per *Pilot Origins* [HnS 119], Reiko may use autosofts. 
-* Per *Sprite Symbiosis*, her ally sprite may provide Level/2 as a Teamwork bonus on shared skills. 
-  * The ally sprite knows the Targeting, Clearsight, and Stealth autosofts. 
-  * The ally sprite also has the *Diagnosis* power, which is used to support piloting and repair tests.
+Understanding Reiko's drone pools requires distinguishing tests derived from the drone's **Pilot** from those derived from its **Sensor**:
 
-```{python}
-#| echo: false
-#| output: asis
-print(get_drone_action_table("reiko", "man-at-arms", mode="remote_ar"))
-```
+1. **Pilot-Based Tests (Piloting / Maneuvering, Evasion, Stealth)**:
+   * **Inhabited Override**: Reiko's Sprite Power *Override* [SR6H p. 194] replaces the drone's Pilot with herself, acting as a sprite with Level equal to her Resonance (8) plus the Designer quality (+1 Pilot on Home Device) for an effective **Pilot 9**.
+   * **Resonance Focus Synergy**: Because these tests directly employ her Resonance attribute, her **Resonance Focus (Rating 4)** applies (+4 dice) [HnS p. 71].
+   * **Sprite Teamwork**: Taz (Level 7 Assassin Sprite) provides Level/2 rounded up (+4 dice) via *Sprite Symbiosis* on shared skills (Stealth, Evasion), or a +3 teamwork bonus via the *Diagnosis* power on Piloting.
+   * **Effective Autosofts**: Autosoft ratings are capped by Reiko's Living Persona Data Processing (`{python} ACTIVE_D` = 7).
+   * **Resulting Pools**: Piloting **23d6**, Evasion **24d6**, and Stealth **26d6**.
+
+2. **Sensor-Based Tests (Gunnery / Targeting, Perception / Clearsight)**:
+   * **Sensor Attribute Pairing**: These tests pair the relevant autosoft (effective rating 7 from Data Processing) with the drone's **Sensor attribute**.
+   * **No Resonance Focus**: Resonance Focus does *not* apply because the pool is anchored in the drone's physical Sensor attribute rather than a Resonance test.
+   * **Sensor Array vs. Sensor Attribute Rules (SR6 p. 277)**:
+     * *Hardware Array Rating*: Capped at **Rating 4** for Medium anthrodrones. Auxiliary sensor arrays mounted in cyberarms add specialized sensory capabilities (e.g., ultrasound, thermographics) but do not replace the drone's native Sensor attribute.
+     * *Home Device Tuning*: Reiko designates the Man-at-Arms as her active AI Home Device, shifting +1 tuning bonus from Body into the **Sensor attribute**.
+     * *Network Sensor Upgrade*: Reiko's positive quality contributes **+1** to all connected sensor operations.
+     * *Baseline Sensor Attribute*: $\text{Hardware (4)} + \text{Home Device (1)} + \text{Quality (1)} =$ **6**.
+     * *Enlighten Automaton Buff*: When sustained, the *Enlighten Automaton* complex form adds hits up to double the drone's base rating (base 2 $\rightarrow$ **+2 dice** max) [HnS p. 74], elevating the Sensor attribute up to **8**.
+   * **Sustaining Strategy**: Until Reiko acquires *Focused Concentration (Rating 1)* (planned at 24 Karma post-chargen), she tasks a registered Modular Sprite to sustain *Enlighten Automaton* whenever those extra 2 dice matter, completely bypassing the standard -2 sustaining penalty.
+   * **Tactical Smartlink Bonus**: Wireless smartlinked weapons (such as her internal Red Fox eye lasers) grant an 'other' modification bonus of **+1 die** to Targeting tests [SR6 p. 261].
+   * **Resulting Pools**:
+     * **Drone Weapon Attack (Gunnery)**: Targeting (7) + Sensor (6) + Taz Symbiosis (4) + Smartlink (1) = **18d6** baseline (**20d6** when *Enlighten Automaton* is sustained).
+     * **Drone Perception Test (Clearsight)**: Clearsight (7) + Sensor (6) + Taz Symbiosis (4) = **17d6** baseline (**19d6** when *Enlighten Automaton* is sustained).
+
+---
 
 ### 2. Inhabited Override Operation (Sprite Power *Override*)
 
-Reiko can also operate drones using the *Override* Sprite Power [SR6H p. 194], which allows her to replace the drone's pilot with herself (acting as a sprite with a Level equal to her Resonance). For tests using the drone's Pilot (such as Piloting, Evasion, and Stealth), this test involves her Resonance pool and her Resonance Focus applies [HnS p. 71], alongside Taz's Sprite Symbiosis and Diagnosis support. For tests based on Sensor (such as Targeting Autosoft and Clearsight), the pool pairs the autosoft with the drone's augmented Sensor rating without Resonance Focus, and targeting tests with wireless smartlinked weapons benefit from an 'other' modification bonus (+1 dice pool) [SR6 p. 261].
+When Reiko inhabits her Shiawase Man-at-Arms home device, she uses her full Resonance matrix core and sprite synergies:
 
 ```{python}
 #| echo: false
 #| output: asis
 print(get_drone_action_table("reiko", "man-at-arms", mode="inhabited_override"))
+```
+
+---
+
+### 3. Remote AR Operation (Control Device via AI ASDF)
+
+When directing drones remotely (such as secondary reconnaissance drones or the Man-at-Arms from a distance), Reiko uses the *Control Device* matrix action. Per *Pilot Origins* [HnS p. 118–119], controlling drones via AR maps physical attributes to her Living Persona ASDF:
+
+* **Body** $\rightarrow$ Firewall (`{python} ACTIVE_F` = 9)
+* **Agility** $\rightarrow$ Data Processing (`{python} ACTIVE_D` = 7)
+* **Reaction** $\rightarrow$ Sleaze (`{python} ACTIVE_S` = 9)
+* **Strength** $\rightarrow$ Attack (`{python} ACTIVE_A` = 7)
+
+Taz provides *Sprite Symbiosis* (+4 dice) on shared autosofts and *Diagnosis* (+3 dice) on piloting:
+
+```{python}
+#| echo: false
+#| output: asis
+print(get_drone_action_table("reiko", "man-at-arms", mode="remote_ar"))
 ```
 
 ---
