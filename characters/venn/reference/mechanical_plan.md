@@ -45,7 +45,7 @@ This document establishes Venn's post-chargen augmentation roadmap, tracking Ess
 ├────────────────────────────────┬──────────────┬──────────────┬──────────────┤
 │ Bulk Modification Rating 4 (x4)│ Limb Mod     │ 8,000¥ (1.1K)│ 52 Total Cap │
 │ Agility Enhancement [+4] (x4)  │ Limb Mod     │ 20k¥ (2.8 K) │ AGI 8 (10 OD)│
-│ Tesla Coil (Spray Attack)      │ Implanted Wpn│ 15k¥ (2.1 K) │ 5S(e) Area   │
+│ Tesla Coil (Spray Suite)       │ Implanted Wpn│ 15k¥ (2.1 K) │ 5S/4S/2S(e)  │
 │ Built-in Mil-Spec Medkit R6    │ Paramedic Mod│ 4,000¥ (0.6K)│ Paramedic 0-P│
 │ Monofilament Combat Chainsaw   │ Structural Wp│ 3,000¥ (0.4K)│ 6P (2x vs Bar│
 │ Smuggling Compartment          │ Conceal Mod  │ 6,000¥ (0.9K)│ -4 Search Mod│
@@ -148,7 +148,10 @@ Under standard SR6 augmentation rules, cyberware modifications installed directl
 #### 1. Left Cyberarm (12 / 12 Capacity)
 
 * **Agility Enhancement [+4]**: `[4 Cap | 20,000¥]` $\rightarrow$ Pushes limb Agility to **8 (10 Overdriven)**.
-* **Tesla Coil (Spray Attack)**: `[8 Cap | 15,000¥ | Avail 7(I) | *Body Shop*, p. 49]` $\rightarrow$ Forearm-integrated directed lightning projector (**5S(e) Damage | Spray Attack Mode | AR 8/10\*/-/-/- | 5 Shots**). Arcs electrical stun damage across multiple clustered enemies without drawing a weapon!
+* **Tesla Coil (Spray Attack Suite)**: `[8 Cap | 15,000¥ | Avail 7(I) | *Body Shop*, p. 49 / *SR6 Core*, p. 117]` $\rightarrow$ Forearm-integrated directed lightning projector with three tactical discharge styles (5(c) capacitor bank; cyberarm mount grants +2 AR):
+  * **Straight Mode**: **5S(e) DV | AR 10 / 12 / — / — / — | SS (1)**. Direct stream (first valid target on 20m line).
+  * **Wobbly Mode**: **4S(e) DV | AR 12 / 14 / — / — / — | SS (1)**. **8.58° apex cone** (3m wide arc @ 20m). Optional Wild Die.
+  * **Sweeping Mode**: **2S(e) DV | AR 14 / 16 / — / — / — | SS (1)**. **28.07° apex cone** (10m wide arc @ 20m). Optional Wild Die.
 
 #### 2. Right Cyberarm (12 / 12 Capacity)
 
@@ -181,7 +184,7 @@ Under standard SR6 augmentation rules, cyberware modifications installed directl
 2. **The 15+ Meter Kinetic Blitz**:
    * **Glide (Minor Action)**: Skates deploy $\rightarrow$ **10 meters** of high-speed gliding.
    * **Catapult (Minor Action)**: Hydraulic Jacks launch Venn **4–6+ meters** through the air (launch threshold = 1 hit).
-   * **Strike (Major Action)**: Lands an **8P Base Physical Kick** or discharges the **5S(e) Tesla Coil Spray** across the entire enemy squad!
+   * **Strike (Major Action)**: Lands an **8P Base Physical Kick** or discharges the **Tesla Coil Spray** (Straight 5S(e), Wobbly 8.58° 4S(e), or Sweeping 28.07° 2S(e)) across the entire enemy squad!
 
 ---
 
@@ -257,7 +260,7 @@ Because every augmentation upgrade utilizes an **Essence Hole** or cyberlimb cap
 * **Prerequisite**: 10–11 Karma saved with Streetdoc.
 * **1. Bulk Modification Rating 4 (All 4 Limbs)**: 4 × 2,000¥ = **8,000¥** (1.1 Karma) $\rightarrow$ Expands capacity to **52 Total Cap** (0 Ess)!
 * **2. Agility Enhancement [+4] (All 4 Limbs)**: 4 × 5,000¥ upgrade = **20,000¥** (2.8 Karma) $\rightarrow$ **Agility 8 (10 Overdriven)**!
-* **3. Tesla Coil (Left Arm)**: **15,000¥** (2.1 Karma) $\rightarrow$ 5S(e) Directed Lightning Spray Attack.
+* **3. Tesla Coil (Left Arm)**: **15,000¥** (2.1 Karma) $\rightarrow$ Directed Lightning Spray Attack Suite (Straight 5S(e), Wobbly 4S(e) [8.58° cone], Sweeping 2S(e) [28.07° cone]; +2 Mounted AR).
 * **4. Built-in Mil-Spec Medkit R6 (Right Arm)**: **4,000¥** (0.6 Karma) $\rightarrow$ Paramedic trauma suite.
 * **5. Implanted Monofilament Combat Chainsaw (Right Arm)**: **3,000¥** (0.4 Karma) $\rightarrow$ 6P Structural Breacher (doubles DV vs barriers).
 * **6. Smuggling Compartment (Right Leg)**: **6,000¥** (0.9 Karma) $\rightarrow$ Heavy concealed cavity ($-4$ search modifier).

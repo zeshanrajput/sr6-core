@@ -329,6 +329,17 @@ def get_item_card(category: Optional[str], item_input: Union[str, Dict[str, Any]
                 "markdown": format_pack_card(pack),
                 "pack_data": pack
             }
+
+    # Fallback to supplement weapons (e.g. Tesla Coil modes, Red Fox)
+    if not stat_row and category in ["weapon", "weapons", "firearm", "general", "auto"]:
+        try:
+            from sr6core.rules_engine import get_weapon_stats
+            ws = get_weapon_stats(raw_id) or get_weapon_stats(local_name or raw_id)
+            if ws:
+                stat_row = ws
+                resolved_cat = "weapon"
+        except Exception:
+            pass
     
     # Specific targeted queries based on category and clean names
     clean_search_name = re.sub(r"\s*\(.*?\)", "", local_name or raw_id).strip()

@@ -42,6 +42,19 @@ print(render_weapon_card("red_fox"))
 
 ---
 
+## Tesla Coil & Spray Attack Protocols{#tesla-spray-protocols}
+
+Reference: *Body Shop* (p. 49) & *SR6 Core Seattle* (p. 117) / *Lethal Harvest* (p. 145)
+
+The cyberarm-mounted Tesla Coil operates as an exotic ranged thrower using the Shadowrun 6e Flamethrower / Spray Attack rules. It draws from an internal 5-shot capacitor bank (`5(c)`). It features three distinct discharge profiles, with drone/cyberarm mounting stability adding **+2 AR** across all active ranges:
+
+1. **Straight Attack**: Direct stream against a single target (the first valid target on a 20m line of fire; anyone crossing the line is also affected). Base **5S(e)** damage with **10 / 12 / — / — / —** effective AR.
+2. **Wobbly Attack**: Discharges a fluctuating electrical arc across an **$8.58^\circ$ apex cone** (covering a 3-meter wide area at 20m max range). Increases Attack Rating by +2 (**12 / 14 / — / — / —** effective AR) and decreases Damage Value by 1 (**4S(e)**). All valid targets in the 3m area are affected.
+3. **Sweeping Attack**: Sweeps an intense electrical arc across a **$28.07^\circ$ apex cone** (covering a 10-meter wide area at 20m max range). Increases Attack Rating by +4 (**14 / 16 / — / — / —** effective AR) and decreases Damage Value by 3 (**2S(e)**). All valid targets in the 10m area are affected.
+4. **Wild Die Acceleration**: On either a Wobbly or Sweeping attack, Reiko may elect to move the stream extra fast by substituting a **Wild Die** for one normal die from her Exotic Weapons dice pool.
+
+---
+
 ## Amalgam & Grey Mana Technology (GMT) Alloy Protocols{#amalgam-protocols}
 
 Reference: *Scotophobia* (p. 181)
