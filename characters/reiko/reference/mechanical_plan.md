@@ -84,7 +84,7 @@ This document tracks character upgrades, mechanical evaluations, karma/nuyen tar
 
 * **Second Cyberarm (Left, Used Synthetic Cyberarm — 8 Capacity):**
   * Cost: 10,000¥ (Base 20,000¥; 50% used).
-  * Provides dedicated modular capacity to seat a heavy used nanohive without burdening the drone's primary torso capacity.
+  * Provides dedicated modular capacity to seat a heavy used nanohive without burdening the drone's primary torso capacity. Planned for acquisition alongside the Nanohive Rating 6.
 * **Nanohive Rating 6 (Used — 6 Capacity):**
   * Cost: 45,000¥ (Base 90,000¥; 50% used).
   * Capacity: `[6 Capacity]` housed inside the left cyberarm.
@@ -102,16 +102,17 @@ This document tracks character upgrades, mechanical evaluations, karma/nuyen tar
 | :---: | :--- | :--- | :--- | :--- |
 | **01** | **Taz Symbiosis: Influence** | **4 Karma** | None (Post-mission training) | **ACQUIRED** (SRM 2083-14 Post-Mission) |
 | **02** | **Complex Form: Enlighten Automaton** | **5 Karma** | 1 Major Action (Study) | **ACQUIRED** (SRM 2083-15 Post-Mission) |
-| **03** | **Second Cyberarm (Left, Used)** | **¥10,000** | 1 Minor Action (Install) | **ACQUIRED** (SRM 2083-15 Post-Mission) |
-| **04** | **Tasking Spec: Compiling** | 5 Karma | None (Between runs) | **ACTIVE TARGET** (3/5 Karma Banked) |
-| **05** | **Electronics Spec: Computers** | 5 Karma | None (Between runs) | Banked Karma (+2 Matrix Perception) |
-| **06** | **Electronics Spec: Software** | 5 Karma | None (Between runs) | Banked Karma (+2 Coding / Sourcecraft) |
+| **03** | **Tasking Spec: Compiling** | 5 Karma | None (Between runs) | **ACTIVE TARGET** (3/5 Karma Banked) |
+| **04** | **Electronics Spec: Computers** | 5 Karma | None (Between runs) | Banked Karma (+2 Matrix Perception) |
+| **05** | **Electronics Spec: Software** | 5 Karma | None (Between runs) | Banked Karma (+2 Coding / Sourcecraft) |
+| **06** | **Focused Concentration (Rating 1)** | 24 Karma | None (Between runs) | Banked Karma (12×2 post-chargen quality cost; sustain Enlighten Automaton without penalty) |
 | **07** | **Influence Rank 1 $\rightarrow$ 2** | 10 Karma | None (Between runs) | Banked Karma (Uncaps Taz to +2 teamwork) |
 | **08** | **Influence Spec: Negotiation** | 5 Karma | None (Between runs) | Banked Karma (+2 Social Wheelhouse) |
 | **09** | **Complex Form: Enhance Autosoft** | 5 Karma | 1 Minor Action (Study) | Banked Karma (Drone Buffing) |
-| **10** | **Nanohive Rating 6 (Used)** | ¥45,000 | 1 Minor Action (Install) | Mission Nuyen (Hunter/Infest Nanites) |
-| **11** | **Hydrocarbon Fuel Converter** | ¥7,500 | 1 Minor Action (Install) | Mission Nuyen (Metabolic Power) |
-| **12** | **Influence Rank 2 $\rightarrow$ 3** | 15 Karma | None (Between runs) | Banked Karma (Uncaps Taz to +3 teamwork) |
-| **13** | **Charisma 4 $\rightarrow$ 5** | 25 Karma | None (Between runs) | Banked Karma (Social & Compiling) |
-| **14** | **Resonance 8 $\rightarrow$ 9** | 45 Karma | None (Between runs) | Banked Karma (Capstone Progression) |
-| **15** | **Resonance 9 $\rightarrow$ 10** | 50 Karma | None (Between runs) | Banked Karma (Capstone Progression) |
+| **10** | **Second Cyberarm (Left, Used)** | ¥10,000 | 1 Minor Action (Install) | Mission Nuyen (8 Cap dedicated for Nanohive) |
+| **11** | **Nanohive Rating 6 (Used)** | ¥45,000 | 1 Minor Action (Install) | Mission Nuyen (Hunter/Infest Nanites) |
+| **12** | **Hydrocarbon Fuel Converter** | ¥7,500 | 1 Minor Action (Install) | Mission Nuyen (Metabolic Power) |
+| **13** | **Influence Rank 2 $\rightarrow$ 3** | 15 Karma | None (Between runs) | Banked Karma (Uncaps Taz to +3 teamwork) |
+| **14** | **Charisma 4 $\rightarrow$ 5** | 25 Karma | None (Between runs) | Banked Karma (Social & Compiling) |
+| **15** | **Resonance 8 $\rightarrow$ 9** | 45 Karma | None (Between runs) | Banked Karma (Capstone Progression) |
+| **16** | **Resonance 9 $\rightarrow$ 10** | 50 Karma | None (Between runs) | Banked Karma (Capstone Progression) |

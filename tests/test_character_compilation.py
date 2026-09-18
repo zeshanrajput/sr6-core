@@ -63,7 +63,9 @@ def test_full_compiler_sync_and_mobile_export():
         if cid == "reiko":
             maa = next((d for d in mobile_doc["drones"] if "man-at-arms" in d["name"].lower()), None)
             assert maa is not None
-            assert maa["sensor"] == 5
+            assert maa["body"] == 15
+            assert maa["sensor"] == 6
+            assert maa["enlightened_sensor"] == 8
             assert any("increased sensors 2" in m.lower() for m in maa["modifications"])
-            assert maa["rigged_pools"]["gunnery"]["pool"] == 17
-            assert maa["rigged_pools"]["perception"]["pool"] == 16
+            assert maa["rigged_pools"]["gunnery"]["pool"] == 18
+            assert maa["rigged_pools"]["perception"]["pool"] == 17

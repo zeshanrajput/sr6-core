@@ -526,5 +526,5 @@ Submersion_Grade = state["Submersion_Grade"]
   * *Minor Action 3:* `{python} lifestyle('Middle', cost=2000)` | `{python} work_for_the_people()`
 * **Other**
   * Adopted two g33k0s, Lizzie and Leonard
-  * Installed second used synthetic cyberarm (Left, 8 Capacity) housing Rating 5 Sensor Array, upgraded to Increased Sensors 3.
+  * Upgraded Shiawase Man-at-Arms with Increased Sensors 2 (hardware Rating 4 cap per SR6 p. 277; sensor attribute boosted to 6 via Home Device tuning and Network Sensor Upgrade, and up to 8 when Enlighten Automaton is sustained).
   * 3 Karma remaining banked.

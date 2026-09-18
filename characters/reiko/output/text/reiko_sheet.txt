@@ -2,7 +2,7 @@
 |                        SR6 DOSSIER // YURIKO STAR                        |
 +--------------------------------------------------------------------------+
 | METATYPE : AI-Pilot AI          ARCHETYPE: Technoshamans                 |
-| KARMA(TKE): 3 (246)             NUYEN(TNE): 550 (396,800)                |
+| KARMA(TKE): 3 (246)             NUYEN(TNE): 13,050 (396,800)             |
 | HEAT     : -1                   REPUTATION: Vory:2, Seattle:7, AMS:2,... |
 +-- ATTRIBUTES ------------------------------------------------------------+
 | A 3(7)  S 5(9)  D 3(7)  F 5(9)  W 6  L 4  I 2  C 4                       |
@@ -20,9 +20,9 @@
 | WEAPON                  DV     ATTACK RATING      AMMO     MODE          |
 | Red Fox Array (2x Link  9P     21/23/21/14/-      30(c)    SA/BF/SS      |
 | Single Red Fox (Eye Mo  7P     20/22/20/13/-      30(c)    SA/BF/SS      |
-| Tesla Coil              5S(e)  10/12/-/-/-        -        SS            |
-| Dagger of the Sacred R  2P     9/1/-/-/-          -        Melee         |
-| Amalgam Cestas          3P     6/-/-/-/-          -        Melee         |
+| Tesla Coil (Straight)   5S(e)  10/12/-/-/-        5(c)     SS            |
+| Tesla Coil (Wobbly)     4S(e)  12/14/-/-/-        5(c)     SS            |
+| Tesla Coil (Sweeping)   2S(e)  14/16/-/-/-        5(c)     SS            |
 +-- MATRIX PROFILE --------------------------------------------------------+
 | LIVING PERSONA: A 7  S 9  D 7  F 9 | INIT: 10 + 4D6 (Hot-Sim)            |
 +-- RESONANCE POWERS & COMPLEX FORMS --------------------------------------+
@@ -41,8 +41,8 @@
 |   H:4/4  AC:10/10  SP:120  B:3  A:0(4)  P:3  S:3(6)                      |
 |   POOLS: Piloting:10d6 | Gunnery:13d6 | Evasion:10d6 | Perception:13d6   |
 | [DRONE] Shiawase Man-at-Arms                                             |
-|   H:3/3  AC:5/5  SP:10  B:10(16)  A:8  P:2(9)  S:2(5)                    |
-|   POOLS: Piloting:23d6 | Gunnery:17d6 | Evasion:24d6 | Perception:16d6   |
+|   H:3/3  AC:5/5  SP:10  B:10(15)  A:8  P:2(9)  S:2(6)                    |
+|   POOLS: Piloting:23d6 | Gunnery:18d6 | Evasion:24d6 | Perception:17d6   |
 +-- KEY QUALITIES ---------------------------------------------------------+
 | + Natural Hacker                   | + Stream: Technoshamans             |
 | + Designer                         | + Sensor Upgrade                    |

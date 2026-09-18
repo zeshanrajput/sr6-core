@@ -38,10 +38,22 @@ format: html
 | **7P** | 20 / 22 / 20 / 13 / — | SA/BF/SS | 30(c) | 1 | — |
 :::
 
-::: {.callout-note icon=false title="⚔️ WEAPON: Tesla Coil (General)"}
+::: {.callout-note icon=false title="⚔️ WEAPON: Tesla Coil (Straight) (Cyberweapons)"}
 | Damage | Attack Rating (C/N/M/F/E) | Modes | Ammo | Avail | Cost |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **5S(e)** | 10 / 12 / — / — / — | SS | —(c) | 1 | — |
+| **5S(e)** | 10 / 12 / — / — / — | SS | 5(c) | 1 | — |
+:::
+
+::: {.callout-note icon=false title="⚔️ WEAPON: Tesla Coil (Wobbly) (Cyberweapons)"}
+| Damage | Attack Rating (C/N/M/F/E) | Modes | Ammo | Avail | Cost |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **4S(e)** | 12 / 14 / — / — / — | SS | 5(c) | 1 | — |
+:::
+
+::: {.callout-note icon=false title="⚔️ WEAPON: Tesla Coil (Sweeping) (Cyberweapons)"}
+| Damage | Attack Rating (C/N/M/F/E) | Modes | Ammo | Avail | Cost |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **2S(e)** | 14 / 16 / — / — / — | SS | 5(c) | 1 | — |
 :::
 
 ::: {.callout-note icon=false title="⚔️ WEAPON: Dagger of the Sacred Rose (+1 Weapon Focus) (General)"}

@@ -1325,7 +1325,7 @@
       "mortype": "",
       "gender": "DIVERSE",
       "age": "~ 10",
-      "nuyen": 550.0,
+      "nuyen": 13050.0,
       "lifetime_nuyen": 396800,
       "karma": 3,
       "karma_avail": 3,
@@ -1821,9 +1821,9 @@
         "doc_link": "chapters/rules_combat.html#tactical-weapon-arrays"
       },
       {
-        "name": "Tesla Coil",
+        "name": "Tesla Coil (Straight)",
         "is_melee": false,
-        "category": "general",
+        "category": "cyberweapons",
         "damage": "5S(e)",
         "base_damage": "5S(e)",
         "attack_rating": [
@@ -1840,13 +1840,71 @@
         ],
         "modes_str": "SS",
         "base_modes_str": "SS",
-        "ammo": "—",
-        "base_ammo": "—",
+        "ammo": "5(c)",
+        "base_ammo": "5(c)",
         "loaded_ammo": null,
         "accessories": [
           "MAA Cyberarm Mount (+2 AR)"
         ],
-        "notes": "",
+        "notes": "Direct stream spray attack (first valid target on 20m line). Cyberarm Mount (+2 AR). 5(c) capacitor bank.",
+        "doc_link": "chapters/rules_combat.html#tactical-weapon-arrays"
+      },
+      {
+        "name": "Tesla Coil (Wobbly)",
+        "is_melee": false,
+        "category": "cyberweapons",
+        "damage": "4S(e)",
+        "base_damage": "4S(e)",
+        "attack_rating": [
+          12,
+          14,
+          0,
+          0,
+          0
+        ],
+        "attack_rating_str": "12 / 14 / — / — / —",
+        "base_attack_rating_str": "12 / 14 / — / — / —",
+        "modes": [
+          "SS"
+        ],
+        "modes_str": "SS",
+        "base_modes_str": "SS",
+        "ammo": "5(c)",
+        "base_ammo": "5(c)",
+        "loaded_ammo": null,
+        "accessories": [
+          "MAA Cyberarm Mount (+2 AR)"
+        ],
+        "notes": "Wobbly spray attack (+2 AR, -1 DV). 8.58° apex cone (3m wide @ 20m). Optional Wild Die. Cyberarm Mount (+2 AR). 5(c) capacitor bank.",
+        "doc_link": "chapters/rules_combat.html#tactical-weapon-arrays"
+      },
+      {
+        "name": "Tesla Coil (Sweeping)",
+        "is_melee": false,
+        "category": "cyberweapons",
+        "damage": "2S(e)",
+        "base_damage": "2S(e)",
+        "attack_rating": [
+          14,
+          16,
+          0,
+          0,
+          0
+        ],
+        "attack_rating_str": "14 / 16 / — / — / —",
+        "base_attack_rating_str": "14 / 16 / — / — / —",
+        "modes": [
+          "SS"
+        ],
+        "modes_str": "SS",
+        "base_modes_str": "SS",
+        "ammo": "5(c)",
+        "base_ammo": "5(c)",
+        "loaded_ammo": null,
+        "accessories": [
+          "MAA Cyberarm Mount (+2 AR)"
+        ],
+        "notes": "Sweeping spray attack (+4 AR, -3 DV). 28.07° apex cone (10m wide @ 20m). Optional Wild Die. Cyberarm Mount (+2 AR). 5(c) capacitor bank.",
         "doc_link": "chapters/rules_combat.html#tactical-weapon-arrays"
       },
       {
@@ -1920,6 +1978,9 @@
         "base_pilot": 2,
         "sensor": 2,
         "base_sensor": 1,
+        "hardware_sensor": 1,
+        "enlightened_sensor": 2,
+        "sensor_str": "1 (Attribute: 2)",
         "seats": "-",
         "modifications": [
           "Realistic Features 4",
@@ -1974,6 +2035,9 @@
         "base_pilot": 3,
         "sensor": 6,
         "base_sensor": 3,
+        "hardware_sensor": 5,
+        "enlightened_sensor": 6,
+        "sensor_str": "5 (Attribute: 6)",
         "seats": "-",
         "modifications": [
           "Drone Bay (Micro/Mini)",
@@ -2028,14 +2092,17 @@
         "accel": "5/5",
         "speed": "10",
         "interval": 5,
-        "body": 16,
+        "body": 15,
         "base_body": 10,
         "armor": 8,
         "base_armor": 8,
         "pilot": 9,
         "base_pilot": 2,
-        "sensor": 5,
+        "sensor": 6,
         "base_sensor": 2,
+        "hardware_sensor": 4,
+        "enlightened_sensor": 8,
+        "sensor_str": "4 (Attribute: 6, Enlightened: 8)",
         "seats": "-",
         "modifications": [
           "Weapon Mount (Standard) x2",
@@ -2045,13 +2112,11 @@
           "Drone Rack (Small)",
           "Used Synthetic Cyberarm (Right, 8 Capacity)",
           "Tesla Coil",
-          "Used Synthetic Cyberarm (Left, 8 Capacity)",
-          "Sensor Housing (Max Rating 5 Array, [5] Capacity)",
           "Increased Structural Integrity 5",
           "Realistic Features 4",
           "Secondary Propulsion (Rotor)",
           "Nitro Boost",
-          "Increased Sensors 3",
+          "Increased Sensors 2",
           "Camera w/ image link",
           "Low-light Vision",
           "Omni-directional mic with sound link",
@@ -2070,7 +2135,9 @@
           "Structural Integrity (+5 BOD)",
           "Enhanced Sensors (2 -> 4 SEN)",
           "Smart Tires (+5 ACC, +10 SPD Interval)",
-          "Designer Quality (+1 Pilot, 2 Noise Reduction on Home Device)"
+          "Designer Quality (+1 Pilot, 2 Noise Reduction on Home Device)",
+          "Home Device Tuning (+1 SEN)",
+          "Enlighten Automaton (+2 SEN when sustained)"
         ],
         "mobility_str": "Rotor: Han 5, Acc 10, SPD 120 (20). Wheeled (Smart Tires): Han 3/4, Acc 15, SPD 25/120",
         "rigged_pools": {
@@ -2080,9 +2147,9 @@
             "breakdown": "Maneuvering 7 + Pilot/RES 9 + Focus 4 + Taz Diagnosis 3 = 23d6"
           },
           "gunnery": {
-            "pool": 17,
+            "pool": 18,
             "hits": 4,
-            "breakdown": "Targeting 7 + Sensor 5 + Taz Symbiosis 4 + Smartlink (Wireless) 1 = 17d6"
+            "breakdown": "Targeting 7 + Sensor 6 + Taz Symbiosis 4 + Smartlink (Wireless) 1 = 18d6 (20d6 with Enlighten Automaton sustained)"
           },
           "evasion": {
             "pool": 24,
@@ -2090,9 +2157,9 @@
             "breakdown": "Evasion 7 + Pilot/RES 9 + Focus 4 + Taz Symbiosis 4 = 24d6"
           },
           "perception": {
-            "pool": 16,
+            "pool": 17,
             "hits": 4,
-            "breakdown": "Clearsight 7 + Sensor 5 + Taz Symbiosis 4 = 16d6"
+            "breakdown": "Clearsight 7 + Sensor 6 + Taz Symbiosis 4 = 17d6 (19d6 with Enlighten Automaton sustained)"
           },
           "stealth": {
             "pool": 26,
@@ -2118,6 +2185,9 @@
         "base_pilot": 1,
         "sensor": 2,
         "base_sensor": 1,
+        "hardware_sensor": 1,
+        "enlightened_sensor": 2,
+        "sensor_str": "1 (Attribute: 2)",
         "seats": "-",
         "modifications": [
           "Trid Projector",
@@ -2174,6 +2244,9 @@
         "base_pilot": 1,
         "sensor": 2,
         "base_sensor": 1,
+        "hardware_sensor": 1,
+        "enlightened_sensor": 2,
+        "sensor_str": "1 (Attribute: 2)",
         "seats": "-",
         "modifications": [
           "Laser Jack"
@@ -2229,6 +2302,9 @@
         "base_pilot": 2,
         "sensor": 2,
         "base_sensor": 1,
+        "hardware_sensor": 1,
+        "enlightened_sensor": 2,
+        "sensor_str": "1 (Attribute: 2)",
         "seats": "-",
         "modifications": [
           "Realistic Features 4",
@@ -2283,6 +2359,9 @@
         "base_pilot": 3,
         "sensor": 6,
         "base_sensor": 3,
+        "hardware_sensor": 5,
+        "enlightened_sensor": 6,
+        "sensor_str": "5 (Attribute: 6)",
         "seats": "-",
         "modifications": [
           "Drone Bay (Micro/Mini)",
@@ -2337,14 +2416,17 @@
         "accel": "5/5",
         "speed": "10",
         "interval": 5,
-        "body": 16,
+        "body": 15,
         "base_body": 10,
         "armor": 8,
         "base_armor": 8,
         "pilot": 9,
         "base_pilot": 2,
-        "sensor": 5,
+        "sensor": 6,
         "base_sensor": 2,
+        "hardware_sensor": 4,
+        "enlightened_sensor": 8,
+        "sensor_str": "4 (Attribute: 6, Enlightened: 8)",
         "seats": "-",
         "modifications": [
           "Weapon Mount (Standard) x2",
@@ -2354,13 +2436,11 @@
           "Drone Rack (Small)",
           "Used Synthetic Cyberarm (Right, 8 Capacity)",
           "Tesla Coil",
-          "Used Synthetic Cyberarm (Left, 8 Capacity)",
-          "Sensor Housing (Max Rating 5 Array, [5] Capacity)",
           "Increased Structural Integrity 5",
           "Realistic Features 4",
           "Secondary Propulsion (Rotor)",
           "Nitro Boost",
-          "Increased Sensors 3",
+          "Increased Sensors 2",
           "Camera w/ image link",
           "Low-light Vision",
           "Omni-directional mic with sound link",
@@ -2379,7 +2459,9 @@
           "Structural Integrity (+5 BOD)",
           "Enhanced Sensors (2 -> 4 SEN)",
           "Smart Tires (+5 ACC, +10 SPD Interval)",
-          "Designer Quality (+1 Pilot, 2 Noise Reduction on Home Device)"
+          "Designer Quality (+1 Pilot, 2 Noise Reduction on Home Device)",
+          "Home Device Tuning (+1 SEN)",
+          "Enlighten Automaton (+2 SEN when sustained)"
         ],
         "mobility_str": "Rotor: Han 5, Acc 10, SPD 120 (20). Wheeled (Smart Tires): Han 3/4, Acc 15, SPD 25/120",
         "rigged_pools": {
@@ -2389,9 +2471,9 @@
             "breakdown": "Maneuvering 7 + Pilot/RES 9 + Focus 4 + Taz Diagnosis 3 = 23d6"
           },
           "gunnery": {
-            "pool": 17,
+            "pool": 18,
             "hits": 4,
-            "breakdown": "Targeting 7 + Sensor 5 + Taz Symbiosis 4 + Smartlink (Wireless) 1 = 17d6"
+            "breakdown": "Targeting 7 + Sensor 6 + Taz Symbiosis 4 + Smartlink (Wireless) 1 = 18d6 (20d6 with Enlighten Automaton sustained)"
           },
           "evasion": {
             "pool": 24,
@@ -2399,9 +2481,9 @@
             "breakdown": "Evasion 7 + Pilot/RES 9 + Focus 4 + Taz Symbiosis 4 = 24d6"
           },
           "perception": {
-            "pool": 16,
+            "pool": 17,
             "hits": 4,
-            "breakdown": "Clearsight 7 + Sensor 5 + Taz Symbiosis 4 = 16d6"
+            "breakdown": "Clearsight 7 + Sensor 6 + Taz Symbiosis 4 = 17d6 (19d6 with Enlighten Automaton sustained)"
           },
           "stealth": {
             "pool": 26,
@@ -2427,6 +2509,9 @@
         "base_pilot": 1,
         "sensor": 2,
         "base_sensor": 1,
+        "hardware_sensor": 1,
+        "enlightened_sensor": 2,
+        "sensor_str": "1 (Attribute: 2)",
         "seats": "-",
         "modifications": [
           "Trid Projector",
@@ -2483,6 +2568,9 @@
         "base_pilot": 1,
         "sensor": 2,
         "base_sensor": 1,
+        "hardware_sensor": 1,
+        "enlightened_sensor": 2,
+        "sensor_str": "1 (Attribute: 2)",
         "seats": "-",
         "modifications": [
           "Laser Jack"

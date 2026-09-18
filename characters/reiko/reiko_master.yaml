@@ -10,7 +10,7 @@ identity:
   system: shadowrun6e
   karma: 3
   lifetime_karma: 246
-  nuyen: 550.0
+  nuyen: 13050.0
   lifetime_nuyen: 396800
   heat: -1
 attributes:
@@ -1438,13 +1438,11 @@ drones:
   - Drone Rack (Small)
   - Used Synthetic Cyberarm (Right, 8 Capacity)
   - Tesla Coil
-  - Used Synthetic Cyberarm (Left, 8 Capacity)
-  - Sensor Housing (Max Rating 5 Array, [5] Capacity)
   - Increased Structural Integrity 5
   - Realistic Features 4
   - Secondary Propulsion (Rotor)
   - Nitro Boost
-  - Increased Sensors 3
+  - Increased Sensors 2
   - Camera w/ image link
   - Low-light Vision
   - Omni-directional mic with sound link
@@ -1519,15 +1517,47 @@ weapons:
     - Drone Mount (+2 AR)
     notes: Independent Eye Mount (NO Minor Action required). 1 Wild Die. Decreases
       by 3P at Medium range.
-  - name: Tesla Coil
+  - name: Tesla Coil (Straight)
+    category: Cyberweapons
     damage: 5S(e)
     attack_rating: 10/12/-/-/-
     mode: SS
+    ammo: 5(c)
     max_range: 20m
-    area_effect: Cone (Flamethrower rules)
+    area_effect: Straight Line (Flamethrower rules)
     is_vehicle_mounted: true
     accessories:
     - MAA Cyberarm Mount (+2 AR)
+    notes: Direct stream spray attack (first valid target on 20m line). Cyberarm Mount
+      (+2 AR). 5(c) capacitor bank.
+  - name: Tesla Coil (Wobbly)
+    category: Cyberweapons
+    damage: 4S(e)
+    attack_rating: 12/14/-/-/-
+    mode: SS
+    ammo: 5(c)
+    max_range: 20m
+    area_effect: 8.58° Cone (3m width at 20m)
+    apex_angle: 8.58
+    is_vehicle_mounted: true
+    accessories:
+    - MAA Cyberarm Mount (+2 AR)
+    notes: Wobbly spray attack (+2 AR, -1 DV). 8.58° apex cone (3m wide @ 20m). Optional
+      Wild Die. Cyberarm Mount (+2 AR). 5(c) capacitor bank.
+  - name: Tesla Coil (Sweeping)
+    category: Cyberweapons
+    damage: 2S(e)
+    attack_rating: 14/16/-/-/-
+    mode: SS
+    ammo: 5(c)
+    max_range: 20m
+    area_effect: 28.07° Cone (10m width at 20m)
+    apex_angle: 28.07
+    is_vehicle_mounted: true
+    accessories:
+    - MAA Cyberarm Mount (+2 AR)
+    notes: Sweeping spray attack (+4 AR, -3 DV). 28.07° apex cone (10m wide @ 20m).
+      Optional Wild Die. Cyberarm Mount (+2 AR). 5(c) capacitor bank.
   close_combat:
   - name: Dagger of the Sacred Rose (+1 Weapon Focus)
     damage: 2P

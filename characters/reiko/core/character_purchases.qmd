@@ -107,14 +107,12 @@ Software with karma costs have been learned via the **Software Emulator** echo.
     * Stores 3 Small Drones (Sky Commander, Dream Genie, Utility-One)
   * Used Synthetic Cyberarm (Right, 8 Capacity) `{python} inc('Nuyen', -10000)`
     * Tesla Coil `{python} inc('Nuyen', -15000/2)`
-  * Used Synthetic Cyberarm (Left, 8 Capacity) `{python} inc('Nuyen', -10000)`
-    * Sensor Housing (Max Rating 5 Array, [5] Capacity)
   * Increased Structural Integrity 5 `{python} inc('Nuyen', -25000/2)`
   * Realistic Features 4 `{python} inc('Nuyen', -4 * 10 * 1000 / 2)`
   * Secondary Propulsion (Rotor): `{python} inc('Nuyen', -50000/2)`
     * HAN 5, ACC 10, SPD 20/120 
   * Nitro Boost: `{python} inc('Nuyen',-5000/2)` 
-  * Increased Sensors 3 `{python} inc('Nuyen', -15000/2)`
+  * Increased Sensors 2 `{python} inc('Nuyen', -10000/2)`
     * Camera w/ image link
     * Low-light Vision
     * Omni-directional mic with sound link

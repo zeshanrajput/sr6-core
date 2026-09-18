@@ -54,6 +54,50 @@ CANONICAL_SUPPLEMENT_WEAPONS: Dict[str, Dict[str, Any]] = {
         "mode": "SA",
         "ammo": "15(c)",
         "source": "Firing Squad p. 116"
+    },
+    "tesla_coil": {
+        "id": "tesla_coil",
+        "name": "Tesla Coil (Straight)",
+        "category": "Cyberweapons",
+        "dv": "5S(e)",
+        "ar": [8, 10, None, None, None],
+        "mode": "SS",
+        "ammo": "5(c)",
+        "source": "Body Shop p. 49 / SR6 Core p. 117",
+        "notes": "Straight spray attack. Max 20m. Direct stream (first valid target in line of fire)."
+    },
+    "tesla_coil_straight": {
+        "id": "tesla_coil_straight",
+        "name": "Tesla Coil (Straight)",
+        "category": "Cyberweapons",
+        "dv": "5S(e)",
+        "ar": [8, 10, None, None, None],
+        "mode": "SS",
+        "ammo": "5(c)",
+        "source": "Body Shop p. 49 / SR6 Core p. 117",
+        "notes": "Straight spray attack. Max 20m. Direct stream (first valid target in line of fire)."
+    },
+    "tesla_coil_wobbly": {
+        "id": "tesla_coil_wobbly",
+        "name": "Tesla Coil (Wobbly)",
+        "category": "Cyberweapons",
+        "dv": "4S(e)",
+        "ar": [10, 12, None, None, None],
+        "mode": "SS",
+        "ammo": "5(c)",
+        "source": "Body Shop p. 49 / SR6 Core p. 117",
+        "notes": "Wobbly spray attack (+2 AR, -1 DV). 8.58° apex cone (3m wide @ 20m). Optional Wild Die."
+    },
+    "tesla_coil_sweeping": {
+        "id": "tesla_coil_sweeping",
+        "name": "Tesla Coil (Sweeping)",
+        "category": "Cyberweapons",
+        "dv": "2S(e)",
+        "ar": [12, 14, None, None, None],
+        "mode": "SS",
+        "ammo": "5(c)",
+        "source": "Body Shop p. 49 / SR6 Core p. 117",
+        "notes": "Sweeping spray attack (+4 AR, -3 DV). 28.07° apex cone (10m wide @ 20m). Optional Wild Die."
     }
 }
 
@@ -231,10 +275,10 @@ def get_drone_statblock_table(char_id: str, drone_identifier: str) -> str:
         f"| **Handling (HND)** | **{profile['handling_str']}** | On/Off-Road Ground Handling / Rotor Assembly |",
         f"| **Acceleration (ACC)** | **{profile['accel_str']}** | On/Off-Road Acceleration / Rotor Assembly |",
         f"| **Top Speed (SPD) / Interval** | **{profile['speed_str']}** | Top Speed & Interval |",
-        f"| **Body (BOD)** | **{profile['augmented_body']} ({profile['inhabited_body']})** | Base {profile['base_body']} + Modifications | Inhabited (+1 Tuning) |",
+        f"| **Body (BOD)** | **{profile['augmented_body']}** | Base {profile['base_body']} + Modifications |",
         f"| **Armor (ARM)** | **{profile['augmented_armor']}** | Base {profile['base_armor']} + Armor Increase / Ballistics Suite |",
         f"| **Pilot (PLT)** | **{profile['pilot_str']}** | Base {profile['base_pilot']} | Override when inhabited |",
-        f"| **Sensor (SEN)** | **{profile['augmented_sensor']}** | Base {profile['base_sensor']} + Enhanced Sensors + Sensor Upgrade |"
+        f"| **Sensor (SEN)** | **{profile['sensor_str']}** | Base {profile['base_sensor']} + Enhanced Sensors (Rating 4) + Home Device (+1) + Sensor Upgrade (+1) |"
     ]
     if profile.get("mobility_str"):
         rows.append(f"| **Propulsion Modes** | **{profile['mobility_str']}** | Secondary & Special Propulsion Profiles |")
@@ -536,8 +580,10 @@ def get_weapon_attack_table(char_id: str) -> str:
         rows.append(f"| | **SA** (2) | {fox_base_dv + 1}P* | **{fox_single_sa_ar}** | Independent mount (Drone mount halves SA penalty). **2 rounds**. *Decreases by 3P at Medium. |")
         rows.append(f"| | **BF** (4) | {fox_base_dv + 2}P* | **{fox_single_bf_ar}** | Independent mount (Drone mount halves BF penalty). **4 rounds**. *Decreases by 3P at Medium. |")
 
-        # 2. Tesla Coil
-        rows.append("| **Tesla Coil (MAA Cyberarm)** | **SS** (1) | 5S(e) | **10 / 12* / — / — / —** | Max 20m, 20m Cone Area Attack (Flamethrower rules), Cyberarm Mount (+2 AR). |")
+        # 2. Tesla Coil (Spray Attack Profiles - Flamethrower rules, SR6 Core p. 117)
+        rows.append("| **Tesla Coil (Straight)** | **SS** (1) | 5S(e) | **10 / 12 / — / — / —** | Direct stream attack (first valid target on 20m line). Cyberarm Mount (+2 AR). 5(c) capacitor bank. |")
+        rows.append("| **Tesla Coil (Wobbly)** | **SS** (1) | 4S(e) | **12 / 14 / — / — / —** | Wobbly spray (+2 AR, -1 DV). **8.58° apex cone** (3m wide @ 20m). Optional Wild Die. Cyberarm Mount (+2 AR). 5(c) cap. |")
+        rows.append("| **Tesla Coil (Sweeping)** | **SS** (1) | 2S(e) | **14 / 16 / — / — / —** | Sweeping spray (+4 AR, -3 DV). **28.07° apex cone** (10m wide @ 20m). Optional Wild Die. Cyberarm Mount (+2 AR). 5(c) cap. |")
 
         # 3. Amalgam Cestas
         rows.append("| **Amalgam Cestas (Man-at-Arms - Phys)** | **Melee** | 3P | **12 / — / — / — / —** | Personalized Grip +2 AR. Overrides Immunity to Normal Weapons. 1 Wild Die. |")

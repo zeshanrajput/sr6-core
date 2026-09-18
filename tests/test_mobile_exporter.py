@@ -58,10 +58,20 @@ def test_mobile_json_export_reiko():
     assert cestas["modes_str"] == "Melee"
     assert cestas["ammo"] == "—"
 
-    # Verify Tesla Coil has buffed AR 10 / 12 / — / — / —
+    # Verify Tesla Coil profiles (Straight, Wobbly, Sweeping)
     tesla = next((w for w in res["weapons"] if "tesla" in w["name"].lower()), None)
     assert tesla is not None
     assert tesla["attack_rating_str"] == "10 / 12 / — / — / —"
+
+    tesla_wobbly = next((w for w in res["weapons"] if "tesla" in w["name"].lower() and "wobbly" in w["name"].lower()), None)
+    assert tesla_wobbly is not None
+    assert tesla_wobbly["attack_rating_str"] == "12 / 14 / — / — / —"
+    assert tesla_wobbly["damage"] == "4S(e)"
+
+    tesla_sweeping = next((w for w in res["weapons"] if "tesla" in w["name"].lower() and "sweeping" in w["name"].lower()), None)
+    assert tesla_sweeping is not None
+    assert tesla_sweeping["attack_rating_str"] == "14 / 16 / — / — / —"
+    assert tesla_sweeping["damage"] == "2S(e)"
 
     # Verify Complex Forms link to rules_sprites.html#complex-forms
     cf = res["powers"]["complex_forms"]
@@ -82,10 +92,11 @@ def test_mobile_json_export_reiko():
     # Verify Shiawase Man-at-Arms augmented & inhabited stats
     maa = next((v for v in res["vehicles"] if "man-at-arms" in v["name"].lower()), None)
     assert maa is not None
-    assert maa["body"] == 16      # 10 base + 5 structural integrity + 1 home device
+    assert maa["body"] == 15      # 10 base + 5 structural integrity (home device tuning moved to sensor)
     assert maa["pilot"] == 9     # Replaced by Reiko's RES 8 + 1 Designer
     assert maa["armor"] == 8     # 8 base (armor increase stripped for legal nuyen balance)
-    assert maa["sensor"] == 5    # 4 enhanced/max medium drone sensor + 1 sensor upgrade quality
+    assert maa["sensor"] == 6    # 4 hardware (base 2 + mod 2) + 1 sensor upgrade quality + 1 home device
+    assert maa["enlightened_sensor"] == 8  # +2 from Enlighten Automaton sustained (up to 8)
 
     # Verify secondary drones (Kwonsham Dream Genie, Utility-One) have native base pilot 1 (no override/designer bonus)
     genie = next((v for v in res["vehicles"] if "dream genie" in v["name"].lower()), None)

@@ -257,9 +257,9 @@ def test_dynamic_vehicle_modification_parser():
     butler = SAMPLE_YURIKO["drones"][0]
     profile = parse_vehicle_modifications(butler, char_data=SAMPLE_YURIKO)
     assert profile["augmented_body"] == 6  # 4 base + 2 structural
-    assert profile["inhabited_body"] == 7  # 6 + 1 inhabited tuning
+    assert profile["inhabited_body"] == 6  # Home Device tuning moved to sensor (+1 SEN)
     assert profile["augmented_armor"] == 8   # 4 worn anthro (2 skin + 2 invisi) + 4 wrist shield
-    assert profile["augmented_sensor"] == 5  # 4 enhanced/max medium drone sensor + 1 network sensor upgrade
+    assert profile["augmented_sensor"] == 6  # 4 enhanced/max medium drone sensor + 1 network sensor upgrade + 1 home device
     assert profile["has_rotor"] is True
     assert profile["handling_str"] == "4/5"
     assert profile["speed_str"] == "8"
@@ -274,7 +274,7 @@ def test_drone_action_pool_evaluator():
     # Mode 1: Inhabited Override (Includes Designer Quality +1 Pilot bonus on Home Device)
     pools_inhabited = calculate_drone_action_pools(SAMPLE_YURIKO, butler, mode="inhabited_override")
     assert pools_inhabited["piloting"]["pool"] == 23  # Maneuvering 7 + Pilot/RES 9 + Focus 4 + Diagnosis 3
-    assert pools_inhabited["gunnery"]["pool"] == 16   # Targeting 7 + Sensor 5 + Symbiosis 4 (Sensor-based, no Focus)
+    assert pools_inhabited["gunnery"]["pool"] == 17   # Targeting 7 + Sensor 6 + Symbiosis 4 (Sensor-based, no Focus)
     assert pools_inhabited["evasion"]["pool"] == 24   # Evasion 7 + Pilot/RES 9 + Focus 4 + Symbiosis 4
     assert pools_inhabited["stealth"]["pool"] == 26   # Stealth 7 + Pilot/RES 9 + Focus 4 + Symbiosis 4 + Sneak 2
 
@@ -300,11 +300,11 @@ def test_drone_targeting_autosoft_other_modifier():
     ]
     
     pools_inhabited = calculate_drone_action_pools(char_with_smartlink, butler, mode="inhabited_override")
-    assert pools_inhabited["gunnery"]["pool"] == 17   # Targeting 7 + Sensor 5 + Symbiosis 4 + Smartlink 1
+    assert pools_inhabited["gunnery"]["pool"] == 18   # Targeting 7 + Sensor 6 + Symbiosis 4 + Smartlink 1
     assert "Smartlink (Wireless) 1" in pools_inhabited["gunnery"]["breakdown"]
 
     pools_remote = calculate_drone_action_pools(char_with_smartlink, butler, mode="remote_ar")
-    assert pools_remote["gunnery"]["pool"] == 17
+    assert pools_remote["gunnery"]["pool"] == 18
     assert "Smartlink (Wireless) 1" in pools_remote["gunnery"]["breakdown"]
 
 
@@ -357,9 +357,11 @@ def test_weapon_attack_table_renderer():
     table_md = get_weapon_attack_table("reiko")
     assert "| Weapon Name | Mode (Rounds) | Final DV | Final Effective AR (C / N / M / F / E) | Notes & Constraints |" in table_md
     assert "**Red Fox Array (2x Link-Fired)**" in table_md
-    assert "**Single Red Fox (Independent)**" in table_md
-    assert "8P*" in table_md
-    assert "**Tesla Coil" in table_md
+    assert "**Tesla Coil (Straight)**" in table_md
+    assert "**Tesla Coil (Wobbly)**" in table_md
+    assert "**Tesla Coil (Sweeping)**" in table_md
+    assert "8.58°" in table_md
+    assert "28.07°" in table_md
     assert "**Amalgam Cestas" in table_md
 
     table_venn = get_weapon_attack_table("venn")

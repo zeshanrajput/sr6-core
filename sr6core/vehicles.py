@@ -42,6 +42,7 @@ def parse_vehicle_modifications(drone_dict: Dict[str, Any], char_data: Optional[
     body_bonus = 0
     armor_bonus = 0
     sensor_bonus = 0
+    hardware_sensor = sensor
     has_rotor = False
     has_retractable_skates = False
     has_wheeled = False
@@ -99,6 +100,7 @@ def parse_vehicle_modifications(drone_dict: Dict[str, Any], char_data: Optional[
             s_val = int(sensor_match.group(2))
             # Supports both additive rating (e.g. Rating 2 adding +2 to base 2 -> 4) or target rating (e.g. Rating 4)
             target_hardware = min(max_sensor_cap, max(sensor + s_val, s_val))
+            hardware_sensor = target_hardware
             if target_hardware > sensor:
                 sensor_bonus += (target_hardware - sensor)
                 notes_list.append(f"Enhanced Sensors ({sensor} -> {target_hardware} SEN)")
@@ -173,7 +175,6 @@ def parse_vehicle_modifications(drone_dict: Dict[str, Any], char_data: Optional[
         aug_armor = armor + armor_bonus + shield_dr
 
     aug_body = body + body_bonus
-    inhabited_body = aug_body + 1  # Home Device Tuning adds +1 Body when inhabited
     # Inhabited / Override Pilot & Designer Quality (+1 Pilot, 2 Noise Reduction on Home Device)
     is_home_device = any(k in name.lower() for k in ["man-at-arms", "man_at_arms", "butler", "home device", "primary chassis"])
     res = int(char_data.get("attributes", {}).get("resonance", 8)) if char_data else 8
@@ -182,17 +183,31 @@ def parse_vehicle_modifications(drone_dict: Dict[str, Any], char_data: Optional[
     designer_pilot_bonus = 1 if has_designer else 0
 
     if is_home_device:
-        inhabited_body = aug_body + 1  # Home Device Tuning adds +1 Body when inhabited
+        inhabited_body = aug_body  # Home Device tuning shifted from Body to Sensor (+1 SEN)
         inhabited_pilot = res + designer_pilot_bonus
         if has_designer:
             notes_list.append("Designer Quality (+1 Pilot, 2 Noise Reduction on Home Device)")
+        notes_list.append("Home Device Tuning (+1 SEN)")
         pilot_str = f"{pilot} (Override: {inhabited_pilot})"
     else:
         inhabited_body = aug_body
         inhabited_pilot = pilot
         pilot_str = str(pilot)
 
-    aug_sensor = sensor + sensor_bonus
+    home_device_sensor_bonus = 1 if is_home_device else 0
+    aug_sensor = sensor + sensor_bonus + home_device_sensor_bonus
+
+    cfs = char_data.get("complex_forms", []) if char_data else []
+    has_enlighten = any("enlighten" in (cf.get("name", "") if isinstance(cf, dict) else str(cf)).lower() for cf in cfs)
+    enlighten_bonus = min(sensor, 2) if (has_enlighten and is_home_device) else 0
+    enlightened_sensor = aug_sensor + enlighten_bonus
+    if enlighten_bonus:
+        notes_list.append(f"Enlighten Automaton (+{enlighten_bonus} SEN when sustained)")
+        sensor_str = f"{hardware_sensor} (Attribute: {aug_sensor}, Enlightened: {enlightened_sensor})"
+    elif aug_sensor != hardware_sensor:
+        sensor_str = f"{hardware_sensor} (Attribute: {aug_sensor})"
+    else:
+        sensor_str = str(aug_sensor)
 
     # Clean Top Row Handling, Accel & Speed strings
     han_str = f"{h_on}/{h_off}"
@@ -223,7 +238,10 @@ def parse_vehicle_modifications(drone_dict: Dict[str, Any], char_data: Optional[
         "base_pilot": pilot,
         "inhabited_pilot": inhabited_pilot,
         "base_sensor": sensor,
+        "hardware_sensor": hardware_sensor,
         "augmented_sensor": aug_sensor,
+        "enlightened_sensor": enlightened_sensor,
+        "sensor_str": sensor_str,
         "handling_str": han_str,
         "accel_str": acc_str,
         "speed_str": spd_str,
@@ -235,8 +253,8 @@ def parse_vehicle_modifications(drone_dict: Dict[str, Any], char_data: Optional[
         "mod_slots": calculate_vehicle_mod_slots(drone_dict, char_data=char_data),
         "summary_line": (
             f"HAN: {han_str} | ACC: {acc_str} | SPD: {spd_str} | "
-            f"BOD: {aug_body}{f' (Inhabited: {inhabited_body})' if is_home_device else ''} | ARM: {aug_armor} | "
-            f"PLT: {pilot_str} | SEN: {aug_sensor}"
+            f"BOD: {aug_body} | ARM: {aug_armor} | "
+            f"PLT: {pilot_str} | SEN: {sensor_str}"
         )
     }
 
@@ -903,6 +921,9 @@ def calculate_drone_action_pools(
 
     other_gunnery_str = f" + {' + '.join(targeting_other_breakdown)}" if targeting_other_breakdown else ""
 
+    cfs = char_data.get("complex_forms", []) if char_data else []
+    has_enlighten = any("enlighten" in (cf.get("name", "") if isinstance(cf, dict) else str(cf)).lower() for cf in cfs)
+
     if mode == "inhabited_override" and is_home_device:
         # Mode 1: Inhabited Override (Reiko Primary)
         # Pilot replaced with Resonance (8) + Designer Quality (+1) = 9. Because test involves Resonance, Resonance Focus (+4) applies.
@@ -910,17 +931,19 @@ def calculate_drone_action_pools(
         piloting_pool = active_d + inhabited_pilot + focus_bonus + taz_diagnosis
         piloting_breakdown = f"Maneuvering {active_d} + Pilot/RES {inhabited_pilot} + Focus {focus_bonus} + Taz Diagnosis {taz_diagnosis} = {piloting_pool}d6"
 
-        # Targeting R9 (7 effective) + Sensor (7) + Taz Symbiosis (4) + Other Modifiers = 18d6+ (Sensor-based test; Resonance Focus does not apply)
+        # Targeting R9 (7 effective) + Sensor (6) + Taz Symbiosis (4) + Other Modifiers = 18d6 (20d6 with Enlighten Automaton sustained)
         gunnery_pool = active_d + sensor_val + taz_symbiosis + targeting_other_bonus
-        gunnery_breakdown = f"Targeting {active_d} + Sensor {sensor_val} + Taz Symbiosis {taz_symbiosis}{other_gunnery_str} = {gunnery_pool}d6"
+        enlighten_g_note = f" ({gunnery_pool + 2}d6 with Enlighten Automaton sustained)" if (has_enlighten and is_home_device) else ""
+        gunnery_breakdown = f"Targeting {active_d} + Sensor {sensor_val} + Taz Symbiosis {taz_symbiosis}{other_gunnery_str} = {gunnery_pool}d6{enlighten_g_note}"
 
         # Evasion R9 (7 effective) + Pilot/RES (9) + Focus (4) + Taz Symbiosis (4) = 24d6
         evasion_pool = active_d + inhabited_pilot + focus_bonus + taz_symbiosis
         evasion_breakdown = f"Evasion {active_d} + Pilot/RES {inhabited_pilot} + Focus {focus_bonus} + Taz Symbiosis {taz_symbiosis} = {evasion_pool}d6"
 
-        # Clearsight R9 (7 effective) + Sensor (7) + Taz Symbiosis (4) = 18d6
+        # Clearsight R9 (7 effective) + Sensor (6) + Taz Symbiosis (4) = 17d6 (19d6 with Enlighten Automaton sustained)
         perception_pool = active_d + sensor_val + taz_symbiosis
-        perception_breakdown = f"Clearsight {active_d} + Sensor {sensor_val} + Taz Symbiosis {taz_symbiosis} = {perception_pool}d6"
+        enlighten_p_note = f" ({perception_pool + 2}d6 with Enlighten Automaton sustained)" if (has_enlighten and is_home_device) else ""
+        perception_breakdown = f"Clearsight {active_d} + Sensor {sensor_val} + Taz Symbiosis {taz_symbiosis} = {perception_pool}d6{enlighten_p_note}"
 
         # Stealth R9 (7 effective) + Pilot/RES (9) + Focus (4) + Taz Symbiosis (4) + Sneak-Sneak (2) = 26d6
         stealth_pool = active_d + inhabited_pilot + focus_bonus + taz_symbiosis + 2
@@ -932,17 +955,19 @@ def calculate_drone_action_pools(
         piloting_pool = active_d + active_s + taz_diagnosis
         piloting_breakdown = f"Maneuvering {active_d} + Sleaze/REA {active_s} + Taz Diagnosis {taz_diagnosis} = {piloting_pool}d6"
 
-        # Gunnery/Targeting: Targeting (7) + Sensor (7) + Taz Symbiosis (4) + Other Modifiers = 18d6+
+        # Gunnery/Targeting: Targeting (7) + Sensor (6) + Taz Symbiosis (4) + Other Modifiers = 18d6
         gunnery_pool = active_d + sensor_val + taz_symbiosis + targeting_other_bonus
-        gunnery_breakdown = f"Targeting {active_d} + Sensor {sensor_val} + Taz Symbiosis {taz_symbiosis}{other_gunnery_str} = {gunnery_pool}d6"
+        enlighten_g_note = f" ({gunnery_pool + 2}d6 with Enlighten Automaton sustained)" if (has_enlighten and is_home_device) else ""
+        gunnery_breakdown = f"Targeting {active_d} + Sensor {sensor_val} + Taz Symbiosis {taz_symbiosis}{other_gunnery_str} = {gunnery_pool}d6{enlighten_g_note}"
 
         # Evasion: Evasion (7) + Sleaze/REA (9) + Taz Symbiosis (4) = 20d6
         evasion_pool = active_d + active_s + taz_symbiosis
         evasion_breakdown = f"Evasion {active_d} + Sleaze/REA {active_s} + Taz Symbiosis {taz_symbiosis} = {evasion_pool}d6"
 
-        # Perception: Clearsight (7) + Sensor (7) + Taz Symbiosis (4) = 18d6
+        # Perception: Clearsight (7) + Sensor (6) + Taz Symbiosis (4) = 17d6
         perception_pool = active_d + sensor_val + taz_symbiosis
-        perception_breakdown = f"Clearsight {active_d} + Sensor {sensor_val} + Taz Symbiosis {taz_symbiosis} = {perception_pool}d6"
+        enlighten_p_note = f" ({perception_pool + 2}d6 with Enlighten Automaton sustained)" if (has_enlighten and is_home_device) else ""
+        perception_breakdown = f"Clearsight {active_d} + Sensor {sensor_val} + Taz Symbiosis {taz_symbiosis} = {perception_pool}d6{enlighten_p_note}"
 
         # Stealth: Stealth (7) + Data Proc/AGI (7) + Taz Symbiosis (4) + Sneak-Sneak (2) = 20d6
         stealth_pool = active_d + active_d + taz_symbiosis + 2

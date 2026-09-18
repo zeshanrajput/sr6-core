@@ -27,6 +27,7 @@ def test_parse_purchases_qmd_reiko():
     maa_mods = mods[maa_key]
     assert any("increased sensors 2" in m.lower() for m in maa_mods)
     assert any("used synthetic cyberarm (right" in m.lower() for m in maa_mods)
+    assert not any("used synthetic cyberarm (left" in m.lower() for m in maa_mods)
     assert any("secondary propulsion (wheeled)" in m.lower() for m in maa_mods)
     assert any("secondary propulsion (rotor)" in m.lower() for m in maa_mods)
 
