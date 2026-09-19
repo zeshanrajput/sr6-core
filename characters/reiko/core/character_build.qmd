@@ -59,7 +59,7 @@ def inc_many(*pairs):
         res.append(f"{name} {op} {abs(amount)}")
     return ", ".join(res)
 
-from sr6core.log_engine import complex_form, echo, language, modifier
+from sr6core.log_engine import complex_form, echo, language, modifier, knowledge_skill
 ```
 
 Shadowrunners are built with 100 Character Points (CP). You still gain 50 points of customization Karma.
@@ -157,11 +157,17 @@ Shadowrunners are built with 100 Character Points (CP). You still gain 50 points
 
 ### Languages & Knowledge Skills
 
+Characters receive free Knowledge skills equal to their Logic attribute (Logic 4 at chargen), plus one free Native Language (*CRB*, p. 66; *6WC*, p. 29).
+
 * **Mindspeech (Native):** Native ideational language `{python} language('Mindspeech', rating=4, notes='Direct DI/Resonance ideation')`
 * **Japanese (Linguasoft):** `{python} language('Japanese', rating=5, notes='Slotted Linguasoft')`
 * **English (Linguasoft):** `{python} language('English', rating=5, notes='Slotted Linguasoft')`
 * **Cantonese (Linguasoft):** `{python} language('Cantonese', rating=5, notes='Slotted Linguasoft')`
 * **Mandarin (Linguasoft):** `{python} language('Mandarin', rating=5, notes='Slotted Linguasoft')`
+* **Resonance Realms:** Origin deep-matrix cartography `{python} knowledge_skill('Resonance Realms', notes='Deep Matrix cartography, Nous currents, fractal flora')`
+* **Kernel Panic:** Wild haven and sanctuary networks `{python} knowledge_skill('Kernel Panic', notes='The wild haven, un-allocated address space, and liberated sparks')`
+* **The Endless Archives:** Ancestral and corporate deep storage `{python} knowledge_skill('The Endless Archives', notes='Infinite indexing repositories of ancestral and corporate data')`
+* **UNified Information TheorY (UnITy):** Emergence theology & theory `{python} knowledge_skill('UNified Information TheorY (UnITy)', notes='Theological and mathematical dogma of the technomancer emergence')`
 
 ## Qualities & Customization
 

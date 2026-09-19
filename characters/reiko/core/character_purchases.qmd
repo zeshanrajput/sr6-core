@@ -3,7 +3,7 @@
 ```{python}
 #| echo: false
 #| include: false
-from sr6core.log_engine import inc, inc_many, assign, state, modifier
+from sr6core.log_engine import inc, inc_many, assign, state, modifier, knowledge_skill
 
 # Initial Starting Resources from Chargen
 assign("Karma", 1)
@@ -66,6 +66,9 @@ assign("Lifetime_Nuyen", 90000)
   * **Stealth (1, R9)** `{python} inc_many(('Nuyen', -4500),('Karma', -1))`
   * **Targeting (1, R9)** `{python} inc_many(('Nuyen', -4500),('Karma', -1))`
   * **Tracking (R9)** `{python} inc_many(('Nuyen', -4500),('Karma', -1))`
+* Knowsofts
+  * Japanese Cultural Etiquette (R3) `{python} inc('Nuyen', -2500)` `{python} knowledge_skill('Japanese Cultural Etiquette', rating=3, notes='Rating 3 Knowsoft: Corporate hierarchy, bowing registers, formal tea hospitality')`
+  * New Orleans Vodou & Loa Syncretism (R3) `{python} inc('Nuyen', -2500)` `{python} knowledge_skill('New Orleans Vodou & Loa Syncretism', rating=3, notes='Rating 3 Knowsoft: Baron Samedi, Loa of the Wires, League of Laveau, Zobop')`
 * Commlink Apps
   * Facial Scanner `{python} inc('Nuyen', -750)`
   * P-ICE Spines `{python} inc('Nuyen', -500)`
@@ -124,6 +127,7 @@ Software with karma costs have been learned via the **Software Emulator** echo.
   * Secondary Propulsion (Wheeled): `{python} inc('Nuyen', -10000/2)`
     * Smart Tires `{python} inc('Nuyen', -1200/2)`
     * HAN 3/4, ACC 15, SPD 25/120
+  * Hydrocarbon Fuel Converter `{python} inc('Nuyen', -15000/2)`
   * Accessories
     * Satellite Link
     * Laser Jack
