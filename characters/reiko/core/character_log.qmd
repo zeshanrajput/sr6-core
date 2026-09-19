@@ -520,11 +520,10 @@ Submersion_Grade = state["Submersion_Grade"]
   * `{python} contact("Alice Krom", fp=1)`
 * **Downtime Actions (1 Major Traded for 2 Minors $\rightarrow$ 3 Minor Actions):**
   * *Minor Action 1 (Learn Complex Form — Enlighten Automaton):* `{python} learn_complex_form("Enlighten Automaton")`
-  * *Minor Action 2 (Register Sprites — 2 days downtime):*
-    * `{python} add_sprite("Modular", 7)`
-    * `{python} add_sprite("Modular", 7)`
+  * *Minor Action 2 (Repair & Modify Drone — Shiawase Man-at-Arms):* Installed Hydrocarbon Fuel Converter.
   * *Minor Action 3:* `{python} lifestyle('Middle', cost=2000)` | `{python} work_for_the_people()`
 * **Other**
   * Adopted two g33k0s, Lizzie and Leonard
-  * Upgraded Shiawase Man-at-Arms with Increased Sensors 2 (hardware Rating 4 cap per SR6 p. 277; sensor attribute boosted to 6 via Home Device tuning and Network Sensor Upgrade, and up to 8 when Enlighten Automaton is sustained).
-  * 3 Karma remaining banked.
+  * Register Sprites (2 days downtime):
+    * `{python} add_sprite("Modular", 7)`
+    * `{python} add_sprite("Modular", 7)`

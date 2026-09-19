@@ -189,7 +189,7 @@ def test_character_portfolio_totals_exact_match():
     reiko = get_log_totals("characters/reiko")
     assert reiko["Karma"] == 3
     assert reiko["Lifetime_Karma"] == 246
-    assert reiko["Nuyen"] == 13050.0
+    assert reiko["Nuyen"] == 550.0
     assert reiko["Lifetime_Nuyen"] == 396800
     assert reiko["Submersion_Grade"] == 8
 
