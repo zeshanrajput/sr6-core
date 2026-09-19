@@ -10,7 +10,7 @@ identity:
   system: shadowrun6e
   karma: 3
   lifetime_karma: 246
-  nuyen: 13050.0
+  nuyen: 550.0
   lifetime_nuyen: 396800
   heat: -1
 attributes:
@@ -211,6 +211,24 @@ knowledge_skills:
   is_native: false
   is_linguasoft: true
   notes: Slotted Linguasoft
+- name: Resonance Realms
+  rating: null
+  notes: Deep Matrix cartography, Nous currents, fractal flora
+- name: Kernel Panic
+  rating: null
+  notes: The wild haven, un-allocated address space, and liberated sparks
+- name: The Endless Archives
+  rating: null
+  notes: Infinite indexing repositories of ancestral and corporate data
+- name: UNified Information TheorY (UnITy)
+  rating: null
+  notes: Theological and mathematical dogma of the technomancer emergence
+- name: Japanese Cultural Etiquette
+  rating: 3
+  notes: 'Rating 3 Knowsoft: Corporate hierarchy, bowing registers, formal tea hospitality'
+- name: New Orleans Vodou & Loa Syncretism
+  rating: 3
+  notes: 'Rating 3 Knowsoft: Baron Samedi, Loa of the Wires, League of Laveau, Zobop'
 contacts:
   Brynne Taggart:
     name: Brynne Taggart
@@ -1454,6 +1472,7 @@ drones:
     I will not be using the Biotech bonus)
   - Secondary Propulsion (Wheeled)
   - Smart Tires
+  - Hydrocarbon Fuel Converter
   - Satellite Link
   - Laser Jack
 - name: Kwonsham Dream Genie
