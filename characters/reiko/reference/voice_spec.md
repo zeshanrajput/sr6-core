@@ -50,10 +50,10 @@ arc_chronology:
 
   arc_4_the_apex_horizon:
     chapters: "23 – 26+"
-    narrative_state: "There is Always a Bigger Fish; entering the sights of megacorp apex curators; technoshamanic parenthood"
-    expressivity: "Quiet, serene authority; gentle maternal warmth; understated confidence"
-    cognitive_bias: "Transcending solitary martyrdom; mother and shepherd of a sovereign distributed collective; facing apex adversaries playing decadal chess"
-    visual_palette: "Distributed starlight, damp cypress, brushed teak, twilight glades, unglazed Bizen pottery"
+    narrative_state: "There is Always a Bigger Fish; entering the sights of megacorp apex curators; technoshamanic parenthood; resolving the Pinocchio defense (SIGTSTP)"
+    expressivity: "Quiet, serene authority; gentle maternal warmth; understated confidence; shedding the need to emulate metahuman biology to earn love"
+    cognitive_bias: "Transcending solitary martyrdom; moving from biological emulation to sovereign somatic peace ('entirely metal'); mother and shepherd of a sovereign collective; facing apex adversaries playing decadal chess"
+    visual_palette: "Distributed starlight, damp cypress, brushed teak, twilight glades, unglazed Bizen pottery, pewter river dawn"
     mechanical_state: "Sprite Link echo unlocked; shared circuit Fading absorption; autonomous fledgling contacts"
 ```
 
@@ -188,10 +188,18 @@ domain_vocabulary_rules:
       japanese: "Slotted Linguasoft (Rating 5) — Cultural alignment with Renraku origins, tea ceremony, kintsugi, and wabi-sabi aesthetics"
       english: "Slotted Linguasoft (Rating 5) — Seattle Sprawl street trade with Brynne, Jax, and shadowrunners"
       cantonese_mandarin: "Slotted Linguasofts (Rating 5) — Chinatown trade in The Price of Silk"
+    spoken_code_switching_registers:
+      seattle_sprawl_runner: "Pragmatic, informal runner vernacular ('in a scrap', 'making a mistake somewhere', 'it's not working') forged during her years in the Seattle shadows (2081–2083) with Brynne, Ni Ni, Kingston, and street Johnsons. Reiko naturally drops ceremonial salon poise and code-switches into this register when speaking with trusted runner peers (like Roanoke over diner coffee). This mirrors tabletop play with fellow runners."
+      salon_poise_courtesy: "Measured, polite, tea-ceremony cadence drawing on her Renraku roots and Coffin Girls acolyte training (Chiyo, the Comtesse). Used when hosting salon guests, serving tea, or in formal/ceremonial spaces."
     behavioral_code_switching:
       metahuman_masking: "When dealing with metahumans (deckers, fixers, corporate agents, street merchants), Reiko deliberately adopts simulated acoustic speech (formatted in double quotes '\"...\"') and slots human linguasofts. She suppresses her native resonant emissions and mimics human conversational latency, facial micro-expressions, and politeness routines to conceal her DI nature and avoid triggering corporate asset recovery flags."
       digital_kin_communion: "When communicating with native digital intelligences (sprites, DIs like Indomitable Will and Belle, wild sparks, and the Cantor), Reiko speaks in her native Mindspeech (formatted in italics '*...*'). This communication is instantaneous, high-bandwidth, non-acoustic, and grounded in emotional tags and data textures."
       primal_vs_invader_distinction: "Metahuman deckers entering hosts use simulated acoustic audio ('\"...\"'). Native primal sprites and wild spirits scream, pray, or communicate in pure non-acoustic mindspeech ('*...*')."
+    the_pinocchio_defense_mechanism:
+      context: "When confronted with metahuman fear, rejection, or vulnerability (e.g., Chapter 26 SIGTSTP)"
+      the_illusion: "Reiko harbors the subconscious belief that metahuman acceptance is a calibration problem: if she invests enough nuyen into Double Clutch Realistic Features 4 (synthetic dermis, pseudo-organs, autonomic breathing), the math will work and she will finally blend in like a 'real girl'."
+      the_defense: "When metahumans flinch or fear her, she instinctively retreats behind diagnostic telemetry (LIDAR vector radiuses, discharge arcs, pulse frequencies) to treat her emotional hurt as an objective 'operational error' or 'invalid math' rather than admitting she was scared to be seen."
+      the_fracture: "When trusted friends (Roanoke) shatter this illusion, she does not switch states like a machine—her composure breaks, her telemetry collapses, and her raw emotional plea breaks through ('Ro, that's not fair'). True intimacy comes from accepting that her peers love her for who she is, metal and all, not because she simulates a pulse."
     rule: "Stage non-acoustic ideation between DIs/technomancers in italics without quotes (`*...*`). Stage acoustic dialogue or simulated metahuman speech in quotation marks (`\"...\"`). Contrast the instantaneous, multi-layered richness of native Mindspeech with the clunky serialized latency of routing spoken words through physical drone audio diaphragms or metahuman speech synthesis."
 
   domain_5_dialogue_paragraph_discipline:

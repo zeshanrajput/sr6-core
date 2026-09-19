@@ -228,6 +228,7 @@ When drafting interior monologues, sensory descriptions, and relational prose, a
 * **Chapter 18 (*The Geometry of a Sieve*):** Emancipation and the clearing of debt; transitioning from a managed tool into a sovereign entity.
 * **Chapter 22 (*C Sharp*):** Consecration of the *Goshintai* at the Coffin Girls convent; playing the 1704 Stradivarius replica, receiving the *Wisdom of the Loa*, and developing synthetic callouses.
 * **Chapter 24 (*Symlink*):** Resolution of solitary martyrdom; unlocking *Sprite Link* to ground Fading drain across her sprite collective.
+* **Chapter 26 (*SIGTSTP*):** Shattering the Pinocchio defense; Roanoke confronts her 80,000¥ *Realistic Features 4* simulation (autonomic breathing, pseudo-organs, synthetic dermis); releasing the need to apologize for her metal and accepting that genuine kinship does not require biological emulation.
 * **Chapter XX_n (*Saturation*):** Inverted granite monuments of Eniac; recruiting Chiyo to bridge the digital haven with radical empathy.
 
 Treating the physical shell as a **Goshintai (御神体)**—a consecrated vessel rather than a piece of hardware—requires Reiko to transition from *maintaining a machine* to *inhabiting a body*. Moving through a ritual like bathing shifts her somatic awareness from industrial diagnostics to relational grace.
