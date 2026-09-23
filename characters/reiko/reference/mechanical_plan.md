@@ -111,7 +111,7 @@ This document tracks character upgrades, mechanical evaluations, karma/nuyen tar
   * Category: `[2 Powertrain Capacity]` (*Double Clutch*, p. 124).
   * Cost: 7,500¥ (Base Body 10 × 1,500¥ = 15,000¥; 50% self-install discount per *DC*, p. 120).
   * Placement & Function: Installed at the base of the anthrodrone's esophagus, linking oral chemoreceptors and digestive tract to the chassis auxiliary power cell.
-  * Operational Value: 
+  * Operational Value:
     1. *Survival Power Generation:* Allows the chassis to run indefinitely on organic matter (food, alcohol, sugars, plant matter, standard hydrocarbon fuels) away from electrical charging grids. Reiko has repeatedly faced situations without grid power (submerged in Malta, lost in the bayous); this prevents operational stranding.
     2. *Masquerade Reinforcement:* Functionally converts social consumption (drinking with Johnsons or sipping tea with clients) into direct fuel rather than dumping inert fluid into a dead reservoir.
 * **Second Cyberarm (Left, Used Synthetic Cyberarm — 8 Capacity):**

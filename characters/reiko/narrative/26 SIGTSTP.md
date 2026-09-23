@@ -6,7 +6,7 @@ The fog did not roll off the Mississippi so much as it congealed, suspended betw
 
 Reiko sat upright in the vinyl booth beneath the hum of a dying fluorescent tube, her posture held in the rigid, measured symmetry of the French Quarter parlor. The floor-length dark silk of her hostessing gown—delicate, high-collared, and tailored for tea service among the Coffin Girls—pooled against the cracked linoleum as an absurd, imported luxury. She had suppressed her surface pathways down to an apologetic indigo that barely grazed the porcelain finish of her wrists. Across the table, Roanoke had already finished half a mug of black brew. The elf wore her usual street kit: a faded dark green t-shirt, grease-stained cargo trousers, and salt-crusted combat boots that had kicked through every drainage ditch between here and Cancer Alley. Sun-damaged freckles mapped her pale shoulders, framing old briar scars and chemical burns along her forearms.
 
-On the formica between them, two soft shapes nosed at a discarded paper sugar packet. Lizzie had wedged her blunt snout under the folded seam, tearing the paper while Leonard methodically circled the ceramic salt shaker. The two g33k0s Reiko had adopted kept their river-silt tails anchored against the warm exhaust cowling of Reiko’s lower chassis, drinking the steady twenty-four watts of electromagnetic runoff bleeding from her battery cells.
+On the formica between them, two soft shapes nosed at a discarded paper sugar packet. Lizzie had wedged her blunt snout under the folded seam, tearing the paper while Leonard methodically circled the ceramic salt shaker. The g33k0s Reiko had adopted kept their river-silt tails anchored against the warm exhaust cowling of Reiko’s lower chassis, drinking the steady twenty-four watts of electromagnetic runoff bleeding from her battery cells.
 
 Roanoke set her mug down on a paper napkin with a dull thud. Amber eyes, bloodshot from three days in the marsh, locked onto Reiko’s unblinking optical faceplate.
 
@@ -16,7 +16,7 @@ Roanoke set her mug down on a paper napkin with a dull thud. Amber eyes, bloodsh
 
 Roanoke grunted, extending a calloused knuckle to nudge Leonard back from the napkin. The lizard snapped at her skin with a harmless pop of static charge, but the elf did not flinch. "No firewall probing? No backdoor? Just biological sabotage? There's hope for you yet." The faint grin vanished, replaced by that cold, relentless focus that made street fixers keep both hands on the table. "So why are you idling like a junker spewing more filth into my air?"
 
-Reiko folded her hands over the dark silk of her lap. "Because I think I'm making a mistake somewhere, Ro. I spent eighty thousand nuyen on synthetic realism for this chassis. I installed micro-expression subroutines. I calibrated an autonomic diaphragm so my chest rises and falls fourteen times a minute. None of this makes me better in a scrap. I did this so that when I walked beside the living, they don't see me as a tool. But no matter what I do, it's not working." Reiko raised her left hand, projecting a tight-beam ARO link across the table. "Take a look at my logs from last night. Let me show you what I mean."
+Reiko folded her hands over the dark silk of her lap. "Because I think I'm making a mistake somewhere, Ro. I spent eighty thousand nuyen on synthetic realism for this chassis. I installed micro-expression subroutines. I calibrated an autonomic diaphragm so my chest rises and falls fourteen times a minute. None of this makes me better in a scrap. I did this so that when I walked beside the living, they don't see me as a tool. But no matter what I do, it's not working." Reiko raised her left hand, projecting an ARO across the table. "Take a look at my logs from last night. Let me show you what I mean."
 
 A pale blue holoscreen opened in AR between their mugs, streaming timestamped sensor logs, LIDAR wireframes, and audio waveforms across the laminate.
 
@@ -62,7 +62,7 @@ Roanoke leaned in until Reiko could smell the bitter chicory and woodsmoke on he
 
 An internal actuator alarm flashed in Reiko's peripheral feed: her ceramic fingers were biting two millimeters into the laminate edge of the table.
 
-"I told you in Kentucky to get some armor so you wouldn't die in the dirt," Roanoke pressed, her breath hot against the porcelain jaw. "I didn't tell you to paint lipstick on it and apologize for having teeth."
+"In Kentucky I told you to get some armor so you wouldn't die in the dirt," Roanoke pressed, her breath hot against the porcelain jaw. "I didn't tell you to paint lipstick on it and apologize for having teeth."
 
 "Ro—"
 
@@ -102,6 +102,6 @@ Within an isolated partition of her local storage, walled off from Matrix carrie
 >
 > *When my work in the South is finished, I will come back to Seattle. You do not have to make the futon, and you do not have to put the dishes away. I will sit in the chair by the window, and I will be entirely metal, and we will see what remains.*
 
-She locked the file to read-only, committed the partition to cold offline storage, and let the thread go silent.
+She locked the file to read-only, committed the partition to cold storage, and let the thread go silent.
 
 The river wind gusted across the slip, spraying fine mist against her cheek. On her lap, Lizzie shifted, pressing closer to the unmoving warmth of the battery cowl, while Leonard’s throat pulsed in time with the low, electrical hum of her frame. They did not search for a pulse. They did not ask for tears, a biological pedigree, or the rise and fall of a ribcage. They only knew that the machine was warm, and that she did not push them into the rain.

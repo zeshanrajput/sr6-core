@@ -123,6 +123,7 @@ Active campaign stories written during play:
 * **[Chapter 23: Tea with a Ghost](narrative/23 Tea with a Ghost.md)**
 * **[Chapter 24: Symlink](narrative/24 Symlink.md)**
 * **[Chapter 25: DelTree](narrative/25 DelTree.md)**
+* **[Chapter 26: SIGTSTP](narrative/26 SIGTSTP.md)**
 
 ### 5. Reference & Specifications
 Design rules, faction dossiers, and visual anchor specifications:
