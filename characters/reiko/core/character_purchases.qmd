@@ -163,3 +163,8 @@ Drone mods include a 50% discount on mods Yuriko installed herself (DC p. 120). 
 * Yuriko Star (R6) `{python} inc_many(('Nuyen', -5000), ('Nuyen', -10000))`
   * Drone License (R6) `{python} inc_many(('Nuyen', -400), ('Nuyen', -800))`
   * Firearms License (R6) `{python} inc_many(('Nuyen', -400), ('Nuyen', -800))`
+
+### Skills & Specializations
+
+* **Con Specialization (Disguise):** *5 Karma (SRM 2081-12 Downtime)*
+

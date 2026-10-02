@@ -1325,11 +1325,11 @@
       "mortype": "",
       "gender": "DIVERSE",
       "age": "~ 10",
-      "nuyen": 550.0,
-      "lifetime_nuyen": 396800,
-      "karma": 3,
-      "karma_avail": 3,
-      "lifetime_karma": 246,
+      "nuyen": 6450.0,
+      "lifetime_nuyen": 404800,
+      "karma": 4,
+      "karma_avail": 4,
+      "lifetime_karma": 256,
       "nanite_volume": 0,
       "is_ai": true,
       "is_monad": false,
@@ -1670,16 +1670,33 @@
         "id": "con",
         "rating": 1,
         "attribute": "Charisma",
-        "specialization": null,
+        "specialization": "Disguise",
         "base_pool": 5,
-        "buffed_pool": 5,
+        "buffed_pool": 6,
         "bought_hits": 1,
-        "specialized_pool": 5,
-        "specialized_hits": 1,
+        "specialized_pool": 8,
+        "specialized_hits": 2,
         "effective_attribute": "charisma",
         "is_attribute_overridden": false,
-        "breakdown_text": "CHA 4 + 1 Rtg",
-        "buffs": [],
+        "breakdown_text": "CHA 4 + 1 Rtg + +1 Taz Symbiosis (Con) (Teamwork)",
+        "buffs": [
+          {
+            "source": "Taz Symbiosis (Con)",
+            "type": "teamwork",
+            "value": 1,
+            "target": "skill:con",
+            "rule_anchor": "rules_sprites.html#sprite-symbiosis-powers",
+            "notes": null,
+            "active": true
+          },
+          {
+            "source": "Specialization: Disguise",
+            "type": "specialization",
+            "value": 2,
+            "target": "action",
+            "active": false
+          }
+        ],
         "doc_link": "chapters/rules_matrix.html#matrix-action-pools"
       },
       {
@@ -3471,7 +3488,7 @@
         "connection": 4,
         "loyalty": 1,
         "archetype": "Triad Johnson",
-        "favors": 0,
+        "favors": 1,
         "region": "SEA",
         "types": [
           "Criminal",
@@ -3783,6 +3800,70 @@
           "Street"
         ],
         "description": "Uses: Music, entertainment, local scene | Types: Entertainment, Street"
+      },
+      {
+        "name": "Donovan Pyke",
+        "connection": 8,
+        "loyalty": 1,
+        "archetype": "Shadow Chapters Leader",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "Corporate",
+          "Magic"
+        ],
+        "description": "Uses: Getting jobs, politics, Shadow Chapters (Shadowrun Missions Seattle) | Types: Corporate, Magic"
+      },
+      {
+        "name": "Ms. Snow",
+        "connection": 5,
+        "loyalty": 1,
+        "archetype": "Shadow Chapters Johnson",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "Corporate",
+          "Government"
+        ],
+        "description": "Uses: Corporate rumors, getting jobs, military (Shadowrun Missions Seattle) | Types: Corporate, Government"
+      },
+      {
+        "name": "Rodina",
+        "connection": 2,
+        "loyalty": 1,
+        "archetype": "ACHE Gang Leader",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "Criminal",
+          "Street"
+        ],
+        "description": "Uses: ACHE sprawl lore, gang muscle, underground trade (Shadowrun Missions Seattle) | Types: Criminal, Street"
+      },
+      {
+        "name": "Piper",
+        "connection": 2,
+        "loyalty": 1,
+        "archetype": "Street Kid",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "Street"
+        ],
+        "description": "Uses: Seattle Underground guide, rumors, history (Shadowrun Missions Seattle) | Types: Street"
+      },
+      {
+        "name": "4Gurds",
+        "connection": 1,
+        "loyalty": 1,
+        "archetype": "Free AI (Pharmaforge Controller)",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "Matrix",
+          "Academic"
+        ],
+        "description": "Uses: Pharmaceutical manufacturing, chemistry lore, Renraku Arcology legacy archival files (Shadowrun Missions Seattle) | Types: Matrix, Academic"
       }
     ],
     "exceptions": [
@@ -3897,6 +3978,17 @@
         "sub_skill": null,
         "rule_anchor": "rules_sprites.html#sprite-symbiosis-powers",
         "notes": "Taz Level 7 teamwork bonus (up to +4, dynamically clamped to Reiko Influence rating)",
+        "enabled": true
+      },
+      {
+        "id": "taz_symbiosis_con",
+        "name": "Taz Symbiosis (Con)",
+        "target": "skill:con",
+        "value": 4,
+        "type": "teamwork",
+        "sub_skill": null,
+        "rule_anchor": "rules_sprites.html#sprite-symbiosis-powers",
+        "notes": "Taz Level 7 teamwork bonus (up to +4, dynamically clamped to Reiko Con rating)",
         "enabled": true
       }
     ],

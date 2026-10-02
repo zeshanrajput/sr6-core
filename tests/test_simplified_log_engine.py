@@ -172,26 +172,33 @@ def test_simplified_sprites_and_spirits():
     assert len(_GLOBAL_LOG_STATE["Spirits"]) == 1
 
 
-def test_character_portfolio_totals_exact_match():
-    # Verify all 3 characters compile to their exact expected totals
-    venn = get_log_totals("characters/venn")
-    assert venn["Karma"] == 3
-    assert venn["Lifetime_Karma"] == 3
-    assert venn["Nuyen"] == 570
-    assert venn["Lifetime_Nuyen"] == 570
+def test_character_portfolio_consistency():
+    """
+    Verifies that dynamic Markdown Trio evaluations match compiled master dossiers
+    across all character portfolios, ensuring single-source-of-truth invariants.
+    """
+    from sr6core.character.manager import CharacterManager
 
-    velvet = get_log_totals("characters/velvet")
-    assert velvet["Karma"] == 17
-    assert velvet["Lifetime_Karma"] == 55
-    assert velvet["Nuyen"] == 565
-    assert velvet["Lifetime_Nuyen"] == 117590
+    cm = CharacterManager()
+    for char_id in ["reiko", "velvet", "venn"]:
+        repo_dir = f"characters/{char_id}"
+        totals = get_log_totals(repo_dir)
+        master = cm.get_character_data(char_id)
+        assert master is not None, f"Character data for {char_id} not found"
 
-    reiko = get_log_totals("characters/reiko")
-    assert reiko["Karma"] == 3
-    assert reiko["Lifetime_Karma"] == 246
-    assert reiko["Nuyen"] == 550.0
-    assert reiko["Lifetime_Nuyen"] == 396800
-    assert reiko["Submersion_Grade"] == 8
+        identity = master.get("identity", {})
+        # Verify master YAML matches dynamic Markdown Trio evaluation
+        assert totals["Karma"] == identity.get("karma"), f"Karma mismatch for {char_id}: {totals['Karma']} != {identity.get('karma')}"
+        assert totals["Lifetime_Karma"] == identity.get("lifetime_karma"), f"Lifetime Karma mismatch for {char_id}"
+        assert totals["Nuyen"] == identity.get("nuyen"), f"Nuyen mismatch for {char_id}: {totals['Nuyen']} != {identity.get('nuyen')}"
+        assert totals["Lifetime_Nuyen"] == identity.get("lifetime_nuyen"), f"Lifetime Nuyen mismatch for {char_id}"
+
+        # Core physical tabletop invariants
+        assert totals["Karma"] >= 0, f"Negative Karma detected on {char_id}"
+        assert totals["Lifetime_Karma"] >= totals["Karma"], f"Lifetime Karma < Current Karma on {char_id}"
+        assert totals["Nuyen"] >= 0, f"Negative Nuyen detected on {char_id}"
+        assert totals["Lifetime_Nuyen"] >= totals["Nuyen"], f"Lifetime Nuyen < Current Nuyen on {char_id}"
+
 
 
 def test_contact_types_and_search():

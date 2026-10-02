@@ -8,10 +8,10 @@ identity:
   gender: DIVERSE
   age: ~ 10
   system: shadowrun6e
-  karma: 3
-  lifetime_karma: 246
-  nuyen: 550.0
-  lifetime_nuyen: 396800
+  karma: 4
+  lifetime_karma: 256
+  nuyen: 6450.0
+  lifetime_nuyen: 404800
   heat: -1
 attributes:
   body: 5
@@ -69,6 +69,7 @@ skills:
   id: con
   attribute: Charisma
   rating: 1
+  specialization: Disguise
 - name: Native Language
   id: language
   attribute: Logic
@@ -128,6 +129,15 @@ modifiers:
   rule_anchor: rules_sprites.html#sprite-symbiosis-powers
   notes: Taz Level 7 teamwork bonus (up to +4, dynamically clamped to Reiko Influence
     rating)
+  enabled: true
+- id: taz_symbiosis_con
+  name: Taz Symbiosis (Con)
+  target: skill:con
+  value: 4
+  type: teamwork
+  sub_skill: null
+  rule_anchor: rules_sprites.html#sprite-symbiosis-powers
+  notes: Taz Level 7 teamwork bonus (up to +4, dynamically clamped to Reiko Con rating)
   enabled: true
 complex_forms:
 - name: Technoregeneration
@@ -901,7 +911,7 @@ contacts:
     is_canonical: true
     connection: 4
     loyalty: 1
-    favors: 0
+    favors: 1
     type: Triad Johnson
     region: SEA
     types:
@@ -915,6 +925,7 @@ contacts:
     history:
     - 'SRM.2081.08 (Met: C4 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
+    - SRM.2081.12 (+1 FP)
   Julian Müntefering:
     name: Julian Müntefering
     canonical_name: Julian Müntefering
@@ -1366,6 +1377,106 @@ contacts:
     history:
     - 'SRM.2083.15 (Met: C2 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
+  Donovan Pyke:
+    name: Donovan Pyke
+    canonical_name: Donovan Pyke
+    is_canonical: true
+    connection: 8
+    loyalty: 1
+    favors: 0
+    type: Shadow Chapters Leader
+    region: SEA
+    types:
+    - Corporate
+    - Magic
+    types_str: Corporate, Magic
+    description: 'Uses: Getting jobs, politics, Shadow Chapters (Shadowrun Missions
+      Seattle) | Types: Corporate, Magic (Not available after 2081-24)'
+    notes: 'Uses: Getting jobs, politics, Shadow Chapters (Shadowrun Missions Seattle)
+      | Types: Corporate, Magic (Not available after 2081-24)'
+    history:
+    - 'SRM.2081.12 (Met: C8 L0, +1 FP)'
+    - Auto-Promoted to Loyalty 1 (-1 FP)
+  Ms. Snow:
+    name: Ms. Snow
+    canonical_name: Ms. Snow
+    is_canonical: true
+    connection: 5
+    loyalty: 1
+    favors: 0
+    type: Shadow Chapters Johnson
+    region: SEA
+    types:
+    - Corporate
+    - Government
+    types_str: Corporate, Government
+    description: 'Uses: Corporate rumors, getting jobs, military (Shadowrun Missions
+      Seattle) | Types: Corporate, Government'
+    notes: 'Uses: Corporate rumors, getting jobs, military (Shadowrun Missions Seattle)
+      | Types: Corporate, Government'
+    history:
+    - 'SRM.2081.12 (Met: C5 L0, +1 FP)'
+    - Auto-Promoted to Loyalty 1 (-1 FP)
+  Rodina:
+    name: Rodina
+    canonical_name: Rodina
+    is_canonical: true
+    connection: 2
+    loyalty: 1
+    favors: 0
+    type: ACHE Gang Leader
+    region: SEA
+    types:
+    - Criminal
+    - Street
+    types_str: Criminal, Street
+    description: 'Uses: ACHE sprawl lore, gang muscle, underground trade (Shadowrun
+      Missions Seattle) | Types: Criminal, Street'
+    notes: 'Uses: ACHE sprawl lore, gang muscle, underground trade (Shadowrun Missions
+      Seattle) | Types: Criminal, Street'
+    history:
+    - 'SRM.2081.12 (Met: C2 L0, +1 FP)'
+    - Auto-Promoted to Loyalty 1 (-1 FP)
+  Piper:
+    name: Piper
+    canonical_name: Piper
+    is_canonical: true
+    connection: 2
+    loyalty: 1
+    favors: 0
+    type: Street Kid
+    region: SEA
+    types:
+    - Street
+    types_str: Street
+    description: 'Uses: Seattle Underground guide, rumors, history (Shadowrun Missions
+      Seattle) | Types: Street'
+    notes: 'Uses: Seattle Underground guide, rumors, history (Shadowrun Missions Seattle)
+      | Types: Street'
+    history:
+    - 'SRM.2081.12 (Met: C2 L0, +1 FP)'
+    - Auto-Promoted to Loyalty 1 (-1 FP)
+  4Gurds:
+    name: 4Gurds
+    canonical_name: 4Gurds
+    is_canonical: true
+    connection: 1
+    loyalty: 1
+    favors: 0
+    type: Free AI (Pharmaforge Controller)
+    region: SEA
+    types:
+    - Matrix
+    - Academic
+    types_str: Matrix, Academic
+    description: 'Uses: Pharmaceutical manufacturing, chemistry lore, Renraku Arcology
+      legacy archival files (Shadowrun Missions Seattle) | Types: Matrix, Academic'
+    notes: 'Uses: Pharmaceutical manufacturing, chemistry lore, Renraku Arcology legacy
+      archival files (Shadowrun Missions Seattle) | Types: Matrix, Academic'
+    history:
+    - 'Infant Free AI awakened by Reiko from the Renraku Arcology Pharmaforge control
+      software; possesses legacy Arcology archival files and industrial pharmaceutical
+      knowledge (Met: C1 L1)'
 reputation:
   Vory: 2
   Seattle: 7
@@ -1378,7 +1489,8 @@ reputation:
   Southeast Asia: 2
   DW: 2
   Kozlowski Family: 2
-total_reputation: 35
+  SEA: 1
+total_reputation: 36
 drones:
 - name: MCT Gnat
   ref: mctgnat

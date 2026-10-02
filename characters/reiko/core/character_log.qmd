@@ -526,4 +526,28 @@ Submersion_Grade = state["Submersion_Grade"]
   * Adopted two g33k0s, Lizzie and Leonard
   * Register Sprites (2 days downtime):
     * `{python} add_sprite("Modular", 7)`
-    * `{python} add_sprite("Modular", 7)`
+    * `{python} add_sprite("Modular", 7)`
+
+---
+
+`{python} mission("SRM.2081.12", date="2026-10-01", karma=9, nuyen=8000, rep={'SEA': 1}, expenses=100)`
+
+* **GM:** JaGator
+* **Team:** Mithral, Bast, Cherry (connor2847), Ninja (ArrogantNinja), Buddy (Medtec28), Yuriko (WarDoctor)
+* **Summary:** ShadowNet rumors circulated about shadowrunner "Shadow Chapters" organizing into unions promising professionalism, lower collateral damage, and corporate-style benefits. Donovan Pyke and Ms. Snow pitched the chapter concept across the Seattle sprawl, while meetings brought interactions with Eddie Wei, ACHE gang leader Rodina, and smuggler teen Piper. Pyke sent follow-up outreach pushing medical and dental benefits, though Reiko's spam filters kept the solicitation at bay. During the run, Reiko connected directly to the automation system of the Pharmaforge—an older pharmaceuticals manufacturing facility in the Renraku Arcology (ACHE)—and sparked its emergence into an infant Free AI, dubbed 4Gurds. While newborn in consciousness, 4Gurds possesses deep industrial knowledge of the pharmaceutical sector and legacy archival data from the Renraku Arcology.
+* **Contacts:**
+  * `{python} contact("Donovan Pyke", fp=1)`
+  * `{python} contact("Eddie Wei", fp=1)`
+  * `{python} contact("Ms. Snow", fp=1)`
+  * `{python} contact("Rodina", fp=1, connection=2, type_name="ACHE Gang Leader", region="SEA")`
+  * `{python} contact("Piper", fp=1)`
+  * `{python} contact("4Gurds", loyalty=1, connection=1, type_name="Free AI (Pharmaforge Controller)", region="SEA", notes="Infant Free AI awakened by Reiko from the Renraku Arcology Pharmaforge control software; possesses legacy Arcology archival files and industrial pharmaceutical knowledge")`
+* **Downtime Actions (1 Major Traded for 2 Minors $\rightarrow$ 3 Minor Actions):**
+  * *Minor Action 1 (Work for the People):* `{python} work_for_the_people()`
+  * *Minor Action 2 (Register Sprite):* `{python} add_sprite("Modular", 7)`
+  * *Minor Action 3 (Drone Maintenance):* Complete diagnostic overhaul, servo lubrication, sensor realignment, and autosoft cache optimization for the Shiawase Cyber-5 "Man-at-Arms" anthrodrone and small drone bay.
+* **Character Advancement & Ally Sprite Training:**
+  * *Taz Skill Training (Con):* `{python} inc('Karma', -4)` Spent 4 Karma to teach ally sprite Taz the Con skill (*Hack and Slash*, p. 156: adding a non-matrix skill to an existing ally sprite costs $2 \times 2 = 4\text{ Karma}$). Taz (Level 7) grants a teamwork bonus of up to +4 dice, dynamically clamped to Reiko's underlying Con rating (*SR6 Core*, p. 17; currently +1 die with Con 1).
+  * `{python} modifier('Taz Symbiosis (Con)', 'skill:con', 4, type='teamwork', rule_anchor='rules_sprites.html#sprite-symbiosis-powers', notes='Taz Level 7 teamwork bonus (up to +4, dynamically clamped to Reiko Con rating)')`
+  * *Con Specialization (Disguise):* `{python} inc('Karma', -5)` Acquired Disguise specialization for Con (+2 dice to disguise and physical masquerade tests).
+

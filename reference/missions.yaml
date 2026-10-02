@@ -320,3 +320,17 @@ SRM.2081.02:
   - kingston
   - whiskey
   - ms_margaret
+SRM.2081.12:
+  id: SRM.2081.12
+  title: The Red Pill
+  type: SRM
+  season: '2081'
+  region: SEA
+  contacts:
+  - donovan_pyke
+  - eddie_wei
+  - ms_snow
+  - rodina
+  - piper
+  - four_gurds
+

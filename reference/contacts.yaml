@@ -896,3 +896,27 @@ ms_margaret:
   description: Elderly hospital volunteer.
   id: ms_margaret
   types: Medical, Street
+rodina:
+  id: rodina
+  name: Rodina
+  connection: 2
+  job: ACHE Gang Leader
+  region: SEA
+  canonical: true
+  missions:
+  - SRM 2081-12
+  types: Criminal, Street
+  description: 'Uses: ACHE sprawl lore, gang muscle, underground trade (Shadowrun Missions Seattle) | Types: Criminal, Street'
+four_gurds:
+  id: four_gurds
+  name: 4Gurds
+  connection: 1
+  job: Free AI (Pharmaforge Controller)
+  region: SEA
+  canonical: true
+  missions:
+  - SRM 2081-12
+  types: Matrix, Medical
+  description: 'Uses: Pharmaceutical manufacturing, chemistry lore, Renraku Arcology legacy archival files| Types: Matrix, Medical'
+
+

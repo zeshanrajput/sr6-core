@@ -97,6 +97,24 @@ CANONICAL_CONTACTS: Dict[str, Dict[str, Any]] = {
         "types": "Street",
         "description": "Uses: Seattle Underground guide, rumors, history (Shadowrun Missions Seattle) | Types: Street"
     },
+    "Rodina": {
+        "job": "ACHE Gang Leader",
+        "connection": 2,
+        "region": "SEA",
+        "missions": "SRM 2081-12",
+        "uses": "ACHE sprawl lore, gang muscle, underground trade (Shadowrun Missions Seattle)",
+        "types": "Criminal, Street",
+        "description": "Uses: ACHE sprawl lore, gang muscle, underground trade (Shadowrun Missions Seattle) | Types: Criminal, Street"
+    },
+    "4Gurds": {
+        "job": "Free AI (Pharmaforge Controller)",
+        "connection": 1,
+        "region": "SEA",
+        "missions": "SRM 2081-12",
+        "uses": "Pharmaceutical manufacturing, chemistry lore, Renraku Arcology legacy archival files (Shadowrun Missions Seattle)",
+        "types": "Matrix, Academic",
+        "description": "Uses: Pharmaceutical manufacturing, chemistry lore, Renraku Arcology legacy archival files (Shadowrun Missions Seattle) | Types: Matrix, Academic"
+    },
     "Saint James": {
         "job": "Fixer",
         "connection": 8,

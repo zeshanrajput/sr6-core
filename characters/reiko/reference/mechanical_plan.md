@@ -11,7 +11,7 @@ This document tracks character upgrades, mechanical evaluations, karma/nuyen tar
 * **Resource Ledgers:** Live Karma, Nuyen, and Lifetime totals are dynamically tracked in the Markdown Trio ([character_log.qmd](file:///c:/GitHub/sr6-core/characters/reiko/core/character_log.qmd), [character_purchases.qmd](file:///c:/GitHub/sr6-core/characters/reiko/core/character_purchases.qmd), [character_build.qmd](file:///c:/GitHub/sr6-core/characters/reiko/core/character_build.qmd)) and compiled into `reiko_master.yaml`. Snapshot numbers in reference documents must never hardcode drifting totals.
 * **Resonance & Spark:** Resonance 8 | Essence / Spark: 6.00 (Uncompromised). Avoid codemods that cause Spark loss or risk AI Fragmentation.
 * **Living Persona Baseline:** ASDF 7 / 9 / 7 / 9 | Full Defense: 34d6
-* **Active Ally Sprite:** Taz (Level 7 Assassin Sprite; Symbiosis: Cracking +4, Electronics +4, Influence +4 [dynamically clamped to Reiko's underlying skill rating; currently +1; Con +4 planned]).
+* **Active Ally Sprite:** Taz (Level 7 Assassin Sprite; Symbiosis: Cracking +4, Electronics +4, Influence +4, Con +4 [dynamically clamped to Reiko's underlying skill rating; currently +1 on Influence & Con]).
 * **Resource Economics:** **Karma is the most constrained resource.** Where possible, knowledge skills and utility functions should be acquired via Nuyen (Rating 3 Knowsofts @ ¥2,500 each or programmed autosofts) rather than burning raw Karma.
 * **Immediate Strategic Focus:**
   1. *Karma:* Bank through the next mission to unlock **Tasking Spec: Compiling** (5 Karma; pushes compiling pool to 16d6 unassisted / 19d6 with foci/symbiosis for safe Rating 7–8 sprite compiling).
@@ -52,8 +52,8 @@ This document tracks character upgrades, mechanical evaluations, karma/nuyen tar
 │                                │              │              │ Wheelhouse   │
 │ Influence Spec: Negotiation    │ Specializ.   │ 5 Karma      │ Johnson Fees │
 │                                │              │              │ & Contracts  │
-│ Con Spec: Disguise             │ Specializ.   │ 5 Karma      │ Sprawl Mask  │
-│                                │              │              │ "Not a Weapon│
+│ Con Spec: Disguise             │ Specializ.   │ 5 Karma      │ [ACQUIRED]   │
+│                                │              │              │ Sprawl Mask  │
 ├────────────────────────────────┴──────────────┴──────────────┴──────────────┤
 │ STEP 2: TACTICAL EXPANSION & RIGGING SYNERGY (10–25 Karma)                   │
 ├────────────────────────────────┬──────────────┬──────────────┬──────────────┤
@@ -61,8 +61,8 @@ This document tracks character upgrades, mechanical evaluations, karma/nuyen tar
 │                                │              │              │ (Uncaps Taz) │
 │ Complex Form: Enhance Autosoft │ Complex Form │ 5 Karma      │ Drone Fleet  │
 │ Focused Concentration (Rat. 1) │ Quality      │ 24 Karma     │ Sustain CFs  │
-│ Taz Symbiosis: Con             │ Ally Sprite  │ 4 Karma      │ Teamwork +4* │
-│                                │ Upgrade      │              │ (Clamped +1) │
+│ Taz Symbiosis: Con             │ Ally Sprite  │ 4 Karma      │ [ACQUIRED]   │
+│                                │ Upgrade      │              │ Teamwork +4* │
 │ Con Rank 1 -> 2                │ Active Skill │ 10 Karma     │ +2 Net Dice  │
 │                                │              │              │ (Uncaps Taz) │
 │ Influence Rank 2 -> 3          │ Active Skill │ 15 Karma     │ 12d6 Spec.   │
@@ -95,7 +95,7 @@ This document tracks character upgrades, mechanical evaluations, karma/nuyen tar
     * *Rank 4:* 4 + 4 (Taz full) + 4 (CHA) = **12 dice general / 14 dice specialized** (Full +4 uncap achieved!)
   * **Con Progression (Post-Taz Con Upgrade):**
     * *Rank 1 Baseline:* 1 + 4 (CHA) = **5 dice general / 7 dice specialized (Disguise)**.
-    * *Rank 1 + Taz Con (4 Karma):* 1 + 1 (Taz clamped) + 4 (CHA) = **6 dice general / 8 dice specialized (Disguise)**.
+    * *Rank 1 + Taz Con (4 Karma):* 1 + 1 (Taz clamped) + 4 (CHA) = **6 dice general / 8 dice specialized (Disguise)** (Modifier logged as +4, clamped to +1 — **ACTIVE**).
     * *Rank 2 (10 Karma):* 2 + 2 (Taz clamped) + 4 (CHA) = **8 dice general / 10 dice specialized (Disguise)** (Uncaps Taz to +2).
     * *Rank 3 (15 Karma):* 3 + 3 (Taz clamped) + 4 (CHA) = **10 dice general / 12 dice specialized (Disguise)** (Uncaps Taz to +3).
     * *Rank 4 (20 Karma):* 4 + 4 (Taz full) + 4 (CHA) = **12 dice general / 14 dice specialized (Disguise)** (Full +4 uncap!).
