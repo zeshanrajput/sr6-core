@@ -60,6 +60,7 @@ book:
         - narrative/24 Symlink.md
         - narrative/25 DelTree.md
         - narrative/26 SIGTSTP.md
+        - narrative/27 Malloc.md
     - part: "Reference & Specifications"
       chapters:
         - reference/visual_anchors.md

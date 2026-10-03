@@ -43,7 +43,7 @@ Audit narrative chapters, dialogue, and campaign fiction to strip AI clichés, r
 
 ## Banned Words & Clichés
 
-- **Outright Banned:** `delve`, `foster`, `leverage`, `utilize`, `facilitate`, `empower`, `streamline`, `robust`, `cutting-edge`, `paradigm shift`, `game changer`, `tapestry`, `realm`, `beacon`, `multifaceted`, `meticulous`, `intricate`, `paramount`, `transformative`, `elevate`, `supercharge`, `harness`, `ever-evolving`.
+- **Outright Banned:** `delve`, `foster`, `leverage`, `utilize`, `facilitate`, `empower`, `streamline`, `robust`, `cutting-edge`, `paradigm shift`, `game changer`, `tapestry`, `realm`, `beacon`, `multifaceted`, `meticulous`, `intricate`, `paramount`, `transformative`, `elevate`, `supercharge`, `harness`, `ever-evolving`, `absolute`.
 - **Sensory Shortcuts:** `smell of ozone`, `burnt copper`, `taste of copper`, `hot solder`, `chemical tang of processing`, `puddles of stale encryption`, `decaying logic in the gutters`, `systems redlining`, `logic loops in her head`, `processing at 600%`, `micro-geometry`, `infernal symmetry`, `unworldly gravity`, `neurologically mapped`, `evolutionary surrender`, `micro-saccadic`.
 - **Empty Fillers & Crutches:** `it's worth noting`, `at the end of the day`, `when it comes to`, `at its core`, `in today's world`, `the reality is`, `make no mistake`, `full stop`, `let that sink in`.
 - **Ellipses Ceiling:** $\le 0.60$ ellipses per 300 words. Trailing ellipses ruin audio TTS narration cadence.

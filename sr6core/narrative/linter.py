@@ -15,6 +15,7 @@ BANNED_WORDS = [
     "this is huge", "this changes everything", "tapestry", "realm", "beacon",
     "multifaceted", "meticulous", "intricate", "paramount", "transformative",
     "elevate", "embark", "supercharge", "harness", "ever-evolving",
+    "absolute",
     "ozone", "smell of ozone", "hot solder", "chemical tang of processing",
     "puddles of stale encryption", "decaying logic in the gutters",
     "systems redlining", "processing at 600%",

@@ -76,6 +76,8 @@ chapter_tiers:
       - "16 Faith (Exploring Human Faith & Familial Bonds)"
       - "18 The Geometry of a Sieve (Emancipation & Debt Cleared)"
       - "19 Legacy Code (Brynne's Death & Releasing the Collar)"
+      - "26 SIGTSTP (The NOLA Reckoning & De-masking)"
+      - "27 Malloc (The Exegesis of Starvation & The Birth of 4Gurds)"
 
   tier_2_narrative_evolution:
     passing_threshold: "8.5 / 10"
