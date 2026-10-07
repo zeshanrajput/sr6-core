@@ -64,6 +64,8 @@ skills:
   attribute: Magic
   rating: 5
   specialization: Spellcasting
+  specializations:
+  - Spellcasting
 - name: Conjuring
   id: conjuring
   attribute: Magic

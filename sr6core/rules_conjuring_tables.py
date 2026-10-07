@@ -55,13 +55,17 @@ def resolve_character_binding_context(char_input: Union[str, Dict[str, Any]]) ->
     elif resonance > 0:
         task_skill = skills_map.get("tasking", {})
         task_rating = task_skill.get("rating", 0)
-        spec = str(task_skill.get("specialization", "")).lower()
-        spec_bonus = 2 if ("register" in spec or "compil" in spec) else 0
+        task_specs = [s.lower() for s in task_skill.get("specializations", [])]
+        if task_skill.get("specialization"):
+            task_specs.append(str(task_skill.get("specialization")).lower())
+        comp_bonus = 2 if any("compil" in s for s in task_specs) else 0
+        reg_bonus = 2 if any("regist" in s for s in task_specs) else 0
         focus_mods = ModifierEngine.get_focus_modifiers(char_data, "resonance")
         res_focus = sum(m.value for m in focus_mods)
 
-        compiling_pool = task_rating + resonance + res_focus
-        registering_pool = task_rating + spec_bonus + resonance + res_focus
+        compiling_pool = task_rating + comp_bonus + resonance + res_focus
+        registering_pool = task_rating + reg_bonus + resonance + res_focus
+
 
         return {
             "is_awakened": False,

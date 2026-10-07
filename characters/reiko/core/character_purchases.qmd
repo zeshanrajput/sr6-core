@@ -48,6 +48,7 @@ assign("Lifetime_Nuyen", 90000)
     * **Nexus Protocol** `{python} inc_many(('Nuyen', -1000),('Karma', -1))`
     * Overclock `{python} inc('Nuyen', -200)`
     * Trace `{python} inc('Nuyen', -200)`
+    * **Sleepsey (Original Exploit Program)** *(SRM 2081-13 Mission Loot: targets 2066 Herkimer Schützenpanzers, fills rigger stun track and bricks rigging controls)*
  * Rigger Programs
    * Smartsoft `{python} inc('Nuyen', -250)`  
    * Swarm `{python} inc('Nuyen', -250)`
@@ -167,4 +168,7 @@ Drone mods include a 50% discount on mods Yuriko installed herself (DC p. 120). 
 ### Skills & Specializations
 
 * **Con Specialization (Disguise):** *5 Karma (SRM 2081-12 Downtime)*
+* **Tasking Specialization (Compiling):** *5 Karma (SRM 2081-13 Advancement)*
+* **Electronics Specialization (Complex Forms):** *5 Karma (SRM 2081-13 Advancement)*
+
 

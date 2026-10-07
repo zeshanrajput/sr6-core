@@ -86,12 +86,27 @@ def compile_character(char_id: str) -> Dict[str, Any]:
     # 4. Parse Purchases from character_purchases.qmd
     purchases_data = PurchasesSyncEngine.parse_purchases_qmd(purchases_path) if os.path.exists(purchases_path) else {}
 
+    skills = list(existing_char.get("skills", []))
+    for spec_entry in purchases_data.get("specializations", []):
+        sk_target = spec_entry.get("skill", "").lower()
+        sp_val = spec_entry.get("specialization", "").strip()
+        for sk in skills:
+            if sk.get("name", "").lower() == sk_target:
+                curr_specs = list(sk.get("specializations", []))
+                if sk.get("specialization") and sk["specialization"] not in curr_specs:
+                    curr_specs.append(sk["specialization"])
+                if sp_val not in curr_specs:
+                    curr_specs.append(sp_val)
+                sk["specializations"] = curr_specs
+                if not sk.get("specialization"):
+                    sk["specialization"] = sp_val
+
     # 5. Build master structure
     compiled: Dict[str, Any] = {
         "identity": identity,
         "attributes": attributes,
         "qualities": existing_char.get("qualities", {"positive": [], "negative": []}),
-        "skills": existing_char.get("skills", []),
+        "skills": skills,
         "modifiers": totals.get("Modifiers", []),
         "spells": totals.get("Spells", []),
         "complex_forms": totals.get("Complex_Forms", []),

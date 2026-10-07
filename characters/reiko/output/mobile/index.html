@@ -1325,11 +1325,11 @@
       "mortype": "",
       "gender": "DIVERSE",
       "age": "~ 10",
-      "nuyen": 6450.0,
-      "lifetime_nuyen": 404800,
-      "karma": 4,
-      "karma_avail": 4,
-      "lifetime_karma": 256,
+      "nuyen": 8450.0,
+      "lifetime_nuyen": 414800,
+      "karma": 3,
+      "karma_avail": 3,
+      "lifetime_karma": 265,
       "nanite_volume": 0,
       "is_ai": true,
       "is_monad": false,
@@ -1524,6 +1524,10 @@
         "rating": 6,
         "attribute": "Resonance",
         "specialization": "Registering",
+        "specializations": [
+          "Registering",
+          "Compiling"
+        ],
         "base_pool": 14,
         "buffed_pool": 18,
         "bought_hits": 4,
@@ -1548,6 +1552,13 @@
             "value": 2,
             "target": "action",
             "active": false
+          },
+          {
+            "source": "Specialization: Compiling",
+            "type": "specialization",
+            "value": 2,
+            "target": "action",
+            "active": false
           }
         ],
         "doc_link": "chapters/rules_matrix.html#matrix-action-pools"
@@ -1558,6 +1569,9 @@
         "rating": 5,
         "attribute": "Logic",
         "specialization": "Hacking",
+        "specializations": [
+          "Hacking"
+        ],
         "base_pool": 13,
         "buffed_pool": 21,
         "bought_hits": 5,
@@ -1601,6 +1615,10 @@
         "rating": 5,
         "attribute": "Logic",
         "specialization": "Software",
+        "specializations": [
+          "Software",
+          "Complex Forms"
+        ],
         "base_pool": 13,
         "buffed_pool": 21,
         "bought_hits": 5,
@@ -1634,6 +1652,13 @@
             "value": 2,
             "target": "action",
             "active": false
+          },
+          {
+            "source": "Specialization: Complex Forms",
+            "type": "specialization",
+            "value": 2,
+            "target": "action",
+            "active": false
           }
         ],
         "doc_link": "chapters/rules_matrix.html#matrix-action-pools"
@@ -1644,6 +1669,7 @@
         "rating": 1,
         "attribute": "Charisma",
         "specialization": null,
+        "specializations": [],
         "base_pool": 5,
         "buffed_pool": 6,
         "bought_hits": 1,
@@ -1671,6 +1697,9 @@
         "rating": 1,
         "attribute": "Charisma",
         "specialization": "Disguise",
+        "specializations": [
+          "Disguise"
+        ],
         "base_pool": 5,
         "buffed_pool": 6,
         "bought_hits": 1,
@@ -1705,6 +1734,7 @@
         "rating": 4,
         "attribute": "Logic",
         "specialization": null,
+        "specializations": [],
         "base_pool": 8,
         "buffed_pool": 8,
         "bought_hits": 2,
@@ -3512,7 +3542,7 @@
       {
         "name": "Ni Ni Xiaolu",
         "connection": 3,
-        "loyalty": 2,
+        "loyalty": 3,
         "archetype": "Triad Johnson",
         "favors": 2,
         "region": "SEA",
@@ -3854,16 +3884,29 @@
       },
       {
         "name": "4Gurds",
-        "connection": 1,
-        "loyalty": 1,
+        "connection": 2,
+        "loyalty": 2,
         "archetype": "Free AI (Pharmaforge Controller)",
         "favors": 0,
         "region": "SEA",
         "types": [
           "Matrix",
-          "Academic"
+          "Medical"
         ],
-        "description": "Uses: Pharmaceutical manufacturing, chemistry lore, Renraku Arcology legacy archival files (Shadowrun Missions Seattle) | Types: Matrix, Academic"
+        "description": "Infant Free AI awakened by Reiko from the Renraku Arcology Pharmaforge control software; possesses legacy Arcology archival files and industrial pharmaceutical knowledge"
+      },
+      {
+        "name": "Teddy Chin",
+        "connection": 2,
+        "loyalty": 1,
+        "archetype": "Triad Fixer / Negotiator",
+        "favors": 1,
+        "region": "SEA",
+        "types": [
+          "Criminal",
+          "Magic"
+        ],
+        "description": "Uses: Triad deals, negotiations, street rumors, nightclub contacts (Shadowrun Missions Seattle) | Types: Criminal, Magic"
       }
     ],
     "exceptions": [

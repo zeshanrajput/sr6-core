@@ -189,6 +189,16 @@ class PurchasesSyncEngine:
                         "notes": f"Rating {rating} activesoft synced from purchases.qmd. Runs on Skillwires R6 with Wireless-ON (+1) for {rating + 1} effective skill dice."
                     })
 
+            # In Skill Specialization entries
+            m_spec = re.search(r'\*\*\s*([A-Za-z]+)\s+Specialization\s*\((.*?)\)\s*:\s*\*\*', stripped)
+            if m_spec:
+                if 'specializations' not in locals():
+                    specializations = []
+                specializations.append({
+                    "skill": m_spec.group(1).strip(),
+                    "specialization": m_spec.group(2).strip()
+                })
+
         return {
             "drone_modifications": drone_mods,
             "autosofts": autosofts,
@@ -197,8 +207,10 @@ class PurchasesSyncEngine:
             "activesofts": activesofts,
             "gear": gear_items,
             "sins": sins,
-            "licenses": licenses
+            "licenses": licenses,
+            "specializations": locals().get("specializations", [])
         }
+
 
     @classmethod
     def sync_character_purchases(cls, char_id: str) -> Dict[str, Any]:
@@ -287,6 +299,25 @@ class PurchasesSyncEngine:
             if old_softs != parsed_activesofts:
                 data["activesofts"] = parsed_activesofts
                 changes.append(f"Updated Activesofts from purchases.qmd ({len(parsed_activesofts)} softs synced)")
+
+        # 4. Sync Skill Specializations
+        parsed_specs = parsed.get("specializations", [])
+        if parsed_specs:
+            skills = data.get("skills", [])
+            for spec_entry in parsed_specs:
+                sk_target = spec_entry.get("skill", "").lower()
+                sp_val = spec_entry.get("specialization", "").strip()
+                for sk in skills:
+                    if sk.get("name", "").lower() == sk_target:
+                        curr_specs = list(sk.get("specializations", []))
+                        if sk.get("specialization") and sk["specialization"] not in curr_specs:
+                            curr_specs.append(sk["specialization"])
+                        if sp_val not in curr_specs:
+                            curr_specs.append(sp_val)
+                            sk["specializations"] = curr_specs
+                            changes.append(f"Added Specialization '{sp_val}' to skill '{sk['name']}'")
+                        if not sk.get("specialization"):
+                            sk["specialization"] = sp_val
 
         # Save back to YAML if changes occurred
         if changes:

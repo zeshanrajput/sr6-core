@@ -83,7 +83,7 @@ CANONICAL_CONTACTS: Dict[str, Dict[str, Any]] = {
         "job": "Triad Johnson",
         "connection": 3,
         "region": "SEA",
-        "missions": "SRM 2081-01, 07, 11",
+        "missions": "SRM 2081-01, 07, 11, 13",
         "uses": "Getting jobs, drugs, street rumors, triads (Shadowrun Missions Seattle)",
         "types": "Criminal",
         "description": "Uses: Getting jobs, drugs, street rumors, triads (Shadowrun Missions Seattle) | Types: Criminal"
@@ -106,15 +106,6 @@ CANONICAL_CONTACTS: Dict[str, Dict[str, Any]] = {
         "types": "Criminal, Street",
         "description": "Uses: ACHE sprawl lore, gang muscle, underground trade (Shadowrun Missions Seattle) | Types: Criminal, Street"
     },
-    "4Gurds": {
-        "job": "Free AI (Pharmaforge Controller)",
-        "connection": 1,
-        "region": "SEA",
-        "missions": "SRM 2081-12",
-        "uses": "Pharmaceutical manufacturing, chemistry lore, Renraku Arcology legacy archival files (Shadowrun Missions Seattle)",
-        "types": "Matrix, Academic",
-        "description": "Uses: Pharmaceutical manufacturing, chemistry lore, Renraku Arcology legacy archival files (Shadowrun Missions Seattle) | Types: Matrix, Academic"
-    },
     "Saint James": {
         "job": "Fixer",
         "connection": 8,
@@ -123,6 +114,15 @@ CANONICAL_CONTACTS: Dict[str, Dict[str, Any]] = {
         "uses": "Corporations, getting jobs (Shadowrun Missions Seattle), fencing gear, gangs",
         "types": "Criminal, Street",
         "description": "Uses: Corporations, getting jobs (Shadowrun Missions Seattle), fencing gear, gangs | Types: Criminal, Street (Not available after 2081-24)"
+    },
+    "Teddy Chin": {
+        "job": "Triad Fixer / Negotiator",
+        "connection": 2,
+        "region": "SEA",
+        "missions": "SRM 2081-13",
+        "uses": "Triad deals, negotiations, street rumors, nightclub contacts (Shadowrun Missions Seattle)",
+        "types": "Criminal, Magic",
+        "description": "Uses: Triad deals, negotiations, street rumors, nightclub contacts (Shadowrun Missions Seattle) | Types: Criminal, Magic"
     },
     "Toil": {
         "job": "Fixer",

@@ -333,4 +333,14 @@ SRM.2081.12:
   - rodina
   - piper
   - four_gurds
+SRM.2081.13:
+  id: SRM.2081.13
+  title: A Cookie from Uncle Lung
+  type: SRM
+  season: '2081'
+  region: SEA
+  contacts:
+  - teddy_chin
+  - ni_ni_xiaolu
+
 

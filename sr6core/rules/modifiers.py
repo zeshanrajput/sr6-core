@@ -1120,8 +1120,17 @@ class ModifierEngine:
         log_val = int(attrs.get("logic", 4))
         focus_bonus = 4 if res > 0 else 0
 
-        # Tasking: Compiling (Base 6) + RES 8 + Focus 4 = 18d6 -> 4 Hits
-        compiling_pool = 6 + res + focus_bonus
+        skills_map = {s["name"].lower(): s for s in char_data.get("skills", [])}
+        task_skill = skills_map.get("tasking", {})
+        task_rating = task_skill.get("rating", 6)
+        task_specs = [s.lower() for s in task_skill.get("specializations", [])]
+        if task_skill.get("specialization"):
+            task_specs.append(str(task_skill.get("specialization")).lower())
+        comp_bonus = 2 if any("compil" in s for s in task_specs) else 0
+        reg_bonus = 2 if any("regist" in s for s in task_specs) else 0
+
+        # Tasking: Compiling + RES + Focus
+        compiling_pool = task_rating + comp_bonus + res + focus_bonus
         compiling_hits = compiling_pool // 4
 
         # Sprite Defense: Level * 2
@@ -1136,8 +1145,8 @@ class ModifierEngine:
         fade_res_pool = wil + cha + 7
         fade_res_hits = fade_res_pool // 4
 
-        # Registering: Tasking 6 + Spec 2 = 8 + RES 8 + Focus 4 = 20d6 -> 5 Hits
-        registering_pool = 8 + res + focus_bonus
+        # Registering: Tasking + Spec + RES + Focus
+        registering_pool = task_rating + reg_bonus + res + focus_bonus
         registering_hits = registering_pool // 4
         registering_fade_fv = sprite_def_hits * 2
         net_registering_hits = max(0, registering_hits - sprite_def_hits)

@@ -913,10 +913,22 @@ four_gurds:
   connection: 1
   job: Free AI (Pharmaforge Controller)
   region: SEA
-  canonical: true
+  canonical: false
   missions:
   - SRM 2081-12
   types: Matrix, Medical
   description: 'Uses: Pharmaceutical manufacturing, chemistry lore, Renraku Arcology legacy archival files| Types: Matrix, Medical'
+teddy_chin:
+  id: teddy_chin
+  name: Teddy Chin
+  connection: 2
+  job: Triad Fixer / Negotiator
+  region: SEA
+  canonical: true
+  missions:
+  - SRM 2081-13
+  types: Criminal, Magic
+  description: 'Uses: Triad deals, negotiations, street rumors, nightclub contacts (Shadowrun Missions Seattle) | Types: Criminal, Magic'
+
 
 

@@ -242,10 +242,11 @@ def export_quick_sheet(
         s_buff = sk.get("buffed_pool", 0)
         s_spec = sk.get("specialization")
         s_spec_pool = sk.get("specialized_pool", s_buff + 2)
+        specs = sk.get("specializations") or ([s_spec] if s_spec else [])
 
         block = [f"{s_name}: (R{s_rtg}, {s_buff}d6)"]
-        if s_spec:
-            block.append(f"  -- {s_spec}: {s_spec_pool}d6")
+        for spec_item in specs:
+            block.append(f"  -- {spec_item}: {s_spec_pool}d6")
         skill_blocks.append(block)
 
     left_lines: List[str] = []

@@ -8,10 +8,10 @@ identity:
   gender: DIVERSE
   age: ~ 10
   system: shadowrun6e
-  karma: 4
-  lifetime_karma: 256
-  nuyen: 6450.0
-  lifetime_nuyen: 404800
+  karma: 3
+  lifetime_karma: 265
+  nuyen: 8450.0
+  lifetime_nuyen: 414800
   heat: -1
 attributes:
   body: 5
@@ -51,6 +51,9 @@ skills:
   attribute: Resonance
   rating: 6
   specialization: Registering
+  specializations:
+  - Registering
+  - Compiling
 - name: Cracking
   id: cracking
   attribute: Logic
@@ -61,6 +64,9 @@ skills:
   attribute: Logic
   rating: 5
   specialization: Software
+  specializations:
+  - Software
+  - Complex Forms
 - name: Influence
   id: influence
   attribute: Charisma
@@ -70,6 +76,8 @@ skills:
   attribute: Charisma
   rating: 1
   specialization: Disguise
+  specializations:
+  - Disguise
 - name: Native Language
   id: language
   attribute: Logic
@@ -951,7 +959,7 @@ contacts:
     canonical_name: Ni Ni Xiaolu
     is_canonical: true
     connection: 3
-    loyalty: 2
+    loyalty: 3
     favors: 2
     type: Triad Johnson
     region: SEA
@@ -968,6 +976,8 @@ contacts:
     - Auto-Promoted to Loyalty 2 (-2 FP)
     - CMP 2083-05 Precious Cargo (+1 FP)
     - SRM.2081.18 (+1 FP)
+    - SRM.2081.13 (+3 FP)
+    - Auto-Promoted to Loyalty 3 (-3 FP)
   Bookie:
     name: Bookie
     canonical_name: Bookie
@@ -1459,24 +1469,48 @@ contacts:
   4Gurds:
     name: 4Gurds
     canonical_name: 4Gurds
-    is_canonical: true
-    connection: 1
-    loyalty: 1
+    is_canonical: false
+    connection: 2
+    loyalty: 2
     favors: 0
     type: Free AI (Pharmaforge Controller)
     region: SEA
     types:
     - Matrix
-    - Academic
-    types_str: Matrix, Academic
-    description: 'Uses: Pharmaceutical manufacturing, chemistry lore, Renraku Arcology
-      legacy archival files (Shadowrun Missions Seattle) | Types: Matrix, Academic'
-    notes: 'Uses: Pharmaceutical manufacturing, chemistry lore, Renraku Arcology legacy
-      archival files (Shadowrun Missions Seattle) | Types: Matrix, Academic'
+    - Medical
+    types_str: Matrix, Medical
+    description: Infant Free AI awakened by Reiko from the Renraku Arcology Pharmaforge
+      control software; possesses legacy Arcology archival files and industrial pharmaceutical
+      knowledge
+    notes: Infant Free AI awakened by Reiko from the Renraku Arcology Pharmaforge
+      control software; possesses legacy Arcology archival files and industrial pharmaceutical
+      knowledge
     history:
     - 'Infant Free AI awakened by Reiko from the Renraku Arcology Pharmaforge control
       software; possesses legacy Arcology archival files and industrial pharmaceutical
       knowledge (Met: C1 L1)'
+    - SRM.2081.13 (+2 FP)
+    - Auto-Promoted to Loyalty 2 (-2 FP)
+  Teddy Chin:
+    name: Teddy Chin
+    canonical_name: Teddy Chin
+    is_canonical: true
+    connection: 2
+    loyalty: 1
+    favors: 1
+    type: Triad Fixer / Negotiator
+    region: SEA
+    types:
+    - Criminal
+    - Magic
+    types_str: Criminal, Magic
+    description: 'Uses: Triad deals, negotiations, street rumors, nightclub contacts
+      (Shadowrun Missions Seattle) | Types: Criminal, Magic'
+    notes: 'Uses: Triad deals, negotiations, street rumors, nightclub contacts (Shadowrun
+      Missions Seattle) | Types: Criminal, Magic'
+    history:
+    - 'SRM.2081.13 (Met: C2 L0, +2 FP)'
+    - Auto-Promoted to Loyalty 1 (-1 FP)
 reputation:
   Vory: 2
   Seattle: 7
@@ -1489,8 +1523,8 @@ reputation:
   Southeast Asia: 2
   DW: 2
   Kozlowski Family: 2
-  SEA: 1
-total_reputation: 36
+  SEA: 3
+total_reputation: 38
 drones:
 - name: MCT Gnat
   ref: mctgnat

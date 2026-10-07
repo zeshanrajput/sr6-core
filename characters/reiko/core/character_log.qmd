@@ -542,12 +542,36 @@ Submersion_Grade = state["Submersion_Grade"]
   * `{python} contact("Rodina", fp=1, connection=2, type_name="ACHE Gang Leader", region="SEA")`
   * `{python} contact("Piper", fp=1)`
   * `{python} contact("4Gurds", loyalty=1, connection=1, type_name="Free AI (Pharmaforge Controller)", region="SEA", notes="Infant Free AI awakened by Reiko from the Renraku Arcology Pharmaforge control software; possesses legacy Arcology archival files and industrial pharmaceutical knowledge")`
-* **Downtime Actions (1 Major Traded for 2 Minors $\rightarrow$ 3 Minor Actions):**
-  * *Minor Action 1 (Work for the People):* `{python} work_for_the_people()`
-  * *Minor Action 2 (Register Sprite):* `{python} add_sprite("Modular", 7)`
-  * *Minor Action 3 (Drone Maintenance):* Complete diagnostic overhaul, servo lubrication, sensor realignment, and autosoft cache optimization for the Shiawase Cyber-5 "Man-at-Arms" anthrodrone and small drone bay.
+* **Downtime Actions (1 Major, 1 Minor):**
+  * *Major Action (Strengthen Connection — 4Gurds, Step 1 of 2):* `{python} inc('Nuyen', -2000)` Investing personal time, processing cluster allocation, and safe subnet infrastructure to shelter the emerging infant Free AI through its delicate initial awakening (*SRMG*, p. 18; 1st of 2 actions needed for Connection 1 $\rightarrow$ 2).
+  * *Minor Action (Work for the People):* `{python} work_for_the_people()`
 * **Character Advancement & Ally Sprite Training:**
   * *Taz Skill Training (Con):* `{python} inc('Karma', -4)` Spent 4 Karma to teach ally sprite Taz the Con skill (*Hack and Slash*, p. 156: adding a non-matrix skill to an existing ally sprite costs $2 \times 2 = 4\text{ Karma}$). Taz (Level 7) grants a teamwork bonus of up to +4 dice, dynamically clamped to Reiko's underlying Con rating (*SR6 Core*, p. 17; currently +1 die with Con 1).
   * `{python} modifier('Taz Symbiosis (Con)', 'skill:con', 4, type='teamwork', rule_anchor='rules_sprites.html#sprite-symbiosis-powers', notes='Taz Level 7 teamwork bonus (up to +4, dynamically clamped to Reiko Con rating)')`
   * *Con Specialization (Disguise):* `{python} inc('Karma', -5)` Acquired Disguise specialization for Con (+2 dice to disguise and physical masquerade tests).
+
+---
+
+`{python} mission("SRM.2081.13", date="2026-10-06", karma=8, nuyen=10000, rep={'SEA': 2}, gm="JaGator", difficulty="Veteran")`
+
+* **GM:** JaGator
+* **Team:** Mithral, Bast, Connor (connor2847), Ninja (ArrogantNinja), Silicon Mage, Yuriko (WarDoctor)
+* **Summary:** Ni Ni Xiaolu (Octagon Triad) tasked newly minted Lieutenant Teddy Chin to run a hand-picked strike team to embarrass both the rival Eighty-Eights Triad and Lone Star by ambushing an armored convoy transporting the sacred jade statue *Shin Wei Lau*—a priceless relic dating back to the Eighty-Eights' founding. Operating in theatrical comic masks and an unassuming minivan per Teddy's theatrical staging, the team intercepted FDN's escort along Marine Drive in SODO just after noon. Deploying the original *Sleepsey* exploit software, the team bricked the 2066 Herkimer Schützenpanzer's rigging controls and stunned its jacked-in rigger while showing professional restraint toward the FDN escort crew, securing the statue and extracting Bao uninjured. Knight Action News broadcasted the fiery ambush and roasted Lone Star's sluggish response due to internal department sensitivity training. At The Palace of China in Tacoma, Teddy Chin received the statue with maniacal glee before Madame Xiaolu arrived, slapped Teddy into line, secured the artifact, and settled the account with zero lingering Heat.
+* **Contacts:**
+  * `{python} contact("Teddy Chin", fp=2)`
+  * `{python} contact("Ni Ni Xiaolu", fp=3)`
+* **Loot & Special Acquisition:**
+  * *Original Sleepsey Exploit Software:* Master proprietary exploit program targeting 2066 Herkimer Schützenpanzers. Fills all stun condition monitor boxes on any jacked-in rigger and bricks rigging controls until repaired.
+* **Downtime Actions (1 Major, 1 Minor):**
+  * *Major Action (Strengthen Connection — 4Gurds, Step 2 of 2):* `{python} inc('Nuyen', -2000)` Finalizing distributed server redundancy, identity shielding, and cognitive scaffolding for 4Gurds across the Seattle Matrix. Completes the second Major Action required to elevate 4Gurds from Connection 1 $\rightarrow$ 2 (*SRMG*, p. 18). Elevating to Connection 2 immediately awards +2 Favor Points, which auto-promote 4Gurds from Loyalty 1 $\rightarrow$ Loyalty 2 (-2 FP).
+    * `{python} contact("4Gurds", connection=2, fp=2)`
+  * *Minor Action (Rent & Working for the People):* `{python} lifestyle('Middle', cost=2000)` | `{python} work_for_the_people()`
+* **Character Advancement:**
+  * *Tasking Specialization (Compiling):* `{python} inc('Karma', -5)` Acquired Compiling specialization for Tasking (+2 dice to compiling tests; pushes compiling pool to 20d6 / 5 bought hits, unlocking guaranteed downtime compiling and registering of Level 8 Sprites under SRMG buying hits rules).
+  * *Electronics Specialization (Complex Forms):* `{python} inc('Karma', -5)` Acquired Complex Forms specialization for Electronics (+2 dice to threading and sustaining complex forms).
+* **Other:**
+  * In-Session Downtime Sprite Registration:
+    * `{python} add_sprite("Modular", 8)`
+
+
 

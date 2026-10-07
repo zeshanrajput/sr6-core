@@ -412,15 +412,27 @@ def get_sprite_action_table(char_id: str, sprite_level: int = 6) -> str:
     foci = data.get("synergies", {}).get("foci", [])
     focus_bonus = sum(f.get("rating", 0) for f in foci if f.get("applies_to") in ["resonance", "tasking", "all"])
 
-    compile_pool = res + 6 + focus_bonus
-    register_pool = res + 6 + focus_bonus
+    skills_map = {s["name"].lower(): s for s in data.get("skills", [])}
+    task_skill = skills_map.get("tasking", {})
+    task_rating = task_skill.get("rating", 6)
+    specs = [s.lower() for s in task_skill.get("specializations", [])]
+    if task_skill.get("specialization"):
+        specs.append(str(task_skill.get("specialization")).lower())
+    comp_bonus = 2 if any("compil" in s for s in specs) else 0
+    reg_bonus = 2 if any("regist" in s for s in specs) else 0
+
+    compile_pool = res + task_rating + comp_bonus + focus_bonus
+    register_pool = res + task_rating + reg_bonus + focus_bonus
     fading_pool = wil + log_val
+
+    comp_spec_str = f" + Spec (+{comp_bonus})" if comp_bonus else ""
+    reg_spec_str = f" + Spec (+{reg_bonus})" if reg_bonus else ""
 
     rows = [
         "| Sprite Protocol / Action | Test Parameters | Applied Modifiers Math | Final Dice Pool | Bought Hits |",
         "| :--- | :---: | :--- | :---: | :---: |",
-        f"| **Compile Sprite (L{sprite_level})** | Tasking (Compiling) + Resonance | Base RES ({res}) + Tasking (6) + Focus (+{focus_bonus}) | **{compile_pool}d6** | **{compile_pool // 4} Hits** |",
-        f"| **Register Sprite (L{sprite_level})** | Tasking (Registering) + Resonance | Base RES ({res}) + Tasking (6) + Focus (+{focus_bonus}) | **{register_pool}d6** | **{register_pool // 4} Hits** |",
+        f"| **Compile Sprite (L{sprite_level})** | Tasking (Compiling) + Resonance | Base RES ({res}) + Tasking ({task_rating}){comp_spec_str} + Focus (+{focus_bonus}) | **{compile_pool}d6** | **{compile_pool // 4} Hits** |",
+        f"| **Register Sprite (L{sprite_level})** | Tasking (Registering) + Resonance | Base RES ({res}) + Tasking ({task_rating}){reg_spec_str} + Focus (+{focus_bonus}) | **{register_pool}d6** | **{register_pool // 4} Hits** |",
         f"| **Resonance Focus (Data Structure)** | Passive (SRM: No Action) | Rating (+{focus_bonus} to Resonance Tests; 0 Fading) | **+{focus_bonus}d6** | **+{focus_bonus // 4} Hits** |",
         f"| **Fading Resistance Test** | WIL ({wil}) + LOG ({log_val}) | Natural Drain/Fading Soak | **{fading_pool}d6** | **{fading_pool // 4} Hits** |"
     ]

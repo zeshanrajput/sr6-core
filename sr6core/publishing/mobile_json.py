@@ -508,9 +508,10 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
                 "notes": getattr(m, "notes", None),
                 "active": True
             })
-        if s_spec:
+        all_specs = s.get("specializations") or ([s_spec] if s_spec else [])
+        for sp_item in all_specs:
             buff_list.append({
-                "source": f"Specialization: {s_spec}",
+                "source": f"Specialization: {sp_item}",
                 "type": "specialization",
                 "value": 2,
                 "target": "action",
@@ -523,6 +524,7 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
             "rating": s_rating,
             "attribute": s_attr,
             "specialization": s_spec,
+            "specializations": all_specs,
             "base_pool": base_pool,
             "buffed_pool": general_effective_pool,
             "bought_hits": bought_hits,

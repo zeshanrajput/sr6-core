@@ -14,8 +14,8 @@ This document tracks character upgrades, mechanical evaluations, karma/nuyen tar
 * **Active Ally Sprite:** Taz (Level 7 Assassin Sprite; Symbiosis: Cracking +4, Electronics +4, Influence +4, Con +4 [dynamically clamped to Reiko's underlying skill rating; currently +1 on Influence & Con]).
 * **Resource Economics:** **Karma is the most constrained resource.** Where possible, knowledge skills and utility functions should be acquired via Nuyen (Rating 3 Knowsofts @ ¥2,500 each or programmed autosofts) rather than burning raw Karma.
 * **Immediate Strategic Focus:**
-  1. *Karma:* Bank through the next mission to unlock **Tasking Spec: Compiling** (5 Karma; pushes compiling pool to 16d6 unassisted / 19d6 with foci/symbiosis for safe Rating 7–8 sprite compiling).
-  2. *Nuyen:* Prioritize the **Hydrocarbon Fuel Converter** (¥7,500) over the empty cyberarm chassis for off-grid survival power and social masquerade.
+  1. *Karma:* With **Tasking Spec: Compiling** (5 Karma) and **Electronics Spec: Complex Forms** (5 Karma) acquired in SRM 2081-13, next strategic targets are uncapping Taz's symbiosis via **Influence Rank 1 -> 2** (10 Karma) or **Con Rank 1 -> 2** (10 Karma), or banking towards **Submersion Grade 8** (18 Karma total).
+  2. *Nuyen:* Hydrocarbon Fuel Converter is active. Capital savings can accumulate toward Nanohive Rating 6 (¥45,000) or drone fleet expansion.
 
 ---
 
@@ -37,15 +37,15 @@ This document tracks character upgrades, mechanical evaluations, karma/nuyen tar
 │                                │              │              │ Corp/Salon   │
 │ Knowsoft: New Orleans Vodou    │ Knowsoft R3  │ ¥2,500       │ [ACQUIRED]   │
 │                                │              │              │ Loa/Veve/Nous│
-│ Tasking Spec: Compiling        │ Specializ.   │ 5 Karma      │ [ACTIVE TGT] │
-│                                │              │              │ Safe R7-8 Spr│
+│ Tasking Spec: Compiling        │ Specializ.   │ 5 Karma      │ [ACQUIRED]   │
+│                                │              │              │ Safe R8 Spr  │
 │ Knowsoft: Garmonbozia          │ Knowsoft R3  │ ¥2,500       │ [NEXT KNOWSFT│
 │                                │              │              │ E-Nation Lore│
 ├────────────────────────────────┴──────────────┴──────────────┴──────────────┤
 │ STEP 1: CORE MATRIX & SOCIAL SPECIALIZATIONS (5–10 Karma)                   │
 ├────────────────────────────────┬──────────────┬──────────────┬──────────────┤
-│ Electronics Spec: Complex Forms│ Specializ.   │ 5 Karma      │ Threading &  │
-│                                │              │              │ Sustaining   │
+│ Electronics Spec: Complex Forms│ Specializ.   │ 5 Karma      │ [ACQUIRED]   │
+│                                │              │              │ Threading+2  │
 │ Electronics Spec: Computers    │ Specializ.   │ 5 Karma      │ Matrix Perc. │
 │                                │              │              │ & Search     │
 │ Influence Spec: Etiquette      │ Specializ.   │ 5 Karma      │ Corp & Salon │
