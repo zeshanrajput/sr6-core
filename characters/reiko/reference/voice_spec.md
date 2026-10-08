@@ -96,8 +96,8 @@ chapter_tiers:
       - "22 C Sharp"
       - "24 Symlink (Martyrdom Resolution & Sprite Link)"
       - "25 DelTree (The Amuse-Bouche / Curator Prelude)"
-      - "XX_4 Leaving the Nest (Technoshamanic Parenthood)"
-      - "XX_n Saturation (Sensory Trade in Eniac & Coffin Girls Refuge)"
+      - "28 Renice (The Emancipation of Kin & The Machine Body)"
+      - "29 Saturation (Sensory Trade in Eniac & The Sacred Confessor)"
 
   tier_3_atmospheric_bridges:
     passing_threshold: "8.0 / 10"

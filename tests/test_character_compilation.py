@@ -69,3 +69,41 @@ def test_full_compiler_sync_and_mobile_export():
             assert any("increased sensors 2" in m.lower() for m in maa["modifications"])
             assert maa["rigged_pools"]["gunnery"]["pool"] == 18
             assert maa["rigged_pools"]["perception"]["pool"] == 17
+
+
+def test_multiple_specializations_compilation_and_export():
+    """Verify that skills with multiple specializations compile and persist across exports."""
+    cm = CharacterManager()
+    reiko_data = cm.get_character_data("reiko")
+    assert reiko_data is not None
+
+    # Check master data skills
+    skills_map = {s["name"].lower(): s for s in reiko_data.get("skills", [])}
+    assert "tasking" in skills_map
+    assert "registering" in [sp.lower() for sp in skills_map["tasking"].get("specializations", [])]
+    assert "compiling" in [sp.lower() for sp in skills_map["tasking"].get("specializations", [])]
+
+    assert "electronics" in skills_map
+    assert "software" in [sp.lower() for sp in skills_map["electronics"].get("specializations", [])]
+    assert "complex forms" in [sp.lower() for sp in skills_map["electronics"].get("specializations", [])]
+
+    # Check mobile json export
+    repo_dir = cm.get_character_repo_dir("reiko")
+    mobile_doc = export_mobile_json(reiko_data, char_repo_path=repo_dir)
+    compiled_skills = {s["name"].lower(): s for s in mobile_doc.get("skills", [])}
+
+    tasking_entry = compiled_skills.get("tasking")
+    assert tasking_entry is not None
+    assert "specializations" in tasking_entry
+    assert len(tasking_entry["specializations"]) >= 2
+    tasking_buff_sources = [b["source"].lower() for b in tasking_entry.get("buffs", [])]
+    assert any("registering" in src for src in tasking_buff_sources)
+    assert any("compiling" in src for src in tasking_buff_sources)
+
+    elec_entry = compiled_skills.get("electronics")
+    assert elec_entry is not None
+    assert len(elec_entry["specializations"]) >= 2
+    elec_buff_sources = [b["source"].lower() for b in elec_entry.get("buffs", [])]
+    assert any("software" in src for src in elec_buff_sources)
+    assert any("complex forms" in src for src in elec_buff_sources)
+

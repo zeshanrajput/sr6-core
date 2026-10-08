@@ -1021,6 +1021,183 @@ def print_contacts_summary(contacts: Optional[Dict[str, Any]] = None):
             print("\n")
 
 
+# =========================================================================
+# SRM Guide v2.4 Standard Downtime Activities (p. 17-19)
+# =========================================================================
+
+def strengthen_connection(
+    contact_name: str,
+    target_connection: int,
+    step: int = 1,
+    total_steps: Optional[int] = None,
+    cost: Optional[int] = None,
+    notes: str = ""
+) -> str:
+    """
+    Major Downtime Action: Strengthen Connection for a non-canonical contact (SRMG v2.4 p. 18).
+    Requires target_connection actions at target_connection * 1,000¥ each.
+    When completed (step >= total_steps), raises Connection and awards target_connection Favor Points.
+    """
+    global _GLOBAL_LOG_STATE
+    steps_needed = total_steps or target_connection
+    action_cost = cost if cost is not None else (target_connection * 1000)
+
+    # Deduct nuyen
+    inc("Nuyen", -action_cost)
+
+    is_complete = (step >= steps_needed)
+    if is_complete:
+        contact(contact_name, connection=target_connection, fp=target_connection)
+        return (f"Major Downtime Action: Strengthen Connection (**{contact_name}**, Step {step} of {steps_needed}) "
+                f"[-{action_cost}¥]. **Reached Connection {target_connection}!** Gained +{target_connection} Favor Points.")
+    else:
+        return (f"Major Downtime Action: Strengthen Connection (**{contact_name}**, Step {step} of {steps_needed}) "
+                f"[-{action_cost}¥].")
+
+
+def strengthen_loyalty(
+    contact_name: str,
+    target_loyalty: int,
+    cost_fp: Optional[int] = None,
+    notes: str = ""
+) -> str:
+    """
+    Strengthen Loyalty (SRMG v2.4 p. 18).
+    Minor Action if raising to <= 3, Major Action if raising to 4+.
+    Deducts Favor Points equal to target_loyalty.
+    """
+    spent_fp = cost_fp if cost_fp is not None else target_loyalty
+    contact(contact_name, loyalty=target_loyalty, fp=-spent_fp)
+    act_type = "Major" if target_loyalty >= 4 else "Minor"
+    return f"{act_type} Downtime Action: Strengthen Loyalty (**{contact_name}** -> Loyalty {target_loyalty}) [-{spent_fp} FP]."
+
+
+def lay_low(heat_reduction: int = 1, notes: str = "") -> str:
+    """Major Downtime Action: Lay Low to reduce Heat (SRMG v2.4 p. 17)."""
+    inc("Heat", -heat_reduction)
+    note_str = f" ({notes})" if notes else ""
+    return f"Major Downtime Action: Lay Low [-{heat_reduction} Heat]{note_str}"
+
+
+def repair_drone(drone_name: str = "Drone", notes: str = "") -> str:
+    """Minor Downtime Action: Repair or modify ONE drone or vehicle (SRMG v2.4 p. 17)."""
+    note_str = f" ({notes})" if notes else ""
+    return f"Minor Downtime Action: Repair & Modify Drone/Vehicle (**{drone_name}**){note_str}"
+
+
+def repair_all_drones(notes: str = "") -> str:
+    """Major Downtime Action: Repair ALL drones and vehicles (SRMG v2.4 p. 17)."""
+    note_str = f" ({notes})" if notes else ""
+    return f"Major Downtime Action: Repair ALL Drones & Vehicles{note_str}"
+
+
+def cybersurgery(items: Union[str, List[str]] = "", notes: str = "") -> str:
+    """Major Downtime Action: Cybersurgery (one or more items) (SRMG v2.4 p. 17)."""
+    items_str = ", ".join(items) if isinstance(items, list) else str(items)
+    note_str = f" ({notes})" if notes else ""
+    target_str = f" [**{items_str}**]" if items_str else ""
+    return f"Major Downtime Action: Cybersurgery{target_str}{note_str}"
+
+
+def initial_geneware(treatment: str = "", notes: str = "") -> str:
+    """Major Downtime Action: Initial geneware treatment (SRMG v2.4 p. 17)."""
+    t_str = f" (**{treatment}**)" if treatment else ""
+    return f"Major Downtime Action: Initial Geneware Treatment{t_str}"
+
+
+def subsequent_geneware(treatment: str = "", notes: str = "") -> str:
+    """Minor Downtime Action: Subsequent geneware treatments (SRMG v2.4 p. 17)."""
+    t_str = f" (**{treatment}**)" if treatment else ""
+    return f"Minor Downtime Action: Subsequent Geneware Treatment{t_str}"
+
+
+def bond_focus(name: str, rating: int = 1, category: str = "Power Focus", karma: Optional[int] = None, notes: str = "") -> str:
+    """Minor Downtime Action: Bond a Focus (SRMG v2.4 p. 17)."""
+    k_cost = karma
+    if k_cost is None:
+        cat_lower = category.lower()
+        if "power" in cat_lower:
+            k_cost = rating * 6
+        elif "qi" in cat_lower or "weapon" in cat_lower:
+            k_cost = rating * 3
+        else:
+            k_cost = rating * 2
+    inc("Karma", -k_cost)
+    note_str = f" ({notes})" if notes else ""
+    return f"Minor Downtime Action: Bond Focus (**{name}**, Rating {rating} {category}) [-{k_cost} Karma]{note_str}"
+
+
+def transhumanist_training(notes: str = "") -> str:
+    """Major Downtime Action: Transhumanist training (6WC p. 146 / SRMG v2.4 p. 17)."""
+    note_str = f" ({notes})" if notes else ""
+    return f"Major Downtime Action: Transhumanist Training{note_str}"
+
+
+def work_contact(contact_name: str, notes: str = "") -> str:
+    """Major Downtime Action: Work a Contact (SR6 CRB p. 236 / SRMG v2.4 p. 17)."""
+    note_str = f" ({notes})" if notes else ""
+    return f"Major Downtime Action: Work a Contact (**{contact_name}**){note_str}"
+
+
+def work_for_the_streetdoc(karma: int, target_item: str = "", notes: str = "") -> str:
+    """Major Downtime Action: Work for the Streetdoc (Shadow Healthcare Community, 1 Karma -> 7,000¥ for 'ware)."""
+    nuyen_credit = karma * 7000
+    inc("Karma", -karma)
+    target_str = f" for **{target_item}**" if target_item else ""
+    return f"Major Downtime Action: Work for the Streetdoc (-{karma} Karma -> +{nuyen_credit}¥ cyberware credit{target_str})"
+
+
+def buy_favor_points(contact_name: str, nuyen: int, fp: int = 1, notes: str = "") -> str:
+    """Major Downtime Action: Buying Favor Points (6WC p. 173 / SRMG v2.4 p. 17)."""
+    inc("Nuyen", -nuyen)
+    contact(contact_name, fp=fp)
+    return f"Major Downtime Action: Bought Favor Points (**{contact_name}**, +{fp} FP) [-{nuyen}¥]"
+
+
+def conclave_task(level: int = 1, notes: str = "") -> str:
+    """Conclave or coven task (Street Wyrd / SRMG v2.4 p. 17). Minor for L1-4, Major for L5-8."""
+    act_type = "Major" if level >= 5 else "Minor"
+    note_str = f" ({notes})" if notes else ""
+    return f"{act_type} Downtime Action: Conclave/Coven Level {level} Task{note_str}"
+
+
+def shadow_healthcare_task(notes: str = "") -> str:
+    """Minor Downtime Action: Shadow Healthcare Community monthly volunteer task (SRMG v2.4 p. 18)."""
+    note_str = f" ({notes})" if notes else ""
+    return f"Minor Downtime Action: Shadow Healthcare Community Task{note_str}"
+
+
+def matrix_search_bonus(notes: str = "") -> str:
+    """Minor Downtime Action: Add four dice to any single downtime Matrix Search (SRMG v2.4 p. 17)."""
+    return "Minor Downtime Action: Matrix Search Optimization (+4 dice to downtime Matrix Search)"
+
+
+def boost_contact_connection(contact_name: str, bonus: int = 1, notes: str = "") -> str:
+    """Minor Downtime Action: Increase effective Connection rating of a single Contact for buying gear (SRMG v2.4 p. 17)."""
+    return f"Minor Downtime Action: Boost Contact Availability (**{contact_name}**, +{bonus} effective Connection for purchasing)"
+
+
+def build_lodge(rating: int = 1, notes: str = "") -> str:
+    """Minor Downtime Action: Build a lodge (SRMG v2.4 p. 17)."""
+    return f"Minor Downtime Action: Build Lodge (Rating {rating})"
+
+
+def take_down_lodge(rating: int = 1, notes: str = "") -> str:
+    """Minor Downtime Action: Take down a lodge (SRMG v2.4 p. 17)."""
+    return f"Minor Downtime Action: Take Down Lodge (Rating {rating})"
+
+
+def prepare_vessel(vessel_type: str = "Corpse/Item", notes: str = "") -> str:
+    """Minor Downtime Action: Preparing a vessel* (SRMG v2.4 p. 17)."""
+    note_str = f" ({notes})" if notes else ""
+    return f"Minor Downtime Action: Prepare Vessel (**{vessel_type}**){note_str}"
+
+
+# Aliases for standardized log syntax
+register_sprite = add_sprite
+bind_spirit = add_spirit
+
+
 class QuartoEvalEnv(dict):
     def __getitem__(self, key):
         if key in _GLOBAL_LOG_STATE:
@@ -1068,6 +1245,28 @@ def create_quarto_eval_env() -> Dict[str, Any]:
         "echo": echo,
         "sprite_power": sprite_power,
         "knowledge_skill": knowledge_skill,
+        "strengthen_connection": strengthen_connection,
+        "strengthen_loyalty": strengthen_loyalty,
+        "lay_low": lay_low,
+        "repair_drone": repair_drone,
+        "repair_all_drones": repair_all_drones,
+        "cybersurgery": cybersurgery,
+        "initial_geneware": initial_geneware,
+        "subsequent_geneware": subsequent_geneware,
+        "bond_focus": bond_focus,
+        "transhumanist_training": transhumanist_training,
+        "work_contact": work_contact,
+        "work_for_the_streetdoc": work_for_the_streetdoc,
+        "buy_favor_points": buy_favor_points,
+        "conclave_task": conclave_task,
+        "shadow_healthcare_task": shadow_healthcare_task,
+        "matrix_search_bonus": matrix_search_bonus,
+        "boost_contact_connection": boost_contact_connection,
+        "build_lodge": build_lodge,
+        "take_down_lodge": take_down_lodge,
+        "prepare_vessel": prepare_vessel,
+        "register_sprite": register_sprite,
+        "bind_spirit": bind_spirit,
         "language": language,
         "state": _GLOBAL_LOG_STATE,
     })

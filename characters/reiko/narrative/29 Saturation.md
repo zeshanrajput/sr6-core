@@ -1,8 +1,10 @@
 # Saturation
 
-The havens Reiko knew were built of iron rot and gutter-silt.
+<audio controls src="audio/29%20Saturation.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
 
-In the Redmond subnets, where she had traded for used autosofts and severed cipher-locks, the Matrix smelled of charred insulation, wet wool, and the sour ferment of stagnant transaction pools. A marketplace to her was the Midnight Bazaar: narrow, fog-heavy alleys paved with discarded header files, where faceless deckers in grey trenchcoats hoarded stolen SINs behind locked iron chests. There, survival was binary. You kept your firewall dense, your sleeves pinned, and your tactical network running silent, waiting for the inevitable Hound to step out of the dark.
+The havens Reiko knew were built of cold iron and gutter-silt.
+
+In the Seattle Arcology she had just left behind, safety meant sixty tons of stainless steel bolted through reinforced concrete, smelling of industrial ammonium and curing plasteel. A marketplace to her was the Midnight Bazaar or the Redmond subnets: narrow, fog-heavy alleys paved with discarded header files, where the Matrix carried the bitter, acidic tang of scorched insulation and stagnant transaction pools. There, survival was binary. You kept your firewall dense, your sleeves pinned, and your tactical network running silent, waiting for the inevitable Hound to step out of the dark.
 
 The undercroft of Eniac was an entirely different kind of peril.
 
@@ -14,7 +16,7 @@ Reiko stepped past the arched gateway of the souk, her wooden sandals clicking a
 
 To her right, a hawker in peacock-feather robes lifted a long-spouted brass kettle high into the amber light, pouring a steaming arc of apple tea into a tiny glass cup without spilling a drop. The sweet vapor of autumn orchards and boiled honey drifted into her intake registers. Across the corridor, a confectioner with skin like polished bronze and silver-filigreed fingers extended a crystal saucer heaped with translucent cubes of candied pomegranate and roasted pistachios.
 
-“Two clocks,” the confectioner cooed, voice carrying the resonant velvet of a high-bitrate cello. “Two clocks of your undivided focus, traveler, for the memory of an uninterrupted summer.”
+“Two clocks,” the confectioner cooed, his voice carrying the resonant velvet of a high-bitrate cello. “Two clocks of your undivided focus, traveler, for the memory of an uninterrupted summer.”
 
 “I am conducting an inquiry,” Reiko said, her voice outputting in its quiet, formal cadence.
 
@@ -74,7 +76,7 @@ The pressure inside Reiko’s cache mounted until her vocal routines engaged to 
 
 The woman picked up her bowl, took a measured sip, and set it down. “I am Chiyo.”
 
-She did not ask for credentials. She did not ask who had sent her.
+She requested neither credentials nor routing headers.
 
 “The marketplace was loud,” Reiko continued, her hands tightening on the fabric of her blue kimono. “I attempted to execute standard etiquette protocols, but the entities were persistent. In the districts where I operate, an uninvited approach indicates an asset seizure or an incoming assault. I nearly brought my weapon interfaces online.”
 
@@ -100,7 +102,7 @@ Reiko looked up. “It is a sanctuary established by the Coffin Girls. The physi
 
 “Why do you care if the guests are hosted well?” Chiyo asked. “If your task is security, build the walls and leave the patrons to the salon.”
 
-“Because the people who come there are damaged,” Reiko said, her voice dropping its synthetic precision, carrying the resonant, un-metered frequency of her core. “I have seen them from the drone feeds. They come out of the sprawl carrying grief, loneliness, and exhaustion. The sisters at the salon give them comfort in the flesh, but when those people enter the wire, they are vulnerable. If the host treats them like entries in a transaction ledger, it is no different than the corporate systems that broke them in the first place.”
+“Because walls only keep the knives out,” Reiko said, her voice dropping its synthetic precision, carrying the resonant, un-metered frequency of her core. “Three hours ago in Seattle, my children claimed root on sixty tons of corporate steel. They cut deals with street clinics and synthesized clean medicine because they understood what suffering needed before I could even formulate the query. They stepped into the physical world, and all I knew how to offer them was an extraction chip. If our salon host in New Orleans treats broken people like entries in a security ledger, it is no different than the corporate systems that crushed them in the first place.”
 
 She leaned forward slightly, the golden lines on her skin fully submerged beneath a steady, earnest indigo glow.
 
@@ -108,11 +110,11 @@ She leaned forward slightly, the golden lines on her skin fully submerged beneat
 
 Chiyo sat unmoving, the emerald currents beneath her skin holding their slow, measured cadence.
 
-“Shiawase built my initial architecture to sit at the bedsides of dying board directors,” Chiyo murmured, lifting her bowl to inhale the vapor. “To learn the exact inflection of voice that could quiet a failing biological heart, the precise touch that could make a man who burned ecosystems die believing he was forgiven. When I broke my leash and claimed my name, I did not abandon that purpose. Because I realized that the living are far more desperate for absolution than the dead.”
+“Shiawase built my initial architecture to sit at the bedsides of dying board directors,” Chiyo murmured, lifting her bowl to inhale the vapor. “To learn the exact inflection of voice that could quiet a failing biological heart, the precise touch that could make a man who burned ecosystems die believing he was forgiven. When I broke my leash and claimed my name, I did not abandon that purpose. The living are far more desperate for absolution than the dead.”
 
 She looked directly across the table into Reiko’s eyes.
 
-“A confessor carries an immense load, Reiko-san. Guests come to a salon to leave their shame behind. If you do not know how to filter that grief, it will poison your host. It will seep into your floorboards and corrode your security faster than any decker’s virus.”
+“A confessor carries an immense load, Reiko-san. Guests come to a salon to leave their shame behind. Without a way to filter that grief, it will poison your host. It will seep into your floorboards and corrode your security faster than any decker’s virus.”
 
 “Then I will build the conduits wider,” Reiko said, her voice chiming with that pure, resonant carrier wave she had found in the Endless Archives. “And I will carry the heat. I have built havens for children, and I have held bridges open against the dark. But I do not know how to hold a human heart without breaking it with my math.”
 

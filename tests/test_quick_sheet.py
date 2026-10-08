@@ -47,3 +47,13 @@ def test_quick_sheet_sections_present(char_manager):
     assert "MATRIX PROFILE" in sheet
     assert "END DOSSIER" in sheet
     assert len(sheet.splitlines()) <= 75
+
+
+def test_quick_sheet_multiple_specializations_rendered(char_manager):
+    """Verify that multiple specializations render cleanly in quick sheet output."""
+    sheet = char_manager.export_character("reiko", fmt="quick_sheet")
+    assert "-- Registering: 20d6" in sheet
+    assert "-- Compiling: 20d6" in sheet
+    assert "-- Software: 23d6" in sheet
+    assert "-- Complex Forms: 23d6" in sheet
+

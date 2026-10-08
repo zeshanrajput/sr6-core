@@ -1,13 +1,13 @@
 ---
 name: sr6-downtime-ledger
-description: Manage SR6 downtime advancement, purchases, and ledgers.
-version: 1.0.0
+description: Manage SR6 downtime advancement, purchases, session recaps, and ledgers.
+version: 1.1.0
 author: Zeshan Rajput (zeshanrajput), Hermes Agent
 license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
-    tags: [shadowrun, sr6, downtime, karma, nuyen, purchases, ledger]
+    tags: [shadowrun, sr6, downtime, karma, nuyen, purchases, ledger, srm, contacts]
     related_skills: [sr6-rules, continuity-tracker, shadowrun-campaign-management]
 ---
 
@@ -17,27 +17,26 @@ Manage downtime progression, Karma advancements, nuyen transactions, contact fav
 
 ## When to Use
 
+- Ingesting post-session recaps from varied GM styles into `character_log.qmd`.
+- Executing official **Shadowrun Missions (SRM / SRMG v2.4)** Major and Minor downtime actions.
 - Spending Karma on attributes, skills, specializations, qualities, or complex forms/spells.
-- Purchasing weapons, cyberware, bioware, drones, vehicles, or lifestyle upgrades.
-- Generating drop-in `{python} inc(...)` snippets for `character_purchases.qmd` or `character_log.qmd`.
+- Purchasing weapons, cyberware, bioware, drones, vehicles, or lifestyle upkeep.
+- Generating drop-in `{python} ...` snippets for `character_purchases.qmd` or `character_log.qmd`.
 - Validating ecosystem compilation after tabletop advancement.
 
-## How to Run
+## Sourcebook & Reference Exploration (`converted_md/`)
 
-Execute lookup and ecosystem compilation via the `terminal` tool:
+Whenever exact wording, quality descriptions, or campaign rules are needed, leverage the local `converted_md/` directory:
 
 ```bash
-# Verify item price, Availability, and Essence cost before purchase
-uv run sr6 card "<item_name>"
+# Search verbatim sourcebooks using book codes (crb, 6wc, hns, dc, fs, sw, bs)
+uv run sr6 source <book_code> "<query>" [--context 12]
 
-# Query advancement rules and karma costs
-uv run sr6 rag search "<advancement_topic>" --compact
+# Look up SRM campaign rules directly from the Missions Guidebook (v2.4)
+uv run sr6 source 391504 "<query>"
 
-# Recompile master YAML and validate all balances from Markdown Trio
-uv run sr6 sync-all
-
-# Audit character compliance
-uv run sr6 characters audit <char_id>
+# Search local 20,082-chunk FTS5 rules vault
+uv run sr6 rag search "<topic>" --compact
 ```
 
 ## The Single Source of Truth Architecture
@@ -45,52 +44,112 @@ uv run sr6 characters audit <char_id>
 - **Core Markdown Trio**:
   1. `character_build.qmd`: Baseline attributes, permanent qualities, cyberware, and active foci declared via `{python} modifier(...)`.
   2. `character_purchases.qmd`: Downtime purchases, attribute/skill increments, and gear acquisitions using `sr6core.log_engine` helpers.
-  3. `character_log.qmd`: Mission-by-mission Karma/Nuyen awards, contact favor adjustments, and physical/stun state.
-- **NEVER edit `*_master.yaml` directly.** Master YAML is compiled from scratch via `sr6 sync-all`.
-- **Deliver drop-in snippets in chat**: Provide ready-to-paste Python blocks for the user to insert into their IDE.
+  3. `character_log.qmd`: Mission-by-mission Karma/Nuyen awards, contact favor adjustments, downtime actions, and physical/stun state.
+- **NEVER edit `*_master.yaml` directly.** Master YAML is compiled from scratch via `uv run sr6 sync-all`.
+- **Deliver drop-in snippets in chat**: Provide ready-to-paste Python blocks for the user to inspect and commit.
 
-## Downtime Advancement Calculation Formulas
+---
 
-| Advancement Target | Karma Formula (SR6 Standard) | Example |
+## SRM Guide v2.4 Downtime Activity Taxonomy (p. 17–19)
+
+Between any two standard SRMs, a runner can perform **one Major and one Minor Downtime Activity**, OR **three Minor Downtime Activities**. After a CMP mission, they gain an additional **two Minor Downtime Activities**.
+
+### Major Downtime Activities
+| Major Action | Mechanics & Formulas | Python Helper Function |
 | :--- | :--- | :--- |
-| **New Attribute Rating** | New Rating $\times 5$ Karma | Raising Logic from 4 to 5 = $5 \times 5 = 25$ Karma |
-| **New Skill Rating** | New Rating $\times 5$ Karma | Raising Cracking from 5 to 6 = $6 \times 5 = 30$ Karma |
-| **Skill Specialization** | 5 Karma (flat) | Specialization: Cybercombat = 5 Karma |
-| **Skill Expertise** | 5 Karma (after specialization) | Expertise: Cybercombat = 5 Karma |
-| **New Spell / Complex Form**| 5 Karma (flat) | Resonance Veil = 5 Karma |
-| **New Positive Quality** | Listed Quality Cost $\times 2$ (Downtime) | Quality costing 6 at creation = 12 Karma downtime |
-| **Buying Off Negative Quality**| Listed Quality Bonus $\times 2$ (Downtime) | Removing 8 Karma negative quality = 16 Karma |
+| **Strengthen Connection** | **Non-canonical contacts only.** Target Connection $\times$ Major Actions at Target Rating $\times$ 1,000¥ each. Upon reaching target rating, grants Target Rating in Favor Points, allowing immediate Loyalty elevation. | `{python} strengthen_connection(name, target_connection=N, step=X)` |
+| **Strengthen Loyalty (4+)** | Elevating Loyalty to 4 or higher requires a Major Action and spending FP equal to the next level of Loyalty. | `{python} strengthen_loyalty(name, target_loyalty=N)` |
+| **Initiate / Submerge** | Increases Initiation or Submersion grade. Karma cost = $10 + (\text{Grade} \times 3)$ (or $10 + (\text{Grade} \times 2)$ with ordeal/task). | `{python} initiate(grade)` / `{python} submerge(grade)` |
+| **Cybersurgery** | Surgical implantation or replacement of one or more cyberware/bioware items. | `{python} cybersurgery("Items")` |
+| **Initial Geneware Treatment** | First application of a geneware therapy. | `{python} initial_geneware("Treatment")` |
+| **Repair ALL Drones & Vehicles** | Full maintenance overhaul across all damaged vehicles and drones in the runner's inventory. | `{python} repair_all_drones()` |
+| **Lay Low** | Reduces accumulated Heat. | `{python} lay_low(heat_reduction=1)` |
+| **Transhumanist Training** | Advanced body/mind conditioning per *6WC* p. 146. | `{python} transhumanist_training()` |
+| **Work a Contact** | Networking to acquire obscure data or favors per *SR6 CRB* p. 236. | `{python} work_contact(name)` |
+| **Work for the Streetdoc** | (Shadow Healthcare Community): Convert unlimited Karma to nuyen for personal augmentations at 1 Karma $\rightarrow$ 7,000¥. | `{python} work_for_the_streetdoc(karma=N, target_item="...")` |
+| **Buying Favor Points** | Purchase contact Favor Points per *6WC* p. 173. | `{python} buy_favor_points(name, nuyen=N, fp=N)` |
+| **Conclave / Coven Task (5–8)** | Complete a high-tier magical group obligation (*Street Wyrd*). | `{python} conclave_task(level=N)` |
 
-## Drop-in Code Snippet Templates
+### Minor Downtime Activities
+| Minor Action | Mechanics & Formulas | Python Helper Function |
+| :--- | :--- | :--- |
+| **Register Sprites\*** | Register up to 8 levels of sprites (buying hits: 4 dice = 1 hit). | `{python} register_sprite("Modular", 8)` |
+| **Bind Spirits\*** | Bind an summoned spirit (buying hits). | `{python} bind_spirit("Fire", 5)` |
+| **Learn Complex Form / Spell**| Expand known spells or complex forms (5 Karma flat). | `{python} learn_complex_form("Name")` / `{python} learn_spell("Name")` |
+| **Repair or Modify ONE Drone\*** | Repair or install modifications on a single drone or vehicle. | `{python} repair_drone("Name")` |
+| **Strengthen Loyalty (Up to 3)**| Spend Favor Points equal to next level of Loyalty (1, 2, or 3). | `{python} strengthen_loyalty(name, target_loyalty=N)` |
+| **Work for the People** | Donate to charity / community: trade 2,000¥ for 1 Karma (limit 1/mission). | `{python} work_for_the_people()` |
+| **Work for the Man** | Corporate / street sellout: trade 1 Karma for 2,000¥ (limit 1/mission). | `{python} work_for_the_man()` |
+| **Bond a Focus** | Pay bonding Karma cost (Rating $\times$ multiplier) and bind focus. | `{python} bond_focus(name, rating=N, category="...")` |
+| **Subsequent Geneware** | Follow-up booster therapy session. | `{python} subsequent_geneware("Treatment")` |
+| **Shadow Healthcare Task** | Volunteer at Seattle community clinics (1/month for SHC members). | `{python} shadow_healthcare_task()` |
+| **Matrix Search Bonus** | Gain +4 dice to any single downtime Matrix Search. | `{python} matrix_search_bonus()` |
+| **Boost Contact Availability** | Increase effective Connection of a single contact for purchasing gear. | `{python} boost_contact_connection(name, bonus=1)` |
+| **Build / Take Down Lodge** | Construct or dismantle a hermetic/shamanic lodge. | `{python} build_lodge(rating=N)` / `{python} take_down_lodge(rating=N)` |
+| **Prepare a Vessel\*** | Prepare a physical body or object for spirit possession/inhabitation. | `{python} prepare_vessel("Type")` |
 
-### 1. Attribute or Skill Increase (`character_purchases.qmd`)
-```markdown
-* **Attribute Increase (Logic 5):** `{python} inc_many(('Karma', -25), ('Logic', 1))`
-* **Skill Increase (Cracking 6):** `{python} inc_many(('Karma', -30), ('Cracking', 1))`
-* **Skill Specialization (Electronics: Hardware):** `{python} inc('Karma', -5)`
-```
+> [!NOTE]
+> **The In-Session Downtime Asterisk (\*)**: Activities marked with an asterisk can be conducted **during active game sessions** if there is sufficient in-fiction downtime (e.g. 1–2 days between mission legs), provided they are resolved by **buying hits**.
 
-### 2. Gear & Cyberware Purchases (`character_purchases.qmd`)
-Always verify exact nuyen price and Availability via `uv run sr6 card "<item>"` first:
-```markdown
-* **Purchased Ares Predator VI (Concealed Holster, 2 Spare Clips):** `{python} inc('Nuyen', -1450)` *(Contact: Street Doc Kazuo)*
-* **Purchased Suzuki Mirage:** `{python} inc('Nuyen', -8500)` *(Chummer discount)*
-```
+---
 
-### 3. Mission Rewards & Contact Favor (`character_log.qmd`)
-```markdown
-* **Mission Payout:** `{python} inc_many(('Karma', 6), ('Nuyen', 12000))`
-* **Contact Favor Earned (Kazuo):** `{python} inc('Favor_Kazuo', 1)`
-```
+## Lifestyle Costs vs. The Hooder Quality
 
-### 4. Active Foci & Modifiers (`character_build.qmd`)
-```markdown
-`{python} modifier("Power Focus (R4)", "magic", 4, type="focus", rule_anchor="Street Wyrd p. 45", notes="Bonded Rating 4 Power Focus")`
-```
+It is essential not to conflate living expenses with community obligations:
 
-## Post-Advancement Verification Checklist
+1. **Lifestyle Maintenance Costs**:
+   - Defined in *SR6 Core Rulebook* p. 238 (Squatter 500¥, Low 2,000¥, Middle 5,000¥, High 10,000¥, Luxury 100,000¥).
+   - In SRM, rent is typically paid every two missions for active lifestyles, unless subsidized or waived by mission rewards.
+2. **The Hooder Quality (*Sixth World Companion*, p. 137)**:
+   - Negative quality (5 Karma/level, max 3).
+   - **Obligation**: The runner must donate at least **1,000¥ per level** each month to support their neighborhood/community.
+   - **Intersection with Downtime**: Funds paid to fulfill the Hooder obligation **may be used to "Work for the People"** (converting 2,000¥ into 1 Karma) or to purchase contact favors.
+   - **Rule**: Normal lifestyle rent does **not** count toward fulfilling Hooder or Working for the People.
 
-- [ ] Item Availability verified via `uv run sr6 card "<item>"`.
-- [ ] Karma and nuyen math checked against current balances.
-- [ ] Drop-in `{python} inc(...)` snippet formatted for chat.
-- [ ] User runs `uv run sr6 sync-all` in their IDE to recompile master YAML.
+---
+
+## Flexible Session Recap Ingestion Playbook
+
+Game Masters format recaps differently (bullet points, news broadcasts, inline pings, narrative summaries). Follow this modular checklist to ingest any recap:
+
+1. **Mission Header & Rewards**:
+   - Extract: Mission Code, Date, GM, Runner Team, Base Karma, Nuyen Payout.
+   - **Veteran Difficulty**: Awards +1 bonus Karma (e.g. 7 base + 1 Veteran = 8 Karma total).
+   - **Reputation**: Update regional/faction standing (`rep={'SEA': 2}`).
+2. **Contact Audit**:
+   - Cross-reference mentioned contacts against `reference/contacts.yaml` and `sr6core/character/contacts.py`.
+   - **Canonical Contacts**: Apply earned Favor Points (`{python} contact("Name", fp=N)`). Loyalty raises are free if funded by freshly earned FP.
+   - **Non-Canonical Contacts**: Check whether they are newly met or existing. If newly met, establish baseline C/L ratings and generate a reference dossier (`characters/<id>/reference/<name>.md`).
+3. **Loot & Exploit Software**:
+   - Record unique mission loot, vehicle modifications, or exploit programs in `character_purchases.qmd` or `character_log.qmd`.
+4. **Downtime Accounting**:
+   - Clarify the player's chosen Major/Minor downtime actions.
+   - Emit standardized `{python} ...` helper blocks.
+
+---
+
+## Multiple Skill Specializations
+
+In long-running campaigns, runners can acquire multiple specializations across skills (e.g., Tasking with both `Registering` and `Compiling`; Electronics with both `Software` and `Complex Forms`):
+
+1. **Logging in Purchases (`character_purchases.qmd`)**:
+   ```markdown
+   * **Tasking Specialization (Compiling):** `{python} inc('Karma', -5)`
+   * **Electronics Specialization (Complex Forms):** `{python} inc('Karma', -5)`
+   ```
+2. **Storage in Master YAML**:
+   - `specialization`: Retains primary specialization for legacy backward compatibility.
+   - `specializations`: Stores full list of all active specializations (`["Registering", "Compiling"]`).
+3. **Sheet Display**:
+   - ASCII quick sheets and mobile PWA exports automatically iterate all specializations and render their specialized dice pools.
+
+---
+
+## Post-Update Verification Checklist
+
+- [ ] All downtime actions adhere to 1 Major + 1 Minor (or 3 Minors) budget.
+- [ ] In-session downtime actions are astericked activities using bought hits.
+- [ ] Contact Favor Points and Connection/Loyalty math verified.
+- [ ] Run `uv run sr6 characters audit <char_id>` (must return PASS).
+- [ ] Run `uv run sr6 sync-all` to compile master YAML and regenerate exports.
+- [ ] Run `uv run pytest` to ensure no regression.

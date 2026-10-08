@@ -349,6 +349,13 @@ def main():
     p_init = plugin_sub.add_parser("init-repo", help="Configure .agents/plugins.json inheritance in a character repo")
     p_init.add_argument("path", type=str, help="Path to character repository")
 
+    # ci subcommand
+    ci_parser = subparsers.add_parser("ci", help="Watch or query GitHub Actions workflow runs")
+    ci_parser.add_argument("action", nargs="?", default="wait", choices=["wait", "status", "list"], help="CI action (wait, status, list)")
+    ci_parser.add_argument("--commit", type=str, default=None, help="Commit SHA (defaults to HEAD)")
+    ci_parser.add_argument("--timeout", type=int, default=600, help="Maximum seconds to wait (default: 600)")
+    ci_parser.add_argument("--interval", type=int, default=10, help="Poll interval in seconds (default: 10)")
+
     # evaluate subcommand
     eval_parser = subparsers.add_parser("evaluate", help="Perform unified 7-axis narrative audit with tier-calibrated scoring")
     eval_parser.add_argument("target", type=str, help="Path to chapter .qmd file or prose text")
@@ -1096,6 +1103,68 @@ def main():
                 print(cs["content"])
             else:
                 print(f"[Error] Unknown cheatsheet topic '{args.topic}'. Available: matrix, actions, monad, combat")
+
+    elif args.command == "ci":
+        import subprocess
+        import json
+        import time
+
+        commit_sha = args.commit
+        if not commit_sha:
+            try:
+                commit_sha = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
+            except Exception:
+                commit_sha = ""
+
+        short_sha = commit_sha[:7] if commit_sha else "latest"
+        print(f"Monitoring GitHub Actions for commit: {short_sha}")
+
+        start_time = time.time()
+        timeout = args.timeout
+        interval = args.interval
+
+        while True:
+            cmd = ["gh", "run", "list"]
+            if commit_sha:
+                cmd.extend(["--commit", commit_sha])
+            cmd.extend(["--json", "databaseId,name,status,conclusion,url"])
+
+            try:
+                out = subprocess.check_output(cmd, text=True)
+                runs = json.loads(out)
+            except Exception as e:
+                print(f"[Warning] Failed to fetch GitHub Actions runs: {e}")
+                runs = []
+
+            if not runs:
+                print("No workflow runs found yet for this commit. Waiting...")
+            else:
+                completed = [r for r in runs if r.get("status") == "completed"]
+                in_progress = [r for r in runs if r.get("status") != "completed"]
+
+                for r in runs:
+                    status = r.get("status")
+                    conc = r.get("conclusion") or "running"
+                    name = r.get("name")
+                    print(f"  • {name}: {status} ({conc})")
+
+                if args.action != "wait" or not in_progress:
+                    failed = [r for r in runs if r.get("conclusion") not in ["success", None]]
+                    if failed:
+                        print(f"\n[CI FAILURE] {len(failed)} workflow(s) failed.")
+                        sys.exit(1)
+                    elif not in_progress:
+                        print("\n[CI SUCCESS] All workflows completed successfully!")
+                        sys.exit(0)
+                    else:
+                        sys.exit(0)
+
+            elapsed = time.time() - start_time
+            if elapsed >= timeout:
+                print(f"\n[Timeout] Exceeded {timeout}s waiting for CI runs.")
+                sys.exit(1)
+
+            time.sleep(interval)
 
 
 

@@ -61,12 +61,15 @@ book:
         - narrative/25 DelTree.md
         - narrative/26 SIGTSTP.md
         - narrative/27 Malloc.md
+        - narrative/28 Renice.md
+        - narrative/29 Saturation.md
     - part: "Reference & Specifications"
       chapters:
         - reference/visual_anchors.md
         - reference/river_people.md
         - reference/coffin_girls.md
         - reference/voice_spec.md
+        - reference/sparks_second_generation.md
 
 format:
   html:

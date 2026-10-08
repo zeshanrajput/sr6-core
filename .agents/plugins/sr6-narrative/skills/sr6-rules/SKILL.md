@@ -62,6 +62,9 @@ uv run sr6 rag query "<rules_question>" --compact
 > [!IMPORTANT]
 > **Complete Database Schema & Table Reference**: See [database_schema.md](file:///c:/GitHub/sr6-core/reference/database_schema.md) for full documentation on all 16+ SQLite tables in `~/.sr6/rules_index.db`, column definitions, and SQL cheat sheets.
 >
+> **Direct Sourcebook Exploration (`converted_md/`)**:
+> Full verbatim markdown conversions of all SR6 rulebooks and Missions guides reside in `converted_md/`. Use `uv run sr6 source <book_code> "<query>"` or ripgrep in `converted_md/` to read full paragraphs, table footnotes, quality descriptions (e.g. Hooder in 6WC), or campaign guide rules (e.g. `391504-Missions_SR6_Guide_v2_4.md`).
+>
 > **Strict Mandate: No Python Gymnastics**:
 > Never execute ad-hoc `python -c "..."` scripts or one-liners to query databases. PowerShell escaping strips internal quotes and creates brittle errors. Always use `uv run sr6 db query "<SQL>"`, `uv run sr6 db schema`, `uv run sr6 card`, or ripgrep in `converted_md/` for full book context.
 
