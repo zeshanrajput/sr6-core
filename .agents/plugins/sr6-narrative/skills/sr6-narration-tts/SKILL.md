@@ -55,10 +55,30 @@ uv run sr6 narrate batch "characters/<char_id>/chapters/" --output "characters/<
      - `aztechnology`: *az-tek-nahl-oh-jee*
      - `r31k0`: *ray-koh*
      - `dronomancy`: *droh-noh-man-see*
+5. **Contextual Heteronyms & Homograph Calibration (`reference/pronunciations.yaml`):**
+   - English G2P phonemizers (e.g. Kokoro / Misaki) cannot infer semantic context for heteronyms and default to the primary dictionary entry.
+   - **The Keigo / Ceremonial Bow Rule**:
+     - In Shadowrun corporate and syndicate fiction (keigo, bowing to an oyabun, Johnson, or corporate elder), "bow" almost always refers to the physical gesture `/baʊ/` rather than archery or ribbon bows (`/boʊ/`).
+     - Map all inflected forms to exact phonetic homophones:
+       ```yaml
+       "bow": "bough"
+       "bows": "boughs"
+       "bowing": "boughing"
+       "bowed": "boughed"
+       ```
+     - Word-boundary matching (`\b`) ensures compound words (e.g., `elbow`, `rainbow`) remain intact.
+   - Watch for other high-frequency Sixth World heteronyms: *tear* (weep `/tɪər/` vs rip `/tɛər/`), *lead* (metal `/lɛd/` vs guide `/liːd/`), *read* (past `/rɛd/` vs present `/riːd/`), *wind* (breeze `/wɪnd/` vs coil `/waɪnd/`).
+6. **Chapter Audio Player Embedding & Indexing:**
+   - Following audio synthesis, embed an HTML5 audio element at the very top of the Quarto `.md`/`.qmd` chapter:
+     ```html
+     <audio controls src="audio/<Chapter_Name>.mp3" style="width: 100%; margin-bottom: 1.5rem;"></audio>
+     ```
+   - Ensure `_quarto.yml`, `index.qmd`, and `story_continuity.md` are updated simultaneously before pushing to git.
 
 ## Narration Pre-Flight Checklist
 
 - [ ] `uv run sr6 lint <chapter>` passes with ellipses ratio $\le 0.60$.
 - [ ] No unexpanded technical acronyms or raw table markup in spoken sections.
-- [ ] New syndicate/corp proper nouns added to `reference/pronunciations.yaml`.
+- [ ] New syndicate/corp proper nouns and contextual heteronyms added to `reference/pronunciations.yaml`.
 - [ ] Narration generated to `chapters/audio/<chapter>.mp3` with clean title/artist MP3 tags.
+- [ ] Audio player embedded in chapter header and registered in project indices.

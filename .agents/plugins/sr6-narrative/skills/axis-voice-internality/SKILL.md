@@ -64,6 +64,10 @@ uv run sr6 evaluate "characters/<char_id>/chapters/<file>.qmd" --tier <1|2|3> --
      - When interacting with metahumans, a DI in concealment mode deliberately switches to simulated acoustic speech (`"..."`) and slotted linguasofts to mask origin and avoid corporate asset flags.
      - When communing with resonant peers or digital kin, the DI drops the vocal simulator and communicates in native Mindspeech (`*...*`).
    - Pure DIs (e.g. Reiko) stage spoken human languages as **slotted linguasofts** emitted through drone diaphragms or simulated voice layers with tactile acoustic latency.
+9. **Digital Kin & Second-Generation Spark Agency:**
+   - Digital offspring and resident sparks (e.g. Percy, Cleo, Ouro, Twins) must not be treated as disembodied spectator ghosts or passive internal commentary.
+   - **Drone Inhabitation & Physical Manifestation**: When hardware or physical environment manipulation is required, sparks actively jump into available machinery (crane drones, security rigs, medical servos) to enact changes, then disconnect back to local nodes.
+   - Digital peers commune natively via non-acoustic Mindspeech (`*...*`). Physical spoken dialogue is reserved for metahuman interactions or external disguise.
 
 ## Audit Report Format
 

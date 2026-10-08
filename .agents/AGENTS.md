@@ -11,6 +11,7 @@ The primary purpose of `sr6-core` is to **support physical tabletop roleplay**.
 * **The Companion Role**: The tool does the heavy cognitive lifting—calculating situational modifiers, stacking bonuses, computing net dice pools, determining defense ratings, and presenting relevant rules in context.
 * **No Digital Dice Rollers**: We deliberately do **NOT** implement digital dice rollers in books, web apps, or character sheets. Tabletop players roll physical dice at the table. Companion tools present the final pool (e.g. `14d6`) and let the player grab their physical dice.
 * **Data-Driven Architecture (No Hardcoded Character Hacks)**: The engine must remain character-agnostic. All mechanics (ASDF arrays, Monad abilities, living personas, augmentations, and armor) must be derived dynamically from dossiers and database models (`ref_qualities`, `ref_cyberware`, etc.) rather than hardcoded character ID checks (`if char_id == "venn":`).
+* **Windows PowerShell Git Commit Protocol**: To prevent PowerShell whitespace, quote-escaping, and newline truncation issues when committing multi-line messages, always stage the commit message in a temporary file (e.g. `scratch/commit_msg.txt`), execute `git commit -F scratch/commit_msg.txt`, and immediately clean up the temporary file. Never pass complex multi-line strings directly via `git commit -m "..."`.
 
 ---
 
