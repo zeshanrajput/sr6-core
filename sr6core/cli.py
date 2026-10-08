@@ -1149,7 +1149,7 @@ def main():
                     print(f"  • {name}: {status} ({conc})")
 
                 if args.action != "wait" or not in_progress:
-                    failed = [r for r in runs if r.get("conclusion") not in ["success", None]]
+                    failed = [r for r in completed if r.get("conclusion") not in ["success", "skipped"]]
                     if failed:
                         print(f"\n[CI FAILURE] {len(failed)} workflow(s) failed.")
                         sys.exit(1)
