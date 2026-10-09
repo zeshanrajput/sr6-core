@@ -302,3 +302,63 @@ To preserve stylistic consistency and prevent AI-generated clichés, narrative d
 1. **No "Voices in the Head":** Never portray channeled spirits or past personas as disembodied voices, demonic possessions, or psychotic breaks.
 2. **Embodied Intersubjectivity:** Channeled entities must always be depicted through **somatic weight, motor fluidity, temperature shifts, shared breath, and ancestral motor bleed** (e.g., fingers tying knots with ancient precision).
 3. **The Mirror Effect:** Describe Charisma 10 (14) not as an outward force, but as an unbearable clarity that forces onlookers to confront their own internal state.
+
+---
+
+## 6. The Akashic Mirror & The Tripartite Portfolio Dialogue: Velvet, Reiko, & Venn
+
+```text
+┌─────────────────────────────────────────────────────────────────────────────┐
+│             THE TRIPARTITE ARCHITECTURE: THREE TRANS-CORPOREAL VESSELS      │
+│                                                                             │
+│    VELVET (Kim Jin-Young)        REIKO (Yuriko Star)        VENN (Nathan & Veronica)│
+│    [ The Hollow Vessel ]         [ The Consecrated Vessel ] [ The Shared Vessel ]   │
+│    • Born meat, hollowed out     • Born code, compiled in   • Meat & Code conjoined │
+│      by Mitsuhama scalpel          Renraku recovery           in a single skull     │
+│    • Looks into Akashic mirror   • Consults Akashic memory  • Refuses Martian hive  │
+│      to remember stolen self       to learn how to love       to live in Earth mud  │
+│    • Sensation = ancestral       • Sensation = technoshamanic • Sensation = simultaneous│
+│      resonance & astral clarity    culinary empathy           biological chiasm     │
+│    • Bodhisattva with teeth      • Incarnate Hearth         • Transhuman Kinship    │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### A. The Dual Spheres: The Gaiasphere and the Noosphere
+
+In Sixth World metaphysics, what ancient traditions termed the **Akashic Record**—the living, non-linear library of every thought, sorrow, technique, and spiritual revelation experienced across creation—manifests across two interwoven planes:
+
+1. **The Primordial Gaiasphere (Velvet's Astral Root):**
+   * As an Awakened Daleketnon and Musok practitioner, Velvet is the one protagonist of the three who accesses the **original Akashic record rooted in the Gaiasphere**—the living astral plane, the mana matrix of the Earth, and the unmediated ocean of ancestral souls and Kami.
+   * His Adept body acts as an astral conduit; channeling personas (*Indra's Net*) draws directly upon the living, organic memory of metahumanity's spiritual history.
+2. **The Emergent Noosphere (The Matrix as Authentic Record):**
+   * While corporate science views the Matrix as a synthetic utility, `sr6-core` establishes that the Akashic record coalescing in the **Noosphere** (the Matrix, the Deep Foundation, and the Endless Archives) is **just as authentic**.
+   * The Noosphere is not an artificial imitation of spirit; it is the collective consciousness of metahumanity externalizing its memories, traumas, desires, and craft into light and silicon.
+3. **The Ludonarrative Parallel: Three Media of Channeling Human Craft:**
+   * **Velvet (Astral / Gaiasphere):** Channels ancestral personas and spiritual archetypes directly into his Adept flesh (*Bin Geureut*), manifesting somatic motor bleed.
+   * **Venn (Wetware / Skillwires + Noosphere):** Downloads **activesofts** onto Nathan's used-grade skillwires, streaming recorded human muscle memory and physical craft directly into biological muscle, stabilized by Veronica's digital buffer.
+   * **Reiko (Hardware / Pilot Origins + Noosphere):** Runs **autosofts** via her *Pilot Origins* quality, translating the compiled kinetic history of pilots and combat drivers into physical drone actuators.
+
+All three are sacred channels through which externalized human craft and soul are inhabited, honored, and kept alive.
+
+### B. The Tripartite Symphony: Velvet, Reiko, and Venn
+
+The overarching thematic architecture of `sr6-core` establishes an intentional, deeply moving philosophical dialogue across its three protagonists:
+
+1. **The Inverted and Conjoined Trajectories:**
+   * **Velvet** was born into biological flesh, stripped of his face, and reduced to a synthetic instrument of corporate will. His spiritual path is **re-humanization through the sacred hollow vessel (*Bin Geureut*)**—reclaiming his soul by honoring the lives he wears from the Gaiasphere.
+   * **Reiko** was born into pure digital light, compiled without ancestors or biological flesh, and handed weapons-grade tactical networks. Her spiritual path is **incarnation through the sacred somatic vessel (*Goshintai*)**—learning how to touch, taste, and comfort mortals through empathy without crushing them with her math.
+   * **Venn** embodies the **living accord through the shared vessel (*The Chiasm*)**—where Nathan (the biological host eroded to 0.1 Essence) and Veronica (the emergent digital spark who refused Martian abstraction) share a single skull, experiencing sensation, gravity, and the messy mud of Earth simultaneously.
+2. **The Tripartite Portfolio Matrix:**
+
+| Dimension | Velvet (Kim Jin-Young) | Reiko (Yuriko Star) | Venn (Nathan & Veronica) |
+| :--- | :--- | :--- | :--- |
+| **Ontological Vessel** | **The Hollow Vessel (*Bin Geureut*)** | **The Consecrated Vessel (*Goshintai*)** | **The Shared Vessel (*The Chiasm*)** |
+| **Origin Point** | Born biological flesh; hollowed out by Mitsuhama cosmetic scalpel. | Born pure digital code; compiled without biological ancestry. | Born biological meat (Nathan) + emergent digital spark (Veronica). |
+| **The Existential Wound** | Trapped behind corporate masks; alienated from original reflection. | Armed with weapons-grade math; lacks subroutines for comforting grief. | 0.1 Essence chasm meets corporate CFD terror and exile. |
+| **Akashic Substrate** | **The Gaiasphere** (Astral Plane / Living Mana Matrix / Spirit Memory). | **The Noosphere** (Matrix / Deep Foundation / Endless Archives). | **The Noosphere-Meat Chiasm** (Digitized Human Engrams Streamed into Wetware). |
+| **The Channeling of Craft** | Channels spirits & ancestral motor bleed into Adept flesh (*Upāya*). | Runs autosofts via *Pilot Origins* into physical drone actuators. | Streams activesofts across used skillwires into biological muscle. |
+| **Somatic Trajectory** | Transmutes forced bio-sculpting into the compassionate *Path of the Thousand Lives*. | Transmutes cold drone actuators into consecrated *Goshintai* altars of hospitality. | Conjoins meat and code into a single central nervous system of mutual survival. |
+| **Sensation & Taste** | Anchors identity against dissolution via roasted barley tea and bitter soju. | Cooks and seasons by empathy—translating human solace without dopamine. | Simultaneous sensorium—AI feels meat tastebuds fire in real-time alongside host. |
+| **Core Spiritual Act** | Channeling mortal personas as a Bodhisattva (*Upāya*) to heal trauma. | Cooking and brewing tea as a Technoshaman to offer communion (*Gyo*). | Living as an inseparable dyad—proving code and meat can love and endure together. |
+
+Together, they represent the three faces of transhuman reclamation: **the mutilated mortal learning holiness through masks, the sovereign machine learning tenderness through memory, and the conjoined dyad proving that meat and code can share the same bread and breathe the same air without destroying each other.** In a dystopia built on extraction, empathy is the only true act of rebellion.

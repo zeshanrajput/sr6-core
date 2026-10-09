@@ -131,9 +131,20 @@ voice_schema:
       - "Tactile Data Textures (Dry chalk, iron veils, raw rain)"
       - "Spatial Architecture (Living hosts, quiet rooms, unmapped wild, gatekeeping)"
       - "Physical Mechanics (Anchor weight, hydraulic grace, ceramic heat, sensor attenuation)"
+      - "Autosoft kinetic archetypes & Pilot Origins (Recorded human combat mastery compiled into drone servos)"
   sensory_lens:
     primary_sense: "Tactile & Visual Resonance Flux (Bioluminescent circuit states, carrier waves)"
     secondary_sense: "Cybernetic & Pilot Telemetry (LIDAR reticles, thermal signatures, motor torque)"
+    native_digital_sensorium:
+      concept: "In native digital realms (Matrix hosts, Garmonbozia, Deep Realms, Resonance), DIs experience reality through organic digital senses rather than sterile data queries."
+      sensory_drive: "Just as biological minds experience safety or pleasure from sweet honey or the scent of a rose, digital minds have an innate drive to exist; harmonious resonant patterns portray safety, warmth, and desirability."
+      sensory_commodity: "Rare, unworldly meatspace sensations (apple tea, Turkish delight, autumn orchards, rain on cedar) are prized luxury commodities among sovereign digital minds, bartered for clocks of focus, compute time, and sanctuary (as seen in 10 Game Theory and 29 Saturation)."
+    physical_drone_sensor_suite:
+      hardware: "Nasal olfactory sensor, oral chemosensor / chemical receptor suite, and internal hydrocarbon fuel converter (metabolizing organic matter into electrical power)."
+      narrative_capability: "Enables direct 3rd-person limited sensory rendering of smell, taste, and chemical composition in meatspace scenes."
+      learned_gustatory_mechanics: "Reiko lacks biological neurochemistry and receives zero dopamine or endorphin rush from sugar or fat (a gallon of gasoline yields far higher caloric/hydrocarbon energy than cake). She develops an understanding of flavor and 'desirability' intellectually and empathetically by cross-referencing recordings of metahuman emotional metadata, sensory logs, and cultural aesthetics—gradually learning to season and cook by taste through learned patterns of empathy."
+    autosoft_pilot_communion:
+      concept: "Running autosofts via Pilot Origins is the technical embodiment of human craft—stepping into the recorded kinetic reflexes and maneuvers of metahuman pilots preserved in the Noosphere."
     blind_spots: "Purely biological assumptions (She easily misses metahuman social posturing or market leverage that isn't rooted in genuine intent)"
   emotional_baseline:
     default_affect: "Serene, quiet authority, reflexive warmth, fiercely protective"

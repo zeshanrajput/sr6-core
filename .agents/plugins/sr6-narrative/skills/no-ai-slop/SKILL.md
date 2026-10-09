@@ -36,9 +36,9 @@ Audit narrative chapters, dialogue, and campaign fiction to strip AI clichés, r
 ## Editing Principles
 
 - **Make the Minimum Effective Edit:** Fix slop patterns, repetition, and robotic structure. Leave strong human sentences alone.
-- **Affirmative Staging:** Stage scenes through what characters *do*, not what they *don't* do (ban lazy filler negatives).
-- **Trust the Reader:** Dramatize through physical action and dialogue subtext. Cut explanatory codas and thesis slogans.
-- **One Speaker Per Paragraph:** Never combine lines spoken by different characters into the same paragraph block.
+- **Affirmative Staging & Non-Action Pruning:** Stage scenes through what characters *do*, not what they *don't* do. When an affirmative physical micro-action or posture carries the weight (e.g. *"her hands remained flat against her knees"*), ruthlessly delete the leading filler negative (*"did not flinch"*).
+- **Trust the Reader vs. Contextual Scaffolding:** Dramatize through physical action and dialogue subtext. Cut explanatory codas, thesis slogans, and comparative essay preambles. However, preserve essential grounded scaffolding when specialized professional dynamics (e.g. medical triage detachment buffering supernatural charisma) or proprietary character motifs (e.g. gold vs. indigo pathways) cannot reasonably be deduced by the reader alone.
+- **One Speaker Per Paragraph:** Never combine lines spoken by different characters into the same paragraph block. Braid that speaker's dialogue with their own physical micro-action.
 - **Sensory Restraint:** Ban formulaic olfactory checklists ("smelled of X, Y, and Z"). Ground scenes in acoustic, thermal, and barometric texture.
 
 ## Banned Words & Clichés

@@ -47,10 +47,10 @@ Word counts across all tiers must have ample room to breathe ($\ge 1,500$ words)
 
 ## Structural Audit Criteria
 
-1. **Paragraph Braiding & Anti-Staccato Discipline:**
+1. **Paragraph Braiding & Calibrated Cadence:**
    - **Enforce Mature Braided Paragraphs:** In descriptive narrative and continuous action, weave physical micro-movement, sensory atmosphere, gear interaction, and immediate consequences into cohesive paragraphs of **3 to 6 sentences**.
-   - **Ban Habitual Single-Sentence Narrative Stacking:** Strictly eliminate the LinkedIn / thriller crutch of isolating solitary descriptive observations onto single lines.
-   - **Isolate Single Sentences Only for Major Pivots:** An isolated single-sentence paragraph should appear **at most once or twice in an entire chapter**, reserved strictly for irreversible choices or climax pivots.
+   - **Ban Habitual Staccato Stacking:** Eliminate the LinkedIn / thriller habit of isolating routine descriptive observations onto single lines.
+   - **Single-Sentence Lines as a Deliberate Literary Tool:** Solitary 1-sentence paragraphs are not forbidden—they are a high-impact literary tool for irreversible narrative pivots, flashback hinges, or existential turning points. Use them deliberately and sparingly, calibrated to **no more than 1 or 2 per thousand words** ($\le 1\text{–}2 / 1,000$ words).
 2. **One Speaker Per Paragraph (MANDATORY):**
    - In dialogue exchanges, **never combine lines spoken by different characters into the same paragraph**. Every new speaker gets a fresh paragraph.
    - Within that speaker's paragraph, braid their spoken/transmitted words with *their own* vocal delivery, physical micro-action, or sensory perception (2–4 sentences per speaker turn).

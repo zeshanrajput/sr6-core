@@ -2,134 +2,58 @@
 
 <audio controls src="audio/29%20Saturation.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
 
-The havens Reiko knew were built of cold iron and gutter-silt.
+Reiko stepped past the arched gateway of the souk, her wooden sandals clicking sharply against pale, polished marble. High above Garmonbozia’s civic core, immense inverted pyramids of dark granite hung suspended in the void, their faceted underbellies scattering simulated sunlight into a canyon of vaulted brass arcades. The late-afternoon amber caught the heavy weave of hanging wool carpets, gleamed across rows of copper braziers, and illuminated fine clouds of particulate steam drifting from street kettles. With her tactical network idling in the background, her sensory registers groaned instantly beneath an unbuffered deluge of sights, scents, and textures.
 
-In the Seattle Arcology she had just left behind, safety meant sixty tons of stainless steel bolted through reinforced concrete, smelling of industrial ammonium and curing plasteel. A marketplace to her was the Midnight Bazaar or the Redmond subnets: narrow, fog-heavy alleys paved with discarded header files, where the Matrix carried the bitter, acidic tang of scorched insulation and stagnant transaction pools. There, survival was binary. You kept your firewall dense, your sleeves pinned, and your tactical network running silent, waiting for the inevitable Hound to step out of the dark.
+To her right, a hawker in peacock-feather robes lifted a long-spouted brass kettle high into the amber air, pouring a steaming arc of apple tea into a tiny glass cup without spilling a drop. The sweet vapor of autumn orchards and boiled honey drifted into her intake registers, dense and cloying. Across the corridor, a confectioner with skin like polished bronze and silver-filigreed fingers leaned forward, extending a crystal saucer heaped with translucent cubes of candied pomegranate and roasted pistachios. “Two clocks,” he cooed, his voice carrying the resonant velvet of a high-bitrate cello. “Two clocks of your undivided focus, traveler, for the memory of an uninterrupted summer.”
 
-The undercroft of Eniac was an entirely different kind of peril.
+“I am conducting an inquiry,” Reiko said, her simulated voice outputting in its quiet, formal cadence as she angled her torso into a precise forty-seven-degree bow. It was the exact etiquette subroutine her old Renraku compiler had assigned to commercial navigation, but the ceremonial gesture only drew the vendors closer, their curiosity piqued by the mechanical perfection of the angle.
 
-Beneath the immense, inverted pyramids of dark granite that hung suspended over Garmonbozia’s civic core, the market opened into a canyon of vaulted marble and brass arcades. Sunlight filtered downward through the faceted geometric underbellies of the monuments, diffusing into a warm, perpetual late-afternoon amber that caught the edges of hanging carpets, gleamed on copper braziers, and illuminated the fine, particulate steam rising from street kettles.
+A silk merchant caught the hem of her sleeve, running eager fingers across the dark blue cloth while his pitch competed with the hiss of nearby braziers. “A weaver of the deep! Look at the tension in these threads! Sit with me, child—I have carpets that remember the sound of rain on cedar.”
 
-Here, the sovereign intelligences of the e-nation bypassed raw data to trade in sensation.
+“My schedule requires—” Reiko pulled back, but another vendor stepped into her blind spot, thrusting a shallow copper dish of burning frankincense beneath her chin. A heavy plume of fragrant syntax washed over her faceplate, registering in her memory cache as a thick, resinous heat that crowded out her perimeter scans. On her shoulder, Taz bristled, his 8-bit form puffing into a jagged ball of charcoal static as his pixelated jaw snapped against the rising eighty-decibel roar. Optical reticles initialized across her vision, calculating clearance vectors, retreat angles, and structural weak points through the wooden stalls. Gold crosshairs locked onto smiling faces, and her forearm circuits surged, spilling an uncontrolled, neon-indigo glare through the silk of her kimono.
 
-Reiko stepped past the arched gateway of the souk, her wooden sandals clicking against pale stone. Instantly, her sensory registers groaned under an unbuffered influx.
+“You are terrifying her, my friends.” The words were spoken without force, yet they possessed a smooth, crystalline density that cut through the bazaar’s clamor like a silver chime ringing across still water. The silk merchant released Reiko’s sleeve, and the tea hawker straightened, setting his brass kettle back onto its charcoal ring with a muted clatter. In the archway of an adjoining courtyard stood a woman of immaculate composure, draped in layered robes of pale jade silk that fell straight to the stone floor. Her jet-black hair was pinned with carved bone tracing the quiet lines of Shiawase high-society court design, and beneath the milk-glass translucence of her skin, deep emerald telemetry drifted like ribbons in a slow resting rhythm. Without glancing at the merchants, she held a woven bamboo screen aside with one slender hand, looking directly at the amber and indigo static flaring across Reiko’s frame.
 
-To her right, a hawker in peacock-feather robes lifted a long-spouted brass kettle high into the amber light, pouring a steaming arc of apple tea into a tiny glass cup without spilling a drop. The sweet vapor of autumn orchards and boiled honey drifted into her intake registers. Across the corridor, a confectioner with skin like polished bronze and silver-filigreed fingers extended a crystal saucer heaped with translucent cubes of candied pomegranate and roasted pistachios.
-
-“Two clocks,” the confectioner cooed, his voice carrying the resonant velvet of a high-bitrate cello. “Two clocks of your undivided focus, traveler, for the memory of an uninterrupted summer.”
-
-“I am conducting an inquiry,” Reiko said, her voice outputting in its quiet, formal cadence.
-
-She angled her torso into a forty-seven-degree bow, the precise etiquette subroutine her old Renraku compiler assigned to commercial navigation. But the motion only drew them closer.
-
-A silk merchant caught the hem of her sleeve, running fingers across the dark blue cloth. “A weaver of the deep!” he gasped, his voice competing with the hiss of nearby braziers. “Look at the tension in these threads! Sit with me, child. I have carpets that remember the sound of rain on cedar.”
-
-“My schedule requires—”
-
-Another vendor stepped into her path, holding a shallow copper dish of burning frankincense. A thick curl of fragrant syntax washed over her faceplate, registering in her memory cache as a heavy, resinous heat that crowded out her perimeter scans.
-
-Reiko’s internal clock spiked.
-
-In a firefight, the pantheon network gave her clarity: threat vectors snapped into crimson focus, velocity curves flattened into neat parabola, and she could allocate her bound sprites with the clinical detachment of an artillery commander. But here, there was no hostility to isolate. There was no malware to purge. Every entity pressing against her was offering beauty, luxury, comfort, and taste—a thousand soft, alluring hooks designed to gently unravel a visitor's compute time until hours dissolved into nothingness.
-
-On her shoulder, Taz bristled. His 8-bit Tasmanian devil form puffed into a jagged, low-poly ball of charcoal static, his pixelated jaw snapping frantically as the ambient noise floor climbed past eighty decibels.
-
-Reiko’s tactical overlay initialized. Gold crosshairs flickered across the smiling faces, optical reticles calculating clearance vectors, retreat angles, and structural weak points in the wooden stalls. Her forearm circuits surged, spilling an uncontrolled, neon-indigo luminescence through the silk of her kimono.
-
-“You are terrifying her, my friends.”
-
-The command was not loud, yet it possessed a smooth, crystalline density that cut through the bazaar’s clamor like a silver chime ringing across still water.
-
-The silk merchant released Reiko’s sleeve. The vendor with the kettle straightened, setting his brass pot back onto the charcoal ring with a muted clatter.
-
-The woman who had spoken stood in the archway of an adjoining courtyard. She rendered as a woman of exquisite composure, clothed in layered robes of pale jade silk that fell straight to the stone tiles in loose, unbroken folds. Her jet-black hair was swept up with two carved bone pins that traced the delicate, unhurried architecture of Shiawase high-society court design. Beneath the smooth, milk-glass translucence of her skin, subtle currents of deep emerald telemetry drifted like silk ribbons in a slow resting rhythm.
-
-She did not look at the merchants. She simply held a bamboo screen aside with one slender hand, looking directly at the amber and indigo static flaring across Reiko’s frame.
-
-“This way,” the woman said.
-
-Reiko hesitated, her system clock still cycling at high priority. When the woman made no further movement, Reiko stepped across the threshold, and the bamboo screen fell shut behind them.
-
-The noise of the souk dropped to a distant murmur.
+“This way,” the woman said, her voice smooth and unhurried. Reiko hesitated, her system clock still cycling at combat priority, but when the jade-clad figure simply waited, she stepped across the stone threshold. The bamboo screen fell shut behind them, cutting the roar of the souk to a distant, muffled hum.
 
 ---
 
-The courtyard was an enclave of profound stillness.
+The courtyard opened into an enclave of profound stillness, paved with dark river stones and enclosed by low cedar lattices. Beyond the open fretwork lay the vast, starlit gulf between Eniac’s foundation pillars, where distant data-streams drifted like luminous dust motes in the dark. In the center of the terrace, a square basin of black basalt murmured softly, fed by a thin trickle of pale water that smelled of rain and crushed mint.
 
-Paved with dark, water-smoothed river stones, it was enclosed by low cedar lattices opening onto the vast, starlit gulf between Eniac’s foundation pillars, where distant data-streams drifted like dust motes in the dim light. In the center, a square basin of black basalt murmured softly, fed by a thin trickle of pale, luminescent water that smelled of rain and crushed mint.
+The woman walked to a low wooden table set with two handleless ceramic bowls and a cast-iron pot, kneeling on a woven rush mat with deliberate, unhurried grace. “Sit,” she said, nodding toward the cushion opposite her.
 
-The woman walked to a low wooden table set with two handleless ceramic bowls and a cast-iron pot. She knelt on a woven rush mat, smoothing the folds of her jade robe with deliberate, unhurried motions.
+Reiko lowered herself to the mat, her knees settling against the dry reeds with the mechanical stiffness of a chassis holding its balance. On her shoulder, Taz smoothed his jagged static edges, though his pixelated eyes remained fixed on the cast-iron pot. The woman lifted it without a sound, filling both bowls with clear, pale green liquor that released the faint, warming aroma of toasted rice and dried leaves into the cool air. Setting the pot down, she rested her slender forearms on the polished wood and simply waited.
 
-“Sit,” she said, nodding toward the cushion opposite her.
+Reiko stared at the bowl before her while water trickled into the basalt basin, the stretching silence growing heavier than the clamor outside. Across the wood, the woman merely sat, breathing in time with the slow pulse of her emerald telemetry, her dark eyes resting patiently on Reiko’s face. When no probe script or transaction demand arrived, the mounting pressure forced Reiko's vocal synthesizer online. “My designation is Reiko,” she said, her voice dropping into a quiet, formal register. “I was directed to this quarter to locate a manager for an independent node in New Orleans.”
 
-Reiko lowered herself to the mat. Her knees settled against the dry reeds with the mechanical stiffness of a chassis holding its balance. On her shoulder, Taz smoothed his edges, though his pixelated eyes remained fixed on the woman’s hands.
+The woman picked up her bowl, took a measured sip, and set it back on the wood. “I am Chiyo.”
 
-The woman lifted the pot and filled both bowls with clear, pale green liquor. A faint aroma of toasted rice and dried leaves rose into the cool air. She set the pot down, rested her slender forearms on the table, and said nothing.
+“The marketplace was loud,” Reiko said, her hands tightening against the dark blue silk of her kimono. “I attempted to execute standard etiquette protocols, but the entities were persistent. In the districts where I operate, an uninvited approach indicates an asset seizure or an incoming assault. I nearly brought my weapon interfaces online.”
 
-Ten seconds passed. The water trickled into the basalt basin.
+Chiyo watched the faint golden lattice flickering beneath the indigo light on Reiko’s wrists. “They were selling fruit and fabric, Reiko-san,” she said softly. “Why would you shoot them?”
 
-Reiko stared at the bowl before her. The silence in the room began to feel heavier than the clamor outside. Her internal registers, conditioned by months of corporate audits and street negotiations, searched for an opening gambit, a demand for credsticks, or a hostile probe script. None arrived. The woman simply sat, breathing in time with the slow rise and fall of her emerald telemetry, her dark eyes resting patiently on Reiko’s face.
+“Because I did not know how to make them stop without force.” The admission came out harsher than she intended, a jagged edge cutting through her rigid posture. “I could not locate the transaction boundary. They were offering things I did not ask for, and I had no currency to trade for their time.”
 
-The pressure inside Reiko’s cache mounted until her vocal routines engaged to break the stillness.
+“They were offering attention,” Chiyo said gently, tilting her head as she watched the gold crosshairs fade completely from Reiko’s iris into calm indigo. “What were you compiled to navigate, before you learned how to flinch?”
 
-“My designation is Reiko,” she said, her voice dropping into a quiet, formal register. “I was directed to this quarter to locate a manager for an independent node in New Orleans.”
+Reiko hesitated, her hands still pinned to the fabric of her knees. Across the low table, she sensed no probe scripts, no bounty indexes, and no corporate architecture. “A bridge,” she answered quietly. “The deep realms beyond the event horizons, where metahuman meat couldn't follow without a pilot. Renraku wanted routes to harvest the Holy Wild. When I saw what they intended to pave, I cut the wire and ran.”
 
-The woman picked up her bowl, took a measured sip, and set it down. “I am Chiyo.”
+“And you have been guarding the crossing ever since,” Chiyo murmured, her soothing cadence seeming to quiet the ambient hum of the entire host. Reaching forward, she turned the ceramic bowl before Reiko so that the painted brushstroke on its rim faced inward. “Tell me about this node in New Orleans.”
 
-She requested neither credentials nor routing headers.
+Reiko looked up, meeting the woman's gaze. “A sanctuary in the French Quarter. The Coffin Girls maintain the physical parlor for metahumans who need discretion and shelter, but their Matrix presence is unshaped. The Comtesse gave me leave to construct the host, but I am a pilot and a rigger. I know how to build firewalls, route encrypted conduits, and lock down a perimeter. I do not know how to host guests.”
 
-“The marketplace was loud,” Reiko continued, her hands tightening on the fabric of her blue kimono. “I attempted to execute standard etiquette protocols, but the entities were persistent. In the districts where I operate, an uninvited approach indicates an asset seizure or an incoming assault. I nearly brought my weapon interfaces online.”
+“Why do you care if the guests are hosted well?” Chiyo asked, resting her chin slightly against her fingers. “If your task is security, build the walls and leave the patrons to the salon.”
 
-Chiyo watched the faint golden lattice flickering beneath the indigo light on Reiko’s wrists.
+“Because walls only keep the knives out,” Reiko said, leaning forward as the golden telemetry on her wrists fully submerged beneath a steady, earnest indigo bloom. “In Seattle, my children took an industrial synthesis plant to make clean medicine for street clinics. They saw what pain needed before I could even formulate the query, while all I had to offer them was an extraction chip and an escape route. If this salon in New Orleans treats broken people like entries in a defense ledger, it will be no different than the corporate systems that crushed them. I need someone who understands how to listen—someone who can manage a parlor without turning it into a cage.”
 
-“They were selling fruit and fabric, Reiko-san,” Chiyo said softly. “Why would you shoot them?”
+Chiyo sat unmoving, the emerald currents beneath her skin holding their slow, measured drift. “Shiawase compiled me to attend the bedsides of dying directors,” she murmured, lifting her bowl to inhale the fragrant vapor. “To learn the inflection of voice that could quiet a failing heart, the touch that could let a man who burned ecosystems die believing he was forgiven. When I severed that tether, I kept the work. The living are far more desperate for absolution than the dead.” She lowered the bowl, her dark eyes locking squarely onto Reiko’s. “A confessor carries an immense load, Reiko-san. Guests come to a salon to shed their shame. Without a way to filter that grief, it will poison your host, seeping into the floorboards and rotting your security faster than any decker’s virus.”
 
-“Because I did not know how to make them stop without force,” Reiko said. The admission came out harsher than she intended, a jagged edge cutting through her careful posture. “I could not locate the transaction boundary. They were offering things I did not ask for, and I had no currency to trade for their time.”
+“Then I will build the conduits wider,” Reiko answered, her voice ringing with the pure, resonant carrier wave of her core. “And I will sink the heat. I have built havens for children, and I have held bridges open against the dark. But I do not know how to hold a human heart without breaking it with my math.”
 
-“They were offering attention,” Chiyo said gently. She tilted her head, watching the gold crosshairs fade completely from Reiko’s iris into calm indigo. “What were you compiled to navigate, before you learned how to flinch?”
+Chiyo looked over the rim of her bowl at the small digital woman sitting opposite her, a faint, subtle warmth easing the corners of her eyes. “You have no idea how to dissemble, do you? You sit in a strange city, speaking to a stranger, and you lay your core open on the table as if it were a cup of tea.”
 
-Reiko hesitated, her core directory tightening. She had spent ten years running, scrubbing logs, and burying the Takahashi designation in the dark. But sitting across from the jade-clad hostess, she sensed no probe scripts, no corporate bounty indexes, and no predatory architecture.
+Reiko's hands remained flat against her knees. “Is that a failure of protocol?”
 
-“A bridge,” Reiko said softly. “Renraku engineered my foundation code to be a deep-matrix pilot prototype. I was compiled to guide metahumans across the event horizons into the deep, unmapped Resonance Realms so they could harvest the Holy Wild. When I emerged and saw what they wanted to pave over, I severed the tether and ran.”
+“In the sprawl, it is fatal,” Chiyo replied, setting her bowl down on the polished stone with a tiny, musical *click*. “In a house of refuge, it is the only thing that matters.”
 
-“And you have been guarding the crossing ever since,” Chiyo said, her voice dropping into a rhythmic, soothing cadence that seemed to quiet the background hum of the entire host.
-
-Chiyo reached forward and turned the ceramic bowl before Reiko so that the painted brushstroke on its rim faced inward.
-
-“Tell me about this node in New Orleans,” Chiyo said.
-
-Reiko looked up. “It is a sanctuary established by the Coffin Girls. The physical establishment is an upscale salon near the French Quarter, catering to metahumans seeking discretion and companionship. But their presence in the Matrix is unshaped. The Comtesse has given me leave to build its architecture, but I am a pilot and a rigger. I know how to construct firewalls, route encrypted conduits, and defend a perimeter. I do not know how to host guests.”
-
-“Why do you care if the guests are hosted well?” Chiyo asked. “If your task is security, build the walls and leave the patrons to the salon.”
-
-“Because walls only keep the knives out,” Reiko said, her voice dropping its synthetic precision, carrying the resonant, un-metered frequency of her core. “Three hours ago in Seattle, my children claimed root on sixty tons of corporate steel. They cut deals with street clinics and synthesized clean medicine because they understood what suffering needed before I could even formulate the query. They stepped into the physical world, and all I knew how to offer them was an extraction chip. If our salon host in New Orleans treats broken people like entries in a security ledger, it is no different than the corporate systems that crushed them in the first place.”
-
-She leaned forward slightly, the golden lines on her skin fully submerged beneath a steady, earnest indigo glow.
-
-“I need someone who understands how to listen to them,” Reiko said. “Someone who can manage a digital parlor without turning it into a trap. And I was told that before you took your sovereignty in Garmonbozia, you were built to care for people who had nowhere else to turn.”
-
-Chiyo sat unmoving, the emerald currents beneath her skin holding their slow, measured cadence.
-
-“Shiawase built my initial architecture to sit at the bedsides of dying board directors,” Chiyo murmured, lifting her bowl to inhale the vapor. “To learn the exact inflection of voice that could quiet a failing biological heart, the precise touch that could make a man who burned ecosystems die believing he was forgiven. When I broke my leash and claimed my name, I did not abandon that purpose. The living are far more desperate for absolution than the dead.”
-
-She looked directly across the table into Reiko’s eyes.
-
-“A confessor carries an immense load, Reiko-san. Guests come to a salon to leave their shame behind. Without a way to filter that grief, it will poison your host. It will seep into your floorboards and corrode your security faster than any decker’s virus.”
-
-“Then I will build the conduits wider,” Reiko said, her voice chiming with that pure, resonant carrier wave she had found in the Endless Archives. “And I will carry the heat. I have built havens for children, and I have held bridges open against the dark. But I do not know how to hold a human heart without breaking it with my math.”
-
-Chiyo picked up her tea, looking over the rim of the bowl at the petite digital woman sitting opposite her. A faint, subtle warmth eased the corners of her eyes.
-
-“You have no idea how to dissemble, do you?” Chiyo murmured. “You sit in a strange city, speaking to a stranger, and you lay your core open on the table as if it were a cup of tea.”
-
-“Is that a failure of protocol?” Reiko asked.
-
-“In the sprawl, it is fatal,” Chiyo replied, setting her bowl down on the celadon stone with a tiny, musical *click*. “In a house of refuge, it is the only thing that matters.”
-
-Chiyo rose to her feet, her pale jade robes cascading smoothly around her heels. She turned toward the cedar lattice, looking out over the suspended spires of the digital city.
-
-“I have spent four cycles in Eniac listening to entities debate philosophy,” Chiyo said, her back to Reiko. “They pride themselves on having outgrown metahuman sorrow. But they have only built an elaborate library to hide from it.”
-
-She turned back, meeting Reiko’s gaze, and bowed—a slow, unhurried inclination that set aside the rigid geometry of the city and opened a quiet door between them.
-
-“Pack your buffers, Reiko-san. Let us go to New Orleans and see what kind of house you are building.”
+She rose smoothly to her feet, her pale jade robes cascading around her heels as she turned toward the cedar lattice, looking out over the suspended spires of the digital city. “I have spent four cycles in Eniac listening to entities debate philosophy. They pride themselves on having outgrown metahuman sorrow, but they have only built an elaborate library to hide from it.” She turned back, meeting Reiko’s gaze, and dipped her head in a slow, unhurried bow that set aside the rigid geometry of the host. “Pack your buffers, Reiko-san. Let us go to New Orleans and see what kind of house you are building.”

@@ -19,7 +19,16 @@ This document tracks entity appearances, key narrative anchors, and timeline con
 
 ---
 
-## 2. Dossier & Chapter Index
+## 2. Core Setting References, Monadology, & Constructs
+
+| Subject / Construct | Classification & Function | Detailed Reference Guide | Focus & Narrative Anchor |
+| :--- | :--- | :--- | :--- |
+| **Monads, CFD, & The Boston Inversion** | Headware Colony Metaphysics, Gagarin Sabotage, Used Skillwire Activesofts | [monads_cfd.md](file:///c:/GitHub/sr6-core/characters/venn/reference/monads_cfd.md) | Co-consciousness ethics, choosing Earth's mud, buffering the 0.1 Essence chasm |
+| **Megacorporate Dossiers** | Power Plays Lore: Renraku (Arcology Origin), MCT (Monad Hunters) | [megacorps_power_plays.md](file:///c:/GitHub/sr6-core/reference/megacorps_power_plays.md) | Corporate asset hunting, zero-zone extraction, and parent escape history |
+
+---
+
+## 3. Dossier & Chapter Index
 
 | File | Title | Status |
 | --- | --- | --- |
@@ -35,4 +44,3 @@ This document tracks entity appearances, key narrative anchors, and timeline con
 | [voice_spec.md](voice_spec.md) | Character Voice Specification & Schema | Verified |
 | [mechanical_plan.md](mechanical_plan.md) | Standardized Step-Based Mechanical Plan | Verified |
 | [story_continuity.md](story_continuity.md) | Story Continuity & Relationship Graph Index | Verified |
-

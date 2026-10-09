@@ -90,11 +90,17 @@ Upon successful panel approval:
 1. **Narrative Output**: Emits the final polished prose as a clean Quarto markdown file (`.qmd`) in `chapters/` (e.g., `chapters/chapter_04.qmd`).
 2. **State Diff Proposal**: Emits an explicit YAML patch proposing updates to `character_master.yaml` for changes in nuyen, ammunition, physical/stun damage, Karma, or contact relationships.
 
-### Stage 6: Refinement Mode for Existing `.qmd` Files
-When requested to refine an existing chapter (`.qmd`):
-1. Load and dispatch the existing file directly to the 7-sub-agent audit panel.
-2. Synthesize feedback and execute line-level prose chisel refactoring.
-3. Write the revised content **directly to the target `.qmd` file** so changes can be inspected instantly using the native IDE side-by-side git diff view.
+### Stage 6: Refinement Mode for Existing Chapters (`literary-analysis <target>`)
+Invoked via the command/trigger: **`literary-analysis <target_file>`** (or `/literary-analysis <target_file>`):
+1. **Deterministic Diagnostics**: Run `uv run sr6 lint` and `uv run sr6 evaluate` on the target file.
+2. **Methodical Prose Chisel Protocol (`apply_prose_chisel`)**:
+   - **Paragraph Braiding & Calibrated Cadence**: Weave sensory texture, physical action, and dialogue into cohesive 3-to-6 sentence paragraphs. Single-sentence paragraphs are a high-impact literary tool for irreversible pivots or flashback hinges—use deliberately and sparingly ($\le 1\text{–}2 / 1,000$ words).
+   - **One Speaker Per Paragraph**: Every speaker turn is an independent paragraph braiding dialogue with that character's own physical micro-action.
+   - **Trust the Reader vs. Contextual Scaffolding**: Prune lazy meta-exposition, comparative preamble essays, and dialogue dossier dumps. Preserve essential grounded scaffolding when specialized professional dynamics (e.g. clinical triage detachment vs. supernatural charisma) or proprietary character motifs (e.g. gold vs. indigo pathways) cannot reasonably be deduced by the reader alone.
+   - **Affirmative Staging & Non-Action Pruning**: Strip filler negatives (*"did not flinch"*) when the subsequent positive physical action (*"her hands remained flat against her knees"*) carries the weight.
+3. **Pre-Commit Verification**: Run `uv run sr6 lint` and `uv run sr6 evaluate` on revised prose.
+4. **Deliver Scorecard & Drop-in Prose**: Emit the unified 7-axis scorecard and expanded literary craft telemetry, and write revised prose directly to the target file for immediate git diff review.
+5. **Transparent Literary Craft Breakdown**: In the chat response, explicitly call out where and why any deliberate single-sentence paragraphs or contextual scaffolding tools were deployed (or explicitly note "None deployed / required").
 
 ---
 

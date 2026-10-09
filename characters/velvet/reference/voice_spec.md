@@ -109,6 +109,9 @@ voice_schema:
   sensory_lens:
     primary_sense: "Astral Aura Perception & Micro-expression Tracking (emotional shifts, magic flares, deceit triggers)"
     secondary_sense: "Somatic / Tactile (resetting cartilage, tracheal clicks, jawline tension) & Olfactory (incense, roasted tea, synthetic chemicals)"
+    akashic_somatic_resonance:
+      concept: "Through Indra's Net and the unconditioned hollow vessel (Bin Geureut), Velvet registers human grief, hope, and vulnerability as physical weight, acoustic dissonance, and ancestral muscle bleed."
+      sensory_grounding: "Grounds himself against identity dissolution and corporate bio-sculpt dissociation through visceral physical anchors: the scent of ceremonial roasted barley tea, the bitter bite of soju, cold rain on synthetic silk, and tactile fabric textures."
     blind_spots: "Deep Matrix code architecture (relies on deckers and technomancers for node-level operations)"
   emotional_baseline:
     default_affect: "Charming, playful, razor-sharp, smooth under fire, quietly calculating"

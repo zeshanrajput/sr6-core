@@ -111,11 +111,28 @@ Upon successful panel approval:
    - Deliver adjustments as ready-to-paste `{python} inc(...)` snippets in chat.
    - **NEVER edit `*_master.yaml` by hand.** The master YAML is compiled from scratch from the core markdown files via `uv run sr6 sync-all` or `uv run sr6 build`.
 
-### Stage 6: Refinement Mode for Existing `.qmd` Files
-When requested to refine an existing chapter (`.qmd`):
-1. Run `uv run sr6 lint` and `uv run sr6 evaluate` on the existing file.
-2. Dispatch feedback to the sub-agent audit panel and synthesize line-level chisel refactoring via `literary-analysis`.
-3. Deliver drop-in replacements in chat or write the revised content directly to the target `.qmd` file so changes can be inspected instantly via git diff.
+### Stage 6: Refinement Mode for Existing Chapters (`literary-analysis <target>`)
+Invoked via the command/trigger: **`literary-analysis <target_file>`** (e.g., `literary-analysis characters/velvet/narrative/02_faceless_mirror.md` or `/literary-analysis <target_file>`):
+
+1. **Deterministic Diagnostics**: Run `uv run sr6 lint` and `uv run sr6 evaluate` on the target file to benchmark baseline metrics (word count, em-dash density, buzzwords, paragraph structure).
+2. **Methodical Prose Chisel Protocol (`literary-analysis` + `no-ai-slop` + `axis-pacing-structure`)**:
+   - **Paragraph Braiding & Calibrated Cadence**:
+     - Weave sensory texture, physical micro-action, dialogue, and immediate consequences into cohesive 3-to-6 sentence paragraphs.
+     - **Single-Sentence Lines as a Deliberate Tool**: Single-sentence paragraphs are not forbidden—they are a high-impact literary tool for irreversible pivots, flashback hinges, or existential turning points. Use them deliberately and sparingly, calibrated to **no more than 1 or 2 per thousand words** ($\le 1\text{–}2 / 1,000$ words).
+   - **One Speaker Per Paragraph**: Every speaker turn must be an independent paragraph, braiding spoken words directly with that character's own physical micro-actions, voice cadence, or somatic telemetry.
+   - **Trust the Reader vs. Contextual Scaffolding**:
+     - **Prune Lazy Meta-Exposition**: Cut introductory comparative essays (e.g., lecturing on past safehouses or markets before arriving at the scene), thesis announcements (never announce "they traded in sensation" right before showing it), and dialogue dossier recaps (characters speaking their character sheet).
+     - **Preserve Essential Contextual Scaffolding**: Help the reader when an expected reader cannot reasonably deduce the cause-and-effect without subtle narrative grounding. Provide grounded sensory or psychological context for:
+       - *Specialized professional or mechanical dynamics* (e.g., medical triage desensitization buffering a clinician against supernatural charisma until the smock comes off).
+       - *Proprietary symbolic motifs* (e.g., Reiko's gold tactical logic versus indigo resonant soul).
+   - **Affirmative Staging & Non-Action Pruning**: Strip gratuitous negative non-actions (e.g., *"did not flinch"*, *"did not look back"*) whenever the ensuing positive physical detail (e.g., *"her hands remained flat against her knees"*) already carries the narrative and emotional weight.
+3. **Pre-Commit Verification**: Run `uv run sr6 lint` and `uv run sr6 evaluate` on the revised content to ensure zero slop regressions, clean paragraph braiding, and tier compliance before publishing.
+4. **Deliver Scorecard & Drop-in Prose**:
+   - Emit the **Unified 7-Axis Narrative Scorecard** and **Expanded Literary Craft Telemetry** (paragraph braiding cadence, single-sentence quota, one-speaker compliance, affirmative staging).
+   - Deliver drop-in replacements in chat or write the revised content directly to the target file so changes can be inspected instantly via git diff.
+5. **Transparent Literary Craft Breakdown**: In the chat response, explicitly call out any deployment of:
+   - **Single-Sentence Paragraphs**: Identify the quote, location, and the dramatic pivot/existential hinge that justifies isolating it (or "None deployed").
+   - **Contextual Scaffolding**: Identify the passage, location, and the specialized domain dynamics or proprietary character motifs being scaffolded, explaining why the reader could not reasonably deduce it alone (or "None required").
 
 ---
 

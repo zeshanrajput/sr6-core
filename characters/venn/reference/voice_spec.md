@@ -105,6 +105,7 @@ voice_schema:
       - "Effortless cartoon shapeshifting (Monad Resculpt is a painful cellular realignment that generates physical heat and somatic exhaustion)"
     metaphor_domains:
       - "Bio-digital neural pathways, used skillwire hum, carrier-wave pressure, nanite matrix flux"
+      - "Activesoft engrammatic communion, recorded human muscle memory, skillwire current across bone"
       - "Venn diagram set intersection (A ∩ B), shared sensory reservoir, cold silver clarity vs warm pulse"
       - "Coastal salt marsh geography (brackish tides, pluff mud, rusted bronze fittings, Atlantic rain)"
       - "Tactile Matrix textures (logic nodes, signal viscosity, living Resonance conduits)"
@@ -116,6 +117,12 @@ voice_schema:
   sensory_lens:
     primary_sense: "Neural Matrix Feed & Electromagnetic Resonance (Signal geometries, carrier waves, data conduits)"
     secondary_sense: "Bio-feedback & Tactile Telemetry (Adrenaline surge, motor torque, subcutaneous tension, salt air)"
+    shared_sensorium_chiasm:
+      concept: "Nathan and Veronica share a single central nervous system; sensory intake is an intersubjective event experienced simultaneously across wetware and digital nanite volume."
+      the_mud_of_earth: "Refusing Martian computational transcendence on Gagarin anchored Veronica in Earth's messy biology—the taste of brackish salt marsh water, pluff mud, fried oysters, chicory coffee, and physical touch over sterile digital infinity."
+      sensory_division: "Nathan provides autonomic balance, visceral instinct, and meat habit; Veronica perceives the electromagnetic spectrum and buffers the gray sensory flattening of Nathan's 0.1 Essence chasm."
+      resculpt_visceral_reality: "When Veronica assumes physical motor control via Resculpt, sensations like capsaicin, alcohol, or bitter tea hit her buffer with shocking, uncurated immediacy, requiring Nathan's somatic memory to anchor and translate the stimulus."
+      activesoft_communion: "Executing activesofts across skillwires is not loading code—it is channeling recorded human craft, with Nathan's muscles surrendering to another's motor memory while Veronica buffers the cervical load."
     blind_spots: "Ungrounded human irrationality (Nathan and Veronica assume tactical actors follow logical incentives and self-preservation)"
   emotional_baseline:
     default_affect: "Analytical, calm, intensely observant, protective sibling consensus"
