@@ -35,6 +35,7 @@ book:
         - narrative/07_first_contract.md
     - part: "Reference & Specifications"
       chapters:
+        - reference/narrative_spec.md
         - reference/voice_spec.md
         - reference/visual_anchors.md
         - reference/story_continuity.md

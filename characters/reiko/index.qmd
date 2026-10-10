@@ -131,9 +131,8 @@ Active campaign stories written during play:
 ### 5. Reference & Specifications
 Design rules, faction dossiers, and visual anchor specifications:
 
+* **[Master Narrative Specification](reference/narrative_spec.md)**: Consolidated ontological framework, voice rules, consecrated mechanics, and bespoke foils.
 * **[Master Visual Anchors](reference/visual_anchors.md)**: Visual anchors, key image reference links (Dante's, SEA Rain, Desert Wars), visual asset gallery, and prompt templates.
-* **[River People Faction Dossier](reference/river_people.md)**: Background and connection details for the River People technomancer/punk network.
-* **[The Coffin Girls Faction Dossier](reference/coffin_girls.md)**: Sovereign courtesans and DI haven sanctuary.
 * **[Voice Specification & Sensory Schema](reference/voice_spec.md)**: Character voice rules, animistic phenomenology, sensory lens, and kinship terminology.
 * **[Second-Generation Sparks Reference Dossier](reference/sparks_second_generation.md)**: Personas, roles, visual anchors, and operational history of Percy, Cleo, Ouro, Aisling & Étaín, and 4Gurds.
 * **[Advancement & Mechanical Plan](reference/mechanical_plan.md)**: Standardized step-based priority progression matrix.

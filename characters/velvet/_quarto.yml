@@ -39,6 +39,7 @@ book:
 
     - part: "Reference & Specifications"
       chapters:
+        - reference/narrative_spec.md
         - reference/philosophical_framework.md
         - reference/karmic_persona_log.md
         - reference/voice_spec.md
