@@ -52,6 +52,10 @@ uv run sr6 evaluate "characters/<char_id>/chapters/<file>.qmd" --tier <1|2|3> --
 4. **Co-Protagonist Parity & Anti-Foil Safeguard:**
    - In dual-protagonist or bonded-partner narratives, when one partner takes the lead or gains emotional gravitas, actively protect the other partner's competence, agency, and somatic stakes.
    - Never reduce the organic anchor or secondary partner to a passive foil, helpless victim, or mere sounding board.
+5. **Two-Tier Dramatic Sphere & Shared Sovereignty:**
+   - Adhere strictly to [`reference/inter_session_narrative_doctrine.md`](file:///c:/GitHub/sr6-core/reference/inter_session_narrative_doctrine.md).
+   - **Tier A Campaign Canon (`canonical: true`):** Respect the Canon Ceiling. Campaign NPCs (Brynne Taggart, Roanoke, Donovan Pyke) and other player characters remain sovereign. No permanent alterations, unconsented romantic claims, or timeline monopolization.
+   - **Tier B Bespoke Foils (`canonical: false`):** High-stakes moral reckoning, relationship fractures, betrayal, and mortal stakes MUST be staged against original bespoke foils (e.g. Mr. Nagai, Chiyo, 4Gurds, Master Kang) where full irreversible agency is exercised.
 
 ## Audit Report Format
 

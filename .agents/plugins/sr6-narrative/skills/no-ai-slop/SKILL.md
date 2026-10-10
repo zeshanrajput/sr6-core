@@ -58,6 +58,7 @@ For full descriptions and before/after examples, see `references/slop-patterns.m
 | **Puffery & Attribution** | Importance puffery (P6), Weasel attribution (P7), Fake-strong verbs (P8), Synonym cycling (P9), Rhetorical setups (P13), Fake-profound kickers (P14), Summary-recap endings (P15), Formatting slop (P16). |
 | **Sensory & World** | Olfactory checklist templates (P18), Lore preaching & meta-exposition (P19), Thesis monologuing (P20), Show-then-tell redundancy (P21), Gratuitous non-action negatives (P22), Inanimate anthropomorphism / false agency (P24), Tricolon fatigue (P25). |
 | **Dialogue & Mindspeech** | Weightless radio chatter (P26), Bumper-sticker thesis sloganeering (P27), Multi-speaker dialogue merging (P28), Mindspeech double-quote confusion (P29). |
+| **Game Scaffolding Leak** | Tabletop mechanics jargon in prose (P30: *Condition Monitor, dice pool, Edge tokens, Minor/Major actions, Drain codes, test thresholds*). Strip rulebook shorthand and render as tactile physics per [`reference/inter_session_narrative_doctrine.md`](file:///c:/GitHub/sr6-core/reference/inter_session_narrative_doctrine.md). |
 
 ## Audit Report Format
 
@@ -66,6 +67,7 @@ For full descriptions and before/after examples, see `references/slop-patterns.m
 * **No AI Slop Score**: [Score]/10 (Threshold: 8.5)
 * **Banned Words Found**: [Count]
 * **AI Patterns Detected**: [Count]
+* **Game Scaffolding Leaks (P30)**: [Count & Quotes]
 
 #### Detected Slop Patterns & Banned Terms
 - **Binary Contrasts**: [Count & Quotes]
@@ -73,6 +75,7 @@ For full descriptions and before/after examples, see `references/slop-patterns.m
 - **Colon Reveals & Fake Drama**: [Count & Quotes]
 - **Fake-Profound Kickers / Recaps**: [Count & Quotes]
 - **Em-Dash Density & Ellipses Ratio**: [Count / Ratio]
+- **Game Scaffolding Leaks (P30)**: [Count & Quotes]
 
 #### Mandatory Redline Removal List
 - [ ] **Line X**: `"[Original quote with slop]"` -> **Fix**: `"[Direct, human replacement]"`

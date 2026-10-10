@@ -72,16 +72,18 @@ The primary autonomous orchestrator for end-to-end Shadowrun 6e narrative genera
 ### Stage 1: Context Ingestion
 Before drafting or editing, assemble and ingest:
 1. **Scene Outline / Prompt**: User-provided beat sheet, plot points, or run objectives.
-2. **Character Voice Specification**: Read `characters/<char_id>/reference/voice_spec.md` (check `arc_chronology`, active era, cognitive bias, and domain vocabulary).
-3. **Master Character Dossier**: Read `characters/<char_id>/<char_id>_master.yaml` for authoritative stats, implants, foci, ammo, and nuyen balances.
-4. **Continuity & Rules**: Run `uv run sr6 continuity "characters/<char_id>"` and query rules via `uv run sr6 rag search "<topic>" --compact`.
+2. **Master Narrative Doctrine**: Read [`reference/inter_session_narrative_doctrine.md`](file:///c:/GitHub/sr6-core/reference/inter_session_narrative_doctrine.md) (operational vs. ontological division of labor, consecrated mechanics, Two-Tier dramatic sphere).
+3. **Character Voice Specification / Narrative Spec**: Read `characters/<char_id>/reference/narrative_spec.md` or `voice_spec.md` (check `arc_chronology`, active era, cognitive bias, and domain vocabulary).
+4. **Master Character Dossier & Resource Pressure**: Read `characters/<char_id>/<char_id>_master.yaml` and execute `uv run sr6 pressure <char_id> --yaml` to calculate exact financial mortgages and spiritual karma allocations.
+5. **Continuity & Rules**: Run `uv run sr6 continuity "characters/<char_id>"` and query rules via `uv run sr6 rag search "<topic>" --compact`.
 
 ### Stage 2: Initial Draft Generation (`v1`)
 Draft the scene adhering to the core narrative disciplines:
 - **Pacing**: Strict 4-beat structure (Inciting Friction $\rightarrow$ Escalation $\rightarrow$ Climax $\rightarrow$ Aftermath).
 - **Paragraph Cadence**: Braided 3–6 sentence paragraphs weaving physical action, sensory cues, and consequences.
 - **Dialogue Integrity**: One speaker per paragraph (braided with that speaker's physical actions).
-- **Anti-Slop**: Zero banned buzzwords, no olfactory checklist templates, affirmative staging (ban filler negatives), and ellipses ceiling $\le 0.60$ per 300 words.
+- **Anti-Slop & Scaffolding Removal**: Zero banned buzzwords, no olfactory checklist templates, affirmative staging (ban filler negatives), and zero game scaffolding/mechanics jargon (P30: no condition monitors, dice pools, action labels).
+- **Two-Tier Dramatic Sphere**: Respect the Canon Ceiling on Tier A NPCs; direct permanent relational fractures and moral reckoning toward Tier B bespoke foils.
 - **Mindspeech**: Italics without quotes (`*...*`) for resonant kin; simulated acoustic quotes (`"..."`) when code-switching for metahumans.
 
 ### Stage 3: Deterministic Pre-Flight & Parallel Sub-Agent Audit Panel

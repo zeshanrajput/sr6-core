@@ -55,8 +55,10 @@ When refactoring prose from panel redlines, apply these four transformations:
 - **Single-Sentence Lines as a Deliberate Literary Tool:** Solitary 1-sentence paragraphs are not forbidden—they are a high-impact literary tool for irreversible pivots, flashback hinges, or existential turning points (e.g., *“Jin-Young looked into the metal.”* in `02_faceless_mirror.md`). Use them deliberately and sparingly, calibrated to **no more than 1 or 2 per thousand words** ($\le 1\text{–}2 / 1,000$ words).
 - Maintain dialogue integrity: **one speaker per paragraph**. Braid that speaker's dialogue with their own physical micro-action (2–4 sentences per turn).
 
-### 2. Translate Dry TTRPG Math -> Techno-Poetic Shadowrun Fiction
-Seamlessly transform tabletop rules into sensory experience:
+### 2. Translate Dry TTRPG Math -> Consecrated Fiction ([`narrative doctrine`](file:///c:/GitHub/sr6-core/reference/inter_session_narrative_doctrine.md))
+Seamlessly transform tabletop rules and financial arithmetic into visceral, existential reality:
+- **Nuyen as Consecrated Capital & Existential Debt:**
+  - Translate gear and augmentations into somatic mortgages (Reiko's Shiawase chassis as indentured metal), sacred ritual vestments (Velvet's fake SINs and high fashion), or bioware rent (Venn's chrome keeping host flesh intact).
 - **Matrix Perception / Slicing:**
   - *Dry:* "She rolled Matrix Perception to scan the node."
   - *Chiseled:* "She plucked the hidden chords of the underlying wire, feeling the cold, rhythmic heartbeat of corporate traffic pulsing through the junction."

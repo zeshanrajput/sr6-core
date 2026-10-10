@@ -186,6 +186,16 @@ def main():
     adv_parser = char_sub.add_parser("advance", help="Purchase gear/qualities for character")
     adv_parser.add_argument("char_id", type=str, help="Character ID")
     adv_parser.add_argument("item_ref", type=str, help="CommLink6 item reference ID")
+    pressure_parser = char_sub.add_parser("pressure", help="Calculate deterministic resource pressure telemetry")
+    pressure_parser.add_argument("char_id", type=str, help="Character ID (reiko, velvet, venn)")
+    pressure_parser.add_argument("--json", action="store_true", help="Output as JSON")
+    pressure_parser.add_argument("--yaml", action="store_true", help="Output as prompt-ready YAML")
+
+    # top-level pressure convenience command
+    p_cmd = subparsers.add_parser("pressure", help="Calculate deterministic resource pressure telemetry for a character")
+    p_cmd.add_argument("char_id", type=str, help="Character ID (reiko, velvet, venn)")
+    p_cmd.add_argument("--json", action="store_true", help="Output as JSON")
+    p_cmd.add_argument("--yaml", action="store_true", help="Output as prompt-ready YAML")
 
     # -------------------------------------------------------------
     # 3. VERB: rules (Rules lookup, cards, cheatsheets, query)
@@ -646,6 +656,28 @@ def main():
         elif args.subcommand == "advance":
             ok, msg = purchase_item_for_character(args.char_id, args.item_ref)
             print(f"\n{msg}\n")
+
+        elif args.subcommand == "pressure":
+            from sr6core.character.resource_pressure import calculate_resource_pressure, format_resource_pressure_card, format_resource_pressure_yaml
+            import json
+            telemetry = calculate_resource_pressure(args.char_id)
+            if getattr(args, "json", False):
+                print(json.dumps(telemetry, indent=2))
+            elif getattr(args, "yaml", False):
+                print(format_resource_pressure_yaml(telemetry))
+            else:
+                print(format_resource_pressure_card(telemetry))
+
+    elif args.command == "pressure":
+        from sr6core.character.resource_pressure import calculate_resource_pressure, format_resource_pressure_card, format_resource_pressure_yaml
+        import json
+        telemetry = calculate_resource_pressure(args.char_id)
+        if getattr(args, "json", False):
+            print(json.dumps(telemetry, indent=2))
+        elif getattr(args, "yaml", False):
+            print(format_resource_pressure_yaml(telemetry))
+        else:
+            print(format_resource_pressure_card(telemetry))
 
     elif args.command == "rules":
         if args.subcommand == "search":

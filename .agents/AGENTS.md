@@ -11,6 +11,11 @@ The primary purpose of `sr6-core` is to **support physical tabletop roleplay**.
 * **The Companion Role**: The tool does the heavy cognitive lifting—calculating situational modifiers, stacking bonuses, computing net dice pools, determining defense ratings, and presenting relevant rules in context.
 * **No Digital Dice Rollers**: We deliberately do **NOT** implement digital dice rollers in books, web apps, or character sheets. Tabletop players roll physical dice at the table. Companion tools present the final pool (e.g. `14d6`) and let the player grab their physical dice.
 * **Data-Driven Architecture (No Hardcoded Character Hacks)**: The engine must remain character-agnostic. All mechanics (ASDF arrays, Monad abilities, living personas, augmentations, and armor) must be derived dynamically from dossiers and database models (`ref_qualities`, `ref_cyberware`, etc.) rather than hardcoded character ID checks (`if char_id == "venn":`).
+* **The Inter-Session Narrative Mandate (Theological & Psychological Engine)**: Inter-session prose operates in deliberate counterbalance to the mechanical and social constraints of the gaming table, adhering to [`reference/inter_session_narrative_doctrine.md`](file:///c:/GitHub/sr6-core/reference/inter_session_narrative_doctrine.md):
+  * *Division of Labor*: Tabletop is the Operational Layer (action economy, collective table oxygen, physical dice); Prose is the Ontological Layer (metaphysical terror, somatic friction, moral weight). The prose retroactively charges table moments with unspoken gravity without causing table drag.
+  * *Diegetic Consecration*: Money is consecrated capital/existential debt (chassis mortgages, identity masks, bioware rent); downtime labor is artificial somatic homeostasis (the sweat equity of maintenance as metabolism); karma is spiritual evolution. Game mechanics scaffolding (Condition Monitors, Edge tokens, dice pools, action labels) is completely stripped from prose.
+  * *Two-Tier Dramatic Sphere*: Tier A Campaign Canon (`canonical: true`) respects the Canon Ceiling (read-only relational orbit; other PCs and campaign VIPs are inviolable). Tier B Bespoke Foils (`canonical: false`) carry full sovereign agency and permanent moral reckoning.
+  * *Psychological Verisimilitude*: Healing is a negotiated truce rather than a clean toggle; survival disguises are operational armor, not self-loathing Pinocchio shame; virtues are weaponized against the self.
 * **Windows PowerShell Git Commit Protocol**: To prevent PowerShell whitespace, quote-escaping, and newline truncation issues when committing multi-line messages, always stage the commit message in a temporary file (e.g. `scratch/commit_msg.txt`), execute `git commit -F scratch/commit_msg.txt`, and immediately clean up the temporary file. Never pass complex multi-line strings directly via `git commit -m "..."`.
 
 ---
@@ -23,6 +28,7 @@ The `narrative-director` is the primary autonomous orchestrator responsible for 
                       +-----------------------------+
                       |   1. CONTEXT INGESTION      |
                       | Outline, Voice Spec, Dossier|
+                      | Doctrine & Resource Pressure|
                       +--------------+--------------+
                                      |
                                      v
@@ -59,17 +65,19 @@ The `narrative-director` is the primary autonomous orchestrator responsible for 
 ### Stage 1: Context Ingestion
 Before drafting or editing, `narrative-director` ingests:
 1. **Scene Outline / Prompt**: User-provided beat sheet, plot points, or target goals.
-2. **Sub-Agent Evaluation Skills**: Calibrated directly by `sr6-narrative-suite` skills (`no-ai-slop`, `axis-pacing-structure`, `axis-worldbuilding-grit`, `axis-voice-internality`, `axis-agency-motivation`, `sr6-rules`, `continuity-tracker`, `literary-analysis`, `sr6-combat-choreography`, `sr6-downtime-ledger`, `sr6-narration-tts`).
-3. **Character Voice Specification**: Loads local character repository `reference/voice_spec.md` (e.g., `characters/reiko/reference/voice_spec.md`, `characters/velvet/reference/voice_spec.md`), which inherits/extends `reference/default_voice_spec.md`.
-4. **Master Character Dossier**: Reads `character_master.yaml` (attributes, inventory, ammo, nuyen, debt, qualities, spells, cyberware) as authoritative tabletop play state.
-5. **RAG Story Continuity & Rules**: Queries recent chapter logs via `uv run sr6 continuity` and rule context via `sr6-rules` (always querying local offline FTS5 vault first via `uv run sr6 rag search` before cloud AI synthesis).
+2. **Master Narrative Doctrine**: Loads [`reference/inter_session_narrative_doctrine.md`](file:///c:/GitHub/sr6-core/reference/inter_session_narrative_doctrine.md) as the governing operational and psychological constitution.
+3. **Sub-Agent Evaluation Skills**: Calibrated directly by `sr6-narrative-suite` skills (`no-ai-slop`, `axis-pacing-structure`, `axis-worldbuilding-grit`, `axis-voice-internality`, `axis-agency-motivation`, `sr6-rules`, `continuity-tracker`, `literary-analysis`, `sr6-combat-choreography`, `sr6-downtime-ledger`, `sr6-narration-tts`).
+4. **Character Voice Specification / Consolidated Narrative Spec**: Loads local character repository `reference/narrative_spec.md` or `reference/voice_spec.md` (inheriting `reference/default_voice_spec.md`).
+5. **Master Character Dossier & Resource Pressure Telemetry**: Reads `character_master.yaml` and executes deterministic resource pressure checks (`uv run sr6 char pressure <id>`) to ground existential financial/karmic weight.
+6. **RAG Story Continuity & Rules**: Queries recent chapter logs via `uv run sr6 continuity` and rule context via `sr6-rules` (always querying local offline FTS5 vault first via `uv run sr6 rag search` before cloud AI synthesis).
 
 ### Stage 2: Initial Draft Generation (`v1`)
 `narrative-director` invokes the drafting sub-agent to generate Scene Draft `v1`, adhering to:
-* POV, active era from `arc_chronology`, and cognitive bias from `voice_spec.md`.
+* POV, active era from `arc_chronology`, and cognitive bias from `voice_spec.md` / `narrative_spec.md`.
 * 4-beat scene structure (Inciting Friction $\rightarrow$ Escalation $\rightarrow$ Climax $\rightarrow$ Aftermath) and braided paragraph cadence from `axis-pacing-structure`.
 * Thematic worldbuilding and atmospheric friction from `axis-worldbuilding-grit`.
-* 29 anti-slop rules, affirmative staging, and "Trust the Reader" discipline from `no-ai-slop`.
+* 30 anti-slop rules (including Rule 30: zero game scaffolding/mechanics jargon in prose), affirmative staging, and "Trust the Reader" discipline from `no-ai-slop`.
+* Two-Tier dramatic sphere from `axis-agency-motivation` (Tier A Canon Ceiling vs Tier B Bespoke Foils).
 * Tactical action and combat staging using `sr6-combat-choreography` when firefights, drone combat, or spellcasting occur.
 * Mechanical reality constraints from `character_master.yaml` and dynamic weapon arrays (`calculate_modified_weapon`) without modifying tabletop balances.
 * Audio narration and TTS readability guidelines (ellipses ceiling $\le 0.60$ per 300 words) from `sr6-narration-tts`.

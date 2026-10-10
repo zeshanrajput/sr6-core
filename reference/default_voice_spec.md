@@ -30,6 +30,17 @@ voice_schema:
     sentence_length: string     # Short & clipped, Long & rhythmic, Varied tactical
     paragraph_flow: string      # Dense analysis, Rapid staccato beats, Stream-of-consciousness
     internal_monologue: string  # Format of inner thoughts (e.g., italicized telemetries, spoken subtext)
+  narrative_mandate:
+    operational_vs_ontological_gap: string    # Frontline table role vs prose metaphysical/somatic stakes
+    consecrated_mechanics:
+      nuyen_existential_debt: string          # What money represents (mortgage, sacred masks, bioware rent)
+      karma_spiritual_evolution: string       # What karma represents (unbinding firewalls, ancestral pacts)
+    two_tier_dramatic_sphere:
+      tier_a_canon_anchors: list              # SRM canon contacts governed by Canon Ceiling
+      tier_b_bespoke_foils: list              # Original foils carrying high-stakes consequences
+    psychological_verisimilitude:
+      camouflage_as_operational_armor: string # Survival disguise as hardened tradecraft, not shame
+      virtues_weaponized_against_self: string # Core virtue challenged on new ground
 
 # Multi-era narrative growth arcs (prevents retrospective flattening across campaign progression)
 arc_chronology:
