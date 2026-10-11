@@ -475,9 +475,10 @@ Initiation Grade 2: Power Point (SRM 2081-01)
       ├── Command Presence: Tanaka Ryo's corporate voice weaponized into squad command (+2 dice, +1 Edge)
       └── Cloak R1: Astral veil concealing all lived personas beneath a mundane aura
 
-Initiation Grade 3: Empathy (Next Target — Arc 2)
- └── Unlocks: +1 Edge on ALL Social tests, Social Rating boosted by Magic (+6 to +8)
-      └── Karmic Integration: Velvet's aura becomes Indra's Net, reflecting all human empathy
+Initiation Grade 3: Psychometry (SRM 2081-12 The Red Pill — Acquired)
+ └── Unlocks: Object Memory, Psychic Resonance & Flashback Perception (Astral + Intuition + Initiate Grade)
+      ├── Karmic Integration: The Path of the Thousand Lives (Bin Geureut) directly links physical artifacts and crime scenes to lived emotional echoes
+      └── Mentor Spirit Integration: Wise Warrior bonded, granting tactical Edge discipline on Influence/Leadership and somatic combat focus
 
 Initiation Grade 4: Masking (Arc 2 Milestone)
  └── Unlocks: Perfect Aura Disguise

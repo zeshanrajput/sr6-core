@@ -63,12 +63,17 @@ book:
         - narrative/27 Malloc.md
         - narrative/28 Renice.md
         - narrative/29 Saturation.md
+    - part: "Inter-Session Interludes"
+      chapters:
+        - narrative/I01.md
+        - narrative/I02.md
     - part: "Reference & Specifications"
       chapters:
         - reference/narrative_spec.md
         - reference/visual_anchors.md
         - reference/voice_spec.md
         - reference/sparks_second_generation.md
+        - reference/rei_suzuki.md
 
 format:
   html:

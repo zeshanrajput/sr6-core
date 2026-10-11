@@ -21,15 +21,16 @@ def get_default_vault_dir() -> str:
     if env_vault and os.path.exists(env_vault):
         return env_vault
 
-    local_repo_vault = Path(__file__).resolve().parent.parent / "shadowrun_rules_vault"
-    if local_repo_vault.exists():
-        return str(local_repo_vault)
+    for parent_dir in [Path(__file__).resolve().parent.parent.parent, Path(__file__).resolve().parent.parent]:
+        candidate = parent_dir / "shadowrun_rules_vault"
+        if candidate.exists():
+            return str(candidate)
 
     onedrive_vault = os.path.join(os.path.expanduser("~"), "OneDrive", "Desktop", "SR6", "ebooks", "shadowrun_rules_vault")
     if os.path.exists(onedrive_vault):
         return onedrive_vault
 
-    return str(local_repo_vault)
+    return str(Path(__file__).resolve().parent.parent.parent / "shadowrun_rules_vault")
 
 
 def get_default_converted_dir() -> str:
@@ -37,15 +38,16 @@ def get_default_converted_dir() -> str:
     if env_converted and os.path.exists(env_converted):
         return env_converted
 
-    local_repo_converted = Path(__file__).resolve().parent.parent / "converted_md"
-    if local_repo_converted.exists():
-        return str(local_repo_converted)
+    for parent_dir in [Path(__file__).resolve().parent.parent.parent, Path(__file__).resolve().parent.parent]:
+        candidate = parent_dir / "converted_md"
+        if candidate.exists():
+            return str(candidate)
 
     onedrive_converted = os.path.join(os.path.expanduser("~"), "OneDrive", "Desktop", "SR6", "ebooks", "converted_md")
     if os.path.exists(onedrive_converted):
         return onedrive_converted
 
-    return str(local_repo_converted)
+    return str(Path(__file__).resolve().parent.parent.parent / "converted_md")
 
 
 def get_default_pdf_dir() -> str:
@@ -57,8 +59,12 @@ def get_default_pdf_dir() -> str:
     if os.path.exists(onedrive_pdf):
         return onedrive_pdf
 
-    local_repo_pdf = Path(__file__).resolve().parent.parent / "ebooks"
-    return str(local_repo_pdf)
+    for parent_dir in [Path(__file__).resolve().parent.parent.parent, Path(__file__).resolve().parent.parent]:
+        candidate = parent_dir / "ebooks"
+        if candidate.exists():
+            return str(candidate)
+
+    return str(Path(__file__).resolve().parent.parent.parent / "ebooks")
 
 
 DEFAULT_VAULT_DIR = get_default_vault_dir()
@@ -76,9 +82,13 @@ def consolidate_edition_matches(rules: List[Dict[str, Any]]) -> List[Dict[str, A
 
     grouped: Dict[str, List[Dict[str, Any]]] = {}
     for r in rules:
-        topic_key = re.sub(r'[^a-zA-Z0-9]', '', (r.get("topic") or "").lower())
-        if not topic_key:
-            topic_key = r.get("id", "")
+        raw_topic = re.sub(r'[^a-zA-Z0-9]', '', (r.get("topic") or "").lower())
+        src = (r.get("source") or "").lower()
+        is_core_edition = any(c in src for c in ["hong kong", "seattle", "berlin", "core rulebook"])
+        if is_core_edition:
+            topic_key = f"core_edition_{raw_topic}"
+        else:
+            topic_key = f"{src}_{raw_topic}" if raw_topic else r.get("id", "")
         grouped.setdefault(topic_key, []).append(r)
 
     consolidated = []

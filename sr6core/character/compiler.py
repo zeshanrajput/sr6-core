@@ -101,11 +101,17 @@ def compile_character(char_id: str) -> Dict[str, Any]:
                 if not sk.get("specialization"):
                     sk["specialization"] = sp_val
 
+    qualities = dict(existing_char.get("qualities", {"positive": [], "negative": []}))
+    for q in purchases_data.get("qualities", []):
+        pos_list = qualities.setdefault("positive", [])
+        if not any(eq.get("ref") == q.get("ref") or eq.get("name") == q.get("name") for eq in pos_list):
+            pos_list.append(q)
+
     # 5. Build master structure
     compiled: Dict[str, Any] = {
         "identity": identity,
         "attributes": attributes,
-        "qualities": existing_char.get("qualities", {"positive": [], "negative": []}),
+        "qualities": qualities,
         "skills": skills,
         "modifiers": totals.get("Modifiers", []),
         "spells": totals.get("Spells", []),

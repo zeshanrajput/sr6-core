@@ -19,16 +19,16 @@ BOOK_ACRONYMS: Dict[str, str] = {
     "berlin": "CAT28000B_SR6 Berlin Edition.md",
     "hns": "CAT28006_Hack_and_Slash.md",
     "hack": "CAT28006_Hack_and_Slash.md",
-    "dc": "CAT28004_Double_Clutch.md",
-    "doubleclutch": "CAT28004_Double_Clutch.md",
-    "fs": "CAT28002_Firing_Squad.md",
-    "firingsquad": "CAT28002_Firing_Squad.md",
-    "sw": "CAT28003_Street_Wyrd.md",
-    "streetwyrd": "CAT28003_Street_Wyrd.md",
-    "cn": "CAT28450_Collapsing_Now.md",
-    "collapsingnow": "CAT28450_Collapsing_Now.md",
-    "pp": "CAT28451_Power_Plays.md",
-    "powerplays": "CAT28451_Power_Plays.md",
+    "dc": "CAT28004_Double Clutch.md",
+    "doubleclutch": "CAT28004_Double Clutch.md",
+    "fs": "CAT28002_Firing Squad.md",
+    "firingsquad": "CAT28002_Firing Squad.md",
+    "sw": "CAT28003_Street Wyrd.md",
+    "streetwyrd": "CAT28003_Street Wyrd.md",
+    "cn": "CAT28450_Collapsing Now.md",
+    "collapsingnow": "CAT28450_Collapsing Now.md",
+    "pp": "CAT28451_Power Plays.md",
+    "powerplays": "CAT28451_Power Plays.md",
     "nv": "CAT28452_Null_Value.md",
     "nullvalue": "CAT28452_Null_Value.md",
     "fp": "CAT28453_Falling_Point.md",
@@ -46,7 +46,9 @@ BOOK_ACRONYMS: Dict[str, str] = {
     "aw": "CAT28101_Astral_Ways.md",
     "astralways": "CAT28101_Astral_Ways.md",
     "srm": "391504-Missions_SR6_Guide_v2_4.md",
+    "srmg": "391504-Missions_SR6_Guide_v2_4.md",
     "missions": "391504-Missions_SR6_Guide_v2_4.md",
+    "missionsguide": "391504-Missions_SR6_Guide_v2_4.md",
     "faq": "Shadowrun_Sixth_World_FAQ.md",
     "nofuture": "CAT27453_No Future 6E.md",
     "streetpedia": "CAT27454_NeoA Streetpedia.md",
@@ -73,9 +75,16 @@ def resolve_book_file(book_query: str) -> Tuple[Optional[Path], str]:
 
     # 1. Exact acronym / alias lookup
     if clean_query in BOOK_ACRONYMS:
-        candidate = conv_dir / BOOK_ACRONYMS[clean_query]
+        target_name = BOOK_ACRONYMS[clean_query]
+        candidate = conv_dir / target_name
         if candidate.exists():
             return candidate, candidate.name
+
+        # Normalized punctuation fallback for target filename
+        target_clean = Path(target_name).stem.lower().replace(" ", "").replace("_", "").replace("-", "")
+        for f in conv_dir.glob("*.md"):
+            if f.stem.lower().replace(" ", "").replace("_", "").replace("-", "") == target_clean:
+                return f, f.name
 
     # 2. Match against filenames in converted_md
     all_files = list(conv_dir.glob("*.md"))

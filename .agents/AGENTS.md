@@ -147,10 +147,12 @@ Invoked via the command/trigger: **`literary-analysis <target_file>`** (e.g., `l
 ## 3. CLI Diagnostic Utilities
 
 Before completing edits or reviewing narrative/character updates, run corresponding CLI commands:
-* **Local Offline Rules Search**: `uv run sr6 rag search "<topic>" --compact` (instant 5-stage hybrid search with cross-edition references and statblocks)
-* **Direct SQLite Query (No Python Gymnastics)**: `uv run sr6 db query "<SQL>" --compact` (or `uv run sr6 db sql "<SQL>"`; see [database_schema.md](file:///c:/GitHub/sr6-core/reference/database_schema.md))
+* **The 2-Step Rules Retrieval Protocol**:
+  1. *Search*: `uv run sr6 rag search "<topic>" --compact` (5-stage hybrid search; outputs ranked results with `[RULE_ID]`)
+  2. *Inspect*: `uv run sr6 rag get <ID1> <ID2> ... --compact` (returns full markdown rule chunks in a single call)
+* **Direct SQLite Query (No Python Gymnastics)**: `uv run sr6 db query "<SQL>" --compact` (table `rules`: `id, source, chapter, topic, authority_level, tags, content`; see [database_schema.md](file:///c:/GitHub/sr6-core/reference/database_schema.md))
 * **Database Schema Inspector**: `uv run sr6 db schema [table_name]` (inspect column definitions, types, and sample data)
-* **Raw Sourcebook Explorer**: `uv run sr6 source <book_code> "<query>" [--context 12]` (instant chapter excerpts from converted_md/)
+* **Raw Sourcebook Explorer**: `uv run sr6 source <book_code> "<query>" [--context 12]` (instant chapter excerpts from converted_md/; codes: `crb`, `sw`, `srmg`, `6wc`, `bs`, `hns`, `dc`, `fs`, `cn`, `pp`, `so`, `da`, `wl`, `ec`, `aw`)
 * **Cyberlimb & Augmentation Calculator**: `uv run sr6 calc limb --limb <arm|leg> [--grade <grade>] [--adapsin] [--agi N]`
 * **Subsystem Rules Cheatsheets**: `uv run sr6 cheat <matrix|actions|monad|combat>`
 * **Item & PACK Reference Cards**: `uv run sr6 card <quality|weapon|spell|cyberware|pack> <name>`

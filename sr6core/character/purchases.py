@@ -63,6 +63,7 @@ class PurchasesSyncEngine:
         gear_items: List[str] = []
         sins: List[Dict[str, Any]] = []
         licenses: List[Dict[str, Any]] = []
+        qualities: List[Dict[str, Any]] = []
 
         # Keywords that represent sub-headers or nested sub-items, not top-level modifications
         ignore_mod_prefixes = [
@@ -199,6 +200,32 @@ class PurchasesSyncEngine:
                     "specialization": m_spec.group(2).strip()
                 })
 
+            # In Qualities & Mentor Spirits entries
+            m_mentor = re.search(r'\*\*\s*Mentor Spirit\s*(?:\((.*?)\)|:\s*([^\*:]+))?\s*:\s*\*\*', stripped, re.IGNORECASE)
+            if m_mentor:
+                choice = (m_mentor.group(1) or m_mentor.group(2) or "").strip()
+                q_name = f"Mentor Spirit ({choice})" if choice else "Mentor Spirit"
+                if not any(q.get("name") == q_name for q in qualities):
+                    qualities.append({
+                        "name": q_name,
+                        "ref": "mentor_spirit",
+                        "choice": choice,
+                        "karma": 20
+                    })
+            elif current_section in ['qualities', 'qualities & mentor spirits']:
+                if raw_line.startswith('* ') or raw_line.startswith('- '):
+                    clean_q = cls.clean_item_text(stripped)
+                    if clean_q and not any(q.get("name").lower() == clean_q.lower() for q in qualities):
+                        m_choice = re.search(r'\((.*?)\)', clean_q)
+                        choice = m_choice.group(1).strip() if m_choice else ""
+                        ref = "mentor_spirit" if "mentor spirit" in clean_q.lower() else clean_q.lower().replace(" ", "_")
+                        qualities.append({
+                            "name": clean_q,
+                            "ref": ref,
+                            "choice": choice,
+                            "karma": 20 if "mentor spirit" in clean_q.lower() else 0
+                        })
+
         return {
             "drone_modifications": drone_mods,
             "autosofts": autosofts,
@@ -208,6 +235,7 @@ class PurchasesSyncEngine:
             "gear": gear_items,
             "sins": sins,
             "licenses": licenses,
+            "qualities": qualities,
             "specializations": locals().get("specializations", [])
         }
 
@@ -318,6 +346,16 @@ class PurchasesSyncEngine:
                             changes.append(f"Added Specialization '{sp_val}' to skill '{sk['name']}'")
                         if not sk.get("specialization"):
                             sk["specialization"] = sp_val
+
+        # 5. Sync Qualities
+        parsed_qualities = parsed.get("qualities", [])
+        if parsed_qualities:
+            quals = data.setdefault("qualities", {"positive": [], "negative": []})
+            pos_quals = quals.setdefault("positive", [])
+            for q in parsed_qualities:
+                if not any(eq.get("ref") == q.get("ref") or eq.get("name") == q.get("name") for eq in pos_quals):
+                    pos_quals.append(q)
+                    changes.append(f"Added Quality '{q['name']}' from purchases.qmd")
 
         # Save back to YAML if changes occurred
         if changes:

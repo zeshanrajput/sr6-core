@@ -14,10 +14,10 @@ identity:
   eye_color: Obsidian
   skin_color: White
   system: shadowrun6e
-  karma: 17
-  lifetime_karma: 55
-  nuyen: 565
-  lifetime_nuyen: 117590
+  karma: 3
+  lifetime_karma: 65
+  nuyen: 5465
+  lifetime_nuyen: 124590
   heat: 0
 attributes:
   body: 2
@@ -49,6 +49,10 @@ qualities:
   - name: Focused Concentration
     ref: focused_concentration
     rating: 3
+  - name: Mentor Spirit (Wise Warrior)
+    ref: mentor_spirit
+    choice: Wise Warrior
+    karma: 20
   negative:
   - name: Injury Prone
     ref: injury_prone
@@ -103,6 +107,15 @@ skills:
   rating: 1
   is_knowledge: true
 modifiers:
+- id: wise_warrior_influence
+  name: Wise Warrior (Influence)
+  target: skill:influence
+  value: 1
+  type: gear
+  sub_skill: null
+  rule_anchor: rules/rules_and_downtime.html#mentor-spirits
+  notes: Edge boost cost discount on Influence and Leadership tests
+  enabled: true
 - id: power_focus
   name: Power Focus
   target: attribute:magic
@@ -187,6 +200,10 @@ metamagic:
 - name: Power Point
   ref: power_point
   notes: Grants 1.0 Adept Power Point.
+- name: Psychometry
+  ref: psychometry
+  notes: Reads psychic and emotional resonance from touched objects, places, or personal
+    garments; rolls Astral + Intuition + Initiate Grade.
 knowledge_skills:
 - name: Korean
   rating: 4
@@ -224,8 +241,8 @@ contacts:
     canonical_name: Ms. Snow
     is_canonical: true
     connection: 5
-    loyalty: 1
-    favors: 1
+    loyalty: 2
+    favors: 0
     type: Shadow Chapters Johnson
     region: SEA
     types:
@@ -239,6 +256,8 @@ contacts:
     history:
     - 'SRM.2081.09 (Met: C5 L0, +2 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
+    - SRM.2081.12 (+1 FP)
+    - Auto-Promoted to Loyalty 2 (-2 FP)
   Ni Ni Xiaolu:
     name: Ni Ni Xiaolu
     canonical_name: Ni Ni Xiaolu
@@ -322,7 +341,7 @@ contacts:
     is_canonical: true
     connection: 4
     loyalty: 1
-    favors: 0
+    favors: 1
     type: Triad Johnson
     region: SEA
     types:
@@ -336,6 +355,7 @@ contacts:
     history:
     - 'SRM.2081.02 (Met: C4 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
+    - SRM.2081.12 (+1 FP)
   Kingston:
     name: Kingston
     canonical_name: Kingston
@@ -464,11 +484,70 @@ contacts:
     history:
     - 'CMP.2081.10 (Met: C4 L0, +2 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
+  Donovan Pyke:
+    name: Donovan Pyke
+    canonical_name: Donovan Pyke
+    is_canonical: true
+    connection: 8
+    loyalty: 1
+    favors: 0
+    type: Shadow Chapters Leader
+    region: SEA
+    types:
+    - Corporate
+    - Magic
+    types_str: Corporate, Magic
+    description: 'Uses: Getting jobs, politics, Shadow Chapters (Shadowrun Missions
+      Seattle) | Types: Corporate, Magic (Not available after 2081-24)'
+    notes: 'Uses: Getting jobs, politics, Shadow Chapters (Shadowrun Missions Seattle)
+      | Types: Corporate, Magic (Not available after 2081-24)'
+    history:
+    - 'SRM.2081.12 (Met: C8 L0, +1 FP)'
+    - Auto-Promoted to Loyalty 1 (-1 FP)
+  Rodina:
+    name: Rodina
+    canonical_name: Rodina
+    is_canonical: true
+    connection: 2
+    loyalty: 1
+    favors: 0
+    type: ACHE Gang Leader
+    region: SEA
+    types:
+    - Criminal
+    - Street
+    types_str: Criminal, Street
+    description: 'Uses: ACHE sprawl lore, gang muscle, underground trade (Shadowrun
+      Missions Seattle) | Types: Criminal, Street'
+    notes: 'Uses: ACHE sprawl lore, gang muscle, underground trade (Shadowrun Missions
+      Seattle) | Types: Criminal, Street'
+    history:
+    - 'SRM.2081.12 (Met: C2 L0, +1 FP)'
+    - Auto-Promoted to Loyalty 1 (-1 FP)
+  Piper:
+    name: Piper
+    canonical_name: Piper
+    is_canonical: true
+    connection: 2
+    loyalty: 1
+    favors: 0
+    type: Street Kid
+    region: SEA
+    types:
+    - Street
+    types_str: Street
+    description: 'Uses: Seattle Underground guide, rumors, history (Shadowrun Missions
+      Seattle) | Types: Street'
+    notes: 'Uses: Seattle Underground guide, rumors, history (Shadowrun Missions Seattle)
+      | Types: Street'
+    history:
+    - 'SRM.2081.12 (Met: C2 L0, +1 FP)'
+    - Auto-Promoted to Loyalty 1 (-1 FP)
 reputation:
-  SEA: 4
+  SEA: 7
   AMS: 0
   HK: 2
-total_reputation: 6
+total_reputation: 9
 drones: []
 weapons: []
 armors:

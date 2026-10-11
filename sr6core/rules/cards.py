@@ -97,14 +97,17 @@ def _clean_card_text(raw_text: str, item_name: str, category: str = "") -> str:
             extracted = re.sub(r"^\-\s*", "", extracted)
             return extracted.strip()
 
-    # For multi-item weapon pages like Ares Predator VI that also contain Slivergun text,
-    # split at the next ## header
+    # For multi-item pages that also contain separate sections, split at next ## header
+    # but keep companion sections like "Game Information" attached
     headers = re.split(r"\n##\s+", text)
     if len(headers) > 1:
-        for h in headers:
+        for i, h in enumerate(headers):
             first_line = h.split("\n", 1)[0].lower()
             if base_name.lower() in first_line or clean_name.lower() in first_line:
-                return h.strip()
+                res_section = h.strip()
+                if i + 1 < len(headers) and "game information" in headers[i + 1].split("\n", 1)[0].lower():
+                    res_section += "\n\n### Game Information\n" + headers[i + 1].split("\n", 1)[1].strip() if "\n" in headers[i + 1] else "\n\n" + headers[i + 1].strip()
+                return res_section
 
     return text.strip()
 
@@ -314,8 +317,11 @@ def get_item_card(category: Optional[str], item_input: Union[str, Dict[str, Any]
     # Search rules vault for narrative description
     rdb = RulesDB(db_path=db_path)
 
-    canonical_oid, stat_row, resolved_cat = resolve_canonical_oid(category, raw_id, db_path=db_path)
-    category = resolved_cat or category or "gear"
+    if category in ("metamagic", "metamagics", "initiation"):
+        canonical_oid, stat_row, resolved_cat = None, None, "metamagic"
+    else:
+        canonical_oid, stat_row, resolved_cat = resolve_canonical_oid(category, raw_id, db_path=db_path)
+        category = resolved_cat or category or "gear"
 
     # Fallback to PACK lookup if not found in reference tables
     if not stat_row:
@@ -432,11 +438,41 @@ def get_item_card(category: Optional[str], item_input: Union[str, Dict[str, Any]
                 break
 
         if vault_rules:
-            best = vault_rules[0]
+            if category in ["metamagic", "metamagics", "initiation"]:
+                exact_matches = [r for r in vault_rules if r.get("topic", "").strip().lower() == clean_search_name.lower()]
+                target_pool = exact_matches if exact_matches else vault_rules
+                meta_matches = [
+                    r for r in target_pool
+                    if "metamagic" in (r.get("content") or "").lower()
+                    or "metamagic" in (r.get("topic") or "").lower()
+                    or "metamagic" in (r.get("chapter") or "").lower()
+                    or r.get("source") in ["Street Wyrd", "Deadly Arts", "Smooth Operations", "City Edition: Seattle", "City Edition: Hong Kong"]
+                ]
+                best = meta_matches[0] if meta_matches else target_pool[0]
+            else:
+                best = vault_rules[0]
             raw_val = best.get("content") if isinstance(best, dict) else (best["content"] if best and "content" in best.keys() else "")
             raw_vault_text = str(raw_val or "")
             source = best.get("source", "SR6 Core") if isinstance(best, dict) else (best["source"] if "source" in best.keys() else "SR6 Core")
             page = best.get("page", "") if isinstance(best, dict) else (best["page"] if "page" in best.keys() else "")
+            rule_id = best.get("id") if isinstance(best, dict) else (best["id"] if best and "id" in best.keys() else "")
+
+            # If rule is from Street Wyrd or similar sourcebook and next sequential rule is "Game Information", stitch it
+            if rule_id and rule_id.startswith("SW-"):
+                try:
+                    prefix, num_str = rule_id.split("-")
+                    next_id = f"{prefix}-{int(num_str) + 1:04d}"
+                    next_rule = rdb.query_rule(next_id)
+                    if next_rule and next_rule.get("topic") == "Game Information":
+                        next_content = next_rule.get("content", "")
+                        if next_content.startswith("---"):
+                            p = next_content.split("---", 2)
+                            if len(p) >= 3:
+                                next_content = p[2].strip()
+                        raw_vault_text += "\n\n" + next_content
+                except Exception:
+                    pass
+
             if not source_citation:
                 source_citation = f"[{source}{', Page ' + str(page) if page else ''}]"
 

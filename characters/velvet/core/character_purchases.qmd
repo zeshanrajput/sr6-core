@@ -74,6 +74,15 @@ This ledger itemizes character creation gear, matrix devices, identities, softwa
   * `{python} adept_power('Linguistics', rating=1, cost_pp=0.25, action='Passive', notes='Absorbs spoken languages after 1 hr exposure.')`
   * `{python} adept_power('Command Presence', rating=1, cost_pp=0.50, action='Passive', notes='+2 dice pool bonus and +1 Edge on Influence (Leadership) tests.')`
   * `{python} adept_power('Cloak', rating=1, cost_pp=0.25, action='Passive', notes='-1 dice pool penalty to hostile Assensing tests.')`
+* **Psychometry (Metamagic):** *Initiation Grade 3 (SRM 2081-12 The Red Pill)* `{python} metamagic('Psychometry', notes='Reads psychic and emotional resonance from touched objects, places, or personal garments; rolls Astral + Intuition + Initiate Grade.')`
+
+---
+
+### Qualities & Mentor Spirits
+
+* **Mentor Spirit (Wise Warrior):** `{python} inc('Karma', -20)` `{python} modifier("Wise Warrior (Influence)", "skill:influence", 1, type="gear", rule_anchor="rules/rules_and_downtime.html#mentor-spirits", notes="Edge boost cost discount on Influence and Leadership tests")` *(SRM 2081-12 Downtime Advancement)*
+  * *All / Social Advantage:* Edge boost cost discount on Influence and Leadership tests (-1 Edge cost, minimum 1).
+  * *Adept Advantage:* +1 free rank of Improved Ability on Close Combat.
 
 ---
 
@@ -86,6 +95,12 @@ This ledger itemizes character creation gear, matrix devices, identities, softwa
 ### Skills & Specializations
 
 * **Sorcery Specialization (Spellcasting):** *5 Karma (CMP 2083-01 Downtime)*
+
+---
+
+### Special Assets & Subscriptions
+
+* **DocWagon Gold Contract (12 Months):** *(Benefit: Shadow Chapters Induction, SRM 2081-12 The Red Pill)*
 
 ---
 

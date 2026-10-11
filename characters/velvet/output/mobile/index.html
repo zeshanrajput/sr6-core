@@ -1325,11 +1325,11 @@
       "mortype": "mystic adept",
       "gender": "DIVERSE",
       "age": 20,
-      "nuyen": 565,
-      "lifetime_nuyen": 117590,
-      "karma": 17,
-      "karma_avail": 17,
-      "lifetime_karma": 55,
+      "nuyen": 5465,
+      "lifetime_nuyen": 124590,
+      "karma": 3,
+      "karma_avail": 3,
+      "lifetime_karma": 65,
       "nanite_volume": 0,
       "is_ai": false,
       "is_monad": false,
@@ -1716,6 +1716,12 @@
           "name": "Focused Concentration",
           "rating": 3,
           "choice": null,
+          "notes": null
+        },
+        {
+          "name": "Mentor Spirit (Wise Warrior)",
+          "rating": null,
+          "choice": "Wise Warrior",
           "notes": null
         }
       ],
@@ -3559,9 +3565,9 @@
       {
         "name": "Ms. Snow",
         "connection": 5,
-        "loyalty": 1,
+        "loyalty": 2,
         "archetype": "Shadow Chapters Johnson",
-        "favors": 1,
+        "favors": 0,
         "region": "SEA",
         "types": [
           "Corporate",
@@ -3625,7 +3631,7 @@
         "connection": 4,
         "loyalty": 1,
         "archetype": "Triad Johnson",
-        "favors": 0,
+        "favors": 1,
         "region": "SEA",
         "types": [
           "Criminal",
@@ -3720,6 +3726,44 @@
           "Law Enforcement"
         ],
         "description": "Knight Errant liaison and corporate fixer in Amsterdam."
+      },
+      {
+        "name": "Donovan Pyke",
+        "connection": 8,
+        "loyalty": 1,
+        "archetype": "Shadow Chapters Leader",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "Corporate",
+          "Magic"
+        ],
+        "description": "Uses: Getting jobs, politics, Shadow Chapters (Shadowrun Missions Seattle) | Types: Corporate, Magic"
+      },
+      {
+        "name": "Rodina",
+        "connection": 2,
+        "loyalty": 1,
+        "archetype": "ACHE Gang Leader",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "Criminal",
+          "Street"
+        ],
+        "description": "Uses: ACHE sprawl lore, gang muscle, underground trade (Shadowrun Missions Seattle) | Types: Criminal, Street"
+      },
+      {
+        "name": "Piper",
+        "connection": 2,
+        "loyalty": 1,
+        "archetype": "Street Kid",
+        "favors": 0,
+        "region": "SEA",
+        "types": [
+          "Street"
+        ],
+        "description": "Uses: Seattle Underground guide, rumors, history (Shadowrun Missions Seattle) | Types: Street"
       }
     ],
     "exceptions": [
@@ -3752,6 +3796,17 @@
       }
     ],
     "modifiers": [
+      {
+        "id": "wise_warrior_influence",
+        "name": "Wise Warrior (Influence)",
+        "target": "skill:influence",
+        "value": 1,
+        "type": "gear",
+        "sub_skill": null,
+        "rule_anchor": "rules/rules_and_downtime.html#mentor-spirits",
+        "notes": "Edge boost cost discount on Influence and Leadership tests",
+        "enabled": true
+      },
       {
         "id": "power_focus",
         "name": "Power Focus",

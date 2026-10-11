@@ -26,31 +26,38 @@ Use this skill to verify official Shadowrun 6th Edition (SR6) rules, matrix/dron
 Execute local rules queries via the `run_command` tool from the workspace root:
 
 ```bash
-# Display universal item or PACK reference card (weapons, qualities, spells, cyberware, packs, drones)
+# Display universal item or PACK reference card (weapons, qualities, spells, cyberware, packs, drones, metamagics)
 uv run sr6 card "<item_name>"
+uv run sr6 card metamagic "<metamagic_name>"
 uv run sr6 card pack "<pack_name>"
 
-# Search verbatim sourcebook chapters using book codes (6wc, bs, crb, hns, dc, fs, sw, cn, pp)
+# Search verbatim sourcebook chapters using book codes (6wc, bs, crb, hns, dc, fs, sw, cn, pp, so, da, srm)
 uv run sr6 source <book_code> "<query>" [--context 12]
 
 # Calculate cyberlimb essence, cost, and capacity with enhancements and Adapsin
 uv run sr6 calc limb --limb cyberarm --grade used --adapsin --agi 4
 uv run sr6 calc limb --limb cyberleg --grade used --adapsin --agi 4 --bulk 4
 
-# Display tabletop rules cheatsheets (matrix, actions, monad, combat)
-uv run sr6 cheat <matrix|actions|monad|combat>
+# Display tabletop rules cheatsheets (matrix, actions, monad, combat, metamagic)
+uv run sr6 cheat <matrix|actions|monad|combat|metamagic>
 
 # Query SQLite tables directly with read-only SQL (use --compact for clean Markdown tables)
-uv run sr6 db query "SELECT id, name, cost, essence, capacity FROM ref_cyberware WHERE name LIKE '%Cyberarm%'" --compact
+# The Canonical 2-Step Fast Retrieval Protocol (Reduces 30+ queries to 2):
+# Step 1: Search local 20,082-chunk FTS5 rules vault (displays ranked results with [RULE_ID])
+uv run sr6 rag search "<topic_or_keyword>" --compact
+
+# Step 2: Retrieve full text for one or multiple rule chunks in a single call (<5ms, zero LLM cost)
+uv run sr6 rag get <ID1> <ID2> <ID3> ... --compact
+# (Also works as: uv run sr6 rules get <ID1> <ID2> ... --compact)
+
+# Search verbatim sourcebook chapters using book codes (crb, sw, srmg, 6wc, bs, hns, dc, fs, cn, pp, so, da, wl, ec, aw)
+uv run sr6 source <book_code> "<query>" [--context 12]
+
+# Query SQLite tables directly with read-only SQL (use --compact for clean Markdown tables)
+uv run sr6 db query "SELECT id, topic, content FROM rules WHERE topic LIKE '%Channeling%' LIMIT 5;" --compact
 
 # Inspect table schemas and column definitions
 uv run sr6 db schema [table_name]
-
-# Search local 20,082-chunk FTS5 rules vault (--compact for agent mode)
-uv run sr6 rag search "<topic_or_keyword>" --compact
-
-# Retrieve exact rule chunk from SQLite in <5ms without LLM overhead
-uv run sr6 rag get "<rule_id_or_topic>" --compact
 
 # General CommLink6 reference database search
 uv run sr6 search "<item_name>"
@@ -60,13 +67,21 @@ uv run sr6 rag query "<rules_question>" --compact
 ```
 
 > [!IMPORTANT]
-> **Complete Database Schema & Table Reference**: See [database_schema.md](file:///c:/GitHub/sr6-core/reference/database_schema.md) for full documentation on all 16+ SQLite tables in `~/.sr6/rules_index.db`, column definitions, and SQL cheat sheets.
+> **The 2-Step Fast Rules Retrieval Protocol**:
+> Always use the 2-step protocol for looking up subsystem mechanics, critter powers, metamagics, and SRM rulings:
+> 1. `uv run sr6 rag search "<topic>" --compact` $\rightarrow$ identifies matching chunk IDs (`[SW-0520]`, `[SRMG-0304]`).
+> 2. `uv run sr6 rag get <ID1> <ID2> ... --compact` $\rightarrow$ prints complete unabridged rule markdown for all IDs in one command.
+>
+> **Core SQLite Rules Schema (`~/.sr6/rules_index.db`)**:
+> - `rules`: `id, source, chapter, topic, authority_level, tags, content`
+> - `rules_fts`: `id, source, chapter, topic, tags, content`
+> - `ref_spells`, `ref_adept_powers`, `ref_qualities`, `ref_cyberware`, `ref_gear`, `ref_weapons`, `ref_actions`, `ref_contacts`.
 >
 > **Direct Sourcebook Exploration (`converted_md/`)**:
-> Full verbatim markdown conversions of all SR6 rulebooks and Missions guides reside in `converted_md/`. Use `uv run sr6 source <book_code> "<query>"` or ripgrep in `converted_md/` to read full paragraphs, table footnotes, quality descriptions (e.g. Hooder in 6WC), or campaign guide rules (e.g. `391504-Missions_SR6_Guide_v2_4.md`).
+> Full verbatim markdown conversions of all SR6 rulebooks and Missions guides reside in `converted_md/`. Use `uv run sr6 source <book_code> "<query>"` (e.g. `srmg`, `sw`, `crb`, `6wc`) or ripgrep in `converted_md/` to read full paragraphs and tables.
 >
 > **Strict Mandate: No Python Gymnastics**:
-> Never execute ad-hoc `python -c "..."` scripts or one-liners to query databases. PowerShell escaping strips internal quotes and creates brittle errors. Always use `uv run sr6 db query "<SQL>"`, `uv run sr6 db schema`, `uv run sr6 card`, or ripgrep in `converted_md/` for full book context.
+> Never execute ad-hoc `python -c "..."` scripts or one-liners to query databases. Always use `uv run sr6 rag get`, `uv run sr6 rag search`, `uv run sr6 source`, or `uv run sr6 db query "<SQL>"`.
 
 ## Mandatory Pre-Computation & Verification Protocols
 

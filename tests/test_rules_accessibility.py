@@ -172,16 +172,22 @@ def test_ware_calculator():
 
 def test_cheatsheets():
     sheets = list_cheatsheets()
-    assert len(sheets) == 4
+    assert len(sheets) == 5
     topics = [s["topic"] for s in sheets]
     assert "matrix" in topics
     assert "actions" in topics
     assert "monad" in topics
     assert "combat" in topics
+    assert "metamagic" in topics
 
     m = get_cheatsheet("matrix")
     assert "ASDF" in m["content"]
     assert "Full Matrix Defense" in m["content"]
+
+    meta = get_cheatsheet("metamagic")
+    assert meta is not None
+    assert "Centering" in meta["content"]
+    assert "Masking" in meta["content"]
 
     idx = format_cheatsheets_index()
     assert "**`matrix`**" in idx

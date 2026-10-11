@@ -140,14 +140,81 @@ Edge is generated dynamically by comparing the attacker's Attack Rating (AR) aga
 * **Hobbled**: Movement speed halved; -2 penalty to Athletics tests.
 * **Prone**: Lying flat; +2 DR against ranged attacks; -2 to melee defense; requires 1 Minor Action to stand.
 """
+    },
+    "metamagic": {
+        "title": "SR6 Initiations & Metamagics Mechanics",
+        "description": "Karma formulas, Drain resistance, Centering, and complete metamagic directory across CRB, Street Wyrd, Deadly Arts, and Smooth Operations.",
+        "content": r"""# Shadowrun 6e Initiations & Metamagics Cheatsheet
+
+## 1. Initiation Costs & Progression
+* **Initiation Karma Formula**: $\text{Cost} = 10 + \text{Target Grade} - \text{Group/Coven Loyalty}$.
+  * *Example*: Initiating from Grade 2 to Grade 3 with Coven Loyalty 8: $10 + 3 - 8 = \mathbf{5\text{ Karma}}$ (or 4 Karma with specific mission backing).
+* **Maximum Group Discount**: Coven Loyalty cannot reduce cost below $(10 + \text{Target Grade}) / 2$ unless specified by special campaign waivers.
+* **Initiation Grade Benefits**:
+  * Raises Maximum Magic attribute by +1 per Grade.
+  * Adds Initiate Grade to Counterspelling, Assensing masks, and metamagic dice pools.
+  * Mystic Adepts can choose either a Metamagic OR 1.0 Adept Power Point (*Power Point* metamagic).
+
+## 2. Drain Resistance & Centering (CRB p. 167)
+* **Standard Drain Pool**: Willpower + Tradition Attribute (e.g., Charisma for Shinto/Shamanic; Logic for Hermetic).
+* **Centering (Minor Action)**: Tradition-appropriate mundane action (chanting, mudras, instruments) adds **+Initiate Grade dice** to **ALL Drain Resistance tests**.
+  * *At Grade 3*: +3 Drain dice.
+  * *At Grade 4*: +4 Drain dice.
+* **Adept Centering (Minor Action, CRB p. 167)**: Negates opponent Edge gains from environmental conditions (smoke, darkness, glare) or illusion spells.
+
+## 3. Core Rulebook Metamagics (CRB pp. 167–168)
+* **Masking**: Opposed test against Assensing using `Magic + Initiate Grade`. Disguises aura as mundane, alters apparent Magic rank by $\pm\text{Grade}$, and **masks up to Grade bonded foci**.
+* **Power Point**: Adepts and Mystic Adepts only. Gain **1.0 Adept Power Point**. Can be selected multiple times.
+* **Shielding**: Adds Initiate Grade dice directly to the **Spell Defense (Boosted Defense)** pool when defending against incoming hostile spells.
+* **Spell Shaping**: Reshape area spells by taking -1 die per meter of radius added/subtracted or to create a 1-meter safe bubble. Incurs 0 drain surcharge.
+* **Flexible Signature**: Alters or disguises your astral signature; reduces time signature lingers by Initiate Grade hours.
+* **Fixation**: Enables permanent anchoring of alchemical preparations.
+* **Quickening**: Spends Karma to sustain spells permanently. *(SRM Note: Quickened spells generate Heat and are permanently stripped by mana barriers).*
+
+## 4. Street Wyrd Metamagics (Street Wyrd pp. 112–119)
+* **Channeling (SW p. 113)**: Inhabits a summoned spirit in physical body. Physical attributes boosted by $\lfloor\text{Force}/2\rfloor$. Uses spirit powers via services (expends 0 spell drain). Spirit can assume full control for 1 combat turn to use its own mental skills.
+* **Psychometry (SW p. 112)**: Active test (`Astral + Intuition + Grade` vs time-elapsed threshold). Imposes -4 penalty to other actions; duration 1d6 minutes. Reads emotional impressions, owner history, and trauma from touched objects.
+* **Divination (SW p. 119)**:
+  * *Passive*: Grants **+1 situational Edge before making Surprise tests**!
+  * *Active*: Examines subject astrally $\rightarrow$ rolls `Astral + Magic + Grade` against $(10 - \text{minutes})$ threshold to view visions of future events. Resists drain equal to hits.
+* **Extended Masking (SW p. 112)**: *Req: Masking*. Masks sustained spells, quickened spells, and complex forms under your disguise.
+* **Invocation (SW p. 113)**: Summons Great Form spirits with high-impact Great Form powers.
+* **Great Form Channeling (SW p. 113)**: *Req: Invocation + Channeling*. Houses Great Form spirits within physical form.
+* **Absorption (SW p. 114)**: *Req: Shielding*. Successfully defended spell hits can be converted to negate drain or regain Edge.
+* **Reflection (SW p. 114)**: *Req: Shielding*. Reflects hostile spells directly back at the attacking caster.
+* **Severing (SW p. 114)**: *Req: Shielding*. Disrupts and severs sustained enemy spells and links.
+* **Cleansing (SW p. 112)**: Purges astral pollution and background counts.
+* **Paradigm Shift (SW p. 112)**: Permanently switches tradition drain attributes and spirit alignment.
+* **Finding Your Way (SW p. 76)**: Adopts an Adept Way (e.g. *The Magician's Way*) through initiation without paying 40 Karma.
+
+## 5. Deadly Arts Metamagics (Deadly Arts pp. 172–173; SRMG p. 75)
+* **Stealth Effect (DA p. 173)**: Minor Action, +2 Drain Value. Camouflages physical spell manifestation (invisible on material plane until contact). Adds **+Initiate Grade** to the Perception threshold to notice casting.
+* **Spell Blade (DA p. 172)**: Channels active combat spells directly through melee weapons on physical strikes.
+* **Spell Grenade (DA p. 172)**: Pre-casts area combat spells into thrown projectiles for delayed detonation.
+
+## 6. Smooth Operations Metamagics (Smooth Operations p. 105; SRM Legal)
+* **Empathy (SO p. 105)**: Grants **+1 Edge on ALL Social tests**, and increases **Social Rating by Magic rating** (+6 Social Rating for Magic 6).
+* **Charlatan (SO p. 105)**: Adds Con rank to Magic to determine Perception threshold to notice casting (e.g., $6 + 5 = \mathbf{11}$). Imposes a dice pool penalty equal to Con rank (-5 dice) to all enemy assensing tests against the performer, their spells, or their foci. Zero drain increase!
+* **Astral Bluff (SO p. 105)**: Minor Action, Con + Magic (3) test to temporarily disguise emotional/health aura for net hit minutes; grants +1 Edge on accompanying Con tests.
+* **Astral Scrutiny (SO p. 105)**: *Req: Astral 4 + Spec in Signatures*. Every 2 net hits on Assensing reveal positive/negative qualities, attributes, grades, or Edge.
+* **Astral Camouflage (SO p. 105)**: *Req: Astral 5*. Denies opponents Edge when assensing/targeting aura; grants +1 Edge when avoiding astral detection or bypassing barriers.
+"""
     }
+}
+
+CHEATSHEET_ALIASES: Dict[str, str] = {
+    "metamagics": "metamagic",
+    "magic": "metamagic",
+    "initiation": "metamagic",
+    "initiations": "metamagic",
 }
 
 
 def get_cheatsheet(topic: str) -> Optional[Dict[str, str]]:
     """Retrieves a cheatsheet by topic key."""
     clean = topic.strip().lower()
-    return CHEATSHEETS.get(clean)
+    canonical = CHEATSHEET_ALIASES.get(clean, clean)
+    return CHEATSHEETS.get(canonical)
 
 
 def list_cheatsheets() -> List[Dict[str, str]]:

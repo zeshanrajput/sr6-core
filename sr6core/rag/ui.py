@@ -54,7 +54,9 @@ def print_search_results_rich(query: str, results: List[Dict[str, Any]], compact
                 snippet = content[:120] + ("..." if len(content) > 120 else "")
             
             clean_snip = re.sub(r"\[/?bold[^\]]*\]", "", snippet).strip()
-            print(f"- **{topic}**{cross}{stat_badge} — *{source}{page_str}* [{auth_str}]")
+            rid = r.get("id", "")
+            id_prefix = f"[{rid}] " if rid and rid != topic else ""
+            print(f"- **{id_prefix}{topic}**{cross}{stat_badge} — *{source}{page_str}* [{auth_str}]")
             if clean_snip:
                 print(f"  > {clean_snip}")
         print()
@@ -74,11 +76,13 @@ def print_search_results_rich(query: str, results: List[Dict[str, Any]], compact
         auth_cell = Text(label, style=style)
         
         topic = r.get("topic", r.get("id", "N/A"))
+        rid = r.get("id")
+        id_prefix = f"[bold cyan][{rid}][/bold cyan] " if rid and rid != topic else ""
         if r.get("cross_references"):
             cross_str = "\n[dim cyan]+ Also in: " + ", ".join(r["cross_references"]) + "[/dim cyan]"
-            topic_cell = topic + cross_str
+            topic_cell = id_prefix + topic + cross_str
         else:
-            topic_cell = topic
+            topic_cell = id_prefix + topic
 
         if r.get("statblock") or r.get("statblocks"):
             topic_cell += " [bold yellow]⚔️ [StatBlock][/bold yellow]"

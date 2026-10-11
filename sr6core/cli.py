@@ -208,12 +208,15 @@ def main():
     r_card.add_argument("target", type=str, nargs="+", help="Item category and name, or just item name")
     r_card.add_argument("--plain", action="store_true", help="Display card as plaintext")
     r_cheat = rules_sub.add_parser("cheat", help="Display tabletop rules cheatsheet")
-    r_cheat.add_argument("topic", type=str, nargs="?", default=None, help="Cheatsheet topic (matrix, actions, monad, combat)")
+    r_cheat.add_argument("topic", type=str, nargs="?", default=None, help="Cheatsheet topic (matrix, actions, monad, combat, metamagic)")
     r_sql = rules_sub.add_parser("sql", aliases=["query"], help="Execute read-only SQL query")
     r_sql.add_argument("sql", type=str, help="SQL query to execute")
     r_sql.add_argument("--compact", action="store_true", help="Output as Markdown table")
     r_sql.add_argument("--json", action="store_true", help="Output as JSON")
     r_sql.add_argument("--csv", action="store_true", help="Output as CSV")
+    r_get = rules_sub.add_parser("get", help="Retrieve full rule markdown chunk by ID or topic directly from SQLite")
+    r_get.add_argument("identifiers", type=str, nargs="+", help="Rule ID(s) or Topic name(s)")
+    r_get.add_argument("--compact", action="store_true", help="Output clean Markdown without ASCII box art")
     r_schema = rules_sub.add_parser("schema", help="Inspect database schema")
     r_schema.add_argument("table", nargs="?", default=None, help="Table name to inspect")
     r_schema.add_argument("--compact", action="store_true", help="Output as clean Markdown table")
@@ -312,7 +315,7 @@ def main():
     rag_search_parser.add_argument("--compact", action="store_true", help="Output clean Markdown without ASCII box art")
 
     rag_get_parser = rag_sub.add_parser("get", help="Retrieve full rule markdown chunk by ID or topic directly from SQLite")
-    rag_get_parser.add_argument("identifier", type=str, help="Rule ID (e.g. BS-005, HnS-0205) or Topic name")
+    rag_get_parser.add_argument("identifiers", type=str, nargs="+", help="Rule ID(s) (e.g. BS-005, HnS-0205) or Topic name(s)")
     rag_get_parser.add_argument("--compact", action="store_true", help="Output clean Markdown without ASCII box art")
 
     # source subcommand
@@ -346,8 +349,8 @@ def main():
     c_ware.add_argument("--adapsin", action="store_true", help="Apply Adapsin therapy discount if eligible")
 
     # cheat subcommand
-    cheat_parser = subparsers.add_parser("cheat", help="Display tabletop rules cheatsheets (matrix, actions, monad, combat)")
-    cheat_parser.add_argument("topic", type=str, nargs="?", default=None, choices=["matrix", "actions", "monad", "combat"], help="Subsystem topic (or omit to list all available)")
+    cheat_parser = subparsers.add_parser("cheat", help="Display tabletop rules cheatsheets (matrix, actions, monad, combat, metamagic)")
+    cheat_parser.add_argument("topic", type=str, nargs="?", default=None, choices=["matrix", "actions", "monad", "combat", "metamagic", "metamagics", "magic", "initiation", "initiations"], help="Subsystem topic (or omit to list all available)")
 
     # plugin subcommand
     plugin_parser = subparsers.add_parser("plugin", help="Manage SR6 Antigravity Agent Plugin")
@@ -548,7 +551,7 @@ def main():
 
     elif args.command == "card":
         from sr6core.cards import get_item_card
-        known_cats = {"quality", "qualities", "spell", "spells", "complex_form", "complexform", "weapon", "weapons", "cyberware", "bioware", "vehicle", "drone", "gear", "program", "contact", "contacts", "echo", "meta_echo", "pack", "packs"}
+        known_cats = {"quality", "qualities", "spell", "spells", "complex_form", "complexform", "weapon", "weapons", "cyberware", "bioware", "vehicle", "drone", "gear", "program", "contact", "contacts", "echo", "meta_echo", "pack", "packs", "metamagic", "metamagics", "initiation"}
         if len(args.target) == 1:
             cat, item_name = "auto", args.target[0]
         else:
@@ -563,6 +566,8 @@ def main():
         if getattr(args, "plain", False):
             from sr6core.rules.cards import format_card
             print(f"\n{format_card(card_info, fmt='plain')}\n")
+        else:
+            print(f"\n{card_info['markdown']}\n")
     elif args.command in ["contacts", "contact"]:
         from sr6core.character.contacts import search_contacts, format_contacts_table, STANDARD_CONTACT_TYPES, REGION_MAP
         import json
@@ -689,7 +694,7 @@ def main():
 
         elif args.subcommand == "card":
             from sr6core.cards import get_item_card
-            known_cats = {"quality", "qualities", "spell", "spells", "complex_form", "complexform", "weapon", "weapons", "cyberware", "bioware", "vehicle", "drone", "gear", "program", "contact", "contacts", "echo", "meta_echo", "pack", "packs"}
+            known_cats = {"quality", "qualities", "spell", "spells", "complex_form", "complexform", "weapon", "weapons", "cyberware", "bioware", "vehicle", "drone", "gear", "program", "contact", "contacts", "echo", "meta_echo", "pack", "packs", "metamagic", "metamagics", "initiation"}
             if len(args.target) == 1:
                 cat, item_name = "auto", args.target[0]
             else:
@@ -726,6 +731,20 @@ def main():
                 print(format_query_results(cols, rows, fmt=fmt))
             except Exception as e:
                 print(f"[SQL Error] {e}")
+
+        elif args.subcommand == "get":
+            from sr6core.rag.ui import render_rule_chunk_markdown
+            rag_engine = RAGEngine()
+            idents = getattr(args, "identifiers", [])
+            if isinstance(idents, str):
+                idents = [idents]
+            compact = getattr(args, "compact", False)
+            for ident in idents:
+                rule = rag_engine.get_rule(ident)
+                if not rule:
+                    print(f"[Notice] Rule not found: '{ident}'")
+                else:
+                    render_rule_chunk_markdown(rule, compact=compact)
 
         elif args.subcommand == "schema":
             from sr6core.rules_db import get_db_schema, format_db_schema
@@ -905,9 +924,16 @@ def main():
         rag_engine = RAGEngine()
 
         if args.subcommand == "get":
-            ident = getattr(args, "identifier", "")
-            rule = rag_engine.get_rule(ident)
-            render_rule_chunk_markdown(rule, compact=getattr(args, "compact", False))
+            idents = getattr(args, "identifiers", [])
+            if isinstance(idents, str):
+                idents = [idents]
+            compact = getattr(args, "compact", False)
+            for ident in idents:
+                rule = rag_engine.get_rule(ident)
+                if not rule:
+                    print(f"[Notice] Rule not found: '{ident}'")
+                else:
+                    render_rule_chunk_markdown(rule, compact=compact)
 
         elif args.subcommand == "search" or (not args.subcommand and hasattr(args, "query")):
             q = getattr(args, "query", "")

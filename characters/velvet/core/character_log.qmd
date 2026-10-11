@@ -121,6 +121,28 @@ init_character("velvet")
 
 ---
 
+`{python} mission("SRM.2081.12", date="2026-10-10", karma=9, nuyen=7000, rep={'SEA': 3}, gm="JaGator", difficulty="Veteran", expenses=100)`
+
+* **GM:** JaGator
+* **Team:** Rei (Snowcrash), Aura (OliK), Velvet (WarDoctor)
+* **Summary:** Donovan Pyke pitched his mutualist "Shadow Chapters"—a shadowrunner union promising medical benefits, dental care, and professional damage control across the Seattle sprawl. Velvet, Rei, and Aura were dispatched via virtual meeting at Club Penumbra to investigate an automation facility called the Pharmaforge on floor 281 of the Renraku Arcology (ACHE). Navigating the Seattle Underground with the assistance of Awakened teen smuggler Piper and slipping past ACHE security, the runners negotiated with ACHE gang leader Rodina and Triad decker Eddie Wei while maintaining zero collateral damage. On floor 281, the team discovered the run was a live-fire vetting operation orchestrated by Pyke and Ms. Snow. Rolling snake-eyes on post-run heat, the team left zero forensic trail and was extracted in an unmarked assault helicopter crewed by Ares paramilitary security. Impressed by their restraint and execution, Pyke formally inducted Velvet and Rei from the League of Freelance Assets into the Seattle Shadow Chapters, awarding each a 12-month DocWagon Gold contract.
+* **Contacts:**
+  * `{python} contact("Donovan Pyke", fp=1)`
+  * `{python} contact("Eddie Wei", fp=1)`
+  * `{python} contact("Ms. Snow", fp=1)`
+  * `{python} contact("Rodina", fp=1)`
+  * `{python} contact("Piper", fp=1)`
+* **Downtime Actions (1 Major, 1 Minor):**
+  * *Major Action (Initiation Grade 3 — Psychometry):* `{python} initiate("Psychometry", coven_loyalty=state['Coven_Loyalty'])`
+  * *Minor Action (Work for the People):* `{python} work_for_the_people()`
+* **Character Advancement & Mentor Spirit:**
+  * *Mentor Spirit (Wise Warrior):* Bonded with Wise Warrior (20 Karma post-chargen). Grants Edge boost discount on Influence & Leadership tests (-1 Edge cost, minimum 1) and +1 free rank of Improved Ability (Close Combat). Deducted in Equipment & Advancement Ledger.
+* **Special Assets & Union Benefits:**
+  * *DocWagon Gold Contract (12 Months):* Full year of premier rapid-response medical extraction (awarded for accepting Shadow Chapters union offer).
+  * *Seattle Shadow Chapters Membership:* Formal union induction alongside Rei under Donovan Pyke.
+
+---
+
 ## **Active Contacts Summary**
 
 ```{python}
@@ -137,4 +159,4 @@ print_contacts_summary(state["Contacts"])
 * **Available Karma:** `{python} state['Karma']`
 * **Lifetime Nuyen Earned:** ¥`{python} f"{state.get('Lifetime_Nuyen', 0):,}"`
 * **Available Nuyen:** ¥`{python} f"{state['Nuyen']:,}"`
-* **Initiation Grade:** `{python} state.get('Initiation_Grade', 2)`
+* **Initiation Grade:** `{python} state.get('Initiation_Grade', 3)`
