@@ -76,6 +76,10 @@ def run_sync_all():
             mobile_html_content = cm.export_character(cid, fmt="mobile_html")
             with open(os.path.join(mobile_dir, "index.html"), "w", encoding="utf-8") as f:
                 f.write(mobile_html_content)
+            char_json_data = cm.export_character(cid, fmt="mobile_json")
+            with open(os.path.join(mobile_dir, "character_data.json"), "w", encoding="utf-8") as f:
+                import json
+                json.dump(char_json_data, f, indent=2)
             # Copy sw.js and manifest.json if present
             app_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "app")
             for asset in ["sw.js", "manifest.json"]:
@@ -138,6 +142,9 @@ def run_sync_all():
             master_html = get_mobile_html_template(multi_bundle, initial_char_id="reiko")
             with open(os.path.join(app_dir, "index.html"), "w", encoding="utf-8") as f:
                 f.write(master_html)
+            with open(os.path.join(app_dir, "character_data.json"), "w", encoding="utf-8") as f:
+                import json
+                json.dump(multi_bundle, f, indent=2)
             print(f"  [+] Multi-Character Mobile PWA  : Built at {os.path.join(app_dir, 'index.html')} ({len(multi_bundle)} characters)\n")
     except Exception as e:
         print(f"  [!] Master Mobile App Build Error: {e}\n")

@@ -168,7 +168,7 @@ Submersion_Grade = state["Submersion_Grade"]
   * `{python} contact("Xiong Giuyin", fp=1)`  
 * **Downtime Actions (1 Major & 1 Minor):**  
   * *Submersion - Living Network:* `{python} inc_many(('Karma', -13), ('Submersion_Grade', 1))`  
-  * *Rent & Working for the People (Hooder):* `{python} lifestyle('Middle', cost=2000)` | `{python} work_for_the_people()`  
+  * *Rent & Working for the People (Hooder):* `{python} lifestyle('Low')` | `{python} work_for_the_people()`
   * Learn Complex Form: Diffusion `{python} learn_complex_form("Diffusion")`
 * **Other**
   * Three additional registered sprites compiled during game downtime (3 nights): `{python} add_sprite("Modular", 7)`, `{python} add_sprite("Modular", 7)`, `{python} add_sprite("Modular", 7)`
@@ -254,7 +254,7 @@ Submersion_Grade = state["Submersion_Grade"]
   * `{python} contact("Fernand Anato", fp=1)`
   * `{python} contact("Monsieur Johnson", fp=3)`
 * **Downtime Actions (1 Minor):**
-  * *Rent & Working for the People (Hooder):* `{python} lifestyle('Middle', cost=2000)` | `{python} work_for_the_people()`
+  * *Rent & Working for the People (Hooder):* `{python} lifestyle('Low')` | `{python} work_for_the_people()`
   * *Submersion - Overclocking:* `{python} inc_many(('Karma', -15), ('Submersion_Grade', 1))`
 
 ---
@@ -297,7 +297,7 @@ Submersion_Grade = state["Submersion_Grade"]
   * `{python} contact("Eddie Wei", fp=1)`
   * `{python} contact("Julian Müntefering", fp=1)`
 * **Downtime Actions (3 Minors):**
-  * *Rent & Working for the People (Hooder):* `{python} lifestyle('Middle', cost=2000)` | `{python} work_for_the_people()`
+  * *Rent & Working for the People (Hooder):* `{python} lifestyle('Low')` | `{python} work_for_the_people()`
   * Add four dice to any single downtime Matrix Search (upcoming M-TOC II purchase)
   * Modifying Man-At-Arms: Removing megalodon, adding two Red Foxes
 * **Other bonuses:** 3 sprites registered during in-session downtime: `{python} add_sprite("Modular", 7)`, `{python} add_sprite("Modular", 7)`, `{python} add_sprite("Modular", 7)`
@@ -332,7 +332,7 @@ Submersion_Grade = state["Submersion_Grade"]
   * `{python} contact("Jeanie Trudel", fp=1)`
   * `{python} contact("Kingston", fp=1)`
 * **Downtime Actions (3 Minor):**
-  * *Rent & Working for the People (Hooder):* `{python} lifestyle('Middle', cost=2000)` | `{python} work_for_the_people()`
+  * *Rent & Working for the People (Hooder):* `{python} lifestyle('Low')` | `{python} work_for_the_people()`
   * *Register Sprites:* `{python} add_sprite("Modular", 7)`
   * *Register Sprites:* `{python} add_sprite("Modular", 7)`
 
@@ -399,7 +399,7 @@ Submersion_Grade = state["Submersion_Grade"]
   * `{python} contact("Roanoke", fp=1)`
 * **Downtime Actions (1 Major & 1 Minor):**
   * *Earn Favor (Coffin Girls):* `{python} contact("Coffin Girls", connection=3, loyalty=3, fp=1, type_name="NOLA Independent Courtesans Group")`
-  * *Rent & Working for the People (Hooder):* `{python} lifestyle('Middle', cost=2000)` | `{python} work_for_the_people()`
+  * *Rent & Working for the People (Hooder):* `{python} lifestyle('Low')` | `{python} work_for_the_people()`
 * **Other:**
   * Lost JP Chakraborty as a contact
   * *Register Sprites:* `{python} add_sprite("Modular", 7)`
@@ -434,7 +434,7 @@ Submersion_Grade = state["Submersion_Grade"]
   * `{python} contact("Zobop", connection=6, loyalty=3, fp=1, type_name="NOLA Voodoo Organization", notes="SRM 2083-18 Some Kind of Voodoo?")`
 * **Downtime Actions (1 Major & 1 Minor):**
   * *Earn Favor (Coffin Girls):* `{python} contact("Coffin Girls", fp=1)`
-  * *Rent & Working for the People (Hooder):* `{python} lifestyle('Middle', cost=2000)` | `{python} work_for_the_people()`
+  * *Rent & Working for the People (Hooder):* `{python} lifestyle('Low')` | `{python} work_for_the_people()`
 * **Other:**
   * Arranged for an apprenticeship with the Coffin Girls
   * The Bone Man (Seneschal of Baron Samedi, Ewa of Secrets and Trading) intimated that Yuriko has a soul he had his eye on
@@ -489,7 +489,7 @@ Submersion_Grade = state["Submersion_Grade"]
   * Two sprites registered during in-session downtime:
     * `{python} add_sprite("Modular", 7)`
     * `{python} add_sprite("Modular", 7)`
-  * **Lifestyle:** 1 month High Lifestyle granted at no additional cost (no real coffee addictions). Monthly expenses (lifestyle + hooder) are normally paid every other SRM (ignoring non-SRM mission types); because 1 month High is complimentary and Hooder is covered via Working for the People, regular rent payment is waived for this cycle.
+  * **Lifestyle:** `{python} lifestyle('High', waived=True, notes="Complimentary 1-month reward from Brynne Taggart")` (Monthly expenses normally paid every other SRM; regular rent payment waived for this cycle).
 
 ---
 
@@ -521,7 +521,7 @@ Submersion_Grade = state["Submersion_Grade"]
 * **Downtime Actions (1 Major Traded for 2 Minors $\rightarrow$ 3 Minor Actions):**
   * *Minor Action 1 (Learn Complex Form — Enlighten Automaton):* `{python} learn_complex_form("Enlighten Automaton")`
   * *Minor Action 2 (Repair & Modify Drone — Shiawase Man-at-Arms):* Installed Hydrocarbon Fuel Converter.
-  * *Minor Action 3:* `{python} lifestyle('Middle', cost=2000)` | `{python} work_for_the_people()`
+  * *Minor Action 3 (Rent & Working for the People):* `{python} lifestyle('Low')` | `{python} work_for_the_people()`
 * **Other**
   * Adopted two g33k0s, Lizzie and Leonard
   * Register Sprites (2 days downtime):
@@ -565,7 +565,7 @@ Submersion_Grade = state["Submersion_Grade"]
 * **Downtime Actions (1 Major, 1 Minor):**
   * *Major Action (Strengthen Connection — 4Gurds, Step 2 of 2):* `{python} inc('Nuyen', -2000)` Finalizing distributed server redundancy, identity shielding, and cognitive scaffolding for 4Gurds across the Seattle Matrix. Completes the second Major Action required to elevate 4Gurds from Connection 1 $\rightarrow$ 2 (*SRMG*, p. 18). Elevating to Connection 2 immediately awards +2 Favor Points, which auto-promote 4Gurds from Loyalty 1 $\rightarrow$ Loyalty 2 (-2 FP).
     * `{python} contact("4Gurds", connection=2, fp=2)`
-  * *Minor Action (Rent & Working for the People):* `{python} lifestyle('Middle', cost=2000)` | `{python} work_for_the_people()`
+  * *Minor Action (Rent & Working for the People):* `{python} lifestyle('Low')` | `{python} work_for_the_people()`
 * **Character Advancement:**
   * *Tasking Specialization (Compiling):* `{python} inc('Karma', -5)` Acquired Compiling specialization for Tasking (+2 dice to compiling tests; pushes compiling pool to 20d6 / 5 bought hits, unlocking guaranteed downtime compiling and registering of Level 8 Sprites under SRMG buying hits rules).
   * *Electronics Specialization (Complex Forms):* `{python} inc('Karma', -5)` Acquired Complex Forms specialization for Electronics (+2 dice to threading and sustaining complex forms).

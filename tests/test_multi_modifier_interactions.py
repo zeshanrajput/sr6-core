@@ -48,9 +48,9 @@ def test_multi_modifier_interactions_velvet():
     assert any("Social Negotiation" in n for n in names)
     assert any("Deception" in n for n in names)
 
-    # Spellcasting should reflect Power Focus (+3) and Specialization (+2) -> 16d6
+    # Spellcasting should reflect Power Focus (+3), Specialization (+2), and Wise Warrior (+1) -> 17d6
     sc = next(i for i in interactions if "Spellcasting" in i["name"])
-    assert "16d6" in sc["total_pool"]
+    assert "17d6" in sc["total_pool"]
     sc_sources = [m["source"] for m in sc["modifiers"]]
     assert any("Power Focus" in s for s in sc_sources)
     assert any("Specialization" in s for s in sc_sources)
@@ -85,7 +85,7 @@ def test_multi_modifier_interactions_velvet():
     assert "⚡" in rendered
     assert "Spellcasting (Sorcery)" in rendered
     assert "Power Focus" in rendered
-    assert "16d6" in rendered
+    assert "17d6" in rendered
     assert "Spirit Channeling" in rendered
     assert "18d6" in rendered
     assert "Influence (Leadership)" in rendered

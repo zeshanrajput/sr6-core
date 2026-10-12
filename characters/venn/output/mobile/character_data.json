@@ -1,0 +1,1841 @@
+{
+  "identity": {
+    "handle": "Venn",
+    "real_name": "Nathan & Veronica Turrent",
+    "metatype": "Human",
+    "role": "Shadowrunner",
+    "stream": "",
+    "tradition": "",
+    "mortype": "",
+    "gender": "Diverse",
+    "age": "~",
+    "nuyen": 570,
+    "lifetime_nuyen": 570,
+    "karma": 3,
+    "karma_avail": 3,
+    "lifetime_karma": 3,
+    "nanite_volume": 6,
+    "is_ai": false,
+    "is_monad": true,
+    "has_channeling": false
+  },
+  "attributes": {
+    "body": 5,
+    "agility": 7,
+    "reaction": 2,
+    "strength": 4,
+    "willpower": 7,
+    "logic": 6,
+    "intuition": 5,
+    "charisma": 2,
+    "edge": 7,
+    "resonance": 0,
+    "magic": 0,
+    "essence": 0.49
+  },
+  "attributes_list": [
+    {
+      "name": "Body",
+      "code": "BOD",
+      "base": 5,
+      "buffed": 5,
+      "is_buffed": true,
+      "buffs": [
+        {
+          "source": "Bone Density Augmentation R4",
+          "value": 4,
+          "type": "situational",
+          "notes": "+4 unarmored soak (9 Soak)",
+          "rule_anchor": "chapters/rules_and_downtime.html#augmentation-stacking"
+        }
+      ],
+      "breakdown": "Base 5 (Bone Density Augmentation R4 (+4 unarmored soak (9 Soak)))",
+      "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+    },
+    {
+      "name": "Agility",
+      "code": "AGI",
+      "base": 7,
+      "buffed": 7,
+      "is_buffed": true,
+      "buffs": [
+        {
+          "source": "Neural Pattern Reinforcement",
+          "value": 1,
+          "type": "skill bonus",
+          "notes": "+1 dice pool on all skill tests linked to Agility (Athletics, Firearms, Close Combat, etc.)",
+          "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts"
+        }
+      ],
+      "breakdown": "Base 7 [+1 on skill tests (Neural Pattern Reinforcement)]",
+      "doc_link": "rules/rules_and_downtime.html#monad-nanite-boosts"
+    },
+    {
+      "name": "Reaction",
+      "code": "REA",
+      "base": 2,
+      "buffed": 2,
+      "is_buffed": false,
+      "buffs": [],
+      "breakdown": "Base 2",
+      "doc_link": "rules/rules_and_downtime.html"
+    },
+    {
+      "name": "Strength",
+      "code": "STR",
+      "base": 4,
+      "buffed": 4,
+      "is_buffed": false,
+      "buffs": [],
+      "breakdown": "Base 4",
+      "doc_link": "rules/rules_and_downtime.html"
+    },
+    {
+      "name": "Willpower",
+      "code": "WIL",
+      "base": 7,
+      "buffed": 8,
+      "is_buffed": true,
+      "buffs": [
+        {
+          "source": "Bio-Response Override",
+          "value": 1,
+          "type": "augmentation",
+          "notes": "+1 Willpower, +1 box to Stun Condition Monitor",
+          "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts"
+        }
+      ],
+      "breakdown": "Base 7 + Bio-Response Override (+1) = 8",
+      "doc_link": "rules/rules_and_downtime.html#monad-nanite-boosts"
+    },
+    {
+      "name": "Logic",
+      "code": "LOG",
+      "base": 6,
+      "buffed": 6,
+      "is_buffed": true,
+      "buffs": [
+        {
+          "source": "Neocortical Neural Amp",
+          "value": 1,
+          "type": "skill bonus",
+          "notes": "+1 dice pool on all skill tests linked to Logic (Cracking, Electronics, Biotech, etc.)",
+          "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts"
+        },
+        {
+          "source": "Monad Mental Boost (NV)",
+          "value": 4,
+          "type": "situational",
+          "notes": "Surges to Logic 10 via NV",
+          "rule_anchor": "chapters/rules_and_downtime.html#monad-nanite-boosts"
+        }
+      ],
+      "breakdown": "Base 6 [+1 on skill tests (Neocortical Neural Amp)] (Monad Mental Boost (NV) (Surges to Logic 10 via NV))",
+      "doc_link": "rules/rules_and_downtime.html#monad-nanite-boosts"
+    },
+    {
+      "name": "Intuition",
+      "code": "INT",
+      "base": 5,
+      "buffed": 5,
+      "is_buffed": true,
+      "buffs": [
+        {
+          "source": "Limbic Neural Amp",
+          "value": 1,
+          "type": "skill bonus",
+          "notes": "+1 dice pool on all skill tests linked to Intuition (Perception, Stealth, etc.)",
+          "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts"
+        }
+      ],
+      "breakdown": "Base 5 [+1 on skill tests (Limbic Neural Amp)]",
+      "doc_link": "rules/rules_and_downtime.html#monad-nanite-boosts"
+    },
+    {
+      "name": "Charisma",
+      "code": "CHA",
+      "base": 2,
+      "buffed": 3,
+      "is_buffed": true,
+      "buffs": [
+        {
+          "source": "Neurochemical Regulator",
+          "value": 1,
+          "type": "augmentation",
+          "notes": "+1 Charisma on social and composure tests",
+          "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts"
+        }
+      ],
+      "breakdown": "Base 2 + Neurochemical Regulator (+1) = 3",
+      "doc_link": "rules/rules_and_downtime.html#monad-nanite-boosts"
+    },
+    {
+      "name": "Attack (Living Persona)",
+      "code": "ATT",
+      "base": 2,
+      "buffed": 3,
+      "linked_mental": "cha",
+      "tuning_bonus": 0,
+      "is_buffed": true,
+      "buffs": [
+        {
+          "source": "Neurochemical Regulator",
+          "value": 1,
+          "notes": "Monad Attack derived from Charisma",
+          "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts"
+        }
+      ],
+      "breakdown": "Monad Living Persona Attack (Charisma 2 + Neurochemical Regulator [1] = 3)",
+      "doc_link": "rules/rules_and_downtime.html#monad-matrix-attributes"
+    },
+    {
+      "name": "Sleaze (Living Persona)",
+      "code": "SLZ",
+      "base": 5,
+      "buffed": 6,
+      "linked_mental": "int",
+      "tuning_bonus": 1,
+      "is_buffed": true,
+      "buffs": [
+        {
+          "source": "Nanite Volume (NV 1)",
+          "value": 1,
+          "notes": "NV allocated to Sleaze",
+          "rule_anchor": "rules/rules_and_downtime.html#monad-matrix-attributes"
+        }
+      ],
+      "breakdown": "Monad Living Persona Sleaze (Intuition 5 + NV 1 = 6)",
+      "doc_link": "rules/rules_and_downtime.html#monad-matrix-attributes"
+    },
+    {
+      "name": "Data Processing (Living Persona)",
+      "code": "DP",
+      "base": 6,
+      "buffed": 7,
+      "linked_mental": "log",
+      "tuning_bonus": 1,
+      "is_buffed": true,
+      "buffs": [
+        {
+          "source": "Nanite Volume (NV 1)",
+          "value": 1,
+          "notes": "NV allocated to DP",
+          "rule_anchor": "rules/rules_and_downtime.html#monad-matrix-attributes"
+        }
+      ],
+      "breakdown": "Monad Living Persona Data Processing (Logic 6 + NV 1 = 7)",
+      "doc_link": "rules/rules_and_downtime.html#monad-matrix-attributes"
+    },
+    {
+      "name": "Firewall (Living Persona)",
+      "code": "FW",
+      "base": 7,
+      "buffed": 10,
+      "linked_mental": "wil",
+      "tuning_bonus": 2,
+      "is_buffed": true,
+      "buffs": [
+        {
+          "source": "Nanite Volume (NV 2)",
+          "value": 2,
+          "notes": "NV allocated to Firewall",
+          "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts"
+        },
+        {
+          "source": "Bio-Response Override",
+          "value": 1,
+          "notes": "Monad Firewall derived from Willpower",
+          "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts"
+        }
+      ],
+      "breakdown": "Monad Living Persona Firewall (Willpower 7 + Nanite Volume (NV 2) (2) + Bio-Response Override (1) = 10)",
+      "doc_link": "rules/rules_and_downtime.html#monad-matrix-attributes"
+    },
+    {
+      "name": "Edge",
+      "code": "EDG",
+      "base": 7,
+      "buffed": 7,
+      "is_buffed": false,
+      "buffs": [],
+      "breakdown": "Base 7",
+      "doc_link": "chapters/rules_and_downtime.html"
+    },
+    {
+      "name": "Nanite Volume",
+      "code": "NV",
+      "base": 6,
+      "buffed": 6,
+      "is_buffed": false,
+      "buffs": [],
+      "breakdown": "Base 6",
+      "doc_link": "chapters/rules_and_downtime.html#monad-matrix-attributes"
+    },
+    {
+      "name": "Essence",
+      "code": "ESS",
+      "base": 0.49,
+      "buffed": 0.49,
+      "is_buffed": false,
+      "buffs": [],
+      "breakdown": "Base 0.49",
+      "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+    }
+  ],
+  "derived": {
+    "composure": 11,
+    "judge_intentions": 13,
+    "memory": 14,
+    "lift_carry": 9,
+    "physical_defense": 7,
+    "defense_rating": 3,
+    "physical_boxes": 14,
+    "stun_boxes": 16
+  },
+  "matrix": {
+    "asdf": {
+      "attack": 3,
+      "sleaze": 7,
+      "data_processing": 6,
+      "firewall": 12
+    },
+    "matrix_defense": 32,
+    "matrix_defense_hits": 8,
+    "matrix_defense_breakdown": "WIL 8 + FW 12 + Full Defense FW 12 = 32d6",
+    "matrix_initiative": "9 + 3D6 (AR) / 11 + 3D6 (Hot-Sim VR)"
+  },
+  "initiative": {
+    "default_mode": "physical",
+    "modes": {
+      "physical": {
+        "name": "Physical",
+        "score": 7,
+        "dice": 1,
+        "dice_str": "1d6",
+        "breakdown": "REA (2) + INT (5) + 1d6 (Modifiable via Monad Physical Boost)"
+      },
+      "vr_hotsim": {
+        "name": "VR Hot-Sim",
+        "score": 11,
+        "dice": 3,
+        "dice_str": "3d6",
+        "breakdown": "DP (6) + INT (5) + 3d6 (Monad Living Persona Hot-Sim)"
+      }
+    }
+  },
+  "skills": [
+    {
+      "name": "Electronics",
+      "id": "electronics",
+      "rating": 6,
+      "attribute": "Logic",
+      "specialization": "Computer",
+      "specializations": [
+        "Computer"
+      ],
+      "base_pool": 12,
+      "buffed_pool": 13,
+      "bought_hits": 3,
+      "specialized_pool": 15,
+      "specialized_hits": 3,
+      "effective_attribute": "logic",
+      "is_attribute_overridden": false,
+      "breakdown_text": "LOG 6 + 6 Rtg + +1 Neocortical Neural Amp (Skill Bonus)",
+      "buffs": [
+        {
+          "source": "Neocortical Neural Amp",
+          "type": "skill bonus",
+          "value": 1,
+          "target": "attribute:logic",
+          "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts",
+          "notes": null,
+          "active": true
+        },
+        {
+          "source": "Specialization: Computer",
+          "type": "specialization",
+          "value": 2,
+          "target": "action",
+          "active": false
+        }
+      ],
+      "doc_link": "chapters/rules_and_downtime.html"
+    },
+    {
+      "name": "Athletics",
+      "id": "athletics",
+      "rating": 1,
+      "attribute": "Agility",
+      "specialization": null,
+      "specializations": [],
+      "base_pool": 8,
+      "buffed_pool": 9,
+      "bought_hits": 2,
+      "specialized_pool": 9,
+      "specialized_hits": 2,
+      "effective_attribute": "agility",
+      "is_attribute_overridden": false,
+      "breakdown_text": "AGI 7 + 1 Rtg + +1 Neural Pattern Reinforcement (Skill Bonus)",
+      "buffs": [
+        {
+          "source": "Neural Pattern Reinforcement",
+          "type": "skill bonus",
+          "value": 1,
+          "target": "attribute:agility",
+          "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts",
+          "notes": null,
+          "active": true
+        }
+      ],
+      "doc_link": "chapters/rules_and_downtime.html"
+    },
+    {
+      "name": "Native Language (English)",
+      "id": "language_english",
+      "rating": 4,
+      "attribute": "Logic",
+      "specialization": null,
+      "specializations": [],
+      "base_pool": 10,
+      "buffed_pool": 11,
+      "bought_hits": 2,
+      "specialized_pool": 11,
+      "specialized_hits": 2,
+      "effective_attribute": "logic",
+      "is_attribute_overridden": false,
+      "breakdown_text": "LOG 6 + 4 Rtg + +1 Neocortical Neural Amp (Skill Bonus)",
+      "buffs": [
+        {
+          "source": "Neocortical Neural Amp",
+          "type": "skill bonus",
+          "value": 1,
+          "target": "attribute:logic",
+          "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts",
+          "notes": null,
+          "active": true
+        }
+      ],
+      "doc_link": "chapters/rules_and_downtime.html"
+    },
+    {
+      "name": "Native Language (Mindspeech)",
+      "id": "language_mindspeech",
+      "rating": 4,
+      "attribute": "Logic",
+      "specialization": null,
+      "specializations": [],
+      "base_pool": 10,
+      "buffed_pool": 11,
+      "bought_hits": 2,
+      "specialized_pool": 11,
+      "specialized_hits": 2,
+      "effective_attribute": "logic",
+      "is_attribute_overridden": false,
+      "breakdown_text": "LOG 6 + 4 Rtg + +1 Neocortical Neural Amp (Skill Bonus)",
+      "buffs": [
+        {
+          "source": "Neocortical Neural Amp",
+          "type": "skill bonus",
+          "value": 1,
+          "target": "attribute:logic",
+          "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts",
+          "notes": null,
+          "active": true
+        }
+      ],
+      "doc_link": "chapters/rules_and_downtime.html"
+    },
+    {
+      "name": "Close Combat (Activesoft)",
+      "id": "close_combat_activesoft",
+      "rating": 7,
+      "base_rating": 6,
+      "is_activesoft": true,
+      "attribute": "agility",
+      "specialization": null,
+      "base_pool": 13,
+      "buffed_pool": 15,
+      "bought_hits": 3,
+      "specialized_pool": 15,
+      "specialized_hits": 3,
+      "effective_attribute": "agility",
+      "is_attribute_overridden": false,
+      "breakdown_text": "AGI 7 + 6 Base Soft + Skillwires (Wireless ON - Close Combat) (+1) + Neural Pattern Reinforcement (+1) = 15d6",
+      "buffs": [
+        {
+          "source": "Skillwires (Wireless ON - Close Combat)",
+          "type": "other",
+          "value": 1,
+          "target": "skill",
+          "notes": "+1 dice pool modifier to active skills routed via skillwires",
+          "rule_anchor": "rules/rules_and_downtime.html#skillwires-protocols",
+          "active": true
+        },
+        {
+          "source": "Neural Pattern Reinforcement",
+          "type": "skill bonus",
+          "value": 1,
+          "target": "skill",
+          "notes": "+1 dice pool on all skill tests linked to Agility (Athletics, Firearms, Close Combat, etc.)",
+          "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts",
+          "active": true
+        }
+      ],
+      "doc_link": "rules/rules_and_downtime.html#skillwires-protocols"
+    },
+    {
+      "name": "Cracking (Activesoft)",
+      "id": "cracking_activesoft",
+      "rating": 7,
+      "base_rating": 6,
+      "is_activesoft": true,
+      "attribute": "logic",
+      "specialization": null,
+      "base_pool": 12,
+      "buffed_pool": 14,
+      "bought_hits": 3,
+      "specialized_pool": 14,
+      "specialized_hits": 3,
+      "effective_attribute": "logic",
+      "is_attribute_overridden": false,
+      "breakdown_text": "LOG 6 + 6 Base Soft + Skillwires (Wireless ON - Cracking) (+1) + Neocortical Neural Amp (+1) = 14d6",
+      "buffs": [
+        {
+          "source": "Skillwires (Wireless ON - Cracking)",
+          "type": "other",
+          "value": 1,
+          "target": "skill",
+          "notes": "+1 dice pool modifier to active skills routed via skillwires",
+          "rule_anchor": "rules/rules_and_downtime.html#skillwires-protocols",
+          "active": true
+        },
+        {
+          "source": "Neocortical Neural Amp",
+          "type": "skill bonus",
+          "value": 1,
+          "target": "skill",
+          "notes": "+1 dice pool on all skill tests linked to Logic (Cracking, Electronics, Biotech, etc.)",
+          "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts",
+          "active": true
+        }
+      ],
+      "doc_link": "rules/rules_and_downtime.html#skillwires-protocols"
+    }
+  ],
+  "knowledge_skills": [
+    {
+      "name": "Small Unit Tactics",
+      "id": "small_unit_tactics",
+      "category": "Knowledge Skill",
+      "rating": 0,
+      "display_rating": "Lore",
+      "level": null,
+      "is_native": false,
+      "is_linguasoft": false,
+      "is_knowsoft": false,
+      "pool": 11,
+      "base_pool": 11,
+      "buffed_pool": 11,
+      "bought_hits": 2,
+      "effective_attribute": "LOG",
+      "attribute": "LOG",
+      "breakdown": "LOG 6 + INT 5 (Memory)",
+      "breakdown_text": "LOG 6 + INT 5 (Memory) = 11d6",
+      "notes": "",
+      "buffs": []
+    },
+    {
+      "name": "Espionage Techniques",
+      "id": "espionage_techniques",
+      "category": "Knowledge Skill",
+      "rating": 0,
+      "display_rating": "Lore",
+      "level": null,
+      "is_native": false,
+      "is_linguasoft": false,
+      "is_knowsoft": false,
+      "pool": 11,
+      "base_pool": 11,
+      "buffed_pool": 11,
+      "bought_hits": 2,
+      "effective_attribute": "LOG",
+      "attribute": "LOG",
+      "breakdown": "LOG 6 + INT 5 (Memory)",
+      "breakdown_text": "LOG 6 + INT 5 (Memory) = 11d6",
+      "notes": "",
+      "buffs": []
+    },
+    {
+      "name": "Security Systems",
+      "id": "security_systems",
+      "category": "Knowledge Skill",
+      "rating": 0,
+      "display_rating": "Lore",
+      "level": null,
+      "is_native": false,
+      "is_linguasoft": false,
+      "is_knowsoft": false,
+      "pool": 11,
+      "base_pool": 11,
+      "buffed_pool": 11,
+      "bought_hits": 2,
+      "effective_attribute": "LOG",
+      "attribute": "LOG",
+      "breakdown": "LOG 6 + INT 5 (Memory)",
+      "breakdown_text": "LOG 6 + INT 5 (Memory) = 11d6",
+      "notes": "",
+      "buffs": []
+    },
+    {
+      "name": "Resonance Realms",
+      "id": "resonance_realms",
+      "category": "Knowledge Skill",
+      "rating": 0,
+      "display_rating": "Lore",
+      "level": null,
+      "is_native": false,
+      "is_linguasoft": false,
+      "is_knowsoft": false,
+      "pool": 11,
+      "base_pool": 11,
+      "buffed_pool": 11,
+      "bought_hits": 2,
+      "effective_attribute": "LOG",
+      "attribute": "LOG",
+      "breakdown": "LOG 6 + INT 5 (Memory)",
+      "breakdown_text": "LOG 6 + INT 5 (Memory) = 11d6",
+      "notes": "",
+      "buffs": []
+    },
+    {
+      "name": "English",
+      "id": "english",
+      "category": "Language",
+      "rating": 4,
+      "display_rating": "R4",
+      "level": "Native",
+      "is_native": true,
+      "is_linguasoft": false,
+      "is_knowsoft": false,
+      "pool": 10,
+      "base_pool": 10,
+      "buffed_pool": 10,
+      "bought_hits": 2,
+      "effective_attribute": "LOG",
+      "attribute": "LOG",
+      "breakdown": "LOG 6 + Native (4)",
+      "breakdown_text": "LOG 6 + Native (4) = 10d6",
+      "notes": "CAS dialect",
+      "buffs": []
+    },
+    {
+      "name": "Mindspeech",
+      "id": "mindspeech",
+      "category": "Language",
+      "rating": 4,
+      "display_rating": "R4",
+      "level": "Native",
+      "is_native": true,
+      "is_linguasoft": false,
+      "is_knowsoft": false,
+      "pool": 10,
+      "base_pool": 10,
+      "buffed_pool": 10,
+      "bought_hits": 2,
+      "effective_attribute": "LOG",
+      "attribute": "LOG",
+      "breakdown": "LOG 6 + Native (4)",
+      "breakdown_text": "LOG 6 + Native (4) = 10d6",
+      "notes": "Direct ideation, resonance non-acoustic",
+      "buffs": []
+    }
+  ],
+  "knowsofts": [],
+  "qualities": {
+    "positive": [
+      {
+        "name": "Augmentation Acclimation",
+        "rating": 9,
+        "choice": null,
+        "notes": null
+      },
+      {
+        "name": "Redliner",
+        "rating": null,
+        "choice": null,
+        "notes": null
+      },
+      {
+        "name": "Cyber Singularity Seeker",
+        "rating": null,
+        "choice": null,
+        "notes": null
+      },
+      {
+        "name": "Maximum Overdrive",
+        "rating": null,
+        "choice": null,
+        "notes": null
+      }
+    ],
+    "negative": [
+      {
+        "name": "Cyberpsychosis",
+        "rating": 3,
+        "choice": null,
+        "notes": null
+      },
+      {
+        "name": "Hooder",
+        "rating": 3,
+        "choice": null,
+        "notes": null
+      }
+    ]
+  },
+  "weapons": [
+    {
+      "name": "Colt Manhunter",
+      "is_melee": false,
+      "category": "heavy_pistol",
+      "damage": "4P",
+      "base_damage": "4P",
+      "attack_rating": [
+        10,
+        10,
+        6,
+        0,
+        0
+      ],
+      "attack_rating_str": "10 / 10 / 6 / \u2014 / \u2014",
+      "base_attack_rating_str": "8 / 8 / 6 / \u2014 / \u2014",
+      "modes": [
+        "SS",
+        "SA"
+      ],
+      "modes_str": "SS/SA",
+      "base_modes_str": "SS/SA",
+      "ammo": "16(c)",
+      "base_ammo": "16(c)",
+      "loaded_ammo": null,
+      "accessories": [
+        "Smartlink",
+        "Silencer",
+        "Concealed Holster"
+      ],
+      "notes": "Laser Sight / Smartlink (+2 AR, +2 Attack Dice), Silencer, Concealed Holster. 16(c) clip.",
+      "doc_link": "chapters/rules_and_downtime.html#weapon-attack-table"
+    },
+    {
+      "name": "Unarmed Strike",
+      "is_melee": true,
+      "category": "close_combat",
+      "damage": "5P",
+      "base_damage": "5P",
+      "attack_rating": [
+        13,
+        0,
+        0,
+        0,
+        0
+      ],
+      "attack_rating_str": "13 / \u2014 / \u2014 / \u2014 / \u2014",
+      "base_attack_rating_str": "13 / \u2014 / \u2014 / \u2014 / \u2014",
+      "modes": [],
+      "modes_str": "Melee",
+      "base_modes_str": "Melee",
+      "ammo": "\u2014",
+      "base_ammo": "\u2014",
+      "loaded_ammo": null,
+      "accessories": [],
+      "notes": "Bone Density Augmentation R4 (4P base, +3 AR) + Neuromuscular Amplifier (+1 DV) -> 5P Physical DV.",
+      "doc_link": "chapters/rules_and_downtime.html#weapon-attack-table"
+    }
+  ],
+  "armors": [
+    {
+      "name": "Securetech SkinShield (w/ Ballistic Hood)",
+      "defense_rating": 3,
+      "accessories": [],
+      "modifications": [],
+      "notes": "+2 DR form-fitting under-armor, +1 DR Ballistic Hood (Firing Squad p. 3 / Seattle p. 5). Invisible under normal street clothes with 0 Social penalty."
+    }
+  ],
+  "drones": [],
+  "vehicles": [],
+  "spells": [],
+  "adept_powers": [],
+  "complex_forms": [],
+  "sprite_powers": [],
+  "monad_abilities": [
+    {
+      "name": "Monad Matrix Attributes",
+      "action": "Passive",
+      "effect": "Synthesizes Living Persona ASDF (Attack: CHA, Sleaze: INT, Data Processing: LOG, Firewall: WIL) via internal nanite matrix co-processing.",
+      "notes": "Synthesizes Living Persona ASDF (Attack: CHA, Sleaze: INT, Data Processing: LOG, Firewall: WIL) via internal nanite matrix co-processing.",
+      "doc_link": "rules/rules_and_downtime.html#monad-nanite-boosts"
+    },
+    {
+      "name": "Resculpt",
+      "action": "Extended Minor Actions",
+      "effect": "Extended Intuition + NV (16, 1 combat round) test to alter facial appearance, skin tone, and voice; grants +2 dice pool bonus on Disguise tests.",
+      "notes": "Extended Intuition + NV (16, 1 combat round) test to alter facial appearance, skin tone, and voice; grants +2 dice pool bonus on Disguise tests.",
+      "doc_link": "rules/rules_and_downtime.html#monad-nanite-boosts"
+    },
+    {
+      "name": "Monad Toughness",
+      "action": "Passive",
+      "effect": "Adds one-half Nanite Volume (+3 boxes at NV 6) to Condition Monitors (+2 Physical, +1 Stun), and shifts all Wound Modifiers down by one level.",
+      "notes": "Adds one-half Nanite Volume (+3 boxes at NV 6) to Condition Monitors (+2 Physical, +1 Stun), and shifts all Wound Modifiers down by one level.",
+      "doc_link": "rules/rules_and_downtime.html#monad-nanite-boosts"
+    },
+    {
+      "name": "Physical Attribute Boost",
+      "action": "Minor Action",
+      "effect": "Minor Action: roll NV test (6 dice). Each hit can add +1 Minor Action per combat round or boost a physical attribute for duration.",
+      "notes": "Minor Action: roll NV test (6 dice). Each hit can add +1 Minor Action per combat round or boost a physical attribute for duration.",
+      "doc_link": "rules/rules_and_downtime.html#monad-nanite-boosts"
+    },
+    {
+      "name": "Rapid Cellular Healing",
+      "action": "Minor or Major Action",
+      "effect": "Minor or Major Action: roll NV test (6 dice) to reduce Condition Monitor damage boxes by hits (Major Action heals double hits and grants +1 situational Edge).",
+      "notes": "Minor or Major Action: roll NV test (6 dice) to reduce Condition Monitor damage boxes by hits (Major Action heals double hits and grants +1 situational Edge).",
+      "doc_link": "rules/rules_and_downtime.html#monad-nanite-boosts"
+    },
+    {
+      "name": "Adrenal Control",
+      "action": "Minor Action",
+      "effect": "Minor Action: WIL + NV test to remain conscious and active when physical or stun condition monitors are full.",
+      "notes": "Minor Action: WIL + NV test to remain conscious and active when physical or stun condition monitors are full.",
+      "doc_link": "rules/rules_and_downtime.html#monad-nanite-boosts"
+    }
+  ],
+  "augmentations": [
+    {
+      "name": "Left Synthetic Cyberarm",
+      "rating": null,
+      "grade": "used",
+      "essence": 0,
+      "notes": "Used Grade (0.99 Ess w/ Adapsin). Agility +3 Enhancement (3 Cap), Built-in Utility Kit (2 Cap) -> 5/8 Cap used (3 Open). Operates at AGI 7 / STR 4 (AGI 9 / STR 6 Overdriven).",
+      "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+    },
+    {
+      "name": "Right Synthetic Cyberarm",
+      "rating": null,
+      "grade": "used",
+      "essence": 0,
+      "notes": "Used Grade (0.99 Ess w/ Adapsin). Agility +3 Enhancement (3 Cap), Built-in Savior Medkit R6 (4 Cap) -> 7/8 Cap used (1 Open). Operates at AGI 7 / STR 4 (AGI 9 / STR 6 Overdriven).",
+      "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+    },
+    {
+      "name": "Left Synthetic Cyberleg",
+      "rating": null,
+      "grade": "used",
+      "essence": 0,
+      "notes": "Used Grade (0.99 Ess w/ Adapsin). Bulk Mod R4 (+4 Cap -> 14 Cap total). Agility +3 Enhancement (3 Cap), Nanohive R3 (6 Cap), Retractable Skates (2 Cap), Gecko Tips (1 Cap), Hydraulic Jacks R2 (2 Cap) -> 14/14 Cap Full. Operates at AGI 7 / STR 4 (9/6 Overdriven).",
+      "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+    },
+    {
+      "name": "Right Synthetic Cyberleg",
+      "rating": null,
+      "grade": "used",
+      "essence": 0,
+      "notes": "Used Grade (0.99 Ess w/ Adapsin). Bulk Mod R4 (+4 Cap -> 14 Cap total). Agility +3 Enhancement (3 Cap), Nanohive R3 (6 Cap), Retractable Skates (2 Cap), Gecko Tips (1 Cap), Hydraulic Jacks R2 (2 Cap) -> 14/14 Cap Full. Operates at AGI 7 / STR 4 (9/6 Overdriven).",
+      "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+    },
+    {
+      "name": "Bone Density Augmentation",
+      "rating": 4,
+      "grade": "betaware",
+      "essence": 0,
+      "notes": "0.84 Ess, 30,000\u00a5. +4 Body for damage resistance soak (9 Soak unarmored), 4P Unarmed DV, +3 AR.",
+      "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+    },
+    {
+      "name": "Skilljack",
+      "rating": 6,
+      "grade": "used",
+      "essence": 0,
+      "notes": "0.59 Ess w/ Adapsin, 60,000\u00a5. Rating 6 x 4 = 24 wireless soft capacity. Edge can be used on associated tests.",
+      "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+    },
+    {
+      "name": "Skillwires",
+      "rating": 6,
+      "grade": "used",
+      "essence": 0,
+      "notes": "0.59 Ess w/ Adapsin, 60,000\u00a5. +1 dice pool modifier to all skills routed through skillwires.",
+      "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+    },
+    {
+      "name": "Math SPU",
+      "rating": null,
+      "grade": "used",
+      "essence": 0,
+      "notes": "0.25 Ess w/ Adapsin, 12,500\u00a5. Lowers Edge boost cost by 1 on Logic skills (-2 when overdriven with +1 wild die); 0 Bad Luck penalty.",
+      "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+    },
+    {
+      "name": "Adapsin Therapy",
+      "rating": null,
+      "grade": "standard",
+      "essence": 0,
+      "notes": "0.10 Ess, 30,000\u00a5. Reduces Essence cost of all cyberware by 10% (round down) post-grade calculations.",
+      "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+    }
+  ],
+  "nanohive": {
+    "rating": 6,
+    "max_colonies": 6,
+    "max_volume": 18,
+    "replenish_rate": "6 NV / hour",
+    "catalog": {
+      "dynamic_features": {
+        "id": "dynamic_features",
+        "name": "Dynamic Features",
+        "type": "template",
+        "default_nv": 1,
+        "min_nv": 1,
+        "max_nv": 3,
+        "fixed_nv": false,
+        "source": "Body Shop p. 110",
+        "doc_link": "chapters/rules_and_downtime.html#nanoware-protocols",
+        "category": "Infiltration / Biometric",
+        "effect": "Dynamically shifts epidermal pigmentation, melanin, hair follicles, and subcutaneous facial geometry on command. 1 NV: Cosmetic alterations; 2 NV: Full facial reconstruction (+1 Edge on Disguise); 3 NV: Real-time biometric identity mimicry (+2 Edge on Disguise/Impersonation).",
+        "active_by_default": false,
+        "stat_effects": {
+          "type": "situational",
+          "notes": "Cosmetic to full facial shift (+1 to +2 Edge on disguise)"
+        }
+      },
+      "neuromuscular_amplifier": {
+        "id": "neuromuscular_amplifier",
+        "name": "Neuromuscular Amplifier",
+        "type": "template",
+        "default_nv": 2,
+        "min_nv": 2,
+        "max_nv": 4,
+        "fixed_nv": false,
+        "source": "Body Shop p. 110",
+        "doc_link": "chapters/rules_and_downtime.html#nanoware-protocols",
+        "category": "Combat Augmentation",
+        "effect": "Reinforces skeletal myofibrils and strike vectors through micro-hydraulic nanite lattice networks. Requires at least 2 NV to form the colony, but additional NV (up to 4+ NV) can be assigned for overdriving or enhanced strike amplification. Grants +1 Melee DV to all unarmed and physical strikes (synergizes with Iron Limbs, Bone Density R4, and Toughskin Spines for 10P Flying Kick).",
+        "active_by_default": true,
+        "stat_effects": {
+          "target": "damage:unarmed",
+          "value": 1,
+          "type": "augmentation",
+          "notes": "+1 DV to all melee/unarmed attacks (min 2 NV; overdriving capable)"
+        }
+      },
+      "bio_response_override": {
+        "id": "bio_response_override",
+        "name": "Bio-Response Override",
+        "type": "dose",
+        "default_nv": 3,
+        "min_nv": 3,
+        "max_nv": 3,
+        "fixed_nv": true,
+        "source": "Body Shop p. 110",
+        "doc_link": "chapters/rules_and_downtime.html#nanoware-protocols",
+        "category": "Physiological / Resilience",
+        "effect": "Single pre-bought dose colony requiring 3 NV from the nanohive to sustain (dies in 1 week without hive maintenance). Suppresses nociceptors and autonomous shock reactions while stabilizing neurochemical homeostasis. Grants +1 Willpower (buffing Composure, Judge Intentions, Memory, and Living Persona Firewall) and adds +1 box to the Stun Condition Monitor.",
+        "active_by_default": true,
+        "stat_effects": {
+          "target": "attribute:willpower",
+          "value": 1,
+          "type": "augmentation",
+          "notes": "+1 Willpower, +1 Stun Condition box (requires 3 NV to sustain)"
+        }
+      },
+      "neurochemical_regulator": {
+        "id": "neurochemical_regulator",
+        "name": "Neurochemical Regulator",
+        "type": "dose",
+        "default_nv": 2,
+        "min_nv": 2,
+        "max_nv": 2,
+        "fixed_nv": true,
+        "source": "Body Shop p. 110",
+        "doc_link": "chapters/rules_and_downtime.html#nanoware-protocols",
+        "category": "Social / Psychological",
+        "effect": "Single pre-bought dose colony requiring 2 NV from the nanohive to sustain (dies in 1 week without hive maintenance). Modulates endocrine flows, suppressing erratic micro-expressions and voice stress while enhancing charisma projecting. Grants +1 Charisma on social interactions and composure tests.",
+        "active_by_default": true,
+        "stat_effects": {
+          "target": "attribute:charisma",
+          "value": 1,
+          "type": "augmentation",
+          "notes": "+1 Charisma on social and composure tests (requires 2 NV to sustain)"
+        }
+      },
+      "neocortical_neural_amp": {
+        "id": "neocortical_neural_amp",
+        "name": "Neocortical Neural Amp",
+        "type": "dose",
+        "default_nv": 2,
+        "min_nv": 2,
+        "max_nv": 2,
+        "fixed_nv": true,
+        "source": "Body Shop p. 110",
+        "doc_link": "chapters/rules_and_downtime.html#nanoware-protocols",
+        "category": "Cognitive Augmentation",
+        "effect": "Single pre-bought dose colony requiring 2 NV from the nanohive to sustain (dies in 1 week without hive maintenance). Accelerates synaptic transmission across neocortical columns. Grants +1 dice pool bonus to all Logic-linked skill tests (Biotech, Cracking, Electronics, Engineering). Stacks with Math SPU Edge cost reductions.",
+        "active_by_default": true,
+        "stat_effects": {
+          "target": "attribute:logic",
+          "value": 1,
+          "type": "skill bonus",
+          "notes": "+1 on all Logic skill tests (requires 2 NV to sustain)"
+        }
+      },
+      "limbic_neural_amp": {
+        "id": "limbic_neural_amp",
+        "name": "Limbic Neural Amp",
+        "type": "dose",
+        "default_nv": 2,
+        "min_nv": 2,
+        "max_nv": 2,
+        "fixed_nv": true,
+        "source": "Body Shop p. 110",
+        "doc_link": "chapters/rules_and_downtime.html#nanoware-protocols",
+        "category": "Cognitive Augmentation",
+        "effect": "Single pre-bought dose colony requiring 2 NV from the nanohive to sustain (dies in 1 week without hive maintenance). Sharpens amygdala and hippocampal sensory processing pathways. Grants +1 dice pool bonus to all Intuition-linked skill tests (Perception, Stealth, Tracking).",
+        "active_by_default": true,
+        "stat_effects": {
+          "target": "attribute:intuition",
+          "value": 1,
+          "type": "skill bonus",
+          "notes": "+1 on all Intuition skill tests (requires 2 NV to sustain)"
+        }
+      },
+      "neural_pattern_reinforcement": {
+        "id": "neural_pattern_reinforcement",
+        "name": "Neural Pattern Reinforcement",
+        "type": "dose",
+        "default_nv": 2,
+        "min_nv": 2,
+        "max_nv": 2,
+        "fixed_nv": true,
+        "source": "Body Shop p. 110",
+        "doc_link": "chapters/rules_and_downtime.html#nanoware-protocols",
+        "category": "Motor / Physical Augmentation",
+        "effect": "Single pre-bought dose colony requiring 2 NV from the nanohive to sustain (dies in 1 week without hive maintenance). Hardens motor cortex engrams and neuromuscular kinesthetic pathways. Grants +1 dice pool bonus to all Agility-linked skill tests (Athletics, Close Combat, Firearms).",
+        "active_by_default": true,
+        "stat_effects": {
+          "target": "attribute:agility",
+          "value": 1,
+          "type": "skill bonus",
+          "notes": "+1 on all Agility skill tests (requires 2 NV to sustain)"
+        }
+      },
+      "tech_infestation": {
+        "id": "tech_infestation",
+        "name": "Tech Infestation",
+        "type": "dose",
+        "default_nv": 1,
+        "min_nv": 1,
+        "max_nv": 3,
+        "fixed_nv": false,
+        "source": "Body Shop p. 111",
+        "doc_link": "chapters/rules_and_downtime.html#nanoware-protocols",
+        "category": "Hardware / Infiltration",
+        "effect": "Nanites extrude through dermal contact points into target electronic, commlink, or cyberware hardware circuitry. Provides physical datajack bridging without requiring a cyberware datajack; enables contact hijacking and direct device control.",
+        "active_by_default": false,
+        "stat_effects": {
+          "type": "situational",
+          "notes": "Direct dermal datajack bridge & contact hijacking without cyberware datajack"
+        }
+      }
+    },
+    "presets": {
+      "default_combat": {
+        "name": "Combat & Stealth (Default)",
+        "description": "Standard field deployment maximizing melee strike power, neural perception, and cognitive speed.",
+        "active_colonies": [
+          "neuromuscular_amplifier",
+          "bio_response_override",
+          "neurochemical_regulator",
+          "neocortical_neural_amp",
+          "limbic_neural_amp",
+          "neural_pattern_reinforcement"
+        ],
+        "volumes": {
+          "neuromuscular_amplifier": 2,
+          "bio_response_override": 3,
+          "neurochemical_regulator": 2,
+          "neocortical_neural_amp": 2,
+          "limbic_neural_amp": 2,
+          "neural_pattern_reinforcement": 2
+        },
+        "total_nv": 13,
+        "active_count": 6
+      },
+      "social_infil": {
+        "name": "Deep Social Infiltration",
+        "description": "Sacrifices strike amplification to run Dynamic Features R3 for full biometric disguise alongside emotional stabilization.",
+        "active_colonies": [
+          "dynamic_features",
+          "bio_response_override",
+          "neurochemical_regulator",
+          "neocortical_neural_amp",
+          "limbic_neural_amp",
+          "tech_infestation"
+        ],
+        "volumes": {
+          "dynamic_features": 3,
+          "bio_response_override": 3,
+          "neurochemical_regulator": 2,
+          "neocortical_neural_amp": 2,
+          "limbic_neural_amp": 2,
+          "tech_infestation": 1
+        },
+        "total_nv": 13,
+        "active_count": 6
+      },
+      "cyber_hijack": {
+        "name": "Cyber & Hardware Hijacking",
+        "description": "Prioritizes Tech Infestation for dermal physical hijacking and Dynamic Features for evasion during electronic breaches.",
+        "active_colonies": [
+          "tech_infestation",
+          "neocortical_neural_amp",
+          "limbic_neural_amp",
+          "neural_pattern_reinforcement",
+          "bio_response_override",
+          "dynamic_features"
+        ],
+        "volumes": {
+          "tech_infestation": 2,
+          "neocortical_neural_amp": 2,
+          "limbic_neural_amp": 2,
+          "neural_pattern_reinforcement": 2,
+          "bio_response_override": 3,
+          "dynamic_features": 1
+        },
+        "total_nv": 12,
+        "active_count": 6
+      }
+    },
+    "default_active": [
+      "neuromuscular_amplifier",
+      "bio_response_override",
+      "neurochemical_regulator",
+      "neocortical_neural_amp",
+      "limbic_neural_amp",
+      "neural_pattern_reinforcement"
+    ],
+    "default_volumes": {
+      "dynamic_features": 1,
+      "neuromuscular_amplifier": 2,
+      "bio_response_override": 3,
+      "neurochemical_regulator": 2,
+      "neocortical_neural_amp": 2,
+      "limbic_neural_amp": 2,
+      "neural_pattern_reinforcement": 2,
+      "tech_infestation": 1
+    }
+  },
+  "spirit_channeling_catalog": {},
+  "powers": {
+    "complex_forms": [],
+    "echoes": [],
+    "sprite_powers": [],
+    "spells": [],
+    "adept_powers": [],
+    "monad_abilities": [
+      {
+        "name": "Monad Matrix Attributes",
+        "action": "Passive",
+        "effect": "Synthesizes Living Persona ASDF (Attack: CHA, Sleaze: INT, Data Processing: LOG, Firewall: WIL) via internal nanite matrix co-processing.",
+        "notes": "Synthesizes Living Persona ASDF (Attack: CHA, Sleaze: INT, Data Processing: LOG, Firewall: WIL) via internal nanite matrix co-processing.",
+        "doc_link": "rules/rules_and_downtime.html#monad-nanite-boosts"
+      },
+      {
+        "name": "Resculpt",
+        "action": "Extended Minor Actions",
+        "effect": "Extended Intuition + NV (16, 1 combat round) test to alter facial appearance, skin tone, and voice; grants +2 dice pool bonus on Disguise tests.",
+        "notes": "Extended Intuition + NV (16, 1 combat round) test to alter facial appearance, skin tone, and voice; grants +2 dice pool bonus on Disguise tests.",
+        "doc_link": "rules/rules_and_downtime.html#monad-nanite-boosts"
+      },
+      {
+        "name": "Monad Toughness",
+        "action": "Passive",
+        "effect": "Adds one-half Nanite Volume (+3 boxes at NV 6) to Condition Monitors (+2 Physical, +1 Stun), and shifts all Wound Modifiers down by one level.",
+        "notes": "Adds one-half Nanite Volume (+3 boxes at NV 6) to Condition Monitors (+2 Physical, +1 Stun), and shifts all Wound Modifiers down by one level.",
+        "doc_link": "rules/rules_and_downtime.html#monad-nanite-boosts"
+      },
+      {
+        "name": "Physical Attribute Boost",
+        "action": "Minor Action",
+        "effect": "Minor Action: roll NV test (6 dice). Each hit can add +1 Minor Action per combat round or boost a physical attribute for duration.",
+        "notes": "Minor Action: roll NV test (6 dice). Each hit can add +1 Minor Action per combat round or boost a physical attribute for duration.",
+        "doc_link": "rules/rules_and_downtime.html#monad-nanite-boosts"
+      },
+      {
+        "name": "Rapid Cellular Healing",
+        "action": "Minor or Major Action",
+        "effect": "Minor or Major Action: roll NV test (6 dice) to reduce Condition Monitor damage boxes by hits (Major Action heals double hits and grants +1 situational Edge).",
+        "notes": "Minor or Major Action: roll NV test (6 dice) to reduce Condition Monitor damage boxes by hits (Major Action heals double hits and grants +1 situational Edge).",
+        "doc_link": "rules/rules_and_downtime.html#monad-nanite-boosts"
+      },
+      {
+        "name": "Adrenal Control",
+        "action": "Minor Action",
+        "effect": "Minor Action: WIL + NV test to remain conscious and active when physical or stun condition monitors are full.",
+        "notes": "Minor Action: WIL + NV test to remain conscious and active when physical or stun condition monitors are full.",
+        "doc_link": "rules/rules_and_downtime.html#monad-nanite-boosts"
+      }
+    ],
+    "augmentations": [
+      {
+        "name": "Left Synthetic Cyberarm",
+        "rating": null,
+        "grade": "used",
+        "essence": 0,
+        "notes": "Used Grade (0.99 Ess w/ Adapsin). Agility +3 Enhancement (3 Cap), Built-in Utility Kit (2 Cap) -> 5/8 Cap used (3 Open). Operates at AGI 7 / STR 4 (AGI 9 / STR 6 Overdriven).",
+        "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+      },
+      {
+        "name": "Right Synthetic Cyberarm",
+        "rating": null,
+        "grade": "used",
+        "essence": 0,
+        "notes": "Used Grade (0.99 Ess w/ Adapsin). Agility +3 Enhancement (3 Cap), Built-in Savior Medkit R6 (4 Cap) -> 7/8 Cap used (1 Open). Operates at AGI 7 / STR 4 (AGI 9 / STR 6 Overdriven).",
+        "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+      },
+      {
+        "name": "Left Synthetic Cyberleg",
+        "rating": null,
+        "grade": "used",
+        "essence": 0,
+        "notes": "Used Grade (0.99 Ess w/ Adapsin). Bulk Mod R4 (+4 Cap -> 14 Cap total). Agility +3 Enhancement (3 Cap), Nanohive R3 (6 Cap), Retractable Skates (2 Cap), Gecko Tips (1 Cap), Hydraulic Jacks R2 (2 Cap) -> 14/14 Cap Full. Operates at AGI 7 / STR 4 (9/6 Overdriven).",
+        "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+      },
+      {
+        "name": "Right Synthetic Cyberleg",
+        "rating": null,
+        "grade": "used",
+        "essence": 0,
+        "notes": "Used Grade (0.99 Ess w/ Adapsin). Bulk Mod R4 (+4 Cap -> 14 Cap total). Agility +3 Enhancement (3 Cap), Nanohive R3 (6 Cap), Retractable Skates (2 Cap), Gecko Tips (1 Cap), Hydraulic Jacks R2 (2 Cap) -> 14/14 Cap Full. Operates at AGI 7 / STR 4 (9/6 Overdriven).",
+        "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+      },
+      {
+        "name": "Bone Density Augmentation",
+        "rating": 4,
+        "grade": "betaware",
+        "essence": 0,
+        "notes": "0.84 Ess, 30,000\u00a5. +4 Body for damage resistance soak (9 Soak unarmored), 4P Unarmed DV, +3 AR.",
+        "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+      },
+      {
+        "name": "Skilljack",
+        "rating": 6,
+        "grade": "used",
+        "essence": 0,
+        "notes": "0.59 Ess w/ Adapsin, 60,000\u00a5. Rating 6 x 4 = 24 wireless soft capacity. Edge can be used on associated tests.",
+        "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+      },
+      {
+        "name": "Skillwires",
+        "rating": 6,
+        "grade": "used",
+        "essence": 0,
+        "notes": "0.59 Ess w/ Adapsin, 60,000\u00a5. +1 dice pool modifier to all skills routed through skillwires.",
+        "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+      },
+      {
+        "name": "Math SPU",
+        "rating": null,
+        "grade": "used",
+        "essence": 0,
+        "notes": "0.25 Ess w/ Adapsin, 12,500\u00a5. Lowers Edge boost cost by 1 on Logic skills (-2 when overdriven with +1 wild die); 0 Bad Luck penalty.",
+        "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+      },
+      {
+        "name": "Adapsin Therapy",
+        "rating": null,
+        "grade": "standard",
+        "essence": 0,
+        "notes": "0.10 Ess, 30,000\u00a5. Reduces Essence cost of all cyberware by 10% (round down) post-grade calculations.",
+        "doc_link": "chapters/rules_and_downtime.html#augmentation-stacking"
+      }
+    ],
+    "nanohive": {
+      "rating": 6,
+      "max_colonies": 6,
+      "max_volume": 18,
+      "replenish_rate": "6 NV / hour",
+      "catalog": {
+        "dynamic_features": {
+          "id": "dynamic_features",
+          "name": "Dynamic Features",
+          "type": "template",
+          "default_nv": 1,
+          "min_nv": 1,
+          "max_nv": 3,
+          "fixed_nv": false,
+          "source": "Body Shop p. 110",
+          "doc_link": "chapters/rules_and_downtime.html#nanoware-protocols",
+          "category": "Infiltration / Biometric",
+          "effect": "Dynamically shifts epidermal pigmentation, melanin, hair follicles, and subcutaneous facial geometry on command. 1 NV: Cosmetic alterations; 2 NV: Full facial reconstruction (+1 Edge on Disguise); 3 NV: Real-time biometric identity mimicry (+2 Edge on Disguise/Impersonation).",
+          "active_by_default": false,
+          "stat_effects": {
+            "type": "situational",
+            "notes": "Cosmetic to full facial shift (+1 to +2 Edge on disguise)"
+          }
+        },
+        "neuromuscular_amplifier": {
+          "id": "neuromuscular_amplifier",
+          "name": "Neuromuscular Amplifier",
+          "type": "template",
+          "default_nv": 2,
+          "min_nv": 2,
+          "max_nv": 4,
+          "fixed_nv": false,
+          "source": "Body Shop p. 110",
+          "doc_link": "chapters/rules_and_downtime.html#nanoware-protocols",
+          "category": "Combat Augmentation",
+          "effect": "Reinforces skeletal myofibrils and strike vectors through micro-hydraulic nanite lattice networks. Requires at least 2 NV to form the colony, but additional NV (up to 4+ NV) can be assigned for overdriving or enhanced strike amplification. Grants +1 Melee DV to all unarmed and physical strikes (synergizes with Iron Limbs, Bone Density R4, and Toughskin Spines for 10P Flying Kick).",
+          "active_by_default": true,
+          "stat_effects": {
+            "target": "damage:unarmed",
+            "value": 1,
+            "type": "augmentation",
+            "notes": "+1 DV to all melee/unarmed attacks (min 2 NV; overdriving capable)"
+          }
+        },
+        "bio_response_override": {
+          "id": "bio_response_override",
+          "name": "Bio-Response Override",
+          "type": "dose",
+          "default_nv": 3,
+          "min_nv": 3,
+          "max_nv": 3,
+          "fixed_nv": true,
+          "source": "Body Shop p. 110",
+          "doc_link": "chapters/rules_and_downtime.html#nanoware-protocols",
+          "category": "Physiological / Resilience",
+          "effect": "Single pre-bought dose colony requiring 3 NV from the nanohive to sustain (dies in 1 week without hive maintenance). Suppresses nociceptors and autonomous shock reactions while stabilizing neurochemical homeostasis. Grants +1 Willpower (buffing Composure, Judge Intentions, Memory, and Living Persona Firewall) and adds +1 box to the Stun Condition Monitor.",
+          "active_by_default": true,
+          "stat_effects": {
+            "target": "attribute:willpower",
+            "value": 1,
+            "type": "augmentation",
+            "notes": "+1 Willpower, +1 Stun Condition box (requires 3 NV to sustain)"
+          }
+        },
+        "neurochemical_regulator": {
+          "id": "neurochemical_regulator",
+          "name": "Neurochemical Regulator",
+          "type": "dose",
+          "default_nv": 2,
+          "min_nv": 2,
+          "max_nv": 2,
+          "fixed_nv": true,
+          "source": "Body Shop p. 110",
+          "doc_link": "chapters/rules_and_downtime.html#nanoware-protocols",
+          "category": "Social / Psychological",
+          "effect": "Single pre-bought dose colony requiring 2 NV from the nanohive to sustain (dies in 1 week without hive maintenance). Modulates endocrine flows, suppressing erratic micro-expressions and voice stress while enhancing charisma projecting. Grants +1 Charisma on social interactions and composure tests.",
+          "active_by_default": true,
+          "stat_effects": {
+            "target": "attribute:charisma",
+            "value": 1,
+            "type": "augmentation",
+            "notes": "+1 Charisma on social and composure tests (requires 2 NV to sustain)"
+          }
+        },
+        "neocortical_neural_amp": {
+          "id": "neocortical_neural_amp",
+          "name": "Neocortical Neural Amp",
+          "type": "dose",
+          "default_nv": 2,
+          "min_nv": 2,
+          "max_nv": 2,
+          "fixed_nv": true,
+          "source": "Body Shop p. 110",
+          "doc_link": "chapters/rules_and_downtime.html#nanoware-protocols",
+          "category": "Cognitive Augmentation",
+          "effect": "Single pre-bought dose colony requiring 2 NV from the nanohive to sustain (dies in 1 week without hive maintenance). Accelerates synaptic transmission across neocortical columns. Grants +1 dice pool bonus to all Logic-linked skill tests (Biotech, Cracking, Electronics, Engineering). Stacks with Math SPU Edge cost reductions.",
+          "active_by_default": true,
+          "stat_effects": {
+            "target": "attribute:logic",
+            "value": 1,
+            "type": "skill bonus",
+            "notes": "+1 on all Logic skill tests (requires 2 NV to sustain)"
+          }
+        },
+        "limbic_neural_amp": {
+          "id": "limbic_neural_amp",
+          "name": "Limbic Neural Amp",
+          "type": "dose",
+          "default_nv": 2,
+          "min_nv": 2,
+          "max_nv": 2,
+          "fixed_nv": true,
+          "source": "Body Shop p. 110",
+          "doc_link": "chapters/rules_and_downtime.html#nanoware-protocols",
+          "category": "Cognitive Augmentation",
+          "effect": "Single pre-bought dose colony requiring 2 NV from the nanohive to sustain (dies in 1 week without hive maintenance). Sharpens amygdala and hippocampal sensory processing pathways. Grants +1 dice pool bonus to all Intuition-linked skill tests (Perception, Stealth, Tracking).",
+          "active_by_default": true,
+          "stat_effects": {
+            "target": "attribute:intuition",
+            "value": 1,
+            "type": "skill bonus",
+            "notes": "+1 on all Intuition skill tests (requires 2 NV to sustain)"
+          }
+        },
+        "neural_pattern_reinforcement": {
+          "id": "neural_pattern_reinforcement",
+          "name": "Neural Pattern Reinforcement",
+          "type": "dose",
+          "default_nv": 2,
+          "min_nv": 2,
+          "max_nv": 2,
+          "fixed_nv": true,
+          "source": "Body Shop p. 110",
+          "doc_link": "chapters/rules_and_downtime.html#nanoware-protocols",
+          "category": "Motor / Physical Augmentation",
+          "effect": "Single pre-bought dose colony requiring 2 NV from the nanohive to sustain (dies in 1 week without hive maintenance). Hardens motor cortex engrams and neuromuscular kinesthetic pathways. Grants +1 dice pool bonus to all Agility-linked skill tests (Athletics, Close Combat, Firearms).",
+          "active_by_default": true,
+          "stat_effects": {
+            "target": "attribute:agility",
+            "value": 1,
+            "type": "skill bonus",
+            "notes": "+1 on all Agility skill tests (requires 2 NV to sustain)"
+          }
+        },
+        "tech_infestation": {
+          "id": "tech_infestation",
+          "name": "Tech Infestation",
+          "type": "dose",
+          "default_nv": 1,
+          "min_nv": 1,
+          "max_nv": 3,
+          "fixed_nv": false,
+          "source": "Body Shop p. 111",
+          "doc_link": "chapters/rules_and_downtime.html#nanoware-protocols",
+          "category": "Hardware / Infiltration",
+          "effect": "Nanites extrude through dermal contact points into target electronic, commlink, or cyberware hardware circuitry. Provides physical datajack bridging without requiring a cyberware datajack; enables contact hijacking and direct device control.",
+          "active_by_default": false,
+          "stat_effects": {
+            "type": "situational",
+            "notes": "Direct dermal datajack bridge & contact hijacking without cyberware datajack"
+          }
+        }
+      },
+      "presets": {
+        "default_combat": {
+          "name": "Combat & Stealth (Default)",
+          "description": "Standard field deployment maximizing melee strike power, neural perception, and cognitive speed.",
+          "active_colonies": [
+            "neuromuscular_amplifier",
+            "bio_response_override",
+            "neurochemical_regulator",
+            "neocortical_neural_amp",
+            "limbic_neural_amp",
+            "neural_pattern_reinforcement"
+          ],
+          "volumes": {
+            "neuromuscular_amplifier": 2,
+            "bio_response_override": 3,
+            "neurochemical_regulator": 2,
+            "neocortical_neural_amp": 2,
+            "limbic_neural_amp": 2,
+            "neural_pattern_reinforcement": 2
+          },
+          "total_nv": 13,
+          "active_count": 6
+        },
+        "social_infil": {
+          "name": "Deep Social Infiltration",
+          "description": "Sacrifices strike amplification to run Dynamic Features R3 for full biometric disguise alongside emotional stabilization.",
+          "active_colonies": [
+            "dynamic_features",
+            "bio_response_override",
+            "neurochemical_regulator",
+            "neocortical_neural_amp",
+            "limbic_neural_amp",
+            "tech_infestation"
+          ],
+          "volumes": {
+            "dynamic_features": 3,
+            "bio_response_override": 3,
+            "neurochemical_regulator": 2,
+            "neocortical_neural_amp": 2,
+            "limbic_neural_amp": 2,
+            "tech_infestation": 1
+          },
+          "total_nv": 13,
+          "active_count": 6
+        },
+        "cyber_hijack": {
+          "name": "Cyber & Hardware Hijacking",
+          "description": "Prioritizes Tech Infestation for dermal physical hijacking and Dynamic Features for evasion during electronic breaches.",
+          "active_colonies": [
+            "tech_infestation",
+            "neocortical_neural_amp",
+            "limbic_neural_amp",
+            "neural_pattern_reinforcement",
+            "bio_response_override",
+            "dynamic_features"
+          ],
+          "volumes": {
+            "tech_infestation": 2,
+            "neocortical_neural_amp": 2,
+            "limbic_neural_amp": 2,
+            "neural_pattern_reinforcement": 2,
+            "bio_response_override": 3,
+            "dynamic_features": 1
+          },
+          "total_nv": 12,
+          "active_count": 6
+        }
+      },
+      "default_active": [
+        "neuromuscular_amplifier",
+        "bio_response_override",
+        "neurochemical_regulator",
+        "neocortical_neural_amp",
+        "limbic_neural_amp",
+        "neural_pattern_reinforcement"
+      ],
+      "default_volumes": {
+        "dynamic_features": 1,
+        "neuromuscular_amplifier": 2,
+        "bio_response_override": 3,
+        "neurochemical_regulator": 2,
+        "neocortical_neural_amp": 2,
+        "limbic_neural_amp": 2,
+        "neural_pattern_reinforcement": 2,
+        "tech_infestation": 1
+      }
+    },
+    "spirit_channeling_catalog": {}
+  },
+  "inventory": {
+    "commlinks": [],
+    "matrix_devices": [],
+    "hosts": [],
+    "programs": [],
+    "software": [],
+    "autosofts": [],
+    "knowsofts": [],
+    "knowledge_skills": [
+      {
+        "name": "Small Unit Tactics",
+        "id": "small_unit_tactics",
+        "category": "Knowledge Skill",
+        "rating": 0,
+        "display_rating": "Lore",
+        "level": null,
+        "is_native": false,
+        "is_linguasoft": false,
+        "is_knowsoft": false,
+        "pool": 11,
+        "base_pool": 11,
+        "buffed_pool": 11,
+        "bought_hits": 2,
+        "effective_attribute": "LOG",
+        "attribute": "LOG",
+        "breakdown": "LOG 6 + INT 5 (Memory)",
+        "breakdown_text": "LOG 6 + INT 5 (Memory) = 11d6",
+        "notes": "",
+        "buffs": []
+      },
+      {
+        "name": "Espionage Techniques",
+        "id": "espionage_techniques",
+        "category": "Knowledge Skill",
+        "rating": 0,
+        "display_rating": "Lore",
+        "level": null,
+        "is_native": false,
+        "is_linguasoft": false,
+        "is_knowsoft": false,
+        "pool": 11,
+        "base_pool": 11,
+        "buffed_pool": 11,
+        "bought_hits": 2,
+        "effective_attribute": "LOG",
+        "attribute": "LOG",
+        "breakdown": "LOG 6 + INT 5 (Memory)",
+        "breakdown_text": "LOG 6 + INT 5 (Memory) = 11d6",
+        "notes": "",
+        "buffs": []
+      },
+      {
+        "name": "Security Systems",
+        "id": "security_systems",
+        "category": "Knowledge Skill",
+        "rating": 0,
+        "display_rating": "Lore",
+        "level": null,
+        "is_native": false,
+        "is_linguasoft": false,
+        "is_knowsoft": false,
+        "pool": 11,
+        "base_pool": 11,
+        "buffed_pool": 11,
+        "bought_hits": 2,
+        "effective_attribute": "LOG",
+        "attribute": "LOG",
+        "breakdown": "LOG 6 + INT 5 (Memory)",
+        "breakdown_text": "LOG 6 + INT 5 (Memory) = 11d6",
+        "notes": "",
+        "buffs": []
+      },
+      {
+        "name": "Resonance Realms",
+        "id": "resonance_realms",
+        "category": "Knowledge Skill",
+        "rating": 0,
+        "display_rating": "Lore",
+        "level": null,
+        "is_native": false,
+        "is_linguasoft": false,
+        "is_knowsoft": false,
+        "pool": 11,
+        "base_pool": 11,
+        "buffed_pool": 11,
+        "bought_hits": 2,
+        "effective_attribute": "LOG",
+        "attribute": "LOG",
+        "breakdown": "LOG 6 + INT 5 (Memory)",
+        "breakdown_text": "LOG 6 + INT 5 (Memory) = 11d6",
+        "notes": "",
+        "buffs": []
+      },
+      {
+        "name": "English",
+        "id": "english",
+        "category": "Language",
+        "rating": 4,
+        "display_rating": "R4",
+        "level": "Native",
+        "is_native": true,
+        "is_linguasoft": false,
+        "is_knowsoft": false,
+        "pool": 10,
+        "base_pool": 10,
+        "buffed_pool": 10,
+        "bought_hits": 2,
+        "effective_attribute": "LOG",
+        "attribute": "LOG",
+        "breakdown": "LOG 6 + Native (4)",
+        "breakdown_text": "LOG 6 + Native (4) = 10d6",
+        "notes": "CAS dialect",
+        "buffs": []
+      },
+      {
+        "name": "Mindspeech",
+        "id": "mindspeech",
+        "category": "Language",
+        "rating": 4,
+        "display_rating": "R4",
+        "level": "Native",
+        "is_native": true,
+        "is_linguasoft": false,
+        "is_knowsoft": false,
+        "pool": 10,
+        "base_pool": 10,
+        "buffed_pool": 10,
+        "bought_hits": 2,
+        "effective_attribute": "LOG",
+        "attribute": "LOG",
+        "breakdown": "LOG 6 + Native (4)",
+        "breakdown_text": "LOG 6 + Native (4) = 10d6",
+        "notes": "Direct ideation, resonance non-acoustic",
+        "buffs": []
+      }
+    ],
+    "gear": [
+      "Contacts (Rating 3 w/ Flare Comp, Smartlink)",
+      "Savior Medkit (Rating 6 w/ 1x Refill)"
+    ],
+    "gear_items": [
+      {
+        "name": "Contacts (Rating 3 w/ Flare Comp, Smartlink)",
+        "qty": 1,
+        "rating": 3,
+        "category": "Field Gear",
+        "accessories": [],
+        "notes": ""
+      },
+      {
+        "name": "Savior Medkit (Rating 6 w/ 1x Refill)",
+        "qty": 1,
+        "rating": 6,
+        "category": "Field Gear",
+        "accessories": [],
+        "notes": ""
+      }
+    ],
+    "sins": [],
+    "lifestyles": []
+  },
+  "gear_items": [
+    {
+      "name": "Contacts (Rating 3 w/ Flare Comp, Smartlink)",
+      "qty": 1,
+      "rating": 3,
+      "category": "Field Gear",
+      "accessories": [],
+      "notes": ""
+    },
+    {
+      "name": "Savior Medkit (Rating 6 w/ 1x Refill)",
+      "qty": 1,
+      "rating": 6,
+      "category": "Field Gear",
+      "accessories": [],
+      "notes": ""
+    }
+  ],
+  "matrix_devices": [],
+  "software": [],
+  "sins": [],
+  "lifestyles": [],
+  "contacts": [],
+  "exceptions": [
+    {
+      "id": "cyborg_essence_tolerance",
+      "title": "Full Conversion Monad 0.06 Essence Tolerance",
+      "category": "mechanics",
+      "description": "Extreme bioware and cyberware tolerances operating at 0.06 Essence supported by nanite fluid balances.",
+      "source": "rules_and_downtime.qmd",
+      "gm": "Tabletop Baseline",
+      "active": true
+    },
+    {
+      "id": "monad_toughness_monitor",
+      "title": "Nanite Volume Toughness Scaling",
+      "category": "mechanics",
+      "description": "Nanite volume adds bonus condition monitor boxes (Nanite Volume // 2) to Physical and Stun tracks.",
+      "source": "Hack & Slash / rules_and_downtime.qmd",
+      "gm": "Tabletop Baseline",
+      "active": true
+    },
+    {
+      "id": "hooder_karma_funding",
+      "title": "Hooder Quality Downtime Karma Exchange",
+      "category": "financial",
+      "description": "\u00a52,000/mo Hooder obligation directly funds the 'Working for the People' minor downtime action (+1 Karma).",
+      "source": "rules_and_downtime.qmd",
+      "gm": "SRM Campaign Baseline",
+      "active": true
+    }
+  ],
+  "modifiers": [
+    {
+      "id": "bone_density_augmentation",
+      "name": "Bone Density Augmentation",
+      "target": "damage:unarmed",
+      "value": 4,
+      "type": "augmentation",
+      "sub_skill": null,
+      "rule_anchor": "rules/rules_and_downtime.html#augmentation-stacking",
+      "notes": "4P Base Unarmed DV, +4 Body soak",
+      "enabled": true
+    },
+    {
+      "id": "skillwires_wireless_on_-_close_combat",
+      "name": "Skillwires (Wireless ON - Close Combat)",
+      "target": "skill:close_combat",
+      "value": 1,
+      "type": "other",
+      "sub_skill": null,
+      "rule_anchor": "rules/rules_and_downtime.html#skillwires-protocols",
+      "notes": "+1 dice pool modifier to active skills routed via skillwires",
+      "enabled": true
+    },
+    {
+      "id": "skillwires_wireless_on_-_cracking",
+      "name": "Skillwires (Wireless ON - Cracking)",
+      "target": "skill:cracking",
+      "value": 1,
+      "type": "other",
+      "sub_skill": null,
+      "rule_anchor": "rules/rules_and_downtime.html#skillwires-protocols",
+      "notes": "+1 dice pool modifier to active skills routed via skillwires",
+      "enabled": true
+    },
+    {
+      "id": "math_spu",
+      "name": "Math SPU",
+      "target": "edge_boost_cost:logic_skills",
+      "value": 1,
+      "type": "gear",
+      "sub_skill": null,
+      "rule_anchor": "rules/rules_and_downtime.html#cyberware-overdrive",
+      "notes": "Reduces Edge boost cost by 1 (min 1) on Cracking, Electronics, and Build/Repair tests; overdrive reduces cost by 2 with +1 wild die",
+      "enabled": true
+    },
+    {
+      "id": "neuromuscular_amplifier",
+      "name": "Neuromuscular Amplifier",
+      "target": "damage:unarmed",
+      "value": 1,
+      "type": "augmentation",
+      "sub_skill": null,
+      "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts",
+      "notes": "+1 DV to all melee and unarmed attacks",
+      "enabled": true
+    },
+    {
+      "id": "bio-response_override",
+      "name": "Bio-Response Override",
+      "target": "attribute:willpower",
+      "value": 1,
+      "type": "augmentation",
+      "sub_skill": null,
+      "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts",
+      "notes": "+1 Willpower, +1 box to Stun Condition Monitor",
+      "enabled": true
+    },
+    {
+      "id": "neurochemical_regulator",
+      "name": "Neurochemical Regulator",
+      "target": "attribute:charisma",
+      "value": 1,
+      "type": "augmentation",
+      "sub_skill": null,
+      "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts",
+      "notes": "+1 Charisma on social and composure tests",
+      "enabled": true
+    },
+    {
+      "id": "neocortical_neural_amp",
+      "name": "Neocortical Neural Amp",
+      "target": "attribute:logic",
+      "value": 1,
+      "type": "skill bonus",
+      "sub_skill": null,
+      "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts",
+      "notes": "+1 dice pool on all skill tests linked to Logic (Cracking, Electronics, Biotech, etc.)",
+      "enabled": true
+    },
+    {
+      "id": "limbic_neural_amp",
+      "name": "Limbic Neural Amp",
+      "target": "attribute:intuition",
+      "value": 1,
+      "type": "skill bonus",
+      "sub_skill": null,
+      "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts",
+      "notes": "+1 dice pool on all skill tests linked to Intuition (Perception, Stealth, etc.)",
+      "enabled": true
+    },
+    {
+      "id": "neural_pattern_reinforcement",
+      "name": "Neural Pattern Reinforcement",
+      "target": "attribute:agility",
+      "value": 1,
+      "type": "skill bonus",
+      "sub_skill": null,
+      "rule_anchor": "rules/rules_and_downtime.html#monad-nanite-boosts",
+      "notes": "+1 dice pool on all skill tests linked to Agility (Athletics, Firearms, Close Combat, etc.)",
+      "enabled": true
+    }
+  ],
+  "rules_doc": "rules/rules.html"
+}

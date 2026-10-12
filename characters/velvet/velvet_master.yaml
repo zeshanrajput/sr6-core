@@ -111,10 +111,20 @@ modifiers:
   name: Wise Warrior (Influence)
   target: skill:influence
   value: 1
-  type: gear
+  type: other
   sub_skill: null
   rule_anchor: rules/rules_and_downtime.html#mentor-spirits
-  notes: Edge boost cost discount on Influence and Leadership tests
+  notes: Edge boost cost discount on Influence and Leadership tests (-1 Edge cost,
+    min 1)
+  enabled: true
+- id: wise_warrior_sorcery
+  name: Wise Warrior (Sorcery)
+  target: skill:sorcery
+  value: 1
+  type: other
+  sub_skill: null
+  rule_anchor: rules/rules_and_downtime.html#mentor-spirits
+  notes: +1 free rank of Improved Ability on Combat skill (Sorcery)
   enabled: true
 - id: power_focus
   name: Power Focus
@@ -192,6 +202,14 @@ adept_powers:
   action: Passive
   source: natural
   notes: -1 dice pool penalty to hostile Assensing tests.
+- name: Improved Ability (Sorcery)
+  ref: improved_ability_(sorcery)
+  rating: 1
+  cost: 0.0 PP
+  cost_pp: 0.0
+  action: Passive
+  source: mentor_spirit
+  notes: 'Free rank granted by Mentor Spirit: Wise Warrior (Adept Advantage).'
 metamagic:
 - name: Channeling
   ref: channeling
@@ -200,10 +218,10 @@ metamagic:
 - name: Power Point
   ref: power_point
   notes: Grants 1.0 Adept Power Point.
-- name: Psychometry
-  ref: psychometry
-  notes: Reads psychic and emotional resonance from touched objects, places, or personal
-    garments; rolls Astral + Intuition + Initiate Grade.
+- name: Invocation
+  ref: invocation
+  notes: Enables summoning Great Form Spirits (Street Wyrd p. 113); satisfies prerequisite
+    for Great Form Channeling.
 knowledge_skills:
 - name: Korean
   rating: 4

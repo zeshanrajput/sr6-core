@@ -202,6 +202,10 @@ Gain 6 * Charisma contact points to spend.
 Logs of what gear the character had at character generation aren't available. 
 :::
 
+### Lifestyle
+
+* **Low Lifestyle:** ¥2,000 / month (*SR6 CRB*, p. 238; paid every 2nd SRM per *SRMG v2.4*, p. 1).
+
 Total Contact Points Remaining: `{python} Contact_Points`
 
 Total Nuyen Remaining: ¥`{python} f"{Nuyen:,}"`

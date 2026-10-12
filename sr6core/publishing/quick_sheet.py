@@ -263,7 +263,59 @@ def export_quick_sheet(
         r_text = right_lines[idx] if idx < len(right_lines) else ""
         sheet.append(_row_2col(l_text, r_text))
 
-    # 5. Tactical Weapons
+    # 5. Knowledge Skills, Knowsofts & Languages
+    ks_list = bundle.get("knowledge_skills", [])
+    if ks_list:
+        sheet.append(_sub_header("KNOWLEDGE SKILLS, KNOWSOFTS & LANGUAGES"))
+
+        def _format_ks_entry(ks: Dict[str, Any], max_w: int = 34) -> str:
+            name = _clean_ascii(str(ks.get("name", "Knowledge")))
+            rtg = ks.get("rating")
+            if ks.get("is_knowsoft"):
+                tag = f"Soft R{rtg}" if rtg else "Knowsoft"
+            elif ks.get("is_linguasoft"):
+                tag = f"Lingua R{rtg}" if rtg else "Linguasoft"
+            elif ks.get("is_native") or ks.get("level") == "Native":
+                tag = "Native"
+            elif ks.get("level"):
+                tag = str(ks.get("level"))
+            elif rtg:
+                tag = f"R{rtg}"
+            else:
+                tag = "Lore"
+
+            clean = (
+                name.replace("Japanese Cultural Etiquette", "Jpn Cult. Etiquette")
+                .replace("New Orleans Vodou & Loa Syncretism", "NOLA Vodou & Loa")
+                .replace("UNified Information TheorY (UnITy)", "UnITy TheorY")
+                .replace("The Endless Archives", "Endless Archives")
+            )
+            pool = ks.get("pool", 0)
+            suffix = f" ({tag}): {pool}d6"
+            if len(clean) + len(suffix) > max_w:
+                avail = max(1, max_w - len(suffix))
+                clean = clean[:avail].strip()
+            return f"{clean}{suffix}"
+
+        know_entries = [_format_ks_entry(k, 34) for k in ks_list if k.get("category") in ("Knowsoft", "Knowledge Skill")]
+        lang_entries = [_format_ks_entry(k, 35) for k in ks_list if k.get("category") in ("Language", "Linguasoft")]
+
+        if not know_entries or not lang_entries or abs(len(know_entries) - len(lang_entries)) > 4:
+            all_entries = [_format_ks_entry(k, 34) for k in ks_list]
+            half = (len(all_entries) + 1) // 2
+            col_l = all_entries[:half]
+            col_r = all_entries[half:]
+        else:
+            col_l = know_entries
+            col_r = lang_entries
+
+        max_ks_rows = max(len(col_l), len(col_r))
+        for r_idx in range(max_ks_rows):
+            l_val = col_l[r_idx] if r_idx < len(col_l) else ""
+            r_val = col_r[r_idx] if r_idx < len(col_r) else ""
+            sheet.append(_row_2col(l_val, r_val))
+
+    # 6. Tactical Weapons
     sheet.append(_sub_header("TACTICAL WEAPONS"))
     sheet.append(_row(f"{'WEAPON':<23} {'DV':<6} {'ATTACK RATING':<18} {'AMMO':<8} {'MODE'}"))
     if not weapons:

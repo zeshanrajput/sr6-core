@@ -12,11 +12,16 @@
 | ARMOR DR  : 2                      | SOAK POOL   : 2                     |
 | PHYSICAL CM: [9] (BOD/2 + 8)       | STUN CM     : [11] (WIL/2 + 8)      |
 +-- PRIMARY ACTION POOLS --------------------------------------------------+
-| Sorcery: (R5, 14d6)                | Conjuring: (R6, 15d6)               |
-|   -- Spellcasting: 16d6            | Influence: (R5, 15d6)               |
+| Sorcery: (R5, 15d6)                | Conjuring: (R6, 15d6)               |
+|   -- Spellcasting: 17d6            | Influence: (R5, 16d6)               |
 | Con: (R4, 14d6)                    | Native Language: (R4, 7d6)          |
 | Small Unit Tactics: (R1, 4d6)      | MCT: (R1, 4d6)                      |
 | Wuxing: (R1, 4d6)                  | East Asian Media: (R1, 4d6)         |
++-- KNOWLEDGE SKILLS, KNOWSOFTS & LANGUAGES -------------------------------+
+| Small Unit Tactics (R1): 4d6       | Korean (Native): 7d6                |
+| MCT (R1): 4d6                      | English (Specialist): 5d6           |
+| Wuxing (R1): 4d6                   | Japanese (Basic): 4d6               |
+| East Asian Media (R1): 4d6         |                                     |
 +-- TACTICAL WEAPONS ------------------------------------------------------+
 | WEAPON                  DV     ATTACK RATING      AMMO     MODE          |
 | Unarmed Combat          2S     (STR+REA)/-/-/-/-  -        -             |

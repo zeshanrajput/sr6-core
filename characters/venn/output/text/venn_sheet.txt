@@ -16,6 +16,11 @@
 |   -- Computer: 15d6                | Native Language (English): (R4, 11d |
 | Native Language (Mindspeech): (R4, | Close Combat (Activesoft): (R7, 15d |
 | Cracking (Activesoft): (R7, 14d6)  |                                     |
++-- KNOWLEDGE SKILLS, KNOWSOFTS & LANGUAGES -------------------------------+
+| Small Unit Tactics (Lore): 11d6    | English (Native): 10d6              |
+| Espionage Techniques (Lore): 11d6  | Mindspeech (Native): 10d6           |
+| Security Systems (Lore): 11d6      |                                     |
+| Resonance Realms (Lore): 11d6      |                                     |
 +-- TACTICAL WEAPONS ------------------------------------------------------+
 | WEAPON                  DV     ATTACK RATING      AMMO     MODE          |
 | Colt Manhunter          4P     10/10/6/-/-        16(c)    SS/SA         |

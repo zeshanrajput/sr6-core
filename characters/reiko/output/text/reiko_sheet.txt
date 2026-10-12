@@ -17,6 +17,13 @@
 | Influence: (R1, 6d6)               |   -- Software: 23d6                 |
 | Con: (R1, 6d6)                     |   -- Complex Forms: 23d6            |
 |   -- Disguise: 8d6                 | Native Language: (R4, 8d6)          |
++-- KNOWLEDGE SKILLS, KNOWSOFTS & LANGUAGES -------------------------------+
+| Resonance Realms (Lore): 6d6       | Mindspeech (Native): 8d6            |
+| Kernel Panic (Lore): 6d6           | Japanese (Lingua R5): 9d6           |
+| Endless Archives (Lore): 6d6       | English (Lingua R5): 9d6            |
+| UnITy TheorY (Lore): 6d6           | Cantonese (Lingua R5): 9d6          |
+| Jpn Cult. Etiquette (Soft R3): 7d6 | Mandarin (Lingua R5): 9d6           |
+| NOLA Vodou & Loa (Soft R3): 7d6    |                                     |
 +-- TACTICAL WEAPONS ------------------------------------------------------+
 | WEAPON                  DV     ATTACK RATING      AMMO     MODE          |
 | Red Fox Array (2x Link  9P     21/23/21/14/-      30(c)    SA/BF/SS      |

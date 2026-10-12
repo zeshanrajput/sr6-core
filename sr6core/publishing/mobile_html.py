@@ -422,6 +422,50 @@ def get_mobile_html_template(character_data_bundle: Dict[str, Any], initial_char
       font-weight: 600;
     }}
 
+    .knowsoft-badge {{
+      font-size: 0.75rem;
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      padding: 2px 7px;
+      border-radius: 6px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }}
+
+    .linguasoft-badge {{
+      font-size: 0.75rem;
+      color: #c084fc;
+      background: rgba(192, 132, 252, 0.12);
+      border: 1px solid rgba(192, 132, 252, 0.35);
+      padding: 2px 7px;
+      border-radius: 6px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }}
+
+    .language-badge {{
+      font-size: 0.75rem;
+      color: #34d399;
+      background: rgba(52, 211, 153, 0.12);
+      border: 1px solid rgba(52, 211, 153, 0.35);
+      padding: 2px 7px;
+      border-radius: 6px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }}
+
+    .lore-badge {{
+      font-size: 0.75rem;
+      color: #fbbf24;
+      background: rgba(251, 191, 36, 0.12);
+      border: 1px solid rgba(251, 191, 36, 0.35);
+      padding: 2px 7px;
+      border-radius: 6px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }}
+
     .info-btn {{
       background: rgba(99, 102, 241, 0.15);
       border: 1px solid rgba(99, 102, 241, 0.3);
@@ -1208,6 +1252,16 @@ def get_mobile_html_template(character_data_bundle: Dict[str, Any], initial_char
     <section id="tab-skills" class="tab-pane">
       <div id="skillsList">
         <!-- Generated via JS -->
+      </div>
+
+      <div id="knowledgeSkillsSection" style="margin-top: 24px;">
+        <div class="card-title" style="margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
+          <span>Knowledge Skills, Knowsofts & Languages</span>
+          <span id="knowledgeCountBadge" class="filter-chip" style="font-size: 0.75rem;">0 Logged</span>
+        </div>
+        <div id="knowledgeSkillsList">
+          <!-- Generated via JS -->
+        </div>
       </div>
     </section>
 
@@ -2120,14 +2174,18 @@ def get_mobile_html_template(character_data_bundle: Dict[str, Any], initial_char
         const defaultPool = s.buffed_pool;
         const currentPool = Math.max(0, defaultPool + delta - totalPenalty);
         const boughtHits = Math.floor(currentPool / 4);
-        const specPool = s.specialization ? (currentPool + 2) : currentPool;
+        const specsList = (s.specializations && s.specializations.length > 0)
+          ? s.specializations
+          : (s.specialization ? [s.specialization] : []);
+        const hasSpecs = specsList.length > 0;
+        const specPool = hasSpecs ? (currentPool + 2) : currentPool;
         const specHits = Math.floor(specPool / 4);
         const isManualMod = (delta !== 0 || totalPenalty > 0);
 
         const item = document.createElement("div");
         item.className = "pool-item" + (isManualMod ? " manual-modified" : "");
         
-        const specHtml = s.specialization ? `<span class="skill-spec">+2 ${{s.specialization}}</span>` : "";
+        const specHtml = specsList.map(sp => `<span class="skill-spec">+2 ${{sp}}</span>`).join(" ");
         const deltaBadge = isManualMod ? `<span class="mod-delta-badge ${{delta > 0 ? 'pos' : 'neg'}}">${{delta > 0 ? '+' + delta : delta}}</span>` : "";
 
         // Calculate dynamic buffs based on toggle state
@@ -2180,8 +2238,11 @@ def get_mobile_html_template(character_data_bundle: Dict[str, Any], initial_char
 
         const totalPool = Math.max(0, defaultPool + delta + buffsDelta + attrDelta + colonySkillMod);
         const effectiveBoughtHits = Math.floor(totalPool / 4);
-        const effectiveSpecPool = s.specialization ? (totalPool + 2) : totalPool;
+        const effectiveSpecPool = hasSpecs ? (totalPool + 2) : totalPool;
         const effectiveSpecHits = Math.floor(effectiveSpecPool / 4);
+        const specSublabel = hasSpecs
+          ? (specsList.length > 1 ? `| Specs (${{specsList.join(", ")}}): ${{effectiveSpecPool}}d6` : `| Spec (${{specsList[0]}}): ${{effectiveSpecPool}}d6`)
+          : "";
 
         const docLink = s.doc_link ? `<a class="doc-link-btn" href="${{getDocUrl(activeCharId, s.doc_link)}}" target="_blank" rel="noopener">📖 View Rules & Mechanics ↗</a>` : "";
 
@@ -2202,7 +2263,7 @@ def get_mobile_html_template(character_data_bundle: Dict[str, Any], initial_char
               <button class="stepper-btn minus" onclick="stepModifier('${{skillKey}}', -1)" title="Decrease Pool by 1">-</button>
               <div class="pool-target" title="Tap to Copy">
                 <span class="pool-d6">${{totalPool}}d6</span>
-                <span class="pool-sublabel">Base: ${{s.base_pool}}d6 | Default: ${{s.buffed_pool}}d6 ${{s.specialization ? `| Spec: ${{effectiveSpecPool}}d6` : ''}}</span>
+                <span class="pool-sublabel">Base: ${{s.base_pool}}d6 | Default: ${{s.buffed_pool}}d6 ${{specSublabel}}</span>
               </div>
               <button class="stepper-btn plus" onclick="stepModifier('${{skillKey}}', 1)" title="Increase Pool by 1">+</button>
             </div>
@@ -2213,7 +2274,11 @@ def get_mobile_html_template(character_data_bundle: Dict[str, Any], initial_char
           </div>
           <div class="breakdown-drawer">
             <div class="breakdown-math">📊 ${{s.breakdown_text}} ${{isManualMod ? `| Live Modifier: ${{delta > 0 ? '+' + delta : delta}}` : ''}}</div>
-            ${{s.specialization ? `<div style="font-size: 0.8rem; color: var(--gold-primary); margin-bottom: 4px;"><strong>Specialized Action:</strong> ${{effectiveSpecPool}}d6 (${{effectiveSpecHits}} Bought Hits)</div>` : ''}}
+            ${{hasSpecs ? `
+              <div style="font-size: 0.8rem; color: var(--gold-primary); margin-bottom: 4px;">
+                <strong>Specialized Actions (+2):</strong> ${{specsList.join(", ")}} &rarr; <strong>${{effectiveSpecPool}}d6</strong> (${{effectiveSpecHits}} Bought Hits)
+              </div>
+            ` : ''}}
             <div class="buff-checklist">
               ${{buffsHtml || '<div class="buff-chip">No active buffs</div>'}}
             </div>
@@ -2223,7 +2288,7 @@ def get_mobile_html_template(character_data_bundle: Dict[str, Any], initial_char
 
         // Click target to copy/toast
         item.querySelector(".pool-target").addEventListener("click", () => {{
-          showToast(`⚡ ${{s.name}}: ${{totalPool}}d6 (${{effectiveBoughtHits}} Hits)${{s.specialization ? ` [${{s.specialization}}: ${{effectiveSpecPool}}d6]` : ''}}`);
+          showToast(`⚡ ${{s.name}}: ${{totalPool}}d6 (${{effectiveBoughtHits}} Hits)${{hasSpecs ? ` [${{specsList.join(", ")}}: ${{effectiveSpecPool}}d6]` : ''}}`);
         }});
 
         const isDrawerOpen = openDrawers.has(skillKey);
@@ -2246,6 +2311,110 @@ def get_mobile_html_template(character_data_bundle: Dict[str, Any], initial_char
 
         sList.appendChild(item);
       }});
+
+      // Knowledge Skills, Knowsofts & Languages Section
+      const ksList = document.getElementById("knowledgeSkillsList");
+      const ksBadge = document.getElementById("knowledgeCountBadge");
+      const ksData = char.knowledge_skills || [];
+      if (ksBadge) {{
+        ksBadge.textContent = `${{ksData.length}} Logged`;
+      }}
+      if (ksList) {{
+        ksList.innerHTML = "";
+        if (ksData.length === 0) {{
+          ksList.innerHTML = "<div style='color: var(--text-muted); font-size: 0.9rem; padding: 12px;'>No knowledge skills, knowsofts, or languages logged.</div>";
+        }} else {{
+          ksData.forEach(ks => {{
+            const ksKey = "kskill_" + (ks.id || ks.name.toLowerCase().replace(/[^a-z0-9]/g, "_"));
+            const delta = getRuntimeMod(activeCharId, ksKey);
+            const isManualMod = (delta !== 0 || baseStatusPenalty > 0 || woundPenalty > 0);
+            const totalPenalty = woundPenalty + baseStatusPenalty;
+            const defaultPool = ks.buffed_pool || ks.pool || 0;
+            const totalPool = Math.max(0, defaultPool + delta - totalPenalty);
+            const boughtHits = Math.floor(totalPool / 4);
+
+            let badgeClass = "lore-badge";
+            let badgeText = ks.display_rating || "Lore";
+            if (ks.is_knowsoft) {{
+              badgeClass = "knowsoft-badge";
+              badgeText = ks.rating ? `Knowsoft R${{ks.rating}}` : "Knowsoft R3";
+            }} else if (ks.is_linguasoft) {{
+              badgeClass = "linguasoft-badge";
+              if (ks.rating >= 5) badgeText = "Linguasoft R5 (Expert)";
+              else if (ks.rating >= 3) badgeText = "Linguasoft R3 (Specialist)";
+              else if (ks.rating >= 1) badgeText = "Linguasoft R1 (Beginner)";
+              else badgeText = ks.rating ? `Linguasoft R${{ks.rating}}` : "Linguasoft";
+            }} else if (ks.is_native || ks.level === "Native") {{
+              badgeClass = "language-badge";
+              badgeText = "Native Language";
+            }} else if (ks.category === "Language") {{
+              badgeClass = "language-badge";
+              badgeText = ks.level ? `Language (${{ks.level}})` : "Language";
+            }}
+
+            const deltaBadge = delta !== 0 ? `<span class="mod-delta-badge ${{delta > 0 ? 'pos' : 'neg'}}">${{delta > 0 ? '+' + delta : delta}}</span>` : "";
+
+            const item = document.createElement("div");
+            item.className = "pool-item" + (isManualMod ? " manual-modified" : "");
+            item.innerHTML = `
+              <div class="pool-top">
+                <div class="skill-title-wrap">
+                  <span class="skill-name">${{ks.name}}</span>
+                  <span class="${{badgeClass}}">${{badgeText}}</span>
+                  ${{deltaBadge}}
+                </div>
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  ${{delta !== 0 ? `<button class="reset-all-btn" onclick="resetModifier('${{ksKey}}')" title="Reset modifier">↺</button>` : ''}}
+                  <button class="info-btn" title="Inspect Details">ℹ</button>
+                </div>
+              </div>
+              <div class="pool-main">
+                <div class="stepper-pool-wrap">
+                  <button class="stepper-btn minus" onclick="stepModifier('${{ksKey}}', -1)" title="Decrease Pool by 1">-</button>
+                  <div class="pool-target" title="Tap to Copy">
+                    <span class="pool-d6">${{totalPool}}d6</span>
+                    <span class="pool-sublabel">${{ks.breakdown || (ks.category + ' Test')}}</span>
+                  </div>
+                  <button class="stepper-btn plus" onclick="stepModifier('${{ksKey}}', 1)" title="Increase Pool by 1">+</button>
+                </div>
+                <div class="bought-hits-box">
+                  <span class="bought-hits-num">${{boughtHits}}</span>
+                  <span class="bought-hits-lbl">Bought Hits</span>
+                </div>
+              </div>
+              <div class="breakdown-drawer">
+                <div class="breakdown-math">📊 ${{ks.breakdown_text || ks.breakdown || (totalPool + 'd6')}} ${{delta !== 0 ? `| Live Modifier: ${{delta > 0 ? '+' + delta : delta}}` : ''}}</div>
+                ${{ks.notes ? `<div style="font-size: 0.82rem; color: var(--text-secondary); margin-top: 6px; line-height: 1.4;">${{ks.notes}}</div>` : ''}}
+              </div>
+            `;
+
+            // Click target to copy/toast
+            item.querySelector(".pool-target").addEventListener("click", () => {{
+              showToast(`⚡ ${{ks.name}}: ${{totalPool}}d6 (${{boughtHits}} Hits) [${{badgeText}}]`);
+            }});
+
+            const isDrawerOpen = openDrawers.has(ksKey);
+            if (isDrawerOpen) {{
+              const drawer = item.querySelector(".breakdown-drawer");
+              if (drawer) drawer.classList.add("open");
+            }}
+
+            // Toggle Breakdown Drawer
+            item.querySelector(".info-btn").addEventListener("click", (e) => {{
+              e.stopPropagation();
+              if (openDrawers.has(ksKey)) {{
+                openDrawers.delete(ksKey);
+              }} else {{
+                openDrawers.add(ksKey);
+              }}
+              const drawer = item.querySelector(".breakdown-drawer");
+              if (drawer) drawer.classList.toggle("open");
+            }});
+
+            ksList.appendChild(item);
+          }});
+        }}
+      }}
 
       // Weapons Tab
       const wList = document.getElementById("weaponsList");

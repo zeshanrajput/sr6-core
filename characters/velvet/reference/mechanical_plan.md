@@ -3,25 +3,21 @@
 This document tracks character upgrades, mechanical evaluations, karma/nuyen targets, and downtime action logistics for **Velvet (Kim Jin-Young)**, structured across the **3-Arc Mechanical Milestones**:
 
 * **Arc 1 Baseline (Chargen):** Magic 6, Grade 1 Channeling, 1 focus (Qi Focus R4 Sharp Tongue), baseline social/sorcery pools (11–15d).
-* **Arc 2 Target (First 100 TKE):** Magic 6, Initiation Grades 2–6 (*Power Points / Linguistics / Command Presence / Cloak*, *Psychometry*, *Centering*, *Subtle Magic*, *Masking*), Power Focus Rating 3, core utility spells (*Charm*, *Fashion*, *Physical Barrier*), core untrained skill repairs.
-* **Arc 3 Target (200+ TKE):** Magic 8, Initiation Grades 7–8 (*Magician's Way*, *Flexible Signature* / *Invocation*), Great Form summoning, full bonded focus suite (Power Focus R4+, Qi Focus Sorcery/Conjuring, Weapon Focus), prime-tier dice pools ($20+$).
+* **Arc 2 Target (First 100 TKE):** Magic 6, Initiation Grades 2–6 (*Power Points / Linguistics / Command Presence / Cloak*, *Invocation*, *Centering*, *Masking*, *Great Form Channeling*), Power Focus Rating 3, core utility spells (*Charm*, *Fashion*, *Physical Barrier*), core untrained skill repairs.
+* **Arc 3 Target (200+ TKE):** Magic 8, Initiation Grades 7–8 (*Stealth Effect*, *The Magician's Way*), full bonded focus suite (Power Focus R3/R4, Qi Focus Sorcery/Conjuring, Sustaining Focus), prime-tier dice pools ($20+$).
 
 *(Note: This is an internal reference document and is not published in the Quarto narrative book).*
 
 ---
 
-## 1. Executive Summary & Resource Balances
+## 1. Architectural Principles & Campaign Rules
 
-* **Current Available Karma:** 3 Karma (Post-SRM 2081-12; Unlocked *Mentor Spirit: Wise Warrior* & *Initiation Grade 3: Psychometry*)
-* **Current Nuyen Balance:** ¥5,465 (Liquid reserve banked towards SRM #6 Lifestyle & Coven dues)
-* **Magic:** 6 | **Power Points:** 3.0 (2.0 on *Cosmetic Control R2*, 1.0 on *Linguistics, Command Presence, Cloak R1*)
-* **Active Foci Bonded:** Rating 3 Power Focus (3 Force / 18 Max Bonding Limit)
-* **Initiation Grade:** 3 (Metamagics: *Channeling*, *Power Point*, *Psychometry*)
-* **Mentor Spirit:** *Wise Warrior* (Edge boost cost discount on Influence/Leadership + 1 free rank of Improved Ability: Close Combat)
-* **Coven Affiliation:** Guild of Freelance Assets (Conclave Connection 7, Loyalty 8)
-  * *Downtime Logistics:* SRM campaign rules require dedicating every other Major Downtime Action to coven maintenance to retain access to initiation backing and conclave resources (next due on SRM #6).
-* **Affiliations & Benefits:** Seattle Shadow Chapters (Inducted in SRM 2081-12; 12-Month DocWagon Gold Contract active).
-* **Immediate Target:** Banking Karma for core tactical spells (*Charm*, 5 Karma; *Fashion* & *Physical Barrier*, 10 Karma) and repairing untrained core skills (*Astral 1*, *Perception 1*, 10 Karma total).
+* **Dynamic State Source of Truth:** All live balances (current Karma, liquid nuyen, active Initiation Grade, bonded foci Force, and attribute levels) are dynamically tracked in the core Markdown Trio ([`character_log.qmd`](file:///c:/GitHub/sr6-core/characters/velvet/character_log.qmd), [`character_purchases.qmd`](file:///c:/GitHub/sr6-core/characters/velvet/character_purchases.qmd), [`character_build.qmd`](file:///c:/GitHub/sr6-core/characters/velvet/character_build.qmd)) and compiled into [`velvet_master.yaml`](file:///c:/GitHub/sr6-core/characters/velvet/velvet_master.yaml). This reference document contains only mechanical roadmaps, rules calibrations, and upgrade sequencing.
+* **Coven Affiliation & Downtime Action Rhythm:** Guild of Freelance Assets (Conclave Connection 7, Loyalty 8).
+  * *Downtime Logistics:* SRM campaign rules require dedicating every other Major Downtime Action to coven maintenance to retain access to initiation backing, ritual circles, and conclave procurement discounts.
+* **Initiation Cost Formula:** In SRM with an active coven, initiation Karma cost is calculated as:
+  $$\text{Cost} = 10 + \text{Target Grade} - \text{Coven Loyalty (8)}$$
+  *(Minimum 1 Karma. This formula allows single-session payouts on odd cycles to directly fund metamagic advancement).*
 * **Post-Chargen Quality Cost Rule:** In SRM, purchasing positive qualities during play costs **double the listed Karma** (e.g., a 4K quality costs **8K**, 6K costs **12K**, 12K costs **24K**), while **Mentor Spirit** has a fixed cost of **20 Karma**.
 * **Focus Bonding Cap Rule:** Maximum bonded focus Force is $\text{Magic} \times 3$ (18 Force at Magic 6; 21 Force at Magic 7; 24 Force at Magic 8).
 
@@ -47,22 +43,20 @@ This document tracks character upgrades, mechanical evaluations, karma/nuyen tar
 ├────────────────────────────────┴──────────────┴──────────────┴──────────────┤
 │ STEP 1: IMMEDIATE CORE ENGINE & PRIMARY MULTIPLIERS (15–20 Karma / ¥50k+)   │
 ├────────────────────────────────┬──────────────┬──────────────┬──────────────┤
-│ Power Focus (Rating 3)         │ Focus        │ ¥54k + 18 K  │ [ACQUIRED]   │
-│ Mentor Spirit: Wise Warrior    │ Quality      │ 20 Karma     │ [ACQUIRED]   │
+│ Power Focus (Rating 3)         │ Focus        │ ¥54k + 18 K  │ +3 All Magic │
+│ Mentor Spirit: Wise Warrior    │ Quality      │ 20 Karma     │ Dual Synergy │
 ├────────────────────────────────┴──────────────┴──────────────┴──────────────┤
 │ OPPORTUNITY STEP: METAMAGIC PROGRESSION (Session-Funded on Odd Cycles)      │
 ├────────────────────────────────┬──────────────┬──────────────┬──────────────┤
-│ Initiation Grade 3             │ Metamagic    │ 4 Karma*     │ [ACQUIRED]   │
-│   (Psychometry)                │              │              │ (SRM 2081-12)│
-│ Initiation Grade 4 (Centering) │ Metamagic    │ 6 Karma*     │ +4 Drain Dice│
-│ Initiation Grade 5             │ Metamagic    │ 7 Karma*     │ Ghost Casting│
-│   (Subtle Magic) (DA p 173)    │              │              │ & Silent Cast│
-│ Initiation Grade 6 (Masking)   │ Metamagic    │ 8 Karma*     │ Aura Disguise│
-│                                │              │              │ & Focus Mask │
-│ Initiation Grade 7 (Magician's │ Metamagic    │ 9 Karma*     │ Dual Mentor  │
-│   Way) [Req. Magic 7]          │              │              │ & Adept Drain│
-│ Initiation Grade 8 (Flexible   │ Metamagic    │ 10 Karma*    │ Astral Trace │
-│   Signature) [Req. Magic 8]    │              │              │ Erasure      │
+│ Initiation Grade 3 (Invocation)│ Metamagic    │ 4 Karma*     │ Great Forms  │
+│ Initiation Grade 4 (Centering) │ Metamagic    │ 6 Karma*     │ +Grade Drain │
+│ Initiation Grade 5 (Masking)   │ Metamagic    │ 7 Karma*     │ Aura Disguise│
+│ Initiation Grade 6             │ Metamagic    │ 8 Karma*     │ ItNW 2 +     │
+│   (Great Form Channeling)      │              │              │ Regeneration │
+│ Initiation Grade 7             │ Metamagic    │ 9 Karma*     │ Ghost Casting│
+│   (Stealth Effect)             │              │              │ & Silent Cast│
+│ Initiation Grade 8             │ Metamagic    │ 10 Karma*    │ Dual Mentor  │
+│   (The Magician's Way)         │              │              │ & Adept Drain│
 ├────────────────────────────────┴──────────────┴──────────────┴──────────────┤
 │ STEP 2: ATTRIBUTE ACCRETION & OFFENSIVE POWER-PEAK (Sorcery +3 Focus)       │
 ├────────────────────────────────┬──────────────┬──────────────┬──────────────┤
@@ -91,7 +85,7 @@ This document tracks character upgrades, mechanical evaluations, karma/nuyen tar
 
 ### A. Untrained Core Skill Repair (The Best 5-Karma Investments)
 
-* **The Problem:** Velvet currently has 0 ranks in `Astral`, `Perception`, `Stealth`, and `Athletics`. Attempting these tests untrained incurs a **-1 die penalty** (rolling `Attribute - 1` = only 2 dice for Intuition 3 or Agility 3).
+* **The Untrained Penalty:** Attempting tests untrained in `Astral`, `Perception`, `Stealth`, or `Athletics` incurs a **-1 die penalty** (rolling `Attribute - 1` = only 2 dice for Intuition 3 or Agility 3).
 * **The 5-Karma Fix:** Buying Rating 1 in a skill costs $\text{Rating} \times 5 = \mathbf{5\text{ Karma}}$.
 * **The ROI:** Buying Rating 1 removes the -1 penalty and adds the +1 skill rank, producing an immediate **+2 dice pool swing** (from 2 dice to 4 dice) for each 5 Karma spent:
   * **Astral 1 (5 Karma):** Active assensing, reading emotional aura hues, spotting watcher spirits and astral wards without defaulting.
@@ -103,11 +97,11 @@ This document tracks character upgrades, mechanical evaluations, karma/nuyen tar
 
 ### B. Early `Mentor Spirit: Wise Warrior` (20 Karma)
 
-* **Why Take It Early (Step 06):**
+* **Why Take It Early (Core Priority):**
   * In SRM post-chargen, Mentor Spirit costs a flat 20 Karma.
   * **All/Social Benefit:** Grants an **Edge boost cost discount on Influence and Leadership tests** (cutting Edge costs for rerolls and social leverage across all face interactions).
-  * **Adept Choice (Upfront):** Taking the **Adept advantage** grants **1 free level of Improved Ability** on a Combat skill (e.g., Close Combat / Sorcery combat / Firearms), providing an immediate +1 die combat benefit worth 0.5 PP without casting a spell or risking drain.
-  * **Adept Synergy with *Magician's Way* (Grade 7):** When paired later with *The Magician's Way*, it unlocks the **Magician benefit** (Edge boost discounts on Combat spells) and allows Adept drain to be resisted with Body + Charisma (12 dice!).
+  * **Adept Choice (Upfront):** Taking the **Adept advantage** grants **1 free level of Improved Ability** on a Combat skill, selected as **Sorcery** (Combat spellcasting). This provides an immediate +1 die bonus to Sorcery tests without casting a spell or risking drain.
+  * **Adept Synergy with *Magician's Way* (Grade 8):** When paired later with *The Magician's Way*, it unlocks the **Magician benefit** (Edge boost discounts on Combat spells) and allows Adept drain to be resisted with Body + Charisma (12–14 dice!).
   * Taking it in Step 1 immediately sharpens Velvet's core competence across both Social and Magic encounters.
 
 ---
@@ -120,7 +114,7 @@ This document tracks character upgrades, mechanical evaluations, karma/nuyen tar
 
 ---
 
-### D. Grade 2 Power Point (1.0 PP Bundle — Active)
+### D. Grade 2 Power Point Selection (1.0 PP Bundle)
 
 * **`Linguistics` (0.25 PP, *Street Wyrd*):** Passively learn any spoken language at basic fluency after **1 hour of active listening**, completely bypassing language skill Karma costs and study downtime. Crucial for international deployments (Hong Kong Cantonese/Mandarin, MCT Japanese, European Dutch/Russian).
 * **`Command Presence` (0.5 PP, *Street Wyrd*):** Grants **+2 dice and +1 Edge** on all Influence tests, turning Velvet into an immediate Edge-generating command engine for the squad.
@@ -128,28 +122,33 @@ This document tracks character upgrades, mechanical evaluations, karma/nuyen tar
 
 ---
 
-### E. The Finalized Metamagic Sequencing (Grades 3–7)
+### E. The Finalized Metamagic Sequencing (Grades 3–8)
 
-1. **Grade 3: `Psychometry` (*Street Wyrd*, p. 112 — 5 Karma):**
-   * **Thematic Centerpiece:** Directly activates **The Path of the Thousand Lives** (*Bin Geureut* / *Mansin*). Touching an object, crime scene, hostage garment, or target’s personal belongings unlocks vivid sensory flashbacks, emotional resonance, and owner history.
-   * **Disguise & Infiltration Depth:** Informs *Cosmetic Control* with genuine somatic tics, vocal cadence, and psychological nuances for flawless impersonation.
-   * **Investigative Agency:** Rolls $\text{Astral} + \text{Intuition} + \text{Grade}$ (9–12 dice with Power Focus) to bypass mystery gates during pre-run legwork.
+1. **Grade 3: `Invocation` (*Street Wyrd*, p. 113 — 4 Karma post-coven discount):**
+   * **Thematic Centerpiece:** Deepens the *Bin Geureut* medium archetype, unlocking **Great Form Spirits** (Force 5+).
+   * **Automatic Great Form Powers (SRMG p. 66):** Great Form Plant Spirits automatically receive **Regeneration**; Guardian Spirits receive **Storm**; Guidance Spirits receive **Temporal Displacement**.
+   * **Crucial Prerequisite:** Satisfies the mandatory prerequisite (`Prerequisite: Invoking, Channeling`) for *Great Form Channeling* at Grade 6.
 
-2. **Grade 4: `Centering` (*Core Rulebook*, p. 115 — 6 Karma):**
-   * **Mechanic:** Minor Action mundane tradition action adds **+Initiate Grade dice (+4 dice)** to Drain Resistance tests.
-   * **Preparation for High Drain:** Elevates baseline drain soak to **19–23 dice**, perfectly preparing Velvet to absorb the +2 DV surcharge of *Subtle Magic* and overcasting high-impact manipulation spells.
+2. **Grade 4: `Centering` (*Street Wyrd*, p. 112; *CRB*, p. 164 — 6 Karma post-coven discount):**
+   * **Mechanic:** Adds **Initiate Grade (+4)** to Drain Resistance tests.
+   * **Tabletop Impact:** Velvet's baseline drain resistance pool jumps immediately to **11+ dice** (Body 2 + Willpower 5 + Centering 4), insulating Velvet against drain while sustaining multiple spells or casting at higher Force.
 
-3. **Grade 5: `Subtle Magic` / `Stealth Effect` (*Deadly Arts*, p. 173; *SRMG*, p. 75 — 7 Karma):**
-   * **Mechanic:** Costs 1 Minor Action, +2 Drain Value. Camouflages physical spell manifestations and adds **Initiate Grade (+5)** to the Perception threshold to detect spellcasting.
-   * **Ghost Infiltration Synergy:** Allows casting while under Spirit *Concealment* or *Improved Invisibility* without breaking stealth or revealing position with light flares. Enables undetectable table-side social spellcasting (*Charm*, *Fashion*, *Influence*) during corporate dinners or syndicate meets.
+3. **Grade 5: `Masking` (*Core Rulebook*, p. 165; *SRMG*, p. 7 — 7 Karma post-coven discount):**
+   * **Mechanic:** Opposes Assensing with $\text{Magic} + \text{Initiate Grade}$ (11+ dice). Disguises aura as mundane and masks bonded foci up to Initiate Grade (up to 5 foci).
+   * **Aura Security:** Essential for black-site and corporate social infiltration, preventing astral mages or security spirits from identifying Velvet as an Awakened initiate or detecting the Force 3 Power Focus collar.
 
-4. **Grade 6: `Masking` (*Core Rulebook*, p. 115; *SRMG*, p. 7 — 8 Karma):**
-   * **Mechanic:** Opposes Assensing with $\text{Magic} + \text{Initiate Grade}$ (12+ dice). Disguises aura as mundane and masks up to **6 bonded foci**.
-   * **Deep Black-Site Cover:** Deployed as the late Arc 2 capstone when infiltrating ultra-secure facilities with active astral scanning probes.
+4. **Grade 6: `Great Form Channeling` (*Street Wyrd*, p. 114 — 8 Karma post-coven discount):**
+   * **The Apex Tank:** Channeling a Force 6 Great Form Plant Spirit into Velvet's own body grants **Immunity to Normal Weapons (ItNW 2)** (+2 DR, +2 auto soak hits, bounces attacks < 2 DV) and passive **Regeneration** (heals 8–9 boxes every combat round).
+   * **Zero Cyberware Penalty:** Because Velvet has 0 augmentations and Essence 6.0, they suffer zero cyberware rejection damage under SRM rules.
+   * **Physical Stat Surge:** Adds +3 to all physical stats lower than Force 6 (Body $2 \rightarrow 5$, Agility $3 \rightarrow 6$, Reaction $2 \rightarrow 5$, Strength $2 \rightarrow 5$) and ignores up to 6 wound penalty boxes.
 
-5. **Grade 7: `Magician's Way` (*Street Wyrd*, p. 5 — 9 Karma, Req. Magic 7):**
-   * **Adept Drain Mastery:** Allows resisting Adept drain with $\text{Body} + \text{Charisma}$ (**12 dice** instead of Body+Willpower 7 dice).
-   * **Dual Mentor Power:** Unlocks the Magician benefit of *Wise Warrior* (Edge boost discount on Combat spells) alongside the existing Adept combat bonus.
+5. **Grade 7: `Stealth Effect` / `Subtle Magic` (*Deadly Arts*, p. 173; *SRMG*, p. 75 — 9 Karma post-coven discount):**
+   * **Mechanic:** Costs 1 Minor Action, +2 Drain Value. Camouflages physical spell manifestations and adds **Initiate Grade (+7)** to the Perception threshold to detect spellcasting.
+   * **Ghost Infiltration Synergy:** Allows casting while under Spirit *Concealment* or *Improved Invisibility* without breaking stealth or revealing position with light flares. Enables undetectable table-side social spellcasting (*Charm*, *Fashion*, *Influence*) during high-security dinners or syndicate meets.
+
+6. **Grade 8: `The Magician's Way` (*Street Wyrd*, p. 5 — 10 Karma post-coven discount, Req. Magic 7/8):**
+   * **Adept Drain Mastery:** Allows resisting Adept drain with $\text{Body} + \text{Charisma}$ (**12–14 dice** instead of Body+Willpower 7 dice).
+   * **Dual Mentor Power:** Unlocks the Magician benefit of *Wise Warrior* (Edge boost discount on Combat spells) alongside the existing Adept combat bonus (Improved Ability: Sorcery).
 
 ---
 
@@ -212,29 +211,29 @@ This document tracks character upgrades, mechanical evaluations, karma/nuyen tar
 
 | Step | Target Upgrade | Cost | Downtime Actions Needed | Funding Mechanism |
 | :--- | :--- | :--- | :--- | :--- |
-| **01** | **Power Focus (Rating 3)** | ¥54,000 / 18 K | Procure via Conclave / Vincent | **ACQUIRED & BONDED** (CMP 2081-10) |
-| **02** | **Core Charisma Spell: `Charm`** | 5 Karma | Study | Banked Karma (Active Target) |
-| **03** | **Opportunity Event 1: Initiation Grade 3 (Psychometry)** | **4 Karma** | 1 Major Downtime Action | **ACQUIRED** (SRM 2081-12 The Red Pill) |
+| **01** | **Power Focus (Rating 3)** | ¥54,000 / 18 K | Procure via Conclave / Vincent | Conclave Purchase & Bonded |
+| **02** | **Core Charisma Spell: `Charm`** | 5 Karma | Study | Banked Karma |
+| **03** | **Initiation Grade 3: `Invocation`** | **4 Karma** | 1 Major Downtime Action | Coven-Backed Initiation (Great Forms) |
 | **04** | **Tactical Utility Spell Suite 1 (`Fashion`, `Physical Barrier`)** | 10 Karma | Study | Banked Karma |
 | **05** | **Untrained Skill Suite 1 (Astral 1, Perception 1)** | 10 Karma | None (Between runs) | Banked Karma |
-| **06** | **Early Quality: `Mentor Spirit (Wise Warrior)`** | 20 Karma | Spiritual Quests | **ACQUIRED** (SRM 2081-12 The Red Pill) |
-| **07** | **Mandatory Coven Action & SRM #6 Rent** | ¥7,400 | 1 Major Downtime Action | Coven Maintenance & Low Lifestyle (SRM #6) |
-| **08** | **Opportunity Event 2: Initiation Grade 4 (Centering)** | **6 Karma** | 1 Major Downtime Action | Session-funded (+4 Drain Soak Dice) |
+| **06** | **Positive Quality: `Mentor Spirit (Wise Warrior)`** | 20 Karma | Spiritual Quests | Banked Karma (Dual Benefit) |
+| **07** | **Mandatory Coven Action & Lifestyle** | Sustained Nuyen | 1 Major Downtime Action | Coven Maintenance & Low Lifestyle |
+| **08** | **Initiation Grade 4: `Centering`** | **6 Karma** | 1 Major Downtime Action | Coven-Backed Initiation (+4 Drain Soak) |
 | **09** | **Untrained Skill Suite 2 (Stealth 1, Athletics 1)** | 10 Karma | None | Banked Karma |
 | **10** | **Tactical Sabotage Spell Suite 2 (`Sterilize`, `Wreck (Drones)`)** | 10 Karma | Study | Banked Karma |
 | **11** | **Hardware Upgrade: M-TOC Tactical Network Node** | ¥15k–¥30k | None (Procure on market) | Mission Nuyen |
 | **12** | **Mandatory Coven Action** | — | 1 Major Downtime Action | Coven Maintenance |
-| **13** | **Opportunity Event 3: Initiation Grade 5 (Subtle Magic)** | **7 Karma** | 1 Major Downtime Action | Session-funded (Ghost Casting under Concealment / Silent Social) |
+| **13** | **Initiation Grade 5: `Masking`** | **7 Karma** | 1 Major Downtime Action | Coven-Backed Initiation (Aura & Focus Disguise) |
 | **14** | **Mandatory Coven Action** | — | 1 Major Downtime Action | Coven Maintenance |
-| **15** | **Opportunity Event 4: Initiation Grade 6 (Masking)** | **8 Karma** | 1 Major Downtime Action | Session-funded (Aura Disguise & Focus Concealment) |
+| **15** | **Initiation Grade 6: `Great Form Channeling`** | **8 Karma** | 1 Major Downtime Action | Coven-Backed Initiation (ItNW 2 & Regeneration) |
 | **16** | **Attribute Capstone 1: Magic 6 $\rightarrow$ 7** | 35 Karma | None (Between runs) | Banked Karma (Expands Bonding Cap to 21 Force) |
 | **17** | **Mandatory Coven Action** | — | 1 Major Downtime Action | Coven Maintenance |
-| **18** | **Opportunity Event 5: Initiation Grade 7 (Magician's Way)** | **9 Karma** | 1 Major Downtime Action | Session-funded (Body+Charisma Adept Drain & Dual Mentor Synergy) |
+| **18** | **Initiation Grade 7: `Stealth Effect`** | **9 Karma** | 1 Major Downtime Action | Coven-Backed Initiation (Silent/Concealed Casting) |
 | **19** | **Power-Peak Qi Focus 1: `Improved Sorcery R3`** | ¥36,000 / 24 K | Craft / Procure via Conclave | Mission Nuyen + Banked Karma (+3 Sorcery) |
 | **20** | **Tactical Spell Suite 3 (`Heal`, `Wreck (Vehicles)`)** | 10 Karma | Study | Banked Karma |
 | **21** | **Mandatory Coven Action** | — | 1 Major Downtime Action | Coven Maintenance |
 | **22** | **Attribute Capstone 2: Magic 7 $\rightarrow$ 8** | 40 Karma | None | Banked Karma (Expands Bonding Cap to 24 Force) |
-| **23** | **Opportunity Event 6: Initiation Grade 8 (Flexible Sig)** | **10 Karma** | 1 Major Downtime Action | Session-funded (Late-Arc Trace Erasure) |
+| **23** | **Initiation Grade 8: `The Magician's Way`** | **10 Karma** | 1 Major Downtime Action | Coven-Backed Initiation (Body+Cha Drain & Dual Mentor) |
 | **24** | **Power-Peak Qi Focus 2: `Improved Conjuring R3`** | ¥36,000 / 24 K | Craft / Procure via Conclave | Mission Nuyen + Banked Karma (20d / 5 Hits vs F8) |
 | **25** | **Charisma Synergy Quality: `Teamwork Makes Dream Work`** | 12 Karma (2x6) | Practice | Banked Karma |
 | **26** | **Late Arc Quality: `Charismatic Defense`** | 24 Karma (2x12) | Mastery | Banked Karma |

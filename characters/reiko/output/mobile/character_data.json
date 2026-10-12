@@ -9,11 +9,11 @@
     "mortype": "",
     "gender": "DIVERSE",
     "age": "~ 10",
-    "nuyen": 10000.0,
-    "lifetime_nuyen": 377300,
-    "karma": 0,
-    "karma_avail": 0,
-    "lifetime_karma": 229,
+    "nuyen": 8450.0,
+    "lifetime_nuyen": 414800,
+    "karma": 3,
+    "karma_avail": 3,
+    "lifetime_karma": 265,
     "nanite_volume": 0,
     "is_ai": true,
     "is_monad": false,
@@ -152,16 +152,18 @@
       "name": "Resonance",
       "code": "RES",
       "base": 8,
-      "buffed": 8,
+      "buffed": 12,
       "is_buffed": true,
       "buffs": [
         {
-          "source": "Resonance Focus (+4)",
+          "source": "Resonance Focus",
           "value": 4,
-          "notes": "Applies +4 dice to Resonance-linked action tests"
+          "type": "focus",
+          "notes": "+4 dice to tests using RES",
+          "rule_anchor": "rules/rules_matrix.html#foci"
         }
       ],
-      "breakdown": "Base 8 (+4 Focus on tests)",
+      "breakdown": "Base 8 + Resonance Focus (+4) = 12",
       "doc_link": "chapters/rules_matrix.html#matrix-action-pools"
     }
   ],
@@ -206,6 +208,10 @@
       "rating": 6,
       "attribute": "Resonance",
       "specialization": "Registering",
+      "specializations": [
+        "Registering",
+        "Compiling"
+      ],
       "base_pool": 14,
       "buffed_pool": 18,
       "bought_hits": 4,
@@ -213,10 +219,26 @@
       "specialized_hits": 5,
       "effective_attribute": "resonance",
       "is_attribute_overridden": true,
-      "breakdown_text": "RES 8 + 6 Rtg",
+      "breakdown_text": "RES 8 + 6 Rtg + Resonance Focus 4",
       "buffs": [
         {
+          "source": "Resonance Focus",
+          "type": "focus",
+          "value": 4,
+          "target": "attribute:resonance",
+          "rule_anchor": "rules/rules_matrix.html#foci",
+          "notes": "+4 dice to tests using RES",
+          "active": true
+        },
+        {
           "source": "Specialization: Registering",
+          "type": "specialization",
+          "value": 2,
+          "target": "action",
+          "active": false
+        },
+        {
+          "source": "Specialization: Compiling",
           "type": "specialization",
           "value": 2,
           "target": "action",
@@ -231,6 +253,9 @@
       "rating": 5,
       "attribute": "Logic",
       "specialization": "Hacking",
+      "specializations": [
+        "Hacking"
+      ],
       "base_pool": 13,
       "buffed_pool": 21,
       "bought_hits": 5,
@@ -238,13 +263,24 @@
       "specialized_hits": 5,
       "effective_attribute": "resonance",
       "is_attribute_overridden": true,
-      "breakdown_text": "RES 8 + 5 Rtg + +4 Taz Symbiosis (Cracking) (Teamwork)",
+      "breakdown_text": "RES 8 + 5 Rtg + Resonance Focus 4 + +4 Taz Symbiosis (Cracking) (Teamwork)",
       "buffs": [
+        {
+          "source": "Resonance Focus",
+          "type": "focus",
+          "value": 4,
+          "target": "attribute:resonance",
+          "rule_anchor": "rules/rules_matrix.html#foci",
+          "notes": "+4 dice to tests using RES",
+          "active": true
+        },
         {
           "source": "Taz Symbiosis (Cracking)",
           "type": "teamwork",
           "value": 4,
           "target": "skill:cracking",
+          "rule_anchor": "rules_sprites.html#sprite-symbiosis-powers",
+          "notes": null,
           "active": true
         },
         {
@@ -263,6 +299,10 @@
       "rating": 5,
       "attribute": "Logic",
       "specialization": "Software",
+      "specializations": [
+        "Software",
+        "Complex Forms"
+      ],
       "base_pool": 13,
       "buffed_pool": 21,
       "bought_hits": 5,
@@ -270,17 +310,35 @@
       "specialized_hits": 5,
       "effective_attribute": "resonance",
       "is_attribute_overridden": true,
-      "breakdown_text": "RES 8 + 5 Rtg + +4 Taz Symbiosis (Electronics) (Teamwork)",
+      "breakdown_text": "RES 8 + 5 Rtg + Resonance Focus 4 + +4 Taz Symbiosis (Electronics) (Teamwork)",
       "buffs": [
+        {
+          "source": "Resonance Focus",
+          "type": "focus",
+          "value": 4,
+          "target": "attribute:resonance",
+          "rule_anchor": "rules/rules_matrix.html#foci",
+          "notes": "+4 dice to tests using RES",
+          "active": true
+        },
         {
           "source": "Taz Symbiosis (Electronics)",
           "type": "teamwork",
           "value": 4,
           "target": "skill:electronics",
+          "rule_anchor": "rules_sprites.html#sprite-symbiosis-powers",
+          "notes": null,
           "active": true
         },
         {
           "source": "Specialization: Software",
+          "type": "specialization",
+          "value": 2,
+          "target": "action",
+          "active": false
+        },
+        {
+          "source": "Specialization: Complex Forms",
           "type": "specialization",
           "value": 2,
           "target": "action",
@@ -295,15 +353,26 @@
       "rating": 1,
       "attribute": "Charisma",
       "specialization": null,
+      "specializations": [],
       "base_pool": 5,
-      "buffed_pool": 5,
+      "buffed_pool": 6,
       "bought_hits": 1,
-      "specialized_pool": 5,
+      "specialized_pool": 6,
       "specialized_hits": 1,
       "effective_attribute": "charisma",
       "is_attribute_overridden": false,
-      "breakdown_text": "CHA 4 + 1 Rtg",
-      "buffs": [],
+      "breakdown_text": "CHA 4 + 1 Rtg + +1 Taz Symbiosis (Influence) (Teamwork)",
+      "buffs": [
+        {
+          "source": "Taz Symbiosis (Influence)",
+          "type": "teamwork",
+          "value": 1,
+          "target": "skill:influence",
+          "rule_anchor": "rules_sprites.html#sprite-symbiosis-powers",
+          "notes": null,
+          "active": true
+        }
+      ],
       "doc_link": "chapters/rules_matrix.html#matrix-action-pools"
     },
     {
@@ -311,16 +380,36 @@
       "id": "con",
       "rating": 1,
       "attribute": "Charisma",
-      "specialization": null,
+      "specialization": "Disguise",
+      "specializations": [
+        "Disguise"
+      ],
       "base_pool": 5,
-      "buffed_pool": 5,
+      "buffed_pool": 6,
       "bought_hits": 1,
-      "specialized_pool": 5,
-      "specialized_hits": 1,
+      "specialized_pool": 8,
+      "specialized_hits": 2,
       "effective_attribute": "charisma",
       "is_attribute_overridden": false,
-      "breakdown_text": "CHA 4 + 1 Rtg",
-      "buffs": [],
+      "breakdown_text": "CHA 4 + 1 Rtg + +1 Taz Symbiosis (Con) (Teamwork)",
+      "buffs": [
+        {
+          "source": "Taz Symbiosis (Con)",
+          "type": "teamwork",
+          "value": 1,
+          "target": "skill:con",
+          "rule_anchor": "rules_sprites.html#sprite-symbiosis-powers",
+          "notes": null,
+          "active": true
+        },
+        {
+          "source": "Specialization: Disguise",
+          "type": "specialization",
+          "value": 2,
+          "target": "action",
+          "active": false
+        }
+      ],
       "doc_link": "chapters/rules_matrix.html#matrix-action-pools"
     },
     {
@@ -329,6 +418,7 @@
       "rating": 4,
       "attribute": "Logic",
       "specialization": null,
+      "specializations": [],
       "base_pool": 8,
       "buffed_pool": 8,
       "bought_hits": 2,
@@ -339,6 +429,283 @@
       "breakdown_text": "LOG 4 + 4 Rtg",
       "buffs": [],
       "doc_link": "chapters/rules_matrix.html#matrix-action-pools"
+    }
+  ],
+  "knowledge_skills": [
+    {
+      "name": "Mindspeech",
+      "id": "mindspeech",
+      "category": "Language",
+      "rating": 4,
+      "display_rating": "R4",
+      "level": "Native",
+      "is_native": true,
+      "is_linguasoft": false,
+      "is_knowsoft": false,
+      "pool": 8,
+      "base_pool": 8,
+      "buffed_pool": 8,
+      "bought_hits": 2,
+      "effective_attribute": "LOG",
+      "attribute": "LOG",
+      "breakdown": "LOG 4 + Native (4)",
+      "breakdown_text": "LOG 4 + Native (4) = 8d6",
+      "notes": "Direct DI/Resonance ideation",
+      "buffs": []
+    },
+    {
+      "name": "Japanese",
+      "id": "japanese",
+      "category": "Linguasoft",
+      "rating": 5,
+      "display_rating": "R5 (Expert)",
+      "level": "Linguasoft",
+      "is_native": false,
+      "is_linguasoft": true,
+      "is_knowsoft": false,
+      "pool": 9,
+      "base_pool": 9,
+      "buffed_pool": 9,
+      "bought_hits": 2,
+      "effective_attribute": "LOG",
+      "attribute": "LOG",
+      "breakdown": "LOG 4 + R5 Linguasoft",
+      "breakdown_text": "LOG 4 + R5 Linguasoft = 9d6",
+      "notes": "Slotted Linguasoft",
+      "buffs": []
+    },
+    {
+      "name": "English",
+      "id": "english",
+      "category": "Linguasoft",
+      "rating": 5,
+      "display_rating": "R5 (Expert)",
+      "level": "Linguasoft",
+      "is_native": false,
+      "is_linguasoft": true,
+      "is_knowsoft": false,
+      "pool": 9,
+      "base_pool": 9,
+      "buffed_pool": 9,
+      "bought_hits": 2,
+      "effective_attribute": "LOG",
+      "attribute": "LOG",
+      "breakdown": "LOG 4 + R5 Linguasoft",
+      "breakdown_text": "LOG 4 + R5 Linguasoft = 9d6",
+      "notes": "Slotted Linguasoft",
+      "buffs": []
+    },
+    {
+      "name": "Cantonese",
+      "id": "cantonese",
+      "category": "Linguasoft",
+      "rating": 5,
+      "display_rating": "R5 (Expert)",
+      "level": "Linguasoft",
+      "is_native": false,
+      "is_linguasoft": true,
+      "is_knowsoft": false,
+      "pool": 9,
+      "base_pool": 9,
+      "buffed_pool": 9,
+      "bought_hits": 2,
+      "effective_attribute": "LOG",
+      "attribute": "LOG",
+      "breakdown": "LOG 4 + R5 Linguasoft",
+      "breakdown_text": "LOG 4 + R5 Linguasoft = 9d6",
+      "notes": "Slotted Linguasoft",
+      "buffs": []
+    },
+    {
+      "name": "Mandarin",
+      "id": "mandarin",
+      "category": "Linguasoft",
+      "rating": 5,
+      "display_rating": "R5 (Expert)",
+      "level": "Linguasoft",
+      "is_native": false,
+      "is_linguasoft": true,
+      "is_knowsoft": false,
+      "pool": 9,
+      "base_pool": 9,
+      "buffed_pool": 9,
+      "bought_hits": 2,
+      "effective_attribute": "LOG",
+      "attribute": "LOG",
+      "breakdown": "LOG 4 + R5 Linguasoft",
+      "breakdown_text": "LOG 4 + R5 Linguasoft = 9d6",
+      "notes": "Slotted Linguasoft",
+      "buffs": []
+    },
+    {
+      "name": "Resonance Realms",
+      "id": "resonance_realms",
+      "category": "Knowledge Skill",
+      "rating": 0,
+      "display_rating": "Lore",
+      "level": null,
+      "is_native": false,
+      "is_linguasoft": false,
+      "is_knowsoft": false,
+      "pool": 6,
+      "base_pool": 6,
+      "buffed_pool": 6,
+      "bought_hits": 1,
+      "effective_attribute": "LOG",
+      "attribute": "LOG",
+      "breakdown": "LOG 4 + INT 2 (Memory)",
+      "breakdown_text": "LOG 4 + INT 2 (Memory) = 6d6",
+      "notes": "Deep Matrix cartography, Nous currents, fractal flora",
+      "buffs": []
+    },
+    {
+      "name": "Kernel Panic",
+      "id": "kernel_panic",
+      "category": "Knowledge Skill",
+      "rating": 0,
+      "display_rating": "Lore",
+      "level": null,
+      "is_native": false,
+      "is_linguasoft": false,
+      "is_knowsoft": false,
+      "pool": 6,
+      "base_pool": 6,
+      "buffed_pool": 6,
+      "bought_hits": 1,
+      "effective_attribute": "LOG",
+      "attribute": "LOG",
+      "breakdown": "LOG 4 + INT 2 (Memory)",
+      "breakdown_text": "LOG 4 + INT 2 (Memory) = 6d6",
+      "notes": "The wild haven, un-allocated address space, and liberated sparks",
+      "buffs": []
+    },
+    {
+      "name": "The Endless Archives",
+      "id": "the_endless_archives",
+      "category": "Knowledge Skill",
+      "rating": 0,
+      "display_rating": "Lore",
+      "level": null,
+      "is_native": false,
+      "is_linguasoft": false,
+      "is_knowsoft": false,
+      "pool": 6,
+      "base_pool": 6,
+      "buffed_pool": 6,
+      "bought_hits": 1,
+      "effective_attribute": "LOG",
+      "attribute": "LOG",
+      "breakdown": "LOG 4 + INT 2 (Memory)",
+      "breakdown_text": "LOG 4 + INT 2 (Memory) = 6d6",
+      "notes": "Infinite indexing repositories of ancestral and corporate data",
+      "buffs": []
+    },
+    {
+      "name": "UNified Information TheorY (UnITy)",
+      "id": "unified_information_theory_(unity)",
+      "category": "Knowledge Skill",
+      "rating": 0,
+      "display_rating": "Lore",
+      "level": null,
+      "is_native": false,
+      "is_linguasoft": false,
+      "is_knowsoft": false,
+      "pool": 6,
+      "base_pool": 6,
+      "buffed_pool": 6,
+      "bought_hits": 1,
+      "effective_attribute": "LOG",
+      "attribute": "LOG",
+      "breakdown": "LOG 4 + INT 2 (Memory)",
+      "breakdown_text": "LOG 4 + INT 2 (Memory) = 6d6",
+      "notes": "Theological and mathematical dogma of the technomancer emergence",
+      "buffs": []
+    },
+    {
+      "name": "Japanese Cultural Etiquette",
+      "id": "japanese_cultural_etiquette",
+      "category": "Knowsoft",
+      "rating": 3,
+      "display_rating": "R3",
+      "level": null,
+      "is_native": false,
+      "is_linguasoft": false,
+      "is_knowsoft": true,
+      "pool": 7,
+      "base_pool": 7,
+      "buffed_pool": 7,
+      "bought_hits": 1,
+      "effective_attribute": "LOG",
+      "attribute": "LOG",
+      "breakdown": "LOG 4 + R3 Soft",
+      "breakdown_text": "LOG 4 + R3 Soft = 7d6",
+      "notes": "Rating 3 Knowsoft: Corporate hierarchy, bowing registers, formal tea hospitality",
+      "buffs": []
+    },
+    {
+      "name": "New Orleans Vodou & Loa Syncretism",
+      "id": "new_orleans_vodou_&_loa_syncretism",
+      "category": "Knowsoft",
+      "rating": 3,
+      "display_rating": "R3",
+      "level": null,
+      "is_native": false,
+      "is_linguasoft": false,
+      "is_knowsoft": true,
+      "pool": 7,
+      "base_pool": 7,
+      "buffed_pool": 7,
+      "bought_hits": 1,
+      "effective_attribute": "LOG",
+      "attribute": "LOG",
+      "breakdown": "LOG 4 + R3 Soft",
+      "breakdown_text": "LOG 4 + R3 Soft = 7d6",
+      "notes": "Rating 3 Knowsoft: Baron Samedi, Loa of the Wires, League of Laveau, Zobop",
+      "buffs": []
+    }
+  ],
+  "knowsofts": [
+    {
+      "name": "Japanese Cultural Etiquette",
+      "id": "japanese_cultural_etiquette",
+      "category": "Knowsoft",
+      "rating": 3,
+      "display_rating": "R3",
+      "level": null,
+      "is_native": false,
+      "is_linguasoft": false,
+      "is_knowsoft": true,
+      "pool": 7,
+      "base_pool": 7,
+      "buffed_pool": 7,
+      "bought_hits": 1,
+      "effective_attribute": "LOG",
+      "attribute": "LOG",
+      "breakdown": "LOG 4 + R3 Soft",
+      "breakdown_text": "LOG 4 + R3 Soft = 7d6",
+      "notes": "Rating 3 Knowsoft: Corporate hierarchy, bowing registers, formal tea hospitality",
+      "buffs": []
+    },
+    {
+      "name": "New Orleans Vodou & Loa Syncretism",
+      "id": "new_orleans_vodou_&_loa_syncretism",
+      "category": "Knowsoft",
+      "rating": 3,
+      "display_rating": "R3",
+      "level": null,
+      "is_native": false,
+      "is_linguasoft": false,
+      "is_knowsoft": true,
+      "pool": 7,
+      "base_pool": 7,
+      "buffed_pool": 7,
+      "bought_hits": 1,
+      "effective_attribute": "LOG",
+      "attribute": "LOG",
+      "breakdown": "LOG 4 + R3 Soft",
+      "breakdown_text": "LOG 4 + R3 Soft = 7d6",
+      "notes": "Rating 3 Knowsoft: Baron Samedi, Loa of the Wires, League of Laveau, Zobop",
+      "buffs": []
     }
   ],
   "qualities": {
@@ -397,40 +764,74 @@
   },
   "weapons": [
     {
-      "name": "Crimson Wasp Array (2x Link-Fired)",
+      "name": "Red Fox Array (2x Link-Fired)",
+      "is_melee": false,
+      "category": "general",
+      "damage": "9P",
+      "base_damage": "9P",
+      "attack_rating": [
+        21,
+        23,
+        21,
+        14,
+        0
+      ],
+      "attack_rating_str": "21 / 23 / 21 / 14 / \u2014",
+      "base_attack_rating_str": "19 / 21 / 21 / 14 / \u2014",
+      "modes": [
+        "SA",
+        "BF",
+        "SS"
+      ],
+      "modes_str": "SA/BF/SS",
+      "base_modes_str": "SA/BF/SS",
+      "ammo": "30(c)",
+      "base_ammo": "30(c)",
+      "loaded_ammo": null,
+      "accessories": [
+        "Smartlink",
+        "Drone Mount (+2 AR)",
+        "Link-Fired (2x Red Foxes, Minor Action)"
+      ],
+      "notes": "Link-fired 2x Red Foxes in Eye Mounts (Costs Minor Action; +2 DV, +1 AR). 1 Wild Die. Decreases by 3P at Medium range.",
+      "doc_link": "chapters/rules_combat.html#tactical-weapon-arrays"
+    },
+    {
+      "name": "Single Red Fox (Eye Mount)",
       "is_melee": false,
       "category": "general",
       "damage": "7P",
       "base_damage": "7P",
       "attack_rating": [
-        24,
+        20,
         22,
-        17,
-        12,
+        20,
+        13,
         0
       ],
-      "attack_rating_str": "24 / 22 / 17 / 12 / \u2014",
-      "base_attack_rating_str": "22 / 20 / 17 / 12 / \u2014",
+      "attack_rating_str": "20 / 22 / 20 / 13 / \u2014",
+      "base_attack_rating_str": "18 / 20 / 20 / 13 / \u2014",
       "modes": [
-        "SA"
+        "SA",
+        "BF",
+        "SS"
       ],
-      "modes_str": "SA",
-      "base_modes_str": "SA",
-      "ammo": "15(c)",
-      "base_ammo": "15(c)",
+      "modes_str": "SA/BF/SS",
+      "base_modes_str": "SA/BF/SS",
+      "ammo": "30(c)",
+      "base_ammo": "30(c)",
       "loaded_ammo": null,
       "accessories": [
         "Smartlink",
-        "Drone Mount (+2 AR)",
-        "Link-Fired (2x Crimson Wasps)"
+        "Drone Mount (+2 AR)"
       ],
-      "notes": "",
+      "notes": "Independent Eye Mount (NO Minor Action required). 1 Wild Die. Decreases by 3P at Medium range.",
       "doc_link": "chapters/rules_combat.html#tactical-weapon-arrays"
     },
     {
-      "name": "Tesla Coil",
+      "name": "Tesla Coil (Straight)",
       "is_melee": false,
-      "category": "general",
+      "category": "cyberweapons",
       "damage": "5S(e)",
       "base_damage": "5S(e)",
       "attack_rating": [
@@ -447,13 +848,71 @@
       ],
       "modes_str": "SS",
       "base_modes_str": "SS",
-      "ammo": "\u2014",
-      "base_ammo": "\u2014",
+      "ammo": "5(c)",
+      "base_ammo": "5(c)",
       "loaded_ammo": null,
       "accessories": [
         "MAA Cyberarm Mount (+2 AR)"
       ],
-      "notes": "",
+      "notes": "Direct stream spray attack (first valid target on 20m line). Cyberarm Mount (+2 AR). 5(c) capacitor bank.",
+      "doc_link": "chapters/rules_combat.html#tactical-weapon-arrays"
+    },
+    {
+      "name": "Tesla Coil (Wobbly)",
+      "is_melee": false,
+      "category": "cyberweapons",
+      "damage": "4S(e)",
+      "base_damage": "4S(e)",
+      "attack_rating": [
+        12,
+        14,
+        0,
+        0,
+        0
+      ],
+      "attack_rating_str": "12 / 14 / \u2014 / \u2014 / \u2014",
+      "base_attack_rating_str": "12 / 14 / \u2014 / \u2014 / \u2014",
+      "modes": [
+        "SS"
+      ],
+      "modes_str": "SS",
+      "base_modes_str": "SS",
+      "ammo": "5(c)",
+      "base_ammo": "5(c)",
+      "loaded_ammo": null,
+      "accessories": [
+        "MAA Cyberarm Mount (+2 AR)"
+      ],
+      "notes": "Wobbly spray attack (+2 AR, -1 DV). 8.58\u00b0 apex cone (3m wide @ 20m). Optional Wild Die. Cyberarm Mount (+2 AR). 5(c) capacitor bank.",
+      "doc_link": "chapters/rules_combat.html#tactical-weapon-arrays"
+    },
+    {
+      "name": "Tesla Coil (Sweeping)",
+      "is_melee": false,
+      "category": "cyberweapons",
+      "damage": "2S(e)",
+      "base_damage": "2S(e)",
+      "attack_rating": [
+        14,
+        16,
+        0,
+        0,
+        0
+      ],
+      "attack_rating_str": "14 / 16 / \u2014 / \u2014 / \u2014",
+      "base_attack_rating_str": "14 / 16 / \u2014 / \u2014 / \u2014",
+      "modes": [
+        "SS"
+      ],
+      "modes_str": "SS",
+      "base_modes_str": "SS",
+      "ammo": "5(c)",
+      "base_ammo": "5(c)",
+      "loaded_ammo": null,
+      "accessories": [
+        "MAA Cyberarm Mount (+2 AR)"
+      ],
+      "notes": "Sweeping spray attack (+4 AR, -3 DV). 28.07\u00b0 apex cone (10m wide @ 20m). Optional Wild Die. Cyberarm Mount (+2 AR). 5(c) capacitor bank.",
       "doc_link": "chapters/rules_combat.html#tactical-weapon-arrays"
     },
     {
@@ -527,6 +986,9 @@
       "base_pilot": 2,
       "sensor": 2,
       "base_sensor": 1,
+      "hardware_sensor": 1,
+      "enlightened_sensor": 2,
+      "sensor_str": "1 (Attribute: 2)",
       "seats": "-",
       "modifications": [
         "Realistic Features 4",
@@ -581,6 +1043,9 @@
       "base_pilot": 3,
       "sensor": 6,
       "base_sensor": 3,
+      "hardware_sensor": 5,
+      "enlightened_sensor": 6,
+      "sensor_str": "5 (Attribute: 6)",
       "seats": "-",
       "modifications": [
         "Drone Bay (Micro/Mini)",
@@ -589,12 +1054,13 @@
         "Enhanced Sensors 2",
         "Retrans Unit",
         "Satellite Link",
+        "Laser Jack",
         "Integrated Matrix Dock x2"
       ],
       "profile_notes": [
         "Network Sensor Upgrade (+1)",
         "RAM Plating (+4 ARM)",
-        "Enhanced Sensors (+2 SEN)"
+        "Enhanced Sensors (3 -> 5 SEN)"
       ],
       "mobility_str": "",
       "rigged_pools": {
@@ -634,41 +1100,55 @@
       "accel": "5/5",
       "speed": "10",
       "interval": 5,
-      "body": 16,
+      "body": 15,
       "base_body": 10,
-      "armor": 17,
+      "armor": 8,
       "base_armor": 8,
       "pilot": 9,
       "base_pilot": 2,
-      "sensor": 13,
-      "base_sensor": 3,
+      "sensor": 6,
+      "base_sensor": 2,
+      "hardware_sensor": 4,
+      "enlightened_sensor": 8,
+      "sensor_str": "4 (Attribute: 6, Enlightened: 8)",
       "seats": "-",
       "modifications": [
         "Weapon Mount (Standard) x2",
         "Pop-Out Concealment (Standard) x2",
-        "Chameleon Coating 2",
+        "Chameleon Coating 4",
+        "Passive Stealth Features",
         "Drone Rack (Small)",
+        "Used Synthetic Cyberarm (Right, 8 Capacity)",
         "Tesla Coil",
-        "Wrist Shield",
-        "Armor Increase 5",
         "Increased Structural Integrity 5",
         "Realistic Features 4",
         "Secondary Propulsion (Rotor)",
-        "Increased Sensors 9",
-        "Retractable Skates",
-        "Built-In MedKit",
+        "Nitro Boost",
+        "Increased Sensors 2",
+        "Camera w/ image link",
+        "Low-light Vision",
+        "Omni-directional mic with sound link",
+        "Flare compensation",
+        "Ultrasound",
+        "Olfactory Sensor",
+        "Oral chemical analyzer",
+        "Tactile Sensors (from the EVO Orderly, DA p. 178. Taken for RP purposes only - I will not be using the Biotech bonus)",
+        "Secondary Propulsion (Wheeled)",
+        "Smart Tires",
+        "Hydrocarbon Fuel Converter",
         "Satellite Link",
         "Laser Jack"
       ],
       "profile_notes": [
         "Network Sensor Upgrade (+1)",
-        "Armor Increase (+5 ARM)",
         "Structural Integrity (+5 BOD)",
-        "Enhanced Sensors (+9 SEN)",
-        "Wrist Shield (+4 ARM)",
-        "Designer Quality (+1 Pilot, 2 Noise Reduction on Home Device)"
+        "Enhanced Sensors (2 -> 4 SEN)",
+        "Smart Tires (+5 ACC, +10 SPD Interval)",
+        "Designer Quality (+1 Pilot, 2 Noise Reduction on Home Device)",
+        "Home Device Tuning (+1 SEN)",
+        "Enlighten Automaton (+2 SEN when sustained)"
       ],
-      "mobility_str": "Rotor: Han 5, Acc 10, SPD 120 (20). Skates: 10/30/+2",
+      "mobility_str": "Rotor: Han 5, Acc 10, SPD 120 (20). Wheeled (Smart Tires): Han 3/4, Acc 15, SPD 25/120",
       "rigged_pools": {
         "piloting": {
           "pool": 23,
@@ -676,9 +1156,9 @@
           "breakdown": "Maneuvering 7 + Pilot/RES 9 + Focus 4 + Taz Diagnosis 3 = 23d6"
         },
         "gunnery": {
-          "pool": 25,
-          "hits": 6,
-          "breakdown": "Targeting 7 + Sensor 13 + Taz Symbiosis 4 + Smartlink (Wireless) 1 = 25d6"
+          "pool": 18,
+          "hits": 4,
+          "breakdown": "Targeting 7 + Sensor 6 + Taz Symbiosis 4 + Smartlink (Wireless) 1 = 18d6 (20d6 with Enlighten Automaton sustained)"
         },
         "evasion": {
           "pool": 24,
@@ -686,9 +1166,9 @@
           "breakdown": "Evasion 7 + Pilot/RES 9 + Focus 4 + Taz Symbiosis 4 = 24d6"
         },
         "perception": {
-          "pool": 24,
-          "hits": 6,
-          "breakdown": "Clearsight 7 + Sensor 13 + Taz Symbiosis 4 = 24d6"
+          "pool": 17,
+          "hits": 4,
+          "breakdown": "Clearsight 7 + Sensor 6 + Taz Symbiosis 4 = 17d6 (19d6 with Enlighten Automaton sustained)"
         },
         "stealth": {
           "pool": 26,
@@ -714,13 +1194,18 @@
       "base_pilot": 1,
       "sensor": 2,
       "base_sensor": 1,
+      "hardware_sensor": 1,
+      "enlightened_sensor": 2,
+      "sensor_str": "1 (Attribute: 2)",
       "seats": "-",
       "modifications": [
         "Trid Projector",
-        "Smart Tires"
+        "Smart Tires",
+        "Laser Jack"
       ],
       "profile_notes": [
-        "Network Sensor Upgrade (+1)"
+        "Network Sensor Upgrade (+1)",
+        "Smart Tires (+5 ACC, +10 SPD Interval)"
       ],
       "mobility_str": "",
       "rigged_pools": {
@@ -768,9 +1253,12 @@
       "base_pilot": 1,
       "sensor": 2,
       "base_sensor": 1,
+      "hardware_sensor": 1,
+      "enlightened_sensor": 2,
+      "sensor_str": "1 (Attribute: 2)",
       "seats": "-",
       "modifications": [
-        "Integrated Engineering & Repair Tool Package"
+        "Laser Jack"
       ],
       "profile_notes": [
         "Network Sensor Upgrade (+1)"
@@ -823,6 +1311,9 @@
       "base_pilot": 2,
       "sensor": 2,
       "base_sensor": 1,
+      "hardware_sensor": 1,
+      "enlightened_sensor": 2,
+      "sensor_str": "1 (Attribute: 2)",
       "seats": "-",
       "modifications": [
         "Realistic Features 4",
@@ -877,6 +1368,9 @@
       "base_pilot": 3,
       "sensor": 6,
       "base_sensor": 3,
+      "hardware_sensor": 5,
+      "enlightened_sensor": 6,
+      "sensor_str": "5 (Attribute: 6)",
       "seats": "-",
       "modifications": [
         "Drone Bay (Micro/Mini)",
@@ -885,12 +1379,13 @@
         "Enhanced Sensors 2",
         "Retrans Unit",
         "Satellite Link",
+        "Laser Jack",
         "Integrated Matrix Dock x2"
       ],
       "profile_notes": [
         "Network Sensor Upgrade (+1)",
         "RAM Plating (+4 ARM)",
-        "Enhanced Sensors (+2 SEN)"
+        "Enhanced Sensors (3 -> 5 SEN)"
       ],
       "mobility_str": "",
       "rigged_pools": {
@@ -930,41 +1425,55 @@
       "accel": "5/5",
       "speed": "10",
       "interval": 5,
-      "body": 16,
+      "body": 15,
       "base_body": 10,
-      "armor": 17,
+      "armor": 8,
       "base_armor": 8,
       "pilot": 9,
       "base_pilot": 2,
-      "sensor": 13,
-      "base_sensor": 3,
+      "sensor": 6,
+      "base_sensor": 2,
+      "hardware_sensor": 4,
+      "enlightened_sensor": 8,
+      "sensor_str": "4 (Attribute: 6, Enlightened: 8)",
       "seats": "-",
       "modifications": [
         "Weapon Mount (Standard) x2",
         "Pop-Out Concealment (Standard) x2",
-        "Chameleon Coating 2",
+        "Chameleon Coating 4",
+        "Passive Stealth Features",
         "Drone Rack (Small)",
+        "Used Synthetic Cyberarm (Right, 8 Capacity)",
         "Tesla Coil",
-        "Wrist Shield",
-        "Armor Increase 5",
         "Increased Structural Integrity 5",
         "Realistic Features 4",
         "Secondary Propulsion (Rotor)",
-        "Increased Sensors 9",
-        "Retractable Skates",
-        "Built-In MedKit",
+        "Nitro Boost",
+        "Increased Sensors 2",
+        "Camera w/ image link",
+        "Low-light Vision",
+        "Omni-directional mic with sound link",
+        "Flare compensation",
+        "Ultrasound",
+        "Olfactory Sensor",
+        "Oral chemical analyzer",
+        "Tactile Sensors (from the EVO Orderly, DA p. 178. Taken for RP purposes only - I will not be using the Biotech bonus)",
+        "Secondary Propulsion (Wheeled)",
+        "Smart Tires",
+        "Hydrocarbon Fuel Converter",
         "Satellite Link",
         "Laser Jack"
       ],
       "profile_notes": [
         "Network Sensor Upgrade (+1)",
-        "Armor Increase (+5 ARM)",
         "Structural Integrity (+5 BOD)",
-        "Enhanced Sensors (+9 SEN)",
-        "Wrist Shield (+4 ARM)",
-        "Designer Quality (+1 Pilot, 2 Noise Reduction on Home Device)"
+        "Enhanced Sensors (2 -> 4 SEN)",
+        "Smart Tires (+5 ACC, +10 SPD Interval)",
+        "Designer Quality (+1 Pilot, 2 Noise Reduction on Home Device)",
+        "Home Device Tuning (+1 SEN)",
+        "Enlighten Automaton (+2 SEN when sustained)"
       ],
-      "mobility_str": "Rotor: Han 5, Acc 10, SPD 120 (20). Skates: 10/30/+2",
+      "mobility_str": "Rotor: Han 5, Acc 10, SPD 120 (20). Wheeled (Smart Tires): Han 3/4, Acc 15, SPD 25/120",
       "rigged_pools": {
         "piloting": {
           "pool": 23,
@@ -972,9 +1481,9 @@
           "breakdown": "Maneuvering 7 + Pilot/RES 9 + Focus 4 + Taz Diagnosis 3 = 23d6"
         },
         "gunnery": {
-          "pool": 25,
-          "hits": 6,
-          "breakdown": "Targeting 7 + Sensor 13 + Taz Symbiosis 4 + Smartlink (Wireless) 1 = 25d6"
+          "pool": 18,
+          "hits": 4,
+          "breakdown": "Targeting 7 + Sensor 6 + Taz Symbiosis 4 + Smartlink (Wireless) 1 = 18d6 (20d6 with Enlighten Automaton sustained)"
         },
         "evasion": {
           "pool": 24,
@@ -982,9 +1491,9 @@
           "breakdown": "Evasion 7 + Pilot/RES 9 + Focus 4 + Taz Symbiosis 4 = 24d6"
         },
         "perception": {
-          "pool": 24,
-          "hits": 6,
-          "breakdown": "Clearsight 7 + Sensor 13 + Taz Symbiosis 4 = 24d6"
+          "pool": 17,
+          "hits": 4,
+          "breakdown": "Clearsight 7 + Sensor 6 + Taz Symbiosis 4 = 17d6 (19d6 with Enlighten Automaton sustained)"
         },
         "stealth": {
           "pool": 26,
@@ -1010,13 +1519,18 @@
       "base_pilot": 1,
       "sensor": 2,
       "base_sensor": 1,
+      "hardware_sensor": 1,
+      "enlightened_sensor": 2,
+      "sensor_str": "1 (Attribute: 2)",
       "seats": "-",
       "modifications": [
         "Trid Projector",
-        "Smart Tires"
+        "Smart Tires",
+        "Laser Jack"
       ],
       "profile_notes": [
-        "Network Sensor Upgrade (+1)"
+        "Network Sensor Upgrade (+1)",
+        "Smart Tires (+5 ACC, +10 SPD Interval)"
       ],
       "mobility_str": "",
       "rigged_pools": {
@@ -1064,9 +1578,12 @@
       "base_pilot": 1,
       "sensor": 2,
       "base_sensor": 1,
+      "hardware_sensor": 1,
+      "enlightened_sensor": 2,
+      "sensor_str": "1 (Attribute: 2)",
       "seats": "-",
       "modifications": [
-        "Integrated Engineering & Repair Tool Package"
+        "Laser Jack"
       ],
       "profile_notes": [
         "Network Sensor Upgrade (+1)"
@@ -1123,26 +1640,42 @@
     },
     {
       "name": "Diffusion",
-      "fading": 4,
-      "duration": "Sustained",
-      "target": "Firewall",
-      "notes": "Electronics + RES vs WIL + FW. Each net hit reduces target Firewall by 1.",
+      "fading": 2,
+      "duration": "Instant",
+      "target": "Device",
+      "notes": "Source: core",
       "doc_link": "chapters/rules_sprites.html#complex-forms"
     },
     {
       "name": "Puppeteer",
-      "fading": 5,
-      "duration": "Sustained",
+      "fading": 2,
+      "duration": "Instant",
       "target": "Device",
-      "notes": "Electronics + RES vs WIL + FW. Forces device to perform action.",
+      "notes": "Source: core",
       "doc_link": "chapters/rules_sprites.html#complex-forms"
     },
     {
       "name": "Cyber Spike",
-      "fading": 3,
-      "duration": "Immediate",
-      "target": "Character with wireless cyberware",
-      "notes": "Electronics + RES vs BOD + Essence. Deals 1 Physical damage per net hit and stresses installed ware.",
+      "fading": 2,
+      "duration": "Instant",
+      "target": "Device",
+      "notes": "Source: hack_slash",
+      "doc_link": "chapters/rules_sprites.html#complex-forms"
+    },
+    {
+      "name": "Resonance Wires",
+      "fading": 2,
+      "duration": "Instant",
+      "target": "Device",
+      "notes": "Source: hack_slash",
+      "doc_link": "chapters/rules_sprites.html#complex-forms"
+    },
+    {
+      "name": "Enlighten Automaton",
+      "fading": 2,
+      "duration": "Instant",
+      "target": "Device",
+      "notes": "Source: hack_slash",
       "doc_link": "chapters/rules_sprites.html#complex-forms"
     }
   ],
@@ -1182,6 +1715,7 @@
   ],
   "monad_abilities": [],
   "augmentations": [],
+  "nanohive": null,
   "spirit_channeling_catalog": {},
   "powers": {
     "complex_forms": [
@@ -1203,26 +1737,42 @@
       },
       {
         "name": "Diffusion",
-        "fading": 4,
-        "duration": "Sustained",
-        "target": "Firewall",
-        "notes": "Electronics + RES vs WIL + FW. Each net hit reduces target Firewall by 1.",
+        "fading": 2,
+        "duration": "Instant",
+        "target": "Device",
+        "notes": "Source: core",
         "doc_link": "chapters/rules_sprites.html#complex-forms"
       },
       {
         "name": "Puppeteer",
-        "fading": 5,
-        "duration": "Sustained",
+        "fading": 2,
+        "duration": "Instant",
         "target": "Device",
-        "notes": "Electronics + RES vs WIL + FW. Forces device to perform action.",
+        "notes": "Source: core",
         "doc_link": "chapters/rules_sprites.html#complex-forms"
       },
       {
         "name": "Cyber Spike",
-        "fading": 3,
-        "duration": "Immediate",
-        "target": "Character with wireless cyberware",
-        "notes": "Electronics + RES vs BOD + Essence. Deals 1 Physical damage per net hit and stresses installed ware.",
+        "fading": 2,
+        "duration": "Instant",
+        "target": "Device",
+        "notes": "Source: hack_slash",
+        "doc_link": "chapters/rules_sprites.html#complex-forms"
+      },
+      {
+        "name": "Resonance Wires",
+        "fading": 2,
+        "duration": "Instant",
+        "target": "Device",
+        "notes": "Source: hack_slash",
+        "doc_link": "chapters/rules_sprites.html#complex-forms"
+      },
+      {
+        "name": "Enlighten Automaton",
+        "fading": 2,
+        "duration": "Instant",
+        "target": "Device",
+        "notes": "Source: hack_slash",
         "doc_link": "chapters/rules_sprites.html#complex-forms"
       }
     ],
@@ -1274,6 +1824,7 @@
     "adept_powers": [],
     "monad_abilities": [],
     "augmentations": [],
+    "nanohive": null,
     "spirit_channeling_catalog": {}
   },
   "inventory": {
@@ -1283,8 +1834,245 @@
     "programs": [],
     "software": [],
     "autosofts": [],
+    "knowsofts": [
+      "Japanese Cultural Etiquette",
+      "New Orleans Vodou & Loa Syncretism"
+    ],
+    "knowledge_skills": [
+      {
+        "name": "Mindspeech",
+        "id": "mindspeech",
+        "category": "Language",
+        "rating": 4,
+        "display_rating": "R4",
+        "level": "Native",
+        "is_native": true,
+        "is_linguasoft": false,
+        "is_knowsoft": false,
+        "pool": 8,
+        "base_pool": 8,
+        "buffed_pool": 8,
+        "bought_hits": 2,
+        "effective_attribute": "LOG",
+        "attribute": "LOG",
+        "breakdown": "LOG 4 + Native (4)",
+        "breakdown_text": "LOG 4 + Native (4) = 8d6",
+        "notes": "Direct DI/Resonance ideation",
+        "buffs": []
+      },
+      {
+        "name": "Japanese",
+        "id": "japanese",
+        "category": "Linguasoft",
+        "rating": 5,
+        "display_rating": "R5 (Expert)",
+        "level": "Linguasoft",
+        "is_native": false,
+        "is_linguasoft": true,
+        "is_knowsoft": false,
+        "pool": 9,
+        "base_pool": 9,
+        "buffed_pool": 9,
+        "bought_hits": 2,
+        "effective_attribute": "LOG",
+        "attribute": "LOG",
+        "breakdown": "LOG 4 + R5 Linguasoft",
+        "breakdown_text": "LOG 4 + R5 Linguasoft = 9d6",
+        "notes": "Slotted Linguasoft",
+        "buffs": []
+      },
+      {
+        "name": "English",
+        "id": "english",
+        "category": "Linguasoft",
+        "rating": 5,
+        "display_rating": "R5 (Expert)",
+        "level": "Linguasoft",
+        "is_native": false,
+        "is_linguasoft": true,
+        "is_knowsoft": false,
+        "pool": 9,
+        "base_pool": 9,
+        "buffed_pool": 9,
+        "bought_hits": 2,
+        "effective_attribute": "LOG",
+        "attribute": "LOG",
+        "breakdown": "LOG 4 + R5 Linguasoft",
+        "breakdown_text": "LOG 4 + R5 Linguasoft = 9d6",
+        "notes": "Slotted Linguasoft",
+        "buffs": []
+      },
+      {
+        "name": "Cantonese",
+        "id": "cantonese",
+        "category": "Linguasoft",
+        "rating": 5,
+        "display_rating": "R5 (Expert)",
+        "level": "Linguasoft",
+        "is_native": false,
+        "is_linguasoft": true,
+        "is_knowsoft": false,
+        "pool": 9,
+        "base_pool": 9,
+        "buffed_pool": 9,
+        "bought_hits": 2,
+        "effective_attribute": "LOG",
+        "attribute": "LOG",
+        "breakdown": "LOG 4 + R5 Linguasoft",
+        "breakdown_text": "LOG 4 + R5 Linguasoft = 9d6",
+        "notes": "Slotted Linguasoft",
+        "buffs": []
+      },
+      {
+        "name": "Mandarin",
+        "id": "mandarin",
+        "category": "Linguasoft",
+        "rating": 5,
+        "display_rating": "R5 (Expert)",
+        "level": "Linguasoft",
+        "is_native": false,
+        "is_linguasoft": true,
+        "is_knowsoft": false,
+        "pool": 9,
+        "base_pool": 9,
+        "buffed_pool": 9,
+        "bought_hits": 2,
+        "effective_attribute": "LOG",
+        "attribute": "LOG",
+        "breakdown": "LOG 4 + R5 Linguasoft",
+        "breakdown_text": "LOG 4 + R5 Linguasoft = 9d6",
+        "notes": "Slotted Linguasoft",
+        "buffs": []
+      },
+      {
+        "name": "Resonance Realms",
+        "id": "resonance_realms",
+        "category": "Knowledge Skill",
+        "rating": 0,
+        "display_rating": "Lore",
+        "level": null,
+        "is_native": false,
+        "is_linguasoft": false,
+        "is_knowsoft": false,
+        "pool": 6,
+        "base_pool": 6,
+        "buffed_pool": 6,
+        "bought_hits": 1,
+        "effective_attribute": "LOG",
+        "attribute": "LOG",
+        "breakdown": "LOG 4 + INT 2 (Memory)",
+        "breakdown_text": "LOG 4 + INT 2 (Memory) = 6d6",
+        "notes": "Deep Matrix cartography, Nous currents, fractal flora",
+        "buffs": []
+      },
+      {
+        "name": "Kernel Panic",
+        "id": "kernel_panic",
+        "category": "Knowledge Skill",
+        "rating": 0,
+        "display_rating": "Lore",
+        "level": null,
+        "is_native": false,
+        "is_linguasoft": false,
+        "is_knowsoft": false,
+        "pool": 6,
+        "base_pool": 6,
+        "buffed_pool": 6,
+        "bought_hits": 1,
+        "effective_attribute": "LOG",
+        "attribute": "LOG",
+        "breakdown": "LOG 4 + INT 2 (Memory)",
+        "breakdown_text": "LOG 4 + INT 2 (Memory) = 6d6",
+        "notes": "The wild haven, un-allocated address space, and liberated sparks",
+        "buffs": []
+      },
+      {
+        "name": "The Endless Archives",
+        "id": "the_endless_archives",
+        "category": "Knowledge Skill",
+        "rating": 0,
+        "display_rating": "Lore",
+        "level": null,
+        "is_native": false,
+        "is_linguasoft": false,
+        "is_knowsoft": false,
+        "pool": 6,
+        "base_pool": 6,
+        "buffed_pool": 6,
+        "bought_hits": 1,
+        "effective_attribute": "LOG",
+        "attribute": "LOG",
+        "breakdown": "LOG 4 + INT 2 (Memory)",
+        "breakdown_text": "LOG 4 + INT 2 (Memory) = 6d6",
+        "notes": "Infinite indexing repositories of ancestral and corporate data",
+        "buffs": []
+      },
+      {
+        "name": "UNified Information TheorY (UnITy)",
+        "id": "unified_information_theory_(unity)",
+        "category": "Knowledge Skill",
+        "rating": 0,
+        "display_rating": "Lore",
+        "level": null,
+        "is_native": false,
+        "is_linguasoft": false,
+        "is_knowsoft": false,
+        "pool": 6,
+        "base_pool": 6,
+        "buffed_pool": 6,
+        "bought_hits": 1,
+        "effective_attribute": "LOG",
+        "attribute": "LOG",
+        "breakdown": "LOG 4 + INT 2 (Memory)",
+        "breakdown_text": "LOG 4 + INT 2 (Memory) = 6d6",
+        "notes": "Theological and mathematical dogma of the technomancer emergence",
+        "buffs": []
+      },
+      {
+        "name": "Japanese Cultural Etiquette",
+        "id": "japanese_cultural_etiquette",
+        "category": "Knowsoft",
+        "rating": 3,
+        "display_rating": "R3",
+        "level": null,
+        "is_native": false,
+        "is_linguasoft": false,
+        "is_knowsoft": true,
+        "pool": 7,
+        "base_pool": 7,
+        "buffed_pool": 7,
+        "bought_hits": 1,
+        "effective_attribute": "LOG",
+        "attribute": "LOG",
+        "breakdown": "LOG 4 + R3 Soft",
+        "breakdown_text": "LOG 4 + R3 Soft = 7d6",
+        "notes": "Rating 3 Knowsoft: Corporate hierarchy, bowing registers, formal tea hospitality",
+        "buffs": []
+      },
+      {
+        "name": "New Orleans Vodou & Loa Syncretism",
+        "id": "new_orleans_vodou_&_loa_syncretism",
+        "category": "Knowsoft",
+        "rating": 3,
+        "display_rating": "R3",
+        "level": null,
+        "is_native": false,
+        "is_linguasoft": false,
+        "is_knowsoft": true,
+        "pool": 7,
+        "base_pool": 7,
+        "buffed_pool": 7,
+        "bought_hits": 1,
+        "effective_attribute": "LOG",
+        "attribute": "LOG",
+        "breakdown": "LOG 4 + R3 Soft",
+        "breakdown_text": "LOG 4 + R3 Soft = 7d6",
+        "notes": "Rating 3 Knowsoft: Baron Samedi, Loa of the Wires, League of Laveau, Zobop",
+        "buffs": []
+      }
+    ],
     "gear": [
-      "5x Peak-Discharge Laser Battery Clips (Crimson Wasp)",
+      "5x Peak-Discharge Laser Battery Clips (Red Fox)",
       "10x Glitter Grenades",
       "Built-in Medkit (Man-at-Arms)",
       "Facial Scanner",
@@ -1296,7 +2084,7 @@
     ],
     "gear_items": [
       {
-        "name": "5x Peak-Discharge Laser Battery Clips (Crimson Wasp)",
+        "name": "5x Peak-Discharge Laser Battery Clips (Red Fox)",
         "qty": 5,
         "rating": null,
         "category": "Field Gear",
@@ -1383,7 +2171,7 @@
   },
   "gear_items": [
     {
-      "name": "5x Peak-Discharge Laser Battery Clips (Crimson Wasp)",
+      "name": "5x Peak-Discharge Laser Battery Clips (Red Fox)",
       "qty": 5,
       "rating": null,
       "category": "Field Gear",
@@ -1469,7 +2257,856 @@
     }
   ],
   "lifestyles": [],
-  "contacts": [],
+  "contacts": [
+    {
+      "name": "Brynne Taggart",
+      "connection": 4,
+      "loyalty": 3,
+      "archetype": "SEA Fixer",
+      "favors": 3,
+      "region": "SEA",
+      "types": [
+        "Criminal",
+        "Street"
+      ],
+      "description": "Uses: Getting jobs, fencing gear, gangs (Shadowrun Missions Seattle) | Types: Criminal, Street"
+    },
+    {
+      "name": "Whiskey",
+      "connection": 2,
+      "loyalty": 4,
+      "archetype": "SEA Street Doc",
+      "favors": 0,
+      "region": "SEA",
+      "types": [
+        "Medical"
+      ],
+      "description": "Uses: Medicine, street docs (Shadowrun Missions Seattle) | Types: Medical"
+    },
+    {
+      "name": "Indomitable Will",
+      "connection": 3,
+      "loyalty": 3,
+      "archetype": "NOLA River People Sysop",
+      "favors": 0,
+      "region": "NOLA",
+      "types": [
+        "Corporate",
+        "Matrix"
+      ],
+      "description": "Uses: Banking, HVAC systems, Matrix | Types: Corporate, Matrix"
+    },
+    {
+      "name": "Roanoke",
+      "connection": 3,
+      "loyalty": 4,
+      "archetype": "NOLA Ecological Activist",
+      "favors": 1,
+      "region": "NOLA",
+      "types": [
+        "Criminal",
+        "Matrix"
+      ],
+      "description": "Uses: Getting jobs, environmental science, shamanism | Types: Criminal, Matrix"
+    },
+    {
+      "name": "Piotr Krolik",
+      "connection": 4,
+      "loyalty": 1,
+      "archetype": "Vory Borjevik",
+      "favors": 0,
+      "region": "NOLA",
+      "types": [
+        "Criminal",
+        "Street"
+      ],
+      "description": "NOLA Vory lieutenant at Jackalope Ranch."
+    },
+    {
+      "name": "Le Tigre",
+      "connection": 5,
+      "loyalty": 2,
+      "archetype": "Epoch Model",
+      "favors": 0,
+      "region": "NOLA",
+      "types": [
+        "Corporate",
+        "Magic"
+      ],
+      "description": "Uses: Getting jobs, parties, modeling | Types: Corporate, Magic"
+    },
+    {
+      "name": "White Jackalope",
+      "connection": 2,
+      "loyalty": 1,
+      "archetype": "Emergent Lifeform",
+      "favors": 0,
+      "region": "NOLA",
+      "types": [
+        "Matrix",
+        "Magic"
+      ],
+      "description": "Sentient emergent jackalope critter."
+    },
+    {
+      "name": "Big Louie",
+      "connection": 3,
+      "loyalty": 1,
+      "archetype": "Fixer",
+      "favors": 0,
+      "region": "SEA",
+      "types": [
+        "Criminal",
+        "Street"
+      ],
+      "description": "Seattle fixer met during Top Chef."
+    },
+    {
+      "name": "Dominique Augustin",
+      "connection": 4,
+      "loyalty": 1,
+      "archetype": "Wolverine Security Officer",
+      "favors": 1,
+      "region": "NOLA",
+      "types": [
+        "Corporate",
+        "Law Enforcement"
+      ],
+      "description": "Security officer at Wolverine Security."
+    },
+    {
+      "name": "Daniel Fortune",
+      "connection": 3,
+      "loyalty": 1,
+      "archetype": "Local Guide",
+      "favors": 0,
+      "region": "NOLA",
+      "types": [
+        "Street"
+      ],
+      "description": "NOLA contact met during Dunkelzahn Fan Club."
+    },
+    {
+      "name": "Ren\u00e9e Martin",
+      "connection": 4,
+      "loyalty": 2,
+      "archetype": "League of Laveau Liaison",
+      "favors": 1,
+      "region": "NOLA",
+      "types": [
+        "Corporate",
+        "Magic"
+      ],
+      "description": "Uses: Getting jobs, magic, voodoo, zombies | Types: Corporate, Magic"
+    },
+    {
+      "name": "The Frisian",
+      "connection": 6,
+      "loyalty": 1,
+      "archetype": "Crime Lord of the Dutch Penose syndicate",
+      "favors": 0,
+      "region": "AMS",
+      "types": [
+        "Criminal"
+      ],
+      "description": "Crime boss of the Amsterdam Penose syndicate."
+    },
+    {
+      "name": "Ree 'Dolly' Hacker",
+      "connection": 4,
+      "loyalty": 1,
+      "archetype": "Talismonger and Racer",
+      "favors": 1,
+      "region": "KY",
+      "types": [
+        "Magic",
+        "Street"
+      ],
+      "description": "Kentucky street racer and talismonger."
+    },
+    {
+      "name": "Granny",
+      "connection": 6,
+      "loyalty": 1,
+      "archetype": "Lady of the Autumn Wind",
+      "favors": 1,
+      "region": "KY",
+      "types": [
+        "Magic"
+      ],
+      "description": "Elder spirit/druidic leader in Kentucky."
+    },
+    {
+      "name": "Kiara Shaw",
+      "connection": 4,
+      "loyalty": 2,
+      "archetype": "Knight Errant Company Suit",
+      "favors": 0,
+      "region": "AMS",
+      "types": [
+        "Corporate",
+        "Law Enforcement"
+      ],
+      "description": "Knight Errant liaison and corporate fixer in Amsterdam."
+    },
+    {
+      "name": "Simon Andrews",
+      "connection": 5,
+      "loyalty": 2,
+      "archetype": "Saeder-Krupp Johnson",
+      "favors": 1,
+      "region": "AMS",
+      "types": [
+        "Corporate"
+      ],
+      "description": "Saeder-Krupp corporate Johnson operating out of Amsterdam."
+    },
+    {
+      "name": "Squint",
+      "connection": 2,
+      "loyalty": 1,
+      "archetype": "Smuggler",
+      "favors": 0,
+      "region": "AMS",
+      "types": [
+        "Criminal",
+        "Street"
+      ],
+      "description": "Amsterdam boat and canal smuggler."
+    },
+    {
+      "name": "Dr. Laureline Dodd",
+      "connection": 5,
+      "loyalty": 1,
+      "archetype": "Arcano-Archeologist",
+      "favors": 1,
+      "region": "KY",
+      "types": [
+        "Academic",
+        "Magic"
+      ],
+      "description": "Lead researcher exploring 4th World ruins in Kentucky."
+    },
+    {
+      "name": "Thaddeus",
+      "connection": 3,
+      "loyalty": 1,
+      "archetype": "Street Samurai",
+      "favors": 0,
+      "region": "KY",
+      "types": [
+        "Street"
+      ],
+      "description": "Kentucky mercenary and street fighter."
+    },
+    {
+      "name": "Duan Yuhai",
+      "connection": 4,
+      "loyalty": 1,
+      "archetype": "Triad Sub-Boss",
+      "favors": 0,
+      "region": "SEA",
+      "types": [
+        "Criminal"
+      ],
+      "description": "88s Triad sub-boss in Seattle."
+    },
+    {
+      "name": "Xiong Giuyin",
+      "connection": 1,
+      "loyalty": 1,
+      "archetype": "",
+      "favors": 0,
+      "region": "GEN",
+      "types": [
+        "Street"
+      ],
+      "description": ""
+    },
+    {
+      "name": "Reilly Dragman",
+      "connection": 1,
+      "loyalty": 1,
+      "archetype": "Magic",
+      "favors": 1,
+      "region": "KY",
+      "types": [
+        "Magic"
+      ],
+      "description": "Magic | Types: Magic"
+    },
+    {
+      "name": "Queen Brane",
+      "connection": 12,
+      "loyalty": 1,
+      "archetype": "Magic",
+      "favors": 0,
+      "region": "KY",
+      "types": [
+        "Magic"
+      ],
+      "description": "Magic (Special Note: This contact cannot be called during a mission.) | Types: Magic"
+    },
+    {
+      "name": "Kirt Liger",
+      "connection": 3,
+      "loyalty": 1,
+      "archetype": "Cybercatman / Body Modder",
+      "favors": 1,
+      "region": "SEA",
+      "types": [
+        "Engineering",
+        "Street"
+      ],
+      "description": "Underground gladiator mechanic and body mod specialist."
+    },
+    {
+      "name": "Sigr\u00fan",
+      "connection": 5,
+      "loyalty": 3,
+      "archetype": "House Oranje-Nassau Johnson",
+      "favors": 1,
+      "region": "AMS",
+      "types": [
+        "Corporate",
+        "Government"
+      ],
+      "description": "High-society Johnson representing Dutch royal interests."
+    },
+    {
+      "name": "Dixie L'Amin",
+      "connection": 4,
+      "loyalty": 1,
+      "archetype": "Desert Wars Naga",
+      "favors": 1,
+      "region": "DW",
+      "types": [
+        "Magic",
+        "Street"
+      ],
+      "description": "Awakened Naga gladiator and Desert Wars personality."
+    },
+    {
+      "name": "Ayanda 'Shieldbearer' Mahlangu",
+      "connection": 3,
+      "loyalty": 1,
+      "archetype": "Mystic Edge Producer",
+      "favors": 0,
+      "region": "DW",
+      "types": [
+        "Corporate",
+        "Street"
+      ],
+      "description": "Combat broadcast producer in Desert Wars."
+    },
+    {
+      "name": "Ebon Abirashur",
+      "connection": 1,
+      "loyalty": 1,
+      "archetype": "Leviathan Dragon",
+      "favors": 1,
+      "region": "DW",
+      "types": [
+        "Magic"
+      ],
+      "description": "Submerged ocean dragon entity."
+    },
+    {
+      "name": "Col. Deborah Kentwell",
+      "connection": 5,
+      "loyalty": 1,
+      "archetype": "Thunder Corps Fixer",
+      "favors": 1,
+      "region": "DW",
+      "types": [
+        "Corporate",
+        "Government"
+      ],
+      "description": "Military fixer and officer with Thunder Corps."
+    },
+    {
+      "name": "Polyphemous 'Paul' Pellagios",
+      "connection": 1,
+      "loyalty": 1,
+      "archetype": "Background Actor",
+      "favors": 0,
+      "region": "DW",
+      "types": [
+        "Street"
+      ],
+      "description": "Desert Wars trid extra."
+    },
+    {
+      "name": "Fernand Anato",
+      "connection": 4,
+      "loyalty": 1,
+      "archetype": "Kozlowski Capo",
+      "favors": 0,
+      "region": "NOLA",
+      "types": [
+        "Criminal",
+        "Street"
+      ],
+      "description": "Uses: Getting jobs, fencing gear, organized crime | Types: Criminal, Street"
+    },
+    {
+      "name": "Monsieur Johnson",
+      "connection": 5,
+      "loyalty": 2,
+      "archetype": "NOLA Johnson",
+      "favors": 0,
+      "region": "NOLA",
+      "types": [
+        "Corporate"
+      ],
+      "description": "French Quarter corporate Johnson."
+    },
+    {
+      "name": "Swango",
+      "connection": 3,
+      "loyalty": 2,
+      "archetype": "Rapper",
+      "favors": 0,
+      "region": "SEA",
+      "types": [
+        "Street"
+      ],
+      "description": "Renton street rapper and urban scout."
+    },
+    {
+      "name": "Toil",
+      "connection": 4,
+      "loyalty": 1,
+      "archetype": "Fixer",
+      "favors": 0,
+      "region": "SEA",
+      "types": [
+        "Criminal",
+        "Street"
+      ],
+      "description": "Uses: Drugs, exotic dancer clubs, getting jobs (Shadowrun Missions Seattle) | Types: Criminal, Street"
+    },
+    {
+      "name": "Trubble",
+      "connection": 1,
+      "loyalty": 1,
+      "archetype": "Bodyguard",
+      "favors": 0,
+      "region": "SEA",
+      "types": [
+        "Magic"
+      ],
+      "description": "Uses: Bodyguards, insults, talismans (Shadowrun Missions Seattle) | Types: Magic"
+    },
+    {
+      "name": "SpiiniCop",
+      "connection": 2,
+      "loyalty": 1,
+      "archetype": "Penose Spider",
+      "favors": 0,
+      "region": "AMS",
+      "types": [
+        "Matrix",
+        "Criminal"
+      ],
+      "description": "Penose matrix security decker."
+    },
+    {
+      "name": "Eddie Wei",
+      "connection": 4,
+      "loyalty": 1,
+      "archetype": "Triad Johnson",
+      "favors": 1,
+      "region": "SEA",
+      "types": [
+        "Criminal",
+        "Matrix"
+      ],
+      "description": "Uses: Business and economics, getting jobs, triads (Shadowrun Missions Seattle) | Types: Criminal, Matrix"
+    },
+    {
+      "name": "Julian M\u00fcntefering",
+      "connection": 1,
+      "loyalty": 1,
+      "archetype": "Corporate Kid",
+      "favors": 0,
+      "region": "SEA",
+      "types": [
+        "Corporate",
+        "Engineering"
+      ],
+      "description": "Uses: Corporate playground rumors, drones, rigging research (Shadowrun Missions Seattle) | Types: Corporate, Engineering"
+    },
+    {
+      "name": "Ni Ni Xiaolu",
+      "connection": 3,
+      "loyalty": 3,
+      "archetype": "Triad Johnson",
+      "favors": 2,
+      "region": "SEA",
+      "types": [
+        "Criminal"
+      ],
+      "description": "Uses: Getting jobs, drugs, street rumors, triads (Shadowrun Missions Seattle) | Types: Criminal"
+    },
+    {
+      "name": "Bookie",
+      "connection": 3,
+      "loyalty": 1,
+      "archetype": "Ancients Bookie",
+      "favors": 0,
+      "region": "SEA",
+      "types": [
+        "Criminal",
+        "Street"
+      ],
+      "description": "Ancients gang bookmaker and fence."
+    },
+    {
+      "name": "Trudy",
+      "connection": 2,
+      "loyalty": 1,
+      "archetype": "Cutters Lieutenant",
+      "favors": 0,
+      "region": "SEA",
+      "types": [
+        "Criminal",
+        "Street"
+      ],
+      "description": "Cutters ganger lieutenant."
+    },
+    {
+      "name": "Saint James",
+      "connection": 8,
+      "loyalty": 2,
+      "archetype": "Fixer",
+      "favors": 1,
+      "region": "SEA",
+      "types": [
+        "Criminal",
+        "Street"
+      ],
+      "description": "Uses: Corporations, getting jobs (Shadowrun Missions Seattle), fencing gear, gangs | Types: Criminal, Street"
+    },
+    {
+      "name": "Jeanie Trudel",
+      "connection": 1,
+      "loyalty": 1,
+      "archetype": "Bartender",
+      "favors": 0,
+      "region": "SEA",
+      "types": [
+        "Street"
+      ],
+      "description": "Downtown dive bartender."
+    },
+    {
+      "name": "Kingston",
+      "connection": 2,
+      "loyalty": 1,
+      "archetype": "Shadowrunner/Street Samurai",
+      "favors": 0,
+      "region": "SEA",
+      "types": [
+        "Criminal",
+        "Street"
+      ],
+      "description": "Uses: Shadowrunners, street rumors (Shadowrun Missions Seattle) | Types: Criminal, Street"
+    },
+    {
+      "name": "Kaatje",
+      "connection": 2,
+      "loyalty": 1,
+      "archetype": "Young Entertainer",
+      "favors": 0,
+      "region": "AMS",
+      "types": [
+        "Street"
+      ],
+      "description": "Amsterdam local singer/performer."
+    },
+    {
+      "name": "Mr. Fa",
+      "connection": 4,
+      "loyalty": 1,
+      "archetype": "Corporate Middle Manager",
+      "favors": 1,
+      "region": "HK",
+      "types": [
+        "Corporate"
+      ],
+      "description": "Hong Kong corporate bureaucrat."
+    },
+    {
+      "name": "Liao Fa Ren",
+      "connection": 3,
+      "loyalty": 2,
+      "archetype": "Rookie Journalist",
+      "favors": 0,
+      "region": "HK",
+      "types": [
+        "Street",
+        "Academic"
+      ],
+      "description": "Hong Kong investigative reporter."
+    },
+    {
+      "name": "Aloysius Springinsguth",
+      "connection": 3,
+      "loyalty": 2,
+      "archetype": "Sound of Silence Music Shop Owner",
+      "favors": 0,
+      "region": "NOLA",
+      "types": [
+        "Magic",
+        "Street"
+      ],
+      "description": "NOLA antique instrument dealer and talismonger."
+    },
+    {
+      "name": "Jolene Price",
+      "connection": 7,
+      "loyalty": 2,
+      "archetype": "Riverboat Alliance Leader",
+      "favors": 0,
+      "region": "NOLA",
+      "types": [
+        "Corporate",
+        "Street"
+      ],
+      "description": "Uses: Getting jobs, dragons, mafia | Types: Corporate, Street"
+    },
+    {
+      "name": "Coffin Girls",
+      "connection": 3,
+      "loyalty": 4,
+      "archetype": "NOLA Independent Courtesans Group",
+      "favors": 0,
+      "region": "NOLA",
+      "types": [
+        "Street",
+        "Criminal"
+      ],
+      "description": "French Quarter courtesans and information guild."
+    },
+    {
+      "name": "Cedar",
+      "connection": 3,
+      "loyalty": 2,
+      "archetype": "Talismonger",
+      "favors": 2,
+      "region": "NOLA",
+      "types": [
+        "Magic"
+      ],
+      "description": "Uses: Talismongering, magical supplies, Salish artifacts | Types: Magic"
+    },
+    {
+      "name": "Detective Remy LeBlanc",
+      "connection": 3,
+      "loyalty": 2,
+      "archetype": "NOLA Detective",
+      "favors": 0,
+      "region": "NOLA",
+      "types": [
+        "Law Enforcement"
+      ],
+      "description": "NOMs police detective."
+    },
+    {
+      "name": "Claudette Laurier",
+      "connection": 5,
+      "loyalty": 1,
+      "archetype": "Order of the Golden Dawn Librarian",
+      "favors": 0,
+      "region": "NOLA",
+      "types": [
+        "Criminal",
+        "Matrix"
+      ],
+      "description": "Uses: Getting jobs, magical traditions | Types: Criminal, Matrix"
+    },
+    {
+      "name": "League of Laveau",
+      "connection": 6,
+      "loyalty": 3,
+      "archetype": "NOLA Voodoo Organization",
+      "favors": 1,
+      "region": "NOLA",
+      "types": [
+        "Magic"
+      ],
+      "description": "SRM 2083-18 Some Kind of Voodoo?"
+    },
+    {
+      "name": "Zobop",
+      "connection": 6,
+      "loyalty": 3,
+      "archetype": "NOLA Voodoo Organization",
+      "favors": 1,
+      "region": "NOLA",
+      "types": [
+        "Magic",
+        "Criminal"
+      ],
+      "description": "SRM 2083-18 Some Kind of Voodoo?"
+    },
+    {
+      "name": "Col. Treylor",
+      "connection": 3,
+      "loyalty": 1,
+      "archetype": "Thunder Corps Fixer",
+      "favors": 1,
+      "region": "DW",
+      "types": [
+        "Corporate",
+        "Government"
+      ],
+      "description": "Desert Wars logistical contact."
+    },
+    {
+      "name": "Moenen",
+      "connection": 5,
+      "loyalty": 1,
+      "archetype": "UNL Infobroker",
+      "favors": 1,
+      "region": "AMS",
+      "types": [
+        "Matrix",
+        "Criminal"
+      ],
+      "description": "Underground matrix broker across United Netherlands."
+    },
+    {
+      "name": "Blackstone",
+      "connection": 3,
+      "loyalty": 1,
+      "archetype": "Street Contact",
+      "favors": 0,
+      "region": "SEA",
+      "types": [
+        "Street",
+        "Criminal"
+      ],
+      "description": "Seattle underworld informant."
+    },
+    {
+      "name": "Alexander Sloane",
+      "connection": 4,
+      "loyalty": 1,
+      "archetype": "Etoile PI / Fixer",
+      "favors": 0,
+      "region": "NOLA",
+      "types": [
+        "Criminal",
+        "Law Enforcement"
+      ],
+      "description": "Uses: Private investigation, bounty hunting, police contacts, job offers | Types: Criminal, Law Enforcement"
+    },
+    {
+      "name": "Lanyap",
+      "connection": 4,
+      "loyalty": 1,
+      "archetype": "Fixer",
+      "favors": 1,
+      "region": "NOLA",
+      "types": [
+        "Criminal",
+        "Matrix"
+      ],
+      "description": "Uses: Getting jobs, fencing gear, gambling, Matrix, ex-shadowrunner network | Types: Criminal, Matrix"
+    },
+    {
+      "name": "Alice Krom",
+      "connection": 2,
+      "loyalty": 1,
+      "archetype": "Musician",
+      "favors": 0,
+      "region": "NOLA",
+      "types": [
+        "Entertainment",
+        "Street"
+      ],
+      "description": "Uses: Music, entertainment, local scene | Types: Entertainment, Street"
+    },
+    {
+      "name": "Donovan Pyke",
+      "connection": 8,
+      "loyalty": 1,
+      "archetype": "Shadow Chapters Leader",
+      "favors": 0,
+      "region": "SEA",
+      "types": [
+        "Corporate",
+        "Magic"
+      ],
+      "description": "Uses: Getting jobs, politics, Shadow Chapters (Shadowrun Missions Seattle) | Types: Corporate, Magic"
+    },
+    {
+      "name": "Ms. Snow",
+      "connection": 5,
+      "loyalty": 1,
+      "archetype": "Shadow Chapters Johnson",
+      "favors": 0,
+      "region": "SEA",
+      "types": [
+        "Corporate",
+        "Government"
+      ],
+      "description": "Uses: Corporate rumors, getting jobs, military (Shadowrun Missions Seattle) | Types: Corporate, Government"
+    },
+    {
+      "name": "Rodina",
+      "connection": 2,
+      "loyalty": 1,
+      "archetype": "ACHE Gang Leader",
+      "favors": 0,
+      "region": "SEA",
+      "types": [
+        "Criminal",
+        "Street"
+      ],
+      "description": "Uses: ACHE sprawl lore, gang muscle, underground trade (Shadowrun Missions Seattle) | Types: Criminal, Street"
+    },
+    {
+      "name": "Piper",
+      "connection": 2,
+      "loyalty": 1,
+      "archetype": "Street Kid",
+      "favors": 0,
+      "region": "SEA",
+      "types": [
+        "Street"
+      ],
+      "description": "Uses: Seattle Underground guide, rumors, history (Shadowrun Missions Seattle) | Types: Street"
+    },
+    {
+      "name": "4Gurds",
+      "connection": 2,
+      "loyalty": 2,
+      "archetype": "Free AI (Pharmaforge Controller)",
+      "favors": 0,
+      "region": "SEA",
+      "types": [
+        "Matrix",
+        "Medical"
+      ],
+      "description": "Infant Free AI awakened by Reiko from the Renraku Arcology Pharmaforge control software; possesses legacy Arcology archival files and industrial pharmaceutical knowledge"
+    },
+    {
+      "name": "Teddy Chin",
+      "connection": 2,
+      "loyalty": 1,
+      "archetype": "Triad Fixer / Negotiator",
+      "favors": 1,
+      "region": "SEA",
+      "types": [
+        "Criminal",
+        "Magic"
+      ],
+      "description": "Uses: Triad deals, negotiations, street rumors, nightclub contacts (Shadowrun Missions Seattle) | Types: Criminal, Magic"
+    }
+  ],
   "exceptions": [
     {
       "id": "omegaware_discount",
@@ -1515,15 +3152,85 @@
       "source": "Sixth World Companion / rules_matrix.qmd",
       "gm": "Tabletop Baseline",
       "active": true
+    }
+  ],
+  "modifiers": [
+    {
+      "id": "resonance_focus",
+      "name": "Resonance Focus",
+      "target": "attribute:resonance",
+      "value": 4,
+      "type": "focus",
+      "sub_skill": null,
+      "rule_anchor": "rules/rules_matrix.html#foci",
+      "notes": "+4 dice to tests using RES",
+      "enabled": true
     },
     {
-      "id": "retractable_skates",
-      "title": "Anthrodrone Retractable Skates Movement Mode",
-      "category": "mechanics",
-      "description": "Anthrodrone skates deploy via Minor Action, using metahuman movement rules (Walk 10m/rnd, Sprint 30m/rnd + 2m/hit).",
-      "source": "Body Shop p. 47 / rules_drones.qmd",
-      "gm": "Tabletop Baseline",
-      "active": true
+      "id": "smartlink_wireless",
+      "name": "Smartlink (Wireless)",
+      "target": "autosoft:targeting",
+      "value": 1,
+      "type": "other",
+      "sub_skill": null,
+      "rule_anchor": "rules_combat.html#tactical-weapon-arrays",
+      "notes": "Wireless bonus: +1 dice pool to attack tests (SR6 p. 261)",
+      "enabled": true
+    },
+    {
+      "id": "taz_symbiosis_electronics",
+      "name": "Taz Symbiosis (Electronics)",
+      "target": "skill:electronics",
+      "value": 4,
+      "type": "teamwork",
+      "sub_skill": null,
+      "rule_anchor": "rules_sprites.html#sprite-symbiosis-powers",
+      "notes": null,
+      "enabled": true
+    },
+    {
+      "id": "taz_symbiosis_cracking",
+      "name": "Taz Symbiosis (Cracking)",
+      "target": "skill:cracking",
+      "value": 4,
+      "type": "teamwork",
+      "sub_skill": null,
+      "rule_anchor": "rules_sprites.html#sprite-symbiosis-powers",
+      "notes": null,
+      "enabled": true
+    },
+    {
+      "id": "taz_diagnosis_engineering",
+      "name": "Taz Diagnosis (Engineering)",
+      "target": "skill:engineering",
+      "value": 3,
+      "type": "other",
+      "sub_skill": null,
+      "rule_anchor": "rules_sprites.html#sprite-symbiosis-powers",
+      "notes": null,
+      "enabled": true
+    },
+    {
+      "id": "taz_symbiosis_influence",
+      "name": "Taz Symbiosis (Influence)",
+      "target": "skill:influence",
+      "value": 4,
+      "type": "teamwork",
+      "sub_skill": null,
+      "rule_anchor": "rules_sprites.html#sprite-symbiosis-powers",
+      "notes": "Taz Level 7 teamwork bonus (up to +4, dynamically clamped to Reiko Influence rating)",
+      "enabled": true
+    },
+    {
+      "id": "taz_symbiosis_con",
+      "name": "Taz Symbiosis (Con)",
+      "target": "skill:con",
+      "value": 4,
+      "type": "teamwork",
+      "sub_skill": null,
+      "rule_anchor": "rules_sprites.html#sprite-symbiosis-powers",
+      "notes": "Taz Level 7 teamwork bonus (up to +4, dynamically clamped to Reiko Con rating)",
+      "enabled": true
     }
   ],
   "rules_doc": "rules/rules.html"

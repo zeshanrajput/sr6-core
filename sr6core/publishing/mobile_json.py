@@ -480,6 +480,16 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
         s_rating = int(s.get("rating", 1))
         s_attr = s.get("attribute", "logic")
         s_spec = s.get("specialization")
+        raw_specs = s.get("specializations") or []
+        all_specs = []
+        if isinstance(raw_specs, list):
+            all_specs = [sp for sp in raw_specs if sp]
+        elif isinstance(raw_specs, str) and raw_specs:
+            all_specs = [raw_specs]
+        if s_spec and s_spec not in all_specs:
+            all_specs.insert(0, s_spec)
+        if not s_spec and all_specs:
+            s_spec = all_specs[0]
 
         calc = ModifierEngine.calculate_skill_pool(
             char_data,
@@ -494,7 +504,7 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
         general_effective_pool = calc["effective_pool"]
 
         bought_hits = general_effective_pool // 4
-        specialized_pool = general_effective_pool + 2 if s_spec else general_effective_pool
+        specialized_pool = general_effective_pool + 2 if all_specs else general_effective_pool
         specialized_hits = specialized_pool // 4
 
         buff_list = []
@@ -508,7 +518,6 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
                 "notes": getattr(m, "notes", None),
                 "active": True
             })
-        all_specs = s.get("specializations") or ([s_spec] if s_spec else [])
         for sp_item in all_specs:
             buff_list.append({
                 "source": f"Specialization: {sp_item}",
@@ -647,6 +656,85 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
                 "buffs": buff_list,
                 "doc_link": "rules/rules_and_downtime.html#skillwires-protocols"
             })
+    # Knowledge Skills, Knowsofts & Languages compilation
+    raw_ks = char_data.get("knowledge_skills", []) or totals.get("Knowledge_Skills", [])
+    compiled_knowledge_skills = []
+    seen_ks = set()
+    for k in raw_ks:
+        if not isinstance(k, dict):
+            continue
+        k_name = k.get("name", "Knowledge")
+        if k_name in seen_ks:
+            continue
+        seen_ks.add(k_name)
+
+        k_rating = k.get("rating")
+        k_level = k.get("level")
+        k_notes = k.get("notes", "")
+        is_native = bool(k.get("is_native"))
+        is_linguasoft = bool(k.get("is_linguasoft")) or "linguasoft" in k_notes.lower()
+        is_knowsoft = bool(k.get("is_knowsoft")) or "knowsoft" in k_notes.lower() or "knowsoft" in k_name.lower()
+
+        if is_linguasoft:
+            category = "Linguasoft"
+        elif is_native or k_level in ["Native", "Basic", "Specialist", "Expert"]:
+            category = "Language"
+        elif is_knowsoft:
+            category = "Knowsoft"
+        else:
+            category = "Knowledge Skill"
+
+        base_attr = buffed_log
+        if is_knowsoft and k_rating:
+            pool = base_attr + int(k_rating)
+            breakdown = f"LOG {base_attr} + R{k_rating} Soft"
+        elif is_linguasoft and k_rating:
+            pool = base_attr + int(k_rating)
+            breakdown = f"LOG {base_attr} + R{k_rating} Linguasoft"
+        elif is_native:
+            pool = base_attr + 4
+            breakdown = f"LOG {base_attr} + Native (4)"
+        elif k_rating:
+            pool = base_attr + int(k_rating)
+            breakdown = f"LOG {base_attr} + R{k_rating}"
+        else:
+            pool = base_attr + buffed_int
+            breakdown = f"LOG {base_attr} + INT {buffed_int} (Memory)"
+
+        bought_hits = pool // 4
+
+        display_rating = f"R{k_rating}" if k_rating else (k_level or "Lore")
+        if is_linguasoft and k_rating:
+            if int(k_rating) >= 5:
+                display_rating = "R5 (Expert)"
+            elif int(k_rating) >= 3:
+                display_rating = "R3 (Specialist)"
+            elif int(k_rating) >= 1:
+                display_rating = "R1 (Beginner)"
+        elif is_knowsoft and k_rating:
+            display_rating = f"R{k_rating}"
+
+        compiled_knowledge_skills.append({
+            "name": k_name,
+            "id": k_name.lower().replace(" ", "_"),
+            "category": category,
+            "rating": k_rating if k_rating is not None else 0,
+            "display_rating": display_rating,
+            "level": k_level,
+            "is_native": is_native,
+            "is_linguasoft": is_linguasoft,
+            "is_knowsoft": is_knowsoft,
+            "pool": pool,
+            "base_pool": pool,
+            "buffed_pool": pool,
+            "bought_hits": bought_hits,
+            "effective_attribute": "LOG",
+            "attribute": "LOG",
+            "breakdown": breakdown,
+            "breakdown_text": breakdown + f" = {pool}d6",
+            "notes": k_notes,
+            "buffs": []
+        })
 
     # Qualities
     pos_raw = qualities_raw.get("positive", []) if isinstance(qualities_raw, dict) else []
@@ -1277,6 +1365,8 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
         },
         "initiative": compiled_initiative,
         "skills": compiled_skills,
+        "knowledge_skills": compiled_knowledge_skills,
+        "knowsofts": [k for k in compiled_knowledge_skills if k.get("is_knowsoft")],
         "qualities": {
             "positive": pos_qualities,
             "negative": neg_qualities
@@ -1311,6 +1401,8 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
             "programs": program_names,
             "software": compiled_software,
             "autosofts": autosofts,
+            "knowsofts": [k["name"] for k in compiled_knowledge_skills if k.get("is_knowsoft")],
+            "knowledge_skills": compiled_knowledge_skills,
             "gear": gear_names,
             "gear_items": compiled_gear,
             "sins": compiled_sins,
