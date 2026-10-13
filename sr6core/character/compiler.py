@@ -101,6 +101,13 @@ def compile_character(char_id: str) -> Dict[str, Any]:
                 if not sk.get("specialization"):
                     sk["specialization"] = sp_val
 
+    for rank_entry in purchases_data.get("skill_ranks", []):
+        sk_target = rank_entry.get("skill", "").lower()
+        r_val = rank_entry.get("rating", 1)
+        for sk in skills:
+            if sk.get("name", "").lower() == sk_target:
+                sk["rating"] = r_val
+
     qualities = dict(existing_char.get("qualities", {"positive": [], "negative": []}))
     for q in purchases_data.get("qualities", []):
         pos_list = qualities.setdefault("positive", [])

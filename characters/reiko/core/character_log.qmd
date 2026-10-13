@@ -573,5 +573,27 @@ Submersion_Grade = state["Submersion_Grade"]
   * In-Session Downtime Sprite Registration:
     * `{python} add_sprite("Modular", 8)`
 
+---
+
+`{python} mission("SRM.2083.16", date="2026-10-12", karma=8, nuyen=14500, rep={'NOLA': 2}, gm="Raven2049", difficulty="Veteran")`
+
+* **GM:** Raven2049
+* **Team:** Frostbite, Bunnier, Jolted, Shades, Ray, Yuriko (WarDoctor)
+* **Summary:** As Hurricane Lorenzo bore down on New Orleans and the Gulf Coast, eco-activist Roanoke urgently tasked the runner team to locate and eliminate rogue blood mage Belle Moderne before she could complete a catastrophic ritual exploiting the storm's mana surge. Infiltrating an offshore United Oil platform amidst hurricane-force winds, Yuriko deployed her drone network while the team neutralized Moderne's cultists and severed her ritual circle. After disabling the refinery's jury-rigged demolition charges and extinguishing platform flare fires, the team extracted the recovered novacoke cache and fenced it through Kozlowski Capo Fernand Amato. While fencing through the syndicate triggered heat, the team paid down the heat modifier directly to preserve clean street standing and secure a net 14,500¥ payout with zero lingering heat.
+* **Contacts:**
+  * `{python} contact("Roanoke", fp=3)`
+* **Loot & Special Acquisition:**
+  * *Essy Motors DroneMaster RCC:* Device Rating 3 (Data Processing 4, Firewall 4). Retained by Yuriko as dedicated swarm controller for her MCT Gnat micro-drone fleet (stored in drone and operated wirelessly).
+* **Downtime Actions (Converted 1 Major -> 2 Minors; 3 Minors Total):**
+  * *Minor Action 1 (Working for the People):* `{python} work_for_the_people()`
+    * 2,000¥ donated toward sustaining her sanctuary and children in the Endless Archives (sparks second generation), converting to +1 Karma.
+  * *Minor Action 2 (Register Sprites):* `{python} add_sprite("Modular", 8)`
+    * Compiled and registered Level 8 Modular Sprite (buying hits).
+  * *Minor Action 3 (Register Sprites):* `{python} add_sprite("Modular", 8)`
+    * Compiled and registered Level 8 Modular Sprite (buying hits).
+* **Character Advancement:**
+  * *Con (Rank 1 -> 2):* `{python} inc('Karma', -10)`
+    * Elevated Con from Rank 1 to 2. Uncaps ally sprite Taz's teamwork bonus on Con/Disguise tests from +1 to +2 dice, raising Reiko's active Disguise pool to 10d6 (2 Con + 4 CHA + 2 Spec + 2 Taz).
+
 
 

@@ -108,6 +108,26 @@ It is essential not to conflate living expenses with community obligations:
 
 ---
 
+## The Tri-Source Session Ingestion Pipeline (Ideal State)
+
+When recording and ingesting tabletop sessions into character logs, character purchases, and narrative chapters, strive for the **Tri-Source Ingestion Pipeline**:
+
+1. **Session Audio & Verbatim Transcript**:
+   - Store session audio in `characters/<char_id>/sessions/<session_id>/` (e.g. `characters/reiko/sessions/SRM_2083-16/stream_speech.mp3`). Audio binaries are gitignored.
+   - Run `uv run sr6 transcribe "<audio_path>" --char <char_id> --title "<title>"` (or `uv run sr6 session transcribe`) using CUDA GPU acceleration.
+   - Outputs `transcript.md` and `transcript.json` (tracked in Git).
+   - Use the transcript to capture verbatim dialogue, authentic roleplay moments, player improvisation, and table divergence from the written module.
+2. **Official Mission Document (Module / Ebook / Docx)**:
+   - Campaign source material (e.g., `SRM 2083-16 Crossfire Hurricane.docx`).
+   - Supplies canonical scene backdrops, NPC motivations, original job parameters, paydata, and intended plot branches.
+3. **GM Reward Log & Chat Recap**:
+   - Post-game chat messages (Discord / VTT).
+   - Serves as the authoritative single source of truth for actual tabletop payout: base Karma, difficulty modifiers, net nuyen, split loot/gear, contact Favor Points (FP), and Heat/Reputation.
+
+*Note: Runners may not always have every component available for every session, but triangulation across all three sources represents the ideal state for generating grounded, accurate session logs and inter-session narrative prose.*
+
+---
+
 ## Flexible Session Recap Ingestion Playbook
 
 Game Masters format recaps differently (bullet points, news broadcasts, inline pings, narrative summaries). Follow this modular checklist to ingest any recap:

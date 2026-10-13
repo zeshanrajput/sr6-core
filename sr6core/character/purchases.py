@@ -200,6 +200,17 @@ class PurchasesSyncEngine:
                     "specialization": m_spec.group(2).strip()
                 })
 
+            # In Skill Rank entries (e.g. **Con (Rank 2):** or **Con Rank 2:**)
+            m_rank = re.search(r'\*\*\s*([A-Za-z]+)\s*(?:\(Rank\s*(\d+)\)|Rank\s*(\d+))\s*:\s*\*\*', stripped, re.IGNORECASE)
+            if m_rank:
+                if 'skill_ranks' not in locals():
+                    skill_ranks = []
+                r_val = int(m_rank.group(2) or m_rank.group(3))
+                skill_ranks.append({
+                    "skill": m_rank.group(1).strip(),
+                    "rating": r_val
+                })
+
             # In Qualities & Mentor Spirits entries
             m_mentor = re.search(r'\*\*\s*Mentor Spirit\s*(?:\((.*?)\)|:\s*([^\*:]+))?\s*:\s*\*\*', stripped, re.IGNORECASE)
             if m_mentor:
@@ -236,7 +247,8 @@ class PurchasesSyncEngine:
             "sins": sins,
             "licenses": licenses,
             "qualities": qualities,
-            "specializations": locals().get("specializations", [])
+            "specializations": locals().get("specializations", []),
+            "skill_ranks": locals().get("skill_ranks", [])
         }
 
 
@@ -346,6 +358,20 @@ class PurchasesSyncEngine:
                             changes.append(f"Added Specialization '{sp_val}' to skill '{sk['name']}'")
                         if not sk.get("specialization"):
                             sk["specialization"] = sp_val
+
+        # 4b. Sync Skill Ranks
+        parsed_ranks = parsed.get("skill_ranks", [])
+        if parsed_ranks:
+            skills = data.get("skills", [])
+            for rank_entry in parsed_ranks:
+                sk_target = rank_entry.get("skill", "").lower()
+                r_val = rank_entry.get("rating", 1)
+                for sk in skills:
+                    if sk.get("name", "").lower() == sk_target:
+                        old_r = sk.get("rating", 1)
+                        if old_r != r_val:
+                            sk["rating"] = r_val
+                            changes.append(f"Updated skill '{sk['name']}' rating from {old_r} to {r_val}")
 
         # 5. Sync Qualities
         parsed_qualities = parsed.get("qualities", [])

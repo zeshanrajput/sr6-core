@@ -281,6 +281,31 @@ def main():
     export_parser.add_argument("--format", type=str, choices=["quick_sheet", "sheet", "mobile", "text"], default="quick_sheet", help="Export format")
     export_parser.add_argument("--output", type=str, default=None, help="Custom output filepath")
 
+    # transcribe subcommand
+    trans_parser = subparsers.add_parser("transcribe", help="Transcribe tabletop session audio using faster-whisper on CUDA")
+    trans_parser.add_argument("target", type=str, help="Path to audio file (mp3, wav, m4a)")
+    trans_parser.add_argument("--model", type=str, default="small.en", help="Whisper model (tiny.en, base.en, small.en, medium.en, distil-large-v3)")
+    trans_parser.add_argument("--device", type=str, choices=["cuda", "cpu"], default=None, help="Compute device (default: auto-detect CUDA)")
+    trans_parser.add_argument("--char", type=str, default=None, help="Character portfolio ID")
+    trans_parser.add_argument("--title", type=str, default=None, help="Session title")
+    trans_parser.add_argument("--output", type=str, default=None, help="Output directory for transcript.md and transcript.json")
+
+    # session subcommand
+    session_parser = subparsers.add_parser("session", help="Manage tabletop game sessions, audio recordings, and transcription")
+    session_sub = session_parser.add_subparsers(dest="subcommand", help="Session action")
+    s_trans = session_sub.add_parser("transcribe", help="Transcribe session recording")
+    s_trans.add_argument("target", type=str, help="Path to audio file")
+    s_trans.add_argument("--model", type=str, default="small.en", help="Whisper model (tiny.en, base.en, small.en, medium.en, distil-large-v3)")
+    s_trans.add_argument("--device", type=str, choices=["cuda", "cpu"], default=None, help="Compute device")
+    s_trans.add_argument("--char", type=str, default=None, help="Character portfolio ID")
+    s_trans.add_argument("--title", type=str, default=None, help="Session title")
+    s_trans.add_argument("--output", type=str, default=None, help="Output directory")
+
+    s_down = session_sub.add_parser("download", help="Download stream audio from URL via yt-dlp")
+    s_down.add_argument("url", type=str, help="Stream URL (YouTube, Twitch, Discord, etc.)")
+    s_down.add_argument("--output", "-o", type=str, default=".", help="Output directory")
+    s_down.add_argument("--name", type=str, default=None, help="Filename stem")
+
     # db subcommand
     db_parser = subparsers.add_parser("db", help="Manage rules database & CommLink6 dataset imports")
     db_sub = db_parser.add_subparsers(dest="subcommand", help="Database action to perform")
@@ -1230,6 +1255,24 @@ def main():
                 sys.exit(1)
 
             time.sleep(interval)
+
+    elif args.command in ["transcribe", "session"]:
+        from sr6core.session import transcribe_session_audio, download_session_audio
+        if args.command == "transcribe" or getattr(args, "subcommand", None) == "transcribe":
+            transcribe_session_audio(
+                audio_path=args.target,
+                model_size=args.model,
+                device=args.device,
+                char_id=getattr(args, "char", None),
+                session_title=getattr(args, "title", None),
+                output_dir=getattr(args, "output", None)
+            )
+        elif getattr(args, "subcommand", None) == "download":
+            download_session_audio(
+                url=args.url,
+                output_dir=args.output,
+                filename_stem=getattr(args, "name", None)
+            )
 
 
 

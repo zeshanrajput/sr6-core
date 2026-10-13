@@ -25,5 +25,10 @@ cache_index.json
 characters/*/scratch/
 *.wav
 *.mp3
+*.m4a
+*.aac
+*.ogg
 !characters/*/narrative/audio/*.mp3
 !characters/*/narrative/audio/*.wav
+*.exe
+bin/

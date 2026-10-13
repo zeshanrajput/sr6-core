@@ -170,5 +170,6 @@ Drone mods include a 50% discount on mods Yuriko installed herself (DC p. 120). 
 * **Con Specialization (Disguise):** *5 Karma (SRM 2081-12 Downtime)*
 * **Tasking Specialization (Compiling):** *5 Karma (SRM 2081-13 Advancement)*
 * **Electronics Specialization (Complex Forms):** *5 Karma (SRM 2081-13 Advancement)*
+* **Con Rank 2:** *10 Karma (SRM 2083-16 Advancement)*
 
 

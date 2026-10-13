@@ -64,7 +64,7 @@ The `narrative-director` is the primary autonomous orchestrator responsible for 
 
 ### Stage 1: Context Ingestion
 Before drafting or editing, `narrative-director` ingests:
-1. **Scene Outline / Prompt**: User-provided beat sheet, plot points, or target goals.
+1. **Scene Outline / Prompt & Tri-Source Ingestion**: User-provided beat sheet, plot points, or tri-source session artifacts (verbatim audio transcripts in `characters/<char_id>/sessions/<session_id>/transcript.md`, official mission documents/modules, and GM Discord/chat reward logs).
 2. **Master Narrative Doctrine**: Loads [`reference/inter_session_narrative_doctrine.md`](file:///c:/GitHub/sr6-core/reference/inter_session_narrative_doctrine.md) as the governing operational and psychological constitution.
 3. **Sub-Agent Evaluation Skills**: Calibrated directly by `sr6-narrative-suite` skills (`no-ai-slop`, `axis-pacing-structure`, `axis-worldbuilding-grit`, `axis-voice-internality`, `axis-agency-motivation`, `sr6-rules`, `continuity-tracker`, `literary-analysis`, `sr6-combat-choreography`, `sr6-downtime-ledger`, `sr6-narration-tts`).
 4. **Character Voice Specification / Consolidated Narrative Spec**: Loads local character repository `reference/narrative_spec.md` or `reference/voice_spec.md` (inheriting `reference/default_voice_spec.md`).

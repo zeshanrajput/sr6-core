@@ -8,10 +8,10 @@ identity:
   gender: DIVERSE
   age: ~ 10
   system: shadowrun6e
-  karma: 3
-  lifetime_karma: 265
-  nuyen: 8450.0
-  lifetime_nuyen: 414800
+  karma: 2
+  lifetime_karma: 274
+  nuyen: 20950.0
+  lifetime_nuyen: 429300
   heat: -1
 attributes:
   body: 5
@@ -74,7 +74,7 @@ skills:
 - name: Con
   id: con
   attribute: Charisma
-  rating: 1
+  rating: 2
   specialization: Disguise
   specializations:
   - Disguise
@@ -310,7 +310,7 @@ contacts:
     is_canonical: true
     connection: 3
     loyalty: 4
-    favors: 1
+    favors: 4
     type: NOLA Ecological Activist
     region: NOLA
     types:
@@ -327,6 +327,7 @@ contacts:
     - SRM.2083.20 (+1 FP)
     - SRM.2083.14 (+3 FP)
     - Auto-Promoted to Loyalty 4 (-4 FP)
+    - SRM.2083.16 (+3 FP)
   Piotr Krolik:
     name: Piotr Krolik
     canonical_name: Piotr Krolik
@@ -1518,13 +1519,13 @@ reputation:
   Kentucky: 3
   Amsterdam: 1
   Mercenary: 3
-  NOLA: 9
+  NOLA: 11
   UNL: 2
   Southeast Asia: 2
   DW: 2
   Kozlowski Family: 2
   SEA: 3
-total_reputation: 38
+total_reputation: 40
 drones:
 - name: MCT Gnat
   ref: mctgnat
