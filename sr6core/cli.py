@@ -244,6 +244,11 @@ def main():
     s_narrate.add_argument("--list", action="store_true", help="List narrative audio files")
     s_narrate.add_argument("--voice", type=str, default="af_heart", help="Kokoro voice model")
     s_narrate.add_argument("--pacing", type=str, choices=["tight", "balanced", "spacious"], default="balanced", help="Pacing profile")
+    s_sync = story_sub.add_parser("sync", help="Synchronize narrative chapters across _quarto.yml, index.qmd, and story_continuity.md")
+    s_sync.add_argument("target", type=str, nargs="?", default=".", help="Character ID or directory path (e.g. velvet, characters/velvet, or .)")
+
+    story_sync_parser = subparsers.add_parser("story-sync", help="Synchronize narrative chapters across _quarto.yml, index.qmd, and story_continuity.md")
+    story_sync_parser.add_argument("target", type=str, nargs="?", default=".", help="Character ID or directory path (e.g. velvet, characters/velvet, or .)")
 
     # Standalone shortcut subcommands for backward compatibility:
     search_parser = subparsers.add_parser("search", help="Search the rules vault database")
@@ -817,6 +822,22 @@ def main():
                     voice=getattr(args, "voice", "af_heart"),
                     char_id=getattr(args, "char", None)
                 )
+
+        elif args.subcommand == "sync":
+            from sr6core.narrative.sync import sync_narrative_context, print_sync_report
+            rep, err = sync_narrative_context(args.target)
+            if err:
+                print(f"[Error] {err}")
+            else:
+                print_sync_report(rep)
+
+    elif args.command == "story-sync":
+        from sr6core.narrative.sync import sync_narrative_context, print_sync_report
+        rep, err = sync_narrative_context(args.target)
+        if err:
+            print(f"[Error] {err}")
+        else:
+            print_sync_report(rep)
 
     elif args.command == "export":
         try:

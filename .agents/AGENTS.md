@@ -142,6 +142,23 @@ Invoked via the command/trigger: **`literary-analysis <target_file>`** (e.g., `l
    - **Single-Sentence Paragraphs**: Identify the quote, location, and the dramatic pivot/existential hinge that justifies isolating it (or "None deployed").
    - **Contextual Scaffolding**: Identify the passage, location, and the specialized domain dynamics or proprietary character motifs being scaffolded, explaining why the reader could not reasonably deduce it alone (or "None required").
 
+### Stage 7: Standardized Chapter Finalization & CI/CD Verification (`/finalize-chapter <target>`)
+Invoked via the command/trigger: **`/finalize-chapter <target_file>`** (e.g. `/finalize-chapter characters/velvet/narrative/12_Iron.md` or `/publish-chapter <target_file>`):
+
+1. **Pre-Flight Lint & Sanitization**:
+   - Run `uv run sr6 lint "<target_file>"` to verify zero slop regressions, no banned buzzwords, no `\ufffd` unicode artifacts, and em-dash density $\le 0.60$ per 300 words.
+2. **Audio Narration Generation**:
+   - Run `uv run --extra narration sr6 narrate "<target_file>" --char <char_id>`
+   - The engine automatically parses `<audio controls src="audio/(.*?)">` in the markdown header to generate the exact 160kbps MP3 target with embedded character ID3 tags.
+3. **Project Context & Navigation Synchronization**:
+   - Run `uv run sr6 story sync <char_id>` to automatically register the chapter in `_quarto.yml`, `index.qmd`, and `reference/story_continuity.md`, while updating contact appearances, chapter tables, and anthology word counts.
+4. **Windows PowerShell Git Commit & Push Protocol**:
+   - Stage all touched files.
+   - Stage commit message in `scratch/commit_msg.txt`, execute `git commit -F scratch/commit_msg.txt`, clean up temporary file, and push to `origin/master`.
+5. **Scheduled CI/CD Verification (8-Minute Timer)**:
+   - Call `schedule(DurationSeconds="480", Prompt="Verify GitHub Actions build and CI test workflows for commit <hash>")`.
+   - When the timer fires upon expiry, execute `gh run list --limit 3` and `gh run view <run_id>` to verify that `CI Test & Quality Gate` and `Build & Deploy Unified SR6 Books & Mobile PWA` both completed with `success`.
+
 ---
 
 ## 3. CLI Diagnostic Utilities
@@ -158,19 +175,20 @@ Before completing edits or reviewing narrative/character updates, run correspond
 * **Item & PACK Reference Cards**: `uv run sr6 card <quality|weapon|spell|cyberware|pack> <name>`
 * **Prose & Markdown Linter**: `uv run sr6 lint "chapters/<file>.qmd"`
 * **7-Axis Narrative Evaluator**: `uv run sr6 evaluate "chapters/<file>.qmd" --tier <1|2|3> --char <id>`
+* **Narrative Context Synchronizer**: `uv run sr6 story sync <char_id>`
 * **Combat Ledger Action Parser**: `uv run sr6 ledger parse "chapters/<file>.qmd"`
 * **Continuity Engine**: `uv run sr6 continuity <repo_path>`
 * **Character Creation Auditor**: `uv run sr6 characters audit [char_id]`
 * **Combat Opposed Simulation**: `uv run sr6 combat attack --pool <X> --ar <Y> --target-dr <Z>`
 * **Dice Pool Roller**: `uv run sr6 roll <dice_pool> [--edge]`
-* **TTS Narration Generation**: `uv run sr6 narrate "chapters/<file>.qmd" --voice af_heart`
+* **TTS Narration Generation**: `uv run --extra narration sr6 narrate "chapters/<file>.qmd" --voice af_heart`
 * **Ecosystem Sync & Build**: `uv run sr6 sync-all`
 * **Multi-Format Exporters**: `uv run sr6 export <char_id> --format=roll20|vtt|xml|text_modular`
 * **Plugin Management**: `uv run sr6 plugin status` / `uv run sr6 plugin install`
 
 ---
 
-## 4. The 12-Skill Narrative Suite Reference
+## 4. The 13-Skill Narrative Suite Reference
 
 | Skill Name | Role | Primary Command / Pre-Flight |
 | :--- | :--- | :--- |
@@ -186,3 +204,4 @@ Before completing edits or reviewing narrative/character updates, run correspond
 | **`sr6-combat-choreography`** | Tactical mechanics into somatic, braided action fiction | `uv run sr6 combat attack` |
 | **`sr6-downtime-ledger`** | Karma progression, gear buying, `{python} inc(...)` snippets | `uv run sr6 card` / `sync-all` |
 | **`sr6-narration-tts`** | Kokoro TTS audio prep, ellipses ceiling, phonetics | `uv run sr6 lint` / `narrate` |
+| **`sr6-chapter-finalize`** | Stage 7 chapter publishing, audio, sync, git & CI/CD verification | `/finalize-chapter` / `sr6 story sync` |

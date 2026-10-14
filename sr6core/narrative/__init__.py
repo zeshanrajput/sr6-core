@@ -24,6 +24,11 @@ from sr6core.narrative.narration import (
     retag_narratives,
 )
 
+from sr6core.narrative.sync import (
+    sync_narrative_context,
+    print_sync_report,
+)
+
 __all__ = [
     "analyze_prose",
     "print_prose_report",
@@ -38,4 +43,6 @@ __all__ = [
     "extract_chapter_metadata",
     "list_narratives",
     "retag_narratives",
+    "sync_narrative_context",
+    "print_sync_report",
 ]

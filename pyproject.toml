@@ -28,6 +28,27 @@ dependencies = [
     "yt-dlp>=2024.0.0"
 ]
 
+[project.optional-dependencies]
+narration = [
+    "lameenc>=1.7.0",
+    "torch",
+    "torchaudio",
+    "kokoro>=0.8.4",
+    "soundfile>=0.12.1",
+    "spacy>=3.7.0",
+    "en-core-web-sm",
+]
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu124" }
+torchaudio = { index = "pytorch-cu124" }
+en-core-web-sm = { url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl" }
+
+[[tool.uv.index]]
+name = "pytorch-cu124"
+url = "https://download.pytorch.org/whl/cu124"
+explicit = true
+
 [project.scripts]
 sr6 = "sr6core.cli:main"
 

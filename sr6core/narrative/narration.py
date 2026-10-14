@@ -550,14 +550,19 @@ def generate_narration(file_path: str, output_mp3: Optional[str] = None, pacing:
     device = "cuda" if torch.cuda.is_available() else "cpu"
     device_name = torch.cuda.get_device_name(0) if device == "cuda" else "CPU"
 
+    with open(file_path, "r", encoding="utf-8", errors="replace") as f:
+        content = f.read()
+
     if not output_mp3:
         output_dir = os.path.join(os.path.dirname(file_path), "audio")
         os.makedirs(output_dir, exist_ok=True)
-        base_name = os.path.splitext(os.path.basename(file_path))[0] + ".mp3"
+        # Sniff explicit audio tag in markdown header (e.g. <audio controls src="audio/12_Iron.mp3" ...>)
+        m = re.search(r'<audio[^>]+src=["\'](?:.*?/)?([^"\']+\.mp3)["\']', content, flags=re.IGNORECASE)
+        if m:
+            base_name = m.group(1)
+        else:
+            base_name = os.path.splitext(os.path.basename(file_path))[0] + ".mp3"
         output_mp3 = os.path.join(output_dir, base_name)
-
-    with open(file_path, "r", encoding="utf-8") as f:
-        content = f.read()
 
     # Preprocessing pipeline
     clean_text = clean_markdown_for_tts(content)

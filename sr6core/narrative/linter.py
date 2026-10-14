@@ -280,6 +280,11 @@ def analyze_prose(file_path: str) -> Tuple[Optional[Dict[str, Any]], Optional[st
     is_file = os.path.exists(file_path) and os.path.isfile(file_path)
     md_errors, md_err_note = run_markdownlint(file_path) if is_file else ([], None)
 
+    unicode_artifact_matches = []
+    for line_idx, line in enumerate(lines, 1):
+        if '\ufffd' in line:
+            unicode_artifact_matches.append((line_idx, line.strip()))
+
     report = {
         "file_path": file_path if is_file else "<raw_text>",
         "word_count": word_count,
@@ -294,6 +299,7 @@ def analyze_prose(file_path: str) -> Tuple[Optional[Dict[str, Any]], Optional[st
         "senseless_negative_matches": senseless_negative_matches,
         "scent_trio_matches": scent_trio_matches,
         "omniscient_pov_matches": omniscient_pov_matches,
+        "unicode_artifact_matches": unicode_artifact_matches,
         "markdownlint_errors": md_errors,
         "markdownlint_note": md_err_note
     }
@@ -376,5 +382,12 @@ def print_prose_report(report: Dict[str, Any]):
             print(f"  Line {line_idx} [omniscient leak]: \"{line}\"")
     else:
         print("  [OK] Zero omniscient POV leaks detected.")
+
+    print("\n--- UNICODE CORRUPTION ARTIFACTS (\\ufffd) ---")
+    if report.get("unicode_artifact_matches"):
+        for line_idx, line in report["unicode_artifact_matches"]:
+            print(f"  Line {line_idx} [corrupted char]: \"{line}\"")
+    else:
+        print("  [OK] Zero corrupted unicode replacement characters detected.")
 
     print("=" * 65 + "\n")
