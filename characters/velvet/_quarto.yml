@@ -36,6 +36,7 @@ book:
         - narrative/09_Heat.md
         - narrative/10_Burns.md
         - narrative/11_Silence.md
+        - narrative/12_Iron.md
 
     - part: "Reference & Specifications"
       chapters:

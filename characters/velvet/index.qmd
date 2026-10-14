@@ -124,6 +124,7 @@ Use the sidebar or the indexes below to traverse this portfolio:
 * **[09. Heat](narrative/09_Heat.md)**: Surviving the North Sea cold in Europort and anchoring Lawrence Duval (Age 20).
 * **[10. Burns](narrative/10_Burns.md)**: Sacred field triage in Sham Shui Po, paying the sacred deficit (*Daesul*), and the emergence of Kang Anning (Age 20).
 * **[11. Silence](narrative/11_Silence.md)**: Shattering the ascetic delusion in Amsterdam, the ballast stone realization, and receiving the reforged collar focus from Min-seo (Age 20).
+* **[12. Iron](narrative/12_Iron.md)**: Thirty-hour ACHE climb aftermath, releasing Sun-hee Diaz's frame, and forging the sovereign ancestor covenant at the Touristville threshold (Age 20).
 
 ### 3. Foundational Reference, Philosophy & Specifications
 * **[Philosophical & Spiritual Framework](reference/philosophical_framework.md)**: Grounding of the Thousand Lives (*Anattā*, *Musok*, *Mansin*, *Upāya*, and the Sacred Mirror *Kagami*).
