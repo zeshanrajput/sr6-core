@@ -88,13 +88,19 @@ uv run sr6 lint "<target_file>"
 
 ---
 
-### Step 2: Kokoro TTS Audio Generation
+### Step 2: Kokoro TTS Audio Generation & Release Asset Upload
 Synthesize high-fidelity 160kbps MP3 audio narration using Kokoro GPU:
 ```bash
 uv run --extra narration sr6 narrate "<target_file>" --char <char_id>
 ```
-- **Audio Tag Sniffing**: The engine automatically detects the `<audio controls src="audio/(.*?)">` tag in the markdown header (e.g. `audio/12_Iron.mp3`) and targets that exact file name.
+- **Audio Tag Sniffing**: The engine automatically detects the `<audio controls src="audio/(.*?)">` tag in the markdown header (e.g. `audio/12_Iron.mp3`) and targets that exact file name in `characters/<char_id>/narrative/audio/<audio_file>`.
 - **Character ID3 Tagging**: Automatically embeds Title, Track Number, Artist (Character Handle/ID), and Album (*Shadowrun 6e: <Character Name>*).
+- **External Audio Upload (Zero-Git-Bloat Policy)**:
+  To maintain the `<12MB` git repository footprint for Gemini web app compatibility, **NEVER commit the `.mp3` file to Git**. Instead, upload it directly to the GitHub Release assets:
+  ```bash
+  gh release upload narrative-audio-v1 "characters/<char_id>/narrative/audio/<audio_file>" --clobber
+  ```
+  *(The GitHub Actions deploy workflow automatically downloads this asset and places it into GitHub Pages for live playback).*
 
 ---
 
@@ -115,21 +121,21 @@ Automatically updates:
 ---
 
 ### Step 4: Windows PowerShell Git Commit Protocol
-To prevent PowerShell whitespace, quote-escaping, and newline truncation issues when committing multi-line messages, always stage the commit message in a temporary file:
+To prevent PowerShell whitespace, quote-escaping, and newline truncation issues when committing multi-line messages, always stage the commit message in a temporary file (do NOT stage `.mp3` files):
 
 ```powershell
 @"
-feat(<char_id>): add Chapter <num> <Title>, audio narration, and project links
+feat(<char_id>): add Chapter <num> <Title> and project links
 
 - Finalize Chapter <num>: <Title> (<filename>) with surgical line polishes
-- Generate Kokoro TTS audio narration track (<audio_file>)
+- Generate Kokoro TTS audio narration track and upload to narrative-audio-v1 release
 - Register chapter in _quarto.yml and index.qmd
 - Synchronize character relationship matrix and chapter breakdown in story_continuity.md
-"@ | Set-Content -Path "scratch_commit_msg.txt" -Encoding utf8
+"@ | Set-Content -Path "scratch/commit_msg.txt" -Encoding utf8
 
-git add "<target_file>" "characters/<char_id>/narrative/audio/<audio_file>" "characters/<char_id>/_quarto.yml" "characters/<char_id>/index.qmd" "characters/<char_id>/reference/story_continuity.md"
-git commit -F scratch_commit_msg.txt
-Remove-Item "scratch_commit_msg.txt"
+git add "<target_file>" "characters/<char_id>/_quarto.yml" "characters/<char_id>/index.qmd" "characters/<char_id>/reference/story_continuity.md"
+git commit -F scratch/commit_msg.txt
+Remove-Item "scratch/commit_msg.txt"
 git push origin master
 ```
 

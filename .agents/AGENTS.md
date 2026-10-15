@@ -147,13 +147,15 @@ Invoked via the command/trigger: **`/finalize-chapter <target_file>`** (e.g. `/f
 
 1. **Pre-Flight Lint & Sanitization**:
    - Run `uv run sr6 lint "<target_file>"` to verify zero slop regressions, no banned buzzwords, no `\ufffd` unicode artifacts, and em-dash density $\le 0.60$ per 300 words.
-2. **Audio Narration Generation**:
+2. **Audio Narration Generation & Release Asset Upload**:
    - Run `uv run --extra narration sr6 narrate "<target_file>" --char <char_id>`
    - The engine automatically parses `<audio controls src="audio/(.*?)">` in the markdown header to generate the exact 160kbps MP3 target with embedded character ID3 tags.
+   - Upload the generated MP3 directly to the GitHub Release: `gh release upload narrative-audio-v1 "characters/<char_id>/narrative/audio/<audio_file>" --clobber`
+   - **Do NOT stage or commit MP3 files to Git** (maintaining the `<12MB` Gemini web app ceiling).
 3. **Project Context & Navigation Synchronization**:
    - Run `uv run sr6 story sync <char_id>` to automatically register the chapter in `_quarto.yml`, `index.qmd`, and `reference/story_continuity.md`, while updating contact appearances, chapter tables, and anthology word counts.
 4. **Windows PowerShell Git Commit & Push Protocol**:
-   - Stage all touched files.
+   - Stage all touched markdown/quarto/context files (excluding audio).
    - Stage commit message in `scratch/commit_msg.txt`, execute `git commit -F scratch/commit_msg.txt`, clean up temporary file, and push to `origin/master`.
 5. **Scheduled CI/CD Verification (8-Minute Timer)**:
    - Call `schedule(DurationSeconds="480", Prompt="Verify GitHub Actions build and CI test workflows for commit <hash>")`.

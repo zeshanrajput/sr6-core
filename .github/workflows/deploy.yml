@@ -48,6 +48,31 @@ jobs:
         run: |
           uv run sr6 sync-all || echo "Ecosystem sync finished with non-fatal warnings"
 
+      - name: Fetch Narrative Audio Assets
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p audio_downloads
+          gh release download narrative-audio-v1 --dir audio_downloads || true
+          mkdir -p characters/reiko/narrative/audio characters/velvet/narrative/audio characters/venn/narrative/audio
+          [ -f audio_downloads/reiko-audio.zip ] && unzip -q -o audio_downloads/reiko-audio.zip -d characters/reiko/narrative/audio/ || true
+          [ -f audio_downloads/velvet-audio.zip ] && unzip -q -o audio_downloads/velvet-audio.zip -d characters/velvet/narrative/audio/ || true
+          [ -f audio_downloads/venn-audio.zip ] && unzip -q -o audio_downloads/venn-audio.zip -d characters/venn/narrative/audio/ || true
+          find audio_downloads -maxdepth 1 -name "*.mp3" | while read -r f; do
+            fname=$(basename "$f")
+            case "$fname" in
+              reiko_*)  cp "$f" "characters/reiko/narrative/audio/${fname#reiko_}" ;;
+              velvet_*) cp "$f" "characters/velvet/narrative/audio/${fname#velvet_}" ;;
+              venn_*)   cp "$f" "characters/venn/narrative/audio/${fname#venn_}" ;;
+              *)
+                for c in reiko velvet venn; do
+                  [ -d "characters/$c/narrative/audio" ] && cp "$f" "characters/$c/narrative/audio/" 2>/dev/null || true
+                done
+                ;;
+            esac
+          done
+          rm -rf audio_downloads
+
       - name: Render Character Books
         env:
           QUARTO_PYTHON: ${{ github.workspace }}/.venv/bin/python

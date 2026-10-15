@@ -74,11 +74,19 @@ uv run sr6 narrate batch "characters/<char_id>/chapters/" --output "characters/<
      <audio controls src="audio/<Chapter_Name>.mp3" style="width: 100%; margin-bottom: 1.5rem;"></audio>
      ```
    - Ensure `_quarto.yml`, `index.qmd`, and `story_continuity.md` are updated simultaneously before pushing to git.
+7. **External Audio Upload (Zero-Git-Bloat Policy):**
+   - To maintain the repository size under 12 MB for Gemini web app compatibility, chapter audio files (`.mp3`) are gitignored and **never committed to Git**.
+   - Following local synthesis in `characters/<char_id>/narrative/audio/<chapter>.mp3`, upload the track directly to the GitHub Release:
+     ```bash
+     gh release upload narrative-audio-v1 "characters/<char_id>/narrative/audio/<chapter>.mp3" --clobber
+     ```
+   - The CI deploy pipeline (`deploy.yml`) automatically downloads release audio assets into `_site/` during deployment, making them live on GitHub Pages with zero Git bloat.
 
 ## Narration Pre-Flight Checklist
 
 - [ ] `uv run sr6 lint <chapter>` passes with ellipses ratio $\le 0.60$.
 - [ ] No unexpanded technical acronyms or raw table markup in spoken sections.
 - [ ] New syndicate/corp proper nouns and contextual heteronyms added to `reference/pronunciations.yaml`.
-- [ ] Narration generated to `chapters/audio/<chapter>.mp3` with clean title/artist MP3 tags.
+- [ ] Narration generated to `characters/<char_id>/narrative/audio/<chapter>.mp3` with clean title/artist MP3 tags.
+- [ ] Narration track uploaded to GitHub Release: `gh release upload narrative-audio-v1 "characters/<char_id>/narrative/audio/<chapter>.mp3" --clobber` (NOT committed to Git).
 - [ ] Audio player embedded in chapter header and registered in project indices.
