@@ -381,7 +381,7 @@ def _migration_001_core_rules(conn: sqlite3.Connection):
 def _migration_002_gameplay_tables(conn: sqlite3.Connection):
     """Seed & relational tables for Action Economy, Status Effects, and Edge Boosts."""
     try:
-        from sr6core.gameplay_tables import populate_gameplay_tables
+        from sr6core.rules.tables import populate_gameplay_tables
         populate_gameplay_tables(conn)
     except Exception as e:
         logger.warning(f"Could not populate gameplay table seeds: {e}")

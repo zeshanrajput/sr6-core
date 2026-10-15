@@ -4,15 +4,15 @@ SRM +4 Cap, Companion Skill Filtering, Dynamic Vehicle Modification Parser, and 
 """
 
 import pytest
-from sr6core.modifiers import ModifierEngine, PoolModifier, PoolComponent, PoolOptimization
-from sr6core.vehicles import parse_vehicle_modifications, calculate_drone_action_pools
-from sr6core.rules_engine import (
+from sr6core.rules.modifiers import ModifierEngine, PoolModifier, PoolComponent, PoolOptimization
+from sr6core.rules.vehicles import parse_vehicle_modifications, calculate_drone_action_pools
+from sr6core.rules.engine import (
     get_drone_statblock_table,
     get_drone_action_table,
     get_matrix_action_table,
     get_sprite_action_table
 )
-from sr6core.creation.deep_audit import deep_audit_character
+from sr6core.character.audit import deep_audit_character
 
 
 SAMPLE_YURIKO = {
@@ -353,7 +353,7 @@ def test_deep_audit_synergies():
 
 def test_weapon_attack_table_renderer():
     """Verifies that get_weapon_attack_table dynamically computes weapon arrays, firing modes, and effective AR."""
-    from sr6core.rules_engine import get_weapon_attack_table
+    from sr6core.rules.engine import get_weapon_attack_table
     table_md = get_weapon_attack_table("reiko")
     assert "| Weapon Name | Mode (Rounds) | Final DV | Final Effective AR (C / N / M / F / E) | Notes & Constraints |" in table_md
     assert "**Red Fox Array (2x Link-Fired)**" in table_md
@@ -371,7 +371,7 @@ def test_weapon_attack_table_renderer():
 
 def test_character_table_pools():
     """Verifies that get_character_table_pools detects domain relevance per archetype."""
-    from sr6core.rules_engine import get_character_table_pools
+    from sr6core.rules.engine import get_character_table_pools
     reiko_pools = get_character_table_pools("reiko")
     assert "matrix_operations" in reiko_pools["active_domains"]
     assert "rigging_and_drones" in reiko_pools["active_domains"]
@@ -382,8 +382,8 @@ def test_character_table_pools():
 
 def test_canonical_contacts_and_log_engine():
     """Verifies that canonical SRM contacts lock Connection ratings and auto-promote loyalty via favor points."""
-    from sr6core.contacts import is_canonical_contact, get_canonical_contact
-    from sr6core.log_engine import reset_log_state, contact, inc, state
+    from sr6core.character.contacts import is_canonical_contact, get_canonical_contact
+    from sr6core.character.ledger import reset_log_state, contact, inc, state
 
     assert is_canonical_contact("Brynne Taggart") is True
     assert is_canonical_contact("Whiskey") is True
@@ -429,7 +429,7 @@ def test_canonical_contacts_and_log_engine():
 
 def test_sprite_commands_table_renderer():
     """Verifies that get_sprite_commands_table correctly renders all 6 commands and SRMG rules."""
-    from sr6core.rules_engine import get_sprite_commands_table
+    from sr6core.rules.engine import get_sprite_commands_table
     table = get_sprite_commands_table("reiko", sprite_level=7)
     assert "| **Signal Boost**" in table
     assert "| **Host Ken**" in table
@@ -444,9 +444,9 @@ def test_sprite_commands_table_renderer():
 
 def test_magic_and_social_action_pools_and_tables():
     """Verifies that ModifierEngine and rules_engine correctly calculate magic and social action pools for Velvet."""
-    from sr6core.character_manager import CharacterManager
-    from sr6core.modifiers import ModifierEngine
-    from sr6core.rules_engine import get_magic_action_table, get_social_action_table, get_scene_strategy_table
+    from sr6core.character.manager import CharacterManager
+    from sr6core.rules.modifiers import ModifierEngine
+    from sr6core.rules.engine import get_magic_action_table, get_social_action_table, get_scene_strategy_table
 
     cm = CharacterManager()
     char = cm.get_character_data("velvet")
@@ -516,9 +516,9 @@ def test_magic_and_social_action_pools_and_tables():
 
 def test_tactical_action_pools_and_tables_union():
     """Verifies that ModifierEngine and rules_engine correctly calculate tactical combat action pools and Monad strategy for Union."""
-    from sr6core.character_manager import CharacterManager
-    from sr6core.modifiers import ModifierEngine
-    from sr6core.rules_engine import get_tactical_action_table, get_monad_strategy_table, get_weapon_attack_table
+    from sr6core.character.manager import CharacterManager
+    from sr6core.rules.modifiers import ModifierEngine
+    from sr6core.rules.engine import get_tactical_action_table, get_monad_strategy_table, get_weapon_attack_table
 
     cm = CharacterManager()
     char = cm.get_character_data("union")

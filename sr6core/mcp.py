@@ -10,8 +10,8 @@ import json
 import traceback
 from pathlib import Path
 from typing import Dict, Any, List, Optional
-from sr6core.character_manager import CharacterManager
-from sr6core.ledger_parser import parse_combat_ledger_prose, format_ledger_patch_markdown
+from sr6core.character.manager import CharacterManager
+from sr6core.ledger.parser import parse_combat_ledger_prose, format_ledger_patch_markdown
 
 
 TOOLS_DEFINITIONS: List[Dict[str, Any]] = [
@@ -371,7 +371,7 @@ PROMPTS_DEFINITIONS: List[Dict[str, Any]] = [
 
 
 def handle_search_rules(arguments: Dict[str, Any]) -> str:
-    from sr6core.rules_db import RulesDB
+    from sr6core.rules.db import RulesDB
     query = arguments.get("query", "").strip()
     if not query:
         return "Error: query parameter is required."
@@ -433,7 +433,7 @@ def handle_query_rag(arguments: Dict[str, Any]) -> str:
 
 
 def handle_lint_prose(arguments: Dict[str, Any]) -> str:
-    from sr6core.linter import analyze_prose
+    from sr6core.narrative.linter import analyze_prose
     file_path = arguments.get("file_path", "").strip()
     if not file_path:
         return "Error: file_path parameter is required."
@@ -485,7 +485,7 @@ def handle_parse_combat_ledger(arguments: Dict[str, Any]) -> str:
 
 
 def handle_audit_character(arguments: Dict[str, Any]) -> str:
-    from sr6core.creation.deep_audit import deep_audit_character
+    from sr6core.character.audit import deep_audit_character
     char_id = arguments.get("char_id", "").strip()
     if not char_id:
         return "Error: char_id parameter is required."
@@ -507,7 +507,7 @@ def handle_audit_character(arguments: Dict[str, Any]) -> str:
 
 
 def handle_check_continuity(arguments: Dict[str, Any]) -> str:
-    from sr6core.continuity_engine import build_continuity_report
+    from sr6core.narrative.continuity import build_continuity_report
     repo_path = arguments.get("repo_path", ".").strip() or "."
 
     report, err = build_continuity_report(repo_path)
@@ -531,7 +531,7 @@ def handle_check_continuity(arguments: Dict[str, Any]) -> str:
 
 
 def handle_get_item_card(arguments: Dict[str, Any]) -> str:
-    from sr6core.cards import get_item_card
+    from sr6core.rules.cards import get_item_card
     category = arguments.get("category", "").strip()
     item_id = arguments.get("item_id", "").strip()
 
@@ -546,7 +546,7 @@ def handle_get_item_card(arguments: Dict[str, Any]) -> str:
 
 
 def handle_query_db(arguments: Dict[str, Any]) -> str:
-    from sr6core.rules_db import execute_db_query, format_query_results
+    from sr6core.rules.db import execute_db_query, format_query_results
     sql = arguments.get("sql", "").strip()
     if not sql:
         return "Error: sql parameter is required."
@@ -558,7 +558,7 @@ def handle_query_db(arguments: Dict[str, Any]) -> str:
 
 
 def handle_get_schema(arguments: Dict[str, Any]) -> str:
-    from sr6core.rules_db import get_db_schema, format_db_schema
+    from sr6core.rules.db import get_db_schema, format_db_schema
     table = arguments.get("table")
     try:
         info = get_db_schema(table)
@@ -568,7 +568,7 @@ def handle_get_schema(arguments: Dict[str, Any]) -> str:
 
 
 def handle_source_search(arguments: Dict[str, Any]) -> str:
-    from sr6core.source_explorer import search_source_book, format_source_results
+    from sr6core.rules.source_explorer import search_source_book, format_source_results
     book = arguments.get("book", "")
     query = arguments.get("query", "")
     ctx = int(arguments.get("context_lines", 12))
@@ -579,7 +579,7 @@ def handle_source_search(arguments: Dict[str, Any]) -> str:
 
 
 def handle_calculate_limb(arguments: Dict[str, Any]) -> str:
-    from sr6core.calculator import calculate_cyberlimb, format_limb_calculation
+    from sr6core.rules.calculator import calculate_cyberlimb, format_limb_calculation
     calc = calculate_cyberlimb(
         limb=arguments.get("limb", "cyberarm"),
         synthetic=arguments.get("synthetic", True),
@@ -594,7 +594,7 @@ def handle_calculate_limb(arguments: Dict[str, Any]) -> str:
 
 
 def handle_get_cheatsheet(arguments: Dict[str, Any]) -> str:
-    from sr6core.cheatsheets import get_cheatsheet, format_cheatsheets_index
+    from sr6core.rules.cheatsheets import get_cheatsheet, format_cheatsheets_index
     topic = arguments.get("topic", "")
     if not topic:
         return format_cheatsheets_index()
@@ -652,7 +652,7 @@ def handle_read_resource(uri: str) -> Optional[Dict[str, Any]]:
                         return {"uri": uri, "mimeType": "text/markdown", "text": f.read()}
 
     elif uri == "sr6://campaign/contacts":
-        from sr6core.contacts import CANONICAL_CONTACTS
+        from sr6core.character.contacts import CANONICAL_CONTACTS
         return {
             "uri": uri,
             "mimeType": "application/json",

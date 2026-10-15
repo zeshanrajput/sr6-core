@@ -5,7 +5,7 @@ compile deterministically into character_master.yaml and the standalone mobile P
 """
 
 import os
-from sr6core.character_manager import CharacterManager
+from sr6core.character.manager import CharacterManager
 from sr6core.ledger.purchases_sync import PurchasesSyncEngine
 from sr6core.publishing.mobile_json import export_mobile_json
 

@@ -6,7 +6,7 @@ melee weapon fire mode handling, base vs buffed attributes, and standalone HTML 
 
 import os
 import pytest
-from sr6core.character_manager import CharacterManager
+from sr6core.character.manager import CharacterManager
 from sr6core.publishing.mobile_json import export_mobile_json
 from sr6core.publishing.mobile_html import export_mobile_html, get_mobile_html_template
 

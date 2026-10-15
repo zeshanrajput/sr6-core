@@ -135,7 +135,7 @@ def import_web_faq(
     Ingests official web FAQ, generates converted_md/Shadowrun_Sixth_World_FAQ.md,
     and atomizes all Q&As into shadowrun_rules_vault/SSWFAQ-*.md (Authority Level 2).
     """
-    from sr6core.rules_db import DEFAULT_CONVERTED_DIR, DEFAULT_VAULT_DIR
+    from sr6core.rules.db import DEFAULT_CONVERTED_DIR, DEFAULT_VAULT_DIR
     from sr6core.vault.atomizer import get_tags
 
     out_converted = converted_dir or DEFAULT_CONVERTED_DIR

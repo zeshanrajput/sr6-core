@@ -3,7 +3,7 @@
 ```{python}
 #| echo: false
 #| include: false
-from sr6core.log_engine import inc, inc_many, modifier
+from sr6core.character.ledger import inc, inc_many, modifier
 ```
 
 This ledger itemizes character creation augmentations, nanite abilities, nanite colonies, tactical gear, activesofts, identities, and operational maintenance.

@@ -3,7 +3,7 @@ Unit tests for TTS Audio Narration engine (cleaners, pronunciation rules, chunki
 """
 
 import unittest
-from sr6core.narration import (
+from sr6core.narrative.narration import (
     clean_markdown_for_tts,
     clean_pronunciation,
     normalize_dialogue_cadence,

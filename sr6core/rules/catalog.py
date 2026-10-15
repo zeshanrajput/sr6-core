@@ -37,7 +37,7 @@ def parse_6wc_packs(md_path: Optional[Path] = None) -> List[Dict[str, Any]]:
     Parses PACKs from Sixth World Companion markdown file.
     """
     if md_path is None:
-        from sr6core.source_explorer import resolve_book_file
+        from sr6core.rules.source_explorer import resolve_book_file
         md_path, _ = resolve_book_file("6wc")
         if not md_path or not md_path.exists():
             return []
@@ -200,7 +200,7 @@ def compile_packs_to_db(db_path: Optional[str] = None) -> Tuple[int, str]:
     """
     Compiles all 6WC PACKs into ~/.sr6/rules_index.db.
     """
-    from sr6core.rules_db import DEFAULT_DB_PATH
+    from sr6core.rules.db import DEFAULT_DB_PATH
     path = db_path or DEFAULT_DB_PATH
     if not os.path.exists(path):
         return 0, f"Rules database not found at '{path}'"
@@ -234,7 +234,7 @@ def get_pack(identifier: str, db_path: Optional[str] = None) -> Optional[Dict[st
     """
     Retrieves a pack by ID or partial name from ref_packs.
     """
-    from sr6core.rules_db import DEFAULT_DB_PATH
+    from sr6core.rules.db import DEFAULT_DB_PATH
     path = db_path or DEFAULT_DB_PATH
     if not os.path.exists(path):
         return None

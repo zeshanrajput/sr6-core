@@ -328,7 +328,7 @@ def extract_chapter_metadata(file_path: str, char_id: Optional[str] = None) -> d
 
     # Fallback to CharacterManager if char_id is provided or character_info is missing
     if char_id or not character_info.get("id"):
-        from sr6core.character_manager import CharacterManager
+        from sr6core.character.manager import CharacterManager
         cm = CharacterManager()
         if char_id:
             c = cm.get_character(char_id)

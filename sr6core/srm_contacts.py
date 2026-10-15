@@ -8,7 +8,7 @@ import os
 import sqlite3
 from typing import Dict, Any, List, Optional
 
-from sr6core.rules_db import DEFAULT_DB_PATH
+from sr6core.rules.db import DEFAULT_DB_PATH
 
 # Official SRM Named Contacts from Shadowrun Missions Guide v2.4 (SRMG-0492 & SRMG-0493)
 OFFICIAL_SRM_CONTACTS = [

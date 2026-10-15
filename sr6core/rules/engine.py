@@ -10,10 +10,10 @@ import json
 import xml.etree.ElementTree as ET
 from typing import Dict, Any, List, Optional, Set
 
-from sr6core.rules_db import RulesDB, DEFAULT_DB_PATH
-from sr6core.character_manager import CharacterManager
-from sr6core.modifiers import ModifierEngine
-from sr6core.vehicles import parse_vehicle_modifications, calculate_drone_action_pools, format_vehicle_mod_tables
+from sr6core.rules.db import RulesDB, DEFAULT_DB_PATH
+from sr6core.character.manager import CharacterManager
+from sr6core.rules.modifiers import ModifierEngine
+from sr6core.rules.vehicles import parse_vehicle_modifications, calculate_drone_action_pools, format_vehicle_mod_tables
 
 
 def normalize_name(name: str) -> str:
@@ -1748,8 +1748,8 @@ def render_multi_modifier_interactions(char_id: str, threshold: int = 2) -> str:
 # Dynamic Rules Page Re-exports
 # ============================================================================
 
-from sr6core.rules_matrix_actions import render_matrix_actions_markdown
-from sr6core.rules_conjuring_tables import (
+from sr6core.rules.matrix_actions import render_matrix_actions_markdown
+from sr6core.rules.conjuring import (
     render_downtime_binding_markdown,
     calculate_downtime_binding_table,
     render_sprite_stable,

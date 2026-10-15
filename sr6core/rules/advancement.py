@@ -11,8 +11,7 @@ from typing import Dict, Any, List, Optional, Tuple
 
 from sr6core.rules.db import DEFAULT_DB_PATH
 from sr6core.character.manager import CharacterManager
-from sr6core.character.audit import calculate_transaction_price
-from sr6core.character.purchases import *
+from sr6core.ledger.purchases_sync import *
 
 
 def search_catalog(query: str, db_path: str = DEFAULT_DB_PATH, limit: int = 15) -> List[Dict[str, Any]]:
@@ -95,6 +94,7 @@ def purchase_item_for_character(
     base_cost = int(item_row.get("cost", 0)) if str(item_row.get("cost", "")).isdigit() else 0
 
     item_entry = {"name": item_name, "ref": item_row["id"], **modifiers}
+    from sr6core.character.audit import calculate_transaction_price
     final_price, price_note = calculate_transaction_price(base_cost, item_entry, char_data)
 
     char_path = cm.get_character_file_path(char_id)

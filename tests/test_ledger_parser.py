@@ -3,7 +3,7 @@ Unit tests for the Combat Ledger Parser in sr6core.ledger_parser.
 """
 
 import unittest
-from sr6core.ledger_parser import parse_combat_ledger_prose, format_ledger_patch_markdown
+from sr6core.ledger.parser import parse_combat_ledger_prose, format_ledger_patch_markdown
 
 
 class TestLedgerParser(unittest.TestCase):

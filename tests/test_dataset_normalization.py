@@ -14,8 +14,8 @@ from sr6core.dataset_compiler import (
     extract_cyberware_stats,
     migrate_existing_dataset_tables,
 )
-from sr6core.rules_db import RulesDB
-from sr6core.modifiers import ModifierEngine
+from sr6core.rules.db import RulesDB
+from sr6core.rules.modifiers import ModifierEngine
 
 
 def test_extract_modifications_json():

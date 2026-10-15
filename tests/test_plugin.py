@@ -23,13 +23,13 @@ class TestPluginManagement(unittest.TestCase):
         manifest = get_plugin_manifest(source_dir)
         self.assertIsNotNone(manifest, "Manifest should be valid JSON")
         self.assertEqual(manifest.get("name"), "sr6-narrative-suite")
-        self.assertEqual(manifest.get("version"), "1.0.0")
+        self.assertEqual(manifest.get("version"), "2.0.0")
 
     def test_plugin_status_inspection(self):
         status = get_plugin_status()
         self.assertTrue(status["source_exists"])
-        self.assertEqual(status["source_version"], "1.0.0")
-        self.assertGreaterEqual(status["skills_count"], 8)
+        self.assertEqual(status["source_version"], "2.0.0")
+        self.assertGreaterEqual(status["skills_count"], 7)
         self.assertIn("global_installed", status)
 
     def test_configure_repo_plugin_inheritance(self):

@@ -1,6 +1,6 @@
 import pytest
-from sr6core.rules_spirits import SPIRIT_CATALOG, get_spirit_channeling_info
-from sr6core.character_manager import CharacterManager
+from sr6core.rules.spirits import SPIRIT_CATALOG, get_spirit_channeling_info
+from sr6core.character.manager import CharacterManager
 from sr6core.publishing.mobile_json import export_mobile_json
 
 

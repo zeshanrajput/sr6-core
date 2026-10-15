@@ -578,7 +578,7 @@ class Character:
             Dict[str, Any]: Structured audit report with 'valid' (bool),
             'positive_karma', 'negative_karma', and detailed section results.
         """
-        from sr6core.creation.deep_audit import deep_audit_character
+        from sr6core.character.audit import deep_audit_character
 
         return deep_audit_character(self.id)
 

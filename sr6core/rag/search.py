@@ -53,7 +53,7 @@ def search_rules_db(db_path: str, user_query: str, limit: int = 15, enable_seman
     if not os.path.exists(db_path):
         return []
 
-    from sr6core.rules_db import RulesDB
+    from sr6core.rules.db import RulesDB
     db = RulesDB(db_path=db_path)
     results = db.search_rules(user_query, limit=limit, consolidate_editions=False, attach_statblocks=True, enable_semantic=enable_semantic)
 
@@ -88,7 +88,7 @@ def deduplicate_and_resolve_conflicts(rules: List[Dict[str, Any]]) -> List[Dict[
     Consolidates duplicate topic entries across regional editions (Hong Kong, Seattle, Berlin)
     and supplements, prioritizing higher authority levels and canonical Hong Kong Core Rulebook.
     """
-    from sr6core.rules_db import consolidate_edition_matches
+    from sr6core.rules.db import consolidate_edition_matches
     return consolidate_edition_matches(rules)
 
 

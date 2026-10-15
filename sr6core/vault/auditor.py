@@ -13,7 +13,7 @@ COST_PATTERN = re.compile(r'(cost|karma|¥|\b\d+\s*karma\b)', re.IGNORECASE)
 
 def audit_vault(vault_dir: Optional[str] = None, report_path: Optional[str] = None) -> Dict[str, Any]:
     """Audits all atomic rules chunks in vault_dir and generates an audit report."""
-    from sr6core.rules_db import DEFAULT_VAULT_DIR
+    from sr6core.rules.db import DEFAULT_VAULT_DIR
 
     target_vault = vault_dir or DEFAULT_VAULT_DIR
     if not os.path.exists(target_vault):

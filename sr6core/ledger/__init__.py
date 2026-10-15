@@ -13,6 +13,8 @@ from sr6core.ledger.events import (
     QualityAcquiredEvent,
 )
 from sr6core.ledger.engine import CampaignEventLedger, ProjectedState
+from sr6core.ledger.purchases_sync import PurchasesSyncEngine
+from sr6core.ledger.parser import parse_combat_ledger_prose, format_ledger_patch_markdown
 
 __all__ = [
     "BaseCampaignEvent",
@@ -25,4 +27,7 @@ __all__ = [
     "QualityAcquiredEvent",
     "CampaignEventLedger",
     "ProjectedState",
+    "PurchasesSyncEngine",
+    "parse_combat_ledger_prose",
+    "format_ledger_patch_markdown",
 ]

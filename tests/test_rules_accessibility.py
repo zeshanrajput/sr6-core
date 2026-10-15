@@ -8,10 +8,10 @@ Unit tests for the Rules Accessibility Suite:
 """
 
 import pytest
-from sr6core.source_explorer import resolve_book_file, search_source_book, format_source_results
-from sr6core.packs_catalog import parse_6wc_packs, compile_packs_to_db, get_pack, format_pack_card
-from sr6core.calculator import calculate_cyberlimb, calculate_ware, format_limb_calculation, format_ware_calculation
-from sr6core.cheatsheets import get_cheatsheet, list_cheatsheets, format_cheatsheets_index
+from sr6core.rules.source_explorer import resolve_book_file, search_source_book, format_source_results
+from sr6core.rules.catalog import parse_6wc_packs, compile_packs_to_db, get_pack, format_pack_card
+from sr6core.rules.calculator import calculate_cyberlimb, calculate_ware, format_limb_calculation, format_ware_calculation
+from sr6core.rules.cheatsheets import get_cheatsheet, list_cheatsheets, format_cheatsheets_index
 from sr6core.mcp import TOOLS_DEFINITIONS, TOOL_HANDLERS
 
 
@@ -52,7 +52,6 @@ def test_source_explorer_search_mock(tmp_path, monkeypatch):
         encoding="utf-8"
     )
     monkeypatch.setattr("sr6core.rules.source_explorer.get_converted_md_dir", lambda: tmp_path)
-    monkeypatch.setattr("sr6core.source_explorer.get_converted_md_dir", lambda: tmp_path)
     res = search_source_book("6wc", "Cyberarm: Excellence", context_lines=2)
     assert "error" not in res
     assert res["total_matches"] >= 1

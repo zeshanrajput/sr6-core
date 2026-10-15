@@ -5,13 +5,13 @@ and Cyberlimb Internal Capacity Accounting.
 """
 
 import pytest
-from sr6core.vehicles import (
+from sr6core.rules.vehicles import (
     calculate_vehicle_mod_slots,
     format_vehicle_mod_tables,
     parse_vehicle_modifications
 )
-from sr6core.rules_engine import get_drone_statblock_table
-from sr6core.character_manager import CharacterManager
+from sr6core.rules.engine import get_drone_statblock_table
+from sr6core.character.manager import CharacterManager
 
 
 def test_base_mod_slots_unmodified_body():

@@ -464,7 +464,7 @@ def atomize_vault(
     """
     Atomizes markdown rulebooks from input_dir into individual rule chunks in output_dir.
     """
-    from sr6core.rules_db import DEFAULT_VAULT_DIR, DEFAULT_CONVERTED_DIR
+    from sr6core.rules.db import DEFAULT_VAULT_DIR, DEFAULT_CONVERTED_DIR
     in_dir = input_dir or DEFAULT_CONVERTED_DIR
     out_dir = output_dir or DEFAULT_VAULT_DIR
 

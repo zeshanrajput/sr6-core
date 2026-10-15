@@ -13,7 +13,7 @@ import zipfile
 import xml.etree.ElementTree as ET
 from typing import Dict, Any, List, Optional, Tuple
 
-from sr6core.rules_db import DEFAULT_DB_PATH
+from sr6core.rules.db import DEFAULT_DB_PATH
 
 COMMLINK_DEFAULT_DIR = r"C:\Users\zesha\CommLink6\app\stable"
 

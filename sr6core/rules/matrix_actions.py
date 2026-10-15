@@ -201,7 +201,7 @@ def calculate_matrix_action_pool(char_data: Dict[str, Any], skill_name: str, spe
     Calculates effective tabletop dice pool and status for a specific Matrix action,
     deriving directly from ModifierEngine.get_matrix_action_pools for complete rules consistency.
     """
-    from sr6core.modifiers import ModifierEngine
+    from sr6core.rules.modifiers import ModifierEngine
 
     pools = ModifierEngine.get_matrix_action_pools(char_data)
 
@@ -267,7 +267,7 @@ def calculate_matrix_action_pool(char_data: Dict[str, Any], skill_name: str, spe
 def render_matrix_actions_markdown(char_input: Union[str, Dict[str, Any]]) -> str:
     """Renders SRM-compliant Markdown tables for character rules chapters."""
     if isinstance(char_input, str):
-        from sr6core.character_manager import CharacterManager
+        from sr6core.character.manager import CharacterManager
         cm = CharacterManager()
         char_data = cm.get_character_data(char_input) or {}
     else:

@@ -19,7 +19,7 @@ FUTURE RIGGER & RCC EXPANSION HOOKS:
 
 import re
 from typing import Dict, Any, List, Optional, Tuple
-from sr6core.modifiers import ModifierEngine
+from sr6core.rules.modifiers import ModifierEngine
 
 
 def parse_vehicle_modifications(drone_dict: Dict[str, Any], char_data: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:

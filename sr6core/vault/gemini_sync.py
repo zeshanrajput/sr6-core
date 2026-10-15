@@ -63,7 +63,7 @@ def sync_gemini_store(
     """
     Synchronizes local markdown rules in vault_dir to Google Gemini File Search Store.
     """
-    from sr6core.rules_db import DEFAULT_VAULT_DIR
+    from sr6core.rules.db import DEFAULT_VAULT_DIR
     from sr6core.vault.store_inspector import get_gemini_client
 
     target_vault = vault_dir or DEFAULT_VAULT_DIR

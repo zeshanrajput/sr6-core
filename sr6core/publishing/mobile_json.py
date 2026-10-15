@@ -10,10 +10,10 @@ import re
 from typing import Dict, Any, List, Optional
 
 from sr6core.rules.modifiers import ModifierEngine, PoolModifier
-from sr6core.vehicles import calculate_drone_action_pools
+from sr6core.rules.vehicles import calculate_drone_action_pools
 from sr6core.character.ledger import get_log_totals
-from sr6core.rules_spirits import SPIRIT_CATALOG
-from sr6core.rules_nanotech import NANOHIVE_CATALOG, NANOHIVE_PRESETS
+from sr6core.rules.spirits import SPIRIT_CATALOG
+from sr6core.rules.nanotech import NANOHIVE_CATALOG, NANOHIVE_PRESETS
 from sr6core.character.contacts import normalize_contacts_list
 
 
@@ -792,7 +792,7 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
             # Attempt rules engine resolution if missing
             if not dmg or not ar:
                 try:
-                    from sr6core.rules_engine import get_weapon_stats
+                    from sr6core.rules.engine import get_weapon_stats
                     w_db = get_weapon_stats(w.get("ref", w_name))
                     if w_db:
                         dmg = dmg or w_db.get("dv", "3P")
@@ -900,7 +900,7 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
             })
 
     # Drones and Vehicles with Inhabited Action Pools and Base vs Mod Stats
-    from sr6core.vehicles import parse_vehicle_modifications, calculate_drone_action_pools
+    from sr6core.rules.vehicles import parse_vehicle_modifications, calculate_drone_action_pools
     raw_drones = _safe_item_list(char_data.get("drones", []))
     raw_vehicles = _safe_item_list(char_data.get("vehicles", []))
 

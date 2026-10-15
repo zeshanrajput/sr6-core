@@ -11,7 +11,7 @@ from typing import Dict, Any, List, Optional, Union
 def resolve_character_binding_context(char_input: Union[str, Dict[str, Any]]) -> Dict[str, Any]:
     """Resolves character stats, skills, foci, and metamagics for downtime binding/registering."""
     if isinstance(char_input, str):
-        from sr6core.character_manager import CharacterManager
+        from sr6core.character.manager import CharacterManager
         cm = CharacterManager()
         char_data = cm.get_character_data(char_input) or {}
     else:
@@ -24,7 +24,7 @@ def resolve_character_binding_context(char_input: Union[str, Dict[str, Any]]) ->
 
     skills_map = {s.get("name", "").lower(): s for s in char_data.get("skills", [])}
 
-    from sr6core.modifiers import ModifierEngine
+    from sr6core.rules.modifiers import ModifierEngine
 
     if magic > 0:
         conj_skill = skills_map.get("conjuring", {})
@@ -264,8 +264,8 @@ def render_sprite_stable(char_id: str = "reiko") -> str:
     guaranteed tasks/services, and downtime rotation status.
     """
     import os
-    from sr6core.character_manager import CharacterManager
-    from sr6core.log_engine import get_log_totals
+    from sr6core.character.manager import CharacterManager
+    from sr6core.character.ledger import get_log_totals
 
     cm = CharacterManager()
     char_info = cm.load_character(char_id)

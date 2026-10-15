@@ -76,7 +76,7 @@ def inc_many(*pairs):
         res.append(f"{name} {op} {abs(amount)}")
     return ", ".join(res)
 
-from sr6core.log_engine import knowledge_skill, language, modifier, monad_ability
+from sr6core.character.ledger import knowledge_skill, language, modifier, monad_ability
 ```
 
 Shadowrunners built with the Point Buy method start with **100 Character Points (CP)** and **50 customization Karma**.

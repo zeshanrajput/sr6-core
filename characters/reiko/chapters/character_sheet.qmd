@@ -3,7 +3,7 @@
 ```{python}
 #| echo: false
 #| include: false
-from sr6core.character_manager import CharacterManager
+from sr6core.character.manager import CharacterManager
 from sr6core.publishing.quick_sheet import export_quick_sheet
 
 cm = CharacterManager()
@@ -33,7 +33,7 @@ print(f"```text\n{sheet_txt}\n```")
 ```{python}
 #| echo: false
 #| output: asis
-from sr6core.rules_engine import render_sprite_stable
+from sr6core.rules.engine import render_sprite_stable
 print(render_sprite_stable("reiko"))
 ```
 

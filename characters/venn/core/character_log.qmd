@@ -3,7 +3,7 @@
 ```{python}
 #| echo: false
 #| include: false
-from sr6core.log_engine import init_character, state, print_contacts_summary
+from sr6core.character.ledger import init_character, state, print_contacts_summary
 
 init_character("venn")
 ```

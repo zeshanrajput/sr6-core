@@ -11,7 +11,7 @@ from urllib.parse import urlparse, parse_qs
 from pathlib import Path
 from typing import Dict, Any
 
-from sr6core.character_manager import CharacterManager
+from sr6core.character.manager import CharacterManager
 from sr6core.publishing.mobile_json import export_mobile_json
 from sr6core.ledger.events import (
     KarmaAwardedEvent,

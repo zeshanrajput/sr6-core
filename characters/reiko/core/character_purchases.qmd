@@ -3,7 +3,7 @@
 ```{python}
 #| echo: false
 #| include: false
-from sr6core.log_engine import inc, inc_many, assign, state, modifier, knowledge_skill
+from sr6core.character.ledger import inc, inc_many, assign, state, modifier, knowledge_skill
 
 # Initial Starting Resources from Chargen
 assign("Karma", 1)

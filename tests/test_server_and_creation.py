@@ -4,7 +4,7 @@ Test suite for SR6 Live-Sync Server & Character Creation Subsystems.
 
 import pytest
 from sr6core.creation.priority import audit_priority_build, calculate_priority_allocation
-from sr6core.character_manager import CharacterManager
+from sr6core.character.manager import CharacterManager
 
 
 def test_priority_auditor_standard():

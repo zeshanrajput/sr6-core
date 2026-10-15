@@ -3,8 +3,8 @@ Unit and integration tests for RAG search optimizations, card generation, and co
 """
 
 import warnings
-from sr6core.rules_db import RulesDB
-from sr6core.cards import get_item_card
+from sr6core.rules.db import RulesDB
+from sr6core.rules.cards import get_item_card
 from sr6core.oids import resolve_canonical_oid
 
 

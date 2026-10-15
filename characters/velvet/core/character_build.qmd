@@ -64,7 +64,7 @@ def inc_many(*pairs):
         res.append(f"{name} {op} {abs(amount)}")
     return ", ".join(res)
 
-from sr6core.log_engine import adept_power, language, knowledge_skill
+from sr6core.character.ledger import adept_power, language, knowledge_skill
 ```
 
 Shadowrunners are built with 100 Character Points (CP). You still gain 50 points of customization Karma.

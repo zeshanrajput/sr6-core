@@ -23,7 +23,7 @@ from sr6core.rules.db import DEFAULT_DB_PATH, RulesDB
 from sr6core.oids import resolve_canonical_oid
 from sr6core.character.ledger import get_log_totals
 from sr6core.rules.modifiers import ModifierEngine
-from sr6core.vehicles import parse_vehicle_modifications, calculate_drone_action_pools
+from sr6core.rules.vehicles import parse_vehicle_modifications, calculate_drone_action_pools
 
 
 def _extract_item_list(raw_section: Any) -> List[Any]:
@@ -303,7 +303,7 @@ def get_item_card(category: Optional[str], item_input: Union[str, Dict[str, Any]
         return {"id": "unknown", "name": "Unknown Item", "category": category or "general", "markdown": ""}
 
     if category in ("pack", "packs"):
-        from sr6core.packs_catalog import get_pack, format_pack_card
+        from sr6core.rules.catalog import get_pack, format_pack_card
         pack = get_pack(local_name or raw_id, db_path=db_path)
         if pack:
             return {
@@ -325,7 +325,7 @@ def get_item_card(category: Optional[str], item_input: Union[str, Dict[str, Any]
 
     # Fallback to PACK lookup if not found in reference tables
     if not stat_row:
-        from sr6core.packs_catalog import get_pack, format_pack_card
+        from sr6core.rules.catalog import get_pack, format_pack_card
         pack = get_pack(local_name or raw_id, db_path=db_path)
         if pack:
             return {
@@ -339,7 +339,7 @@ def get_item_card(category: Optional[str], item_input: Union[str, Dict[str, Any]
     # Fallback to supplement weapons (e.g. Tesla Coil modes, Red Fox)
     if not stat_row and category in ["weapon", "weapons", "firearm", "general", "auto"]:
         try:
-            from sr6core.rules_engine import get_weapon_stats
+            from sr6core.rules.engine import get_weapon_stats
             ws = get_weapon_stats(raw_id) or get_weapon_stats(local_name or raw_id)
             if ws:
                 stat_row = ws

@@ -14,7 +14,7 @@ import yaml
 
 from sr6core.character.manager import CharacterManager
 from sr6core.character.ledger import get_log_totals
-from sr6core.character.purchases import PurchasesSyncEngine
+from sr6core.ledger.purchases_sync import PurchasesSyncEngine
 from sr6core.creation.exceptions_parser import ExceptionsRegistry
 
 

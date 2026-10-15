@@ -53,7 +53,7 @@ class TestMCPServer(unittest.TestCase):
         self.assertIn("sr6_draft_scene", prompt_names)
         self.assertIn("sr6_sync_portfolio", prompt_names)
 
-    @patch("sr6core.rules_db.RulesDB")
+    @patch("sr6core.rules.db.RulesDB")
     def test_handle_search_rules(self, mock_rules_db_cls):
         mock_db = MagicMock()
         mock_rules_db_cls.return_value = mock_db
@@ -70,7 +70,7 @@ class TestMCPServer(unittest.TestCase):
         self.assertIn("CommLink6 Stats", res)
         self.assertIn("SR6", res)
 
-    @patch("sr6core.linter.analyze_prose")
+    @patch("sr6core.narrative.linter.analyze_prose")
     def test_handle_lint_prose(self, mock_analyze_prose):
         mock_analyze_prose.return_value = ({
             "word_count": 1500,

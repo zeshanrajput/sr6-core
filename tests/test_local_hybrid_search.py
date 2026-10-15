@@ -8,7 +8,7 @@ import pytest
 import numpy as np
 
 from sr6core.rag.embeddings import LocalEmbeddingEngine, VectorVault, EMBEDDING_DIM
-from sr6core.rules_db import RulesDB
+from sr6core.rules.db import RulesDB
 
 
 def test_embedding_engine_dimension_and_norm():

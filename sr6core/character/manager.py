@@ -108,7 +108,7 @@ class CharacterManager:
 
                 # Ingest declared modifiers and collections from character_build.qmd / character_log.qmd / character_purchases.qmd
                 try:
-                    from sr6core.log_engine import get_log_totals
+                    from sr6core.character.ledger import get_log_totals
                     totals = get_log_totals(resolved_repo_dir)
                     if totals:
                         if "Modifiers" in totals and totals["Modifiers"]:

@@ -5,8 +5,8 @@ This chapter documents the mechanical construction, modifier stacking legality, 
 ```{python}
 #| echo: false
 #| include: false
-from sr6core.character_manager import CharacterManager
-from sr6core.rules_engine import (
+from sr6core.character.manager import CharacterManager
+from sr6core.rules.engine import (
     get_weapon_attack_table,
     render_multi_modifier_interactions,
     get_matrix_asdf_derivation_table,

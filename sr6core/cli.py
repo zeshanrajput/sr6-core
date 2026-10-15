@@ -6,17 +6,17 @@ Supports non-interactive script subcommands, ecosystem sync-all, and interactive
 import os
 import sys
 import argparse
-from sr6core.rules_db import RulesDB
-from sr6core.character_manager import CharacterManager
+from sr6core.rules.db import RulesDB
+from sr6core.character.manager import CharacterManager
 from sr6core.rag import RAGEngine
 from sr6core.menu import run_interactive_menu
-from sr6core.linter import analyze_prose, print_prose_report
-from sr6core.continuity_engine import build_continuity_report, print_continuity_report
-from sr6core.narration import generate_narration, batch_generate_narrations, retag_narratives, list_narratives
+from sr6core.narrative.linter import analyze_prose, print_prose_report
+from sr6core.narrative.continuity import build_continuity_report, print_continuity_report
+from sr6core.narrative.narration import generate_narration, batch_generate_narrations, retag_narratives, list_narratives
 from sr6core.dataset_compiler import compile_commlink_datasets, get_dataset_info, find_latest_commlink_jar
-from sr6core.creation.deep_audit import deep_audit_character
-from sr6core.advancement import search_catalog, purchase_item_for_character
-from sr6core.quarto_enricher import expand_quarto_shortcodes
+from sr6core.character.audit import deep_audit_character
+from sr6core.rules.advancement import search_catalog, purchase_item_for_character
+from sr6core.publishing.enricher import expand_quarto_shortcodes
 
 
 def run_sync_all():
@@ -39,7 +39,7 @@ def run_sync_all():
 
         # 0. Recompile Master YAML from Markdown Trio (single source of truth) & Sync Purchases
         try:
-            from sr6core.compiler import rebuild_character_yaml
+            from sr6core.character.compiler import rebuild_character_yaml
             from sr6core.ledger.purchases_sync import PurchasesSyncEngine
             rebuild_character_yaml(cid)
             PurchasesSyncEngine.sync_character_purchases(cid)
@@ -94,7 +94,7 @@ def run_sync_all():
 
         # 3. Expand Quarto Shortcodes & Inject Narration Audio Players
         chap_dir = os.path.join(repo_dir, "chapters")
-        from sr6core.quarto_enricher import inject_chapter_audio_players
+        from sr6core.publishing.enricher import inject_chapter_audio_players
         injected_audio = inject_chapter_audio_players(repo_dir)
         audio_info = f" (+{injected_audio} audio players)" if injected_audio > 0 else ""
 
@@ -472,7 +472,7 @@ def main():
 
         # 1. Rebuild Master YAMLs from Markdown Trio if requested
         if getattr(args, "rebuild_yaml", True):
-            from sr6core.compiler import rebuild_character_yaml
+            from sr6core.character.compiler import rebuild_character_yaml
             console.print("[bold green][1/4] Recompiling master YAML dossiers from Markdown Trio...[/bold green]")
             for c in cm.list_characters():
                 cid = c["id"]
@@ -575,7 +575,7 @@ def main():
                 print(f"- [{r.get('id')}] {r.get('topic')} ({r.get('source')} p.{r.get('page')})")
 
     elif args.command == "card":
-        from sr6core.cards import get_item_card
+        from sr6core.rules.cards import get_item_card
         known_cats = {"quality", "qualities", "spell", "spells", "complex_form", "complexform", "weapon", "weapons", "cyberware", "bioware", "vehicle", "drone", "gear", "program", "contact", "contacts", "echo", "meta_echo", "pack", "packs", "metamagic", "metamagics", "initiation"}
         if len(args.target) == 1:
             cat, item_name = "auto", args.target[0]
@@ -718,7 +718,7 @@ def main():
                 print(f"- [{r.get('id')}] {r.get('topic')} ({r.get('source')} p.{r.get('page')})")
 
         elif args.subcommand == "card":
-            from sr6core.cards import get_item_card
+            from sr6core.rules.cards import get_item_card
             known_cats = {"quality", "qualities", "spell", "spells", "complex_form", "complexform", "weapon", "weapons", "cyberware", "bioware", "vehicle", "drone", "gear", "program", "contact", "contacts", "echo", "meta_echo", "pack", "packs", "metamagic", "metamagics", "initiation"}
             if len(args.target) == 1:
                 cat, item_name = "auto", args.target[0]
@@ -738,7 +738,7 @@ def main():
                 print(f"\n{card_info['markdown']}\n")
 
         elif args.subcommand == "cheat":
-            from sr6core.cheatsheets import get_cheatsheet, format_cheatsheets_index
+            from sr6core.rules.cheatsheets import get_cheatsheet, format_cheatsheets_index
             if not getattr(args, "topic", None):
                 print(format_cheatsheets_index())
             else:
@@ -749,7 +749,7 @@ def main():
                     print(f"[Error] Unknown cheatsheet topic '{args.topic}'. Available: matrix, actions, monad, combat")
 
         elif args.subcommand in ["sql", "query"]:
-            from sr6core.rules_db import execute_db_query, format_query_results
+            from sr6core.rules.db import execute_db_query, format_query_results
             try:
                 cols, rows = execute_db_query(args.sql)
                 fmt = "json" if getattr(args, "json", False) else ("csv" if getattr(args, "csv", False) else "markdown")
@@ -772,7 +772,7 @@ def main():
                     render_rule_chunk_markdown(rule, compact=compact)
 
         elif args.subcommand == "schema":
-            from sr6core.rules_db import get_db_schema, format_db_schema
+            from sr6core.rules.db import get_db_schema, format_db_schema
             schema_info = get_db_schema(getattr(args, "table", None))
             print(format_db_schema(schema_info, fmt="markdown"))
 
@@ -856,7 +856,7 @@ def main():
         elif args.subcommand == "embed-vault":
             import sqlite3
             from sr6core.rag.embeddings import VectorVault
-            from sr6core.rules_db import DEFAULT_DB_PATH
+            from sr6core.rules.db import DEFAULT_DB_PATH
             print(f"Precomputing local dense vector embeddings for vault rules into '{DEFAULT_DB_PATH}'...")
             conn = sqlite3.connect(DEFAULT_DB_PATH)
             def progress(current, total):
@@ -876,7 +876,7 @@ def main():
                     print(f"  - {tbl:<20}: {cnt:,}")
             print()
         elif args.subcommand in ("query", "sql"):
-            from sr6core.rules_db import execute_db_query, format_query_results
+            from sr6core.rules.db import execute_db_query, format_query_results
             fmt = "json" if getattr(args, "json", False) else ("csv" if getattr(args, "csv", False) else ("compact" if getattr(args, "compact", False) else "table"))
             try:
                 columns, rows = execute_db_query(args.sql)
@@ -884,7 +884,7 @@ def main():
             except Exception as e:
                 print(f"[Error] SQL query failed: {e}")
         elif args.subcommand == "schema":
-            from sr6core.rules_db import get_db_schema, format_db_schema
+            from sr6core.rules.db import get_db_schema, format_db_schema
             fmt = "compact" if getattr(args, "compact", False) else "table"
             try:
                 schema_info = get_db_schema(args.table)
@@ -1044,7 +1044,7 @@ def main():
             sys.exit(1)
 
     elif args.command == "ledger":
-        from sr6core.ledger_parser import parse_combat_ledger_prose, format_ledger_patch_markdown
+        from sr6core.ledger.parser import parse_combat_ledger_prose, format_ledger_patch_markdown
         if args.subcommand == "parse" or not args.subcommand:
             report = parse_combat_ledger_prose(args.target)
             print(f"\n{format_ledger_patch_markdown(report)}\n")
@@ -1058,7 +1058,7 @@ def main():
             import_web_faq,
         )
         from sr6core.vault.pdf_converter import batch_convert_pdfs, convert_pdf_to_md
-        from sr6core.rules_db import DEFAULT_VAULT_DIR, DEFAULT_CONVERTED_DIR, DEFAULT_DB_PATH, DEFAULT_PDF_DIR
+        from sr6core.rules.db import DEFAULT_VAULT_DIR, DEFAULT_CONVERTED_DIR, DEFAULT_DB_PATH, DEFAULT_PDF_DIR
 
         if args.subcommand == "import-faq":
             print(f"Importing FAQ from '{args.url}' (or local source: {args.html})...")
@@ -1158,7 +1158,7 @@ def main():
         run_server(port=args.port, host=args.host)
 
     elif args.command == "source":
-        from sr6core.source_explorer import search_source_book, format_source_results
+        from sr6core.rules.source_explorer import search_source_book, format_source_results
         res = search_source_book(args.book, args.query, context_lines=args.context)
         if getattr(args, "json", False):
             import json
@@ -1168,7 +1168,7 @@ def main():
             print(format_source_results(res, fmt=fmt))
 
     elif args.command == "calc":
-        from sr6core.calculator import calculate_cyberlimb, calculate_ware, format_limb_calculation, format_ware_calculation
+        from sr6core.rules.calculator import calculate_cyberlimb, calculate_ware, format_limb_calculation, format_ware_calculation
         if args.subcommand == "limb" or not args.subcommand:
             calc = calculate_cyberlimb(
                 limb=args.limb,
@@ -1193,7 +1193,7 @@ def main():
             print(format_ware_calculation(calc))
 
     elif args.command == "cheat":
-        from sr6core.cheatsheets import get_cheatsheet, format_cheatsheets_index
+        from sr6core.rules.cheatsheets import get_cheatsheet, format_cheatsheets_index
         if not args.topic:
             print(format_cheatsheets_index())
         else:

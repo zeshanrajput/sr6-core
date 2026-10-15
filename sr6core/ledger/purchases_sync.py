@@ -8,7 +8,7 @@ import os
 import re
 from typing import Dict, List, Any, Optional
 import yaml
-from sr6core.character_manager import CharacterManager
+from sr6core.character.manager import CharacterManager
 
 
 class PurchasesSyncEngine:
@@ -63,6 +63,7 @@ class PurchasesSyncEngine:
         gear_items: List[str] = []
         sins: List[Dict[str, Any]] = []
         licenses: List[Dict[str, Any]] = []
+        qualities: List[Dict[str, Any]] = []
 
         # Keywords that represent sub-headers or nested sub-items, not top-level modifications
         ignore_mod_prefixes = [
@@ -189,6 +190,53 @@ class PurchasesSyncEngine:
                         "notes": f"Rating {rating} activesoft synced from purchases.qmd. Runs on Skillwires R6 with Wireless-ON (+1) for {rating + 1} effective skill dice."
                     })
 
+            # In Skill Specialization entries
+            m_spec = re.search(r'\*\*\s*([A-Za-z]+)\s+Specialization\s*\((.*?)\)\s*:\s*\*\*', stripped)
+            if m_spec:
+                if 'specializations' not in locals():
+                    specializations = []
+                specializations.append({
+                    "skill": m_spec.group(1).strip(),
+                    "specialization": m_spec.group(2).strip()
+                })
+
+            # In Skill Rank entries (e.g. **Con (Rank 2):** or **Con Rank 2:**)
+            m_rank = re.search(r'\*\*\s*([A-Za-z]+)\s*(?:\(Rank\s*(\d+)\)|Rank\s*(\d+))\s*:\s*\*\*', stripped, re.IGNORECASE)
+            if m_rank:
+                if 'skill_ranks' not in locals():
+                    skill_ranks = []
+                r_val = int(m_rank.group(2) or m_rank.group(3))
+                skill_ranks.append({
+                    "skill": m_rank.group(1).strip(),
+                    "rating": r_val
+                })
+
+            # In Qualities & Mentor Spirits entries
+            m_mentor = re.search(r'\*\*\s*Mentor Spirit\s*(?:\((.*?)\)|:\s*([^\*:]+))?\s*:\s*\*\*', stripped, re.IGNORECASE)
+            if m_mentor:
+                choice = (m_mentor.group(1) or m_mentor.group(2) or "").strip()
+                q_name = f"Mentor Spirit ({choice})" if choice else "Mentor Spirit"
+                if not any(q.get("name") == q_name for q in qualities):
+                    qualities.append({
+                        "name": q_name,
+                        "ref": "mentor_spirit",
+                        "choice": choice,
+                        "karma": 20
+                    })
+            elif current_section in ['qualities', 'qualities & mentor spirits']:
+                if raw_line.startswith('* ') or raw_line.startswith('- '):
+                    clean_q = cls.clean_item_text(stripped)
+                    if clean_q and not any(q.get("name").lower() == clean_q.lower() for q in qualities):
+                        m_choice = re.search(r'\((.*?)\)', clean_q)
+                        choice = m_choice.group(1).strip() if m_choice else ""
+                        ref = "mentor_spirit" if "mentor spirit" in clean_q.lower() else clean_q.lower().replace(" ", "_")
+                        qualities.append({
+                            "name": clean_q,
+                            "ref": ref,
+                            "choice": choice,
+                            "karma": 20 if "mentor spirit" in clean_q.lower() else 0
+                        })
+
         return {
             "drone_modifications": drone_mods,
             "autosofts": autosofts,
@@ -197,8 +245,12 @@ class PurchasesSyncEngine:
             "activesofts": activesofts,
             "gear": gear_items,
             "sins": sins,
-            "licenses": licenses
+            "licenses": licenses,
+            "qualities": qualities,
+            "specializations": locals().get("specializations", []),
+            "skill_ranks": locals().get("skill_ranks", [])
         }
+
 
     @classmethod
     def sync_character_purchases(cls, char_id: str) -> Dict[str, Any]:
@@ -287,6 +339,49 @@ class PurchasesSyncEngine:
             if old_softs != parsed_activesofts:
                 data["activesofts"] = parsed_activesofts
                 changes.append(f"Updated Activesofts from purchases.qmd ({len(parsed_activesofts)} softs synced)")
+
+        # 4. Sync Skill Specializations
+        parsed_specs = parsed.get("specializations", [])
+        if parsed_specs:
+            skills = data.get("skills", [])
+            for spec_entry in parsed_specs:
+                sk_target = spec_entry.get("skill", "").lower()
+                sp_val = spec_entry.get("specialization", "").strip()
+                for sk in skills:
+                    if sk.get("name", "").lower() == sk_target:
+                        curr_specs = list(sk.get("specializations", []))
+                        if sk.get("specialization") and sk["specialization"] not in curr_specs:
+                            curr_specs.append(sk["specialization"])
+                        if sp_val not in curr_specs:
+                            curr_specs.append(sp_val)
+                            sk["specializations"] = curr_specs
+                            changes.append(f"Added Specialization '{sp_val}' to skill '{sk['name']}'")
+                        if not sk.get("specialization"):
+                            sk["specialization"] = sp_val
+
+        # 4b. Sync Skill Ranks
+        parsed_ranks = parsed.get("skill_ranks", [])
+        if parsed_ranks:
+            skills = data.get("skills", [])
+            for rank_entry in parsed_ranks:
+                sk_target = rank_entry.get("skill", "").lower()
+                r_val = rank_entry.get("rating", 1)
+                for sk in skills:
+                    if sk.get("name", "").lower() == sk_target:
+                        old_r = sk.get("rating", 1)
+                        if old_r != r_val:
+                            sk["rating"] = r_val
+                            changes.append(f"Updated skill '{sk['name']}' rating from {old_r} to {r_val}")
+
+        # 5. Sync Qualities
+        parsed_qualities = parsed.get("qualities", [])
+        if parsed_qualities:
+            quals = data.setdefault("qualities", {"positive": [], "negative": []})
+            pos_quals = quals.setdefault("positive", [])
+            for q in parsed_qualities:
+                if not any(eq.get("ref") == q.get("ref") or eq.get("name") == q.get("name") for eq in pos_quals):
+                    pos_quals.append(q)
+                    changes.append(f"Added Quality '{q['name']}' from purchases.qmd")
 
         # Save back to YAML if changes occurred
         if changes:

@@ -38,7 +38,7 @@ def test_metamagic_cheatsheet_content():
 
 def test_card_metamagic_disambiguation():
     """Verify that card lookup properly distinguishes metamagic from qualities."""
-    from sr6core.rules_db import RulesDB
+    from sr6core.rules.db import RulesDB
     db = RulesDB()
     if db.conn.execute("SELECT COUNT(*) FROM rules").fetchone()[0] == 0:
         pytest.skip("Rules vault not compiled in SQLite (skipping card tests dependent on proprietary rules database)")
@@ -56,7 +56,7 @@ def test_card_metamagic_disambiguation():
 
 def test_card_street_wyrd_game_information_stitching():
     """Verify that Psychometry card contains both description and Game Information mechanics."""
-    from sr6core.rules_db import RulesDB
+    from sr6core.rules.db import RulesDB
     db = RulesDB()
     if db.conn.execute("SELECT COUNT(*) FROM rules").fetchone()[0] == 0:
         pytest.skip("Rules vault not compiled in SQLite (skipping card tests dependent on proprietary rules database)")
@@ -81,7 +81,7 @@ def test_srmg_acronym_resolution():
 
 def test_rag_multi_rule_retrieval():
     """Verify that RAGEngine can retrieve multiple distinct rule chunks by ID."""
-    from sr6core.rules_db import RulesDB
+    from sr6core.rules.db import RulesDB
     db = RulesDB()
     if db.conn.execute("SELECT COUNT(*) FROM rules").fetchone()[0] == 0:
         pytest.skip("Rules vault not compiled in SQLite (skipping RAG tests dependent on proprietary rules database)")

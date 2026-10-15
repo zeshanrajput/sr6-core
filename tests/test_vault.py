@@ -10,7 +10,7 @@ Unit tests for SR6 Vault subsystem:
 import os
 import warnings
 import pytest
-from sr6core.rules_db import RulesDB, DEFAULT_VAULT_DIR, DEFAULT_CONVERTED_DIR
+from sr6core.rules.db import RulesDB, DEFAULT_VAULT_DIR, DEFAULT_CONVERTED_DIR
 from sr6core.vault.atomizer import clean_header, get_tags, is_header_footer_artifact, FILE_MAP
 from sr6core.vault.auditor import audit_vault
 from sr6core.vault.web_importer import parse_faq_html, clean_html_entities

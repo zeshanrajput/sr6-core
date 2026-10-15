@@ -58,7 +58,7 @@ BOOK_ACRONYMS: Dict[str, str] = {
 
 def get_converted_md_dir() -> Path:
     """Returns the path to converted_md directory."""
-    from sr6core.rules_db import get_default_converted_dir
+    from sr6core.rules.db import get_default_converted_dir
     return Path(get_default_converted_dir())
 
 

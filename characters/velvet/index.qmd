@@ -5,7 +5,7 @@ Welcome to the consolidated magic portfolio for **Kim Jin-Young**, operating in 
 ```{python}
 #| echo: false
 #| include: false
-from sr6core.log_engine import get_log_totals
+from sr6core.character.ledger import get_log_totals
 
 log_totals = get_log_totals(["core/character_log.qmd", "core/character_purchases.qmd"])
 ```

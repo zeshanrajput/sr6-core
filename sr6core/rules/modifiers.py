@@ -465,7 +465,7 @@ class ModifierEngine:
         for all cyberware, qualities, spells, and adept powers on the character.
         """
         try:
-            from sr6core.rules_db import RulesDB
+            from sr6core.rules.db import RulesDB
             db = RulesDB(db_path=db_path)
         except Exception:
             return []

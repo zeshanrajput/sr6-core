@@ -1,5 +1,5 @@
 import pytest
-from sr6core.rules_engine import get_multi_modifier_interactions, render_multi_modifier_interactions
+from sr6core.rules.engine import get_multi_modifier_interactions, render_multi_modifier_interactions
 
 def test_multi_modifier_interactions_venn():
     interactions = get_multi_modifier_interactions("venn", threshold=2)

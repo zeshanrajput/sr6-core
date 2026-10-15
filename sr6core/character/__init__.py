@@ -38,7 +38,7 @@ from sr6core.character.ledger import (
     get_log_totals,
     process_character_log,
 )
-from sr6core.character.purchases import PurchasesSyncEngine
+from sr6core.ledger.purchases_sync import PurchasesSyncEngine
 from sr6core.character.audit import deep_audit_character, calculate_transaction_price
 from sr6core.character.contacts import (
     normalize_contacts_list,

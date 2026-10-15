@@ -4,7 +4,7 @@ Unit tests for Rules DB SQL query engine, schema inspector, and CLI commands.
 
 import json
 import pytest
-from sr6core.rules_db import (
+from sr6core.rules.db import (
     execute_db_query,
     get_db_schema,
     format_query_results,

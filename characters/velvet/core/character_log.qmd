@@ -9,7 +9,7 @@ This log chronicles out-of-session missions, downtime decisions, Karma expenditu
 ```{python}
 #| echo: false
 #| include: false
-from sr6core.log_engine import (
+from sr6core.character.ledger import (
     init_character, mission, contact, add_rep, state, print_contacts_summary, 
     initiate, add_spirit, modifier, learn_spell, work_for_the_people, inc, inc_many
 )

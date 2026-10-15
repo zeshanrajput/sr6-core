@@ -11,9 +11,8 @@ import difflib
 import sqlite3
 from typing import Dict, Any, List, Optional, Tuple, Set
 
-from sr6core.rules_db import DEFAULT_DB_PATH, RulesDB
-from sr6core.character_manager import CharacterManager
-from sr6core.creation.deep_audit import calculate_transaction_price
+from sr6core.rules.db import DEFAULT_DB_PATH, RulesDB
+from sr6core.character.audit import calculate_transaction_price
 
 
 class DossierValidator:

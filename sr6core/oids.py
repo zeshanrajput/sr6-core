@@ -7,7 +7,7 @@ import os
 import re
 import sqlite3
 from typing import Dict, Any, Optional, Tuple, List
-from sr6core.rules_db import DEFAULT_DB_PATH
+from sr6core.rules.db import DEFAULT_DB_PATH
 
 # Category prefixes used across Genesis XML and CommLink6
 OID_PREFIXES: Dict[str, str] = {

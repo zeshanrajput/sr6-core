@@ -6,13 +6,13 @@ Unit tests for Tabletop Rules Presentation:
 """
 
 import pytest
-from sr6core.cards import get_item_card
-from sr6core.rules_matrix_actions import (
+from sr6core.rules.cards import get_item_card
+from sr6core.rules.matrix_actions import (
     calculate_matrix_action_pool,
     render_matrix_actions_markdown,
     SRM_MATRIX_TAXONOMY
 )
-from sr6core.rules_conjuring_tables import (
+from sr6core.rules.conjuring import (
     calculate_downtime_binding_table,
     render_downtime_binding_markdown
 )
@@ -122,7 +122,7 @@ def test_downtime_binding_table_buying_hits_exact_cutoffs():
 
 def test_render_weapon_card_red_fox():
     """Verifies that render_weapon_card correctly renders Firing Squad laser weapon cards like red_fox."""
-    from sr6core.rules_engine import render_weapon_card
+    from sr6core.rules.engine import render_weapon_card
     card_md = render_weapon_card("red_fox")
     assert "rEVOlution Arms Red Fox" in card_md
     assert "6P" in card_md
@@ -134,7 +134,7 @@ def test_render_weapon_card_red_fox():
 
 def test_render_sprite_stable():
     """Verifies that render_sprite_stable extracts active registered sprites and formats remaining missions."""
-    from sr6core.rules_engine import render_sprite_stable
+    from sr6core.rules.engine import render_sprite_stable
     md = render_sprite_stable("reiko")
     assert "Active Registered Sprite Stable & Kinship Roster" in md
     assert "Taz" in md

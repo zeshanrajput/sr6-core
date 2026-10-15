@@ -4,8 +4,8 @@ Sub-Items Indexing, SRM Legality Metadata, and Contact Geo-Tagging.
 """
 
 import pytest
-from sr6core.rules_db import RulesDB
-from sr6core.cards import get_item_card
+from sr6core.rules.db import RulesDB
+from sr6core.rules.cards import get_item_card
 
 
 def test_weapon_combat_stats_and_price_extraction():

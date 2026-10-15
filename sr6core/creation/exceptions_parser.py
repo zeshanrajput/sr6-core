@@ -7,7 +7,7 @@ discounts, and GM rulings from rules pages and exceptions.yaml.
 import os
 from typing import Dict, Any, List, Optional
 import yaml
-from sr6core.character_manager import CharacterManager
+from sr6core.character.manager import CharacterManager
 
 
 SEED_EXCEPTIONS: Dict[str, List[Dict[str, Any]]] = {

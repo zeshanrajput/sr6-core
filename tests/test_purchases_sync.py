@@ -4,7 +4,7 @@ Unit tests for PurchasesSyncEngine and single-source purchase reconciliation.
 
 import os
 from sr6core.ledger.purchases_sync import PurchasesSyncEngine
-from sr6core.character_manager import CharacterManager
+from sr6core.character.manager import CharacterManager
 
 
 def test_parse_purchases_qmd_reiko():

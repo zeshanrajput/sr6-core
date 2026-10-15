@@ -1,7 +1,7 @@
 """
 Quarto Campaign Session Log & Code Evaluator for SR6.
 Parses campaign session logs, executes embedded Python blocks, and computes totals for Karma, Nuyen, Reputation, and Contacts.
-Exposes standard Quarto tracking helpers so character logs can import sr6core.log_engine cleanly.
+Exposes standard Quarto tracking helpers so character logs can import sr6core.character.ledger cleanly.
 """
 
 import os

@@ -6,16 +6,16 @@ import sys
 import os
 from typing import Dict, Any, Optional
 
-from sr6core.character_manager import CharacterManager
-from sr6core.rules_db import RulesDB
+from sr6core.character.manager import CharacterManager
+from sr6core.rules.db import RulesDB
 from sr6core.rag import RAGEngine
-from sr6core.linter import analyze_prose, print_prose_report
-from sr6core.continuity_engine import build_continuity_report, print_continuity_report
-from sr6core.narration import generate_narration
+from sr6core.narrative.linter import analyze_prose, print_prose_report
+from sr6core.narrative.continuity import build_continuity_report, print_continuity_report
+from sr6core.narrative.narration import generate_narration
 from sr6core.dataset_compiler import compile_commlink_datasets, get_dataset_info, find_latest_commlink_jar
-from sr6core.creation.deep_audit import deep_audit_character
-from sr6core.advancement import search_catalog, purchase_item_for_character
-from sr6core.quarto_enricher import generate_character_dossier_appendix
+from sr6core.character.audit import deep_audit_character
+from sr6core.rules.advancement import search_catalog, purchase_item_for_character
+from sr6core.publishing.enricher import generate_character_dossier_appendix
 
 
 def print_banner():
@@ -156,7 +156,7 @@ def card_lookup_menu():
     item_id = input("Enter item ID or name (e.g. ambidextrous, ares_predator_vi, heal): ").strip()
     if not item_id:
         return
-    from sr6core.cards import get_item_card
+    from sr6core.rules.cards import get_item_card
     card = get_item_card(cat, item_id)
     print(f"\n{card['markdown']}\n")
 

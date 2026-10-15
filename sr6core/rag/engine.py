@@ -6,10 +6,10 @@ Supports provider switching (Gemini / llama.cpp Gemma) and character-specific do
 import os
 from typing import Dict, Any, List, Optional
 
-from sr6core.rules_db import DEFAULT_DB_PATH
+from sr6core.rules.db import DEFAULT_DB_PATH
 from sr6core.rag.search import search_rules_db, deduplicate_and_resolve_conflicts, format_context_for_llm
 from sr6core.rag.llm import query_gemini, RAGChatSession, DEFAULT_LLAMA_URL, DEFAULT_MODEL
-from sr6core.character_manager import CharacterManager
+from sr6core.character.manager import CharacterManager
 
 
 class RAGEngine:
@@ -116,7 +116,7 @@ class RAGEngine:
         return deduplicate_and_resolve_conflicts(raw)
 
     def get_rule(self, identifier: str) -> Optional[Dict[str, Any]]:
-        from sr6core.rules_db import RulesDB
+        from sr6core.rules.db import RulesDB
         db = RulesDB(db_path=self.db_path)
         return db.get_rule_by_topic_or_id(identifier)
 
