@@ -1,26 +1,27 @@
 ---
 name: sr6-chapter-finalize
-description: Finalize narrative chapter with Kokoro TTS audio, project cross-linking, git commit/push, and scheduled GitHub Actions verification.
-version: 1.0.0
-author: Zeshan Rajput (zeshanrajput), Hermes Agent
+description: Finalize narrative chapter with Kokoro TTS audio narration, GitHub Release asset upload, project cross-linking, and CI/CD verification.
+version: 2.0.0
+author: Zeshan Rajput (zeshanrajput), Antigravity Agent
 license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
-    tags: [shadowrun, narrative, publishing, tts, kokoro, git, cicd, github-actions]
-    related_skills: [sr6-narration-tts, continuity-tracker, no-ai-slop, narrative-director]
+    tags: [shadowrun, narrative, publishing, tts, kokoro, audio, git, cicd, github-actions]
+    related_skills: [literary-analysis, continuity-tracker, no-ai-slop, narrative-director]
 ---
 
 # SR6 Chapter Finalization & Publishing Skill (`sr6-chapter-finalize`)
 
-Standardized end-to-end publishing pipeline for finalized Shadowrun 6e narrative chapters. This skill automates the transition from approved prose into audio narration, project context navigation, version control, and CI/CD deployment verification.
+Standardized end-to-end publishing and audio narration pipeline for finalized Shadowrun 6e narrative chapters. This skill automates the transition from approved prose into audiobook-grade Kokoro TTS narration, GitHub Release asset distribution, project context navigation, version control, and CI/CD deployment verification.
 
 ---
 
 ## When to Use
 
-- When a chapter draft has passed all 7 sub-agent audit panel dimensions and has completed Stage 4/6 line-level prose chiseling.
+- When a chapter draft has passed all audit panel dimensions and completed Stage 4/6 line-level prose chiseling.
 - When generating Kokoro TTS audio narration and embedding character metadata tags.
+- When uploading newly synthesized chapter MP3s directly to GitHub Release assets under the zero-git-bloat policy.
 - When registering a newly completed chapter across `_quarto.yml`, `index.qmd`, and `story_continuity.md`.
 - When pushing the completed chapter to Git and autonomously waiting/verifying GitHub Actions workflows.
 
@@ -42,16 +43,16 @@ finalize-chapter <target_file>
 
 ```
  +---------------------------------------------------------+
- | 1. PRE-FLIGHT VALIDATION                                |
+ | 1. PRE-FLIGHT VALIDATION & TTS CADENCE AUDIT            |
  | uv run sr6 lint "<target_file>"                         |
  | (Zero slop, zero \ufffd artifacts, ellipses <= 0.60)    |
  +----------------------------+----------------------------+
                               |
                               v
  +---------------------------------------------------------+
- | 2. KOKORO TTS AUDIO GENERATION                          |
+ | 2. KOKORO TTS AUDIO GENERATION & RELEASE UPLOAD         |
  | uv run --extra narration sr6 narrate "<target>" --char  |
- | (Sniffs <audio src="..."> tag; encodes 160kbps ID3 MP3) |
+ | gh release upload narrative-audio-v1 "<mp3>" --clobber  |
  +----------------------------+----------------------------+
                               |
                               v
@@ -77,34 +78,60 @@ finalize-chapter <target_file>
 
 ---
 
-### Step 1: Pre-Flight Lint & Sanitization
-Verify the chapter meets all stylistic and technical criteria before generating audio:
+### Step 1: Pre-Flight Lint & TTS Cadence Validation
+
+Verify the chapter meets all stylistic, technical, and audio readability criteria before generating audio:
 ```bash
 uv run sr6 lint "<target_file>"
 ```
 - **Zero AI Slop**: No banned buzzwords, throat-clearers, cognitive buffers, or binary contrasts.
-- **TTS Readability**: Em-dash / ellipsis ceiling $\le 0.60$ per 300 words.
+- **The Ellipses Ceiling ($\le 0.60$ per 300 words)**:
+  - TTS speech synthesis models parse ellipses as awkward multi-second silences or pitch drops that disrupt spoken cadence.
+  - If `uv run sr6 lint` reports an ellipses ratio $> 0.60$, replace trailing ellipses with commas, em-dashes, or complete affirmative sentences.
+- **Markdown Normalization for Spoken Voice**:
+  - The narration engine (`clean_markdown_for_tts`) automatically strips markdown links, image tags, callout boxes (`::: {.callout-note}`), and code blocks.
+  - Prose must not rely on typography gimmicks (ALL CAPS screaming, bracketed `[ERROR]` logs, or raw URLs) that sound unnatural when read aloud.
+- **Mindspeech & Dialogue Cadence**:
+  - Pure non-acoustic mindspeech (`*...*`) is automatically converted to spoken cadence during TTS synthesis.
+  - Ensure mindspeech sentences end with standard punctuation (`.`, `?`, `!`) inside the asterisks so speech engines do not elide sentences together.
 - **Zero Unicode Artifacts**: Zero `\ufffd` replacement characters.
 
 ---
 
 ### Step 2: Kokoro TTS Audio Generation & Release Asset Upload
+
+#### 1. Pronunciation & Heteronym Calibration
+Before generating audio, verify phonetics for Sixth World jargon and character handles in `reference/pronunciations.yaml`:
+- **Sixth World Proper Nouns**:
+  - `nuyen`: *new-yen*
+  - `mitsuhama`: *meet-soo-hah-mah*
+  - `aztechnology`: *az-tek-nahl-oh-jee*
+  - `r31k0`: *ray-koh*
+  - `dronomancy`: *droh-noh-man-see*
+- **Contextual Heteronyms & Homographs**:
+  - English G2P phonemizers (Kokoro / Misaki) cannot infer semantic context for heteronyms and default to the primary dictionary entry.
+  - **The Keigo / Ceremonial Bow Rule**: In syndicate/corporate keigo fiction, "bow" almost always refers to the physical gesture `/baʊ/` rather than archery/ribbon `/boʊ/`. Map forms to exact phonetic homophones (`bow: bough`, `bows: boughs`, `bowed: boughed`, `bowing: boughing`).
+  - Watch for other high-frequency heteronyms: *tear* (weep vs rip), *lead* (metal vs guide), *read* (past vs present), *wind* (breeze vs coil).
+
+#### 2. Synthesize MP3 Audio Narration
 Synthesize high-fidelity 160kbps MP3 audio narration using Kokoro GPU:
 ```bash
 uv run --extra narration sr6 narrate "<target_file>" --char <char_id>
 ```
 - **Audio Tag Sniffing**: The engine automatically detects the `<audio controls src="audio/(.*?)">` tag in the markdown header (e.g. `audio/12_Iron.mp3`) and targets that exact file name in `characters/<char_id>/narrative/audio/<audio_file>`.
 - **Character ID3 Tagging**: Automatically embeds Title, Track Number, Artist (Character Handle/ID), and Album (*Shadowrun 6e: <Character Name>*).
-- **External Audio Upload (Zero-Git-Bloat Policy)**:
-  To maintain the `<12MB` git repository footprint for Gemini web app compatibility, **NEVER commit the `.mp3` file to Git**. Instead, upload it directly to the GitHub Release assets:
-  ```bash
-  gh release upload narrative-audio-v1 "characters/<char_id>/narrative/audio/<audio_file>" --clobber
-  ```
-  *(The GitHub Actions deploy workflow automatically downloads this asset and places it into GitHub Pages for live playback).*
+
+#### 3. Upload to GitHub Release (Zero-Git-Bloat Policy)
+To maintain the repository under the **12 MB ceiling** for Gemini web app compatibility, **NEVER commit `.mp3` files to Git**. Upload directly to the GitHub Release:
+```bash
+gh release upload narrative-audio-v1 "characters/<char_id>/narrative/audio/<audio_file>" --clobber
+```
+*(The GitHub Actions deploy workflow automatically downloads this asset into `_site/` during deployment, making it live on GitHub Pages with zero Git bloat).*
 
 ---
 
 ### Step 3: Project Context Synchronization
+
 Run the narrative context synchronizer to wire the chapter into the web book and continuity ledger:
 ```bash
 uv run sr6 story sync <char_id>
@@ -121,7 +148,8 @@ Automatically updates:
 ---
 
 ### Step 4: Windows PowerShell Git Commit Protocol
-To prevent PowerShell whitespace, quote-escaping, and newline truncation issues when committing multi-line messages, always stage the commit message in a temporary file (do NOT stage `.mp3` files):
+
+Stage the commit message in a temporary file (do NOT stage `.mp3` files):
 
 ```powershell
 @"
@@ -142,7 +170,8 @@ git push origin master
 ---
 
 ### Step 5: Autonomous CI/CD Verification (8-Minute Schedule Timer)
-After pushing, schedule an 8-minute timer using the Antigravity `schedule` tool to allow GitHub Actions builders to complete:
+
+Schedule an 8-minute timer using the Antigravity `schedule` tool to allow GitHub Actions builders to complete:
 
 ```json
 {

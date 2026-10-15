@@ -66,40 +66,40 @@ The `narrative-director` is the primary autonomous orchestrator responsible for 
 Before drafting or editing, `narrative-director` ingests:
 1. **Scene Outline / Prompt & Tri-Source Ingestion**: User-provided beat sheet, plot points, or tri-source session artifacts (verbatim audio transcripts in `characters/<char_id>/sessions/<session_id>/transcript.md`, official mission documents/modules, and GM Discord/chat reward logs).
 2. **Master Narrative Doctrine**: Loads [`reference/inter_session_narrative_doctrine.md`](file:///c:/GitHub/sr6-core/reference/inter_session_narrative_doctrine.md) as the governing operational and psychological constitution.
-3. **Sub-Agent Evaluation Skills**: Calibrated directly by `sr6-narrative-suite` skills (`no-ai-slop`, `axis-pacing-structure`, `axis-worldbuilding-grit`, `axis-voice-internality`, `axis-agency-motivation`, `sr6-rules`, `continuity-tracker`, `literary-analysis`, `sr6-combat-choreography`, `sr6-downtime-ledger`, `sr6-narration-tts`).
+3. **Sub-Agent Evaluation Skills**: Calibrated directly by `sr6-narrative-suite` skills (`no-ai-slop`, `literary-analysis`, `sr6-rules`, `continuity-tracker`, `sr6-downtime-ledger`, `sr6-chapter-finalize`, `narrative-director`).
 4. **Character Voice Specification / Consolidated Narrative Spec**: Loads local character repository `reference/narrative_spec.md` or `reference/voice_spec.md` (inheriting `reference/default_voice_spec.md`).
 5. **Master Character Dossier & Resource Pressure Telemetry**: Reads `character_master.yaml` and executes deterministic resource pressure checks (`uv run sr6 char pressure <id>`) to ground existential financial/karmic weight.
 6. **RAG Story Continuity & Rules**: Queries recent chapter logs via `uv run sr6 continuity` and rule context via `sr6-rules` (always querying local offline FTS5 vault first via `uv run sr6 rag search` before cloud AI synthesis).
 
 ### Stage 2: Initial Draft Generation (`v1`)
 `narrative-director` invokes the drafting sub-agent to generate Scene Draft `v1`, adhering to:
-* POV, active era from `arc_chronology`, and cognitive bias from `voice_spec.md` / `narrative_spec.md`.
-* 4-beat scene structure (Inciting Friction $\rightarrow$ Escalation $\rightarrow$ Climax $\rightarrow$ Aftermath) and braided paragraph cadence from `axis-pacing-structure`.
-* Thematic worldbuilding and atmospheric friction from `axis-worldbuilding-grit`.
+* POV, active era from `arc_chronology`, and cognitive bias from `voice_spec.md` / `narrative_spec.md` (via `literary-analysis`).
+* 4-beat scene structure (Inciting Friction $\rightarrow$ Escalation $\rightarrow$ Climax $\rightarrow$ Aftermath) and braided paragraph cadence from `literary-analysis`.
+* Thematic worldbuilding and atmospheric friction from `literary-analysis`.
 * 30 anti-slop rules (including Rule 30: zero game scaffolding/mechanics jargon in prose), affirmative staging, and "Trust the Reader" discipline from `no-ai-slop`.
-* Two-Tier dramatic sphere from `axis-agency-motivation` (Tier A Canon Ceiling vs Tier B Bespoke Foils).
-* Tactical action and combat staging using `sr6-combat-choreography` when firefights, drone combat, or spellcasting occur.
+* Two-Tier dramatic sphere from `literary-analysis` (Tier A Canon Ceiling vs Tier B Bespoke Foils).
+* Tactical action, astral magic, and matrix choreography from `literary-analysis` when firefights, spells, or hacking occur.
 * Mechanical reality constraints from `character_master.yaml` and dynamic weapon arrays (`calculate_modified_weapon`) without modifying tabletop balances.
-* Audio narration and TTS readability guidelines (ellipses ceiling $\le 0.60$ per 300 words) from `sr6-narration-tts`.
+* Audio narration and TTS readability guidelines (ellipses ceiling $\le 0.60$ per 300 words) from `sr6-chapter-finalize`.
 
 ### Stage 3: Parallel Sub-Agent Audit Panel
-Draft `v1` is first analyzed using deterministic CLI utilities, then dispatched to the **7 sub-agent evaluators**:
+Draft `v1` is first analyzed using deterministic CLI utilities, then evaluated across the **7 audit dimensions**:
 
 1. **Deterministic Pre-Flight Check**:
    - Run `uv run sr6 lint "chapters/<file>.qmd"` for instant automated metrics on word count, paragraph braid ratios, ellipses ceiling, and banned buzzwords.
    - Run `uv run sr6 evaluate "chapters/<file>.qmd" --tier <1|2|3> --char <id>` to generate the baseline 7-axis scorecard.
 2. **Sub-Agent Panel Dispatch**:
-   - In Hermes Agent, dispatch parallel sub-agent audits via `delegate_task` across all 7 evaluation dimensions against the calibrated tier threshold:
+   - In Hermes Agent or Antigravity, dispatch audits across all 7 evaluation dimensions against the calibrated tier threshold:
 
-| Sub-Agent Skill | Focus Dimension | Passing Threshold |
-| :--- | :--- | :--- |
-| **`axis-voice-internality`** | Character voice, POV integrity, vocabulary matrix, sensory lens, era calibration | Tier Calibrated (8.0–9.0) |
-| **`axis-pacing-structure`** | 4-beat structure, entry/exit discipline, action-to-exposition (80/20) | Tier Calibrated (8.0–9.0) |
-| **`axis-agency-motivation`** | Protagonist proactive choice, consequential stakes, drive alignment | Tier Calibrated (8.0–9.0) |
-| **`axis-worldbuilding-grit`** | Dystopian texture, corporate omnipresence, AR clutter, zero info-dumps | Tier Calibrated (8.0–9.0) |
-| **`no-ai-slop`** | Anti-slop pattern detection, forbidden terms list, redline removal, TTS fluency | **8.5 / 10** |
-| **`continuity-tracker`** | Ammo/nuyen balances, damage tracks, contacts, state verification | **8.5 / 10** |
-| **`sr6-rules`** | SR6 mechanics (Edge, Matrix actions, spell drain, tactical arrays) accuracy | **8.5 / 10** |
+| Dimension / Skill | Governing Skill | Focus Dimension | Passing Threshold |
+| :--- | :--- | :--- | :--- |
+| **Voice & Internality** | `literary-analysis` | Character voice, POV integrity, vocabulary matrix, sensory lens, era calibration | Tier Calibrated (8.0–9.0) |
+| **Pacing & Structure** | `literary-analysis` | 4-beat structure, entry/exit discipline, action-to-exposition (80/20) | Tier Calibrated (8.0–9.0) |
+| **Agency & Motivation** | `literary-analysis` | Protagonist proactive choice, consequential stakes, drive alignment | Tier Calibrated (8.0–9.0) |
+| **Worldbuilding & Grit** | `literary-analysis` | Dystopian texture, corporate omnipresence, AR clutter, zero info-dumps | Tier Calibrated (8.0–9.0) |
+| **Anti-Slop Guardian** | `no-ai-slop` | Anti-slop pattern detection, forbidden terms list, redline removal, TTS fluency | **8.5 / 10** |
+| **Continuity & State** | `continuity-tracker` | Ammo/nuyen balances, damage tracks, contacts, state verification | **8.5 / 10** |
+| **Rules & Mechanics** | `sr6-rules` | SR6 mechanics (Edge, Matrix actions, spell drain, tactical arrays) accuracy | **8.5 / 10** |
 
 #### Chapter Tier Threshold Calibration (Unified 1.0–10.0 Scale)
 * **Tier 1 (Keystones)**: Passing threshold **9.0 / 10** (Existential breakthroughs, initiation/submersion milestones, foundational pivots).
@@ -190,20 +190,14 @@ Before completing edits or reviewing narrative/character updates, run correspond
 
 ---
 
-## 4. The 13-Skill Narrative Suite Reference
+## 4. The Consolidated 7-Skill Narrative Suite Reference
 
 | Skill Name | Role | Primary Command / Pre-Flight |
 | :--- | :--- | :--- |
 | **`narrative-director`** | Master autonomous orchestrator for 6-stage lifecycle | `uv run sr6 evaluate` |
-| **`axis-voice-internality`** | Character voice, deep limited POV, vocabulary matrix | `uv run sr6 evaluate` |
-| **`axis-pacing-structure`** | 4-beat structure, paragraph braiding, dialogue integrity | `uv run sr6 lint` |
-| **`axis-agency-motivation`** | Protagonist proactive choice, consequential stakes, parity | `uv run sr6 evaluate` |
-| **`axis-worldbuilding-grit`** | Dystopian texture, corporate omnipresence, zero info-dumping | `uv run sr6 evaluate` |
-| **`no-ai-slop`** | 29 anti-slop patterns, banned terms, affirmative staging | `uv run sr6 lint` |
-| **`continuity-tracker`** | Ammo/nuyen/damage verification, Markdown Trio drop-ins | `uv run sr6 continuity` |
-| **`sr6-rules`** | SR6 mechanics, stat blocks, local SQLite FTS5 queries | `uv run sr6 card` / `rag search` |
-| **`literary-analysis`** | Stage 4 Prose Elevation & Chisel Engine (`apply_prose_chisel`) | `uv run sr6 evaluate` |
-| **`sr6-combat-choreography`** | Tactical mechanics into somatic, braided action fiction | `uv run sr6 combat attack` |
-| **`sr6-downtime-ledger`** | Karma progression, gear buying, `{python} inc(...)` snippets | `uv run sr6 card` / `sync-all` |
-| **`sr6-narration-tts`** | Kokoro TTS audio prep, ellipses ceiling, phonetics | `uv run sr6 lint` / `narrate` |
-| **`sr6-chapter-finalize`** | Stage 7 chapter publishing, audio, sync, git & CI/CD verification | `/finalize-chapter` / `sr6 story sync` |
+| **`literary-analysis`** | Unified craft engine: 7-axis audit rubrics, action choreography & chisel | `uv run sr6 evaluate` / `uv run sr6 lint` |
+| **`no-ai-slop`** | 30 anti-slop patterns, banned terms list, affirmative staging | `uv run sr6 lint` |
+| **`sr6-rules`** | SR6 mechanics, stat blocks, local SQLite FTS5 queries & RAG vault | `uv run sr6 card` / `rag search` |
+| **`sr6-chapter-finalize`** | Stage 7 publishing: Kokoro TTS audio, release asset upload, story sync, CI/CD | `/finalize-chapter` / `sr6 story sync` |
+| **`continuity-tracker`** | Timeline continuity, causal matrix, contacts & Markdown Trio verification | `uv run sr6 continuity` |
+| **`sr6-downtime-ledger`** | Karma progression, gear buying, `{python} inc(...)` trio snippets | `uv run sr6 card` / `sync-all` |

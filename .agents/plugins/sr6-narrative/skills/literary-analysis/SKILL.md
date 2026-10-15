@@ -1,141 +1,146 @@
 ---
 name: literary-analysis
-description: Elevate chapter prose with line-level chisel refactoring.
-version: 1.0.0
-author: Zeshan Rajput (zeshanrajput), Hermes Agent
+description: Unified literary craft engine: 7-axis audit rubrics, action choreography, and prose chisel refactoring.
+version: 2.0.0
+author: Zeshan Rajput (zeshanrajput), Antigravity Agent
 license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
-    tags: [shadowrun, narrative, prose-chisel, refactoring, literary]
-    related_skills: [axis-voice-internality, axis-pacing-structure, no-ai-slop, narrative-director]
+    tags: [shadowrun, narrative, craft, audit, choreography, prose-chisel, refactoring, literary]
+    related_skills: [no-ai-slop, sr6-rules, narrative-director, sr6-chapter-finalize]
 ---
 
-# Literary Analysis & Prose Chisel Skill (`literary-analysis`)
+# Literary Craft, Audit & Prose Chisel Skill (`literary-analysis`)
 
-Consolidated into the SR6 development pipeline as the Stage 4 **Prose Elevation & Chisel Engine (`apply_prose_chisel`)**. This skill synthesizes feedback from the 7-axis audit panel, elevates prose quality to high-end speculative fiction standards, and transforms dry game mechanics into evocative literature.
+The central speculative fiction craft engine for the Shadowrun 6e Narrative Suite. This skill serves a dual purpose across the development lifecycle:
+1. **Stage 3 Unified Audit Panel**: Evaluates scene drafts across Voice, Pacing, Agency, and Worldbuilding against tier-calibrated standards.
+2. **Domain Action Choreography**: Guides visceral staging for tactical firefights, astral perception/sorcery, and matrix decking/technomancy.
+3. **Stage 4 & 6 Prose Chisel Engine (`apply_prose_chisel`)**: Executes line-level refactoring to braid staccato lines, translate dry mechanics into consecrated capital/debt, and strip negative non-actions.
+
+---
 
 ## When to Use
 
-- Stage 4 of the narrative pipeline: synthesizing panel audit findings into concrete line edits.
-- Refactoring flagged scenes to fix staccato paragraphs, show-then-tell redundancy, and robotic cadence.
-- Elevating dry TTRPG math (Edge, Drain, Matrix tests, Rigging) into visceral sensory narrative.
+- Running the Stage 3 multi-axis qualitative audit on chapter drafts or scene beats.
+- Staging action scenes involving smartlink combat, spellcasting/drain, or matrix/resonance hacking.
+- Executing Stage 4/6 line-level prose chisel refactoring (`apply_prose_chisel`).
+- Fixing staccato paragraph stacking, show-then-tell redundancy, or passive protagonist syndrome.
 
-## How to Run / Command Trigger
+## Command Triggers & Diagnostics
 
-Invoke directly via the chat trigger:
+Invoke directly in chat:
 ```text
 literary-analysis <target_file>
+/literary-analysis <target_file>
 ```
-*(Also accepts `/literary-analysis <target_file>`)*
+*Example: `literary-analysis characters/velvet/narrative/02_faceless_mirror.md`*
 
 Execute baseline diagnostics via CLI:
 ```bash
+# Automated paragraph braid ratios, ellipses ceiling, and buzzwords
 uv run sr6 lint "characters/<char_id>/chapters/<file>.qmd"
+
+# 7-axis baseline scorecard and tier-calibrated compliance
 uv run sr6 evaluate "characters/<char_id>/chapters/<file>.qmd" --tier <1|2|3> --char <char_id>
 ```
 
+---
+
 ## Tier-Calibrated Standards (Unified 1.0–10.0 Scale)
 
-Prose is evaluated against its designated tier in `reference/voice_spec.md`:
+Prose expectations scale with the chapter's designated tier in `reference/voice_spec.md`:
 
 - **Tier 1 (Keystones — Passing Threshold: $\ge 9.0 / 10$):**
-  - Existential breakthroughs, profound moral tragedy, life-altering turning points, visceral somatic friction, and strict thematic discipline. Zero fluff. Word count: 1,500 – 2,500+ words.
+  - Existential breakthroughs, foundational pivots, initiation/submersion milestones, profound moral tragedy.
+  - Irreversible choices; protagonist boldly breaks from conditioning; deep somatic friction. Zero fluff. Word count: 1,500 – 2,500+ words.
 - **Tier 2 (Narrative Evolution — Passing Threshold: $\ge 8.5 / 10$):**
-  - Operational tradecraft, shadowrun negotiations, relationship deepening, regional sprawl texture, dark humor, and tactical momentum. Word count: 1,200 – 1,800+ words.
+  - Mission runs, operational tradecraft, shadowrun negotiations, relationship deepening, regional sprawl texture, dark humor, tactical momentum. Word count: 1,200 – 1,800+ words.
 - **Tier 3 (Atmospheric Bridges — Passing Threshold: $\ge 8.0 / 10$):**
-  - Procedural downtime, clinic maintenance, un-monetized tea/noodle sanctuaries, meditative character breathing room. Word count: 1,000 – 1,600+ words.
+  - Meditative downtime, procedural maintenance, un-monetized tea/noodle sanctuaries, somatic healing truces, affectionately grounded banter. Word count: 1,000 – 1,600+ words.
+
+---
+
+## The 4 Evaluation Axes
+
+### Axis 1: Character Voice & Internality (`axis-voice-internality`)
+- **Deep Limited Third-Person POV**: Stay anchored behind the protagonist’s eyes, sensors, and cognitive biases. Never float into omniscient narrator territory.
+- **Sensory Palette & Vocabulary Matrix**: Ground metaphors in the character's lived professional reality (e.g., Reiko's dual Gold TacNet / Indigo Resonance telemetry; Velvet's transmutational body and aesthetic geomancy; Venn's monad bus clocks and ceramic stress).
+- **Chronological Arc Calibration**: Calibrate to the chapter's active era from `voice_spec.md` (e.g. Arc 1 debt-collar vs. Arc 4 sovereign authority). Avoid retrospective flattening.
+
+### Axis 2: Pacing & Structure (`axis-pacing-structure`)
+- **4-Beat Scene Architecture**: Inciting Friction $\rightarrow$ Escalation $\rightarrow$ Climax $\rightarrow$ Aftermath. Arrive late, leave early.
+- **Paragraph Braiding (3 to 6 Sentences)**: Group sensory atmosphere, physical micro-action, gear interaction, and immediate somatic consequences into cohesive braided paragraphs.
+- **Single-Sentence Lines as a Deliberate Literary Tool**: Single-sentence paragraphs are a high-impact literary tool for irreversible pivots or existential turning points. Strictly calibrated to **no more than 1 or 2 per thousand words** ($\le 1\text{–}2 / 1,000$ words).
+- **One Speaker Per Paragraph (Mandatory)**: Never combine lines spoken by different characters into one paragraph. Braid each speaker turn with their own delivery and physical micro-action.
+
+### Axis 3: Protagonist Agency & Stakes (`axis-agency-motivation`)
+- **Active Driver vs. Passive Passenger**: The protagonist must make deliberate tactical or moral decisions that dictate the outcome of the scene.
+- **Two-Tier Dramatic Sphere**:
+  - *Tier A Campaign Canon (`canonical: true`)*: Respects the Canon Ceiling. Read-only relational orbit; other PCs and campaign VIPs are inviolable.
+  - *Tier B Bespoke Foils (`canonical: false`)*: Carry full sovereign agency, permanent moral reckoning, and mortal stakes.
+- **Moral Friction**: Decisions must cost something tangible (nuyen, reputation, physical strain, emotional security).
+
+### Axis 4: Worldbuilding & Dystopian Grit (`axis-worldbuilding-grit`)
+- **Sensory Dystopian Texture**: Smells of ozone, synthetic soy, wet ferroconcrete, sulfurous drizzle, and industrial cooling hums.
+- **Corporate Omnipresence**: Megacorps permeate daily existence through intrusive AR billboards, bioware licensing rent, and biometric checkpoints.
+- **Zero Info-Dumping**: Never deliver encyclopedic lectures on safehouses or market economics. Embed world details naturally through character interaction and somatic friction.
+
+---
+
+## Domain Action Choreography
+
+### 1. Tactical Combat & Firefights (`sr6-combat-choreography`)
+- **Weapons & Gear Mechanics**: Query exact profiles via `uv run sr6 card weapon "<name>"` or simulate attacks via `uv run sr6 combat attack`.
+- **Braided Action Paragraphs**: Weave three elements into active combat exchanges:
+  1. *Physical Micro-Movement & Cover Geometry*: Squeezing behind concrete pillars, ducking beneath window sills, brass casing clatter.
+  2. *Tactile Gear Telemetry*: Smartlink reticle jitter, suppressor hiss, recoil kick against dermal plating, barrel heat.
+  3. *Immediate Somatic Consequence*: Impact shock, splintering plaster, ringing ears, adrenaline burn.
+
+### 2. Astral Perception & Spellcasting (`sr6-magic-astral`)
+- **Astral Emotional Gray**: Physical objects lose color into pale gray shadows; living things flare with vibrant chromatic emotional auras; cyberware appears as dark necrotic voids.
+- **Somatic Drain & Backlash**: Magic demands a mortal price. Minor Drain = metallic copper taste, throbbing temples, cracked capillaries. Severe Drain = jaw cartilage locking, knees trembling, raw sternum agony.
+- **Spirits as Alien Sentience**: Spirits are not video game pets; they hold elemental worldviews, distinct dignity, and strict transactional adherence to summoning agreements.
+
+### 3. Matrix Decking & Technomancy (`sr6-matrix-narrative`)
+- **Sensory Modes**:
+  - *AR*: Translucent heads-up glyphs, icon clutter, flickering corporate advertising floating over wet asphalt.
+  - *Cold-Sim VR*: Complete physical detachment; hosts render as sculpted architectural spaces (Mitsuhama obsidian temples, Renraku geometric grids).
+  - *Hot-Sim VR*: All sensory limiters stripped away; dangerously seductive; biofeedback hits like lightning through the spine, tasting of ozone and burnt copper.
+- **Decker vs Technomancer**: Deckers operate through humming military hardware and cooling fans; technomancers experience the Deep Resonance as an organic ecosystem with living digital fauna.
+
+---
 
 ## The 4 Chisel Transformations (`apply_prose_chisel`)
 
-When refactoring prose from panel redlines, apply these four transformations:
+When refactoring drafts during Stage 4/6, apply these four transformations:
 
-### 1. Braid Fragmented Lines into Cohesive Paragraphs
-- Merge isolated 1–2 sentence lines into flowing 3–6 sentence paragraphs grouping action, sensory texture, and immediate consequences.
-- **Single-Sentence Lines as a Deliberate Literary Tool:** Solitary 1-sentence paragraphs are not forbidden—they are a high-impact literary tool for irreversible pivots, flashback hinges, or existential turning points (e.g., *“Jin-Young looked into the metal.”* in `02_faceless_mirror.md`). Use them deliberately and sparingly, calibrated to **no more than 1 or 2 per thousand words** ($\le 1\text{–}2 / 1,000$ words).
-- Maintain dialogue integrity: **one speaker per paragraph**. Braid that speaker's dialogue with their own physical micro-action (2–4 sentences per turn).
+1. **Braid Fragmented Lines into Cohesive Paragraphs**:
+   - Merge isolated 1–2 sentence lines into flowing 3–6 sentence paragraphs.
+   - Enforce single-sentence quota ($\le 1\text{–}2 / 1000$ words) reserved for dramatic hinges.
+   - Enforce one speaker per paragraph.
+2. **Translate Dry TTRPG Math -> Consecrated Fiction**:
+   - *Nuyen as Existential Debt*: Rent, identity masks, cyberware maintenance leases, chassis mortgages.
+   - *Downtime as Somatic Homeostasis*: The sweat equity of maintenance as artificial metabolism.
+   - *Karma as Spiritual Accretion*: Character growth through traumatic survival, shedding masks, or ethical reckoning.
+   - Completely strip game mechanic labels (Edge, Drain points, Defense Rating, dice pools).
+3. **Trust the Reader vs. Contextual Scaffolding**:
+   - *Prune Lazy Meta-Exposition*: Cut introductory comparative essays, thesis announcements, and character sheet recaps.
+   - *Preserve Essential Contextual Scaffolding*: Provide grounded sensory grounding when a reader cannot reasonably deduce specialized dynamics (e.g. medical triage desensitization buffering against charisma until the smock comes off).
+4. **Affirmative Staging & Non-Action Pruning**:
+   - Strip gratuitous negative non-actions (*"did not flinch"*, *"did not look back"*) whenever the positive physical detail (*"her hands remained flat against her knees"*) already carries the weight.
 
-### 2. Translate Dry TTRPG Math -> Consecrated Fiction ([`narrative doctrine`](file:///c:/GitHub/sr6-core/reference/inter_session_narrative_doctrine.md))
-Seamlessly transform tabletop rules and financial arithmetic into visceral, existential reality:
-- **Nuyen as Consecrated Capital & Existential Debt:**
-  - Translate gear and augmentations into somatic mortgages (Reiko's Shiawase chassis as indentured metal), sacred ritual vestments (Velvet's fake SINs and high fashion), or bioware rent (Venn's chrome keeping host flesh intact).
-- **Matrix Perception / Slicing:**
-  - *Dry:* "She rolled Matrix Perception to scan the node."
-  - *Chiseled:* "She plucked the hidden chords of the underlying wire, feeling the cold, rhythmic heartbeat of corporate traffic pulsing through the junction."
-- **Spellcasting / Drain:**
-  - *Dry:* "He cast Stunball and suffered 2 Drain."
-  - *Chiseled:* "The mana flared white-hot through his palms; behind his collarbones, cartilage locked and metallic heat surged up his throat as the backlash grounded into his marrow."
-- **Rigging / Inhabitation:**
-  - *Dry:* "She jumped into the Fly-Spy drone."
-  - *Chiseled:* "Her perspective collapsed through the neural jack, expanding instantly into the icy, low-bitrate greyscale vision of twin composite rotors biting into rain."
+---
 
-### 3. Trust the Reader vs. Essential Contextual Scaffolding
-- **Cut Show-Then-Tell Redundancy & Redundant Negatives:**
-  - Delete trailing explanatory codas that summarize the meaning of an action (*"She double-checked the seal on the medkit. She was terrified of sepsis."* $\rightarrow$ *"She double-checked the cylinder seal on the medkit, thumb running twice along the rubber seating."*).
-  - Strip leading non-action negatives when the following physical action carries the weight (*"Reiko did not flinch, her hands remaining flat against her knees."* $\rightarrow$ *"Reiko's hands remained flat against her knees."*).
-  - Cut throat-clearing comparative essays and thesis announcements before entering a scene. Let the sensory threshold speak for itself.
-  - Subtextualize dialogue: replace character resumes, corporate dossiers, and past chapter plot recaps with guarded, stakes-driven conversation.
-- **Preserve Essential Contextual Scaffolding:**
-  - Help the reader when an expected reader cannot reasonably deduce the cause-and-effect without subtle narrative grounding.
-  - Provide grounded sensory, physical, or psychological cues for:
-    - *Specialized professional or mechanical dynamics* (e.g., in `02_faceless_mirror.md`, medical triage desensitization buffering a clinician against supernatural charisma until the smock comes off).
-    - *Proprietary symbolic motifs* (e.g., Reiko's gold tactical logic versus indigo resonant soul).
+## Output Deliverables
 
-### 4. Affirmative Staging & Sensory De-familiarization
-- Replace passive negative staging (*"did not speak," "without looking"*) with direct physical actions or stillness.
-- Replace formulaic sensory checklists (*"smelled of ozone and copper"*) with thermal, acoustic, and barometric weight (*"drizzle sizzled against the heat sink of the cyberjack"*).
-
-## Chisel Output Format
-
-When invoking `literary-analysis <target_file>`, output the evaluation scorecard, expanded craft telemetry, transparent callouts, and the chiseled prose:
-
-```markdown
-# 📊 SR6 Literary Analysis & Chisel Audit: `[Chapter Target]`
-* **Target Tier**: Tier [1|2|3] (Passing Threshold: **[Threshold]/10**)
-* **Word Count**: [Count] words (Target: [Tier Min]+ words)
-* **Overall Status**: [✅ PASS (PANEL APPROVED) / ⚠️ REVISION REQUIRED]
-
-### 1. Unified 7-Axis Narrative Scorecard
-
-| Axis Dimension | Score | Threshold | Status | Key Findings & Craft Notes |
-| :--- | :---: | :---: | :---: | :--- |
-| **`axis-voice-internality`** | [Score] | [Min] | [Pass/Fail] | [POV depth, sensory lens, era vocabulary] |
-| **`axis-pacing-structure`** | [Score] | [Min] | [Pass/Fail] | [4-beat progression, entry/exit discipline, 80/20 balance] |
-| **`axis-agency-motivation`** | [Score] | [Min] | [Pass/Fail] | [Protagonist proactive choice, consequential stakes] |
-| **`axis-worldbuilding-grit`** | [Score] | [Min] | [Pass/Fail] | [Dystopian texture, corporate omnipresence, zero info-dumps] |
-| **`no-ai-slop`** | [Score] | 8.5 | [Pass/Fail] | [Zero buzzwords, affirmative staging, clean cadence] |
-| **`continuity-tracker`** | [Score] | 8.5 | [Pass/Fail] | [Ammo, nuyen, damage tracks, contacts, state parity] |
-| **`sr6-rules`** | [Score] | 8.5 | [Pass/Fail] | [Tactical mechanics, Edge, Drain, Matrix actions accuracy] |
-
-### 2. Expanded Literary Craft & Telemetry Metrics
-
-| Craft Dimension | Target Standard | Observed Metric | Status |
-| :--- | :--- | :--- | :---: |
-| **Paragraph Braiding Cadence** | Cohesive 3–6 sentence paragraphs | [Avg sentences/para] | [Pass/Fail] |
-| **Single-Sentence Lines** | $\le 1\text{–}2$ per 1,000 words (Major pivots only) | [Count] ([Density] / 1k words) | [Pass/Fail] |
-| **Dialogue Braiding** | 100% One-Speaker-Per-Paragraph | [100% / Merged turns detected] | [Pass/Fail] |
-| **Exposition vs. Action Ratio** | $\le 20\%$ Context / $\ge 80\%$ Active Fiction | [Context %] / [Action %] | [Pass/Fail] |
-| **Affirmative Staging** | 0 gratuitous non-actions / filler negatives | [Count flagged] | [Pass/Fail] |
-| **Audio / TTS Fluency** | Em-dashes $\le 1.20$, Ellipses $\le 0.60$ / 300w | [Em-dash dens] / [Ellipses dens] | [Pass/Fail] |
-
-### 3. 🧠 Transparent Craft Callouts (Tools Deployed)
-- **Single-Sentence Lines**:
-  - *Quote / Location*: [Quote line, e.g. "Jin-Young looked into the metal."]
-  - *Justification*: [Explain why this moment constitutes an existential hinge, irreversible choice, or flashback pivot that justifies isolating it — or "None deployed"]
-- **Contextual Scaffolding**:
-  - *Passage / Location*: [Quote passage]
-  - *Justification*: [Explain the specialized professional dynamics, tabletop rules nuance, or proprietary character motifs that an expected reader could not reasonably deduce alone — or "None required"]
-
-### 4. ✂️ Chiseled Prose & Line Refactoring Pass
-> **Original Snippet / Scene**:
-> [Quote key original passage with flagged issues]
-
-> **Chiseled Prose**:
-> [Polished, braided replacement text with elevated sensory grounding]
-
-#### What Changed & Why
-- Merged staccato lines into a cohesive braided paragraph.
-- Pruned meta-exposition while preserving essential contextual scaffolding.
-- Converted dry TTRPG mechanics into visceral sensory fiction.
-- Subtextualized dialogue to eliminate dossier-style lore dumps.
-```
+When evaluating or chiseling a chapter, deliver:
+1. **The Unified 7-Axis Scorecard**:
+   - Scores across Voice, Pacing, Agency, Worldbuilding, Slop, Continuity, and Rules.
+   - Final composite score vs. designated tier passing threshold.
+2. **Expanded Literary Craft Telemetry**:
+   - Paragraph braiding ratio, single-sentence line quota compliance, speaker-turn integrity.
+3. **Transparent Craft Callouts**:
+   - Single-sentence paragraph justifications (or "None deployed").
+   - Contextual scaffolding justifications (or "None required").
+4. **Drop-in Polished Prose**: Ready-to-paste markdown replacements or direct file updates.

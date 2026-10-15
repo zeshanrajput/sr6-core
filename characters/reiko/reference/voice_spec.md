@@ -20,7 +20,7 @@ Yuriko perceives reality simultaneously through physical pilot sensors, drone te
 
 ## 2. Chronological Growth Arcs & Era-Aware Voice Calibration
 
-Evaluators (`axis-voice-internality` and `axis-agency-motivation`) MUST evaluate chapters according to their place in the narrative timeline to avoid retrospective flattening:
+Evaluators (`literary-analysis`) MUST evaluate chapters according to their place in the narrative timeline to avoid retrospective flattening:
 
 ```yaml
 arc_chronology:

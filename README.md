@@ -10,7 +10,7 @@ The master engine, dataset compiler, and CLI portfolio manager for Shadowrun 6th
 
 - **Multi-Agent Narrative Production Framework (`narrative-director`)**:
   - Autonomous 6-stage drafting, evaluation, and self-correction loop.
-  - 7-Sub-Agent Parallel Audit Panel: `axis-voice-internality`, `axis-pacing-structure`, `axis-agency-motivation`, `axis-worldbuilding-grit`, `no-ai-slop`, `continuity-tracker`, and `sr6-rules`.
+  - Unified 7-Axis Audit Panel: Voice, Pacing, Agency, Worldbuilding, Anti-Slop, Continuity, and Rules.
   - **Era-Aware Voice Specs (`arc_chronology`)**: Prevents retrospective flattening by scoring against active developmental eras.
   - **Tiered Chapter Architecture (`chapter_tiers`)**: Calibrates thresholds across Tier 1 Keystones (9.0/10), Tier 2 Narrative Evolution (8.5/10), and Tier 3 Atmospheric Bridges (8.0/10).
   - **Audio Narration & TTS Fluency Discipline**: Strict ellipses density budget ($\le 0.6$ per 300 words), dialogue stitching, and elimination of sensory shortcuts.
@@ -144,14 +144,14 @@ Override default paths without modifying source code:
                       +-----------------------------+
 ```
 
-### 7-Sub-Agent Evaluation Panel
-1. **`axis-voice-internality`**: Audits character voice, POV, internal monologue, and era calibration against `reference/voice_spec.md`.
-2. **`axis-pacing-structure`**: Enforces 4-beat structure (Inciting Friction -> Escalation -> Climax -> Aftermath) and 80/20 action-to-exposition ratio.
-3. **`axis-agency-motivation`**: Verifies protagonist proactive choice, consequential stakes, and arc alignment.
-4. **`axis-worldbuilding-grit`**: Injects dystopian texture, corporate omnipresence, and AR noise with zero info-dumps.
-5. **`no-ai-slop`**: Redlines AI clichés, banned phrases, binary contrasts, and excessive ellipses ($\le 0.6 / 300\text{ words}$).
-6. **`continuity-tracker`**: Cross-checks ammo, nuyen, damage tracks, and gear against `character_master.yaml` and logs.
-7. **`sr6-rules`**: Verifies authentic SR6 mechanics, spell drain, Matrix actions, and Edge expenditures via Gemini RAG.
+### The Consolidated 7-Skill Narrative Suite
+1. **`narrative-director`**: Master orchestrator for the 6-stage lifecycle (drafting, multi-agent audits, chiseling, publishing, and state tracking).
+2. **`literary-analysis`**: Unified craft engine integrating the 4 core audit axes (Voice, Pacing, Agency, Worldbuilding), action choreography (Combat, Magic, Matrix), and Stage 4/6 line-level prose chisel refactoring (`apply_prose_chisel`).
+3. **`no-ai-slop`**: 30-rule anti-slop guardian, forbidden terms redliner, and affirmative staging enforcer.
+4. **`sr6-rules`**: SR6 mechanics, stat blocks, local SQLite FTS5 queries, and RAG rules vault search.
+5. **`sr6-chapter-finalize`**: Standardized publishing pipeline (`/finalize-chapter`), Kokoro TTS audio generation, GitHub Release uploads, story navigation sync, and scheduled CI/CD verification.
+6. **`continuity-tracker`**: Campaign timeline continuity, causal matrix verification, and Markdown Trio state checks.
+7. **`sr6-downtime-ledger`**: Karma advancement, downtime purchases, and `{python} inc(...)` trio updates.
 
 ---
 

@@ -18,7 +18,7 @@ Define the protagonist's primary mental filter, world interpretation, and psycho
 
 ## 2. Chronological Growth Arcs & Era-Aware Voice Calibration
 
-Evaluators (`axis-voice-internality` and `axis-agency-motivation`) evaluate chapters according to their place in the narrative timeline to avoid retrospective flattening:
+Evaluators (`literary-analysis`) evaluate chapters according to their place in the narrative timeline to avoid retrospective flattening:
 
 ```yaml
 arc_chronology:
@@ -104,7 +104,7 @@ voice_schema:
 
 ## 5. Technical Vocabulary & Domain Rules
 
-Define operational domains for sub-agent scoring (`axis-voice-internality` and `no-ai-slop`):
+Define operational domains for sub-agent scoring (`literary-analysis` and `no-ai-slop`):
 
 ```yaml
 domain_vocabulary_rules:

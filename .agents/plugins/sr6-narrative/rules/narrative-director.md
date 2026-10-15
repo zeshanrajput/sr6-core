@@ -65,15 +65,15 @@ Before drafting or editing, `narrative-director` ingests:
 ### Stage 3: Parallel Sub-Agent Audit Panel
 Draft `v1` is dispatched simultaneously to all **7 sub-agent evaluators**:
 
-| Sub-Agent Skill | Focus Dimension | Passing Threshold |
-| :--- | :--- | :--- |
-| **`axis-voice-internality`** | Character voice, POV integrity, vocabulary matrix, sensory lens, era calibration | **8.0 / 10** *(Calibrated to Tier)* |
-| **`axis-pacing-structure`** | 4-beat structure, entry/exit discipline, action-to-exposition (80/20) | **8.0 / 10** *(Calibrated to Tier)* |
-| **`axis-agency-motivation`** | Protagonist proactive choice, consequential stakes, drive alignment | **8.0 / 10** *(Calibrated to Tier)* |
-| **`axis-worldbuilding-grit`** | Dystopian texture, corporate omnipresence, AR clutter, zero info-dumps | **8.0 / 10** *(Calibrated to Tier)* |
-| **`no-ai-slop`** | Anti-slop pattern detection, forbidden terms list, redline removal, TTS fluency | **8.5 / 10** |
-| **`continuity-tracker`** | Ammo/nuyen balances, damage tracks, contacts, state diff generation | **8.5 / 10** |
-| **`sr6-rules`** | SR6 mechanics (Edge, Matrix actions, spell drain, modifiers) accuracy | **8.5 / 10** |
+| Dimension / Skill | Governing Skill | Focus Dimension | Passing Threshold |
+| :--- | :--- | :--- | :--- |
+| **Voice & Internality** | `literary-analysis` | Character voice, POV integrity, vocabulary matrix, sensory lens, era calibration | Tier Calibrated (8.0–9.0) |
+| **Pacing & Structure** | `literary-analysis` | 4-beat structure, entry/exit discipline, action-to-exposition (80/20) | Tier Calibrated (8.0–9.0) |
+| **Agency & Motivation** | `literary-analysis` | Protagonist proactive choice, consequential stakes, drive alignment | Tier Calibrated (8.0–9.0) |
+| **Worldbuilding & Grit** | `literary-analysis` | Dystopian texture, corporate omnipresence, AR clutter, zero info-dumps | Tier Calibrated (8.0–9.0) |
+| **Anti-Slop Guardian** | `no-ai-slop` | Anti-slop pattern detection, forbidden terms list, redline removal, TTS fluency | **8.5 / 10** |
+| **Continuity & State** | `continuity-tracker` | Ammo/nuyen balances, damage tracks, contacts, state verification | **8.5 / 10** |
+| **Rules & Mechanics** | `sr6-rules` | SR6 mechanics (Edge, Matrix actions, spell drain, tactical arrays) accuracy | **8.5 / 10** |
 
 #### Chapter Tier Threshold Calibration
 * **Tier 1 (Keystones)**: Passing threshold **9.0 / 10** (Existential breakthroughs, initiation/submersion milestones, foundational pivots).
