@@ -68,7 +68,7 @@ Understanding Reiko's drone pools requires distinguishing tests derived from the
    * **Resonance Focus Synergy**: Because these tests directly employ her Resonance attribute, her **Resonance Focus (Rating 4)** applies (+4 dice) [HnS p. 71].
    * **Sprite Teamwork**: Taz (Level 7 Assassin Sprite) provides Level/2 rounded up (+4 dice) via *Sprite Symbiosis* on shared skills (Stealth, Evasion), or a +3 teamwork bonus via the *Diagnosis* power on Piloting.
    * **Effective Autosofts**: Autosoft ratings are capped by Reiko's Living Persona Data Processing (`{python} ACTIVE_D`).
-   * **Resulting Pools**: Piloting **23d6**, Evasion **24d6**, and Stealth **26d6**.
+   * **Calculated Pools**: See the **Inhabited Override Operation** table below for active live pools (Piloting, Evasion, Stealth).
 
 2. **Sensor-Based Tests (Gunnery / Targeting, Perception / Clearsight)**:
    * **Sensor Attribute Pairing**: These tests pair the relevant autosoft (effective rating 7 from Data Processing) with the drone's **Sensor attribute**.
@@ -79,11 +79,9 @@ Understanding Reiko's drone pools requires distinguishing tests derived from the
      * *Network Sensor Upgrade*: Reiko's Sensor Upgrade quality contributes **+1** to all connected sensor operations.
      * *Baseline Sensor Attribute*: $\text{Hardware (4)} + \text{Home Device (1)} + \text{Quality (1)} =$ **6**.
      * *Enlighten Automaton Buff*: When sustained, the *Enlighten Automaton* complex form adds hits up to double the drone's base rating (base 2 $\rightarrow$ **+2 dice** max) [HnS p. 74], elevating the Sensor attribute up to **8**.
-   * **Sustaining Strategy**: Until Reiko acquires *Focused Concentration (Rating 1)* (planned at 24 Karma post-chargen), she tasks a registered Modular Sprite to sustain *Enlighten Automaton* whenever those extra 2 dice matter, avoiding the standard -2 sustaining penalty.
+   * **Sustaining Strategy**: Until Reiko acquires *Focused Concentration (Rating 1)*, she tasks a registered Modular Sprite to sustain *Enlighten Automaton* whenever those extra 2 dice matter, avoiding the standard -2 sustaining penalty.
    * **Tactical Smartlink Bonus**: Wireless smartlinked weapons (such as her internal Red Fox eye lasers) grant an 'other' modification bonus of **+1 die** to Targeting tests [SR6 p. 261].
-   * **Resulting Pools**:
-     * **Drone Weapon Attack (Gunnery)**: Targeting (7) + Sensor (6) + Taz Symbiosis (4) + Smartlink (1) = **18d6** baseline (**20d6** when *Enlighten Automaton* is sustained).
-     * **Drone Perception Test (Clearsight)**: Clearsight (7) + Sensor (6) + Taz Symbiosis (4) = **17d6** baseline (**19d6** when *Enlighten Automaton* is sustained).
+   * **Calculated Pools**: See the **Inhabited Override Operation** table below for active baseline and sustained Gunnery and Clearsight pools.
 
 ---
 

@@ -67,7 +67,6 @@ sr6velvet/
 │   ├── character_totals.qmd  # Career totals dashboard & Active Spirit Stable
 │   ├── character_build_point_buy.qmd # Point buy character creation mechanics
 │   ├── rules_and_downtime.qmd # Shinto-Musok spellcasting, drain math, & downtime protocols
-│   ├── appendix_dossier.qmd  # Auto-generated tactical appendix dossier (from sr6 sync-all)
 │   └── *.md                  # Narrative archive chapters (Ch 01–11+)
 ├── output/                   # Auto-generated exports (from sr6 sync-all)
 │   ├── text/                 # Strict 76-column modular plain-text sheets

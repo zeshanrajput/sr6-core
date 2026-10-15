@@ -22,7 +22,6 @@ book:
         - core/character_purchases.qmd
         - chapters/twenty_questions.qmd
         - rules/dronomancy.md
-        - chapters/appendix_dossier.qmd
     - part: "Rules & Downtime Protocols"
       chapters:
         - rules/rules_and_downtime.qmd
@@ -63,6 +62,7 @@ book:
         - narrative/27 Malloc.md
         - narrative/28 Renice.md
         - narrative/29 Saturation.md
+        - narrative/30 Vim.md
     - part: "Inter-Session Interludes"
       chapters:
         - narrative/I01.md
@@ -73,7 +73,6 @@ book:
         - reference/visual_anchors.md
         - reference/voice_spec.md
         - reference/sparks_second_generation.md
-        - reference/rei_suzuki.md
 
 format:
   html:

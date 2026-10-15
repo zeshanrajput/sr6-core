@@ -23,7 +23,6 @@ book:
         - chapters/twenty_questions.qmd
         - rules/rules_and_downtime.qmd
         - chapters/narrative_outline.qmd
-        - chapters/appendix_dossier.qmd
     - part: "Narrative Anthology"
       chapters:
         - narrative/01_the_day_a_god_fell.md

@@ -25,3 +25,15 @@ sheet_txt = export_quick_sheet(char_data)
 #| output: asis
 print(f"```text\n{sheet_txt}\n```")
 ```
+
+---
+
+## Active Registered Sprite Stable & Kinship Roster
+
+```{python}
+#| echo: false
+#| output: asis
+from sr6core.rules_engine import render_sprite_stable
+print(render_sprite_stable("reiko"))
+```
+

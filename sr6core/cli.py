@@ -16,7 +16,7 @@ from sr6core.narration import generate_narration, batch_generate_narrations, ret
 from sr6core.dataset_compiler import compile_commlink_datasets, get_dataset_info, find_latest_commlink_jar
 from sr6core.creation.deep_audit import deep_audit_character
 from sr6core.advancement import search_catalog, purchase_item_for_character
-from sr6core.quarto_enricher import generate_character_dossier_appendix, expand_quarto_shortcodes
+from sr6core.quarto_enricher import expand_quarto_shortcodes
 
 
 def run_sync_all():
@@ -92,16 +92,8 @@ def run_sync_all():
 
         print(f"  [2/4] Regenerated Exports     : Saved to {os.path.join(repo_dir, 'output')} (text, mobile)")
 
-        # 3. Generate Appendix Character Dossier (.qmd)
+        # 3. Expand Quarto Shortcodes & Inject Narration Audio Players
         chap_dir = os.path.join(repo_dir, "chapters")
-        appendix_path = os.path.join(chap_dir, "appendix_dossier.qmd")
-        try:
-            generate_character_dossier_appendix(cid, appendix_path)
-            print(f"  [3/4] Appendix Character Dossier: Generated at {appendix_path}")
-        except Exception as e:
-            print(f"  [3/4] Appendix Character Dossier: Error {e}")
-
-        # 4. Expand Quarto Shortcodes & Inject Narration Audio Players
         from sr6core.quarto_enricher import inject_chapter_audio_players
         injected_audio = inject_chapter_audio_players(repo_dir)
         audio_info = f" (+{injected_audio} audio players)" if injected_audio > 0 else ""
@@ -542,7 +534,7 @@ def main():
                 console.print(f"[bold red][Error] npm run build failed: {e.stderr}[/bold red]\n")
 
         # 4. Generate 2-Page ASCII Quick-Sheets & Appendix Dossiers
-        console.print("\n[bold green][4/4] Generating 2-Page ASCII Quick-Sheets & Appendix Dossiers...[/bold green]")
+        console.print("\n[bold green][4/4] Generating 2-Page ASCII Quick-Sheets...[/bold green]")
         for c in cm.list_characters():
             cid = c["id"]
             if c.get("exists"):
@@ -554,10 +546,6 @@ def main():
                     sheet_path = os.path.join(text_dir, f"{cid}_sheet.txt")
                     cm.export_character(cid, fmt="quick_sheet", output_path=sheet_path)
                     console.print(f"  • [{cid}] Quick-Sheet: {sheet_path}")
-
-                    appendix_path = os.path.join(repo_dir, "chapters", "appendix_dossier.qmd")
-                    generate_character_dossier_appendix(cid, appendix_path)
-                    console.print(f"  • [{cid}] Appendix Dossier: {appendix_path}")
                 except Exception as ex:
                     console.print(f"  • [{cid}] Export error: {ex}")
         console.print("\n[bold green][OK] Full SR6 Build Completed Successfully![/bold green]\n")

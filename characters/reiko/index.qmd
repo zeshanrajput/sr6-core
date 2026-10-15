@@ -127,6 +127,7 @@ Active campaign stories written during play:
 * **[Chapter 27: Malloc](narrative/27 Malloc.md)**
 * **[Chapter 28: Renice](narrative/28 Renice.md)**
 * **[Chapter 29: Saturation](narrative/29 Saturation.md)**
+* **[Chapter 30: Vim](narrative/30 Vim.md)**
 
 ### 5. Reference & Specifications
 Design rules, faction dossiers, and visual anchor specifications:

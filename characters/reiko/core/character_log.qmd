@@ -571,7 +571,7 @@ Submersion_Grade = state["Submersion_Grade"]
   * *Electronics Specialization (Complex Forms):* `{python} inc('Karma', -5)` Acquired Complex Forms specialization for Electronics (+2 dice to threading and sustaining complex forms).
 * **Other:**
   * In-Session Downtime Sprite Registration:
-    * `{python} add_sprite("Modular", 8)`
+    * `{python} add_sprite("Modular", 8, name="Ouro", details="Ouroboros", tasks=3)`
 
 ---
 
@@ -587,13 +587,13 @@ Submersion_Grade = state["Submersion_Grade"]
 * **Downtime Actions (Converted 1 Major -> 2 Minors; 3 Minors Total):**
   * *Minor Action 1 (Working for the People):* `{python} work_for_the_people()`
     * 2,000¥ donated toward sustaining her sanctuary and children in the Endless Archives (sparks second generation), converting to +1 Karma.
-  * *Minor Action 2 (Register Sprites):* `{python} add_sprite("Modular", 8)`
+  * *Minor Action 2 (Register Sprites — Percy):* `{python} add_sprite("Modular", 8, name="Percy", details="Percival", tasks=3)`
     * Compiled and registered Level 8 Modular Sprite (buying hits).
-  * *Minor Action 3 (Register Sprites):* `{python} add_sprite("Modular", 8)`
+  * *Minor Action 3 (Register Sprites — Cleo):* `{python} add_sprite("Modular", 8, name="Cleo", details="Cleopatra", tasks=3)`
     * Compiled and registered Level 8 Modular Sprite (buying hits).
 * **Character Advancement:**
   * *Con (Rank 1 -> 2):* `{python} inc('Karma', -10)`
     * Elevated Con from Rank 1 to 2. Uncaps ally sprite Taz's teamwork bonus on Con/Disguise tests from +1 to +2 dice, raising Reiko's active Disguise pool to 10d6 (2 Con + 4 CHA + 2 Spec + 2 Taz).
 
 
-
+

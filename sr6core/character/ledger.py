@@ -825,7 +825,8 @@ def add_sprite(
     details: str = "",
     autosofts: str = "",
     rating: Optional[int] = None,
-    type_name: Optional[str] = None
+    type_name: Optional[str] = None,
+    tasks: int = 3
 ) -> str:
     global _GLOBAL_LOG_STATE
     eff_level = rating if rating is not None else level
@@ -866,6 +867,7 @@ def add_sprite(
             "rating": eff_level,
             "level": eff_level,
             "type": eff_type,
+            "tasks": tasks,
             "autosofts": eff_details,
             "details": eff_details,
             "is_ally": is_ally,
@@ -876,12 +878,12 @@ def add_sprite(
         _GLOBAL_LOG_STATE["Sprites"].append(s_info)
 
     if count > 1:
-        return f"Registered Sprites: **{eff_type}** (Rating {eff_level}) x{count}"
+        return f"Registered Sprites: **{eff_type}** (Rating {eff_level}, {tasks} Tasks) x{count}"
     elif is_ally:
         return f"Ally Sprite: **{eff_name}** (Rating {eff_level} {eff_type})"
     else:
         details_str = f" ({eff_details})" if eff_details else ""
-        return f"**{eff_name}** (Rating {eff_level} {eff_type}{details_str})"
+        return f"**{eff_name}** (Rating {eff_level} {eff_type}{details_str}, {tasks} Tasks)"
 
 
 def add_spirit(
@@ -959,8 +961,9 @@ def get_active_sprites() -> List[Dict[str, Any]]:
             active.append(s)
         else:
             reg_m = s.get("registered_mission", 0)
+            tasks = s.get("tasks", 3)
             elapsed = curr_m_idx - reg_m
-            if elapsed <= 3:
+            if elapsed < tasks:
                 active.append(s)
             else:
                 s["status"] = "Expired"

@@ -34,12 +34,6 @@ from sr6core.rules_engine import render_weapon_card
 print(render_weapon_card("red_fox"))
 ```
 
-### Attack Rating (AR) Modifiers Summary
-
-* All smartlinked weapons have +3 AR (Smartgun + network bonus) (Red Fox).
-* All drone mounted weapons have +2 AR (drone mount AR bonus) (Red Fox, Tesla Coil).
-* All held/melee weapons (Amalgam Cestas (+2)) have personalized grips.
-
 ---
 
 ## Tesla Coil & Spray Attack Protocols{#tesla-spray-protocols}

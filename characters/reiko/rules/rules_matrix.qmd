@@ -11,7 +11,7 @@ from sr6core.modifiers import ModifierEngine
 cm = CharacterManager()
 _char = cm.get_character_data("reiko") or cm.get_character_data("yuriko") or {}
 attrs = _char.get("attributes", {})
-log_totals = get_log_totals("core/character_log.qmd")
+log_totals = get_log_totals(["core/character_log.qmd", "core/character_purchases.qmd"])
 
 matrix_summary = get_matrix_protocols_summary("reiko")
 active_asdf = matrix_summary.get("asdf", {})
@@ -25,9 +25,9 @@ WILLPOWER = attrs.get("willpower", 6)
 CHARISMA = attrs.get("charisma", 4)
 INTUITION = attrs.get("intuition", 2)
 LOGIC = attrs.get("logic", 4)
-EDGE = attrs.get("edge", 5)
+EDGE = attrs.get("edge", 4)
 
-SUBMERSION_GRADE = log_totals.get("Submersion_Grade", 7)
+SUBMERSION_GRADE = log_totals.get("Submersion_Grade", 8)
 edge_storage_mtoc = 5
 edge_storage_total = SUBMERSION_GRADE + edge_storage_mtoc
 
@@ -123,33 +123,9 @@ print(get_matrix_action_table("reiko"))
 
 ---
 
-## Learned Programs
+## Active Software & Programs Inventory
 
-### CMP 2083-04 | Hog Wild (2026-Jul-15)
-
-* **Nexus Protocol**: Hitchhikers experience UV.
-* **Emulator**: Run Commlink Apps
-  * *Personal Assistant (R6)*: Full Matrix Defense every round.
-  * *P-ICE Spines*
-  * *Social HUD*: Major Action to search SINs or facial recognition; +1 Edge on first social test with identified targets.
-  * *Thermal Mood Reading*: Minor Action +1 Edge on Judge Intentions.
-  * *Comm Spoofer*: +1 Edge on Con tests involving comm call misrepresentation.
-  * *Facial Scanner*: Major Action facial scan; +1 situational Edge on Matrix search.
-  * *MeFeed*: +1 situational Edge on Matrix searches about topics or targets.
-* **Virtual Machine**: +2 program slots, +1 Matrix Damage taken.
-* **Directional Shield**: In Full Matrix Defense, spend Minor Anytime Action to add Data Processing to defense pool.
-* **Toolbox**: +1 Data Processing.
-* **Clearsight Autosoft (R9)**: Perception autosoft.
-* **Stealth Autosoft (R9)**: Stealth autosoft.
-* **Coding Facility**: Halves programming test interval; +1 situational Edge on programming.
-
-### CMP 2083-05 | Precious Cargo (2026-Jul-21)
-
-* **Close Combat Autosoft (R9)**: Melee combat autosoft.
-* **Evasion Autosoft (R9)**: Pilot + Evasion defense autosoft.
-* **Maneuvering Autosoft (R9)**: Drone maneuvering autosoft.
-* **Targeting Autosoft (R9)**: Ranged weapon targeting autosoft.
-* **Tracking Autosoft (R9)**: Sensor and target tracking autosoft.
+Reiko's active cyberprograms, tactical cyberware commlink apps, and drone autosofts are tracked dynamically in her character purchases ledger. For the full itemized roster of purchased programs, app suites, and autosofts, see [`character_purchases.qmd`](../core/character_purchases.qmd) and her [Character Sheet](../chapters/character_sheet.qmd).
 
 ---
 

@@ -1577,8 +1577,8 @@ drones:
     - Acid IC
     purpose: Sovereign home and sanctuary for Reiko and liberated emergent sparks
     host_architecture: High-rise studio apartment (brushed teak & dry copper ceilings,
-      jasmine tea service, Megalodon schematics worktable, cased contract-collar niche,
-      compiled gold logic floorboards)
+      jasmine tea service, Man-at-Arms diagnostics worktable, cased contract-collar
+      niche, compiled gold logic floorboards)
     foundation_door: Quartz sliding glass door opening an un-insulated permanent conduit
       into the Holy Wild glade (fossilized directory trees, fractal willows, telemetry
       ferns, de-allocated address pools) and the Deep Foundation
@@ -1725,9 +1725,6 @@ weapons:
     notes: Sweeping spray attack (+4 AR, -3 DV). 28.07° apex cone (10m wide @ 20m).
       Optional Wild Die. Cyberarm Mount (+2 AR). 5(c) capacitor bank.
   close_combat:
-  - name: Dagger of the Sacred Rose (+1 Weapon Focus)
-    damage: 2P
-    attack_rating: 9/1/-/-/-
   - name: Amalgam Cestas
     damage: 3P
     attack_rating: 6/-/-/-/-

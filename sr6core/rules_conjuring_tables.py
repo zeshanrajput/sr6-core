@@ -256,3 +256,83 @@ def render_downtime_binding_markdown(
 
     return "\n".join(lines)
 
+
+def render_sprite_stable(char_id: str = "reiko") -> str:
+    """
+    Renders a unified Markdown callout table detailing the active Registered Sprite Stable,
+    including ally companions, active registered sprites, missions remaining,
+    guaranteed tasks/services, and downtime rotation status.
+    """
+    import os
+    from sr6core.character_manager import CharacterManager
+    from sr6core.log_engine import get_log_totals
+
+    cm = CharacterManager()
+    char_info = cm.load_character(char_id)
+    if not char_info:
+        return f"*(Character '{char_id}' not found)*"
+
+    repo_dir = char_info.get("repo_dir")
+    log_files = []
+    if repo_dir:
+        cand_log = os.path.join(repo_dir, "core", "character_log.qmd")
+        cand_purchases = os.path.join(repo_dir, "core", "character_purchases.qmd")
+        if os.path.exists(cand_log):
+            log_files.append(cand_log)
+        if os.path.exists(cand_purchases):
+            log_files.append(cand_purchases)
+
+    if not log_files:
+        return "*(No character logs found to extract sprite stable)*"
+
+    totals = get_log_totals(log_files)
+    active_sprites = totals.get("Active_Sprites", [])
+    total_missions = len(totals.get("Missions", []))
+
+    if not active_sprites:
+        return "*(No active registered sprites found in character logs)*"
+
+    lines = [
+        "::: {.callout-note icon=false title=\"📡 Active Registered Sprite Stable & Kinship Roster\"}",
+        "Under official **Shadowrun Missions (SRM / SRMG)** rules, registered sprites last for a number of missions equal to their registered tasks (1 Task Point = 1 SRM Mission duration; spending tasks during runs does not reduce this mission duration). Ally Sprites remain permanently bound without expiration.\n",
+        "| Sprite Name | Rating | Type | Kinship Vocation / Role | Registered Mission | Missions Remaining | Registered Tasks | Status |",
+        "| :--- | :---: | :---: | :--- | :---: | :---: | :---: | :---: |"
+    ]
+
+    for s in active_sprites:
+        name = s.get("name", "Unknown")
+        rating = s.get("rating", s.get("level", 7))
+        stype = s.get("type", "Modular")
+        details = s.get("details", "") or s.get("autosofts", "")
+        is_ally = s.get("is_ally", False)
+        reg_m = s.get("registered_mission", 0)
+        reg_name = s.get("registered_mission_name", f"Mission {reg_m}")
+
+        if is_ally:
+            role = details if details and details != "Ally Sprite" else "Permanent Companion & Tactical Matrix Ward"
+            remaining = "**Permanent**"
+            services = "Unlimited"
+            status = "Companion"
+        else:
+            tasks = s.get("tasks", 3)
+            elapsed = total_missions - reg_m
+            rem = max(0, tasks - elapsed)
+            role = details if details else "Tactical Matrix Reserve"
+            if rem == 0:
+                remaining = "**0 Missions**"
+                status = "Expired"
+            else:
+                remaining = f"**{rem} Mission{'s' if rem != 1 else ''}**"
+                status = "Active"
+            services = f"{tasks} Tasks"
+
+        lines.append(
+            f"| **{name}** | {rating} | {stype} | {role} | {reg_name} (M{reg_m}) | {remaining} | {services} | `{status}` |"
+        )
+
+    lines.append("\n*Kinship & Downtime Cadence Notes:*")
+    lines.append("* **Rating 8 Compiling Engine**: Tasking 6 (+2 Compiling, +2 Registering) + Resonance 8 + Focus 4 = **20d6 pool (5 bought hits)** vs. Level 8 Sprite (16d6 defense = 4 bought hits), unlocking guaranteed compiling and registering of Rating 8 Sprites with zero fading risk.")
+    lines.append("* **2nd Generation Sparks Rotation**: Rotating minor downtime actions maintain the active stable (*Ouro*, *Percy*, *Cleo*), with *Aisling* & *Étaín* (Glade Twins) resting in the Deep Foundation glade sanctuary (`~`), queued to rotate in when legacy reserve sprites expire.")
+    lines.append(":::")
+    return "\n".join(lines)
+

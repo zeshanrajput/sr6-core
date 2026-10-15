@@ -22,7 +22,6 @@ book:
         - core/character_purchases.qmd
         - chapters/twenty_questions.qmd
         - rules/rules_and_downtime.qmd
-        - chapters/appendix_dossier.qmd
     - part: "Narrative Log"
       chapters:
         - narrative/01_transaction.md

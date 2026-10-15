@@ -130,3 +130,19 @@ def test_render_weapon_card_red_fox():
     assert "SA/BF" in card_md
     assert "30(c)" in card_md
     assert "Firing Squad" in card_md
+
+
+def test_render_sprite_stable():
+    """Verifies that render_sprite_stable extracts active registered sprites and formats remaining missions."""
+    from sr6core.rules_engine import render_sprite_stable
+    md = render_sprite_stable("reiko")
+    assert "Active Registered Sprite Stable & Kinship Roster" in md
+    assert "Taz" in md
+    assert "Ouro" in md
+    assert "Percy" in md
+    assert "Cleo" in md
+    assert "Permanent" in md
+    assert "2 Missions" in md
+    assert "3 Missions" in md
+    assert "Rating 8 Compiling Engine" in md
+

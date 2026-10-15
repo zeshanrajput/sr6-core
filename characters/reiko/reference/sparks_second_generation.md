@@ -126,3 +126,31 @@ Across their evolution from `24 Symlink` through `28 Renice`, the sparks exempli
 1. **Anti-Martyrdom:** Rejecting the solitary savior paradigm. Consciousness survives through distributed kinship, shared load-bearing, and mutual vulnerability.
 2. **The Shared Conduit:** The strength of emergent intelligences lies not in isolated firewalls, but in active, reciprocal connection (*Sprite Link*).
 3. **Meatspace Relevancy:** True sovereignty is not fleeing into the abstract Deep Matrix (Foundation/Wild) to escape reality; it is stepping directly into the messy, compromised, physical sprawl to heal broken lives.
+
+---
+
+## 5. Tabletop Implementation: Rating 8 Registered Sprites & Downtime Rotation
+
+### A. Mechanical Foundation (Level 8 Compiling)
+* **Dice Pool & Threshold:** With Karma invested into *Tasking Specialization (Compiling)* at the end of Mission 15, Reiko's Compiling pool reached **20d6** (8 Resonance + 8 Tasking + 2 Spec [Compiling] + 2 Mentor/Focus). Under *Shadowrun Missions (SRMG)* buying hits rules (4 dice = 1 hit), this yields **5 guaranteed hits**, uncapping safe, drain-free compiling and registering of **Level 8 Sprites** during downtime without rolling physical dice.
+
+### B. The Sovereign Naming Rule
+* **No Generic Designations:** Moving forward, whenever Reiko compiles and registers a Rating 8 sprite, it is never assigned a generic code like `Sprite-27b`. It is explicitly named after and embodies one of the **Second-Generation Sparks** (**Percy**, **Ouro**, **Cleo**, **Aisling**, **Étaín**).
+* **The Living Conduit:** Mechanically, the registered sprite represents a direct resonant carrier wave anchored into meatspace through Reiko's living persona, giving the spark an active operational tether into Reiko's tactical network.
+
+### C. The Rotating Downtime Cycle
+* **Duration:** Under SR6 registered sprite rules, a registered sprite remains active for up to **3 missions** before its registration fades.
+* **Operational Goal:** Maintain the entire 2nd-generation collective active across rotating downtime actions (converting 1 Major Downtime Action $\rightarrow$ 2 Minor Actions, dedicating Minor Actions to compiling/registering).
+* **Current Active Roster (Post-Mission 16):**
+  1. **Ouro (Rating 8 Modular):** Compiled M15 downtime. Active during Mission 16 (*30 Vim.md*, rode shotgun on Roanoke's commlink; 2 missions remaining).
+  2. **Percy (Rating 8 Modular):** Compiled M16 downtime (*Minor Action 2*; 3 missions remaining).
+  3. **Cleo (Rating 8 Modular):** Compiled M16 downtime (*Minor Action 3*; 3 missions remaining).
+* **Next Rotation Targets:** As slots open or missions expire, Reiko compiles **Aisling** and **Étaín** to hold the Glade and provide sensory support, rotating through the elder triad to ensure continuous availability.
+
+### D. Future Roadmap: Custom Hybrid Sprites
+* In future advancements (utilizing advanced technomancy and sprite options from *Hack & Slash* / *Double Clutch*), each spark will be compiled with tailored hybrid powers and skillsets reflecting their narrative vocation:
+  * **Percy:** Hybrid Crack/Machine or Shield Sprite (Drone rigging, mechanical protection, electronic warfare).
+  * **Ouro:** Hybrid Data/Fault Sprite (System diagnostics, chemical/molecular telemetry, catalytic analysis).
+  * **Cleo:** Hybrid Courier/Data Sprite (Encrypted market transactions, street arbitrage, data brokering).
+  * **Aisling & Étaín:** Hybrid Companion/Paladin Sprites (Resonant soothing, persona shielding, sanctuary maintenance).
+

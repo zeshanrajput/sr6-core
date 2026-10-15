@@ -10,22 +10,15 @@ from sr6core.rules_engine import get_matrix_protocols_summary
 cm = CharacterManager()
 _char = cm.get_character_data("reiko") or cm.get_character_data("yuriko") or {}
 attrs = _char.get("attributes", {})
-log_totals = get_log_totals("core/character_log.qmd")
+log_totals = get_log_totals(["core/character_log.qmd", "core/character_purchases.qmd"])
 
-RESONANCE = attrs.get("resonance", 8)
-WILLPOWER = attrs.get("willpower", 6)
-CHARISMA = attrs.get("charisma", 4)
-INTUITION = attrs.get("intuition", 2)
-LOGIC = attrs.get("logic", 4)
-
-SUBMERSION_GRADE = log_totals.get("Submersion_Grade", 7)
+SUBMERSION_GRADE = log_totals.get("Submersion_Grade", 8)
 edge_storage = 5 + SUBMERSION_GRADE
 
 matrix_summary = get_matrix_protocols_summary("reiko")
 active_asdf = matrix_summary.get("asdf_str", "A:7 S:9 D:7 F:9").replace("A:", "").replace(" S:", "").replace(" D:", "").replace(" F:", "")
 full_def_hits = matrix_summary.get("full_defense_hits", 8)
-full_def_pool = matrix_summary.get("full_defense_pool", 35)
-ACTIVE_D = matrix_summary.get("asdf", {}).get("data_processing", 7)
+full_def_pool = matrix_summary.get("full_defense_pool", 34)
 ```
 
 This landing hub consolidates Reiko's downtime protocols, calculation shortcuts, and mechanics cheat sheets across four dedicated domain references.
@@ -40,7 +33,7 @@ This landing hub consolidates Reiko's downtime protocols, calculation shortcuts,
 
 ### [MATRIX_PROTOCOLS]
 
-* **Active ASDF**: `{python} active_asdf`
+* **Active Persona ASDF**: `{python} active_asdf`
 * **Full Matrix Defense**: `{python} full_def_pool`d6 (`{python} full_def_hits` Hits)
 * **Edge Storage**: `{python} edge_storage` (5 MTOC II + `{python} SUBMERSION_GRADE` Submersion Grade)
 * **[View Matrix & Network Protocols](rules_matrix.qmd)**
@@ -52,8 +45,8 @@ This landing hub consolidates Reiko's downtime protocols, calculation shortcuts,
 ### [EMERGENCE]
 
 * **Submersion Grade**: Grade `{python} SUBMERSION_GRADE`
-* **Registered Sprite Cap**: Rating 7 (4 Services)
-* **Sprite Fading Resistance**: WIL + CHA + Submersion Grade Pool
+* **Echoes & Capabilities**: Living Persona, Resonance Focus, Technoshaman Great Form & Fading Mitigation
+* **Active Sprites**: Roster, ratings, and mission lifespans are dynamically tracked in the **[Sprite Stable](rules_sprites.qmd#sprite-stable)**
 * **[View Sprites & Resonance Protocols](rules_sprites.qmd)**
 
 :::
@@ -62,9 +55,9 @@ This landing hub consolidates Reiko's downtime protocols, calculation shortcuts,
 
 ### [DRONES_RIGGING]
 
-* **Active Inhabited Drone**: Shiawase Man-at-Arms
-* **Pilot Override**: Rating `{python} RESONANCE` (Resonance)
-* **Drone Gunnery Pool**: 7 + Data Processing (`{python} ACTIVE_D`) + Symbiosis (+4)
+* **Inhabited Override**: Sprite Power *Override* routes anthrodrone operations through Reiko's Living Persona
+* **Remote AR Operation**: Sensor Lock, autosoft sharing, and AI attribute mapping
+* **Action Pools**: Live Gunnery, Piloting, Evasion, and Perception pools are maintained in **[Drones & Rigging Protocols](rules_drones.qmd)**
 * **[View Drones & Rigging Protocols](rules_drones.qmd)**
 
 :::
@@ -73,9 +66,9 @@ This landing hub consolidates Reiko's downtime protocols, calculation shortcuts,
 
 ### [WEAPONS_TACTICAL]
 
-* **Primary Array**: Red Fox Lasers (Eye Mounts, Link-Fired or Independent)
-* **Laser Ammo System**: Peak-Discharge Batteries (5 clips)
-* **Secondary Tactical**: Tesla Coil (Area Cone) & Amalgam Cestas (Anti-Spirit CQC)
+* **Integrated Weaponry**: Red Fox Lasers (Eye Mounts), Tesla Coil (Spray Arc), Amalgam Cestas (Anti-Spirit CQC)
+* **Targeting & Mounts**: Cyberarm and drone mounting stability, Smartlink systems, and burst modes
+* **Standardized Profiles**: Attack ratings, damage values, and battery specs are maintained in **[Weapons & Tactical Protocols](rules_combat.qmd)**
 * **[View Weapons & Tactical Protocols](rules_combat.qmd)**
 
 :::
@@ -89,6 +82,6 @@ This landing hub consolidates Reiko's downtime protocols, calculation shortcuts,
 Select a domain reference for full formulas, dice pool breakdowns, step-by-step downtime guides, and action tables:
 
 1. **[Matrix & Network Protocols](rules_matrix.qmd)**: Base & Active ASDF attributes, standardized Matrix action pools, network benefits, learned programs, Full Matrix Defense step-by-step breakdown, remote node & Sanctuary Host architecture, and decking cheat sheet.
-2. **[Sprites & Resonance Protocols](rules_sprites.qmd)**: Complex Forms roster, step-by-step compiling & registering downtime math, Technoshaman fading mitigation, and Resonance Focus protocols (SRM magical focus rules).
+2. **[Sprites & Resonance Protocols](rules_sprites.qmd)**: Active Registered Sprite Stable, 2nd generation sparks downtime rotation, Complex Forms roster, step-by-step compiling & registering downtime math, Technoshaman fading mitigation, and Resonance Focus protocols.
 3. **[Drones & Rigging Protocols](rules_drones.qmd)**: Detailed drone stat blocks (Shiawase Man-at-Arms, MCT Gnat), retractable skates rules, standardized drone action pools, Jumped-In vs Remote AI attribute mapping rules, and Sensor Lock mechanics.
 4. **[Weapons & Tactical Gear Protocols](rules_combat.qmd)**: Standardized weapon attack tables (Red Fox array & single mode, Tesla Coil, Amalgam Cestas), firing mode rules, Attack Rating modification breakdown, and laser battery rules.
