@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Dict, Any
 
 from sr6core.character_manager import CharacterManager
-from sr6core.exporters.mobile_json import export_mobile_json
+from sr6core.publishing.mobile_json import export_mobile_json
 from sr6core.ledger.events import (
     KarmaAwardedEvent,
     KarmaSpentEvent,
@@ -57,7 +57,7 @@ class TacticalServerHandler(SimpleHTTPRequestHandler):
                 if c_data:
                     c_repo = cm.get_character_repo_dir(cid)
                     bundle[cid] = export_mobile_json(c_data, char_repo_path=c_repo)
-            from sr6core.exporters.mobile_html import get_mobile_html_template
+            from sr6core.publishing.mobile_html import get_mobile_html_template
             html_content = get_mobile_html_template(bundle, initial_char_id="reiko")
             body = html_content.encode("utf-8")
             self.send_response(200)

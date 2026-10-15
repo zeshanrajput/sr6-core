@@ -1,176 +1,108 @@
-# Downtime Protocols & Common Rules
+# Tabletop Mechanics & Audited Interplays
 
-This section aggregates core cheat sheets and templates for downtime registration, magic spellcasting, conjuring, and foci benefits.
+This chapter documents the mechanical construction, modifier stacking legality, and rules interactions for **Kim Jin-Young ("Velvet")**.
 
 ```{python}
 #| echo: false
 #| include: false
 from sr6core.character_manager import CharacterManager
+from sr6core.rules_engine import (
+    get_weapon_attack_table,
+    render_multi_modifier_interactions,
+    get_scene_strategy_table,
+    render_downtime_binding_markdown
+)
 
 cm = CharacterManager()
 _char = cm.get_character_data("velvet") or {}
 attrs = _char.get("attributes", {})
 
-# Core Attributes
-Body = attrs.get("body", 2)
-Agility = attrs.get("agility", 3)
-Reaction = attrs.get("reaction", 2)
-Strength = attrs.get("strength", 2)
-Willpower = attrs.get("willpower", 5)
-Logic = attrs.get("logic", 3)
-Intuition = attrs.get("intuition", 3)
-Charisma = attrs.get("charisma", 10)
 Magic = attrs.get("magic", 6)
-Edge = attrs.get("edge", 4)
+Charisma = attrs.get("charisma", 10)
+Willpower = attrs.get("willpower", 5)
 ```
 
----
+::: {.callout-note icon=false}
+## 🎲 Physical Tabletop Companion Mandate
+In accordance with our tabletop doctrine, players roll physical dice at the gaming table. This chapter documents the underlying rules, citations, and stacking legality behind Velvet's stats. 
 
-## SRM Monthly Expenses & Downtime Cadence Protocol
-
-> **Mandatory Campaign Protocol:** Every second official Shadowrun Missions (SRM) run (excluding CMPs or non-SRM special events), Velvet must settle monthly expenses and execute mandatory downtime allocations.
-
-### 1. Monthly Expenses Package
-
-Every 2nd SRM mission, the following recurring obligations are deducted from liquid Nuyen:
-
-- **Lifestyle Expenses:** Low Lifestyle (¥2,000/mo) or Middle Lifestyle (¥5,000/mo).
-- **Hooder Quality (Rating 3):** ¥3,000/mo obligation allocated to community assistance.
-- **Coven Dues:** ¥2,400/mo dues paid to the Guild of Freelance Assets.
-
-
-### 2. Mandatory Downtime Actions (Expense Months)
-
-During an expense month, Velvet receives 1 Major Downtime Action and 1 Minor Downtime Action, allocated as follows:
-
-- **1 Major Downtime Action:** Dedicated to Coven service, ritual maintenance, and keeping Coven Loyalty in good standing.
-- **1 Minor Downtime Action:** *Working for the People*—funded directly by the Hooder ¥3,000 nuyen obligation, generating **+1 Karma** at no additional nuyen charge.
+Live situational dice pools, condition modifiers, and active gear ratings are calculated dynamically in your companion tools:
+* 📱 **[Mobile PWA Interactive Sheet](../output/mobile/index.html)**
+* 📄 **[Plain-Text Tabletop Sheet (velvet_sheet.txt)](../output/text/velvet_sheet.txt)**
+:::
 
 ---
 
-## Sustained Spell & Spirit Channeling Strategy{#sustained-spells}
+## 1. Tactical Weapons & Attack Ratings (AR)
 
 ```{python}
 #| echo: false
 #| output: asis
-from sr6core.rules_engine import get_scene_strategy_table
-print(get_scene_strategy_table("velvet"))
+print(get_weapon_attack_table("velvet"))
 ```
+
+### Tactical Weapon Stacking & Citations
+* **Street Line Special**: Holdout pistol (*SR6 Core*, p. 251) with concealed holster and personalized grip (+1 AR at close range).
+* **Touch Spell Attacks**: Unarmed attack rolls for touch-range combat spells utilize Agility + Close Combat, bypassing physical armor soak (*SR6 Core*, p. 131).
 
 ---
 
-## Multi-Modifier Synergy & Legality Audit{#foci-protocols}
+## 2. High-Dice Pools Over 20 (Tabletop Audit)
+
+Under official *Shadowrun Missions* guidelines, any dice pool exceeding 20 dice is subject to rules verification for stacking legality, modifier categories, and augmented limits.
 
 ```{python}
 #| echo: false
 #| output: asis
-from sr6core.rules_engine import render_multi_modifier_interactions
 print(render_multi_modifier_interactions("velvet", threshold=2))
 ```
 
----
+### Stacking Legality Summary
 
-### Metamagic Suite: Channeling & Power Point
-
-*Street Wyrd, p. 78, 81, 122*
-
-Velvet's Initiate Grade 2 metamagic foundation is optimized for deep-cover infiltration, somatic power, multilingual versatility, and squad leadership:
-
-1. **Channeling (Initiation Grade 1)**:
-   * *Street Wyrd, p. 122*
-   * Enables seamless spirit inhabitation, granting physical attribute boosts, wound negation, dual-nature, and access to powers.
-2. **Power Point (Initiation Grade 2)**:
-   * *Street Wyrd, p. 78, 81*
-   * Grants +1.0 Power Point, allocating:
-     * **Linguistics (0.25 PP):** Passively absorb any spoken language at basic proficiency after 1 hour of active listening.
-     * **Command Presence (0.50 PP):** Grants $+2$ dice and $+1$ Edge on all Influence tests.
-     * **Cloak R1 (0.25 PP):** Grants $+1$ to the threshold of opposing Assensing tests to perceive Velvet's aura or pierce covers.
+* **Social & Influence Pools**: Combines natural Charisma 10 (boosted to 14 via *Increase Attribute*) + Con / Influence skill ratings + Specializations (+2) + Adept Command Presence (+2 dice, +1 Edge) + First Impression (+2 dice). Social Edge discounts from *Cosmetic Control* reduce Edge Boost costs by 1 point (*Street Wyrd*, p. 34).
+* **Sorcery & Conjuring**: Combines Magic (6) + Rating 3 Power Focus (+3) + Sorcery/Conjuring rating + Specializations (+2). The Power Focus functions as an un-typed tool bonus to effective Magic (*SR6 Core*, p. 247).
+* **Drain Resistance**: Shinto/Musok tradition resists drain with Willpower + Charisma (*Street Wyrd*, p. 17). Under sustained attribute buffs (Willpower 9 + Charisma 14), drain soak pool reaches **23d6** (buying 5 hits), completely negating routine spellcasting and spirit binding drain.
 
 ---
 
-## Conjuring & Spirit Protocols{#conjuring-and-spirit-protocols}
+## 3. Complex Mechanical Interplays Specific to Velvet
 
-This section details Velvet's conjuring thresholds, downtime spirit binding protocols, and active spirit channeling mechanics under **Channeling** and **Power Point** (*Linguistics, Command Presence, Cloak R1*) metamagics.
+### I. Mystic Adept Power Point Allocation & Metamagic Suite
+* **Source**: *SR6 Core*, p. 70 (Mystic Adept chargen), *Street Wyrd*, pp. 78, 122 (Initiation & Metamagics), and *Deadly Arts*, p. 28.
+* **Chargen Allocation**: Velvet allocated 5.0 Power Points at character creation via Karma point-buy.
+* **Initiation Grade 1 (*Channeling*)**: Enables spirit inhabitation, granting physical attribute augmentation, wound penalty negation, and dual-natured status without losing sovereign control (*Street Wyrd*, p. 122).
+* **Initiation Grade 2 (*Power Point*)**: Grants +1.0 Power Point (*Street Wyrd*, p. 78), allocated as:
+  * **Linguistics (0.25 PP)**: Passively learn any spoken language at basic proficiency after 1 hour of active listening (*Street Wyrd*, p. 38).
+  * **Command Presence (0.50 PP)**: Grants +2 dice and +1 Edge on Influence (Leadership) tests, and reduces Small Unit Tactics thresholds by -2 (*Deadly Arts*, p. 28).
+  * **Cloak R1 (0.25 PP)**: Shrouds Velvet's aura, imposing a -1 dice pool penalty on hostile Assensing tests (*Street Wyrd*, p. 34).
 
-* **Maximum Bound Spirit Capacity**: Magic (`{python} Magic`) $\times$ 3 = **`{python} Magic * 3` Total Force** across all active bound spirits `[SR6, Page 147]`.
+### II. SRM Monthly Expenses & Downtime Cadence Protocol
+* **Source**: *Shadowrun Missions Guide v2.4*, pp. 17–19.
+* **Monthly Obligations**: Every second official SRM mission, recurring expenses are settled:
+  * Low Lifestyle: ¥2,000/mo.
+  * Hooder Quality (Rating 3): ¥3,000/mo allocated to community clinics and refugee grids (*Sixth World Companion*, p. 132).
+  * Coven Dues: ¥2,400/mo paid to the Guild of Freelance Assets.
+* **Downtime Action Resolution**:
+  * **1 Major Downtime Action**: Dedicated to Coven service, ritual maintenance, and keeping Coven Loyalty in good standing (*SRMG v2.4*, p. 18).
+  * **1 Minor Downtime Action**: *Working for the People*—funded directly by the ¥3,000 Hooder obligation, generating **+1 Karma** at no additional nuyen charge (*SRMG v2.4*, p. 19).
 
----
-
-### Maximum Spirit Force Analysis (Buying Hits)
+### III. Sustained Spells & Spirit Channeling Strategy
+* **Source**: *SR6 Core*, p. 73 (*Focused Concentration*), p. 147 (Spirit Force limits), and *Street Wyrd*, p. 122.
+* **Focused Concentration (Rating 3)**: Sustains *Increase Attribute (Charisma)* and *Increase Attribute (Willpower)* or *Increase Reflexes* simultaneously without suffering the standard -2 dice pool sustaining penalty per spell (*SR6 Core*, p. 73).
+* **Maximum Bound Spirit Capacity**: $\text{Magic } (6) \times 3 = \mathbf{18}\text{ Total Force}$ across all active bound spirits (*SR6 Core*, p. 147).
 
 ```{python}
 #| echo: false
 #| output: asis
-from sr6core.rules_engine import render_downtime_binding_markdown
-print(render_downtime_binding_markdown("velvet"))
+print(get_scene_strategy_table("velvet"))
 ```
 
----
+### IV. Downtime Spirit Binding Math (Buying Hits)
 
-### Standard Downtime Spirit Binding
+Under SRMG downtime rules, spirit binding uses bought hits to determine service generation:
 
-*SRMG v2.4 Minor Downtime Action (Register/Bind spirits)*
-
-In downtime, Velvet's minor action binds a **Force 5 Spirit of Fire** (conjuring test = binding test = 1 service each = **2 total services / 2 SRM Missions**):
-
-* **Reagent Cost**: 10 drams (¥200) ($5\text{ hours}$ in lodge).
-* **Drain Soak**: 0 Drain Damage (resisted with 23d6 soak).
-* **Role**: High-threat combat, 5P Elemental Fire, Engulf, Energy Aura.
-
----
-
-## Spell Library & Mechanics{#spell-library}
-
-Velvet channels two cornerstone Health spells, sustained seamlessly via **Focused Concentration (Rating 3)**:
-
-::: {.callout-note icon=false title="✨ HEALTH SPELL: Increase Attribute"}
-* **Source**: *City Edition: Hong Kong*, p. 115 (*SR6 Core*) | **Category**: Health | **Type**: Physical (P) | **Range**: Touch | **Duration**: Sustained (S) | **Base Drain Value**: 3
-* **Mechanic**: The touch of the caster temporarily raises one target attribute (chosen before casting). The caster rolls a **Sorcery + Magic (5 - Essence)** test (**16d6 $\rightarrow$ Buys 4 Hits**).
-* **Attribute Increase**: Each net hit increases the selected attribute by **+1** (up to the maximum **+4 SRMG Augmented Attribute Cap**). For each net hit applied beyond the first, the Drain Value of the spell increases by **+1**. (Cannot affect Edge, Essence, Magic, or Resonance).
-* **Sustained Anchors**:
-  * **Slot 1**: Charisma (+4) — Boosts Charisma from 10 to **14**.
-  * **Slot 2**: Willpower (+4) — Boosts Willpower from 5 to **9**.
-  * **Slot 3 Allocation**: Calibrated flexibly by operational scene mode (see [Sustained Spell & Spirit Channeling Strategy](#sustained-spells) above).
-:::
-
-::: {.callout-note icon=false title="✨ HEALTH SPELL: Increase Reflexes"}
-* **Source**: *City Edition: Hong Kong*, p. 115 (*SR6 Core*) | **Category**: Health | **Type**: Physical (P) | **Range**: Touch | **Duration**: Sustained (S) | **Base Drain Value**: 5
-* **Mechanic**: The reaction time and speed of the target increase. The caster rolls a **Sorcery + Magic (5 - Essence)** test (**16d6 $\rightarrow$ Buys 4 Hits**).
-* **Reaction & Initiative Dice**: The caster can select how many net hits to apply to the target to increase **both their Reaction score and number of Initiative Dice** at a rate of **+1 Reaction point and +1 Initiative Die per net hit**. For each net hit applied beyond the first, the Drain Value of the spell increases by **+1**.
-* **Drain Resistance**: Resisted with Willpower + Charisma (**23d6 soak under sustained buffs $\rightarrow$ 5 Bought Hits**), completely negating drain damage.
-:::
-
----
-
-## Adept Powers & Metamagics{#adept-powers}
-
-Velvet's somatic and metaphysical abilities combine Adept Powers, Qi Foci, and Metamagic grades:
-
-::: {.callout-note icon=false title="🌟 ADEPT POWER: Cosmetic Control (Rating 2)"}
-* **Source**: *Street Wyrd*, p. 5 (SW-0308) | **Cost**: 2.0 PP (1.0 PP / level) | **Activation**: Major Action
-* **Physical Transformation**: Alters physical appearance (growing/shedding hair, changing gender markers, skin tone, facial features, height/weight, scars/blemishes, claws/nails). These changes are biological/physical and non-illusory.
-* **Metaspecies Transmutation (Level 2)**: Reaches beyond natural metaspecies limitations in appearance and size (e.g. elf passing completely as human, dwarf, ork, or troll with custom skin/hair/eye pigmentation).
-* **Social Edge Discount**: Lowers the cost of **Edge Boosts by -1 for all Con tests (Acting, Disguise, Impersonation)** and applicable Social Edge interactions.
-:::
-
-::: {.callout-note icon=false title="🌟 ADEPT POWER: Linguistics (Rating 1)"}
-* **Source**: *Street Wyrd*, p. 5 (SW-0325) | **Cost**: 0.25 PP | **Activation**: Passive
-* **Mechanic**: Focuses superhuman perception, memorization, mimicry, and empathic resonance to learn languages with minimal exposure without spending Karma.
-* **Effect**: After exposure to any spoken language for a minimum of **1 hour**, Velvet gains the new Language Skill at basic proficiency. Additionally grants **+1 bonus die to all Perception tests** to understand spoken or written languages.
-:::
-
-::: {.callout-note icon=false title="🌟 ADEPT POWER: Command Presence (Rating 1)"}
-* **Source**: *Deadly Arts*, p. 5 (DA-0535) | **Cost**: 0.50 PP | **Activation**: Passive
-* **Prerequisites**: Charisma 4+, Influence (Leadership) 4+
-* **Mechanic**: Words, commands, and tactical orders carry supernatural weight. Grants **+2 dice pool bonus and +1 Edge** on all **Influence (Leadership)** tests. Additionally reduces thresholds for **Small Unit Tactics** tests by **-2**.
-:::
-
-::: {.callout-note icon=false title="🌟 ADEPT POWER: Cloak (Rating 1)"}
-* **Source**: *Street Wyrd*, p. 5 (SW-0305) | **Cost**: 0.25 PP per level | **Activation**: Passive
-* **Mechanic**: Mystically shrouds and masks Velvet's aura. Imposes a **-1 dice pool penalty** on all hostile Assensing and Astral Perception tests attempting to read Velvet's aura, detect magical tradition, or pierce mystical covers.
-:::
-
-::: {.callout-note icon=false title="✨ BONDED FOCUS: Power Focus (Rating 3)"}
-* **Source**: *City Edition: Hong Kong*, p. 247 (*SR6 Core*) | **Cost**: ¥54,000 / 18 Karma bonding | **Force**: 3
-* **Mechanic**: Channels pure mana directly into Velvet's astral and magical framework. Adds **+3 to Magic** for tests where Magic applies (Spellcasting, Counterspelling, Ritual Sorcery, Conjuring, and Channeling tests).
-:::
+```{python}
+#| echo: false
+#| output: asis
+print(render_downtime_binding_markdown("velvet"))
+```

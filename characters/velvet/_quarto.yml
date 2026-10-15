@@ -15,12 +15,13 @@ book:
     - index.qmd
     - part: "Core Character"
       chapters:
-        - chapters/identity_core.md
         - core/character_build.qmd
         - chapters/character_sheet.qmd
         - core/character_log.qmd
         - core/character_purchases.qmd
         - chapters/twenty_questions.qmd
+    - part: "Tabletop Mechanics & Audited Interplays"
+      chapters:
         - rules/rules_and_downtime.qmd
     - part: "Narrative Log"
       chapters:
@@ -36,17 +37,6 @@ book:
         - narrative/10_Burns.md
         - narrative/11_Silence.md
         - narrative/12_Iron.md
-
-    - part: "Reference & Specifications"
-      chapters:
-        - reference/narrative_spec.md
-        - reference/philosophical_framework.md
-        - reference/karmic_persona_log.md
-        - reference/voice_spec.md
-        - reference/story_arc1.md
-        - reference/story_arc2.md
-        - reference/story_arc3.md
-        - reference/story_continuity.md
 
 format:
   html:

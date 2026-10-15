@@ -1,87 +1,117 @@
-# Downtime Protocols & Common Rules
+# Tabletop Mechanics & Audited Interplays
+
+This chapter documents the mechanical construction, modifier stacking legality, and rules interactions for **r31-K0 ("Reiko")**.
 
 ```{python}
 #| echo: false
 #| include: false
 from sr6core.log_engine import get_log_totals
 from sr6core.character_manager import CharacterManager
-from sr6core.rules_engine import get_matrix_protocols_summary
+from sr6core.rules_engine import (
+    get_weapon_attack_table,
+    render_multi_modifier_interactions,
+    get_matrix_protocols_summary,
+    render_sprite_stable
+)
 
 cm = CharacterManager()
-_char = cm.get_character_data("reiko") or cm.get_character_data("yuriko") or {}
+_char = cm.get_character_data("reiko") or {}
 attrs = _char.get("attributes", {})
 log_totals = get_log_totals(["core/character_log.qmd", "core/character_purchases.qmd"])
 
 SUBMERSION_GRADE = log_totals.get("Submersion_Grade", 8)
-edge_storage = 5 + SUBMERSION_GRADE
+edge_storage_mtoc = 5
+edge_storage_total = SUBMERSION_GRADE + edge_storage_mtoc
 
 matrix_summary = get_matrix_protocols_summary("reiko")
-active_asdf = matrix_summary.get("asdf_str", "A:7 S:9 D:7 F:9").replace("A:", "").replace(" S:", "").replace(" D:", "").replace(" F:", "")
+active_asdf_str = matrix_summary.get("asdf_str", "A:7 S:9 D:7 F:9")
 full_def_hits = matrix_summary.get("full_defense_hits", 8)
 full_def_pool = matrix_summary.get("full_defense_pool", 34)
 ```
 
-This landing hub consolidates Reiko's downtime protocols, calculation shortcuts, and mechanics cheat sheets across four dedicated domain references.
+::: {.callout-note icon=false}
+## 🎲 Physical Tabletop Companion Mandate
+In accordance with our tabletop doctrine, players roll physical dice at the gaming table. This chapter documents the underlying rules, citations, and stacking legality behind Reiko's stats. 
 
----
-
-## Active Protocol Hub
-
-::: {.grid}
-
-::: {.g-col-6 .cyber-card}
-
-### [MATRIX_PROTOCOLS]
-
-* **Active Persona ASDF**: `{python} active_asdf`
-* **Full Matrix Defense**: `{python} full_def_pool`d6 (`{python} full_def_hits` Hits)
-* **Edge Storage**: `{python} edge_storage` (5 MTOC II + `{python} SUBMERSION_GRADE` Submersion Grade)
-* **[View Matrix & Network Protocols](rules_matrix.qmd)**
-
-:::
-
-::: {.g-col-6 .cyber-card}
-
-### [EMERGENCE]
-
-* **Submersion Grade**: Grade `{python} SUBMERSION_GRADE`
-* **Echoes & Capabilities**: Living Persona, Resonance Focus, Technoshaman Great Form & Fading Mitigation
-* **Active Sprites**: Roster, ratings, and mission lifespans are dynamically tracked in the **[Sprite Stable](rules_sprites.qmd#sprite-stable)**
-* **[View Sprites & Resonance Protocols](rules_sprites.qmd)**
-
-:::
-
-::: {.g-col-6 .cyber-card}
-
-### [DRONES_RIGGING]
-
-* **Inhabited Override**: Sprite Power *Override* routes anthrodrone operations through Reiko's Living Persona
-* **Remote AR Operation**: Sensor Lock, autosoft sharing, and AI attribute mapping
-* **Action Pools**: Live Gunnery, Piloting, Evasion, and Perception pools are maintained in **[Drones & Rigging Protocols](rules_drones.qmd)**
-* **[View Drones & Rigging Protocols](rules_drones.qmd)**
-
-:::
-
-::: {.g-col-6 .cyber-card}
-
-### [WEAPONS_TACTICAL]
-
-* **Integrated Weaponry**: Red Fox Lasers (Eye Mounts), Tesla Coil (Spray Arc), Amalgam Cestas (Anti-Spirit CQC)
-* **Targeting & Mounts**: Cyberarm and drone mounting stability, Smartlink systems, and burst modes
-* **Standardized Profiles**: Attack ratings, damage values, and battery specs are maintained in **[Weapons & Tactical Protocols](rules_combat.qmd)**
-* **[View Weapons & Tactical Protocols](rules_combat.qmd)**
-
-:::
-
+Live situational dice pools, condition modifiers, and active gear ratings are calculated dynamically in your companion tools:
+* 📱 **[Mobile PWA Interactive Sheet](../output/mobile/index.html)**
+* 📄 **[Plain-Text Tabletop Sheet (reiko_sheet.txt)](../output/text/reiko_sheet.txt)**
 :::
 
 ---
 
-## Domain Protocol Directories
+## 1. Tactical Weapons & Attack Ratings (AR)
 
-Select a domain reference for full formulas, dice pool breakdowns, step-by-step downtime guides, and action tables:
+Reiko integrates weapon mounts directly into her Shiawase Man-at-Arms anthrodrone chassis and custom cybernetic assemblies. The table below displays live calculated values from the engine:
 
-1. **[Matrix & Network Protocols](rules_matrix.qmd)**: Base & Active ASDF attributes, standardized Matrix action pools, network benefits, learned programs, Full Matrix Defense step-by-step breakdown, remote node & Sanctuary Host architecture, and decking cheat sheet.
-2. **[Sprites & Resonance Protocols](rules_sprites.qmd)**: Active Registered Sprite Stable, 2nd generation sparks downtime rotation, Complex Forms roster, step-by-step compiling & registering downtime math, Technoshaman fading mitigation, and Resonance Focus protocols.
-3. **[Drones & Rigging Protocols](rules_drones.qmd)**: Detailed drone stat blocks (Shiawase Man-at-Arms, MCT Gnat), retractable skates rules, standardized drone action pools, Jumped-In vs Remote AI attribute mapping rules, and Sensor Lock mechanics.
-4. **[Weapons & Tactical Gear Protocols](rules_combat.qmd)**: Standardized weapon attack tables (Red Fox array & single mode, Tesla Coil, Amalgam Cestas), firing mode rules, Attack Rating modification breakdown, and laser battery rules.
+```{python}
+#| echo: false
+#| output: asis
+print(get_weapon_attack_table("reiko"))
+```
+
+### Mechanical Construction & Citations
+
+1. **Red Fox Lasers (Twin Eye-Mounts)**:
+   * **Source**: *Firing Squad*, p. 116 (Energy Weapons).
+   * **Mounting Stability**: Built into cybernetic eye mounts / anthrodrone head assembly, granting **+2 AR** across all active ranges (*Firing Squad*, p. 112).
+   * **Smartlink Integration**: Smartlink grants **+2 AR** (*SR6 Core*, p. 260); network coordination via Master Tactical Operations Commlink (M-TOC II) adds an additional **+1 AR** (*Double Clutch*, p. 124).
+   * **Link-Firing Array**: Firing both emitters simultaneously adds **+1 DV** and **+2 AR**, consuming double battery ammunition per attack.
+   * **Laser Battery Specs**: Powered by an internal capacitor bank (`30(c)`). Can be recharged via vehicle power taps or standard induction loops (*Firing Squad*, p. 116).
+
+2. **Tesla Coil (Cyberarm Forearm Sprayer)**:
+   * **Source**: *Body Shop*, p. 49 & *SR6 Core*, pp. 117–118 (Exotic Ranged / Spray Attack).
+   * **Discharge Cones & Firing Modes**:
+     * *Straight Stream*: Direct beam against the first target along a 20-meter line of fire. Standard base damage and range profile.
+     * *Wobbly Cone*: Arc discharging across an $8.58^\circ$ cone (3 meters wide at 20m). Modifies attack by **+2 AR** and **-1 DV**. Affects all targets in the cone.
+     * *Sweeping Arc*: Wide electrical discharge across a $28.07^\circ$ cone (10 meters wide at 20m). Modifies attack by **+4 AR** and **-3 DV**. Affects all targets in the cone.
+   * **Wild Die Acceleration**: When executing a Wobbly or Sweeping discharge, Reiko may substitute one normal die with a **Wild Die** to accelerate stream speed (*SR6 Core*, p. 118).
+   * **Internal Capacitor**: Draws from a 5-shot internal capacitor bank (`5(c)`).
+
+3. **Amalgam Cestas (Anti-Spirit CQC)**:
+   * **Source**: *Scotophobia*, p. 181 (Grey Mana Technology & Exotic Alloys).
+   * **Overcoming Immunity to Normal Weapons (ItNW)**: Against materialized spirits or critters possessing ItNW, the entity's Essence-based Hardened Armor is treated as **normal armor** rather than hardened armor. Armor dice do not automatically convert to automatic hits, permitting mundane physical penetration without weapon foci (*Scotophobia*, p. 181).
+
+---
+
+## 2. High-Dice Pools Over 20 (Tabletop Audit)
+
+Under official *Shadowrun Missions* guidelines, any dice pool exceeding 20 dice is subject to rules verification for stacking legality, modifier categories, and augmented limits.
+
+```{python}
+#| echo: false
+#| output: asis
+print(render_multi_modifier_interactions("reiko", threshold=2))
+```
+
+### Stacking Legality Summary
+
+* **Full Matrix Defense**: Constructed from Willpower + Firewall + Full Defense Action. Because Living Personas derive their Matrix attributes directly from mental attributes (*Hack & Slash*, p. 116), this pool represents pure cognitive resistance against biofeedback and data spikes.
+* **Hacking & Electronic Warfare**: Combines base skill rating + specialization bonus (+2) + Logic + Resonance Focus tool bonus (+4) + Taz's companion teamwork assistance (+4) + tactical cyberware apps (Overclocking +2, ECM Warrior +2). All bonuses fall into distinct operational categories (Skill + Attribute + Focus + Teamwork + Software), adhering to SR6 stacking legality.
+* **Compiling & Registering**: Combines Tasking skill + specialization (+2) + Resonance + Resonance Focus (+4).
+
+---
+
+## 3. Complex Mechanical Interplays Specific to Reiko
+
+### I. Inhabited Anthrodrone Override & Augmented Limits
+* **Source**: *Hack & Slash*, pp. 116–124 (AI & Emergent Intelligences) & *SR6 Core*, p. 194 (Sprite Power *Override*).
+* **Pilot Replacement**: When inhabiting her Shiawase Man-at-Arms anthrodrone, Reiko executes the Sprite Power *Override* (or her intrinsic AI pilot core) to substitute her Resonance rating for the drone's Pilot rating. With Resonance 8 and the Designer Trait (+1), her effective Pilot is 9.
+* **Augmented Limit (+4)**: As an Emergent Intelligence with a Living Persona, Reiko's Matrix ASDF attributes are treated as personal attributes subject to the standard **+4 Augmented Attribute Limit** (*Hack & Slash*, p. 116).
+
+### II. Edge Storage Capacity Stacking
+* **Source**: *Double Clutch*, p. 124 (M-TOC II Network Host) & *Hack & Slash*, p. 120 (Echo: Transcendent Network).
+* **Construction**:
+  * Master Tactical Operations Commlink (M-TOC II): **5 Edge** storage capacity.
+  * Transcendent Network Echo: Grants Edge storage equal to current **Submersion Grade** (`{python} SUBMERSION_GRADE`).
+  * **Total Storage**: `{python} edge_storage_total` Edge points (`{python} edge_storage_mtoc` M-TOC II + `{python} SUBMERSION_GRADE` Submersion Grade).
+
+### III. Sprite Symbiosis & Resonance Focus Fading Mitigation
+* **Source**: *SR6 Core*, pp. 190–193 & *Shadowrun Missions Guide v2.4*, p. 7.
+* **Passive Focus Operation**: Reiko's Rating 4 Resonance Focus functions under SRM rules identically to a magical focus—it remains passive, requires no activation action, and does not generate fading on its own (*SRMG v2.4*, p. 7).
+* **Fading Mitigation**: As a Technoshaman, Reiko mitigates fading from tasking and threading through innate resonant shielding, reducing final net fading values by 2 boxes before applying drain to her condition monitor (*SR6 Core*, p. 190).
+
+### IV. Home Device & Sanctuary Host Architecture
+* **Source**: *Hack & Slash*, pp. 124, 128 (Framework Hosts & AI Home Devices).
+* **Active Venue Configuration**: Reiko designates her active inhabited anthrodrone as her Home Device, granting +1 Body/Sensors and +2 Noise Reduction (*Hack & Slash*, p. 124).
+* **The Sanctuary Host (`~`)**: A Rating 2 Framework Host compiled within the Deep Matrix. Its back quartz sliding glass door opens into a permanent un-insulated tear into the Holy Wild glade in the Deep Foundation (*Hack & Slash*, p. 128).

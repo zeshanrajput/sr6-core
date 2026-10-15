@@ -15,20 +15,14 @@ book:
     - index.qmd
     - part: "Core Character"
       chapters:
-        - chapters/identity_core.qmd
         - core/character_build.qmd
         - chapters/character_sheet.qmd
         - core/character_log.qmd
         - core/character_purchases.qmd
         - chapters/twenty_questions.qmd
-        - rules/dronomancy.md
-    - part: "Rules & Downtime Protocols"
+    - part: "Tabletop Mechanics & Audited Interplays"
       chapters:
         - rules/rules_and_downtime.qmd
-        - rules/rules_matrix.qmd
-        - rules/rules_sprites.qmd
-        - rules/rules_drones.qmd
-        - rules/rules_combat.qmd
     - part: "Background Stories"
       chapters:
         - narrative/01 The Weight of Zero.md
@@ -67,12 +61,6 @@ book:
       chapters:
         - narrative/I01.md
         - narrative/I02.md
-    - part: "Reference & Specifications"
-      chapters:
-        - reference/narrative_spec.md
-        - reference/visual_anchors.md
-        - reference/voice_spec.md
-        - reference/sparks_second_generation.md
 
 format:
   html:

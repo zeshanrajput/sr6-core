@@ -117,8 +117,8 @@ def run_sync_all():
 
     # Build Master Multi-Character PWA at app/index.html
     try:
-        from sr6core.exporters.mobile_json import export_mobile_json
-        from sr6core.exporters.mobile_html import get_mobile_html_template
+        from sr6core.publishing.mobile_json import export_mobile_json
+        from sr6core.publishing.mobile_html import get_mobile_html_template
         multi_bundle = {}
         for c in chars:
             cid = c["id"]
@@ -460,7 +460,7 @@ def main():
 
     elif args.command == "build":
         from sr6core.ledger.purchases_sync import PurchasesSyncEngine
-        from sr6core.exporters.mobile_json import export_mobile_json
+        from sr6core.publishing.mobile_json import export_mobile_json
         import json
         import subprocess
         from rich.console import Console
@@ -515,7 +515,7 @@ def main():
         console.print(f"[green]  • Inlined {len(bundle)} character portfolios into {bundle_path}[/green]")
 
         # Also emit standalone mobile app HTML directly into app/index.html
-        from sr6core.exporters.mobile_html import get_mobile_html_template
+        from sr6core.publishing.mobile_html import get_mobile_html_template
         app_html_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "app", "index.html"))
         os.makedirs(os.path.dirname(app_html_path), exist_ok=True)
         with open(app_html_path, "w", encoding="utf-8") as f:

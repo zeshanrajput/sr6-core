@@ -1169,7 +1169,7 @@ def get_multi_modifier_interactions(char_id: str, threshold: int = 2) -> List[Di
     utilize more than `threshold` (default > 2) modifiers, collating their mechanics,
     stacking legality, and operational constraints for dynamic rules page generation.
     """
-    from sr6core.exporters.mobile_json import export_mobile_json
+    from sr6core.publishing.mobile_json import export_mobile_json
 
     cm = CharacterManager()
     char = cm.load_character(char_id)

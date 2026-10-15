@@ -1,7 +1,7 @@
 import pytest
 from sr6core.rules_spirits import SPIRIT_CATALOG, get_spirit_channeling_info
 from sr6core.character_manager import CharacterManager
-from sr6core.exporters.mobile_json import export_mobile_json
+from sr6core.publishing.mobile_json import export_mobile_json
 
 
 def test_spirit_catalog_structure():

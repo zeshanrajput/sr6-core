@@ -1,21 +1,17 @@
-# Downtime Protocols & Common Rules
+# Tabletop Mechanics & Audited Interplays
 
-This section aggregates core cheat sheets, downtime registration formulas, monad co-processing protocols, and dynamic tactical/matrix calculation tables for **Venn** (Nathan Turrent & Veronica).
+This chapter documents the mechanical construction, modifier stacking legality, and rules interactions for **Venn** (Nathan Turrent & Veronica).
 
 ```{python}
 #| echo: false
 #| include: false
 from sr6core.character_manager import CharacterManager
-from sr6core.modifiers import ModifierEngine
 from sr6core.rules_engine import (
-    get_monad_strategy_table,
-    get_tactical_action_table,
     get_weapon_attack_table,
-    get_matrix_action_table,
+    render_multi_modifier_interactions,
     get_matrix_asdf_derivation_table,
     get_cyberware_capacity_table,
-    get_augmentations_accounting_table,
-    render_multi_modifier_interactions,
+    get_augmentations_accounting_table
 )
 
 cm = CharacterManager()
@@ -23,264 +19,21 @@ _char = cm.get_character_data("venn") or cm.get_character_data("union") or {}
 attrs = _char.get("attributes", {})
 identity = _char.get("identity", {})
 
-# Core Base Attributes
-Body = attrs.get("body", 5)
-Agility = attrs.get("agility", 8)        # Cyberarms/legs AGI 8 (Base 2 + 4 Cybersuite + 2 Redliner)
-Reaction = attrs.get("reaction", 2)
-Strength = attrs.get("strength", 4)      # Cyberarms/legs STR 4 (Base 2 + 2 Redliner)
-Willpower = attrs.get("willpower", 7)    # Base 5 + 2 Cyber Singularity Seeker = 7
-Logic = attrs.get("logic", 6)
-Intuition = attrs.get("intuition", 5)
-Charisma = attrs.get("charisma", 2)
-Edge = attrs.get("edge", 7)
-Essence = attrs.get("essence", 0.0)
 Nanite_Volume = identity.get("nanite_volume", 6)
-
-# Augmented Mental Attributes (including colonies)
-Charisma_Aug = Charisma + 1              # Neurochemical Regulator (+1) = 3
-Willpower_Aug = Willpower + 1            # Bio-Response Override (+1) = 8
-Body_Soak = Body + 4                     # Bone Density Augmentation R4 (+4) = 9
-
-# Matrix ASDF & Full Defense
-active_asdf = ModifierEngine.get_living_persona_asdf(_char)
-ACTIVE_A = active_asdf.get("attack", 3)
-ACTIVE_S = active_asdf.get("sleaze", 7)
-ACTIVE_D = active_asdf.get("data_processing", 6)
-ACTIVE_F = active_asdf.get("firewall", 12)
-
-matrix_defense = ModifierEngine.get_full_matrix_defense(_char)
-full_matrix_def_pool = matrix_defense.get("pool", 32)
-full_matrix_def_hits = matrix_defense.get("effective_hits", 8)
-base_persona_def_pool = matrix_defense.get("base_persona_pool", 20)
-base_persona_def_hits = matrix_defense.get("base_persona_hits", 5)
-base_data_spike_def_pool = matrix_defense.get("base_data_spike_pool", 18)
-full_data_spike_def_pool = matrix_defense.get("full_data_spike_pool", 30)
-
-# Derived Combat Pools
-Physical_Initiative_Base = f"{Reaction + Intuition} + 1D6"
-Defense_Pool_Base = Reaction + Intuition
-Damage_Soak_Base = Body_Soak
-Close_Combat_Pool_Base = 6 + Agility + 1 + 1  # Soft 6 + AGI 8 + Wires 1 + Pattern 1 = 16d6
-Cracking_Pool_Base = 6 + Logic + 1 + 1        # Soft 6 + LOG 6 + Wires 1 + Neocortical 1 = 14d6
 ```
 
----
+::: {.callout-note icon=false}
+## 🎲 Physical Tabletop Companion Mandate
+In accordance with our tabletop doctrine, players roll physical dice at the gaming table. This chapter documents the underlying rules, citations, and stacking legality behind Venn's stats. 
 
-## SRM Monthly Expenses & Downtime Cadence Protocol
-
-> **Mandatory Campaign Protocol:** Every second official Shadowrun Missions (SRM) run (excluding CMPs or non-SRM special events), Venn must settle monthly expenses and execute mandatory downtime allocations.
-
-### 1. Monthly Expenses Package
-
-Every 2nd SRM mission, the following recurring obligations are deducted from liquid Nuyen:
-
-- **Lifestyle Expenses:** Low Lifestyle (¥2,000/mo) for the off-grid coastal boathouse on St. Simon's Island.
-- **Hooder Quality (Rating 3):** ¥3,000/mo obligation allocated to local off-grid free medical clinics, solar microgrids, and coastal refugee support.
-- **Total Monthly Obligation:** **¥5,000 / month**.
-
-### 2. Mandatory Downtime Actions (Expense Months)
-
-During an expense month, Venn receives 1 Major Downtime Action and 1 Minor Downtime Action, allocated as follows:
-
-- **1 Major Downtime Action:** Dedicated to **Working for the Streetdoc** (Shadow Healthcare Community network membership, converting Karma to Nuyen for augmentations at 1 Karma : ¥7,000) or cyberware diagnostic calibration.
-- **1 Minor Downtime Action:** *Working for the People* (funded directly by the Hooder ¥3,000 nuyen obligation, generating **+1 Karma** at no additional nuyen charge).
-
----
-
-## Skillwires & Skilljack System Protocols (SR6 p. 284, 287){#skillwires-protocols}
-
-Venn relies on an implanted **Skilljack (Used Grade, Rating 6)** and **Skillwires (Used Grade, Rating 6)** to stream physical and tactical Activesofts directly into motor nerve pathways. These are always operated "Wireless On".
-
-### Skilljack Mechanics & Wireless Mode
-- **Function**: Interprets knowsofts, linguasofts, and activesofts for the brain. Activesofts act as Knowledge Skills unless paired with skillwires.
-- **Capacity**: Total rating of all running skills cannot exceed **Rating x 2** (12), and max single skill rating is the skilljack's rating (**Rating 6**).
-- **Action**: Starting and stopping skills from storage requires no action.
-- **Edge Restriction**: Edge cannot normally be spent with skills used through a skilljack.
-- **Wireless Bonus**: The Matrix connection expands the total rating limit to **Rating x 4 (24)**, and **Edge CAN be used in associated tests**.
-
-### Skillwires Mechanics & Streaming Roster
-- **Wireless Bonus**: Memory cache expanded, granting a **+1 dice pool modifier to all skills routed through skillwires**.
-- **Effective Skill Ranks**: Any Rating 6 activesoft provides **7 skill dice** (Rating 6 + Skillwires Wireless ON +1).
-- **Active Roster (Derived from Purchases Ledger)**:
-  - **Close Combat Activesoft (Rating 6)**: Runs via Skillwires for 7 skill dice (**15d6 Unarmed pool** with Cyberarm AGI 7 + Neural Pattern Reinforcement; **17d6** when Overdriven to AGI 9).
-  - **Cracking Activesoft (Rating 6)**: Runs via Skillwires for 7 skill dice (**14d6 Cracking pool** with LOG 6 + Neocortical Neural Amp; **16d6** when Overdriven with Math SPU).
-- **Dynamic Swapping**: Local memory allows zero-action swapping between stored softs.
-
----
-
-## Cyberware Suite, Capacity & Augmentations Accounting{#cyberware-capacity}
-
-This section details Venn's full cybernetic conversion suite, cyberlimb capacity accounting, and deterministic Essence costs with **Adapsin Therapy**.
-
-### Installed Cyberlimbs & Internal Capacity
-
-```{python}
-#| echo: false
-#| output: asis
-print(get_cyberware_capacity_table("venn"))
-```
-
-### Augmentations, Essence & Grade Breakdown
-
-```{python}
-#| echo: false
-#| output: asis
-print(get_augmentations_accounting_table("venn"))
-```
-
----
-
-## Monad Nanite Abilities & Living Persona Protocols{#monad-nanite-boosts}
-
-*Authoritative Rules Citations: Whisper Nets (p. 149) & Collapsing Now (p. 154–161)*
-
-As a dual-entity Monad (Nathan Turrent & Veronica), Venn commands a resident internal nanite colony (Nanite Volume 6 supported by dual Nanohives R3 in cyberlegs) that manipulates flesh, neural architecture, and wireless persona emulation:
-
-### 1. Monad Matrix Attributes (Living Persona)
-
-Under SR6 Monad rules (*Whisper Nets* p. 149 & *Collapsing Now* p. 160), Monads synthesize an un-brickable Living Persona directly from their mental attributes, augmented by Nanite Volume (NV):
-
-```{python}
-#| echo: false
-#| output: asis
-print(get_matrix_asdf_derivation_table("venn"))
-```
-
-### 2. Physical Attribute Boost & Action Economy Rules
-
-::: {.callout-note icon=false title="🧬 MONAD ABILITY: Physical Attribute Boost & Action Surge"}
-* **Source**: *Whisper Nets*, p. 149
-* **Action**: **Minor Action** | **Test**: Roll a **Nanite Volume (NV) test** (`{python} Nanite_Volume` dice $\rightarrow$ 2 Bought Hits).
-* **Hit Allocation**:
-  * For **each hit**, increase any **Physical Attribute (BOD, AGI, REA, STR) by +1**, OR add **+1 Minor Action**.
-  * Hits may be stacked on a single attribute or distributed across multiple attributes and/or Minor Actions on the same test.
-* **SR6 Action Economy & Turn-Start Ceilings**:
-  * **Basic Action Allotment**: The basic action allotment for each character is **1 Major Action and 1 Minor Action** per combat round, plus **1 additional Minor Action for every Initiative Die** they possess (*SR6 Core* p. 40). With 1 Initiative Die base, Venn has **1 Major + 2 Minor Actions**.
-  * **Turn-Start 5 Minor Action Ceiling**: *"You cannot start your turn with more than 5 minor actions (all others are lost)"* (*SR6 Core* p. 40). Pushing +4 Minor Actions from NV Boost hits this hard ceiling (**1 Major + 5 Minor Actions**; the 6th is lost).
-  * **In-Turn Action Trading**: *"Players can trade Minor and Major Actions, using a Major Action to perform a Minor Action or using 4 Minor Actions to perform a Major Action"* (*SR6 Core* p. 40). Action trading occurs **after the character's turn begins**. Once their turn begins, Venn may trade 4 Minors for 1 Major (yielding **2 Major Actions and 1 Minor Action**), or spend those 5 Minors on tactical maneuvers (Movement, Take Aim, Avoid Incoming, Drop Prone, Stand Up, Matrix actions, or cellular healing).
-* **Duration**: Lasts for a number of combat rounds equal to the **number of hits rolled**.
-* **Exhaustion & NV Burn**:
-  * When the boost expires, NV temporarily decreases by the total sum of the boosts for **1 minute (20 combat turns)**.
-  * Any attribute increase pushed **beyond the racial maximum** inflicts **1 box of Physical damage** when the boost wears off.
-:::
-
-### 3. Additional Monad Abilities
-
-::: {.callout-note icon=false title="🧬 MONAD ABILITY: Resculpt (Biological Disguise)"}
-* **Source**: *Collapsing Now*, p. 154–161
-* **Action / Test**: Extended **Intuition + NV (16, 1 combat round)** test (**11d6 $\rightarrow$ Buys 2 Hits/round**; complete transformation in 8 rounds / 24 seconds).
-* **Effect**: Nanites physically reform cartilage, facial bone geometry, epidermal pigmentation, hair growth, and vocal cord thickness to pass perfectly as a new individual or alter demographic markers without cosmetic surgery or magic (+2 dice pool bonus on Disguise tests; provides physical embodiment vehicle for Veronica).
-:::
-
-::: {.callout-note icon=false title="🧬 MONAD ABILITY: Monad Toughness & Wound Negation"}
-* **Source**: *Collapsing Now*, p. 154–161
-* **Condition Monitor Boost**: Adds $+\lfloor \text{NV}/2 \rfloor = \mathbf{+3}$ Condition boxes (+2 Physical boxes $\rightarrow$ **11 Physical Boxes**, +1 Stun box + 1 Bio-Response Override $\rightarrow$ **13 Stun Boxes**).
-* **Wound Threshold Shift**: Shifts all wound penalty thresholds down by **1 box**, allowing Venn to take heavier physical punishment before incurring dice pool penalties.
-:::
-
-::: {.callout-note icon=false title="🧬 MONAD ABILITY: Rapid Cellular Healing"}
-* **Source**: *Collapsing Now*, p. 154–161
-* **Action**: Minor or Major Action | **Test**: Nanite cellular reconstruction test (`{python} Nanite_Volume` dice).
-* **Effect**: Nanites re-knit damaged tissues, synthesize clotting agents, and purge lactic/toxic build-up to accelerate downtime recovery and heal physical/stun damage tracks between tactical engagements (Major Action heals double hits and grants +1 situational Edge).
-:::
-
-::: {.callout-note icon=false title="🧬 MONAD ABILITY: Adrenal Control & Trauma Resistance"}
-* **Source**: *Collapsing Now*, p. 154–161
-* **Action**: **Minor Action** | **Test**: **Willpower + NV (2)** test (**10d6 $\rightarrow$ 2 Bought Hits**).
-* **Effect**: Automatically stabilizes neural synapsing and maintains consciousness when suffering overflow damage or heavy stun trauma, resisting knockdown and unconsciousness.
+Live situational dice pools, condition modifiers, and active gear ratings are calculated dynamically in your companion tools:
+* 📱 **[Mobile PWA Interactive Sheet](../output/mobile/index.html)**
+* 📄 **[Plain-Text Tabletop Sheet (venn_sheet.txt)](../output/text/venn_sheet.txt)**
 :::
 
 ---
 
-## Nanohive Colony Maintenance & Sustaining Protocols{#nanoware-protocols}
-
-*Authoritative Rules Citations: Body Shop, p. 108–111*
-
-Nanohive colonies represent delicate artificial microscopic biosystems resident in the host's body. To remain functional without degrading, they obey specific sustaining and maintenance rules:
-
-### 1. The 1-Week Sustaining Rule & Degradation
-* **Host Dependency**: Injected nanite colonies cannot survive indefinitely on cellular nutrients alone. Without continuous replenishment, calibration, and micro-repair signals from an active internal **Nanohive**, a colony degrades and dies within **1 week**.
-* **Nanohive Inactivation / EMP / Disruption**: If Venn's cyberleg Nanohives are shut down, damaged, or depleted of precursor fluid, a 7-day countdown begins before active bioamplifiers permanently cease functioning.
-
-### 2. Pre-Bought Doses as Sustained Colony Units
-Each pre-purchased single-dose colony represents an active physical swarm unit requiring dedicated internal Nanohive Volume (NV) to sustain:
-* **Bio-Response Override**: Requires **3 NV** to sustain (+1 WIL, +1 Stun box).
-* **Neurochemical Regulator**: Requires **2 NV** to sustain (+1 CHA on social/composure tests).
-* **Neocortical Neural Amplifier**: Requires **2 NV** to sustain (+1 dice pool on Logic-linked skills).
-* **Limbic Neural Amplifier**: Requires **2 NV** to sustain (+1 dice pool on Intuition-linked skills).
-* **Neural Pattern Reinforcement**: Requires **2 NV** to sustain (+1 dice pool on Agility-linked skills).
-* **Neuromuscular Amplifier**: Requires **2 NV** to sustain (+1 melee/unarmed DV).
-
-### 3. Hardware Capacity Budget
-* Venn's dual Used Nanohives R3 in left and right cyberlegs provide combined **Rating 6 Nanohive capacity** (max 6 active colonies, 18 NV internal capacity [24 wireless], 6 NV/hr replenishment).
-* Sustaining the 6 default colonies consumes **13 NV** ($3 + 2 + 2 + 2 + 2 + 2$), leaving **5 NV in reserve** for overdriving or dynamic template synthesis.
-
----
-
-## Multi-Modifier Pool Interactions & Stacking Analysis{#multi-modifier-interactions}
-
-This section is dynamically derived from Venn's current active character state. Any test pool, attribute, or combat stat that utilizes **more than 2 active modifiers** is automatically audited below for SRMG stacking legality, +4 augmentation maximum compliance, wireless/overdrive requirements, and interdependencies.
-
-```{python}
-#| echo: false
-#| output: asis
-print(render_multi_modifier_interactions("venn", threshold=2))
-```
-
----
-
-## SRMG Augmentation & Stacking Rules{#augmentation-stacking}
-
-Per the **Shadowrun Missions Guide (SRMG)** rules on augmentation stacking:
-
-::: {.callout-note icon=false title="SRMG Rule: What Augmentation Bonuses Stack?"}
-
-1. **Augmentation Stacking**: Multiple augmentations targeting the same attribute stack up to the **+4 SRMG Augmentation Cap** above natural maximum. Bone Density Augmentation R4 provides +4 Body for damage resistance soak, reaching the cap unarmored.
-2. **Skill Bonus Exemption**: Nanite Neural Amplifiers and Pattern Reinforcement provide direct skill dice rather than attribute increases, stacking alongside cyberware and gear bonuses without violating attribute caps.
-3. **Initiative Dice**: Initiative Dice do not stack unless explicitly stated; instead, the character uses the highest available rating.
-
-:::
-
-## Augmentation Overdrive Protocol (SR6 Body Shop p. 48){#cyberware-overdrive}
-
-*Official SR6 Cyberware Overdrive Rules:*
-
-- **Mechanism**: Spend a **Minor Action** to set a single cyberware system to overdrive, increasing the rating of any attribute-boosting cyberware by **+2 for a single action**. This bonus may exceed the augmented maximum.
-- **Wild Die Requirement**: One of the bonus dice rolled must be a **Wild Die**.
-- **Bioware Limitation**: Bioware cannot be overdriven, only cyberware systems (e.g. Math SPU).
-- **Glitch & Critical Glitch Costs**:
-  - **Glitch**: The affected cyberware system cramps up and **shuts down for a number of combat rounds equal to its rating**.
-  - **Critical Glitch**: Seizes the muscle/neural bus and **reduces the affected attribute to 0 for a number of combat rounds equal to its rating**.
-
----
-
-## Monad Operational Strategy & Scene Comparison
-
-Comparison of Venn's four operational modes: Meatspace Baseline, Cyberlimb Overdrive & Leaping Assault, Living Persona Matrix Inhabitation, and Monad NV Boost / Action Economy.
-
-```{python}
-#| echo: false
-#| output: asis
-print(get_monad_strategy_table("venn"))
-```
-
----
-
-## Tactical Combat & Physical Action Table
-
-Standardized physical action pools, activesoft streaming, defense tests, damage resistance, and engineering repair.
-
-```{python}
-#| echo: false
-#| output: asis
-print(get_tactical_action_table("venn"))
-```
-
----
-
-## Standardized Weapon Attack Table (Colt Manhunter & Unarmed Strike){#weapon-attack-table}
-
-Breakdown of Colt Manhunter and Unarmed Strike combat profiles, firing modes, attack ratings, and smartlink bonuses.
+## 1. Tactical Weapons & Attack Ratings (AR)
 
 ```{python}
 #| echo: false
@@ -288,14 +41,75 @@ Breakdown of Colt Manhunter and Unarmed Strike combat profiles, firing modes, at
 print(get_weapon_attack_table("venn"))
 ```
 
+### Tactical Weapon Stacking & Citations
+* **Cyberarm Spurs (Retractable)**: Implanted melee weapon (*SR6 Core*, p. 285). Close combat attack pools utilize Cyberarm Agility 8 (Base 2 + 4 Cybersuite + 2 Redliner) paired with the streamed Close Combat Activesoft (Rating 6 + 1 Wireless ON).
+* **Smartlinked Firearm Support**: Ranged weapons route through implanted Smartlink systems, granting +2 AR (*SR6 Core*, p. 260) and situational recoil compensation.
+
 ---
 
-## Living Persona Matrix Action Table (Veronica Co-Processing)
+## 2. High-Dice Pools Over 20 (Tabletop Audit)
 
-Breakdown of Monad Living Persona matrix tests (**A:3 S:7 D:6 F:12**, derived per *Whisper Nets* p. 149 allocating NV 6 to Firewall +4 and Sleaze +2), cracking, software, matrix perception, and full matrix defense (**32d6 / 8 Hits** via WIL 8 + FW 12 + Full Defense FW 12; or **30d6 / 7 Hits** vs Data Spike via DP 6 + FW 12 + Full Defense FW 12).
+Under official *Shadowrun Missions* guidelines, any dice pool exceeding 20 dice is subject to rules verification for stacking legality, modifier categories, and augmented limits.
 
 ```{python}
 #| echo: false
 #| output: asis
-print(get_matrix_action_table("venn"))
+print(render_multi_modifier_interactions("venn", threshold=2))
 ```
+
+### Stacking Legality Summary
+
+* **Full Matrix Defense**: Combines Willpower (7 base + 1 Bio-Response Override) + Living Persona Firewall (12) + Full Defense Action (Willpower 8). Under SR6 rules, Monad Living Personas synthesize Firewall from mental and nanite architecture (*Whisper Nets*, p. 149), allowing defensive cognitive soaking against hostile matrix spikes.
+* **Damage Resistance (Soak)**: Combines Body (5) + Bone Density Augmentation R4 (+4) + Dermal Plating (+2) + Armor Rating. Bone density provides an internal structural bonus that stacks legally with cybernetic dermal plating (*Body Shop*, p. 38).
+
+---
+
+## 3. Complex Mechanical Interplays Specific to Venn
+
+### I. Monad Dual-Consciousness & Living Persona
+* **Source**: *Whisper Nets*, p. 149 & *Collapsing Now*, pp. 154–161.
+* **Living Persona Synthesis**: Monads project an un-brickable Living Persona directly from their mental attributes and resident Nanite Volume (NV 6), without requiring a physical cyberdeck (*Whisper Nets*, p. 149).
+* **ASDF Derivation**:
+
+```{python}
+#| echo: false
+#| output: asis
+print(get_matrix_asdf_derivation_table("venn"))
+```
+
+### II. Cyberlimb Redliner & 4-Limb Replacement Synergy
+* **Source**: *Sixth World Companion*, p. 138 (Redliner Quality), p. 131 (Cyber Singularity Seeker), and *SR6 Core*, p. 287.
+* **Full Limb Conversion**: With 4 full cyberlimbs (both arms and both legs) installed, the Redliner quality grants **+2 Agility and +2 Strength** across all physical tasks, operating safely at Essence 0.1 (*Sixth World Companion*, p. 138).
+* **Cyber Singularity Seeker**: Grants **+2 Willpower** for reaching extreme low-essence augmentation thresholds (*Sixth World Companion*, p. 131).
+
+```{python}
+#| echo: false
+#| output: asis
+print(get_cyberware_capacity_table("venn"))
+```
+
+```{python}
+#| echo: false
+#| output: asis
+print(get_augmentations_accounting_table("venn"))
+```
+
+### III. Nanite Volume & Action Surge Stacking
+* **Source**: *Whisper Nets*, p. 149 & *SR6 Core*, p. 40 (Action Economy).
+* **Physical Boost & Action Economy**: A Minor Action allows rolling a Nanite Volume (NV 6) test. Hits may be allocated to increase physical attributes by +1 or add +1 Minor Action per hit (*Whisper Nets*, p. 149).
+* **Turn-Start 5 Minor Action Ceiling**: *"You cannot start your turn with more than 5 minor actions (all others are lost)"* (*SR6 Core*, p. 40). Pushing +4 Minor Actions from NV Boost hits this hard ceiling (**1 Major + 5 Minor Actions**).
+* **In-Turn Action Trading**: After the turn begins, Venn may trade 4 Minor Actions for 1 Major Action, resulting in **2 Major Actions and 1 Minor Action** for tactical surges (*SR6 Core*, p. 40).
+
+### IV. Skillwires & Streaming Activesoft Protocols
+* **Source**: *SR6 Core*, pp. 284, 287.
+* **Wireless Bonus**: Operating Skilljack R6 and Skillwires R6 with wireless connectivity enabled grants a **+1 dice pool bonus** to all streamed activesofts and permits **spending Edge** on streamed skill tests (*SR6 Core*, p. 284).
+* **Streaming Ranks**: Any Rating 6 activesoft (Close Combat, Cracking, Firearms) provides **7 effective skill dice** (Rating 6 + 1 Wireless ON).
+
+### V. SRM Monthly Expenses & Downtime Cadence Protocol
+* **Source**: *Shadowrun Missions Guide v2.4*, pp. 17–19.
+* **Monthly Obligations**: Every second official SRM mission, recurring expenses are settled:
+  * Low Lifestyle: ¥2,000/mo (St. Simon's Island off-grid boathouse).
+  * Hooder Quality (Rating 3): ¥3,000/mo allocated to coastal free clinics and solar microgrids (*Sixth World Companion*, p. 132).
+* **Downtime Action Resolution**:
+  * **1 Major Downtime Action**: Dedicated to *Working for the Streetdoc* (converting Karma to Nuyen for augmentations at 1 Karma : ¥7,000) or cyberware diagnostic calibration (*SRMG v2.4*, p. 18).
+  * **1 Minor Downtime Action**: *Working for the People*—funded directly by the ¥3,000 Hooder obligation, generating **+1 Karma** at no additional nuyen charge (*SRMG v2.4*, p. 19).

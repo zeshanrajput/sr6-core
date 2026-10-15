@@ -15,14 +15,15 @@ book:
     - index.qmd
     - part: "Core Character"
       chapters:
-        - chapters/identity_core.qmd
         - core/character_build.qmd
         - chapters/character_sheet.qmd
         - core/character_log.qmd
         - core/character_purchases.qmd
         - chapters/twenty_questions.qmd
-        - rules/rules_and_downtime.qmd
         - chapters/narrative_outline.qmd
+    - part: "Tabletop Mechanics & Audited Interplays"
+      chapters:
+        - rules/rules_and_downtime.qmd
     - part: "Narrative Anthology"
       chapters:
         - narrative/01_the_day_a_god_fell.md
@@ -32,12 +33,6 @@ book:
         - narrative/05_dual_icons_foundation.md
         - narrative/06_sabotaged_berth.md
         - narrative/07_first_contract.md
-    - part: "Reference & Specifications"
-      chapters:
-        - reference/narrative_spec.md
-        - reference/voice_spec.md
-        - reference/visual_anchors.md
-        - reference/story_continuity.md
 
 format:
   html:

@@ -5,7 +5,7 @@ Verifies strict <= 120 lines total budget and priority-based section rendering.
 
 import pytest
 from sr6core.character_manager import CharacterManager
-from sr6core.exporters.quick_sheet import export_quick_sheet, MAX_WIDTH
+from sr6core.publishing.quick_sheet import export_quick_sheet, MAX_WIDTH
 
 
 @pytest.fixture
