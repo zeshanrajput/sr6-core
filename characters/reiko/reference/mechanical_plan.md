@@ -54,6 +54,8 @@ This document tracks character upgrades, mechanical evaluations, karma/nuyen tar
 │                                │              │              │ & Contracts  │
 │ Con Spec: Disguise             │ Specializ.   │ 5 Karma      │ [ACQUIRED]   │
 │                                │              │              │ Sprawl Mask  │
+│ Oracle Data Structure (L2)     │ Data Struct. │ ¥10k+2 Karma │ Matrix Perc. │
+│                                │ (H&S p. 70)  │ (Indo C3/L3) │ & Major Act. │
 ├────────────────────────────────┴──────────────┴──────────────┴──────────────┤
 │ STEP 2: TACTICAL EXPANSION & RIGGING SYNERGY (10–25 Karma)                   │
 ├────────────────────────────────┬──────────────┬──────────────┬──────────────┤
@@ -153,7 +155,23 @@ This document tracks character upgrades, mechanical evaluations, karma/nuyen tar
   2. **New Orleans Vodou & Loa Syncretism (Rating 3 Knowsoft):** [ACQUIRED] Deep literacy in Baron Samedi, the Loa of the Wires, League of Laveau, Zobop, and the theological intersection where Mana meets Nous.
 * **Future Knowledge Targets:**
   1. **Garmonbozia (Rating 3 Knowsoft — ¥2,500):** Sovereign DI e-nation cartography and liberation networks.
-  2. **Shiawase Drone Engineering & Casemodding:** Custom chassis repairs and rigging integrations.
+### G. State of the Art: 2084 Operational & Living Campaign Integration
+
+* **Status in Living Campaign (SRM):**
+  * The new rules in *State of the Art: 2084* (*SOTA 2084*) remain **optional / pending** until the official Shadowrun Missions FAQ/Guide is updated.
+  * **Downtime Action Economy:** Reiko does **NOT** spend active downtime actions maintaining Cutting Edge or Current Matrix SOTA status at this time. (When formally ratified, her **Coding Facility** and **Software Emulator** echo will handle routine compilation efficiently).
+* **Restricted AR (15-Meter Leash) & The Anthrodrone Advantage:**
+  * *SOTA 2084* (p. 121) introduces Restricted AR: fixing personas to physical location, restricting AR interactions to icons within 15 meters, and barring AR persona entry past host horizons.
+  * *The Asymmetric Advantage:* While meatspace deckers are crippled by this restriction (either walking into crosshairs or dropping unconscious into VR), Reiko inhabits a consecrated **Shiawase Man-at-Arms anthrodrone** (`Goshintai`). She physically walks directly into the 15-meter zone under chameleon stealth, armored structural integrity, and drone autosofts—executing short-range breaches without leaving a helpless meat body behind.
+* **Oracle Data Structure Integration (*Hack & Slash*, pp. 70–71):**
+  * *Role & Mechanics:* Embedded into a physical lens or chassis forearm bracket. When activated (Minor Action), it adds +Level (+2) bonus dice to Matrix Perception and Matrix Search tests.
+  * *Major Action Search Interval:* Reduces extended Matrix Search test intervals from 10 minutes to a single **Major Action**, enabling near-instantaneous deep data pulls in the middle of active tactical operations.
+  * *Costs & Fading:* Acquired for Level × ¥5,000 (¥10,000 for L2) via Indomitable Will (C3/L3 Matrix/Resonance contact) and integrated for Level (2) Karma. Fading is $\lceil 2/2 \rceil = 1$ Stun upon activation.
+  * *SRM Legal Limit:* Reiko cannot craft data structures via Amalgamation; she can only purchase finished structures and can only attune **one active Data Structure at a time**.
+* **Emerging Corporate Tech (Breachers, IC Cutters, IC:AF):**
+  * Renraku's IC:AF (Adaptive Firewalls) and counter-intrusion Breachers/IC Cutters remain ambient corporate R&D in background lore; out of scope for character mechanics until officially added to the SRM Guide.
+* **Foundation Decay (*Deicidium*):**
+  * 1-in-5 risk of host instability / internal noise (Ratings 1–12) and access delays. Mitigated locally via *Signal Scrubber*, registered sprite carrier relays, and localized pruning without compromising the global metaplot.
 
 ---
 
@@ -173,6 +191,7 @@ This document tracks character upgrades, mechanical evaluations, karma/nuyen tar
 | **10** | **Influence Spec: Etiquette** | 5 Karma | None (Between runs) | Banked Karma (Corporate Protocol & Salon Hospitality) |
 | **11** | **Influence Spec: Negotiation** | 5 Karma | None (Between runs) | Banked Karma (Johnson Bargaining & Fee Leverage) |
 | **12** | **Con Spec: Disguise** | 5 Karma | None (Between runs) | Banked Karma (Public Sprawl Masquerade "Not a Weapon") |
+| **12b**| **Oracle Data Structure (Level 2)** | **¥10,000 + 2 Karma** | None (Acquired via Indo C3/L3) | Liquid Nuyen + Banked Karma (+2 Matrix Perc/Search; Major Action Interval) |
 | **13** | **Influence Rank 1 $\rightarrow$ 2** | 10 Karma | None (Between runs) | Banked Karma (Uncaps Taz to +2 teamwork) |
 | **14** | **Complex Form: Enhance Autosoft** | 5 Karma | 1 Minor Action (Study) | Banked Karma (Drone Fleet Buffing) |
 | **15** | **Focused Concentration (Rating 1)** | 24 Karma | None (Between runs) | Banked Karma (Sustain Enlighten Automaton penalty-free) |

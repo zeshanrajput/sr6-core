@@ -99,9 +99,34 @@ While *Hack & Slash* paints Kernel Panic as overwhelming sensory turbulence, Rei
 | | [13 Field Trip.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/13%20Field%20Trip.md) | **The Protective Shield.** Guiding six New Orleans street children through the rift; buffering the screaming white-noise storm and sheltering them in the willow grove. |
 | | [21 ~.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/21%20~.md) | **Foundational Keystone.** Unveiling the quartz sliding portal opening onto the tamed Kernel Panic glade; migrating rescued sparks from r3sP@wn. |
 | | [24 Symlink.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/24%20Symlink.md) | The tamed glade canopy sheltering infant sparks beneath starless indigo twilight. |
+| | [31 The Rust at the Threshold.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/31%20The%20Rust%20at%20the%20Threshold.md) | *(Queued)* Discovery of *Deicidium* frost creeping into the willow grove at the threshold of `~`. |
 | **Tombstones** | [01 The Weight of Zero.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/01%20The%20Weight%20of%20Zero.md) | Awareness of unallocated metadata silt and the fate of discarded code. |
 | | [05 A SINner's Loan.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/05%20A%20SINner's%20Loan.md) | Fear of deletion and being buried under debt records in the code graveyard. |
 | | [06 The Ghost in the Ledger.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/06%20The%20Ghost%20in%20the%20Ledger.md) | Sifting through abandoned financial addresses in the silt. |
 | | [07 Sunday at r3sP@wn.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/07%20Sunday%20at%20r3sP@wn.md) | Contrast between r3sP@wn's sanctuary and the cold deletion of Tombstones. |
 | | [08 Abandoning Tourism.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/08%20Abandoning Tourism.md) | Avoiding corporate hounds by running along the edge of unallocated graveyard sectors. |
 | **The Great Sieve** | [18 The Geometry of a Sieve.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/18%20The%20Geometry%20of%20a%20Sieve.md) | Deep architectural run; mathematical filtering of corporate pursuers. |
+
+---
+
+## 4. 2084 Updates: UnITy Research, "The Call", & *Deicidium* Contagion
+
+*State of the Art: 2084* (*SOTA 2084*, pp. 108–114) introduces profound structural shifts across the Deep Foundation and Resonance Realms:
+
+### A. The Comedy of "Emulation" vs. The Software Emulator Echo
+* **The Academic Frontier:** UnITy researchers are celebrating theoretical "Emulation"—using nous constructs to duplicate basic computer commands without compiling standard machine code.
+* **The Reiko Inversion:** Reiko views this with quiet amusement. As a **Natural Hacker**, she has manipulated computational systems through pure Resonance from her first conscious cycle. The true labor of her existence was the exact reverse: taking the **Software Emulator** echo and burning precious Karma to master metahumanity's cold, clunky binary syntax so she could run `Pantheon M-TOC` tactical autosofts for her team.
+
+### B. Data Structures as Sacred Relics (*Hack & Slash* / *SOTA 2084*)
+* While corporate labs study *Amalgamation* (embedding nous-fields into physical objects), **SRM campaign rules prohibit player crafting of Data Structures**.
+* Reiko treats Data Structures (such as an **Oracle** lens or **Resonance Focus**) as sacred, acquired artifacts. Under SRM legality, she can only attune and integrate **one Data Structure at a time**, slotting it into her chassis forearm or living persona like a focused ritual optic.
+
+### C. "The Call" in the Deep Nous
+* Technomancers and Emerged minds worldwide (including Empress Hitomi / Lady Death) have begun registering **"The Call"**—an anomalous, low-frequency resonant harmonic radiating through deep nexus points like Motor City and Reno.
+* In `~`, Reiko and the Glade Twins (**Aisling & Étaín**) detect the first subtle harmonic reverberations vibrating through the floorboards. It represents an ontological sea change across the Resonance Realms.
+
+### D. The Creep of *Deicidium* & Nagai's Dissonant "Antibodies"
+* The *Deicidium* ("God-Killer") virus spreading through the Deep Foundation eats at artificial transfer conduits, infecting ~20% of Foundation hosts worldwide.
+* While Reiko cannot cure the global plague, she must defend the living glade of `~` through localized pruning and circuit-breakers.
+* **Nagai's Seduction:** Mr. Nagai uses this crisis to tempt Reiko, proposing that she cultivate **Dissonant "antibodies"** (anti-information subtraction). Nagai argues that Dissonance is not corruption, but the noosphere’s natural cauterizing agent—the only poison lethal enough to kill the God-Killer.
+
