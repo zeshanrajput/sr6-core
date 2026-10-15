@@ -35,3 +35,18 @@ characters/*/scratch/
 *.opus
 *.exe
 bin/
+
+# Binary documents & other players' character lore (kept locally, not published)
+*.docx
+*.pdf
+characters/reiko/reference/Rei_oniisama/
+
+# Raw transcripts & external character creator dumps
+**/transcript.json
+*theorycraft.json
+*theorycraft.txt
+
+# Generated build outputs (recreated dynamically by `sr6 sync-all`)
+characters/*/output/
+app/character_data.json
+app/index.html

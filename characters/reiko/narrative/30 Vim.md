@@ -1,6 +1,6 @@
 # Vim
 
-<audio controls src="audio/30%20Vim.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
+<audio controls src="audio/30 Vim.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
 
 At the Gnome's Groove, the door marked *Employees Only* between the restrooms led to the most exclusive vantage point in the French Quarter. Past the false back of a mop closet, a narrow timber stair climbed to a rooftop doghouse that had been grafted onto the neighboring slate roof with sheets of corrugated tin and marine sealant. Inside, mismatched velvet armchairs sat beside a racked VR rig and an unguarded wet bar: a blind spot where Lanyap’s favored runners could drop their masks while the city drowned below.
 
