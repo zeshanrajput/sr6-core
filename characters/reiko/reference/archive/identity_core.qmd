@@ -41,7 +41,7 @@ The crucible of corporate runs and the weight of lethal choices forged the perma
 **Figure 4: r31-K0 and T@z during a data heist**
 
 
-[image1]: ../images/r31-K0_Digital-Dreaming.png
-[image2]: ../images/r31-K0_Seattle-serenade.png
-[image3]: ../images/r31-K0_Dantes.png
-[image4]: ../images/r31-K0_On-the-job.png
+[image1]: ../images/r31-K0_Digital-Dreaming.webp
+[image2]: ../images/r31-K0_Seattle-serenade.webp
+[image3]: ../images/r31-K0_Dantes.webp
+[image4]: ../images/r31-K0_On-the-job.webp

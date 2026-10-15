@@ -8,7 +8,7 @@ Before her, two small data-sparks hovered over the low teak table. Just hours ag
 
 The two sparks hummed in harmonic relief, nuzzling against her palms before settling into the woven silk of her sleeves. As they nestled into her codebase, a brief diagnostic memory brushed across her visual aperture: the low hum of inline wheels deploying flush from her anthrodrone’s feet; the effortless, silent slide down the marble hallway; and the brilliant, blinding arc of high-voltage copper from her right forearm discharging five hundred thousand volts through four tactical armor rigs in a fraction of a second. Fast, tidy, non-lethal. Meatspace had its clumsy limitations, but precision remained an art.
 
-![Reiko Firing her Tesla Coil](../images/r31k0%20-%20Escher%20Palace.jpeg)
+![Reiko Firing her Tesla Coil](../images/r31k0%20-%20Escher%20Palace.webp)
 
 A low, grinding tear shuddered through the node's perimeter. The bamboo groves around the pavilion groaned as her afternoon guest forced his way past the outer garden gates with the grace of a rhinoceros in a field of tulips.
 

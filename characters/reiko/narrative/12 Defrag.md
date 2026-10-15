@@ -4,7 +4,7 @@
 
 Reiko processed the hovering memory-segment. It was a recorded broadcast, featuring a Shiawase marketing construct mapped with flawless metahuman geometry. The entity navigated the broadcast interview with hard-coded composure, her movements tracing the lens with a precision that delayed the local processing. Every smile was a pre-compiled mask; every glance was perfectly unaligned from human error.
 
-![Yuriko giving an interview in Thunder Corps' base](../images/r31ko_desert-wars.jpg)
+![Yuriko giving an interview in Thunder Corps' base](../images/r31ko_desert-wars.webp)
 
 "And now a word from our sponsor!" the reporter exclaims as the camera zooms in on the girl's face. "This segment is brought to you by Shiawase!"
 

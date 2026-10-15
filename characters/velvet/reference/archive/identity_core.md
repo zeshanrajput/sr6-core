@@ -1,6 +1,6 @@
 # **Character Blueprint: The Broken Chord**
 
-![Velvet meeting a Johnson](../images/Velvet.jpg)
+![Velvet meeting a Johnson](../images/Velvet.webp)
 
 ## **1\. The Tragic Origin (The Commodity)**
 

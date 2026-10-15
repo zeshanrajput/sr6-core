@@ -42,7 +42,7 @@ The gold circuits along Reiko's throat flushed violet. "It's complicated to expl
 
 Brynne looked at the boy, then at Reiko’s flushed circuits, and let out a weary sigh. "Fine. But I’m not apologizing for whatever mess you dragged me into." She lay back against the pillows, closing her eyes as she opened her direct neural feed. "Jack me in."
 
-![Reiko, Percy, and Brynne](../images/r31k0%20-%20symlink.jpeg)
+![Reiko, Percy, and Brynne](../images/r31k0%20-%20symlink.webp)
 
 ---
 

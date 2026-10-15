@@ -3,6 +3,7 @@ __pycache__/
 *.pyo
 *.pyd
 .venv/
+**/.venv/
 .env
 dist/
 build/
@@ -16,6 +17,7 @@ shadowrun_rules_vault/
 reports/
 data/
 _book/
+**/_book/
 .quarto/
 _site/
 site_libs/
@@ -30,7 +32,6 @@ characters/*/scratch/
 *.m4a
 *.aac
 *.ogg
-!characters/*/narrative/audio/*.mp3
-!characters/*/narrative/audio/*.wav
+*.opus
 *.exe
 bin/

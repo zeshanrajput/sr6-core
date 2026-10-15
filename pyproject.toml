@@ -21,14 +21,16 @@ dependencies = [
     "colorama>=0.4.6",
     "jupyter>=1.1.1",
     "ipykernel>=7.3.0",
-    "sqlite-vec>=0.1.9",
     "pytest>=8.0.0",
-    "faster-whisper>=1.0.0",
-    "av<14",
-    "yt-dlp>=2024.0.0"
+    "pillow>=10.0.0",
 ]
 
 [project.optional-dependencies]
+transcription = [
+    "faster-whisper>=1.0.0",
+    "av<14",
+    "yt-dlp>=2024.0.0",
+]
 narration = [
     "lameenc>=1.7.0",
     "torch",

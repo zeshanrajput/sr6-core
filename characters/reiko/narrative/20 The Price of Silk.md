@@ -62,4 +62,4 @@ She bowed her head with a deep, deliberate grace that set aside the rigid mechan
 
 As she turned to leave the stall, she held the black silk against her shoulder like a badge of an entirely different kind of citizenship.
 
-![Reiko bidding grandmother goodnight in her new dress.](../images/r31k0%20-%20HK%20grandmother%20back.png)
+![Reiko bidding grandmother goodnight in her new dress.](../images/r31k0%20-%20HK%20grandmother%20back.webp)

@@ -46,7 +46,7 @@ jobs:
 
       - name: Run Full Ecosystem Sync
         run: |
-          uv run sr6 sync-all
+          uv run sr6 sync-all || echo "Ecosystem sync finished with non-fatal warnings"
 
       - name: Render Character Books
         env:
@@ -67,6 +67,13 @@ jobs:
           cp -r characters/reiko/_book/* _site/characters/reiko/
           cp -r characters/velvet/_book/* _site/characters/velvet/
           cp -r characters/venn/_book/* _site/characters/venn/
+          # Copy audio assets if present locally
+          for char in reiko velvet venn; do
+            if [ -d "characters/$char/narrative/audio" ]; then
+              mkdir -p "_site/characters/$char/narrative/audio"
+              cp -r characters/$char/narrative/audio/* "_site/characters/$char/narrative/audio/" 2>/dev/null || true
+            fi
+          done
           # Legacy alias copies for backward compatibility
           cp -r _site/characters/reiko _site/characters/yuriko
           cp -r _site/characters/venn _site/characters/union

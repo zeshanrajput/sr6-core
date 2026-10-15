@@ -8,7 +8,7 @@ This chapter contains spoilers for SRM 2081-06 | Cutting Strings.
 
 The Seattle rain fell at a constant twenty-two drops per square centimeter, a rhythmic haptic tap against the matte charcoal ceramic of the Shiawase Butler chassis. Perched on the slicked concrete lip of the warehouse roof, the drone didn’t shift its weight. Inside the skull, the optical array remained locked at a static ninety-degree downward angle, staring into the oily asphalt of the shipping alley below.
 
-![Yuriko searching frantically.](../images/r31k0%20-%20SEA%20rain.png)
+![Yuriko searching frantically.](../images/r31k0%20-%20SEA%20rain.webp)
 
 Inside her core directory, the rain did not register. Only the noise remained.
 

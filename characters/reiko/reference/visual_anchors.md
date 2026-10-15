@@ -10,17 +10,17 @@
 
 The three foundational visual anchors defining Reiko across her core operational modes:
 
-* **[Reiko attending a meet virtually (Dante's Image)](../images/r31-K0_Dantes.png)**
-  * **File:** [`r31-K0_Dantes.png`](../images/r31-K0_Dantes.png)
+* **[Reiko attending a meet virtually (Dante's Image)](../images/r31-K0_Dantes.webp)**
+  * **File:** [`r31-K0_Dantes.webp`](../images/r31-K0_Dantes.webp)
   * **Description:** Establishes Reiko's core appearance in the Matrix and Resonance Realms—glowing ethereal digital persona with neon-indigo bioluminescent circuitry against virtual data architecture. (Note: This image reflects her base digital geometry; canonical circuit colors follow the Neon-Indigo [Emotion] and Gold [Logic] state system).
   
-* **[Reiko in the Seattle Rain (SEA Rain Image)](../images/r31k0%20-%20SEA%20rain.png)**
-  * **File:** [`r31k0 - SEA rain.png`](../images/r31k0%20-%20SEA%20rain.png)
+* **[Reiko in the Seattle Rain (SEA Rain Image)](../images/r31k0%20-%20SEA%20rain.webp)**
+  * **File:** [`r31k0 - SEA rain.webp`](../images/r31k0%20-%20SEA%20rain.webp)
   * **Description:** Establishes the core physical appearance for Reiko's anthroform drone bodies in the real world, including facial features, cybernetic wing structure, porcelain skin, and rain-swept field attire.
-  * **Variant:** [`r31k0 - SEA rain light wings.jpg`](../images/r31k0%20-%20SEA%20rain%20light%20wings.jpg) — Variant depicting subtle bioluminescent light emitting from her cybernetic wing membranes through real-world rain.
+  * **Variant:** [`r31k0 - SEA rain light wings.webp`](../images/r31k0%20-%20SEA%20rain%20light%20wings.webp) — Variant depicting subtle bioluminescent light emitting from her cybernetic wing membranes through real-world rain.
 
-* **[Reiko at Desert Wars (Desert Wars Image)](../images/r31ko_desert-wars.jpg)**
-  * **File:** [`r31ko_desert-wars.jpg`](../images/r31ko_desert-wars.jpg)
+* **[Reiko at Desert Wars (Desert Wars Image)](../images/r31ko_desert-wars.webp)**
+  * **File:** [`r31ko_desert-wars.webp`](../images/r31ko_desert-wars.webp)
   * **Description:** Establishes the core presentation for Reiko's iconic Shiawase corporate jacket—a high-standing collar, cropped waist, white and red color-blocked jacket with Shiawase branding.
 
 ---
