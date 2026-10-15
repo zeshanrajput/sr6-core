@@ -19,12 +19,13 @@ from sr6core.vault.gemini_sync import sync_gemini_store
 def main():
     parser = argparse.ArgumentParser(description="Synchronize local markdown rules vault to Google Gemini Store")
     parser.add_argument("--skip-updates", action="store_true", help="Skip updating files with identical hash")
+    parser.add_argument("--recreate", action="store_true", help="Delete and recreate the store for a clean sync")
     parser.add_argument("--workers", type=int, default=10, help="Concurrent upload workers")
     args = parser.parse_args()
 
     print("[*] Synchronizing rules vault to Google Gemini Store...")
     try:
-        res = sync_gemini_store(skip_updates=args.skip_updates, max_workers=args.workers)
+        res = sync_gemini_store(skip_updates=args.skip_updates, recreate=args.recreate, max_workers=args.workers)
         print("[OK] Sync completed successfully.")
         print(f"     Uploaded: {res.get('uploaded', 0)}")
         print(f"     Updated : {res.get('updated', 0)}")

@@ -39,24 +39,31 @@ def _upload_single_worker(client: genai.Client, file_store_name: str, path: path
         {"key": "is_missions_legal", "string_value": "true" if is_srm else "false"},
         {"key": "content_hash", "string_value": file_hash}
     ]
-    try:
-        op = client.file_search_stores.upload_to_file_search_store(
-            file_search_store_name=file_store_name,
-            file=str(path),
-            config={
-                "display_name": stem,
-                "custom_metadata": metadata
-            }
-        )
-        return (stem, op, None)
-    except Exception as e:
-        return (stem, None, str(e))
+    for attempt in range(5):
+        try:
+            op = client.file_search_stores.upload_to_file_search_store(
+                file_search_store_name=file_store_name,
+                file=str(path),
+                config={
+                    "display_name": stem,
+                    "custom_metadata": metadata
+                }
+            )
+            return (stem, op, None)
+        except Exception as e:
+            err_str = str(e)
+            if "429" in err_str or "resource_exhausted" in err_str.lower() or "quota" in err_str.lower():
+                time.sleep(2 ** attempt + 1)
+                continue
+            return (stem, None, err_str)
+    return (stem, None, "Exceeded retry limit (Rate limited)")
 
 
 def sync_gemini_store(
     vault_dir: Optional[str] = None,
     store_display_name: str = "Shadowrun 6E SRM Vault",
     skip_updates: bool = False,
+    recreate: bool = False,
     max_workers: int = 10,
     target_model: str = "models/gemini-embedding-001"
 ) -> Dict[str, Any]:
@@ -79,9 +86,12 @@ def sync_gemini_store(
         for s in stores:
             if s.display_name == store_display_name:
                 current_model = getattr(s, "embedding_model", None)
-                if current_model and current_model != target_model:
-                    print(f"Found store with mismatching model: {current_model}. Deleting to recreate with {target_model}...")
-                    client.file_search_stores.delete(name=s.name, config={"force": True})
+                if recreate or (current_model and current_model != target_model):
+                    print(f"Recreating store '{store_display_name}' for clean sync...")
+                    try:
+                        client.file_search_stores.delete(name=s.name, config={"force": True})
+                    except Exception as del_err:
+                        print(f"Notice during store delete: {del_err}")
                 else:
                     file_store = s
                     break
@@ -100,28 +110,31 @@ def sync_gemini_store(
     else:
         print(f"Found existing store: {file_store.name}")
 
-    print("Retrieving remote documents from the store...", flush=True)
     remote_docs = {}
-    docs = []
-    for attempt in range(1, 6):
-        try:
-            doc_pager = client.file_search_stores.documents.list(parent=file_store.name)
-            docs = []
-            for doc in doc_pager:
-                docs.append(doc)
-                if len(docs) % 1000 == 0:
-                    print(f"  Fetched {len(docs)} remote documents...", flush=True)
-            break
-        except Exception as e:
-            print(f"Listing remote documents failed (attempt {attempt}/5): {e}", flush=True)
-            if attempt < 5:
-                time.sleep(attempt * 3)
-            else:
-                return {"success": False, "error": f"Failed retrieving remote documents: {e}"}
+    if not recreate:
+        print("Retrieving remote documents from the store...", flush=True)
+        docs = []
+        for attempt in range(1, 6):
+            try:
+                doc_pager = client.file_search_stores.documents.list(parent=file_store.name)
+                docs = []
+                for doc in doc_pager:
+                    docs.append(doc)
+                    if len(docs) % 1000 == 0:
+                        print(f"  Fetched {len(docs)} remote documents...", flush=True)
+                break
+            except Exception as e:
+                print(f"Listing remote documents failed (attempt {attempt}/5): {e}", flush=True)
+                if attempt < 5:
+                    time.sleep(attempt * 3)
+                else:
+                    return {"success": False, "error": f"Failed retrieving remote documents: {e}"}
 
-    for doc in docs:
-        remote_docs[doc.display_name] = doc
-    print(f"Found {len(remote_docs)} remote documents.", flush=True)
+        for doc in docs:
+            remote_docs[doc.display_name] = doc
+        print(f"Found {len(remote_docs)} remote documents.", flush=True)
+    else:
+        print("Clean store created. Proceeding directly to upload.", flush=True)
 
     local_files = get_local_vault_files(target_vault)
     print(f"Found {len(local_files)} local files in vault: {target_vault}")
