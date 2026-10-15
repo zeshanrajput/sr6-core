@@ -1137,6 +1137,137 @@ def format_statblock_plaintext(model: Any, title: Optional[str] = None, width: i
     return f"{model}\n"
 
 
+def parse_npc_statblock(content: str) -> Optional[NPCStatBlock]:
+    """
+    Parses an NPC or dossier stat block from rule content into an NPCStatBlock Pydantic model.
+    Recognizes attribute markdown tables:
+      | B | A | R | S | W | L | I | C | EDG | ESS |
+    and secondary tables:
+      | DR | I/ID | AC | CM | MOVE |
+    along with skills, qualities, augmentations, and weapons.
+    """
+    if not content:
+        return None
+
+    # Check for presence of attribute table
+    has_attrs = bool(re.search(r'\|\s*B\s*\|\s*A\s*\|\s*R\s*\|\s*S\s*\|', content, re.IGNORECASE))
+    if not has_attrs:
+        return None
+
+    name = "NPC Entity"
+    header_m = re.search(r'^(?:#|##|###)\s*(.+)$', content, re.MULTILINE)
+    if header_m:
+        cand = header_m.group(1).strip()
+        if not any(x in cand.lower() for x in ["data and dossiers", "chapter", "credits"]):
+            name = cand
+
+    # Separate individual tables if multiple exist in content
+    raw_tables = []
+    current_tbl = []
+    for line in content.split("\n"):
+        stripped = line.strip()
+        if stripped.startswith("|") and stripped.endswith("|"):
+            current_tbl.append(stripped)
+        else:
+            if current_tbl:
+                raw_tables.append("\n".join(current_tbl))
+                current_tbl = []
+    if current_tbl:
+        raw_tables.append("\n".join(current_tbl))
+
+    attr_row = None
+    sec_row = None
+
+    for tbl_text in raw_tables:
+        rows = parse_markdown_table_rows(tbl_text)
+        for r in rows:
+            if "b" in r and "a" in r and "r" in r and "s" in r and "w" in r:
+                attr_row = r
+            elif any(k in r for k in ("dr", "iid", "i/id", "move")):
+                sec_row = r
+
+    if not attr_row:
+        return None
+
+    def _val(row, key, default=1):
+        v = row.get(key, str(default)).strip()
+        m = re.search(r'(\d+)', v)
+        return int(m.group(1)) if m else default
+
+    def _float_val(row, key, default=6.0):
+        v = row.get(key, str(default)).strip()
+        m = re.search(r'(\d+(?:\.\d+)?)', v)
+        return float(m.group(1)) if m else default
+
+    attrs = AttributeBlock(
+        body=_val(attr_row, "b", 1),
+        agility=_val(attr_row, "a", 1),
+        reaction=_val(attr_row, "r", 1),
+        strength=_val(attr_row, "s", 1),
+        willpower=_val(attr_row, "w", 1),
+        logic=_val(attr_row, "l", 1),
+        intuition=_val(attr_row, "i", 1),
+        charisma=_val(attr_row, "c", 1),
+        edge=_val(attr_row, "edg", 1),
+        essence=_float_val(attr_row, "ess", 6.0),
+        magic=_val(attr_row, "m", 0) if "m" in attr_row else 0,
+        resonance=_val(attr_row, "res", 0) if "res" in attr_row else 0,
+    )
+
+    init_str = "6 + 1D6"
+    dr_val = 6
+    if sec_row:
+        dr_val = _val(sec_row, "dr", 6)
+        if "i/id" in sec_row:
+            init_str = sec_row["i/id"].strip()
+
+    skills = {}
+    skills_m = re.search(r'(?:Active Skills|Skills):\s*(.+?)(?=\n\n|\n[A-Z][a-z]+:|$)', content, re.DOTALL | re.IGNORECASE)
+    if skills_m:
+        raw_skills = skills_m.group(1).replace("\n", " ").strip()
+        for item in _split_outside_parens(raw_skills, ","):
+            item = item.strip()
+            s_match = re.match(r"^([A-Za-z\s\(\)\+]+?)\s+(\d+)$", item)
+            if s_match:
+                skills[s_match.group(1).strip()] = int(s_match.group(2))
+
+    qualities = []
+    qual_m = re.search(r'Qualities:\s*(.+?)(?=\n\n|\n[A-Z][a-z]+:|$)', content, re.DOTALL | re.IGNORECASE)
+    if qual_m:
+        raw_q = qual_m.group(1).replace("\n", " ").strip()
+        qualities = [q.strip() for q in _split_outside_parens(raw_q, ",") if q.strip()]
+
+    augmentations = []
+    aug_m = re.search(r'Augmentations:\s*(.+?)(?=\n\n|\n[A-Z][a-z]+:|$)', content, re.DOTALL | re.IGNORECASE)
+    if aug_m:
+        raw_a = aug_m.group(1).replace("\n", " ").strip()
+        augmentations = [a.strip() for a in _split_outside_parens(raw_a, ",") if a.strip()]
+
+    gear = []
+    gear_m = re.search(r'Gear:\s*(.+?)(?=\n\n|\n[A-Z][a-z]+:|$)', content, re.DOTALL | re.IGNORECASE)
+    if gear_m:
+        raw_g = gear_m.group(1).replace("\n", " ").strip()
+        gear = [g.strip() for g in _split_outside_parens(raw_g, ",") if g.strip()]
+
+    weapons = []
+    weap_m = re.search(r'Weapons?:\s*(.+?)(?=\n\n|\n[A-Z][a-z]+:|$)', content, re.DOTALL | re.IGNORECASE)
+    if weap_m:
+        raw_w = weap_m.group(1).replace("\n", " ").strip()
+        weapons = [w.strip() for w in _split_outside_parens(raw_w, ",") if w.strip()]
+
+    return NPCStatBlock(
+        name=name,
+        attributes=attrs,
+        initiative=init_str,
+        defense_rating=max(1, dr_val),
+        skills=skills,
+        qualities=qualities,
+        augmentations=augmentations,
+        gear=gear,
+        weapons=weapons,
+    )
+
+
 def extract_statblocks_from_rule(content: str) -> List[Any]:
     """
     Extracts all typed Pydantic stat blocks from a rule chunk content.

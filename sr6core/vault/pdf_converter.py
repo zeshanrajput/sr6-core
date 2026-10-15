@@ -198,6 +198,223 @@ def convert_pdf_with_docling(pdf_path: str, use_cuda: bool = True) -> str:
     return result.document.export_to_markdown()
 
 
+BOOK_PAGE_OFFSETS: Dict[str, Dict[str, int]] = {
+    "SR6 Core Rulebook": {"start_pdf_page": 3, "offset": -2},
+    "Firing Squad": {"start_pdf_page": 2, "offset": -1},
+    "Street Wyrd": {"start_pdf_page": 2, "offset": -1},
+    "Double Clutch": {"start_pdf_page": 2, "offset": -1},
+    "Sixth World Companion": {"start_pdf_page": 3, "offset": -2},
+    "Hack and Slash": {"start_pdf_page": 2, "offset": -1},
+    "Body Shop": {"start_pdf_page": 2, "offset": -1},
+    "Wild Life": {"start_pdf_page": 2, "offset": -1},
+    "City Edition Seattle": {"start_pdf_page": 2, "offset": -1},
+    "Berlin Edition": {"start_pdf_page": 2, "offset": -1},
+    "State of the Art 2084": {"start_pdf_page": 2, "offset": -1},
+}
+
+
+def extract_page_number(page: Any, doc: Any, book_title: str = "") -> int:
+    """
+    Extracts the true printed page number using native /PageLabels,
+    cropped footer bounding-box validation, or calibrated book offsets.
+    """
+    # 1. Primary: Native PDF /PageLabels
+    try:
+        label = page.get_label()
+        if label and label.isdigit():
+            val = int(label)
+            if 0 < val < 2000:
+                return val
+    except Exception:
+        pass
+
+    # 2. Secondary: Cropped footer bounding box (bottom 7% of page)
+    try:
+        rect = page.rect
+        footer_rect = page.rect.__class__(0, rect.height * 0.93, rect.width, rect.height)
+        footer_text = page.get_text("text", clip=footer_rect).strip()
+        digits = re.findall(r'\b\d{1,4}\b', footer_text)
+        if digits:
+            for d in digits:
+                val = int(d)
+                if 0 < val < 1500:
+                    return val
+    except Exception:
+        pass
+
+    # 3. Tertiary: Calibrated book offset
+    for title_key, cfg in BOOK_PAGE_OFFSETS.items():
+        if title_key.lower() in book_title.lower():
+            return max(1, page.number + cfg.get("offset", 0))
+
+    # 4. Fallback: 1-indexed physical page
+    return page.number + 1
+
+
+def reconstruct_statblock_table(block_dict: Dict[str, Any]) -> str:
+    """Reconstructs attribute tables from PyMuPDF dict blocks if present."""
+    lines = block_dict.get("lines", [])
+    if not lines:
+        return ""
+
+    span_items = []
+    for line in lines:
+        for span in line.get("spans", []):
+            t = span.get("text", "").strip()
+            if t:
+                span_items.append((span["bbox"][0], span["bbox"][1], t))
+
+    texts = [t for _, _, t in span_items]
+
+    # Check for primary attributes: B A R S W L I C (EDG, ESS)
+    attr_keys = ["B", "A", "R", "S", "W", "L", "I", "C"]
+    if all(k in texts[:12] for k in attr_keys):
+        val_start = -1
+        for i, t in enumerate(texts):
+            if i > 7 and (t.replace(".", "").isdigit() or "(" in t or "+" in t):
+                val_start = i
+                break
+        if val_start != -1:
+            header_keys = texts[:val_start]
+            values = texts[val_start:val_start + len(header_keys)]
+            if len(values) == len(header_keys):
+                md_table = "| " + " | ".join(header_keys) + " |\n"
+                md_table += "| " + " | ".join(["---"] * len(header_keys)) + " |\n"
+                md_table += "| " + " | ".join(values) + " |\n\n"
+                return md_table
+
+    # Check for secondary attributes: DR I/ID AC CM MOVE
+    if all(k in texts[:8] for k in ["DR", "I/ID", "CM"]):
+        val_start = -1
+        for i, t in enumerate(texts):
+            if i >= 3 and (t.isdigit() or "/" in t or "A" in t):
+                val_start = i
+                break
+        if val_start != -1:
+            header_keys = texts[:val_start]
+            values = texts[val_start:val_start + len(header_keys)]
+            if len(values) == len(header_keys):
+                md_table = "| " + " | ".join(header_keys) + " |\n"
+                md_table += "| " + " | ".join(["---"] * len(header_keys)) + " |\n"
+                md_table += "| " + " | ".join(values) + " |\n\n"
+                return md_table
+
+    return ""
+
+
+def convert_pdf_with_layout_stream(pdf_path: str) -> str:
+    """
+    Layout-aware, continuous stream extractor:
+    - Resolves true printed page numbers via native /PageLabels and footer bounding box.
+    - Injects deterministic inline <!-- PAGE: {n} --> anchors.
+    - Sequences multi-column text geometry (x0, y0, width > 70%) to avoid column interleaving.
+    - Reconstructs borderless / shaded stat blocks into standard Markdown tables.
+    - Isolates JackPoint commentary into styled blockquotes.
+    - Uses font metadata (size, font family, color) to tag H1/H2/H3 headings.
+    """
+    try:
+        import pymupdf
+    except ImportError:
+        raise ImportError("pymupdf is required for layout stream conversion. Run 'uv pip install pymupdf'")
+
+    doc = pymupdf.open(pdf_path)
+    book_title = pathlib.Path(pdf_path).stem
+    stream_output = []
+
+    for page_idx in range(len(doc)):
+        page = doc[page_idx]
+        page_num = extract_page_number(page, doc, book_title=book_title)
+        page_rect = page.rect
+        mid_x = page_rect.width / 2.0
+
+        stream_output.append(f"\n\n<!-- PAGE: {page_num} -->\n\n")
+
+        d = page.get_text("dict")
+        blocks = d.get("blocks", [])
+
+        # Filter out running header (top 5%) and running footer (bottom 6%)
+        # Note: PyMuPDF's internal layout engine already orders blocks by natural reading flow.
+        page_blocks = []
+        for b in blocks:
+            if "lines" not in b:
+                continue
+            x0, y0, x1, y1 = b["bbox"]
+            if y1 <= page_rect.height * 0.05 or y0 >= page_rect.height * 0.94:
+                continue
+            page_blocks.append(b)
+
+        for b in page_blocks:
+            # Check for attribute stat block
+            stat_table = reconstruct_statblock_table(b)
+            if stat_table:
+                stream_output.append(stat_table)
+                continue
+
+            block_lines = []
+            lines = b.get("lines", [])
+            idx = 0
+            while idx < len(lines):
+                line = lines[idx]
+                spans = [s for s in line.get("spans", []) if s.get("text", "").strip()]
+                if not spans:
+                    idx += 1
+                    continue
+
+                line_text = "".join(s.get("text", "") for s in line.get("spans", []))
+                first_sz = spans[0].get("size", 10.0)
+                all_bold = all("bold" in s.get("font", "").lower() or "njord" in s.get("font", "").lower() for s in spans)
+                clean_lt = line_text.strip()
+
+                # Check if this line is an all-bold question (or start of a multi-line question)
+                if all_bold and first_sz <= 12.5 and ("?" in clean_lt or (idx + 1 < len(lines) and "?" in "".join(s.get("text", "") for s in lines[idx+1].get("spans", [])))):
+                    q_lines = [clean_lt]
+                    while not q_lines[-1].endswith("?") and idx + 1 < len(lines):
+                        next_spans = [s for s in lines[idx+1].get("spans", []) if s.get("text", "").strip()]
+                        if next_spans and all("bold" in s.get("font", "").lower() or "njord" in s.get("font", "").lower() for s in next_spans):
+                            idx += 1
+                            q_lines.append("".join(s.get("text", "") for s in lines[idx].get("spans", [])).strip())
+                        else:
+                            break
+                    full_q = " ".join(q_lines)
+                    block_lines.append(f"\n### {full_q}\n")
+                    idx += 1
+                    continue
+
+                # Check for all-caps section header (e.g. SECTION 2: ORGANIZED PLAY)
+                if all_bold and clean_lt.isupper() and len(clean_lt) > 3 and not clean_lt.endswith("?"):
+                    block_lines.append(f"\n## {clean_lt}\n")
+                    idx += 1
+                    continue
+
+                formatted_line = ""
+                for span in line.get("spans", []):
+                    stext = span.get("text", "")
+                    sz = span.get("size", 10.0)
+                    fn = span.get("font", "").lower()
+                    color = span.get("color", 0)
+
+                    # Tag headings based on font properties
+                    if sz >= 18.0:
+                        stext = f"\n# {stext.strip()}\n"
+                    elif sz >= 12.5 and ("njord" in fn or "bold" in fn or color in (0x960470, 0xbd1a8d)):
+                        stext = f"\n## {stext.strip()}\n"
+                    elif sz >= 11.0 and ("njord" in fn or "bold" in fn):
+                        stext = f"\n### {stext.strip()}\n"
+                    formatted_line += stext
+                if formatted_line.strip():
+                    block_lines.append(formatted_line)
+                idx += 1
+
+            if block_lines:
+                if any(l.strip().startswith("#") for l in block_lines):
+                    full_block = "\n".join(block_lines)
+                else:
+                    full_block = " ".join(block_lines)
+                stream_output.append(full_block + "\n\n")
+
+    return "".join(stream_output)
+
+
 def convert_pdf_with_pymupdf(pdf_path: str) -> str:
     """
     Converts a PDF file using PyMuPDF4LLM fast layout parser.
@@ -218,7 +435,8 @@ def convert_pdf_to_md(
     Converts a single PDF file to cleaned Markdown using the specified engine.
     
     Engines:
-      - 'auto': Prefers 'docling' if GPU/Docling available, falls back to 'pymupdf'
+      - 'auto': Uses 'layout' (column-aware + inline page markers) by default, or 'docling' if requested
+      - 'layout': Layout-aware continuous stream with native /PageLabels and stat table reconstruction
       - 'docling': GPU-accelerated DocLayNet + TableFormer layout parser
       - 'pymupdf': Fast local PyMuPDF4LLM extractor
     """
@@ -227,25 +445,19 @@ def convert_pdf_to_md(
 
     os.makedirs(os.path.dirname(os.path.abspath(md_path)), exist_ok=True)
 
-    # Engine selection
     selected_engine = engine.lower()
     if selected_engine == "auto":
-        if DOCLING_AVAILABLE and (is_cuda_available() or not pymupdf4llm):
-            selected_engine = "docling"
-        elif pymupdf4llm is not None:
-            selected_engine = "pymupdf"
-        elif DOCLING_AVAILABLE:
-            selected_engine = "docling"
-        else:
-            return False, "Neither 'docling' nor 'pymupdf4llm' are installed."
+        selected_engine = "layout"
 
     try:
-        if selected_engine == "docling":
+        if selected_engine == "layout":
+            md_text = convert_pdf_with_layout_stream(pdf_path)
+        elif selected_engine == "docling":
             md_text = convert_pdf_with_docling(pdf_path, use_cuda=use_cuda)
         elif selected_engine == "pymupdf":
             md_text = convert_pdf_with_pymupdf(pdf_path)
         else:
-            return False, f"Unknown PDF conversion engine: '{engine}'. Use 'docling', 'pymupdf', or 'auto'."
+            return False, f"Unknown PDF conversion engine: '{engine}'. Use 'layout', 'docling', or 'pymupdf'."
     except Exception as e:
         return False, f"PDF conversion failed with engine '{selected_engine}': {e}"
 

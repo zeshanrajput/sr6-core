@@ -57,10 +57,27 @@ FILE_MAP = {
     'CAT28000S_SR6 Core City Edition Seattle.md': {'abbrev': '6WS', 'level': 3, 'name': 'City Edition: Seattle'},
     'Shadowrun_CGL_Sixth_Edition_Shadowrun_Sixth_World_Core_Rulebook.md': {'abbrev': 'SR6H', 'level': 3, 'name': 'City Edition: Hong Kong'},
     'Shadowrun_CGL_Sixth_Edition_Québec_The_Northern_Lily_OEF,_2026_06.md': {'abbrev': 'QNL', 'level': 2, 'name': 'Québec: The Northern Lily'},
+    'Shadowrun_CGL_Sixth_Edition_Quebec_The_Northern_Lily_OEF,_2026_06.md': {'abbrev': 'QNL', 'level': 2, 'name': 'Québec: The Northern Lily'},
+    'CAT28012_State_of_the_Art_2084.md': {'abbrev': 'SOTA84', 'level': 2, 'name': 'State of the Art 2084'},
+    'SR6E - State of the Art 2084.md': {'abbrev': 'SOTA84', 'level': 2, 'name': 'State of the Art 2084'},
     '6we Matrix FAQ.md': {'abbrev': 'MFAQ', 'level': 4, 'name': '6we Matrix FAQ'},
     'Shadowrun Missions Gamemaster Primer.md': {'abbrev': 'GMP', 'level': 4, 'name': 'Shadowrun Missions Gamemaster Primer'},
     'SR6-Character-Conversion-Guide-v1.md': {'abbrev': 'CCG', 'level': 4, 'name': 'Character Conversion Guide v1'},
-    'Final Edit - Character Conversion Guide.md': {'abbrev': 'CCG2', 'level': 4, 'name': 'Character Conversion Guide (Final Edit)'}
+    'Final Edit - Character Conversion Guide.md': {'abbrev': 'CCG2', 'level': 4, 'name': 'Character Conversion Guide (Final Edit)'},
+    'CAT27454_NeoA Streetpedia.md': {'abbrev': 'NAS', 'level': 2, 'name': 'Neo-Anarchist Streetpedia'},
+    'CAT28300_Cutting Black.md': {'abbrev': 'CB', 'level': 2, 'name': 'Cutting Black'},
+    'CAT28304_The_Needles_Eye.md': {'abbrev': 'NE', 'level': 2, 'name': "The Needle's Eye"},
+    'CAT28400_30 Nights.md': {'abbrev': '30N', 'level': 2, 'name': '30 Nights'},
+    'CAT28401_Free_Seattle_Adventure.md': {'abbrev': 'FSA', 'level': 2, 'name': 'Free Seattle'},
+    'CAT28402_Assassins Night.md': {'abbrev': 'AN', 'level': 2, 'name': "Assassin's Night"},
+    'CAT28403_The Third Parallel.md': {'abbrev': 'TTP', 'level': 2, 'name': 'The Third Parallel'},
+    'CAT28405_Final_Bets.md': {'abbrev': 'FB', 'level': 2, 'name': 'Final Bets'},
+    'CAT28517_Mean_Streets.md': {'abbrev': 'MS', 'level': 2, 'name': 'Mean Streets'},
+    'E-CAT28819S_Running_a_la_Carte.md': {'abbrev': 'RAC', 'level': 2, 'name': 'Running à la Carte'},
+    'Shadowrun_CGL_Sixth_Edition_Explosive_Decompression_OEF,_2026_02.md': {'abbrev': 'ED', 'level': 2, 'name': 'Explosive Decompression'},
+    'Shadowrun_CGL_Sixth_Edition_Los_Alamos_The_Secret_City_OEF,_2026.md': {'abbrev': 'LASC', 'level': 2, 'name': 'Los Alamos: The Secret City'},
+    'Shadowrrun - Deus ex Arcana [Core Advanced Magical Rulebook].md': {'abbrev': 'DEA', 'level': 2, 'name': 'Deus ex Arcana'},
+    'SR6_First_Taste_-_Top_Chef_New_Orleans.docx.md': {'abbrev': 'TCNO', 'level': 2, 'name': 'First Taste: Top Chef New Orleans'}
 }
 
 TAG_RULES = {
@@ -139,15 +156,27 @@ def chunk_markdown(content: str) -> List[Dict[str, Any]]:
     current_h2 = ""
     current_h3 = ""
     current_page = 1
-    current_chunk = {'h1': "", 'h2': "", 'h3': "", 'start_page': 1, 'lines': []}
+    has_page_markers = "<!-- PAGE:" in content
+    current_chunk = {'h1': "", 'h2': "", 'h3': "", 'start_page': 1, 'end_page': 1, 'lines': []}
 
     for line in lines:
         stripped = line.strip()
-        page_match = re.search(r'^\s*(\d+)\s*$', stripped)
-        if page_match:
-            val = int(page_match.group(1))
-            if 0 < val < 2000:
-                current_page = val + 1
+
+        # Deterministic: Match inline <!-- PAGE: 165 --> markers
+        page_marker = re.search(r'<!--\s*PAGE:\s*(\d+)\s*-->', stripped)
+        if page_marker:
+            current_page = int(page_marker.group(1))
+            current_chunk['end_page'] = current_page
+            continue
+
+        # Legacy fallback ONLY if no explicit page markers exist in file
+        if not has_page_markers:
+            page_match = re.search(r'^\s*(\d{1,4})\s*$', stripped)
+            if page_match:
+                val = int(page_match.group(1))
+                if 10 < val < 600:
+                    current_page = val + 1
+                    current_chunk['end_page'] = current_page
 
         h1_match = re.match(r'^#\s+(.+)$', line)
         h2_match = re.match(r'^##\s+(.+)$', line)
@@ -170,7 +199,7 @@ def chunk_markdown(content: str) -> List[Dict[str, Any]]:
                 current_h1 = h1_text
                 current_h2 = ""
                 current_h3 = ""
-                current_chunk = {'h1': current_h1, 'h2': current_h2, 'h3': current_h3, 'start_page': current_page, 'lines': [line]}
+                current_chunk = {'h1': current_h1, 'h2': current_h2, 'h3': current_h3, 'start_page': current_page, 'end_page': current_page, 'lines': [line]}
         elif h2_match and not is_sub_section and is_valid_header(h2_match.group(1)):
             h2_text = clean_header(h2_match.group(1))
             if not chunk_has_content(current_chunk['lines']):
@@ -181,7 +210,7 @@ def chunk_markdown(content: str) -> List[Dict[str, Any]]:
                 chunks.append(current_chunk)
                 current_h2 = h2_text
                 current_h3 = ""
-                current_chunk = {'h1': current_h1, 'h2': current_h2, 'h3': current_h3, 'start_page': current_page, 'lines': [line]}
+                current_chunk = {'h1': current_h1, 'h2': current_h2, 'h3': current_h3, 'start_page': current_page, 'end_page': current_page, 'lines': [line]}
         elif h3_match and not is_sub_section and is_valid_header(h3_match.group(1)):
             h3_text = clean_header(h3_match.group(1))
             if not chunk_has_content(current_chunk['lines']):
@@ -191,7 +220,7 @@ def chunk_markdown(content: str) -> List[Dict[str, Any]]:
             else:
                 chunks.append(current_chunk)
                 current_h3 = h3_text
-                current_chunk = {'h1': current_h1, 'h2': current_h2, 'h3': current_h3, 'start_page': current_page, 'lines': [line]}
+                current_chunk = {'h1': current_h1, 'h2': current_h2, 'h3': current_h3, 'start_page': current_page, 'end_page': current_page, 'lines': [line]}
         else:
             current_chunk['lines'].append(line)
 
@@ -419,8 +448,10 @@ def process_file(filename: str, input_dir: str, output_dir: str) -> int:
 
         if 'page_range' in chunk:
             page_field = chunk['page_range']
+        elif chunk.get('start_page') and chunk.get('end_page') and chunk['start_page'] != chunk['end_page']:
+            page_field = f"{chunk['start_page']}-{chunk['end_page']}"
         else:
-            if not page_citation and chunk['start_page']:
+            if not page_citation and chunk.get('start_page'):
                 page_citation = chunk['start_page']
             if page_citation and isinstance(page_citation, str) and page_citation.isdigit():
                 page_field = int(page_citation)
