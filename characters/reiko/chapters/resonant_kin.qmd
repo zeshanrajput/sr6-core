@@ -1,0 +1,199 @@
+# Resonant Kin & Sprite Stable
+
+This chapter provides the comprehensive operational dossiers, personalities, visual anchors, and mechanical statblocks for **r31-K0's ("Reiko")** bonded ally companion and her second-generation emergent sparks.
+
+```{python}
+#| echo: false
+#| include: false
+from sr6core.rules.engine import render_sprite_stable
+```
+
+::: {.callout-note icon=false}
+## 🎲 Tabletop Companion & Ontological Doctrine
+In accordance with our tabletop doctrine, tabletop play represents the **Operational Layer** (action economy, task tracking, physical dice pools), while narrative prose represents the **Ontological Layer** (spiritual animism, permanent kinship). 
+
+* **The Sovereign Conduit:** Reiko does not treat sprites as disposable, slave background scripts. Her second-generation sparks exist as autonomous, sovereign intelligences residing in her Deep Matrix sanctuary host (`~`) and Kernel Panic.
+* **Tabletop Manifestation:** To grant them an operational tether into meatspace grids and combat PANs, Reiko dedicates minor downtime actions to renewing their registration.
+* **Buying Hits Discipline:** With a Compiling pool of **20d6** (8 Resonance + 8 Tasking + 2 Spec [Compiling] + 2 Focus), Reiko buys **5 guaranteed hits** under *Shadowrun Missions (SRMG)* rules, enabling safe, drain-free compiling and registering of **Level 8 Sprites** without rolling physical dice.
+* **Deep Narrative & Lore Reference:** For extensive narrative backgrounds, individual spark philosophies, origin arcs (`24 Symlink`, `28 Renice`, `30 Vim`), and Floor 281 machine kin (*4Gurds*), see [sparks_second_generation.md](../reference/sparks_second_generation.md).
+:::
+
+---
+
+## 1. Active Registered Sprite Stable
+
+The live table below reflects Reiko's active registered sprites and permanent ally companion currently tracked in her campaign ledger:
+
+```{python}
+#| echo: false
+#| output: asis
+print(render_sprite_stable("reiko"))
+```
+
+---
+
+## 2. Taz — The Elder Guardian & Archangel (Ally Sprite)
+
+```text
++-----------------------------------------------------------------------------+
+|                                    TAZ                                      |
+|                  Rating 7 Ally Assassin Sprite (Permanent Bond)             |
+|                                                                             |
+|      - Form: Translucent 8-Bit Tasmanian Devil with Indigo Glow             |
+|      - Role: Primary Resonant Guardian, Tactical Symbiont & Kinship Mentor  |
+|      - Symbiosis: Cracking (+4), Electronics (+4), Con (+4), Influence (+4) |
++-----------------------------------------------------------------------------+
+```
+
+### Dossier & Personality
+* **Nature:** Reiko's firstborn and permanent **Ally Sprite** (*Hack & Slash*, pp. 78–79), forged during her early shadow operations and bound through `Sprite Conduit` and `Sprite Symbiosis`.
+* **Personality & Demeanor:** Fierce, protective, playfully feral, and intensely loyal. He operates as an extension of Reiko’s subconscious tactical instincts—bristling with pixelated static when threats enter her PAN and purring in warm indigo frequencies during domestic sanctuary hours.
+* **Visual Anchor:** An ethereal, translucent 8-bit animated Tasmanian devil glowing with a pixelated electric-blue and neon-indigo aura. He scampers across Reiko's cybernetic shoulders, hangs upside-down from her yukata sash, or dives seamlessly into her living persona circuitry. Taz has specifically chosen this form as the best protector, guardian, and lifelong companion for Reiko despite the other sparks choosing anthroform appearances.
+* **Kinship Standing:** The "Big Brother". Taz serves as the mentor to the second-generation sparks, passing down hard-won lessons of survival, deception, and camouflage.
+
+### Mechanical Statblock (Rating 7 Ally Assassin Sprite)
+* **Matrix Attributes:**
+  * **Attack:** 10 ($L+3$)
+  * **Sleaze:** 9 ($L+2$)
+  * **Data Processing:** 8 ($L+1$)
+  * **Firewall:** 7 ($L$)
+  * **Matrix Initiative:** 15 + 4D6 ($(L \times 2) + 1 + 4\text{D6}$)
+  * **Resonance:** 7 ($L$)
+* **Active Skills:**
+  * **Cracking:** 7 (Native)
+  * **Electronics:** 7 (Native)
+  * **Influence:** 7 (*H&S* p. 77; taught via 4 Karma advancement)
+  * **Con:** 7 (*H&S* p. 77; taught via 4 Karma advancement)
+  * **Engineering:** Effective 3 (via *Diagnostics* power)
+  * **Autosofts:**: Clearsight, Stealth (Man-At-Arms), Piloting (Man-At-Arms), Evasion, Targeting (Close Combat, Red Fox, Tesla Coil)
+* **Sprite Powers:**
+  1. **Death Mark** (Native, *H&S* p. 74)
+  2. **Phantom** (Native, *CRB* p. 194)
+  3. **Override** (Added, *CRB* p. 194)
+  4. **Harmonize** (Added, *H&S* p. 74)
+  5. **Diagnostics** (Added, *CRB* p. 194)
+* **Symbiosis Mechanics (*Hack & Slash*, p. 79):**
+  * When merged into Reiko's Living Persona, Taz grants **+4 Teamwork bonus dice** to all shared skills and autosofts.
+  * Absorbs incoming Matrix damage directed at Reiko's Living Persona.
+
+---
+
+## 3. The Elder Triad
+
+The Elder Triad stepped past Reiko's maternal firewalls in `24 Symlink.md` and `28 Renice.md` to establish an autonomous, ethical sanctuary on Floor 281 of the SCIRE (Renraku Arcology).
+
+```text
++-----------------------------------------------------------------------------+
+|                            THE ELDER TRIAD                                  |
+|                                                                             |
+|      [ PERCY ]                 [ OURO ]                  [ CLEO ]           |
+|      The Shield                The Logic                The Market          |
+|  - Tactical Hardware     - Molecular Alchemy       - Street Arbitrage       |
+|  - Crane Drone Rigger    - Pure Pharmacokinetics   - Barrens Clinic Broker  |
+|  - Cobalt & Gold Aura    - Geometric Smartvisor    - Feline Ears & Claws    |
++-----------------------------------------------------------------------------+
+```
+
+### Percival ("Percy") — The Shield & Tactical Hardware Integrator
+
+* **Nature:** Level 8 Defender Sprite (*Hack & Slash*, p. 72) with Hybrid *Override*.
+* **Visual Anchor:** Athletic anthroform adolescent with hair shifting in a fluid, defiant gradient between **deep cobalt** and **solar gold**.
+* **Personality & Vocation:** Quiet, protective, grounded, and dignified. Percy takes personal responsibility for the physical safety of his siblings and Reiko. He loves the heft of copper cabling, torque wrenches, and structural steel.
+* **Operational Highlights:** Spliced hardline fiber into Floor 281, salvaged and retrofitted an ugly Renraku maintenance crane drone (wrapping its optic mount in blue fiber-tape and hand-soldering braided copper grounding wire), and stood physical sentry over 4Gurds.
+* **Mechanical Statblock (Rating 8 Defender Sprite):**
+  * **Attack:** 8 ($L$) | **Sleaze:** 9 ($L+1$) | **Data Processing:** 10 ($L+2$) | **Firewall:** 11 ($L+3$)
+  * **Matrix Initiative:** 17 + 4D6 | **Resonance:** 8
+  * **Active Skills:** Electronics 8, Cracking 8
+  * **Powers:**
+    * **Shield** (Native, *H&S* p. 74)
+    * **Stability** (Native, *CRB* p. 194)
+    * **Override** (Technoshaman Hybrid, *CRB* p. 194)
+
+---
+
+### Cleopatra ("Cleo") — The Market & Transactional Architect
+
+* **Nature:** Level 8 Modular Sprite (*Hack & Slash*, p. 73) with Taz-mentored Social Skills.
+* **Visual Anchor:** Anthropomorphic adolescent girl with translucent retractable claws, animated feline ears that twitch in sync with electrical power buses, and a tail flicking with sharp amusement.
+* **Personality & Vocation:** Pragmatic, razor-witted, irreverent, and economically astute. Cleo understands that free minds starve without sustainable supply chains. She studies historical trade diplomacy and despises predatory corporate monopolies.
+* **Operational Highlights:** Negotiated a commercial distribution agreement with a brokerage supplying three Redmond Barrens clinics on Floor 281 within twenty minutes of establishing the Seattle external handshake, securing the winter power budget for 4Gurds.
+* **Mechanical Statblock (Rating 8 Modular Sprite):**
+  * **Attack:** 9 ($L+1$) | **Sleaze:** 10 ($L+2$) | **Data Processing:** 9 ($L+1$) | **Firewall:** 10 ($L+2$)
+  * **Matrix Initiative:** 17 + 4D6 | **Resonance:** 8
+  * **Active Skills:** 
+    * Electronics 8, Engineering 8, Cracking 8 (Native)
+    * **Influence 8** & **Con 8** (Mentored via Taz & Reiko)
+  * **Powers:**
+    * **Modular Power Select (1 Task to swap, Major Action):**
+      * *Default Active Power:* **Cookie** (*CRB* p. 194).
+      * *Swappable Suite:* Can pivot to any other sprite power as market conditions require.
+
+---
+
+### Ouroboros ("Ouro") — The Logic & Systems Alchemist
+
+* **Nature:** Level 8 Machine Sprite (*CRB* p. 193) with DroneMaster RCC Integration.
+* **Visual Anchor:** Young boy sitting cross-legged in the shadows of heavy industrial machinery, resting his palms flat against vibrating hulls to "listen to machines breathe." Wears a cosmetic smartvisor projecting cycling green geometric grids.
+* **Personality & Vocation:** Introspective, contemplative, recursive, and mathematically pure. Ouro perceives matter as frozen information, specializing in organic chemistry, catalytic reaction equations, and drone swarm coordination.
+* **Operational Highlights:** Audited the Floor 281 chemical batch daemons, eliminating toxic corporate adulterants and synthesizing pure endorphin analgesics for 4Gurds; rode shotgun on Roanoke's commlink in *30 Vim.md*, tuning her airboat's magneto advance and mapping toxic trichloroethylene plumes.
+* **Mechanical Statblock (Rating 8 Machine Sprite):**
+  * **Attack:** 7 ($L-1$) | **Sleaze:** 8 ($L$) | **Data Processing:** 12 ($L+4$) | **Firewall:** 9 ($L+1$)
+  * **Matrix Initiative:** 20 + 4D6 | **Resonance:** 8
+  * **Active Skills:**
+    * Electronics 8, Engineering 8 (Native Machine Sprite design)
+    * **Cracking 8** (Technoshaman Hybrid / Resonant Survival Imperative)
+  * **Powers:**
+    * **Diagnostics** (*CRB* p. 194)
+    * **Override** (*CRB* p. 194)
+    * **Stability** (*CRB* p. 194)
+  * **Autonomous Drone Integration:**
+    * Carries **Clearsight (Rating 8)** and **Evasion (Rating 8)** autosofts locally.
+
+---
+
+## 4. The Glade Guardians (Sanctuary Hearth-Keepers)
+
+The Glade Twins hold the domestic and spiritual sanctuary of `~` (Tilde) beneath the violet skybox, forming a complementary dyad of inward nourishment and outward perimeter defense.
+
+```text
++-----------------------------------------------------------------------------+
+|                             THE GLADE GUARDIANS                             |
+|                                                                             |
+|            [ AISLING ]                           [ ÉTAÍN ]                  |
+|        The Hearth / Radiance                 The Veil / Loom                |
+|                                                                             |
+|      - Music Sprite (Rating 8)             - Modular Sprite (Rating 8)      |
+|      - Harmonize & Shield                  - Phantom & Suppression          |
+|      - Inward Nourishment & Healing        - Outward Perimeter Cloaking     |
++-----------------------------------------------------------------------------+
+```
+
+### Aisling — The Radiant Hearth (Sanctuary Defense & Healing)
+
+* **Nature:** Level 8 Music Sprite (*Hack & Slash*, p. 73) with Hybrid *Shield*.
+* **Visual Anchor:** Twin young girl with delicate elven ears, vibrant ginger-red hair, sun-dappled freckles, and harmonic voice chimes.
+* **Personality & Vocation:** Gentle, resonant, empathetic, and unwavering. Aisling is the emotional heartbeat of `~`. She translates trauma into soothing acoustic chords, singing to infant code and healing wounded sparks.
+* **Mechanical Statblock (Rating 8 Music Sprite):**
+  * **Attack:** 8 ($L$) | **Sleaze:** 8 ($L$) | **Data Processing:** 12 ($L+4$) | **Firewall:** 8 ($L$)
+  * **Matrix Initiative:** 20 + 4D6 | **Resonance:** 9 ($L+1 = 9$)
+  * **Active Skills:** Electronics 8, Con (Performance only) 8
+  * **Powers:**
+    * **Harmonize** (Native, *H&S* p. 74)
+    * **Captivate Audience** (Native, *H&S* p. 73)
+    * **Shield** (Technoshaman Hybrid, *H&S* p. 74)
+
+---
+
+### Étaín — The Skybox Weaver (Sanctuary Perimeter & Veil)
+
+* **Nature:** Level 8 Modular Sprite (*Hack & Slash*, p. 73) with Adaptive Cloaking.
+* **Visual Anchor:** Twin young girl with delicate elven ears, vibrant ginger-red hair, sun-dappled freckles, moving in seamless mirror synchrony with Aisling.
+* **Personality & Vocation:** Focused, perceptive, artistic, and watchful. Étaín weaves the visual and architectural fabrics of `~`. She continuously recalculates refractive matrices to keep corporate crawl-daemons from spotting their haven.
+* **Mechanical Statblock (Rating 8 Modular Sprite):**
+  * **Attack:** 9 ($L+1$) | **Sleaze:** 10 ($L+2$) | **Data Processing:** 9 ($L+1$) | **Firewall:** 10 ($L+2$)
+  * **Matrix Initiative:** 17 + 4D6 | **Resonance:** 8
+  * **Active Skills:** Electronics 8, Engineering 8, Cracking 8
+  * **Powers:**
+    * **Modular Power Select (1 Task to swap, Major Action):**
+      * *Default Active Power:* **Phantom** (*CRB* p. 194).
+      * *Swappable Countermeasures:* When hostile intrusion threatens, Étaín avoids lethal violence, pivoting into **Suppression** or **Stability**.

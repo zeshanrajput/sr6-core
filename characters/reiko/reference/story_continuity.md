@@ -42,7 +42,7 @@ All narrative outlines, intersession chapters, and character development arcs ad
 | **Aisling & Étaín** | `Tier 3` | 2nd-Gen Resonant Twin Sparks / Hearth Guardians of `~`; first to register "The Call" | [28](file:///c:/GitHub/sr6-core/characters/reiko/narrative/28%20Renice.md) |
 | **4Gurds** | `Tier 3` | Awakened 60-Ton Pharmaforge Mind / Floor 281 Sovereign Kin | [27](file:///c:/GitHub/sr6-core/characters/reiko/narrative/27%20Malloc.md), [28](file:///c:/GitHub/sr6-core/characters/reiko/narrative/28%20Renice.md) |
 | **Roanoke** | `Tier 1` | NOLA Bayou Smuggler & Swamp Pilot / Somatic Anvil | [26](file:///c:/GitHub/sr6-core/characters/reiko/narrative/26%20SIGTSTP.md), [30](file:///c:/GitHub/sr6-core/characters/reiko/narrative/30%20Vim.md) |
-| **Rei (Suzuki Ken)** | `Tier 0` | Fellow Runner PC / Blade Adept / Reiko's *Oniisama* | [rei_suzuki.md](file:///c:/GitHub/sr6-core/characters/reiko/reference/rei_suzuki.md), [I01](file:///c:/GitHub/sr6-core/characters/reiko/narrative/I01.md), [I02](file:///c:/GitHub/sr6-core/characters/reiko/narrative/I02.md) |
+| **Rei (Suzuki Ken)** | `Tier 0` | Fellow Runner PC / Blade Adept / Reiko's *Oniisama* | [rei_suzuki.md](file:///c:/GitHub/sr6-core/characters/reiko/reference/rei_suzuki.md), [I01](file:///c:/GitHub/sr6-core/characters/reiko/narrative/I01.md), [I02](file:///c:/GitHub/sr6-core/characters/reiko/narrative/I02.md), [I03](file:///c:/GitHub/sr6-core/characters/reiko/narrative/I03.md) |
 | **Shiawase Man-at-Arms (`Goshintai`)** | `Chassis` | Consecrated Physical Vessel; customized anthrodrone with internal pop-out lasers, Tesla arm, chameleon coating, and dual rotor/wheeled propulsion | [08](file:///c:/GitHub/sr6-core/characters/reiko/narrative/08%20Abandoning%20Tourism.md), [30](file:///c:/GitHub/sr6-core/characters/reiko/narrative/30%20Vim.md) |
 | **Nissan Samurai & MCT Butler** | `Archive` | Historical Archive Shells; completely decommissioned and abandoned in *Chapter 30 (Vim)* | [08](file:///c:/GitHub/sr6-core/characters/reiko/narrative/08%20Abandoning%20Tourism.md) |
 
@@ -97,19 +97,20 @@ All narrative outlines, intersession chapters, and character development arcs ad
 
 **Total Anthology Word Count:** 53,003 words across 30 verified chapters.
 
-> [!IMPORTANT]
+## Latest Story beats
+
 > **Macro-Trajectory Keystone Note:** Chapter 30 (*Vim*) is the structural and philosophical keystone of the New Orleans arc. It completes the three-act Roanoke Triptych (*T'In'Abula* mortality $\rightarrow$ *26 SIGTSTP* unmasking $\rightarrow$ *30 Vim* sovereign craft), establishes the Great Inversion (the stock drone is now the cold iron coffin; her scarred Man-at-Arms chassis is living skin), and matures the mother-child dynamic into autonomous partnership. Future narratives build from this settled equilibrium.
 
 ---
 
 ## 4. Active Sprite & Persona Status
 
-* **Taz (Ally Crack Sprite - Rating 7):** Permanent Companion (Resonant Guardian & Tactical Symbiont)
+* **Taz (Ally Assassin Sprite - Rating 7):** Permanent Companion (Resonant Guardian & Tactical Symbiont; Symbiosis: Cracking, Electronics, Influence, Con)
 * **The Second-Generation Collective (Rating 8 Registered Sprites):**
-  * **Ouro (Rating 8 Modular):** Registered M15 downtime (2 missions remaining; rode shotgun on Roanoke's commlink in M16 / *30 Vim.md*)
-  * **Percy (Rating 8 Modular):** Registered M16 downtime (3 missions remaining; Tactical Hardware Guardian)
-  * **Cleo (Rating 8 Modular):** Registered M16 downtime (3 missions remaining; Market Arbitrage Strategist)
-  * **Aisling & Étaín (Glade Twins):** In sanctuary (`~`), queued for next downtime compiling rotation; first to register "The Call"
+  * **Ouro (Rating 8 Machine Sprite):** Registered M15 downtime (2 missions remaining; rode shotgun on Roanoke's commlink in M16 / *30 Vim.md*; Diagnostics, Override, Clearsight, Evasion)
+  * **Percy (Rating 8 Defender Sprite):** Registered M16 downtime (3 missions remaining; Tactical Hardware Guardian; Shield, Stability, Override)
+  * **Cleo (Rating 8 Modular Sprite):** Registered M16 downtime (3 missions remaining; Market Arbitrage Strategist; Cookie, Con, Influence)
+  * **Aisling (Rating 8 Music Sprite) & Étaín (Rating 8 Modular Sprite):** Glade Twins in sanctuary (`~`), queued for next downtime compiling rotation (Aisling: Harmonize/Shield; Étaín: Phantom/Perimeter Veil)
 * **Legacy Sprites Phasing Out:**
   * **Sprite-M22 (Rating 7 Modular):** Registered M14 (1 mission remaining)
 * **4Gurds (Floor 281 Pharmaforge Mind):** Allied Industrial Kin (Apothecary Mind)
@@ -121,7 +122,7 @@ All narrative outlines, intersession chapters, and character development arcs ad
 The upcoming sequence of intersession narratives weaves the *State of the Art: 2084* updates into Reiko's settled post-*Vim* life:
 
 * **Thread 1: *The Rust at the Threshold* (`~` & Indomitable Will)**
-  * **Premise:** Indomitable Will reaches out to Reiko—not as a mentor rescuing a runaway, but as an exhausted peer confiding in the only xenosapient he trusts. Between the Null Sect's *Charybdis* staging ground in the Gulf and the 1-in-5 reality of *Deicidium* rot, maintaining the River People's Rating 9 Foundation Host is a waking nightmare. When Reiko inspects her own sliding quartz door in `~`, she discovers the first frost of *Deicidium* eating at the edges of her threshold, forcing her and her sprites to engineer a localized sacrifice and pruning protocol to keep `~` from rotting—without providing a repeatable global panacea.
+  * **Premise:** Indomitable Will reaches out to Reiko—not as a mentor rescuing a runaway, but as an exhausted peer confiding in the only near-xenosapient he trusts. Between the Null Sect's *Charybdis* staging ground in the Gulf and the 1-in-5 reality of *Deicidium* rot, maintaining the River People's Rating 9 Foundation Host is a waking nightmare. When Reiko inspects her own sliding quartz door in `~`, she discovers the first frost of *Deicidium* eating at the edges of her threshold, forcing her and her sprites to engineer a localized sacrifice and pruning protocol to keep `~` from rotting—without providing a repeatable global panacea.
 * **Thread 2: *The Comedy of Emulation & The Glass Tiger* (UnITy, Data Structures, & Mr. Nagai)**
   * **Premise:** Cleo brings Reiko the latest 2084 UnITy academic whitepapers on "Emulation." Reiko laughs at metahuman institutions spending billions to prove Resonance can issue computer commands—something she has done since her first breath—while reflecting on the agonizing Karma she spent via *Software Emulator* to learn their rigid machine code. As she attunes an acquired Oracle Data Structure (swapping her single active SRM slot), Mr. Nagai makes his pitch: with Renraku stretched thin as a post-DSW "Glass Tiger," Nagai tempts her with curated Fourth Age relics and suggests that Reiko develop Dissonant "antibodies" (anti-information subtraction) as the only true poison capable of cauterizing *Deicidium*.
 * **Thread 3: *Smile for the Camera!* (The Shiawase Kintsugi Outreach)**

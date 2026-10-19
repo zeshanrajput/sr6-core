@@ -84,14 +84,15 @@
 
 ## 6. The Fanfiction Mythos: *"My Glade Adept Onii-sama is too Kawaii!"*
 
-In the inter-session interludes ([I01.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/I01.md) and [I02.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/I02.md)), Reiko’s adopted second-generation emergent sparks—the twin girls **Aisling** and **Étaín**—are secretly authoring a serialized light-novel fanfic about Rei behind encrypted decoy partitions in `~` (the Glade).
+In the inter-session interludes ([I01.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/I01.md), [I02.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/I02.md), and [I03.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/I03.md)), Reiko’s adopted second-generation emergent sparks—the twin girls **Aisling** and **Étaín**—are secretly authoring a serialized light-novel fanfic about Rei behind encrypted decoy partitions in `~` (the Glade).
 
 ### The In-Universe Fanfic Tropes:
-* **The Title:** *My Glade Adept Onii-sama is too Kawaii!* (Étaín insists on "Glade" instead of "Blade" because he is spiritually *their* adept, and it softens his violent meatspace edge).
+* **The Title:** *My Glade Adept Onii-sama is too Kawaii!* (Written from Yuriko's POV as his *imouto*; however, as Reiko's adoptive children, Aisling and Étaín personally revere Rei as their honored uncle, **O-oji-sama**). Season Two subtitle / shadowcast: ***#NotAGunAdept: The Chronicles of O-oji-sama***.
 * **The PG-13 Naivete:** The twins filter meatspace violence, romance, and scandal through shoujo innocence:
   * Lady Janet's scandalous fainting couch becomes intense vocal resonance exercises to strengthen his diaphragm.
   * Flechette fire from an Ares Slivergun becomes a storm of 30 aerodynamic silver sparkles per second (weaponized confetti).
   * Meat people using swords to make breakfast and whip matcha.
+  * Wooden training bokken carried during Category Two hurricanes serve as non-conductive tactical lightning rods.
 * **The Sword: *Stolen Honor*:**
   * While Rei has not officially named his katana in meatspace, in the fanfic the blade is named **Stolen Honor** (remembering Takahashi-sama's tragic seppuku).
   * **Modular Swappable Handles:** Equipped with modular handles for "other activities":
@@ -99,3 +100,6 @@ In the inter-session interludes ([I01.md](file:///c:/GitHub/sr6-core/characters/
     * *Whisk Attachment:* Adept-reflex matcha whipping at 3,000 RPM.
     * *Thespian Monologue Attachment (Vocal Resonance Edition):* Crossguard projects flattering warm-white stage lighting while pommel extends into an antique brass microphone.
 * **The Tragic Duality:** Every time Rei attempts to draw *Stolen Honor*, tactical distance or chaotic coincidence forces a firearm into his hands, prompting him to sigh over the socio-economic realities of street violence before scoring headshots.
+* **Ballistic Blade Nomenclature & #NotAGunAdept ([I03.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/I03.md)):**
+  * When street mercenaries accuse Rei of being a "point-blank pistolero with an elf skin," Rei resolves the controversy by renaming his firearms after swords (Ares Predator as *Ballistic Nodachi*; Ares Slivergun as *Thirty-Blossom Wakizashi*), arguing that bullets are merely supersonic aerodynamic blade tips launched from pneumatic scabbards.
+  * In the climax of Hurricane Lorenzo on an offshore oil rig, Rei paralyzes a blood cultist with an adept nerve strike. When the panicked cultist screams *"Stop shooting, you'll kill us all!"*, Rei immortally responds: *"I am not shooting."* The twins launch a viral *State of the Art: 2084* shadowcast celebrating this as transcendent martial pacifism.

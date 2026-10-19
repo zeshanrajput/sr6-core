@@ -17,6 +17,7 @@ book:
       chapters:
         - core/character_build.qmd
         - chapters/character_sheet.qmd
+        - chapters/resonant_kin.qmd
         - core/character_log.qmd
         - core/character_purchases.qmd
         - chapters/twenty_questions.qmd
@@ -61,6 +62,7 @@ book:
       chapters:
         - narrative/I01.md
         - narrative/I02.md
+        - narrative/I03.md
 
 format:
   html:
