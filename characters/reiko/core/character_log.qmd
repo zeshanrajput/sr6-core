@@ -595,5 +595,33 @@ Submersion_Grade = state["Submersion_Grade"]
   * *Con (Rank 1 -> 2):* `{python} inc('Karma', -10)`
     * Elevated Con from Rank 1 to 2. Uncaps ally sprite Taz's teamwork bonus on Con/Disguise tests from +1 to +2 dice, raising Reiko's active Disguise pool to 10d6 (2 Con + 4 CHA + 2 Spec + 2 Taz).
 
+---
+
+`{python} mission("SRM.2081.15", date="2026-10-20", karma=8, nuyen=8500, gm="JaGator", difficulty="Veteran")`
+
+* **GM:** JaGator
+* **Team:** Bast, Mithral, Snowcrash, Shades (Reggie), Brick House (J. Mirkson), Connor (connor2847), Yuriko (WarDoctor)
+* **Summary:** An Ares junior executive hired Toil to sabotage rival operations and disrupt Manadyne across Seattle following lost municipal contracts. Toil handed the preliminary legwork off to his sharp-tongued pixie bodyguard Trubble at Areola 51 in the Ork Underground, who subcontracted the reconnaissance to Yuriko and her team before taking the weekend off. Digging into Manadyne's classified logistics, the runners uncovered two concurrent outbound shipments: an illicit convoy carrying hazardous thaumaturgic chemical waste destined for illegal dumping in the Puyallup River, and "Project Leynode"—a priceless, twenty-one-ton awakened basalt monolith / magical node rock being routed downtown toward SeaTac for corporate presentation to OmniStar executives. Briefing Toil upon his return, the team coordinated a two-phase surgical strike. First, the runners outsourced the hazardous convoy, staging an environmental "accident" in a high-visibility Puyallup zone that triggered immediate municipal investigations and public embarrassment for Manadyne. Next, the team intercepted Project Leynode along Route 410, clashing with Manadyne combat drones, disabling the transport, and securing the 21-ton awakened monolith intact for Toil. The operation made headlines on KSAF Morning News as Manadyne scrambled to contain the scandal, supported by significant financial contributions from the team.
+* **Contacts:**
+  * `{python} contact("Toil", fp=2)`
+  * `{python} contact("Trubble", fp=2)`
+* **Downtime Actions (Converted 1 Major -> 2 Minors; 3 Minors Total):**
+  * *Minor Action 1 (Rent & Working for the People):* `{python} lifestyle('Low')` | `{python} work_for_the_people()`
+    * 2,000¥ paid for monthly Low Lifestyle maintenance (*SR6 CRB*, p. 238; paid every 2nd SRM per *SRMG v2.4*, p. 1).
+    * 2,000¥ donated toward sustaining her sanctuary and children in Kernel Panic (Hooder), converting to +1 Karma.
+  * *Minor Action 2 (Learn Complex Form — Resonance Spike):* `{python} learn_complex_form("Resonance Spike")`
+    * Expanded known complex forms, spending 5 Karma (*SR6 CRB*, p. 191; *Hack & Slash*, p. 129).
+  * *Minor Action 3 (Acquire & Integrate Data Structure — Oracle R4):* Acquired and integrated a Rating 4 Oracle data structure into `~`'s physical host foundation on the Sky Commander (-20,000¥, -4 Karma; modified for SRM to function like a magical focus per *SRMG v2.4*, requiring no Minor Action to activate and having no separate fading; logged in equipment ledger).
+* **Other:**
+  * *Free Knowledge Skill:* Gross Metahuman Fluids (visceral biowaste, bodily excretions, and thaumaturgic contamination; logged in equipment ledger).
+  * *Gear Acquisition (Minidrones):* Purchased two MCT Hornet minidrones (-4,200¥); swapped two MCT Gnats out of the Federated-Boeing Sky Commander drone bay to house 2 Hornets and 3 Gnats (with 2 extra Gnats held in reserve as spares).
+  * *Sprite Accounting & In-Session Registrations (3 Nights Downtime):*
+    * Re-registered Cleo (Rating 8 Modular Sprite) after she was knocked offline during combat:
+      * `{python} add_sprite("Modular", 8, name="Cleo", details="The Market / Cookie (Modular), Con, Influence", tasks=3)`
+    * Registered Glade Twins during 3 nights in-session downtime (buying hits: Tasking 20d6 / 5 hits):
+      * `{python} add_sprite("Music", 8, name="Aisling", details="The Radiant Hearth / Harmonize, Captivate Audience, Shield", tasks=3)`
+      * `{python} add_sprite("Modular", 8, name="Étaín", details="The Skybox Weaver / Phantom (Modular), Suppression, Stability", tasks=3)`
+    * Expended 1 task each from Percy (Defender Sprite) and Ouro (Machine Sprite) during the operation.
+
 
 

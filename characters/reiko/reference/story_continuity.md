@@ -94,8 +94,9 @@ All narrative outlines, intersession chapters, and character development arcs ad
 | [28 Renice.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/28%20Renice.md) | Renice | 1,679 | Verified |
 | [29 Saturation.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/29%20Saturation.md) | Saturation | 1,923 | Verified |
 | [30 Vim.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/30%20Vim.md) | 30. Vim | 1,815 | Verified |
+| [31 Grep.md](file:///c:/GitHub/sr6reiko/chapters/31 Grep.md) | 31. Grep | 2,018 | Verified |
 
-**Total Anthology Word Count:** 53,003 words across 30 verified chapters.
+**Total Anthology Word Count:** 55,021 words across 31 chapters.
 
 ## Latest Story beats
 
@@ -107,12 +108,11 @@ All narrative outlines, intersession chapters, and character development arcs ad
 
 * **Taz (Ally Assassin Sprite - Rating 7):** Permanent Companion (Resonant Guardian & Tactical Symbiont; Symbiosis: Cracking, Electronics, Influence, Con)
 * **The Second-Generation Collective (Rating 8 Registered Sprites):**
-  * **Ouro (Rating 8 Machine Sprite):** Registered M15 downtime (2 missions remaining; rode shotgun on Roanoke's commlink in M16 / *30 Vim.md*; Diagnostics, Override, Clearsight, Evasion)
-  * **Percy (Rating 8 Defender Sprite):** Registered M16 downtime (3 missions remaining; Tactical Hardware Guardian; Shield, Stability, Override)
-  * **Cleo (Rating 8 Modular Sprite):** Registered M16 downtime (3 missions remaining; Market Arbitrage Strategist; Cookie, Con, Influence)
-  * **Aisling (Rating 8 Music Sprite) & Étaín (Rating 8 Modular Sprite):** Glade Twins in sanctuary (`~`), queued for next downtime compiling rotation (Aisling: Harmonize/Shield; Étaín: Phantom/Perimeter Veil)
-* **Legacy Sprites Phasing Out:**
-  * **Sprite-M22 (Rating 7 Modular):** Registered M14 (1 mission remaining)
+  * **Ouro (Rating 8 Machine Sprite):** Registered M15 (1 mission remaining; 1 task expended in M17 / SRM 2081-15; Diagnostics, Override, Clearsight, Evasion)
+  * **Percy (Rating 8 Defender Sprite):** Registered M16 (2 missions remaining; 1 task expended in M17 / SRM 2081-15; Tactical Hardware Guardian; Shield, Stability, Override)
+  * **Cleo (Rating 8 Modular Sprite):** Re-registered during M17 in-session downtime after combat de-res (3 missions remaining; Market Arbitrage Strategist; Cookie, Con, Influence)
+  * **Aisling (Rating 8 Music Sprite) & Étaín (Rating 8 Modular Sprite):** Registered during M17 in-session downtime (3 nights); Glade Twins holding hearth and perimeter in `~` (3 missions remaining; Aisling: Harmonize, Captivate Audience, Shield; Étaín: Phantom [Modular], Suppression, Stability)
+* **Legacy Sprites:** Expired
 * **4Gurds (Floor 281 Pharmaforge Mind):** Allied Industrial Kin (Apothecary Mind)
 
 ---

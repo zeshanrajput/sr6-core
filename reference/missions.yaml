@@ -342,5 +342,14 @@ SRM.2081.13:
   contacts:
   - teddy_chin
   - ni_ni_xiaolu
+SRM.2081.15:
+  id: SRM.2081.15
+  title: A Bunch of Corporate Drek
+  type: SRM
+  season: '2081'
+  region: SEA
+  contacts:
+  - toil
+  - trubble
 
 

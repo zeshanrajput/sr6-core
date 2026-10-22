@@ -70,6 +70,7 @@ assign("Lifetime_Nuyen", 90000)
 * Knowsofts
   * Japanese Cultural Etiquette (R3) `{python} inc('Nuyen', -2500)` `{python} knowledge_skill('Japanese Cultural Etiquette', rating=3, notes='Rating 3 Knowsoft: Corporate hierarchy, bowing registers, formal tea hospitality')`
   * New Orleans Vodou & Loa Syncretism (R3) `{python} inc('Nuyen', -2500)` `{python} knowledge_skill('New Orleans Vodou & Loa Syncretism', rating=3, notes='Rating 3 Knowsoft: Baron Samedi, Loa of the Wires, League of Laveau, Zobop')`
+  * Gross Metahuman Fluids `{python} knowledge_skill('Gross Metahuman Fluids', notes='Free knowledge skill earned in SRM 2081-15: visceral biowaste, bodily excretions, and thaumaturgic contamination')`
 * Commlink Apps
   * Facial Scanner `{python} inc('Nuyen', -750)`
   * P-ICE Spines `{python} inc('Nuyen', -500)`
@@ -81,6 +82,9 @@ assign("Lifetime_Nuyen", 90000)
   * Mapsoft x4 `{python} inc('Nuyen', -400)`
   * Shopsoft x6 `{python} inc('Nuyen',-900)`
   * **Coding Facility** `{python} inc_many(('Nuyen',-5000),('Karma',-1))`
+* Data Structures & Resonance Constructs
+  * **Oracle (Rating 4)** `{python} inc_many(('Nuyen', -20000), ('Karma', -4))` `{python} modifier("Data Structure: Oracle (Rating 4)", "matrix_search", 4, type="focus", rule_anchor="rules_matrix.html#data-structures", notes="SRMG v2.4 p. 39 / H&S p. 70-71: Functions like a magical focus; requires no Minor Action to activate and has no separate fading; grants +4 dice on Matrix Perception and Matrix Search tests; reduces extended Matrix Search interval to a Major Action")`
+    * *Integration:* Incorporated into the physical optical cluster substrate and foundation brick of Reiko's home host, `~` (aboard the Federated-Boeing Sky Commander). Under *SRMG v2.4*, an Emergent Intelligence residing in the host device can actively bond and use one data structure as a focus.
 
 For autosofts that are specific, the character programs her derivative own based on the original version she bought above. This process takes 8 hours for knowledge and language autosofts, and 12 hours for all other autosofts. The cost is 1 karma for each of the derivative autosofts.
 
@@ -91,6 +95,9 @@ Software with karma costs have been learned via the **Software Emulator** echo.
 * MCT Gnat x5 `{python} inc('Nuyen', -4000)`
   * Realistic Features 4
   * Laser Jack
+
+* MCT Hornet x2 `{python} inc('Nuyen', -2100 * 2)`
+  * Stinger (Embedded Close Combat Weapon: 1P, Attack Rating 4, single toxin dose injector)
 
 * Kwonsham Dream Genie `{python} inc('Nuyen', -2000)`
   * Trid Projector
@@ -135,7 +142,8 @@ Software with karma costs have been learned via the **Software Emulator** echo.
 
 * Federated-Boeing Sky Commander `{python} inc('Nuyen', -12500)`
   * Drone Bay (Micro/Mini) `{python} inc('Nuyen', -1000/2)`
-    * MCT Gnat x5
+    * MCT Hornet x2
+    * MCT Gnat x3 (2 extra Gnats held in reserve as spares)
   * RAM Plating 4
   * ECM 6
   * Enhanced Sensors 2
@@ -171,5 +179,7 @@ Drone mods include a 50% discount on mods Yuriko installed herself (DC p. 120). 
 * **Tasking Specialization (Compiling):** *5 Karma (SRM 2081-13 Advancement)*
 * **Electronics Specialization (Complex Forms):** *5 Karma (SRM 2081-13 Advancement)*
 * **Con Rank 2:** *10 Karma (SRM 2083-16 Advancement)*
+* **Resonance Spike (Complex Form):** *5 Karma (SRM 2081-15 Downtime)*
+* **Data Structure Integration (Oracle R4):** *4 Karma (SRM 2081-15 Downtime)*
 
 

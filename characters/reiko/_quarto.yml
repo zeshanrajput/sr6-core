@@ -58,6 +58,7 @@ book:
         - narrative/28 Renice.md
         - narrative/29 Saturation.md
         - narrative/30 Vim.md
+        - narrative/31 Grep.md
     - part: "Inter-Session Interludes"
       chapters:
         - narrative/I01.md

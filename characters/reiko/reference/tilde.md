@@ -44,6 +44,7 @@
   * **The Megalodon Wireframe:** A hovering holographic schematic over the worktable detailing a modified Megalodon heavy cannon with custom recoil dampeners calibrated for Reiko’s drone chassis.
   * **The Severed Contract Collar:** A wall-mounted disarmed render of Brynne Taggart’s original debt collar, frozen mid-decryption as a monument to purchased freedom.
   * **The Gilded Telemetry Moths:** Flocks of slender, silent paper-moth data-sprites hovering in the center of the room, continuously sifting meatspace traffic loops, dock manifests, and proxy logs.
+  * **The Oracle Data Structure (Rating 4):** A dense, Nous-folded lattice of optical crystals integrated into the physical hardware foundation of `~` aboard the Sky Commander. Modified for SRM to function like a magical focus (*SRMG v2.4*, p. 39; *Hack & Slash*, p. 70–71), it requires no Minor Action to activate and has no separate fading of its own. Resting on the worktable beside the tea service, it emits an unblinking pale indigo resonance pulse, granting +4 dice to Matrix Perception and Matrix Search tests and reducing extended search intervals to a single Major Action.
 
 ### B. The Threshold & The Kernel Panic Glade
 

@@ -9,9 +9,9 @@ identity:
   age: ~ 10
   system: shadowrun6e
   karma: 2
-  lifetime_karma: 274
-  nuyen: 20950.0
-  lifetime_nuyen: 429300
+  lifetime_karma: 283
+  nuyen: 1250.0
+  lifetime_nuyen: 437800
   heat: -1
 attributes:
   body: 5
@@ -100,6 +100,18 @@ modifiers:
   sub_skill: null
   rule_anchor: rules_combat.html#tactical-weapon-arrays
   notes: 'Wireless bonus: +1 dice pool to attack tests (SR6 p. 261)'
+  enabled: true
+- id: data_structure:_oracle_rating_4
+  name: 'Data Structure: Oracle (Rating 4)'
+  target: matrix_search
+  value: 4
+  type: focus
+  sub_skill: null
+  rule_anchor: rules_matrix.html#data-structures
+  notes: 'SRMG v2.4 p. 39 / H&S p. 70-71: Functions like a magical focus; requires
+    no Minor Action to activate and has no separate fading; grants +4 dice on Matrix
+    Perception and Matrix Search tests; reduces extended Matrix Search interval to
+    a Major Action'
   enabled: true
 - id: taz_symbiosis_electronics
   name: Taz Symbiosis (Electronics)
@@ -190,6 +202,12 @@ complex_forms:
   duration: Instant
   target: Device
   notes: 'Source: hack_slash'
+- name: Resonance Spike
+  ref: resonance_spike
+  fading: 2
+  duration: Instant
+  target: Device
+  notes: 'Source: core'
 meta_echoes: &id001
 - name: New Sprite Type
   ref: new_sprite_type
@@ -247,6 +265,10 @@ knowledge_skills:
 - name: New Orleans Vodou & Loa Syncretism
   rating: 3
   notes: 'Rating 3 Knowsoft: Baron Samedi, Loa of the Wires, League of Laveau, Zobop'
+- name: Gross Metahuman Fluids
+  rating: null
+  notes: 'Free knowledge skill earned in SRM 2081-15: visceral biowaste, bodily excretions,
+    and thaumaturgic contamination'
 contacts:
   Brynne Taggart:
     name: Brynne Taggart
@@ -862,7 +884,7 @@ contacts:
     canonical_name: Toil
     is_canonical: true
     connection: 4
-    loyalty: 1
+    loyalty: 2
     favors: 0
     type: Fixer
     region: SEA
@@ -877,12 +899,14 @@ contacts:
     history:
     - 'SRM.2081.05 (Met: C4 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
+    - SRM.2081.15 (+2 FP)
+    - Auto-Promoted to Loyalty 2 (-2 FP)
   Trubble:
     name: Trubble
     canonical_name: Trubble
     is_canonical: true
     connection: 1
-    loyalty: 1
+    loyalty: 2
     favors: 0
     type: Bodyguard
     region: SEA
@@ -896,6 +920,8 @@ contacts:
     history:
     - 'SRM.2081.05 (Met: C1 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
+    - SRM.2081.15 (+2 FP)
+    - Auto-Promoted to Loyalty 2 (-2 FP)
   SpiiniCop:
     name: SpiiniCop
     canonical_name: SpiiniCop
@@ -1543,6 +1569,23 @@ drones:
   modifications:
   - Realistic Features 4
   - Laser Jack
+- name: MCT Hornet
+  ref: mct_hornet
+  body: 1
+  armor: 0
+  pilot: 2
+  sensor: 2
+  speed: 35
+  handling_on: 3
+  handling_off: 3
+  accel_on: 20
+  accel_off: 20
+  speed_interval_on: 15
+  page: CRB 299
+  quantity: 2
+  modifications:
+  - 'Stinger (Embedded Close Combat Weapon: 1P, Attack Rating 4, single toxin dose
+    injector)'
 - name: Federated-Boeing Sky Commander (Seattle Retrans Relay)
   ref: federatedboeingskycommander_seattle
   body: 3
@@ -1582,6 +1625,14 @@ drones:
     foundation_door: Quartz sliding glass door opening an un-insulated permanent conduit
       into the Holy Wild glade (fossilized directory trees, fractal willows, telemetry
       ferns, de-allocated address pools) and the Deep Foundation
+    data_structures:
+    - name: Oracle
+      rating: 4
+      focus_type: true
+      srm_rules: Functions as a magical focus per SRMG v2.4 (no Minor Action to activate,
+        no separate fading)
+      effect: +4 dice to Matrix Perception and Matrix Search; extended Matrix Search
+        interval is 1 Major Action
 - name: Shiawase Man-at-Arms
   ref: shiawasebdmanatarms
   body: 10

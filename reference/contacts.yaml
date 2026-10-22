@@ -167,6 +167,7 @@ toil:
   - SRM 2081-04
   - '05'
   - '10'
+  - '15'
   types: Criminal, Street
   description: 'Uses: Drugs, exotic dancer clubs, getting jobs (Shadowrun Missions
     Seattle) | Types: Criminal, Street'
@@ -180,6 +181,7 @@ trubble:
   missions:
   - SRM 2081-04
   - '05'
+  - '15'
   types: Magic
   description: 'Uses: Bodyguards, insults, talismans (Shadowrun Missions Seattle)
     | Types: Magic'
