@@ -28,6 +28,14 @@ from sr6core.character.ledger import (
     learn_spell,
     add_sprite,
     add_spirit,
+    deregister_sprite,
+    disrupt_sprite,
+    expend_sprite_tasks,
+    deregister_spirit,
+    disrupt_spirit,
+    expend_spirit_tasks,
+    get_active_sprites,
+    get_active_spirits,
     get_log_totals,
     _GLOBAL_LOG_STATE,
 )
@@ -170,6 +178,40 @@ def test_simplified_sprites_and_spirits():
     assert "Spirit of Fire" in spirit_out
     assert "Force 6" in spirit_out
     assert len(_GLOBAL_LOG_STATE["Spirits"]) == 1
+
+    # Test task expenditure and automatic deregistration when tasks reach zero
+    add_sprite("Machine", level=8, name="Ouro", tasks=3)
+    active_sp = get_active_sprites()
+    assert any(s["name"] == "Ouro" for s in active_sp)
+
+    exp_msg = expend_sprite_tasks("Ouro", 1, reason="Test task")
+    assert "2/3 tasks remaining" in exp_msg
+    active_sp = get_active_sprites()
+    assert any(s["name"] == "Ouro" for s in active_sp)
+
+    # Expend remaining 2 tasks -> reaches zero, automatically de-registers
+    exp_msg2 = expend_sprite_tasks("Ouro", 2, reason="Finished tasks")
+    assert "De-registered" in exp_msg2
+    active_sp = get_active_sprites()
+    assert not any(s["name"] == "Ouro" for s in active_sp)
+
+    # Test disruption in combat
+    add_sprite("Modular", level=8, name="Cleo", tasks=3)
+    assert any(s["name"] == "Cleo" for s in get_active_sprites())
+    dis_msg = disrupt_sprite("Cleo", reason="Knocked offline by combat drones")
+    assert "Disrupted" in dis_msg
+    assert not any(s["name"] == "Cleo" for s in get_active_sprites())
+
+    # Re-registering Cleo adds fresh active sprite
+    add_sprite("Modular", level=8, name="Cleo", tasks=3)
+    active_cleos = [s for s in get_active_sprites() if s["name"] == "Cleo"]
+    assert len(active_cleos) == 1
+    assert active_cleos[0]["status"] == "Active"
+
+    # Test spirit disruption
+    dis_spirit = disrupt_spirit("Spirit of Fire", reason="Banished in astral clash")
+    assert "Disrupted" in dis_spirit
+    assert len(get_active_spirits()) == 0
 
 
 def test_character_portfolio_consistency():

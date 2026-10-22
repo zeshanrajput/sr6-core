@@ -315,16 +315,17 @@ def render_sprite_stable(char_id: str = "reiko") -> str:
             status = "Companion"
         else:
             tasks = s.get("tasks", 3)
+            tasks_rem = s.get("tasks_remaining", tasks)
             elapsed = total_missions - reg_m
             rem = max(0, tasks - elapsed)
             role = details if details else "Tactical Matrix Reserve"
-            if rem == 0:
+            if rem == 0 or tasks_rem == 0:
                 remaining = "**0 Missions**"
-                status = "Expired"
+                status = "Expired" if tasks_rem > 0 else "De-registered"
             else:
                 remaining = f"**{rem} Mission{'s' if rem != 1 else ''}**"
                 status = "Active"
-            services = f"{tasks} Tasks"
+            services = f"{tasks_rem}/{tasks} Tasks" if tasks_rem != tasks else f"{tasks} Tasks"
 
         lines.append(
             f"| **{name}** | {rating} | {stype} | {role} | {reg_name} (M{reg_m}) | {remaining} | {services} | `{status}` |"

@@ -71,6 +71,7 @@ jobs:
                 ;;
             esac
           done
+          uv run python scripts/align_audio_assets.py
           rm -rf audio_downloads
 
       - name: Render Character Books

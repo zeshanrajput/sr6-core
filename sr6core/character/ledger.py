@@ -868,6 +868,7 @@ def add_sprite(
             "level": eff_level,
             "type": eff_type,
             "tasks": tasks,
+            "tasks_remaining": tasks,
             "autosofts": eff_details,
             "details": eff_details,
             "is_ally": is_ally,
@@ -935,6 +936,7 @@ def add_spirit(
             "force": force,
             "type": eff_type,
             "tasks": tasks,
+            "tasks_remaining": tasks,
             "powers": eff_details,
             "details": eff_details,
             "is_great_form": is_great_form,
@@ -952,6 +954,199 @@ def add_spirit(
         return f"**{eff_name}** ({great_str}Force {force} {eff_type} Spirit, {tasks} Tasks/Missions)"
 
 
+def deregister_sprite(
+    name: str,
+    reason: str = "De-registered",
+    status: str = "De-registered"
+) -> str:
+    """
+    Marks an active registered sprite as de-registered, disrupted, or dismissed.
+    Sets its status (e.g. 'Disrupted', 'De-registered', 'Dismissed') and exhausts
+    its remaining tasks so it is excluded from the active roster.
+    """
+    global _GLOBAL_LOG_STATE
+    curr_m_idx = len(_GLOBAL_LOG_STATE.get("Missions", []))
+    m_name = _GLOBAL_LOG_STATE["Missions"][-1] if curr_m_idx > 0 else "Character Creation"
+
+    target_name = name.strip().lower()
+    found = None
+    for s in reversed(_GLOBAL_LOG_STATE.get("Sprites", [])):
+        if s.get("name", "").strip().lower() == target_name and s.get("status") == "Active":
+            found = s
+            break
+
+    if not found:
+        for s in reversed(_GLOBAL_LOG_STATE.get("Sprites", [])):
+            if s.get("type", "").strip().lower() == target_name and s.get("status") == "Active":
+                found = s
+                break
+
+    if found:
+        found["status"] = status
+        found["tasks_remaining"] = 0
+        found["deregistered_mission"] = curr_m_idx
+        found["deregistered_mission_name"] = m_name
+        found["deregistered_reason"] = reason
+        disp_name = found.get("name", name)
+        disp_type = found.get("type", "Sprite")
+        disp_rating = found.get("rating", found.get("level", 7))
+        return f"Sprite {status}: **{disp_name}** ({disp_type} Rating {disp_rating}) — *{reason}*"
+    else:
+        return f"*(Sprite '{name}' not found among active registered sprites)*"
+
+
+def disrupt_sprite(name: str, reason: str = "Disrupted in combat (condition monitor filled)") -> str:
+    """Marks an active registered sprite as Disrupted when its condition monitor falls to zero."""
+    return deregister_sprite(name, reason=reason, status="Disrupted")
+
+
+def dismiss_sprite(name: str, reason: str = "Dismissed by technomancer") -> str:
+    """Marks an active registered sprite as Dismissed before natural expiration."""
+    return deregister_sprite(name, reason=reason, status="Dismissed")
+
+
+def expend_sprite_tasks(name: str, count: int = 1, reason: str = "") -> str:
+    """
+    Expends available tasks from an active registered sprite.
+    A sprite automatically de-registers when its available tasks reach zero.
+    """
+    global _GLOBAL_LOG_STATE
+    curr_m_idx = len(_GLOBAL_LOG_STATE.get("Missions", []))
+    m_name = _GLOBAL_LOG_STATE["Missions"][-1] if curr_m_idx > 0 else "Character Creation"
+
+    target_name = name.strip().lower()
+    found = None
+    for s in reversed(_GLOBAL_LOG_STATE.get("Sprites", [])):
+        if s.get("name", "").strip().lower() == target_name and s.get("status") == "Active":
+            found = s
+            break
+
+    if not found:
+        for s in reversed(_GLOBAL_LOG_STATE.get("Sprites", [])):
+            if s.get("type", "").strip().lower() == target_name and s.get("status") == "Active":
+                found = s
+                break
+
+    if not found:
+        return f"*(Sprite '{name}' not found among active registered sprites)*"
+
+    curr_tasks = found.get("tasks_remaining", found.get("tasks", 3))
+    new_tasks = max(0, curr_tasks - count)
+    found["tasks_remaining"] = new_tasks
+    disp_name = found.get("name", name)
+
+    if new_tasks <= 0:
+        found["status"] = "De-registered"
+        found["deregistered_mission"] = curr_m_idx
+        found["deregistered_mission_name"] = m_name
+        found["deregistered_reason"] = reason or "All available tasks expended (0 remaining)"
+        reason_str = f" — *{reason}*" if reason else ""
+        return f"Sprite De-registered: **{disp_name}** (All available tasks expended){reason_str}"
+    else:
+        tot_tasks = found.get("tasks", 3)
+        reason_str = f" ({reason})" if reason else ""
+        return f"Expended {count} task{'s' if count != 1 else ''} from **{disp_name}** ({new_tasks}/{tot_tasks} tasks remaining){reason_str}"
+
+
+def deregister_spirit(
+    name: str,
+    reason: str = "De-registered",
+    status: str = "De-registered"
+) -> str:
+    """
+    Marks an active bound spirit as de-registered, disrupted, or dismissed.
+    Sets its status and exhausts remaining tasks so it is excluded from the active roster.
+    """
+    global _GLOBAL_LOG_STATE
+    curr_m_idx = len(_GLOBAL_LOG_STATE.get("Missions", []))
+    m_name = _GLOBAL_LOG_STATE["Missions"][-1] if curr_m_idx > 0 else "Character Creation"
+
+    target_name = name.strip().lower()
+    found = None
+    for s in reversed(_GLOBAL_LOG_STATE.get("Spirits", [])):
+        if s.get("name", "").strip().lower() == target_name and s.get("status") == "Active":
+            found = s
+            break
+
+    if not found:
+        for s in reversed(_GLOBAL_LOG_STATE.get("Spirits", [])):
+            if s.get("type", "").strip().lower() == target_name and s.get("status") == "Active":
+                found = s
+                break
+
+    if found:
+        found["status"] = status
+        found["tasks_remaining"] = 0
+        found["deregistered_mission"] = curr_m_idx
+        found["deregistered_mission_name"] = m_name
+        found["deregistered_reason"] = reason
+        disp_name = found.get("name", name)
+        disp_type = found.get("type", "Spirit")
+        disp_force = found.get("force", 5)
+        return f"Spirit {status}: **{disp_name}** ({disp_type} Force {disp_force}) — *{reason}*"
+    else:
+        return f"*(Spirit '{name}' not found among active bound spirits)*"
+
+
+def disrupt_spirit(name: str, reason: str = "Disrupted in combat (condition monitor filled)") -> str:
+    """Marks an active bound spirit as Disrupted when its condition monitor falls to zero."""
+    return deregister_spirit(name, reason=reason, status="Disrupted")
+
+
+def dismiss_spirit(name: str, reason: str = "Dismissed by conjurer") -> str:
+    """Marks an active bound spirit as Dismissed before natural expiration."""
+    return deregister_spirit(name, reason=reason, status="Dismissed")
+
+
+def expend_spirit_tasks(name: str, count: int = 1, reason: str = "") -> str:
+    """
+    Expends available tasks from an active bound spirit.
+    A spirit automatically de-registers when its available tasks reach zero.
+    """
+    global _GLOBAL_LOG_STATE
+    curr_m_idx = len(_GLOBAL_LOG_STATE.get("Missions", []))
+    m_name = _GLOBAL_LOG_STATE["Missions"][-1] if curr_m_idx > 0 else "Character Creation"
+
+    target_name = name.strip().lower()
+    found = None
+    for s in reversed(_GLOBAL_LOG_STATE.get("Spirits", [])):
+        if s.get("name", "").strip().lower() == target_name and s.get("status") == "Active":
+            found = s
+            break
+
+    if not found:
+        for s in reversed(_GLOBAL_LOG_STATE.get("Spirits", [])):
+            if s.get("type", "").strip().lower() == target_name and s.get("status") == "Active":
+                found = s
+                break
+
+    if not found:
+        return f"*(Spirit '{name}' not found among active bound spirits)*"
+
+    curr_tasks = found.get("tasks_remaining", found.get("tasks", 2))
+    new_tasks = max(0, curr_tasks - count)
+    found["tasks_remaining"] = new_tasks
+    disp_name = found.get("name", name)
+
+    if new_tasks <= 0:
+        found["status"] = "De-registered"
+        found["deregistered_mission"] = curr_m_idx
+        found["deregistered_mission_name"] = m_name
+        found["deregistered_reason"] = reason or "All available tasks expended (0 remaining)"
+        reason_str = f" — *{reason}*" if reason else ""
+        return f"Spirit De-registered: **{disp_name}** (All available tasks expended){reason_str}"
+    else:
+        tot_tasks = found.get("tasks", 2)
+        reason_str = f" ({reason})" if reason else ""
+        return f"Expended {count} task{'s' if count != 1 else ''} from **{disp_name}** ({new_tasks}/{tot_tasks} tasks remaining){reason_str}"
+
+
+kill_sprite = disrupt_sprite
+destroy_sprite = disrupt_sprite
+kill_spirit = disrupt_spirit
+destroy_spirit = disrupt_spirit
+
+
 def get_active_sprites() -> List[Dict[str, Any]]:
     global _GLOBAL_LOG_STATE
     curr_m_idx = len(_GLOBAL_LOG_STATE.get("Missions", []))
@@ -960,6 +1155,12 @@ def get_active_sprites() -> List[Dict[str, Any]]:
         if s.get("is_ally"):
             active.append(s)
         else:
+            if s.get("status") not in ["Active", None]:
+                continue
+            tasks_rem = s.get("tasks_remaining", s.get("tasks", 3))
+            if tasks_rem <= 0:
+                s["status"] = "De-registered"
+                continue
             reg_m = s.get("registered_mission", 0)
             tasks = s.get("tasks", 3)
             elapsed = curr_m_idx - reg_m
@@ -978,6 +1179,12 @@ def get_active_spirits() -> List[Dict[str, Any]]:
         if s.get("is_ally"):
             active.append(s)
         else:
+            if s.get("status") not in ["Active", None]:
+                continue
+            tasks_rem = s.get("tasks_remaining", s.get("tasks", 2))
+            if tasks_rem <= 0:
+                s["status"] = "De-registered"
+                continue
             bound_m = s.get("bound_mission", 0)
             tasks = s.get("tasks", 2)
             elapsed = curr_m_idx - bound_m
@@ -1224,6 +1431,18 @@ def create_quarto_eval_env() -> Dict[str, Any]:
         "add_rep": add_rep,
         "add_sprite": add_sprite,
         "add_spirit": add_spirit,
+        "deregister_sprite": deregister_sprite,
+        "disrupt_sprite": disrupt_sprite,
+        "dismiss_sprite": dismiss_sprite,
+        "expend_sprite_tasks": expend_sprite_tasks,
+        "kill_sprite": kill_sprite,
+        "destroy_sprite": destroy_sprite,
+        "deregister_spirit": deregister_spirit,
+        "disrupt_spirit": disrupt_spirit,
+        "dismiss_spirit": dismiss_spirit,
+        "expend_spirit_tasks": expend_spirit_tasks,
+        "kill_spirit": kill_spirit,
+        "destroy_spirit": destroy_spirit,
         "work_for_the_people": work_for_the_people,
         "work_for_the_man": work_for_the_man,
         "bribe": bribe,

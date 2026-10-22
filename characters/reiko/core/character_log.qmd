@@ -13,7 +13,8 @@ from sr6core.character.ledger import (
     init_character, mission, contact, add_rep, add_sprite,
     get_active_sprites, state, assign, modifier, complex_form,
     sprite_power, work_for_the_people, work_for_the_man, bribe,
-    lifestyle, learn_complex_form, inc, inc_many, print_contacts_summary
+    lifestyle, learn_complex_form, inc, inc_many, print_contacts_summary,
+    disrupt_sprite, deregister_sprite, expend_sprite_tasks
 )
 
 init_character("reiko")
@@ -616,12 +617,16 @@ Submersion_Grade = state["Submersion_Grade"]
   * *Free Knowledge Skill:* Gross Metahuman Fluids (visceral biowaste, bodily excretions, and thaumaturgic contamination; logged in equipment ledger).
   * *Gear Acquisition (Minidrones):* Purchased two MCT Hornet minidrones (-4,200¥); swapped two MCT Gnats out of the Federated-Boeing Sky Commander drone bay to house 2 Hornets and 3 Gnats (with 2 extra Gnats held in reserve as spares).
   * *Sprite Accounting & In-Session Registrations (3 Nights Downtime):*
-    * Re-registered Cleo (Rating 8 Modular Sprite) after she was knocked offline during combat:
+    * Combat Disruption along Route 410:
+      * `{python} disrupt_sprite("Cleo", reason="Disrupted in combat against Manadyne drones along Route 410")`
+    * In-Run Task Expenditures:
+      * `{python} expend_sprite_tasks("Percy", 1, reason="Route 410 convoy defense")`
+      * `{python} expend_sprite_tasks("Ouro", 1, reason="Diagnostics and transport sabotage")`
+    * Re-registered Cleo (Rating 8 Modular Sprite) during in-session downtime:
       * `{python} add_sprite("Modular", 8, name="Cleo", details="The Market / Cookie (Modular), Con, Influence", tasks=3)`
     * Registered Glade Twins during 3 nights in-session downtime (buying hits: Tasking 20d6 / 5 hits):
       * `{python} add_sprite("Music", 8, name="Aisling", details="The Radiant Hearth / Harmonize, Captivate Audience, Shield", tasks=3)`
       * `{python} add_sprite("Modular", 8, name="Étaín", details="The Skybox Weaver / Phantom (Modular), Suppression, Stability", tasks=3)`
-    * Expended 1 task each from Percy (Defender Sprite) and Ouro (Machine Sprite) during the operation.
 
 
 
