@@ -74,7 +74,7 @@ Percy snorted, looking away toward the willows. Even Étaín’s shoulders shook
 
 *Which brings us to the actual problem,* Étaín said.
 
-The modular sprite stood up, brushing virtual grass from her knees. With a gentle push of her hand, she dismissed Taz, who immediately scrambled onto his feet, shook his blocky head with an electric snap of blue sparks, and trotted over to butt his snout affectionately against Reiko’s knee.
+Étaín stood up, brushing virtual grass from her knees. With a gentle push of her hand, she dismissed Taz, who immediately scrambled onto his feet, shook his blocky head with an electric snap of blue sparks, and trotted over to butt his snout affectionately against Reiko’s knee.
 
 Étaín gestured toward the far side of the glade, where the deep directory trees met the boundary of the living host.
 

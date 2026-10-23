@@ -64,6 +64,7 @@ book:
         - narrative/I01.md
         - narrative/I02.md
         - narrative/I03.md
+        - narrative/I04.md
 
 format:
   html:

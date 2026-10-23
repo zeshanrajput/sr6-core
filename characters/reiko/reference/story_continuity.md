@@ -39,10 +39,11 @@ All narrative outlines, intersession chapters, and character development arcs ad
 | **Percy** | `Tier 3` | 2nd-Gen Elder Spark / Tactical Hardware Guardian of `~` | [24](file:///c:/GitHub/sr6-core/characters/reiko/narrative/24%20Symlink.md), [28](file:///c:/GitHub/sr6-core/characters/reiko/narrative/28%20Renice.md) |
 | **Cleo** | `Tier 3` | 2nd-Gen Resonant Spark / Market Arbitrage & Brokerage Strategist | [28](file:///c:/GitHub/sr6-core/characters/reiko/narrative/28%20Renice.md) |
 | **Ouro** | `Tier 3` | 2nd-Gen Resonant Spark / Molecular & Systems Architecture Analyst | [28](file:///c:/GitHub/sr6-core/characters/reiko/narrative/28%20Renice.md), [30](file:///c:/GitHub/sr6-core/characters/reiko/narrative/30%20Vim.md) |
-| **Aisling & Étaín** | `Tier 3` | 2nd-Gen Resonant Twin Sparks / Hearth Guardians of `~`; first to register "The Call" | [28](file:///c:/GitHub/sr6-core/characters/reiko/narrative/28%20Renice.md) |
+| **Aisling & Étaín** | `Tier 3` | 2nd-Gen Resonant Twin Sparks / Hearth Guardians of `~`; first to register "The Call" | [28](file:///c:/GitHub/sr6-core/characters/reiko/narrative/28%20Renice.md), [I01](file:///c:/GitHub/sr6-core/characters/reiko/narrative/I01.md), [I02](file:///c:/GitHub/sr6-core/characters/reiko/narrative/I02.md), [I03](file:///c:/GitHub/sr6-core/characters/reiko/narrative/I03.md), [I04](file:///c:/GitHub/sr6-core/characters/reiko/narrative/I04.md) |
 | **4Gurds** | `Tier 3` | Awakened 60-Ton Pharmaforge Mind / Floor 281 Sovereign Kin | [27](file:///c:/GitHub/sr6-core/characters/reiko/narrative/27%20Malloc.md), [28](file:///c:/GitHub/sr6-core/characters/reiko/narrative/28%20Renice.md) |
 | **Roanoke** | `Tier 1` | NOLA Bayou Smuggler & Swamp Pilot / Somatic Anvil | [26](file:///c:/GitHub/sr6-core/characters/reiko/narrative/26%20SIGTSTP.md), [30](file:///c:/GitHub/sr6-core/characters/reiko/narrative/30%20Vim.md) |
-| **Rei (Suzuki Ken)** | `Tier 0` | Fellow Runner PC / Blade Adept / Reiko's *Oniisama* | [rei_suzuki.md](file:///c:/GitHub/sr6-core/characters/reiko/reference/rei_suzuki.md), [I01](file:///c:/GitHub/sr6-core/characters/reiko/narrative/I01.md), [I02](file:///c:/GitHub/sr6-core/characters/reiko/narrative/I02.md), [I03](file:///c:/GitHub/sr6-core/characters/reiko/narrative/I03.md) |
+| **Rei (Suzuki Ken)** | `Tier 0` | Fellow Runner PC / Blade Adept / Reiko's *Oniisama* | [rei_suzuki.md](file:///c:/GitHub/sr6-core/characters/reiko/reference/rei_suzuki.md), [I01](file:///c:/GitHub/sr6-core/characters/reiko/narrative/I01.md), [I02](file:///c:/GitHub/sr6-core/characters/reiko/narrative/I02.md), [I03](file:///c:/GitHub/sr6-core/characters/reiko/narrative/I03.md), [I04](file:///c:/GitHub/sr6-core/characters/reiko/narrative/I04.md) |
+| **Takahashi Satomi** | `Tier 3` | Surviving biological daughter of Takahashi Koichi / Renraku computationalist (*Oba* to Aisling & Étaín) | [I04](file:///c:/GitHub/sr6-core/characters/reiko/narrative/I04.md) |
 | **Shiawase Man-at-Arms (`Goshintai`)** | `Chassis` | Consecrated Physical Vessel; customized anthrodrone with internal pop-out lasers, Tesla arm, chameleon coating, and dual rotor/wheeled propulsion | [08](file:///c:/GitHub/sr6-core/characters/reiko/narrative/08%20Abandoning%20Tourism.md), [30](file:///c:/GitHub/sr6-core/characters/reiko/narrative/30%20Vim.md) |
 | **Nissan Samurai & MCT Butler** | `Archive` | Historical Archive Shells; completely decommissioned and abandoned in *Chapter 30 (Vim)* | [08](file:///c:/GitHub/sr6-core/characters/reiko/narrative/08%20Abandoning%20Tourism.md) |
 
@@ -94,9 +95,9 @@ All narrative outlines, intersession chapters, and character development arcs ad
 | [28 Renice.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/28%20Renice.md) | Renice | 1,679 | Verified |
 | [29 Saturation.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/29%20Saturation.md) | Saturation | 1,923 | Verified |
 | [30 Vim.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/30%20Vim.md) | 30. Vim | 1,815 | Verified |
-| [31 Grep.md](file:///c:/GitHub/sr6reiko/chapters/31 Grep.md) | 31. Grep | 2,018 | Verified |
+| [31 Grep.md](file:///c:/GitHub/sr6reiko/chapters/31 Grep.md) | 31. Grep | 2,016 | Verified |
 
-**Total Anthology Word Count:** 55,021 words across 31 chapters.
+**Total Anthology Word Count:** 55,019 words across 31 chapters.
 
 ## Latest Story beats
 
