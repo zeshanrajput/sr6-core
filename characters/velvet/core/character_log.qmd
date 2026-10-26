@@ -143,6 +143,20 @@ init_character("velvet")
 
 ---
 
+`{python} mission("CMP.2083.02", date="2026-10-24", karma=8, nuyen=8000, rep=1, difficulty="Normal", gm="CDT Agent Kira Capalu")`
+
+* **GM:** CDT Agent Kira Capalu
+* **Team:** Shades, Heartreaper, Deepweb, Angel, Velvet
+* **Summary:** The runners were hired for what seemed like an internal corporate inquiry for Regulus Joint Industries, escorted through the back door of Princess Juliana-Marie’s Escher Palace in The Hague by Lady Frederika van de Poll. Upon entering the meeting room, they found their prospective employer, Mr. Johnson (Mason Brooks), murdered in a pool of blood. An HTR team breached through the roof seconds later, emergency lockdown sealed the compound, and trid news broadcasts immediately framed the team as Saeder-Krupp assassins. Escaping the palace with Lady van de Poll—their sole exonerating witness—the team navigated Europort through a raging blizzard, blaring air raid sirens, and a citywide Matrix jamming blackout (Noise 5). Following guidance to a discreet snack bar ("Ultimate Hairdresser Fries"), they were sheltered by Moenen, an infamous UNL infobroker who confirmed their innocence and connected them with Penose smugglers working for the Frisian. After fending off the real conspirators and proving their innocence to the Penose, the runners leveraged Lady van de Poll’s cybereye footage to allow Princess Juliana-Marie to spring a counter-trap on the conspirators, fully clearing the runners' names and securing their royal gratitude.
+* **Contacts:**
+  * `{python} contact("Moenen", fp=2)`
+  * `{python} contact("Sigrûn", fp=1)`
+* **Downtime Actions (2 Minor):**
+  * *Minor Action 1 (Community Service):* `{python} work_for_the_people(funded=True)`
+  * *Minor Action 2 (Learn Spell — Physical Barrier):* `{python} learn_spell("Physical Barrier")`
+
+---
+
 ## **Active Contacts Summary**
 
 ```{python}

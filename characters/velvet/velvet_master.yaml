@@ -14,10 +14,10 @@ identity:
   eye_color: Obsidian
   skin_color: White
   system: shadowrun6e
-  karma: 3
-  lifetime_karma: 65
-  nuyen: 5465
-  lifetime_nuyen: 124590
+  karma: 7
+  lifetime_karma: 74
+  nuyen: 13465
+  lifetime_nuyen: 132590
   heat: 0
 attributes:
   body: 2
@@ -152,6 +152,14 @@ spells:
   range: Touch
   drain: 5
   notes: Sorcery + Magic test. Net hits increase Reaction and Initiative Dice.
+- name: Physical Barrier
+  ref: physical_barrier
+  category: Manipulation
+  duration: Sustained
+  type: Physical
+  range: LOS (A)
+  drain: 6
+  notes: Creates translucent barrier with Structure = Magic + net hits (CRB p. 141).
 - name: Increase Attribute
   ref: increase_attribute
   category: General
@@ -167,6 +175,14 @@ spells:
   type: Physical
   range: TOUCH
   drain: 5
+  notes: 'Source: core'
+- name: Physical Barrier
+  ref: physical_barrier
+  category: General
+  duration: Instant
+  type: Physical
+  range: LINE_OF_SIGHT_AREA
+  drain: 6
   notes: 'Source: core'
 adept_powers:
 - name: Cosmetic Control
@@ -561,11 +577,50 @@ contacts:
     history:
     - 'SRM.2081.12 (Met: C2 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
+  Moenen:
+    name: Moenen
+    canonical_name: Moenen
+    is_canonical: false
+    connection: 5
+    loyalty: 1
+    favors: 1
+    type: UNL Infobroker
+    region: AMS
+    types:
+    - Matrix
+    - Criminal
+    types_str: Matrix, Criminal
+    description: Underground matrix broker across United Netherlands.
+    notes: Underground matrix broker across United Netherlands.
+    history:
+    - 'CMP.2083.02 (Met: C5 L0, +2 FP)'
+    - Auto-Promoted to Loyalty 1 (-1 FP)
+  Sigrûn:
+    name: Sigrûn
+    canonical_name: Sigrûn
+    is_canonical: false
+    connection: 5
+    loyalty: 1
+    favors: 0
+    type: House Oranje-Nassau Johnson
+    region: AMS
+    types:
+    - Government
+    - Magic
+    - Corporate
+    types_str: Government, Magic, Corporate
+    description: Queen consort of the United Netherlands (Marikka von Harbou), former
+      runner and Nordic mage, House Oranje-Nassau Johnson.
+    notes: Queen consort of the United Netherlands (Marikka von Harbou), former runner
+      and Nordic mage, House Oranje-Nassau Johnson.
+    history:
+    - 'CMP.2083.02 (Met: C5 L0, +1 FP)'
+    - Auto-Promoted to Loyalty 1 (-1 FP)
 reputation:
   SEA: 7
-  AMS: 0
+  AMS: 1
   HK: 2
-total_reputation: 9
+total_reputation: 10
 drones: []
 weapons: []
 armors:

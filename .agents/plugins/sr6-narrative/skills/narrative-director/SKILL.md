@@ -72,10 +72,11 @@ The primary autonomous orchestrator for end-to-end Shadowrun 6e narrative genera
 ### Stage 1: Context Ingestion
 Before drafting or editing, assemble and ingest:
 1. **Scene Outline / Prompt**: User-provided beat sheet, plot points, or run objectives.
-2. **Master Narrative Doctrine**: Read [`reference/inter_session_narrative_doctrine.md`](file:///c:/GitHub/sr6-core/reference/inter_session_narrative_doctrine.md) (operational vs. ontological division of labor, consecrated mechanics, Two-Tier dramatic sphere).
-3. **Character Voice Specification / Narrative Spec**: Read `characters/<char_id>/reference/narrative_spec.md` or `voice_spec.md` (check `arc_chronology`, active era, cognitive bias, and domain vocabulary).
-4. **Master Character Dossier & Resource Pressure**: Read `characters/<char_id>/<char_id>_master.yaml` and execute `uv run sr6 pressure <char_id> --yaml` to calculate exact financial mortgages and spiritual karma allocations.
-5. **Continuity & Rules**: Run `uv run sr6 continuity "characters/<char_id>"` and query rules via `uv run sr6 rag search "<topic>" --compact`.
+2. **Master Narrative Doctrine & Storyboard Spec**: Read [`reference/inter_session_narrative_doctrine.md`](file:///c:/GitHub/sr6-core/reference/inter_session_narrative_doctrine.md) and [`reference/default_storyboard_spec.md`](file:///c:/GitHub/sr6-core/reference/default_storyboard_spec.md).
+3. **Master Narrative Storyboard**: Read `characters/<char_id>/reference/storyboard.md` (check the active 6 thematic verticals, Tier B foils, consecrated telemetry, and story queue).
+4. **Character Voice Specification / Craft Spec**: Read `characters/<char_id>/reference/voice_spec.md` (check `arc_chronology`, active era, cognitive bias, and domain vocabulary).
+5. **Master Character Dossier & Resource Pressure**: Read `characters/<char_id>/<char_id>_master.yaml` and execute `uv run sr6 pressure <char_id> --yaml` to calculate exact financial mortgages and spiritual karma allocations.
+6. **Continuity & Rules**: Run `uv run sr6 continuity "characters/<char_id>"` and query rules via `uv run sr6 rag search "<topic>" --compact`.
 
 ### Stage 2: Initial Draft Generation (`v1`)
 Draft the scene adhering to the core narrative disciplines:

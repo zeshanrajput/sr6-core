@@ -856,6 +856,19 @@ moenen:
   description: Underground matrix broker across United Netherlands.
   id: moenen
   types: Matrix, Criminal
+sigrun:
+  name: Sigrûn
+  connection: 5
+  job: House Oranje-Nassau Johnson
+  region: AMS
+  canonical: false
+  missions:
+  - CMP.2081.12
+  - CMP.2083.01
+  - CMP.2083.02
+  description: Queen consort of the United Netherlands (Marikka von Harbou), former runner and Nordic mage, House Oranje-Nassau Johnson.
+  id: sigrun
+  types: Government, Magic, Corporate
 blackstone:
   name: Blackstone
   connection: 3

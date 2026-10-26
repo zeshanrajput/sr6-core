@@ -65,11 +65,12 @@ The `narrative-director` is the primary autonomous orchestrator responsible for 
 ### Stage 1: Context Ingestion
 Before drafting or editing, `narrative-director` ingests:
 1. **Scene Outline / Prompt & Tri-Source Ingestion**: User-provided beat sheet, plot points, or tri-source session artifacts (verbatim audio transcripts in `characters/<char_id>/sessions/<session_id>/transcript.md`, official mission documents/modules, and GM Discord/chat reward logs).
-2. **Master Narrative Doctrine**: Loads [`reference/inter_session_narrative_doctrine.md`](file:///c:/GitHub/sr6-core/reference/inter_session_narrative_doctrine.md) as the governing operational and psychological constitution.
-3. **Sub-Agent Evaluation Skills**: Calibrated directly by `sr6-narrative-suite` skills (`no-ai-slop`, `literary-analysis`, `sr6-rules`, `continuity-tracker`, `sr6-downtime-ledger`, `sr6-chapter-finalize`, `narrative-director`).
-4. **Character Voice Specification / Consolidated Narrative Spec**: Loads local character repository `reference/narrative_spec.md` or `reference/voice_spec.md` (inheriting `reference/default_voice_spec.md`).
-5. **Master Character Dossier & Resource Pressure Telemetry**: Reads `character_master.yaml` and executes deterministic resource pressure checks (`uv run sr6 char pressure <id>`) to ground existential financial/karmic weight.
-6. **RAG Story Continuity & Rules**: Queries recent chapter logs via `uv run sr6 continuity` and rule context via `sr6-rules` (always querying local offline FTS5 vault first via `uv run sr6 rag search` before cloud AI synthesis).
+2. **Master Narrative Doctrine & Storyboard Spec**: Loads [`reference/inter_session_narrative_doctrine.md`](file:///c:/GitHub/sr6-core/reference/inter_session_narrative_doctrine.md) and [`reference/default_storyboard_spec.md`](file:///c:/GitHub/sr6-core/reference/default_storyboard_spec.md) as the governing operational, psychological, and structural constitution.
+3. **Master Narrative Storyboard**: Loads local character repository `reference/storyboard.md` as the primary dramatic roadmap (active 6 thematic verticals, controlled Tier B foils, consecrated telemetry, and story queue).
+4. **Sub-Agent Evaluation Skills**: Calibrated directly by `sr6-narrative-suite` skills (`no-ai-slop`, `literary-analysis`, `sr6-rules`, `continuity-tracker`, `sr6-downtime-ledger`, `sr6-chapter-finalize`, `narrative-director`).
+5. **Character Voice Specification / Consolidated Narrative Spec**: Loads local character repository `reference/voice_spec.md` (inheriting `reference/default_voice_spec.md`).
+6. **Master Character Dossier & Resource Pressure Telemetry**: Reads `character_master.yaml` and executes deterministic resource pressure checks (`uv run sr6 char pressure <id>`) to ground existential financial/karmic weight.
+7. **RAG Story Continuity & Rules**: Queries recent chapter logs via `uv run sr6 continuity` and rule context via `sr6-rules` (always querying local offline FTS5 vault first via `uv run sr6 rag search` before cloud AI synthesis).
 
 ### Stage 2: Initial Draft Generation (`v1`)
 `narrative-director` invokes the drafting sub-agent to generate Scene Draft `v1`, adhering to:
