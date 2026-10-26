@@ -175,7 +175,7 @@ To protect shared campaign continuity while allowing high-stakes personal storyt
 | **Tanaka Ryo** | MCT Senior Auditor / Negotiator | Active Operational | [04][ch-04], [08][ch-08] | Broad shoulders; deliberate stillness; low baritone |
 | **Lee Ji-yoo** | Pan-Asian Media Pop Star | Burned / Quarantined | [01][ch-01], [04][ch-04] | High vocal register; micro-smiles; stage choreography |
 | **Sunny (Sun-hee Diaz)** | Deceased Renraku ACHE Courier | Laid to Rest | [12][ch-12] | Compact runner build; bone-clicks; honored with prayer |
-| **Alix Lindqvist** | Provenance Risk Auditor | Active (Europort / UNL) | [Sess 83-02][sess-83-02] | Tailored boiled wool; aristocratic Dutch/Nordic accent |
+| **Alix Lindqvist** | Provenance Risk Auditor | Consecrated (Frederika van de Poll) | [Sess 83-02][sess-83-02], [Ch 13][ch-13] | Tailored boiled wool; Mid-Atlantic register; retired from field ops, vowed solely to Frederika |
 | **Zhang Wei** | Elder Hong Kong Talismonger | Dormant Cover | [10][ch-10] | Stooped posture; arthritic hands; Tieguanyin aroma |
 | **Noekie (Anouk)** | Thirteen-Year-Old Ball-Runner | Single-Run Shell | [11][ch-11] | Scuffed knees; oversized windbreaker; canal slang |
 
@@ -190,11 +190,11 @@ To protect shared campaign continuity while allowing high-stakes personal storyt
 
 ## VII. Post-Session Story Queue (Immediate Candidates)
 
-1. **Post-*Royal Road* Vignette — *"Still Life with Mirror"*:**
-   * **Persona:** Alix Lindqvist $\rightarrow$ Un-sculpted Jin-Young.
-   * **Setting:** The waterproofed Penose smuggling bunker beneath flooded Zeeland (or Moenen’s backroom in The Hague) after clearing their names with Princess Juliana-Marie ([Session 83-02][sess-83-02]).
-   * **Verticals Touched:** *Vertical 3 (The Sovereign Web)* + *Vertical 6 (Terror of the Engineered Self)*.
-   * **Concept:** Watching Lady Frederika van de Poll’s throwback, non-wireless deltaware cybereyes flash green to deliver objective, un-tamperable proof of innocence to the Princess. Velvet reflects on the contrast between Frederika’s sealed mechanical eyes (which can never lie) and his own fluid, bio-sculpted flesh (which was engineered to be whatever lie the viewer desires), while catching a shadow-feed rumor of the *30 Pieces* movement stirring in the wake of the Disian fallout ([Lore: 30 Pieces][lore-30-pieces]).
+1. **Post-*Royal Road* Vignette — *"Illusion"* ([Ch 13][ch-13]) — *(Completed)*:**
+   * **Persona:** Alix Lindqvist.
+   * **Setting:** Scheveningen pier winter pavilion after the Hague blizzard ([Session 83-02][sess-83-02]).
+   * **Verticals Touched:** *Vertical 3 (The Sovereign Web)* + *Vertical 4 (Empathy vs. Manipulation)* + *Vertical 6 (Terror of the Engineered Self)*.
+   * **Synthesis:** Confronted by Jonkvrouw Frederika van de Poll regarding the boundary between genuine human gratitude and corporate biological illusion. Velvet exposes the bruised sternum and makes the un-purchasable vow (*"an illusion cannot catch lead"*), permanently consecrating the Alix persona solely to her.
 2. **Tacoma Vignette — *"The Shark’s Table"*:**
    * **Persona:** Tanaka Ryo.
    * **Setting:** *Xingfu Chaguan* tea house on the Tacoma waterfront with **Ni Ni Xiaolu** ([Ch 08][ch-08]).
@@ -230,6 +230,7 @@ To protect shared campaign continuity while allowing high-stakes personal storyt
 | `[ch-10]` | [10_Burns.md](../narrative/10_Burns.md) | Chapter | Aberdeen typhoon shelter; channeling Kang Anning |
 | `[ch-11]` | [11_Silence.md](../narrative/11_Silence.md) | Chapter | Amsterdam bruin café; Min-seo's rebuke; Power Focus covenant |
 | `[ch-12]` | [12_Iron.md](../narrative/12_Iron.md) | Chapter | ACHE ascent; Rodina safehouse; Wise Warrior mentor covenant |
+| `[ch-13]` | [13_Illusion.md](../narrative/13_Illusion.md) | Chapter | Scheveningen pier; Frederika's doubt; vow of consecrated skin |
 | `[sess-83-02]` | [CMP 2083-02: Royal Road](../sessions/2083_02_royal_road.md) | Tabletop | Escher Palace infiltration; Alix Lindqvist; Frederika extraction |
 | `[lore-mct]` | [megacorps_power_plays.md](../../../reference/megacorps_power_plays.md) | Lore | MCT post-Disian collapse; Phase 1 audit; TXM asset recovery |
 | `[lore-30-pieces]` | [megacorps_power_plays.md](../../../reference/megacorps_power_plays.md) | Lore | Post-Disian shadow war; anti-Disian vigilante cells |
@@ -249,6 +250,7 @@ To protect shared campaign continuity while allowing high-stakes personal storyt
 [ch-10]: ../narrative/10_Burns.md
 [ch-11]: ../narrative/11_Silence.md
 [ch-12]: ../narrative/12_Iron.md
+[ch-13]: ../narrative/13_Illusion.md
 [sess-83-02]: ../sessions/2083_02_royal_road.md
 [lore-mct]: ../../../reference/megacorps_power_plays.md
 [lore-30-pieces]: ../../../reference/megacorps_power_plays.md

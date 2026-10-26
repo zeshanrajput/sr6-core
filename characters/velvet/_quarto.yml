@@ -37,6 +37,7 @@ book:
         - narrative/10_Burns.md
         - narrative/11_Silence.md
         - narrative/12_Iron.md
+        - narrative/13_Illusion.md
 
 format:
   html:
