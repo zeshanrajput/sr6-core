@@ -40,6 +40,8 @@ bin/
 *.docx
 *.pdf
 characters/reiko/reference/Rei_oniisama/
+characters/reiko/reference/BunnyR/
+scratch/
 
 # Raw transcripts & external character creator dumps
 **/transcript.json
