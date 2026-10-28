@@ -8,11 +8,6 @@ import sys
 import argparse
 from sr6core.rules.db import RulesDB
 from sr6core.character.manager import CharacterManager
-from sr6core.rag import RAGEngine
-from sr6core.menu import run_interactive_menu
-from sr6core.narrative.linter import analyze_prose, print_prose_report
-from sr6core.narrative.continuity import build_continuity_report, print_continuity_report
-from sr6core.narrative.narration import generate_narration, batch_generate_narrations, retag_narratives, list_narratives
 from sr6core.dataset_compiler import compile_commlink_datasets, get_dataset_info, find_latest_commlink_jar
 from sr6core.character.audit import deep_audit_character
 from sr6core.rules.advancement import search_catalog, purchase_item_for_character
@@ -216,6 +211,10 @@ def main():
     r_get = rules_sub.add_parser("get", help="Retrieve full rule markdown chunk by ID or topic directly from SQLite")
     r_get.add_argument("identifiers", type=str, nargs="+", help="Rule ID(s) or Topic name(s)")
     r_get.add_argument("--compact", action="store_true", help="Output clean Markdown without ASCII box art")
+    r_list = rules_sub.add_parser("list", help="List and browse rules catalog items by category (echoes, streams, forms, metamagics, qualities, actions)")
+    r_list.add_argument("category", type=str, choices=["echoes", "echo", "streams", "stream", "forms", "form", "complex_forms", "metamagics", "metamagic", "qualities", "quality", "actions", "action"], help="Category to browse")
+    r_list.add_argument("--filter", "-f", dest="filter_q", type=str, default=None, help="Filter results by keyword")
+    r_list.add_argument("--json", action="store_true", help="Output results as JSON")
     r_schema = rules_sub.add_parser("schema", help="Inspect database schema")
     r_schema.add_argument("table", nargs="?", default=None, help="Table name to inspect")
     r_schema.add_argument("--compact", action="store_true", help="Output as clean Markdown table")
@@ -249,6 +248,15 @@ def main():
     card_parser = subparsers.add_parser("card", help="Display item reference card")
     card_parser.add_argument("target", type=str, nargs="+", help="Item category and name, or just item name")
     card_parser.add_argument("--plain", action="store_true", help="Display card as plaintext")
+
+    rule_parser = subparsers.add_parser("rule", aliases=["get"], help="Retrieve full rule markdown chunk by ID or topic directly from SQLite")
+    rule_parser.add_argument("identifiers", type=str, nargs="+", help="Rule ID(s) or Topic name(s)")
+    rule_parser.add_argument("--compact", action="store_true", help="Output clean Markdown without ASCII box art")
+
+    list_parser = subparsers.add_parser("list", help="List and browse rules catalog items by category (echoes, streams, forms, metamagics, qualities, actions)")
+    list_parser.add_argument("category", type=str, choices=["echoes", "echo", "streams", "stream", "forms", "form", "complex_forms", "metamagics", "metamagic", "qualities", "quality", "actions", "action"], help="Category to browse")
+    list_parser.add_argument("--filter", "-f", dest="filter_q", type=str, default=None, help="Filter results by keyword")
+    list_parser.add_argument("--json", action="store_true", help="Output results as JSON")
 
     contacts_parser = subparsers.add_parser("contacts", aliases=["contact"], help="Search and browse SRM canonical and character contacts by type, region, and ratings")
     contacts_parser.add_argument("query", nargs="?", default=None, help="Optional search text (name, job, uses, or description)")
@@ -378,8 +386,8 @@ def main():
     c_ware.add_argument("--adapsin", action="store_true", help="Apply Adapsin therapy discount if eligible")
 
     # cheat subcommand
-    cheat_parser = subparsers.add_parser("cheat", help="Display tabletop rules cheatsheets (matrix, actions, monad, combat, metamagic)")
-    cheat_parser.add_argument("topic", type=str, nargs="?", default=None, choices=["matrix", "actions", "monad", "combat", "metamagic", "metamagics", "magic", "initiation", "initiations"], help="Subsystem topic (or omit to list all available)")
+    cheat_parser = subparsers.add_parser("cheat", help="Display tabletop rules cheatsheets (matrix, actions, monad, combat, metamagic, echoes, streams)")
+    cheat_parser.add_argument("topic", type=str, nargs="?", default=None, help="Subsystem topic (or omit to list all available)")
 
     # plugin subcommand
     plugin_parser = subparsers.add_parser("plugin", help="Manage SR6 Antigravity Agent Plugin")
@@ -456,6 +464,7 @@ def main():
     cm = CharacterManager()
 
     if args.command == "menu" or len(sys.argv) == 1:
+        from sr6core.menu import run_interactive_menu
         run_interactive_menu()
 
     elif args.command == "build":
@@ -593,6 +602,26 @@ def main():
             print(f"\n{format_card(card_info, fmt='plain')}\n")
         else:
             print(f"\n{card_info['markdown']}\n")
+
+    elif args.command == "list":
+        from sr6core.rules.browser import list_rules_category
+        print(f"\n{list_rules_category(args.category, filter_query=getattr(args, 'filter_q', None), json_output=getattr(args, 'json', False))}\n")
+
+    elif args.command in ["rule", "get"]:
+        from sr6core.rag.ui import render_rule_chunk_markdown
+        from sr6core.rules.db import RulesDB
+        rdb = RulesDB()
+        idents = getattr(args, "identifiers", [])
+        if isinstance(idents, str):
+            idents = [idents]
+        compact = getattr(args, "compact", False)
+        for ident in idents:
+            rule = rdb.get_rule_by_topic_or_id(ident)
+            if not rule:
+                print(f"[Notice] Rule not found: '{ident}'")
+            else:
+                render_rule_chunk_markdown(rule, compact=compact)
+
     elif args.command in ["contacts", "contact"]:
         from sr6core.character.contacts import search_contacts, format_contacts_table, STANDARD_CONTACT_TYPES, REGION_MAP
         import json
@@ -759,17 +788,22 @@ def main():
 
         elif args.subcommand == "get":
             from sr6core.rag.ui import render_rule_chunk_markdown
-            rag_engine = RAGEngine()
+            from sr6core.rules.db import RulesDB
+            rdb = RulesDB()
             idents = getattr(args, "identifiers", [])
             if isinstance(idents, str):
                 idents = [idents]
             compact = getattr(args, "compact", False)
             for ident in idents:
-                rule = rag_engine.get_rule(ident)
+                rule = rdb.get_rule_by_topic_or_id(ident)
                 if not rule:
                     print(f"[Notice] Rule not found: '{ident}'")
                 else:
                     render_rule_chunk_markdown(rule, compact=compact)
+
+        elif args.subcommand == "list":
+            from sr6core.rules.browser import list_rules_category
+            print(f"\n{list_rules_category(args.category, filter_query=getattr(args, 'filter_q', None), json_output=getattr(args, 'json', False))}\n")
 
         elif args.subcommand == "schema":
             from sr6core.rules.db import get_db_schema, format_db_schema
@@ -778,6 +812,7 @@ def main():
 
     elif args.command == "story":
         if args.subcommand == "lint":
+            from sr6core.narrative.linter import analyze_prose, print_prose_report
             res, err = analyze_prose(args.target)
             if err:
                 print(f"[Error] {err}")
@@ -785,6 +820,7 @@ def main():
                 print_prose_report(res)
 
         elif args.subcommand == "continuity":
+            from sr6core.narrative.continuity import build_continuity_report, print_continuity_report
             rep, err = build_continuity_report(args.repo_path)
             if err:
                 print(f"[Error] {err}")
@@ -792,6 +828,7 @@ def main():
                 print_continuity_report(rep)
 
         elif args.subcommand == "narrate":
+            from sr6core.narrative.narration import generate_narration, batch_generate_narrations, retag_narratives, list_narratives
             if getattr(args, "retag", False):
                 retag_narratives(args.target, char_id=getattr(args, "char", None))
             elif getattr(args, "list", False):
@@ -893,6 +930,7 @@ def main():
                 print(f"[Error] Schema lookup failed: {e}")
 
     elif args.command == "lint":
+        from sr6core.narrative.linter import analyze_prose, print_prose_report
         report, err = analyze_prose(args.target)
         if err:
             print(f"[Error] {err}")
@@ -900,6 +938,7 @@ def main():
             print_prose_report(report)
 
     elif args.command == "continuity":
+        from sr6core.narrative.continuity import build_continuity_report, print_continuity_report
         report, err = build_continuity_report(args.repo_path)
         if err:
             print(f"[Error] {err}")
@@ -908,6 +947,7 @@ def main():
 
 
     elif args.command == "narrate":
+        from sr6core.narrative.narration import generate_narration, batch_generate_narrations, retag_narratives, list_narratives
         if args.list or args.target == "list":
             target = "." if args.target == "list" else args.target
             items = list_narratives(target, char_id=args.char)
@@ -962,6 +1002,7 @@ def main():
     elif args.command == "rag":
         from sr6core.rag import print_search_results_rich, render_rag_result_rich
         from sr6core.rag.ui import render_rule_chunk_markdown
+        from sr6core.rag.engine import RAGEngine
         rag_engine = RAGEngine()
 
         if args.subcommand == "get":
@@ -1024,6 +1065,7 @@ def main():
             print_plugin_status_rich()
 
     elif args.command == "evaluate":
+        from sr6core.narrative.linter import analyze_prose, print_prose_report
         res, err = analyze_prose(args.target)
         if err:
             print(f"[Error] {err}")

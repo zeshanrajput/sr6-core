@@ -199,6 +199,107 @@ Edge is generated dynamically by comparing the attacker's Attack Rating (AR) aga
 * **Astral Scrutiny (SO p. 105)**: *Req: Astral 4 + Spec in Signatures*. Every 2 net hits on Assensing reveal positive/negative qualities, attributes, grades, or Edge.
 * **Astral Camouflage (SO p. 105)**: *Req: Astral 5*. Denies opponents Edge when assensing/targeting aura; grants +1 Edge when avoiding astral detection or bypassing barriers.
 """
+    },
+    "echoes": {
+        "title": "SR6 Submersion Echoes Directory",
+        "description": "Complete directory of Submersion Echoes across Core Rulebook, Hack & Slash, and Falling Point.",
+        "content": r"""# Shadowrun 6e Submersion & Echoes Cheatsheet
+
+## 1. Submersion Progression & Formulas
+* **Submersion Karma Formula**: $\text{Cost} = 10 + \text{Target Grade} - \text{Network/Tribe Loyalty}$.
+  * *Example*: Submerging from Grade 7 to Grade 8: $10 + 8 = \mathbf{18\text{ Karma}}$.
+* **Submersion Grade Benefits**:
+  * Raises Maximum Resonance attribute rating by +1 per Grade (e.g. Submersion 8 allows Resonance 8).
+  * Awards **1 Submersion Echo** per Grade.
+  * Adds Submersion Grade to Sprite Rep, Resonance Realm tests, and deep Matrix endurance.
+
+## 2. Core Rulebook Echoes (CRB pp. 195–196; City Edition p. 195)
+* **Living Network (CRB p. 195)**: Your living persona can form and act as the master of a Personal Area Network (PAN), slaving physical gear, weapons, and commlinks directly to your Resonance persona.
+* **Machine Mind (CRB p. 195)**: You gain the subconscious neural interfaces of a **Rating 1 Control Rig**. When jumped into a drone or vehicle, gain control rig threshold reductions and dice pool bonuses.
+* **Matrix Attribute Upgrade (CRB p. 195)**: Permanently increase one of your living persona's Matrix Attributes (Attack, Sleaze, Data Processing, or Firewall) by +1. Can be taken up to **twice per attribute** (max +2 per attribute).
+* **NeuroFilter (CRB p. 196)**: Adds a **+1 dice pool bonus** to resist biofeedback damage from black IC and Matrix attacks. May be taken up to twice for +2 resistance.
+* **Overclocking (CRB p. 196)**: Accelerates living persona processing. Gain **+1 additional Minor Action** and **+1D6 Initiative Dice** while operating in hot-sim VR.
+* **Resonance Link (CRB p. 196)**: Establish an empathic one-way sensory link with another technomancer. Discern their emotional state, trauma, physical danger, and Matrix alarms.
+* **Skinlink (CRB p. 196)**: Connect to any electronic device or datajack as if using a direct neural interface (DNI) simply by touching it with bare skin. Bypasses wireless requirements.
+
+## 3. Hack and Slash Echoes (Hack and Slash pp. 70–72)
+* **Aura Link (HnS p. 70)**: *Req: Skinlink*. Wirelessly link to devices as if touching them with Skinlink; read digital signatures across the astral-digital threshold.
+* **Buffer (HnS p. 70)**: Creates a protective Resonance cushion that absorbs up to **2 boxes of Matrix or biofeedback damage** per encounter before impacting the persona condition monitor.
+* **Castellan (HnS p. 70)**: *Req: Living Host*. Your Living Host generates internal defensive counter-measures and IC-equivalent constructs to protect resident personas.
+* **Data Haven (HnS p. 70)**: Securely store encrypted files, paydata, and node images directly in your living persona's Resonance memory; completely immune to external matrix trace actions.
+* **Data Stream (HnS p. 70)**: Allows simultaneous reception, filtering, and indexing of massive public and darknet data feeds without sensory overload; +1 Edge on Matrix research.
+* **Deconstruct (HnS p. 71)**: Adds **+2 DV** to Matrix damage inflicted against IC programs and constructs inside host environments.
+* **Denial of Service (HnS p. 71)**: Flood a target node or commlink with Resonance garbage queries, imposing a -2 dice pool penalty to all the target's Matrix actions.
+* **E-Sensing (HnS p. 71)**: Read emotions, stress levels, and cognitive state of metahumans through their PAN emissions and bio-monitor telemetry without needing Matrix Perception tests.
+* **Hybrid Sprites (HnS p. 71)**: Compile and register hybrid sprites that blend powers and forms from multiple sprite types, or compile sprites aligned with non-native technomancer streams.
+* **Living Host (HnS p. 71)**: *Req: Living Network*. Your living persona can expand into a full virtual host architecture, allowing team members to enter and run within your internal living matrix sanctuary.
+* **Mega-Sprite (HnS p. 71)**: Allows registration of exceptionally powerful Mega-Sprites with increased level limits, extra optional powers, and expanded task pools.
+* **Mind Over Machine (HnS p. 71)**: Treat your living persona as an installed **Rigger Command Console (RCC)**, enabling autosoft sharing and slaved drone swarm management.
+* **Sprite Link (HnS p. 72)**: Offload active complex form sustaining drain or biofeedback damage directly into a registered sprite's condition monitor.
+* **Syntax Error (HnS p. 72)**: When attacked by Matrix damage, redirect the attack to another slaved or connected device within your PAN.
+* **Techno-Tuning (HnS p. 72)**: Dynamically adjust device ratings, sensor arrays, or hardware firmware on slaved devices using Resonance harmonics.
+* **Virtual Reality (HnS p. 72)**: Seamlessly project full sensory virtual reality simulations to other connected users in your PAN without external sim modules.
+
+## 4. Falling Point & Dissonance Echoes (Falling Point pp. 64–66; Shadow Cast pp. 84–87)
+* **Dissonance Control (FP p. 65)**: Learn and harness Dissonance Complex Forms (*Dissonance Spike*, *Dissonance Diffusion*, *Static Bomb*) without succumbing to Dissonant madness or GM control.
+* **Dissonance Deletion (FP p. 66)**: Permanently strip data structures, personas, and registered sprites of their Matrix coherence using concentrated dissonance pulses.
+"""
+    },
+    "streams": {
+        "title": "SR6 Technomancer Streams Directory",
+        "description": "Technoshaman, Sourceror, Machinist, Cyberadept, and Dissonant paths with mechanics, sprite access, and stream shifts.",
+        "content": r"""# Shadowrun 6e Technomancer Streams Cheatsheet
+
+## 1. Stream Overview & Architecture
+Technomancer Streams define the philosophy, cognitive paradigm, and mechanical strengths of a technomancer's connection to the Resonance:
+
+| Stream | Primary Mental Focus | Core Mechanical Specialty | Native Sprites |
+| :--- | :--- | :--- | :--- |
+| **Technoshaman** | Charisma | Spirit communion, Sprite powers (*Harmonize*, *Override*, *Phantom*) | Courier, Crack, Data, Fault, Machine |
+| **Sourceror** | Logic | Complex Form mastery, multi-form sustaining, attribution efficiency | Courier, Crack, Data, Fault, Machine |
+| **Machinist** | Logic / Intuition | Drones, vehicles, RCC integration, autosoft sharing, *Machine Merge* | Machine, Fault, Crack |
+| **Cyberadept** | Logic / Willpower | Augmentation integration, overcoming cyberware Resonance penalties | Data, Fault, Machine |
+| **Dissonant** | Willpower | Dissonance generation, sprite corruption, *Dissonance Spike/Diffusion* | Dissonance Corrupted Sprites |
+
+---
+
+## 2. Stream Specialties & Signature Mechanics
+
+### A. Sourceror (Hack & Slash pp. 60–63)
+* **Multi-Form Sustaining**: Sourcerors can sustain multiple Complex Forms simultaneously up to their Resonance rating without taking the standard -2 sustaining penalty on each test.
+* **Attribution Mastery**: When threading *Attack Attribution* or *Sleaze Attribution*, Fading Value is reduced by 1 for each net hit scored: $\text{FV} = \text{Net Hits} - 1$.
+* **Hyperthreading Synergy**: Can thread two complex forms in a single Major Action by resisting combined Fading $+2$.
+* **Optimal 5-Sustain Suite**:
+  1. *Enhance Autosofts* + *Enlighten Automaton*
+  2. *Attack Attribution* + *Infusion: Sleaze*
+  3. *Infusion: Data Processing* + *Infusion: Firewall*
+  4. *Sustain Phantom* (Living persona masking)
+  5. *Combat Wildcard* (*Diffusion*, *Resonance Spike*, or *Resonance Wires*)
+
+### B. Technoshaman (CRB p. 191; HnS p. 60)
+* **Sprite Mastery**: Access to all 5 standard sprite types (Courier, Crack, Data, Fault, Machine).
+* **Great Sprite Powers**: Can register sprites with high-tier powers:
+  * *Harmonize*: Reduces technomancer fading on threading tests.
+  * *Override*: Seizes command of enemy slaved devices and vehicles.
+  * *Phantom*: Masks living persona icon as ambient static or mundane commlinks.
+  * *Death Mark*: Imposes lethal biofeedback on hostile deckers.
+
+### C. Machinist (Hack & Slash pp. 62–64)
+* **Drone Synergy**: When jumped into a drone or vehicle, adds **+1 Pilot** and **+2 Sensors** to the vehicle profile.
+* **Free Autosofts**: Automatically shares autosofts running on living persona to all drones slaved to PAN.
+* **Machine Merge**: Fuses consciousness with a drone to trade Matrix actions directly for vehicle combat maneuvers.
+
+### D. Cyberadept (Hack & Slash p. 61)
+* **Augmentation Harmony**: Reduces Essence loss penalties to Resonance attribute maximums.
+* **Overclock Bioware**: Channels Resonance to temporarily boost cyberware and bioware ratings during high-threat encounters.
+
+---
+
+## 3. Stream Shifting Rules (Hack & Slash p. 63)
+* **Karma Cost**: Switching from one Stream to another costs **20 Karma**.
+* **Downtime Requirement**: Requires 1 month of narrative downtime immersion or a profound spiritual/mental pivot in the Matrix.
+* **Retained Capabilities**: Retains all known Complex Forms and Submersion Echoes. New stream's special sustaining mechanics, sprite power access, and bonuses apply immediately upon completion.
+"""
     }
 }
 
@@ -207,6 +308,15 @@ CHEATSHEET_ALIASES: Dict[str, str] = {
     "magic": "metamagic",
     "initiation": "metamagic",
     "initiations": "metamagic",
+    "echo": "echoes",
+    "submersion": "echoes",
+    "submersions": "echoes",
+    "stream": "streams",
+    "sourceror": "streams",
+    "technoshaman": "streams",
+    "machinist": "streams",
+    "cyberadept": "streams",
+    "dissonance": "streams",
 }
 
 

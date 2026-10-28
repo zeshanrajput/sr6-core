@@ -326,7 +326,7 @@ def _split_outside_parens(text: str, delimiter: str = ",") -> List[str]:
     return parts
 
 
-def parse_npc_statblock(text: str) -> NPCStatBlock:
+def parse_npc_text_statblock(text: str) -> NPCStatBlock:
     """
     Parses raw text or Markdown describing an NPC or Grunt into a validated NPCStatBlock.
     Handles formats like:
@@ -1152,7 +1152,10 @@ def parse_npc_statblock(content: str) -> Optional[NPCStatBlock]:
     # Check for presence of attribute table
     has_attrs = bool(re.search(r'\|\s*B\s*\|\s*A\s*\|\s*R\s*\|\s*S\s*\|', content, re.IGNORECASE))
     if not has_attrs:
-        return None
+        try:
+            return parse_npc_text_statblock(content)
+        except Exception:
+            return None
 
     name = "NPC Entity"
     header_m = re.search(r'^(?:#|##|###)\s*(.+)$', content, re.MULTILINE)

@@ -248,7 +248,7 @@ class RulesDB:
             return dict(row)
         return None
 
-    def get_rule_by_topic_or_id(self, identifier: str) -> Optional[Dict[str, Any]]:
+    def get_rule_by_topic_or_id(self, identifier: str, attach_statblocks: bool = False) -> Optional[Dict[str, Any]]:
         """Fast lookup of a rule by exact ID, topic name, or best prefix match."""
         if not identifier or not identifier.strip():
             return None
@@ -256,7 +256,7 @@ class RulesDB:
         # 1. Exact ID
         res = self.query_rule(clean_id)
         if res:
-            return attach_rule_statblocks(res)
+            return attach_rule_statblocks(res) if attach_statblocks else res
 
         # 2. Exact Topic
         cursor = self.conn.cursor()
@@ -265,10 +265,11 @@ class RulesDB:
             (clean_id.lower(), clean_id.lower().replace("-", " "))
         ).fetchone()
         if row:
-            return attach_rule_statblocks(dict(row))
+            res_dict = dict(row)
+            return attach_rule_statblocks(res_dict) if attach_statblocks else res_dict
 
         # 3. Best search match
-        matches = self.search_rules(clean_id, limit=1)
+        matches = self.search_rules(clean_id, limit=1, attach_statblocks=attach_statblocks)
         if matches:
             return matches[0]
         return None
@@ -737,13 +738,6 @@ class RulesDB:
         into sub_items for instant O(1) queryable retrieval.
         """
         cursor = self.conn.cursor()
-        if not force:
-            try:
-                count = cursor.execute("SELECT COUNT(*) FROM sub_items").fetchone()[0]
-                if count > 30:
-                    return count
-            except Exception:
-                pass
 
         CANONICAL_SUBITEMS = [
             # Submersion Echoes
@@ -759,6 +753,23 @@ class RulesDB:
             ("echo_buffer", "Buffer", "echoes", "Creates a protective Resonance cushion that absorbs up to 2 boxes of Matrix or biofeedback damage per encounter before hitting your persona condition monitor."),
             ("echo_data_haven", "Data Haven", "echoes", "Allows you to store encrypted files, stolen paydata, and node images directly inside your living persona's Resonance matrix memory with complete immunity to external trace actions."),
             ("echo_deconstruct", "Deconstruct", "echoes", "Adds +2 DV to Matrix damage inflicted against IC programs and constructs inside host environments."),
+            ("echo_hybrid_sprites", "Hybrid Sprites", "echoes", "Compile and register hybrid sprites that blend powers and complex forms from multiple sprite types, or compile sprites aligned with non-native technomancer streams [Hack and Slash, p. 71]."),
+            ("echo_living_host", "Living Host", "echoes", "Requires Living Network. Your living persona can expand into a full virtual host architecture, allowing team members to enter and run within your internal living matrix sanctuary [Hack and Slash, p. 71]."),
+            ("echo_megasprite", "Mega-Sprite", "echoes", "Allows registration of exceptionally powerful Mega-Sprites with increased level limits, extra optional powers, and expanded task pools [Hack and Slash, p. 71]."),
+            ("echo_sprite_link", "Sprite Link", "echoes", "Offload active complex form sustaining drain or biofeedback damage directly into a registered sprite's condition monitor [Hack and Slash, p. 72]."),
+            ("echo_syntax_error", "Syntax Error", "echoes", "When attacked by Matrix damage, redirect the attack to another slaved or connected device within your PAN [Hack and Slash, p. 72]."),
+            ("echo_techno_tuning", "Techno-Tuning", "echoes", "Dynamically adjust device ratings, sensor arrays, or hardware firmware on slaved devices using Resonance harmonics [Hack and Slash, p. 72]."),
+            ("echo_virtual_reality", "Virtual Reality", "echoes", "Seamlessly project full sensory virtual reality simulations to other connected users in your PAN without external sim modules [Hack and Slash, p. 72]."),
+            ("echo_castellan", "Castellan", "echoes", "Requires Living Host. Your Living Host generates internal defensive counter-measures and IC-equivalent constructs to protect resident personas [Hack and Slash, p. 70]."),
+            ("echo_data_stream", "Data Stream", "echoes", "Simultaneously receive, filter, and index massive public and darknet data feeds without sensory overload; +1 Edge on Matrix research [Hack and Slash, p. 70]."),
+            ("echo_denial_of_service", "Denial of Service", "echoes", "Flood a target node or commlink with Resonance garbage queries, imposing a -2 dice pool penalty to all the target's Matrix actions [Hack and Slash, p. 71]."),
+            ("echo_e_sensing", "E-Sensing", "echoes", "Read emotions, stress levels, and cognitive state of metahumans through their PAN emissions and bio-monitor telemetry without needing Matrix Perception tests [Hack and Slash, p. 71]."),
+            ("echo_dissonance_control", "Dissonance Control", "echoes", "Learn and harness Dissonance Complex Forms (Dissonance Spike, Dissonance Diffusion, Static Bomb) without succumbing to Dissonant madness or GM control [Falling Point, p. 65]."),
+            ("echo_dissonance_deletion", "Dissonance Deletion", "echoes", "Permanently strip data structures, personas, and registered sprites of their Matrix coherence using concentrated dissonance pulses [Falling Point, p. 66]."),
+
+            # Supplement Complex Forms
+            ("cf_dissonance_spike", "Dissonance Spike", "complex_forms", "Target: Persona/Device | Duration: Instant | Fade: Net Hits | Inflicts Matrix damage infused with dissonant corruption. Can be hyperthreaded with Resonance Spike [Shadow Cast, p. 85]."),
+            ("cf_dissonance_diffusion", "Dissonance Diffusion", "complex_forms", "Target: Device/Persona | Duration: Sustained | Fade: 4 | Affects multiple Matrix attributes simultaneously. Additional net hits reduce whichever Matrix attributes you choose [Shadow Cast, p. 85]."),
 
             # Metamagics
             ("meta_centering", "Centering", "metamagic", "Use vocal chants, mantras, or physical gestures to reduce negative situational dice pool modifiers and sustaining penalties by your initiate grade."),

@@ -171,13 +171,15 @@ def test_ware_calculator():
 
 def test_cheatsheets():
     sheets = list_cheatsheets()
-    assert len(sheets) == 5
+    assert len(sheets) >= 7
     topics = [s["topic"] for s in sheets]
     assert "matrix" in topics
     assert "actions" in topics
     assert "monad" in topics
     assert "combat" in topics
     assert "metamagic" in topics
+    assert "echoes" in topics
+    assert "streams" in topics
 
     m = get_cheatsheet("matrix")
     assert "ASDF" in m["content"]

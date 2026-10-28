@@ -44,7 +44,7 @@ def test_direct_rule_get():
     if db.conn.execute("SELECT COUNT(*) FROM rules").fetchone()[0] == 0:
         warnings.warn(UserWarning("Rules vault not compiled in SQLite. Skipping tests dependent on copyrighted book vault."))
         return
-    rule = db.get_rule_by_topic_or_id("BS-0222")
+    rule = db.get_rule_by_topic_or_id("BS-0269")
     assert rule is not None
     assert "Cerebellum Booster" in rule["topic"]
     assert "Intuition" in rule["content"]

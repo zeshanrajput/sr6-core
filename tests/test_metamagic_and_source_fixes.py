@@ -88,8 +88,8 @@ def test_rag_multi_rule_retrieval():
 
     from sr6core.rag.engine import RAGEngine
     engine = RAGEngine()
-    rule1 = engine.get_rule("SRMG-0156")
-    rule2 = engine.get_rule("SW-0520")
+    rule1 = engine.get_rule("SRMG-0138")
+    rule2 = engine.get_rule("SW-0559")
     assert rule1 is not None
     assert "Why wouldn't I pay to have spells quickened on me?" in rule1["topic"]
     assert rule2 is not None

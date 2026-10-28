@@ -390,7 +390,7 @@ def get_item_card(category: Optional[str], item_input: Union[str, Dict[str, Any]
         source_citation = f"[SR6 {ns_label}]"
 
     # Special Precision Handler for Meta Echoes
-    elif category == "meta_echo":
+    elif category in ["meta_echo", "echo", "echoes"]:
         hns_rule = rdb.query_rule("HnS-0205")
         core_rule = rdb.query_rule("6WB-0887") or rdb.query_rule("SR6H-0884")
         hns_text = hns_rule.get("content", "") if hns_rule else ""
