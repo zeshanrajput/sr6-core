@@ -38,7 +38,11 @@ To protect shared campaign continuity while allowing high-stakes personal storyt
 
 * **Affiliation:** Senior Field Evaluator, Horizon / The Dawkins Group (Cover: Independent Corporate Mediator & High-Society Culture Consultant) ([Lore: Horizon][lore-horizon]).
 * **Profile:** A mundane human face augmented with tailored pheromones, micro-expression optics, and a direct data-link to Horizon's predictive **Consensus** engine. Vance is one of the "disposable, but extremely amiable assets" contracted by the Dawkins Group to slip into corporate and underworld circles, build friendships, and plant psychological seeds.
-* **Thematic Function:** The dark mirror to Velvet’s *Anatomy of Un-Manufactured Solace*. Where Velvet steps down his Charisma 10(14) gravity to create genuine, un-monetized sanctuaries ([Ch 08][ch-08]), Vance uses simulated stillness and warmth as a fishing lure to harvest emotional telemetry for the Consensus. He mocks Velvet’s spiritual journey, insisting that Jin-Young’s empathy is just another Mitsuhama biological algorithm.
+* **Thematic Function:** The dark mirror to Velvet’s *Anatomy of Un-Manufactured Solace* ([Ch 08][ch-08], [Ch 13][ch-13]). Where Velvet steps down his Charisma 10(14) gravity to create genuine, un-monetized sanctuaries, Vance uses simulated stillness, warm lighting, and artisanal hospitality as a predatory phishing lure to harvest emotional telemetry for the Consensus. He mocks Velvet’s spiritual journey, asserting that Jin-Young’s empathy and tea ceremonies are merely un-depreciated Mitsuhama factory firmware.
+* **The Game-Theoretic Collision:**
+  * *Aiden's Play (Zero-Sum Phishing):* Relies entirely on information asymmetry and manufactured vulnerability. If the mark accepts the warmth, Aidan harvests micro-tells and steers them into corporate alignment; if the mark turns paranoid or violent, Aidan logs the trauma-points to exploit later.
+  * *Velvet's Counter (Radical Sincerity & Daesul):* Velvet recognizes the technique immediately—not with anger, but with master-craft professional appreciation (*"Ninety-two degrees, Aiden? Chapter four of the Dawkins handbook. You brew it exquisitely"*). Velvet refuses both compliance and hostility, starving the Consensus engine of reactive telemetry.
+  * *The Honorable Off-Ramp:* Velvet reverses Aidan's planned reversal by proposing an interest-based, non-zero-sum compromise that advances long-term communal stability while letting Aidan deliver clean operational metrics to Los Angeles without puppeting either party.
 
 ### 2. Inquisitor Gray — *The Avenger of the Thirty Pieces*
 
@@ -195,11 +199,20 @@ To protect shared campaign continuity while allowing high-stakes personal storyt
    * **Setting:** Scheveningen pier winter pavilion after the Hague blizzard ([Session 83-02][sess-83-02]).
    * **Verticals Touched:** *Vertical 3 (The Sovereign Web)* + *Vertical 4 (Empathy vs. Manipulation)* + *Vertical 6 (Terror of the Engineered Self)*.
    * **Synthesis:** Confronted by Jonkvrouw Frederika van de Poll regarding the boundary between genuine human gratitude and corporate biological illusion. Velvet exposes the bruised sternum and makes the un-purchasable vow (*"an illusion cannot catch lead"*), permanently consecrating the Alix persona solely to her.
-2. **Tacoma Vignette — *"The Shark’s Table"*:**
-   * **Persona:** Tanaka Ryo.
-   * **Setting:** *Xingfu Chaguan* tea house on the Tacoma waterfront with **Ni Ni Xiaolu** ([Ch 08][ch-08]).
-   * **Verticals Touched:** *Vertical 3 (The Sovereign Web)* + *Vertical 4 (Empathy vs. Manipulation)*.
-   * **Concept:** Exploring the razor's edge between weaponized corporate charm and un-manufactured solace as two survivors of institutional leashes share tea and dim sum.
+2. **Immediate Post-Session Priority — Chapter 14: *"Consensus"* (Aiden Vance Foil Duel):**
+   * **Status:** Pre-Draft Architecture (Awaiting Upcoming Tabletop Session Anchors).
+   * **Adversary / Foil:** **Aiden Vance** (Horizon / Dawkins Group Senior Field Evaluator) ([Section III.1](#1-aiden-vance--the-algorithmic-mirror)).
+   * **Persona:** Baseline Kim Jin-Young (or Tanaka Ryo / designated cover).
+   * **Setting:** Soundproofed, low-light private salon or tearoom in Seattle (hosted by Vance).
+   * **Verticals Touched:** *Vertical 3 (The Sovereign Web)* + *Vertical 4 (Anatomy of Un-Manufactured Solace)* + *Vertical 6 (Terror of the Engineered Self)*.
+   * **The Dramatic Engine (Weaponized Hospitality vs. Radical Sincerity):**
+     * Aidan Vance attempts to execute the ultimate "reversal" on Velvet: sitting him down in a quiet room, serving warm artisanal liquid, and using simulated vulnerability and tailored pheromones to harvest Consensus predictive telemetry.
+     * Velvet reverses Vance's reversal. Instead of retreating into cynicism or defensive paranoia, Velvet openly compliments Vance's flawless execution (*"Ninety-two degrees, Aidan? Chapter four of the Dawkins handbook. You brew it exquisitely"*), starving the algorithm of conflict while pivoting the meeting into an unscripted, non-zero-sum negotiation.
+   * **The 4-Beat Narrative Architecture:**
+     * **Beat 1: Inciting Friction (The Manufactured Haven):** Velvet arrives at an immaculate, acoustically dampened private sanctum. Vance plays the gracious host—warm lighting, quiet geometry, an artisanal brew poured into unblemished porcelain, matched breathing, and tailored pheromones.
+     * **Beat 2: Escalation (The Algorithmic Scalpel):** Vance gently probes for the fallout of the tabletop session (`[TABLETOP ANCHOR 1: Mission fallout, compromised asset, or district leverage]`), subtly framing Horizon as Velvet's only empathetic buffer against MCT/Wuxing retaliation while feeding real-time micro-tells into the predictive Consensus engine.
+     * **Beat 3: Climax (The Radical Reversal & Complimenting the Craft):** Velvet drinks, sets the cup down without a tremor, and names the playbook. He compliments Vance’s technique with genuine professional admiration, completely short-circuiting the predictive Consensus analytics. Velvet lays bare the distinction: Vance's hospitality is zero-sum phishing; Velvet's hospitality is backed by *Daesul* (sacrificial skin in the game).
+     * **Beat 4: Aftermath (The Sincere Trade & Unsettled Mirror):** Velvet proposes an authentic, interest-based compromise that satisfies the tabletop stakes without turning either operative into a puppet (`[TABLETOP ANCHOR 2: The mutual concession or intelligence trade]`). Vance is left sitting in his own quiet room—not broken by violence, but deeply unsettled by an encounter with grace that Horizon cannot model.
 3. **Sub-Basement Vignette — *"The Ash of Synthetic Silver"*:**
    * **Persona:** Un-sculpted Jin-Young.
    * **Setting:** Deep Seattle Underground safehouse or Whiskey's sub-basement lodge ([Ch 12][ch-12]).
