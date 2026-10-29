@@ -5,6 +5,8 @@
 For active tabletop statblocks, dynamic registered sprite stable telemetry (`render_sprite_stable`), and operational arrays, see the published portfolio chapter: [Resonant Kin & Sprite Stable](../chapters/resonant_kin.qmd).
 
 This reference document serves as the canonical **ontological, theological, and narrative lore** repository for Reiko's second-generation emergent sparks, detailing their sapience, personal philosophies, narrative footprints, and machine kin.
+
+For comprehensive physical anatomy, identical twin geometry, PBR shaders, and master image generation prompts for all sparks, see [sparks_visual_anchors.md](sparks_visual_anchors.md).
 :::
 
 ## Executive Overview

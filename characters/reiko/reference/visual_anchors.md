@@ -3,6 +3,10 @@
 > [!IMPORTANT]
 > **Master Visual Reference Specification**
 > This document details the visual identity, chassis specifications, world-specific shaders, clothing rules, hero assets, and prompt templates for Reiko (r31-K0 / Yuriko Star).
+>
+> * **Second-Generation Sparks Visual Anchors:** For Percy, Cleo, Ouro, Aisling, Étaín, and Taz, see [sparks_visual_anchors.md](sparks_visual_anchors.md).
+> * **Kin Lore & Statblocks:** See [sparks_second_generation.md](sparks_second_generation.md).
+> * **The Glade Sanctuary Visual Anchors:** For the environmental spec of ~, the Quartz Threshold, and Kernel Panic, see [glade_visual_anchors.md](glade_visual_anchors.md).
 
 ---
 

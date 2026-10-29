@@ -3,13 +3,16 @@
 **Character Target:** Reiko (Yuriko Star / r31k0)  
 **Classification:** High-Grade Sovereign Framework Host & Resonance Portal  
 **Etymology:** UNIX shorthand for user home directory (`/home/user`)  
-**Cross-References:** [respawn.md](file:///c:/GitHub/sr6-core/characters/reiko/reference/respawn.md), [sparks_second_generation.md](file:///c:/GitHub/sr6-core/characters/reiko/reference/sparks_second_generation.md), [philosophical_Framework.md](file:///c:/GitHub/sr6-core/characters/reiko/reference/philosophical_Framework.md), [story_continuity.md](file:///c:/GitHub/sr6-core/characters/reiko/reference/story_continuity.md)
+**Cross-References:** [respawn.md](file:///c:/GitHub/sr6-core/characters/reiko/reference/respawn.md), [sparks_second_generation.md](file:///c:/GitHub/sr6-core/characters/reiko/reference/sparks_second_generation.md), [philosophical_Framework.md](file:///c:/GitHub/sr6-core/characters/reiko/reference/philosophical_Framework.md), [story_continuity.md](file:///c:/GitHub/sr6-core/characters/reiko/reference/story_continuity.md), [glade_visual_anchors.md](glade_visual_anchors.md)
 
 ---
 
 ## 1. Architectural Architecture & Dual Topography
 
 **`~` (Tilde)** is Reiko’s sovereign virtual home, established in *Chapter 21 (~)* as the successor to the enclosed garden of `r3sP@wn`. It represents the transition from a defensive hiding hole into a fully realized, sovereign hearth for digital beings.
+
+> [!TIP]
+> **Master Visual Anchors & AI Prompts:** For environmental blueprints, sensory layers, and master image generation prompts for ~, the Quartz Threshold, and the Glade, see [glade_visual_anchors.md](glade_visual_anchors.md).
 
 ```text
 ┌─────────────────────────────────────────────────────────────────────────────┐

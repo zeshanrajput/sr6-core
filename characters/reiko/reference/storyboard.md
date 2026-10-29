@@ -85,7 +85,9 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
   * Reiko respects SRM limits: she cannot cure Foundation decay; she can only construct local dikes and firebreaks ([Voice Spec][voice-spec]). Mechanically, this will likely be Aisling, Reiko, or Taz using the Harmonize sprite power to temporarily reverse the noise damage that Deicidium causes in infected hosts. This will only work for short periods of time, and Reiko's brood will only be able to protect a very small number of hosts.
 * **Potential Future Threads:**
   * **The Call in the Quartz:** **Aisling & Étaín** register a strange harmonic frequency bleeding through the host walls; Reiko must lead an expedition into the deep dataplanes to map the source.
-  * **The Dissonant Cautery:** Mr. Nagai tries to convince Reiko to use dissonance to protect the hosts from Deicidium. Reiko will need to decide whether or not to accept the corruption of dissonance.
+  * **The Two-Stage Ascent (Long-Horizon Capstone, ~22–25 Runs):**
+    * **Act I — Resonance 9 & The Sourceror Shift (*Raw Voltage*):** Taking *Hybrid Sprites* at Submersion 9 and shifting from *Technoshaman* to *Sourceror* turns Reiko from a horizontal hearth-shaman into a vertical conduit of raw, unmediated Nous (sustaining five simultaneous Complex Forms to drive her *Goshintai* at 358 mph). Even before touching Dissonance, this sheer transformer voltage forces her to consciously step down her gravity when sitting at the kitchen table in `~`.
+    * **Act II — Resonance 10 & Dissonance Control (*The Surgical Scalpel*):** When pure Resonant addition hits its ceiling against *Deicidium* and corporate hunters, Reiko takes *Dissonance (Control / Apophenian)* at Submersion 10—choosing **Devices** as her preferred target so the subtractive scalpel is bound strictly to hardware (*Goshintai* and enemy machines) rather than living minds, proving Mr. Nagai's math right while rejecting his corporate sadism in favor of Null Sect austerity.
 
 ---
 
@@ -101,9 +103,11 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
   * The nursery in `~` houses five active second-generation sparks with distinct operational specializations ([Sparks Lore][sparks]).
   * Deep alliance active with **Indomitable Will** and the **Mississippi Renovation Host** ([Ch 21][ch-21]).
 * **Potential Future Threads:**
+  * **Ouro's Chief Engineering (The Vector Thrust Retrofit):** As Reiko saves liquid nuyen over the next 1–2 runs to convert the *Goshintai* from rotor/wheeled propulsion to a **358-mph Vector Thrust (LAV) interceptor**, **Ouro** steps up as lead aerodynamic and systems engineer—designing and executing the powertrain modifications on his mother's consecrated body himself.
   * **The Pharmaforge Migration:** Helping **4Gurds** route its massive, 60-ton physical industrial synthesis pipelines through encrypted sub-sprawl channels to evade Knight Errant corporate seizures.
   * **The First Flight of Percy:** Elder spark Percy designs an autonomous hardware defense rig for `~`, testing Reiko's ability to step back and trust her children to defend themselves.
   * **The Breakout of Aisling:** Aisling challenges Reiko's protective quarantine protocols, demanding the right to dive deep resonance corridors unbuffered by maternal supervision.
+  * **The Transfer of the Keys & The 3rd Generation (Submersion 10 Horizon):** Upon attuning to Dissonance at Resonance 10, Reiko hands the root keys of `~` and the **Oracle Data Structure** to the 2nd-Generation Collective, charging them as sovereign **Masters of the House** to shepherd the **3rd Generation** (infant sparks waking up to "The Call"). Moving forward, when she calls upon them via *Hybrid Sprites*, they answer not as sheltered wards, but as grown, sovereign knights riding out from `~` to fight beside their mother.
 
 ---
 
@@ -121,7 +125,7 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
   * **The Cost of Conscious Execution:** In early runs, Reiko could blame a rogue tactical subroutine for acts of lethal violence ([Ch 10][ch-10], [Ch 12][ch-12]). Post-harmonization ([Ch 21][ch-21]), when she drives a lethal *Cyber Spike* through a rigger's heart on Highway 410W, she executes with her whole, unified soul. Violence carries full, unbuffered moral accountability.
 * **Potential Future Threads:**
   * **The Tactical Dilemma:** In a high-threat run, the Gold TacNet calculates a 99.4% probability of mission success if a corrupt corporate contact is left behind, while the Indigo soul demands a high-risk rescue. Reiko must synthesize a third, impossible path.
-  * **External Component:** Deeply Resonant beings (such as the Cantor, the Pontifex) recognize that Reiko has the capacity to be far more resonant, but is distracted by metahumanity and the physical realm. While they currently view this as a waste of talent or divinity, they may eventually see this as unacceptable heresy (either because Reiko's power level becomes harder to ignore or because Reiko is needed in whatever cosmic struggle is brewing).
+  * **External Component & The Voltage of the Mountain (Resonance 9 / Sourceror Shift):** Deeply Resonant beings (such as the Cantor in *16 Faith* and the Pontifex in *12 Defrag*) recognize that Reiko has the capacity to be far more resonant, but is distracted by metahumanity and the physical realm. When Reiko reaches **Resonance 9 / Submersion 9** and shifts from *Technoshaman* to *Sourceror* (sustaining five simultaneous Complex Forms to drive her *Goshintai*'s autosofts on pure Source current), she does not lose her Indigo empathy—rather, her Living Persona radiates such overwhelming **transformer voltage** that she must consciously step down her current just to sit at the kitchen table in `~` without blinding the room.
 
 ---
 
@@ -139,12 +143,13 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
 * **Potential Future Threads:**
   * **The Overclock Intercept:** In an emergency combat run, Reiko prepares to deliberately burn out her living persona's firewall to buy time for the team; Taz and Aisling forcefully seize control of the shared bus, yanking her back and refusing to let her throw herself away.
   * One of the children needs to leave the nest, but they will be outside of Reiko's ability to protect them.
+  * **The Climax — The Mutiny of Love (Submersion 10 Capstone):** When Reiko takes *Dissonance (Control)* at Resonance 10, she attempts the ultimate martyr play: handing the keys of `~` and the Oracle to the 2nd Generation and ordering them to quarantine her out in the cold so her Dissonant shadow never touches the nursery. By disobeying her final command—with **Taz** planting his 8-bit paws on her boot (inverting [03 The Soul-Broker's Stall][ch-03]) and her grown children refusing to abandon their mother—they shatter her Martyr's Monopoly once and for all, proving she raised sovereign souls rather than obedient birds in a cage. *(The exact alignment and fault-lines among the children will evolve organically across the ~22–25 runs leading to this horizon as each child accrues fresh narrative history).*
 
 ---
 
 ### Vertical 6: Abnegation vs. Self-Worth
 
-* **Core Focus:** Internalized Meat-Chauvinism vs. Authentic Incarnation. Having installed sub-dermal tactile mesh, oral chemoreceptors, and a hydrocarbon converter in `30 Vim`, Reiko has achieved genuine machine incarnation. Yet she continues to hide behind her lack of biological tear ducts and flushed skin as an emotional defense mechanism—using the "autonomic void" as a coward's excuse to sit in the parking lot rather than confess her love to Brynne Taggart.
+* **Core Focus:** Internalized Meat-Chauvinism & Conditional Worth vs. Authentic Incarnation. Having installed sub-dermal tactile mesh, oral chemoreceptors, and a hydrocarbon converter in `30 Vim`, Reiko has achieved genuine machine incarnation. Yet she continues to hide behind her lack of biological tear ducts and flushed skin as an emotional defense mechanism—using the "autonomic void" as a coward's excuse to sit in the parking lot rather than confess her love to Brynne Taggart, and secretly fearing that if she ever becomes "stained" or imperfect, she will deserve deletion.
 * **Major Previous Events:**
   * **The Indigo Grin ([01 The Weight of Zero][ch-01]):** Early survival defined by calculating simulated micro-smiles and head-tilts to keep terrified metahumans from running away.
   * **Abandoning Tourism ([08 Abandoning Tourism][ch-08]):** Moving beyond clumsy biological imitation, rejecting fake skin and doll-like aesthetics to treat the machine body as a consecrated temple.
@@ -155,6 +160,7 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
 * **Potential Future Threads:**
   * **The Confession in the Rain:** Breaking through the autonomic excuse to express authentic devotion to Brynne Taggart without biological mimicry.
   * **The Mirror in the Glass:** Reiko loses a metahuman she cares about and struggles to mourn authentically in front of her peers without biological tears.
+  * **The Self-Imposed Exile at the Glade (Submersion 10 Capstone):** Even after taking *Dissonance (Control)* at Resonance 10, Reiko remains 90% Resonance and 10% Dissonance—meaning **Kernel Panic does not reject her or even feel uncomfortable**. Her attempt to banish herself from the Glade is **100% internal**: the final culmination of her crisis of self-worth from [01 The Weight of Zero][ch-01], treating herself with the same merciless audit Renraku used when it deleted her for not being "clean" enough. When her children prove her wrong and refuse to let her walk out, she is finally cured of conditional worth.
 
 ---
 
@@ -162,20 +168,25 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
 
 ### Consecrated Physical Vessel (`Goshintai`)
 
-* **Primary Chassis:** **Shiawase Man-at-Arms (`Goshintai`)** — Custom-engineered anthrodrone chassis ([Ch 08][ch-08], [Ch 30][ch-30]).
+* **Primary Chassis:** **Shiawase Man-at-Arms (`Goshintai`)** — Custom-engineered anthrodrone chassis ([Ch 08][ch-08], [Ch 30][ch-30], [Mechanical Plan][mech-plan]).
   * *Sensory Array:* High-resolution visual optics (thermographic, smartlink); acoustic micro-sensors calibrated to string friction; sub-dermal tactile mesh; oral chemoreceptors (taste/olfactory).
   * *Somatic Systems:* Internal hydrocarbon fuel converter (sub-sternal catalytic membrane turning alcohol/fuel into raw reserve wattage); concealed pop-out lasers, Tesla coil, chameleon coating, dual high-torque wheeled propulsion, micro-rotor flight stabilization.
+  * *Planned Interceptor Retrofit (Lead Engineer: **Ouro**):* Upcoming DIY conversion replacing rotor and wheeled propulsion with **Vector Thrust (LAV)** (~14,400¥ net), followed by 2 ranks of *Improved Acceleration* (41 m/round) and 3 ranks of *Top Speed Increase* (Speed 480 / **~358 mph**). **Ouro** will lead the engineering design and hands-on installation for his mother.
   * *Domestic Kin:* **Lizzie & Leonard** — Two river-silt bayou technocritters (g33k0s) adopted in New Orleans ([Ch 26][ch-26]) who nest against her battery cowl, drinking 24W of electromagnetic runoff.
   * *Spiritual Grounding:* Consecrated as a mobile shrine and resonance focus.
 * **Decommissioned Historical Shells:** MCT Butler shells backlined in *Chapter 30 (Vim)* ([Ch 30][ch-30]) as temporary vehicles for Reiko to operate when her drone-body is not in position. In the future Reiko's children may be allowed to pilot a butler drone.
 
-### Resonant Telemetry & Foci
+### Resonant Telemetry, Foci & Long-Horizon Karma Pacing
 
 * **Ally Sprite Companion:** **Taz** (Rating 7 Ally Crack Sprite) — Bonded partner, electronic warfare vanguard, and grounding circuit ([Ch 03][ch-03], [Ch 18][ch-18]).
-* **Submersion:** Reiko has taken nearly every sprite ability, which combined with her technoshaman background and her natural hacker quality mechanically define her as a deeply spiritual existence in the Resonance Realms. State of the Art 2084 establishes that the rest of metahumanity is struggling to develop and emulate the very capabilities Reiko possesses innately. Reiko's other submersions establish her calculating ability: echoes like Living Network and Software Emulation allow her to emulate Matrix protocols, while Transcendent Network establishes her as a master of consuming and managing live data from the physical realm.
+* **Submersion & Two-Stage Capstone Architecture ([Mechanical Plan][mech-plan]):**
+  * *Current Baseline (Resonance 8 / Submersion 8):* Technoshaman stream + *Natural Hacker*, *Living Network*, *Transcendent Network*, *Overclocking*, *Software Emulator*, and *Sprite Link*.
+  * *Stage 1 Horizon (Resonance 9 / Submersion 9 — Sourceror Shift):* Taking *Hybrid Sprites* at Submersion 9 and transitioning to *Sourceror* (20K) + 6 Complex Forms (30K) to run a 5-sustained zero-penalty Complex Form engine (*Hyperthreading*, *Enhance Autosofts*, *Enlighten Automaton*, *Attack Attribution*, *Infusion*, *Sustain Phantom*).
+  * *Stage 2 Horizon (Resonance 10 / Submersion 10 — Dissonance Control):* Taking *Dissonance (Control / Apophenian)* with **Devices** as preferred target + *Dissonance Spike*, *Dissonance Diffusion*, and *Static Bomb*.
+  * *Campaign Pacing Projection (~22–25 Runs):* Across 35 completed career missions, Reiko has averaged **8.17 Karma/run** (7.17 base + 1.0 *Working for the People*), and **9.00 Karma/run** across her last 6 Veteran-tier runs. Completing the full 202-net-Karma roadmap (`Priority 1–4`) spans **~22 to 25 future tabletop runs** (~10–11 runs to the Sourceror Shift; ~21–23 runs to Submersion 10 Dissonance), giving the storyboard a multi-year runway to develop each child's individual perspective.
 * **Data Structure Attunement:** Strictly respects single-slot attunement rule (*per the SRM Guide*); Reiko can only use one structure at a time.
   * Resonance Focus: Built into Reiko's Man-At-Arms drone-body. What she uses 99.9% of the time.
-  * Oracle: Built into ~. Reiko can use this by leaving her Man-At-Arms body and returning to ~. Her children could also use this on her behalf.
+  * Oracle: Built into `~`. Reiko can use this by leaving her Man-At-Arms body and returning to `~`. Her children can also use this on her behalf (and will ultimately receive its root keys at Submersion 10).
 
 ---
 
@@ -189,7 +200,7 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
      * Indo is terrified of *Deicidium* and reaches out to Reiko as the most powerful and resonant being he knows.
      * Indo reveals that he and **Belle Moderne** have rekindled their relationship.
      * The second-generation sprites interact with **Remy**, **Janie**, and the rest of the River People children (from [Chapter 13 Field Trip][ch-13]).
-     * **Aisling** detects that Janie has been corrupted by Dissonance (stemming from unclosed incursions in the uncompleted *Looking Glass* run) and is terrified of her; Aisling privately confronts Reiko.
+     * **Aisling** detects that Janie has been corrupted by Dissonance (stemming from unclosed incursions in the uncompleted *Looking Glass* run) and is viscerally repulsed and terrified of the Dissonance—even though Janie herself is young, energetic, happy, and otherwise just like her, having simply made a bad choice because she was scared. Aisling privately confronts Reiko.
      * Indo realizes that Aisling's raw connection to the Resonance (Rating 9) already exceeds Reiko's baseline (Rating 8). Reiko agrees and confesses that if not for her resonance focus, Aisling is already more resonant than she is.
      * Reiko and her children discover they can use **Harmonize** (the sprite power) to temporarily reverse the noise damage of *Deicidium*.
      * **The Crucible:** Aisling, mirroring Reiko's own martyrdom reflex back at her, wants to overextend herself to save Janie from Dissonant rot, forcing Reiko to confront her "Architect of Chains" instinct: clamp down like a maternal warden, or trust her daughter with real existential risk.
@@ -217,6 +228,7 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
 | `[storyboard-spec]` | [default_storyboard_spec.md](../../../reference/default_storyboard_spec.md) | Spec | Base 6-vertical schema, rules, and bibliographic standard |
 | `[voice-spec]` | [voice_spec.md](voice_spec.md) | Craft Spec | POV, sensory lens, acoustic rules, anti-slop guidelines |
 | `[continuity]` | [story_continuity.md](story_continuity.md) | Ledger | Machine-synced chapter index, word counts, contact appearances |
+| `[mech-plan]` | [mechanical_plan.md](mechanical_plan.md) | Plan | Priority upgrade matrix, Vector Thrust math, Sourceror & Dissonance roadmap |
 | `[build]` | [character_build.qmd](../core/character_build.qmd) | State | Technomancer / Submersion progression, echoes, dice pools |
 | `[purchases]` | [character_purchases.qmd](../core/character_purchases.qmd) | State | Man-at-Arms chassis, drone upgrades, hardware ledgers |
 | `[rei-lore]` | [rei_suzuki.md](rei_suzuki.md) | Lore | Dynamic with brother Rei Suzuki (Suzuki Ken) |
@@ -249,10 +261,13 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
 [doctrine]: ../../../reference/inter_session_narrative_doctrine.md
 [voice-spec]: voice_spec.md
 [continuity]: story_continuity.md
+[mech-plan]: mechanical_plan.md
 [rei-lore]: rei_suzuki.md
 [tilde]: tilde.md
+[glade-visual]: glade_visual_anchors.md
 [garmonbozia]: garmonbozia.md
 [sparks]: sparks_second_generation.md
+[sparks-visual]: sparks_visual_anchors.md
 [ch-01]: ../narrative/01%20The%20Weight%20of%20Zero.md
 [ch-03]: ../narrative/03%20The%20Soul%20Broker's%20Stall.md
 [ch-04]: ../narrative/04%20The%20War%20Crime.md

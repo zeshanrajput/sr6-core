@@ -16,6 +16,7 @@ In accordance with our tabletop doctrine, tabletop play represents the **Operati
 * **Tabletop Manifestation:** To grant them an operational tether into meatspace grids and combat PANs, Reiko dedicates minor downtime actions to renewing their registration.
 * **Buying Hits Discipline:** With a Compiling pool of **20d6** (8 Resonance + 8 Tasking + 2 Spec [Compiling] + 2 Focus), Reiko buys **5 guaranteed hits** under *Shadowrun Missions (SRMG)* rules, enabling safe, drain-free compiling and registering of **Level 8 Sprites** without rolling physical dice.
 * **Deep Narrative & Lore Reference:** For extensive narrative backgrounds, individual spark philosophies, origin arcs (`24 Symlink`, `28 Renice`, `30 Vim`), and Floor 281 machine kin (*4Gurds*), see [sparks_second_generation.md](../reference/sparks_second_generation.md).
+* **Master Visual Anchors & AI Image Prompts:** For complete anatomical geometry, identical twin specifications, and prompt templates for Percy, Cleo, Ouro, Aisling, Étaín, and Taz, see [sparks_visual_anchors.md](../reference/sparks_visual_anchors.md).
 :::
 
 ---
