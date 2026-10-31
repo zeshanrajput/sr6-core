@@ -51,7 +51,7 @@ This ledger itemizes character creation gear, matrix devices, identities, softwa
 
 * **Ares SecureTech Skinshield (Defense Rating 2):** `{python} inc('Nuyen', -4150)`
   * Concealable Holster
-  * Rapid Adjustment Clothing System (RACS 2)
+  * Ruthenium Armor Concealment System (RACS 2)
   * Fashion Accessory: Très Chic x2
   * Ballistic Hood
 

@@ -780,7 +780,7 @@ def learn_complex_form(name: str) -> str:
     notes = ""
     if row:
         fading_raw = row.get("fade", "2")
-        fading = int(fading_raw) if str(fading_raw).isdigit() else 2
+        fading = int(fading_raw) if str(fading_raw).isdigit() else (-1 if str(fading_raw).upper() in ("HITS", "VARIES", "RATING") else 2)
         duration = row.get("duration", "Immediate")
         target = row.get("target", "Device")
         notes = f"Source: {row.get('source', '')}"
@@ -1648,6 +1648,14 @@ def get_log_totals(log_path: Optional[Any] = None) -> Dict[str, Any]:
                     "karma": karma_val,
                     "nuyen": nuyen_val
                 })
+
+    # Also extract markdown `* *Submersion - <Name>:*` entries if not yet registered via echo()
+    for m_sub in re.finditer(r"^\s*\*\s+\*?\*?Submersion\s*-\s*([^:*`\n]+)", content, re.MULTILINE):
+        raw_echo_name = m_sub.group(1).strip()
+        if raw_echo_name.lower() == "new sprite types":
+            raw_echo_name = "New Sprite Type"
+        if raw_echo_name:
+            echo(raw_echo_name)
 
     rep_dict = _GLOBAL_LOG_STATE.get("Reputation", {})
     total_rep = sum(rep_dict.values()) if isinstance(rep_dict, dict) else 0

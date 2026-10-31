@@ -13,6 +13,7 @@ identity:
   nuyen: 1250.0
   lifetime_nuyen: 437800
   heat: -1
+  submersion: 8
 attributes:
   body: 5
   agility: 3
@@ -108,11 +109,10 @@ modifiers:
   type: focus
   sub_skill: null
   rule_anchor: rules_matrix.html#data-structures
-  notes: 'SRMG v2.4 p. 39 / H&S p. 70-71: Functions like a magical focus; requires
-    no Minor Action to activate and has no separate fading; grants +4 dice on Matrix
-    Perception and Matrix Search tests; reduces extended Matrix Search interval to
-    a Major Action'
-  enabled: true
+  notes: Dormant in Host (~) while Resonance Focus R4 is active (per SRM single Data
+    Structure limit for EIs). Grants +4 dice on Matrix Perception and Matrix Search
+    tests when active.
+  enabled: false
 - id: taz_symbiosis_electronics
   name: Taz Symbiosis (Electronics)
   target: skill:electronics
@@ -174,37 +174,37 @@ complex_forms:
   notes: Electronics + RES test. Each hit reduces OS by 1.
 - name: Diffusion
   ref: diffusion
-  fading: 2
-  duration: Instant
+  fading: 4
+  duration: Sustained
   target: Device
   notes: 'Source: core'
 - name: Puppeteer
   ref: puppeteer
-  fading: 2
-  duration: Instant
+  fading: 5
+  duration: Sustained
   target: Device
   notes: 'Source: core'
 - name: Cyber Spike
   ref: cyber_spike
-  fading: 2
+  fading: -1
   duration: Instant
   target: Device
   notes: 'Source: hack_slash'
 - name: Resonance Wires
   ref: resonance_wires
   fading: 2
-  duration: Instant
+  duration: Sustained
   target: Device
   notes: 'Source: hack_slash'
 - name: Enlighten Automaton
   ref: enlighten_automaton
-  fading: 2
-  duration: Instant
+  fading: -1
+  duration: Sustained
   target: Device
   notes: 'Source: hack_slash'
 - name: Resonance Spike
   ref: resonance_spike
-  fading: 2
+  fading: 4
   duration: Instant
   target: Device
   notes: 'Source: core'
@@ -214,6 +214,30 @@ meta_echoes: &id001
   notes: ''
 - name: Sprite Conduit
   ref: sprite_conduit
+  notes: ''
+- name: New Sprite Type
+  ref: new_sprite_type
+  notes: ''
+- name: Sprite Conduit
+  ref: sprite_conduit
+  notes: ''
+- name: Sprite Symbiosis
+  ref: sprite_symbiosis
+  notes: ''
+- name: Living Network
+  ref: living_network
+  notes: ''
+- name: Transcendent Network
+  ref: transcendent_network
+  notes: ''
+- name: Overclocking
+  ref: overclocking
+  notes: ''
+- name: Software Emulator
+  ref: software_emulator
+  notes: ''
+- name: Sprite Link
+  ref: sprite_link
   notes: ''
 echoes: *id001
 knowledge_skills:
@@ -1849,10 +1873,10 @@ licenses:
   sin: Yuriko Star
 living_persona:
   asdf_bonuses:
-    firewall: 3
-    sleaze: 1
-    data_processing: 1
     attack: 3
+    sleaze: 5
+    data_processing: 3
+    firewall: 5
 synergies:
   attribute_substitutions:
   - domain: matrix
@@ -1883,9 +1907,9 @@ synergies:
   living_persona_network_tuning:
     asdf_bonuses:
       attack: 4
-      sleaze: 8
-      data_processing: 6
-      firewall: 6
+      sleaze: 4
+      data_processing: 4
+      firewall: 4
 exceptions:
 - id: omegaware_discount
   title: Used/Omegaware Cyberware 50% Discount

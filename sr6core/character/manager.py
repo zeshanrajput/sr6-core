@@ -286,9 +286,17 @@ class CharacterManager:
 
         repo_path = self.get_character_repo_dir(char_id)
         fmt = fmt.lower()
-        if fmt in ["quick_sheet", "sheet", "text", "txt", "text_modular", "vtt", "base"]:
+        if fmt in ["roll20", "roll20_json", "genesis", "json"]:
+            from sr6core.publishing.roll20_json import export_roll20_json
+            content = export_roll20_json(data, char_repo_path=repo_path)
+            if output_path:
+                os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
+                with open(output_path, "w", encoding="utf-8") as f:
+                    f.write(content)
+            return content
+        elif fmt in ["quick_sheet", "sheet", "text", "txt", "text_modular", "vtt", "base"]:
             from sr6core.publishing.quick_sheet import export_quick_sheet
-            return export_quick_sheet(data, char_repo_path=repo_path)
+            return export_quick_sheet(data, char_repo_path=repo_path, output_path=output_path)
         elif fmt in ["mobile", "mobile_html", "html"]:
             from sr6core.publishing.mobile_html import export_mobile_html
             return export_mobile_html(data, char_id=char_id, char_repo_path=repo_path)

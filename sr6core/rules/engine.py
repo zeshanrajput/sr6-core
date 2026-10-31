@@ -1338,28 +1338,56 @@ def get_multi_modifier_interactions(char_id: str, threshold: int = 2) -> List[Di
                     "count": len(fw_mods)
                 })
         elif int(attrs.get("resonance", 0)) > 0:
-            cha_val = int(attrs.get("charisma", 1))
-            int_val = int(attrs.get("intuition", 1))
-            log_val = int(attrs.get("logic", 1))
-            wil_val = int(attrs.get("willpower", 1))
-            res_val = int(attrs.get("resonance", 1))
+            res_val = int(attrs.get("resonance", 8))
+            asdf = ModifierEngine.get_living_persona_asdf(data)
+            act_a = asdf.get("attack", 7)
+            act_s = asdf.get("sleaze", 9)
+            act_d = asdf.get("data_processing", 7)
+            act_f = asdf.get("firewall", 9)
+            base_a = max(1, act_a - 4)
+            base_s = max(1, act_s - 4)
+            base_d = max(1, act_d - 4)
+            base_f = max(1, act_f - 4)
 
             asdf_mods = [
-                {"source": "Base ASDF Array", "value": f"A:{cha_val} S:{int_val} D:{log_val} F:{wil_val}", "type": "base", "notes": "Living Persona base stats", "rule_anchor": ""},
-                {"source": "Network Tuning / Symbiosis", "value": "+4 to all ASDF", "type": "technomancer synergy", "notes": "Living persona tuning adds +4 across all Matrix attributes", "rule_anchor": "rules_matrix.html"},
-                {"source": "Taz Symbiosis", "value": "+4 Tasking", "type": "teamwork", "notes": "Companion sprite assistance adds +4 teamwork dice", "rule_anchor": "rules_sprites.html"},
-                {"source": "Resonance Focus R4", "value": "+4 Focus", "type": "focus", "notes": "Applies +4 dice to Resonance-linked action tests", "rule_anchor": "rules_matrix.html"}
+                {"source": "Base Point-Buy ASDF Array", "value": f"A:{base_a} S:{base_s} D:{base_d} F:{base_f}", "type": "base", "notes": "Digital Intelligence / Pilot AI point-buy base Matrix attributes", "rule_anchor": "rules/rules_and_downtime.html#matrix-attributes"},
+                {"source": "Taz Symbiosis (+6) + Programs (+2) + Resonance Split (+8)", "value": "+4 to all ASDF (+4 Cap)", "type": "augmentation", "notes": "Taz Assassin Sprite (+3/+2/+1/+0), Toolbox (+1 DP), Encryption (+1 FW), Resonance 8 (+1/+2/+2/+3) capped at +4 per attribute", "rule_anchor": "rules/rules_and_downtime.html#matrix-attributes"},
+                {"source": "Taz Symbiosis", "value": "+4 Teamwork", "type": "teamwork", "notes": "Companion sprite assistance adds +4 teamwork dice to Cracking & Electronics", "rule_anchor": "rules/rules_and_downtime.html#matrix-action-pools"},
+                {"source": "Resonance Focus R4", "value": "+4 Focus", "type": "focus", "notes": "Applies +4 dice to Resonance-linked action and defense tests (Natural Hacker)", "rule_anchor": "rules/rules_and_downtime.html#matrix-action-pools"}
             ]
             if len(asdf_mods) > threshold:
                 results.append({
                     "category": "Resonance & Living Persona",
-                    "name": "Technomancer ASDF & Resonance Operations",
-                    "total_pool": f"A:{cha_val + 4} S:{int_val + 4} D:{log_val + 4} F:{wil_val + 4} (Resonance {res_val} + Focus 4 = {res_val + 4}d6 Base)",
-                    "base_summary": "Base ASDF + Network Tuning (+4) + Taz Symbiosis (+4) + Resonance Focus (+4)",
+                    "name": "Living Persona ASDF & Resonance Operations",
+                    "total_pool": f"A:{act_a} S:{act_s} D:{act_d} F:{act_f} (Matrix AR {act_a + act_s} / DR {act_d + act_f} [20 Edge]; RES {res_val} + Focus 4 = {res_val + 4}d6 Base)",
+                    "base_summary": f"Base ASDF (A:{base_a} S:{base_s} D:{base_d} F:{base_f}) + Augmented Cap (+4/+4/+4/+4) = A:{act_a} S:{act_s} D:{act_d} F:{act_f}",
                     "modifiers": asdf_mods,
-                    "stacking_legality": "Network Tuning provides +4 augmented Matrix attributes, respecting the SRMG +4 limit. Taz Symbiosis provides teamwork dice capped at skill rating. Focus bonus applies as an untyped magical tool bonus.",
-                    "operational_constraints": "Sustaining complex forms requires Resonance bond. Taz must remain registered and in PAN proximity.",
+                    "stacking_legality": "Under Hack & Slash pp. 116–120, AI/EI Matrix attributes are subject to the +4 Augmented Attribute Limit. Taz Symbiosis provides teamwork dice capped at skill rating. Resonance Focus applies to the Resonance attribute component.",
+                    "operational_constraints": "Only one Data Structure may be active at a time per SRM rules (Resonance Focus R4 is active; Oracle R4 remains dormant in the Sanctuary Host). Taz must remain registered and in PAN proximity.",
                     "count": len(asdf_mods)
+                })
+
+            # Matrix Defense Umbrella (Standard 21d6 / Full Matrix Defense 34d6)
+            mdef_mods = [
+                {"source": "Firewall (Active Living Persona)", "value": str(act_f), "type": "attribute", "notes": f"Base Firewall {base_f} + Encryption (+1) + Resonance Split (+3) = {act_f}", "rule_anchor": "rules/rules_and_downtime.html#matrix-attributes"},
+                {"source": "Resonance (Natural Hacker Substitution)", "value": f"+{res_val}", "type": "attribute", "notes": "Natural Hacker (H&S p. 120) substitutes Resonance for Willpower/Intuition on Matrix defenses", "rule_anchor": "rules/rules_and_downtime.html#matrix-defense-umbrella"},
+                {"source": "Resonance Focus (Rating 4)", "value": "+4", "type": "focus", "notes": "Adds +4 dice to Resonance component -> Standard Matrix Defense = 21d6 (5 Bought Hits)", "rule_anchor": "rules/rules_and_downtime.html#matrix-defense-umbrella"},
+                {"source": "Personal Assistant App (Rating 6 via Emulator)", "value": "+6", "type": "software", "notes": "Continuously takes the Full Matrix Defense action every round for the entire PAN", "rule_anchor": "rules/rules_and_downtime.html#matrix-defense-umbrella"},
+                {"source": "Directional Shield (Active Data Processing)", "value": f"+{act_d}", "type": "software", "notes": "Minor Anytime Action in Full Matrix Defense adds Data Processing (+7) to defense pool", "rule_anchor": "rules/rules_and_downtime.html#matrix-defense-umbrella"},
+                {"source": "Encryption & Designer Home Device", "value": "+1 Threshold / DR 20 (Edge)", "type": "network", "notes": "Encryption adds +1 threshold to incoming Cracking tests; Designer raises effective Matrix DR from 16 to 20 for Edge comparison", "rule_anchor": "rules/rules_and_downtime.html#network-benefits"}
+            ]
+            std_mdef = act_f + res_val + 4
+            full_mdef = std_mdef + 6 + act_d
+            if len(mdef_mods) > threshold:
+                results.append({
+                    "category": "Matrix Defense Umbrella",
+                    "name": "Standard & Full Matrix Defense Umbrella",
+                    "total_pool": f"{std_mdef}d6 Standard ({std_mdef // 4} Hits) / {full_mdef}d6 Full Defense ({full_mdef // 4} Hits)",
+                    "base_summary": f"FW {act_f} + RES {res_val} + Focus 4 = {std_mdef}d6 Standard | + Personal Assistant R6 (6) + Directional Shield DP ({act_d}) = {full_mdef}d6 Full Matrix Defense",
+                    "modifiers": mdef_mods,
+                    "stacking_legality": "Standard Matrix Defense pairs Firewall (9) with Resonance (8 + 4 Focus = 12) via Natural Hacker. Full Matrix Defense adds Personal Assistant R6 (+6) and Directional Shield Data Processing (+7 via Minor Anytime Action), all from distinct multi-component/action sources.",
+                    "operational_constraints": "Personal Assistant R6 runs in Software Emulator and maintains Full Matrix Defense passively for the PAN. Directional Shield requires 1 Minor Anytime Action when attacked.",
+                    "count": len(mdef_mods)
                 })
 
     # 3. Damage Resistance & Armor

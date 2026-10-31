@@ -76,6 +76,10 @@ def compile_character(char_id: str) -> Dict[str, Any]:
     identity["nuyen"] = totals.get("Nuyen", 0)
     identity["lifetime_nuyen"] = totals.get("Lifetime_Nuyen", identity["nuyen"])
     identity["heat"] = totals.get("Heat", 0)
+    if totals.get("Submersion_Grade", 0) > 0:
+        identity["submersion"] = totals["Submersion_Grade"]
+    if totals.get("Initiation_Grade", 0) > 0:
+        identity["initiation"] = totals["Initiation_Grade"]
 
     # 3. Parse Attributes from character_build.qmd
     existing_char = cm.get_character_data(char_id)
@@ -114,6 +118,25 @@ def compile_character(char_id: str) -> Dict[str, Any]:
         if not any(eq.get("ref") == q.get("ref") or eq.get("name") == q.get("name") for eq in pos_list):
             pos_list.append(q)
 
+    living_persona = dict(existing_char.get("living_persona", {}))
+    synergies = dict(existing_char.get("synergies", {}))
+    if "ai" in str(identity.get("metatype", "")).lower() and attributes.get("resonance", 0) > 0:
+        # Digital Intelligence / Pilot AI point-buy base ASDF (3/5/3/5) + +4 Augmented Cap = 7/9/7/9
+        living_persona["asdf_bonuses"] = {
+            "attack": int(attributes.get("strength", 3)),
+            "sleaze": int(attributes.get("reaction", 5)),
+            "data_processing": int(attributes.get("agility", 3)),
+            "firewall": int(attributes.get("body", 5)),
+        }
+        synergies["living_persona_network_tuning"] = {
+            "asdf_bonuses": {
+                "attack": 4,
+                "sleaze": 4,
+                "data_processing": 4,
+                "firewall": 4,
+            }
+        }
+
     # 5. Build master structure
     compiled: Dict[str, Any] = {
         "identity": identity,
@@ -145,9 +168,9 @@ def compile_character(char_id: str) -> Dict[str, Any]:
         "sprite_powers": totals.get("Sprite_Powers", []) or existing_char.get("sprite_powers", []),
         "sins": purchases_data.get("sins", existing_char.get("sins", [])),
         "licenses": purchases_data.get("licenses", existing_char.get("licenses", [])),
-        "living_persona": existing_char.get("living_persona", {}),
+        "living_persona": living_persona,
         "monad_abilities": totals.get("Monad_Abilities", []) or existing_char.get("monad_abilities", []),
-        "synergies": existing_char.get("synergies", {}),
+        "synergies": synergies,
         "exceptions": ExceptionsRegistry.get_character_exceptions(char_id, repo_dir)
     }
 

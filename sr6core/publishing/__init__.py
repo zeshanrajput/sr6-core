@@ -17,6 +17,10 @@ from sr6core.publishing.enricher import (
 )
 from sr6core.publishing.mobile_html import export_mobile_html
 from sr6core.publishing.mobile_json import export_mobile_json
+from sr6core.publishing.roll20_json import (
+    build_roll20_payload,
+    export_roll20_json,
+)
 
 __all__ = [
     "export_quick_sheet",
@@ -28,4 +32,6 @@ __all__ = [
     "inject_chapter_audio_players",
     "export_mobile_html",
     "export_mobile_json",
+    "build_roll20_payload",
+    "export_roll20_json",
 ]

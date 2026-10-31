@@ -83,7 +83,7 @@ assign("Lifetime_Nuyen", 90000)
   * Shopsoft x6 `{python} inc('Nuyen',-900)`
   * **Coding Facility** `{python} inc_many(('Nuyen',-5000),('Karma',-1))`
 * Data Structures & Resonance Constructs
-  * **Oracle (Rating 4)** `{python} inc_many(('Nuyen', -20000), ('Karma', -4))` `{python} modifier("Data Structure: Oracle (Rating 4)", "matrix_search", 4, type="focus", rule_anchor="rules_matrix.html#data-structures", notes="SRMG v2.4 p. 39 / H&S p. 70-71: Functions like a magical focus; requires no Minor Action to activate and has no separate fading; grants +4 dice on Matrix Perception and Matrix Search tests; reduces extended Matrix Search interval to a Major Action")`
+  * **Oracle (Rating 4)** `{python} inc_many(('Nuyen', -20000), ('Karma', -4))` `{python} modifier("Data Structure: Oracle (Rating 4)", "matrix_search", 4, type="focus", enabled=False, rule_anchor="rules_matrix.html#data-structures", notes="Dormant in Host (~) while Resonance Focus R4 is active (per SRM single Data Structure limit for EIs). Grants +4 dice on Matrix Perception and Matrix Search tests when active.")`
     * *Integration:* Incorporated into the physical optical cluster substrate and foundation brick of Reiko's home host, `~` (aboard the Federated-Boeing Sky Commander). Under *SRMG v2.4*, an Emergent Intelligence residing in the host device can actively bond and use one data structure as a focus.
 
 For autosofts that are specific, the character programs her derivative own based on the original version she bought above. This process takes 8 hours for knowledge and language autosofts, and 12 hours for all other autosofts. The cost is 1 karma for each of the derivative autosofts.

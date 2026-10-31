@@ -763,13 +763,15 @@ class ModifierEngine:
         synergies = char_data.get("synergies", {})
         tuning = synergies.get("living_persona_network_tuning", {}).get("asdf_bonuses", {})
         if not tuning:
-            tuning = {"attack": 4, "sleaze": 8, "data_processing": 6, "firewall": 6}
+            tuning = {"attack": 4, "sleaze": 4, "data_processing": 4, "firewall": 4}
+        if not base_asdf:
+            base_asdf = {"attack": 3, "sleaze": 5, "data_processing": 3, "firewall": 5}
 
         return {
-            "attack": base_asdf.get("attack", 0) + tuning.get("attack", 0),
-            "sleaze": base_asdf.get("sleaze", 0) + tuning.get("sleaze", 0),
-            "data_processing": base_asdf.get("data_processing", 0) + tuning.get("data_processing", 0),
-            "firewall": base_asdf.get("firewall", 0) + tuning.get("firewall", 0)
+            "attack": base_asdf.get("attack", 3) + tuning.get("attack", 4),
+            "sleaze": base_asdf.get("sleaze", 5) + tuning.get("sleaze", 4),
+            "data_processing": base_asdf.get("data_processing", 3) + tuning.get("data_processing", 4),
+            "firewall": base_asdf.get("firewall", 5) + tuning.get("firewall", 4)
         }
 
     @classmethod

@@ -281,10 +281,10 @@ def main():
     narrate_parser.add_argument("--voice", type=str, default="af_heart", help="Kokoro voice model")
     narrate_parser.add_argument("--pacing", type=str, choices=["tight", "balanced", "spacious"], default="balanced", help="Pacing profile")
 
-    export_parser = subparsers.add_parser("export", help="Export character to 2-Page ASCII Quick-Sheet or Standalone Mobile PWA")
+    export_parser = subparsers.add_parser("export", help="Export character to Roll20 JSON, 2-Page ASCII Quick-Sheet, or Standalone Mobile PWA")
     export_parser.add_argument("char_id", type=str, help="Character ID (reiko, velvet, venn)")
-    export_parser.add_argument("--format", type=str, choices=["quick_sheet", "sheet", "mobile", "text"], default="quick_sheet", help="Export format")
-    export_parser.add_argument("--output", type=str, default=None, help="Custom output filepath")
+    export_parser.add_argument("--format", type=str, choices=["roll20", "roll20_json", "quick_sheet", "sheet", "mobile", "text"], default="quick_sheet", help="Export format")
+    export_parser.add_argument("--output", "-o", type=str, default=None, help="Custom output filepath")
 
     # transcribe subcommand
     trans_parser = subparsers.add_parser("transcribe", help="Transcribe tabletop session audio using faster-whisper on CUDA")
@@ -866,17 +866,23 @@ def main():
 
     elif args.command == "export":
         try:
+            out_path = getattr(args, "output", None)
             output = cm.export_character(
                 args.char_id,
                 fmt=args.format,
-                output_path=getattr(args, "output", None)
+                output_path=out_path
             )
-            print(f"\n--- Export for '{args.char_id}' ({args.format.upper()}) ---")
-            if isinstance(output, dict):
-                for fname, content in output.items():
-                    print(f"\n>>> {fname}:\n{content[:300]}...\n")
-            else:
+            if out_path:
+                print(f"[OK] Exported '{args.char_id}' ({args.format.upper()}) to {out_path}")
+            elif args.format.lower() in ("roll20", "roll20_json"):
                 print(output)
+            else:
+                print(f"\n--- Export for '{args.char_id}' ({args.format.upper()}) ---")
+                if isinstance(output, dict):
+                    for fname, content in output.items():
+                        print(f"\n>>> {fname}:\n{content[:300]}...\n")
+                else:
+                    print(output)
         except Exception as e:
             print(f"Export failed: {e}")
 

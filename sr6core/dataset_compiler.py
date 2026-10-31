@@ -619,8 +619,16 @@ def compile_commlink_datasets(jar_path: Optional[str] = None, db_path: str = DEF
                         if not cid:
                             continue
                         name = cf.get("name", cid.replace("_", " ").title())
-                        fade = cf.get("fade", "2")
-                        dur = cf.get("duration", "Instant")
+                        fade = cf.get("fad") or cf.get("fade", "2")
+                        dur_raw = (cf.get("dur") or cf.get("duration", "Instant")).upper()
+                        dur_map = {
+                            "SUSTAINED": "Sustained",
+                            "PERMANENT": "Permanent",
+                            "INSTANTANEOUS": "Instant",
+                            "INSTANT": "Instant",
+                            "VARIES": "Varies",
+                        }
+                        dur = dur_map.get(dur_raw, dur_raw.capitalize())
                         target = cf.get("target", "Device")
                         raw_xml = ET.tostring(cf, encoding="utf-8").decode("utf-8")
 

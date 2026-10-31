@@ -9,10 +9,14 @@ from sr6core.character.ledger import get_log_totals
 from sr6core.character.manager import CharacterManager
 from sr6core.rules.engine import (
     get_weapon_attack_table,
+    get_matrix_asdf_derivation_table,
+    get_matrix_action_table,
+    render_matrix_actions_markdown,
     render_multi_modifier_interactions,
     get_matrix_protocols_summary,
     render_sprite_stable
 )
+from sr6core.rules.modifiers import ModifierEngine
 
 cm = CharacterManager()
 _char = cm.get_character_data("reiko") or {}
@@ -24,9 +28,20 @@ edge_storage_mtoc = 5
 edge_storage_total = SUBMERSION_GRADE + edge_storage_mtoc
 
 matrix_summary = get_matrix_protocols_summary("reiko")
+active_asdf = matrix_summary.get("asdf", {})
+ACTIVE_A = active_asdf.get("attack", 7)
+ACTIVE_S = active_asdf.get("sleaze", 9)
+ACTIVE_D = active_asdf.get("data_processing", 7)
+ACTIVE_F = active_asdf.get("firewall", 9)
 active_asdf_str = matrix_summary.get("asdf_str", "A:7 S:9 D:7 F:9")
 full_def_hits = matrix_summary.get("full_defense_hits", 8)
 full_def_pool = matrix_summary.get("full_defense_pool", 34)
+
+RESONANCE = int(attrs.get("resonance", 8))
+focus_mods = ModifierEngine.get_focus_modifiers(_char, "resonance")
+RESONANCE_FOCUS = sum(m.value for m in focus_mods) if focus_mods else 4
+std_def_pool = ACTIVE_F + RESONANCE + RESONANCE_FOCUS
+std_def_hits = std_def_pool // 4
 ```
 
 ::: {.callout-note icon=false}
@@ -53,17 +68,17 @@ print(get_weapon_attack_table("reiko"))
 ### Mechanical Construction & Citations
 
 1. **Red Fox Lasers (Twin Eye-Mounts)**:
-   * **Source**: *Firing Squad*, p. 116 (Energy Weapons).
+   * **Source**: *Firing Squad*, p. 44 / p. 116 (Energy Weapons) & *Double Clutch*, p. 143 (Link-Firing).
    * **Mounting Stability**: Built into cybernetic eye mounts / anthrodrone head assembly, granting **+2 AR** across all active ranges (*Firing Squad*, p. 112).
    * **Smartlink Integration**: Smartlink grants **+2 AR** (*SR6 Core*, p. 260); network coordination via Master Tactical Operations Commlink (M-TOC II) adds an additional **+1 AR** (*Firing Squad*, p. 90).
-   * **Link-Firing Array**: Firing both emitters simultaneously adds **+1 DV** and **+2 AR**, costing 1 Major and 1 Minor action for the attack.
+   * **Link-Firing Array**: Firing both emitters simultaneously adds **+2 DV** and **+1 AR**, costing 1 Major and 1 Minor action for the attack (*Double Clutch*, p. 143).
 
 2. **Tesla Coil (Cyberarm Forearm Sprayer)**:
    * **Source**: *Body Shop*, p. 49 & *SR6 Core*, pp. 117–118 (Exotic Ranged / Spray Attack).
    * **Discharge Cones & Firing Modes**:
-     * *Straight Stream*: Direct beam against the first target along a 20-meter line of fire. Standard base damage and range profile.
-     * *Wobbly Cone*: Arc discharging across an $8.58^\circ$ cone (3 meters wide at 20m). Modifies attack by **+2 AR** and **-1 DV**. Affects all targets in the cone.
-     * *Sweeping Arc*: Wide electrical discharge across a $28.07^\circ$ cone (10 meters wide at 20m). Modifies attack by **+4 AR** and **-3 DV**. Affects all targets in the cone.
+     * *Straight Stream*: Direct beam against the first target along a 20-meter line of fire. Standard base damage (`5S(e)`) and range profile (`10/12*`).
+     * *Wobbly Cone*: Arc discharging across an $8.58^\circ$ cone (3 meters wide at 20m). Modifies attack by **+2 AR** (`12/14*`) and **-1 DV** (`4S(e)`). Affects all targets in the cone.
+     * *Sweeping Arc*: Wide electrical discharge across a $28.07^\circ$ cone (10 meters wide at 20m). Modifies attack by **+4 AR** (`14/16*`) and **-3 DV** (`2S(e)`). Affects all targets in the cone.
    * **Wild Die Acceleration**: When executing a Wobbly or Sweeping discharge, Reiko may substitute one normal die with a **Wild Die** to accelerate stream speed (*SR6 Core*, p. 118).
 
 3. **Amalgam Cestas (Anti-Spirit CQC)**:
@@ -72,7 +87,66 @@ print(get_weapon_attack_table("reiko"))
 
 ---
 
-## 2. High-Dice Pools Over 20 (Tabletop Audit)
+## 2. Matrix Attributes, Defense Umbrella & Network Protocols{#matrix-attributes}
+
+Reiko's base point-buy Living Persona ASDF is **`3 / 5 / 3 / 5`**. She gains **+6** from Sprite Symbiosis with Taz (`+3 / +2 / +1 / +0`), **+1** Data Processing from *Toolbox*, **+1** Firewall from *Encryption*, and **+8** from her Resonance (`+1 / +2 / +2 / +3`), for a raw total of **+16**. Under SR6 AI rules (*Hack & Slash*, pp. 116–120), Matrix ASDF attributes represent the intrinsic physical and mental characteristics of Digital Intelligences and are subject to the standard **+4 Augmented Attribute Limit**, bringing her active array to **`7 / 9 / 7 / 9`** (`Attack 7, Sleaze 9, Data Processing 7, Firewall 9`).
+
+```{python}
+#| echo: false
+#| output: asis
+print(get_matrix_asdf_derivation_table("reiko"))
+```
+
+### Matrix Defense Umbrella{#matrix-defense-umbrella}
+
+Reiko's Matrix Defense Umbrella protects her Living Persona and every device/persona slaved to her PAN:
+
+* **Matrix Defense Rating (`DR 16` / Effective `DR 20` vs. Enemy Edge)**:
+  * **Base Matrix DR**: $\text{Data Processing } (\text{`{python} ACTIVE_D`}) + \text{Firewall } (\text{`{python} ACTIVE_F`}) = \mathbf{\text{`{python} ACTIVE_D + ACTIVE_F`}\;DR}$.
+  * **Designer Home Device Bonus**: When inhabiting or protecting her Home Device (*Hack & Slash*, pp. 119, 124), her Defense Rating is considered **+4 higher (`{python} ACTIVE_D + ACTIVE_F + 4` DR)** for Edge comparisons.
+* **Encryption Threshold Shift (`+1 Threshold`)**:
+  * Running the **Encryption** program increases the threshold of all incoming **Cracking** tests against any device or persona on the network by **`+1`**.
+* **Standard Matrix Defense (vs. Attack Actions — *Brute Force, Data Spike, Crash Program, Tarpit*)**: **`{python} std_def_pool`d6** $\rightarrow$ **`{python} std_def_hits` Bought Hits**
+  * *Applied Modifiers*: Firewall (`{python} ACTIVE_F`) + Natural Hacker RES (`{python} RESONANCE`) + Resonance Focus (+`{python} RESONANCE_FOCUS`).
+* **Standard Matrix Defense (vs. Sleaze Actions — *Probe, Backdoor Entry, Hack on the Fly, Spoof Command*)**: **`{python} std_def_pool`d6** $\rightarrow$ **`{python} std_def_hits` Bought Hits**
+  * *Applied Modifiers*: Firewall (`{python} ACTIVE_F`) + Natural Hacker RES (`{python} RESONANCE`) + Resonance Focus (+`{python} RESONANCE_FOCUS`).
+* **Full Matrix Defense Umbrella (Passive PAN Overwatch + Directional Shield)**: **`{python} full_def_pool`d6** $\rightarrow$ **`{python} full_def_hits` Bought Hits**
+  * *Applied Modifiers*: RES (`{python} RESONANCE`) + Resonance Focus (+`{python} RESONANCE_FOCUS`) + Firewall (`{python} ACTIVE_F`) + **Personal Assistant App R6** (+6; runs in *Software Emulator* and takes the Full Matrix Defense action every round for the entire network, *Hack & Slash* p. 55) + **Directional Shield Active DP** (+`{python} ACTIVE_D`; Minor Anytime Action in Full Matrix Defense adds Data Processing to the defense pool, *Hack & Slash* p. 61).
+  * *(Passively provides **`{python} std_def_pool + 6`d6 $\rightarrow$ `{python} (std_def_pool + 6) // 4` Bought Hits`** before spending the Minor Anytime Action for Directional Shield).*
+* **Matrix Damage Mitigation**:
+  * **Matrix Soak**: **`{python} ACTIVE_F`d6** (`{python} ACTIVE_F // 4` Bought Hits via Firewall `{python} ACTIVE_F`).
+  * **Sprite Link Echo**: May transfer any Stun, Physical, or Matrix damage boxes to a registered sprite's Condition Monitor (*Hack & Slash*, p. 121).
+  * **P-ICE Spines App**: Any attacker who fails an Attack action against the PAN suffers **2S Matrix damage** (*Hack & Slash*, p. 55).
+
+### Standardized Matrix Action Pools{#matrix-action-pools}
+
+```{python}
+#| echo: false
+#| output: asis
+print(get_matrix_action_table("reiko"))
+```
+
+### Network Benefits (PAN & M-TOC Mark II){#network-benefits}
+
+* **Edge Storage**: Capacity **`{python} edge_storage_total` Edge** (`{python} edge_storage_mtoc` M-TOC Mark II + `{python} SUBMERSION_GRADE` *Transcendent Network* Submersion Grade).
+* **-6 Noise Reduction**: **-2** *Designer* Home Device (*Hack & Slash*, p. 124) + **-2** *Signal Scrubber* program (*SR6 Core*, p. 185) + **-2** *ECM Warrior II* TacApp (*Firing Squad*, p. 89).
+* **+1 Sensor Rating**: Added to any connected sensor on the network (*Sensor Upgrade* quality, *Hack & Slash* p. 120).
+* **Coordination (*Living Network* Echo)**: Connected characters using **Send Message** (Minor Action) among themselves immediately gain **1 bonus Minor Action** (*Hack & Slash*, p. 120).
+* **Smartsoft Array**:
+  * Drone Sensor/Target Locks are shared among all networked drones (*Double Clutch*, p. 125).
+  * Target-locked victims cannot spend Edge against attacking networked drones.
+* **Detect Ambush**: **-2 threshold** on Perception/Surprise tests to detect an ambush (*Firing Squad*, p. 90).
+* **Smartguns**: **+1 extra AR** to all smartlinked weapons on the network (*Firing Squad*, p. 90).
+* **Encryption**: **+1 threshold** for all incoming Cracking tests against the network.
+* **Tactical Software Apps (M-TOC Mark II)**:
+  * *Artillery Barrage*: **+1 dice pool** to Launchers (grenade, rocket, mortar) and -2m scatter.
+  * *ECM Warrior II*: **+2 dice pool** to all Cracking tests (including offensive Cracking-based Complex Forms such as *Cyber Spike* and *Resonance Spike*) and **-2 Noise**.
+  * *Sneak-Sneak*: **+2 dice pool** (Teamwork) to Stealth tests.
+  * *Target Artist*: Shared Line of Sight (attack without LOS penalty on painted targets).
+
+---
+
+## 3. High-Dice Pools Over 20 (Tabletop Audit)
 
 Any dice pool exceeding 20 dice is presented for review highlighting stacking legality, modifier categories, and augmented limits.
 
@@ -84,17 +158,35 @@ print(render_multi_modifier_interactions("reiko", threshold=2))
 
 ### Stacking Legality Summary
 
-* **Full Matrix Defense**: Constructed from Willpower + Firewall + Full Defense Action. Reiko has a personal agent that constantly takes the Full Matrix Defense action for her entire network.
-* **Hacking & Electronic Warfare**: Combines base skill rating + specialization bonus (+2) + Logic + Resonance Focus tool bonus (+4) + Taz's companion teamwork assistance (+4) + tactical cyberware apps (Overclocking +2, ECM Warrior +2). All bonuses fall into distinct operational categories (Skill + Attribute + Focus + Teamwork + Software), adhering to SR6 stacking legality.
-* **Compiling & Registering**: Combines Tasking skill + specialization (+2) + Resonance + Resonance Focus (+4).
+* **Full Matrix Defense (`{python} full_def_pool`d6)**: Constructed from Resonance (`{python} RESONANCE`, via *Natural Hacker*) + Resonance Focus (+`{python} RESONANCE_FOCUS`) + Firewall (`{python} ACTIVE_F`) + Personal Assistant R6 (+6 Full Matrix Defense action) + Directional Shield (+`{python} ACTIVE_D` Data Processing via Minor Anytime Action).
+* **Hacking & Electronic Warfare (`27d6` / `25d6`)**: Combines base skill rating (5) + specialization bonus (+2) + Resonance (`{python} RESONANCE`, via *Natural Hacker*) + Resonance Focus (+`{python} RESONANCE_FOCUS`) + Taz's companion teamwork assistance (+4) + Overclocking (+2, 1 wild die) + ECM Warrior II (+2). All bonuses fall into distinct operational categories (Skill + Attribute + Focus + Teamwork + Echo + Tactical Software), adhering to SR6 stacking legality.
+* **Compiling & Registering (`20d6`)**: Combines Tasking skill (6) + specialization (+2) + Resonance (`{python} RESONANCE`) + Resonance Focus (+`{python} RESONANCE_FOCUS`).
 
 ---
 
-## 3. Complex Mechanical Interplays Specific to Reiko
+## 4. Decking Protocols Cheat Sheet
+
+Standardized action categorization grouped strictly by Skill & Specialization per the SRM FAQ, incorporating **Natural Hacker** (Resonance attribute substitution), active specialization bonuses, and opposed resistance tests:
+
+```{python}
+#| echo: false
+#| output: asis
+print(render_matrix_actions_markdown("reiko"))
+```
+
+### Matrix Edge Actions
+
+* **1 Edge**: Batch Exec, Emergency Boost, Paint Target.
+* **2 Edge**: Technobabble (CHA instead of LOG), Intervene, Hog, Signal Scream.
+* **3 Edge**: Under the Radar (Action does not increase OS).
+
+---
+
+## 5. Complex Mechanical Interplays Specific to Reiko
 
 ### I. Inhabited Anthrodrone Override & Augmented Limits
 * **Source**: *Hack & Slash*, pp. 116–124 (AI & Emergent Intelligences) & *SR6 Core*, p. 194 (Sprite Power *Override*).
-* **Pilot Replacement**: When inhabiting her Shiawase Man-at-Arms anthrodrone, Reiko executes the Sprite Power *Override* (or her intrinsic AI pilot core) to substitute her Resonance rating for the drone's Pilot rating. The Designer trait adds another +1 to the pilot of a drone she designates as her home device.
+* **Pilot Replacement**: When inhabiting her Shiawase Man-at-Arms anthrodrone, Reiko executes the Sprite Power *Override* (or her intrinsic AI pilot core) to substitute her Resonance rating (`{python} RESONANCE`) for the drone's Pilot rating. The **Designer** quality (*Hack & Slash*, p. 119) adds another **+1** to the Pilot rating of any drone she designates as her Home Device (base Pilot **9** + **+4** Resonance Focus = **13**).
 * **Augmented Limit (+4)**: As a Digital Intelligence, Reiko's Matrix ASDF attributes are treated as personal attributes subject to the standard **+4 Augmented Attribute Limit** (*Hack & Slash*, p. 116).
 
 ### II. Edge Storage Capacity Stacking
@@ -102,13 +194,14 @@ print(render_multi_modifier_interactions("reiko", threshold=2))
 * **Construction**:
   * Master Tactical Operations Commlink (M-TOC II): **5 Edge** storage capacity.
   * Transcendent Network Echo: Grants Edge storage equal to current **Submersion Grade** (`{python} SUBMERSION_GRADE`).
-  * **Total Storage**: `{python} edge_storage_total` Edge points (`{python} edge_storage_mtoc` M-TOC II + `{python} SUBMERSION_GRADE` Submersion Grade).
+  * **Total Storage**: **`{python} edge_storage_total` Edge points** (`{python} edge_storage_mtoc` M-TOC II + `{python} SUBMERSION_GRADE` Submersion Grade).
 
-### III. Sprite Symbiosis & Resonance Focus Fading Mitigation
-* **Source**: *SR6 Core*, pp. 190–193 & *Shadowrun Missions Guide v2.4*, p. 7.
-* **Passive Focus Operation**: Reiko's Rating 4 Resonance Focus functions under SRM rules identically to a magical focus—it remains passive, requires no activation action, and does not generate fading on its own (*SRMG v2.4*, p. 7).
-* **Fading Mitigation**: As a Technoshaman, Reiko mitigates fading from tasking. All compiling and decompiling acts reduce FV by 2 (HnS 131). Sprite Conduit allows her to add her Submersion grade in dice to fading resistance tests from compiling and registering.
+### III. Sprite Symbiosis, Resonance Focus & Data Structure Exclusivity
+* **Source**: *SR6 Core*, pp. 190–193, *Hack & Slash*, pp. 70–71 & *Shadowrun Missions Guide v2.4*, pp. 7, 39.
+* **Single Active Data Structure Rule**: Under *SRMG v2.4*, an Emergent Intelligence can only actively use **one** data structure at a time. Reiko keeps her **Rating 4 Resonance Focus** active (+4 dice to all Resonance tests, passive, 0 Fading) and leaves the **Rating 4 Oracle** dormant inside the physical foundation of her Sanctuary Host (`~`) aboard the Sky Commander.
+* **Fading Mitigation**: As a Technoshaman, Reiko mitigates fading from tasking. All compiling and decompiling actions reduce FV by 2 (*Hack & Slash*, p. 131). **Sprite Conduit** allows her to add her Submersion Grade (`{python} SUBMERSION_GRADE`) in dice to Fading Resistance tests from compiling and registering (`WIL 6 + CHA 4 + SUB 8 = 18d6`).
+
 ### IV. Home Device & Sanctuary Host Architecture
 * **Source**: *Hack & Slash*, pp. 124, 128 (Foundation Hosts & AI Home Devices).
-* **Active Venue Configuration**: Reiko designates her active inhabited anthrodrone as her Home Device, granting +1 Body/Sensors and +2 Noise Reduction (*Hack & Slash*, p. 124).
-* **The Sanctuary Host (`~`)**: A Rating 2 Foundation Host compiled within the Deep Matrix. Its back quartz sliding glass door opens into a permanent un-insulated tear into the Holy Wild glade in the Deep Foundation (*Hack & Slash*, p. 128).
+* **Active Venue Configuration**: Reiko designates her active inhabited anthrodrone (`Shiawase Man-at-Arms`) as her Home Device, granting **+1 Pilot** (*Designer*), **+1 Sensor** (flexible Home Device attribute boost), **+2 Noise Reduction**, and **+4 effective Matrix DR for Edge comparisons** (*Hack & Slash*, pp. 119, 124).
+* **The Sanctuary Host (`~`)**: A Rating 2 Foundation Host compiled within the Deep Matrix (housed on the Federated-Boeing Sky Commander alongside the M-TOC Mark II and dormant Oracle R4 data structure). Its back quartz sliding glass door opens into a permanent un-insulated tear into the Holy Wild glade in the Deep Foundation (*Hack & Slash*, p. 128).
