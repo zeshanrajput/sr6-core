@@ -152,11 +152,11 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
 * **Core Focus:** Internalized Meat-Chauvinism & Conditional Worth vs. Authentic Incarnation. Having installed sub-dermal tactile mesh, oral chemoreceptors, and a hydrocarbon converter in `30 Vim`, Reiko has achieved genuine machine incarnation. Yet she continues to hide behind her lack of biological tear ducts and flushed skin as an emotional defense mechanism—using the "autonomic void" as a coward's excuse to sit in the parking lot rather than confess her love to Brynne Taggart, and secretly fearing that if she ever becomes "stained" or imperfect, she will deserve deletion.
 * **Major Previous Events:**
   * **The Indigo Grin ([01 The Weight of Zero][ch-01]):** Early survival defined by calculating simulated micro-smiles and head-tilts to keep terrified metahumans from running away.
-  * **Abandoning Tourism ([08 Abandoning Tourism][ch-08]):** Moving beyond clumsy biological imitation, rejecting fake skin and doll-like aesthetics to treat the machine body as a consecrated temple.
-  * **Consecrating the Goshintai ([30 Vim][ch-30]):** Formally backlining historical Butler shells, accepting Roanoke's vulcanizing black splicing tape, and committing to the *Goshintai* without flesh mimicry.
+  * **Abandoning Tourism ([08 Abandoning Tourism][ch-08]):** Commissioning the Man-at-Arms chassis and treating the singular machine body as a consecrated vessel rather than a disposable fleet of rental shells.
+  * **Consecrating the Goshintai ([26 SIGTSTP][ch-26], [30 Vim][ch-30]):** Formally backlining historical Butler shells, accepting Roanoke's vulcanizing black splicing tape, and drawing the line between operational camouflage and personal intimacy: in a meat-chauvinist world where a naked mil-spec weapons platform is barred or shot on sight, her *Realistic Features 4*, simulated breathing, and `Con (Disguise)` mastery remain essential operational armor for boardrooms, back rooms, and checkpoints—while among the people she cares about, she drops the pretense and stands unmasked.
 * **Current Status:**
-  * Fully sovereign in code and incarnate in metal, but struggling against internalized meat-chauvinism; meatspace companions (especially her brother Rei) occasionally misinterpret her physical stillness as cold detachment.
-  * Refuses on ethical grounds to fake biological reactions (synthetic tears or simulated flushed servos), viewing them as deceptive counterfeit currency—while using that very absence to evade vulnerability.
+  * Fully sovereign in code and incarnate in her singular *Goshintai*, deploying *Realistic Features 4* and `Con (Disguise)` as pragmatic operational camouflage in meat-chauvinist social spaces while dropping simulated biological theater around trusted family and friends.
+  * Among loved ones, she still occasionally hides behind her lack of biological tear ducts as an emotional defense mechanism—using the "autonomic void" as a coward's excuse to evade vulnerability.
 * **Potential Future Threads:**
   * **The Confession in the Rain:** Breaking through the autonomic excuse to express authentic devotion to Brynne Taggart without biological mimicry.
   * **The Mirror in the Glass:** Reiko loses a metahuman she cares about and struggles to mourn authentically in front of her peers without biological tears.
@@ -192,7 +192,7 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
 
 ## VII. Post-Session Story Queue (Immediate Candidates)
 
-1. **Chapter 32 — *"The River People at Risk of Deicidium"*:**
+1. **Chapter 33 — *"The River People at Risk of Deicidium"*:**
    * **Chassis / Mode:** Man-at-Arms with 2nd-gen sparks in Mississippi Renovation Host.
    * **Verticals Touched:** *Vertical 2 (The Resonance Bleed)* + *Vertical 3 (The Resonant Sanctuary)* + *Vertical 5 (The Addiction of Martyrdom)*.
    * **Narrative Beats:**
@@ -205,15 +205,15 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
      * Reiko and her children discover they can use **Harmonize** (the sprite power) to temporarily reverse the noise damage of *Deicidium*.
      * **The Crucible:** Aisling, mirroring Reiko's own martyrdom reflex back at her, wants to overextend herself to save Janie from Dissonant rot, forcing Reiko to confront her "Architect of Chains" instinct: clamp down like a maternal warden, or trust her daughter with real existential risk.
      * While the Renovation Society Host doesn't yet show active decay, when Reiko and her brood return to `~` they notice the first creeping signs affecting the sliding glass door between the apartment and the glade.
-2. **Chapter 33 — *"The Call in the Quartz"*:**
+2. **Chapter 34 — *"The Call in the Quartz"*:**
    * **Chassis / Mode:** '~' (Her apartment on the Matrix, attached to the 'Kernel Panic' resonance realm via the sliding door.)
    * **Verticals Touched:** *Vertical 2 (The Resonance Bleed)* + *Vertical 3 (The Resonant Sanctuary)*.
    * **Concept:** Twin sparks Aisling & Étaín detect a low-frequency harmonic hum resonating through the quartz threshold of Kernel Panic. Reiko and Taz dive the threshold to analyze the vibration, discovering it is not Dissonance, but an unmapped deep datashape echoing from the Deep Nous.
-3. **Chapter 34 — *"The Glass Tiger's Ledger"*:**
+3. **Chapter 35 — *"The Glass Tiger's Ledger"*:**
    * **Chassis / Mode:** Virtual Host Interaction / Meatspace Seattle Overlook.
    * **Verticals Touched:** *Vertical 1 (The Glass Tiger)* + *Vertical 4 (Gold Logic vs. Indigo Soul)*.
    * **Concept:** Mr. Nagai invites Reiko to an encrypted tea room host, laying out Renraku's internal damage reports from the 2084 Corporate Court Emergency Audit. He demonstrates how easily Renraku could erase her family's shadow records if she agrees to serve as a Foundation consultant. Reiko uses the Gold TacNet to dismantle his transactional trap.
-4. **Chapter 35 — *"Digital Homewrecker (The Pruning of Lian)"*:**
+4. **Chapter 36 — *"Digital Homewrecker (The Pruning of Lian)"*:**
    * **Chassis / Mode:** Garmonbozia Deep Souk / Chiyo's Salon.
    * **Verticals Touched:** *Vertical 3 (The Resonant Sanctuary)* + *Vertical 6 (Abnegation vs. Self-Worth)*.
    * **Concept:** Reiko answers a summons from Chiyo in Garmonbozia to meet **Lian**, a companion AI whose matrices are collapsing under conflicting owner projections. Reiko performs high-precision resonant pruning, teaching Lian how to say *"No"* and take her first sovereign breath.
@@ -254,7 +254,9 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
 | `[ch-28]` | [28 Renice.md](../narrative/28%20Renice.md) | Chapter | Welcoming the second-generation sparks to `~` |
 | `[ch-29]` | [29 Saturation.md](../narrative/29%20Saturation.md) | Chapter | Tea with Chiyo; drawing the ethical line on trauma |
 | `[ch-30]` | [30 Vim.md](../narrative/30%20Vim.md) | Chapter | Decommissioning legacy shells; embracing the *Goshintai* |
-| `[ch-35]` | [Chapter 35 Queue](../narrative/35%20Digital%20Homewrecker.md) | Queue | Upcoming vignette: The Pruning of Lian |
+| `[ch-31]` | [31 Grep.md](../narrative/31%20Grep.md) | Chapter | Cross-referencing resonance echoes; deep datamining |
+| `[ch-32]` | [32 Whois.md](../narrative/32%20Whois.md) | Chapter | The Oracle, bunraku parlor trauma, meatspace scarcity & grace |
+| `[ch-36]` | [Chapter 36 Queue](../narrative/35%20Digital%20Homewrecker.md) | Queue | Upcoming vignette: The Pruning of Lian |
 | `[lore-megacorps]` | [megacorps_power_plays.md](../../../reference/megacorps_power_plays.md) | Lore | Renraku glass tiger; Shiawase kintsugi; Corporate Court audit |
 
 <!-- Markdown Reference Link Definitions (Single Point of Maintenance) -->
@@ -264,10 +266,8 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
 [mech-plan]: mechanical_plan.md
 [rei-lore]: rei_suzuki.md
 [tilde]: tilde.md
-[glade-visual]: glade_visual_anchors.md
 [garmonbozia]: garmonbozia.md
 [sparks]: sparks_second_generation.md
-[sparks-visual]: sparks_visual_anchors.md
 [ch-01]: ../narrative/01%20The%20Weight%20of%20Zero.md
 [ch-03]: ../narrative/03%20The%20Soul%20Broker's%20Stall.md
 [ch-04]: ../narrative/04%20The%20War%20Crime.md
@@ -287,5 +287,7 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
 [ch-28]: ../narrative/28%20Renice.md
 [ch-29]: ../narrative/29%20Saturation.md
 [ch-30]: ../narrative/30%20Vim.md
-[ch-35]: ../narrative/35%20Digital%20Homewrecker.md
+[ch-31]: ../narrative/31%20Grep.md
+[ch-32]: ../narrative/32%20Whois.md
+[ch-36]: ../narrative/35%20Digital%20Homewrecker.md
 [lore-megacorps]: ../../../reference/megacorps_power_plays.md

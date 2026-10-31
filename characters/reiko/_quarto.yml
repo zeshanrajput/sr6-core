@@ -59,6 +59,7 @@ book:
         - narrative/29 Saturation.md
         - narrative/30 Vim.md
         - narrative/31 Grep.md
+        - narrative/32 Whois.md
     - part: "Inter-Session Interludes"
       chapters:
         - narrative/I01.md
