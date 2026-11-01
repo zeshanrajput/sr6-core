@@ -57,6 +57,19 @@ QUALITY_CHOICE_UUIDS = {
     "allergy": "794d4562-8ca6-4958-81df-cf3cee81087d",
     "sprite_bane": "75f01ecc-60f3-4b5b-98de-c80008ebffec",
     "mentor_spirit": "b69f8371-fa0e-435c-b344-8fc6d64e1fb3",
+    "spirit_affinity": "e19ecf4c-1508-406e-9a40-70cf09907bc3",
+    "spirit_bane": "281aba04-1bd9-4d84-b6f4-f7bb97d217f0",
+    "sprite_affinity": "c073da22-050d-4349-8c6c-3519c2a7368d",
+}
+
+# CommLink 6 Mentor Spirits that grant an adept power requiring a choice, but lack default decisions in mentorspirits.xml:
+# - wise_warrior: improved_ability_combat (UUID 97fb1dcd-14e4-456c-aad7-17a7bf8cbbae) -> close_combat, firearms, exotic_weapons
+# - firebringer: improved_ability (UUID 05054102-0183-482a-9e2b-84bc8d5f153f) -> athletics, con, etc.
+# - seducer: improved_ability (UUID 05054102-0183-482a-9e2b-84bc8d5f153f) -> athletics, con, etc.
+MENTOR_SPIRIT_ADEPT_CHOICES = {
+    "wise_warrior": ("97fb1dcd-14e4-456c-aad7-17a7bf8cbbae", ["close_combat", "firearms", "exotic_weapons"]),
+    "firebringer": ("05054102-0183-482a-9e2b-84bc8d5f153f", ["con", "influence", "athletics"]),
+    "seducer": ("05054102-0183-482a-9e2b-84bc8d5f153f", ["con", "influence", "athletics"]),
 }
 
 COMMLINK_ADEPT_POWER_MAP = {
@@ -476,6 +489,31 @@ def export_commlink_xml(
                 raw_choice = raw_choice.lower().replace(" ", "_")
             dec_el.set("value", raw_choice)
 
+            # In CommLink 6, GetModificationsFromMentorSpirits evaluates adept modifications
+            # for characters with usesPowers() (which is true for Adepts AND Mystic Adepts).
+            # When the mentor spirit grants an adept power with choices (e.g. wise_warrior -> improved_ability_combat,
+            # seducer/firebringer -> improved_ability), CommLink's upstream mentorspirits.xml omits the decision,
+            # causing an unhandled modal error dialog on startup.
+            # Adding the sub-decision directly to the mentor_spirit quality allows instantiateModification
+            # to propagate the choice to the generated power seamlessly without UI errors.
+            if q_ref == "mentor_spirit" and raw_choice in MENTOR_SPIRIT_ADEPT_CHOICES:
+                adept_choice_uuid, adept_options = MENTOR_SPIRIT_ADEPT_CHOICES[raw_choice]
+                char_skills = char_data.get("skills", [])
+                char_skill_ids = [
+                    str(s.get("id") or s.get("name", "")).lower().replace(" ", "_")
+                    for s in char_skills
+                ]
+                selected_opt = None
+                for opt in adept_options:
+                    if opt in char_skill_ids:
+                        selected_opt = opt
+                        break
+                if not selected_opt:
+                    selected_opt = adept_options[0]
+                extra_dec = ET.SubElement(q_el, "decision")
+                extra_dec.set("choice", adept_choice_uuid)
+                extra_dec.set("value", selected_opt)
+
     # Spells (Deduplicated)
     spells = char_data.get("spells", [])
     if spells:
@@ -511,6 +549,35 @@ def export_commlink_xml(
             p_el.set("ref", p_ref)
             if "rating" in p and int(p["rating"]) > 0 and p_ref not in ["linguistics"]:
                 p_el.set("value", str(p["rating"]))
+
+            # Handle choices for adept powers requiring decisions
+            if p_ref == "improved_ability_combat":
+                p_choice = p.get("choice") or p.get("specification") or p.get("skill") or "close_combat"
+                p_dec = ET.SubElement(p_el, "decision")
+                p_dec.set("choice", "97fb1dcd-14e4-456c-aad7-17a7bf8cbbae")
+                p_dec.set("value", str(p_choice).lower().replace(" ", "_"))
+            elif p_ref == "improved_ability":
+                p_choice = p.get("choice") or p.get("specification") or p.get("skill") or "athletics"
+                p_dec = ET.SubElement(p_el, "decision")
+                p_dec.set("choice", "05054102-0183-482a-9e2b-84bc8d5f153f")
+                p_dec.set("value", str(p_choice).lower().replace(" ", "_"))
+            elif p_ref in ["attribute_boost", "improved_physical_attribute"]:
+                p_choice = str(p.get("choice") or p.get("specification") or p.get("attribute") or "AGILITY").upper()
+                p_uuid = "1ec3bdd5-f9da-4ad2-8d44-9120529830e2" if p_ref == "attribute_boost" else "7282ba2c-fe33-4220-8fce-2ed77e0a3068"
+                p_dec = ET.SubElement(p_el, "decision")
+                p_dec.set("choice", p_uuid)
+                p_dec.set("value", p_choice)
+            elif p_ref in ["attribute_boost_mental", "improved_mental_attribute"]:
+                p_choice = str(p.get("choice") or p.get("specification") or p.get("attribute") or "WILLPOWER").upper()
+                p_uuid = "4fbc6994-a69c-4708-9d08-12ff9ffc087f" if p_ref == "attribute_boost_mental" else "4fbc6994-a69c-4708-9d08-12ff9ffc087e"
+                p_dec = ET.SubElement(p_el, "decision")
+                p_dec.set("choice", p_uuid)
+                p_dec.set("value", p_choice)
+            elif p_ref == "improved_sense":
+                p_choice = str(p.get("choice") or p.get("specification") or "LOW_LIGHT").upper()
+                p_dec = ET.SubElement(p_el, "decision")
+                p_dec.set("choice", "220e6dfd-a76d-4c7e-97e1-dfdbdca464ef")
+                p_dec.set("value", p_choice)
 
     # Complex Forms
     cforms = char_data.get("complex_forms", [])

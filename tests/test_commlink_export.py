@@ -45,14 +45,16 @@ def test_export_velvet_commlink_xml():
     assert "cosmetic_control" in power_refs
     assert "commanding_voice" in power_refs
 
-    # Verify Mentor Spirit decision uses canonical choice UUID and snake_case value
+    # Verify Mentor Spirit decision uses canonical choice UUID and snake_case value,
+    # as well as the sub-decision for improved_ability_combat to prevent CommLink 6 startup dialog errors
     qualities = root.findall(".//qualities/quality")
     mentor_qual = [q for q in qualities if q.get("ref") == "mentor_spirit"]
     assert len(mentor_qual) == 1
-    mentor_dec = mentor_qual[0].find("decision")
-    assert mentor_dec is not None
-    assert mentor_dec.get("choice") == "b69f8371-fa0e-435c-b344-8fc6d64e1fb3"
-    assert mentor_dec.get("value") == "wise_warrior"
+    mentor_decs = mentor_qual[0].findall("decision")
+    assert len(mentor_decs) == 2
+    dec_dict = {d.get("choice"): d.get("value") for d in mentor_decs}
+    assert dec_dict.get("b69f8371-fa0e-435c-b344-8fc6d64e1fb3") == "wise_warrior"
+    assert dec_dict.get("97fb1dcd-14e4-456c-aad7-17a7bf8cbbae") in ["close_combat", "firearms", "exotic_weapons"]
 
     # Verify Spells
     spells = root.findall(".//spells/spell")
