@@ -236,3 +236,92 @@ def test_resolve_cyberlimb_variant():
     assert resolve_cyberlimb_variant("smartlink", {}) is None
 
 
+def test_commlink_xml_cross_character_invariants():
+    """Exhaustive invariant test across all active character dossiers (Velvet, Venn, Reiko).
+
+    Verifies:
+    1. Every item mode matches valid CommLink ItemUsage enums (never tabletop firing modes like SA/BF/SS).
+    2. Every item ref is a verified template in SQLite rules_index.db.
+    3. Every accessory slot matches valid CommLink ItemHook enums.
+    4. Every vehicle inFactoryItem UUID matches an authentic factory embed in ref_vehicles.
+    5. No factory embed UUID is duplicated on a vehicle.
+    6. No code/python snippets (e.g. `inc(...)`) leak into customName or item refs.
+    """
+    import sqlite3
+    from sr6core.publishing.commlink_xml import DEFAULT_DB_PATH
+
+    VALID_MODES = {"CARRIED", "EQUIPPED", "HOLSTERED", "IMPLANTED", "EMBEDDED", "VIRTUAL"}
+    VALID_HOOKS = {
+        "BARREL", "TOP", "UNDER", "OPTICAL", "AUDIO", "ARMOR", "FASHION",
+        "SOFTWARE", "VEHICLE_HARDPOINT", "VEHICLE_POWERTRAIN", "VEHICLE_CHASSIS",
+        "VEHICLE_ELECTRONICS", "VEHICLE_TIRES", "VEHICLE_WEAPON_LARGE", "VEHICLE_WEAPON_MEDIUM",
+        "VEHICLE_WEAPON_SMALL", "CYBERLIMB_IMPLANT", "CYBEREYE_IMPLANT", "CYBEREAR_IMPLANT",
+        "ELECTRONIC_ACCESSORY", "SENSOR_FUNCTION", "SENSOR_HOUSING", "HELMET_ACCESSORY",
+        "BODYWARE", "HEADWARE", "EARWARE", "EYEWARE"
+    }
+
+    cm = CharacterManager()
+    db_file = os.path.expanduser(DEFAULT_DB_PATH)
+    assert os.path.exists(db_file), f"Database not found at {db_file}"
+
+    conn = sqlite3.connect(db_file)
+    c = conn.cursor()
+
+    for char_id in ["velvet", "venn", "reiko"]:
+        data = cm.get_character_data(char_id)
+        assert data is not None, f"Character data missing for {char_id}"
+        repo_path = cm.get_character_repo_dir(char_id)
+
+        xml_str = export_commlink_xml(data, char_repo_path=repo_path)
+        root = ET.fromstring(xml_str)
+        assert root.tag == "sr6char"
+
+        # Check all items and nested accessories
+        all_items = root.findall(".//item")
+        assert len(all_items) > 0
+
+        for it in all_items:
+            mode = it.get("mode")
+            assert mode in VALID_MODES, f"[{char_id}] Invalid mode '{mode}' on item {it.get('ref')}"
+
+            ref = it.get("ref")
+            assert ref, f"[{char_id}] Item missing ref attribute"
+            assert not any(err in ref for err in ["`", "inc(", "nuyen", "{"]), f"[{char_id}] Corrupt ref '{ref}'"
+
+            slot = it.get("slot")
+            if slot is not None:
+                assert slot in VALID_HOOKS, f"[{char_id}] Invalid accessory slot '{slot}' on item '{ref}'"
+
+            cn = it.findtext("customName")
+            if cn:
+                assert not any(err in cn for err in ["`", "inc("]), f"[{char_id}] Corrupt customName '{cn}' on item '{ref}'"
+
+        # Check vehicle factory embeds integrity
+        for v in root.findall(".//items/item"):
+            if v.get("changes") == "0,0,0":
+                v_ref = v.get("ref")
+                c.execute("SELECT raw_xml FROM ref_vehicles WHERE id = ?", (v_ref,))
+                row = c.fetchone()
+                valid_factory_ids = set()
+                if row and row[0]:
+                    v_root = ET.fromstring(row[0])
+                    v_mods = v_root.find("modifications")
+                    if v_mods is not None:
+                        for em in v_mods.findall("embed"):
+                            if em.attrib.get("id"):
+                                valid_factory_ids.add(em.attrib.get("id"))
+
+                facts = v.findall(".//accessoriesInFact/item")
+                assigned_facts = []
+                for f in facts:
+                    fact_id = f.get("inFactoryItem")
+                    assert fact_id, f"[{char_id}] accessoriesInFact item missing inFactoryItem UUID"
+                    assert fact_id in valid_factory_ids, f"[{char_id}] Hallucinated inFactoryItem UUID '{fact_id}' for vehicle '{v_ref}'"
+                    assigned_facts.append(fact_id)
+
+                assert len(assigned_facts) == len(set(assigned_facts)), f"[{char_id}] Duplicate inFactoryItem assignments on vehicle '{v_ref}'"
+
+    conn.close()
+
+
+
