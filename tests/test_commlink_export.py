@@ -125,13 +125,49 @@ def test_export_reiko_commlink_xml():
     cforms = root.findall(".//complexforms/complexforms")
     assert len(cforms) >= 3, "Technoshaman must serialize complex forms"
 
-    # Meta Echoes
+    # Meta Echoes - verify no duplicates and exact submersion grade 8
     echoes = root.findall(".//metaEchoes/metaEcho")
-    assert len(echoes) >= 1, "Reiko submersion echoes must be serialized"
+    assert len(echoes) == 8, f"Reiko submersion echoes must be exactly 8, got {len(echoes)}"
+    echo_refs = [e.get("ref") for e in echoes]
+    assert len(echo_refs) == len(set(echo_refs)), "Submersion echoes must not contain duplicates"
 
-    # Verify Technomancer resonance structures are NOT exported into magical <foci>
+    # Verify Technomancer resonance structures are in datastructures, NOT magic foci
     foci = root.findall(".//foci/focus")
     assert len(foci) == 0, "Technomancer resonance data structures must not be exported as magic foci"
+    ds = root.findall(".//datastructures/datastructure")
+    assert len(ds) >= 2, "Data structures must include oracle and resonance_focus"
+    ds_refs = [d.get("ref") for d in ds]
+    assert "oracle" in ds_refs
+    assert "resonance_focus" in ds_refs
+
+    # Verify top-level items have valid CommLink ItemUsage modes (no firing modes like SA/BF/SS)
+    valid_modes = {"CARRIED", "EQUIPPED", "HOLSTERED", "IMPLANTED", "EMBEDDED", "VIRTUAL"}
+    for it in root.findall(".//items/item"):
+        assert it.get("mode") in valid_modes, f"Item {it.get('ref')} has invalid mode {it.get('mode')}"
+
+    # Verify Shiawase Man-at-Arms complex anthrodrone modifications and factory embeds
+    maa_items = [it for it in root.findall(".//items/item") if it.get("ref") == "shiawase_BD_man_at_arms"]
+    assert len(maa_items) == 1, "Shiawase Man-at-Arms must be exported"
+    maa = maa_items[0]
+    assert maa.get("changes") == "0,0,0", "Vehicles/drones must include changes='0,0,0'"
+
+    # Factory item embeds (<accessoriesInFact>)
+    facts = maa.findall(".//accessoriesInFact/item")
+    assert len(facts) >= 2, "Must slot modifications into factory embeds"
+    fact_refs = [f.get("ref") for f in facts]
+    assert "cyberweapon_tesla_coil" in fact_refs or "cyberarm" in fact_refs
+    assert "red_fox" in fact_refs
+
+    # Standard vehicle accessories (<accessories>)
+    accs = maa.findall(".//accessories/item")
+    assert len(accs) >= 15, "All vehicle modifications must be serialized into accessories"
+    acc_refs = [a.get("ref") for a in accs]
+    assert "chameleon_coating" in acc_refs
+    assert "increased_integrity" in acc_refs
+    assert "realistic_features" in acc_refs
+    assert "secondary_propulsion_system" in acc_refs
+    assert "tires_small" in acc_refs
+    assert "drone_rack" in acc_refs
 
 
 def test_metadata_properties_generator():

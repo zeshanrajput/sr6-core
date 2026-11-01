@@ -216,6 +216,40 @@ CANONICAL_REF_ALIASES = {
     "personal_assistant": "personal_assistant",
     "social_hud_(r6)": "social_hud",
     "social_hud": "social_hud",
+    # Vehicle & Drone Modifications
+    "passive_stealth_features": "passive_stealth",
+    "passive_stealth": "passive_stealth",
+    "hydrocarbon_fuel_converter": "fuel_converter",
+    "fuel_converter": "fuel_converter",
+    "increased_structural_integrity": "increased_integrity",
+    "increased_structural_integrity_5": "increased_integrity",
+    "increased_integrity": "increased_integrity",
+    "increased_sensors": "enhanced_sensors",
+    "increased_sensors_2": "enhanced_sensors",
+    "enhanced_sensors": "enhanced_sensors",
+    "smart_tires": "tires_small",
+    "weapon_mount": "weapon_turret_standard",
+    "weapon_mount_(standard)": "weapon_turret_standard",
+    "weapon_turret_(standard)": "weapon_turret_standard",
+    "weapon_turret_standard": "weapon_turret_standard",
+    "pop_out_concealment": "hardpoint_concealment",
+    "pop-out_concealment": "hardpoint_concealment",
+    "pop_out_concealment_(standard)": "hardpoint_concealment",
+    "pop-out_concealment_(standard)": "hardpoint_concealment",
+    "hardpoint_concealment": "hardpoint_concealment",
+    "drone_rack_(small)": "drone_rack",
+    "drone_bay": "drone_rack",
+    "drone_bay_(micro/mini)": "drone_rack",
+    "secondary_propulsion": "secondary_propulsion_system",
+    "secondary_propulsion_system": "secondary_propulsion_system",
+    "camera_w/_image_link": "image_link",
+    "camera_w_image_link": "image_link",
+    "omni_directional_mic_with_sound_link": "omni_directional_microphone_function",
+    "omni-directional_mic_with_sound_link": "omni_directional_microphone_function",
+    "oral_chemical_analyzer": "taste_booster",
+    "tactile_sensors": "tactile_sensivity",
+    "used_synthetic_cyberarm": "cyberarm",
+    "synthetic_cyberarm": "cyberarm",
 }
 
 COMMLINK_DATA_STRUCTURES = {
@@ -307,9 +341,33 @@ def map_metatype_ref(raw_meta: str) -> str:
     return m.replace(" ", "_").replace("-", "_")
 
 
-def get_accessory_slot(acc_ref: str) -> str:
+def get_accessory_slot(acc_ref: str, is_vehicle: bool = False) -> str:
     """Determines canonical CommLink accessory slot name to prevent null-parent formula exceptions."""
     r = acc_ref.lower()
+    if is_vehicle:
+        if any(k in r for k in ["tire"]):
+            return "VEHICLE_TIRES"
+        if any(k in r for k in ["olfactory", "taste", "analyzer"]):
+            return "SENSOR_FUNCTION"
+        if any(k in r for k in ["chameleon", "passive_stealth", "sensor", "satellite", "anti_theft", "rigger", "autopilot", "integrated_matrix"]):
+            return "VEHICLE_ELECTRONICS"
+        if any(k in r for k in ["propulsion", "rotor", "wheel", "boost", "powertrain", "engine", "fuel"]):
+            return "VEHICLE_POWERTRAIN"
+        if any(k in r for k in ["features", "integrity", "chassis", "concealment"]):
+            return "VEHICLE_CHASSIS"
+        if any(k in r for k in ["rack", "mount", "turret"]):
+            return "VEHICLE_HARDPOINT"
+        if any(k in r for k in ["red_fox", "weapon"]):
+            return "VEHICLE_WEAPON_LARGE"
+        if any(k in r for k in ["cyberarm", "cyberleg", "cyberlimb", "tesla_coil", "cyberweapon"]):
+            return "CYBERLIMB_IMPLANT"
+        if any(k in r for k in ["image_link", "flare_comp", "thermo", "low_light", "vision"]):
+            return "OPTICAL"
+        if any(k in r for k in ["audio", "sound", "ear", "spatial", "ultrasound", "microphone"]):
+            return "AUDIO"
+        if any(k in r for k in ["laser_jack"]):
+            return "UNDER"
+
     if any(k in r for k in ["silencer", "suppressor", "gas_vent", "barrel"]):
         return "BARREL"
     if any(k in r for k in ["smartlink", "scope", "sight", "imaging"]):
@@ -339,6 +397,89 @@ def get_accessory_slot(acc_ref: str) -> str:
     if any(k in r for k in ["upgrade", "dongle", "comhack", "securelink"]):
         return "ELECTRONIC_ACCESSORY"
     return "ARMOR"
+
+
+def get_vehicle_factory_embeds(vehicle_ref: str, db_path: str = DEFAULT_DB_PATH) -> List[Dict[str, str]]:
+    """Queries ref_vehicles raw_xml for embedded factory item IDs and hooks."""
+    if not vehicle_ref:
+        return []
+    db_file = os.path.expanduser(db_path)
+    if not os.path.exists(db_file):
+        return []
+    try:
+        conn = sqlite3.connect(db_file)
+        c = conn.cursor()
+        c.execute("SELECT raw_xml FROM ref_vehicles WHERE id = ?", (vehicle_ref,))
+        row = c.fetchone()
+        conn.close()
+        if not row or not row[0]:
+            return []
+        embeds = []
+        root = ET.fromstring(row[0])
+        mods = root.find("modifications")
+        if mods is not None:
+            for em in mods.findall("embed"):
+                embed_id = em.attrib.get("id")
+                if embed_id:
+                    embeds.append({
+                        "id": embed_id,
+                        "ref": em.attrib.get("ref", ""),
+                        "hook": em.attrib.get("intoRef", ""),
+                        "type": em.attrib.get("type", "")
+                    })
+        return embeds
+    except Exception:
+        return []
+
+
+def parse_drone_mod(raw_mod: str, db_path: str = DEFAULT_DB_PATH) -> Dict[str, Any]:
+    """Parses a vehicle or drone modification string into its canonical ref, count, rating, variant, and grade."""
+    count = 1
+    m_count = re.search(r'\b(?:x(\d+)|(\d+)x)\b', raw_mod, re.IGNORECASE)
+    if m_count:
+        count = int(m_count.group(1) or m_count.group(2))
+        raw_mod = re.sub(r'\b(?:x\d+|\d+x)\b', '', raw_mod, flags=re.IGNORECASE).strip()
+
+    rating = None
+    m_rat = re.search(r'\s+(\d+)$', raw_mod)
+    if m_rat:
+        rating = int(m_rat.group(1))
+        raw_mod = raw_mod[:m_rat.start()].strip()
+
+    variant = None
+    grade = None
+    raw_lower = raw_mod.lower()
+
+    if "used" in raw_lower:
+        grade = "USED"
+    if "rotor" in raw_lower:
+        variant = "rotor"
+    elif "wheel" in raw_lower:
+        variant = "wheeled"
+    elif "small" in raw_lower:
+        variant = "small"
+    elif "standard" in raw_lower:
+        variant = "standard"
+    elif "smart" in raw_lower:
+        variant = "smart"
+    elif "rating 1" in raw_lower or "rating1" in raw_lower:
+        variant = "rating1"
+
+    clean_mod = re.sub(r'\(.*?\)', '', raw_mod).strip()
+    clean_ref = clean_mod.lower().replace(" ", "_").replace("-", "_")
+
+    ref = CANONICAL_REF_ALIASES.get(clean_ref, clean_ref)
+    ref = lookup_canonical_ref(ref, "gear", db_path=db_path)
+
+    return {
+        "raw": raw_mod,
+        "ref": ref,
+        "count": count,
+        "rating": rating,
+        "variant": variant,
+        "grade": grade,
+        "valid": is_valid_gear_template(ref, db_path=db_path)
+    }
 
 
 def lookup_canonical_ref(item_name_or_ref: str, category: str, db_path: str = DEFAULT_DB_PATH) -> str:
@@ -1030,7 +1171,9 @@ def export_commlink_xml(
         if not is_valid_gear_template(g_ref, db_path=db_path):
             continue
 
-        g_mode = g.get("mode", "CARRIED").upper()
+        valid_modes = {"CARRIED", "EQUIPPED", "HOLSTERED", "IMPLANTED", "EMBEDDED", "VIRTUAL"}
+        raw_mode = str(g.get("mode", "CARRIED")).upper()
+        g_mode = raw_mode if raw_mode in valid_modes else "CARRIED"
         if g_mode != "IMPLANTED" and g_ref in seen_emitted_refs and g_ref not in ["contacts", "earbuds"]:
             continue
         seen_emitted_refs.add(g_ref)
@@ -1098,33 +1241,131 @@ def export_commlink_xml(
             dec_ammo.set("choice", "b015341d-24dc-42bb-a46b-781a5340e0b3")
             dec_ammo.set("value", ammo_type)
 
-        accs = g.get("accessories", []) or g.get("modifications", [])
-        if accs:
-            acc_el = ET.SubElement(g_el, "accessories")
-            for acc in accs:
-                acc_name = acc if isinstance(acc, str) else (acc.get("name") or acc.get("ref", ""))
-                acc_ref = lookup_canonical_ref(acc_name, "gear", db_path=db_path)
-                if not is_valid_gear_template(acc_ref, db_path=db_path):
-                    continue
-                a_sub = ET.SubElement(acc_el, "item")
-                a_sub.set("lang", "en")
-                a_sub.set("mode", "EMBEDDED")
-                a_sub.set("ref", acc_ref)
-                a_sub.set("slot", get_accessory_slot(acc_ref))
-                a_sub.set("uuid", str(uuid.uuid4()))
+        # Check if item is a vehicle or drone
+        is_vehicle = bool(
+            g_mode == "CARRIED" and (
+                any(v.get("ref") == g_ref or v.get("name") == raw_name for v in char_data.get("drones", [])) or
+                any(v.get("ref") == g_ref or v.get("name") == raw_name for v in char_data.get("vehicles", [])) or
+                g_ref in ["mct_gnat", "mct_hornet", "boing_sky_commander", "shiawase_BD_man_at_arms", "kwonsham_dream_genie", "vulcan_utility_one"]
+            )
+        )
+        if is_vehicle:
+            g_el.set("changes", "0,0,0")
 
-        # Drones with Satellite Link in master YAML modifications
-        mods = [str(m).lower() for m in g.get("modifications", [])]
-        if any("satellite" in m for m in mods):
-            acc_el = g_el.find("accessories")
-            if acc_el is None:
+            factory_embeds = get_vehicle_factory_embeds(g_ref, db_path=db_path)
+            used_factory = set()
+
+            acc_el = ET.SubElement(g_el, "accessories")
+            acc_fact_el = None
+
+            # Gather vehicle modifications and linked vehicle-mounted weapons
+            mods = list(g.get("modifications", []) or g.get("accessories", []))
+            for w in _safe_item_list(char_data.get("weapons", [])):
+                if isinstance(w, dict) and w.get("is_vehicle_mounted"):
+                    w_name = w.get("name", "")
+                    if "red fox" in w_name.lower():
+                        count_rf = w.get("link_fired_count", 2 if "array" in w_name.lower() or "2x" in w_name.lower() else 1)
+                        for _ in range(count_rf):
+                            mods.append("Red Fox")
+                        break
+
+            for m_item in mods:
+                m_str = m_item if isinstance(m_item, str) else (m_item.get("name") or m_item.get("ref", ""))
+                p = parse_drone_mod(m_str, db_path=db_path)
+                if not p["valid"]:
+                    continue
+
+                # Check for matching factory embed (e.g. cyberarm or weapon mount)
+                matched_embed = None
+                if p["ref"] in ["cyberweapon_tesla_coil", "knucks"] or "cyber" in p["ref"]:
+                    for fe in factory_embeds:
+                        if fe["id"] not in used_factory and fe["ref"] == "integrated_cyberarm":
+                            matched_embed = fe
+                            break
+                elif (p["ref"] in ["red_fox"] or "weapon" in p["ref"]) and not ("mount" in p["ref"] or "turret" in p["ref"]):
+                    for fe in factory_embeds:
+                        if fe["id"] not in used_factory and fe["ref"] == "weapon_mount_standard":
+                            matched_embed = fe
+                            break
+
+                if matched_embed:
+                    used_factory.add(matched_embed["id"])
+                    if acc_fact_el is None:
+                        acc_fact_el = ET.Element("accessoriesInFact")
+                    f_item = ET.SubElement(acc_fact_el, "item")
+                    f_item.set("inFactoryItem", matched_embed["id"])
+                    f_item.set("lang", "en")
+                    f_item.set("mode", "EMBEDDED")
+                    f_item.set("ref", p["ref"])
+                    f_slot = "CYBERLIMB_IMPLANT" if "cyber" in p["ref"] else "VEHICLE_WEAPON_LARGE"
+                    f_item.set("slot", f_slot)
+                    f_item.set("uuid", str(uuid.uuid4()))
+                    if p["grade"] or "cyber" in p["ref"]:
+                        d_dec = ET.SubElement(f_item, "decision")
+                        d_dec.set("choice", "c2d17c87-1cfe-4355-9877-a20fe09c170c")
+                        d_dec.set("value", p["grade"] or "USED")
+                    if p["ref"] == "red_fox":
+                        enh_el = ET.SubElement(f_item, "enhancements")
+                        enh_sub = ET.SubElement(enh_el, "enhancement")
+                        enh_sub.set("lang", "en")
+                        enh_sub.set("ref", "smartgun_system_mod")
+                else:
+                    for _ in range(p["count"]):
+                        a_sub = ET.SubElement(acc_el, "item")
+                        a_sub.set("lang", "en")
+                        a_sub.set("mode", "EMBEDDED")
+                        a_sub.set("ref", p["ref"])
+                        a_sub.set("slot", get_accessory_slot(p["ref"], is_vehicle=True))
+                        a_sub.set("uuid", str(uuid.uuid4()))
+                        if p["variant"]:
+                            a_sub.set("variant", p["variant"])
+                        if p["rating"]:
+                            dec_el = ET.SubElement(a_sub, "decision")
+                            dec_el.set("choice", "c2d17c87-1cfe-4355-9877-a20fe09c170d")
+                            dec_el.set("value", str(p["rating"]))
+                        if p["grade"]:
+                            dec_el = ET.SubElement(a_sub, "decision")
+                            dec_el.set("choice", "c2d17c87-1cfe-4355-9877-a20fe09c170c")
+                            dec_el.set("value", p["grade"])
+                        if p["ref"] == "red_fox":
+                            enh_el = ET.SubElement(a_sub, "enhancements")
+                            enh_sub = ET.SubElement(enh_el, "enhancement")
+                            enh_sub.set("lang", "en")
+                            enh_sub.set("ref", "smartgun_system_mod")
+                        if p["ref"] == "anti_theft":
+                            fl_el = ET.SubElement(a_sub, "flag")
+                            fl_el.text = "AUTO_ADDED"
+
+            if acc_fact_el is not None:
+                g_el.append(acc_fact_el)
+        else:
+            accs = g.get("accessories", []) or g.get("modifications", [])
+            if accs:
                 acc_el = ET.SubElement(g_el, "accessories")
-            sat_el = ET.SubElement(acc_el, "item")
-            sat_el.set("lang", "en")
-            sat_el.set("mode", "EMBEDDED")
-            sat_el.set("ref", "satellite_link")
-            sat_el.set("slot", "VEHICLE_ELECTRONICS")
-            sat_el.set("uuid", str(uuid.uuid4()))
+                for acc in accs:
+                    acc_name = acc if isinstance(acc, str) else (acc.get("name") or acc.get("ref", ""))
+                    acc_ref = lookup_canonical_ref(acc_name, "gear", db_path=db_path)
+                    if not is_valid_gear_template(acc_ref, db_path=db_path):
+                        continue
+                    a_sub = ET.SubElement(acc_el, "item")
+                    a_sub.set("lang", "en")
+                    a_sub.set("mode", "EMBEDDED")
+                    a_sub.set("ref", acc_ref)
+                    a_sub.set("slot", get_accessory_slot(acc_ref))
+                    a_sub.set("uuid", str(uuid.uuid4()))
+
+            # Drones with Satellite Link in master YAML modifications
+            mods = [str(m).lower() for m in g.get("modifications", [])]
+            if any("satellite" in m for m in mods):
+                acc_el = g_el.find("accessories")
+                if acc_el is None:
+                    acc_el = ET.SubElement(g_el, "accessories")
+                sat_el = ET.SubElement(acc_el, "item")
+                sat_el.set("lang", "en")
+                sat_el.set("mode", "EMBEDDED")
+                sat_el.set("ref", "satellite_link")
+                sat_el.set("slot", "VEHICLE_ELECTRONICS")
+                sat_el.set("uuid", str(uuid.uuid4()))
 
     # Essence Changes / Augmentation Tracking (<essenceChanges>)
     acclimation_rating = 0
