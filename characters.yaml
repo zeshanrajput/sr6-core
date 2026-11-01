@@ -9,6 +9,7 @@ characters:
     role: "Technoshaman AI / Hacker"
     metatype: "AI-Pilot AI"
     stream: "Technoshamans"
+    commlink_uuid: "d92a7b93-4179-4014-8336-956e74b308ff"
 
   velvet:
     name: "Velvet"
@@ -17,6 +18,7 @@ characters:
     role: "Mystic Adept Face / Shaman"
     metatype: "Dalakitnon Elf"
     tradition: "Shinto / Musok"
+    commlink_uuid: "e583c47a-8b64-46c2-9169-ba3db79c709e"
 
   venn:
     name: "Venn"

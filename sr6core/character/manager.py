@@ -303,6 +303,17 @@ class CharacterManager:
         elif fmt in ["mobile_json"]:
             from sr6core.publishing.mobile_json import export_mobile_json
             return export_mobile_json(data, char_repo_path=repo_path)
+        elif fmt in ["commlink", "commlink_xml", "xml", "genesis_xml"]:
+            from sr6core.publishing.commlink_xml import export_to_commlink, export_commlink_xml
+            if output_path:
+                content = export_commlink_xml(data, char_repo_path=repo_path)
+                os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
+                with open(output_path, "w", encoding="utf-8") as f:
+                    f.write(content)
+                return content
+            else:
+                ok, msg, stats = export_to_commlink(char_id)
+                return msg
         else:
             raise ValueError(f"Unsupported export format '{fmt}'.")
 

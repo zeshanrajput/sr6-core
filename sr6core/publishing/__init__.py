@@ -21,6 +21,12 @@ from sr6core.publishing.roll20_json import (
     build_roll20_payload,
     export_roll20_json,
 )
+from sr6core.publishing.commlink_xml import (
+    export_commlink_xml,
+    export_to_commlink,
+    scan_commlink_player_saves,
+    generate_commlink_metadata,
+)
 
 __all__ = [
     "export_quick_sheet",
@@ -34,4 +40,8 @@ __all__ = [
     "export_mobile_json",
     "build_roll20_payload",
     "export_roll20_json",
+    "export_commlink_xml",
+    "export_to_commlink",
+    "scan_commlink_player_saves",
+    "generate_commlink_metadata",
 ]

@@ -593,6 +593,20 @@ def handle_calculate_limb(arguments: Dict[str, Any]) -> str:
     return format_limb_calculation(calc)
 
 
+def handle_export_character(arguments: Dict[str, Any]) -> str:
+    from sr6core.character.manager import CharacterManager
+    char_id = arguments.get("char_id", "")
+    fmt = arguments.get("format", "quick_sheet")
+    if not char_id:
+        return "Error: char_id is required."
+    try:
+        cm = CharacterManager()
+        res = cm.export_character(char_id, fmt=fmt)
+        return str(res)
+    except Exception as e:
+        return f"Error exporting character: {e}"
+
+
 def handle_get_cheatsheet(arguments: Dict[str, Any]) -> str:
     from sr6core.rules.cheatsheets import get_cheatsheet, format_cheatsheets_index
     topic = arguments.get("topic", "")
@@ -618,6 +632,7 @@ TOOL_HANDLERS = {
     "sr6_source_search": handle_source_search,
     "sr6_calculate_limb": handle_calculate_limb,
     "sr6_get_cheatsheet": handle_get_cheatsheet,
+    "sr6_export_character": handle_export_character,
 }
 
 

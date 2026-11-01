@@ -19,6 +19,7 @@ identity:
   nuyen: 13465
   lifetime_nuyen: 132590
   heat: 0
+  initiation: 3
 attributes:
   body: 2
   agility: 3
