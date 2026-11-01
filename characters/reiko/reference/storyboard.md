@@ -26,7 +26,7 @@ This document tracks the modular narrative architecture for **Reiko Takahashi (Y
 
 To protect living campaign integrity while maintaining sovereign narrative agency, Reiko operates under a strict 4-tier sovereignty hierarchy ([Continuity Index][continuity]):
 
-* **Tier 0: Inviolable Player Characters (`canonical: true`):** Fellow runner PCs (**Rei Suzuki / Suzuki Ken**, **Mithral**, **Bast**). Zero unauthorized characterization; dialogue, choices, and somatic reactions are strictly player-approved or transcript-derived ([Rei Suzuki Lore][rei-lore]).
+* **Tier 0: Inviolable Player Characters (`canonical: true`):** Fellow runner PCs (**Rei Suzuki / Suzuki Ken**, **BunnyR / Mary-Maryn / Mary Lynn Keebler**, **Mithral**, **Bast**). Zero unauthorized characterization; dialogue, choices, and somatic reactions are strictly player-approved or transcript-derived ([Rei Suzuki Lore][rei-lore], [BunnyR Lore][bunnyr-lore]).
 * **Tier 1: Protected Metaplot & Shared SRM Fixtures (`canonical: true`):** Major canon figures (**Atlas**, **DEUS**, **Shiko**, **Empress Hitomi**, **Donovan Pyke**, **Ms. Snow**) and shared SRM hosts (**The River People & Mississippi Renovation Host**). Strictly read-only macro-weather; cannot be destroyed, subjugated, or derailed from campaign parameters.
 * **Tier 2: Expandable Canon Seeds (`canonical: true/elastic`):** Canon contacts and figures with deep personal latitude (**Brynne Taggart**, **Roanoke**, **Indomitable Will**, **Belle Moderne**, **Cedar**). Permitted deep personal rapport, shared vulnerability, domestic grounding, and unspoken romantic devotion while preserving baseline tabletop SRM operational status.
 * **Tier 3: Bespoke Originals & Controlled Foils (`canonical: false`):** Original characters, sprites, and rogue intelligences created specifically for Reiko's arc (**Mr. Nagai**, **Lian**, **Chiyo**, **4Gurds**, **Taz**, **Percy**, **Cleo**, **Ouro**, **Aisling & Étaín**, **Jax**, **Takahashi Satomi**). Full creative jurisdiction to fight, redeem, compromise, or delete.
@@ -231,7 +231,8 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
 | `[mech-plan]` | [mechanical_plan.md](mechanical_plan.md) | Plan | Priority upgrade matrix, Vector Thrust math, Sourceror & Dissonance roadmap |
 | `[build]` | [character_build.qmd](../core/character_build.qmd) | State | Technomancer / Submersion progression, echoes, dice pools |
 | `[purchases]` | [character_purchases.qmd](../core/character_purchases.qmd) | State | Man-at-Arms chassis, drone upgrades, hardware ledgers |
-| `[rei-lore]` | [rei_suzuki.md](rei_suzuki.md) | Lore | Dynamic with brother Rei Suzuki (Suzuki Ken) |
+| `[rei-lore]` | [rei_suzuki.md](rei_suzuki.md) | Lore | Dynamic with brother Rei Suzuki (Suzuki Ken / Takahashi Hideyoshi) |
+| `[bunnyr-lore]` | [bunnyr.md](bunnyr.md) | Lore | Dynamic with runner peer BunnyR (Mary-Maryn / Mary Lynn Keebler) |
 | `[tilde]` | [tilde.md](tilde.md) | Lore | Framework host `~`, Kernel Panic portal, Foundation decay |
 | `[garmonbozia]` | [garmonbozia.md](garmonbozia.md) | Lore | Digital e-nation, Chiyo's salon, the trauma marketplace |
 | `[sparks]` | [sparks_second_generation.md](sparks_second_generation.md) | Lore | Second-generation sparks: Aisling & Étaín, Percy, Cleo, Ouro |
@@ -265,6 +266,7 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
 [continuity]: story_continuity.md
 [mech-plan]: mechanical_plan.md
 [rei-lore]: rei_suzuki.md
+[bunnyr-lore]: bunnyr.md
 [tilde]: tilde.md
 [garmonbozia]: garmonbozia.md
 [sparks]: sparks_second_generation.md
@@ -287,7 +289,4 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
 [ch-28]: ../narrative/28%20Renice.md
 [ch-29]: ../narrative/29%20Saturation.md
 [ch-30]: ../narrative/30%20Vim.md
-[ch-31]: ../narrative/31%20Grep.md
-[ch-32]: ../narrative/32%20Whois.md
-[ch-36]: ../narrative/35%20Digital%20Homewrecker.md
 [lore-megacorps]: ../../../reference/megacorps_power_plays.md

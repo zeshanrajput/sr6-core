@@ -22,8 +22,9 @@
 ## 2. Lineage, Family, & Shared Genesis with Reiko
 
 ### The Takahashi Lineage
+
 * **Father (Takahashi-sama):** A prominent Renraku researcher in Seattle. Following the failure of his high-level project, he was compelled into ritual *seppuku* by corporate executive mandate.
-* **Connection to Reiko (`r31-K0 Takahashi`):** 
+* **Connection to Reiko (`r31-K0 Takahashi`):**
   * Reiko's designation and origin stem directly from the 31st iteration of Renraku’s deep-matrix pilot project, specifically associated with Researcher Takahashi.
   * Within campaign continuity, Takahashi is understood to be the very researcher whose project failure culminated in Reiko's emergence.
   * This shared origin bonds Rei and Reiko as spiritual siblings: Rei considers Reiko his beloved *imouto* (little sister), celebrating her birthday and exchanging encrypted messages on their shared Renraku heritage.
@@ -36,36 +37,66 @@
 ## 3. Personality, Philosophy, & Academic Pursuits
 
 ### Bushido vs. Shadow Reality
+
 * Raised and indoctrinated within Renraku's martial ethos, Rei internalized *Bushido*—loyalty, honor, and personal responsibility to the body politic.
 * Moving into the shadows forced a deep existential crisis: shadows operate on deniability and mercenary transaction, whereas Rei naturally seeks duty and bonds of mutual accountability.
 * He refuses to remain merely a weapon wielded by others, actively seeking education, art, and personal growth.
 
 ### The Sociology Student at U-Dub
+
 * Rei audits classes at the **University of Washington (U-Dub) Sociology Department** under **Dr. Dana Kessler** (Professor of Sociology).
 * He arranged a volunteer status with Dr. Kessler by leveraging his unique vantage point as a runner straddling metahuman, Japanese, corporate, and street cultures, brokering meetings between academic researchers and the **Ork Underground**.
 * His focus: metahuman social stratification, spatial conflict dynamics, and the sociology of shadowrunner subcultures.
+
+### The Confession of Shadows: Why He Runs ([After the Run - Entwined Auras.docx](file:///c:/GitHub/sr6-core/characters/reiko/reference/Rei_oniisama/After%20the%20Run%20-%20Entwined%20Auras.docx))
+
+* **The Surface Obligation vs. The Addictive Rush:** When confronted by **Dolly** about why he risks his life in the shadows, Rei initially offers the noble, familial justification: that after his father's forced *seppuku*, he felt responsible for supporting his mother and sister (**Satomi**) when legitimate corporate work was foreclosed to him. However, pressed further, Rei surrenders the unvarnished, darker truth:
+  > *"I like this life... I’m good at what I do. And I love the rush. Me trying to do the job and someone else trying to stop me. Winner take all. It's pure. I love it."*
+* **Surrendering the Core Identity:** In a moment of raw emotional vulnerability, Rei breaks operational security to give Dolly the most dangerous gift he possesses—his true birth name:
+  > *"I am Takahashi Hideyoshi."*
+* **The Ghost Dilemma:** Dolly recoils from the existential terror of loving a shadowrunner: if he dies on a run, he leaves no corpse, no obituary, and no closure—only vanishing into the dark. Their relationship remains frozen in a poignant, unresolved crisis.
+
+### The Way of Stillness: Wilderness Kata at Goldmyer ([After the Run - A Bunch of Corporate Drek.docx](file:///c:/GitHub/sr6-core/characters/reiko/reference/Rei_oniisama/After%20the%20Run%20-%20A%20Bunch%20of%20Corporate%20Drek.docx))
+
+* **The Diagnosis of Motion:** Recognizing that Rei is trapped in constant, frantic physical and psychological acceleration (*"You're constantly moving... you need to stop moving and reflect"*), **Sensei Sato** dispatches him into the Goldmyer Hot Springs wilderness to an abandoned pre-century ranger station.
+* **Complete Analog Disconnection:** Stripped of commlink signal, matrix grid, and electrical power, Rei suffers the cold withdrawal of modern sprawl noise before falling into the natural rhythms of the earth:
+  * Cooking flapjacks and rice on a camp stove from an anonymous, handwritten heirloom cookbook left in the cabin mantle.
+  * Flowing through sunrise adept weapon katas in a lake clearing, pacing his footwork against fallen cedar branches and the lapping of waves.
+  * Skipping smooth river stones across the glassy water, watching concentric ripples expand and dissolve back into stillness.
+  * Enduring a midnight mountain electrical storm protected only by cedar shakes and screen doors.
+* **The Lesson of "The Way":** Sato teaches that a warrior cannot "decide" his way or have it explained to him by a master, because doing so merely imitates another man's path. Stillness revealed that his way emerges organically once the frenzy of survival is silenced. Upon returning to East Renton, Rei and Sato resume their tea in the courtyard, bound by shared, unspoken understanding.
+
+### Philosophical & Psychological Symmetry with Reiko
+
+* **The Dual Heirs of Takahashi Koichi:** Rei and Reiko are two halves of Researcher Takahashi's fractured legacy. Rei carries the biological bloodline and the grief of the son who could not save his father from *seppuku*; Reiko (`r31-k0`) carries the failed computational project that drove Takahashi to the blade.
+* **The Shared Martyrdom Drug:** Both siblings weaponize self-sacrifice as an existential shield. Rei claims he shadowruns solely to wire credsticks to his mother and Satomi, but secretly craves the lethal adrenaline of the edge. Reiko claims she pilots her fragile *Goshintai* drone to take physical damage for metahumans, but secretly craves the somatic friction of mortal existence.
+* **Analog Stillness vs. Digital Stillness:** Rei achieves spiritual clarity by disconnecting from all data at Goldmyer to listen to wind and water; Reiko achieves spiritual clarity by stepping back into the deep, unmediated Nous of the Glade (`~`) to cultivate koi and listen to fractal willows.
 
 ---
 
 ## 4. Tabletop Dynamics & Running Gags
 
 ### The "Gun Adept in Denial"
+
 * While mechanically built and dedicated as a **Blade Adept**, shadowrun operational reality frequently demands ranged combat at 30–50+ meters behind cover.
 * Rei fires firearms—most notably his **Ares Predator VI** and **Ares Slivergun**—just as frequently as (or more than) he draws his sword.
 * His runner teammates constantly tease him about being a "Gun Adept pretending to be a Sword Saint."
 
 ### "Titles are Traps!"
+
 * Despite operating as an illicit shadowrunner, Rei has accumulated prestigious noble and chivalric honors:
   * **Protector of the Realm (Seelie Court):** Conferred by the Queen of the Autumn/Seelie Court, accompanied by the **Brooch and Dagger of the Sacred Rose**.
   * **Order of the Lion (United Netherlands):** Medaled for covert service in Europe.
 * Rei despises political honors, viewing them as aristocratic snares designed to obligate deniable assets without paying market rates: *"Why can't people just pay in nuyen?!"*
 
 ### Method Acting & The "Lederhosen of Evasion"
+
 * Trained in deep cover and physical comedy by **Sensei Sato Minaho** (an old-school covert specialist in East Renton who trains from a motorized wheelchair using the *5 Ds of Dodgeball*, hurling box wrenches and shooting Ares Predator gel rounds).
 * Infiltrated the Capitol Hill Community Playhouse as "James Williams," landing the comedic role of Franz Liebkind in *The Producers*.
 * Drama coach **Lady Janet** insisted on rigorous daytime "couch rehearsals." When her husband returned unexpectedly, Rei was forced to leap from a second-story balcony into the Seattle drizzle clad only in stage-costume Bavarian leather breeches—forever immortalized as the **Lederhosen of Evasion**.
 
 ### Action Figures & Shifter Romances
+
 * During an escort run protecting an entitled corporate child, toy manufacturer molds resulted in **"Ray" action figures** (complete with twin swords and guns).
 * Teammate **Mithral** placed two of the figures on the dashboard of his combat Strider van, deadpanning: *"Apparently the tall one likes furry shifters."*
 * Rei keeps a "Ray" figure on his apartment brag wall between his **Lofwyr** and **Crime Dragon** plushies.
@@ -76,8 +107,10 @@
 
 * **Mithral (`mithral_gleaming`):** Veteran dwarf combat specialist, rigger, and long-time runner companion. Trained alongside Rei under Sato and shares easy tactical banter.
 * **Fox (`jagator` / `orrfieldmedic`):** Elven/dwarven shapechanging performer and fixer. Moves between an unassuming "trash panda" dwarf manager and an angelic winged Japanese J-Pop idol. Jammed with Rei, introduced him to stage acting, and co-ran cons.
-* **Sensei Sato Minaho:** Retired covert ops master living in a traditional walled compound in East Renton. Teaches physical evasion, tumbling, and infiltration through pain and classic trid cinema.
-* **Dolly & Granny:** Kentucky connection. Dolly taught Rei aggressive combat driving (*"friction management"*); Granny (Autumn Court matriarch) tutored him in court intrigue and hospitality etiquette.
+* **Sensei Sato Minaho:** Retired covert ops master living in a traditional walled compound in East Renton. Teaches physical evasion, tumbling, and infiltration through pain, classic trid cinema, and the *5 Ds of Dodgeball*. Dispatched Rei into the Goldmyer backcountry to teach him the art of reflection through stillness over tea in his inner courtyard.
+* **Dolly & Granny:** Deep Kentucky and Seelie Court connection:
+  * **Granny:** Autumn Court noble matriarch who tutored Rei in aristocratic etiquette, hospitality protocols, and court intrigue.
+  * **Dolly:** Elven university student, skilled mechanic, and aggressive combat driver (*"friction management"*). Assisted Rei in retrofitting his heavy **Nodachi** motorcycle with a newly installed suncell and tactical drone rack via remote VR. Currently navigating deep relationship friction with Rei following his confession of his true corporate name (**Takahashi Hideyoshi**) and his addictive love for the violence of the shadows.
 * **Diamond:** Madam of the *Lèvres Rose* in New Orleans; confidante for blues, drinks, and post-run philosophical decompression.
 
 ---
@@ -86,7 +119,8 @@
 
 In the inter-session interludes ([I01.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/I01.md), [I02.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/I02.md), and [I03.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/I03.md)), Reiko’s adopted second-generation emergent sparks—the twin girls **Aisling** and **Étaín**—are secretly authoring a serialized light-novel fanfic about Rei behind encrypted decoy partitions in `~` (the Glade).
 
-### The In-Universe Fanfic Tropes:
+### The In-Universe Fanfic Tropes
+
 * **The Title:** *My Glade Adept Onii-sama is too Kawaii!* (Written from Yuriko's POV as his *imouto*; however, as Reiko's adoptive children, Aisling and Étaín personally revere Rei as their honored uncle, **O-oji-sama**). Season Two subtitle / shadowcast: ***#NotAGunAdept: The Chronicles of O-oji-sama***.
 * **The PG-13 Naivete:** The twins filter meatspace violence, romance, and scandal through shoujo innocence:
   * Lady Janet's scandalous fainting couch becomes intense vocal resonance exercises to strengthen his diaphragm.
