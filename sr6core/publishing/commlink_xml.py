@@ -160,6 +160,40 @@ SIN_RATING_ENUM_MAP = {
 CANONICAL_REF_ALIASES = {
     "cyberpsychosis": "cyber_psychosis",
     "authoritative_tone": "authorative_tone",
+    # Drones & Vehicles
+    "mctgnat": "mct_gnat",
+    "mct_gnat": "mct_gnat",
+    "mcthornet": "mct_hornet",
+    "mct_hornet": "mct_hornet",
+    "federatedboeingskycommander_seattle": "boing_sky_commander",
+    "federated_boeing_sky_commander": "boing_sky_commander",
+    "federated_boeing_sky_commander_(seattle_retrans_relay)": "boing_sky_commander",
+    "boing_sky_commander": "boing_sky_commander",
+    "shiawasebdmanatarms": "shiawase_BD_man_at_arms",
+    "shiawase_bd_man_at_arms": "shiawase_BD_man_at_arms",
+    "shiawase_man_at_arms": "shiawase_BD_man_at_arms",
+    "kwonshamdreamgenie": "kwonsham_dream_genie",
+    "kwonsham_dream_genie": "kwonsham_dream_genie",
+    "vulcansystemsutilityone": "vulcan_utility_one",
+    "vulcan_systems_utility_one": "vulcan_utility_one",
+    "vulcan_utility_one": "vulcan_utility_one",
+    # Matrix Devices & Commlinks
+    "m_toc_ii": "mtoc_mark2",
+    "m_toc_mark_ii": "mtoc_mark2",
+    "mtoc_ii": "mtoc_mark2",
+    "mtoc_mark_ii": "mtoc_mark2",
+    "mtoc_mark2": "mtoc_mark2",
+    "essy_motors_dronemaster_rcc": "essy_motors_drone_master",
+    "essy_motors_dronemaster": "essy_motors_drone_master",
+    "essy_motors_drone_master": "essy_motors_drone_master",
+    "essy_motors_drone_master_rcc": "essy_motors_drone_master",
+}
+
+COMMLINK_DATA_STRUCTURES = {
+    "oracle", "code_shell", "drone_whisperer", "eavesdropper", "extra_life",
+    "phase_shifter", "grounding_rod", "echo_chamber", "sprite_caller",
+    "logic_virus", "resonance_shield", "data_blade", "admonisher",
+    "resonance_focus", "link_light", "master_key", "bandersnatch", "meat_cleaver"
 }
 
 
@@ -252,7 +286,7 @@ def get_accessory_slot(acc_ref: str) -> str:
     if any(k in r for k in ["smartlink", "scope", "sight", "imaging"]):
         return "TOP"
     if any(k in r for k in ["bipod", "tripod", "laser", "flashlight"]):
-        return "UNDERBARREL"
+        return "UNDER"
     if any(k in r for k in ["image_link", "flare_comp", "thermo", "low_light", "vision"]):
         return "OPTICAL"
     if any(k in r for k in ["audio", "sound", "ear", "spatial"]):
@@ -284,7 +318,7 @@ def lookup_canonical_ref(item_name_or_ref: str, category: str, db_path: str = DE
         return "unknown"
 
     clean_str = item_name_or_ref.strip()
-    norm_str = clean_str.lower().replace(" ", "_")
+    norm_str = clean_str.lower().replace(" ", "_").replace("-", "_")
     if norm_str in CANONICAL_REF_ALIASES:
         clean_str = CANONICAL_REF_ALIASES[norm_str]
         norm_str = clean_str
@@ -310,10 +344,22 @@ def lookup_canonical_ref(item_name_or_ref: str, category: str, db_path: str = DE
     try:
         conn = sqlite3.connect(db_path)
         cursor = conn.cursor()
+        # Primary lookup in specified table
         row = cursor.execute(
             f"SELECT id FROM {tbl} WHERE id = ? OR lower(id) = ? OR lower(name) = ?",
             (clean_str, norm_str, clean_str.lower())
         ).fetchone()
+
+        # If not found and category is gear, search across other equipment tables
+        if not row and category == "gear":
+            for alt_tbl in ["ref_vehicles", "ref_weapons", "ref_cyberware"]:
+                row = cursor.execute(
+                    f"SELECT id FROM {alt_tbl} WHERE id = ? OR lower(id) = ? OR lower(name) = ?",
+                    (clean_str, norm_str, clean_str.lower())
+                ).fetchone()
+                if row:
+                    break
+
         conn.close()
         if row:
             return row[0]
@@ -376,18 +422,98 @@ def _safe_item_list(raw_section: Any) -> list:
     return []
 
 
-def get_all_character_items(char_data: Dict[str, Any]) -> list:
-    """Gathers all items across weapons, armors, matrix_devices, gear, drones, cyberware, and bioware."""
+def extract_data_structures(char_data: Dict[str, Any], char_repo_path: Optional[str] = None) -> list:
+    """Extracts technomancer resonance data structures from dossier, framework hosts, and modifiers."""
+    ds_results = []
+    seen = set()
+
+    def add_ds(name_or_ref: str, rating: Any = 1):
+        if not name_or_ref:
+            return
+        clean_name = str(name_or_ref).strip()
+        ref = clean_name.lower().replace(" ", "_").replace("-", "_")
+        ref = re.sub(r"^data_structure:?", "", ref).strip("_")
+        ref = re.sub(r"_rating_\d+$", "", ref).strip("_")
+
+        matched_ref = None
+        for valid in COMMLINK_DATA_STRUCTURES:
+            if valid == ref or valid in ref:
+                matched_ref = valid
+                break
+        if not matched_ref:
+            matched_ref = ref
+
+        if matched_ref in COMMLINK_DATA_STRUCTURES and matched_ref not in seen:
+            seen.add(matched_ref)
+            try:
+                r_val = int(rating)
+            except Exception:
+                r_val = 1
+            ds_results.append({"ref": matched_ref, "name": clean_name, "rating": r_val})
+
+    # 1. Top-level or technomancer section
+    for ds in char_data.get("data_structures", []):
+        if isinstance(ds, dict):
+            add_ds(ds.get("ref") or ds.get("name"), ds.get("rating", 1))
+        elif isinstance(ds, str):
+            add_ds(ds)
+
+    for ds in char_data.get("technomancer", {}).get("data_structures", []):
+        if isinstance(ds, dict):
+            add_ds(ds.get("ref") or ds.get("name"), ds.get("rating", 1))
+        elif isinstance(ds, str):
+            add_ds(ds)
+
+    # 2. Check nested in drones or vehicles (e.g. host on Sky Commander)
+    for v in char_data.get("drones", []) + char_data.get("vehicles", []):
+        if isinstance(v, dict):
+            host = v.get("framework_host", {})
+            if isinstance(host, dict):
+                for ds in host.get("data_structures", []):
+                    if isinstance(ds, dict):
+                        add_ds(ds.get("ref") or ds.get("name"), ds.get("rating", 1))
+                    elif isinstance(ds, str):
+                        add_ds(ds)
+
+    # 3. Check modifiers
+    for mod in char_data.get("modifiers", []):
+        if isinstance(mod, dict):
+            m_id = str(mod.get("id", "")).lower()
+            m_name = str(mod.get("name", "")).lower()
+            if "data_structure" in m_id or "data structure" in m_name:
+                val = mod.get("value", 1)
+                add_ds(m_id or m_name, val)
+
+    # 4. Check items / foci
+    for f in char_data.get("synergies", {}).get("foci", []) + char_data.get("items", []):
+        if isinstance(f, dict):
+            f_ref = str(f.get("ref", "")).lower()
+            f_name = str(f.get("name", "")).lower()
+            if "data_structure" in f_ref or "data structure" in f_name or "resonance structure" in f_name:
+                add_ds(f_ref or f_name, f.get("rating", 1))
+
+    return ds_results
+
+
+def get_all_character_items(char_data: Dict[str, Any], char_repo_path: Optional[str] = None) -> list:
+    """Gathers all items across weapons, armors, matrix_devices, gear, drones, vehicles, cyberware, and bioware."""
     all_raw = []
-    for sec in ["weapons", "armors", "matrix_devices", "items", "gear", "drones"]:
+    for sec in ["weapons", "armors", "matrix_devices", "items", "gear", "drones", "vehicles"]:
         val = char_data.get(sec, [])
         all_raw.extend(_safe_item_list(val))
 
     res = []
+    seen_refs = set()
     for item in all_raw:
         if isinstance(item, dict):
-            res.append(dict(item))
+            d = dict(item)
+            ref_k = str(d.get("ref") or d.get("id") or d.get("name", "")).lower()
+            if ref_k:
+                seen_refs.add(ref_k)
+            res.append(d)
         elif isinstance(item, str):
+            ref_k = item.lower()
+            seen_refs.add(ref_k)
             res.append({"name": item, "ref": item, "mode": "CARRIED"})
 
     for aug_sec in ["cyberware", "bioware", "augmentations"]:
@@ -398,6 +524,62 @@ def get_all_character_items(char_data: Dict[str, Any]) -> list:
                 res.append(aug_dict)
             elif isinstance(aug, str):
                 res.append({"name": aug, "ref": aug, "mode": "IMPLANTED"})
+
+    # Dynamic scanning of character_purchases.qmd and character_log.qmd for carried devices and retained loot
+    if char_repo_path and os.path.exists(char_repo_path):
+        # 1. Scan character_purchases.qmd
+        for p_dir in ["core", "chapters", ""]:
+            purch_path = os.path.join(char_repo_path, p_dir, "character_purchases.qmd") if p_dir else os.path.join(char_repo_path, "character_purchases.qmd")
+            if os.path.exists(purch_path):
+                try:
+                    with open(purch_path, "r", encoding="utf-8") as pf:
+                        for line in pf:
+                            line_str = line.strip()
+                            line_lower = line_str.lower()
+                            if line_str.startswith("*") and any(k in line_lower for k in ["m-toc", "rcc", "cyberdeck", "commlink"]):
+                                clean_name = re.sub(r"\{.*?\}", "", line_str).replace("*", "").strip()
+                                clean_ref = clean_name.lower().replace(" ", "_").replace("-", "_")
+                                clean_ref = CANONICAL_REF_ALIASES.get(clean_ref, clean_ref)
+                                if clean_ref not in seen_refs:
+                                    res.append({"name": clean_name, "ref": clean_ref, "mode": "CARRIED"})
+                                    seen_refs.add(clean_ref)
+                except Exception:
+                    pass
+                break
+
+        # 2. Scan character_log.qmd for retained loot and acquired devices
+        for l_dir in ["core", "chapters", ""]:
+            log_path = os.path.join(char_repo_path, l_dir, "character_log.qmd") if l_dir else os.path.join(char_repo_path, "character_log.qmd")
+            if os.path.exists(log_path):
+                try:
+                    with open(log_path, "r", encoding="utf-8") as lf:
+                        in_loot_sec = False
+                        for line in lf:
+                            line_str = line.strip()
+                            line_lower = line_str.lower()
+                            if "loot" in line_lower and ("*" in line_str or "#" in line_str):
+                                in_loot_sec = True
+                                continue
+                            elif in_loot_sec and line_str.startswith("#"):
+                                in_loot_sec = False
+
+                            if in_loot_sec or any(k in line_lower for k in ["rcc", "cyberdeck", "m-toc"]):
+                                if "retained" in line_lower or "acquired" in line_lower or (in_loot_sec and line_str.startswith("*")):
+                                    m_loot = re.search(r"[\*\-]\s*\*?([A-Za-z0-9\s\-]+(?:\s+(?:rcc|deck|commlink|focus|drone|terminal))?)\*?:?", line_str, re.IGNORECASE)
+                                    if m_loot:
+                                        item_name = m_loot.group(1).strip()
+                                        item_ref = item_name.lower().replace(" ", "_").replace("-", "_")
+                                        item_ref = CANONICAL_REF_ALIASES.get(item_ref, item_ref)
+                                        if item_ref not in seen_refs and len(item_ref) > 2:
+                                            canon = lookup_canonical_ref(item_ref, "gear")
+                                            if canon != "unknown":
+                                                res.append({"name": item_name, "ref": canon, "mode": "CARRIED"})
+                                                seen_refs.add(item_ref)
+                                                seen_refs.add(canon)
+                except Exception:
+                    pass
+                break
+
     return res
 
 
@@ -449,12 +631,36 @@ def export_commlink_xml(
 
     # Mortype & Tradition
     mortype_raw = identity.get("mortype", "").lower().replace(" ", "").replace("_", "")
-    valid_mortypes = ["mysticadept", "magician", "adept", "technomancer", "aspectedmagician"]
+    valid_mortypes = ["mysticadept", "magician", "adept", "technomancer", "aspectedmagician", "mundane"]
     matched_mortype = None
     for vm in valid_mortypes:
         if vm in mortype_raw:
             matched_mortype = vm
             break
+
+    # If not explicitly specified, dynamically infer mortype from character mechanics
+    if not matched_mortype:
+        attrs = char_data.get("attributes", {})
+        res_val = int(attrs.get("resonance", 0))
+        mag_val = int(attrs.get("magic", 0))
+        archetype = str(identity.get("archetype", "")).lower()
+        role = str(identity.get("role", "")).lower()
+        stream = identity.get("stream")
+        complex_forms = char_data.get("complex_forms", [])
+        spells = char_data.get("spells", [])
+        adept_powers = char_data.get("adept_powers", [])
+
+        if stream or complex_forms or res_val > 0 or "techno" in archetype or "techno" in role:
+            matched_mortype = "technomancer"
+        elif spells and adept_powers:
+            matched_mortype = "mysticadept"
+        elif spells:
+            matched_mortype = "magician"
+        elif adept_powers or mag_val > 0:
+            matched_mortype = "adept"
+        else:
+            matched_mortype = "mundane"
+
     if matched_mortype:
         m_el = ET.SubElement(root, "mortype")
         m_el.text = matched_mortype
@@ -612,6 +818,16 @@ def export_commlink_xml(
                 me_el.set("value", str(me["value"]))
             me_el.set("ref", me_ref)
 
+    # Data Structures (<datastructures>)
+    datastructures = extract_data_structures(char_data, char_repo_path)
+    if datastructures:
+        ds_el = ET.SubElement(root, "datastructures")
+        for ds in datastructures:
+            d_node = ET.SubElement(ds_el, "datastructure")
+            d_node.set("ref", ds["ref"])
+            if "rating" in ds and int(ds["rating"]) > 0:
+                d_node.set("value", str(ds["rating"]))
+
     # Name node
     name_el = ET.SubElement(root, "name")
     name_el.text = identity.get("handle") or identity.get("name", "Runner")
@@ -749,7 +965,7 @@ def export_commlink_xml(
 
     # Items / Gear / Weapons / Armor / Devices / Drones / Augmentations
     items_el = ET.SubElement(root, "items")
-    all_items = get_all_character_items(char_data)
+    all_items = get_all_character_items(char_data, char_repo_path)
     for g in all_items:
         g_ref = lookup_canonical_ref(g.get("ref") or g.get("name", ""), "gear", db_path=db_path)
         if not is_valid_gear_template(g_ref, db_path=db_path):
