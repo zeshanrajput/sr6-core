@@ -324,4 +324,112 @@ def test_commlink_xml_cross_character_invariants():
     conn.close()
 
 
+def test_commlink_archetype_subsystem_segregation():
+    """Verifies strict subsystem segregation by character archetype.
+
+    1. Technomancers (Reiko): resonance structures in <datastructures>, 0 magic foci, 0 spells, 0 adept powers, exact submersion grade.
+    2. Awakened / Mystic Adepts (Velvet): 0 datastructures, 0 echoes, spells in <spells>, adept powers in <adeptPowers>, foci in <foci>.
+    3. Street Samurai / Cyborg (Venn): 0 magic, 0 resonance, all cyberware in <items mode="IMPLANTED">, essence changes tracked.
+    """
+    cm = CharacterManager()
+
+    # 1. Reiko (Technoshaman AI)
+    r_data = cm.get_character_data("reiko")
+    r_repo = cm.get_character_repo_dir("reiko")
+    r_root = ET.fromstring(export_commlink_xml(r_data, char_repo_path=r_repo))
+
+    assert r_root.find("datastructures") is not None and len(r_root.find("datastructures")) >= 2
+    assert r_root.find("foci") is None or len(r_root.find("foci")) == 0
+    assert r_root.find("spells") is None or len(r_root.find("spells")) == 0
+    assert r_root.find("adeptPowers") is None or len(r_root.find("adeptPowers")) == 0
+    echoes = r_root.find("metaEchoes")
+    assert echoes is not None and len(echoes) == 8, f"Submersion grade must be 8, got {len(echoes)}"
+    cforms = r_root.find("complexforms")
+    assert cforms is not None and len(cforms) >= 3
+
+    # 2. Velvet (Mystic Adept Face)
+    v_data = cm.get_character_data("velvet")
+    v_repo = cm.get_character_repo_dir("velvet")
+    v_root = ET.fromstring(export_commlink_xml(v_data, char_repo_path=v_repo))
+
+    assert v_root.find("datastructures") is None or len(v_root.find("datastructures")) == 0
+    assert v_root.find("complexforms") is None or len(v_root.find("complexforms")) == 0
+    assert v_root.find("metaEchoes") is None or len(v_root.find("metaEchoes")) == 0
+    assert v_root.find("spells") is not None and len(v_root.find("spells")) >= 2
+    assert v_root.find("adeptPowers") is not None and len(v_root.find("adeptPowers")) >= 3
+    assert v_root.find("foci") is not None and len(v_root.find("foci")) >= 1
+
+    # 3. Venn (Street Samurai / Cyborg)
+    vn_data = cm.get_character_data("venn")
+    vn_repo = cm.get_character_repo_dir("venn")
+    vn_root = ET.fromstring(export_commlink_xml(vn_data, char_repo_path=vn_repo))
+
+    assert vn_root.find("datastructures") is None or len(vn_root.find("datastructures")) == 0
+    assert vn_root.find("complexforms") is None or len(vn_root.find("complexforms")) == 0
+    assert vn_root.find("metaEchoes") is None or len(vn_root.find("metaEchoes")) == 0
+    assert vn_root.find("foci") is None or len(vn_root.find("foci")) == 0
+    assert vn_root.find("spells") is None or len(vn_root.find("spells")) == 0
+    assert vn_root.find("adeptPowers") is None or len(vn_root.find("adeptPowers")) == 0
+    assert vn_root.find("essenceChanges") is not None and len(vn_root.find("essenceChanges")) >= 8
+    assert len(vn_root.findall(".//items/item[@mode='IMPLANTED']")) >= 8
+
+
+def test_commlink_xml_structural_and_decision_invariants():
+    """Verifies CommLink 6 XML root schema conformance, reward date ISO-8601 formatting, and canonical decisions.
+
+    Verifies across all characters:
+    1. Root attributes: gender, meta, career="true", positive nuyen/karma integer strings.
+    2. Mandatory child sections: attributes, qualities, skills, charGenUsed, strictness, items.
+    3. All reward entries have valid ISO-8601 timestamps (YYYY-MM-DDTHH:MM:SS.000Z).
+    4. Every decision choice UUID matches a canonical CommLink decision choice UUID.
+    """
+    import re
+    iso_re = re.compile(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$')
+    canonical_choices = {
+        "c2d17c87-1cfe-4355-9877-a20fe09c170d",  # Rating
+        "c2d17c87-1cfe-4355-9877-a20fe09c170c",  # Cyberware grade
+        "b015341d-24dc-42bb-a46b-781a5340e0b3",  # Ammo type
+        "89ebc659-ba06-4732-b347-6b832842a55b",  # Knowledge skill name
+        "a7103ee4-31fa-435d-ac42-08f7d4d1e80c",  # Language name
+        "b69f8371-fa0e-435c-b344-8fc6d64e1fb3",  # Mentor spirit
+        "97fb1dcd-14e4-456c-aad7-17a7bf8cbbae",  # Mentor spirit skill bonus
+        "4096584c-eb76-49b2-be6b-1a6c0ca9e50a",  # Drain attribute
+        "794d4562-8ca6-4958-81df-cf3cee81087d",  # Focus category
+        "dbb18bb4-89a4-4435-bede-3077ee600bc5",  # Exceptional attribute
+        "75f01ecc-60f3-4b5b-98de-c80008ebffec",  # Sprite type echo
+        "8b24b2be-c2fc-46f4-a353-7313f1f69d07",  # Resonance focus attribute
+    }
+
+    cm = CharacterManager()
+    for char_id in ["velvet", "venn", "reiko"]:
+        data = cm.get_character_data(char_id)
+        repo_path = cm.get_character_repo_dir(char_id)
+        xml_str = export_commlink_xml(data, char_repo_path=repo_path)
+        root = ET.fromstring(xml_str)
+
+        # Root attributes
+        assert root.get("career") == "true", f"[{char_id}] career attribute must be 'true'"
+        assert root.get("gender") in ["MALE", "FEMALE", "DIVERSE"], f"[{char_id}] Invalid gender"
+        assert root.get("meta"), f"[{char_id}] Missing meta attribute"
+        assert int(root.get("nuyen", -1)) >= 0, f"[{char_id}] Invalid nuyen balance"
+        assert int(root.get("karmaI", -1)) >= 0, f"[{char_id}] Invalid karma balance"
+
+        # Mandatory child elements
+        for req_child in ["attributes", "qualities", "skills", "charGenUsed", "strictness", "items"]:
+            assert root.find(req_child) is not None, f"[{char_id}] Missing required child <{req_child}>"
+
+        # Rewards date validation
+        rewards_el = root.find("rewards")
+        if rewards_el is not None:
+            for rew in rewards_el.findall("reward"):
+                r_date = rew.get("date")
+                assert iso_re.match(r_date), f"[{char_id}] Non-ISO date in reward: {r_date}"
+
+        # Decision choices validation
+        for dec in root.findall(".//decision"):
+            choice_uuid = dec.get("choice")
+            assert choice_uuid in canonical_choices, f"[{char_id}] Unrecognized decision choice UUID: {choice_uuid}"
+
+
+
 
