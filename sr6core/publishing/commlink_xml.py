@@ -187,6 +187,35 @@ CANONICAL_REF_ALIASES = {
     "essy_motors_dronemaster": "essy_motors_drone_master",
     "essy_motors_drone_master": "essy_motors_drone_master",
     "essy_motors_drone_master_rcc": "essy_motors_drone_master",
+    # Weapons & Custom Gear
+    "red_fox_array_(2x_link_fired)": "red_fox",
+    "red_fox_array": "red_fox",
+    "single_red_fox_(eye_mount)": "red_fox",
+    "single_red_fox": "red_fox",
+    "red_fox": "red_fox",
+    "tesla_coil_(straight)": "cyberweapon_tesla_coil",
+    "tesla_coil_(wobbly)": "cyberweapon_tesla_coil",
+    "tesla_coil_(sweeping)": "cyberweapon_tesla_coil",
+    "tesla_coil": "cyberweapon_tesla_coil",
+    "amalgam_cestas": "knucks",
+    "amalgam_cesta": "knucks",
+    "cestas": "knucks",
+    "cesta": "knucks",
+    "5x_peak_discharge_laser_battery_clips_(red_fox)": "ammo_battery_laser",
+    "peak_discharge_laser_battery_clips": "ammo_battery_laser",
+    "peak_discharge_laser_battery_clip": "ammo_battery_laser",
+    "laser_battery_clips": "ammo_battery_laser",
+    "laser_battery_clip": "ammo_battery_laser",
+    "10x_glitter_grenades": "glitter_grenade",
+    "glitter_grenades": "glitter_grenade",
+    "glitter_grenade": "glitter_grenade",
+    "built_in_medkit_(man_at_arms)": "built-in-medkit",
+    "built_in_medkit": "built-in-medkit",
+    "built-in_medkit": "built-in-medkit",
+    "personal_assistant_(r6)": "personal_assistant",
+    "personal_assistant": "personal_assistant",
+    "social_hud_(r6)": "social_hud",
+    "social_hud": "social_hud",
 }
 
 COMMLINK_DATA_STRUCTURES = {
@@ -480,17 +509,39 @@ def extract_data_structures(char_data: Dict[str, Any], char_repo_path: Optional[
         if isinstance(mod, dict):
             m_id = str(mod.get("id", "")).lower()
             m_name = str(mod.get("name", "")).lower()
-            if "data_structure" in m_id or "data structure" in m_name:
+            m_norm = m_name.replace(" ", "_").replace("-", "_")
+            if "data_structure" in m_id or "data structure" in m_name or m_norm in COMMLINK_DATA_STRUCTURES or any(ds in m_norm for ds in COMMLINK_DATA_STRUCTURES):
                 val = mod.get("value", 1)
-                add_ds(m_id or m_name, val)
+                add_ds(m_name or m_id, val)
 
-    # 4. Check items / foci
-    for f in char_data.get("synergies", {}).get("foci", []) + char_data.get("items", []):
+    # 4. Check items / foci / gear
+    for f in char_data.get("synergies", {}).get("foci", []) + char_data.get("items", []) + char_data.get("gear", []):
         if isinstance(f, dict):
             f_ref = str(f.get("ref", "")).lower()
             f_name = str(f.get("name", "")).lower()
-            if "data_structure" in f_ref or "data structure" in f_name or "resonance structure" in f_name:
-                add_ds(f_ref or f_name, f.get("rating", 1))
+            f_norm = f_name.replace(" ", "_").replace("-", "_")
+            if "data_structure" in f_ref or "data structure" in f_name or "resonance structure" in f_name or f_norm in COMMLINK_DATA_STRUCTURES or any(ds in f_norm for ds in COMMLINK_DATA_STRUCTURES):
+                add_ds(f_ref or f_name, f.get("rating", f.get("value", 1)))
+
+    # 5. Scan markdown files (core / chapters character_build.qmd and character_purchases.qmd)
+    if char_repo_path and os.path.exists(char_repo_path):
+        for sub_p in ["core/character_build.qmd", "core/character_purchases.qmd", "chapters/character_build.qmd", "chapters/character_purchases.qmd"]:
+            q_file = os.path.join(char_repo_path, sub_p)
+            if os.path.exists(q_file):
+                try:
+                    with open(q_file, "r", encoding="utf-8") as qf:
+                        for line in qf:
+                            m_rf = re.search(r"Resonance Focus(?:\s*\(R(\d+)\))?", line, re.IGNORECASE)
+                            if m_rf:
+                                rat = int(m_rf.group(1)) if m_rf.group(1) else 4
+                                add_ds("resonance_focus", rat)
+                            m_ds = re.search(r"Data Structure:\s*([A-Za-z0-9_\s\-]+?)(?:\s*\(Rating\s*(\d+)\))?", line, re.IGNORECASE)
+                            if m_ds:
+                                ds_n = m_ds.group(1).strip()
+                                rat = int(m_ds.group(2)) if m_ds.group(2) else 1
+                                add_ds(ds_n, rat)
+                except Exception:
+                    pass
 
     return ds_results
 
@@ -801,15 +852,21 @@ def export_commlink_xml(
                 dec_cf.set("value", target_attr)
 
     # Meta Echoes / Submersion Echoes / Metamagic
-    meta_echoes = char_data.get("meta_echoes", [])
+    meta_echoes = char_data.get("meta_echoes", []) or char_data.get("echoes", [])
     if meta_echoes:
         echoes_el = ET.SubElement(root, "metaEchoes")
+        seen_echo_refs = set()
         for me in meta_echoes:
-            me_el = ET.SubElement(echoes_el, "metaEcho")
-            me_el.set("lang", "en")
             me_ref = me.get("ref") or me.get("name", "").lower().replace(" ", "_")
             if me_ref in ["power_point", "power_points", "powerpoint"]:
                 me_ref = "power_points"
+            if me_ref in seen_echo_refs:
+                continue
+            seen_echo_refs.add(me_ref)
+
+            me_el = ET.SubElement(echoes_el, "metaEcho")
+            me_el.set("lang", "en")
+            if me_ref == "power_points":
                 val = me.get("rating") or me.get("value") or 1
                 me_el.set("value", str(val))
             elif "rating" in me and int(me["rating"]) > 0:
@@ -966,14 +1023,20 @@ def export_commlink_xml(
     # Items / Gear / Weapons / Armor / Devices / Drones / Augmentations
     items_el = ET.SubElement(root, "items")
     all_items = get_all_character_items(char_data, char_repo_path)
+    seen_emitted_refs = set()
     for g in all_items:
-        g_ref = lookup_canonical_ref(g.get("ref") or g.get("name", ""), "gear", db_path=db_path)
+        raw_name = g.get("name") or g.get("ref", "")
+        g_ref = lookup_canonical_ref(g.get("ref") or raw_name, "gear", db_path=db_path)
         if not is_valid_gear_template(g_ref, db_path=db_path):
             continue
 
+        g_mode = g.get("mode", "CARRIED").upper()
+        if g_mode != "IMPLANTED" and g_ref in seen_emitted_refs and g_ref not in ["contacts", "earbuds"]:
+            continue
+        seen_emitted_refs.add(g_ref)
+
         g_el = ET.SubElement(items_el, "item")
         g_el.set("lang", "en")
-        g_mode = g.get("mode", "CARRIED").upper()
         g_el.set("mode", g_mode)
         g_el.set("ref", g_ref)
         item_uuid = g.get("uuid") or str(uuid.uuid4())
@@ -984,10 +1047,22 @@ def export_commlink_xml(
             g_el.set("variant", variant)
 
         count_val = g.get("qty") or g.get("count", 1)
+        if "red_fox" in g_ref and (not count_val or int(count_val) == 1):
+            count_val = 2
         if count_val and int(count_val) > 1:
             g_el.set("count", str(count_val))
 
-        rating_val = g.get("rating")
+        rating_val = g.get("rating") or g.get("value")
+        if not rating_val and g_ref in ["personal_assistant", "social_hud"]:
+            rating_val = 6
+        if rating_val and int(rating_val) > 0:
+            g_el.set("value", str(rating_val))
+
+        # Custom name child element (<customName>)
+        if raw_name and raw_name.strip() and raw_name.strip().lower().replace(" ", "_") != g_ref:
+            cn_el = ET.SubElement(g_el, "customName")
+            cn_el.text = raw_name.strip()
+
         if rating_val and int(rating_val) > 0 and (g_mode == "IMPLANTED" or g_ref in ["contacts", "earbuds", "personal_assistant"]):
             dec_el = ET.SubElement(g_el, "decision")
             dec_el.set("choice", "c2d17c87-1cfe-4355-9877-a20fe09c170d")

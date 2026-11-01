@@ -1650,12 +1650,15 @@ def get_log_totals(log_path: Optional[Any] = None) -> Dict[str, Any]:
                 })
 
     # Also extract markdown `* *Submersion - <Name>:*` entries if not yet registered via echo()
+    existing_echo_refs = {e.get("ref") for e in _GLOBAL_LOG_STATE.get("Echoes", []) if isinstance(e, dict)}
     for m_sub in re.finditer(r"^\s*\*\s+\*?\*?Submersion\s*-\s*([^:*`\n]+)", content, re.MULTILINE):
         raw_echo_name = m_sub.group(1).strip()
         if raw_echo_name.lower() == "new sprite types":
             raw_echo_name = "New Sprite Type"
-        if raw_echo_name:
+        ref_norm = raw_echo_name.lower().replace(" ", "_")
+        if raw_echo_name and ref_norm not in existing_echo_refs:
             echo(raw_echo_name)
+            existing_echo_refs.add(ref_norm)
 
     rep_dict = _GLOBAL_LOG_STATE.get("Reputation", {})
     total_rep = sum(rep_dict.values()) if isinstance(rep_dict, dict) else 0
