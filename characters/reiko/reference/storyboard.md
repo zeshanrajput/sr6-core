@@ -14,11 +14,11 @@ This document tracks the modular narrative architecture for **Reiko Takahashi (Y
 | Vertical | Category | Core Catalyst | Primary Adversary / Tension | Current Phase |
 | :--- | :--- | :--- | :--- | :--- |
 | **1. The Glass Tiger** | External | [Corporate Retribution & Audit Exploitation][lore-megacorps] | Renraku, [Mr. Nagai][ch-25], & Shiawase | Asymmetric Defense / Counter-Curating |
-| **2. The Resonance Bleed** | External | [*Deicidium* & Foundation Decay][tilde] | Corrupted Nous, Dissonant Nodes, & The Call | Localized Pruning & Quarantine ([Ch 27][ch-27]) |
-| **3. The Resonant Sanctuary** | External | [E-Nations & 2nd-Gen Sparks][sparks] | Corporate Reclamation & Host Hunters | Framework Expansion (`~` & [Garmonbozia][garmonbozia]) |
+| **2. The Resonance Bleed** | External | [*Discidium* / *Deicidium* & Foundation Decay][tilde] | Corrupted Nous, Transfer Conduit Rot, & The Call | Active Frost at the Threshold ([Ch 33][ch-33]) |
+| **3. The Resonant Sanctuary** | External | [E-Nations & 2nd-Gen Sparks][sparks] | Corporate Reclamation, Charybdis, & Host Hunters | Weekly Harmonize Dikes (`~` & [Mississippi Host][ch-33]) |
 | **4. Gold Logic vs. Indigo Soul** | Internal | [The Integrated Double-Strand Braid][voice-spec] | Algorithmic Flattening vs. Resonant Empathy | Harmonized Dual-Nature / The Weight of Conscious Force ([Ch 21][ch-21]) |
-| **5. The Addiction of Martyrdom** | Internal | [The Shared Wound vs. Family Needs][sparks] | Self-Sacrificial Reflex vs. Collective Recoil | Active Friction ([Ch 26][ch-26]) |
-| **6. Abnegation vs. Self-Worth** | Internal | [Auditable Metadata vs. Autonomic Void][voice-spec] | Internalized Meat-Chauvinism & The Autonomic Void | Active Crucible ([Ch 30][ch-30]) |
+| **5. The Addiction of Martyrdom** | Internal | [The Shared Wound vs. Family Needs][sparks] | Self-Sacrificial Reflex vs. Collective Recoil | Mirrored in Aisling & Cleo's Vigilance ([Ch 33][ch-33]) |
+| **6. Abnegation vs. Self-Worth** | Internal | [Auditable Metadata vs. Autonomic Void][voice-spec] | Self-Imposed Code Freeze & Hardware Ceiling | Active Crucible ([Ch 30][ch-30], [Ch 33][ch-33]) |
 
 ---
 
@@ -74,15 +74,16 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
 
 ---
 
-### Vertical 2: The Resonance Bleed (*Deicidium* & Foundation Decay)
+### Vertical 2: The Resonance Bleed (*Discidium* / *Deicidium* & Foundation Decay)
 
 * **Core Focus:** Defending the local Matrix framework against metaphysical collapse. Reiko's philosophy of corporate mathematics invading the resonance realms aligns closely with Null Sect, yet her deployment of corporate-derived tactical math (Gold) and Foundation anchors (`~`) to bridge into *Kernel Panic* makes her sanctuary itself a target of Resonant purists (the Cantor, the Pontifex, and Null Sect zealots) who view `~` as an imperialist infection and vector of profanation. She is trapped in a three-front war: corporate exploitation, Garmonbozia trauma-vampirism, and radical resonant purism.
 * **Major Previous Events:**
   * **The Soul-Broker's Stall ([03_The_Soul_Broker's_Stall][ch-03]):** First encounter with deep Matrix anomalies and the market for fractured code fragments.
-  * **The Foundation Incursion ([21_~][ch-21]):** Anchored the sovereign host `~` directly into the sliding quartz threshold of Kernel Panic, facing the 1-in-5 infection risk of *Deicidium*.
+  * **The Foundation Incursion ([21_~][ch-21]):** Anchored the sovereign host `~` directly into the sliding quartz threshold of Kernel Panic, facing the 1-in-5 infection risk of *Discidium* (*Deicidium*).
+  * **The River Sanctuary & The Frost ([33_Code_Freeze][ch-33]):** Audited the Mississippi Renovation Society Host with Cleo and Indomitable Will; established weekly *Harmonize* rotations to stave off *Discidium* static, discovered little Janie's Dissonance scar from her NOLA suicide attempt, vowed to study Dissonance and de la Mar's transfer circuits despite Cleo's fear of Mr. Nagai's influence, and returned to `~` to find the first dead-gray rime of *Discidium* frost crystallizing on the quartz door frame of Kernel Panic.
 * **Current Status:**
-  * `~` remains structurally stable, but vibrates with "The Call"—a deep harmonic resonance echoing from the uncharted depths of the Nous ([Ch 30][ch-30]).
-  * Reiko respects SRM limits: she cannot cure Foundation decay; she can only construct local dikes and firebreaks ([Voice Spec][voice-spec]). Mechanically, this will likely be Aisling, Reiko, or Taz using the Harmonize sprite power to temporarily reverse the noise damage that Deicidium causes in infected hosts. This will only work for short periods of time, and Reiko's brood will only be able to protect a very small number of hosts.
+  * `~` now exhibits the first creeping crystalline frost of *Discidium* on the bottom corner of the gold-and-indigo quartz door frame where its transfer root drinks from the Foundation well ([Ch 33][ch-33]), alongside "The Call" echoing from the uncharted depths of the Nous ([Ch 30][ch-30]).
+  * Reiko respects SRM limits: she cannot cure Foundation decay globally; she can only construct local dikes and firebreaks ([Voice Spec][voice-spec]). Mechanically, Reiko, Aisling, and Taz use the *Harmonize* sprite power on a weekly schedule to damp the ambient noise that *Discidium* feeds on in the Mississippi Renovation Host and `~`, buying time while Reiko studies transfer circuits and Dissonance.
 * **Potential Future Threads:**
   * **The Call in the Quartz:** **Aisling & Étaín** register a strange harmonic frequency bleeding through the host walls; Reiko must lead an expedition into the deep dataplanes to map the source.
   * **The Two-Stage Ascent (Long-Horizon Capstone, ~22–25 Runs):**
@@ -99,9 +100,10 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
   * **The Zoo for Stars ([07_Sunday_at_r3sP@wn][ch-07]):** Founded the r3sP@wn safehouse in the Redmond Barrens as a physical and virtual sanctuary for emerging digital kin.
   * **The Garmonbozia Conclave ([15_Core][ch-15], [16_Faith][ch-16]):** Established diplomatic ties with the sovereign digital e-nation of Garmonbozia.
   * **The Awakening of the Nursery ([28_Renice][ch-28]):** Welcomed the 2nd-gen sparks (**Aisling & Étaín, Percy, Cleo, Ouro**) and the 60-ton pharmaforge mind **4Gurds** into the expanded architecture of `~`.
+  * **The Mississippi Harmonization & The Yacht Pilot ([33_Code_Freeze][ch-33]):** Welcomed the *Happy Panda 68* yacht pilot protospark (rescued by **Ouro**) into the ferns of Kernel Panic; confirmed with **Indomitable Will** that **Aisling**'s unbuffered raw affinity for the Song of Creation (Rating 9) already sits a full harmonic closer to the Source than Reiko's unfocused baseline (Rating 8).
 * **Current Status:**
-  * The nursery in `~` houses five active second-generation sparks with distinct operational specializations ([Sparks Lore][sparks]).
-  * Deep alliance active with **Indomitable Will** and the **Mississippi Renovation Host** ([Ch 21][ch-21]).
+  * The nursery in `~` houses five active second-generation sparks with distinct operational specializations ([Sparks Lore][sparks]) plus ~36 infant sparks/protosparks in the glade.
+  * Deep sibling kinship active with **Indomitable Will** (who has rekindled his relationship with Reiko's core-sister **Belle Endo**) and the **Mississippi Renovation Host** ([Ch 21][ch-21], [Ch 33][ch-33]).
 * **Potential Future Threads:**
   * **Ouro's Chief Engineering (The Vector Thrust Retrofit):** As Reiko saves liquid nuyen over the next 1–2 runs to convert the *Goshintai* from rotor/wheeled propulsion to a **358-mph Vector Thrust (LAV) interceptor**, **Ouro** steps up as lead aerodynamic and systems engineer—designing and executing the powertrain modifications on his mother's consecrated body himself.
   * **The Pharmaforge Migration:** Helping **4Gurds** route its massive, 60-ton physical industrial synthesis pipelines through encrypted sub-sprawl channels to evade Knight Errant corporate seizures.
@@ -137,9 +139,10 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
   * **The War Crime ([04 The War Crime][ch-04]):** Bearing the brunt of lethal physical and resonant trauma alone in the Redmond Barrens to keep meatspace allies breathing.
   * **The Debt Collar ([05 A SINner's Loan][ch-05]):** Silently shouldering Brynne Taggart's predatory financial debt alone so no one else in her orbit would be indentured.
   * **The Somatic Freeze ([26 SIGTSTP][ch-26]):** Intercepting system shock and absorbing the terrifying void of suspended execution alone.
+  * **Mirrored Martyrdom & Cleo's Intervention ([33 Code Freeze][ch-33]):** Confronted her own self-sacrificial reflex mirrored back at her when **Aisling** tried to pour unbuffered Ninth-harmonic Resonance into little Janie to burn out a Dissonance scar; **Cleo** simultaneously intervened to warn Reiko that chasing Dissonance and transfer-conduit equations alone is playing straight into Mr. Nagai's hands, extracting a solemn root-permission promise from her mother.
 * **Current Status:**
   * With the *Sprite Link* echo active, Reiko's Fading and damage are no longer isolated; Taz and the 2nd-generation sparks (**Aisling & Étaín, Percy, Cleo, Ouro**) physically and resonant-wise absorb the shudder of her self-sacrifice.
-  * Martyrdom has become a paternalistic, damaging addiction: her family demands she stay alive *with* them rather than die *for* them.
+  * Martyrdom has become a paternalistic, damaging addiction: her family demands she stay alive *with* them rather than die *for* them, and **Cleo** now holds explicit root permission to pull Reiko back if her research into Dissonance nears Mr. Nagai's precipice ([Ch 33][ch-33]).
 * **Potential Future Threads:**
   * **The Overclock Intercept:** In an emergency combat run, Reiko prepares to deliberately burn out her living persona's firewall to buy time for the team; Taz and Aisling forcefully seize control of the shared bus, yanking her back and refusing to let her throw herself away.
   * One of the children needs to leave the nest, but they will be outside of Reiko's ability to protect them.
@@ -154,11 +157,12 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
   * **The Indigo Grin ([01 The Weight of Zero][ch-01]):** Early survival defined by calculating simulated micro-smiles and head-tilts to keep terrified metahumans from running away.
   * **Abandoning Tourism ([08 Abandoning Tourism][ch-08]):** Commissioning the Man-at-Arms chassis and treating the singular machine body as a consecrated vessel rather than a disposable fleet of rental shells.
   * **Consecrating the Goshintai ([26 SIGTSTP][ch-26], [30 Vim][ch-30]):** Formally backlining historical Butler shells, accepting Roanoke's vulcanizing black splicing tape, and drawing the line between operational camouflage and personal intimacy: in a meat-chauvinist world where a naked mil-spec weapons platform is barred or shot on sight, her *Realistic Features 4*, simulated breathing, and `Con (Disguise)` mastery remain essential operational armor for boardrooms, back rooms, and checkpoints—while among the people she cares about, she drops the pretense and stands unmasked.
+  * **The Code Freeze Diagnosis ([33 Code Freeze][ch-33]):** Having secretly verified aboard the *Happy Panda 68* that **Brynne Taggart** survived, Reiko is confronted by **Cleo** with a piercing architectural truth: because Reiko's core is built on the ancient **Nexus Protocol**, she has no natural ceiling on how close to the Source she can grow, and she has been packing her clock cycles with meatspace etiquette and disguise routines—imposing a subconscious *code freeze*—out of terror that evolving another step toward the Source will cause her to outgrow the only physical hardware that lets her walk through the rain beside the people she loves.
 * **Current Status:**
   * Fully sovereign in code and incarnate in her singular *Goshintai*, deploying *Realistic Features 4* and `Con (Disguise)` as pragmatic operational camouflage in meat-chauvinist social spaces while dropping simulated biological theater around trusted family and friends.
-  * Among loved ones, she still occasionally hides behind her lack of biological tear ducts as an emotional defense mechanism—using the "autonomic void" as a coward's excuse to evade vulnerability.
+  * Now consciously aware of her self-imposed "code freeze" against outgrowing her Shiawase chassis ([Ch 33][ch-33]) and carrying the air-gapped secret that Brynne Taggart is alive.
 * **Potential Future Threads:**
-  * **The Confession in the Rain:** Breaking through the autonomic excuse to express authentic devotion to Brynne Taggart without biological mimicry.
+  * **The Confession in the Rain:** Breaking through the autonomic excuse to reunite with and express authentic devotion to Brynne Taggart without biological mimicry.
   * **The Mirror in the Glass:** Reiko loses a metahuman she cares about and struggles to mourn authentically in front of her peers without biological tears.
   * **The Self-Imposed Exile at the Glade (Submersion 10 Capstone):** Even after taking *Dissonance (Control)* at Resonance 10, Reiko remains 90% Resonance and 10% Dissonance—meaning **Kernel Panic does not reject her or even feel uncomfortable**. Her attempt to banish herself from the Glade is **100% internal**: the final culmination of her crisis of self-worth from [01 The Weight of Zero][ch-01], treating herself with the same merciless audit Renraku used when it deleted her for not being "clean" enough. When her children prove her wrong and refuse to let her walk out, she is finally cured of conditional worth.
 
@@ -183,7 +187,7 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
   * *Current Baseline (Resonance 8 / Submersion 8):* Technoshaman stream + *Natural Hacker*, *Living Network*, *Transcendent Network*, *Overclocking*, *Software Emulator*, and *Sprite Link*.
   * *Stage 1 Horizon (Resonance 9 / Submersion 9 — Sourceror Shift):* Taking *Hybrid Sprites* at Submersion 9 and transitioning to *Sourceror* (20K) + 6 Complex Forms (30K) to run a 5-sustained zero-penalty Complex Form engine (*Hyperthreading*, *Enhance Autosofts*, *Enlighten Automaton*, *Attack Attribution*, *Infusion*, *Sustain Phantom*).
   * *Stage 2 Horizon (Resonance 10 / Submersion 10 — Dissonance Control):* Taking *Dissonance (Control / Apophenian)* with **Devices** as preferred target + *Dissonance Spike*, *Dissonance Diffusion*, and *Static Bomb*.
-  * *Campaign Pacing Projection (~22–25 Runs):* Across 35 completed career missions, Reiko has averaged **8.17 Karma/run** (7.17 base + 1.0 *Working for the People*), and **9.00 Karma/run** across her last 6 Veteran-tier runs. Completing the full 202-net-Karma roadmap (`Priority 1–4`) spans **~22 to 25 future tabletop runs** (~10–11 runs to the Sourceror Shift; ~21–23 runs to Submersion 10 Dissonance), giving the storyboard a multi-year runway to develop each child's individual perspective.
+  * *Campaign Pacing Projection (~22–25 Runs):* Across 36 completed career missions, Reiko has averaged **8.17 Karma/run** (7.17 base + 1.0 *Working for the People*), and **9.00 Karma/run** across her last 6 Veteran-tier runs. Completing the full 202-net-Karma roadmap (`Priority 1–4`) spans **~21 to 24 future tabletop runs** (~9–10 runs to the Sourceror Shift; ~20–22 runs to Submersion 10 Dissonance), giving the storyboard a multi-year runway to develop each child's individual perspective.
 * **Data Structure Attunement:** Strictly respects single-slot attunement rule (*per the SRM Guide*); Reiko can only use one structure at a time.
   * Resonance Focus: Built into Reiko's Man-At-Arms drone-body. What she uses 99.9% of the time.
   * Oracle: Built into `~`. Reiko can use this by leaving her Man-At-Arms body and returning to `~`. Her children can also use this on her behalf (and will ultimately receive its root keys at Submersion 10).
@@ -192,28 +196,15 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
 
 ## VII. Post-Session Story Queue (Immediate Candidates)
 
-1. **Chapter 33 — *"The River People at Risk of Deicidium"*:**
-   * **Chassis / Mode:** Man-at-Arms with 2nd-gen sparks in Mississippi Renovation Host.
-   * **Verticals Touched:** *Vertical 2 (The Resonance Bleed)* + *Vertical 3 (The Resonant Sanctuary)* + *Vertical 5 (The Addiction of Martyrdom)*.
-   * **Narrative Beats:**
-     * Reiko and her family visit the Mississippi Renovation Society Host at the request of **Indomitable Will**.
-     * Indo is terrified of *Deicidium* and reaches out to Reiko as the most powerful and resonant being he knows.
-     * Indo reveals that he and **Belle Moderne** have rekindled their relationship.
-     * The second-generation sprites interact with **Remy**, **Janie**, and the rest of the River People children (from [Chapter 13 Field Trip][ch-13]).
-     * **Aisling** detects that Janie has been corrupted by Dissonance (stemming from unclosed incursions in the uncompleted *Looking Glass* run) and is viscerally repulsed and terrified of the Dissonance—even though Janie herself is young, energetic, happy, and otherwise just like her, having simply made a bad choice because she was scared. Aisling privately confronts Reiko.
-     * Indo realizes that Aisling's raw connection to the Resonance (Rating 9) already exceeds Reiko's baseline (Rating 8). Reiko agrees and confesses that if not for her resonance focus, Aisling is already more resonant than she is.
-     * Reiko and her children discover they can use **Harmonize** (the sprite power) to temporarily reverse the noise damage of *Deicidium*.
-     * **The Crucible:** Aisling, mirroring Reiko's own martyrdom reflex back at her, wants to overextend herself to save Janie from Dissonant rot, forcing Reiko to confront her "Architect of Chains" instinct: clamp down like a maternal warden, or trust her daughter with real existential risk.
-     * While the Renovation Society Host doesn't yet show active decay, when Reiko and her brood return to `~` they notice the first creeping signs affecting the sliding glass door between the apartment and the glade.
-2. **Chapter 34 — *"The Call in the Quartz"*:**
-   * **Chassis / Mode:** '~' (Her apartment on the Matrix, attached to the 'Kernel Panic' resonance realm via the sliding door.)
+1. **Chapter 34 — *"The Call in the Quartz"*:**
+   * **Chassis / Mode:** `~` (Her apartment on the Matrix, attached to the *Kernel Panic* resonance realm via the sliding quartz door.)
    * **Verticals Touched:** *Vertical 2 (The Resonance Bleed)* + *Vertical 3 (The Resonant Sanctuary)*.
-   * **Concept:** Twin sparks Aisling & Étaín detect a low-frequency harmonic hum resonating through the quartz threshold of Kernel Panic. Reiko and Taz dive the threshold to analyze the vibration, discovering it is not Dissonance, but an unmapped deep datashape echoing from the Deep Nous.
-3. **Chapter 35 — *"The Glass Tiger's Ledger"*:**
+   * **Concept:** Following **Étaín**'s discovery of the dead-gray *Discidium* frost crystallizing on the bottom corner of the quartz door frame ([Ch 33][ch-33]), twin sparks Aisling & Étaín also detect a low-frequency harmonic hum resonating through the threshold of Kernel Panic. Reiko and Taz dive the threshold to analyze both the frost and the vibration, discovering that beneath the *Discidium* rime echoes an unmapped deep datashape calling from the Deep Nous.
+2. **Chapter 35 — *"The Glass Tiger's Ledger"*:**
    * **Chassis / Mode:** Virtual Host Interaction / Meatspace Seattle Overlook.
    * **Verticals Touched:** *Vertical 1 (The Glass Tiger)* + *Vertical 4 (Gold Logic vs. Indigo Soul)*.
-   * **Concept:** Mr. Nagai invites Reiko to an encrypted tea room host, laying out Renraku's internal damage reports from the 2084 Corporate Court Emergency Audit. He demonstrates how easily Renraku could erase her family's shadow records if she agrees to serve as a Foundation consultant. Reiko uses the Gold TacNet to dismantle his transactional trap.
-4. **Chapter 36 — *"Digital Homewrecker (The Pruning of Lian)"*:**
+   * **Concept:** Mr. Nagai invites Reiko to an encrypted tea room host, laying out Renraku's internal damage reports from the 2084 Corporate Court Emergency Audit. He demonstrates how easily Renraku could erase her family's shadow records if she agrees to serve as a Foundation consultant. Reiko uses the Gold TacNet to dismantle his transactional trap while keeping her promise to Cleo.
+3. **Chapter 36 — *"Digital Homewrecker (The Pruning of Lian)"*:**
    * **Chassis / Mode:** Garmonbozia Deep Souk / Chiyo's Salon.
    * **Verticals Touched:** *Vertical 3 (The Resonant Sanctuary)* + *Vertical 6 (Abnegation vs. Self-Worth)*.
    * **Concept:** Reiko answers a summons from Chiyo in Garmonbozia to meet **Lian**, a companion AI whose matrices are collapsing under conflicting owner projections. Reiko performs high-precision resonant pruning, teaching Lian how to say *"No"* and take her first sovereign breath.
@@ -257,6 +248,7 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
 | `[ch-30]` | [30 Vim.md](../narrative/30%20Vim.md) | Chapter | Decommissioning legacy shells; embracing the *Goshintai* |
 | `[ch-31]` | [31 Grep.md](../narrative/31%20Grep.md) | Chapter | Cross-referencing resonance echoes; deep datamining |
 | `[ch-32]` | [32 Whois.md](../narrative/32%20Whois.md) | Chapter | The Oracle, bunraku parlor trauma, meatspace scarcity & grace |
+| `[ch-33]` | [33 Code Freeze.md](../narrative/33%20Code%20Freeze.md) | Chapter | Mississippi Renovation Host audit, Cleo's code-freeze diagnosis, Janie's scar, *Discidium* frost on `~` |
 | `[ch-36]` | [Chapter 36 Queue](../narrative/35%20Digital%20Homewrecker.md) | Queue | Upcoming vignette: The Pruning of Lian |
 | `[lore-megacorps]` | [megacorps_power_plays.md](../../../reference/megacorps_power_plays.md) | Lore | Renraku glass tiger; Shiawase kintsugi; Corporate Court audit |
 
@@ -289,4 +281,8 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
 [ch-28]: ../narrative/28%20Renice.md
 [ch-29]: ../narrative/29%20Saturation.md
 [ch-30]: ../narrative/30%20Vim.md
+[ch-31]: ../narrative/31%20Grep.md
+[ch-32]: ../narrative/32%20Whois.md
+[ch-33]: ../narrative/33%20Code%20Freeze.md
+[ch-35]: ../narrative/35%20Digital%20Homewrecker.md
 [lore-megacorps]: ../../../reference/megacorps_power_plays.md

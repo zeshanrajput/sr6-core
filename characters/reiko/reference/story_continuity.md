@@ -97,8 +97,9 @@ All narrative outlines, intersession chapters, and character development arcs ad
 | [30 Vim.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/30%20Vim.md) | 30. Vim | 1,815 | Verified |
 | [31 Grep.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/31%20Grep.md) | 31. Grep | 2,016 | Verified |
 | [32 Whois.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/32%20Whois.md) | 32. Whois | 3,141 | Verified |
+| [33 Code Freeze.md](file:///c:/GitHub/sr6reiko/chapters/33 Code Freeze.md) | 33. Code Freeze | 3,249 | Verified |
 
-**Total Anthology Word Count:** 58,160 words across 32 chapters.
+**Total Anthology Word Count:** 61,409 words across 33 chapters.
 
 ## Latest Story beats
 

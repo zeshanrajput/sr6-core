@@ -351,5 +351,15 @@ SRM.2081.15:
   contacts:
   - toil
   - trubble
+SRM.2081.16:
+  id: SRM.2081.16
+  title: It Ends, It Begins
+  type: SRM
+  season: '2081'
+  region: SEA
+  contacts:
+  - ni_ni_xiaolu
+  - toil
+  - simon_andrews
 
 

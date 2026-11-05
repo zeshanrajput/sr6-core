@@ -152,9 +152,10 @@ ightarrow$ **10/11**.
 
 ### C. Complex Form Acquisition Roadmap & Repertoire
 
-Under SRM character advancement (*City Edition: Seattle*, p. 70; *SRMG v2.4*), learning a new complex form costs **5 Karma** and **1 Minor Downtime Action** (absorbing base code in a host). 
+Under SRM character advancement (*City Edition: Seattle*, p. 70; *SRMG v2.4*), learning a new complex form costs **5 Karma** and **1 Minor Downtime Action** (absorbing base code in a host).
 
 #### 1. Currently Known Complex Forms (8 Total — Fully Active in Repertoire)
+
 * **Technoregeneration** (*H&S* 67; Chargen): Heals device Matrix/physical damage on anthrodrone chassis.
 * **Cleaner** (*CRB* 190; Chargen): Permanent Overwatch Score reduction.
 * **Diffusion: Firewall** (*CRB* 190; SRM 2083.08 / CMP 2081.08): Melts target's Firewall by net hits; strips host/decker defenses.
@@ -165,7 +166,9 @@ Under SRM character advancement (*City Edition: Seattle*, p. 70; *SRMG v2.4*), l
 * **Resonance Spike** (*CRB* 191; SRM 2081.15): Pure Resonance damage bypassing Matrix armor.
 
 #### 2. Tier 1: The Sourceror 5-Sustain Engine (30 Karma / 6 Downtime Actions)
+
 *Acquired immediately post-Sourceror transition to operationalize the 5-sustain suite:*
+
 * **5a) Hyperthreading (5 Karma)** (*H&S* 131): Enables combining multiple complex forms into a single test/action.
 * **5b) Enhance Autosofts (5 Karma)** (*H&S* 64): +3 dice pool bonus to all autosoft tests on Man-at-Arms (Slot 1).
 * **5c) Infusion: Data Processing (5 Karma)** (*CRB* 190): Pushes Living Persona DP from 7 $\rightarrow$ 9 (Slot 3; uncaps R9 autosofts).
@@ -174,10 +177,14 @@ Under SRM character advancement (*City Edition: Seattle*, p. 70; *SRMG v2.4*), l
 * **5f) Infusion: Sleaze (5 Karma)** (*CRB* 190): Pushes Living Persona Sleaze from 5 $\rightarrow$ 7–8 (Slot 2).
 
 #### 3. Tier 2: Dissonance (Control) & Void Arsenal (15 Karma / 3 Downtime Actions)
+
 *Acquired post-Submersion 10 under the Dissonant Technomancer (Control/Apophenian) path (*Shadow Cast*, pp. 84–85):*
+
 * **8a) Dissonance Spike (5 Karma)** (*SC* 85): Deals lethal biofeedback; surviving targets suffer 1 un-reductable Matrix noise per unresisted damage box for 1d6 minutes (hyperthreads with *Resonance Spike*!).
 * **8b) Dissonance Diffusion (5 Karma)** (*SC* 85): Strips multiple Matrix attributes simultaneously on a single cast (hyperthreads with *Diffusion: Firewall*!).
 * **8c) Static Bomb (5 Karma)** (*CRB* 191): Breaks all Matrix locks, active traces, and spots instantly in one action.
+
+Someday: Jack Jockey (HnS 82): Devices connected to directly do not benefit from PAN firewalls.
 
 ---
 
