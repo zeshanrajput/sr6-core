@@ -1,6 +1,6 @@
 # Sheets
 
-<audio controls src="audio/17%20Sheets.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
+<audio controls src="audio/17 Sheets.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
 
 A localized execution thread turned the Shiawase Butler drone seventeen degrees to port, halting the chassis for three hundred and forty-two seconds. From the optical feed of an overhead micro-drone, Reiko studied the composition. She had mapped the rented studio at 2317 Bleeker Street as a series of consumer habit variables. To the camera’s left, two soy-starch dishes and a single synthetic fork sat drying in a plastic rack. To the right, a twin mattress was made with flat, industrial precision. Atop the bed was a small Japanese girl, breathing slowly and evenly.
 

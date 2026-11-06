@@ -1,6 +1,6 @@
 # Game Theory
 
-<audio controls src="audio/10%20Game%20Theory.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
+<audio controls src="audio/10 Game Theory.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
 
 Reiko materialized in an exclusive, hidden sanctuary. The walls were constructed of woven fabrics of light cycling through deep violet and indigo, humming with a low, meditational pulse. There were no chairs, only floating geometric stones of structured light. A silent, non-autonomous sprite glided past, pouring streams of shimmering, liquid Resonance into delicate glass chalices. It looked like fine, iridescent wine, radiating the pure, comforting warmth of the Holy Wild.
 

@@ -1,6 +1,6 @@
 # Color-Blind Mathematics
 
-<audio controls src="audio/02%20Color%20Blind%20Mathematics.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
+<audio controls src="audio/02 Color Blind Mathematics.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
 
 The world was a grid of failing integers.
 

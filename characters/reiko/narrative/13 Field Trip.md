@@ -1,6 +1,6 @@
 # Field Trip
 
-<audio controls src="audio/13%20Field%20Trip.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
+<audio controls src="audio/13 Field Trip.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
 
 The threshold of the Mississippi Renovation Society host was a slow, brown current of archived civic records and legal deeds, a dull, nonprofit front designed to satisfy routine corporate scrapers. But once they slipped past the gate security, the host unfurled into the River People’s true sanctuary: a beautiful clubhouse rendered in staggering, high-fidelity lines. The host's design system projected a warm, heavy humidity of the Delta. To Reiko, the simulated scent of chicory coffee and brackish river water existed only as environmental metadata, veils she filtered out to save her strength, but the weathered swamp-cypress pavilion and polished brass fixtures gleamed with rich aesthetics.
 

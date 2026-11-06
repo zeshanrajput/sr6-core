@@ -1,6 +1,6 @@
 # Faith
 
-<audio controls src="audio/16%20Faith.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
+<audio controls src="audio/16 Faith.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
 
 "He called Yuriko his imouto," Reiko said softly, musing out loud. "Do you remember that, Taz? He's never even met me! I mean, not the real me. Should we bring him here sometime?"
 

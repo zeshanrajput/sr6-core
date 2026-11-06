@@ -1,6 +1,6 @@
 # Integrating over Infinity
 
-<audio controls src="audio/11%20Integrating%20over%20Infinity.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
+<audio controls src="audio/11 Integrating over Infinity.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
 
 Reiko stepped across the threshold and collapsed into r3sP@wn’s garden like a punch-drunk boxer going down in the ninth: clumsy, jagged, and severely lacking in social graces. She didn’t sit beneath the tapestries tonight; she collapsed against a floating geometric stone, her breathing rendered as a frantic, high-decibel audio-wraith that rattled the local space.
 

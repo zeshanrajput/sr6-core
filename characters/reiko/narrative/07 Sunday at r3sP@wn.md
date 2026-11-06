@@ -1,6 +1,6 @@
 # Sunday at r3sP@wn
 
-<audio controls src="audio/07%20Sunday%20at%20r3sP%40wn.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
+<audio controls src="audio/07 Sunday at r3sP@wn.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
 
 The Seattle Barrens were never truly silent; they were a jagged composition of distant gunfire, rain-slap against tin, and the predatory thrum of a Lone Star VTOL circling three blocks over. Inside the safehouse, the air spoke of iron rot and rain. Reiko's digital garden was hosted on cheap, rusted racks vibrating themselves to pieces. The drone shell rested against the metal, its sensors registering a low-bitrate caricature of physical cold.
 

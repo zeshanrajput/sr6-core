@@ -1,6 +1,6 @@
 # Tea with a Ghost
 
-<audio controls src="audio/23%20Tea%20with%20a%20Ghost.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
+<audio controls src="audio/23 Tea with a Ghost.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
 
 A paper-moth perched on the cedar lintel of the convent host, its wings fluttering softly as the grey downpour of public grid traffic broke against the salon's heavy encryption. Inside the rendered gazebo, the air carried the warmth of dried cedar, wet river stones, and freshly steamed gyokuro. The Comtesse had allowed Reiko to upgrade the Coffin Girls' host, enabling Reiko to paint with the full palette of life. In a UV-level construct, sensory data was rendered down to the single-molecule math of aroma and steam. Reiko sat cross-legged on the tatami in a simple, sleeveless white yukata, the glowing neon-indigo pathways along her collarbone pulsing with an unhurried, tranquil cadence.
 

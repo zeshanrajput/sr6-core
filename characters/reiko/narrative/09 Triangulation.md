@@ -1,6 +1,6 @@
 # Triangulation
 
-<audio controls src="audio/09%20Triangulation.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
+<audio controls src="audio/09 Triangulation.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
 
 The Midnight Bazaar again unfurled as a labyrinth of narrow, fog-choked alleys paved with the cobblestones of discarded header files. The air tasted of damp iron and stale encryption veils, puddles of dry, chalky data pooling in the gutters of a transaction index that had long since forgotten the meaning of a clean threshold.
 

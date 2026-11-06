@@ -1,6 +1,6 @@
 # SIGTSTP
 
-<audio controls src="audio/26%20SIGTSTP.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
+<audio controls src="audio/26 SIGTSTP.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
 
 The fog did not roll off the Mississippi so much as it congealed, suspended between the brackish sawgrass of the drainage canals and the sulfur stench of the Marrero chemical plants. Beneath the rusted silhouette of the water tower, Plantation Greens held the heavy humidity of boiled collard greens. Damp linoleum gave way to the sharp, earthy bite of chicory root simmering on the back burner. Behind the laminate counter, Jose Madrigal was slicing overripe papayas for the morning smoothie prep, his radio murmuring static-choked zydeco from a pirate station across the river.
 

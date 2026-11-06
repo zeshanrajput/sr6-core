@@ -4,7 +4,7 @@
 This narrative contains spoilers for SRM 2081-06 and 2081-18.
 :::
 
-<audio controls src="audio/24%20Symlink.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
+<audio controls src="audio/24 Symlink.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
 
 "You downed a freaking attack helicopter?" Brynne’s voice drifted from the bedroom, scraping rough against her throat before sharpening into disbelief. "In view of everyone in downtown Seattle? You call that 'just another Sunday'?"
 

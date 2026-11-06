@@ -1,6 +1,6 @@
 # A Point of Favor
 
-<audio controls src="audio/14%20A%20Point%20of%20Favor.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
+<audio controls src="audio/14 A Point of Favor.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
 
 The bar, a low-ceilinged concrete basement in the Redmond Barrens, spoke of stale yeast, damp wool, and the faint, sweet chemical tang of soy-beer. To the patrons slumped over the sticky formica counters, it was a warm hole to escape the Seattle rain. To Reiko, it was a dense, chaotic field of high-amplitude noise.
 

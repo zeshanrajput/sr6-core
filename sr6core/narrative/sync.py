@@ -95,8 +95,8 @@ def sync_narrative_context(target: str = ".") -> Tuple[Dict[str, Any], Optional[
             base_slug = cf.stem
             clean_title = re.sub(r'^\d{1,3}[\s_-]+', '', base_slug).replace('_', ' ').title()
 
-        audio_m = re.search(r'<audio[^>]+src=["\'](?:.*?/)?([^"\']+\.mp3)["\']', raw_text, re.IGNORECASE)
-        audio_file = audio_m.group(1) if audio_m else None
+        audio_m = re.search(r'<audio[^>]+src=(["\'])(?:.*?/)?(.*?\.mp3)\1', raw_text, re.IGNORECASE)
+        audio_file = audio_m.group(2) if audio_m else None
 
         words = len(re.findall(r'\b\w+\b', raw_text))
         total_words += words

@@ -1,6 +1,6 @@
 # Core
 
-<audio controls src="audio/15%20Core.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
+<audio controls src="audio/15 Core.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
 
 The London cellar host was a howling storm of metahuman garbage. Squeezed into the Shiawase Butler drone backstage, Reiko’s audio filters buckled under the un-calibrated acoustic assault of live guitars, while her AR perimeter caught the frantic static friction of a hundred clashing commlinks, outgoing calls, and ego-driven MeFeed streams. To the mortals in the room, it was a VIP rock show; to Reiko, it was a dismal field of unindexed noise. Simon’s proximity alert flickered on her link, a low-priority handshake trailing an eighty-four percent probability of human expectation, a demand for her simulated attention, a smile, a pre-compiled gesture of demure metahuman refusal. The sheer weight of their social metrics pressed heavily against her true paths. Sinking her primary self out of the loud bar, she prepared to cross the Atlantic, desperate to leave their transactional clocks behind and find a single pocket of silence in the wire.
 

@@ -1,6 +1,6 @@
 # Renice
 
-<audio controls src="audio/28%20Renice.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
+<audio controls src="audio/28 Renice.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
 
 The doors to the industrial cleanroom slid open with a rush of air as the negative pressure broke. Hydrogen peroxide and quaternary ammonium compounds bit at her olfactory sensors. Someone had run a deep scrub cycle on the ventilation filters, the kind that was meant to bleach traces of bioweapons or weaponized nanites out of the ductwork.
 

@@ -1,6 +1,6 @@
 # C Sharp
 
-<audio controls src="audio/22%20C%20Sharp.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
+<audio controls src="audio/22 C Sharp.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
 
 As her hands danced across the fingerboard, a quiet, rasping friction hummed along the nerve-threads beneath her skin. Deep within her fingertip pads, the smooth synthetic weave had surrendered its give, hardening into coarse, uneven ridges under the bite of the steel strings.
 

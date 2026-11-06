@@ -52,11 +52,14 @@ def align_audio_assets(repo_root: Path = None) -> int:
                         continue
 
                     # Search for <audio ... src="audio/..." or src="...mp3"
-                    audio_tags = re.findall(
-                        r'<audio[^>]+src=["\'](?:.*?/)?([^"\']+\.mp3)["\']',
-                        content,
-                        re.IGNORECASE,
-                    )
+                    audio_tags = [
+                        m.group(2)
+                        for m in re.finditer(
+                            r'<audio[^>]+src=(["\'])(?:.*?/)?(.*?\.mp3)\1',
+                            content,
+                            re.IGNORECASE,
+                        )
+                    ]
 
                     for raw_src in audio_tags:
                         decoded_name = urllib.parse.unquote(raw_src)
@@ -95,28 +98,6 @@ def align_audio_assets(repo_root: Path = None) -> int:
                                     f"[MISSING] {char_id}: {decoded_name} (referenced in {file})"
                                 )
                                 missing_count += 1
-
-                        # Also ensure literal raw_src exists if different from decoded_name (e.g., %20)
-                        if decoded_name != raw_src and target_file.exists():
-                            raw_target = audio_dir / raw_src
-                            if not raw_target.exists():
-                                try:
-                                    shutil.copy2(target_file, raw_target)
-                                    print(f"[ALIGNED URL] {char_id}: alias for {raw_src}")
-                                except Exception:
-                                    pass
-
-                        # Ensure dot-separated version also exists as an alias for compatibility
-                        dot_target = audio_dir / decoded_name.replace(" ", ".")
-                        if (
-                            dot_target.name != target_file.name
-                            and target_file.exists()
-                            and not dot_target.exists()
-                        ):
-                            try:
-                                shutil.copy2(target_file, dot_target)
-                            except Exception:
-                                pass
 
     print(
         f"\nAudio alignment summary: {aligned_count} aligned/aliased, {missing_count} missing."

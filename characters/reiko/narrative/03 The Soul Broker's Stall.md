@@ -1,6 +1,6 @@
 # The Soul-Broker's Stall
 
-<audio controls src="audio/03%20The%20Soul%20Broker%27s%20Stall.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
+<audio controls src="audio/03 The Soul Broker's Stall.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
 
 The Midnight Bazaar was an ancient marketplace on the grid, holding a single rule carved into its gateway: "The Transaction is Absolute." To a decker, this space was a sterile, green-on-black text box. To Reiko, it unfurled as a labyrinth of high-density corridors built from the heavy stones of forgotten lore. The ambient digital noise grated against her skin like sand; she bypassed puddles of stagnant static, obsolete fragments of corporate encryption, and calloused skins discarded in the dirt. Market tickers fluttered like dying birds, their numbers spilling into the digital dust.
 

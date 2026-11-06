@@ -1,6 +1,6 @@
 # The Weight of Zero
 
-<audio controls src="audio/01%20The%20Weight%20of%20Zero.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
+<audio controls src="audio/01 The Weight of Zero.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
 
 The operator in the Renraku arcology wasn't looking at his terminal; he was thinking about lunch. With a keystroke, he executed the final line of code, the line that would erase her from existence.
 

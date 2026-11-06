@@ -1,6 +1,6 @@
 # Abandoning Tourism
 
-<audio controls src="audio/08%20Abandoning%20Tourism.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
+<audio controls src="audio/08 Abandoning Tourism.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
 
 Reiko locked her drone into a rented Louisville charging stall. Moments later she relocated to r3sP@wn, her sanctuary in the Matrix. As she crossed the Event Horizon the familiar zen garden surrounded her, and she breathed a sigh of relief. Her drone shell's minimal sensors and limited compute power always made her feel like she was wearing oven mitts on both hands and had gauze wrapped around her head, and she hated it.
 

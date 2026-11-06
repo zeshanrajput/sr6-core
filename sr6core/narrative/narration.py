@@ -557,9 +557,9 @@ def generate_narration(file_path: str, output_mp3: Optional[str] = None, pacing:
         output_dir = os.path.join(os.path.dirname(file_path), "audio")
         os.makedirs(output_dir, exist_ok=True)
         # Sniff explicit audio tag in markdown header (e.g. <audio controls src="audio/12_Iron.mp3" ...>)
-        m = re.search(r'<audio[^>]+src=["\'](?:.*?/)?([^"\']+\.mp3)["\']', content, flags=re.IGNORECASE)
+        m = re.search(r'<audio[^>]+src=(["\'])(?:.*?/)?(.*?\.mp3)\1', content, flags=re.IGNORECASE)
         if m:
-            base_name = m.group(1)
+            base_name = m.group(2)
         else:
             base_name = os.path.splitext(os.path.basename(file_path))[0] + ".mp3"
         output_mp3 = os.path.join(output_dir, base_name)

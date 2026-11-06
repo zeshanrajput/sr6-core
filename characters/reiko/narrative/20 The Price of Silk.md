@@ -1,6 +1,6 @@
 # The Price of Silk
 
-<audio controls src="audio/20%20The%20Price%20of%20Silk.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
+<audio controls src="audio/20 The Price of Silk.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
 
 In a narrow, covered arcade where rows of red lanterns cast long, trembling reflections across damp concrete, Reiko walked with an unhurried, hydraulic grace. Her chassis moved silently behind the elderly grandmother who had opened her apartment door three days ago to a nervous, Mandarin-speaking investigator.
 
