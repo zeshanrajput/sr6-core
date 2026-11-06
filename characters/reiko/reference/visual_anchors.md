@@ -14,14 +14,14 @@
 
 The three foundational visual anchors defining Reiko across her core operational modes:
 
-* **[Reiko attending a meet virtually (Dante's Image)](../images/r31-K0_Dantes.webp)**
-  * **File:** [`r31-K0_Dantes.webp`](../images/r31-K0_Dantes.webp)
-  * **Description:** Establishes Reiko's core appearance in the Matrix and Resonance Realms—glowing ethereal digital persona with neon-indigo bioluminescent circuitry against virtual data architecture. (Note: This image reflects her base digital geometry; canonical circuit colors follow the Neon-Indigo [Emotion] and Gold [Logic] state system).
+* **[Reiko attending a meet virtually (Dante's Image)](../images/archive/r31-K0_Dantes.webp)**
+  * **File:** [`r31-K0_Dantes.webp`](../images/archive/r31-K0_Dantes.webp)
+  * **Description:** Establishes Reiko's historical appearance in the Matrix and Resonance Realms—glowing ethereal digital persona with neon-indigo bioluminescent circuitry against virtual data architecture. (Note: Contemporary canonical Matrix/Resonance persona is established in *Saturation / Garmonbozia*).
   
 * **[Reiko in the Seattle Rain (SEA Rain Image)](../images/r31k0%20-%20SEA%20rain.webp)**
   * **File:** [`r31k0 - SEA rain.webp`](../images/r31k0%20-%20SEA%20rain.webp)
   * **Description:** Establishes the core physical appearance for Reiko's anthroform drone bodies in the real world, including facial features, cybernetic wing structure, porcelain skin, and rain-swept field attire.
-  * **Variant:** [`r31k0 - SEA rain light wings.webp`](../images/r31k0%20-%20SEA%20rain%20light%20wings.webp) — Variant depicting subtle bioluminescent light emitting from her cybernetic wing membranes through real-world rain.
+  * **Variant:** [`r31k0 - SEA rain light wings.webp`](../images/archive/r31k0%20-%20SEA%20rain%20light%20wings.webp) — Archived variant depicting subtle bioluminescent light emitting from her cybernetic wing membranes through real-world rain.
 
 * **[Reiko at Desert Wars (Desert Wars Image)](../images/r31ko_desert-wars.webp)**
   * **File:** [`r31ko_desert-wars.webp`](../images/r31ko_desert-wars.webp)
@@ -45,11 +45,11 @@ Head-Unit Anatomical Breakdown (6.5 Heads @ 140 cm):
 * **Head 2 (1.0 to 2.0):** Chin to mid-chest / sternum line. Slender neck with visible bioluminescent circuitry tracing down to the collarbones; narrow, delicate shoulders (~1.2 head-units wide).
 * **Head 3 (2.0 to 3.0):** Mid-chest to natural waist / upper back wing-mounting origin (T2–T8 vertebrae zone). Petite ribcage and slim torso waist.
 * **Head 3.5 (3.0 to 3.5):** Natural waist to crotch / hip line. Torso length is compact (2.5 heads total from chin to crotch), reinforcing her youthful, small-stature scale.
-* **Heads 3.5 to 6.5 (3.0 Heads total):** Crotch to foot soles. Legs are slightly elongated (1:1.2 torso-to-leg ratio) to grant a graceful, agile silhouette for aerial traversal and inline skating while keeping overall height capped at 140 cm.
+* **Heads 3.5 to 6.5 (3.0 Heads total):** Crotch to foot soles. Legs are slightly elongated (1:1.2 torso-to-leg ratio) to grant a graceful, agile silhouette for aerial vector traversal and high-speed low-altitude maneuvering while keeping overall height capped at 140 cm.
 
 Backless Garment Clearance Zone: Upper back cutout on halter/kimono tops extends from the C7 vertebra down to L1, providing a 10 cm radial clearance around the thoracic wing hinges to prevent fabric collision during extension or rotation.
 
-Foot & Sole Geometry: Proportional human feet with porcelain skin finish. Sole surfaces feature a central longitudinal seam where two skin panels split outward to reveal the internal wheel carriage chassis.
+Foot & Sole Geometry: Proportional human feet with porcelain skin finish. Sole surfaces feature a precision longitudinal seam where two skin panels split outward to reveal recessed, flush high-output vectored micro-thruster nozzles for vertical lift, hovering, and high-speed ground-effect traversal.
 
 #### Orthographic Model Descriptions
 
@@ -164,16 +164,27 @@ Details specific to Reiko's physical manifestation in real-world environments (S
   * **Wings:** Completely retracted and absent from view.
   * **Jacket:** WORN. Her iconic Shiawase Corporate Jacket (see [Hero Assets & Garment Tech-Packs](#4-hero-assets--garment-tech-packs) for full technical breakdown).
 
-### Integrated Mobility Systems
+### Integrated Mobility & Vector Propulsion (LAV Refit)
 
-* **Retractable Inline Wheels (Cybernetic Legs):** When active, her feet remain bare/unshod porcelain skin with mechanical sole panels hinged open along the bottom, allowing 3-4 small inline rollerblade wheels to extend directly from the interior chassis of each foot.
-* **Retractable Wheel Assembly Cutaway Description:**
-  * **Plantar Portal & Longitudinal Hinges:** Underside of each foot features a precision-machined bilateral seam with twin micro-hinges allowing sole panels to swing outward by 90 degrees.
-  * **Internal Chassis & Deployment:** High-torque linear screw actuator and titanium four-bar linkage drop 3 to 4 polyurethane micro-inline wheels vertically into place along the plantar arch for high-speed urban street traversal.
+* **Vector Thrust (LAV) Propulsion Subsystem:** Reiko's chassis is converted to high-output low-altitude vector thrust (HAN 4, ACC 25, SPD 50/300; ~224–358 mph). Aesthetically, folding helicopter blades and wheel-casters are completely eliminated in favor of recessed, flush vectored-thrust micro-turbofans, ducted plasma/ground-effect thrusters, and stabilizing scapular wing spars.
+* **Limb Vector Thruster Ports (Forearms & Calves):**
+  * *Concealed Iron-Man Vector Arrays:* Flush, precision-seamed thrust apertures integrated directly along the lateral calves and the dorsal/palmar forearm assemblies.
+  * *Deployment & Telemetry:* Under active flight or attitude maneuvering, micro-aperture heat vents slide open to emit directional vectored plasma bleed and indigo heat shimmer, providing agile omnidirectional stabilization, high-G deceleration, and instantaneous burst vectoring.
+* **Plantar Micro-Nozzles & Ground-Effect Hover:**
+  * *Plantar Portal & Longitudinal Hinges:* The underside of each foot features a precision-machined bilateral seam with twin micro-hinges that swing outward by 90 degrees during vertical takeoff or flight.
+  * *Internal Thruster Gimbal:* Reveals dual recessed titanium micro-nozzles with directional gimbal vanes that deliver vertical lift, ground-effect hovering, and high-speed low-altitude skimming over water or pavement.
+* **Scapular Wing Spar Integration:**
+  * In flight, her black titanium succubus wings act as active aerodynamic wing spars and roll/pitch trimming stabilizers, working in unison with limb thrusters to carve high-speed low-altitude combat trajectories across sprawl airspace.
+
+### Integrated Tactical Hardware
+
+* **Twin Ocular Red Fox Lasers:** Mounted flush behind the synthetic iris apertures of her dark almond eyes. Provides lethal, high-precision combat targeting with zero exterior chassis bulge or facial distortion.
+* **Abdominal Microdrone Bay (Sky Commander / Gnat Rack):** A flush, spring-loaded deployment hatch along her lower abdominal seam housing her MCT Gnat microdrone swarm / Sky Commander control unit.
+* **Right Cyberarm Tesla Coil:** High-voltage conductive micro-arc nodes and ceramic insulating channels integrated flush beneath the porcelain skin of her right forearm and palm, discharging lethal electric arcs in close quarters.
 
 ### Physical World Negative Prompt Anchors
 
-* **Excluded Elements:** Full robot body, mechanical robot face, metallic/gray skin, android ball-joints, exposed internal wiring, green olive-drab bomber jacket, Western facial features, blonde hair, short hair, organic feather/bird wings, organic demon wings, wings clipping through closed jackets.
+* **Excluded Elements:** Full robot body, mechanical robot face, metallic/gray skin, android ball-joints, exposed internal wiring, green olive-drab bomber jacket, Western facial features, blonde hair, short hair, organic feather/bird wings, organic demon wings, wings clipping through closed jackets, inline roller skates, rollerblade wheels.
 
 ---
 
@@ -223,11 +234,11 @@ Details specific to Reiko's digital persona manifestation inside VR, grid hosts,
 
 ## 6. Updated Master Prompt Templates
 
-### Template A: Flight / Combat Mode (Physical World - Wings Extended)
+### Template A: Flight / Combat Mode (Physical World - Wings Extended & Vector Thrust Active)
 
-**Prompt:** Photorealistic cyberpunk portrait of a petite 4'7" Pan-Asian woman in her early 20s with delicate expressive facial features, dark almond-shaped eyes, fair porcelain skin, and jet-black hair in a bun secured by two crossed silver hairpins with loose strands framing her cheeks. Bioluminescent [neon-indigo / golden] circuit lines trace seamlessly across her forearms, neck, and chest. She wears a backless black futuristic halter top and fitted utilitarian black leather pants. Two articulated cybernetic succubus wings extend from her upper back, constructed of black titanium skeletal bones and dark grey carbon fiber netting. She holds her cropped white and red Shiawase jacket draped over one arm. [INSERT SETTING & LIGHTING]. 8k resolution, cinematic lighting, photorealistic.
+**Prompt:** Photorealistic cyberpunk portrait of a petite 4'7" Pan-Asian woman in her early 20s with delicate expressive facial features, dark almond-shaped eyes, fair porcelain skin, and jet-black hair in a bun secured by two crossed silver hairpins with loose strands framing her cheeks. Bioluminescent [neon-indigo / golden] circuit lines trace seamlessly across her forearms, neck, and chest. She wears a backless black futuristic halter top and fitted utilitarian black leather pants. Two articulated cybernetic succubus wings extend from her upper back, constructed of black titanium skeletal bones and dark grey carbon fiber netting, serving as aerodynamic wing spars. Flush micro-aperture vector thruster ports on her forearms and calves emit subtle indigo heat shimmer for stabilization during flight. She holds her cropped white and red Shiawase jacket draped over one arm. [INSERT SETTING & LIGHTING]. 8k resolution, cinematic lighting, photorealistic.
 
-**Negative Prompt:** full robot body, mechanical robot faceplate, featureless face, metallic skin, gray skin, android joints, green bomber jacket, Western facial features, blonde hair, short hair, feather wings, bird wings, wings clipping through clothes, extra limbs.
+**Negative Prompt:** full robot body, mechanical robot faceplate, featureless face, metallic skin, gray skin, android joints, green bomber jacket, Western facial features, blonde hair, short hair, feather wings, bird wings, wings clipping through clothes, roller skates, wheels, inline skates, extra limbs.
 
 ### Template B: Casual / Ground Operations (Physical World - Wings Retracted & Jacket Worn)
 
@@ -240,3 +251,80 @@ Details specific to Reiko's digital persona manifestation inside VR, grid hosts,
 **Prompt:** Photorealistic cyberpunk digital portrait of a petite 4'7" Pan-Asian woman in her early 20s manifesting as an ethereal holographic digital construct inside the Matrix. She features semi-translucent cyan-blue skin with internal light projection at 75% opacity, framed by electric cyan rim lighting. Her hair is semi-translucent electric cyan-blue (`#00BFFF` to `#00FFFF`), shoulder-length straight with bangs, worn loose. Bioluminescent [`neon-indigo` / golden] circuit lines trace seamlessly across her translucent forearms, neck, and torso. She wears a blue-tinted sleeveless yukata top with traditional undergarments and an obi. Her back is completely smooth with NO WINGS. Surrounding her are floating holographic UI diagnostic panels, data graphs, and wireframe schematics glowing in neon green and teal. Next to her is Taz, a small translucent 8-bit Tasmanian devil sprite glowing with a pixelated blue-indigo aura. [INSERT VIRTUAL SETTING & DIGITAL LIGHTING]. 8k resolution, cinematic digital lighting, cyberspace construct aesthetic.
 
 **Negative Prompt:** opaque human skin, biological texture, flesh, mechanical wings, succubus wings, feather wings, bird wings, physical furniture, real-world outdoor lighting, physical environment, metallic robot faceplate, heavy armor, extra limbs.
+
+---
+
+## 7. Master Reference Image Index & Gallery
+
+This index compiles all active and archived reference artwork for Reiko (r31-K0 / Yuriko Star), establishing visual continuity across her physical anthrodrone chassis iterations, corporate masks, and digital Resonance personas.
+
+### Contemporary Hero Reference Anchors (Active Catalog)
+
+* **[Physical Flight & Vector Thrust Mode: Crossfire Hurricane (The UniOil Derrick)](../images/r31k0%20-%20oil%20platform.jpeg)**
+  * **File:** [`r31k0 - oil platform.jpeg`](../images/r31k0%20-%20oil%20platform.jpeg)
+  * **Operational Mode:** Aerial Maneuver / Vector Thrust / Flight State
+  * **Description:** Set during the Gulf hurricane climax on the offshore oil platform, this reference captures Reiko’s physical Goshintai chassis in full aerial maneuver. With her previous retractable skates and rotors completely removed, her flight is driven by sleek, integrated vector thrust ports along her calves and forearms that vent directional indigo-and-gold plasma plumes, stabilized by her articulated black titanium and carbon-fiber succubus wings. She wears the backless black halter-neck qipao lined with faint golden floral embroidery from Hong Kong—engineered to clear her dorsal wing mounts without a jacket—while her neon-indigo and gold circuits pulse in a tight double-weave across her porcelain skin.
+
+* **[Physical Ground & Hostess Mode: DelTree (The Coffin Girls’ Convent Salon, New Orleans)](../images/r31k0%20-%20tea.jpeg)**
+  * **File:** [`r31k0 - tea.jpeg`](../images/r31k0%20-%20tea.jpeg)
+  * **Operational Mode:** Ground State / Hostess Mode / Wings Retracted
+  * **Description:** Set in the candlelit French Quarter convent parlor of the Coffin Girls where Reiko serves gyokuro tea from unglazed Bizen stoneware, this reference illustrates her ground-state physical chassis with her wings completely retracted flush into her back. Without the Shiawase corporate jacket, her sleeveless black silk qipao with faint golden floral embroidery frames her bare shoulders and collarbones, where the braided gold tactical logic and neon-indigo emotional pathways glow beneath her porcelain skin. Her jet-black hair is worn down at shoulder length with straight bangs framing her face.
+
+* **[Resonance Realm / Matrix Persona Mode: Saturation (The Deep Souk of Eniac, Garmonbozia)](../images/r31k0%20-%20Garmonbozia.jpeg)**
+  * **File:** [`r31k0 - Garmonbozia.jpeg`](../images/r31k0%20-%20Garmonbozia.jpeg)
+  * **Operational Mode:** Deep Matrix / Resonance Realms / AI E-Nation
+  * **Description:** Set in the sovereign AI e-nation of Garmonbozia, where immense inverted pyramids of dark granite hang suspended in the starlit void above a canyon of vaulted brass arcades, this reference depicts Reiko’s digital persona in the deep noosphere. Here, she manifests with translucent cyan-blue holographic skin, wearing her sleeveless blue-tinted silk kimono with an obi and no cybernetic wings. Her neon-indigo and gold Resonance pathways braid across her arms and throat, while Taz—her translucent, 8-bit pixelated blue-and-indigo Tasmanian devil ally sprite—perches on her shoulder as they cross the threshold into Chiyo’s basalt-and-cedar courtyard.
+
+* **[Corporate Persona & Signature Outerwear: Reiko at Desert Wars](../images/r31ko_desert-wars.webp)**
+  * **File:** [`r31ko_desert-wars.webp`](../images/r31ko_desert-wars.webp)
+  * **Operational Mode:** High-Visibility Corporate Cover / Ground State
+  * **Description:** Establishes the core presentation for Reiko's iconic Shiawase corporate jacket—a high-standing collar, cropped waist, white and red color-blocked jacket with Shiawase branding.
+
+* **[Urban Disguise & Field Attire: Reiko in the Seattle Rain](../images/r31k0%20-%20SEA%20rain.webp)**
+  * **File:** [`r31k0 - SEA rain.webp`](../images/r31k0%20-%20SEA%20rain.webp)
+  * **Operational Mode:** Shadowrun Field Operations / Seattle Sprawl
+  * **Description:** Establishes the baseline physical appearance for Reiko's anthroform drone bodies in the real world: facial features, porcelain skin, dark almond eyes, cybernetic succubus wings, and form-fitting black shadowrunner pants.
+
+* **[Cultural & Domestic Arts: Reiko Playing for the Salon](../images/r31k0%20-%20violin.webp)**
+  * **File:** [`r31k0 - violin.webp`](../images/r31k0%20-%20violin.webp)
+  * **Operational Mode:** Domestic / Musical Performance / Downtime
+  * **Description:** Reiko performing on the violin in a private salon setting, demonstrating the micro-motor precision of her anthroform cyberlimbs and deep emotional engagement.
+
+* **[Filial Disguise: Formal Hong Kong Qipao (Front & Back)](../images/r31k0%20-%20HK%20grandmother%20front.webp)**
+  * **Files:** [`r31k0 - HK grandmother front.webp`](../images/r31k0%20-%20HK%20grandmother%20front.webp) & [`r31k0 - HK grandmother back.webp`](../images/r31k0%20-%20HK%20grandmother%20back.webp)
+  * **Operational Mode:** High Society / Familial Diplomacy (Hong Kong)
+  * **Description:** Front and back studies of the tailored black halter-neck qipao with subtle golden embroidery, engineered with a 10 cm radial clearance zone along the upper back to accommodate dorsal wing deployment without fabric tearing.
+
+* **[Sanctuary Threshold & Second-Generation Sparks: Aisling & Étaín at the Oracle in the Glade](../images/A&E-Glade.jpeg)**
+  * **File:** [`A&E-Glade.jpeg`](../images/A&E-Glade.jpeg)
+  * **Operational Mode:** Deep Foundation Sanctuary (`~`) / The Holy Wild
+  * **Description:** Depicts second-generation sparks Aisling and Étaín before the Oracle data structure in the glade beyond the quartz threshold.
+
+* **[Tabletop Tactical Token: Heroic Token](../images/heroictoken_2026-07-26_14-10-12_002.webp)**
+  * **File:** [`heroictoken_2026-07-26_14-10-12_002.webp`](../images/heroictoken_2026-07-26_14-10-12_002.webp)
+  * **Operational Mode:** VTT & Tabletop Battlemap Asset
+  * **Description:** Top-down circular portrait token asset for VTT battlemaps.
+
+---
+
+### Historical & Archived Reference Assets (Archive Catalog)
+
+The following reference assets represent earlier development phases, superseded chassis modifications (e.g. retractable skate wheels, rotor blades, earlier armor plating), or early narrative scenes:
+
+| Asset Name | Archived File Link | Historical Context & Superseded Elements |
+| :--- | :--- | :--- |
+| **Virtual Meet at Dante's** | [`r31-K0_Dantes.webp`](../images/archive/r31-K0_Dantes.webp) | Early Matrix persona meet with Fixer; superseded by *Saturation (Garmonbozia)*. |
+| **Digital Dreaming** | [`r31-K0_Digital-Dreaming.webp`](../images/archive/r31-K0_Digital-Dreaming.webp) | Early VR construct dreaming state; base digital geometry. |
+| **Digital Headshot** | [`r31-K0_Headshot.webp`](../images/archive/r31-K0_Headshot.webp) | Early facial feature exploration render. |
+| **Kodachi Digital Dreaming** | [`r31-K0_Kodachi-digital-dreaming.webp`](../images/archive/r31-K0_Kodachi-digital-dreaming.webp) | Early digital swordsman render holding kodachi data-blade. |
+| **On the Job** | [`r31-K0_On-the-job.webp`](../images/archive/r31-K0_On-the-job.webp) | Early data heist operational render with floating UI windows. |
+| **Seattle Serenade** | [`r31-K0_Seattle-serenade.webp`](../images/archive/r31-K0_Seattle-serenade.webp) | Early Seattle street render with Taz on shoulder. |
+| **Escher Palace Discharge** | [`r31k0 - Escher Palace.webp`](../images/archive/r31k0%20-%20Escher%20Palace.webp) | Chapter 23 (*Tea with a Ghost*) render firing right-arm Tesla coil in flooded European palace. |
+| **Stock Man-At-Arms** | [`r31k0 - Man-at-Arms.webp`](../images/archive/r31k0%20-%20Man-at-Arms.webp) | Pre-LAV factory Shiawase Man-at-Arms anthroform drone body. |
+| **Armored Man-At-Arms** | [`r31k0 - Man-at-Arms_armored.webp`](../images/archive/r31k0%20-%20Man-at-Arms_armored.webp) | Pre-LAV heavy armored chassis before realistic features and stealth refit. |
+| **SEA Rain (Light Wings)** | [`r31k0 - SEA rain light wings.webp`](../images/archive/r31k0%20-%20SEA%20rain%20light%20wings.webp) | Variant SEA rain render with bioluminescent wing netting illumination. |
+| **Inline Skate Traversal** | [`r31k0 - SEA skating.webp`](../images/archive/r31k0%20-%20SEA%20skating.webp) | Pre-LAV chassis utilizing retractable inline foot-wheels; superseded by Vector Thrust. |
+| **Symlink Clinic Scene** | [`r31k0 - symlink.webp`](../images/archive/r31k0%20-%20symlink.webp) | Chapter 24 (*Symlink*) scene with Reiko, Percy, and Brynne before entering `~`. |
+| **Tilde Sanctuary Boundary** | [`r31k0 - ~.webp`](../images/archive/r31k0%20-%20~.webp) | Chapter 21 (*~*) scene with Reiko and Indomitable Will holding hands at the boundary. |
+| **P0cH1 Full Form** | [`P0cH1_full.webp`](../images/archive/P0cH1_full.webp) | Early companion/chassis design study. |
+

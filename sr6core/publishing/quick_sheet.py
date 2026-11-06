@@ -401,7 +401,12 @@ def export_quick_sheet(
     # 3. Full Drone & Vehicle Statblocks
     if vehicles:
         sheet.append(_sub_header("VEHICLES & RIGGING ASSETS"))
-        for v in vehicles[:3]:
+        # Prioritize combat/home platforms (e.g. Man-at-Arms, Sky Commander) ahead of recon micro-drones
+        sorted_vehicles = sorted(
+            vehicles,
+            key=lambda x: (not any(k in str(x.get("name", "")).lower() for k in ["man-at-arms", "man_at_arms", "home", "sky commander"]))
+        )
+        for v in sorted_vehicles[:4]:
             v_name = _clean_ascii(v.get("name", "Drone/Vehicle"))
             cat = v.get("category", "Drone").upper()
             h = v.get("handling", "-")
@@ -414,6 +419,10 @@ def export_quick_sheet(
 
             sheet.append(_row(f"[{cat}] {v_name[:62]}"))
             sheet.append(_row(f"  H:{h}  AC:{ac}  SP:{sp}  B:{b}  A:{a}  P:{p}  S:{s}"))
+
+            mob = v.get("mobility_str")
+            if mob:
+                sheet.append(_row(f"  MODES: {_clean_ascii(mob)[:62]}"))
 
             # Rigged Pools line
             r_pools = v.get("rigged_pools", {})

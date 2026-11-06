@@ -8,10 +8,10 @@ identity:
   gender: DIVERSE
   age: ~ 10
   system: shadowrun6e
-  karma: 2
-  lifetime_karma: 283
-  nuyen: 1250.0
-  lifetime_nuyen: 437800
+  karma: 12
+  lifetime_karma: 293
+  nuyen: 400.0
+  lifetime_nuyen: 448800
   heat: -1
   submersion: 8
 attributes:
@@ -209,12 +209,6 @@ complex_forms:
   target: Device
   notes: 'Source: core'
 meta_echoes: &id001
-- name: New Sprite Type
-  ref: new_sprite_type
-  notes: ''
-- name: Sprite Conduit
-  ref: sprite_conduit
-  notes: ''
 - name: New Sprite Type
   ref: new_sprite_type
   notes: ''
@@ -909,7 +903,7 @@ contacts:
     is_canonical: true
     connection: 4
     loyalty: 2
-    favors: 0
+    favors: 1
     type: Fixer
     region: SEA
     types:
@@ -925,6 +919,7 @@ contacts:
     - Auto-Promoted to Loyalty 1 (-1 FP)
     - SRM.2081.15 (+2 FP)
     - Auto-Promoted to Loyalty 2 (-2 FP)
+    - SRM.2081.16 (+1 FP)
   Trubble:
     name: Trubble
     canonical_name: Trubble
@@ -1010,7 +1005,7 @@ contacts:
     canonical_name: Ni Ni Xiaolu
     is_canonical: true
     connection: 3
-    loyalty: 3
+    loyalty: 4
     favors: 2
     type: Triad Johnson
     region: SEA
@@ -1029,6 +1024,8 @@ contacts:
     - SRM.2081.18 (+1 FP)
     - SRM.2081.13 (+3 FP)
     - Auto-Promoted to Loyalty 3 (-3 FP)
+    - SRM.2081.16 (+4 FP)
+    - Auto-Promoted to Loyalty 4 (-4 FP)
   Bookie:
     name: Bookie
     canonical_name: Bookie
@@ -1574,8 +1571,8 @@ reputation:
   Southeast Asia: 2
   DW: 2
   Kozlowski Family: 2
-  SEA: 3
-total_reputation: 40
+  SEA: 4
+total_reputation: 41
 drones:
 - name: MCT Gnat
   ref: mctgnat
@@ -1671,16 +1668,19 @@ drones:
   speed_interval_on: 5
   page: DC 116
   modifications:
-  - Weapon Mount (Standard) x2
-  - Pop-Out Concealment (Standard) x2
+  - Weapon Mount (Standard) (1 additional; drone includes 1 stock standard mount,
+    DC p. 117)
+  - Pop-Out Concealment (Standard) x2 (ocular mounts)
   - Chameleon Coating 4
   - Passive Stealth Features
   - Drone Rack (Small)
-  - Used Synthetic Cyberarm (Right, 8 Capacity)
+  - Used Synthetic Cyberarm (Right, 8 Capacity; base 20,000¥ x 0.5 Used grade = 10,000¥,
+    CRB p. 282, 289; replaces factory anthroform cyberlimb per DC p. 131, consuming
+    0 vehicle mod slots)
   - Tesla Coil
   - Increased Structural Integrity 5
   - Realistic Features 4
-  - Secondary Propulsion (Rotor)
+  - Secondary Propulsion (Vector Thrust / LAV)
   - Nitro Boost
   - Increased Sensors 2
   - Camera w/ image link
@@ -1692,42 +1692,8 @@ drones:
   - Oral chemical analyzer
   - Tactile Sensors (from the EVO Orderly, DA p. 178. Taken for RP purposes only -
     I will not be using the Biotech bonus)
-  - Secondary Propulsion (Wheeled)
-  - Smart Tires
   - Hydrocarbon Fuel Converter
   - Satellite Link
-  - Laser Jack
-- name: Kwonsham Dream Genie
-  ref: kwonshamdreamgenie
-  body: 2
-  armor: 0
-  pilot: 1
-  sensor: 1
-  speed: 10
-  handling_on: 2
-  handling_off: 4
-  accel_on: 10
-  accel_off: 10
-  speed_interval_on: 5
-  page: Seoul Survivor 1
-  modifications:
-  - Trid Projector
-  - Smart Tires
-  - Laser Jack
-- name: Vulcan Systems Utility-One
-  ref: vulcansystemsutilityone
-  body: 2
-  armor: 0
-  pilot: 1
-  sensor: 1
-  speed: 5
-  handling_on: 3
-  handling_off: 3
-  accel_on: 3
-  accel_off: 3
-  speed_interval_on: 5
-  page: DC 122 / SRMG 2.4
-  modifications:
   - Laser Jack
 weapons:
   ranged:

@@ -16,8 +16,8 @@ This document tracks character upgrades, mechanical evaluations, karma/nuyen tar
 * **Immediate Strategic Focus:**
   1. *Karma (Immediate):* **Electronics Spec: Computers** (5 Karma) to maximize Matrix Perception (19d6 / 21d6 with Oracle) and deep matrix searches.
   2. *Karma (Mid-Term Capstone):* Bank all incoming Karma directly toward **Resonance 8 $\rightarrow$ 9** (45 Karma) to enter Prime Runner tier.
-  3. *Nuyen (Immediate):* Shiawase Man-at-Arms Secondary Propulsion Conversion to **Vector Thrust (LAV)** (Net ~14,400¥ after crediting Rotor, Wheeled, and Smart Tires).
-  4. *Nuyen (Follow-Up):* Vector Thrust Subsystem Enhancements: **Improved Acceleration (2 Ranks)** (15,000¥ DIY; pushes combat accel 25 -> 41 m/round) and **Top Speed Increase (3 Ranks)** (12,000¥ DIY; pushes top speed to 480 m/round / ~358 mph).
+  3. *Nuyen (Completed [ACQUIRED]):* Shiawase Man-at-Arms overhaul with **Vector Thrust (LAV)** (HAN 4, ACC 25, SPD 50/300; Iron-Man vector thrusters in limbs, aerodynamically stabilized by scapular wing spars, abdominal bay housing Sky Commander, twin ocular Red Fox laser mounts).
+  4. *Nuyen (Follow-Up Target):* Vector Thrust Subsystem Enhancements: **Improved Acceleration (2 Ranks)** (15,000¥ DIY; pushes combat accel 25 -> 41 m/round / 49.2 km/h) and **Top Speed Increase (3 Ranks)** (12,000¥ DIY; pushes top speed to 480 m/round / 576 km/h / ~358 mph).
 
 ---
 
@@ -31,15 +31,13 @@ This document tracks character upgrades, mechanical evaluations, karma/nuyen tar
 ├────────────────────────────────┼──────────────┼──────────────┼──────────────┤
 │ Electronics Spec: Computers    │ Specializ.   │ 5 Karma      │ Matrix Perc. │
 │                                │              │              │ & Search +2  │
-│ Vector Thrust (LAV) Conversion │ Anthrodrone  │ ~14,400¥ net │ 300 Spd /    │
-│ (Replaces Rotor + Wheeled)     │ Propulsion   │ (DIY 50%)    │ 224 mph (LAV)│
 ├────────────────────────────────┴──────────────┴──────────────┴──────────────┤
 │ PRIORITY 2: AERIAL INTERCEPTOR HARDWARE & PRIME RESONANCE (45 Karma / 27k¥) │
 ├────────────────────────────────┬──────────────┬──────────────┬──────────────┤
 │ Improved Acceleration (2 Ranks)│ Powertrain   │ 15,000¥      │ Accel 25 ->  │
 │ (+60% Accel; 2 Mod Slots)      │ (DC p. 134)  │ (DIY 50%)    │ 41 m/round!  │
 │ Top Speed Increase (3 Ranks)   │ Powertrain   │ 12,000¥      │ 480 Spd /    │
-│ (+60% Top Speed; 3 Mod Slots)  │ (DC p. 138)  │ (DIY 50%)    │ 358 mph!     │
+│ (+60% Top Speed; 3 Mod Slots)  │ (DC p. 138)  │ (DIY 50%)    │ 576k / 358m  │
 │ Resonance 8 -> 9               │ Attribute    │ 45 Karma     │ Prime Status │
 │                                │ Capstone     │              │ +1 All Pools │
 ├────────────────────────────────┴──────────────┴──────────────┴──────────────┤
@@ -63,6 +61,9 @@ This document tracks character upgrades, mechanical evaluations, karma/nuyen tar
 ├────────────────────────────────┴──────────────┴──────────────┴──────────────┤
 │ PRIORITY 5: ACQUIRED UPGRADE LEDGER (Archived & Active Benchmarks)          │
 ├────────────────────────────────┬──────────────┬──────────────┬──────────────┤
+│ Vector Thrust (LAV) Conversion │ Anthrodrone  │ ~14,400¥ net │ [ACQUIRED]   │
+│ Twin Red Fox Ocular Mounts     │ Anthrodrone  │ DIY Overhaul │ [ACQUIRED]   │
+│ Abdominal Drone Rack (Sky Comm)│ Anthrodrone  │ DIY Overhaul │ [ACQUIRED]   │
 │ Taz Symbiosis: Influence       │ Ally Sprite  │ 4 Karma      │ [ACQUIRED]   │
 │ Taz Symbiosis: Con             │ Ally Sprite  │ 4 Karma      │ [ACQUIRED]   │
 │ Con Spec: Disguise             │ Specializ.   │ 5 Karma      │ [ACQUIRED]   │
@@ -82,43 +83,17 @@ This document tracks character upgrades, mechanical evaluations, karma/nuyen tar
 
 ## 3. Deep Mechanical Evaluations & Rules Calibrations
 
-### A. Shiawase Man-at-Arms: Vector Thrust (LAV) Conversion & Speed Analysis
+### A. Shiawase Man-at-Arms: Active Vector Thrust (LAV) Propulsion & Subsystem Upgrades
 
-* **The Mod Slot Math (*Double Clutch*, pp. 136–138):**
-  * *Current Secondary Systems Removed:*
-    * Secondary Propulsion (Rotor): Consumes **4 Mod Slots** (Cost paid: 25,000¥ DIY).
-    * Secondary Propulsion (Wheeled): Consumes **2 Mod Slots** (Cost paid: 5,000¥ DIY).
-    * Smart Tires: Installed on wheels (Cost paid: 600¥ DIY).
-    * *Total Freed Slots:* **6 Mod Slots.**
-  * *New Secondary System Installed:*
-    * **Vector Thrust (LAV):** Consumes **5 Mod Slots** (*DC*, p. 137).
-    * *Net Mod Slot Gain:* **+1 Mod Slot freed** immediately!
-* **The Nuyen Math (Trade-in / Net Capital Required):**
-  * Vector Thrust (LAV) Base Cost: $\text{Body 10} \times 9,000¥ = 90,000¥$.
-  * With DIY Installation Discount (50% per *DC*, p. 120): **45,000¥**.
-  * Crediting existing propulsion hardware ($25,000¥\text{ [Rotor]} + 5,000¥\text{ [Wheeled]} + 600¥\text{ [Smart Tires]} = 30,600¥$):
-    $$\text{Net Upgrade Cost} = 45,000¥ - 30,600¥ = \mathbf{14,400¥}$$
-* **Speed Metrics & MPH Conversion (*City Edition: Seattle*, p. 198):**
-  * In Shadowrun 6E, **Top Speed is the maximum meters traveled in a single 3-second combat round.**
-  * Conversion Formula: $\text{Meters/Round} \div 3\text{ seconds} \times 3.6 = \text{km/h} \times 0.621371 = \mathbf{\text{mph}}$ ($1\text{ Speed} \approx \mathbf{0.7456\text{ mph}}$).
-  * **Current Configuration (Rotor/Wheels):** Top Speed $120 \approx \mathbf{89.5\text{ mph}}$ ($144\text{ km/h}$). Accel 10, Speed Interval 15/20.
-  * **Vector Thrust (Base):** Top Speed $300 \approx \mathbf{223.7\text{ mph}}$ ($360\text{ km/h}$). Accel 25, Speed Interval 50.
-  * **Improved Acceleration (2 Ranks) (*DC*, p. 134):**
-    * Each rank of *Improved Acceleration* adds $+30\%$ of base value (round fractions up: $25 \times 0.3 = 7.5 \rightarrow +8$).
-    * Acceleration moves from $25 \rightarrow 33 \rightarrow \mathbf{41\text{ meters/round}}$!
-    * Mod Slots: Consumes 1 slot per rank (2 slots dedicated to Vector Thrust subsystem).
-    * Cost: $\text{Rating} \times 15,000¥$ ($30,000¥\text{ base} \rightarrow \mathbf{15,000¥\text{ DIY}}$).
-    * **Combat Impact:** In tabletop tactical combat, Acceleration dictates how far the vehicle can maneuver, sprint, or alter velocity each round without requiring a handling test. Jumping to 41 m/round (~30.6 mph instantaneous burst in 3 seconds) dramatically expands her tactical repositioning envelope.
-  * **Top Speed Increase (3 Ranks) (*DC*, p. 138):**
-    * Each rank of *Top Speed Increase* adds $+20\%$ to base Top Speed ($+60\%$ total for 3 ranks).
-    * Top Speed becomes $300 \times 1.6 = \mathbf{480\text{ meters/round}} \approx \mathbf{357.9\text{ mph}}$ ($576\text{ km/h}$)!
-    * Mod Slots: Consumes 1 slot per rank (3 slots dedicated to Vector Thrust subsystem).
-    * Cost: $8,000¥ \times \text{Rating}$ ($24,000¥\text{ base} \rightarrow \mathbf{12,000¥\text{ DIY}}$).
-    * **Narrative Impact:** Traversal, interception, and high-speed chase capability across sprawl airspace.
-  * **Total Subsystem Mod Slots:** 5 slots total (3 Top Speed + 2 Improved Acceleration), perfectly filling the dedicated Vector Thrust subsystem without touching primary chassis mod slots.
-* **Operational & Narrative Impact:**
-  * Speed Interval jumps from 15/20 to **50**, meaning Reiko only suffers a $-1$ Handling penalty for every 50 meters of speed, making supersonic urban and low-altitude chases effortless.
-  * Aesthetically replaces folding helicopter blades and wheel-casters with **recessed, flush vectored-thrust micro-turbofans and ducted ground-effect thrusters**. Reiko can hover motionless, skim over bayou water, or streak across the Seattle skyline at ~358 mph.
+* **Active Propulsion Configuration (*Double Clutch*, pp. 136–138) [ACQUIRED]:**
+  * *System:* Secondary Propulsion (Vector Thrust / LAV) consumes 5 Powertrain Mod Slots. Replaced prior rotor blades and caster wheels.
+  * *Baseline Telemetry:* Handling 4, Acceleration 25, Speed Interval 50, Top Speed 300 (360 km/h / ~223.7 mph).
+  * *Chassis Mod Slot Balance:* 11 Chassis slots (Structural Integrity 5 + Realistic Features 4 + Pop-Out Gun Mounts 2), 9/10 Powertrain slots (Vector Thrust 5 + Nitro Boost 2 + High-Flow Coolant Injector 2 = 9, 1 slot free), and 10/10 Electronics slots (Chameleon Coating 2 + Passive Stealth 1 + Increased Sensors Array 2 + 2 shifted to chassis + 3 single sensor expansions per CRB pp. 276–277). Standard cyberlimbs consume 0 drone slots (*DC*, p. 131).
+  * *Aesthetic & Tactical Register:* Recessed, flush vectored-thrust micro-turbofans and ducted ground-effect thrusters in forearms and calves, aerodynamically stabilized by scapular wing spars.
+* **Queued Subsystem Upgrades (Dedicated Powertrain Subsystem Slots):**
+  * *Improved Acceleration (2 Ranks) (*DC*, p. 134):* +60% base acceleration ($25 \rightarrow 33 \rightarrow \mathbf{41\text{ m/round}}$ / 49.2 km/h / ~30.6 mph burst in 3 seconds). Consumes 2 dedicated subsystem slots. Cost: 15,000¥ DIY (Rating $\times$ 15,000¥ base / 2).
+  * *Top Speed Increase (3 Ranks) (*DC*, p. 138):* +60% base Top Speed ($300 \rightarrow \mathbf{480\text{ m/round}}$ / 576 km/h / ~357.9 mph). Consumes 3 dedicated subsystem slots. Cost: 12,000¥ DIY (8,000¥ $\times$ Rating base / 2).
+  * *Total Subsystem Slots:* 5 slots total (3 Top Speed + 2 Improved Acceleration), perfectly filling the dedicated Vector Thrust subsystem without consuming primary chassis slots.
 
 ---
 
@@ -209,9 +184,9 @@ Someday: Jack Jockey (HnS 82): Devices connected to directly do not benefit from
 | Step | Target Upgrade | Cost | Downtime Actions Needed | Funding Mechanism & Status |
 | :---: | :--- | :--- | :--- | :--- |
 | **01** | **Electronics Spec: Computers** | **5 Karma** | None (Between runs) | **ACTIVE TARGET** (2/5 Karma Banked; +2 Matrix Perc./Search) |
-| **--** | **Vector Thrust (LAV) Conversion** | **~14,400¥ net** | 1 Minor Action (DIY Install) | Credited hardware net swap (Top Spd 300 / 224 mph) |
-| **--** | **Improved Acceleration (2 Ranks)** | **15,000¥** | 1 Minor Action (DIY Install) | Liquid Nuyen (DIY 50%; Accel 25 $\rightarrow$ 41 m/round) |
-| **--** | **Top Speed Increase (3 Ranks)** | **12,000¥** | 1 Minor Action (DIY Install) | Liquid Nuyen (DIY 50%; Top Spd 480 / 358 mph!) |
+| **--** | **Vector Thrust (LAV) Conversion** | **~14,400¥ net** | 1 Minor Action (DIY Install) | Credited hardware net swap (Top Spd 300 / 360 km/h / 224 mph) |
+| **--** | **Improved Acceleration (2 Ranks)** | **15,000¥** | 1 Minor Action (DIY Install) | Liquid Nuyen (DIY 50%; Accel 25 $\rightarrow$ 41 m/round / 49.2 km/h) |
+| **--** | **Top Speed Increase (3 Ranks)** | **12,000¥** | 1 Minor Action (DIY Install) | Liquid Nuyen (DIY 50%; Top Spd 480 / 576 km/h / 358 mph!) |
 | **02** | **Resonance 8 $\rightarrow$ 9** | **45 Karma** | None (Between runs) | Hoarded Mission Karma (Prime Runner Capstone; +1 all pools/Fade) |
 | **03** | **Submersion Grade 9 (Echo: Hybrid Sprites)** | **19 Karma** | None (Post-mission) | Banked Karma (Permanently preserves sprite cross-breeding) |
 | **04** | **Stream Transition: Sourceror** | **20 Karma** | None (Between runs) | Unlocks Hyperthreading & 4-Sustain Zero-Penalty Suite! |

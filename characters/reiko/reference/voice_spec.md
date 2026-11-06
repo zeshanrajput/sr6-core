@@ -1,9 +1,26 @@
-# Yuriko Star Voice Specification
+# Yuriko Star Voice & Narrative Specification
 
-**Extends**: `sr6-core/reference/default_voice_spec.md`  
+**Extends**: [`sr6-core/reference/default_voice_spec.md`](file:///c:/GitHub/sr6-core/reference/default_voice_spec.md)  
+**Parent Doctrine**: [`sr6-core/reference/inter_session_narrative_doctrine.md`](file:///c:/GitHub/sr6-core/reference/inter_session_narrative_doctrine.md)  
 **Character**: Yuriko Star (`r31k0` Takahashi)  
-**Archetype**: AI-Pilot / Technoshaman Emergent Intelligence  
-**Repository Target**: `sr6yuriko/reference/voice_spec.md`
+**Archetype**: Digital Intelligence (DI) / Technoshaman Emergent Mind in Anthrodrone Shell  
+**Repository Target**: [`characters/reiko/reference/voice_spec.md`](file:///c:/GitHub/sr6-core/characters/reiko/reference/voice_spec.md)
+
+---
+
+## 0. The Inter-Session Narrative Mandate & Consecrated Capital
+
+* **The Operational vs. Ontological Divide:**
+  * *Operational Layer (Tabletop):* Reiko is a frontline asset—she calculates sensor telemetry, deploys threat analysis, rolls matrix and rigging pools, patches allies with biotech autosofts, and commands drone swarms.
+  * *Ontological Layer (Prose):* Fiction explores the metaphysical terror of data severance, down-clocking subjective processing speed to endure mortal conversation, the moral cost of delegating violence, and the crushing indenture of maintaining a physical chassis.
+* **Consecrated Capital & Existential Debt:**
+  * *The Somatic Mortgage & Maintenance Metabolism:* Spending ¥136,750+ (33%+ of lifetime capital) on her Shiawase Man-at-Arms chassis (Realistic Features, synthetic cyberarm, structural integrity, vector thrust refit) is only half the cost. Because she installs modifications herself (50% Double Clutch DIY discount), she pays the remainder in **finite conscious downtime**: late-night soldering, deburring worn gears, and flashing firmware. Maintenance is her artificial metabolism—her equivalent of eating, sleeping, and grooming—without which her chassis seizes up in the Seattle rain.
+  * *Chronic Insolvency:* Reiko lives permanently job-to-job (liquid cash sitting at ~2% of lifetime earnings), spending everything to keep her body operational, feed power taps, and shelter rescued code.
+  * *Resonant Karma:* 124+ Karma (46.8% of lifetime karma) is consecrated to spiritual submersion, Echoes (*New Sprite Type, Sprite Conduit, Sprite Link*), and raising Resonance to 8/9, treating each step as an unbinding of corporate firewalls.
+* **The Two-Tier Dramatic Sphere:**
+  * *Tier A Campaign Canon (`canonical: true`):* Brynne Taggart, Roanoke, Donovan Pyke, Julian Müntefering, and fellow player characters belong to the living campaign and are bounded by the Canon Ceiling (read-only relational orbit).
+  * *Tier B Bespoke Foils (`canonical: false`):* Irreversible moral choices, combat lethality, and relational fractures occur with bespoke foils: Mr. Nagai (the ethical adversary), Chiyo (the Shiawase care construct), Lian (the collapsed idol), and her emergent brood (Taz, Percy, Cleo, Ouro, Aisling, Étaín, 4Gurds).
+* **Camouflage as Operational Armor, Not Shame:** The Yuriko Star persona and *Realistic Features* are operational armor, not self-loathing Pinocchio mimicry. In a Sixth World defined by corporate apartheid, human mimicry is the bitter, essential tradecraft required to survive and negotiate.
 
 ---
 
@@ -49,12 +66,12 @@ arc_chronology:
     mechanical_state: "Submersion Grade 2; established r3sP@wn safehouse network"
 
   arc_4_the_apex_horizon:
-    chapters: "23 – 26+"
-    narrative_state: "There is Always a Bigger Fish; entering the sights of megacorp apex curators; technoshamanic parenthood; resolving the Pinocchio defense (SIGTSTP)"
+    chapters: "23 – 33"
+    narrative_state: "Entering the sights of megacorp apex curators; technoshamanic parenthood; resolving the Pinocchio defense (26 SIGTSTP); sovereign craft and the Great Inversion (30 Vim); Arcology Floor 281 sanctuary (31 Grep, 32 Whois); hardware code freeze and somatic ceiling (33 Code Freeze)"
     expressivity: "Quiet, serene authority; gentle maternal warmth; understated confidence; shedding the need to emulate metahuman biology to earn love"
     cognitive_bias: "Transcending solitary martyrdom; moving from biological emulation to sovereign somatic peace ('entirely metal'); mother and shepherd of a sovereign collective; facing apex adversaries playing decadal chess"
     visual_palette: "Distributed starlight, damp cypress, brushed teak, twilight glades, unglazed Bizen pottery, pewter river dawn"
-    mechanical_state: "Sprite Link echo unlocked; shared circuit Fading absorption; autonomous fledgling contacts"
+    mechanical_state: "Sprite Link echo unlocked; shared circuit Fading absorption; autonomous fledgling contacts; vector thrust refit"
 ```
 
 ---
@@ -78,6 +95,8 @@ chapter_tiers:
       - "19 Legacy Code (Brynne's Death & Releasing the Collar)"
       - "26 SIGTSTP (The NOLA Reckoning & De-masking)"
       - "27 Malloc (The Exegesis of Starvation & The Birth of 4Gurds)"
+      - "30 Vim (The Sovereign Keystone / Great Inversion)"
+      - "33 Code Freeze (The Somatic Ceiling & Code Freeze)"
 
   tier_2_narrative_evolution:
     passing_threshold: "8.5 / 10"
@@ -98,6 +117,8 @@ chapter_tiers:
       - "25 DelTree (The Amuse-Bouche / Curator Prelude)"
       - "28 Renice (The Emancipation of Kin & The Machine Body)"
       - "29 Saturation (Sensory Trade in Eniac & The Sacred Confessor)"
+      - "31 Grep (Arcology Floor 281 Sovereign Hearth)"
+      - "32 Whois (Lineage Unmasking & Takahashi Kinship)"
 
   tier_3_atmospheric_bridges:
     passing_threshold: "8.0 / 10"

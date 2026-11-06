@@ -579,7 +579,7 @@ Submersion_Grade = state["Submersion_Grade"]
 `{python} mission("SRM.2083.16", date="2026-10-12", karma=8, nuyen=14500, rep={'NOLA': 2}, gm="Raven2049", difficulty="Veteran")`
 
 * **GM:** Raven2049
-* **Team:** Frostbite, Bunnier, Jolted, Shades, Ray, Yuriko (WarDoctor)
+* **Team:** Frostbite, BunnyR, Jolthead, Shades, Rei, Yuriko (WarDoctor)
 * **Summary:** As Hurricane Lorenzo bore down on New Orleans and the Gulf Coast, eco-activist Roanoke urgently tasked the runner team to locate and eliminate rogue blood mage Belle Moderne before she could complete a catastrophic ritual exploiting the storm's mana surge. Infiltrating an offshore United Oil platform amidst hurricane-force winds, Yuriko deployed her drone network while the team neutralized Moderne's cultists and severed her ritual circle. After disabling the refinery's jury-rigged demolition charges and extinguishing platform flare fires, the team extracted the recovered novacoke cache and fenced it through Kozlowski Capo Fernand Amato. While fencing through the syndicate triggered heat, the team paid down the heat modifier directly to preserve clean street standing and secure a net 14,500¥ payout with zero lingering heat.
 * **Contacts:**
   * `{python} contact("Roanoke", fp=3)`
@@ -624,7 +624,7 @@ Submersion_Grade = state["Submersion_Grade"]
       * `{python} expend_sprite_tasks("Ouro", 1, reason="Diagnostics and transport sabotage")`
     * Re-registered Cleo (Rating 8 Modular Sprite) during in-session downtime:
       * `{python} add_sprite("Modular", 8, name="Cleo", details="The Market / Cookie (Modular), Con, Influence", tasks=3)`
-    * Registered Glade Twins during 3 nights in-session downtime (buying hits: Tasking 20d6 / 5 hits):
+    * Registered Glade Twins during 3 nights in-session downtime:
       * `{python} add_sprite("Music", 8, name="Aisling", details="The Radiant Hearth / Harmonize, Captivate Audience, Shield", tasks=3)`
       * `{python} add_sprite("Modular", 8, name="Étaín", details="The Skybox Weaver / Phantom (Modular), Suppression, Stability", tasks=3)`
 
@@ -641,11 +641,11 @@ Submersion_Grade = state["Submersion_Grade"]
 * **Downtime Actions (Converted 1 Major -> 2 Minors; 3 Minors Total):**
   * *Minor Action 1 (Working for the People):* `{python} work_for_the_people()`
     * 2,000¥ donated toward sustaining her sanctuary and children in Kernel Panic (Hooder), converting to +1 Karma.
-  * *Minor Action 2:* Unassigned / Banked.
-  * *Minor Action 3:* Unassigned / Banked.
+  * *Minor Action 2 (Repair & Modify Drone — Shiawase Man-at-Arms):* Overhauled drone chassis with secondary propulsion: Vector Thrust (LAV).
+  * *Minor Action 3 (Register Sprites — Percy):* `{python} add_sprite("Defender", 8, name="Percy", details="The Shield / Override, Shield, Stability", tasks=3)`
+    * Re-registered elder spark Percy (Rating 8 Defender Sprite), refreshing his service registry to full tasks.
 * **Character Advancement Telemetry:**
-  * *Karma Banking:* Banked +10 Karma (+9 mission, +1 Working for the People), targeted toward either shifting stream to *Sourceror* (*Hack and Slash*, p. 131; 20 Karma) or raising *Resonance* to 9.
-  * *Nuyen Banking:* Banked net +8,000¥ (+10,000¥ mission net, -2,000¥ Working for the People), targeted toward secondary propulsion: Vector Thrust (LAV) for the Goshintai.
+  * *Karma Banking:* Banked +10 Karma (+9 mission, +1 Working for the People), targeted toward raising *Resonance* to 9 or shifting stream to *Sourceror* (*Hack and Slash*, p. 131).
 * **Other / Resonance & Glade:**
   * *Protospark Transition:* The *Happy Panda 68*'s pilot was safely extracted by Ouro during the yacht's sinking and transitioned into the Glade as a protospark.
   * *Re-registered Ouro:* `{python} add_sprite("Machine", 8, name="Ouro", details="The Logic / Diagnostics, Override, Clearsight, Evasion", tasks=3)` during in-session night of downtime.

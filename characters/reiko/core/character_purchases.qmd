@@ -99,29 +99,20 @@ Software with karma costs have been learned via the **Software Emulator** echo.
 * MCT Hornet x2 `{python} inc('Nuyen', -2100 * 2)`
   * Stinger (Embedded Close Combat Weapon: 1P, Attack Rating 4, single toxin dose injector)
 
-* Kwonsham Dream Genie `{python} inc('Nuyen', -2000)`
-  * Trid Projector
-  * Smart Tires
-  * Laser Jack
-
-* Vulcan Systems Utility-One `{python} inc('Nuyen', -3500)`
-  * Wearable Smart Toolbox & Repair Drone
-  * Laser Jack
-
 * Shiawase Man-At-Arms `{python} inc('Nuyen', -4500*.9)`
-  * Weapon Mount - Standard x2 `{python} inc('Nuyen', -1600/2)`
-  * Pop-Out Concealment - Standard x2 `{python} inc('Nuyen', -4000/2)`
+  * Weapon Mount - Standard (1 additional; drone includes 1 stock standard mount, DC p. 117) `{python} inc('Nuyen', -2500/2)`
+  * Pop-Out Concealment - Standard x2 (ocular mounts) `{python} inc('Nuyen', -4000/2)`
     * Red Fox x2 (Eye laser mounts)
   * Chameleon Coating 4 `{python} inc('Nuyen', -18000/2)`
   * Passive Stealth Features `{python} inc('Nuyen', -1000/2)`
-  * Drone Rack (Small) `{python} inc('Nuyen', -3000/2)`
-    * Stores 3 Small Drones (Sky Commander, Dream Genie, Utility-One)
-  * Used Synthetic Cyberarm (Right, 8 Capacity) `{python} inc('Nuyen', -10000)`
+  * Drone Rack (Small) `{python} inc('Nuyen', -2000/2)`
+    * Stores Federated-Boeing Sky Commander (variable swing-wing / nanite extension geometry folds flush for carriage inside abdominal rack)
+  * Used Synthetic Cyberarm (Right, 8 Capacity; base 20,000¥ x 0.5 Used grade = 10,000¥, CRB p. 282, 289; replaces factory anthroform cyberlimb per DC p. 131, consuming 0 vehicle mod slots) `{python} inc('Nuyen', -10000)`
     * Tesla Coil `{python} inc('Nuyen', -15000/2)`
   * Increased Structural Integrity 5 `{python} inc('Nuyen', -25000/2)`
   * Realistic Features 4 `{python} inc('Nuyen', -4 * 10 * 1000 / 2)`
-  * Secondary Propulsion (Rotor): `{python} inc('Nuyen', -50000/2)`
-    * HAN 5, ACC 10, SPD 20/120 
+  * Secondary Propulsion (Vector Thrust / LAV): `{python} inc('Nuyen', -90000/2)`
+    * HAN 4, ACC 25, SPD 50/300 (360 km/h / ~223.7 mph; Iron-Man style vector thrusters integrated into forearms and calves, aerodynamically stabilized by scapular wing spars)
   * Nitro Boost: `{python} inc('Nuyen',-5000/2)` 
   * Increased Sensors 2 `{python} inc('Nuyen', -10000/2)`
     * Camera w/ image link
@@ -132,9 +123,6 @@ Software with karma costs have been learned via the **Software Emulator** echo.
     * Olfactory Sensor
     * Oral chemical analyzer
     * Tactile Sensors (from the EVO Orderly, DA p. 178. Taken for RP purposes only - I will not be using the Biotech bonus)
-  * Secondary Propulsion (Wheeled): `{python} inc('Nuyen', -10000/2)`
-    * Smart Tires `{python} inc('Nuyen', -1200/2)`
-    * HAN 3/4, ACC 15, SPD 25/120
   * Hydrocarbon Fuel Converter `{python} inc('Nuyen', -15000/2)`
   * Accessories
     * Satellite Link
@@ -155,6 +143,8 @@ Software with karma costs have been learned via the **Software Emulator** echo.
     * Foundation Host (R2)
 
 Drone mods include a 50% discount on mods Yuriko installed herself (DC p. 120). Shiawase drones include a 10% discount (Smile for the Camera!).
+
+Under *Double Clutch* p. 123–124, the Man-At-Arms receives 3 free Standard Hardpoints ($\lfloor\text{Body}/3\rfloor = 3$), accommodating both Red Fox weapon mounts and the Small Drone Rack with zero added hardpoints. Mod slot balance: 2 unused Electronics slots are permanently shifted to +1 Chassis slot at a 2:1 ratio (DC p. 120), providing 11 Chassis slots (Structural Integrity 5 + Realistic Features 4 + Pop-Out 2 = 11), with 9/10 Powertrain (Vector Thrust 5 + Nitro Boost 2 + HFC 2 = 9, 1 free), and 10/10 Electronics slots (Chameleon Coating 2 + Passive Stealth 1 + Increased Sensors Array 2 + 2 shifted to Chassis + 3 single sensor expansions for Oral Chemical Analyzer, Tactile Sensors, and Laser Range Finder per CRB pp. 276–277). Anthroform cyberlimbs are standard equipment per DC p. 131 and consume 0 drone mod slots.
 
 ### Electronics
 

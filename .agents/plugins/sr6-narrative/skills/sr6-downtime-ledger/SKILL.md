@@ -47,6 +47,9 @@ uv run sr6 rag search "<topic>" --compact
   3. `character_log.qmd`: Mission-by-mission Karma/Nuyen awards, contact favor adjustments, downtime actions, and physical/stun state.
 - **NEVER edit `*_master.yaml` directly.** Master YAML is compiled from scratch via `uv run sr6 sync-all`.
 - **Deliver drop-in snippets in chat**: Provide ready-to-paste Python blocks for the user to inspect and commit.
+- **Evergreen Reference Coupling**:
+  * *Hardware-Visual Coupling*: When recording physical gear/chassis modifications in `character_purchases.qmd` (weapons, propulsion, cyberlimbs, sensors, drone bays), immediately verify and update `reference/visual_anchors.md` to reflect new active hardware and purge obsolete equipment prompts.
+  * *Mechanical Plan Hygiene*: Once an upgrade in `reference/mechanical_plan.md` is purchased and logged, remove or collapse its derivation math into a concise active stat. Forward plans must only track pending/future targets.
 
 ---
 

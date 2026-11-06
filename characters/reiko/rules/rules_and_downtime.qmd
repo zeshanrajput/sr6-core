@@ -205,3 +205,140 @@ print(render_matrix_actions_markdown("reiko"))
 * **Source**: *Hack & Slash*, pp. 124, 128 (Foundation Hosts & AI Home Devices).
 * **Active Venue Configuration**: Reiko designates her active inhabited anthrodrone (`Shiawase Man-at-Arms`) as her Home Device, granting **+1 Pilot** (*Designer*), **+1 Sensor** (flexible Home Device attribute boost), **+2 Noise Reduction**, and **+4 effective Matrix DR for Edge comparisons** (*Hack & Slash*, pp. 119, 124).
 * **The Sanctuary Host (`~`)**: A Rating 2 Foundation Host compiled within the Deep Matrix (housed on the Federated-Boeing Sky Commander alongside the M-TOC Mark II and dormant Oracle R4 data structure). Its back quartz sliding glass door opens into a permanent un-insulated tear into the Holy Wild glade in the Deep Foundation (*Hack & Slash*, p. 128).
+
+---
+
+## 6. Shiawase Man-at-Arms Chassis, Mod Capacity & Vector Thrust Audit
+
+This section documents the mechanical audit, sourcebook citations, mod slot balance, cyberarm integration, and flight telemetry for Reiko's primary physical chassis—the **Shiawase Bi-Drone Man-at-Arms** (*Double Clutch*, pp. 117, 120–138) upgraded with **Vector Thrust (LAV)** low-altitude propulsion and **Nitro Boost**.
+
+### I. Chassis Profiles: Factory Stock vs. Active Inhabited Profile
+
+| Attribute / Telemetry | Factory Stock Chassis (*DC*, p. 117) | Active Inhabited & Modified Profile | Sourcebook Citations & Modifiers |
+| :--- | :---: | :---: | :--- |
+| **Chassis Category** | Medium Anthro Drone | Medium Anthro Drone | *Double Clutch*, p. 117 |
+| **Handling (On / Off)** | 3 / 3 | **4 / 4** | Secondary Propulsion: Vector Thrust (*DC*, p. 137) |
+| **Acceleration (ACC)** | 5 m/round | **25 m/round** (Standard)<br>**50 m/round** (Nitro Boost) | Vector Thrust LAV baseline (*DC*, p. 137); Nitro Boost doubles ACC for 1D6 rounds (*DC*, pp. 134–135) |
+| **Speed Interval** | 5 m/round | **50 m/round** | Vector Thrust LAV baseline (*DC*, p. 137) |
+| **Top Speed** | 10 m/round (12 km/h / 7.5 mph) | **300 m/round** (360 km/h / 223.7 mph) | Vector Thrust LAV baseline (*DC*, p. 137) |
+| **Body (BOD)** | 10 | **15** | Base 10 + 5 Increased Structural Integrity (*DC*, p. 121) |
+| **Armor (ARM)** | 8 | **16** (Effective **DR 20** vs. Edge) | Base 8 + Metahuman Worn Armor (*Sleeping Tiger* 5 + *Synergist Longcoat* 3 = 8; *DC* p. 131); +4 DR Home Device bonus (*H&S*, p. 124) |
+| **Pilot (PLT)** | 2 | **13** (Override via AI Pilot Core) | AI Inhabited Override (RES 8) + Designer Quality (+1) + Resonance Focus R4 (+4) (*H&S*, pp. 116–124; *SR6*, p. 194) |
+| **Sensor (SENS)** | 2 | **4** (Hardware) / **6** (Networked) / **8** (Enlightened) | Hardware 4 (Increased Sensors 2, *DC* p. 130); +1 Network Sensor Upgrade; +1 Home Device tuning; +2 sustained *Enlighten Automaton* |
+| **Primary Propulsion** | Walker (Bipedal) | **Vector Thrust (LAV)** | Iron-Man limb thruster ports & scapular wing spars (*DC*, p. 137) |
+
+---
+
+### II. Comprehensive Mod Slot & Capacity Accounting
+
+Under *Double Clutch* (p. 120), a vehicle or drone receives mod slots equal to its unmodified Body attribute (10) across Chassis, Powertrain, and Electronics. Mod slots can be permanently shifted between categories at a **2:1 ratio**. Anthroform cyberlimbs are standard equipment (*DC*, p. 131) and consume **0 vehicle mod slots**.
+
+```text
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│ SHIAWASE MAN-AT-ARMS MODIFICATION INVENTORY & CAPACITY BALANCE                         │
+├───────────────────────┬──────────────┬──────────────┬──────────────────────────────────┤
+│ Category & Subsystem  │ Slots Used   │ Total Slots  │ Installed Modifications & Roles │
+├───────────────────────┼──────────────┼──────────────┼──────────────────────────────────┤
+│ 1. Chassis Slots      │ 11 Slots     │ 11 Available │ • Increased Structural Integrity 5 (5 slots)   │
+│    (10 Base + 1 Shift)│ (100% Used)  │              │ • Realistic Features 4 (4 slots)               │
+│                       │              │              │ • Pop-Out Concealment - Standard x2 (2 slots)  │
+├───────────────────────┼──────────────┼──────────────┼──────────────────────────────────┤
+│ 2. Powertrain Slots   │ 9 Slots      │ 10 Available │ • Secondary Propulsion: Vector Thrust (5 slots)│
+│    (10 Base)          │ (1 Free)     │              │ • Nitro Boost (2 slots)                        │
+│                       │              │              │ • Hydrocarbon Fuel Converter (2 slots)         │
+├───────────────────────┼──────────────┼──────────────┼──────────────────────────────────┤
+│ 3. Electronics Slots  │ 10 Slots     │ 10 Available │ • Chameleon Coating 4 (2 slots)                │
+│    (10 Base)          │ (100% Used)  │              │ • Passive Stealth Features (1 slot)            │
+│                       │              │              │ • Increased Sensors 2 (Array R4; 2 slots)      │
+│                       │              │              │ • Augmented Single Sensors (3 slots, SR6 277)  │
+│                       │              │              │ • [2 Slots permanently shifted to Chassis]     │
+├───────────────────────┼──────────────┼──────────────┼──────────────────────────────────┤
+│ 4. Hardpoints         │ 3 Hardpoints │ 3 Available  │ • Standard Weapon Mount (Stock) - Left Eye     │
+│    (⌊Body / 3⌋ = 3)    │ (100% Used)  │ (Floor B/3)  │ • Standard Weapon Mount (Added) - Right Eye    │
+│                       │              │              │ • Drone Rack (Small) - Sky Commander Bay       │
+├───────────────────────┼──────────────┼──────────────┼──────────────────────────────────┤
+│ 5. Right Cyberarm     │ [8] Capacity │ [8] Capacity │ • Used Synthetic Cyberarm (Right; CRB 282, 289)│
+│    (Factory Replace)  │ (100% Used)  │              │ • Tesla Coil ([8] Cap; Body Shop p. 49)        │
+├───────────────────────┼──────────────┼──────────────┼──────────────────────────────────┤
+│ 6. Accessories        │ 0 Slots      │ Unlimited    │ • Satellite Link (DC p. 120)                   │
+│    (0 Mod Slots, DC)  │ (DC p. 120)  │              │ • Laser Jack (DC p. 120)                       │
+└───────────────────────┴──────────────┴──────────────┴──────────────────────────────────┘
+```
+
+#### Detailed Subsystem Citations:
+1. **Chassis Architecture (11 / 11 Slots)**:
+   * *Increased Structural Integrity 5* (*DC*, p. 121): Pushes Body from 10 to 15, adding 5 damage boxes to the Physical Condition Monitor (Total: 16 boxes).
+   * *Realistic Features 4* (*DC*, p. 121): Rating 4 soft-tissue simulation, eliminating synthetic seams, ball joints, and robotic rigidity for perfect metahuman passing.
+   * *Pop-Out Concealment (Standard) x2* (*DC*, p. 121): Conceals the twin Red Fox laser mounts behind synthetic iris apertures.
+2. **Powertrain & Propulsion (9 / 10 Slots, 1 Free)**:
+   * *Secondary Propulsion: Vector Thrust (LAV)* (*DC*, pp. 136–137): 5 Powertrain slots. Sets Handling to 4, Acceleration to 25, Speed Interval to 50, and Top Speed to 300. Integrated limb vector thrusters along calves and forearms, stabilized by scapular succubus wing spars.
+   * *Nitro Boost* (*DC*, pp. 134–135): 2 Powertrain slots. Minor Action to activate; doubles Acceleration from 25 to **50 m/round** for 1D6 rounds. Vehicle tests during boost convert 1 die to a **Wild Die**.
+   * *Hydrocarbon Fuel Converter* (*DC*, pp. 133–134): 2 Powertrain slots. Drives an auxiliary micro-generator (APU) that continuously recharges Reiko's internal solid-state battery banks and high-drain capacitors from commercial kerosene, diesel, or synthetic fuel, providing endless field autonomy for her fully electric chassis and high-voltage plasma vector thrusters.
+3. **Electronics & Augmented Sensor Suite (10 / 10 Slots, 100% Utilized)**:
+   * *2 Slots Permanently Shifted to Chassis* (*DC*, p. 120): Converted at a 2:1 ratio to provide the 11th Chassis slot for Structural Integrity 5.
+   * *Chameleon Coating 4* (*DC*, p. 129): 2 slots. Grants Improved Invisibility (4).
+   * *Passive Stealth Features* (*DC*, p. 130): 1 slot. Raises threshold to detect by auditory or visual means..
+   * *Increased Sensors 2 (Core Sensor Array R4)* (*DC*, p. 130; *SR6 Core*, pp. 276–277): 2 slots. Upgrades base hardware Sensor attribute from 2 to 4 (the maximum rating cap for Medium Anthrodrones per *SR6 Core*, p. 277). As an array, it accommodates up to 4 core sensor functions:
+     1. *Camera* (with Image Link, Low-Light Vision, Flare Compensation)
+     2. *Omnidirectional Microphone* (with Sound Link)
+     3. *Motion (Ultrasound/low-power infrared)* (topographic active/passive mapping)
+     4. *Oral Chemical Analyzer / Olfactory Sensor* (molecular vapor sampling)
+   * *Augmented Single Sensors (3 Slots)* (*SR6 Core*, pp. 276–277): Under *SR6 Core* p. 277, single sensors outside the base 4-function array cap consume 1 device Capacity / Mod Slot each. The remaining 3 Electronics mod slots are fully absorbed by these specialized sensory expansions:
+     1. *Magnetic Anomaly Detection (MAD)* (1 slot; weapons and concentrations of metal)
+     2. *Tactile Sensors* (1 slot; adapted from the EVO Orderly, *Deadly Arts* p. 178, providing delicate somatic telemetry)
+     3. *Cyberware* (1 slot)
+4. **Hardpoints ($\lfloor\text{Body}/3\rfloor = 3$ Standard Hardpoints, *DC* pp. 123–124)**:
+   * Drone includes 1 stock Standard Weapon Mount (*DC*, p. 117).
+   * 1 additional Standard Weapon Mount added (consumes 1 hardpoint).
+   * 1 Small Drone Rack added (consumes 1 hardpoint), flush-mounted in the abdomen to house the Federated-Boeing Sky Commander.
+5. **Right Cyberarm Capacity ([8] / [8] Capacity)**:
+   * Replaces factory anthroform right arm per *Double Clutch* p. 131 (0 vehicle mod slots consumed).
+   * Used Synthetic Cyberarm (*SR6 Core*, pp. 282, 289): Base 8 Capacity.
+   * *Tesla Coil* (*Body Shop*, p. 49): Consumes exactly **[8] Capacity**. High-voltage forearm sprayer (5S(e) damage, Straight Stream, Wobbly Cone, or Sweeping Arc).
+
+---
+
+### III. Vector Thrust Flight Telemetry: Acceleration, Top Speed & Piloting Thresholds
+
+Under SR6 vehicle movement (*SR6 Core*, pp. 199–200), vehicle distance per round is calculated as:
+$$\text{Distance Traveled (m)} = \text{Starting Speed} + \frac{1}{2}(\text{Acceleration})$$
+$$\text{Ending Speed (m/round)} = \text{Starting Speed} + \text{Acceleration}$$
+
+The base Handling test threshold is equal to the vehicle's **Handling rating (4)**. For every full **Speed Interval (50 m/round)** passed, the driver incurs a cumulative **-1 dice pool penalty** to all Piloting tests and vehicle-mounted weapon attacks (*SR6 Core*, p. 199).
+
+The table below contrasts standard full-throttle vector acceleration against **Nitro Boost** acceleration round-by-round from a stationary hover ($0\text{ m/round}$) to Top Speed ($300\text{ m/round}$ / $360\text{ km/h}$ / $223.7\text{ mph}$):
+
+| Combat Round | Standard Mode (ACC 25 m/rnd)<br>Start $\rightarrow$ End Speed (Dist / Total) | Standard Mode<br>Piloting Threshold & Penalty | Nitro Boost Mode (ACC 50 m/rnd, Wild Die)<br>Start $\rightarrow$ End Speed (Dist / Total) | Nitro Boost Mode<br>Piloting Threshold & Penalty |
+| :---: | :--- | :---: | :--- | :---: |
+| **Round 1** | $0 \rightarrow \mathbf{25\text{ m/rnd}}$ ($12.5\text{m}$ / $12.5\text{m}$)<br>*(30.0 km/h / 18.6 mph)* | Threshold 4<br>**-0 Dice Penalty** | $0 \rightarrow \mathbf{50\text{ m/rnd}}$ ($25.0\text{m}$ / $25.0\text{m}$)<br>*(60.0 km/h / 37.3 mph)* | Threshold 4<br>**-0 Dice Penalty** *(1 Wild Die)* |
+| **Round 2** | $25 \rightarrow \mathbf{50\text{ m/rnd}}$ ($37.5\text{m}$ / $50.0\text{m}$)<br>*(60.0 km/h / 37.3 mph)* | Threshold 4<br>**-0 Dice Penalty** | $50 \rightarrow \mathbf{100\text{ m/rnd}}$ ($75.0\text{m}$ / $100.0\text{m}$)<br>*(120.0 km/h / 74.6 mph)* | Threshold 4<br>**-1 Die Penalty** *(1 Wild Die)* |
+| **Round 3** | $50 \rightarrow \mathbf{75\text{ m/rnd}}$ ($62.5\text{m}$ / $112.5\text{m}$)<br>*(90.0 km/h / 55.9 mph)* | Threshold 4<br>**-1 Die Penalty** | $100 \rightarrow \mathbf{150\text{ m/rnd}}$ ($125.0\text{m}$ / $225.0\text{m}$)<br>*(180.0 km/h / 111.8 mph)* | Threshold 4<br>**-2 Dice Penalty** *(1 Wild Die)* |
+| **Round 4** | $75 \rightarrow \mathbf{100\text{ m/rnd}}$ ($87.5\text{m}$ / $200.0\text{m}$)<br>*(120.0 km/h / 74.6 mph)* | Threshold 4<br>**-1 Die Penalty** | $150 \rightarrow \mathbf{200\text{ m/rnd}}$ ($175.0\text{m}$ / $400.0\text{m}$)<br>*(240.0 km/h / 149.1 mph)* | Threshold 4<br>**-3 Dice Penalty** *(1 Wild Die)* |
+| **Round 5** | $100 \rightarrow \mathbf{125\text{ m/rnd}}$ ($112.5\text{m}$ / $312.5\text{m}$)<br>*(150.0 km/h / 93.2 mph)* | Threshold 4<br>**-2 Dice Penalty** | $200 \rightarrow \mathbf{250\text{ m/rnd}}$ ($225.0\text{m}$ / $625.0\text{m}$)<br>*(300.0 km/h / 186.4 mph)* | Threshold 4<br>**-4 Dice Penalty** *(1 Wild Die)* |
+| **Round 6** | $125 \rightarrow \mathbf{150\text{ m/rnd}}$ ($137.5\text{m}$ / $450.0\text{m}$)<br>*(180.0 km/h / 111.8 mph)* | Threshold 4<br>**-2 Dice Penalty** | $250 \rightarrow \mathbf{300\text{ m/rnd}}$ ($275.0\text{m}$ / $900.0\text{m}$)<br>**TOP SPEED REACHED!**<br>*(360.0 km/h / 223.7 mph)* | Threshold 4<br>**-5 Dice Penalty** *(1 Wild Die)* |
+| **Round 7** | $150 \rightarrow \mathbf{175\text{ m/rnd}}$ ($162.5\text{m}$ / $612.5\text{m}$)<br>*(210.0 km/h / 130.5 mph)* | Threshold 4<br>**-3 Dice Penalty** | $300 \rightarrow \mathbf{300\text{ m/rnd}}$ ($300.0\text{m}$ / $1,200.0\text{m}$)<br>*(Cruising: 360.0 km/h / 223.7 mph)* | Threshold 4<br>**-5 Dice Penalty** |
+| **Round 8** | $175 \rightarrow \mathbf{200\text{ m/rnd}}$ ($187.5\text{m}$ / $800.0\text{m}$)<br>*(240.0 km/h / 149.1 mph)* | Threshold 4<br>**-3 Dice Penalty** | $300 \rightarrow \mathbf{300\text{ m/rnd}}$ ($300.0\text{m}$ / $1,500.0\text{m}$)<br>*(Cruising: 360.0 km/h / 223.7 mph)* | Threshold 4<br>**-5 Dice Penalty** |
+| **Round 9** | $200 \rightarrow \mathbf{225\text{ m/rnd}}$ ($212.5\text{m}$ / $1,012.5\text{m}$)<br>*(270.0 km/h / 167.8 mph)* | Threshold 4<br>**-4 Dice Penalty** | $300 \rightarrow \mathbf{300\text{ m/rnd}}$ ($300.0\text{m}$ / $1,800.0\text{m}$)<br>*(Cruising: 360.0 km/h / 223.7 mph)* | Threshold 4<br>**-5 Dice Penalty** |
+| **Round 10** | $225 \rightarrow \mathbf{250\text{ m/rnd}}$ ($237.5\text{m}$ / $1,250.0\text{m}$)<br>*(300.0 km/h / 186.4 mph)* | Threshold 4<br>**-4 Dice Penalty** | $300 \rightarrow \mathbf{300\text{ m/rnd}}$ ($300.0\text{m}$ / $2,100.0\text{m}$)<br>*(Cruising: 360.0 km/h / 223.7 mph)* | Threshold 4<br>**-5 Dice Penalty** |
+| **Round 11** | $250 \rightarrow \mathbf{275\text{ m/rnd}}$ ($262.5\text{m}$ / $1,512.5\text{m}$)<br>*(330.0 km/h / 205.1 mph)* | Threshold 4<br>**-5 Dice Penalty** | $300 \rightarrow \mathbf{300\text{ m/rnd}}$ ($300.0\text{m}$ / $2,400.0\text{m}$)<br>*(Cruising: 360.0 km/h / 223.7 mph)* | Threshold 4<br>**-5 Dice Penalty** |
+| **Round 12** | $275 \rightarrow \mathbf{300\text{ m/rnd}}$ ($287.5\text{m}$ / $1,800.0\text{m}$)<br>**TOP SPEED REACHED!**<br>*(360.0 km/h / 223.7 mph)* | Threshold 4<br>**-5 Dice Penalty** | $300 \rightarrow \mathbf{300\text{ m/rnd}}$ ($300.0\text{m}$ / $2,700.0\text{m}$)<br>*(Cruising: 360.0 km/h / 223.7 mph)* | Threshold 4<br>**-5 Dice Penalty** |
+
+#### Operational Takeaways:
+* **Nitro Boost Acceleration Advantage**: Triggering Nitro Boost (Minor Action) cuts the time to achieve Top Speed (300 m/round / 360.0 km/h / 223.7 mph) **in half**—from **12 combat rounds (36 seconds)** down to **6 combat rounds (18 seconds)**, while covering **900 meters** vs. 450 meters.
+* **Braking & High-G Deceleration**: Per *Double Clutch* (p. 135), Nitro Boost's industrial capacitor applies equally to deceleration, permitting Reiko to bleed up to **50 m/round** (60.0 km/h / 37.3 mph) in a single combat round to avoid crashes.
+* **Inhabited Piloting Pool**: When Reiko inhabits her Man-at-Arms, she rolls Piloting (or autosoft) + Reaction / Pilot Override (13). Even at maximum Speed Interval penalty (-5 dice), her baseline AI pilot pool comfortably exceeds the Handling 4 threshold.
+
+---
+
+### IV. Queued Vector Thrust Subsystem Upgrades (Mechanical Plan Roadmap)
+
+As documented in [mechanical_plan.md](file:///c:/GitHub/sr6-core/characters/reiko/reference/mechanical_plan.md), secondary propulsion systems possess **dedicated subsystem mod slots** that do not consume primary chassis slots. The following upgrades are queued in Priority 2:
+
+1. **Improved Acceleration (2 Ranks)** (*DC*, p. 134):
+   * Consumes 2 dedicated subsystem slots (15,000¥ DIY).
+   * Adds +60% to base acceleration: **$25 \rightarrow 33 \rightarrow \mathbf{41\text{ m/round}}$** ($49.2\text{ km/h}$ / $\approx 30.6\text{ mph}$ burst in 3 seconds).
+   * *Nitro Boost Synergy*: Under Nitro Boost, acceleration jumps to **$82\text{ m/round}$** ($98.4\text{ km/h}$ / $\approx 61.1\text{ mph}$ burst in 3 seconds), reaching 300 m/round ($360.0\text{ km/h}$ / $223.7\text{ mph}$) in under **4 rounds (12 seconds)**!
+2. **Top Speed Increase (3 Ranks)** (*DC*, p. 138):
+   * Consumes 3 dedicated subsystem slots (12,000¥ DIY).
+   * Adds +60% to base Top Speed: **$300 \rightarrow \mathbf{480\text{ m/round}}$** ($576.0\text{ km/h}$ / $\approx 357.9\text{ mph}$ / Mach 0.47).
+   * *Combined Performance*: With both upgrades and Nitro Boost active, Reiko will accelerate from stationary to high-speed subsonic cruise (480 m/round / 576.0 km/h / ~357.9 mph / Mach 0.47) in just **6 combat rounds (18 seconds)**, covering 1,440 meters.

@@ -46,6 +46,7 @@ def parse_vehicle_modifications(drone_dict: Dict[str, Any], char_data: Optional[
     has_rotor = False
     has_retractable_skates = False
     has_wheeled = False
+    has_vector = False
     has_wrist_shield = False
     notes_list = []
 
@@ -114,6 +115,10 @@ def parse_vehicle_modifications(drone_dict: Dict[str, Any], char_data: Optional[
         # 4b. Secondary Propulsion (Wheeled)
         if "wheeled" in m_lower:
             has_wheeled = True
+
+        # 4c. Secondary Propulsion (Vector Thrust / LAV)
+        if "vector" in m_lower or "lav" in m_lower:
+            has_vector = True
 
         # 5. Retractable Skates
         if "skates" in m_lower:
@@ -225,6 +230,8 @@ def parse_vehicle_modifications(drone_dict: Dict[str, Any], char_data: Optional[
             mobility_parts.append("Wheeled: Han 3/4, Acc 10, SPD 15/120")
     if has_retractable_skates:
         mobility_parts.append("Skates: 10/30/+2")
+    if has_vector:
+        mobility_parts.append("Vector Thrust (LAV): Han 4, Acc 25, SPD 50/300 (Iron-Man thrusters)")
     mobility_str = ". ".join(mobility_parts)
 
     return {

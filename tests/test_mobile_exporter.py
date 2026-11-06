@@ -97,17 +97,19 @@ def test_mobile_json_export_reiko():
     assert maa["armor"] == 8     # 8 base (armor increase stripped for legal nuyen balance)
     assert maa["sensor"] == 6    # 4 hardware (base 2 + mod 2) + 1 sensor upgrade quality + 1 home device
     assert maa["enlightened_sensor"] == 8  # +2 from Enlighten Automaton sustained (up to 8)
+    assert "Vector Thrust (LAV)" in maa["mobility_str"]
+    assert "SPD 50/300" in maa["mobility_str"]
 
-    # Verify secondary drones (Kwonsham Dream Genie, Utility-One) have native base pilot 1 (no override/designer bonus)
-    genie = next((v for v in res["vehicles"] if "dream genie" in v["name"].lower()), None)
-    assert genie is not None
-    assert genie["pilot"] == 1
-    assert genie["body"] == 2
+    # Verify secondary drones (MCT Gnat, MCT Hornet) have native base pilot 2 (no override/designer bonus)
+    gnat = next((v for v in res["vehicles"] if "gnat" in v["name"].lower()), None)
+    assert gnat is not None
+    assert gnat["pilot"] == 2
+    assert gnat["body"] == 0
 
-    utility = next((v for v in res["vehicles"] if "utility-one" in v["name"].lower()), None)
-    assert utility is not None
-    assert utility["pilot"] == 1
-    assert utility["body"] == 2
+    hornet = next((v for v in res["vehicles"] if "hornet" in v["name"].lower()), None)
+    assert hornet is not None
+    assert hornet["pilot"] == 2
+    assert hornet["body"] == 1
 
     # Verify no duplicate stun cestas
     stun_cestas = [w for w in res["weapons"] if "stun" in w["name"].lower()]
