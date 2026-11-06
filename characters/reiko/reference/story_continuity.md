@@ -85,10 +85,10 @@ All narrative outlines, intersession chapters, and character development arcs ad
 | [18 The Geometry of a Sieve.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/18%20The%20Geometry%20of%20a%20Sieve.md) | The Geometry of the Sieve | 1,522 | Verified |
 | [19 Legacy Code.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/19%20Legacy%20Code.md) | Legacy Code | 1,485 | Verified |
 | [20 The Price of Silk.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/20%20The%20Price%20of%20Silk.md) | The Price of Silk | 1,209 | Verified |
-| [21 ~.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/21%20~.md) | ~ | 1,864 | Verified |
+| [21 ~.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/21%20~.md) | ~ | 1,865 | Verified |
 | [22 C Sharp.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/22%20C%20Sharp.md) | C Sharp | 1,872 | Verified |
-| [23 Tea with a Ghost.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/23%20Tea%20with%20a%20Ghost.md) | Tea with a Ghost | 1,791 | Verified |
-| [24 Symlink.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/24%20Symlink.md) | Symlink | 1,892 | Verified |
+| [23 Tea with a Ghost.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/23%20Tea%20with%20a%20Ghost.md) | Tea with a Ghost | 1,792 | Verified |
+| [24 Symlink.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/24%20Symlink.md) | Symlink | 1,893 | Verified |
 | [25 DelTree.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/25%20DelTree.md) | DelTree | 2,274 | Verified |
 | [26 SIGTSTP.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/26%20SIGTSTP.md) | SIGTSTP | 2,819 | Verified |
 | [27 Malloc.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/27%20Malloc.md) | Malloc | 3,021 | Verified |
@@ -97,9 +97,9 @@ All narrative outlines, intersession chapters, and character development arcs ad
 | [30 Vim.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/30%20Vim.md) | 30. Vim | 1,815 | Verified |
 | [31 Grep.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/31%20Grep.md) | 31. Grep | 2,016 | Verified |
 | [32 Whois.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/32%20Whois.md) | 32. Whois | 3,141 | Verified |
-| [33 Code Freeze.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/33%20Code%20Freeze.md) | 33. Code Freeze | 3,248 | Verified |
+| [33 Code Freeze.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/33%20Code%20Freeze.md) | 33. Code Freeze | 3,247 | Verified |
 
-**Total Anthology Word Count:** 61,408 words across 33 chapters.
+**Total Anthology Word Count:** 61,410 words across 33 chapters.
 
 ## Latest Story beats
 

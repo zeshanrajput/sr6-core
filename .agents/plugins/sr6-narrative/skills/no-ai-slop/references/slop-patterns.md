@@ -134,3 +134,19 @@ This document provides complete descriptions, examples, and fixes for all 29 AI 
   - Pure non-acoustic mindspeech (DIs, sprites, resonant sparks): format in italics without quotes (`*...*`).
   - Spoken acoustic dialogue or simulated metahuman voice synthesis: format in double-quotes (`"..."`).
   - DIs code-switch to simulated voice (`"..."`) when communicating with metahumans to mask origin.
+
+---
+
+## 4. Mechanics Scaffolding & Lexical Currency Discipline
+
+### Pattern 30: Game Mechanics Scaffolding Leaks
+- *Flagged:* Tabletop jargon in prose: *"Condition Monitor"*, *"dice pool"*, *"Edge tokens"*, *"Minor/Major actions"*, *"Drain codes"*, *"test thresholds"*.
+- *Fix:* Strip rulebook scaffolding completely. Render mechanical friction as sensory and somatic physics per `inter_session_narrative_doctrine.md`.
+
+### Pattern 31: Proximity Lexical Echoes (The Line 9 Defect)
+- *Flagged:* Reusing an identical descriptive bigram within 45 words (e.g. *"dark water... dark water"* 17 words apart) or a distinctive content word within 20 words (e.g. *"curled... curled"* 12 words apart) without rhetorical intent.
+- *Fix:* Chisel the second occurrence into fresh sensory texture or tactile physics (*"the sluggish silt of his chest"*).
+
+### Pattern 32: Lexical Saturation & Quota Overages (The "Alluvial" Rule)
+- *Flagged:* Overusing rare, high-salience vocabulary (e.g. *"alluvial"* 3 times in 80 lines) or exceeding sensory palette density ceilings (e.g. *"dark"* at $>3.5$ occurrences per 1,000 words).
+- *Fix:* Enforce the 4-tier lexical budget. Spend rare $\$10$ words once per chapter as high-yield anchors; vary subsequent recurrences through grounded, tactile synonyms (*river-loam, mud, silt, drift, runoff*).

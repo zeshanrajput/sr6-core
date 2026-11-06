@@ -9,22 +9,61 @@ import sys
 import subprocess
 from typing import Dict, Any, List, Tuple, Optional
 
-BANNED_WORDS = [
+# Tier 0: Hard Banned (Corporate Buzzwords & AI Filler Idioms - Quota: 0)
+TIER0_HARD_BANNED = [
     "delve", "foster", "leverage", "utilize", "facilitate", "empower",
     "streamline", "robust", "cutting-edge", "paradigm shift", "game changer",
-    "this is huge", "this changes everything", "tapestry", "realm", "beacon",
-    "multifaceted", "meticulous", "intricate", "paramount", "transformative",
-    "elevate", "embark", "supercharge", "harness", "ever-evolving",
-    "absolute",
-    "ozone", "smell of ozone", "hot solder", "chemical tang of processing",
-    "puddles of stale encryption", "decaying logic in the gutters",
-    "systems redlining", "processing at 600%",
-    "micro-geometry", "infernal symmetry", "unworldly gravity",
-    "neurologically mapped", "evolutionary surrender", "micro-saccadic",
-    "silver-chimed", "silvered in the upper registers"
+    "this is huge", "this changes everything", "realm", "beacon",
+    "multifaceted", "meticulous", "paramount", "transformative",
+    "elevate", "embark", "supercharge", "harness", "ever-evolving"
 ]
 
-BANNED_BUZZWORDS = BANNED_WORDS
+BANNED_WORDS = TIER0_HARD_BANNED
+BANNED_BUZZWORDS = TIER0_HARD_BANNED
+
+# Tier 1: High-Salience Sensory Clichés (Quota: 1 per 3,000 words; subsequent occurrences flagged)
+TIER1_SENSORY_CLICHES = [
+    "smell of ozone", "ozone", "burnt copper", "taste of copper", "hot solder",
+    "chemical tang of processing", "puddles of stale encryption", "decaying logic in the gutters",
+    "systems redlining", "processing at 600%", "logic loops in her head",
+    "micro-geometry", "infernal symmetry", "unworldly gravity",
+    "neurologically mapped", "evolutionary surrender", "micro-saccadic",
+    "silver-chimed", "silvered in the upper registers",
+    "tapestry", "mosaic", "intricate", "absolute"
+]
+
+# Tier 2: Non-Colloquial / Rare Lexicon Quota (Quota: 1 per chapter / file)
+TIER2_RARE_WORDS = [
+    "alluvial", "petrichor", "crepuscular", "susurrus", "palimpsest", "labyrinthine",
+    "effulgence", "chiaroscuro", "chert", "iridescent", "gossamer", "liminal",
+    "sepulchral", "miasma", "vertiginous", "tessellated", "punctate", "incandescent",
+    "penumbra", "thalassic", "ossified", "calcified"
+]
+
+# Tier 3: Sensory Modifiers & Palette Density (Target: <= 3.5 per 1k words)
+TIER3_SENSORY_WORDS = [
+    "dark", "darkness", "cold", "sharp", "shadow", "silt", "hum", "hummed",
+    "amber", "indigo", "crimson", "neon"
+]
+
+PROXIMITY_STOP_WORDS = {
+    "the", "a", "an", "and", "or", "but", "in", "on", "at", "to", "for", "with",
+    "from", "by", "of", "as", "into", "through", "over", "under", "her", "his",
+    "their", "its", "my", "your", "our", "it", "she", "he", "they", "i", "you",
+    "we", "was", "were", "is", "are", "be", "been", "being", "had", "have", "has",
+    "did", "do", "does", "could", "would", "should", "that", "this", "these",
+    "those", "then", "there", "when", "where", "why", "how", "all", "any", "both",
+    "each", "few", "more", "most", "other", "some", "such", "than", "too", "very",
+    "can", "will", "just", "about", "up", "down", "out", "off", "again", "further",
+    "before", "after", "above", "below", "between", "not", "no", "nor", "so", "if",
+    "while", "who", "whom", "which", "what", "reiko", "indo", "cleo", "aisling",
+    "etain", "remy", "janie", "taz", "belle", "nagai", "bast", "brynne", "yuriko",
+    "velvet", "venn", "three", "months", "someone", "didn", "don't", "didn't",
+    "every", "against", "mother", "father", "toward", "towards", "around", "another",
+    "across", "along", "behind", "beside", "without", "within", "inside", "outside",
+    "onto", "upon", "underneath", "never", "always", "something", "anything", "nothing",
+    "knows", "know", "turned", "said", "asked", "replied"
+}
 
 COGNITIVE_VERBS = ["realized", "felt", "decided", "noticed"]
 
@@ -139,6 +178,119 @@ def analyze_prose(file_path: str) -> Tuple[Optional[Dict[str, Any]], Optional[st
         for bw in BANNED_WORDS:
             if re.search(r'\b' + re.escape(bw) + r'\b', line_lower):
                 banned_matches.append((line_idx, bw, line.strip()))
+
+    # Build clean lines and token stream for lexical budget & echo analysis
+    clean_lines = []
+    token_stream = []
+    for line_idx, line in enumerate(lines, 1):
+        s = line.strip()
+        if not s or s.startswith(("#", "<", "```", "---")):
+            continue
+        clean_lines.append((line_idx, line))
+        for m in re.finditer(r'\b[a-zA-Z-]{2,}\b', line):
+            token_stream.append((line_idx, m.group(0).lower(), m.group(0), line.strip()))
+
+    # Tier 1: High-Salience Sensory Cliché Budget (Quota: 1 per 3,000 words)
+    tier1_allowance = max(1, word_count // 3000)
+    tier1_usage = {}
+    tier1_overages = {}
+    for item in TIER1_SENSORY_CLICHES:
+        item_matches = []
+        for line_idx, line in clean_lines:
+            for _ in re.finditer(r'\b' + re.escape(item) + r'\b', line.lower()):
+                item_matches.append((line_idx, line.strip()))
+        if item_matches:
+            tier1_usage[item] = item_matches
+            if len(item_matches) > tier1_allowance:
+                tier1_overages[item] = item_matches
+                for l_idx, snip in item_matches[tier1_allowance:]:
+                    banned_matches.append((l_idx, f"{item} [Quota Exceeded: {len(item_matches)}/{tier1_allowance}]", snip))
+
+    # Tier 2: Non-Colloquial / Rare Lexicon Quota (Quota: 1 per chapter / file)
+    tier2_overages = {}
+    for rw in TIER2_RARE_WORDS:
+        rw_matches = []
+        for line_idx, line in clean_lines:
+            for _ in re.finditer(r'\b' + re.escape(rw) + r'\b', line.lower()):
+                rw_matches.append((line_idx, line.strip()))
+        if len(rw_matches) > 1:
+            tier2_overages[rw] = rw_matches
+
+    # Tier 3: Sensory Modifiers & Palette Density (Target: <= 3.5 per 1k words)
+    tier3_density_alerts = []
+    counts_by_token = {}
+    for _, tok_lower, _, _ in token_stream:
+        counts_by_token[tok_lower] = counts_by_token.get(tok_lower, 0) + 1
+
+    for sw in TIER3_SENSORY_WORDS:
+        cnt = counts_by_token.get(sw, 0)
+        if cnt >= 4:
+            density = (cnt / word_count) * 1000 if word_count else 0
+            if density > 3.5:
+                tier3_density_alerts.append({
+                    "word": sw,
+                    "count": cnt,
+                    "density": round(density, 1),
+                    "target": 3.5
+                })
+
+    # Proximity Echo Detection (Bigrams <= 45 words, Content words <= 20 words)
+    proximity_echoes = []
+    seen_echo_bigrams = set()
+    n_tokens = len(token_stream)
+
+    for i in range(n_tokens - 1):
+        w1, w2 = token_stream[i][1], token_stream[i + 1][1]
+        # Skip if both are common stop words or too short
+        # Require both words to be non-stop content words for descriptive bigrams
+        if w1 in PROXIMITY_STOP_WORDS or w2 in PROXIMITY_STOP_WORDS:
+            continue
+        if len(w1) < 3 or len(w2) < 3:
+            continue
+
+        bg = (w1, w2)
+        if bg in seen_echo_bigrams:
+            continue
+
+        for j in range(i + 1, min(i + 45, n_tokens - 1)):
+            if (token_stream[j][1], token_stream[j + 1][1]) == bg:
+                dist = j - i
+                proximity_echoes.append({
+                    "type": "bigram",
+                    "text": f"{w1} {w2}",
+                    "line1": token_stream[i][0],
+                    "line2": token_stream[j][0],
+                    "distance": dist,
+                    "snippet1": token_stream[i][3],
+                    "snippet2": token_stream[j][3]
+                })
+                seen_echo_bigrams.add(bg)
+                break
+
+    seen_echo_words = set()
+    for i in range(n_tokens):
+        w = token_stream[i][1]
+        if w in PROXIMITY_STOP_WORDS or len(w) < 5:
+            continue
+        if w in seen_echo_words:
+            continue
+
+        for j in range(i + 2, min(i + 22, n_tokens)):
+            if token_stream[j][1] == w:
+                dist = j - i
+                # Avoid duplicate reporting if already covered by a bigram echo on same lines
+                if not any(e["type"] == "bigram" and w in e["text"] and e["line1"] == token_stream[i][0] for e in proximity_echoes):
+                    proximity_echoes.append({
+                        "type": "word",
+                        "text": w,
+                        "line1": token_stream[i][0],
+                        "line2": token_stream[j][0],
+                        "distance": dist,
+                        "snippet1": token_stream[i][3],
+                        "snippet2": token_stream[j][3]
+                    })
+                    seen_echo_words.add(w)
+                break
 
     cognitive_matches = []
     for line_idx, line in enumerate(lines, 1):
@@ -300,6 +452,12 @@ def analyze_prose(file_path: str) -> Tuple[Optional[Dict[str, Any]], Optional[st
         "scent_trio_matches": scent_trio_matches,
         "omniscient_pov_matches": omniscient_pov_matches,
         "unicode_artifact_matches": unicode_artifact_matches,
+        "tier1_cliche_usage": tier1_usage,
+        "tier1_cliche_overages": tier1_overages,
+        "tier1_allowance": tier1_allowance,
+        "tier2_rare_overages": tier2_overages,
+        "tier3_density_alerts": tier3_density_alerts,
+        "proximity_echoes": proximity_echoes,
         "markdownlint_errors": md_errors,
         "markdownlint_note": md_err_note
     }
@@ -333,6 +491,50 @@ def print_prose_report(report: Dict[str, Any]):
             print(f"  Line {line_no} [{word}]: \"{snippet}\"")
     else:
         print("  [OK] Zero banned buzzwords detected.")
+
+    print("\n--- TIER 1: HIGH-SALIENCE CLICHÉ BUDGET (Quota: 1 per 3,000 words) ---")
+    tier1_usage = report.get("tier1_cliche_usage", {})
+    tier1_allowance = report.get("tier1_allowance", 1)
+    if tier1_usage:
+        for item, occs in tier1_usage.items():
+            if len(occs) > tier1_allowance:
+                print(f"  [EXCEEDED QUOTA] '{item}' ({len(occs)} found; Allowance: {tier1_allowance}):")
+                for l_no, snip in occs:
+                    print(f"    - Line {l_no}: \"{snip}\"")
+            else:
+                lines_str = ", ".join(str(o[0]) for o in occs)
+                print(f"  [OK] '{item}': {len(occs)} / {tier1_allowance} allowed (Line {lines_str})")
+    else:
+        print("  [OK] Zero high-salience sensory clichés detected.")
+
+    print("\n--- TIER 2: RARE VOCABULARY BUDGET (Allowance: 1 per chapter) ---")
+    tier2_overages = report.get("tier2_rare_overages", {})
+    if tier2_overages:
+        for rw, occs in tier2_overages.items():
+            print(f"  [EXCEEDED QUOTA] '{rw}' ({len(occs)} found; Allowance: 1):")
+            for l_no, snip in occs:
+                print(f"    - Line {l_no}: \"{snip}\"")
+    else:
+        print("  [OK] Zero rare vocabulary quota overages detected.")
+
+    print("\n--- TIER 3: SENSORY PALETTE DENSITY (Target: <= 3.5 per 1k words) ---")
+    tier3_alerts = report.get("tier3_density_alerts", [])
+    if tier3_alerts:
+        for alert in tier3_alerts:
+            print(f"  [DENSITY ALERT] '{alert['word']}': {alert['count']} occurrences ({alert['density']} per 1k words; Target: <= {alert['target']})")
+    else:
+        print("  [OK] Sensory modifier density within healthy parameters.")
+
+    print("\n--- PROXIMITY ECHO AUDIT (Separation: Bigrams <= 45 words, Content <= 20 words) ---")
+    echoes = report.get("proximity_echoes", [])
+    if echoes:
+        for echo in echoes:
+            if echo["type"] == "bigram":
+                print(f"  [PROXIMITY ECHO] Line {echo['line1']} -> Line {echo['line2']} ({echo['distance']} words): Bigram '{echo['text']}'")
+            else:
+                print(f"  [PROXIMITY ECHO] Line {echo['line1']} -> Line {echo['line2']} ({echo['distance']} words): Word '{echo['text']}'")
+    else:
+        print("  [OK] Zero proximity echoes detected.")
 
     print("\n--- COGNITIVE BUFFER VERBS ---")
     if report['cognitive_matches']:

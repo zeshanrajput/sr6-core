@@ -40,6 +40,27 @@ class TestNarrativeSyncAndSniffing(unittest.TestCase):
         self.assertEqual(len(report["unicode_artifact_matches"]), 1)
         self.assertEqual(report["unicode_artifact_matches"][0][0], 3)
 
+    def test_linter_proximity_echo_and_quotas(self):
+        sample_prose = (
+            "# Test Scene\n\n"
+            "The low vibrato on dark water carried through her core as she stared at the dark water.\n"
+            "She remembered the burnt copper of her old chassis, and later another scent of burnt copper.\n"
+            "The alluvial silt gathered along the levee, and more alluvial drift washed downstream.\n"
+        )
+        report, err = analyze_prose(sample_prose)
+        self.assertIsNone(err)
+        self.assertIsNotNone(report)
+
+        # Proximity echo check for 'dark water'
+        echo_texts = [e["text"] for e in report["proximity_echoes"]]
+        self.assertIn("dark water", echo_texts)
+
+        # Tier 1 cliché quota check: burnt copper (2 occurrences exceeds allowance of 1)
+        self.assertIn("burnt copper", report["tier1_cliche_overages"])
+
+        # Tier 2 rare word quota check: alluvial (2 occurrences exceeds allowance of 1)
+        self.assertIn("alluvial", report["tier2_rare_overages"])
+
 
 if __name__ == "__main__":
     unittest.main()
