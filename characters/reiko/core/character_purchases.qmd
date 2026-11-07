@@ -117,7 +117,11 @@ Software with karma costs have been learned via the **Software Emulator** echo.
   * Increased Structural Integrity 5 `{python} inc('Nuyen', -25000/2)`
   * Realistic Features 4 `{python} inc('Nuyen', -4 * 10 * 1000 / 2)`
   * Secondary Propulsion (Vector Thrust / LAV): `{python} inc('Nuyen', -90000/2)`
-    * HAN 4, ACC 25, SPD 50/300 (360 km/h / ~223.7 mph; Iron-Man style vector thrusters integrated into forearms and calves, aerodynamically stabilized by scapular wing spars)
+    * HAN 4, ACC 41, SPD 50/480 (576 km/h / ~358 mph; Iron-Man style vector thrusters integrated into forearms and calves, aerodynamically stabilized by scapular wing spars)
+  * Improved Acceleration (2 Ranks): `{python} inc('Nuyen', -30000/2)`
+    * Increases combat Acceleration by +60% (from 25 to 41 m/round / 49.2 km/h; Double Clutch p. 134, DIY 50%)
+  * Top Speed Increase (3 Ranks): `{python} inc('Nuyen', -24000/2)`
+    * Increases Top Speed by +60% (from 300 to 480 / 576 km/h / ~358 mph; Double Clutch p. 138, DIY 50%)
   * Nitro Boost: `{python} inc('Nuyen',-5000/2)` 
   * Increased Sensors 2 `{python} inc('Nuyen', -10000/2)`
     * Camera w/ image link
@@ -149,7 +153,7 @@ Software with karma costs have been learned via the **Software Emulator** echo.
 
 Drone mods include a 50% discount on mods Yuriko installed herself (DC p. 120). Shiawase drones include a 10% discount (Smile for the Camera!).
 
-Under *Double Clutch* p. 123–124, the Man-At-Arms receives 3 free Standard Hardpoints ($\lfloor\text{Body}/3\rfloor = 3$), accommodating both Red Fox weapon mounts and the Small Drone Rack with zero added hardpoints. Mod slot balance: 2 unused Electronics slots are permanently shifted to +1 Chassis slot at a 2:1 ratio (DC p. 120), providing 11 Chassis slots (Structural Integrity 5 + Realistic Features 4 + Pop-Out 2 = 11), with 9/10 Powertrain (Vector Thrust 5 + Nitro Boost 2 + HFC 2 = 9, 1 free), and 10/10 Electronics slots (Chameleon Coating 2 + Passive Stealth 1 + Increased Sensors Array 2 + 2 shifted to Chassis + 3 single sensor expansions for Oral Chemical Analyzer, Tactile Sensors, and Laser Range Finder per CRB pp. 276–277). Anthroform cyberlimbs are standard equipment per DC p. 131 and consume 0 drone mod slots.
+Under *Double Clutch* p. 123–124, the Man-At-Arms receives 3 free Standard Hardpoints ($\lfloor\text{Body}/3\rfloor = 3$), accommodating both Red Fox weapon mounts and the Small Drone Rack with zero added hardpoints. Mod slot balance: 2 unused Electronics slots are permanently shifted to +1 Chassis slot at a 2:1 ratio (DC p. 120), providing 11 Chassis slots (Structural Integrity 5 + Realistic Features 4 + Pop-Out 2 = 11), with 9/10 Powertrain (Vector Thrust 5 + Nitro Boost 2 + HFC 2 = 9, 1 free), and 10/10 Electronics slots (Chameleon Coating 2 + Passive Stealth 1 + Increased Sensors Array 2 + 2 shifted to Chassis + 3 single sensor expansions per CRB pp. 276–277). Anthroform cyberlimbs are standard equipment per DC p. 131 and consume 0 drone mod slots.
 
 ### Electronics
 
@@ -159,14 +163,14 @@ Under *Double Clutch* p. 123–124, the Man-At-Arms receives 3 free Standard Har
 ### Other Supplies
 
 * Medkit R1 `{python} inc('Nuyen', -250)`
-* Narcoject x10 `{python} inc('Nuyen', -50 * 10)`
+* Narcoject x30 (Initial 10 + 20 Restock SRM 2081-10) `{python} inc('Nuyen', -50 * 30)`
 * Cyanide x5 `{python} inc('Nuyen', -70 * 5)`
 
 ### SINs & Licenses
 
-* Yuriko Star (R6) `{python} inc_many(('Nuyen', -5000), ('Nuyen', -10000))`
-  * Drone License (R6) `{python} inc_many(('Nuyen', -400), ('Nuyen', -800))`
-  * Firearms License (R6) `{python} inc_many(('Nuyen', -400), ('Nuyen', -800))`
+* Yuriko Star (R4) `{python} inc('Nuyen', -10000)`
+  * Drone License (R4) `{python} inc('Nuyen', -800)`
+  * Firearms License (R4) `{python} inc('Nuyen', -800)`
 
 ### Skills & Specializations
 

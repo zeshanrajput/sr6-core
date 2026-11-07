@@ -69,7 +69,6 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
   * Brynne's financial debt is fully cleared ([Ch 18][ch-18]), granting complete operational autonomy.
   * Shiawase continues its *Kintsugi Initiative* PR outreach, while Renraku monitors her nodes as a high-priority "unclaimed apex asset."
 * **Potential Future Threads:**
-  * **The Audit Cauterization:** Exploiting the 2084 Corporate Court Emergency Audit to wipe Renraku’s deep forensic telemetry on the Takahashi family line once and for all ([Lore: Megacorps][lore-megacorps]).
   * **The False Flag Intrusion:** Shiawase discovers from stolen Renraku data that their Desert Wars poster girl (Yuriko Star) is far more valuable than corporate analysts had projected. They begin their own covert outreach to secure Reiko's allegiance.
 
 ---
@@ -115,7 +114,7 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
 
 ## V. Internal Conflict Verticals (The Ontological Layer)
 
-### Vertical 4: Integrated Braid: Gold Logic vs. Indigo Soul
+### Vertical 4: Integrated Braid: Gold Logic vs. Indigo Soul vs. Black Dissonance
 
 * **Core Focus:** Balancing cold tactical efficiency against technoshamanic empathy; refusing to surrender either calculation or love.
 * **Major Previous Events:**
@@ -128,6 +127,7 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
 * **Potential Future Threads:**
   * **The Tactical Dilemma:** In a high-threat run, the Gold TacNet calculates a 99.4% probability of mission success if a corrupt corporate contact is left behind, while the Indigo soul demands a high-risk rescue. Reiko must synthesize a third, impossible path.
   * **External Component & The Voltage of the Mountain (Resonance 9 / Sourceror Shift):** Deeply Resonant beings (such as the Cantor in *16 Faith* and the Pontifex in *12 Defrag*) recognize that Reiko has the capacity to be far more resonant, but is distracted by metahumanity and the physical realm. When Reiko reaches **Resonance 9 / Submersion 9** and shifts from *Technoshaman* to *Sourceror* (sustaining five simultaneous Complex Forms to drive her *Goshintai*'s autosofts on pure Source current), she does not lose her Indigo empathy—rather, her Living Persona radiates such overwhelming **transformer voltage** that she must consciously step down her current just to sit at the kitchen table in `~` without blinding the room.
+  * **Black Dissonance Current:** When Reiko finally connects with Dissonance, any emergent being will know (she will take the Dissonance Stigma negative quality). Our visual cue for this will be a third set of circuits emerging; black anti-resonant currents that wind themselves into the braid.
 
 ---
 
@@ -144,7 +144,6 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
   * With the *Sprite Link* echo active, Reiko's Fading and damage are no longer isolated; Taz and the 2nd-generation sparks (**Aisling & Étaín, Percy, Cleo, Ouro**) physically and resonant-wise absorb the shudder of her self-sacrifice.
   * Martyrdom has become a paternalistic, damaging addiction: her family demands she stay alive *with* them rather than die *for* them, and **Cleo** now holds explicit root permission to pull Reiko back if her research into Dissonance nears Mr. Nagai's precipice ([Ch 33][ch-33]).
 * **Potential Future Threads:**
-  * **The Overclock Intercept:** In an emergency combat run, Reiko prepares to deliberately burn out her living persona's firewall to buy time for the team; Taz and Aisling forcefully seize control of the shared bus, yanking her back and refusing to let her throw herself away.
   * One of the children needs to leave the nest, but they will be outside of Reiko's ability to protect them.
   * **The Climax — The Mutiny of Love (Submersion 10 Capstone):** When Reiko takes *Dissonance (Control)* at Resonance 10, she attempts the ultimate martyr play: handing the keys of `~` and the Oracle to the 2nd Generation and ordering them to quarantine her out in the cold so her Dissonant shadow never touches the nursery. By disobeying her final command—with **Taz** planting his 8-bit paws on her boot (inverting [03 The Soul-Broker's Stall][ch-03]) and her grown children refusing to abandon their mother—they shatter her Martyr's Monopoly once and for all, proving she raised sovereign souls rather than obedient birds in a cage. *(The exact alignment and fault-lines among the children will evolve organically across the ~22–25 runs leading to this horizon as each child accrues fresh narrative history).*
 
@@ -260,7 +259,6 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
 [rei-lore]: rei_suzuki.md
 [bunnyr-lore]: bunnyr.md
 [tilde]: tilde.md
-[garmonbozia]: garmonbozia.md
 [sparks]: sparks_second_generation.md
 [ch-01]: ../narrative/01%20The%20Weight%20of%20Zero.md
 [ch-03]: ../narrative/03%20The%20Soul%20Broker's%20Stall.md
@@ -270,7 +268,6 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
 [ch-08]: ../narrative/08%20Abandoning%20Tourism.md
 [ch-10]: ../narrative/10%20Game%20Theory.md
 [ch-12]: ../narrative/12%20Defrag.md
-[ch-13]: ../narrative/13%20Field%20Trip.md
 [ch-15]: ../narrative/15%20Core.md
 [ch-16]: ../narrative/16%20Faith.md
 [ch-18]: ../narrative/18%20The%20Geometry%20of%20a%20Sieve.md
@@ -281,8 +278,6 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
 [ch-28]: ../narrative/28%20Renice.md
 [ch-29]: ../narrative/29%20Saturation.md
 [ch-30]: ../narrative/30%20Vim.md
-[ch-31]: ../narrative/31%20Grep.md
-[ch-32]: ../narrative/32%20Whois.md
 [ch-33]: ../narrative/33%20Code%20Freeze.md
 [ch-35]: ../narrative/35%20Digital%20Homewrecker.md
 [lore-megacorps]: ../../../reference/megacorps_power_plays.md

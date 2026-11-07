@@ -8,10 +8,10 @@ identity:
   gender: DIVERSE
   age: ~ 10
   system: shadowrun6e
-  karma: 17
-  lifetime_karma: 293
-  nuyen: 4400.0
-  lifetime_nuyen: 448800
+  karma: 24
+  lifetime_karma: 300
+  nuyen: 700.0
+  lifetime_nuyen: 471300
   heat: -1
   submersion: 8
 attributes:
@@ -901,7 +901,7 @@ contacts:
     canonical_name: Toil
     is_canonical: true
     connection: 4
-    loyalty: 2
+    loyalty: 3
     favors: 1
     type: Fixer
     region: SEA
@@ -919,13 +919,15 @@ contacts:
     - SRM.2081.15 (+2 FP)
     - Auto-Promoted to Loyalty 2 (-2 FP)
     - SRM.2081.16 (+1 FP)
+    - SRM.2081.10 (+3 FP)
+    - Auto-Promoted to Loyalty 3 (-3 FP)
   Trubble:
     name: Trubble
     canonical_name: Trubble
     is_canonical: true
     connection: 1
-    loyalty: 2
-    favors: 0
+    loyalty: 3
+    favors: 1
     type: Bodyguard
     region: SEA
     types:
@@ -940,6 +942,8 @@ contacts:
     - Auto-Promoted to Loyalty 1 (-1 FP)
     - SRM.2081.15 (+2 FP)
     - Auto-Promoted to Loyalty 2 (-2 FP)
+    - SRM.2081.10 (+4 FP)
+    - Auto-Promoted to Loyalty 3 (-3 FP)
   SpiiniCop:
     name: SpiiniCop
     canonical_name: SpiiniCop
@@ -1105,7 +1109,7 @@ contacts:
     canonical_name: Kingston
     is_canonical: true
     connection: 2
-    loyalty: 1
+    loyalty: 2
     favors: 0
     type: Shadowrunner/Street Samurai
     region: SEA
@@ -1120,6 +1124,8 @@ contacts:
     history:
     - 'SRM.2081.06 (Met: C2 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
+    - SRM.2081.10 (+2 FP)
+    - Auto-Promoted to Loyalty 2 (-2 FP)
   Kaatje:
     name: Kaatje
     canonical_name: Kaatje
@@ -1556,6 +1562,45 @@ contacts:
     history:
     - 'SRM.2081.13 (Met: C2 L0, +2 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
+  JinJin:
+    name: JinJin
+    canonical_name: JinJin
+    is_canonical: true
+    connection: 2
+    loyalty: 1
+    favors: 1
+    type: Coyote
+    region: SEA
+    types:
+    - Street
+    types_str: Street
+    description: 'Uses: Border runs, smuggling, vehicle repairs, Ork Underground (Shadowrun
+      Missions Seattle) | Types: Street'
+    notes: 'Uses: Border runs, smuggling, vehicle repairs, Ork Underground (Shadowrun
+      Missions Seattle) | Types: Street'
+    history:
+    - 'SRM.2081.10 (Met: C2 L0, +2 FP)'
+    - Auto-Promoted to Loyalty 1 (-1 FP)
+  Laurig Heartwell:
+    name: Laurig Heartwell
+    canonical_name: Laurig Heartwell
+    is_canonical: true
+    connection: 2
+    loyalty: 1
+    favors: 0
+    type: Arcane Researcher
+    region: SEA
+    types:
+    - Academic
+    - Magic
+    types_str: Academic, Magic
+    description: 'Uses: Ancient Sumeria, arcane research, HMHVV, Redmond Barrens (Shadowrun
+      Missions Seattle) | Types: Academic, Magic'
+    notes: 'Uses: Ancient Sumeria, arcane research, HMHVV, Redmond Barrens (Shadowrun
+      Missions Seattle) | Types: Academic, Magic'
+    history:
+    - 'SRM.2081.10 (Met: C2 L0, +1 FP)'
+    - Auto-Promoted to Loyalty 1 (-1 FP)
 reputation:
   Vory: 2
   Seattle: 7
@@ -1678,6 +1723,12 @@ drones:
   - Increased Structural Integrity 5
   - Realistic Features 4
   - Secondary Propulsion (Vector Thrust / LAV)
+  - Improved Acceleration (2 Ranks)
+  - Increases combat Acceleration by +60% (from 25 to 41 m/round / 49.2 km/h; Double
+    Clutch p. 134, DIY 50%)
+  - Top Speed Increase (3 Ranks)
+  - Increases Top Speed by +60% (from 300 to 480 / 576 km/h / ~358 mph; Double Clutch
+    p. 138, DIY 50%)
   - Nitro Boost
   - Increased Sensors 2
   - Camera w/ image link
@@ -1838,13 +1889,13 @@ sprite_powers:
   doc_link: chapters/rules_sprites.html#sprite-symbiosis-powers
 sins:
 - name: Yuriko Star
-  rating: 6
+  rating: 4
 licenses:
 - name: Drone License
-  rating: 6
+  rating: 4
   sin: Yuriko Star
 - name: Firearms License
-  rating: 6
+  rating: 4
   sin: Yuriko Star
 living_persona:
   asdf_bonuses:

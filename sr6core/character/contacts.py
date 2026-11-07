@@ -56,7 +56,7 @@ CANONICAL_CONTACTS: Dict[str, Dict[str, Any]] = {
         "job": "Shadowrunner/Street Samurai",
         "connection": 2,
         "region": "SEA",
-        "missions": "SRM 2081-02, 06",
+        "missions": "SRM 2081-02, 06, 10",
         "uses": "Shadowrunners, street rumors (Shadowrun Missions Seattle)",
         "types": "Criminal, Street",
         "description": "Uses: Shadowrunners, street rumors (Shadowrun Missions Seattle) | Types: Criminal, Street"
@@ -128,7 +128,7 @@ CANONICAL_CONTACTS: Dict[str, Dict[str, Any]] = {
         "job": "Fixer",
         "connection": 4,
         "region": "SEA",
-        "missions": "SRM 2081-04, 05, 10",
+        "missions": "SRM 2081-04, 05, 10, 15, 16",
         "uses": "Drugs, exotic dancer clubs, getting jobs (Shadowrun Missions Seattle)",
         "types": "Criminal, Street",
         "description": "Uses: Drugs, exotic dancer clubs, getting jobs (Shadowrun Missions Seattle) | Types: Criminal, Street"
@@ -137,10 +137,28 @@ CANONICAL_CONTACTS: Dict[str, Dict[str, Any]] = {
         "job": "Bodyguard",
         "connection": 1,
         "region": "SEA",
-        "missions": "SRM 2081-04, 05",
+        "missions": "SRM 2081-04, 05, 10, 15",
         "uses": "Bodyguards, insults, talismans (Shadowrun Missions Seattle)",
         "types": "Magic",
         "description": "Uses: Bodyguards, insults, talismans (Shadowrun Missions Seattle) | Types: Magic"
+    },
+    "JinJin": {
+        "job": "Coyote",
+        "connection": 2,
+        "region": "SEA",
+        "missions": "SRM 2081-10",
+        "uses": "Border runs, smuggling, vehicle modifications, Ork Underground (Shadowrun Missions Seattle)",
+        "types": "Street",
+        "description": "Uses: Border runs, smuggling, vehicle modifications, Ork Underground (Shadowrun Missions Seattle) | Types: Street"
+    },
+    "Laurig Heartwell": {
+        "job": "Arcane Researcher",
+        "connection": 2,
+        "region": "SEA",
+        "missions": "SRM 2081-10",
+        "uses": "Ancient Sumeria, arcane research, HMHVV, Redmond Barrens (Shadowrun Missions Seattle)",
+        "types": "Academic, Magic",
+        "description": "Uses: Ancient Sumeria, arcane research, HMHVV, Redmond Barrens (Shadowrun Missions Seattle) | Types: Academic, Magic"
     },
     "Vincent Grisome, Th.D., Ph.D.": {
         "job": "Seattle University Professor",

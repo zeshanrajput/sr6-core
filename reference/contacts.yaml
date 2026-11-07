@@ -85,6 +85,7 @@ kingston:
   missions:
   - SRM 2081-02
   - '06'
+  - '10'
   types: Criminal, Street
   description: 'Uses: Shadowrunners, street rumors (Shadowrun Missions Seattle) |
     Types: Criminal, Street'
@@ -168,6 +169,7 @@ toil:
   - '05'
   - '10'
   - '15'
+  - '16'
   types: Criminal, Street
   description: 'Uses: Drugs, exotic dancer clubs, getting jobs (Shadowrun Missions
     Seattle) | Types: Criminal, Street'
@@ -181,10 +183,33 @@ trubble:
   missions:
   - SRM 2081-04
   - '05'
+  - '10'
   - '15'
   types: Magic
   description: 'Uses: Bodyguards, insults, talismans (Shadowrun Missions Seattle)
     | Types: Magic'
+jinjin:
+  id: jinjin
+  name: JinJin
+  connection: 2
+  job: Coyote
+  region: SEA
+  canonical: true
+  missions:
+  - SRM 2081-10
+  types: Street
+  description: 'Uses: Border runs, smuggling, vehicle repairs, Ork Underground (Shadowrun Missions Seattle) | Types: Street'
+laurig_heartwell:
+  id: laurig_heartwell
+  name: Laurig Heartwell
+  connection: 2
+  job: Arcane Researcher
+  region: SEA
+  canonical: true
+  missions:
+  - SRM 2081-10
+  types: Academic, Magic
+  description: 'Uses: Ancient Sumeria, arcane research, HMHVV, Redmond Barrens (Shadowrun Missions Seattle) | Types: Academic, Magic'
 vincent_grisome_thd_phd:
   id: vincent_grisome_thd_phd
   name: Vincent Grisome, Th.D., Ph.D.

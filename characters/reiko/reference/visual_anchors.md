@@ -166,7 +166,7 @@ Details specific to Reiko's physical manifestation in real-world environments (S
 
 ### Integrated Mobility & Vector Propulsion (LAV Refit)
 
-* **Vector Thrust (LAV) Propulsion Subsystem:** Reiko's chassis is converted to high-output low-altitude vector thrust (HAN 4, ACC 25, SPD 50/300; ~224–358 mph). Aesthetically, folding helicopter blades and wheel-casters are completely eliminated in favor of recessed, flush vectored-thrust micro-turbofans, ducted plasma/ground-effect thrusters, and stabilizing scapular wing spars.
+* **Vector Thrust (LAV) Propulsion Subsystem:** Reiko's chassis features high-output low-altitude vector thrust enhanced with Improved Acceleration (2 Ranks) and Top Speed Increase (3 Ranks) (HAN 4, ACC 41, SPD 50/480; 576 km/h / ~358 mph). Aesthetically, folding helicopter blades and wheel-casters are completely eliminated in favor of recessed, flush vectored-thrust micro-turbofans, ducted plasma/ground-effect thrusters, and stabilizing scapular wing spars.
 * **Limb Vector Thruster Ports (Forearms & Calves):**
   * *Concealed Iron-Man Vector Arrays:* Flush, precision-seamed thrust apertures integrated directly along the lateral calves and the dorsal/palmar forearm assemblies.
   * *Deployment & Telemetry:* Under active flight or attitude maneuvering, micro-aperture heat vents slide open to emit directional vectored plasma bleed and indigo heat shimmer, providing agile omnidirectional stabilization, high-G deceleration, and instantaneous burst vectoring.

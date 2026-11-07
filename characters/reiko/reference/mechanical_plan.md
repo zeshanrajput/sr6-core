@@ -37,8 +37,7 @@ This document tracks character upgrades, mechanical evaluations, karma/nuyen tar
      * **Resonance 9 $\rightarrow$ 10** (50 Karma)
      * **Quality: Jack Jockey** (11 Karma)
      * *(Deferred / Lower Backlog: Electronics Spec: Computers — 5 Karma)*
-  2. *Nuyen (Completed [ACQUIRED]):* Shiawase Man-at-Arms overhaul with **Vector Thrust (LAV)** (HAN 4, ACC 25, SPD 50/300; Iron-Man vector thrusters in limbs, aerodynamically stabilized by scapular wing spars, abdominal bay housing Sky Commander, twin ocular Red Fox laser mounts).
-  3. *Nuyen (Follow-Up Target — Unchanged):* Vector Thrust Subsystem Enhancements: **Improved Acceleration (2 Ranks)** (15,000¥ DIY; pushes combat accel 25 -> 41 m/round / 49.2 km/h) and **Top Speed Increase (3 Ranks)** (12,000¥ DIY; pushes top speed to 480 m/round / 576 km/h / ~358 mph).
+  2. *Nuyen (Completed [ACQUIRED]):* Shiawase Man-at-Arms overhaul with **Vector Thrust (LAV)** (HAN 4, ACC 41, SPD 50/480; 576 km/h / ~358 mph; Iron-Man vector thrusters in limbs, aerodynamically stabilized by scapular wing spars, abdominal bay housing Sky Commander, twin ocular Red Fox laser mounts) and Vector Thrust Subsystem Enhancements: **Improved Acceleration (2 Ranks)** (15,000¥ DIY; Accel 25 $\rightarrow$ 41 m/round / 49.2 km/h) and **Top Speed Increase (3 Ranks)** (12,000¥ DIY; Top Speed 480 / 576 km/h / ~358 mph).
 
 ---
 
@@ -253,8 +252,6 @@ Operationalizes the zero-penalty 5-sustain suite alongside instantaneous trace-d
 | Step | Target Upgrade | Cost | Downtime Actions Needed | Funding Mechanism & Status |
 | :---: | :--- | :--- | :--- | :--- |
 | **01** | **Resonance 8 $\rightarrow$ 9** | **45 Karma** | None (Between runs) | Hoarded Mission Karma (Prime Runner Capstone; +1 all pools/Fade) |
-| **--** | **Improved Acceleration (2 Ranks)** | **15,000¥** | 1 Minor Action (DIY Install) | Liquid Nuyen (DIY 50%; Accel 25 $\rightarrow$ 41 m/round / 49.2 km/h) |
-| **--** | **Top Speed Increase (3 Ranks)** | **12,000¥** | 1 Minor Action (DIY Install) | Liquid Nuyen (DIY 50%; Top Spd 480 / 576 km/h / 358 mph!) |
 | **02** | **Submersion Grade 9 (Echo: Hybrid Sprites)** | **19 Karma** | None (Post-mission) | Banked Karma (Preserves cross-breeding; initiates Dissonant path per SC 84) |
 | **03** | **Stream Transition: Sourceror** | **20 Karma** | None (Between runs) | Unlocks Aspect Peripheral & 4–5 Sustain Zero-Penalty Suite (H&S 130–131) |
 | **04** | **Complex Form: Hyperthreading** | **5 Karma** | 1 Minor Action (Study) | Enables multi-form single-action execution (H&S 131) |
@@ -271,6 +268,8 @@ Operationalizes the zero-penalty 5-sustain suite alongside instantaneous trace-d
 | **10** | **Quality: Jack Jockey** | **11 Karma** | None (Between runs) | H&S 82: Direct connection ignores PAN firewall & denies defensive Edge |
 | **11** | **Electronics Spec: Computers** | **5 Karma** | None (Between runs) | **DEFERRED** (Pushed down queue post-Ch 33; +2 Matrix Perc./Search) |
 | **--** | **Knowsoft: Garmonbozia (Rating 3)** | **¥1,500** | None (Download) | Liquid Nuyen (E-Nation Cartography & Defense) |
+| **--** | **Improved Acceleration (2 Ranks)** | 15,000¥ | 1 Minor Action (DIY Install) | **ACQUIRED** (SRM.2081.10; Accel 25 $\rightarrow$ 41 m/round / 49.2 km/h) |
+| **--** | **Top Speed Increase (3 Ranks)** | 12,000¥ | 1 Minor Action (DIY Install) | **ACQUIRED** (SRM.2081.10; Top Spd 480 / 576 km/h / 358 mph) |
 | **--** | **Vector Thrust (LAV) Conversion** | **~14,400¥ net** | 1 Minor Action (DIY Install) | **ACQUIRED** (Top Spd 300 / 360 km/h / 224 mph) |
 | **--** | **Taz Symbiosis: Influence** | 4 Karma | Completed | **ACQUIRED** (SRM.2083.14) |
 | **--** | **Complex Form: Enlighten Automaton** | 5 Karma | Completed | **ACQUIRED** (SRM.2083.15) |
