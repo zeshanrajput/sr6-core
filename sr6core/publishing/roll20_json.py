@@ -3462,21 +3462,23 @@ def export_roll20_json(
             os.makedirs(roll20_dir, exist_ok=True)
 
             # 1. Write Roll20 Macros & Effects markdown helper guide
-            guide_content = generate_roll20_helper_guide(char_data, payload)
-            for gpath in [
-                os.path.join(out_dir, f"{cid}_roll20_macros.md"),
-                os.path.join(roll20_dir, f"{cid}_roll20_macros.md"),
-            ]:
-                with open(gpath, "w", encoding="utf-8") as f:
-                    f.write(guide_content)
+            guide_path = os.path.join(roll20_dir, f"{cid}_roll20_macros.md")
+            with open(guide_path, "w", encoding="utf-8") as f:
+                f.write(generate_roll20_helper_guide(char_data, payload))
 
             # 2. Write Roll20 Genesis JSON payload
-            for jpath in [
-                os.path.join(out_dir, f"{cid}_roll20.json"),
-                os.path.join(roll20_dir, f"{cid}_roll20.json"),
-            ]:
-                with open(jpath, "w", encoding="utf-8") as f:
-                    f.write(json_str)
+            json_path = os.path.join(roll20_dir, f"{cid}_roll20.json")
+            with open(json_path, "w", encoding="utf-8") as f:
+                f.write(json_str)
+
+            # 3. Clean up any legacy loose files from the root of output/
+            for legacy_name in [f"{cid}_roll20_macros.md", f"{cid}_roll20.json"]:
+                legacy_file = os.path.join(out_dir, legacy_name)
+                if os.path.isfile(legacy_file):
+                    try:
+                        os.remove(legacy_file)
+                    except Exception:
+                        pass
         except Exception:
             pass
 
