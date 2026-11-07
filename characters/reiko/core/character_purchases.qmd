@@ -20,6 +20,11 @@ assign("Lifetime_Nuyen", 90000)
   * Smartgun System (Internal) `{python} modifier('Smartlink (Wireless)', 'autosoft:targeting', 1, type='other', rule_anchor='rules_combat.html#tactical-weapon-arrays', notes='Wireless bonus: +1 dice pool to attack tests (SR6 p. 261)')`
   * Peak-Discharge Laser Battery Clips x5 `{python} inc('Nuyen', -500)`
 * Glitter Grenades x10 `{python} inc('Nuyen', -1000)`
+* Drone Martial Arts (Ramming Attack - Shiawase Man-at-Arms)
+  * *Attack Rating:* 15 (Piloting 7 + Buffed Sensors 8; Close Range 15 / — / — / — / —)
+  * *Damage:* 8P base (MAA Body 15 / 2 rounded up, +1 per current Speed Interval)
+  * *Test:* Piloting + Reaction vs. Defense (CRB p. 201)
+  * *Recoil / Self-Damage:* Attacker resists damage based on target's Body: Target BOD/2 (rounded up, +1/speed interval) for vehicles, or Target BOD/4 (rounded up) for soft metahuman targets (CRB p. 201)
 
 ### Matrix
 
@@ -167,7 +172,6 @@ Under *Double Clutch* p. 123–124, the Man-At-Arms receives 3 free Standard Har
 
 * **Con Specialization (Disguise):** *5 Karma (SRM 2081-12 Downtime)*
 * **Tasking Specialization (Compiling):** *5 Karma (SRM 2081-13 Advancement)*
-* **Electronics Specialization (Complex Forms):** *5 Karma (SRM 2081-13 Advancement)*
 * **Con Rank 2:** *10 Karma (SRM 2083-16 Advancement)*
 * **Resonance Spike (Complex Form):** *5 Karma (SRM 2081-15 Downtime)*
 * **Data Structure Integration (Oracle R4):** *4 Karma (SRM 2081-15 Downtime)*

@@ -8,8 +8,9 @@ from sr6core.publishing.quick_sheet import export_quick_sheet
 
 cm = CharacterManager()
 char_data = cm.get_character_data("reiko") or {}
+repo_dir = cm.get_character_repo_dir("reiko")
 
-sheet_txt = export_quick_sheet(char_data)
+sheet_txt = export_quick_sheet(char_data, char_repo_path=repo_dir)
 ```
 
 ::: {.callout-note}

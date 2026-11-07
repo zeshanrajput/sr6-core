@@ -13,11 +13,32 @@ This document tracks character upgrades, mechanical evaluations, karma/nuyen tar
 * **Living Persona Baseline:** ASDF 7 / 9 / 7 / 9 | Full Defense: 34d6
 * **Active Ally Sprite:** Taz (Level 7 Assassin Sprite; Symbiosis: Cracking +4, Electronics +4, Influence +4, Con +4 [dynamically clamped to Reiko's underlying skill rating; currently +2 on Con, +1 on Influence]).
 * **Resource Economics:** **Karma is the most constrained resource.** Avoid spending 25+ Karma grinding marginal dice in social skills when Knowsofts (Rating 3 @ ¥2,500) and Taz's symbiosis provide ample coverage.
+* **Tabletop Campaign Reality & Res 10 Horizon Calibration:** High-Karma / Prime Runner SRM tables become increasingly scarce as total Karma climbs. Reiko's mechanical viability does not depend on reaching Resonance 10. The core operational spine is **Resonance 9 $\rightarrow$ Submersion Grade 9 $\rightarrow$ Sourceror Stream Shift $\rightarrow$ Dissonant Technomancer (Control) $\rightarrow$ Hyperthreading & Core 5-Sustain Suite**. Resonance 10 and Jack Jockey are treated as an aspirational capstone if high-tier games permit.
+* **Downtime Action Economy & Strict Priority Hierarchy (*SRMG v2.4*, pp. 17–20):**
+  * *Mainline SRM Missions:* Grant **1 Major + 1 Minor** Downtime Activity (or **3 Minors** when taking no Major).
+  * *Convention Mission Packs (CMPs):* Grant **2 Minor Downtime Activities only** (no Major activity granted; Submersion cannot be performed post-CMP).
+  * *Operational Priority Order:* Downtime slots are allocated strictly by priority across all post-run intervals:
+    1. **Submerge if eligible (Major — Mainline SRM only):** Consumes the Major slot when Karma (19K) and narrative/matrix criteria are satisfied (leaves 1 Minor for *Work for the People*).
+    2. **Work for the People (Minor):** Non-negotiable conversion of ¥2,000 $\rightarrow$ +1 Karma (once per run cycle; funded by Reiko's Hooder allocation/mission pay) to feed the Karma pipeline.
+    3. **Register any sprite about to expire (Minor):** Maintain registered sprite inventory (up to 8 Levels/action) before tasks expire, keeping Level 7 Taz and key registered assets alive.
+    4. **Repair / Modify drones (Minor or Major):** Repair combat damage or install DIY hardware on Shiawase Man-at-Arms (e.g., Improved Acceleration, Top Speed Increase) and auxiliary drones.
+    5. **Learn a Complex Form (Minor):** Absorb the next queued complex form from the priority matrix (5 Karma + 1 Minor Action) whenever a Minor slot and 5 banked Karma are free (ideal for the 2nd Minor slot on CMPs).
 * **Immediate Strategic Focus:**
-  1. *Karma (Immediate):* **Electronics Spec: Computers** (5 Karma) to maximize Matrix Perception (19d6 / 21d6 with Oracle) and deep matrix searches.
-  2. *Karma (Mid-Term Capstone):* Bank all incoming Karma directly toward **Resonance 8 $\rightarrow$ 9** (45 Karma) to enter Prime Runner tier.
-  3. *Nuyen (Completed [ACQUIRED]):* Shiawase Man-at-Arms overhaul with **Vector Thrust (LAV)** (HAN 4, ACC 25, SPD 50/300; Iron-Man vector thrusters in limbs, aerodynamically stabilized by scapular wing spars, abdominal bay housing Sky Commander, twin ocular Red Fox laser mounts).
-  4. *Nuyen (Follow-Up Target):* Vector Thrust Subsystem Enhancements: **Improved Acceleration (2 Ranks)** (15,000¥ DIY; pushes combat accel 25 -> 41 m/round / 49.2 km/h) and **Top Speed Increase (3 Ranks)** (12,000¥ DIY; pushes top speed to 480 m/round / 576 km/h / ~358 mph).
+  1. *Karma (Immediate Horizon — Code Freeze Broken):* Following the events of [Chapter 33 (Code Freeze)](file:///c:/GitHub/sr6-core/characters/reiko/narrative/33%20Code%20Freeze.md), Reiko breaks her self-imposed 'code freeze.' Confronted by Cleo about binding her cycles into marginal specializations, and witnessing little Janie's Dissonant scar alongside the dead gray frost crystallizing at the roots of `~`, Reiko pushes minor skill specializations (Electronics Spec: Computers) down the priority queue. She surges directly into architectural scaling, Dissonant mastery, and Sourceror multi-sustain execution:
+     * **Resonance 8 $\rightarrow$ 9** (45 Karma)
+     * **Submersion Grade 9: Hybrid Sprites (Dissonant Submersion)** (19 Karma)
+     * **Stream Shift: Sourceror** (20 Karma)
+     * **Complex Form: Hyperthreading** (5 Karma)
+     * **Dissonant Technomancer Quality (Control / Apophenian)** (15 Karma) + **Dissonant Stigma** (-5 Karma cost offset = 10 net Karma)
+     * **Complex Form: Dissonance Spike** (5 Karma)
+     * **Complex Form: Dissonant Diffusion** (5 Karma)
+     * **Remaining Tier 1 Sourceror Complex Forms (5-Sustain Engine)** (25 Karma: Enhance Autosofts, Infusion DP, Infusion FW, Attack Attribution, Infusion Sleaze)
+     * **Complex Form: Static Bomb** (5 Karma)
+     * **Resonance 9 $\rightarrow$ 10** (50 Karma)
+     * **Quality: Jack Jockey** (11 Karma)
+     * *(Deferred / Lower Backlog: Electronics Spec: Computers — 5 Karma)*
+  2. *Nuyen (Completed [ACQUIRED]):* Shiawase Man-at-Arms overhaul with **Vector Thrust (LAV)** (HAN 4, ACC 25, SPD 50/300; Iron-Man vector thrusters in limbs, aerodynamically stabilized by scapular wing spars, abdominal bay housing Sky Commander, twin ocular Red Fox laser mounts).
+  3. *Nuyen (Follow-Up Target — Unchanged):* Vector Thrust Subsystem Enhancements: **Improved Acceleration (2 Ranks)** (15,000¥ DIY; pushes combat accel 25 -> 41 m/round / 49.2 km/h) and **Top Speed Increase (3 Ranks)** (12,000¥ DIY; pushes top speed to 480 m/round / 576 km/h / ~358 mph).
 
 ---
 
@@ -25,41 +46,61 @@ This document tracks character upgrades, mechanical evaluations, karma/nuyen tar
 
 ```text
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│ PRIORITY 1: IMMEDIATE TACTICAL & SENSORY FOCUS (Current Horizon / 5 Karma)  │
+│ PRIORITY 1: PRIME RESONANCE & DISSONANT SUBMERSION (64 Karma)               │
 ├────────────────────────────────┬──────────────┬──────────────┬──────────────┤
 │ Upgrade Item                   │ Type         │ Cost         │ Primary Role │
 ├────────────────────────────────┼──────────────┼──────────────┼──────────────┤
-│ Electronics Spec: Computers    │ Specializ.   │ 5 Karma      │ Matrix Perc. │
-│                                │              │              │ & Search +2  │
-├────────────────────────────────┴──────────────┴──────────────┴──────────────┤
-│ PRIORITY 2: AERIAL INTERCEPTOR HARDWARE & PRIME RESONANCE (45 Karma / 27k¥) │
-├────────────────────────────────┬──────────────┬──────────────┬──────────────┤
-│ Improved Acceleration (2 Ranks)│ Powertrain   │ 15,000¥      │ Accel 25 ->  │
-│ (+60% Accel; 2 Mod Slots)      │ (DC p. 134)  │ (DIY 50%)    │ 41 m/round!  │
-│ Top Speed Increase (3 Ranks)   │ Powertrain   │ 12,000¥      │ 480 Spd /    │
-│ (+60% Top Speed; 3 Mod Slots)  │ (DC p. 138)  │ (DIY 50%)    │ 576k / 358m  │
 │ Resonance 8 -> 9               │ Attribute    │ 45 Karma     │ Prime Status │
 │                                │ Capstone     │              │ +1 All Pools │
-├────────────────────────────────┴──────────────┴──────────────┴──────────────┤
-│ PRIORITY 3: SUBMERSION 9, SOURCEROR SHIFT & BUFFING MATRIX (69 Karma)       │
-├────────────────────────────────┬──────────────┬──────────────┬──────────────┤
 │ Submersion Grade 9             │ Submersion   │ 19 Karma     │ Preserves    │
 │ • Echo: Hybrid Sprites         │ Echo (H&S 67)│ (Free w/ Sub)│ Cross-Summon │
+│ • Dissonant Submersion Path    │ (SC p. 84)   │ (Enables SC) │ Dissonance In│
+├────────────────────────────────┴──────────────┴──────────────┴──────────────┤
+│ PRIORITY 2: SOURCEROR STREAM SHIFT & HYPERTHREADING (25 Karma)              │
+├────────────────────────────────┬──────────────┬──────────────┬──────────────┤
 │ Stream Shift: Sourceror        │ Stream Qual. │ 20 Karma     │ Zero-Penalty │
 │ (Replaces Technoshaman)        │ (H&S 130-131)│ (Fixed Cost) │ 5-Sustain CFs│
-│ 6x Buffing Complex Forms       │ Complex Forms│ 30 Karma     │ Hyperthread, │
-│ (Hyperthread, Enhance, Infus.) │ (5 Karma ea.)│ (6 Minors)   │ Attrib, Inf. │
+│ Complex Form: Hyperthreading   │ Complex Form │ 5 Karma      │ Combine Forms│
+│                                │ (H&S 131)    │ (1 Minor)    │ 1-Action Cast│
 ├────────────────────────────────┴──────────────┴──────────────┴──────────────┤
-│ PRIORITY 4: RESONANCE 10, DISSONANCE CONTROL & VOID ARSENAL (85 Karma)      │
+│ PRIORITY 3: DISSONANT APERTURE & CONTROL ARSENAL (20 Net Karma)             │
 ├────────────────────────────────┬──────────────┬──────────────┬──────────────┤
-│ Resonance 9 -> 10              │ Attribute    │ 50 Karma     │ Capstone Res │
-│ Submersion Grade 10            │ Submersion   │ 20 Karma     │ Preferred    │
-│ • Dissonance (Control)         │ (SC p. 84-85)│ (Free w/ Sub)│ Target: Dev. │
-│ 3x Advanced Dissonance Forms   │ Complex Forms│ 15 Karma     │ Diss. Spike, │
-│ (Diss. Spike, Diss. Diff, Bomb)│ (5 Karma ea.)│ (3 Minors)   │ Diff., Bomb  │
-│ Knowsoft: Garmonbozia (R3)     │ Knowsoft R3  │ ¥1,500       │ E-Nation Lore│
+│ Dissonant Technomancer         │ Quality Path │ 15 Karma     │ 1/2 Edge &   │
+│ (Control / Apophenian)         │ (SC p. 84)   │ (SC Entry)   │ Target: Dev. │
+│ Dissonant Stigma               │ Neg. Quality │ -5 Karma     │ Offsets Qual │
+│ (Social / Astral Mark)         │ (SC p. 86-87)│ (Cost Offset)│ +4 Run Heat  │
+│ Complex Form: Dissonance Spike │ Complex Form │ 5 Karma      │ Biofeedback+ │
+│                                │ (SC p. 85)   │ (1 Minor)    │ Unresist Nois│
+│ Complex Form: Dissonant Diff.  │ Complex Form │ 5 Karma      │ Multi-Attrib │
+│                                │ (SC p. 85)   │ (1 Minor)    │ Matrix Melt  │
 ├────────────────────────────────┴──────────────┴──────────────┴──────────────┤
-│ PRIORITY 5: ACQUIRED UPGRADE LEDGER (Archived & Active Benchmarks)          │
+│ PRIORITY 4: SOURCEROR 5-SUSTAIN ENGINE & MATRIX UTILITY (30 Karma)          │
+├────────────────────────────────┬──────────────┬──────────────┬──────────────┤
+│ 5x Buffing Complex Forms       │ Complex Forms│ 25 Karma     │ Autosoft+3,  │
+│ (Enhance, Infus x3, Attrib.)   │ (5 Karma ea.)│ (5 Minors)   │ DP/FW/Sleaze │
+│ Complex Form: Static Bomb      │ Complex Form │ 5 Karma      │ Instant Drop │
+│                                │ (CRB p. 191) │ (1 Minor)    │ Locks/Traces │
+├────────────────────────────────┴──────────────┴──────────────┴──────────────┤
+│ PRIORITY 5: APEX ASCENSION & DIRECT INTERFACE (61 Karma)                    │
+├────────────────────────────────┬──────────────┬──────────────┬──────────────┤
+│ Resonance 9 -> 10              │ Attribute    │ 50 Karma     │ Apex Res     │
+│                                │ Capstone     │              │ Hard Ceiling │
+│ Quality: Jack Jockey           │ Pos. Quality │ 11 Karma     │ Direct Conn: │
+│                                │ (H&S p. 82)  │ (Fixed Cost) │ No Def Edge  │
+├────────────────────────────────┴──────────────┴──────────────┴──────────────┤
+│ PRIORITY 6: DEFERRED SENSORY SPECIALIZATION (Lower Backlog / 5 Karma)       │
+├────────────────────────────────┬──────────────┬──────────────┬──────────────┤
+│ Electronics Spec: Computers    │ Specializ.   │ 5 Karma      │ Matrix Perc. │
+│ (Pushed down post-Ch 33)       │              │              │ & Search +2  │
+├────────────────────────────────┴──────────────┴──────────────┴──────────────┤
+│ HARDWARE FOCUS: AERIAL INTERCEPTOR SUBSYSTEMS (27k¥ DIY / Running in Par.)  │
+├────────────────────────────────┬──────────────┬──────────────┬──────────────┤
+│ Improved Acceleration (2 Ranks)│ Powertrain   │ 15,000¥      │ Accel 25 ->  │
+│ (+60% Accel; 2 Subsys Slots)   │ (DC p. 134)  │ (DIY 50%)    │ 41 m/round!  │
+│ Top Speed Increase (3 Ranks)   │ Powertrain   │ 12,000¥      │ 480 Spd /    │
+│ (+60% Top Speed; 3 Subsys Slot)│ (DC p. 138)  │ (DIY 50%)    │ 576k / 358m  │
+├────────────────────────────────┴──────────────┴──────────────┴──────────────┤
+│ PRIORITY 7: ACQUIRED UPGRADE LEDGER (Archived & Active Benchmarks)          │
 ├────────────────────────────────┬──────────────┬──────────────┬──────────────┤
 │ Vector Thrust (LAV) Conversion │ Anthrodrone  │ ~14,400¥ net │ [ACQUIRED]   │
 │ Twin Red Fox Ocular Mounts     │ Anthrodrone  │ DIY Overhaul │ [ACQUIRED]   │
@@ -71,7 +112,6 @@ This document tracks character upgrades, mechanical evaluations, karma/nuyen tar
 │ Complex Form: Enlighten Autom. │ Complex Form │ 5 Karma      │ [ACQUIRED]   │
 │ Complex Form: Resonance Spike  │ Complex Form │ 5 Karma      │ [ACQUIRED]   │
 │ Tasking Spec: Compiling        │ Specializ.   │ 5 Karma      │ [ACQUIRED]   │
-│ Electronics Spec: Complex Forms│ Specializ.   │ 5 Karma      │ [ACQUIRED]   │
 │ Oracle Data Structure R4       │ Data Struct. │ ¥20k+4 Karma │ [ACQUIRED]   │
 │ Hydrocarbon Fuel Converter     │ Anthrodrone  │ ¥7,500       │ [ACQUIRED]   │
 │ Knowsoft: Japanese Cultural Et.│ Knowsoft R3  │ ¥2,500       │ [ACQUIRED]   │
@@ -85,11 +125,16 @@ This document tracks character upgrades, mechanical evaluations, karma/nuyen tar
 
 ### A. Shiawase Man-at-Arms: Active Vector Thrust (LAV) Propulsion & Subsystem Upgrades
 
-* **Active Propulsion Configuration (*Double Clutch*, pp. 136–138) [ACQUIRED]:**
-  * *System:* Secondary Propulsion (Vector Thrust / LAV) consumes 5 Powertrain Mod Slots. Replaced prior rotor blades and caster wheels.
+* **Active Propulsion Configuration (*Double Clutch*, pp. 136–138):**
+  * *System:* Secondary Propulsion (Vector Thrust / LAV) consumes 5 Powertrain Mod Slots. Replaced prior rotor blades and caster wheels. [ACQUIRED]
   * *Baseline Telemetry:* Handling 4, Acceleration 25, Speed Interval 50, Top Speed 300 (360 km/h / ~223.7 mph).
   * *Chassis Mod Slot Balance:* 11 Chassis slots (Structural Integrity 5 + Realistic Features 4 + Pop-Out Gun Mounts 2), 9/10 Powertrain slots (Vector Thrust 5 + Nitro Boost 2 + High-Flow Coolant Injector 2 = 9, 1 slot free), and 10/10 Electronics slots (Chameleon Coating 2 + Passive Stealth 1 + Increased Sensors Array 2 + 2 shifted to chassis + 3 single sensor expansions per CRB pp. 276–277). Standard cyberlimbs consume 0 drone slots (*DC*, p. 131).
   * *Aesthetic & Tactical Register:* Recessed, flush vectored-thrust micro-turbofans and ducted ground-effect thrusters in forearms and calves, aerodynamically stabilized by scapular wing spars.
+* **Tactical Ramming / "Drone Martial Arts" (*CRB*, p. 201):**
+  * *Test:* Piloting + Reaction vs. Defense (Piloting 7 for Reiko).
+  * *Attack Rating (Close):* Piloting (7) + Buffed Sensors (8) = **15** (15 / — / — / — / —).
+  * *Damage:* Base **8P** ($\lceil\text{Body 15} / 2\rceil$), +1 per Speed Interval.
+  * *Self-Damage / Recoil:* Attacker resists damage based on the *target's* Body: $\lceil\text{Target Body} / 2\rceil$ (+1 per Speed Interval) for vehicle targets, or $\lceil\text{Target Body} / 4\rceil$ for soft targets (e.g. ramming a Bod 4 drone/bike deals 2P back; ramming an unarmored metahuman deals 1P back), resisted with Body.
 * **Queued Subsystem Upgrades (Dedicated Powertrain Subsystem Slots):**
   * *Improved Acceleration (2 Ranks) (*DC*, p. 134):* +60% base acceleration ($25 \rightarrow 33 \rightarrow \mathbf{41\text{ m/round}}$ / 49.2 km/h / ~30.6 mph burst in 3 seconds). Consumes 2 dedicated subsystem slots. Cost: 15,000¥ DIY (Rating $\times$ 15,000¥ base / 2).
   * *Top Speed Increase (3 Ranks) (*DC*, p. 138):* +60% base Top Speed ($300 \rightarrow \mathbf{480\text{ m/round}}$ / 576 km/h / ~357.9 mph). Consumes 3 dedicated subsystem slots. Cost: 12,000¥ DIY (8,000¥ $\times$ Rating base / 2).
@@ -116,8 +161,7 @@ As a Sourceror at Submersion Grade 8–10, Reiko’s Aspect Peripheral allows he
    * *Effect:* Overcomes weak baseline ratings with **Attack 6–8** and **Sleaze 7–8** without spending 40+ Karma on raw Matrix attributes.
 3. **Slot 3: Infusion (Data Processing) + Infusion (Firewall):**
    * *Enabler:* Because Reiko runs cyberprograms and autosofts natively via the *Software Emulator* Echo, she does not waste slots on *Emulate*.
-   * *Effect:* Simple threshold 4 test; 21d6 pool yields 2–3 net hits. Pushes Living Persona DP from 7 $\rightarrow$ **9** (fully uncapping Rating 9 autosofts without permanent Karma buys) and Firewall from 9 $
-ightarrow$ **10/11**.
+   * *Effect:* Simple threshold 4 test; 21d6 pool yields 2–3 net hits. Pushes Living Persona DP from 7 $\rightarrow$ **9** (fully uncapping Rating 9 autosofts without permanent Karma buys) and Firewall from 9 $\rightarrow$ **10/11**.
 4. **Slot 4: Sustain Phantom:**
    * *Stealth Curtain:* Sustained via Taz or native power. Conceals Reiko’s Matrix icon from searches; threshold to detect via specific Matrix Perception equals hits rolled.
 5. **Slot 5: Free Operational / Combat Sustain:**
@@ -125,9 +169,9 @@ ightarrow$ **10/11**.
 
 ---
 
-### C. Complex Form Acquisition Roadmap & Repertoire
+### C. Complex Form & Quality Acquisition Roadmap & Repertoire
 
-Under SRM character advancement (*City Edition: Seattle*, p. 70; *SRMG v2.4*), learning a new complex form costs **5 Karma** and **1 Minor Downtime Action** (absorbing base code in a host).
+Under SRM character advancement (*City Edition: Seattle*, p. 70; *SRMG v2.4*), learning a new complex form costs **5 Karma** and **1 Minor Downtime Action** (absorbing base code in a host). Qualities are acquired between runs / at submersion milestones.
 
 #### 1. Currently Known Complex Forms (8 Total — Fully Active in Repertoire)
 
@@ -140,42 +184,67 @@ Under SRM character advancement (*City Edition: Seattle*, p. 70; *SRMG v2.4*), l
 * **Enlighten Automaton** (*H&S* 64; SRM 2083.15): Buffs drone Pilot and Sensor ratings; auto-passes complex orders.
 * **Resonance Spike** (*CRB* 191; SRM 2081.15): Pure Resonance damage bypassing Matrix armor.
 
-#### 2. Tier 1: The Sourceror 5-Sustain Engine (30 Karma / 6 Downtime Actions)
+#### 2. Stage 1: Prime Transition, Stream Shift & Hyperthreading (45 + 19 + 20 + 5 = 89 Karma)
 
-*Acquired immediately post-Sourceror transition to operationalize the 5-sustain suite:*
+* **Resonance 8 $\rightarrow$ 9 (45 Karma):** Unlocks Prime Runner dice pools and expands maximum Submersion ceiling to Grade 9.
+* **Submersion Grade 9 (19 Karma):**
+  * *Echo: Hybrid Sprites (*H&S* 67):* Permanently decouples cross-sprite compiling from Technoshamanism, allowing full compilation of Machine and Courier sprites under Sourceror.
+  * *Dissonant Submersion Connection (*SC* 84):* Reiko opens the portal to the Dissonance quality path upon submersion.
+* **Stream Shift: Sourceror (20 Karma)** (*H&S* 130–131): Unlocks Aspect Peripheral (sustain $\lfloor\text{Submersion}/2\rfloor$ forms with zero dice pool penalties).
+* **Complex Form: Hyperthreading (5 Karma)** (*H&S* 131): Enables combining multiple complex forms into a single test/action, forming the foundation of her multi-form action economy.
 
-* **5a) Hyperthreading (5 Karma)** (*H&S* 131): Enables combining multiple complex forms into a single test/action.
-* **5b) Enhance Autosofts (5 Karma)** (*H&S* 64): +3 dice pool bonus to all autosoft tests on Man-at-Arms (Slot 1).
-* **5c) Infusion: Data Processing (5 Karma)** (*CRB* 190): Pushes Living Persona DP from 7 $\rightarrow$ 9 (Slot 3; uncaps R9 autosofts).
-* **5d) Infusion: Firewall (5 Karma)** (*CRB* 190): Pushes Living Persona Firewall from 9 $\rightarrow$ 11 (Slot 3).
-* **5e) Attack Attribution (5 Karma)** (*H&S* 62): Replaces weak base Attack (3) with rolled hits (6–8) (Slot 2).
-* **5f) Infusion: Sleaze (5 Karma)** (*CRB* 190): Pushes Living Persona Sleaze from 5 $\rightarrow$ 7–8 (Slot 2).
+#### 3. Stage 2: Dissonance Aperture & Control Arsenal (20 Net Karma / 2 Minor Actions)
 
-#### 3. Tier 2: Dissonance (Control) & Void Arsenal (15 Karma / 3 Downtime Actions)
+Acquired via the Dissonant Technomancer quality path (*Shadow Cast*, pp. 84–87) following Submersion 9:
 
-*Acquired post-Submersion 10 under the Dissonant Technomancer (Control/Apophenian) path (*Shadow Cast*, pp. 84–85):*
+* **Quality: Dissonant Technomancer (Control / Apophenian) (15 Karma)** (*SC* 84):
+  * *Aptitude:* Control (Apophenian).
+  * *Preferred Target:* **Devices** (rigged anthrodrones, cyberware, weapons, turrets, vehicles).
+  * *Game Effect:* When taking a Matrix action or using a complex form affecting devices, the cost of any Edge boosts or actions on behalf of the related test are **halved (round up)**.
+* **Quality: Dissonant Stigma (-5 Karma Cost Offset)** (*SC* 86–87):
+  * *Social / Astral Telemetry:* Non-Dissonant technomancers observe her Dissonant frequency (+4 Heat modifier on run end if observed by non-Dissonants; Astral Assensing threshold against her reduced by submersion grade).
+  * *Cost Rule:* Bonus Karma directly reduces the Karma cost of the Dissonant Technomancer quality from 15 $\rightarrow$ **10 net Karma**.
+* **Complex Form: Dissonance Spike (5 Karma / 1 Minor)** (*SC* 85): Deals lethal biofeedback; surviving targets suffer 1 un-reductable Matrix noise per unresisted damage box for 1d6 minutes (hyperthreads with *Resonance Spike* or *Cyber Spike*!).
+* **Complex Form: Dissonant Diffusion (5 Karma / 1 Minor)** (*SC* 85): Strips multiple Matrix attributes simultaneously on a single cast (hyperthreads with *Diffusion: Firewall*!).
 
-* **8a) Dissonance Spike (5 Karma)** (*SC* 85): Deals lethal biofeedback; surviving targets suffer 1 un-reductable Matrix noise per unresisted damage box for 1d6 minutes (hyperthreads with *Resonance Spike*!).
-* **8b) Dissonance Diffusion (5 Karma)** (*SC* 85): Strips multiple Matrix attributes simultaneously on a single cast (hyperthreads with *Diffusion: Firewall*!).
-* **8c) Static Bomb (5 Karma)** (*CRB* 191): Breaks all Matrix locks, active traces, and spots instantly in one action.
+#### 4. Stage 3: Tier 1 Sourceror 5-Sustain Engine & Static Bomb (30 Karma / 6 Minor Actions)
 
-Someday: Jack Jockey (HnS 82): Devices connected to directly do not benefit from PAN firewalls.
+Operationalizes the zero-penalty 5-sustain suite alongside instantaneous trace-dropping utility:
+
+* **Enhance Autosofts (5 Karma)** (*H&S* 64): +3 dice pool bonus to all autosoft tests on Man-at-Arms (Slot 1).
+* **Infusion: Data Processing (5 Karma)** (*CRB* 190): Pushes Living Persona DP from 7 $\rightarrow$ 9 (Slot 3; uncaps R9 autosofts).
+* **Infusion: Firewall (5 Karma)** (*CRB* 190): Pushes Living Persona Firewall from 9 $\rightarrow$ 11 (Slot 3).
+* **Attack Attribution (5 Karma)** (*H&S* 62): Replaces weak base Attack (3) with rolled hits (6–8) (Slot 2).
+* **Infusion: Sleaze (5 Karma)** (*CRB* 190): Pushes Living Persona Sleaze from 5 $\rightarrow$ 7–8 (Slot 2).
+* **Complex Form: Static Bomb (5 Karma)** (*CRB* 191): Breaks all Matrix locks, active traces, and spots instantly in one action.
+
+#### 5. Stage 4: Apex Ascension & Direct Connection Mastery (61 Karma)
+
+* **Resonance 9 $\rightarrow$ 10 (50 Karma):** Apex Capstone Resonance rating. Hard ceiling of current biological/persona evolution.
+* **Quality: Jack Jockey (11 Karma)** (*H&S* 82):
+  * *Direct Connection Superiority:* When direct-connected to a target of her Matrix Action or complex form:
+    1. No Edge may be gained or spent on behalf of the defense test against her.
+    2. The target does not gain the protection of any external Firewall (such as a host or PAN master)—only its own device Firewall applies.
+    3. If the target device is powered off, Reiko may use a Control Device action to power it on.
 
 ---
 
-### D. Electronics Specializations: Computers vs. Complex Forms
+### D. Electronics Specializations: Pushed Down Priority Queue
 
-* **Acquired:** *Software* (Chargen), *Complex Forms* (SRM.2081.13).
-* **Next Target:** **Electronics Spec: Computers (5 Karma):**
-  * Directly boosts Matrix Perception, deep file searches, and system threat analysis.
-  * With Oracle R4 active, her Matrix Perception pool reaches **19d6 / 21d6** with Major Action search intervals.
+* **Acquired:** *Software* (Chargen).
+* **Deferred Backlog: Electronics Spec: Computers (5 Karma):**
+  * Pushed down from Priority 1 following [Chapter 33 (Code Freeze)](file:///c:/GitHub/sr6-core/characters/reiko/narrative/33%20Code%20Freeze.md).
+  * While +2 to Matrix Perception and deep file searches remains a solid sensory polish (reaching 19d6 / 21d6 with Oracle R4), Reiko has abandoned incremental dice hoarding in favor of ontological scaling. Her cycles are urgently required for Resonance 9/10, Sourceror execution, and Dissonant subtraction to resolve the crisis facing `~` and the young technomancers of New Orleans.
 
 ---
 
-### E. Philosophy & Alliances: Null Sect vs. Garmonbozia
+### E. Philosophy & Metaphysics: Code Freeze Broken & The Dissonant Investigation
 
-* **Garmonbozia:** Trades in refined metahuman suffering, panic, and emotional trauma ([Ch 29 Saturation](file:///c:/GitHub/sr6-core/characters/reiko/narrative/29%20Saturation.md)). Reiko recoils ethically from exploiting pain.
-* **Null Sect:** Cold, austere, incorruptible defragmenters. They purge noise, corruption, and entropy without greed or sadism. Siding with Null Sect against Garmonbozia's trauma-vampirism gives Reiko a principled, machine-sovereign stance: she prunes entropy to protect living minds, not to profit from their screams.
+* **The Code Freeze Broken ([Ch 33 Code Freeze](file:///c:/GitHub/sr6-core/characters/reiko/narrative/33%20Code%20Freeze.md)):** In the Mississippi host, Cleo confronted Reiko with unforgiving clarity: Reiko was drowning her processing cycles in tea ceremonies, voice modulation tables, and marginal skill specializations because she was terrified that compiling into her true scale would make her outgrow meatspace and her family.
+* **The Imperative to Comprehend Dissonance:**
+  * When 11-year-old Janie's Dissonant scar resisted Aisling's Song of Creation, Reiko recognized that pouring unbuffered, raw Resonance into fragile metahuman wetware would burn out a child's brain rather than cure her.
+  * Concurrently, Discidium's systematic rotting of Foundation transfer conduits and the dead gray frost creeping across the quartz door frame of `~` proved that the barrier between Resonance and Dissonance is actively collapsing.
+  * Reiko commits to studying Dissonant subtraction (Control / Apophenian) not out of nihilism or submission to Mr. Nagai's Floor 297, but to engineer a structural cure, stabilize the transfer circuits, and protect living minds from unraveling.
 
 ---
 
@@ -183,32 +252,32 @@ Someday: Jack Jockey (HnS 82): Devices connected to directly do not benefit from
 
 | Step | Target Upgrade | Cost | Downtime Actions Needed | Funding Mechanism & Status |
 | :---: | :--- | :--- | :--- | :--- |
-| **01** | **Electronics Spec: Computers** | **5 Karma** | None (Between runs) | **ACTIVE TARGET** (2/5 Karma Banked; +2 Matrix Perc./Search) |
-| **--** | **Vector Thrust (LAV) Conversion** | **~14,400¥ net** | 1 Minor Action (DIY Install) | Credited hardware net swap (Top Spd 300 / 360 km/h / 224 mph) |
+| **01** | **Resonance 8 $\rightarrow$ 9** | **45 Karma** | None (Between runs) | Hoarded Mission Karma (Prime Runner Capstone; +1 all pools/Fade) |
 | **--** | **Improved Acceleration (2 Ranks)** | **15,000¥** | 1 Minor Action (DIY Install) | Liquid Nuyen (DIY 50%; Accel 25 $\rightarrow$ 41 m/round / 49.2 km/h) |
 | **--** | **Top Speed Increase (3 Ranks)** | **12,000¥** | 1 Minor Action (DIY Install) | Liquid Nuyen (DIY 50%; Top Spd 480 / 576 km/h / 358 mph!) |
-| **02** | **Resonance 8 $\rightarrow$ 9** | **45 Karma** | None (Between runs) | Hoarded Mission Karma (Prime Runner Capstone; +1 all pools/Fade) |
-| **03** | **Submersion Grade 9 (Echo: Hybrid Sprites)** | **19 Karma** | None (Post-mission) | Banked Karma (Permanently preserves sprite cross-breeding) |
-| **04** | **Stream Transition: Sourceror** | **20 Karma** | None (Between runs) | Unlocks Hyperthreading & 4-Sustain Zero-Penalty Suite! |
-| **05a** | **Complex Form: Hyperthreading** | **5 Karma** | 1 Minor Action (Study) | Enables multi-form single-action casting |
-| **05b** | **Complex Form: Enhance Autosofts** | **5 Karma** | 1 Minor Action (Study) | Slot 1: +3 dice pool bonus to all autosofts |
-| **05c** | **Complex Form: Infusion (Data Processing)** | **5 Karma** | 1 Minor Action (Study) | Slot 3: DP 7 $\rightarrow$ 9 (uncaps R9 autosofts) |
-| **05d** | **Complex Form: Infusion (Firewall)** | **5 Karma** | 1 Minor Action (Study) | Slot 3: Firewall 9 $\rightarrow$ 11 |
-| **05e** | **Complex Form: Attack Attribution** | **5 Karma** | 1 Minor Action (Study) | Slot 2: Replaces Attack 3 with rolled hits (6–8) |
-| **05f** | **Complex Form: Infusion (Sleaze)** | **5 Karma** | 1 Minor Action (Study) | Slot 2: Sleaze 5 $\rightarrow$ 7–8 |
-| **06** | **Resonance 9 $\rightarrow$ 10** | **50 Karma** | None (Between runs) | Hoarded Mission Karma (Apex Capstone; unbinds Sub 10) |
-| **07** | **Submersion Grade 10: Dissonance (Control)** | **20 Karma** | None (Post-mission) | Apophenian: Half Edge costs & wild die fade reduction on devices |
-| **08a** | **Complex Form: Dissonance Spike** | **5 Karma** | 1 Minor Action (Study) | Lethal biofeedback + noise aura (hyperthreads with Res Spike) |
-| **08b** | **Complex Form: Dissonance Diffusion** | **5 Karma** | 1 Minor Action (Study) | Strips multiple attributes (hyperthreads with FW Diffusion) |
-| **08c** | **Complex Form: Static Bomb** | **5 Karma** | 1 Minor Action (Study) | Breaks all active locks, traces, and spots in 1 action |
+| **02** | **Submersion Grade 9 (Echo: Hybrid Sprites)** | **19 Karma** | None (Post-mission) | Banked Karma (Preserves cross-breeding; initiates Dissonant path per SC 84) |
+| **03** | **Stream Transition: Sourceror** | **20 Karma** | None (Between runs) | Unlocks Aspect Peripheral & 4–5 Sustain Zero-Penalty Suite (H&S 130–131) |
+| **04** | **Complex Form: Hyperthreading** | **5 Karma** | 1 Minor Action (Study) | Enables multi-form single-action execution (H&S 131) |
+| **05** | **Quality: Dissonant Technomancer (Control)** | **10 Karma net** | None (Submersion Milestone) | SC 84/86–87: 15 Karma base - 5 Karma Dissonant Stigma offset. 1/2 Edge on Device forms |
+| **06a** | **Complex Form: Dissonance Spike** | **5 Karma** | 1 Minor Action (Study) | SC 85: Biofeedback + unreductable noise aura (hyperthreads w/ Res Spike) |
+| **06b** | **Complex Form: Dissonant Diffusion** | **5 Karma** | 1 Minor Action (Study) | SC 85: Strips multiple Matrix attributes simultaneously (hyperthreads w/ FW Diff) |
+| **07a** | **Complex Form: Enhance Autosofts** | **5 Karma** | 1 Minor Action (Study) | H&S 64: Slot 1: +3 dice pool bonus to all autosofts on Man-at-Arms |
+| **07b** | **Complex Form: Infusion (Data Processing)** | **5 Karma** | 1 Minor Action (Study) | CRB 190: Slot 3: DP 7 $\rightarrow$ 9 (uncaps R9 autosofts without Karma buys) |
+| **07c** | **Complex Form: Infusion (Firewall)** | **5 Karma** | 1 Minor Action (Study) | CRB 190: Slot 3: Firewall 9 $\rightarrow$ 11 |
+| **07d** | **Complex Form: Attack Attribution** | **5 Karma** | 1 Minor Action (Study) | H&S 62: Slot 2: Replaces Attack 3 with rolled hits (6–8) |
+| **07e** | **Complex Form: Infusion (Sleaze)** | **5 Karma** | 1 Minor Action (Study) | CRB 190: Slot 2: Sleaze 5 $\rightarrow$ 7–8 |
+| **08** | **Complex Form: Static Bomb** | **5 Karma** | 1 Minor Action (Study) | CRB 191: Breaks all active locks, traces, and spots in 1 action |
+| **09** | **Resonance 9 $\rightarrow$ 10** | **50 Karma** | None (Between runs) | Hoarded Mission Karma (Apex Capstone; hard ceiling) |
+| **10** | **Quality: Jack Jockey** | **11 Karma** | None (Between runs) | H&S 82: Direct connection ignores PAN firewall & denies defensive Edge |
+| **11** | **Electronics Spec: Computers** | **5 Karma** | None (Between runs) | **DEFERRED** (Pushed down queue post-Ch 33; +2 Matrix Perc./Search) |
 | **--** | **Knowsoft: Garmonbozia (Rating 3)** | **¥1,500** | None (Download) | Liquid Nuyen (E-Nation Cartography & Defense) |
+| **--** | **Vector Thrust (LAV) Conversion** | **~14,400¥ net** | 1 Minor Action (DIY Install) | **ACQUIRED** (Top Spd 300 / 360 km/h / 224 mph) |
 | **--** | **Taz Symbiosis: Influence** | 4 Karma | Completed | **ACQUIRED** (SRM.2083.14) |
 | **--** | **Complex Form: Enlighten Automaton** | 5 Karma | Completed | **ACQUIRED** (SRM.2083.15) |
 | **--** | **Hydrocarbon Fuel Converter** | ¥7,500 | Completed | **ACQUIRED** (SRM.2083.15) |
 | **--** | **Taz Symbiosis: Con** | 4 Karma | Completed | **ACQUIRED** (SRM.2081.12) |
 | **--** | **Con Spec: Disguise** | 5 Karma | Completed | **ACQUIRED** (SRM.2081.12) |
 | **--** | **Tasking Spec: Compiling** | 5 Karma | Completed | **ACQUIRED** (SRM.2081.13) |
-| **--** | **Electronics Spec: Complex Forms** | 5 Karma | Completed | **ACQUIRED** (SRM.2081.13) |
 | **--** | **Con Rank 1 $\rightarrow$ 2** | 10 Karma | Completed | **ACQUIRED** (SRM.2083.16) |
 | **--** | **Complex Form: Resonance Spike** | 5 Karma | Completed | **ACQUIRED** (SRM.2081.15) |
 | **--** | **Oracle Data Structure R4** | ¥20k+4K | Completed | **ACQUIRED** (SRM.2081.15) |

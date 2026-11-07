@@ -160,13 +160,12 @@ def test_export_reiko_commlink_xml():
 
     # Standard vehicle accessories (<accessories>)
     accs = maa.findall(".//accessories/item")
-    assert len(accs) >= 15, "All vehicle modifications must be serialized into accessories"
+    assert len(accs) >= 12, "All vehicle modifications must be serialized into accessories"
     acc_refs = [a.get("ref") for a in accs]
     assert "chameleon_coating" in acc_refs
     assert "increased_integrity" in acc_refs
     assert "realistic_features" in acc_refs
     assert "secondary_propulsion_system" in acc_refs
-    assert "tires_small" in acc_refs
     assert "drone_rack" in acc_refs
 
 

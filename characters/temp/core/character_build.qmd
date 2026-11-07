@@ -1,49 +1,47 @@
-# Character Creation (Life Path)
+---
+title: "Character Creation (Point Buy)"
+identity:
+  id: ouro
+  name: Takahashi Ouroboros
+  handle: Ouro
+  real_name: Takahashi Ouroboros
+  metatype: AI-Pilot AI
+  stream: Sourcerors
+  gender: MALE
+  age: ~ 1
+  system: shadowrun6e
+---
 
-The character was created using the Life Path rules in Sixth World Companion (6WC p. 30–48).
-This build implements a Dalakitnon Mystic Adept equipped with an implanted cyberjack and skillwires system (Option B),
-combining full astral/magical mastery with formidable Matrix capabilities and hot-swappable skillwire flexibility.
+# Character Creation (Point Buy)
 
-Per 6WC p. 32:
-> "You must take exactly eight life modules. You may take one—and only one—module twice."
+This page tracks the character creation process for **Takahashi Ouroboros ("Ouro")**, a 2nd generation Pilot AI Technomancer (Emerged Intelligence) built using the Point Buy system (*Sixth World Companion*, p. 28–30) and the Digital Intelligence and Codesmithing rules (*Hack & Slash*, p. 114–128).
 
-This build exercises that rule by taking **`Event: You were overwhelmed, but things worked out` twice**, representing multiple crucible trials that forged unbreakable willpower, mental resilience, and expanded mana reserves.
+Ouro represents a second-generation resonant artificial life form within the Takahashi digital matrix architecture (sharing kinship with Reiko / `r31k0 Takahashi`). Unlike biological technomancers, Ouro is a living digital entity who interfaces with the physical meat world through an anthro **Nurse Maid** drone frame while utilizing specialized codemods, living persona arrays, and resonant complex forms in the Matrix.
 
 ```{python}
 #| echo: false
 #| include: false
 # Initial stats
-Body = 0
-Agility = 0
-Reaction = 0
-Strength = 0
+Firewall = 0
+Data_Processing = 0
+Sleaze = 0
+Attack = 0
 Willpower = 0
 Logic = 0
 Intuition = 0
 Charisma = 0
-Magic = 0
+Resonance = 0
 Edge = 0
-Essence = 6.0
+Spark = 6.0
 
-Athletics = 0
-Con = 0
-Cracking = 0
+Tasking = 0
 Electronics = 0
-Influence = 0
-Perception = 0
-Sorcery = 0
-Conjuring = 0
-Stealth = 0
+Cracking = 0
 
 Karma = 0
 Nuyen = 0
 Contact_Points = 0
-
-MCT = "K"
-Small_Unit_Tactics = "K"
-Wuxing = "K"
-Spirit_Types = "K"
-Hacker_Groups = "K"
+Character_Points = 0
 
 def inc(name, amount=1):
     globals()[name] += amount
@@ -61,405 +59,446 @@ def inc_many(*pairs):
         op = "+=" if amount >= 0 else "-="
         res.append(f"{name} {op} {abs(amount)}")
     return ", ".join(res)
+
+from sr6core.character.ledger import complex_form, echo, language, modifier, knowledge_skill
 ```
 
-## Born This Way
+Shadowrunners are built with **100 Character Points (CP)** and gain **50 points of customization Karma** (*6WC*, p. 28).
 
-* Starting Karma: `{python} assign('Karma', 50)`
-* Metatype: Elf
-* Metavariant: Dalakitnon `{python} inc('Karma', -5)`
-* Starting Attributes:
-  * Dalakitnon increased maximums (Agility 7, Logic 8, Intuition 7, Charisma 8) start at 2.
-  * All other attributes start at 1.
-* Attribute Values:
-  * `{python} assign('Agility', 2)`
-  * `{python} assign('Charisma', 2)`
-  * `{python} assign('Body', 1)`
-  * `{python} assign('Reaction', 1)`
-  * `{python} assign('Strength', 1)`
-  * `{python} assign('Willpower', 1)`
-  * `{python} assign('Logic', 2)`
-  * `{python} assign('Intuition', 2)`
-  * `{python} assign('Edge', 1)`
-* Awakened: Mystic Adept `{python} assign('Magic', 1)`
-* Metagenic Qualities: None per SRM p. 54
-* Nationality: TBD
-* Native Language: English
-* Qualities:
-  * Brilliant Heuristics: `{python} inc('Karma', -10)`
-  * Injury Prone: `{python} inc('Karma', 15)`
+* `{python} assign('Character_Points', 100)`
+* `{python} assign('Karma', 50)`
 
-## Growing Up: Early Childhood and Adolescence
+---
 
-* Four Childhood Skills (Rank 2):
-  * Electronics: `{python} assign('Electronics', 2)`
-  * Influence: `{python} assign('Influence', 2)`
-  * Perception: `{python} assign('Perception', 2)`
-  * Stealth: `{python} assign('Stealth', 2)`
-* Qualities:
-  * Hooder (R3): `{python} inc('Karma', 15)`
-* Knowledge: East Asian Pop Culture
+## 1. Choose Your Metatype/Metavariant
 
-## Coming of Age: Early Adult and Transition to Adulthood
+* **Metatype**: **AI / Pilot AI** (*Hack & Slash*, p. 114) `{python} inc('Karma', 0)`
+* **Digital Intelligence Trait**: Digital Intelligences replace biological physical attributes with Living Persona Matrix attributes (*Hack & Slash*, p. 114–120):
+  * Body $\rightarrow$ **Firewall** (Base 1, Racial Max 6)
+  * Agility $\rightarrow$ **Data Processing** (Base 1, Racial Max 7)
+  * Reaction $\rightarrow$ **Sleaze** (Base 1, Racial Max 6)
+  * Strength $\rightarrow$ **Attack** (Base 1, Racial Max 7)
+* **Mental Attribute Maxima**:
+  * Willpower: Base 1, Racial Max 6
+  * Logic: Base 1, Racial Max 5
+  * Intuition: Base 1, Racial Max 8
+  * Charisma: Base 1, Racial Max 5
+* **Inherent Virtual Life Form Qualities** (*Hack & Slash*, p. 114):
+  * **Pilot Origins (Rating 1)**: Inherent metatype trait reflecting core flight/vehicle heuristic foundations.
+  * **Sensor Upgrade**: Inherent metatype trait enhancing sensory processing telemetry.
 
-* Strongest Talent (Rank 4):
-  * Conjuring: `{python} assign('Conjuring', 4)`
-* Best Attribute (+5):
-  * Logic: `{python} inc('Logic', 5)` (Starts at 2, increases to 7; Dalakitnon racial max is 8)
-* Starting Resources and Contact:
-  * Childhood Contact (4 Points) & Resources (25,000¥): `{python} inc_many(('Contact_Points', 4), ('Nuyen', 25000))`
+---
 
-## Adult Life Modules
+## 2. Choose Mundane, Awakened, or Emerged
 
-To acquire the **Used Skill Rig PACK B** (skilljack 5 + skillwires 5) and an **Alphaware Cyberjack Rating 1**, alongside a cyberdeck and full runner gear, life modules are selected to maximize funding (accumulating **250,000¥**), bring Magic to 6 pre-ware, max Logic at 8, reach Willpower 5, and balance remaining picks between Agility and Intuition.
+* **Emerged (Technomancer)**: `{python} inc('Character_Points', -10)`
+* Technomancers start with `{python} assign('Resonance', 1)`.
+* Unlocks access to complex forms (up to $\text{Resonance} \times 2$), purchasable at 2 CP or 5 Karma each (*6WC*, p. 29).
 
-### 1. Magical Studies (Choice: Awakened Only)
+---
 
-Intensive formal arcane study to master the foundations of spellcraft and spirit summoning.
+## 3. Purchase Special / Metatype Adjustment Points with CP
 
-* Choose one: +1 to Edge, Magic, or +25,000¥: `{python} inc('Magic')` (Magic 1 -> 2)
-* Choose one: +2 to Astral, Conjuring, Enchanting, or Sorcery: `{python} inc('Conjuring', 2)` (Conjuring 4 -> 6 starting max)
-* Choose one: +1 to Astral, Conjuring, Enchanting, or Sorcery: `{python} inc('Sorcery')` (Sorcery 0 -> 1)
-* Contact Points: `{python} inc('Contact_Points', 2)` (Academic, Magic)
-* Knowledge Skill: Spirit Types
+* All characters start with 1 Edge: `{python} inc('Edge', 1)`
+* All characters start with 1 metatype adjustment point for free: `{python} inc('Resonance', 1)` (Resonance 1 $\rightarrow$ 2)
+* You may purchase up to 12 additional adjustment points at 4 CP each (*6WC*, p. 29):
+  * 4 points to Edge: `{python} inc('Edge', 4)` : `{python} inc('Character_Points', -16)` (Edge 1 $\rightarrow$ 5)
+  * 4 points to Resonance: `{python} inc('Resonance', 4)` : `{python} inc('Character_Points', -16)` (Resonance 2 $\rightarrow$ 6 pre-codemod)
+* Total CP spent on Special Adjustments: **32 CP** (8 points $\times$ 4 CP).
 
-### 2. Adept Training (Choice: Adepts Only)
+---
 
-Harnessing inward somatic mana flow to enhance nervous reaction times and intellect.
+## 4. Purchase Attributes with CP
 
-* Choose one: +1 to Edge or Magic: `{python} inc('Magic')` (Magic 2 -> 3)
-* Choose one: +1 to Body, Agility, Reaction, or Strength: `{python} inc('Reaction')` (Reaction 1 -> 2)
-* Choose one: +1 to Charisma, Intuition, Logic, or Willpower: `{python} inc('Logic')` (Logic 7 -> 8 Dalakitnon racial max)
-* Choose one: +1 to any skill: `{python} inc('Sorcery')` (Sorcery 1 -> 2)
-* Contact Points: `{python} inc('Contact_Points', 2)` (Magic)
-* Knowledge Skill: Small Unit Tactics
+All Matrix and mental attributes start at minimum 1:
 
-### 3. Hacker (Choice)
+* `{python} assign('Firewall', 1)` (Body equivalent)
+* `{python} assign('Data_Processing', 1)` (Agility equivalent)
+* `{python} assign('Sleaze', 1)` (Reaction equivalent)
+* `{python} assign('Attack', 1)` (Strength equivalent)
+* `{python} assign('Willpower', 1)`
+* `{python} assign('Logic', 1)`
+* `{python} assign('Intuition', 1)`
+* `{python} assign('Charisma', 1)`
 
-Delving into underground matrix networks, mastering system architecture and illicit exploits.
+All characters receive 4 attribute points for free (*6WC*, p. 29):
+* `{python} inc('Intuition', 4)` (Intuition 1 $\rightarrow$ 5)
 
-* Choose one: +1 to Intuition, Logic, or Willpower: `{python} inc('Willpower')` (Willpower 1 -> 2)
-* Choose one: +2 to Cracking, Electronics, Edge, or Resonance: `{python} inc('Cracking', 2)` (Cracking 0 -> 2)
-* Choose one: +1 to Cracking, Electronics, or +25,000¥: `{python} inc('Nuyen', 25000)` (+25,000¥ resources)
-* Contact Points: `{python} inc('Contact_Points', 2)` (Academic, Criminal, Matrix)
-* Knowledge Skill: Hacker Groups
+You may purchase up to 20 additional attribute points for 2 CP each (20 points max, 40 CP):
+* `{python} inc('Firewall', 4)` : `{python} inc('Character_Points', -8)` (Firewall 1 $\rightarrow$ 5)
+* `{python} inc('Data_Processing', 4)` : `{python} inc('Character_Points', -8)` (Data Processing 1 $\rightarrow$ 5)
+* `{python} inc('Willpower', 4)` : `{python} inc('Character_Points', -8)` (Willpower 1 $\rightarrow$ 5)
+* `{python} inc('Logic', 3)` : `{python} inc('Character_Points', -6)` (Logic 1 $\rightarrow$ 4; Pilot AI cap is 5)
+* `{python} inc('Intuition', 2)` : `{python} inc('Character_Points', -4)` (Intuition 5 $\rightarrow$ 7; Pilot AI cap is 8)
+* `{python} inc('Charisma', 3)` : `{python} inc('Character_Points', -6)` (Charisma 1 $\rightarrow$ 4; Pilot AI cap is 5)
 
-### 4. Event: You Benefited from the Influence of a Mentor (Event)
+Total CP spent on Attributes: **40 CP** (20 points $\times$ 2 CP).
 
-A veteran shadowrunner and hermetic scholar recognized the unique hybrid potential of this adept, providing deep arcane training and seed funding.
+::: {.callout-tip title="Attribute Legality Verification"}
+* **Racial Caps**: Firewall 5 / 6, Data Processing 5 / 7, Sleaze 1 / 6, Attack 1 / 7, Willpower 5 / 6, Logic 4 / 5, Intuition 7 / 8, Charisma 4 / 5.
+* **Chargen Max Constraint**: *SR6 CRB* p. 66 permits at most one attribute at maximum during chargen. In this build, **zero attributes are at their racial maximum**, leaving headroom across the entire array.
+:::
 
-* +2 to Edge, Magic, or Resonance: `{python} inc('Magic', 2)` (Magic 3 -> 5)
-* +1 to any skill: `{python} inc('Sorcery')` (Sorcery 2 -> 3)
-* Resources: `{python} inc('Nuyen', 25000)` (+25,000¥)
-* Contact Points: `{python} inc('Contact_Points', 4)`
+---
 
-### 5. Event: You Came into a Large Sum of Money (Event)
+## 5. Purchase Skills with CP
 
-An unexpected financial windfall (inheritance, liquidated corporate black-budget data, or illicit lottery payout) providing major capital for neurotechnology.
+We take the three Matrix/Resonant skills because a Digital Intelligence (DI) from the Resonance Realms uses these skills in daily life per HnS Rules for Foundations ("Actions in the Foundation", pg. 141 and "Operating in the Realms", pg. 158).
 
-* Resources: `{python} inc('Nuyen', 100000)` (+100,000¥)
-* Contact Points: `{python} inc('Contact_Points', 4)`
-* Complication Quality: Distinctive Style `{python} inc('Karma', 6)`
+All characters start with 12 skill points for free (*6WC*, p. 29):
+* `{python} inc('Tasking', 6)` (Base 0 $\rightarrow$ 6)
+* `{python} inc('Electronics', 5)` (Base 0 $\rightarrow$ 5)
+* `{python} inc('Cracking', 1)` (Base 0 $\rightarrow$ 1)
 
-### 6. Event: You Got Away with a Lucrative Theft (Event)
+Additional skill points cost 2 CP each:
+* `{python} inc('Cracking', 4)` : `{python} inc('Character_Points', -8)` (Cracking 1 $\rightarrow$ 5)
 
-A successful corporate laboratory heist targeting prototype tech and research bearer bonds, testing physical mettle.
+Total CP spent on Skills: **8 CP** (4 points $\times$ 2 CP).
 
-* Resources: `{python} inc('Nuyen', 75000)` (+75,000¥)
-* +1 to any attribute or special attribute: `{python} inc('Strength')` (Strength 1 -> 2)
-* Contact Points: `{python} inc('Contact_Points', 4)`
-* Complication Quality: Hunted `{python} inc('Karma', 6)`
+---
 
-### 7. Event: You Were Overwhelmed, but Things Worked Out (Event — 1st Time)
+## 6. Purchase Resources with CP
 
-A harrowing physical and spiritual crisis that pushed mental resolve to the absolute brink, forging unbreakable willpower and expanding raw magical reserves.
+* All characters start with `{python} assign('Nuyen', 10000)` (10,000¥ free).
+* We purchase **10 CP of resources** at 20,000¥ per CP (*6WC*, p. 29):
+  * `{python} inc_many(('Nuyen', 200000), ('Character_Points', -10))`
 
-* +1 to Agility, Body, Reaction, or Strength: `{python} inc('Body')` (Body 1 -> 2)
-* +2 to Charisma, Intuition, Logic, or Willpower: `{python} inc('Willpower', 2)` (Willpower 2 -> 4)
-* +1 to Edge, Magic, or Resonance: `{python} inc('Magic')` (Magic 5 -> 6 pre-ware)
-* Contact Points: `{python} inc('Contact_Points', 4)`
-* Quality: Focused Concentration (R3) `{python} inc('Karma', -36)`
+Total CP spent on Resources: **10 CP** (+200,000¥ $\rightarrow$ **210,000¥ total budget**).
 
-### 8. Event: You Were Overwhelmed, but Things Worked Out (Event — 2nd Time, Repeated)
+::: {.callout-tip title="Resource CP Optimization (+4 CP Recovered)"}
+In the raw XML (`Ouro.xml`), CommLink 6 logged `"cpToResources": 14` (290,000¥). However, after taking all 4 codemods as Omega-Grade, accounting for the Nurse MAID drone's stock benefits, and verifying exact program prices (Basic Programs @ 60¥, MeFeed @ 0¥, Nexus Protocol @ 1,000¥), Ouro's core baseline equipment only totals **208,340¥**. 
 
-Per 6WC p. 32, one module may be taken twice. A second major crisis solidified the adept's willpower to its final target, sharpened perceptive instincts, honed physical agility, and bolstered luck.
+By reducing resource investment from 14 CP to **10 CP (210,000¥)**, Ouro fully funds every single item from the XML with **1,660¥** in pocket cash, **freeing up 4 Character Points (CP)** to spend on Attributes, Special Attributes, Skills, or Complex Forms!
+:::
 
-* +1 to Agility, Body, Reaction, or Strength: `{python} inc('Agility')` (Agility 2 -> 3)
-* +2 to Charisma, Intuition, Logic, or Willpower:
-  * `{python} inc('Willpower')` (Willpower 4 -> 5 target max)
-  * `{python} inc('Intuition')` (Intuition 2 -> 3)
-* +1 to Edge, Magic, or Resonance: `{python} inc('Edge')` (Edge 1 -> 2)
-* Contact Points: `{python} inc('Contact_Points', 4)`
+---
 
-## Attributes and Skills Summary (Pre-Augmentation)
+## 7. Character Points (CP) Balance Verification
+
+| Step | Allocation | CP Spent | Remaining CP |
+|:---|:---|:---:|:---:|
+| **Starting Pool** | Base CP (*6WC*, p. 28) | — | 100 |
+| **Step 2** | Emerged (Technomancer) | 10 | 90 |
+| **Step 3** | Special Adjustments (Edge +3, Resonance +4) | 28 | 62 |
+| **Step 4** | Attributes (20 bought points @ 2 CP) | 40 | 22 |
+| **Step 5** | Skills (4 bought points @ 2 CP) | 8 | 14 |
+| **Step 6** | Resources (10 CP @ 20,000¥) | 10 | **4** |
+
+::: {.callout-important title="Available Unspent Character Points: 4 CP"}
+Ouro currently has **4 unspent CP** in reserve. Potential allocations include:
+* **Special Attributes (4 CP)**: +1 to Edge (Edge 4 $\rightarrow$ **5**) OR +1 to Resonance (Resonance 5 $\rightarrow$ **6**, buying back the Spark loss!).
+* **Skills (2 CP each)**: 2 additional skill points (e.g. Cracking 5 $\rightarrow$ **6**), OR two skill specializations (e.g. Tasking: *Registering* & Cracking: *Hacking*).
+* **Complex Forms (2 CP each)**: Purchase up to 2 additional complex forms with CP instead of Karma.
+:::
+
+---
+
+## 8. Summary of Attributes and Skills (Pre-Codemod)
 
 | Attributes | Current Value | Notes |
 |:---|:---:|:---|
-| Body | `{python} Body` | Minimum 2 threshold met |
-| Agility | `{python} Agility` | Boosted to 3 (Dalakitnon racial max 7) |
-| Reaction | `{python} Reaction` | Minimum 2 threshold met |
-| Strength | `{python} Strength` | Minimum 2 threshold met |
-| Willpower | `{python} Willpower` | Maxed at 5 (target reached) |
-| Logic | `{python} Logic` | Maxed at 8 (Dalakitnon racial max) |
-| Intuition | `{python} Intuition` | Boosted to 3 (Dalakitnon racial max 7) |
-| Charisma | `{python} Charisma` | Minimum 2 threshold met (Dalakitnon racial max 8) |
-| Edge | `{python} Edge` | Minimum 2 threshold met |
-| Magic (Pre-Ware) | `{python} Magic` | Base 6 before cyberware Essence reduction |
+| Firewall (Body) | `{python} Firewall` | Base living persona resilience |
+| Data Processing (Agility) | `{python} Data_Processing` | Pilot AI racial cap is 7 |
+| Sleaze (Reaction) | `{python} Sleaze` | Standard living persona stealth |
+| Attack (Strength) | `{python} Attack` | Pilot AI racial cap is 7 |
+| Willpower | `{python} Willpower` | Fading and defense resistance |
+| Logic | `{python} Logic` | Matrix perception and programming (Max 5) |
+| Intuition | `{python} Intuition` | Initiative and hacking intuition (Max 8) |
+| Charisma | `{python} Charisma` | Sprite compilation and persona composure (Max 5) |
+| Edge | `{python} Edge` | Tactical rerolls and edge boosts |
+| Resonance (Pre-Codemod) | `{python} Resonance` | Base 6 before Spark reduction |
 
-| Skills (Natural) | Current Value | Notes |
+| Skills | Current Value | Notes |
 |:---|:---:|:---|
-| Conjuring | `{python} Conjuring` | Starting max 6 achieved (Coming of Age 4 + Magical Studies 2) |
-| Sorcery | `{python} Sorcery` | Rank 3 (Magical Studies 1 + Adept Training 1 + Mentor 1) |
-| Electronics | `{python} Electronics` | Rank 2 natural (augmented to 5 via Activesoft) |
-| Cracking | `{python} Cracking` | Rank 2 natural (augmented to 5 via Activesoft) |
-| Stealth | `{python} Stealth` | Rank 2 (Childhood 2) |
-| Perception | `{python} Perception` | Rank 2 (Childhood 2) |
-| Influence | `{python} Influence` | Rank 2 (Childhood 2) |
-| Spirit Types | K | Knowledge skill (Magical Studies) |
-| Small Unit Tactics | `{python} Small_Unit_Tactics` | Knowledge skill (Adept Training) |
-| Hacker Groups | K | Knowledge skill (Hacker) |
-| East Asian Pop Culture | K | Knowledge skill (Childhood) |
-
-* Total Nuyen Accumulated: **`{python} Nuyen`¥**
-* Total Contact Points Accumulated: **`{python} Contact_Points` Points**
-* Current Karma Pool: **`{python} Karma` Karma**
+| Tasking | `{python} Tasking` | Maximum chargen rating (Compiling & Registering) |
+| Electronics | `{python} Electronics` | Hardware, Software, Computer |
+| Cracking | `{python} Cracking` | Cybercombat, Electronic Warfare, Hacking |
 
 ---
 
-## Qualities Inventory
+## 9. Codemods, Spark, and Resonance Impact
 
-The character possesses **3 Inherent Metatype Traits** and exactly **6 Selected Qualities** (2 Positive, 4 Negative), strictly complying with the 6WC character creation ceiling of 6 non-metatype qualities and the 20 bonus Karma limit.
+In *Hack & Slash* (p. 125–128), digital intelligences augment their core code through **Codemods**. Instead of biological Essence, AIs possess **Spark** (base 6.0). Codemods induce **Spark Loss**, functioning identically to cyberware Essence reduction for Awakened/Emerged characters.
 
-### Qualities Summary Table
+By taking all codemods as **Omega-Grade (Used)** code (*Hack & Slash*, p. 125), Ouro reduces the nuyen cost of every codemod by **50%** at the trade-off of a $+10\%$ increase in Spark loss ($\times 1.1$).
 
-| Quality | Category | Rating | Karma | Source | Origin / Lifecycle Step |
-|:---|:---:|:---:|:---:|:---|:---|
-| **Allergy (Spices, Moderate)** | Inherent (Racial) | — | 0 | 6WC p. 78 | *Born This Way* (Dalakitnon Trait) |
-| **Gender Transmorphism** | Inherent (Racial) | — | 0 | 6WC p. 78 | *Born This Way* (Dalakitnon Trait) |
-| **Low-Light Vision** | Inherent (Racial) | — | 0 | 6WC p. 78 / CRB p. 70 | *Born This Way* (Dalakitnon Trait) |
-| **Brilliant Heuristics** | Positive | 1 | -10 | *Hack & Slash* p. 80 | *Born This Way* |
-| **Focused Concentration** | Positive | 3 | -36 | CRB p. 71 | *Event: Overwhelmed (1st)* |
-| **Injury Prone** | Negative | 1 | +15 | 6WC p. 137 | *Born This Way* |
-| **Hooder** | Negative | 3 | +15 | 6WC p. 137 | *Growing Up* |
-| **Distinctive Style** | Negative | 1 | +6 | CRB p. 75 | *Event: Large Sum of Money* |
-| **Hunted** | Negative | 1 | +6 | 6WC p. 137 | *Event: Lucrative Theft* |
-| *Coven Affiliation (Turgan Magnu)* | *Special* | — | -6 | *Street Wyrd* p. 128 | *Finishing Touches* |
-| *Analytical Mind (Planned)* | *Positive (In-Play)* | 1 | -6 | CRB p. 70 | *In-Play Priority (Post-Chargen)* |
+### Codemods Suite (All Omega-Grade / Used)
 
-* **Total Non-Metatype Qualities**: **6 / 6 Maximum** (2 Positive, 4 Negative)
-* **Total Non-Metatype Qualities at Chargen**: **6 / 6 Maximum** (2 Positive, 4 Negative)
-* **Total Negative Quality Karma**: **+42 Karma**
-* **Total Positive Quality Karma**: **-46 Karma**
-* **Net Quality Karma**: **-4 Karma** (Net Karma expenditure; fully compliant with the 6WC $\le +20$ net bonus Karma ceiling)
-* **Planned In-Play Addition**: **Analytical Mind** is deliberately deferred to post-chargen. Because it costs only $2 \times 3 = \mathbf{6\text{ Karma}}$ in play (CRB p. 68), acquiring it post-chargen avoids consuming one of the 6 scarce character creation quality slots.
+1. **Synthetic Skill Driver: Activesoft (Rating 6) [Omega-Grade]** (*Hack & Slash*, p. 125, 127)
+   * **Cost**: Base 150,000¥ $\times 0.5$ = **75,000¥** `{python} inc('Nuyen', -75000)` (saves 75,000¥)
+   * **Spark Loss**: Base $6 \times 0.1 = 0.60 \times 1.1 = \mathbf{0.66\text{ Spark}}$
+   * **Effect**: Dedicated virtual skilljack hook supporting any single Activesoft up to Rating 6.
+2. **Data Archive Upgrade [Omega-Grade]** (*Hack & Slash*, p. 125, 126)
+   * **Cost**: Base 4,000¥ $\times 0.5$ = **2,000¥** `{python} inc('Nuyen', -2000)` (saves 2,000¥)
+   * **Spark Loss**: Base $0.10 \times 1.1 = \mathbf{0.11\text{ Spark}}$
+   * **Effect**: Grants the character the **Photographic Memory** quality (*CRB*, p. 73) via core sensory data storage.
+3. **Optimized Restoration [Omega-Grade]** (*Hack & Slash*, p. 125, 126)
+   * **Cost**: Base 10,000¥ $\times 0.5$ = **5,000¥** `{python} inc('Nuyen', -5000)` (saves 5,000¥)
+   * **Spark Loss**: Base $0.10 \times 1.1 = \mathbf{0.11\text{ Spark}}$
+   * **Effect**: Dramatically accelerates core programming restoration and realignment cycles.
+4. **Acid Jet (Digital Weapon) [Omega-Grade]** (*Hack & Slash*, p. 103, 125, 128)
+   * **Cost**: Base 5,000¥ $\times 0.5$ = **2,500¥** `{python} inc('Nuyen', -2500)` (saves 2,500¥)
+   * **Spark Loss**: Base $0.10 \times 1.1 = \mathbf{0.11\text{ Spark}}$
+   * **Effect**: Alternate Data Spike attack that targets and dissolves the target icon's **Firewall** instead of Data Processing.
 
----
+### Spark and Resonance Calculation
 
-### Detailed Quality Profiles
-
-#### Inherent Metatype Traits (Dalakitnon)
-
-1. **Allergy (Spices, Moderate)**
-   * **Source**: *Sixth World Companion* p. 78
-   * **Mechanics**: Exposure to common culinary spices (specifically garlic, mustard, sage, and cinnamon) triggers an acute systemic reaction, inflicting a **-2 dice pool penalty** on all actions while exposed.
-   * **Narrative Impact**: Demands strict vigilance over street food and rations. The character avoids soy-curry stalls and heavily spiced sprawl delicacies, preferring sterile, bland nutri-pastes or personally prepped meals.
-2. **Gender Transmorphism**
-   * **Source**: *Sixth World Companion* p. 78
-   * **Mechanics**: A biologically unique trait found exclusively in Dalakitnon elves. The character can fluidly adjust their external physical gender presentation over time without requiring invasive nanotech or cosmetic surgery.
-   * **Narrative Impact**: Serves as a profound infiltration and disguise asset. Combined with the Nanopaste Disguise kit, the character can completely cycle phenotypic identity across runs.
-3. **Low-Light Vision**
-   * **Source**: *Sixth World Companion* p. 78 / *SR6 Core* p. 70
-   * **Mechanics**: Allows clear vision in dim or unlit environments (starlight, moonlight, dim subterranean glow) without suffering visibility modifiers, provided there is at least a minimal photon source.
-   * **Narrative Impact**: Vital for navigating the dark corridors of the Seattle Ork Underground and unlit corporate maintenance conduits.
-
-#### Positive Qualities
-
-4. **Brilliant Heuristics**
-   * **Source**: *Hack & Slash* p. 80 | **Cost**: 10 Karma
-   * **Mechanics**: By spending a **Minor Action** to calibrate processing architecture immediately prior to taking a Matrix Action on a cyberdeck, add **half the Data Processing attribute (rounded up)** as bonus dice to the test.
-   * **Tactical Synergy**: With the Alphaware Cyberjack Rating 1 providing **Data Processing 4**, this grants a flat **+2 bonus dice** on any calibrated Matrix test (boosting Hacking / Cracking and Software / Electronics from 14 to **16 dice**!).
-5. **Focused Concentration (Rating 3)**
-   * **Source**: *SR6 Core* p. 71 | **Cost**: 36 Karma (12 Karma / rank)
-   * **Mechanics**: The character compartmentalizes their consciousness to sustain up to **3 spells simultaneously** without suffering the standard -2 dice pool penalty per sustained spell.
-   * **Tactical Synergy**: Fundamental to the Mystic Adept's casting economy. While preparing to Quicken spells (or in situations where quickened spells are temporarily dispelled), the adept can sustain *Increase Reflexes*, *Increase Attribute*, and a utility spell (such as *Invisibility* or *Armor*) with zero sustaining drag.
-
-#### Negative Qualities
-
-6. **Injury Prone**
-   * **Source**: *Sixth World Companion* p. 137 | **Bonus**: 15 Karma
-   * **Mechanics**: Whenever the character takes damage from any source (Physical or Stun), they immediately take **one extra box of that damage type**.
-   * **Narrative Impact**: Reflects an ethereal, delicate physical frame unsuited for brute trauma. Explains why the character prioritizes staying in the shadows, relying on sustained *Armor* / *Increase Reflexes*, full matrix distance, and heavy concealment.
-7. **Hooder (Rating 3)**
-   * **Source**: *Sixth World Companion* p. 137 | **Bonus**: 15 Karma (5 Karma / rank)
-   * **Mechanics**: A deep altruistic compulsion to aid the vulnerable. The character must tithe or donate at least **1,000¥ per rank every month (3,000¥/month)** toward charitable sprawl causes, medical clinics, or refugee shelters (and cannot direct these funds to teammates).
-   * **Narrative Impact**: Explains their deep, enduring relationship with **Turgan Magnu** in the Ork Underground. Their illicit earnings from corporate heists and decking directly fund clinics and defensive wards for under-sprawl communities.
-8. **Distinctive Style**
-   * **Source**: *SR6 Core* p. 75 | **Bonus**: 6 Karma
-   * **Mechanics**: Observers attempting to identify, recall, or track the character receive a threshold 2 Memory test or benefit from +2 Edge/pool on visual recognition.
-   * **Narrative Impact**: Alabaster-pale skin, vivid white hair, an upper lip lacking a philtrum (Dalakitnon hallmark), and a polished chrome data port nestled beneath fair elven locks make them impossible to forget once seen without holographic disguise.
-9. **Hunted (Rating 1)**
-   * **Source**: *Sixth World Companion* p. 137 | **Bonus**: 6 Karma
-   * **Mechanics**: An enemy syndicate or corporate black-ops squad from their previous heist (*Event: Lucrative Theft*) actively seeks revenge. Whenever the character's personal Heat reaches 15 or higher, an assassin strike team locates them.
-   * **Narrative Impact**: Generates perpetual background tension and operational discipline, requiring rigorous spoofing, burner commlinks, and operational security to keep their safehouse coordinates masked.
+* Initial Spark: **6.00**
+* Total Spark Loss: $0.66 + 0.11 + 0.11 + 0.11 = \mathbf{0.99\text{ Spark}}$ `{python} inc('Spark', -0.99)`
+* Remaining Spark: **`{python} round(Spark, 2)`**
+* **Resonance Reduction**:
+  * Per *SR6 CRB* p. 66 and *Hack & Slash* p. 125, crossing an integer Essence/Spark boundary drops Resonance by 1 point.
+  * Because remaining Spark is **5.01** (safely above the 5.0 boundary by 0.01 Spark!), it crosses only the 6.0 integer boundary $\rightarrow$ **Resonance drops from 6 to 5** `{python} inc('Resonance', -1)`.
+  * *Economic Arbitrage*: Taking all 4 codemods as Omega-Grade saves a cumulative **84,500¥** (cutting total codemods cost from 169,000¥ to **84,500¥**) while keeping final Spark strictly above 5.0, incurring zero additional Resonance loss!
 
 ---
 
-## Finishing Touches: Option B (Skillwires & Cyberjack Array)
+## 10. Qualities & Customization Karma (50 Karma Budget)
 
-With **250,000¥** in accumulated resources and Magic starting at **6**, we implement **Option B**: implanting a **Used Skill Rig PACK B** and an **Alphaware Cyberjack Rating 1**.
+### Qualities Selection
 
-### 1. Augmentation Array & Essence Impact ($\le 2.0$ Essence Loss)
+* **Positive Qualities**:
+  * **Sourceror Stream** (*Hack & Slash*, p. 129): `{python} inc('Karma', -20)`
+    * A stream of technomancy rooted in threading. 
+      * All complex form Threading tests reduce Fade Value by 2.
+      * Sustain up to 1/2 Submersion Grade (rounded down) in complex forms without penalty.
+        * During hacking scenes this will be hyperthreaded *Attack Attribution* and *Sleaze Attribution*, granting Ouro a base ATK/SLZ of 4/4 with bought hits before assigning RES bonus points or sprite symbiosis bonuses.
+        * During physical/meat drone operations this will be sustained *Enlighten Automaton* to boost the Nurse Maid chassis' Sensor rating from 3 to 5 (effective Device Rating 9 with home device optimization), preventing opponents from gaining automatic Edge from Ouro's Data Processing 9 and unlocking full Rating 9 autosoft execution.
+  * **Natural Hacker** (*Hack & Slash*, p. 80): `{python} inc('Karma', -15)`
+    * May substitute RES for any mental attribute in matrix actions or defense tests.
+* **Negative Qualities**:
+  * **Sprite Bane (Primal)** (*CRB*, p. 77): `{python} inc('Karma', 12)`
+    * Primal matrix entities and wild resonance creatures harbor deep, instinctual hostility toward Ouro.
+  * **Glitchy** (*6WC*, p. 136): `{python} inc('Karma', 12)`
+    * Whenever you glitch it counts as a critical glitch regardless of the number of hits you have rolled.
+  * **Hooder (Rating 3)** (*6WC*, p. 137): `{python} inc('Karma', 15)`
+    * Dedicated to community aid, requiring ¥1,000/rank monthly tithing (¥3,000/month). Directly funds the *Working for the People* downtime action (+1 Karma/month).
+  * **Honorbound (Pirate's Code)** (*CRB*, p. 76–77): `{python} inc('Karma', 10)`
+    * Bound by an inviolable ethical code. Unlocks the *Candle in the Dark* quality pathway in post-chargen advancement.
+* **Inherent & Conferred Qualities**:
+  * **Pilot Origins (Rating 3)** (*Hack & Slash*, p. 114–115): `{python} inc('Karma', -16)`
+    * Inherent Pilot AI metatype trait (Rating 1 free). Upgraded by 2 ranks to Rating 3 (8 Karma/level), granting the full benefits of a **Rating 3 Control Rig** when jumped into drones/vehicles and allowing loading/converting autosofts up to Data Processing.
+  * *Sensor Upgrade*: Inherent Metatype Trait (*Hack & Slash*, p. 114).
+  * *Photographic Memory*: Conferred by *Data Archive Upgrade* codemod (*Hack & Slash*, p. 126).
 
-* **Skill Rig PACK B (Used, 6WC p. 62)**:
-  * Augmentations: Skilljack Rating 5 (Used) + Skillwires Rating 5 (Used)
-  * Essence Cost: **1.10 Essence** `{python} inc('Essence', -1.10)`
-  * Cost: **125,000¥** `{python} inc('Nuyen', -125000)`
-  * Capacity: Can run any Knowsofts or Linguasofts and up to two Rating 5 Activesofts simultaneously.
-  * Included Software: 1 Rating 5 Activesoft (**Cracking 5**)
-* **Cyberjack Rating 1 (Alphaware, CRB p. 283)**:
-  * Base Essence: 1.0 | Alphaware Multiplier: x0.8 -> **0.80 Essence Cost** `{python} inc('Essence', -0.80)`
-  * Cost: 45,000 x 1.2 = **54,000¥** `{python} inc('Nuyen', -54000)` | Availability: 3 + 1 = 4(L)
-  * Persona Matrix Attributes: Data Processing **4**, Firewall **3**
-  * Matrix VR Initiative Bonus: +1 Initiative Die (Cold-sim 2d6 / Hot-sim 3d6)
-* **Total Essence & Magic Impact**:
-  * Total Essence Loss: $1.10 + 0.80 = \mathbf{1.90\text{ Essence}}$ (Strictly $\le 2.0$)
-  * Remaining Essence: **4.10**
-  * Magic Reduction: 2 whole Essence boundaries crossed -> Magic drops from 6 to **4** `{python} inc('Magic', -2)`
-
-### 2. The Skillwire System & Karma Arbitrage
-
-Activesofts replace physical active skills (everything not based on Magic or Resonance). Because magic cannot be channeled through wires, Sorcery (3) and Conjuring (6) remain purely natural. For Matrix and meatspace tasks, the Skill Rig unlocks massive efficiency:
-
-* **Activesoft #1 (Included in PACK B)**: **Cracking (Rating 5)**
-* **Activesoft #2 (Purchased)**: **Electronics (Rating 5)**: `{python} inc('Nuyen', -25000)` (25,000¥)
-* **Wireless Skillwire Bonus**: When connected to the Matrix, skillwires provide a **+1 dice pool modifier** to all skills used through them.
-* **Matrix Dice Pools with Logic 8**:
-  * Hacking / Cracking (Activesoft 5 + Logic 8 + 1 wireless): **14 dice**
-  * Software / Electronics (Activesoft 5 + Logic 8 + 1 wireless): **14 dice**
-  * Matrix Initiative: Intuition 3 + Logic 8 = 11 + 2d6 (Cold-sim) or 11 + 3d6 (Hot-sim)
-* **Hot-Swappable Flexibility**:
-  * Slotting an Activesoft for **Firearms (Rating 5)** immediately yields **9 dice** (Skill 5 + Agility 3 + 1 wireless).
-  * Slotting **Athletics (Rating 5)** or **Stealth (Rating 5)** immediately yields **9 dice**.
-* **Karma Savings**:
-  * Raising Cracking and Electronics naturally from rank 1 to 5 would cost **140 Karma** ($2 \times [10 + 15 + 20 + 25]$).
-  * Rebuying Magic from 4 back to 5 post-chargen costs only **25 Karma** (New Rating $5 \times 5 = 25\text{ Karma}$).
-  * This generates over **115+ net Karma in savings**, allowing immediate high-level Matrix competence while preserving character progression for metamagics and initiating.
+::: {.callout-note title="Qualities Accounting"}
+* **Total Non-Metatype Qualities**: Exactly 6 (2 Positive, 4 Negative), strictly complying with the 6-quality chargen ceiling (*CRB*, p. 66).
+* **Positive Karma**: -35 Karma.
+* **Negative Karma**: +49 Karma (+12 Sprite Bane, +12 Glitchy, +15 Hooder, +10 Honorbound).
+* **Net Quality Karma**: **+14 Karma** (Strictly complying with the $\le +20$ net bonus Karma ceiling).
+* **Pilot Origins Upgrade**: -16 Karma (Advancement of inherent metatype trait to max rank 3).
+:::
 
 ---
 
-### 3. Cyberdeck & Runner Equipment Budget
+## 11. Submersion, MUG Affiliation, Foci, and Complex Forms
 
-After the Skill Rig (125,000¥), Cyberjack (54,000¥), and extra Activesoft (25,000¥), **46,000¥** remains:
+### Matrix User Group (MUG) Affiliation: River People
 
-* **Cyberdeck: Erika MCD-6**:
-  * Device Rating: 1 | Attack: 4 | Sleaze: 2 | Program Slots: 1
-  * Cost: **11,000¥** `{python} inc('Nuyen', -11000)` | Availability: 4(I)
-* **Remaining Gear Suite (35,000¥)**:
-  * TBD (Rating 6 Fake SIN) + Licenses (Magician, Cyberjack, Cyberdeck): `{python} inc('Nuyen', -17400)` (17,400¥)
-  * Transys Avalon Commlink (DR 6): `{python} inc('Nuyen', -2500)` (2,500¥)
-  * Ares SecureTech SkinShield Armor (+2 DR, concealed): `{python} inc('Nuyen', -3150)` (3,150¥)
-  * Contacts R3 (Image Link, Flare Comp, Low-Light Vision): `{python} inc('Nuyen', -1375)` (1,375¥)
-  * Savior Medkit (R6) & Refill: `{python} inc('Nuyen', -2300)` (2,300¥)
-  * Nanopaste Disguise Kit & Refill: `{python} inc('Nuyen', -1700)` (1,700¥)
-  * Cyberprograms (Browse, Configurator, Exploit, Stealth): `{python} inc('Nuyen', -1000)` (1,000¥)
-  * Starting Pocket Cash: `{python} Nuyen`¥
+Per *Street Wyrd* p. 128 and *SRMG v2.4* p. 59–60, joining an established Matrix User Group (MUG) or magical coven requires spending **6 Karma**:
+* `{python} inc('Karma', -6)`
 
----
+Joining the **River People** (Loyalty 4) grants standard group initiation/submersion discounts: the Karma cost of each Submersion is discounted by the group's Loyalty rating (**-4 Karma per grade**). 
 
-### 4. Customization Karma, Initiation, and Coven Membership
+### Submersion & Echoes (Grade 2 with MUG Discount)
 
-* **Customization Karma Accumulated**: `{python} Karma` Karma (41 Karma available)
-* **Join Magical Coven — Turgan Magnu**:
-  * Per *Street Wyrd* p. 128 (*Making, Joining, and Leaving Groups*), joining an existing magical group requires spending **6 Karma**: `{python} inc('Karma', -6)`
-  * Membership provides access to magical lodge facilities, training in beginner thaumaturgy, reagents sourcing, and group ritual support.
-* **Initiation Grade 1 & Quickening Metamagic**:
-  * Base Initiation Cost (CRB p. 70): $10 + \text{Initiate Grade} = 10 + 1 = 11\text{ Karma}$.
-  * Coven Benefit (*Street Wyrd* p. 129): Being an active member of a magical group reduces initiation cost by the group's Loyalty rating (**Loyalty 4** $\rightarrow$ -4 Karma).
-  * Discounted Initiation Cost: $11 - 4 = \mathbf{7\text{ Karma}}$ `{python} inc('Karma', -7)`
-  * Metamagic Selected: **Quickening** (CRB p. 168). Allows the caster to take a Major Action and spend Karma while sustaining a spell to make the spell permanently sustained on their aura without sustaining dice pool penalties.
-* **The Magic Rebuy Economy**:
-  * Per SR6 CRB p. 66, raising an attribute with customization Karma costs (New Rating x 5) Karma.
-  * Rebuying Magic from 4 back to 5 costs **25 Karma** (New Rating $5 \times 5 = 25\text{ Karma}$): `{python} inc('Magic')`, `{python} inc('Karma', -25)`
-  * This restores starting Magic to **5**, leaving **`{python} Karma` Karma** in reserve (ideal for spending 1–2 Karma to quicken spells upon casting).
-* **Initial Spells & Power Points (at Magic 5, Initiate Grade 1)**:
-  * **Free Spells (from Magic)**:
-    1. **Increase Reflexes** (CRB p. 138): Health Spell, Sustained. Adds +1 Initiative Score and +1 Initiative Die per hit on Spellcasting test (max +4 dice). High-priority target for **Quickening** to achieve permanent 4d6 initiative dice in meatspace without bioware!
-    2. **Increase Attribute** (CRB p. 138): Health Spell, Sustained. Increases a designated attribute (such as Logic, Intuition, or Agility) by +1 per net hit up to metatype augmented max (+4). Another premier target for **Quickening**!
-  * **Power Points (Adept Side, 2.5 PP)**:
-    * Sharp Tongue (1.0)
-    * Commanding Voice (1.0)
-    * Command Presence (0.5)
+* **Submersion Grade 1**:
+  * Base Cost (*CRB*, p. 195): $10 + 1 = 11\text{ Karma}$
+  * River People Group Discount (Loyalty 4): $-4\text{ Karma}$
+  * Final Cost: $11 - 4 = \mathbf{7\text{ Karma}}$ `{python} inc('Karma', -7)` `{python} echo('Sprite Conduit')`
+  * **Echo: Sprite Conduit**: Enables direct resonance channeling through compiled and registered sprites.
+* **Submersion Grade 2**:
+  * Base Cost: $10 + 2 = 12\text{ Karma}$
+  * River People Group Discount (Loyalty 4): $-4\text{ Karma}$
+  * Final Cost: $12 - 4 = \mathbf{8\text{ Karma}}$ `{python} inc('Karma', -8)` `{python} echo('Sprite Symbiosis')`
+  * **Echo: Sprite Symbiosis**: Weaves the living persona's defensive architecture directly into active companion sprites.
 
----
+::: {.callout-tip title="MUG Karma Arbitrage (+2 Karma Net Saved)"}
+* Total Submersion base cost: $11 + 12 = 23\text{ Karma}$.
+* Discounted Submersion cost with River People: $7 + 8 = 15\text{ Karma}$ (**8 Karma saved**).
+* Net savings after 6 Karma group join fee: $8 - 6 = \mathbf{+2\text{ Karma net savings}}$!
+:::
 
-### 5. Contacts Allocation (30 Points Available)
+### Focus Bonding
 
-#### Seattle Ork Underground
-* **Turgan Magnu** (Magical Coven / Initiation Group, Connection 5 / Loyalty 4): `{python} inc('Contact_Points', -9)`
-  * *Street Wyrd* p. 138: An established, grassroots coven of Awakened underground residents based in Seattle's Ork Underground, protecting against feral and toxic subterranean threats while providing beginner training, mutual defense, and initiation guidance.
+* **Resonance Focus (Rating 4)**:
+  * Bonding Cost: $\text{Rating} \times 1 = \mathbf{4\text{ Karma}}$ `{python} inc('Karma', -4)`
+  * `{python} modifier("Resonance Focus", "attribute:resonance", 4, type="focus", rule_anchor="rules/rules_matrix.html#foci", notes="+4 dice to tests using RES")`
+  * Provides **+4 dice** to all Resonance-linked tests, raising Ouro's effective Resonance dice pool from 5 to **9**!
 
-#### Seattle
-* Brynne Taggart (Corporate Johnson / Fixer, Connection 4 / Loyalty 2): `{python} inc('Contact_Points', -6)`
-* Vincent Grisome (Matrix Information Broker, Connection 4 / Loyalty 1): `{python} inc('Contact_Points', -5)`
+### Complex Forms
 
-#### New Orleans
-* Claudette Laurier (Talisman / Reagents Dealer, Connection 4 / Loyalty 1): `{python} inc('Contact_Points', -5)`
+Technomancers purchase complex forms for 5 Karma each (*6WC*, p. 29):
 
-#### Hong Kong
-* Hana (Triad Decking Specialist, Connection 4 / Loyalty 1): `{python} inc('Contact_Points', -5)`
+* **Attack Attribution** (*Hack & Slash*, p. 62–63):
+  * `{python} inc('Karma', -5)` `{python} complex_form('Attack Attribution', fading='Hits', duration='Sustained', target='Persona', notes='Target gains Attack attribute equal to hits on Electronics + RES test.')`
+  * Elevates Ouro's baseline living persona Attack attribute from 1 to 4 with bought hits, unlocking combat cyberprograms and direct offensive matrix exploits.
+* **Sleaze Attribution** (*Hack & Slash*, p. 66–67):
+  * `{python} inc('Karma', -5)` `{python} complex_form('Sleaze Attribution', fading='Hits', duration='Sustained', target='Persona', notes='Target gains Sleaze attribute equal to hits on Electronics + RES test.')`
+  * Elevates Ouro's baseline living persona Sleaze attribute from 1 to 4 with bought hits, unlocking silent running and covert Matrix infiltration.
+* **Enlighten Automaton** (*Hack & Slash*, p. 130):
+  * `{python} inc('Karma', -5)` `{python} complex_form('Enlighten Automaton', fading=4, duration='Sustained', target='Piloted Device', notes='Increase Pilot or Sensors of device by 1 per 2 net hits.')`
+  * Critical operational form: Increases the Nurse Maid drone's Sensor rating from 3 to 5 (+2 with 4 bought hits), raising effective Device Rating in Ouro's home device to 9 ($5 + 4$) to match Ouro's augmented Data Processing 9 and avoid granting opponents automatic Edge.
+* **Hyperthreading** (*Hack & Slash*, p. 131):
+  * `{python} inc('Karma', -5)` `{python} complex_form('Hyperthreading', fading=3, duration='Immediate', target='Persona', notes='Allows simultaneous threading of multiple complex forms in a single action.')`
+  * Tactical accelerator granting action economy and the ability to bundle multiple forms in a single action.
 
 ---
 
-### 6. Mid-Run Cyberware Upgrade Roadmap: Deltaware Cyberjack Rating 2
-## In-Play Advancement Roadmap
+## 12. Equipment, Drone Chassis, and Software Budget (210,000¥ Baseline)
 
-As an in-play operational milestone, the adept retains the **Deltaware Cyberjack Rating 2** as their premier campaign advancement objective.
-This section outlines immediate post-chargen character advancement goals, establishing clear milestones for Karma and Nuyen expenditure during campaign play.
+### 1. Drone & Chassis: Nurse MAID Anthro Drone (Deadly Arts, p. 57, 177)
 
-### 1. Priority Quality Acquisition: Analytical Mind (6 Karma)
+* **Nurse Maid Anthro Drone**: **57,500¥** `{python} inc('Nuyen', -57500)`
+  * *Handling*: 3/4 | *Speed*: 15 | *Accel*: 5 | *Body*: 8 | *Armor*: 6 | *Pilot*: 4 | *Sensor*: 3
+  * *Factory Embedded Features (Stock Free Benefits)*:
+    * **2x Anthroform Cyberarms with built-in Shock Limbs**: The "Thunder Slap". Delivers 4S(e) electrical shock attacks. *(Note: The Krime Gloves in the raw XML were an artifact to model these stock shock limbs; removed to refund 1,050¥).*
+    * **Stock Biotech Autosoft (Rating 6)**: Included free from Ares factory.
+    * **Stock Close Combat Autosoft (Rating 4)**: Included free from Ares factory.
+    * **Integrated Medkit (Rating 4)**: Included free.
+    * **Realistic Features (Rating 4)**: High-end civilian aesthetic presentation.
+    * Anti-Theft System (Rating 1).
 
-* **Cost**: $2 \times \text{normal cost} = 2 \times 3 = \mathbf{6\text{ Karma}}$ (SR6 CRB p. 68, *Character Advancement Table*).
-* **Downtime Requirement**: Approximately 1 week of dedicated cognitive conditioning and mental exercises.
-* **Chargen Slot Conservation Strategy**:
-  * Character generation imposes a strict ceiling of **6 total non-metatype qualities** (6WC p. 31).
-  * High-value negative qualities (+15 Karma each for *Injury Prone* and *Hooder 3*) and critical positives (*Focused Concentration 3* for 36 Karma, *Brilliant Heuristics* for 10 Karma) fully occupied these 6 slots.
-  * Because *Analytical Mind* only costs **6 Karma** to acquire in play, deferring it post-chargen saved a scarce character creation quality slot while retaining a very low Karma threshold to unlock early in campaign play.
-* **Game Effect & Tactical Payoffs (CRB p. 70)**:
-  * **Mechanics**: *"You gain a bonus Edge when you make any Logic-based test."*
-  * **The Logic 8 Synergy**: With a natural **Logic 8**, the character generates **+1 free Edge on virtually every Matrix action** (Hacking/Cracking, Matrix Perception, Exploit, Edit/Crack File, Disarm Data Bomb, Software/Electronics), Memory tests, deciphering encrypted files, and knowledge tests!
-  * Combined with *Brilliant Heuristics* (+2 to +3 bonus dice), this makes the adept an unstoppable Matrix juggernaut.
+### 2. Data Structure Hardware (*Hack & Slash*, p. 71)
 
-### 2. Cyberware Milestone: Deltaware Cyberjack Rating 2 (162,500¥ / 0.75 Essence)
+* **Resonance Focus (Rating 4) Data Structure Hardware**: **20,000¥** `{python} inc('Nuyen', -20000)`
+  * Per *Hack & Slash* p. 71, Data Structures' list price is **5,000¥ $\times$ Rating** ($5,000¥ \times 4 = 20,000¥$).
 
-As an in-play operational milestone, the adept retains the **Deltaware Cyberjack Rating 2** as their premier technological campaign objective.
+### 3. Custom Autosofts (Rating 9 via Cooperative Coding)
 
-#### Essence & Cyber-Surgery Mechanics
-* **Essence Hole Replacement**: Upgrading from the starting Alphaware Cyberjack R1 (0.80 Essence) to the Deltaware Cyberjack R2 (0.75 Essence) utilizes the existing cranial implant footprint.
-* **Net Essence Gain**: Because Deltaware R2 costs only 0.75 Essence, total Essence loss drops from 1.90 to **1.85 Essence** (Essence increases from 4.10 to **4.15**).
-* **Zero Additional Magic Loss**: Essence remains safely above 4.0, meaning **zero Magic is lost**. 
-* **Expanded Augmentation Headroom**: The resulting **0.15 Essence buffer** (up to the 2.0 Essence boundary) leaves exact headroom to install an eye-mounted **Deltaware Smartlink** (0.10 Essence, 10,000¥) with zero magical degradation!
-* **Surgical Recovery**: Surgery inflicts $\text{Essence} \times 3$ boxes of damage ($0.75 \times 3 \approx 2\text{ boxes}$ of Physical and Stun damage), requiring roughly 1 week of clinic recovery.
+Per *Hack & Slash* p. 55 (*Writing Code*), hackers can write software. Ouro codes autosofts with cooperative assistance from **Reiko** or **Indomitable Will**, unlocking custom autosofts up to **Rating 9**:
 
-#### Financial & Contact Logistics
-* **Target Capital**: **162,500¥** (reduced to ~135,000¥–149,000¥ if trading in or pawning the Alphaware R1 unit).
-* **Black Clinic Access**: Delta-grade installations require specialized medical facilities, attainable through:
-  * A corporate black clinic run brokered by **Brynne Taggart** (C4 / L2 Fixer)
-  * Triad medical contacts in the Walled City network via **Hana** (C4 / L1 Decking Specialist)
-  * Underground surgical favors arranged through the **Turgan Magnu** network.
+* **8 Autosofts @ Rating 9 ($9 \times 500¥ = 4,500¥$ each = 36,000¥)** `{python} inc('Nuyen', -36000)`:
+  * Clearsight (Rating 9): 4,500¥
+  * Evasion (Rating 9): 4,500¥
+  * Maneuvering [Nurse Maid] (Rating 9): 4,500¥
+  * Stealth Auto [Nurse Maid] (Rating 9): 4,500¥
+  * Soft Navigation (Rating 9): 4,500¥
+  * Soft Con / Performance (Rating 9): 4,500¥
+  * Soft Tracking (Rating 9): 4,500¥
+  * Soft Engineering [Industrial Mechanic] (Rating 9): 4,500¥
 
-#### Tactical Payoffs Upon Upgrade
-1. **Matrix Defense**: Data Processing rises to **5**, Firewall rises to **4** (increasing biofeedback resistance and Matrix Defense Rating).
-2. **Brilliant Heuristics Leap**: Spending a Minor Action before a Matrix Action adds $\lceil 5 / 2 \rceil = \mathbf{+3\text{ dice}}$ (up from +2 dice), boosting Hacking / Cracking and Software / Electronics from 14 to **15 dice** (or **17 dice** with a +2 specialization).
+### 4. Datasofts & Utilities (4,850¥ from XML)
+
+* Personal Assistant (Rating 6): **600¥** `{python} inc('Nuyen', -600)`
+  * Commlink app utility (*CRB*, p. 185; $6 \times 100¥ = 600¥$).
+* Mapsoft (Seattle & New Orleans): **100¥** `{python} inc('Nuyen', -100)`
+* Shopsoft (Drones, Weapons, Software): **150¥** `{python} inc('Nuyen', -150)`
+* Soft Knowledge (UnITy): **1,500¥** `{python} inc('Nuyen', -1500)`
+* Soft Language: English (Rating 5): **2,500¥** `{python} inc('Nuyen', -2500)`
+
+### 5. Cyberprograms (2,990¥ from XML)
+
+Per *SR6 CRB* p. 184–185 and *Hack & Slash* p. 81, cyberprograms are priced according to their distinct functional subtypes:
+
+* **Basic Cyberdeck Programs (4 @ 60¥ = 240¥)** `{python} inc('Nuyen', -240)`:
+  * Baby Monitor (60¥), Emulator (60¥), Signal Scrubber (60¥), Toolbox (60¥).
+* **Standard Hacking Programs (5 @ 250¥ = 1,250¥)** `{python} inc('Nuyen', -1250)`:
+  * Armor (250¥), Directional Shield (250¥), Fork (250¥), Hitchhiker (250¥), Overclock (250¥).
+* **Advanced Hacking Program: Nexus Protocol**: **1,000¥** `{python} inc('Nuyen', -1000)`
+  * Advanced matrix topology manipulation routine (*Hack & Slash*, p. 81).
+* **Specialized Commlink App: P-Ice Spines**: **500¥** `{python} inc('Nuyen', -500)`
+  * Retaliatory protective ICE software (*Hack & Slash*, p. 81).
+* **Free Commlink App: MeFeed**: **0¥**
+  * Ubiquitous public grid social feed aggregator (*Hack & Slash*, p. 81).
+
+### 6. Lifestyle
+
+* **Low Lifestyle (1 Month)** (*CRB*, p. 238): **2,000¥** `{python} inc('Nuyen', -2000)`
 
 ---
 
-## Final Character Totals (Option B Applied)
+## 13. Contacts Allocation (24 Points Available)
 
-* Final Magic (Post-Ware & Post-Karma Rebuy): **`{python} Magic`**
-* Initiate Grade: **1** (Metamagic: **Quickening**)
-* Final Essence: **`{python} Essence`**
-* Free Spells: **Increase Reflexes**, **Increase Attribute**
-* Affiliation: **Turgan Magnu** (C5 / L4 Coven)
-* Remaining Unspent Contact Points: **`{python} Contact_Points`**
-* Remaining Pocket Cash: **`{python} Nuyen`¥**
-* Remaining Customization Karma: **`{python} Karma` Karma**
+Starting contact points equal $\text{Charisma} \times 6 = 4 \times 6 = \mathbf{24\text{ Points}}$ (*CRB*, p. 66).
+
+* `{python} inc_many(('Contact_Points', 6 * Charisma))`
+
+### New Orleans Contacts
+
+* **River People** (NOLA MUG / Technomancer Network, **Connection 7 / Loyalty 4**): `{python} inc('Contact_Points', -11)`
+  * Per *SRMG v2.4* p. 59–60, Matrix User Groups and magical covens in SRM may be purchased at **Connection 7**, transcending standard starting Charisma limits.
+  * Expends $7 + 4 = \mathbf{11\text{ contact points}}$, fully utilizing the 3 connection points left unspent in the CommLink 6 XML.
+* **Indomitable Will** (NOLA Resonant EI Sysop, **Connection 3 / Loyalty 2**): `{python} inc('Contact_Points', -5)`
+  * "Uncle Indo": Resonant EI mentor and family friend.
+
+### Other Contacts
+
+* **Reiko Takahashi** (EI, former shadowrunner, **Connection 4 / Loyalty 4**): `{python} inc('Contact_Points', -8)`
+  * "Mother": EI who raised Ouro. Helps with programming, drone maintenance, and maternal advice.
+
+---
+
+## 14. Languages & Knowledge Skills
+
+Free Knowledge skills equal Logic (Logic 4 at chargen), plus one free Native Language (*CRB*, p. 66; *6WC*, p. 29).
+
+* **Mindspeech (Native):** `{python} language('Mindspeech', rating=4, notes='Direct DI/Resonance ideation and machine concept syntax')`
+* **English (Slotted Linguasoft):** `{python} language('English', rating=5, notes='Slotted Linguasoft')`
+* **Resonance Realms:** `{python} knowledge_skill('Resonance Realms', notes='Deep Matrix cartography, Nous currents, and emergent fauna')`
+* **Garmonbozia:** `{python} knowledge_skill('Garmonbozia', notes='Local Knowledge, Political Awareness, DI culture')`
+* **New Orleans Matrix Topology:** `{python} knowledge_skill('New Orleans Matrix Topology', notes='Bayou wild hosts, Gulf relay nodes, and delta fiber trunks')`
+* **Small Unit Tactics:** `{python} knowledge_skill('Small Unit Tactics', notes='Tactical protocols')`
+
+---
+
+## 15. Final Totals & Verification
+
+| Metric | Final Value | Target / Rules Limit | Status |
+|:---|:---:|:---:|:---:|
+| **Character Points (CP)** | `{python} Character_Points` | 0 Remaining (100 Spent) | **Exact Match** |
+| **Edge** | `{python} Edge` | 5 / 6 (Chargen cap: 6) | **Rules Legal** |
+| **Resonance (Post-Codemod)** | `{python} Resonance` | 5 (with +4 Focus = 9 effective) | **Rules Legal** |
+| **Spark (AI Essence)** | `{python} round(Spark, 2)` | 5.01 / 6.00 (0.99 loss) | **Rules Legal (> 5.0)** |
+| **Submersion Grade** | **2** | Sprite Conduit, Sprite Symbiosis (MUG Discounted) | **Verified** |
+| **Pilot Origins (Rigging)** | **Rating 3** | Control Rig R3 equivalent (Intuition + Piloting tests) | **Rules Legal** |
+| **Contact Points** | `{python} Contact_Points` | 0 Remaining (24 Spent; River People C7/L4) | **Exact Match** |
+| **Customization Karma** | `{python} Karma` | 3 Karma in reserve | **Rules Legal** |
+| **Starting Pocket Cash** | ¥`{python} f"{Nuyen:,}"` | $\le 5,000¥$ limit (2,160¥ remaining) | **Compliant** |
+
+## Starting Stats/Pools
+
+1. ASDF
+  * Base: 1155
+  * Attack/Sleaze Attribution with bought hits: 4455
+  * Sprite Symbiosis: +0321 --> 4776
+  * Encryption / Toolbox: +0011 --> 4787
+  * Resonance (5): +1112 --> 5899
+1. Matrix 
+  * Actions: Electronics/Cracking (5) + RES (5) + Focus (4) + Sprite Symbiosis (1): 15d6
+  * Defense: RES (5) + Focus (4) + Firewall (9) + Personal Assistant (3) + Directional Shield (minor action, adds DP:9): 30d6
+1. Drone Operations
+  * Piloting: Autosoft (9) + Intuition (7) + Control Rig (3) + Machine Merge (bought hits, 2): 21d6
+  * Targeting: Autosoft (9) + Logic (4) + Control Rig (3) + Machine Merge (bought hits, 2): 18d6
+
+## Post-Chargen Priorities
+
+1. **Register Rating 1 Crack Ally Sprite**:
+  * 4 Karma for base sprite (*Hack & Slash*, p. 78)
+  * Grants ASDF bonuses of +0321 via Sprite Symbiosis
+  * Grants access to Phantom and Suppression
+  * 1 Karma to add Engineering (comes with Cracking and Electronics), granting +1 teamwork bonus.
+1. **Acquire Additional Complex Forms (5 Karma each)** (*CRB*, p. 70; *6WC*, p. 29):
+  * **Enhance Autosoft** (*Hack & Slash*, p. 130): Overclocks slotted drone autosofts on the Nurse Maid chassis by 1 per 2 hits.
+  * **Machine Merge** (*Hack & Slash*, p. 64–65): Grants +1 bonus die per 2 hits to Piloting, Engineering, and defense tests while jumped in.
+  * Resonance Wires
+  * Resonance Spike
+  * Technoregeneration
+  * Puppeteer
+  * Diffusion (Firewall)
+1. **Specialize Electronics in Complex Forms (5 Karma)**:
+  * Raises Complex Forms pool from RES (5) + Focus (4) + Electronics (5) + Complex Forms Spec (2) = 16 dice, allowing 4 bought hits for out-of-combat form threading.
+1. **Submersions (10 + Current Submersion Grade - 4 MUG discount Karma)**:
+  * **New Sprite Types** (*Hack & Slash*, p. 72): Unlocks Assassin sprites (if taken before registering the ally sprite, Ouro can register an Assassin instead of Crack sprite).
+  * **Living Network** (*CRB*, p. 195): Allows Ouro's living persona to participate in and master a PAN.
+  * **Transcendent Network** (*Hack & Slash*, p. 69; requires *Living Network*): Enables shared Edge pooling and instant team message relay.
+  * **Overclock** (*CRB*, p. 195; once natural Resonance reaches 6): Adds +1 Minor Action and +1D6 Initiative Die in hot-sim VR.
+1. **Raise Natural Resonance to 6** (30 Karma).
+1. **Quality Progression: Candle in the Dark (5 Karma)** (*No Future*):
+  * Unlocked via the *Honorbound* quality.
+1. **Improve Drone Chassis**:
+  * Secondary Propulsion
+  * Chameleon Coating
+  * Passive Stealth Features
+  * Increase Structural Integrity (4)
+  * Increase Top Speed and Acceleration

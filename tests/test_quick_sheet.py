@@ -55,5 +55,25 @@ def test_quick_sheet_multiple_specializations_rendered(char_manager):
     assert "-- Registering: 20d6" in sheet
     assert "-- Compiling: 20d6" in sheet
     assert "-- Software: 23d6" in sheet
-    assert "-- Complex Forms: 23d6" in sheet
+
+
+def test_quick_sheet_karma_and_nuyen_values(char_manager):
+    """Verify that quick sheet outputs non-zero Karma and Nuyen for characters."""
+    for cid in ["reiko", "velvet", "venn"]:
+        sheet = char_manager.export_character(cid, fmt="quick_sheet")
+        lines = sheet.splitlines()
+        karma_nuyen_line = next(line for line in lines if "KARMA(TKE):" in line)
+        assert "KARMA(TKE): 0 (0)" not in karma_nuyen_line, f"{cid} has 0 Karma in quick sheet"
+        assert "NUYEN(TNE): 0 (0)" not in karma_nuyen_line, f"{cid} has 0 Nuyen in quick sheet"
+
+
+def test_export_quick_sheet_without_explicit_repo_path(char_manager):
+    """Verify export_quick_sheet auto-resolves repo path and does not zero out values."""
+    for cid in ["reiko", "velvet", "venn"]:
+        data = char_manager.get_character_data(cid)
+        sheet = export_quick_sheet(data)
+        lines = sheet.splitlines()
+        karma_nuyen_line = next(line for line in lines if "KARMA(TKE):" in line)
+        assert "KARMA(TKE): 0 (0)" not in karma_nuyen_line, f"{cid} has 0 Karma when repo_path is omitted"
+        assert "NUYEN(TNE): 0 (0)" not in karma_nuyen_line, f"{cid} has 0 Nuyen when repo_path is omitted"
 

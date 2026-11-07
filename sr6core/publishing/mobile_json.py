@@ -61,6 +61,15 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
     qualities_raw = char_data.get("qualities", {})
     synergies = char_data.get("synergies", {})
 
+    if not char_repo_path:
+        cid = identity.get("id") or char_data.get("id") or identity.get("handle", "").lower()
+        if cid:
+            try:
+                from sr6core.character.manager import CharacterManager
+                char_repo_path = CharacterManager().get_character_repo_dir(cid)
+            except Exception:
+                pass
+
     totals = get_log_totals(char_repo_path) if char_repo_path and os.path.exists(char_repo_path) else {}
 
     handle = identity.get("handle", "Unknown Runner")
@@ -74,7 +83,7 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
     age = identity.get("age", "~")
     nuyen = totals.get("Nuyen", identity.get("nuyen", 0))
     karma_avail = totals.get("Karma", identity.get("karma", 0))
-    karma_life = totals.get("Lifetime_Karma", identity.get("total_karma", karma_avail))
+    karma_life = totals.get("Lifetime_Karma", identity.get("lifetime_karma", identity.get("total_karma", karma_avail)))
 
     is_monad = "monad" in mortype or "monad" in str(metatype).lower() or "monad" in str(identity.get("archetype", "")).lower() or "monad" in str(identity.get("heritage", "")).lower() or bool(char_data.get("monad_abilities"))
     is_ai = ("ai" in str(metatype).lower() or "pilot" in str(metatype).lower() or "yuriko" in handle.lower() or "reiko" in handle.lower() or "r31k0" in real_name.lower() or "ai" in stream.lower()) and not is_monad

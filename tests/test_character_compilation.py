@@ -85,7 +85,6 @@ def test_multiple_specializations_compilation_and_export():
 
     assert "electronics" in skills_map
     assert "software" in [sp.lower() for sp in skills_map["electronics"].get("specializations", [])]
-    assert "complex forms" in [sp.lower() for sp in skills_map["electronics"].get("specializations", [])]
 
     # Check mobile json export
     repo_dir = cm.get_character_repo_dir("reiko")
@@ -102,8 +101,7 @@ def test_multiple_specializations_compilation_and_export():
 
     elec_entry = compiled_skills.get("electronics")
     assert elec_entry is not None
-    assert len(elec_entry["specializations"]) >= 2
+    assert len(elec_entry["specializations"]) >= 1
     elec_buff_sources = [b["source"].lower() for b in elec_entry.get("buffs", [])]
     assert any("software" in src for src in elec_buff_sources)
-    assert any("complex forms" in src for src in elec_buff_sources)
 

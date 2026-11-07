@@ -94,6 +94,21 @@ def export_quick_sheet(
     honoring AI matrix attributes, single condition monitor, full drone statblocks,
     character powers, and zero filler blank lines.
     """
+    if not char_repo_path:
+        raw_ident = char_data.get("identity", {}) if isinstance(char_data.get("identity"), dict) else {}
+        cid = (
+            raw_ident.get("id")
+            or char_data.get("id")
+            or raw_ident.get("handle", "").lower()
+            or str(char_data.get("handle", "")).lower()
+        )
+        if cid:
+            try:
+                from sr6core.character.manager import CharacterManager
+                char_repo_path = CharacterManager().get_character_repo_dir(cid)
+            except Exception:
+                pass
+
     from sr6core.publishing.mobile_json import export_mobile_json
 
     # Derive fully enriched and calculated dataset
@@ -111,15 +126,29 @@ def export_quick_sheet(
 
     totals = get_log_totals(char_repo_path) if char_repo_path and os.path.exists(char_repo_path) else {}
 
-    handle = identity.get("handle", identity.get("name", "Unknown")).upper()
-    metatype = identity.get("metatype", "Human")
-    archetype = identity.get("stream") or identity.get("tradition") or identity.get("mortype") or identity.get("archetype", "Shadowrunner")
+    raw_identity = char_data.get("identity", {}) if isinstance(char_data.get("identity"), dict) else {}
+
+    handle = (identity.get("handle") or identity.get("name") or raw_identity.get("handle") or raw_identity.get("name") or "Unknown").upper()
+    metatype = identity.get("metatype") or raw_identity.get("metatype") or "Human"
+    archetype = identity.get("stream") or identity.get("tradition") or identity.get("mortype") or identity.get("archetype") or raw_identity.get("stream") or raw_identity.get("tradition") or raw_identity.get("mortype") or "Shadowrunner"
     is_ai = bool(identity.get("is_ai")) or "ai" in str(metatype).lower()
 
-    karma_avail = totals.get("Karma", char_data.get("karma", 0))
-    karma_life = totals.get("Lifetime_Karma", char_data.get("lifetime_karma", karma_avail))
-    raw_nuyen = totals.get("Nuyen", char_data.get("nuyen", 0))
-    raw_life_nuyen = totals.get("Lifetime_Nuyen", char_data.get("lifetime_nuyen", raw_nuyen))
+    karma_avail = totals.get(
+        "Karma",
+        identity.get("karma_avail", identity.get("karma", raw_identity.get("karma", char_data.get("karma", 0))))
+    )
+    karma_life = totals.get(
+        "Lifetime_Karma",
+        identity.get("lifetime_karma", identity.get("total_karma", raw_identity.get("lifetime_karma", karma_avail)))
+    )
+    raw_nuyen = totals.get(
+        "Nuyen",
+        identity.get("nuyen", raw_identity.get("nuyen", char_data.get("nuyen", 0)))
+    )
+    raw_life_nuyen = totals.get(
+        "Lifetime_Nuyen",
+        identity.get("lifetime_nuyen", raw_identity.get("lifetime_nuyen", raw_nuyen))
+    )
     try:
         nuyen_avail = int(float(raw_nuyen))
     except Exception:
@@ -129,8 +158,8 @@ def export_quick_sheet(
     except Exception:
         nuyen_life = 0
 
-    heat = totals.get("Heat", 0)
-    raw_rep = totals.get("Reputation", 0)
+    heat = totals.get("Heat", identity.get("heat", raw_identity.get("heat", char_data.get("heat", 0))))
+    raw_rep = totals.get("Reputation", char_data.get("reputation", char_data.get("reputations", identity.get("reputation", 0))))
     if isinstance(raw_rep, dict):
         rep = ", ".join(f"{k}:{v}" for k, v in raw_rep.items())
     else:

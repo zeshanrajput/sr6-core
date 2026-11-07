@@ -8,9 +8,9 @@ identity:
   gender: DIVERSE
   age: ~ 10
   system: shadowrun6e
-  karma: 12
+  karma: 17
   lifetime_karma: 293
-  nuyen: 400.0
+  nuyen: 4400.0
   lifetime_nuyen: 448800
   heat: -1
   submersion: 8
@@ -67,7 +67,6 @@ skills:
   specialization: Software
   specializations:
   - Software
-  - Complex Forms
 - name: Influence
   id: influence
   attribute: Charisma
@@ -1518,8 +1517,8 @@ contacts:
     name: 4Gurds
     canonical_name: 4Gurds
     is_canonical: false
-    connection: 2
-    loyalty: 2
+    connection: 1
+    loyalty: 1
     favors: 0
     type: Free AI (Pharmaforge Controller)
     region: SEA
@@ -1537,8 +1536,6 @@ contacts:
     - 'Infant Free AI awakened by Reiko from the Renraku Arcology Pharmaforge control
       software; possesses legacy Arcology archival files and industrial pharmaceutical
       knowledge (Met: C1 L1)'
-    - SRM.2081.13 (+2 FP)
-    - Auto-Promoted to Loyalty 2 (-2 FP)
   Teddy Chin:
     name: Teddy Chin
     canonical_name: Teddy Chin
@@ -1774,6 +1771,18 @@ weapons:
     - Personalized Grip
     notes: Amalgam Tech Cestas; 3P damage, overrides magical immunity to normal weapons
       (ItNW). 1 Wild Die.
+  - name: Drone Martial Arts (Ramming)
+    damage: 8P
+    attack_rating: 15/-/-/-/-
+    category: close_combat
+    is_melee: true
+    skill: piloting
+    notes: 'Ramming attack using Shiawase Man-at-Arms chassis (CRB p. 201). Attack
+      roll is a Piloting test (Piloting 7 + REA vs. Defense). AR = Piloting of Driver
+      (7) + Vehicle Sensors (8 buffed) = 15. Base DV = BOD/2 rounded up (Body 15 /
+      2 = 8P) + 1 per Speed Interval. Attacker resists damage based on target''s Body:
+      Target BOD/2 (+1/Speed Interval) for vehicles, or Target BOD/4 (rounded up)
+      for soft targets.'
 armors: []
 gear:
 - name: 5x Peak-Discharge Laser Battery Clips (Red Fox)

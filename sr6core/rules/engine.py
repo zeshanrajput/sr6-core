@@ -98,6 +98,17 @@ CANONICAL_SUPPLEMENT_WEAPONS: Dict[str, Dict[str, Any]] = {
         "ammo": "5(c)",
         "source": "Body Shop p. 49 / SR6 Core p. 117",
         "notes": "Sweeping spray attack (+4 AR, -3 DV). 28.07° apex cone (10m wide @ 20m). Optional Wild Die."
+    },
+    "drone_martial_arts": {
+        "id": "drone_martial_arts",
+        "name": "Drone Martial Arts (Ramming)",
+        "category": "Melee",
+        "dv": "8P",
+        "ar": [15, None, None, None, None],
+        "mode": "Melee",
+        "ammo": "—",
+        "source": "Core Rulebook p. 201",
+        "notes": "Drone ramming attack. Attack roll: Piloting test (Piloting 7 + REA vs. Defense). AR = Piloting of Driver (7) + Buffed Sensors (8) = 15. Base DV = BOD/2 = 8P (+1/Speed Interval). Attacker resists damage based on target's Body: Target BOD/2 (+1/Speed Interval) for vehicles, or Target BOD/4 (rounded up) for soft targets."
     }
 }
 
@@ -599,6 +610,9 @@ def get_weapon_attack_table(char_id: str) -> str:
 
         # 3. Amalgam Cestas
         rows.append("| **Amalgam Cestas (Man-at-Arms - Phys)** | **Melee** | 3P | **12 / — / — / — / —** | Personalized Grip +2 AR. Overrides Immunity to Normal Weapons. 1 Wild Die. |")
+
+        # 4. Drone Martial Arts (Ramming)
+        rows.append("| **Drone Martial Arts (Ramming)** | **Melee** | 8P* | **15 / — / — / — / —** | Ramming attack (CRB p. 201). Attack roll: Piloting test (Piloting 7 + REA vs. Defense). AR = Piloting of Driver (7) + Buffed Sensor (8) = 15. Base DV = MAA BOD (15)/2 = 8P (+1/Speed Interval). Attacker resists damage based on target's Body: Target BOD/2 (+1/Speed Interval) for vehicles, or Target BOD/4 (rounded up) for soft targets. |")
         return "\n".join(rows)
 
     if flat_list:

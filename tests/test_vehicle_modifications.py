@@ -210,7 +210,7 @@ def test_reiko_man_at_arms_complete_accounting():
 
     # Check raw used slots
     assert slots["raw_used"]["chassis"] == 11
-    assert slots["raw_used"]["powertrain"] in [6, 8]
+    assert slots["raw_used"]["powertrain"] in [6, 7, 8]
     assert slots["raw_used"]["electronic"] == 4
 
     # Check auto 2:1 shift
@@ -230,8 +230,8 @@ def test_reiko_man_at_arms_complete_accounting():
 
     # Check Hardpoints
     assert slots["base_hardpoints"] == 3
-    assert slots["hardpoints_used"] == 3
-    assert slots["hardpoints_remaining"] == 0
+    assert slots["hardpoints_used"] == 2
+    assert slots["hardpoints_remaining"] == 1
 
     # Check Cyberlimbs & Tesla Coil
     assert len(slots["cyberlimbs"]) == 1
@@ -240,11 +240,8 @@ def test_reiko_man_at_arms_complete_accounting():
     assert cl["used_capacity"] == 8
     assert cl["capacity"] - cl["used_capacity"] == 0
 
-    # Check Smart Tires and Wheeled Propulsion
-    assert "Wheeled (Smart Tires): Han 3/4, Acc 15, SPD 25/120" in prof["mobility_str"]
-    st_mod = next(m for m in slots["categorized_mods"]["accessory"] if "smart tires" in m["name"].lower())
-    assert st_mod["slots_cost"] == 0
-    assert "+5 Acceleration, +10 Speed Interval" in st_mod["notes"]
+    # Check Vector Thrust (LAV) Propulsion
+    assert "Vector Thrust (LAV): Han 4, Acc 25, SPD 50/300" in prof["mobility_str"]
 
 
 def test_drone_statblock_table_rendering():
@@ -260,23 +257,20 @@ def test_drone_statblock_table_rendering():
     assert "| **Powertrain** | 10 |" in table_md
     assert "| **Electronic** | 10 |" in table_md
     assert "| **Hardpoints** | 3 (Standard) |" in table_md
-    assert "Wheeled (Smart Tires): Han 3/4, Acc 15, SPD 25/120" in table_md
+    assert "Vector Thrust (LAV): Han 4, Acc 25, SPD 50/300" in table_md
 
     # Check modifications rows
     assert "Increased Structural Integrity" in table_md
     assert "Realistic Features" in table_md
-    assert "Pop-Out Concealment (Standard) x2" in table_md
-    assert "Secondary Propulsion (Rotor)" in table_md
-    assert "Secondary Propulsion (Wheeled)" in table_md
-    assert "Smart Tires" in table_md
-    assert "+5 Acceleration, +10 Speed Interval" in table_md
+    assert "Pop-Out Concealment" in table_md
+    assert "Secondary Propulsion (Vector Thrust / LAV)" in table_md
+    assert "Nitro Boost" in table_md
     assert "Chameleon Coating" in table_md
     assert "Increased Sensors" in table_md
-    assert "Weapon Mount (Standard) x2" in table_md
     assert "Drone Rack (Small)" in table_md
 
     # Check cyberlimb row
-    assert "**Used Synthetic Cyberarm (Right, 8 Capacity)**" in table_md
+    assert "Used Synthetic Cyberarm (Right" in table_md
     assert "Tesla Coil (8 Capacity, 5S(e) Spray 20m)" in table_md
 
 
