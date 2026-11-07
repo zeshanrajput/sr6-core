@@ -2294,6 +2294,9 @@ def build_roll20_payload(
                 "type": ctype,
                 "loyalty": loyalty,
                 "influence": connection,
+                "connection": connection,
+                "favors": favors,
+                "favor": favors,
                 "description": cdesc,
             }
         )
@@ -3445,18 +3448,36 @@ def export_roll20_json(
 ) -> str:
     """
     Serialize the compiled character dossier into a formatted Roll20 Genesis JSON string.
-    Also writes the companion `<char_id>_roll20_macros.md` guide to the character's output
-    directory when `char_repo_path` is provided.
+    Also writes `<char_id>_roll20.json` and the companion `<char_id>_roll20_macros.md`
+    guide to the character's output directory when `char_repo_path` is provided.
     """
     payload = build_roll20_payload(char_data, char_repo_path=char_repo_path)
+    json_str = json.dumps(payload, indent=indent, ensure_ascii=False)
+
     if char_repo_path and os.path.exists(char_repo_path):
         try:
             cid = str((char_data.get("identity") or {}).get("id") or "character").lower()
             out_dir = os.path.join(char_repo_path, "output")
-            os.makedirs(out_dir, exist_ok=True)
-            guide_path = os.path.join(out_dir, f"{cid}_roll20_macros.md")
-            with open(guide_path, "w", encoding="utf-8") as f:
-                f.write(generate_roll20_helper_guide(char_data, payload))
+            roll20_dir = os.path.join(out_dir, "roll20")
+            os.makedirs(roll20_dir, exist_ok=True)
+
+            # 1. Write Roll20 Macros & Effects markdown helper guide
+            guide_content = generate_roll20_helper_guide(char_data, payload)
+            for gpath in [
+                os.path.join(out_dir, f"{cid}_roll20_macros.md"),
+                os.path.join(roll20_dir, f"{cid}_roll20_macros.md"),
+            ]:
+                with open(gpath, "w", encoding="utf-8") as f:
+                    f.write(guide_content)
+
+            # 2. Write Roll20 Genesis JSON payload
+            for jpath in [
+                os.path.join(out_dir, f"{cid}_roll20.json"),
+                os.path.join(roll20_dir, f"{cid}_roll20.json"),
+            ]:
+                with open(jpath, "w", encoding="utf-8") as f:
+                    f.write(json_str)
         except Exception:
             pass
-    return json.dumps(payload, indent=indent, ensure_ascii=False)
+
+    return json_str

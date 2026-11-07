@@ -17,6 +17,8 @@ sheet_txt = export_quick_sheet(char_data, char_repo_path=repo_dir)
 ### Character Views & Quick Reference
 * 📱 **Mobile Character App**: [Launch Mobile Interactive Sheet](../output/mobile/index.html){.btn .btn-primary target="_blank"}
 * 📄 **Plain-Text Quick Sheet**: [reiko_sheet.txt](../output/text/reiko_sheet.txt)
+* 🎲 **Roll20 Genesis JSON**: [reiko_roll20.json](../output/roll20/reiko_roll20.json)
+* 📜 **Roll20 Macros & Effects Guide**: [reiko_roll20_macros.md](../output/roll20/reiko_roll20_macros.md)
 :::
 
 ## Tabletop Quick Reference Sheet

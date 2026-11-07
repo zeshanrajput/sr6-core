@@ -85,7 +85,13 @@ def run_sync_all():
         except Exception as e:
             print(f"         +-- Export Mobile App error: {e}")
 
-        print(f"  [2/4] Regenerated Exports     : Saved to {os.path.join(repo_dir, 'output')} (text, mobile)")
+        # Roll20 Genesis JSON & Macros Export
+        try:
+            cm.export_character(cid, fmt="roll20")
+        except Exception as e:
+            print(f"         +-- Export Roll20 error: {e}")
+
+        print(f"  [2/4] Regenerated Exports     : Saved to {os.path.join(repo_dir, 'output')} (text, mobile, roll20)")
 
         # 3. Expand Quarto Shortcodes & Inject Narration Audio Players
         chap_dir = os.path.join(repo_dir, "chapters")
@@ -568,6 +574,13 @@ def main():
                             console.print(f"  • [{cid}] CommLink 6: {xml_path}")
                     except Exception:
                         console.print(f"  • [{cid}] CommLink 6: {xml_path}")
+                    # Roll20 Genesis JSON & Macros Export
+                    try:
+                        cm.export_character(cid, fmt="roll20")
+                        r20_path = os.path.join(repo_dir, "output", "roll20", f"{cid}_roll20.json")
+                        console.print(f"  • [{cid}] Roll20 JSON: {r20_path}")
+                    except Exception as r20_err:
+                        console.print(f"  • [{cid}] Roll20 JSON export error: {r20_err}")
                 except Exception as ex:
                     console.print(f"  • [{cid}] Export error: {ex}")
         console.print("\n[bold green][OK] Full SR6 Build Completed Successfully![/bold green]\n")

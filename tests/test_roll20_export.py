@@ -413,6 +413,33 @@ def test_reiko_roll20_export():
     assert payload["armors"][0]["primary"] is True
     assert payload["armors"][0]["rating"] == 8
 
+    # 11. Contacts (Full 67 Contacts Verified Including Kingston & Chargen Contacts)
+    assert len(payload["contacts"]) == 67
+    contact_map = {c["name"]: c for c in payload["contacts"]}
+    assert "Kingston" in contact_map
+    assert contact_map["Kingston"]["loyalty"] == 1
+    assert contact_map["Kingston"]["influence"] == 2
+    assert contact_map["Kingston"]["connection"] == 2
+    assert contact_map["Kingston"]["favors"] == 0
+
+    assert "Brynne Taggart (3 FP)" in contact_map
+    assert contact_map["Brynne Taggart (3 FP)"]["loyalty"] == 3
+    assert contact_map["Brynne Taggart (3 FP)"]["influence"] == 4
+    assert contact_map["Brynne Taggart (3 FP)"]["favors"] == 3
+
+    assert "Whiskey" in contact_map
+    assert contact_map["Whiskey"]["loyalty"] == 4
+    assert contact_map["Whiskey"]["influence"] == 2
+
+    assert "4Gurds" in contact_map
+    assert contact_map["4Gurds"]["loyalty"] == 1
+    assert contact_map["4Gurds"]["influence"] == 1
+
+    assert "Roanoke (4 FP)" in contact_map
+    assert contact_map["Roanoke (4 FP)"]["loyalty"] == 4
+    assert contact_map["Roanoke (4 FP)"]["influence"] == 3
+    assert contact_map["Roanoke (4 FP)"]["favors"] == 4
+
 
 @pytest.mark.parametrize("char_id", ["velvet", "reiko", "venn"])
 def test_all_characters_pass_roll20_do_import_contract(char_id: str):
