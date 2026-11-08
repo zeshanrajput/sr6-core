@@ -66,8 +66,8 @@ arc_chronology:
     mechanical_state: "Submersion Grade 2; established r3sP@wn safehouse network"
 
   arc_4_the_apex_horizon:
-    chapters: "23 – 33"
-    narrative_state: "Entering the sights of megacorp apex curators; technoshamanic parenthood; resolving the Pinocchio defense (26 SIGTSTP); sovereign craft and the Great Inversion (30 Vim); Arcology Floor 281 sanctuary (31 Grep, 32 Whois); hardware code freeze and somatic ceiling (33 Code Freeze)"
+    chapters: "23 – 34"
+    narrative_state: "Entering the sights of megacorp apex curators; technoshamanic parenthood; resolving the Pinocchio defense (26 SIGTSTP); sovereign craft and the Great Inversion (30 Vim); Arcology Floor 281 sanctuary (31 Grep, 32 Whois); hardware code freeze and somatic ceiling (33 Code Freeze); 358-mph vector interceptor overhaul and Ouro's Codemod mirror (34 Latency)"
     expressivity: "Quiet, serene authority; gentle maternal warmth; understated confidence; shedding the need to emulate metahuman biology to earn love"
     cognitive_bias: "Transcending solitary martyrdom; moving from biological emulation to sovereign somatic peace ('entirely metal'); mother and shepherd of a sovereign collective; facing apex adversaries playing decadal chess"
     visual_palette: "Distributed starlight, damp cypress, brushed teak, twilight glades, unglazed Bizen pottery, pewter river dawn"
@@ -119,6 +119,7 @@ chapter_tiers:
       - "29 Saturation (Sensory Trade in Eniac & The Sacred Confessor)"
       - "31 Grep (Arcology Floor 281 Sovereign Hearth)"
       - "32 Whois (Lineage Unmasking & Takahashi Kinship)"
+      - "34 Latency (358-MPH Vector Overhaul, Capacitor Stencils & Ouro's Codemod Mirror)"
 
   tier_3_atmospheric_bridges:
     passing_threshold: "8.0 / 10"
@@ -239,6 +240,13 @@ domain_vocabulary_rules:
   domain_5_dialogue_paragraph_discipline:
     context: "Spoken dialogue, drone speaker emissions, and direct mindspeech transmissions"
     rule: "Strictly enforce One Speaker Per Paragraph for both acoustic speech and mindspeech turns. Never combine turns from multiple entities into the same paragraph block. Braid each turn with that persona's specific resonance flux, harmonic carrier wave, or drone chassis micro-movements."
+
+  domain_6_ontological_layering_physical_vs_ar:
+    context: "Scenes set in physical meatspace (workshops, garages, city streets) where physical entities, inhabited drones, and virtual Matrix/AR entities coexist"
+    rule: "Strictly enforce ontological discipline between physical meatspace and augmented reality (AR) presence to prevent reader immersion breaks:
+      1. Physical Entities & Inhabited Shells: Meat organisms (metahumans, flesh-and-blood animals like Lizzie and Leonard) and active inhabited physical machinery (a consecrated Goshintai chassis on a lift, a Shiawase Butler drone held by a pilot) possess mass, inertia, acoustic sound, and physical friction. They interact with physical tools, grease, air pressure, and surfaces.
+      2. Virtual Matrix & AR Projections: Un-inhabited sparks and sprites (Taz, Cleo, Percy) or DIs projecting an AR presence beside their chassis manifest solely as light, wireframe glyphs, and audio carrier waves. They cannot physically touch, hold, bump, or be held by physical meat or metal. Their limbs pass through concrete and flesh; their weight registers on zero scales; they sit on AR planes over oil drums or tool crates.
+      3. Physical Interaction Constraint: An entity without a physical shell cannot turn a wrench, tighten a screw, or curl against living scales. To perform mechanical work in meatspace, an emergent mind must actively inhabit a physical drone (e.g. Ouro piloting a Shiawase Butler frame). If a DI steps into AR to confer, remote commands sent to physical machinery are explicitly staged as wireless diagnostic motor packets across the PAN."
 
   identity_and_kinship_terminology:
     self_and_kin_designation: "Digital Intelligence (DI), sovereign mind, resonant spark, digital kin"

@@ -63,6 +63,7 @@ book:
         - narrative/31 Grep.md
         - narrative/32 Whois.md
         - narrative/33 Code Freeze.md
+        - narrative/34 Latency.md
     - part: "Inter-Session Interludes"
       chapters:
         - narrative/I01.md

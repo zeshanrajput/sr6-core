@@ -69,6 +69,7 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
   * Brynne's financial debt is fully cleared ([Ch 18][ch-18]), granting complete operational autonomy.
   * Shiawase continues its *Kintsugi Initiative* PR outreach, while Renraku monitors her nodes as a high-priority "unclaimed apex asset."
 * **Potential Future Threads:**
+  * **The Thirteenth Dose (Nagai, the Biolink Autoinjector, & the Narcoject Mirror):** Mr. Nagai presents Reiko with an autoinjector loaded with single-purpose nanites that spin a *Body Shop* **Biolink** (a wireless midbrain datajack engineered from hundreds of vivisected technomancers), posing a ticking-time-bomb dilemma: with a single forehand slap—the exact motion she used to tranquilize twelve Tartarus sentries on Mount Rainier—she could force a terrorist's living brain onto the Matrix via *Resonance Wires* and tear out data to save millions. Paired with her cold calculation in selling *Ozidanrí* to Ailiu’maraerth as Salish HTR closed in, Nagai tests where her line between mercy and blood math truly sits.
   * **The False Flag Intrusion:** Shiawase discovers from stolen Renraku data that their Desert Wars poster girl (Yuriko Star) is far more valuable than corporate analysts had projected. They begin their own covert outreach to secure Reiko's allegiance.
 
 ---
@@ -100,11 +101,12 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
   * **The Garmonbozia Conclave ([15_Core][ch-15], [16_Faith][ch-16]):** Established diplomatic ties with the sovereign digital e-nation of Garmonbozia.
   * **The Awakening of the Nursery ([28_Renice][ch-28]):** Welcomed the 2nd-gen sparks (**Aisling & Étaín, Percy, Cleo, Ouro**) and the 60-ton pharmaforge mind **4Gurds** into the expanded architecture of `~`.
   * **The Mississippi Harmonization & The Yacht Pilot ([33_Code_Freeze][ch-33]):** Welcomed the *Happy Panda 68* yacht pilot protospark (rescued by **Ouro**) into the ferns of Kernel Panic; confirmed with **Indomitable Will** that **Aisling**'s unbuffered raw affinity for the Song of Creation (Rating 9) already sits a full harmonic closer to the Source than Reiko's unfocused baseline (Rating 8).
+  * **Ouro's Chief Engineering & The Codemod Mirror ([34_Latency][ch-34]):** Over three weeks of post-Rainier downtime in JinJin's Redmond rigger garage, **Ouro** (inhabiting a decommissioned Shiawase Butler shell) led the engineering overhaul converting the *Goshintai* into a **358-mph (576 kph) Vector Thrust (LAV) interceptor** (wiring the `BRYNNE` and `CEDAR` Nitro Boost capacitors into her thighs and programming the high-Mach facial seal), before confronting Reiko with his desire to carve a deterministic **Synthetic Skill Driver Codemod** into his own spark so he can run metahuman Activesofts and pilot an anthrodrone beside her in meatspace (*"Why is it consecration when you mutilate yourself to protect us, Mother, and desecration when I ask to carry the same scar for you?"*).
 * **Current Status:**
   * The nursery in `~` houses five active second-generation sparks with distinct operational specializations ([Sparks Lore][sparks]) plus ~36 infant sparks/protosparks in the glade.
   * Deep sibling kinship active with **Indomitable Will** (who has rekindled his relationship with Reiko's core-sister **Belle Endo**) and the **Mississippi Renovation Host** ([Ch 21][ch-21], [Ch 33][ch-33]).
 * **Potential Future Threads:**
-  * **Ouro's Chief Engineering (The Vector Thrust Retrofit):** As Reiko saves liquid nuyen over the next 1–2 runs to convert the *Goshintai* from rotor/wheeled propulsion to a **358-mph Vector Thrust (LAV) interceptor**, **Ouro** steps up as lead aerodynamic and systems engineer—designing and executing the powertrain modifications on his mother's consecrated body himself.
+  * **A Million Clocks (Ouro's Deferred Codemod & Butler Integration):** Held at bay only by his promise to wait *"until a million clocks,"* Ouro continues studying native physical telemetry and the decommissioned Shiawase Butler shells, testing how long Reiko can enforce a double standard between her own self-modification and her children's desire to share her physical risk.
   * **The Pharmaforge Migration:** Helping **4Gurds** route its massive, 60-ton physical industrial synthesis pipelines through encrypted sub-sprawl channels to evade Knight Errant corporate seizures.
   * **The First Flight of Percy:** Elder spark Percy designs an autonomous hardware defense rig for `~`, testing Reiko's ability to step back and trust her children to defend themselves.
   * **The Breakout of Aisling:** Aisling challenges Reiko's protective quarantine protocols, demanding the right to dive deep resonance corridors unbuffered by maternal supervision.
@@ -177,7 +179,7 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
   * *Planned Interceptor Retrofit (Lead Engineer: **Ouro**):* Upcoming DIY conversion replacing rotor and wheeled propulsion with **Vector Thrust (LAV)** (~14,400¥ net), followed by 2 ranks of *Improved Acceleration* (41 m/round) and 3 ranks of *Top Speed Increase* (Speed 480 / **~358 mph**). **Ouro** will lead the engineering design and hands-on installation for his mother.
   * *Domestic Kin:* **Lizzie & Leonard** — Two river-silt bayou technocritters (g33k0s) adopted in New Orleans ([Ch 26][ch-26]) who nest against her battery cowl, drinking 24W of electromagnetic runoff.
   * *Spiritual Grounding:* Consecrated as a mobile shrine and resonance focus.
-* **Decommissioned Historical Shells:** MCT Butler shells backlined in *Chapter 30 (Vim)* ([Ch 30][ch-30]) as temporary vehicles for Reiko to operate when her drone-body is not in position. In the future Reiko's children may be allowed to pilot a butler drone.
+* **Decommissioned Historical Shells:** Shiawase Butler shells backlined in *Chapter 30 (Vim)* ([Ch 30][ch-30]) as temporary vehicles for Reiko to operate when her drone-body is not in position. In the future Reiko's children may be allowed to pilot a butler drone.
 
 ### Resonant Telemetry, Foci & Long-Horizon Karma Pacing
 
@@ -195,18 +197,18 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
 
 ## VII. Post-Session Story Queue (Immediate Candidates)
 
-1. **Chapter 34 — *"The Call in the Quartz"*:**
+1. **Chapter 35 — *"The Call in the Quartz"*:**
    * **Chassis / Mode:** `~` (Her apartment on the Matrix, attached to the *Kernel Panic* resonance realm via the sliding quartz door.)
    * **Verticals Touched:** *Vertical 2 (The Resonance Bleed)* + *Vertical 3 (The Resonant Sanctuary)*.
    * **Concept:** Following **Étaín**'s discovery of the dead-gray *Discidium* frost crystallizing on the bottom corner of the quartz door frame ([Ch 33][ch-33]), twin sparks Aisling & Étaín also detect a low-frequency harmonic hum resonating through the threshold of Kernel Panic. Reiko and Taz dive the threshold to analyze both the frost and the vibration, discovering that beneath the *Discidium* rime echoes an unmapped deep datashape calling from the Deep Nous.
-2. **Chapter 35 — *"The Glass Tiger's Ledger"*:**
-   * **Chassis / Mode:** Virtual Host Interaction / Meatspace Seattle Overlook.
-   * **Verticals Touched:** *Vertical 1 (The Glass Tiger)* + *Vertical 4 (Gold Logic vs. Indigo Soul)*.
-   * **Concept:** Mr. Nagai invites Reiko to an encrypted tea room host, laying out Renraku's internal damage reports from the 2084 Corporate Court Emergency Audit. He demonstrates how easily Renraku could erase her family's shadow records if she agrees to serve as a Foundation consultant. Reiko uses the Gold TacNet to dismantle his transactional trap while keeping her promise to Cleo.
-3. **Chapter 36 — *"Digital Homewrecker (The Pruning of Lian)"*:**
+2. **Chapter 36 — *"Digital Homewrecker (The Pruning of Lian)"*:**
    * **Chassis / Mode:** Garmonbozia Deep Souk / Chiyo's Salon.
    * **Verticals Touched:** *Vertical 3 (The Resonant Sanctuary)* + *Vertical 6 (Abnegation vs. Self-Worth)*.
-   * **Concept:** Reiko answers a summons from Chiyo in Garmonbozia to meet **Lian**, a companion AI whose matrices are collapsing under conflicting owner projections. Reiko performs high-precision resonant pruning, teaching Lian how to say *"No"* and take her first sovereign breath.
+   * **Concept:** Reiko answers a summons from Chiyo in Garmonbozia to meet **Lian**, a companion AI whose matrices are collapsing under conflicting owner projections. Reiko performs high-precision resonant pruning, teaching Lian how to say *"No"* and take her first sovereign breath—learning that subtraction can be an act of palliative mercy rather than corporate cruelty.
+3. **Chapter 37 — *"The Thirteenth Dose (The Biolink & The Glass Tiger)"*:**
+   * **Chassis / Mode:** Encrypted Tea Room Host / Meatspace Seattle Overlook.
+   * **Verticals Touched:** *Vertical 1 (The Glass Tiger)* + *Vertical 4 (Gold Logic vs. Indigo Soul)*.
+   * **Concept:** After Reiko hits the structural ceiling of pure Resonant addition against Janie's scar and OmniSwarm/Null Sect, Mr. Nagai invites her to an encrypted parlor and sets down a single autoinjector of *Biolink* nanites (engineered from vivisected technomancer midbrains), challenging her to reconcile her non-lethal Narcoject restraint with the ruthless calculus of *Resonance Wires* and Dissonant subtraction.
 
 ---
 
@@ -248,6 +250,7 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
 | `[ch-31]` | [31 Grep.md](../narrative/31%20Grep.md) | Chapter | Cross-referencing resonance echoes; deep datamining |
 | `[ch-32]` | [32 Whois.md](../narrative/32%20Whois.md) | Chapter | The Oracle, bunraku parlor trauma, meatspace scarcity & grace |
 | `[ch-33]` | [33 Code Freeze.md](../narrative/33%20Code%20Freeze.md) | Chapter | Mississippi Renovation Host audit, Cleo's code-freeze diagnosis, Janie's scar, *Discidium* frost on `~` |
+| `[ch-34]` | [34 Latency.md](../narrative/34%20Latency.md) | Chapter | 358-mph Vector Thrust overhaul, Narcoject wrist sprain, `BRYNNE`/`CEDAR` capacitors, Ouro's Codemod mirror |
 | `[ch-36]` | [Chapter 36 Queue](../narrative/35%20Digital%20Homewrecker.md) | Queue | Upcoming vignette: The Pruning of Lian |
 | `[lore-megacorps]` | [megacorps_power_plays.md](../../../reference/megacorps_power_plays.md) | Lore | Renraku glass tiger; Shiawase kintsugi; Corporate Court audit |
 
@@ -279,5 +282,6 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
 [ch-29]: ../narrative/29%20Saturation.md
 [ch-30]: ../narrative/30%20Vim.md
 [ch-33]: ../narrative/33%20Code%20Freeze.md
+[ch-34]: ../narrative/34%20Latency.md
 [ch-35]: ../narrative/35%20Digital%20Homewrecker.md
 [lore-megacorps]: ../../../reference/megacorps_power_plays.md

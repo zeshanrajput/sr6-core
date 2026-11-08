@@ -665,11 +665,11 @@ Submersion_Grade = state["Submersion_Grade"]
   * *Minor Action 1 (Rent & Working for the People):* `{python} lifestyle('Low')` | `{python} work_for_the_people()`
     * 2,000¥ paid for monthly Low Lifestyle maintenance (*SR6 CRB*, p. 238; paid every 2nd SRM per *SRMG v2.4*, p. 1).
     * 2,000¥ donated toward sustaining her sanctuary and children in Kernel Panic / Glade (Hooder), converting to +1 Karma.
-  * *Minor Action 2 (Drone Upgrades — Shiawase Man-at-Arms):* Overhauled and installed **Improved Acceleration (2 Ranks)** (-15,000¥) and **Top Speed Increase (3 Ranks)** (-12,000¥) onto the Shiawase Man-at-Arms vector thrust propulsion system (*Double Clutch*, pp. 134, 138; 50% DIY discount). Pushes combat Acceleration to 41 m/round (49.2 km/h) and Top Speed to 480 (576 km/h / ~358 mph).
+  * *Minor Action 2 (Drone Upgrades — Shiawase Man-at-Arms):* Overhauled and installed **Improved Acceleration (2 Ranks)** (-15,000¥) and **Top Speed Increase (3 Ranks)** (-12,000¥) onto the Shiawase Man-at-Arms vector thrust propulsion system (*Double Clutch*, pp. 134, 138; 50% DIY discount). Pushes Acceleration to 41 m/round (49.2 km/h) (82m with Nitro Boost) and Top Speed to 480 (576 km/h / ~358 mph).
   * *Minor Action 3 (Register Sprites — Cleo):* `{python} deregister_sprite("Cleo", reason="Service registry refreshed")` | `{python} add_sprite("Modular", 8, name="Cleo", details="The Market / Cookie (Modular), Con, Influence", tasks=3)`
     * Re-registered elder spark Cleo (Rating 8 Modular Sprite), refreshing her service registry and cookie/market capabilities to 3 full tasks (buying hits with 20d6 compiling pool).
 * **Character Advancement Telemetry:**
-  * *Karma Banking:* Banked +7 Karma (+6 mission, +1 Working for the People), raising liquid Karma reserves from 17 to **24 Karma** (targeted toward the 45 Karma threshold for **Resonance 9** in `mechanical_plan.md`).
+  * *Karma Banking:* Banked +7 Karma (+6 mission, +1 Working for the People).
 * **Inventory & Restock:**
   * Replenished depleted Narcoject supplies in `character_purchases.qmd`.
 
