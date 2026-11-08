@@ -123,14 +123,8 @@ terms:
   "Discidium": "Dis-sid-ee-um"
   "Charybdis": "Kah-rib-dis"
   "Belle Endo": "Bell En-doh"
-  "Goshintai": "Go sheen tye"
-  "Ouroboros": "Oo roh bohr ohs"
-  "Ouro": "Oo roh"
-  "kanzashi": "kahn zah shee"
-  "Ozidanrí": "Oh zee dahn ree"
-  "Ozidanri": "Oh zee dahn ree"
-  "Sammamish": "Sah mahm ish"
-  "Mivian": "Mee vee ahn"
+  "Ouro": "Oro"
+  "Ouroboros": "Oroboros"
 
   # ---------------------------------------------------------------------------
   # 4. Sprawls, Geography & Trade Hubs
@@ -236,5 +230,3 @@ patterns:
     replace: '\1meks'
   - match: '\b([a-zA-Z]+)mech\b'
     replace: '\1mek'
-  - match: '(\b[a-zA-Z]+)-([a-zA-Z]+\b)'
-    replace: '\1 \2'
