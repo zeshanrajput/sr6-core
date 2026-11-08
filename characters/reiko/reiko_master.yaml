@@ -10,8 +10,8 @@ identity:
   system: shadowrun6e
   karma: 24
   lifetime_karma: 300
-  nuyen: 700.0
-  lifetime_nuyen: 471300
+  nuyen: 200.0
+  lifetime_nuyen: 470300
   heat: -1
   submersion: 8
 attributes:

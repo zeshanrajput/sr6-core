@@ -163,7 +163,7 @@ Under *Double Clutch* p. 123–124, the Man-At-Arms receives 3 free Standard Har
 ### Other Supplies
 
 * Medkit R1 `{python} inc('Nuyen', -250)`
-* Narcoject x30 (Initial 10 + 20 Restock SRM 2081-10) `{python} inc('Nuyen', -50 * 30)`
+* Narcoject x20 (Initial 10 + 10 Restock SRM 2081-10) `{python} inc('Nuyen', -50 * 20)`
 * Cyanide x5 `{python} inc('Nuyen', -70 * 5)`
 
 ### SINs & Licenses

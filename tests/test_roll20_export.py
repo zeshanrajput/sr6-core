@@ -413,14 +413,23 @@ def test_reiko_roll20_export():
     assert payload["armors"][0]["primary"] is True
     assert payload["armors"][0]["rating"] == 8
 
-    # 11. Contacts (Full 67 Contacts Verified Including Kingston & Chargen Contacts)
-    assert len(payload["contacts"]) == 67
+    # 11. Contacts (Full 69 Contacts Verified Including Kingston, JinJin, Laurig Heartwell & Chargen Contacts)
+    assert len(payload["contacts"]) == 69
     contact_map = {c["name"]: c for c in payload["contacts"]}
     assert "Kingston" in contact_map
-    assert contact_map["Kingston"]["loyalty"] == 1
+    assert contact_map["Kingston"]["loyalty"] == 2
     assert contact_map["Kingston"]["influence"] == 2
     assert contact_map["Kingston"]["connection"] == 2
     assert contact_map["Kingston"]["favors"] == 0
+
+    assert "JinJin (1 FP)" in contact_map
+    assert contact_map["JinJin (1 FP)"]["loyalty"] == 1
+    assert contact_map["JinJin (1 FP)"]["connection"] == 2
+    assert contact_map["JinJin (1 FP)"]["favors"] == 1
+
+    assert "Laurig Heartwell" in contact_map
+    assert contact_map["Laurig Heartwell"]["loyalty"] == 1
+    assert contact_map["Laurig Heartwell"]["connection"] == 2
 
     assert "Brynne Taggart (3 FP)" in contact_map
     assert contact_map["Brynne Taggart (3 FP)"]["loyalty"] == 3
