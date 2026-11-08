@@ -73,8 +73,9 @@ print(get_weapon_attack_table("reiko"))
    * **Smartlink Integration**: Smartlink grants **+2 AR** (*SR6 Core*, p. 260); network coordination via Master Tactical Operations Commlink (M-TOC II) adds an additional **+1 AR** (*Firing Squad*, p. 90).
    * **Link-Firing Array**: Firing both emitters simultaneously adds **+2 DV** and **+1 AR**, costing 1 Major and 1 Minor action for the attack (*Double Clutch*, p. 143).
 
-2. **Tesla Coil (Cyberarm Forearm Sprayer)**:
+2. **Tesla Coil (Oropharyngeal Emitter / "Lightning Breath")**:
    * **Source**: *Body Shop*, p. 49 & *SR6 Core*, pp. 117–118 (Exotic Ranged / Spray Attack).
+   * **Chassis Architecture**: Mechanically anchored to her right cyberarm/thoracic assembly ([8] Capacity), with the discharge aperture routed behind the posterior oropharynx wall at the back of her throat. A motorized ceramic/silicone sphincter keeps the arc nodes hermetically sealed from her esophageal fuel intake (Hydrocarbon Fuel Converter).
    * **Discharge Cones & Firing Modes**:
      * *Straight Stream*: Direct beam against the first target along a 20-meter line of fire. Standard base damage (`5S(e)`) and range profile (`10/12*`).
      * *Wobbly Cone*: Arc discharging across an $8.58^\circ$ cone (3 meters wide at 20m). Modifies attack by **+2 AR** (`12/14*`) and **-1 DV** (`4S(e)`). Affects all targets in the cone.
@@ -296,7 +297,7 @@ Under *Double Clutch* (p. 120), a vehicle or drone receives mod slots equal to i
 5. **Right Cyberarm Capacity ([8] / [8] Capacity)**:
    * Replaces factory anthroform right arm per *Double Clutch* p. 131 (0 vehicle mod slots consumed).
    * Used Synthetic Cyberarm (*SR6 Core*, pp. 282, 289): Base 8 Capacity.
-   * *Tesla Coil* (*Body Shop*, p. 49): Consumes exactly **[8] Capacity**. High-voltage forearm sprayer (5S(e) damage, Straight Stream, Wobbly Cone, or Sweeping Arc).
+   * *Tesla Coil* (*Body Shop*, p. 49): Consumes exactly **[8] Capacity** (mechanically anchored to the cyberlimb assembly; narratively the emitter is placed in the posterior oropharynx behind a hermetic seal). High-voltage electrical sprayer (5S(e) damage, Straight Stream, Wobbly Cone, or Sweeping Arc).
 
 ---
 
