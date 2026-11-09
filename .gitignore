@@ -50,5 +50,6 @@ scratch/
 
 # Generated build outputs (recreated dynamically by `sr6 sync-all`)
 characters/*/output/
+characters/lab/*/output/
 app/character_data.json
 app/index.html

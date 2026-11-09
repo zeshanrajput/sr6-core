@@ -27,6 +27,9 @@ def align_audio_assets(repo_root: Path = None) -> int:
         return 1
 
     char_dirs = [d for d in characters_dir.iterdir() if d.is_dir() and (d / "narrative").exists()]
+    lab_dir = characters_dir / "lab"
+    if lab_dir.exists():
+        char_dirs.extend([d for d in lab_dir.iterdir() if d.is_dir() and (d / "narrative").exists()])
     if not char_dirs:
         print("[INFO] No characters with narrative directories found.")
         return 0

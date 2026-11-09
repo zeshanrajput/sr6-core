@@ -1,3 +1,15 @@
+---
+title: "Character Creation (Life Path)"
+identity:
+  id: dalakitnon_adept
+  name: "Dalakitnon Mystic Adept"
+  handle: "Dalakitnon Adept"
+  metatype: "Dalakitnon Elf"
+  tradition: "Turgan Magnu"
+  mortype: "Mystic Adept"
+  system: shadowrun6e
+---
+
 # Character Creation (Life Path)
 
 The character was created using the Life Path rules in Sixth World Companion (6WC p. 30–48).
@@ -355,6 +367,7 @@ After the Skill Rig (125,000¥), Cyberjack (54,000¥), and extra Activesoft (25,
   * Device Rating: 1 | Attack: 4 | Sleaze: 2 | Program Slots: 1
   * Cost: **11,000¥** `{python} inc('Nuyen', -11000)` | Availability: 4(I)
 * **Remaining Gear Suite (35,000¥)**:
+  * Low Lifestyle (1 Month Prepaid): `{python} inc('Nuyen', -2000)` (2,000¥)
   * TBD (Rating 6 Fake SIN) + Licenses (Magician, Cyberjack, Cyberdeck): `{python} inc('Nuyen', -17400)` (17,400¥)
   * Transys Avalon Commlink (DR 6): `{python} inc('Nuyen', -2500)` (2,500¥)
   * Ares SecureTech SkinShield Armor (+2 DR, concealed): `{python} inc('Nuyen', -3150)` (3,150¥)
@@ -463,3 +476,15 @@ As an in-play operational milestone, the adept retains the **Deltaware Cyberjack
 * Remaining Unspent Contact Points: **`{python} Contact_Points`**
 * Remaining Pocket Cash: **`{python} Nuyen`¥**
 * Remaining Customization Karma: **`{python} Karma` Karma**
+
+---
+
+## Starting Operational Pools
+
+* **Astral**: Sorcery (3) + LOG (12 via Increase Attribute) = 15d6 | Conjuring (6) + MAG (5) = 11d6
+* **Matrix**: Cracking/Electronics (5) + LOG (12) + Brilliant Heuristics (3) + Cyberjack R1 = 20d6
+* **Physical**: Firearms/Stealth/Athletics: Skillwires (3) + AGI (3) + Smartlink (2) = 8d6
+* **Social**: Influence (2) + CHA (2) + Command Voice / Presence (2) = 8d6
+* **Defense**: REA (2) + INT (7 via Increase Attribute) = 9d6
+* **Initiative**: 4d6 (Increase Reflexes, 2 Major Actions)
+* **Edge Engine**: Analytical Mind (+1 free Edge on Logic tests) + Brilliant Heuristics

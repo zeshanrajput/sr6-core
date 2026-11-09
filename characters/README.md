@@ -89,3 +89,13 @@ Storyboards cross-reference chapters, session debriefs, and rule doctrines using
   [purchases]: ../core/character_purchases.qmd
   ```
 * **Result**: Zero maintenance friction when files are renamed or converted to `.qmd`. Updating one line at the footer updates every link throughout the entire storyboard.
+
+---
+
+## 5. The Character Lab (`characters/lab/`) & The Tabletop Canon Line
+
+To maintain clean separation between live campaign canon and experimental theorycrafting:
+
+* **Active Play (`characters/<char_id>/`)**: Reserved exclusively for characters that have stepped up to a physical or virtual table in an active campaign (e.g. `reiko`, `velvet`). Their chargen snapshot is locked and downtime records reflect actual table history.
+* **The Character Lab (`characters/lab/<slug>/`)**: Pre-play incubation workshop for prototypes, concepts, and rules benchmarks. Builds remain in the Lab until they enter actual table play. See [`characters/lab/README.md`](file:///c:/GitHub/sr6-core/characters/lab/README.md) for full taxonomy and graduation requirements.
+

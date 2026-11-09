@@ -238,3 +238,15 @@ Total Nuyen: `{python} Nuyen`
 Total Karma: `{python} Karma`
 
 Total Character Points: `{python} Character_Points`
+
+---
+
+## Starting Operational Pools
+
+* **Astral**: Sorcery (6) + MAG (6) + Power Focus (3) = 15d6 | Conjuring (6) + MAG (6) = 12d6
+* **Matrix**: 0d6 (Commlink user only; no cyberdeck)
+* **Physical**: Firearms (1) + AGI (3) = 4d6 (Backline non-combatant)
+* **Social**: Influence (6) + CHA (14 via Increase Attribute) + Command Presence (2) + First Impression (2) = 24d6
+* **Defense**: REA (2) + INT (3) + Increase Reflexes (3) = 8d6
+* **Initiative**: 4d6 (Increase Reflexes, 2 Major Actions)
+* **Edge Engine**: Inspire Competence (deterministic team Edge) + Cosmetic Control (Edge discounts)

@@ -470,6 +470,11 @@ Free Knowledge skills equal Logic (Logic 4 at chargen), plus one free Native Lan
 1. Drone Operations
   * Piloting: Autosoft (9) + Intuition (7) + Control Rig (3) + Machine Merge (bought hits, 2): 21d6
   * Targeting: Autosoft (9) + Logic (4) + Control Rig (3) + Machine Merge (bought hits, 2): 18d6
+1. Social Operations
+  * Con / Influence: Synthetic Skill Driver (6) + CHA (4): 10d6
+1. Tactical Scaffolding
+  * Initiative: 4d6 (Hot-Sim VR)
+  * Edge Engine: Resonance Edge accumulation & living persona banking
 
 ## Post-Chargen Priorities
 

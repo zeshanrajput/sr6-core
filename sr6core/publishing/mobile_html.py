@@ -1660,7 +1660,8 @@ def get_mobile_html_template(character_data_bundle: Dict[str, Any], initial_char
         const c = CHARACTERS_DATA[cid];
         const opt = document.createElement("option");
         opt.value = cid;
-        opt.textContent = c.identity.handle || cid.toUpperCase();
+        const isLab = c.identity.status === "prototype" || cid === "venn";
+        opt.textContent = (c.identity.handle || cid.toUpperCase()) + (isLab ? " [LAB]" : "");
         if (cid === activeCharId) opt.selected = true;
         sel.appendChild(opt);
       }});

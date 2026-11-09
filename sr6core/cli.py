@@ -391,6 +391,9 @@ def main():
     c_ware.add_argument("--bioware", action="store_true", help="Item is Bioware (Adapsin discount is exempt)")
     c_ware.add_argument("--adapsin", action="store_true", help="Apply Adapsin therapy discount if eligible")
 
+    c_eff = calc_sub.add_parser("efficiency", aliases=["eff", "tek"], help="Calculate Total Equivalent Karma (TEK), Skillwire Dividend, and validate unspent resources")
+    c_eff.add_argument("target", type=str, help="Character ID or path (reiko, velvet, venn, ouro, dalakitnon_adept, or path)")
+
     # cheat subcommand
     cheat_parser = subparsers.add_parser("cheat", help="Display tabletop rules cheatsheets (matrix, actions, monad, combat, metamagic, echoes, streams)")
     cheat_parser.add_argument("topic", type=str, nargs="?", default=None, help="Subsystem topic (or omit to list all available)")
@@ -1267,6 +1270,11 @@ def main():
                 adapsin=args.adapsin
             )
             print(format_ware_calculation(calc))
+
+        elif args.subcommand in ["efficiency", "eff", "tek"]:
+            from sr6core.creation.efficiency import calculate_build_efficiency, format_efficiency_report
+            res = calculate_build_efficiency(args.target)
+            print(format_efficiency_report(res))
 
     elif args.command == "cheat":
         from sr6core.rules.cheatsheets import get_cheatsheet, format_cheatsheets_index

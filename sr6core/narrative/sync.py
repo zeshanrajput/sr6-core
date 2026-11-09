@@ -16,7 +16,7 @@ def resolve_character_dir(target: str) -> Optional[Path]:
     if p.exists() and p.is_dir():
         if (p / "_quarto.yml").exists() or (p / "narrative").exists():
             return p
-        for cand in ["characters/" + target, "characters/" + p.name]:
+        for cand in ["characters/" + target, "characters/" + p.name, "characters/lab/" + target, "characters/lab/" + p.name]:
             cp = Path(cand).resolve()
             if cp.exists() and cp.is_dir():
                 return cp
@@ -25,11 +25,17 @@ def resolve_character_dir(target: str) -> Optional[Path]:
     cand1 = cwd / "characters" / target
     if cand1.exists() and cand1.is_dir():
         return cand1
+    cand1_lab = cwd / "characters" / "lab" / target
+    if cand1_lab.exists() and cand1_lab.is_dir():
+        return cand1_lab
 
     repo_root = Path(__file__).resolve().parent.parent.parent
     cand2 = repo_root / "characters" / target
     if cand2.exists() and cand2.is_dir():
         return cand2
+    cand2_lab = repo_root / "characters" / "lab" / target
+    if cand2_lab.exists() and cand2_lab.is_dir():
+        return cand2_lab
 
     return None
 

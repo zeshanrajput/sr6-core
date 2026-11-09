@@ -277,6 +277,13 @@ We use our **4 remaining free skill points** to acquire **4 Knowledge Skills** (
 Gain **6 * Charisma** contact points to spend:
 * `{python} inc_many(('Contact_Points', 6 * Charisma))`
 
+### Active Contacts Allocation (12 Points Available)
+
+* **Parnell** (Atlanta Shadow Fixer, Dwarf — Connection 4 / Loyalty 2): `{python} inc('Contact_Points', -6)`
+  * *Narrative Anchor:* Chapter 7 (*The First Contract*). A seasoned dwarf fixer operating out of the subterranean dive bars beneath the Atlanta transit interchange. Brokers supply runs, fences pharmaceutical lots, and coined the operational handle "Venn".
+* **Dr. Caleb Ortiz** (Perimeter Free Clinic Director / Streetdoc, Human — Connection 3 / Loyalty 3): `{python} inc('Contact_Points', -6)`
+  * *Narrative Anchor:* Chapter 7 (*The First Contract*). Runs the Fulton squatter perimeter free clinic. Beholden to Venn after receiving hijacked Evo neuro-immunosuppressants; provides surgical anonymity, trauma patching, and cyber-rejection therapy aligned with Venn's *Shadow Healthcare Community* network.
+
 ### Special SRM Network Memberships & Karma Adjustments
 
 * **Shadow Healthcare Community Membership:** `{python} inc('Karma', -6)` *(Shadowrun Missions Guide v2.4, p. 20)*
@@ -293,3 +300,15 @@ Gain **6 * Charisma** contact points to spend:
 * **Remaining Essence:** `{python} f"{Essence:.2f}"` *(Raw: 6.34 Ess consumed | Buffer: +1.00 Ess | Biological: 0.66 Ess | Cyberpsychosis Rank 3 active [≤ 1.00 Ess])*
 * **Total Starting Karma Remaining:** `{python} Karma` *(100% compliant with SRM ≤ 5 Karma carryover cap)*
 * **Total Contact Points:** `{python} Contact_Points`
+
+---
+
+## Starting Operational Pools
+
+* **Astral**: 0d6 (Mundane)
+* **Matrix**: 4d6 (Commlink firewall & Veronica PAN defense)
+* **Physical**: Firearms (7) + Cyberarm AGI (7) + Smartlink (2) = 16d6 | Close Combat (7) + Cyberarm STR (4) = 11d6 | Skillwires (7) across all physical skills = 10–14d6
+* **Social**: Skillwires (7) + CHA (2) = 9d6 (Con & Influence)
+* **Defense**: REA (5) + INT (4) = 9d6
+* **Initiative**: 1d6+9 (Deferred action economy; meat reflexes)
+* **Edge Engine**: Aptitude (Firearms 7) + Smartlink wireless + Math SPU

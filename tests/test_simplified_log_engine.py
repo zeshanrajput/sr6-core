@@ -223,7 +223,7 @@ def test_character_portfolio_consistency():
 
     cm = CharacterManager()
     for char_id in ["reiko", "velvet", "venn"]:
-        repo_dir = f"characters/{char_id}"
+        repo_dir = cm.get_character_repo_dir(char_id)
         totals = get_log_totals(repo_dir)
         master = cm.get_character_data(char_id)
         assert master is not None, f"Character data for {char_id} not found"

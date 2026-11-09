@@ -37,12 +37,15 @@ class CharacterManager:
             if cfg.get("repo_path"):
                 candidates.append(cfg.get("repo_path"))
             
-            # Monorepo characters/ folder support (highest priority)
+            # Monorepo characters/ folder support (highest priority, including lab/ incubator)
             core_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
             candidates.append(os.path.join(core_root, "characters", char_id))
             candidates.append(os.path.join(os.getcwd(), "characters", char_id))
+            candidates.append(os.path.join(core_root, "characters", "lab", char_id))
+            candidates.append(os.path.join(os.getcwd(), "characters", "lab", char_id))
             if self.github_root:
                 candidates.append(os.path.join(self.github_root, "sr6-core", "characters", char_id))
+                candidates.append(os.path.join(self.github_root, "sr6-core", "characters", "lab", char_id))
 
             # Sibling and CWD candidates
             candidates.append(os.path.join(core_root, repo_name))

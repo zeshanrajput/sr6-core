@@ -7,10 +7,10 @@ project:
     - output/roll20/
     - output/mobile/
   pre-render:
-    - uv run --directory ../.. sr6 sync-all
+    - uv run --directory ../../.. sr6 sync-all
 
 book:
-  title: "VENN // Nathan Turrent & Veronica Character Dossier"
+  title: "VENN <LAB> // Nathan Turrent & Veronica Character Dossier"
   author: "Venn"
   date: "2026-07-26"
   chapters:

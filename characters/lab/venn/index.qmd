@@ -1,5 +1,10 @@
 # VENN // Nathan Turrent & Veronica
 
+::: {.callout-note icon=false}
+## 🔬 Character Lab Prototype // In Design
+This character build and narrative anthology is currently in the **[Character Lab](../../lab/README.md)** (Tabletop Canon Line: Pre-Play Incubation). Metrics reflect chargen optimization, theoretical mechanical benchmarks, and solo prelude interludes rather than active table campaign play.
+:::
+
 Welcome to the consolidated operative dossier and story anthology for **Venn** (Nathan Turrent & Veronica) in Shadowrun 6th Edition.
 
 ```{python}

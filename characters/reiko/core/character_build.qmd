@@ -213,3 +213,15 @@ Total Nuyen Remaining: ¥`{python} f"{Nuyen:,}"`
 Total Karma Remaining: `{python} Karma`
 
 Total Character Points Remaining: `{python} Character_Points`
+
+---
+
+## Starting Operational Pools
+
+* **Astral**: 0d6 (No astral perception)
+* **Matrix**: Electronics/Cracking (5) + RES (6) + Focus (4) = 15d6
+* **Physical**: Drone Autosofts (6) + Pilot Origins Rigging (3) + Sensor (4) = 13d6
+* **Social**: Con (1) + CHA (3) = 4d6 (Tertiary matrix persona)
+* **Defense**: Rigged Vehicle Defense = 10d6
+* **Initiative**: 4d6 (Hot-Sim VR)
+* **Edge Engine**: Resonance Edge accumulation + Analytical Mind

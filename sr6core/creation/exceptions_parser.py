@@ -132,9 +132,13 @@ class ExceptionsRegistry:
     @classmethod
     def get_character_exceptions(cls, char_id: str, repo_dir: Optional[str] = None) -> List[Dict[str, Any]]:
         if not repo_dir:
-            cand = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "characters", char_id)
+            core_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+            cand = os.path.join(core_root, "characters", char_id)
+            cand_lab = os.path.join(core_root, "characters", "lab", char_id)
             if os.path.exists(cand):
                 repo_dir = cand
+            elif os.path.exists(cand_lab):
+                repo_dir = cand_lab
         if repo_dir:
             exc_yaml = os.path.join(repo_dir, "rules", "exceptions.yaml")
             if os.path.exists(exc_yaml):
