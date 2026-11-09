@@ -619,8 +619,8 @@ contacts:
     - Auto-Promoted to Loyalty 1 (-1 FP)
 reputation:
   SEA: 7
+  NOLA: 2
   AMS: 1
-  HK: 2
 total_reputation: 10
 drones: []
 weapons: []

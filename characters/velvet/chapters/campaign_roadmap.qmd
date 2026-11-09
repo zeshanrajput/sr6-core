@@ -1,0 +1,11 @@
+# Campaign Roadmap & Missions Tracker
+
+This page tracks the runner's campaign career progress across sanctioned **Shadowrun Missions (SRM)** organized play modules, convention mission packs (CMPs), and prime operations across the 2081 and 2083 arcs.
+
+```{python}
+#| echo: false
+#| output: asis
+from sr6core.publishing.campaign_roadmap import render_campaign_roadmap
+print(f"```{{=html}}\n{render_campaign_roadmap('velvet')}\n```")
+```
+

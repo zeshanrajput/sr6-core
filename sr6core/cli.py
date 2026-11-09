@@ -273,6 +273,44 @@ def main():
     contacts_parser.add_argument("--min-loy", type=int, default=None, help="Minimum Loyalty rating")
     contacts_parser.add_argument("--json", action="store_true", help="Output results in JSON format")
 
+    # match subcommand
+    match_parser = subparsers.add_parser("match", help="Match an announced mission against all character rosters")
+    match_parser.add_argument("query", type=str, help="Mission code or title (e.g. 2081-14, 'Death of a Fixer', 'CMP 2083-05')")
+    match_parser.add_argument("--chars", "-c", type=str, default=None, help="Comma-separated character IDs to check (default: all)")
+    match_parser.add_argument("--json", action="store_true", help="Output results in JSON format")
+
+    # missions subcommand
+    missions_parser = subparsers.add_parser("missions", aliases=["mission"], help="Manage SRM missions registry, audits, runway, and search")
+    missions_sub = missions_parser.add_subparsers(dest="subcommand", help="Missions subcommands")
+
+    m_list = missions_sub.add_parser("list", help="List canonical SRM missions")
+    m_list.add_argument("--season", "-s", type=str, default=None, help="Filter by season (2081, 2083, GEN)")
+    m_list.add_argument("--arc", "-a", type=str, default=None, help="Filter by arc")
+    m_list.add_argument("--json", action="store_true", help="Output in JSON format")
+
+    m_avail = missions_sub.add_parser("available", help="List unplayed missions for a character across 2081 and 2083")
+    m_avail.add_argument("char_id", type=str, help="Character ID (reiko, velvet, venn)")
+    m_avail.add_argument("--json", action="store_true", help="Output in JSON format")
+
+    m_run = missions_sub.add_parser("runway", help="Calculate career runway, projected karma/nuyen, and plan feasibility")
+    m_run.add_argument("char_id", type=str, help="Character ID (reiko, velvet, venn)")
+    m_run.add_argument("--json", action="store_true", help="Output in JSON format")
+
+    m_aud = missions_sub.add_parser("audit", help="Audit character log for duplicate missions and 2-SRM rent cadence")
+    m_aud.add_argument("char_id", nargs="?", default=None, help="Character ID (or all characters if omitted)")
+    m_aud.add_argument("--json", action="store_true", help="Output in JSON format")
+
+    m_ingest = missions_sub.add_parser("ingest", help="Extract and ingest all mission ebook text into SQLite database")
+    m_ingest.add_argument("--force", action="store_true", help="Force re-extraction of already ingested files")
+
+    m_search = missions_sub.add_parser("search", help="Full-text search across mission briefs and text in database")
+    m_search.add_argument("query", type=str, help="Search text query")
+    m_search.add_argument("--limit", type=int, default=10, help="Max results (default: 10)")
+
+    m_get = missions_sub.add_parser("get", help="Retrieve mission record and synopsis by ID or code")
+    m_get.add_argument("id", type=str, help="Mission ID or code")
+    m_get.add_argument("--json", action="store_true", help="Output in JSON format")
+
     lint_parser = subparsers.add_parser("lint", help="Lint Quarto chapter prose")
     lint_parser.add_argument("target", type=str, help="Path to chapter markdown/qmd file")
 
@@ -688,6 +726,227 @@ def main():
                 print("Available Regions: " + ", ".join(f"{k} ({v})" for k, v in REGION_MAP.items()))
                 print()
 
+    elif args.command == "match":
+        from sr6core.character.mission_match import match_mission
+        import json
+
+        cids = [c.strip() for c in args.chars.split(",")] if getattr(args, "chars", None) else None
+        res = match_mission(args.query, char_ids=cids)
+
+        if getattr(args, "json", False):
+            print(json.dumps(res, indent=2))
+            return
+
+        m = res["mission"]
+        print("=" * 75)
+        print(f"  {m.get('code', res['norm_id'])}: {m.get('title', args.query)}")
+        print(f"  Arc: {m.get('arc', 'N/A')} | Season: {m.get('season', 'N/A')} | Type: {m.get('type', 'SRM')} | Region: {m.get('region', 'GEN')}")
+        print("=" * 75)
+        print("  CHARACTER ELIGIBILITY ROSTER:")
+        for cid, cdata in res["characters"].items():
+            cname = cdata.get("name", cid).upper()
+            if cdata["available"]:
+                print(f"  • {cname:<14}: [AVAILABLE] (0 runs logged)")
+            else:
+                run = cdata["runs"][0] if cdata["runs"] else {}
+                r_date = run.get("date", "Unknown date")
+                r_k = run.get("karma", 0)
+                r_n = run.get("nuyen", 0)
+                r_gm = f" | GM: {run['gm']}" if run.get("gm") else ""
+                r_line = f" | Line {run['line']}" if run.get("line") else ""
+                print(f"  • {cname:<14}: [ALREADY PLAYED] on {r_date} (+{r_k}K, +{r_n:,}¥{r_gm}{r_line})")
+
+        syn = m.get("synopsis")
+        if syn:
+            print("-" * 75)
+            print("  BRIEFING / SYNOPSIS:")
+            for p in syn.strip().split("\n\n")[:3]:
+                print(f"  {p}")
+
+        scenes = m.get("scenes")
+        if scenes:
+            print("-" * 75)
+            print(f"  SCENES OUTLINE ({len(scenes)}):")
+            for sc in scenes[:5]:
+                print(f"  - {sc}")
+
+        fpath = m.get("file_path")
+        if fpath:
+            print("-" * 75)
+            print(f"  LOCAL EBOOK:\n  {fpath}")
+        print("=" * 75 + "\n")
+
+    elif args.command in ["missions", "mission"]:
+        from sr6core.character.mission_registry import (
+            CANONICAL_MISSIONS,
+            ingest_all_missions,
+            search_missions,
+            get_mission_record
+        )
+        from sr6core.character.mission_match import (
+            get_available_missions,
+            calculate_runway,
+            audit_character_missions
+        )
+        import json
+
+        sub = getattr(args, "subcommand", None)
+
+        if sub == "list" or not sub:
+            season_filter = getattr(args, "season", None)
+            arc_filter = getattr(args, "arc", None)
+            missions_list = []
+            for mid, m in CANONICAL_MISSIONS.items():
+                if season_filter and str(m.get("season")) != str(season_filter):
+                    continue
+                if arc_filter and arc_filter.lower() not in m.get("arc", "").lower():
+                    continue
+                missions_list.append(m)
+
+            if getattr(args, "json", False):
+                print(json.dumps(missions_list, indent=2))
+                return
+
+            print(f"\n=== Canonical Shadowrun Missions ({len(missions_list)} found) ===")
+            print(f"{'Code':<15} {'Title':<35} {'Season':<8} {'Arc':<25} {'Type':<8}")
+            print("-" * 95)
+            for m in missions_list:
+                print(f"{m.get('code', m['id']):<15} {m.get('title', '')[:34]:<35} {str(m.get('season', '')):<8} {m.get('arc', '')[:24]:<25} {m.get('type', ''):<8}")
+            print()
+
+        elif sub == "available":
+            avail = get_available_missions(args.char_id)
+            if getattr(args, "json", False):
+                print(json.dumps(avail, indent=2))
+                return
+
+            print("=" * 75)
+            print(f"  AVAILABLE MISSIONS: {avail['name'].upper()} ({avail['char_id']})")
+            print(f"  Progress: {avail['played_count']} / {avail['total_missions']} Missions Played ({avail['completion_pct']}%)")
+            print("=" * 75)
+            for arc, m_list in avail["arcs"].items():
+                unplayed = [m for m in m_list if not m["played"]]
+                played_arc = len(m_list) - len(unplayed)
+                pct = round((played_arc / len(m_list)) * 100, 1) if m_list else 0
+                print(f"\n  [{arc}] — {played_arc}/{len(m_list)} Played ({pct}% complete)")
+                for m in m_list:
+                    status = "[✓] PLAYED   " if m["played"] else "[ ] AVAILABLE"
+                    print(f"    {status} {m['code']:<14} : {m['title']}")
+            print("\n" + "=" * 75 + "\n")
+
+        elif sub == "runway":
+            runway = calculate_runway(args.char_id)
+            if getattr(args, "json", False):
+                print(json.dumps(runway, indent=2))
+                return
+
+            print("=" * 75)
+            print(f"  CAREER RUNWAY TELEMETRY: {runway['name'].upper()} ({runway['char_id']})")
+            print("=" * 75)
+            print(f"  Missions Completed : {runway['played_missions']}")
+            print(f"  Missions Remaining : {runway['remaining_missions']} ({runway['remaining_srms']} SRMs, {runway['remaining_cmps']} CMPs, {runway['remaining_pms']} Prime Missions)")
+            print("-" * 75)
+            print("  PROJECTED REMAINING KARMA:")
+            print(f"  • Conservative (Base ~7K/run)   : {runway['projected_karma']['conservative']} Karma")
+            print(f"  • Expected (Veteran ~8.5K/run)  : {runway['projected_karma']['expected_veteran']} Karma")
+            print(f"  • Maximum (w/ Hooder +1K/run)   : {runway['projected_karma']['max_with_work_for_people']} Karma")
+            print("-" * 75)
+            print("  PROJECTED REMAINING NUYEN & LIVING COSTS:")
+            print(f"  • Gross Earnings (Conservative) : ¥{runway['projected_nuyen']['gross_conservative']:,}")
+            print(f"  • Gross Earnings (Veteran)      : ¥{runway['projected_nuyen']['gross_veteran']:,}")
+            print(f"  • Mandatory Rent Drag           : -¥{runway['projected_nuyen']['rent_drag']:,} ({runway['projected_nuyen']['rent_cycles']} bi-monthly Low payments)")
+            print(f"  • Net Spendable Runway (Veteran): ¥{runway['projected_nuyen']['net_veteran']:,}")
+
+            mp = runway["mechanical_plan"]
+            if mp["has_plan"]:
+                print("-" * 75)
+                print("  MECHANICAL PLAN FEASIBILITY (mechanical_plan.md):")
+                print(f"  • Total Karma Queued In Pipeline : {mp['total_karma_queued']} Karma")
+                achieve_str = f"YES (Consumes {mp['runway_consumption_pct']}% of remaining runway)" if mp["achievable"] else "DEFICIT (Exceeds projected runway)"
+                print(f"  • Pipeline Achievable            : {achieve_str}")
+                print("  • Upcoming Progression Steps:")
+                for step in mp["pending_steps"]:
+                    print(f"    - Step {step['step']}: {step['name']} ({step['karma']} Karma)")
+            print("=" * 75 + "\n")
+
+        elif sub == "audit":
+            if getattr(args, "char_id", None):
+                char_ids = [args.char_id]
+            else:
+                discovered = cm.discover_characters()
+                char_ids = [
+                    cid for cid, cinfo in discovered.items()
+                    if cinfo.get("config", {}).get("status") == "active" and "lab" not in str(cinfo.get("repo_dir", "")).lower()
+                ]
+            all_reports = []
+            for cid in char_ids:
+                try:
+                    rep = audit_character_missions(cid)
+                    all_reports.append(rep)
+                except Exception as e:
+                    all_reports.append({"char_id": cid, "valid": False, "errors": [str(e)], "warnings": []})
+
+            if getattr(args, "json", False):
+                print(json.dumps(all_reports, indent=2))
+                return
+
+            for rep in all_reports:
+                print("=" * 75)
+                print(f"  SRM CAMPAIGN AUDIT: {rep.get('name', rep['char_id']).upper()} ({rep['char_id']})")
+                print("=" * 75)
+                print(f"  Missions Logged     : {rep.get('total_missions', 0)} ({rep.get('srm_count', 0)} SRMs, {rep.get('cmp_count', 0)} CMPs)")
+                print(f"  Lifestyle Payments  : {rep.get('rent_payments', 0)}")
+                print(f"  Expected Rent Cycles: {rep.get('expected_rent_cycles', 0)} (paid every 2nd SRM)")
+
+                if rep.get("errors"):
+                    print("\n  [✗] AUDIT ERRORS:")
+                    for err in rep["errors"]:
+                        print(f"      • {err}")
+                else:
+                    print("\n  [✓] ZERO DUPLICATE MISSIONS DETECTED")
+                    print("  [✓] 2-SRM RENT CADENCE COMPLIANT")
+
+                if rep.get("warnings"):
+                    print("\n  [!] AUDIT WARNINGS:")
+                    for w in rep["warnings"]:
+                        print(f"      • {w}")
+
+                status_str = "PASS" if rep["valid"] else "FAIL (DEFICITS DETECTED)"
+                print(f"\n  AUDIT RESULT: {status_str}")
+                print("=" * 75 + "\n")
+
+        elif sub == "ingest":
+            res = ingest_all_missions(force=getattr(args, "force", False))
+            print("\n=== SRM Mission Ebook Ingestion Complete ===")
+            print(f"  Ingested / Updated : {res['ingested']} new, {res['updated']} updated")
+            print(f"  Total Canonical    : {res['total_canonical']} legal missions")
+            print("  SQLite Database    : ~/.sr6/rules_index.db (table ref_missions & missions_fts)\n")
+
+        elif sub == "search":
+            results = search_missions(args.query, limit=args.limit)
+            print(f"\n=== Mission Text Search: '{args.query}' ({len(results)} matches) ===")
+            for r in results:
+                print(f"• [{r['code']}] {r['title']} ({r['season']} | {r['arc']})")
+                if r.get("snippet"):
+                    print(f"  Snippet: {r['snippet']}\n")
+            print()
+
+        elif sub == "get":
+            rec = get_mission_record(args.id)
+            if not rec:
+                print(f"Mission '{args.id}' not found.")
+            else:
+                if getattr(args, "json", False):
+                    print(json.dumps(rec, indent=2))
+                else:
+                    print(f"\n=== {rec.get('code', rec['id'])}: {rec.get('title')} ===")
+                    print(f"Arc: {rec.get('arc')} | Season: {rec.get('season')} | Type: {rec.get('type')}")
+                    if rec.get("synopsis"):
+                        print(f"\nSynopsis:\n{rec['synopsis']}")
+                    if rec.get("file_path"):
+                        print(f"\nFile: {rec['file_path']}")
+                    print()
+
     elif args.command in ["char", "characters"]:
         if args.subcommand == "list" or not args.subcommand:
             print("\n=== Configured SR6 Character Portfolios ===")
@@ -728,17 +987,29 @@ def main():
             print(sheet)
 
         elif args.subcommand == "audit":
+            from sr6core.character.mission_match import audit_character_missions
             char_ids = [args.char_id] if args.char_id else [c["id"] for c in cm.list_characters()]
             for cid in char_ids:
                 report = deep_audit_character(cid)
+                m_audit = audit_character_missions(cid)
+                is_valid = report["valid"] and m_audit["valid"]
                 print(f"\n--- Deep Audit Report for '{cid}' ---")
-                print(f"  Overall Valid      : {'PASS' if report['valid'] else 'WARNINGS'}")
+                print(f"  Overall Valid      : {'PASS' if is_valid else 'DEFICITS / WARNINGS'}")
                 print(f"  Positive Karma     : {report['total_pos_karma']}")
                 print(f"  Negative Karma     : {report['total_neg_karma']}")
+                print(f"  Missions Logged    : {m_audit['total_missions']} ({m_audit['srm_count']} SRMs, {m_audit['cmp_count']} CMPs)")
+                print(f"  Missions Legality  : {'PASS (0 duplicates, rent valid)' if m_audit['valid'] else 'FAIL (Deficits detected)'}")
+                if m_audit.get("errors"):
+                    for err in m_audit["errors"]:
+                        print(f"   [✗] Mission Error : {err}")
                 if report.get("warnings"):
-                    print("  Warnings:")
+                    print("  Character Warnings:")
                     for w in report["warnings"]:
                         print(f"   - {w}")
+                if m_audit.get("warnings"):
+                    print("  Mission Warnings:")
+                    for mw in m_audit["warnings"]:
+                        print(f"   - {mw}")
             print()
 
         elif args.subcommand == "advance":

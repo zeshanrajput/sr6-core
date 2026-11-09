@@ -19,6 +19,7 @@ book:
       chapters:
         - core/character_build.qmd
         - chapters/character_sheet.qmd
+        - chapters/campaign_roadmap.qmd
         - chapters/resonant_kin.qmd
         - core/character_log.qmd
         - core/character_purchases.qmd

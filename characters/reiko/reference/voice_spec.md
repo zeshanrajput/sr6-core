@@ -92,11 +92,12 @@ chapter_tiers:
       - "10 Game Theory (Emergence of the Gold Braid)"
       - "16 Faith (Exploring Human Faith & Familial Bonds)"
       - "18 The Geometry of a Sieve (Emancipation & Debt Cleared)"
-      - "19 Legacy Code (Brynne's Death & Releasing the Collar)"
+      - "19 Legacy Code (Releasing Brynne's Collar & The Shadow of Mortality)"
       - "26 SIGTSTP (The NOLA Reckoning & De-masking)"
       - "27 Malloc (The Exegesis of Starvation & The Birth of 4Gurds)"
       - "30 Vim (The Sovereign Keystone / Great Inversion)"
       - "33 Code Freeze (The Somatic Ceiling & Code Freeze)"
+      - "35 ptrace (Soul Hacking — The Descent into Human Malice & The Sin of Unworthiness)"
 
   tier_2_narrative_evolution:
     passing_threshold: "8.5 / 10"

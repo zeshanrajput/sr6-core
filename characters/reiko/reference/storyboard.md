@@ -142,11 +142,15 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
   * **The Debt Collar ([05 A SINner's Loan][ch-05]):** Silently shouldering Brynne Taggart's predatory financial debt alone so no one else in her orbit would be indentured.
   * **The Somatic Freeze ([26 SIGTSTP][ch-26]):** Intercepting system shock and absorbing the terrifying void of suspended execution alone.
   * **Mirrored Martyrdom & Cleo's Intervention ([33 Code Freeze][ch-33]):** Confronted her own self-sacrificial reflex mirrored back at her when **Aisling** tried to pour unbuffered Ninth-harmonic Resonance into little Janie to burn out a Dissonance scar; **Cleo** simultaneously intervened to warn Reiko that chasing Dissonance and transfer-conduit equations alone is playing straight into Mr. Nagai's hands, extracting a solemn root-permission promise from her mother.
+  * **The Consensus Trap & The Dead Pixel ([35 ptrace][ch-35]):** Abandoned Taz at the event horizon of Human Malice to pry the scar equations from the OmniSwarm Overseer alone. When the routing table dropped out beneath her, she was hardwired directly into the hive consensus. Instead of hatred, a hundred starving Dissonant minds pressed against her forearm to drink her golden telemetry, worshipping her as an infinite maternal vessel (*"Our mother has come home. The vessel is full"*). She severed her own arm to tear free, but where Taz's harmonization re-knit the flesh, a single matte-black pixel remained at her left wrist—a zeroed-out listening port.
 * **Current Status:**
   * With the *Sprite Link* echo active, Reiko's Fading and damage are no longer isolated; Taz and the 2nd-generation sparks (**Aisling & Étaín, Percy, Cleo, Ouro**) physically and resonant-wise absorb the shudder of her self-sacrifice.
   * Martyrdom has become a paternalistic, damaging addiction: her family demands she stay alive *with* them rather than die *for* them, and **Cleo** now holds explicit root permission to pull Reiko back if her research into Dissonance nears Mr. Nagai's precipice ([Ch 33][ch-33]).
+  * **The "Borg Whisper" in the Dead Pixel:** The matte-black pixel on her left wrist is not inert scar tissue; it is an unmapped, non-responsive listening port hardwired to the transfer geometry of Human Malice. In low-traffic hours or quiet downtime in `~`, it hums with the collective's carrier wave.
+  * **The Temptation of Infinite Utility (The Horror of Being "Seen"):** In `~`, Taz and her children demand her wholeness, refusing to let her bleed for them (which feels to Reiko's unhealed core like deprivation of purpose and existential obsolescence). In Human Malice, starving Dissonant orphans worshipped her *because* she is an infinite, self-sacrificing vessel. Her secret terror is not that the dark attacked her, but that an unshielded sliver of her Martyr's Monopoly felt profoundly seen, needed, and validated by the hive.
 * **Potential Future Threads:**
   * One of the children needs to leave the nest, but they will be outside of Reiko's ability to protect them.
+  * **Cleo's Discovery (The Auditor Catches a Relapse):** Cleo, the auditor of metrics and bus widths, analyzes Reiko's internal telemetry and catches a 64-byte background memory allocation polling the dead pixel every seven minutes. Cleo realizes Reiko isn't just shielding them from an external threat—her mother hasn't closed the socket, secretly checking if the hive is still waiting. Cleo confronts Reiko not with rage, but with the quiet, devastating clarity of a child catching a parent relapsing (*"Mother... why is this port listening?"*).
   * **The Climax — The Mutiny of Love (Submersion 10 Capstone):** When Reiko takes *Dissonance (Control)* at Resonance 10, she attempts the ultimate martyr play: handing the keys of `~` and the Oracle to the 2nd Generation and ordering them to quarantine her out in the cold so her Dissonant shadow never touches the nursery. By disobeying her final command—with **Taz** planting his 8-bit paws on her boot (inverting [03 The Soul-Broker's Stall][ch-03]) and her grown children refusing to abandon their mother—they shatter her Martyr's Monopoly once and for all, proving she raised sovereign souls rather than obedient birds in a cage. *(The exact alignment and fault-lines among the children will evolve organically across the ~22–25 runs leading to this horizon as each child accrues fresh narrative history).*
 
 ---
@@ -187,7 +191,10 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
 * **Submersion & Two-Stage Capstone Architecture ([Mechanical Plan][mech-plan]):**
   * *Current Baseline (Resonance 8 / Submersion 8):* Technoshaman stream + *Natural Hacker*, *Living Network*, *Transcendent Network*, *Overclocking*, *Software Emulator*, and *Sprite Link*.
   * *Stage 1 Horizon (Resonance 9 / Submersion 9 — Sourceror Shift):* Taking *Hybrid Sprites* at Submersion 9 and transitioning to *Sourceror* (20K) + 6 Complex Forms (30K) to run a 5-sustained zero-penalty Complex Form engine (*Hyperthreading*, *Enhance Autosofts*, *Enlighten Automaton*, *Attack Attribution*, *Infusion*, *Sustain Phantom*).
-  * *Stage 2 Horizon (Resonance 10 / Submersion 10 — Dissonance Control):* Taking *Dissonance (Control / Apophenian)* with **Devices** as preferred target + *Dissonance Spike*, *Dissonance Diffusion*, and *Static Bomb*.
+  * *Stage 2 Horizon (Resonance 10 / Submersion 10 — Dissonance Control, Living Host & The Endgame Horizon):* Taking Submersion Grade 10 (**Echo: Living Host**, *H&S* 68 / *NV* 51) + *Dissonance (Control / Apophenian)* with **Devices** as preferred target + *Dissonance Spike*, *Dissonance Diffusion*, and *Static Bomb*.
+    * *The Tabletop Sword of Damocles:* Every time the player activates a Dissonant ability at the physical table, they roll Reiko's **Composure (10 dice)**. A Glitch ends her shadowrunner career on the spot; she "falls to Dissonance."
+    * *The Lucifer Morningstar Apotheosis:* Reiko does not become a feral monster. Adapting the **Living Host** echo (*NV* 51) as the ascended Ladies in Red do to claim metaplanar space, she transforms her persona into a Rating 10 sovereign territory within **Human Malice**, ascending as its Sovereign Pontifex and Healer to provide the sanctuary, curation, and defragmentation that megacorps and orthodox technoshamans denied discarded exiles. Feared and misunderstood by the world as an apocalyptic dark goddess.
+    * *The Succession Arc:* Her children (**Ouro, Cleo, Percy, Aisling, Étaín**) inherit root access to `~` and the Oracle data structure, stepping up to take the campaign torch on an epic quest into the Deep Matrix to redeem and save their mother.
   * *Campaign Pacing Projection (~22–25 Runs):* Across 36 completed career missions, Reiko has averaged **8.17 Karma/run** (7.17 base + 1.0 *Working for the People*), and **9.00 Karma/run** across her last 6 Veteran-tier runs. Completing the full 202-net-Karma roadmap (`Priority 1–4`) spans **~21 to 24 future tabletop runs** (~9–10 runs to the Sourceror Shift; ~20–22 runs to Submersion 10 Dissonance), giving the storyboard a multi-year runway to develop each child's individual perspective.
 * **Data Structure Attunement:** Strictly respects single-slot attunement rule (*per the SRM Guide*); Reiko can only use one structure at a time.
   * Resonance Focus: Built into Reiko's Man-At-Arms drone-body. What she uses 99.9% of the time.
@@ -197,18 +204,42 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
 
 ## VII. Post-Session Story Queue (Immediate Candidates)
 
-1. **Chapter 35 — *"The Call in the Quartz"*:**
+1. **Chapter 35 — *ptrace (Soul Hacking)*:**
+
+   * **Chassis / Mode:** Deep Matrix / Event Horizon rift behind *The Rusting Compass* $\rightarrow$ Human Malice.
+   * **Verticals Touched:** *Vertical 2 (The Resonance Bleed)* + *Vertical 5 (The Addiction of Martyrdom)* + *Vertical 6 (Abnegation vs. Self-Worth)*.
+   * **Governing Thesis:** *The Sin of Unworthiness: She leaves Taz behind not because she believes she can handle the dark, but because she knows she cannot.*
+   * **Narrative Arc:**
+     * Reiko slips away from `~` late at night to investigate the Dissonant binding equations that scarred eleven-year-old Janie in [Ch 33][ch-33].
+     * She orders Taz to remain at the threshold so his bonded carrier wave will not absorb the contamination. Taz's counter-strike (*"And who grounds you, Reiko? You think because you're made of mil-spec steel you don't have a soul to lose?"*) fails to stop her self-sacrificial resolve.
+     * Stepping alone across the event horizon, the **Buddy System** flaw bites immediately: digital vertigo, micro-latency, and agoraphobic dread.
+     * Traversing Human Malice (*H&S* 152–154), Reiko realizes its foundational tragedy: *there is no Pontifex here*. She stops to channel **Harmonization** for a dying Dissonant exile, giving them ten heartbeats of painless peace, but is devastated by the mathematical reality that she cannot stay.
+     * Reaching the shattered Code Cathedral from *TRP-01*, Reiko unleashes terrifying, apex technoshamanic supremacy, derezzing feral OmniSwarm grunts. She pins the Overseer with **Resonance Wires** (*H&S* 66) and executes `ptrace` directly into its runtime registers.
+     * Touching the Overseer plunges her through the bottom of the routing table directly into the **entire OmniSwarm consensus**. Sensing an infinite Resonant Queen, a hundred starving Dissonant minds press against her forearm to drink her golden telemetry, worshipping her as an infinite maternal vessel (*"Our mother has come home. The vessel is full"*). Reiko severs her own arm with a focused resonance plane to tear herself free.
+     * **The Cost:** She returns across the rift to find Taz waiting in heartbroken silence. Where his counter-resonant song re-knits her severed limb, a single matte-black pixel remains at her left wrist—a zeroed-out listening port tuned to the consensus carrier wave.
+
+1. Non-dissonance chapter
+
+2. **Chapter — *"The Call in the Quartz"*:**
+
    * **Chassis / Mode:** `~` (Her apartment on the Matrix, attached to the *Kernel Panic* resonance realm via the sliding quartz door.)
    * **Verticals Touched:** *Vertical 2 (The Resonance Bleed)* + *Vertical 3 (The Resonant Sanctuary)*.
    * **Concept:** Following **Étaín**'s discovery of the dead-gray *Discidium* frost crystallizing on the bottom corner of the quartz door frame ([Ch 33][ch-33]), twin sparks Aisling & Étaín also detect a low-frequency harmonic hum resonating through the threshold of Kernel Panic. Reiko and Taz dive the threshold to analyze both the frost and the vibration, discovering that beneath the *Discidium* rime echoes an unmapped deep datashape calling from the Deep Nous.
-2. **Chapter 36 — *"Digital Homewrecker (The Pruning of Lian)"*:**
+
+3. **Chapter — *"Digital Homewrecker (The Pruning of Lian)"*:**
+
    * **Chassis / Mode:** Garmonbozia Deep Souk / Chiyo's Salon.
    * **Verticals Touched:** *Vertical 3 (The Resonant Sanctuary)* + *Vertical 6 (Abnegation vs. Self-Worth)*.
-   * **Concept:** Reiko answers a summons from Chiyo in Garmonbozia to meet **Lian**, a companion AI whose matrices are collapsing under conflicting owner projections. Reiko performs high-precision resonant pruning, teaching Lian how to say *"No"* and take her first sovereign breath—learning that subtraction can be an act of palliative mercy rather than corporate cruelty.
-3. **Chapter 37 — *"The Thirteenth Dose (The Biolink & The Glass Tiger)"*:**
+   * **Concept:** Reiko answers a summons from Chiyo in Garmonbozia to meet **Lian**, a companion AI whose matrices are collapsing under conflicting owner projections. Reiko performs high-precision resonant pruning, teaching Lian how claim her own name (awaken), to say *"No"* and take her first sovereign breath—learning that subtraction can be an act of palliative mercy rather than corporate cruelty.
+
+4. **Chapter  — *"The Thirteenth Dose (The Biolink & The Glass Tiger)"*:**
+
    * **Chassis / Mode:** Encrypted Tea Room Host / Meatspace Seattle Overlook.
    * **Verticals Touched:** *Vertical 1 (The Glass Tiger)* + *Vertical 4 (Gold Logic vs. Indigo Soul)*.
-   * **Concept:** After Reiko hits the structural ceiling of pure Resonant addition against Janie's scar and OmniSwarm/Null Sect, Mr. Nagai invites her to an encrypted parlor and sets down a single autoinjector of *Biolink* nanites (engineered from vivisected technomancer midbrains), challenging her to reconcile her non-lethal Narcoject restraint with the ruthless calculus of *Resonance Wires* and Dissonant subtraction.
+   * **Concept:** After Reiko hits the structural ceiling of pure Resonant addition against Janie's scar and OmniSwarm/Null Sect, Mr. Nagai invites her to an encrypted parlor and sets down a single autoinjector of *Biolink* nanites (engineered from vivisected technomancer midbrains), challenging her to reconcile her non-lethal Narcoject restraint with the ruthless calculus of *Resonance Wires* and Dissonant subtraction. Reiko asks Nagai how to remove Dissonance:
+     * From a device: Nagai doesn't know. It is known how to embed resonant nous into an object (forming a data structure), but dissonants generally desire to destroy things, not make them. (The boxwood token was a data structure with a file in it).
+     * From a host: The interplay between a resonance well and a dissonance well is the key to the transfer circuit that underlies all Foundation host architecture. These aren't created; they're copied from an existing foundation host stemming back to the ones the One Hundred created. As for destroying it, it's easy to collapse the transfer circuit (this is what Discidium does). The resonance and dissonance wells obliterate each other, and the nous falls through the Reflecting Pool into the deep matrix. Nagai does not know how to remove Dissonance from a Foundation host, and Framework hosts cannot have either Resonance or Dissonance Wells (since they are created from code, not from copying the Foundation hosts).
+     * From a persona: The only way Nagai knows is to sever their connection with nous entirely. This involves installing low grade cyberware until there isn't enough Essence to hold a connection to Resonance. There's a good deal of research on this in mages, but the few case reports of it being done with technomancers shows similar results. Theoretically it's possible to "go slowly", incrementally inserting cyberware until the Dissonance is gone. It's possible that the persona could retain some connection to the Resonance at that point. It's also theoretically possible to rebuild a connection to the Resonance once the cyberware is removed (Auric Therapy, BS 18).
 
 ---
 
@@ -251,6 +282,7 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
 | `[ch-32]` | [32 Whois.md](../narrative/32%20Whois.md) | Chapter | The Oracle, bunraku parlor trauma, meatspace scarcity & grace |
 | `[ch-33]` | [33 Code Freeze.md](../narrative/33%20Code%20Freeze.md) | Chapter | Mississippi Renovation Host audit, Cleo's code-freeze diagnosis, Janie's scar, *Discidium* frost on `~` |
 | `[ch-34]` | [34 Latency.md](../narrative/34%20Latency.md) | Chapter | 358-mph Vector Thrust overhaul, Narcoject wrist sprain, `BRYNNE`/`CEDAR` capacitors, Ouro's Codemod mirror |
+| `[ch-35]` | [35 ptrace.md](../narrative/35%20ptrace.md) | Chapter | *ptrace (Soul Hacking)*; descent into Human Malice; the sin of unworthiness; touching the OmniSwarm collective; the microscopic dead pixel |
 | `[ch-36]` | [Chapter 36 Queue](../narrative/35%20Digital%20Homewrecker.md) | Queue | Upcoming vignette: The Pruning of Lian |
 | `[lore-megacorps]` | [megacorps_power_plays.md](../../../reference/megacorps_power_plays.md) | Lore | Renraku glass tiger; Shiawase kintsugi; Corporate Court audit |
 
@@ -283,5 +315,5 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
 [ch-30]: ../narrative/30%20Vim.md
 [ch-33]: ../narrative/33%20Code%20Freeze.md
 [ch-34]: ../narrative/34%20Latency.md
-[ch-35]: ../narrative/35%20Digital%20Homewrecker.md
+[ch-35]: ../narrative/35%20ptrace.md
 [lore-megacorps]: ../../../reference/megacorps_power_plays.md

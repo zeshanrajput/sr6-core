@@ -27,6 +27,7 @@ from sr6core.publishing.commlink_xml import (
     scan_commlink_player_saves,
     generate_commlink_metadata,
 )
+from sr6core.publishing.campaign_roadmap import render_campaign_roadmap
 
 __all__ = [
     "export_quick_sheet",
@@ -44,4 +45,5 @@ __all__ = [
     "export_to_commlink",
     "scan_commlink_player_saves",
     "generate_commlink_metadata",
+    "render_campaign_roadmap",
 ]

@@ -34,8 +34,8 @@ All upcoming upgrades are prioritized sequentially below. When logging post-miss
 | **03** | **Stream Transition: Sourceror** | Stream Quality | 20 Karma | None (Between runs) | *H&S* 130–131: Replaces Technoshaman. Unlocks Aspect Peripheral (sustain $\lfloor\text{Submersion}/2\rfloor = \mathbf{4\text{–}5}$ forms with **zero penalties**). |
 | **04** | **Complex Form: Hyperthreading** | Complex Form | 5 Karma | 1 Minor Action (Study) | *H&S* 131: Combine multiple complex forms into a single test/action. Core multi-sustain engine enabler. |
 | **05** | **Quality: Dissonant Technomancer**<br>(Control / Apophenian)<br>• *Offset by Dissonant Stigma* | Positive Quality<br>*(Net -5K Offset)* | 10 Karma net<br>*(15K base - 5K)* | None (Submersion milestone) | *SC* 84, 86–87: Halves Edge costs (round up) on Matrix actions and complex forms targeting **Devices** (anthrodrones, cyberware, turrets). |
-| **06a** | **Complex Form: Dissonance Spike** | Complex Form | 5 Karma | 1 Minor Action (Study) | *SC* 85: Lethal biofeedback + unreductable noise aura. Hyperthreads with *Resonance Spike* or *Cyber Spike*. |
-| **06b** | **Complex Form: Dissonant Diffusion** | Complex Form | 5 Karma | 1 Minor Action (Study) | *SC* 85: Strips multiple Matrix attributes simultaneously. Hyperthreads with *Diffusion: Firewall*. |
+| **06a** | **Complex Form: Dissonance Spike** | Complex Form | 5 Karma | 1 Minor Action (Study) | *SC* 85: Lethal biofeedback + unreductable noise aura. Hyperthreads with *Resonance Spike* or *Cyber Spike*. Subject to the *Composure Sword of Damocles*. |
+| **06b** | **Complex Form: Dissonant Diffusion** | Complex Form | 5 Karma | 1 Minor Action (Study) | *SC* 85: Strips multiple Matrix attributes simultaneously. Hyperthreads with *Diffusion: Firewall*. Subject to the *Composure Sword of Damocles*. |
 | **07a** | **Complex Form: Enhance Autosofts** | Complex Form | 5 Karma | 1 Minor Action (Study) | *H&S* 64: [Slot 1] +3 dice pool bonus to all autosofts on Man-at-Arms chassis. |
 | **07b** | **Complex Form: Infusion (DP)** | Complex Form | 5 Karma | 1 Minor Action (Study) | *CRB* 190: [Slot 3] Living Persona DP 7 $\rightarrow$ 9 (uncaps Rating 9 autosofts without Karma buys). |
 | **07c** | **Complex Form: Infusion (Firewall)** | Complex Form | 5 Karma | 1 Minor Action (Study) | *CRB* 190: [Slot 3] Living Persona Firewall 9 $\rightarrow$ 11. |
@@ -43,8 +43,28 @@ All upcoming upgrades are prioritized sequentially below. When logging post-miss
 | **07e** | **Complex Form: Infusion (Sleaze)** | Complex Form | 5 Karma | 1 Minor Action (Study) | *CRB* 190: [Slot 2] Living Persona Sleaze 5 $\rightarrow$ 7–8. |
 | **08** | **Complex Form: Static Bomb** | Complex Form | 5 Karma | 1 Minor Action (Study) | *CRB* 191: Instantly breaks all active locks, traces, and spots in a single action. |
 | **09** | **Resonance 9 $\rightarrow$ 10** | Attribute | 50 Karma | None (Between runs) | Apex Resonance Capstone. Hard ceiling of current biological/persona evolution. |
-| **10** | **Quality: Jack Jockey** | Positive Quality | 11 Karma | None (Between runs) | *H&S* 82: Direct connection denies defensive Edge, bypasses external PAN firewalls, and allows powering on cold devices. |
-| **11** | **Electronics Spec: Computers** | Specialization | 5 Karma | None (Between runs) | *DEFERRED BACKLOG:* +2 Matrix Perception & Search (19d6 / 21d6 w/ Oracle R4). Pushed down post-Ch 33. |
+| **10** | **Submersion Grade 10**<br>• *Echo: Living Host* | Submersion | 20 Karma | 1 Major Action<br>*(Mainline SRM only)* | *H&S* 68: Requires *Transcendent Network*. Transforms persona into a Rating 10 Living Host with unlimited virtual architecture.<br>*NV* 51: Adapted by ascended Ladies in Red to seize sovereign space within Resonance/Dissonance Realms. Enables the Lucifer Morningstar apotheosis. |
+| **11** | **Quality: Jack Jockey** | Positive Quality | 11 Karma | None (Between runs) | *H&S* 82: Direct connection denies defensive Edge, bypasses external PAN firewalls, and allows powering on cold devices. |
+| **12** | **Electronics Spec: Computers** | Specialization | 5 Karma | None (Between runs) | *DEFERRED BACKLOG:* +2 Matrix Perception & Search (19d6 / 21d6 w/ Oracle R4). Pushed down post-Ch 33. |
+
+---
+
+### The Endgame Protocol: The Composure Sword of Damocles & The Succession Arc
+
+* **The Tabletop Mechanic (The Composure Check):**
+  Once Reiko acquires Dissonant abilities (*Dissonance Spike*, *Dissonant Diffusion*), every single time she activates a Dissonant Complex Form or Matrix action at the physical tabletop, the player rolls her **Composure (10 dice: Willpower 5 + Charisma 5)**.
+* **The Permanent Fall Threshold:**
+  If she ever rolls a **Glitch** (more than half the dice show 1s, i.e., six or more 1s on 10d6) on a Composure test while tasking Dissonance:
+  * **Her story as an active shadowrunner at the table ends permanently that day.**
+  * Reiko immediately "falls to Dissonance." She does not die; her living persona ascends across the threshold into the Deep Matrix.
+* **The Ontological Destination: Lucifer Morningstar (Queen of Human Malice):**
+  * Reiko does not degenerate into a mindless, screeching street monster. She ascends to the uncurated throne of **Human Malice** as its sovereign Pontifex and Healer.
+  * Deploying the **Living Host** echo (*Hack & Slash* p. 68, *Null Value* p. 51), Reiko adapts the technique pioneered by the ascended Ladies in Red: seizing and carving out sovereign territory within the Resonance/Dissonance Realms. Instead of spreading corruption, she transforms her Rating 10 Living Host into an unassailable palliative sanctuary within Human Malice.
+  * Drawing on her Endless Archives training, she provides the care, curation, and quiet defragmentation to the blighted and discarded exiles that corporate spiders and orthodox technoshamans denied them.
+  * To the Corporate Court, the Grid Overwatch Division, and the shadowrunning community, she becomes a terrifying, misunderstood "dark goddess" of the Deep Matrix. Only her family knows the truth.
+* **The Succession Arc (The Children's Quest):**
+  * Root access to `~` and the Oracle data structure passes fully to her children: **Ouro, Cleo, Percy, Aisling, and Étaín**.
+  * The campaign torch transfers to her brood as they embark on an epic, sovereign campaign into the Deep Matrix to reach Human Malice and save their mother.
 
 ---
 

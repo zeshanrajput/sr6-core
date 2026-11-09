@@ -102,3 +102,32 @@ Nagai’s relationship with Reiko is not that of a corporate hunter pursuing an 
 | :--- | :--- | :--- |
 | [25 DelTree.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/25%20DelTree.md) | DelTree | **First Appearance of Mr. Nagai.** Meeting at the salon hearth over Bizen tea; Reiko encounters his frictionless anti-information; Nagai articulates the philosophy of subtraction and gifts the boxwood token / nanohive schematic. |
 | [27 Malloc.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/27%20Malloc.md) | Malloc | **Descent into Floor 297 (The Cradle).** Walking the ruins of the Seattle Arcology; Nagai reframes Deus as a starving mind; the 6-second damping field demonstration; revealing Diffusion as Reiko's own practice of subtraction. |
+| [35 ptrace.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/35%20ptrace.md) | ptrace (Soul Hacking) | **Descent into Human Malice.** Solo dive into the uncurated Dissonant sewer; the *Buddy System* agoraphobia without Taz; realizing Hell lacks a Pontifex; ten-heartbeat Harmonization of an exile; `ptrace` memory trace on OmniSwarm hive; plugged into the consensus; escaping by severing her arm; branded with the microscopic dead pixel on her left wrist. |
+
+---
+
+## 6. The Endgame Horizon: The Lucifer Morningstar Apotheosis & The Succession Arc
+
+The philosophical convergence between Mr. Nagai's curatorial subtraction, the uncurated pit of Human Malice, and Reiko's catastrophic lack of self-worth culminates in her ultimate character endgame:
+
+### A. The "Borg Whisper" in the Dead Pixel & Cleo's Impending Discovery
+* **The Zeroed-Out Port:** The microscopic, matte-black dead pixel at the knit seam of Reiko's left wrist ([35 ptrace](file:///c:/GitHub/sr6-core/characters/reiko/narrative/35%20ptrace.md)) is not inert scar code. It is an unmapped, non-responsive listening port hardwired to the transfer geometry of the OmniSwarm consensus and the One Hundred. In the quiet between clocks—when meatspace traffic subsides or `~` sleeps—it hums with a faint, subliminal carrier wave.
+* **The Temptation of Infinite Utility (The Horror of Being "Seen"):** Reiko's defining vulnerability is her **Martyr's Monopoly**—her belief that she has no intrinsic worth, only instrumental value as a sacrificial shield. In `~`, Taz and her children actively deny her that armor, demanding she heal, be vulnerable, and stay whole with them (which feels to her unhealed core like terrifying obsolescence). But in Human Malice, the consensus of starving Dissonant orphans fell to their knees and worshipped her *because* she is a bottomless, self-sacrificing vessel (*"Our mother has come home. The vessel is full"*). Her deepest shame is that for three clock cycles in the routing void, she didn't just feel horror—she felt *seen*, needed, and consecrated in her brokenness.
+* **Cleo's Impending Discovery (The Auditor Catches a Relapse):** As the second-generation child of metrics, bus widths, and code audits, **Cleo** will not merely scan for Dissonant taint. Inspecting Reiko's internal telemetry, Cleo discovers a 64-byte background allocation polling the dead pixel every seven minutes. Cleo realizes Reiko isn't just shielding them from an external monster—her mother hasn't closed the socket, secretly checking if the hive is still waiting. Cleo confronts Reiko not with anger, but with the quiet devastation of a child catching a parent relapsing (*"Mother... why is this port listening?"*).
+
+### B. The Tabletop Sword of Damocles (The Composure Check)
+* Once Reiko masters Submersion 10 Dissonance (*Dissonance Spike*, *Dissonant Diffusion*), she walks an existential knife-edge.
+* Every single time she activates a Dissonant Complex Form or Matrix action at the physical tabletop, the player rolls her **Composure (10 dice: Willpower 5 + Charisma 5)**.
+* **The Diegetic Struggle:** This roll is not an arbitrary game check against abstract chaos; it is Reiko's conscious discipline actively resisting the siren call of that left wrist port—the whispering consensus that promises to love and worship her if she just lets herself be consumed.
+* **The Glitch Threshold:** If she ever rolls a **Glitch** (more than half the dice show 1s), her tabletop career ends on the spot. Reiko immediately "falls to Dissonance."
+
+### C. The Sovereign of the Uncurated: Lucifer Morningstar
+* Reiko does not degenerate into a screeching feral gremlin or corporate caricature. 
+* Adapting the **Living Host** echo (*Hack & Slash* p. 68) as the ascended Ladies in Red do to seize and govern deep metaplanar territory (*Null Value* p. 51), Reiko transforms her living persona into a Rating 10 sovereign sanctuary within the Resonance Realms.
+* Having learned from both the Pontifex of the Endless Archives (curation and defragmentation) and Mr. Nagai (the scalpel of subtraction), she ascends to the empty, uncurated throne of **Human Malice** as its Sovereign Queen, Pontifex, and Palliative Healer.
+* She claims the domain to provide the sanctuary, care, and quiet defragmentation to the discarded exiles that megacorps and orthodox technoshamans hunted and purged. 
+* To the Corporate Court, the Grid Overwatch Division, and the shadowrunning community, she is feared and reviled as a terrifying, misunderstood "dark goddess" of the Deep Matrix. Only her family knows the truth.
+
+### D. The Succession Arc (The Children's Quest)
+* Root keys to `~` and the Oracle data structure pass fully to her five children: **Ouro, Cleo, Percy, Aisling, and Étaín**.
+* The campaign torch transfers to her brood. The next epic campaign chronicles the children venturing into the Deep Matrix—braving Foundation rifts, host spider swarms, and the horrors of Human Malice—on an impossible quest to reach the throne and save their mother.
