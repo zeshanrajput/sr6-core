@@ -10,7 +10,7 @@ identity:
   system: shadowrun6e
   karma: 33
   lifetime_karma: 309
-  nuyen: 8400.0
+  nuyen: 6900.0
   lifetime_nuyen: 480500
   heat: -1
   submersion: 8
@@ -286,6 +286,10 @@ knowledge_skills:
   rating: null
   notes: 'Free knowledge skill earned in SRM 2081-15: visceral biowaste, bodily excretions,
     and thaumaturgic contamination'
+- name: Dissonance — Theory and Applications
+  rating: null
+  notes: 'Knowsoft: Dissonant realms, entropy math, One Hundred transfer geometry,
+    consensus dynamics'
 contacts:
   Brynne Taggart:
     name: Brynne Taggart
@@ -1882,6 +1886,7 @@ matrix_devices:
   - Japanese Cultural Etiquette (R3)
   - New Orleans Vodou & Loa Syncretism (R3)
   - Gross Metahuman Fluids
+  - Dissonance — Theory & Applications
 - name: Other
   rating: 1
   qty: 1
