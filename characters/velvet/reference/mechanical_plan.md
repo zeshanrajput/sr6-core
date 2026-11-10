@@ -42,16 +42,19 @@ All upcoming upgrades are prioritized sequentially below. When logging post-miss
 | **04** | **Spell: Wreck (Drones)** | Direct Combat (LOS) | 5 Karma | 1 Minor Action (Study) | *Street Wyrd* 27: LOS, DV 4, Object destruction. Directly bypasses drone armor to destroy chassis/optics. Classified as a **Direct Combat** spell, so it reaps the *Wise Warrior* -1 Edge boost discount. |
 | **05** | **Spell: Manaball** | Direct Combat (Area) | 5 Karma | 1 Minor Action (Study) | *CRB* 133: LOS(A), DV 5, Physical. Silent, lethal direct mana destruction that **completely bypasses armor**. Deployed against hardened combat teams, cybered hit squads, or hostile spirits when stun is insufficient. Reaps *Wise Warrior* -1 Edge discount. |
 | **06** | **Quality: Finesse** | Negative Quality | 0 Karma | None (SRMG Adoption) | *6WC* 137 / *SRMG* 37, 58, 137: Formalizes Velvet's ethos of surgical non-violence, zero collateral damage, and avoidance of unnecessary Heat. Free to adopt post-chargen (no bonus Karma granted). |
-| **07** | **Untrained Skill Repair**<br>• *Perception 1 (Intuition)*<br>• *Astral 1 (Intuition)* | Active Skills | 10 Karma tot<br>*(5K each)* | None (Between runs) | Removes -1 untrained penalty (+2 dice swing each; Perception 3d $\rightarrow$ 5d, Astral 3d $\rightarrow$ 5d). Essential for spotting physical ambushes and reading emotional auras. |
-| **08** | **Tactical Sabotage: Sterilize** | Manipulation (Area) | 5 Karma | 1 Minor Action (Study) | *Street Wyrd* 56: Complete forensic DNA, biometric, and physical evidence cleansing. Eliminates material crime scene traces. |
-| **09** | **Attribute: Magic 6 $\rightarrow$ 7** | Attribute | 35 Karma | None (Between runs) | Unlocks Initiate Grades 7+, expands Focus Bonding Cap from 18 $\rightarrow$ **21 Force**, and raises safe spirit summoning threshold to Force 6. |
-| **10** | **Initiation Grade 7**<br>• *Flexible Signature* | Metamagic | 12 Karma* | 1 Major Action<br>*(Mainline SRM)* | *CRB* 165: Enables altering or completely erasing astral signatures from spellcasting, rendering Velvet astrally untraceable. |
-| **11** | **Attribute: Magic 7 $\rightarrow$ 8** | Attribute | 40 Karma | None (Between runs) | Expands Focus Bonding Cap to **24 Force**, allowing dual Rating 6 Qi Foci to bond simultaneously with Power Focus R3 and Sustaining Focus R3. |
-| **12** | **Initiation Grade 8**<br>• *Adept Centering* | Metamagic | 13 Karma* | 1 Major Action<br>*(Mainline SRM)* | *CRB* 167: Adds Initiate Grade to physical and combat actions via centering gestures, insulating active tests against situational modifiers. |
-| **13** | **Quality: Teamwork Makes Dream Work** | Positive Quality | 12 Karma<br>*(2x 6K)* | None (Between runs) | *Hack & Slash* 83: Extends social teamwork bonuses to all party members, multiplying Edge generation when paired with *Wingman*. |
-| **14** | **Quality: Charismatic Defense** | Positive Quality | 24 Karma<br>*(2x 12K)* | None (Between runs) | *Power Plays* 85: Bases Defense Rating off Charisma instead of Body (DR jumps from 2 $\rightarrow$ **10–14**!). |
+| **07** | **Quality: Charismatic Defense** | Positive Quality | 24 Karma<br>*(2x 12K)* | None (Between runs) | *Power Plays* 85: Bases Defense Rating off Charisma instead of Body! DR leaps from 2 $\rightarrow$ **10 (unarmored) / 14 (buffed) / 18–22 (armored)**. Generates defensive Edge against almost all incoming gunfire ("too damn pretty to shoot!"). Prioritized before attribute tax. |
+| **08** | **Untrained Skill Repair**<br>• *Perception 1 (Intuition)*<br>• *Astral 1 (Intuition)* | Active Skills | 10 Karma tot<br>*(5K each)* | None (Between runs) | Removes -1 untrained penalty (+2 dice swing each; Perception 3d $\rightarrow$ 5d, Astral 3d $\rightarrow$ 5d). Essential for spotting physical ambushes and reading emotional auras. |
+| **09** | **Tactical Sabotage: Sterilize** | Manipulation (Area) | 5 Karma | 1 Minor Action (Study) | *Street Wyrd* 56: Complete forensic DNA, biometric, and physical evidence cleansing. Eliminates material crime scene traces. |
+| **10** | **Attribute: Magic 6 $\rightarrow$ 7** | Attribute | 35 Karma | None (Between runs) | Unlocks Initiate Grades 7+, expands Focus Bonding Cap from 18 $\rightarrow$ **21 Force**, and raises safe spirit summoning threshold to Force 6. |
+| **11** | **Initiation Grade 7**<br>• *Extended Masking* | Metamagic | 12 Karma* | 1 Major Action<br>*(Mainline SRM)* | *Street Wyrd* 119 / *SRMG* 37–38: **Prerequisite: Masking**. Crucial stealth capstone. Extends aura masking to cover all sustained spells (*Increase Charisma*, *Increase Reflexes*, *Wingman*). Adversary mages and astral security assensing Velvet see only a completely mundane metahuman with zero active magic! |
+| **12** | **Attribute: Magic 7 $\rightarrow$ 8** | Attribute | 40 Karma | None (Between runs) | Expands Focus Bonding Cap to **24 Force**, allowing dual Rating 6 Qi Foci to bond simultaneously with Power Focus R3 and Sustaining Focus R3. |
+| **13** | **Initiation Grade 8**<br>• *Flexible Signature* | Metamagic | 13 Karma* | 1 Major Action<br>*(Mainline SRM)* | *CRB* 165: Enables altering or completely erasing astral signatures from instantaneous spellcasting within turns equal to Initiate Grade (8 turns). Completes the astral ghost footprint. |
+| **14** | **Quality: Teamwork Makes Dream Work** | Positive Quality | 12 Karma<br>*(2x 6K)* | None (Between runs) | *Hack & Slash* 83: Extends social teamwork bonuses to all party members, multiplying Edge generation when paired with *Wingman*. |
 
 *\*Initiation cost formula at Loyalty 6: $10 + 5 - 6 = 9$ Karma; at Loyalty 4 floor: $10 + \text{Current Grade} - 4$.*
+
+#### Tactical Note on Debuff Spells vs. Direct Combat
+* *Decrease Attribute (Willpower / Intuition):* While tempting to erode defender resistance against *Stunball* or *Manaball*, *Decrease Attribute* (*CRB*, p. 136) has severe mechanical constraints: **Range Touch**, **Sustained duration** (competing for one of Velvet's 3 Focused Concentration slots), and zero effect on Object Resistance. In contrast, Velvet's high Sorcery pool (17–19d6, reaching 21+ with Qi Focus) combined with *The Magician's Way* Edge discounts makes direct offensive casting faster, cleaner, and far more lethal from long range without burning sustaining overhead.
 
 #### Deferred Backlog ("Nice-to-Have Flavor & Cosmetic Utility")
 * **Spell: Charm** (*CRB*, p. 138; 5 Karma) — Manipulation spell granting +4 dice to social tests. Deprioritized because Velvet already operates with natural 19–24d social pools (buying 4–5 hits routinely); +4 extra dice is win-more overkill.
@@ -139,13 +142,30 @@ All upcoming upgrades are prioritized sequentially below. When logging post-miss
 
 ---
 
-### C. The Sovereign 3-Spell Sustaining Array
+### C. The Sovereign 3-Spell Sustaining & Extended Masking Array
 
-Under *Focused Concentration (Rating 3)* (*CRB*, p. 73), Velvet sustains three sovereign buffs 24/7 with **zero dice pool penalties**:
+Under *Focused Concentration (Rating 3)* (*CRB*, p. 73), Velvet sustains three sovereign buffs 24/7 with **zero dice pool penalties**, protected on the astral by **Extended Masking** (*Street Wyrd*, p. 119):
+
+```text
+               THE SOVEREIGN SUSTAINING & EXTENDED MASKING SHIELD
+           [24/7 Sovereign Buffs + Complete Astral Invisibility]
+
+    FOCUSED CONCENTRATION R3                      EXTENDED MASKING (Grade 7)
+    (3 Active Spells Sustained)                   (Street Wyrd 119 / SRMG 37)
+  +-----------------------------+               +-----------------------------+
+  | Slot 1: Increase Charisma   |               | • Masks personal aura       |
+  |   (Natural 10 -> 14)        |               |   (Masking R4 baseline)     |
+  | Slot 2: Increase Reflexes   | ------------> | • EXTENDS MASKING TO ALL    |
+  |   (Init 4D6, 2 Major Acts)  |               |   ACTIVE SUSTAINED SPELLS!  |
+  | Slot 3: Wingman / Barrier   |               | • Result: Velvet appears    |
+  |   (Dynamic Teamwork Slot)   |               |   100% mundane to assensing |
+  +-----------------------------+               +-----------------------------+
+```
 
 1. **Slot 1 (The Charisma Anchor):** *Increase Attribute (Charisma)* $\rightarrow$ Pushes Charisma from 10 $\rightarrow$ **14** (adds +4 dice to Influence, Con, Drain Resistance, and Defense Rating).
 2. **Slot 2 (Combat & Action Economy):** *Increase Reflexes* $\rightarrow$ Pushes Reaction from 2 $\rightarrow$ **5** and Initiative to **4D6 (2 Major Actions)**.
 3. **Slot 3 (Operational Support):** Dynamic slot alternated between **`Wingman`** (during social operations and team infiltrations), **`Physical Barrier`** (during combat extraction), or **`Increase Attribute (Willpower)`** (for high-drain ritual casting).
+4. **Astral Invisibility via Extended Masking (Grade 7):** Standard Masking only hides the caster's aura and foci. *Extended Masking* wraps around all three active sustained spells. Without it, passing astral mages and patrol spirits immediately see three glowing sustained spells; with it, Velvet walks through corporate checkpoints and high-society galas completely undetected.
 
 ---
 
