@@ -18,7 +18,7 @@ Under *SRM Guide v2.4* (pp. 17–20, 47, 59–60), downtime actions between miss
 * **Strict Priority Hierarchy (Execute in order upon run completion):**
   1. **Initiation (Major Action):** Consumes the Major Action on mainline SRMs when Karma threshold is reached. Initiate Grade is hard-capped by current Magic rating (**Grade 6 cap at Magic 6**).
   2. **Work for the People (Minor Action):** Non-negotiable conversion of **¥2,000 $\rightarrow$ +1 Karma** (funded directly by the ¥3,000 Hooder R3 monthly obligation).
-  3. **Learn Spells (Minor Action):** Absorb the next queued spell (**5 Karma + 1 Minor Action study**). *Priority:* **`Wingman`** (*Smooth Operations*, p. 110) $\rightarrow$ **`Charm`** (*CRB*, p. 138) $\rightarrow$ **`Fashion`** (*Street Wyrd*, p. 48) $\rightarrow$ **`Sterilize`** (*Street Wyrd*, p. 56).
+  3. **Learn Spells (Minor Action):** Absorb queued spells (**5 Karma + 1 Minor Action study** each). *Priority order:* **`Stunball`** (*CRB*, p. 134; instant non-lethal AoE to activate *The Magician's Way*) $\rightarrow$ **`Wingman`** (*Smooth Operations*, p. 110; social teamwork engine) $\rightarrow$ **`Charm`** (*CRB*, p. 138) $\rightarrow$ **`Fashion`** (*Street Wyrd*, p. 48) $\rightarrow$ **`Sterilize`** (*Street Wyrd*, p. 56) $\rightarrow$ **`Wreck (Drones)`** (*Street Wyrd*, p. 27; Direct Combat category).
   4. **Spirit Binding & Re-Binding (Minor Action):** Bind Fire or Air spirits up to the Magic $\times$ 3 Force cap (18 Force at Magic 6).
 
 ---
@@ -33,18 +33,20 @@ All upcoming upgrades are prioritized sequentially below. When logging post-miss
 
 | Step | Target Upgrade | Category | Cost | Downtime Action Required | Primary Tactical & Architectural Role |
 | :---: | :--- | :--- | :---: | :---: | :--- |
-| **01** | **Initiation Grade 6**<br>• *The Magician's Way* | Metamagic | 9 Karma* | 1 Major Action<br>*(Mainline SRM)* | *Street Wyrd* 76: Apex capstone at Magic 6. Unlocks dual mentor spirit benefits for *Wise Warrior* (combat sorcery bonus + combat spell Edge discounts) and allows Adept drain to be resisted with **Body + Charisma (14+ dice)**. |
-| **02** | **Spell: Wingman** | Detection Spell | 5 Karma | 1 Minor Action (Study) | *Smooth Operations* 110: Specialized sustained Mindlink for social teamwork. Helper gets 1 temporary Edge on assistance; leader gains 1 temporary Edge for *each* die provided. Sustained via *Focused Concentration*. |
-| **03** | **Spell: Charm** | Manipulation Spell | 5 Karma | 1 Minor Action (Study) | *CRB* 138: Adds +4 dice to all Influence and Con tests against targeted subjects. Pairs with *Stealth Effect* for covert social dominance. |
-| **04** | **Spell: Fashion** | Manipulation Spell | 5 Karma | 1 Minor Action (Study) | *Street Wyrd* 48: Instant wardrobe and fabric restructuring. Combined with *Cosmetic Control 2*, enables seamless visual transformation in seconds. |
-| **05** | **Untrained Skill Repair**<br>• *Perception 1 (Intuition)*<br>• *Astral 1 (Intuition)* | Active Skills | 10 Karma tot<br>*(5K each)* | None (Between runs) | Removes -1 untrained penalty (+2 dice swing each; Perception 3d $\rightarrow$ 5d, Astral 3d $\rightarrow$ 5d). Essential for spotting physical ambushes and reading emotional auras. |
-| **06** | **Tactical Sabotage Spells**<br>• *Sterilize*<br>• *Wreck (Drones)* | Spells | 10 Karma tot<br>*(5K each)* | 2 Minor Actions (Study) | *Street Wyrd* 56, *CRB* 142: Complete forensic DNA/evidence cleansing (*Sterilize*); subtle physical disruption against hostile surveillance drones (*Wreck*). |
-| **07** | **Attribute: Magic 6 $\rightarrow$ 7** | Attribute | 35 Karma | None (Between runs) | Unlocks Initiate Grades 7+, expands Focus Bonding Cap from 18 $\rightarrow$ **21 Force**, and raises safe spirit summoning threshold to Force 6. |
-| **08** | **Initiation Grade 7**<br>• *Flexible Signature* | Metamagic | 12 Karma* | 1 Major Action<br>*(Mainline SRM)* | *CRB* 165: Enables altering or completely erasing astral signatures from spellcasting, rendering Velvet astrally untraceable. |
-| **09** | **Attribute: Magic 7 $\rightarrow$ 8** | Attribute | 40 Karma | None (Between runs) | Expands Focus Bonding Cap to **24 Force**, allowing dual Rating 6 Qi Foci to bond simultaneously with Power Focus R3 and Sustaining Focus R3. |
-| **10** | **Initiation Grade 8**<br>• *Adept Centering* | Metamagic | 13 Karma* | 1 Major Action<br>*(Mainline SRM)* | *CRB* 167: Adds Initiate Grade to physical and combat actions via centering gestures, insulating active tests against situational modifiers. |
-| **11** | **Quality: Teamwork Makes Dream Work** | Positive Quality | 12 Karma<br>*(2x 6K)* | None (Between runs) | *Hack & Slash* 83: Extends social teamwork bonuses to all party members, multiplying Edge generation when paired with *Wingman*. |
-| **12** | **Quality: Charismatic Defense** | Positive Quality | 24 Karma<br>*(2x 12K)* | None (Between runs) | *Power Plays* 85: Bases Defense Rating off Charisma instead of Body (DR jumps from 2 $\rightarrow$ **10–14**!). |
+| **01** | **Initiation Grade 6**<br>• *The Magician's Way* | Metamagic | 9 Karma* | 1 Major Action<br>*(Mainline SRM)* | *Street Wyrd* 76: Apex capstone at Magic 6. Unlocks dual mentor spirit benefits for *Wise Warrior* (Adept combat sorcery bonus + **-1 Edge cost discount on Combat category spells/rituals**). Allows Adept drain to be resisted with **Body + Charisma (14+ dice)**. |
+| **02** | **Spell: Stunball** | Direct Combat (Area) | 5 Karma | 1 Minor Action (Study) | *CRB* 134: LOS(A), DV 4, Stun. Non-lethal AoE that **completely bypasses armor** ($\text{Sorcery} + \text{Magic}$ vs $\text{Willpower} + \text{Intuition}$). Cast silently via *Stealth Effect* (Grade 5). Immediately activates *Wise Warrior*’s -1 Edge boost discount on Combat spells. |
+| **03** | **Spell: Wingman** | Detection Spell | 5 Karma | 1 Minor Action (Study) | *Smooth Operations* 110: Specialized sustained Mindlink for social teamwork. Helper gets 1 temporary Edge on assistance; leader gains 1 temporary Edge for *each* die provided (19–24d). Sustained via *Focused Concentration*. |
+| **04** | **Spell: Charm** | Manipulation Spell | 5 Karma | 1 Minor Action (Study) | *CRB* 138: Adds +4 dice to all Influence and Con tests against targeted subjects. Pairs with *Stealth Effect* for covert social dominance. |
+| **05** | **Spell: Fashion** | Manipulation Spell | 5 Karma | 1 Minor Action (Study) | *Street Wyrd* 48: Instant wardrobe and fabric restructuring. Combined with *Cosmetic Control 2*, enables seamless visual transformation in seconds. |
+| **06** | **Quality: Finesse** | Negative Quality | 0 Karma | None (SRMG Adoption) | *6WC* 137 / *SRMG* 37, 58, 137: Formalizes Velvet's ethos of surgical non-violence, zero collateral damage, and avoidance of unnecessary Heat. Free to adopt post-chargen (no bonus Karma granted). |
+| **07** | **Untrained Skill Repair**<br>• *Perception 1 (Intuition)*<br>• *Astral 1 (Intuition)* | Active Skills | 10 Karma tot<br>*(5K each)* | None (Between runs) | Removes -1 untrained penalty (+2 dice swing each; Perception 3d $\rightarrow$ 5d, Astral 3d $\rightarrow$ 5d). Essential for spotting physical ambushes and reading emotional auras. |
+| **08** | **Tactical Sabotage Spells**<br>• *Sterilize*<br>• *Wreck (Drones)* | Spells | 10 Karma tot<br>*(5K each)* | 2 Minor Actions (Study) | *Street Wyrd* 56, 27: Complete forensic DNA/evidence cleansing (*Sterilize*); subtle physical destruction against hostile surveillance drones (*Wreck*). *Note:* *Wreck* is in the Direct Combat category and gains *Wise Warrior*’s -1 Edge discount! |
+| **09** | **Attribute: Magic 6 $\rightarrow$ 7** | Attribute | 35 Karma | None (Between runs) | Unlocks Initiate Grades 7+, expands Focus Bonding Cap from 18 $\rightarrow$ **21 Force**, and raises safe spirit summoning threshold to Force 6. |
+| **10** | **Initiation Grade 7**<br>• *Flexible Signature* | Metamagic | 12 Karma* | 1 Major Action<br>*(Mainline SRM)* | *CRB* 165: Enables altering or completely erasing astral signatures from spellcasting, rendering Velvet astrally untraceable. |
+| **11** | **Attribute: Magic 7 $\rightarrow$ 8** | Attribute | 40 Karma | None (Between runs) | Expands Focus Bonding Cap to **24 Force**, allowing dual Rating 6 Qi Foci to bond simultaneously with Power Focus R3 and Sustaining Focus R3. |
+| **12** | **Initiation Grade 8**<br>• *Adept Centering* | Metamagic | 13 Karma* | 1 Major Action<br>*(Mainline SRM)* | *CRB* 167: Adds Initiate Grade to physical and combat actions via centering gestures, insulating active tests against situational modifiers. |
+| **13** | **Quality: Teamwork Makes Dream Work** | Positive Quality | 12 Karma<br>*(2x 6K)* | None (Between runs) | *Hack & Slash* 83: Extends social teamwork bonuses to all party members, multiplying Edge generation when paired with *Wingman*. |
+| **14** | **Quality: Charismatic Defense** | Positive Quality | 24 Karma<br>*(2x 12K)* | None (Between runs) | *Power Plays* 85: Bases Defense Rating off Charisma instead of Body (DR jumps from 2 $\rightarrow$ **10–14**!). |
 
 *\*Initiation cost formula at Loyalty 6: $10 + 5 - 6 = 9$ Karma; at Loyalty 4 floor: $10 + \text{Current Grade} - 4$.*
 
@@ -55,7 +57,7 @@ All upcoming upgrades are prioritized sequentially below. When logging post-miss
 *(Current Baseline: Power Focus Rating 3 bonded, ¥22,915 liquid nuyen after Session 9).*
 
 | Step | Target Hardware / Focus Upgrade | Source / Book | Cost | Downtime Action Required | Capacity & Tactical Role |
-| :---: | :--- | :--- | :---: | :---: | :--- |
+| :---: | :--- | :--- | :--- | :---: | :--- |
 | **H1** | **M-TOC Tactical Network Node** | *Firing Squad* 110 | ¥15,000–¥30,000 | None (Market Purchase) | Team Edge storage bank and encrypted squad tactical coordination network. |
 | **H2** | **Qi Focus: Improved Sorcery (R3)** | *CRB* 155, 294 | ¥36,000 + 24 Karma | Minor Action (Bond Focus) | Rating 6 Qi Focus (Force 6 = $4 \times 1.5$ PP). Flat **+3 dice to all Spellcasting tests** (pushes Sorcery to **21+ dice**). Requires Magic 7 (21 Force cap). |
 | **H3** | **Qi Focus: Improved Conjuring (R3)** | *CRB* 155, 294 | ¥36,000 + 24 Karma | Minor Action (Bond Focus) | Rating 6 Qi Focus (Force 6). Flat **+3 dice to Conjuring** (pushes pool to **20 dice = 5 bought hits vs Force 8 spirits**). Requires Magic 8 (24 Force cap). |
@@ -96,7 +98,41 @@ All upcoming upgrades are prioritized sequentially below. When logging post-miss
 
 ---
 
-### B. The Sovereign 3-Spell Sustaining Array
+### B. The Surgical AoE & Finesse Combat Array
+
+```text
+                         THE SURGICAL AOE & FINESSE COMBAT ARRAY
+                 [Non-Lethal Crowd Control + Direct Anti-Material]
+
+          STUNBALL (CRB 134)                          WRECK DRONES (SW 27)
+     (Direct Combat, Area, DV 4)                  (Direct Combat, LOS, DV 4)
+  +--------------------------------+          +--------------------------------+
+  |  • Rolls Sorcery + Magic       |          |  • Rolls Sorcery + Magic       |
+  |    vs Willpower + Intuition    |          |    vs Object Resistance (12-15)|
+  |  • COMPLETELY IGNORES ARMOR    |          |  • Destroys drone chassis &    |
+  |  • Drops crowds cold in stun   |          |    optics from the shadows     |
+  +--------------------------------+          +--------------------------------+
+                  |                                           |
+                  +---------------------+---------------------+
+                                        v
+                 THE MAGICIAN'S WAY + WISE WARRIOR MENTOR DISCOUNT
+                          (Street Wyrd 76 / CRB 166)
+  +----------------------------------------------------------------------------+
+  |  • -1 Edge Cost Discount: Applies to all Combat category spells/rituals.   |
+  |  • 1 Edge: Reroll 1 failed die or +1 to single die roll.                   |
+  |  • 3 Edge: Add Magic (+6 dice) or reroll all failed dice on Stunball/Wreck.|
+  |  • Stealth Effect (Grade 5): Silent casting (+5 Perception threshold).     |
+  |  • Anchored by Finesse Quality: Zero collateral damage, zero excess Heat.  |
+  +----------------------------------------------------------------------------+
+```
+
+* **Zero Collateral Stun AoE:** *Stunball* bypasses physical armor soak entirely, dropping multi-target guard patrols or gang ambushes into unconsciousness without spilling blood, blowing out drywall, or leaving ballistics for forensic star-chasers.
+* **Future Direct Spell Pathway:** Mastering *Stunball* establishes the mechanical infrastructure for *Manaball* (Direct Physical, ignores armor) or *Powerball* (Indirect Physical blast) should Velvet ever encounter high-threat non-living opposition or spirits requiring lethal mana dissolution.
+* **Direct Anti-Drone Sabotage:** Because *Wreck* is explicitly categorized as a **Direct Combat** spell (*Street Wyrd*, p. 27), it also reaps the *Wise Warrior* -1 Edge discount, enabling rapid disabling of hostile surveillance drones with reduced Edge overhead.
+
+---
+
+### C. The Sovereign 3-Spell Sustaining Array
 
 Under *Focused Concentration (Rating 3)* (*CRB*, p. 73), Velvet sustains three sovereign buffs 24/7 with **zero dice pool penalties**:
 
@@ -106,7 +142,7 @@ Under *Focused Concentration (Rating 3)* (*CRB*, p. 73), Velvet sustains three s
 
 ---
 
-### C. The 24-Force Focus Bonding & Magic Ceiling Architecture
+### D. The 24-Force Focus Bonding & Magic Ceiling Architecture
 
 In SR6 (*CRB*, p. 154), maximum bonded focus Force is $\text{Magic} \times 3$. Velvet’s focus acquisitions scale in lockstep with Magic attribute milestones:
 
