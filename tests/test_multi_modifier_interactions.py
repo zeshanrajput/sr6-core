@@ -55,9 +55,9 @@ def test_multi_modifier_interactions_velvet():
     assert any("Power Focus" in s for s in sc_sources)
     assert any("Specialization" in s for s in sc_sources)
 
-    # Channeling should reflect Power Focus (+3) and Initiate Grade (+3) -> 18d6
+    # Channeling should reflect Power Focus (+3) and Initiate Grade (+5) -> 20d6
     ch = next(i for i in interactions if "Channeling" in i["name"])
-    assert "18d6" in ch["total_pool"]
+    assert "20d6" in ch["total_pool"]
     ch_sources = [m["source"] for m in ch["modifiers"]]
     assert any("Power Focus" in s for s in ch_sources)
     assert any("Initiate Grade" in s for s in ch_sources)

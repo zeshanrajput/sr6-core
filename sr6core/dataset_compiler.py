@@ -176,6 +176,31 @@ def extract_cyberware_stats(elem: Any) -> Tuple[float, int]:
     return essence, cost
 
 
+def extract_item_cost(elem: Any) -> int:
+    """Extracts cost/price from an item or focus element, handling price, cost, attrdef PRICE, and formulas."""
+    if isinstance(elem, str):
+        try:
+            elem = ET.fromstring(elem)
+        except Exception:
+            return 0
+    cost_str = elem.get("price") or elem.get("cost")
+    if not cost_str or cost_str == "0":
+        attr = elem.find(".//attrdef[@id='PRICE']")
+        if attr is not None:
+            tbl = attr.get("table")
+            if tbl:
+                cost_str = tbl.split(",")[0]
+            else:
+                cost_str = attr.get("value")
+    if cost_str:
+        val = str(cost_str).replace("$RATING", "1").replace("*", " * ")
+        try:
+            return int(float(eval(val, {"__builtins__": None}, {})))
+        except Exception:
+            pass
+    return 0
+
+
 def extract_weapon_combat_stats(elem: Any) -> Dict[str, Any]:
     """
     Extracts damage, attack rating, firing modes, ammo, and price/cost from CommLink6 XML item.
@@ -309,16 +334,22 @@ def migrate_existing_dataset_tables(conn: sqlite3.Connection):
     except Exception:
         pass
 
-    # 2. ref_cyberware, ref_qualities, ref_spells, ref_adept_powers
-    for tbl in ["ref_cyberware", "ref_qualities", "ref_spells", "ref_adept_powers"]:
+    # 2. ref_cyberware, ref_qualities, ref_spells, ref_adept_powers, ref_vehicles, ref_complex_forms, ref_programs, ref_gear
+    for tbl in ["ref_cyberware", "ref_qualities", "ref_spells", "ref_adept_powers", "ref_vehicles", "ref_complex_forms", "ref_programs", "ref_gear"]:
         try:
             cols = [r[1] for r in cursor.execute(f"PRAGMA table_info({tbl})").fetchall()]
             if cols and "modifiers_json" not in cols:
                 cursor.execute(f"ALTER TABLE {tbl} ADD COLUMN modifiers_json TEXT")
+            if tbl in ["ref_gear", "ref_cyberware", "ref_weapons", "ref_spells", "ref_adept_powers", "ref_qualities"] and cols and "srm_status" not in cols:
+                cursor.execute(f"ALTER TABLE {tbl} ADD COLUMN srm_status TEXT DEFAULT 'Legal'")
+
             if tbl == "ref_cyberware":
                 items = cursor.execute("SELECT id, raw_xml FROM ref_cyberware WHERE modifiers_json IS NULL OR cost = 0 OR essence = 0.0").fetchall()
+            elif tbl in ["ref_vehicles", "ref_programs", "ref_gear"]:
+                items = cursor.execute(f"SELECT id, raw_xml FROM {tbl} WHERE modifiers_json IS NULL OR cost = 0").fetchall()
             else:
                 items = cursor.execute(f"SELECT id, raw_xml FROM {tbl} WHERE modifiers_json IS NULL").fetchall()
+
             for iid, raw_xml in items:
                 if not raw_xml:
                     continue
@@ -334,12 +365,29 @@ def migrate_existing_dataset_tables(conn: sqlite3.Connection):
                                 cost = CASE WHEN (cost = 0 OR cost IS NULL) AND ? > 0 THEN ? ELSE cost END
                             WHERE id = ?
                         """, (m_json, ess_parsed, ess_parsed, cost_parsed, cost_parsed, iid))
+                    elif tbl in ["ref_vehicles", "ref_programs", "ref_gear"]:
+                        c_parsed = extract_item_cost(elem)
+                        cursor.execute(f"""
+                            UPDATE {tbl}
+                            SET modifiers_json = ?,
+                                cost = CASE WHEN (cost = 0 OR cost IS NULL) AND ? > 0 THEN ? ELSE cost END
+                            WHERE id = ?
+                        """, (m_json, c_parsed, c_parsed, iid))
                     else:
                         cursor.execute(f"UPDATE {tbl} SET modifiers_json = ? WHERE id = ?", (m_json, iid))
                 except Exception:
                     pass
         except Exception:
             pass
+
+    # Clean up items duplicated into ref_gear
+    try:
+        cursor.execute("DELETE FROM ref_gear WHERE id IN (SELECT id FROM ref_weapons)")
+        cursor.execute("DELETE FROM ref_gear WHERE id IN (SELECT id FROM ref_cyberware)")
+        cursor.execute("DELETE FROM ref_gear WHERE id IN (SELECT id FROM ref_vehicles)")
+        cursor.execute("DELETE FROM ref_gear WHERE id IN (SELECT id FROM ref_programs)")
+    except Exception:
+        pass
 
     # 3. v_cyberware_grades View with exact official multipliers and availability modifiers:
     # Used/Omegaware: x1.1 ess, x0.5 cost, -1 avail
@@ -426,7 +474,8 @@ def init_dataset_tables(conn: sqlite3.Connection):
                 duration TEXT,
                 target TEXT,
                 source TEXT,
-                raw_xml TEXT
+                raw_xml TEXT,
+                modifiers_json TEXT
             )
         """)
         conn.execute("""
@@ -437,7 +486,9 @@ def init_dataset_tables(conn: sqlite3.Connection):
                 cost INTEGER,
                 avail TEXT,
                 source TEXT,
-                raw_xml TEXT
+                raw_xml TEXT,
+                srm_status TEXT DEFAULT 'Legal',
+                modifiers_json TEXT
             )
         """)
         conn.execute("""
@@ -504,7 +555,8 @@ def init_dataset_tables(conn: sqlite3.Connection):
                 cost INTEGER,
                 avail TEXT,
                 source TEXT,
-                raw_xml TEXT
+                raw_xml TEXT,
+                modifiers_json TEXT
             )
         """)
         conn.execute("""
@@ -514,7 +566,8 @@ def init_dataset_tables(conn: sqlite3.Connection):
                 category TEXT,
                 cost INTEGER,
                 source TEXT,
-                raw_xml TEXT
+                raw_xml TEXT,
+                modifiers_json TEXT
             )
         """)
         conn.execute("""
@@ -632,11 +685,48 @@ def compile_commlink_datasets(jar_path: Optional[str] = None, db_path: str = DEF
                         target = cf.get("target", "Device")
                         raw_xml = ET.tostring(cf, encoding="utf-8").decode("utf-8")
 
+                        mods_json = extract_modifications_json(cf)
                         cursor.execute(
-                            "INSERT OR REPLACE INTO ref_complex_forms VALUES (?, ?, ?, ?, ?, ?, ?)",
-                            (cid, name, fade, dur, target, source_set, raw_xml)
+                            "INSERT OR REPLACE INTO ref_complex_forms (id, name, fade, duration, target, source, raw_xml, modifiers_json) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                            (cid, name, fade, dur, target, source_set, raw_xml, mods_json)
                         )
                         stats["complex_forms"] += 1
+
+                # 3b. Rituals
+                elif "rituals" in fname or root.tag == "rituals":
+                    for rit in root.findall(".//ritual"):
+                        rid = rit.get("id")
+                        if not rid:
+                            continue
+                        name = rit.get("name", rid.replace("_", " ").title())
+                        thr = rit.get("thr", "-")
+                        drain = f"Threshold {thr}"
+                        raw_xml = ET.tostring(rit, encoding="utf-8").decode("utf-8")
+                        mods_json = extract_modifications_json(rit)
+
+                        cursor.execute(
+                            "INSERT OR REPLACE INTO ref_spells (id, name, category, drain, range, duration, source, raw_xml, modifiers_json) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                            (rid, name, "Ritual", drain, "Ritual", "Ritual", source_set, raw_xml, mods_json)
+                        )
+                        stats["spells"] += 1
+
+                # 3c. Foci
+                elif "foci" in fname or root.tag == "foci":
+                    for foc in root.findall(".//focus"):
+                        fid = foc.get("id")
+                        if not fid:
+                            continue
+                        name = foc.get("name", fid.replace("_", " ").title())
+                        cost = extract_item_cost(foc)
+                        avail = foc.get("avail", "1")
+                        raw_xml = ET.tostring(foc, encoding="utf-8").decode("utf-8")
+                        mods_json = extract_modifications_json(foc)
+
+                        cursor.execute(
+                            "INSERT OR REPLACE INTO ref_gear (id, name, category, cost, avail, source, raw_xml, modifiers_json) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                            (fid, name, "focus", cost, avail, source_set, raw_xml, mods_json)
+                        )
+                        stats["gear"] += 1
 
                 # 4. Adept Powers
                 elif "power" in fname or root.tag == "powers":
@@ -735,24 +825,32 @@ def compile_commlink_datasets(jar_path: Optional[str] = None, db_path: str = DEF
                                 sens = int(item.get("sensor", 0)) if item.get("sensor", "").isdigit() else 0
                                 seats = int(item.get("seats", 1)) if item.get("seats", "").isdigit() else 1
                             cat = item.get("category", fname.replace("gear_", "").replace(".xml", "").title())
+                            cost = extract_item_cost(item)
+                            mods_json = extract_modifications_json(item)
                             cursor.execute(
-                                "INSERT OR REPLACE INTO ref_vehicles VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                                (iid, name, cat, hnd, spd, acc, bod, arm, sens, seats, cost, avail, source_set, raw_xml)
+                                """INSERT OR REPLACE INTO ref_vehicles 
+                                   (id, name, category, handling, speed, accel, body, armor, sensor, seats, cost, avail, source, raw_xml, modifiers_json)
+                                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                                (iid, name, cat, hnd, spd, acc, bod, arm, sens, seats, cost, avail, source_set, raw_xml, mods_json)
                             )
                             stats["vehicles"] += 1
 
                         elif is_program:
                             cat = item.get("category", "Cyberdeck Program")
+                            cost = extract_item_cost(item)
+                            mods_json = extract_modifications_json(item)
                             cursor.execute(
-                                "INSERT OR REPLACE INTO ref_programs VALUES (?, ?, ?, ?, ?, ?)",
-                                (iid, name, cat, cost, source_set, raw_xml)
+                                "INSERT OR REPLACE INTO ref_programs (id, name, category, cost, source, raw_xml, modifiers_json) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                                (iid, name, cat, cost, source_set, raw_xml, mods_json)
                             )
                             stats["programs"] += 1
 
                         else:
+                            cost = extract_item_cost(item)
+                            mods_json = extract_modifications_json(item)
                             cursor.execute(
-                                "INSERT OR REPLACE INTO ref_gear VALUES (?, ?, ?, ?, ?, ?, ?)",
-                                (iid, name, item.tag, cost, avail, source_set, raw_xml)
+                                "INSERT OR REPLACE INTO ref_gear (id, name, category, cost, avail, source, raw_xml, modifiers_json) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                                (iid, name, item.tag, cost, avail, source_set, raw_xml, mods_json)
                             )
                             stats["gear"] += 1
 
@@ -766,7 +864,7 @@ def compile_commlink_datasets(jar_path: Optional[str] = None, db_path: str = DEF
                         raw_xml = ET.tostring(meta, encoding="utf-8").decode("utf-8")
 
                         cursor.execute(
-                            "INSERT OR REPLACE INTO ref_metatypes VALUES (?, ?, ?)",
+                            "INSERT OR REPLACE INTO ref_metatypes (id, name, raw_xml) VALUES (?, ?, ?)",
                             (mid, name, raw_xml)
                         )
                         stats["metatypes"] += 1

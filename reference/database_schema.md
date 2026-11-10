@@ -54,14 +54,15 @@ uv run sr6 db schema rules
 | **`rules_fts`** | 20,082 | SQLite FTS5 full-text search index matching against `id`, `topic`, `tags`, `source`, and `content`. |
 | **`ref_cyberware`** | 435 | Augmentations, cyberlimbs, bioware, and geneware. Columns: `id`, `name`, `category`, `essence`, `capacity`, `cost`, `avail`, `source`, `raw_xml`, `modifiers_json`, `srm_status`. |
 | **`v_cyberware_grades`** | 435 | Pre-calculated view of Standard, Used, Alphaware, and Betaware costs, essence discounts, and availability modifiers. |
-| **`ref_weapons`** | 827 | Firearms, melee weapons, explosives, and heavy weapons. Columns: `id`, `name`, `category`, `damage`, `ap`, `attack_rating`, `modes`, `ammo`, `cost`, `avail`, `source`, `mounts`, `modifiers_json`, `srm_status`. |
-| **`ref_gear`** | 3,045 | Tools, armor, sensors, electronics, commlinks, ammunition, medical gear. Columns: `id`, `name`, `category`, `cost`, `avail`, `source`, `raw_xml`, `srm_status`, `modifiers_json`. |
-| **`ref_qualities`** | 710 | Positive and negative qualities. Columns: `id`, `name`, `karma`, `quality_type` (Positive/Negative), `max_rating`, `source`, `raw_xml`, `modifiers_json`, `srm_status`. |
-| **`ref_spells`** | 188 | Awakened spells. Columns: `id`, `name`, `category`, `drain`, `range`, `duration`, `source`, `raw_xml`, `modifiers_json`, `srm_status`. |
+| **`ref_weapons`** | 921 | Firearms, melee weapons, explosives, and heavy weapons. Columns: `id`, `name`, `category`, `damage`, `ap`, `attack_rating`, `modes`, `ammo`, `cost`, `avail`, `source`, `mounts`, `modifiers_json`, `srm_status`. |
+| **`ref_gear`** | 1,535 | Tools, armor, sensors, electronics, commlinks, ammunition, medical gear, and foci. Deduplicated from weapons/cyberware/vehicles. Columns: `id`, `name`, `category`, `cost`, `avail`, `source`, `raw_xml`, `srm_status`, `modifiers_json`. |
+| **`ref_qualities`** | 742 | Positive and negative qualities, including Deus Ex Arcana. Columns: `id`, `name`, `karma`, `quality_type` (Positive/Negative), `max_rating`, `source`, `raw_xml`, `modifiers_json`, `srm_status`. |
+| **`ref_spells`** | 248 | Awakened spells and rituals. Columns: `id`, `name`, `category`, `drain`, `range`, `duration`, `source`, `raw_xml`, `modifiers_json`, `srm_status`. |
 | **`ref_complex_forms`** | 42 | Technomancer complex forms. Columns: `id`, `name`, `fade`, `duration`, `target`, `source`, `raw_xml`, `modifiers_json`. |
-| **`ref_adept_powers`** | 95 | Physical Adept powers. Columns: `id`, `name`, `cost` (Power Points), `max_rating`, `source`, `raw_xml`, `modifiers_json`, `srm_status`. |
-| **`ref_vehicles`** | 1,138 | Groundcraft, aircraft, watercraft, and drones. Columns: `id`, `name`, `category`, `handling`, `speed`, `accel`, `body`, `armor`, `sensor`, `seats`, `cost`, `avail`, `source`, `modifiers_json`. |
+| **`ref_adept_powers`** | 97 | Physical Adept powers. Columns: `id`, `name`, `cost` (Power Points), `max_rating`, `source`, `raw_xml`, `modifiers_json`, `srm_status`. |
+| **`ref_vehicles`** | 1,138 | Groundcraft, aircraft, watercraft, and drones. Columns: `id`, `name`, `category`, `handling`, `speed`, `accel`, `body`, `armor`, `sensor`, `seats`, `cost`, `avail`, `source`, `raw_xml`, `modifiers_json`. |
 | **`ref_programs`** | 79 | Basic and cyberdeck software programs. Columns: `id`, `name`, `category`, `cost`, `source`, `raw_xml`, `modifiers_json`. |
+| **`ref_metatypes`** | 39 | Metatypes and metavariants including Vazimbia. Columns: `id`, `name`, `raw_xml`. |
 | **`ref_actions`** | 22 | Major and Minor tactical, matrix, and magic actions. Columns: `id`, `name`, `action_type`, `category`, `test`, `opposed`, `threshold`, `description`, `source`. |
 | **`ref_packs`** | 867 | Pre-assembled character, weapon, armor, and cyberware PACKs from Sixth World Companion. Columns: `id`, `name`, `category`, `cost`, `essence`, `description`, `contents`, `alternate_grades_json`, `source`, `page`. |
 | **`ref_status_effects`** | 19 | Status effects (Blind, Burning, Dazed, Hobbled, Prone, Stunned, etc.). Columns: `id`, `name`, `category`, `effect`, `duration`, `recovery_test`, `source`. |

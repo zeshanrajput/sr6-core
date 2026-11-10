@@ -60,6 +60,8 @@ QUALITY_CHOICE_UUIDS = {
     "spirit_affinity": "e19ecf4c-1508-406e-9a40-70cf09907bc3",
     "spirit_bane": "281aba04-1bd9-4d84-b6f4-f7bb97d217f0",
     "sprite_affinity": "c073da22-050d-4349-8c6c-3519c2a7368d",
+    "mutation": "da192302-8f07-41a6-8b7c-e795aff64fcd",
+    "paragon": "b69f8371-fa0e-435c-b344-8fc6d64e1fb3",
 }
 
 # CommLink 6 Mentor Spirits that grant an adept power requiring a choice, but lack default decisions in mentorspirits.xml:
@@ -73,7 +75,6 @@ MENTOR_SPIRIT_ADEPT_CHOICES = {
 }
 
 COMMLINK_ADEPT_POWER_MAP = {
-    "command_presence": "commanding_voice",
     "authoritative_tone": "authorative_tone",
 }
 
@@ -98,6 +99,11 @@ COMMLINK_VALID_ADEPT_POWERS = {
     "calming_voice", "distance_strike", "traceless_walk", "power_throw",
     "momentum", "missile_parry", "cloak", "pain_relief",
     "elemental_strike", "direction_sense", "cool_resolve", "empathic_healing",
+    "bloodhound", "command_presence", "fortitude", "hip_shooter",
+    "knife_fighter", "long_gunner", "motion_sense", "multi_targeting",
+    "multitasking", "nail_driver", "plague_cloud", "quick_march",
+    "radar_sense_astral", "radar_sense_mundane", "starlight_sight",
+    "stillness", "toxic_strike",
 }
 
 COMMLINK_VALID_FOCI = {
@@ -105,7 +111,7 @@ COMMLINK_VALID_FOCI = {
     "banishing_focus", "summoning_focus", "counterspelling_focus", "centering_focus",
     "qi_focus", "ritualspellcasting_focus", "alchemical_focus", "disenchanting_focus",
     "spell_shaping_focus", "flexible_signature_focus", "spellcasting_focus", "athame",
-    "power_focus"
+    "power_focus", "foundation_focus", "spotting_focus"
 }
 
 CYBERLIMB_DEFAULT_VARIANTS = {
@@ -178,6 +184,21 @@ CANONICAL_REF_ALIASES = {
     "vulcan_systems_utility_one": "vulcan_utility_one",
     "vulcan_utility_one": "vulcan_utility_one",
     # Matrix Devices & Commlinks
+    "erika_elite": "erika_elite",
+    "renraku_sensei": "renraku_sensei",
+    "hermes_ikon": "hermes_ikon",
+    "transys_avalon": "transys_avalon",
+    "sony_emperor": "sony_emporer",
+    "sony_emporer": "sony_emporer",
+    "metalink": "meta_link",
+    "meta_link": "meta_link",
+    "p_ice_nope": "p-ice_nope",
+    "p_ice_spines": "p-ice_spines",
+    "p_ice_watchdog": "p-ice_watchdog",
+    "p-ice_nope!": "p-ice_nope",
+    "p_ice_nope!": "p-ice_nope",
+    "personal_assistant": "personal_assistant",
+    "comhack_securelink_upgrade": "comhack_securelink_upgrade",
     "m_toc_ii": "mtoc_mark2",
     "m_toc_mark_ii": "mtoc_mark2",
     "mtoc_ii": "mtoc_mark2",
@@ -326,6 +347,8 @@ def map_metatype_ref(raw_meta: str) -> str:
         return "elf"
     elif "koborokuru" in m:
         return "koborokuru"
+    elif "vazimbia" in m:
+        return "vazimbia"
     elif "dwarf" in m:
         return "dwarf"
     elif "elf" in m:
@@ -488,7 +511,9 @@ def lookup_canonical_ref(item_name_or_ref: str, category: str, db_path: str = DE
         return "unknown"
 
     clean_str = item_name_or_ref.strip()
-    norm_str = clean_str.lower().replace(" ", "_").replace("-", "_")
+    clean_str = re.sub(r'(?:^\d+\s*x\s*|\s*x\s*\d+$)', '', clean_str, flags=re.IGNORECASE).strip()
+    clean_base = re.sub(r'\s*\((?:Rating|Device Rating|R)?\s*\d+\)', '', clean_str, flags=re.IGNORECASE).strip()
+    norm_str = re.sub(r"[!?:,\.]", "", clean_base).lower().replace(" ", "_").replace("-", "_")
     if norm_str in CANONICAL_REF_ALIASES:
         clean_str = CANONICAL_REF_ALIASES[norm_str]
         norm_str = clean_str
@@ -505,6 +530,10 @@ def lookup_canonical_ref(item_name_or_ref: str, category: str, db_path: str = DE
         "weapon": "ref_weapons",
         "vehicle": "ref_vehicles",
         "drone": "ref_vehicles",
+        "program": "ref_programs",
+        "software": "ref_programs",
+        "autosoft": "ref_programs",
+        "activesoft": "ref_programs",
     }
     tbl = tbl_map.get(category, "ref_gear")
 
@@ -521,8 +550,10 @@ def lookup_canonical_ref(item_name_or_ref: str, category: str, db_path: str = DE
         ).fetchone()
 
         # If not found and category is gear, search across other equipment tables
-        if not row and category == "gear":
-            for alt_tbl in ["ref_vehicles", "ref_weapons", "ref_cyberware"]:
+        if not row and category in ["gear", "program", "software"]:
+            for alt_tbl in ["ref_programs", "ref_vehicles", "ref_weapons", "ref_cyberware", "ref_gear"]:
+                if alt_tbl == tbl:
+                    continue
                 row = cursor.execute(
                     f"SELECT id FROM {alt_tbl} WHERE id = ? OR lower(id) = ? OR lower(name) = ?",
                     (clean_str, norm_str, clean_str.lower())
@@ -540,7 +571,7 @@ def lookup_canonical_ref(item_name_or_ref: str, category: str, db_path: str = DE
 
 
 def is_valid_gear_template(ref_str: Optional[str], db_path: str = DEFAULT_DB_PATH) -> bool:
-    """Verifies that an item reference exists in CommLink 6's gear/weapon/cyberware/vehicle catalog."""
+    """Verifies that an item reference exists in CommLink 6's gear/weapon/cyberware/vehicle/program catalog."""
     if not ref_str or ref_str in ["software_library", "qi_focus", "unknown"]:
         return False
     if not os.path.exists(db_path):
@@ -549,7 +580,7 @@ def is_valid_gear_template(ref_str: Optional[str], db_path: str = DEFAULT_DB_PAT
         conn = sqlite3.connect(db_path)
         cursor = conn.cursor()
         total_rows = 0
-        for tbl in ["ref_gear", "ref_weapons", "ref_cyberware", "ref_vehicles"]:
+        for tbl in ["ref_gear", "ref_weapons", "ref_cyberware", "ref_vehicles", "ref_programs"]:
             try:
                 count_row = cursor.execute(f"SELECT COUNT(*) FROM {tbl}").fetchone()
                 if count_row:
@@ -690,9 +721,22 @@ def extract_data_structures(char_data: Dict[str, Any], char_repo_path: Optional[
 def get_all_character_items(char_data: Dict[str, Any], char_repo_path: Optional[str] = None) -> list:
     """Gathers all items across weapons, armors, matrix_devices, gear, drones, vehicles, cyberware, and bioware."""
     all_raw = []
+    equipped_device_seen = False
     for sec in ["weapons", "armors", "matrix_devices", "items", "gear", "drones", "vehicles"]:
         val = char_data.get(sec, [])
-        all_raw.extend(_safe_item_list(val))
+        for item in _safe_item_list(val):
+            if isinstance(item, dict):
+                d = dict(item)
+                if sec == "matrix_devices" and not d.get("mode"):
+                    item_k = str(d.get("ref", d.get("name", ""))).lower()
+                    if not equipped_device_seen and any(k in item_k for k in ["erika", "hermes", "transys", "commlink", "deck"]):
+                        d["mode"] = "EQUIPPED"
+                        equipped_device_seen = True
+                    else:
+                        d["mode"] = "CARRIED"
+                all_raw.append(d)
+            elif isinstance(item, str):
+                all_raw.append(item)
 
     res = []
     seen_refs = set()
@@ -725,16 +769,80 @@ def get_all_character_items(char_data: Dict[str, Any], char_repo_path: Optional[
             if os.path.exists(purch_path):
                 try:
                     with open(purch_path, "r", encoding="utf-8") as pf:
+                        current_device = None
+                        in_apps_sec = False
+                        primary_commlink = None
                         for line in pf:
                             line_str = line.strip()
                             line_lower = line_str.lower()
-                            if line_str.startswith("*") and any(k in line_lower for k in ["m-toc", "rcc", "cyberdeck", "commlink"]):
-                                clean_name = re.sub(r"\{.*?\}", "", line_str).replace("*", "").strip()
-                                clean_ref = clean_name.lower().replace(" ", "_").replace("-", "_")
-                                clean_ref = CANONICAL_REF_ALIASES.get(clean_ref, clean_ref)
-                                if clean_ref not in seen_refs:
-                                    res.append({"name": clean_name, "ref": clean_ref, "mode": "CARRIED"})
-                                    seen_refs.add(clean_ref)
+                            if line_str.startswith("#"):
+                                current_device = None
+                                in_apps_sec = False
+                                continue
+
+                            if any(hdr in line_lower for hdr in ["commlink application", "commlink app", "utilities"]):
+                                in_apps_sec = True
+                                current_device = None
+                                continue
+                            elif (line_str.startswith("* **") or (line_str.startswith("* ") and not line.startswith("  "))) and not in_apps_sec:
+                                pass
+
+                            # Top-level item
+                            if (line_str.startswith("*") or line_str.startswith("-")) and not line.startswith("  "):
+                                is_device = any(k in line_lower for k in [
+                                    "m-toc", "rcc", "cyberdeck", "commlink", "erika", "sensei", "hermes",
+                                    "sony", "transys", "novatech", "fairlight", "spinrad", "metalink", "device rating"
+                                ]) and not any(skip in line_lower for skip in ["application", "utilities", "sensor suite"])
+
+                                if is_device:
+                                    clean_name = re.sub(r"\{.*?\}", "", line_str).replace("*", "").replace("-", "").strip()
+                                    m_dev_name = clean_name.split("(")[0].replace(":", "").strip()
+                                    clean_ref = lookup_canonical_ref(m_dev_name, "gear", db_path=db_path)
+                                    if clean_ref != "unknown":
+                                        m_rat = re.search(r"(?:Rating|R|Device Rating)\s*(\d+)", clean_name, re.I)
+                                        m_qty = re.search(r"x\s*(\d+)", clean_name, re.I)
+                                        d_rating = int(m_rat.group(1)) if m_rat else None
+                                        d_qty = int(m_qty.group(1)) if m_qty else 1
+                                        mode = "EQUIPPED" if ("erika" in clean_ref or "equipped" in line_lower) and not primary_commlink else "CARRIED"
+                                        device_item = {
+                                            "name": m_dev_name,
+                                            "ref": clean_ref,
+                                            "mode": mode,
+                                            "count": d_qty,
+                                            "accessories": []
+                                        }
+                                        if d_rating:
+                                            device_item["rating"] = d_rating
+                                        if clean_ref not in seen_refs:
+                                            res.append(device_item)
+                                            seen_refs.add(clean_ref)
+                                            current_device = device_item
+                                            if mode == "EQUIPPED" or not primary_commlink:
+                                                primary_commlink = device_item
+                                        continue
+
+                            # Sub-bullets under current device (installed accessories / apps)
+                            if current_device and (line.startswith("  *") or line.startswith("    *") or line.startswith("  -")):
+                                acc_line = re.sub(r"\{.*?\}", "", line_str).replace("*", "").replace("-", "").strip()
+                                acc_name = acc_line.split("(")[0].replace(":", "").strip()
+                                acc_ref = lookup_canonical_ref(acc_name, "gear", db_path=db_path)
+                                if acc_ref != "unknown" and is_valid_gear_template(acc_ref, db_path=db_path):
+                                    if acc_name not in current_device["accessories"]:
+                                        current_device["accessories"].append(acc_name)
+                                continue
+
+                            # Standalone commlink apps under applications section -> slot to primary commlink if available
+                            if in_apps_sec and (line.startswith("  *") or line.startswith("    *") or line_str.startswith("*")):
+                                app_line = re.sub(r"\{.*?\}", "", line_str).replace("*", "").replace("-", "").strip()
+                                app_name = app_line.split("(")[0].replace(":", "").strip()
+                                app_ref = lookup_canonical_ref(app_name, "program", db_path=db_path)
+                                if app_ref != "unknown" and is_valid_gear_template(app_ref, db_path=db_path):
+                                    if primary_commlink is not None:
+                                        if app_name not in primary_commlink["accessories"]:
+                                            primary_commlink["accessories"].append(app_name)
+                                    elif app_ref not in seen_refs:
+                                        res.append({"name": app_name, "ref": app_ref, "mode": "CARRIED"})
+                                        seen_refs.add(app_ref)
                 except Exception:
                     pass
                 break
@@ -930,6 +1038,7 @@ def export_commlink_xml(
     powers = char_data.get("adept_powers", [])
     if powers:
         powers_el = None
+        seen_powers = set()
         for p in powers:
             p_source = str(p.get("source", "")).lower()
             if any(skip_src in p_source for skip_src in ["focus", "qi", "mentor"]):
@@ -938,6 +1047,9 @@ def export_commlink_xml(
             p_ref = COMMLINK_ADEPT_POWER_MAP.get(p_ref, p_ref)
             if p_ref not in COMMLINK_VALID_ADEPT_POWERS:
                 continue
+            if p_ref in seen_powers and not p.get("allow_multiple"):
+                continue
+            seen_powers.add(p_ref)
 
             if powers_el is None:
                 powers_el = ET.SubElement(root, "adeptPowers")
@@ -993,14 +1105,27 @@ def export_commlink_xml(
                 dec_cf.set("value", target_attr)
 
     # Meta Echoes / Submersion Echoes / Metamagic
-    meta_echoes = char_data.get("meta_echoes", []) or char_data.get("echoes", [])
-    if meta_echoes:
+    meta_echoes_raw = []
+    for k in ["meta_echoes", "echoes", "metamagics", "metamagic"]:
+        val = char_data.get(k)
+        if val:
+            meta_echoes_raw.extend(_safe_item_list(val))
+    if meta_echoes_raw:
         echoes_el = ET.SubElement(root, "metaEchoes")
         seen_echo_refs = set()
-        for me in meta_echoes:
-            me_ref = me.get("ref") or me.get("name", "").lower().replace(" ", "_")
+        for me in meta_echoes_raw:
+            if isinstance(me, str):
+                me_dict = {"ref": me, "name": me}
+            elif isinstance(me, dict):
+                me_dict = me
+            else:
+                continue
+            me_ref = me_dict.get("ref") or me_dict.get("name", "").lower().replace(" ", "_")
             if me_ref in ["power_point", "power_points", "powerpoint"]:
                 me_ref = "power_points"
+            elif me_ref in ["stealth_effect", "stealtheffect"]:
+                me_ref = "stealth_effect"
+            me_ref = CANONICAL_REF_ALIASES.get(me_ref, me_ref)
             if me_ref in seen_echo_refs:
                 continue
             seen_echo_refs.add(me_ref)
@@ -1008,12 +1133,12 @@ def export_commlink_xml(
             me_el = ET.SubElement(echoes_el, "metaEcho")
             me_el.set("lang", "en")
             if me_ref == "power_points":
-                val = me.get("rating") or me.get("value") or 1
+                val = me_dict.get("rating") or me_dict.get("value") or 1
                 me_el.set("value", str(val))
-            elif "rating" in me and int(me["rating"]) > 0:
-                me_el.set("value", str(me["rating"]))
-            elif "value" in me and int(me["value"]) > 0:
-                me_el.set("value", str(me["value"]))
+            elif "rating" in me_dict and int(me_dict["rating"]) > 0:
+                me_el.set("value", str(me_dict["rating"]))
+            elif "value" in me_dict and int(me_dict["value"]) > 0:
+                me_el.set("value", str(me_dict["value"]))
             me_el.set("ref", me_ref)
 
     # Data Structures (<datastructures>)
@@ -1068,12 +1193,34 @@ def export_commlink_xml(
     # Attributes
     attrs_el = ET.SubElement(root, "attributes")
     attrs = char_data.get("attributes", {})
+    magic_type = matched_mortype or "mundane"
+
+    pp_val = None
+    if magic_type == "mysticadept":
+        tot_pp = int(attrs.get("power_points", 0))
+        # Deduct metamagic power points so CommLink doesn't double-count
+        metamagic_pp = sum(
+            int(me.get("rating", me.get("value", 1)) if isinstance(me, dict) else 1)
+            for me in meta_echoes_raw
+            if (me.get("ref") if isinstance(me, dict) else str(me)) in ["power_point", "power_points", "powerpoint"]
+        )
+        pp_val = max(0, tot_pp - metamagic_pp)
+    elif magic_type == "adept":
+        pp_val = int(attrs.get("magic", 6))
+    elif magic_type == "technomancer":
+        pp_val = 0
+
     for attr, val in attrs.items():
         if attr.lower() in ["essence", "power_points"]:
             continue
         attr_el = ET.SubElement(attrs_el, "attributes")
         attr_el.set("id", attr.upper())
         attr_el.set("value", str(val))
+
+    if pp_val is not None:
+        pp_el = ET.SubElement(attrs_el, "attributes")
+        pp_el.set("id", "POWER_POINTS")
+        pp_el.set("value", str(pp_val))
 
     # Skills (Active, Knowledge, Language)
     skills_el = ET.SubElement(root, "skills")
@@ -1353,6 +1500,13 @@ def export_commlink_xml(
                     a_sub.set("ref", acc_ref)
                     a_sub.set("slot", get_accessory_slot(acc_ref))
                     a_sub.set("uuid", str(uuid.uuid4()))
+                    m_acc_rat = re.search(r'(?:Rating|R)\s*(\d+)', acc_name, re.IGNORECASE)
+                    acc_rating = int(m_acc_rat.group(1)) if m_acc_rat else (acc.get("rating") if isinstance(acc, dict) else None)
+                    if acc_rating and acc_rating > 0:
+                        a_sub.set("value", str(acc_rating))
+                        dec_el = ET.SubElement(a_sub, "decision")
+                        dec_el.set("choice", "c2d17c87-1cfe-4355-9877-a20fe09c170d")
+                        dec_el.set("value", str(acc_rating))
 
             # Drones with Satellite Link in master YAML modifications
             mods = [str(m).lower() for m in g.get("modifications", [])]

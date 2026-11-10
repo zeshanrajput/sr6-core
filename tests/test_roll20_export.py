@@ -198,10 +198,10 @@ def test_velvet_roll20_export():
     assert payload["streetName"] == "Velvet"
     assert payload["name"] == "Kim Jin-Young"
     assert payload["metaType"] == "Elf"
-    assert payload["karma"] == 74
-    assert payload["freeKarma"] == 7
-    assert payload["nuyen"] == 13465
-    assert payload["initiation"] == 3
+    assert payload["karma"] == 77
+    assert payload["freeKarma"] == 4
+    assert payload["nuyen"] == 18265
+    assert payload["initiation"] == 5
     assert payload["reputation"] == 10
 
     # Verify attributes (Charisma 10, Magic 6, Power Points 3, Willpower 5)
@@ -241,7 +241,7 @@ def test_velvet_roll20_export():
     assert len(payload["adeptPowers"]) == 5
     for ap in payload["adeptPowers"]:
         assert len(ap["description"]) > 40
-    assert len(payload["metamagic"]) == 3
+    assert len(payload["metamagic"]) == 5
     for mm in payload["metamagic"]:
         assert len(mm["description"]) > 40
 

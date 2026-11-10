@@ -67,11 +67,11 @@ This ledger itemizes character creation gear, matrix devices, identities, softwa
 
 ### Spells & Metamagic Advancement
 
-* **Increase Attribute (Health Spell):** *Character Creation* `{python} spell('Increase Attribute', category='Health', duration='Sustained', spell_type='Physical', spell_range='Touch', drain=3, notes='Sorcery + Magic test. Net hits increase target attribute by +1.')`
-* **Power Point (Metamagic):** *Initiation Grade 1 (Character Generation)* `{python} metamagic('Power Point', notes='Grants 1.0 Adept Power Point at chargen.')`
-  * `{python} adept_power('Linguistics', rating=1, cost_pp=0.25, action='Passive', notes='Absorbs spoken languages after 1 hr exposure.')`
-  * `{python} adept_power('Command Presence', rating=1, cost_pp=0.50, action='Passive', notes='+2 dice pool bonus and +1 Edge on Influence (Leadership) tests.')`
-  * `{python} adept_power('Cloak', rating=1, cost_pp=0.25, action='Passive', notes='-1 dice pool penalty to hostile Assensing tests.')`
+* **Increase Attribute (Health Spell):** *(Acquired at Character Creation)*
+* **Power Point (Metamagic):** *Initiation Grade 1 (Acquired at Character Generation)*
+  * Linguistics (Rating 1, 0.25 PP)
+  * Command Presence (Rating 1, 0.50 PP)
+  * Cloak (Rating 1, 0.25 PP)
 * **Increase Reflexes (Health Spell):** `{python} spell('Increase Reflexes', category='Health', duration='Sustained', spell_type='Physical', spell_range='Touch', drain=5, notes='Sorcery + Magic test. Net hits increase Reaction and Initiative Dice.')` *(SRM 2081-09 Downtime)*
 * **Channeling (Metamagic):** *Initiation Grade 2 (SRM 2081-09 Eviction Notice)* `{python} metamagic('Channeling', notes='Allows conscious coexistence and spellcasting control while inhabited/channeling a spirit.')`
 * **Centering (Metamagic):** *Initiation Grade 3 (SRM 2081-07 Dwight\'s Delivery)* `{python} metamagic('Centering', notes='Adds Initiate Grade (+3) to Drain Resistance tests.')`

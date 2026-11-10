@@ -157,6 +157,7 @@ def compile_character(char_id: str) -> Dict[str, Any]:
         "drones": existing_char.get("drones", []),
         "weapons": existing_char.get("weapons", []),
         "armors": existing_char.get("armors", []),
+        "matrix_devices": purchases_data.get("matrix_devices") or existing_char.get("matrix_devices", []),
         "gear": existing_char.get("gear", []) or [
             {"name": "Nanopaste Disguise Kit", "qty": 1},
             {"name": "Nanocosmetics Kit", "qty": 1},

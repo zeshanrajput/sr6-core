@@ -43,7 +43,7 @@ def test_export_velvet_commlink_xml():
     assert len(powers) >= 3
     power_refs = [p.get("ref") for p in powers]
     assert "cosmetic_control" in power_refs
-    assert "commanding_voice" in power_refs
+    assert "command_presence" in power_refs
 
     # Verify Mentor Spirit decision uses canonical choice UUID and snake_case value,
     # as well as the sub-decision for improved_ability_combat to prevent CommLink 6 startup dialog errors
@@ -71,6 +71,29 @@ def test_export_velvet_commlink_xml():
     assert len(decisions) >= 1
     choice_ids = [d.get("choice") for d in decisions]
     assert "c2d17c87-1cfe-4355-9877-a20fe09c170d" in choice_ids
+
+    # Verify no duplicate adept powers
+    assert len(powers) == len(set(power_refs)), f"Adept powers must not contain duplicates: {power_refs}"
+
+    # Verify POWER_POINTS attribute is 2 (base for Mystic Adept before +1 metamagic)
+    pp_attr = [a for a in root.findall(".//attributes/attributes") if a.get("id") == "POWER_POINTS"]
+    assert len(pp_attr) == 1 and pp_attr[0].get("value") == "2", f"Expected POWER_POINTS='2', got {[a.attrib for a in pp_attr]}"
+
+    # Verify all 5 Initiations / Metamagics are in <metaEchoes>
+    metas = [m.get("ref") for m in root.findall(".//metaEchoes/metaEcho")]
+    assert len(metas) == 5, f"Expected 5 metamagics, got {metas}"
+    assert set(metas) == {"power_points", "channeling", "centering", "masking", "stealth_effect"}
+
+    # Verify Matrix Devices (Erika Elite equipped with apps, Renraku Sensei carried)
+    items = root.findall(".//items/item")
+    item_map = {it.get("ref"): it for it in items}
+    assert "erika_elite" in item_map, "Erika Elite commlink must be exported"
+    assert item_map["erika_elite"].get("mode") == "EQUIPPED"
+    erika_accs = [acc.get("ref") for acc in item_map["erika_elite"].findall(".//accessories/item")]
+    assert "p-ice_nope" in erika_accs
+    assert "personal_assistant" in erika_accs
+    assert "renraku_sensei" in item_map, "Renraku Sensei commlink must be exported"
+    assert item_map["renraku_sensei"].get("count") == "2"
 
 
 def test_export_venn_commlink_xml():
@@ -353,7 +376,7 @@ def test_commlink_archetype_subsystem_segregation():
 
     assert v_root.find("datastructures") is None or len(v_root.find("datastructures")) == 0
     assert v_root.find("complexforms") is None or len(v_root.find("complexforms")) == 0
-    assert v_root.find("metaEchoes") is None or len(v_root.find("metaEchoes")) == 0
+    assert v_root.find("metaEchoes") is not None and len(v_root.find("metaEchoes")) == 5, "Initiate grade must be 5 with 5 metamagics"
     assert v_root.find("spells") is not None and len(v_root.find("spells")) >= 2
     assert v_root.find("adeptPowers") is not None and len(v_root.find("adeptPowers")) >= 3
     assert v_root.find("foci") is not None and len(v_root.find("foci")) >= 1
@@ -428,6 +451,43 @@ def test_commlink_xml_structural_and_decision_invariants():
         for dec in root.findall(".//decision"):
             choice_uuid = dec.get("choice")
             assert choice_uuid in canonical_choices, f"[{char_id}] Unrecognized decision choice UUID: {choice_uuid}"
+
+
+def test_commlink_115_features():
+    """Verifies CommLink 1.15 specific updates: Deus Ex Arcana datasets, new metatypes, foci, and powers."""
+    from sr6core.publishing.commlink_xml import (
+        COMMLINK_VALID_ADEPT_POWERS,
+        COMMLINK_VALID_FOCI,
+        QUALITY_CHOICE_UUIDS,
+        map_metatype_ref,
+    )
+    from sr6core.dataset_compiler import get_dataset_info
+
+    # 1. Metatype mapping for 1.15 Deus Ex Arcana
+    assert map_metatype_ref("Vazimbia") == "vazimbia"
+    assert map_metatype_ref("vazimbia dwarf") == "vazimbia"
+
+    # 2. Adept Powers in 1.15
+    assert "plague_cloud" in COMMLINK_VALID_ADEPT_POWERS
+    assert "toxic_strike" in COMMLINK_VALID_ADEPT_POWERS
+    assert "command_presence" in COMMLINK_VALID_ADEPT_POWERS
+
+    # 3. Foci in 1.15
+    assert "foundation_focus" in COMMLINK_VALID_FOCI
+    assert "spotting_focus" in COMMLINK_VALID_FOCI
+
+    # 4. Mentor Spirit choice UUIDs
+    assert QUALITY_CHOICE_UUIDS["mutation"] == "da192302-8f07-41a6-8b7c-e795aff64fcd"
+
+    # 5. Database status reflects 1.15.0 JAR
+    info = get_dataset_info()
+    assert info.get("exists") is True
+    assert "1.15" in info.get("commlink_jar", "")
+    counts = info.get("counts", {})
+    assert counts.get("ref_qualities", 0) >= 740  # Includes Deus Ex Arcana qualities
+    assert counts.get("ref_spells", 0) >= 240     # Includes Deus Ex Arcana spells + rituals
+    assert counts.get("ref_adept_powers", 0) >= 97
+    assert counts.get("ref_metatypes", 0) >= 39
 
 
 

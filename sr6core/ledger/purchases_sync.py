@@ -61,6 +61,8 @@ class PurchasesSyncEngine:
         commlink_apps: List[str] = []
         activesofts: List[Dict[str, Any]] = []
         gear_items: List[str] = []
+        matrix_devices: List[Dict[str, Any]] = []
+        current_device = None
         sins: List[Dict[str, Any]] = []
         licenses: List[Dict[str, Any]] = []
         qualities: List[Dict[str, Any]] = []
@@ -126,24 +128,57 @@ class PurchasesSyncEngine:
 
             # In Matrix & Software section
             elif current_section == 'matrix':
-                if 'autosoft' in stripped.lower() and stripped.startswith('*'):
-                    current_sub_category = 'autosofts'
-                elif 'program' in stripped.lower() and stripped.startswith('*'):
-                    current_sub_category = 'programs'
-                elif 'commlink app' in stripped.lower() and stripped.startswith('*'):
-                    current_sub_category = 'commlink_apps'
-                elif current_sub_category == 'autosofts' and (raw_line.startswith('  *') or raw_line.startswith('    *')):
-                    item_name = cls.clean_item_text(stripped)
-                    if item_name and item_name not in autosofts:
-                        autosofts.append(item_name)
-                elif current_sub_category == 'programs' and (raw_line.startswith('  *') or raw_line.startswith('    *')):
-                    item_name = cls.clean_item_text(stripped)
-                    if item_name and item_name not in programs:
-                        programs.append(item_name)
-                elif current_sub_category == 'commlink_apps' and (raw_line.startswith('  *') or raw_line.startswith('    *')):
-                    item_name = cls.clean_item_text(stripped)
-                    if item_name and item_name not in commlink_apps:
-                        commlink_apps.append(item_name)
+                if (raw_line.startswith('* ') or raw_line.startswith('- ')) and not raw_line.startswith('  '):
+                    low_stripped = stripped.lower()
+                    if 'autosoft' in low_stripped:
+                        current_sub_category = 'autosofts'
+                        current_device = None
+                    elif 'program' in low_stripped:
+                        current_sub_category = 'programs'
+                        current_device = None
+                    elif 'commlink app' in low_stripped or 'utilities' in low_stripped:
+                        current_sub_category = 'commlink_apps'
+                        current_device = None
+                    elif 'sensor' in low_stripped or 'audio' in low_stripped:
+                        current_sub_category = 'sensors'
+                        current_device = None
+                    else:
+                        dev_text = cls.clean_item_text(stripped)
+                        m_rat = re.search(r'(?:Rating|R|Device Rating)\s*(\d+)', dev_text, re.IGNORECASE)
+                        m_qty = re.search(r'x\s*(\d+)', dev_text, re.IGNORECASE)
+                        dev_name = re.sub(r'\(.*?\)', '', dev_text).replace(':', '').strip()
+                        dev_name = re.sub(r'(?:^\d+\s*x\s*|\s*x\s*\d+$)', '', dev_name, flags=re.IGNORECASE).strip()
+                        dev_rat = int(m_rat.group(1)) if m_rat else 1
+                        dev_qty = int(m_qty.group(1)) if m_qty else 1
+                        current_device = {
+                            "name": dev_name,
+                            "rating": dev_rat,
+                            "qty": dev_qty,
+                            "accessories": []
+                        }
+                        matrix_devices.append(current_device)
+                        current_sub_category = 'device'
+                elif raw_line.startswith('  *') or raw_line.startswith('    *') or raw_line.startswith('  -'):
+                    if current_sub_category == 'device' and current_device:
+                        acc_text = cls.clean_item_text(stripped)
+                        if acc_text and acc_text not in current_device["accessories"]:
+                            current_device["accessories"].append(acc_text)
+                    elif current_sub_category == 'autosofts':
+                        item_name = cls.clean_item_text(stripped)
+                        if item_name and item_name not in autosofts:
+                            autosofts.append(item_name)
+                    elif current_sub_category == 'programs':
+                        item_name = cls.clean_item_text(stripped)
+                        if item_name and item_name not in programs:
+                            programs.append(item_name)
+                    elif current_sub_category == 'commlink_apps':
+                        item_name = cls.clean_item_text(stripped)
+                        if item_name and item_name not in commlink_apps:
+                            commlink_apps.append(item_name)
+                    elif current_sub_category == 'sensors':
+                        item_name = cls.clean_item_text(stripped)
+                        if item_name and item_name not in gear_items:
+                            gear_items.append(item_name)
 
             # In SINs & Licenses section
             elif current_section == 'sins':
@@ -237,6 +272,12 @@ class PurchasesSyncEngine:
                             "karma": 20 if "mentor spirit" in clean_q.lower() else 0
                         })
 
+        if matrix_devices and commlink_apps:
+            primary_dev = matrix_devices[0]
+            for app in commlink_apps:
+                if app not in primary_dev["accessories"]:
+                    primary_dev["accessories"].append(app)
+
         return {
             "drone_modifications": drone_mods,
             "autosofts": autosofts,
@@ -244,6 +285,7 @@ class PurchasesSyncEngine:
             "commlink_apps": commlink_apps,
             "activesofts": activesofts,
             "gear": gear_items,
+            "matrix_devices": matrix_devices,
             "sins": sins,
             "licenses": licenses,
             "qualities": qualities,
@@ -382,6 +424,14 @@ class PurchasesSyncEngine:
                 if not any(eq.get("ref") == q.get("ref") or eq.get("name") == q.get("name") for eq in pos_quals):
                     pos_quals.append(q)
                     changes.append(f"Added Quality '{q['name']}' from purchases.qmd")
+
+        # 6. Sync Matrix Devices
+        parsed_devices = parsed.get("matrix_devices", [])
+        if parsed_devices:
+            old_devices = data.get("matrix_devices", [])
+            if old_devices != parsed_devices:
+                data["matrix_devices"] = parsed_devices
+                changes.append(f"Updated Matrix Devices from purchases.qmd ({len(parsed_devices)} devices synced)")
 
         # Save back to YAML if changes occurred
         if changes:

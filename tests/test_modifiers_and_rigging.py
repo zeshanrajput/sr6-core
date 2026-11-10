@@ -459,8 +459,8 @@ def test_magic_and_social_action_pools_and_tables():
     assert magic_pools_enh["drain_resistance"].total_pool == 23  # WIL 9 + CHA 14 = 23d6 (5 Hits)
     assert magic_pools_enh["drain_resistance"].bought_hits == 5
     assert "channeling" in magic_pools_enh
-    assert magic_pools_enh["channeling"].total_pool == 18  # Conjuring 6 + MAG 6 + Focus 3 + Initiate Grade 3 = 18d6 (4 Hits)
-    assert magic_pools_enh["channeling"].bought_hits == 4
+    assert magic_pools_enh["channeling"].total_pool == 20  # Conjuring 6 + MAG 6 + Focus 3 + Initiate Grade 5 = 20d6 (5 Hits)
+    assert magic_pools_enh["channeling"].bought_hits == 5
 
     # Baseline mode
     magic_pools_base = ModifierEngine.get_magic_action_pools(char, enhanced=False)
@@ -486,7 +486,7 @@ def test_magic_and_social_action_pools_and_tables():
     assert "**11d6**" in magic_table
     assert "**15d6**" in magic_table
     assert "Spirit Channeling" in magic_table
-    assert "**18d6**" in magic_table
+    assert "**20d6**" in magic_table
 
     social_table = get_social_action_table("velvet")
     assert "Social Negotiation" in social_table

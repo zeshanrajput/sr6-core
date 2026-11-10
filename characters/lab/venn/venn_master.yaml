@@ -212,6 +212,7 @@ armors:
   defense_rating: 3
   notes: +2 DR form-fitting under-armor, +1 DR Ballistic Hood (Firing Squad p. 3 /
     Seattle p. 5). Invisible under normal street clothes with 0 Social penalty.
+matrix_devices: []
 gear:
 - name: Contacts (Rating 3 w/ Flare Comp, Smartlink)
   rating: 3
