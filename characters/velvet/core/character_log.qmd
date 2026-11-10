@@ -151,9 +151,10 @@ init_character("velvet")
 * **Contacts:**
   * `{python} contact("Moenen", fp=2)`
   * `{python} contact("Sigrûn", fp=1)`
-* **Downtime Actions (2 Minor):**
+* **Downtime Actions & Advancements (2 Minor):**
   * *Minor Action 1 (Community Service):* `{python} work_for_the_people(funded=True)`
   * *Minor Action 2 (Learn Spell — Physical Barrier):* `{python} learn_spell("Physical Barrier")`
+  * *Quality Adoption:* Adopted negative quality **Finesse** (*Sixth World Companion*, p. 137; *SRMG*, pp. 37, 58, 137) at 0 Karma cost post-chargen (formalizing Velvet's aversion to Heat, collateral damage, and sloppy noise).
 
 ---
 

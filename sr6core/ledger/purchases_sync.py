@@ -260,7 +260,11 @@ class PurchasesSyncEngine:
                     })
             elif current_section in ['qualities', 'qualities & mentor spirits']:
                 if raw_line.startswith('* ') or raw_line.startswith('- '):
-                    clean_q = cls.clean_item_text(stripped)
+                    m_title = re.search(r'\*\*\s*([^*]+?)\s*\*\*', stripped)
+                    if m_title:
+                        clean_q = m_title.group(1).rstrip(':').strip()
+                    else:
+                        clean_q = cls.clean_item_text(stripped)
                     if clean_q and not any(q.get("name").lower() == clean_q.lower() for q in qualities):
                         m_choice = re.search(r'\((.*?)\)', clean_q)
                         choice = m_choice.group(1).strip() if m_choice else ""
@@ -418,12 +422,21 @@ class PurchasesSyncEngine:
         # 5. Sync Qualities
         parsed_qualities = parsed.get("qualities", [])
         if parsed_qualities:
+            from sr6core.character.ledger import _query_db_row
             quals = data.setdefault("qualities", {"positive": [], "negative": []})
             pos_quals = quals.setdefault("positive", [])
+            neg_quals = quals.setdefault("negative", [])
             for q in parsed_qualities:
-                if not any(eq.get("ref") == q.get("ref") or eq.get("name") == q.get("name") for eq in pos_quals):
-                    pos_quals.append(q)
-                    changes.append(f"Added Quality '{q['name']}' from purchases.qmd")
+                q_ref = q.get("ref", q.get("name", "").lower().replace(" ", "_"))
+                row = _query_db_row(
+                    "SELECT quality_type FROM ref_qualities WHERE id = ? OR name = ? COLLATE NOCASE",
+                    (q_ref, q.get("name", ""))
+                )
+                is_neg = (row and row.get("quality_type") == "negative") or "negative" in q.get("name", "").lower()
+                target_list = neg_quals if is_neg else pos_quals
+                if not any(eq.get("ref") == q_ref or eq.get("name") == q.get("name") for eq in target_list):
+                    target_list.append(q)
+                    changes.append(f"Added Quality '{q['name']}' to {'negative' if is_neg else 'positive'} qualities from purchases.qmd")
 
         # 6. Sync Matrix Devices
         parsed_devices = parsed.get("matrix_devices", [])

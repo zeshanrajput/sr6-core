@@ -113,10 +113,17 @@ def compile_character(char_id: str) -> Dict[str, Any]:
                 sk["rating"] = r_val
 
     qualities = dict(existing_char.get("qualities", {"positive": [], "negative": []}))
+    from sr6core.character.ledger import _query_db_row
     for q in purchases_data.get("qualities", []):
-        pos_list = qualities.setdefault("positive", [])
-        if not any(eq.get("ref") == q.get("ref") or eq.get("name") == q.get("name") for eq in pos_list):
-            pos_list.append(q)
+        q_ref = q.get("ref", q.get("name", "").lower().replace(" ", "_"))
+        row = _query_db_row(
+            "SELECT quality_type FROM ref_qualities WHERE id = ? OR name = ? COLLATE NOCASE",
+            (q_ref, q.get("name", ""))
+        )
+        is_neg = (row and row.get("quality_type") == "negative") or "negative" in q.get("name", "").lower()
+        target_list = qualities.setdefault("negative" if is_neg else "positive", [])
+        if not any(eq.get("ref") == q_ref or eq.get("name") == q.get("name") for eq in target_list):
+            target_list.append(q)
 
     living_persona = dict(existing_char.get("living_persona", {}))
     synergies = dict(existing_char.get("synergies", {}))

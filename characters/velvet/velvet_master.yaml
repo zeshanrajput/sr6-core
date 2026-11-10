@@ -63,6 +63,10 @@ qualities:
   - name: Allergy (Spices, Common Moderate)
     ref: allergy
     choice: Spices
+  - name: Finesse
+    ref: finesse
+    choice: ''
+    karma: 0
 skills:
 - name: Sorcery
   id: sorcery
