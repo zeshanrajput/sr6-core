@@ -64,7 +64,7 @@ def inc_many(*pairs):
         res.append(f"{name} {op} {abs(amount)}")
     return ", ".join(res)
 
-from sr6core.character.ledger import adept_power, language, knowledge_skill
+from sr6core.character.ledger import adept_power, language, knowledge_skill, metamagic, spell
 ```
 
 Shadowrunners are built with 100 Character Points (CP). You still gain 50 points of customization Karma.
@@ -86,6 +86,7 @@ Shadowrunners are built with 100 Character Points (CP). You still gain 50 points
     * 2 Adept Power Points: `{python} inc('Character_Points', -16)`
       * Cosmetic Control (R2): 2 pp `{python} adept_power('Cosmetic Control', rating=2, cost_pp=2.0, action='Major Action', notes='Physical biological disguise (face, skin, height, weight, gender markers). Reduces Edge cost by -1 for Con tests.')`
   * Mystic adepts may purchase a number of spells equal to final Magic x2 - PP. Each spell costs 2 CP or 5 Karma each.
+    * Increase Attribute (Health): `{python} inc('Karma', -5)` `{python} spell('Increase Attribute', category='Health', duration='Sustained', spell_type='Physical', spell_range='Touch', drain=3, notes='Sorcery + Magic test. Net hits increase target attribute by +1.')`
 
 ## Purchase Special / Metatype Adjustment Points with CP
 
@@ -169,7 +170,6 @@ Shadowrunners are built with 100 Character Points (CP). You still gain 50 points
 * Metagenetic Attribute Increase (CHA): (paid for above)
 * Exceptional Attribute (CHA): `{python} inc('Karma', -12)`
 * Hooder (R3): `{python} inc('Karma', 15)`
-* Inspire Competence: `{python} inc('Karma', -11)`
 * Injury Prone: `{python} inc('Karma', 15)`
 * Focused Concentration (R3): `{python} inc('Karma', -36)`
 
@@ -229,13 +229,18 @@ Gain 6 * Charisma contact points to spend.
 * Conclave (C7 L8): Guild of Freelance Assets
   * `{python} inc('Contact_Points', -15)`
   * `{python} inc('Karma', -6)`
-  * Monthly Dues: 2400 nuyen
+  * Monthly Dues: Unmaintained during decay (falls 1 rating/month to Loyalty 4 floor)
+* Initiation (Grade 1 at Character Generation):
+  * Coven-Backed Initiation (Cost: 10 + 1 - 8 = 3 Karma): `{python} inc('Karma', -3)` `{python} metamagic('Power Point', notes='Grants 1.0 Adept Power Point at chargen.')`
+    * `{python} adept_power('Linguistics', rating=1, cost_pp=0.25, action='Passive', notes='Absorbs spoken languages after 1 hr exposure.')`
+    * `{python} adept_power('Command Presence', rating=1, cost_pp=0.50, action='Passive', notes='+2 dice pool bonus and +1 Edge on Influence (Leadership) tests.')`
+    * `{python} adept_power('Cloak', rating=1, cost_pp=0.25, action='Passive', notes='-1 dice pool penalty to hostile Assensing tests.')`
 
 Total Contact Points: `{python} Contact_Points`
 
 Total Nuyen: `{python} Nuyen`
 
-Total Karma: `{python} Karma`
+Total Karma (Carried into Play): `{python} Karma`
 
 Total Character Points: `{python} Character_Points`
 
@@ -243,10 +248,10 @@ Total Character Points: `{python} Character_Points`
 
 ## Starting Operational Pools
 
-* **Astral**: Sorcery (6) + MAG (6) + Power Focus (3) = 15d6 | Conjuring (6) + MAG (6) = 12d6
+* **Astral**: Sorcery (6) + MAG (6) = 12d6 (15d6 with Power Focus R3 in play) | Conjuring (6) + MAG (6) = 12d6
 * **Matrix**: 0d6 (Commlink user only; no cyberdeck)
-* **Physical**: Firearms (1) + AGI (3) = 4d6 (Backline non-combatant)
+* **Physical**: Firearms (1) + AGI (3) = 4d6 (Backline non-combatant; boosted to 6d6+ when channeling)
 * **Social**: Influence (6) + CHA (14 via Increase Attribute) + Command Presence (2) + First Impression (2) = 24d6
 * **Defense**: REA (2) + INT (3) + Increase Reflexes (3) = 8d6
 * **Initiative**: 4d6 (Increase Reflexes, 2 Major Actions)
-* **Edge Engine**: Inspire Competence (deterministic team Edge) + Cosmetic Control (Edge discounts)
+* **Edge Engine**: Command Presence (+1 free Edge on Influence) + Cosmetic Control (Edge discounts on Con)

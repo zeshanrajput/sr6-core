@@ -14,12 +14,12 @@ identity:
   eye_color: Obsidian
   skin_color: White
   system: shadowrun6e
-  karma: 7
-  lifetime_karma: 74
-  nuyen: 13465
+  karma: 4
+  lifetime_karma: 77
+  nuyen: 18265
   lifetime_nuyen: 132590
   heat: 0
-  initiation: 3
+  initiation: 5
 attributes:
   body: 2
   agility: 3
@@ -145,6 +145,14 @@ spells:
   range: Touch
   drain: 3
   notes: Sorcery + Magic test. Net hits increase target attribute by +1.
+- name: Increase Attribute
+  ref: increase_attribute
+  category: Health
+  duration: Sustained
+  type: Physical
+  range: Touch
+  drain: 3
+  notes: Sorcery + Magic test. Net hits increase target attribute by +1.
 - name: Increase Reflexes
   ref: increase_reflexes
   category: Health
@@ -161,14 +169,6 @@ spells:
   range: LOS (A)
   drain: 6
   notes: Creates translucent barrier with Structure = Magic + net hits (CRB p. 141).
-- name: Increase Attribute
-  ref: increase_attribute
-  category: General
-  duration: Instant
-  type: Physical
-  range: TOUCH
-  drain: 3
-  notes: 'Source: core'
 - name: Increase Reflexes
   ref: increase_reflexes
   category: General
@@ -219,6 +219,30 @@ adept_powers:
   action: Passive
   source: natural
   notes: -1 dice pool penalty to hostile Assensing tests.
+- name: Linguistics
+  ref: linguistics
+  rating: 1
+  cost: 0.25 PP
+  cost_pp: 0.25
+  action: Passive
+  source: natural
+  notes: Absorbs spoken languages after 1 hr exposure.
+- name: Command Presence
+  ref: command_presence
+  rating: 1
+  cost: 0.5 PP
+  cost_pp: 0.5
+  action: Passive
+  source: natural
+  notes: +2 dice pool bonus and +1 Edge on Influence (Leadership) tests.
+- name: Cloak
+  ref: cloak
+  rating: 1
+  cost: 0.25 PP
+  cost_pp: 0.25
+  action: Passive
+  source: natural
+  notes: -1 dice pool penalty to hostile Assensing tests.
 - name: Improved Ability (Sorcery)
   ref: improved_ability_(sorcery)
   rating: 1
@@ -228,17 +252,28 @@ adept_powers:
   source: mentor_spirit
   notes: 'Free rank granted by Mentor Spirit: Wise Warrior (Adept Advantage).'
 metamagic:
+- name: Power Point
+  ref: power_point
+  notes: Grants 1.0 Adept Power Point at chargen.
+- name: Power Point
+  ref: power_point
+  notes: Grants 1.0 Adept Power Point at chargen.
 - name: Channeling
   ref: channeling
   notes: Allows conscious coexistence and spellcasting control while inhabited/channeling
     a spirit.
-- name: Power Point
-  ref: power_point
-  notes: Grants 1.0 Adept Power Point.
-- name: Invocation
-  ref: invocation
-  notes: Enables summoning Great Form Spirits (Street Wyrd p. 113); satisfies prerequisite
-    for Great Form Channeling.
+- name: Centering
+  ref: centering
+  notes: Adds Initiate Grade (+3) to Drain Resistance tests.
+- name: Masking
+  ref: masking
+  notes: Disguises aura as mundane and masks bonded foci up to Initiate Grade (CRB
+    p. 165).
+- name: Stealth Effect
+  ref: stealth_effect
+  notes: 'Subtle casting: camouflages spell manifestations and adds Initiate Grade
+    (+5) to perception threshold to detect spellcasting (Deadly Arts p. 173; SRMG
+    p. 75).'
 knowledge_skills:
 - name: Korean
   rating: 4

@@ -44,8 +44,8 @@ CHARGEN_BASELINES: Dict[str, Dict[str, Any]] = {
     },
     "velvet": {
         "Nuyen": 50000,
-        "Karma": 0,
-        "Initiation_Grade": 0,
+        "Karma": 3,
+        "Initiation_Grade": 1,
         "Coven_Loyalty": 8,
         "Heat": 0,
     },

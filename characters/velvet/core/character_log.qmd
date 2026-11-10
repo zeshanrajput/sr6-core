@@ -11,7 +11,7 @@ This log chronicles out-of-session missions, downtime decisions, Karma expenditu
 #| include: false
 from sr6core.character.ledger import (
     init_character, mission, contact, add_rep, state, print_contacts_summary, 
-    initiate, add_spirit, modifier, learn_spell, work_for_the_people, inc, inc_many
+    initiate, add_spirit, modifier, learn_spell, work_for_the_people, inc, inc_many, lifestyle
 )
 
 init_character("velvet")
@@ -31,9 +31,9 @@ init_character("velvet")
   * `{python} contact("Ms. Snow", fp=2)`
   * *BunnyR:* +1 FP Whiskey, +1 FP Belial
   * *Poe:* +1 FP Vincent, +1 FP Ms. Snow
-* **Downtime:**
-  * *Learned 'Increase Attribute':* `{python} learn_spell("Increase Attribute")`
-  * *Initiation (Channeling):* `{python} initiate("Channeling", coven_loyalty=state['Coven_Loyalty'])`
+* **Downtime Actions (1 Major, 1 Minor):**
+  * *Major Action (Initiation Grade 2 — Channeling):* `{python} initiate("Channeling", coven_loyalty=state['Coven_Loyalty'])`
+  * *Minor Action (Learn Spell — Increase Reflexes):* `{python} learn_spell("Increase Reflexes")`
 
 ---
 
@@ -45,10 +45,11 @@ init_character("velvet")
   * `{python} contact("Ni Ni Xiaolu", fp=2)`
   * `{python} contact("Bookie", fp=1)`
   * `{python} contact("Trudy", fp=1)`
-* **Monthly Expenses & Downtime (SRM #2):**
-  * *Monthly Expenses:* `{python} inc('Nuyen', -7400)` (Low Lifestyle ¥2,000 + Hooder R3 ¥3,000 + Coven Dues ¥2,400)
-  * *Major Action:* Coven Ritual Maintenance & Service (Guild of Freelance Assets / Shinto-Musok Coven)
-  * *Minor Action:* Working for the People (Funded by Hooder allocation): `{python} work_for_the_people(funded=True)`
+* **Monthly Expenses & Downtime (SRM #2 / Month 1 Ends):**
+  * *Monthly Expenses:* `{python} lifestyle("Low", cost=2000)` | *Hooder Community Contribution:* `{python} inc('Nuyen', -3000)`
+  * *Coven Loyalty Decay:* Forgoing monthly maintenance dues (saving ¥2,400); Coven Loyalty remains 8 during downtime, then decays: `{python} inc('Coven_Loyalty', -1)` (now Loyalty 7).
+  * *Major Action (Liberated from Coven Maintenance — Initiation Grade 3):* `{python} initiate("Centering", coven_loyalty=8)`
+  * *Minor Action (Working for the People):* `{python} work_for_the_people(funded=True)`
 
 ---
 
@@ -58,9 +59,9 @@ init_character("velvet")
 * **Contacts:**
   * `{python} contact("Ni Ni Xiaolu", fp=2)`
   * `{python} contact("Brynne Taggart", fp=2)`
-* **Downtime Actions:**
-  * *Initiation:* `{python} initiate("Power Point", coven_loyalty=state['Coven_Loyalty'])`
-  * *Learned Spell:* `{python} learn_spell("Increase Reflexes")`
+* **Downtime Actions (1 Major, 1 Minor):**
+  * *Major Action (Initiation Grade 4 — Masking):* `{python} initiate("Masking", coven_loyalty=state['Coven_Loyalty'])`
+  * *Advancement & Capital Savings:* Banked Karma and Nuyen towards Power Focus (Rating 3).
 
 ---
 
@@ -72,10 +73,11 @@ init_character("velvet")
   * `{python} contact("Kingston", fp=3)`
   * `{python} contact("Whiskey", fp=1)`
   * `{python} contact("Ms. Margaret", fp=1)`
-* **Monthly Expenses & Downtime (SRM #4):**
-  * *Monthly Expenses:* `{python} inc('Nuyen', -7400)` (Low Lifestyle ¥2,000 + Hooder R3 ¥3,000 + Coven Dues ¥2,400)
-  * *Major Action:* Coven Ritual Maintenance & Service (Guild of Freelance Assets / Shinto-Musok Coven)
-  * *Minor Action:* Working for the People (Funded by Hooder allocation): `{python} work_for_the_people(funded=True)`
+* **Monthly Expenses & Downtime (SRM #4 / Month 2 Ends):**
+  * *Monthly Expenses:* `{python} lifestyle("Low", cost=2000)` | *Hooder Community Contribution:* `{python} inc('Nuyen', -3000)`
+  * *Coven Loyalty Decay:* Forgoing monthly maintenance dues (saving ¥2,400); Coven Loyalty remains 7 during downtime, then decays: `{python} inc('Coven_Loyalty', -1)` (now Loyalty 6).
+  * *Major Action (Liberated from Coven Maintenance — Initiation Grade 5):* `{python} initiate("Stealth Effect", coven_loyalty=7)`
+  * *Minor Action (Working for the People):* `{python} work_for_the_people(funded=True)`
   * *Advancement & Capital Savings:* Banked Karma and Nuyen towards Power Focus (Rating 3).
 
 ---
@@ -133,10 +135,8 @@ init_character("velvet")
   * `{python} contact("Rodina", fp=1)`
   * `{python} contact("Piper", fp=1)`
 * **Downtime Actions (1 Major, 1 Minor):**
-  * *Major Action (Initiation Grade 3 — Invocation):* `{python} initiate("Invocation", coven_loyalty=state['Coven_Loyalty'])`
+  * *Major Action (Spiritual Quest & Mentor Spirit Bonding):* Communed and bonded with Mentor Spirit (Wise Warrior) (20 Karma post-chargen). Grants Edge boost discount on Influence & Leadership tests (-1 Edge cost, minimum 1) and +1 free rank of Improved Ability on Combat skill (Sorcery).
   * *Minor Action (Work for the People):* `{python} work_for_the_people()`
-* **Character Advancement & Mentor Spirit:**
-  * *Mentor Spirit (Wise Warrior):* Bonded with Wise Warrior (20 Karma post-chargen). Grants Edge boost discount on Influence & Leadership tests (-1 Edge cost, minimum 1) and +1 free rank of Improved Ability on Combat skill (Sorcery). Deducted in Equipment & Advancement Ledger.
 * **Special Assets & Union Benefits:**
   * *DocWagon Gold Contract (12 Months):* Full year of premier rapid-response medical extraction (awarded for accepting Shadow Chapters union offer).
   * *Seattle Shadow Chapters Membership:* Formal union induction alongside Rei under Donovan Pyke.
@@ -173,4 +173,4 @@ print_contacts_summary(state["Contacts"])
 * **Available Karma:** `{python} state['Karma']`
 * **Lifetime Nuyen Earned:** ¥`{python} f"{state.get('Lifetime_Nuyen', 0):,}"`
 * **Available Nuyen:** ¥`{python} f"{state['Nuyen']:,}"`
-* **Initiation Grade:** `{python} state.get('Initiation_Grade', 3)`
+* **Initiation Grade:** `{python} state.get('Initiation_Grade', 5)`

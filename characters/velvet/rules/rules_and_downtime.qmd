@@ -68,23 +68,23 @@ print(render_multi_modifier_interactions("velvet", threshold=2))
 ## 3. Complex Mechanical Interplays Specific to Velvet
 
 ### I. Mystic Adept Power Point Allocation & Metamagic Suite
-* **Source**: *SR6 Core*, p. 70 (Mystic Adept chargen), *Street Wyrd*, pp. 78, 122 (Initiation & Metamagics), and *Deadly Arts*, p. 28.
-* **Chargen Allocation**: Velvet allocated 5.0 Power Points at character creation via Karma point-buy.
-* **Initiation Grade 1 (*Channeling*)**: Enables spirit inhabitation, granting physical attribute augmentation, wound penalty negation, and dual-natured status without losing sovereign control (*Street Wyrd*, p. 122).
-* **Initiation Grade 2 (*Power Point*)**: Grants +1.0 Power Point (*Street Wyrd*, p. 78), allocated as:
-  * **Linguistics (0.25 PP)**: Passively learn any spoken language at basic proficiency after 1 hour of active listening (*Street Wyrd*, p. 38).
-  * **Command Presence (0.50 PP)**: Grants +2 dice and +1 Edge on Influence (Leadership) tests, and reduces Small Unit Tactics thresholds by -2 (*Deadly Arts*, p. 28).
-  * **Cloak R1 (0.25 PP)**: Shrouds Velvet's aura, imposing a -1 dice pool penalty on hostile Assensing tests (*Street Wyrd*, p. 34).
+* **Source**: *SR6 Core*, p. 70 (Mystic Adept chargen), *Street Wyrd*, pp. 78, 121 (Initiation & Metamagics), and *Deadly Arts*, p. 28, 173.
+* **Chargen Allocation**: Velvet allocated 2.0 Power Points at character creation via Character Points (Cosmetic Control R2, 2.0 PP) and +1.0 Power Point via Grade 1 Initiation at chargen (Linguistics 0.25, Command Presence 0.50, Cloak R1 0.25).
+* **Initiation Grade 1 (*Power Point*)**: Grants +1.0 Power Point (*CRB*, p. 168), enabling Linguistics, Command Presence, and Cloak on Day 1.
+* **Initiation Grade 2 (*Channeling*)**: Enables spirit inhabitation, granting physical attribute augmentation ($\lfloor \text{Force}/2 \rfloor$), wound penalty negation, and dual-natured status without losing sovereign control (*Street Wyrd*, p. 121).
+* **Initiation Grade 3 (*Centering*)**: Adds Initiate Grade (+3) to Drain Resistance tests (*CRB*, p. 164).
+* **Initiation Grade 4 (*Masking*)**: Opposes Assensing with Magic + Initiate Grade (10d6); disguises aura as mundane and masks bonded foci up to Initiate Grade (Force 4) (*CRB*, p. 165).
+* **Initiation Grade 5 (*Stealth Effect*)**: Subtle casting: camouflages spell manifestations and adds Initiate Grade (+5) to the perception threshold to detect spellcasting (*Deadly Arts*, p. 173; *SRMG*, p. 75).
 
-### II. SRM Monthly Expenses & Downtime Cadence Protocol
-* **Source**: *Shadowrun Missions Guide v2.4*, pp. 17–19.
+### II. SRM Monthly Expenses & Coven Decay Protocol
+* **Source**: *Shadowrun Missions Guide v2.4*, pp. 17–19, 47, 59–60.
 * **Monthly Obligations**: Every second official SRM mission, recurring expenses are settled:
   * Low Lifestyle: ¥2,000/mo.
   * Hooder Quality (Rating 3): ¥3,000/mo allocated to community clinics and refugee grids (*Sixth World Companion*, p. 132).
-  * Coven Dues: ¥2,400/mo paid to the Guild of Freelance Assets.
+  * Coven Maintenance: Forgone during the 4-month decay from Loyalty 8 down to Loyalty 4, saving ¥2,400/mo in dues and liberating 4 Major Downtime Actions for rapid-fire initiations. Stabilizes at Loyalty 4 (¥350/mo dues, 1 Minor Downtime Action).
 * **Downtime Action Resolution**:
-  * **1 Major Downtime Action**: Dedicated to Coven service, ritual maintenance, and keeping Coven Loyalty in good standing (*SRMG v2.4*, p. 18).
-  * **1 Minor Downtime Action**: *Working for the People*—funded directly by the ¥3,000 Hooder obligation, generating **+1 Karma** at no additional nuyen charge (*SRMG v2.4*, p. 19).
+  * **Major Downtime Actions**: 100% dedicated to Metamagic Initiation and Spiritual Quests without coven blockage.
+  * **Minor Downtime Actions**: *Working for the People*—funded directly by the ¥3,000 Hooder obligation, generating **+1 Karma** at no additional nuyen charge (*SRMG v2.4*, p. 19), plus spirit binding.
 
 ### III. Sustained Spells & Spirit Channeling Strategy
 * **Source**: *SR6 Core*, p. 73 (*Focused Concentration*), p. 147 (Spirit Force limits), and *Street Wyrd*, p. 122.
