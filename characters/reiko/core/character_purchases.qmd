@@ -76,6 +76,7 @@ assign("Lifetime_Nuyen", 90000)
   * Japanese Cultural Etiquette (R3) `{python} inc('Nuyen', -2500)` `{python} knowledge_skill('Japanese Cultural Etiquette', rating=3, notes='Rating 3 Knowsoft: Corporate hierarchy, bowing registers, formal tea hospitality')`
   * New Orleans Vodou & Loa Syncretism (R3) `{python} inc('Nuyen', -2500)` `{python} knowledge_skill('New Orleans Vodou & Loa Syncretism', rating=3, notes='Rating 3 Knowsoft: Baron Samedi, Loa of the Wires, League of Laveau, Zobop')`
   * Gross Metahuman Fluids `{python} knowledge_skill('Gross Metahuman Fluids', notes='Free knowledge skill earned in SRM 2081-15: visceral biowaste, bodily excretions, and thaumaturgic contamination')`
+  * Dissonance — Theory & Applications `{python} inc('Nuyen', -1500)` `{python} knowledge_skill('Dissonance — Theory and Applications', notes='Knowsoft: Dissonant realms, entropy math, One Hundred transfer geometry, consensus dynamics')`
 * Commlink Apps
   * Facial Scanner `{python} inc('Nuyen', -750)`
   * P-ICE Spines `{python} inc('Nuyen', -500)`
@@ -165,6 +166,23 @@ Under *Double Clutch* p. 123–124, the Man-At-Arms receives 3 free Standard Har
 * Medkit R1 `{python} inc('Nuyen', -250)`
 * Narcoject x20 (Initial 10 + 10 Restock SRM 2081-10) `{python} inc('Nuyen', -50 * 20)`
 * Cyanide x5 `{python} inc('Nuyen', -70 * 5)`
+
+### Courtly Regalia & Mission Artifacts
+
+* **Brooch of the Seelie Court** *(CMP 2081-20 Mission Loot)*
+  * Golden brooch presented personally by Queen Brane of the Seelie/Autumn Court, 
+  * Names Reiko a *"Friend of the Court and Protector of the Rose."*
+  * Rating 2 Power Focus (unbound; held as sovereign court regalia).
+* **Dagger of the Sacred Rose** *(CMP 2081-20 Mission Loot)*
+  * Curved ceremonial dagger presented by Queen Brane for defending the helpless at the Ball. 
+  * Rating 1 Weapon Focus (unbound; Blade, DV 2P, AR 8/—/—/—/—; held as sovereign court regalia).
+* **The Secret Society Ring (*Gallinae filius*)** *(SMH 2083-01 Mission Loot)*
+  * Dark metal band with gold filigree depicting two fighting chickens and the Latin motto *Gallinae filius* ("son of a hen"). 
+  * Rating 1 Spirit Focus (unbound) granting passive **+2 Social Rating** when worn on her anthrodrone chassis.
+* **Medal of the Order of the Lion of the United Netherlands** *(CMP 2081-12 Mission Loot)*
+  * Delivered in a carved wooden box upon an orange ribbon and velvet pillow, 
+  * Accompanied by a letter from Sigrûn and Crown Princess Emma (*"Sometimes a fighter becomes a princess. Sometimes one becomes a knight. Welcome to the order of the Lion of the United Netherlands."*). 
+  * Commemorates the defense of Noordeinde Palace in The Hague; held in sanctuary as sovereign diplomatic regalia.
 
 ### SINs & Licenses
 

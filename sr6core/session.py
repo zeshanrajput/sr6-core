@@ -7,6 +7,9 @@ import os
 import sys
 import json
 import time
+import shutil
+import tempfile
+import subprocess
 from pathlib import Path
 from typing import Dict, Any, List, Optional, Generator, Tuple
 
@@ -116,55 +119,107 @@ def transcribe_session_audio(
     if not quiet:
         print(f"[Transcribe] Model loaded in {t_model_loaded:.2f}s. Beginning decoding...")
 
-    t_start_transcribe = time.time()
-    segments_iter, info = model.transcribe(str(audio_file), beam_size=beam_size)
+    CHUNK_DURATION_SEC = 1800  # 30-minute chunks to prevent RAM allocation bottlenecks on multi-hour recordings
+    use_chunking = duration is not None and duration > CHUNK_DURATION_SEC
+    temp_chunks_dir = None
+    chunks_to_process: List[Tuple[Path, float]] = []
 
+    if use_chunking:
+        temp_chunks_dir = tempfile.mkdtemp(prefix="sr6_chunks_")
+        chunk_pattern = os.path.join(temp_chunks_dir, "chunk_%03d.mp3")
+        if not quiet:
+            print(f"[Transcribe] Audio duration ({format_timestamp(duration)}) exceeds chunk threshold. Segmenting into {CHUNK_DURATION_SEC // 60}-minute chunks via ffmpeg...")
+        try:
+            subprocess.run(
+                ["ffmpeg", "-y", "-i", str(audio_file), "-f", "segment", "-segment_time", str(CHUNK_DURATION_SEC), "-c", "copy", chunk_pattern],
+                capture_output=True,
+                check=True
+            )
+            raw_chunks = sorted(Path(temp_chunks_dir).glob("chunk_*.mp3"))
+            for cp in raw_chunks:
+                cdur = get_audio_duration(str(cp)) or float(CHUNK_DURATION_SEC)
+                chunks_to_process.append((cp, cdur))
+            if not quiet:
+                print(f"[Transcribe] Segmented into {len(chunks_to_process)} chunks successfully.")
+        except Exception as e:
+            if not quiet:
+                print(f"[Transcribe] Warning: ffmpeg segmenting failed ({e}). Falling back to single-pass transcription.")
+            chunks_to_process = [(audio_file, duration or 0.0)]
+    else:
+        chunks_to_process = [(audio_file, duration or 0.0)]
+
+    t_start_transcribe = time.time()
     segments_data: List[Dict[str, Any]] = []
     md_lines: List[str] = []
-
-    title = session_title or audio_file.stem
-    md_lines.append(f"# Session Transcript: {title}\n")
-    if char_id:
-        md_lines.append(f"**Character Portfolio:** {char_id.capitalize()}  ")
-    md_lines.append(f"**Source Audio:** `{audio_file.name}`  ")
-    if duration:
-        md_lines.append(f"**Total Duration:** {format_timestamp(duration)}  ")
-    md_lines.append(f"**Model Engine:** `faster-whisper` (`{model_size}`, {device.upper()})  ")
-    md_lines.append(f"**Language Detected:** {info.language} (probability: {info.language_probability:.2f})\n")
     md_path = target_dir / "transcript.md"
     json_path = target_dir / "transcript.json"
 
-    # Start writing transcript.md immediately and flush incrementally
+    title = session_title or audio_file.stem
+    detected_lang = "en"
+    detected_prob = 1.0
+    header_written = False
+
     md_file = open(md_path, "w", encoding="utf-8")
-    md_file.writelines(md_lines)
-    md_file.flush()
 
-    last_logged_time = 0.0
-    for segment in segments_iter:
-        seg_dict = {
-            "id": segment.id,
-            "start": segment.start,
-            "end": segment.end,
-            "start_ts": format_timestamp(segment.start),
-            "end_ts": format_timestamp(segment.end),
-            "text": segment.text.strip(),
-            "avg_logprob": segment.avg_logprob,
-            "no_speech_prob": segment.no_speech_prob
-        }
-        segments_data.append(seg_dict)
+    try:
+        current_offset = 0.0
+        global_seg_id = 0
+        last_logged_time = 0.0
 
-        md_line = f"**[{seg_dict['start_ts']} -> {seg_dict['end_ts']}]** {seg_dict['text']}\n"
-        md_file.write(md_line)
-        md_file.flush()
+        for chunk_idx, (chunk_path, chunk_dur) in enumerate(chunks_to_process, 1):
+            if not quiet and len(chunks_to_process) > 1:
+                print(f"\n[Transcribe] Processing Chunk {chunk_idx}/{len(chunks_to_process)}: {chunk_path.name} (offset: {format_timestamp(current_offset)})...")
 
-        # Periodic console progress update every 30 seconds of audio processed
-        if not quiet and (segment.end - last_logged_time >= 30.0 or last_logged_time == 0.0):
-            last_logged_time = segment.end
-            percent_str = f" ({segment.end / duration * 100:.1f}%)" if duration and duration > 0 else ""
-            elapsed = time.time() - t_start_transcribe
-            print(f"  [Progress] {format_timestamp(segment.end)}{percent_str} | Elapsed: {int(elapsed)}s | Text: {seg_dict['text'][:60]}...")
+            segments_iter, info = model.transcribe(str(chunk_path), beam_size=beam_size)
 
-    md_file.close()
+            if not header_written:
+                detected_lang = info.language
+                detected_prob = info.language_probability
+                md_lines.append(f"# Session Transcript: {title}\n")
+                if char_id:
+                    md_lines.append(f"**Character Portfolio:** {char_id.capitalize()}  ")
+                md_lines.append(f"**Source Audio:** `{audio_file.name}`  ")
+                if duration:
+                    md_lines.append(f"**Total Duration:** {format_timestamp(duration)}  ")
+                md_lines.append(f"**Model Engine:** `faster-whisper` (`{model_size}`, {device.upper()})  ")
+                md_lines.append(f"**Language Detected:** {detected_lang} (probability: {detected_prob:.2f})\n")
+                md_file.writelines(md_lines)
+                md_file.flush()
+                header_written = True
+
+            for segment in segments_iter:
+                seg_start = current_offset + segment.start
+                seg_end = current_offset + segment.end
+                seg_dict = {
+                    "id": global_seg_id,
+                    "start": seg_start,
+                    "end": seg_end,
+                    "start_ts": format_timestamp(seg_start),
+                    "end_ts": format_timestamp(seg_end),
+                    "text": segment.text.strip(),
+                    "avg_logprob": segment.avg_logprob,
+                    "no_speech_prob": segment.no_speech_prob
+                }
+                global_seg_id += 1
+                segments_data.append(seg_dict)
+
+                md_line = f"**[{seg_dict['start_ts']} -> {seg_dict['end_ts']}]** {seg_dict['text']}\n"
+                md_file.write(md_line)
+                md_file.flush()
+
+                # Periodic console progress update every 30 seconds of audio processed
+                if not quiet and (seg_end - last_logged_time >= 30.0 or last_logged_time == 0.0):
+                    last_logged_time = seg_end
+                    percent_str = f" ({seg_end / duration * 100:.1f}%)" if duration and duration > 0 else ""
+                    elapsed = time.time() - t_start_transcribe
+                    print(f"  [Progress] {format_timestamp(seg_end)}{percent_str} | Elapsed: {int(elapsed)}s | Text: {seg_dict['text'][:60]}...")
+
+            current_offset += chunk_dur
+
+    finally:
+        md_file.close()
+        if temp_chunks_dir and os.path.exists(temp_chunks_dir):
+            shutil.rmtree(temp_chunks_dir, ignore_errors=True)
 
     total_time = time.time() - t_start_transcribe
     speed_factor = (duration / total_time) if duration and total_time > 0 else 0.0
@@ -180,8 +235,8 @@ def transcribe_session_audio(
         "compute_type": compute_type,
         "transcription_time_seconds": total_time,
         "speed_factor": f"{speed_factor:.2f}x realtime" if speed_factor else None,
-        "language": info.language,
-        "language_probability": info.language_probability,
+        "language": detected_lang,
+        "language_probability": detected_prob,
         "segment_count": len(segments_data),
         "segments": segments_data
     }

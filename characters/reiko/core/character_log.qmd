@@ -673,6 +673,33 @@ Submersion_Grade = state["Submersion_Grade"]
 * **Inventory & Restock:**
   * Replenished depleted Narcoject supplies in `character_purchases.qmd`.
 
+---
 
+`{python} mission("SMH.2083.01", date="2026-11-09", karma=8, nuyen=10200, gm="Raven2049", difficulty="Veteran")`
+
+* **GM:** Raven2049
+* **Team:** Fox (JaGator), Rei (Snowcrash), Mithral (Mithral), Frostbyte (Dreamweaver), Colman Jones (SiliconMage), Yuriko Star (WarDoctor)
+* **Summary:** Colonel Stan Harlanson, founder of a sixty-year-old secret convention fellowship dating back to 2023, contracted the team in New Orleans during the *Titans in Tartarus Convention* to investigate the gathering and retrieve an ancient enchanted ring. Blending into the convention crowds—Mithral cosplaying as his own action figure, Fox as Esme, and Yuriko leaning into her Man-at-Arms chassis to cosplay as a towering anime mecha (and later tying Fox for 2nd place singing Weird Al in the convention karaoke competition)—the runners navigated rival factions to secure two halves of an esoteric card from the "Con-Kings." Operating in seamless Matrix synchronization, Reiko used *Infusion* to buff Frostbyte's Willpower and infiltrated systems across 5km with noise compensation while Frostbyte executed cyber-operations. Together they pulled off an arena drone prank for *The Mezzanator* during the Urban Brawl match (Reiko flying the flag for the Seattle Screamers) and a dye-loaded fire suppression prank for *Smirnoff the Grey*—Reiko setting a remote timer with a roll of her eyes that sent the old man frantically scrambling. Following the card's compass to an "Out of Order" restroom portal, the runners entered an extradimensional colosseum, braving the Paralyzing Crow howl to destroy the blade-feathered *Poultrygeist* ("beast from Khick"). The Colonel initiated the runners into the fellowship with its two cardinal rules (*"Do not talk about the club! Try your best and have a good time!"*), presenting each with the *Gallinae filius* ring and settling the veteran contract in full.
+* **Contacts:**
+  * *Titans in Tartarus Secret Society (The Colonel):* Inducted as fellowship members (+0 Favor Points).
+* **Downtime Actions (2 Minors Total — SMH Event):**
+  * *Minor Action 1 (Working for the People):* `{python} work_for_the_people()`
+    * 2,000¥ donated toward sustaining her sanctuary and children in Kernel Panic / Glade (Hooder), converting to +1 Karma.
+  * *Minor Action 2 (Drone Maintenance & Tuning):* Overhauled and repaired the Shiawase Man-at-Arms chassis following the extradimensional colosseum clash.
+* **In-Session Downtime (Convention Nights — Zero Downtime Action Cost):**
+  * *Full Sprite Fleet Refresh:* Over multiple nights of in-session downtime in New Orleans, Reiko refreshed and re-registered her entire registered sprite family at Rating 8 (buying 5 hits with her 20d6 compiling pool, drain-free):
+    * `{python} deregister_sprite("Ouro", reason="In-session convention downtime refresh")` | `{python} add_sprite("Machine", 8, name="Ouro", details="The Logic / Diagnostics, Override, Clearsight, Evasion", tasks=3)`
+    * `{python} deregister_sprite("Percy", reason="In-session convention downtime refresh")` | `{python} add_sprite("Defender", 8, name="Percy", details="The Shield / Override, Shield, Stability", tasks=3)`
+    * `{python} deregister_sprite("Cleo", reason="In-session convention downtime refresh")` | `{python} add_sprite("Modular", 8, name="Cleo", details="The Market / Cookie (Modular), Con, Influence", tasks=3)`
+    * `{python} deregister_sprite("Aisling", reason="In-session convention downtime refresh")` | `{python} add_sprite("Music", 8, name="Aisling", details="The Radiant Hearth / Harmonize, Captivate Audience, Shield", tasks=3)`
+    * `{python} deregister_sprite("Étaín", reason="In-session convention downtime refresh")` | `{python} add_sprite("Modular", 8, name="Étaín", details="The Skybox Weaver / Phantom (Modular), Suppression, Stability", tasks=3)`
+* **Character Advancement Telemetry:**
+  * *Karma Banking:* Banked +9 Karma (+8 mission, +1 Working for the People). Liquid Karma reaches **33 Karma** (targeted toward raising *Resonance* to 9 at 45 Karma).
+  * *Nuyen Banking:* Banked +8,200¥ (+10,200¥ payout - 2,000¥ Working for the People). Liquid Nuyen reaches **¥6,900** (8,400¥ - 1,500¥ *Dissonance — Theory & Applications* knowsoft; targeted toward the Used Left Synthetic Cyberarm at ¥10,000).
+* **Loot & Equipment Acquisition:**
+  * *The Ring (*Gallinae filius*):* Rating 1 Spirit Focus (dark metal band with gold filigree depicting fighting chickens; grants passive +2 Social Rating; logged in `character_purchases.qmd`).
+  * *Knowsoft Acquisition:* Acquired *Dissonance — Theory and Applications* (-1,500¥; logged in `character_purchases.qmd`).
+* **Session Recording & Transcript:**
+  * Audio archive and full CUDA timestamped transcript generated in `characters/reiko/sessions/SMH_2083-01/transcript.md`.
 
 

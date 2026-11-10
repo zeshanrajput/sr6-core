@@ -8,10 +8,10 @@ identity:
   gender: DIVERSE
   age: ~ 10
   system: shadowrun6e
-  karma: 24
-  lifetime_karma: 300
-  nuyen: 200.0
-  lifetime_nuyen: 470300
+  karma: 33
+  lifetime_karma: 309
+  nuyen: 8400.0
+  lifetime_nuyen: 480500
   heat: -1
   submersion: 8
 attributes:
@@ -1835,6 +1835,69 @@ weapons:
       Target BOD/2 (+1/Speed Interval) for vehicles, or Target BOD/4 (rounded up)
       for soft targets.'
 armors: []
+matrix_devices:
+- name: M-TOC II
+  rating: 1
+  qty: 1
+  accessories:
+  - Artillery Barrage
+  - ECM Warrior II
+  - Mobile Medic
+  - Sneak-Sneak
+  - Target Artist
+  - Facial Scanner
+  - P-ICE Spines
+  - Personal Assistant (R6)
+  - Social HUD (R6)
+  - Thermal Mood Reading
+  - Vocal Tension Detection
+- name: Software Library
+  rating: 1
+  qty: 1
+  accessories:
+  - Basic Programs
+  - Baby Monitor
+  - Browse
+  - Edit
+  - Emulator
+  - Encryption
+  - Signal Scrubber
+  - Toolbox
+  - Virtual Machine
+  - Hacking Programs
+  - Decryption
+  - Defense Pods
+  - Directional Shields
+  - Fork
+  - Hitchhiker
+  - Nexus Protocol
+  - Overclock
+  - Trace
+  - 'Sleepsey (Original Exploit Program) (SRM 2081-13 Mission Loot: targets 2066 Herkimer
+    Schützenpanzers, fills rigger stun track and bricks rigging controls)'
+- name: Knowsofts
+  rating: 1
+  qty: 1
+  accessories:
+  - Japanese Cultural Etiquette (R3)
+  - New Orleans Vodou & Loa Syncretism (R3)
+  - Gross Metahuman Fluids
+- name: Other
+  rating: 1
+  qty: 1
+  accessories:
+  - Mapsoft x4
+  - Shopsoft x6
+  - Coding Facility
+- name: Data Structures & Resonance Constructs
+  rating: 1
+  qty: 1
+  accessories:
+  - Oracle (Rating 4)
+  - 'Integration: Incorporated into the physical optical cluster substrate and foundation
+    brick of Reiko''s home host,  (aboard the Federated-Boeing Sky Commander). Under
+    SRMG v2.4, an Emergent Intelligence residing in the host device can actively bond
+    and use one data structure as a focus.'
 gear:
 - name: 5x Peak-Discharge Laser Battery Clips (Red Fox)
   qty: 5
