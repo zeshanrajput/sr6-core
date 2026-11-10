@@ -18,7 +18,10 @@ Under *SRM Guide v2.4* (pp. 17–20, 47, 59–60), downtime actions between miss
 * **Strict Priority Hierarchy (Execute in order upon run completion):**
   1. **Initiation (Major Action):** Consumes the Major Action on mainline SRMs when Karma threshold is reached. Initiate Grade is hard-capped by current Magic rating (**Grade 6 cap at Magic 6**).
   2. **Work for the People (Minor Action):** Non-negotiable conversion of **¥2,000 $\rightarrow$ +1 Karma** (funded directly by the ¥3,000 Hooder R3 monthly obligation).
-  3. **Learn Spells (Minor Action):** Absorb queued spells (**5 Karma + 1 Minor Action study** each). *Priority order:* **`Stunball`** (*CRB*, p. 134; instant non-lethal AoE to activate *The Magician's Way*) $\rightarrow$ **`Wingman`** (*Smooth Operations*, p. 110; social teamwork engine) $\rightarrow$ **`Charm`** (*CRB*, p. 138) $\rightarrow$ **`Fashion`** (*Street Wyrd*, p. 48) $\rightarrow$ **`Sterilize`** (*Street Wyrd*, p. 56) $\rightarrow$ **`Wreck (Drones)`** (*Street Wyrd*, p. 27; Direct Combat category).
+  3. **Learn Spells (Minor Action):** Absorb queued spells (**5 Karma + 1 Minor Action study** each).
+     * *Direct Combat & Teamwork Core:* **`Stunball`** (*CRB*, p. 134) $\rightarrow$ **`Wingman`** (*Smooth Operations*, p. 110) $\rightarrow$ **`Wreck (Drones)`** (*Street Wyrd*, p. 27) $\rightarrow$ **`Manaball`** (*CRB*, p. 133).
+     * *Secondary Tactical Sabotage:* **`Sterilize`** (*Street Wyrd*, p. 56).
+     * *Deferred Flavor & Cosmetic Utility Backlog:* **`Charm`** (*CRB*, p. 138) and **`Fashion`** (*Street Wyrd*, p. 48) (deprioritized due to natural 19–24d social pools and *Cosmetic Control 2*).
   4. **Spirit Binding & Re-Binding (Minor Action):** Bind Fire or Air spirits up to the Magic $\times$ 3 Force cap (18 Force at Magic 6).
 
 ---
@@ -34,13 +37,13 @@ All upcoming upgrades are prioritized sequentially below. When logging post-miss
 | Step | Target Upgrade | Category | Cost | Downtime Action Required | Primary Tactical & Architectural Role |
 | :---: | :--- | :--- | :---: | :---: | :--- |
 | **01** | **Initiation Grade 6**<br>• *The Magician's Way* | Metamagic | 9 Karma* | 1 Major Action<br>*(Mainline SRM)* | *Street Wyrd* 76: Apex capstone at Magic 6. Unlocks dual mentor spirit benefits for *Wise Warrior* (Adept combat sorcery bonus + **-1 Edge cost discount on Combat category spells/rituals**). Allows Adept drain to be resisted with **Body + Charisma (14+ dice)**. |
-| **02** | **Spell: Stunball** | Direct Combat (Area) | 5 Karma | 1 Minor Action (Study) | *CRB* 134: LOS(A), DV 4, Stun. Non-lethal AoE that **completely bypasses armor** ($\text{Sorcery} + \text{Magic}$ vs $\text{Willpower} + \text{Intuition}$). Cast silently via *Stealth Effect* (Grade 5). Immediately activates *Wise Warrior*’s -1 Edge boost discount on Combat spells. |
-| **03** | **Spell: Wingman** | Detection Spell | 5 Karma | 1 Minor Action (Study) | *Smooth Operations* 110: Specialized sustained Mindlink for social teamwork. Helper gets 1 temporary Edge on assistance; leader gains 1 temporary Edge for *each* die provided (19–24d). Sustained via *Focused Concentration*. |
-| **04** | **Spell: Charm** | Manipulation Spell | 5 Karma | 1 Minor Action (Study) | *CRB* 138: Adds +4 dice to all Influence and Con tests against targeted subjects. Pairs with *Stealth Effect* for covert social dominance. |
-| **05** | **Spell: Fashion** | Manipulation Spell | 5 Karma | 1 Minor Action (Study) | *Street Wyrd* 48: Instant wardrobe and fabric restructuring. Combined with *Cosmetic Control 2*, enables seamless visual transformation in seconds. |
+| **02** | **Spell: Stunball** | Direct Combat (Area) | 5 Karma | 1 Minor Action (Study) | *CRB* 134: LOS(A), DV 4, Stun. Non-lethal AoE that **completely bypasses armor** ($\text{Sorcery} + \text{Magic}$ vs $\text{Willpower} + \text{Intuition}$). Cast silently via *Stealth Effect* (Grade 5). Immediately activates *Wise Warrior*’s -1 Edge discount on Combat spells. |
+| **03** | **Spell: Wingman** | Detection Spell | 5 Karma | 1 Minor Action (Study) | *Smooth Operations* 110: Specialized sustained Mindlink for social teamwork. Helper gets 1 temporary Edge on assistance; leader gains 1 temporary Edge for *each* die provided (19–24d). Solves the "two faces at the table" dilemma by turning Velvet into an unbeatable cooperative Edge battery. Sustained via *Focused Concentration*. |
+| **04** | **Spell: Wreck (Drones)** | Direct Combat (LOS) | 5 Karma | 1 Minor Action (Study) | *Street Wyrd* 27: LOS, DV 4, Object destruction. Directly bypasses drone armor to destroy chassis/optics. Classified as a **Direct Combat** spell, so it reaps the *Wise Warrior* -1 Edge boost discount. |
+| **05** | **Spell: Manaball** | Direct Combat (Area) | 5 Karma | 1 Minor Action (Study) | *CRB* 133: LOS(A), DV 5, Physical. Silent, lethal direct mana destruction that **completely bypasses armor**. Deployed against hardened combat teams, cybered hit squads, or hostile spirits when stun is insufficient. Reaps *Wise Warrior* -1 Edge discount. |
 | **06** | **Quality: Finesse** | Negative Quality | 0 Karma | None (SRMG Adoption) | *6WC* 137 / *SRMG* 37, 58, 137: Formalizes Velvet's ethos of surgical non-violence, zero collateral damage, and avoidance of unnecessary Heat. Free to adopt post-chargen (no bonus Karma granted). |
 | **07** | **Untrained Skill Repair**<br>• *Perception 1 (Intuition)*<br>• *Astral 1 (Intuition)* | Active Skills | 10 Karma tot<br>*(5K each)* | None (Between runs) | Removes -1 untrained penalty (+2 dice swing each; Perception 3d $\rightarrow$ 5d, Astral 3d $\rightarrow$ 5d). Essential for spotting physical ambushes and reading emotional auras. |
-| **08** | **Tactical Sabotage Spells**<br>• *Sterilize*<br>• *Wreck (Drones)* | Spells | 10 Karma tot<br>*(5K each)* | 2 Minor Actions (Study) | *Street Wyrd* 56, 27: Complete forensic DNA/evidence cleansing (*Sterilize*); subtle physical destruction against hostile surveillance drones (*Wreck*). *Note:* *Wreck* is in the Direct Combat category and gains *Wise Warrior*’s -1 Edge discount! |
+| **08** | **Tactical Sabotage: Sterilize** | Manipulation (Area) | 5 Karma | 1 Minor Action (Study) | *Street Wyrd* 56: Complete forensic DNA, biometric, and physical evidence cleansing. Eliminates material crime scene traces. |
 | **09** | **Attribute: Magic 6 $\rightarrow$ 7** | Attribute | 35 Karma | None (Between runs) | Unlocks Initiate Grades 7+, expands Focus Bonding Cap from 18 $\rightarrow$ **21 Force**, and raises safe spirit summoning threshold to Force 6. |
 | **10** | **Initiation Grade 7**<br>• *Flexible Signature* | Metamagic | 12 Karma* | 1 Major Action<br>*(Mainline SRM)* | *CRB* 165: Enables altering or completely erasing astral signatures from spellcasting, rendering Velvet astrally untraceable. |
 | **11** | **Attribute: Magic 7 $\rightarrow$ 8** | Attribute | 40 Karma | None (Between runs) | Expands Focus Bonding Cap to **24 Force**, allowing dual Rating 6 Qi Foci to bond simultaneously with Power Focus R3 and Sustaining Focus R3. |
@@ -49,6 +52,10 @@ All upcoming upgrades are prioritized sequentially below. When logging post-miss
 | **14** | **Quality: Charismatic Defense** | Positive Quality | 24 Karma<br>*(2x 12K)* | None (Between runs) | *Power Plays* 85: Bases Defense Rating off Charisma instead of Body (DR jumps from 2 $\rightarrow$ **10–14**!). |
 
 *\*Initiation cost formula at Loyalty 6: $10 + 5 - 6 = 9$ Karma; at Loyalty 4 floor: $10 + \text{Current Grade} - 4$.*
+
+#### Deferred Backlog ("Nice-to-Have Flavor & Cosmetic Utility")
+* **Spell: Charm** (*CRB*, p. 138; 5 Karma) — Manipulation spell granting +4 dice to social tests. Deprioritized because Velvet already operates with natural 19–24d social pools (buying 4–5 hits routinely); +4 extra dice is win-more overkill.
+* **Spell: Fashion** (*Street Wyrd*, p. 48; 5 Karma) — Instant clothing transformation. Deprioritized because *Cosmetic Control 2* already handles biological shape/gender/height alteration, while physical nanopaste disguise kits and high-fashion modular wardrobes cover cosmetic apparel.
 
 ---
 
@@ -67,7 +74,7 @@ All upcoming upgrades are prioritized sequentially below. When logging post-miss
 
 ## 3. Forward Architectural Blueprints
 
-### A. The Covert Social Infiltration & Edge Engine
+### A. The Covert Social Infiltration & Wingman Cooperative Engine
 
 ```text
                                THE GHOST FACE OPERATIONAL ARRAY
@@ -93,42 +100,42 @@ All upcoming upgrades are prioritized sequentially below. When logging post-miss
   +----------------------------------------------------------------------------+
 ```
 
-* **Covert Social Casting:** *Stealth Effect* allows Velvet to cast *Charm* (+4 dice), *Fashion*, or *Mind Probe* in plain sight across a corporate gala or syndicate sit-down without manifesting light flares or astral ripples. Observers must beat **Threshold 5** on Perception to even suspect magic is occurring.
-* **Teamwork Edge Multiplication:** When Velvet casts *Wingman* and acts as the helper on a social test, Velvet gains a free Edge, while the leader receives an additional temporary Edge for every assisting die Velvet provides. With Velvet rolling **19–24 dice** on Influence/Con, the team enters every critical negotiation with maximum Edge.
+* **Solving the "Two Faces at the Table" Problem:** Usually, having two social specialists at the table creates role friction and dilutes spotlight. *Wingman* completely inverts this: Velvet steps into the helper/co-pilot role, giving the lead Face an avalanche of temporary Edge (1 Edge per die contributed from Velvet’s 19–24d pool) while Velvet pockets a free Edge. The lead negotiator enters every high-stakes corporate sit-down saturated with maximum Edge.
+* **Covert Social Support:** *Stealth Effect* allows Velvet to establish *Wingman* or cast covert assistance in plain sight across a high-security boardroom without manifesting light flares or astral ripples. Observers must beat **Threshold 5** on Perception to even suspect magic is occurring.
 
 ---
 
-### B. The Surgical AoE & Finesse Combat Array
+### B. The Direct Combat & Stealth Strike Arsenal
 
 ```text
-                         THE SURGICAL AOE & FINESSE COMBAT ARRAY
-                 [Non-Lethal Crowd Control + Direct Anti-Material]
+                         THE DIRECT COMBAT & STEALTH STRIKE ARSENAL
+                 [Armor-Bypassing Damage Triad + Zero-Footprint Casting]
 
-          STUNBALL (CRB 134)                          WRECK DRONES (SW 27)
-     (Direct Combat, Area, DV 4)                  (Direct Combat, LOS, DV 4)
-  +--------------------------------+          +--------------------------------+
-  |  • Rolls Sorcery + Magic       |          |  • Rolls Sorcery + Magic       |
-  |    vs Willpower + Intuition    |          |    vs Object Resistance (12-15)|
-  |  • COMPLETELY IGNORES ARMOR    |          |  • Destroys drone chassis &    |
-  |  • Drops crowds cold in stun   |          |    optics from the shadows     |
-  +--------------------------------+          +--------------------------------+
-                  |                                           |
-                  +---------------------+---------------------+
-                                        v
-                 THE MAGICIAN'S WAY + WISE WARRIOR MENTOR DISCOUNT
-                          (Street Wyrd 76 / CRB 166)
-  +----------------------------------------------------------------------------+
-  |  • -1 Edge Cost Discount: Applies to all Combat category spells/rituals.   |
-  |  • 1 Edge: Reroll 1 failed die or +1 to single die roll.                   |
-  |  • 3 Edge: Add Magic (+6 dice) or reroll all failed dice on Stunball/Wreck.|
-  |  • Stealth Effect (Grade 5): Silent casting (+5 Perception threshold).     |
-  |  • Anchored by Finesse Quality: Zero collateral damage, zero excess Heat.  |
-  +----------------------------------------------------------------------------+
+       STUNBALL (CRB 134)           WRECK DRONES (SW 27)           MANABALL (CRB 133)
+   (Direct Combat, Area, DV 4)   (Direct Combat, LOS, DV 4)   (Direct Combat, Area, DV 5)
+  +---------------------------+ +---------------------------+ +---------------------------+
+  | • Non-lethal crowd stun   | | • Destroys drone chassis, | | • Lethal physical AoE     |
+  | • Rolls Sorcery + Magic   | |   propulsion & optics     | | • Deployed against        |
+  |   vs Willpower + Intuition| | • Bypasses vehicle armor  | |   hardened kill squads    |
+  | • COMPLETELY IGNORES ARMOR| | • Direct Combat category  | | • COMPLETELY IGNORES ARMOR|
+  +---------------------------+ +---------------------------+ +---------------------------+
+                |                             |                             |
+                +-----------------------------+-----------------------------+
+                                              v
+                      THE MAGICIAN'S WAY + WISE WARRIOR MENTOR DISCOUNT
+                                   (Street Wyrd 76 / CRB 166)
+  +---------------------------------------------------------------------------------------+
+  |  • -1 Edge Cost Discount: Applies across all three Combat spells.                     |
+  |  • 1 Edge: Reroll 1 failed die or +1 to single die roll.                              |
+  |  • 3 Edge: Add Magic (+6 dice) or reroll all failed dice on Stunball/Wreck/Manaball.  |
+  |  • Stealth Effect (Grade 5): Silent casting (+5 Perception threshold to detect).      |
+  |  • Finesse Quality Anchor: Surgical execution, zero collateral damage, zero Heat.     |
+  +---------------------------------------------------------------------------------------+
 ```
 
-* **Zero Collateral Stun AoE:** *Stunball* bypasses physical armor soak entirely, dropping multi-target guard patrols or gang ambushes into unconsciousness without spilling blood, blowing out drywall, or leaving ballistics for forensic star-chasers.
-* **Future Direct Spell Pathway:** Mastering *Stunball* establishes the mechanical infrastructure for *Manaball* (Direct Physical, ignores armor) or *Powerball* (Indirect Physical blast) should Velvet ever encounter high-threat non-living opposition or spirits requiring lethal mana dissolution.
-* **Direct Anti-Drone Sabotage:** Because *Wreck* is explicitly categorized as a **Direct Combat** spell (*Street Wyrd*, p. 27), it also reaps the *Wise Warrior* -1 Edge discount, enabling rapid disabling of hostile surveillance drones with reduced Edge overhead.
+* **The Direct Combat Triad:** By standardizing on **Direct Combat** spells, Velvet never rolls against physical Armor soak. Every attack tests $\text{Sorcery} + \text{Magic}$ directly against mental attributes or object thresholds, neutralizing heavily armored cyber-commandos and drones with equal ease.
+* **Stealth Effect Lethality:** Combined with *Stealth Effect* (Grade 5), Velvet can drop an entire room cold in Stun (*Stunball*), disintegrate an aerial surveillance drone (*Wreck*), or dissolve a hostile kill squad (*Manaball*) without a single sound, light flash, or projectile trajectory.
+* **Ethical & Operational Flexibility:** Velvet defaults to *Stunball* to uphold the *Finesse* doctrine (surgical, non-lethal, zero Heat), reserving *Manaball* for existential combat where non-lethal methods are tactically impossible.
 
 ---
 
