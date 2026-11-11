@@ -6,8 +6,8 @@
 from sr6core.character.ledger import inc, inc_many, assign, state, modifier, knowledge_skill
 
 # Initial Starting Resources from Chargen
-assign("Karma", 1)
-assign("Lifetime_Karma", 1)
+assign("Karma", 11)
+assign("Lifetime_Karma", 11)
 assign("Nuyen", 90000)
 assign("Lifetime_Nuyen", 90000)
 ```

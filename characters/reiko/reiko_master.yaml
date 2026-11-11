@@ -8,8 +8,8 @@ identity:
   gender: DIVERSE
   age: ~ 10
   system: shadowrun6e
-  karma: 33
-  lifetime_karma: 309
+  karma: 76
+  lifetime_karma: 319
   nuyen: 6900.0
   lifetime_nuyen: 480500
   heat: -1
@@ -291,13 +291,30 @@ knowledge_skills:
   notes: 'Knowsoft: Dissonant realms, entropy math, One Hundred transfer geometry,
     consensus dynamics'
 contacts:
+  River People:
+    name: River People
+    canonical_name: River People
+    is_canonical: false
+    connection: 7
+    loyalty: 8
+    favors: 0
+    type: NOLA Technomancer Network / MUG
+    region: GEN
+    types:
+    - Matrix
+    - Law Enforcement
+    types_str: Matrix, Law Enforcement
+    description: Character Creation
+    notes: Character Creation
+    history:
+    - 'Character Creation (Met: C7 L8)'
   Brynne Taggart:
     name: Brynne Taggart
     canonical_name: Brynne Taggart
     is_canonical: true
     connection: 4
     loyalty: 3
-    favors: 3
+    favors: 1
     type: SEA Fixer
     region: SEA
     types:
@@ -309,51 +326,18 @@ contacts:
     notes: 'Uses: Getting jobs, fencing gear, gangs (Shadowrun Missions Seattle) |
       Types: Criminal, Street'
     history:
-    - 'Character Creation (Met: C4 L2)'
+    - 'Character Creation (Met: C4 L1)'
     - SRM.2081.05 (+2 FP)
+    - Auto-Promoted to Loyalty 2 (-2 FP)
     - SRM.2081.18 (+4 FP)
     - Auto-Promoted to Loyalty 3 (-3 FP)
-  Whiskey:
-    name: Whiskey
-    canonical_name: Whiskey
-    is_canonical: true
-    connection: 2
-    loyalty: 4
-    favors: 0
-    type: SEA Street Doc
-    region: SEA
-    types:
-    - Medical
-    types_str: Medical
-    description: 'Uses: Medicine, street docs (Shadowrun Missions Seattle) | Types:
-      Medical'
-    notes: 'Uses: Medicine, street docs (Shadowrun Missions Seattle) | Types: Medical'
-    history:
-    - 'Character Creation (Met: C2 L4)'
-  Indomitable Will:
-    name: Indomitable Will
-    canonical_name: Indomitable Will
-    is_canonical: true
-    connection: 3
-    loyalty: 3
-    favors: 0
-    type: NOLA River People Sysop
-    region: NOLA
-    types:
-    - Corporate
-    - Matrix
-    types_str: Corporate, Matrix
-    description: 'Uses: Banking, HVAC systems, Matrix | Types: Corporate, Matrix'
-    notes: 'Uses: Banking, HVAC systems, Matrix | Types: Corporate, Matrix'
-    history:
-    - 'Character Creation (Met: C3 L3)'
   Roanoke:
     name: Roanoke
     canonical_name: Roanoke
     is_canonical: true
     connection: 3
-    loyalty: 4
-    favors: 4
+    loyalty: 3
+    favors: 3
     type: NOLA Ecological Activist
     region: NOLA
     types:
@@ -365,11 +349,12 @@ contacts:
     notes: 'Uses: Getting jobs, environmental science, shamanism | Types: Criminal,
       Matrix'
     history:
-    - 'Character Creation (Met: C3 L3)'
+    - 'Character Creation (Met: C3 L1)'
     - SRM.2083.17 (+1 FP)
     - SRM.2083.20 (+1 FP)
+    - Auto-Promoted to Loyalty 2 (-2 FP)
     - SRM.2083.14 (+3 FP)
-    - Auto-Promoted to Loyalty 4 (-4 FP)
+    - Auto-Promoted to Loyalty 3 (-3 FP)
     - SRM.2083.16 (+3 FP)
   Piotr Krolik:
     name: Piotr Krolik

@@ -24,8 +24,8 @@ if "Nuyen" not in state or state.get("Nuyen", 0) == 0:
     assign("Nuyen", 90000) # 90,000¥ Starting Chargen Resources
     assign("Lifetime_Nuyen", 90000)
 if "Karma" not in state or state.get("Karma", 0) == 0:
-    assign("Karma", 1)
-    assign("Lifetime_Karma", 1)
+    assign("Karma", 11)
+    assign("Lifetime_Karma", 11)
 assign("Submersion_Grade", 2) # Submersion Grade at Chargen
 assign("Resonance", 6)
 assign("Heat", 0)
@@ -44,10 +44,9 @@ Submersion_Grade = state["Submersion_Grade"]
 * **Rewards:** `{python} inc_many(('Karma', 1), ('Nuyen', 1000))`
 * **Chargen Submersions:** Starting Submersion Grade 2 (Sprite Symbiosis & Hybrid Sprites via Technoshaman Stream)
 * **Chargen Contacts:**
-  * `{python} contact("Brynne Taggart", connection=4, loyalty=2, type_name="SEA Fixer", notes="Character Creation")`
-  * `{python} contact("Whiskey", connection=2, loyalty=4, type_name="SEA Street Doc", notes="Character Creation")`
-  * `{python} contact("Indomitable Will", connection=3, loyalty=3, type_name="NOLA River People Sysop", notes="Character Creation")`
-  * `{python} contact("Roanoke", connection=3, loyalty=3, type_name="NOLA Ecological Activist", notes="Character Creation")`
+  * `{python} contact("River People", connection=7, loyalty=8, type_name="NOLA Technomancer Network / MUG", notes="Character Creation")`
+  * `{python} contact("Brynne Taggart", connection=4, loyalty=1, type_name="SEA Fixer", notes="Character Creation")`
+  * `{python} contact("Roanoke", connection=3, loyalty=1, type_name="NOLA Ecological Activist", notes="Character Creation")`
 
 
 
@@ -93,7 +92,7 @@ Submersion_Grade = state["Submersion_Grade"]
   * `{python} contact("Renée Martin", fp=3)`  
 * **Downtime Actions (1 Major & 1 Minor):**  
   * *Working for the People:* `{python} work_for_the_people()`  
-  * *Submersion - Sprite Symbiosis:* `{python} inc_many(('Karma', -12), ('Submersion_Grade', 1))`
+  * *Submersion - Sprite Symbiosis:* `{python} inc_many(('Karma', -5), ('Submersion_Grade', 1))` *(Grade 3 with River People Loyalty 8: 10 + 3 - 8 = 5 Karma)*
 
 ---
 
@@ -168,7 +167,7 @@ Submersion_Grade = state["Submersion_Grade"]
   * `{python} contact("Duan Yuhai", fp=1)`
   * `{python} contact("Xiong Giuyin", fp=1)`  
 * **Downtime Actions (1 Major & 1 Minor):**  
-  * *Submersion - Living Network:* `{python} inc_many(('Karma', -13), ('Submersion_Grade', 1))`  
+  * *Submersion - Living Network:* `{python} inc_many(('Karma', -6), ('Submersion_Grade', 1))` *(Grade 4 with River People Loyalty 8: 10 + 4 - 8 = 6 Karma; Month 1 concludes, Loyalty decays 8 -> 7)*  
   * *Rent & Working for the People (Hooder):* `{python} lifestyle('Low')` | `{python} work_for_the_people()`
   * Learn Complex Form: Diffusion `{python} learn_complex_form("Diffusion")`
 * **Other**
@@ -196,7 +195,7 @@ Submersion_Grade = state["Submersion_Grade"]
 * **Team:** Bast, Rei (Dreamwalker), Esme (JaGator), James Kon, Caitlin (Kira Capalu), Yuriko  
 * **Contacts:** `{python} contact("Kirt Liger", fp=2)`  
 * **Downtime Actions (1 Major & 1 Minor):**  
-  * *Submersion - Transcendent Network:* `{python} inc_many(('Karma', -14), ('Submersion_Grade', 1))`  
+  * *Submersion - Transcendent Network:* `{python} inc_many(('Karma', -8), ('Submersion_Grade', 1))` *(Grade 5 with River People Loyalty 7: 10 + 5 - 7 = 8 Karma)*  
   * *Working for the People:* `{python} work_for_the_people()`
 
 ---
@@ -256,7 +255,7 @@ Submersion_Grade = state["Submersion_Grade"]
   * `{python} contact("Monsieur Johnson", fp=3)`
 * **Downtime Actions (1 Minor):**
   * *Rent & Working for the People (Hooder):* `{python} lifestyle('Low')` | `{python} work_for_the_people()`
-  * *Submersion - Overclocking:* `{python} inc_many(('Karma', -15), ('Submersion_Grade', 1))`
+  * *Submersion - Overclocking:* `{python} inc_many(('Karma', -9), ('Submersion_Grade', 1))` *(Grade 6 with River People Loyalty 7: 10 + 6 - 7 = 9 Karma; Month 2 concludes, Loyalty decays 7 -> 6)*
 
 ---
 
@@ -315,7 +314,7 @@ Submersion_Grade = state["Submersion_Grade"]
   * `{python} contact("Trudy", fp=1)`
 * **Downtime Actions (3 Minor):**
   * *Working for the People:* `{python} work_for_the_people()`
-  * *Submersion - Software Emulator:* `{python} inc_many(('Karma', -16), ('Submersion_Grade', 1))`
+  * *Submersion - Software Emulator:* `{python} inc_many(('Karma', -12), ('Submersion_Grade', 1))` *(Grade 7 with River People Loyalty 5: 10 + 7 - 5 = 12 Karma; Month 3 decayed 6 -> 5)*
 * **Other**
   * Two sprites registered during in-game downtime
     * `{python} add_sprite("Modular", 7)`
@@ -484,7 +483,7 @@ Submersion_Grade = state["Submersion_Grade"]
   * `{python} contact("Saint James", fp=1)`
   * `{python} contact("Blackstone", fp=1)`
 * **Downtime Actions (1 Major, 1 Minor):**
-  * *Submersion - Sprite Link:* `{python} inc_many(('Karma', -17), ('Submersion_Grade', 1))`
+  * *Submersion - Sprite Link:* `{python} inc_many(('Karma', -14), ('Submersion_Grade', 1))` *(Grade 8 with River People Loyalty 4 floor: 10 + 8 - 4 = 14 Karma)*
   * *Working for the People:* `{python} work_for_the_people()`
 * **Other:**
   * Two sprites registered during in-session downtime:
@@ -695,7 +694,7 @@ Submersion_Grade = state["Submersion_Grade"]
     * `{python} deregister_sprite("Aisling", reason="In-session convention downtime refresh")` | `{python} add_sprite("Music", 8, name="Aisling", details="The Radiant Hearth / Harmonize, Captivate Audience, Shield", tasks=3)`
     * `{python} deregister_sprite("Étaín", reason="In-session convention downtime refresh")` | `{python} add_sprite("Modular", 8, name="Étaín", details="The Skybox Weaver / Phantom (Modular), Suppression, Stability", tasks=3)`
 * **Character Advancement Telemetry:**
-  * *Karma Banking:* Banked +9 Karma (+8 mission, +1 Working for the People). Liquid Karma reaches **33 Karma** (targeted toward raising *Resonance* to 9 at 45 Karma).
+  * *Karma Banking:* Banked +9 Karma (+8 mission, +1 Working for the People). Liquid Karma reaches **76 Karma** (targeted toward raising *Resonance* to 9 at 45 Karma).
   * *Nuyen Banking:* Banked +8,200¥ (+10,200¥ payout - 2,000¥ Working for the People). Liquid Nuyen reaches **¥6,900** (8,400¥ - 1,500¥ *Dissonance — Theory & Applications* knowsoft; targeted toward the Used Left Synthetic Cyberarm at ¥10,000).
 * **Loot & Equipment Acquisition:**
   * *The Ring (*Gallinae filius*):* Rating 1 Spirit Focus (dark metal band with gold filigree depicting fighting chickens; grants passive +2 Social Rating; logged in `character_purchases.qmd`).

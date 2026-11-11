@@ -79,8 +79,9 @@ Shadowrunners are built with 100 Character Points (CP). You still gain 50 points
   * These cost either 2 CP or 5 Karma each.
   * Technoregeneration: `{python} inc('Karma', -5)` `{python} complex_form('Technoregeneration', fading=-1, duration='Permanent', target='Electronic Device', notes='Electronics (Hardware) + RES restores 1 Matrix box per hit.')`
   * Cleaner: `{python} inc('Karma', -5)` `{python} complex_form('Cleaner', fading=2, duration='Permanent', notes='Electronics + RES test. Each hit reduces OS by 1.')`
-* Submersion - New Sprite Types: `{python} inc('Karma', -11)` `{python} echo('New Sprite Type')`
-* Submersion - Sprite Conduit: `{python} inc('Karma', -12)` `{python} echo('Sprite Conduit')`
+* River People MUG Affiliation (Loyalty 8): `{python} inc('Karma', -6)`
+* Submersion - New Sprite Types: `{python} inc('Karma', -3)` `{python} echo('New Sprite Type')`
+* Submersion - Sprite Conduit: `{python} inc('Karma', -4)` `{python} echo('Sprite Conduit')`
 
 ## Purchase Special / Metatype Adjustment Points with CP
 
@@ -184,15 +185,18 @@ Gain 6 * Charisma contact points to spend.
 
 * `{python} inc_many(('Contact_Points', 6 * Charisma))`
 
+#### Matrix User Group (MUG)
+
+* River People (NOLA Technomancer Network / MUG, C7 L8) `{python} inc('Contact_Points', -15)`
+  * *SRMG v2.4* pp. 59–60; *Hack & Slash* p. 101 (*Symmetrical Submersion*). Reiko joins the River People with Sysop Indomitable Will at Loyalty 8, enabling the MUG Coven Decay Protocol.
+
 #### Seattle Contacts
 
-* Brynne Taggart (Fixer, C4 L2) `{python} inc('Contact_Points', -6)`
-* Whiskey (SEA Street Doc, C2 L4) `{python} inc('Contact_Points', -6)`
+* Brynne Taggart (Fixer, C4 L1) `{python} inc('Contact_Points', -5)`
 
-### New Orleans Contacts
+#### New Orleans Contacts
 
-* Indomitable Will (NOLA River People Sysop, C3 L3) `{python} inc('Contact_Points', -6)`
-* Roanoke (NOLA Ecological Activist, C3 L3) `{python} inc('Contact_Points', -6)`
+* Roanoke (NOLA Ecological Activist, C3 L1) `{python} inc('Contact_Points', -4)`
 
 ### Gear
 
