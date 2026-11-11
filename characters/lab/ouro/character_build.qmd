@@ -186,7 +186,7 @@ By reducing resource investment from 14 CP to **10 CP (210,000¥)**, Ouro fully 
 
 ::: {.callout-important title="Available Unspent Character Points: 4 CP"}
 Ouro currently has **4 unspent CP** in reserve. Potential allocations include:
-* **Special Attributes (4 CP)**: +1 to Edge (Edge 4 $\rightarrow$ **5**) OR +1 to Resonance (Resonance 5 $\rightarrow$ **6**, buying back the Spark loss!).
+* **Special Attributes (4 CP)**: +1 to Edge (Edge 4 $\rightarrow$ **5**).
 * **Skills (2 CP each)**: 2 additional skill points (e.g. Cracking 5 $\rightarrow$ **6**), OR two skill specializations (e.g. Tasking: *Registering* & Cracking: *Hacking*).
 * **Complex Forms (2 CP each)**: Purchase up to 2 additional complex forms with CP instead of Karma.
 :::
@@ -263,7 +263,11 @@ By taking all codemods as **Omega-Grade (Used)** code (*Hack & Slash*, p. 125), 
       * All complex form Threading tests reduce Fade Value by 2.
       * Sustain up to 1/2 Submersion Grade (rounded down) in complex forms without penalty.
         * During hacking scenes this will be hyperthreaded *Attack Attribution* and *Sleaze Attribution*, granting Ouro a base ATK/SLZ of 4/4 with bought hits before assigning RES bonus points or sprite symbiosis bonuses.
-        * During physical/meat drone operations this will be sustained *Enlighten Automaton* to boost the Nurse Maid chassis' Sensor rating from 3 to 5 (effective Device Rating 9 with home device optimization), preventing opponents from gaining automatic Edge from Ouro's Data Processing 9 and unlocking full Rating 9 autosoft execution.
+        * During physical/meat drone operations this will be sustained *Enlighten Automaton* and *Machine Merge*:
+          * Boost the Nurse Maid chassis' Sensor rating from 3 to 5 
+          * Effective Device Rating 9 with home device optimization), preventing opponents from gaining automatic Edge from Ouro's Data Processing 9,
+          * Unlocking full Rating 9 autosoft execution
+          * Additional +2 to all drone rolls and additional -2 threshold to drone piloting
   * **Natural Hacker** (*Hack & Slash*, p. 80): `{python} inc('Karma', -15)`
     * May substitute RES for any mental attribute in matrix actions or defense tests.
 * **Negative Qualities**:
@@ -298,25 +302,27 @@ By taking all codemods as **Omega-Grade (Used)** code (*Hack & Slash*, p. 125), 
 Per *Street Wyrd* p. 128 and *SRMG v2.4* p. 59–60, joining an established Matrix User Group (MUG) or magical coven requires spending **6 Karma**:
 * `{python} inc('Karma', -6)`
 
-Joining the **River People** (Loyalty 4) grants standard group initiation/submersion discounts: the Karma cost of each Submersion is discounted by the group's Loyalty rating (**-4 Karma per grade**). 
+Joining the **River People** at **Connection 7 / Loyalty 8** grants maximum group submersion discounts: the Karma cost of each Submersion is discounted by the group's Loyalty rating (**-8 Karma per grade**, minimum 2 Karma per *Hack & Slash* p. 101).
 
-### Submersion & Echoes (Grade 2 with MUG Discount)
+### Submersion & Echoes (Grades 1 & 2 with Loyalty 8 MUG Discount)
+
+Under *Hack & Slash* p. 101 (*Symmetrical Submersion*), group submersion cost is reduced by the group's Loyalty rating to a minimum of 2 Karma:
 
 * **Submersion Grade 1**:
   * Base Cost (*CRB*, p. 195): $10 + 1 = 11\text{ Karma}$
-  * River People Group Discount (Loyalty 4): $-4\text{ Karma}$
-  * Final Cost: $11 - 4 = \mathbf{7\text{ Karma}}$ `{python} inc('Karma', -7)` `{python} echo('Sprite Conduit')`
+  * River People Group Discount (Loyalty 8): $-8\text{ Karma}$
+  * Final Cost: $11 - 8 = \mathbf{3\text{ Karma}}$ `{python} inc('Karma', -3)` `{python} echo('Sprite Conduit')`
   * **Echo: Sprite Conduit**: Enables direct resonance channeling through compiled and registered sprites.
 * **Submersion Grade 2**:
   * Base Cost: $10 + 2 = 12\text{ Karma}$
-  * River People Group Discount (Loyalty 4): $-4\text{ Karma}$
-  * Final Cost: $12 - 4 = \mathbf{8\text{ Karma}}$ `{python} inc('Karma', -8)` `{python} echo('Sprite Symbiosis')`
+  * River People Group Discount (Loyalty 8): $-8\text{ Karma}$
+  * Final Cost: $12 - 8 = \mathbf{4\text{ Karma}}$ `{python} inc('Karma', -4)` `{python} echo('Sprite Symbiosis')`
   * **Echo: Sprite Symbiosis**: Weaves the living persona's defensive architecture directly into active companion sprites.
 
-::: {.callout-tip title="MUG Karma Arbitrage (+2 Karma Net Saved)"}
+::: {.callout-tip title="MUG Karma Arbitrage (+10 Karma Net Saved on Submersions)"}
 * Total Submersion base cost: $11 + 12 = 23\text{ Karma}$.
-* Discounted Submersion cost with River People: $7 + 8 = 15\text{ Karma}$ (**8 Karma saved**).
-* Net savings after 6 Karma group join fee: $8 - 6 = \mathbf{+2\text{ Karma net savings}}$!
+* Discounted Submersion cost with River People (Loyalty 8): $3 + 4 = 7\text{ Karma}$ (**16 Karma saved** vs base, and **8 Karma saved** vs Loyalty 4!).
+* Net savings after 6 Karma group join fee: $16 - 6 = \mathbf{+10\text{ Karma net savings}}$!
 :::
 
 ### Focus Bonding
@@ -326,7 +332,7 @@ Joining the **River People** (Loyalty 4) grants standard group initiation/submer
   * `{python} modifier("Resonance Focus", "attribute:resonance", 4, type="focus", rule_anchor="rules/rules_matrix.html#foci", notes="+4 dice to tests using RES")`
   * Provides **+4 dice** to all Resonance-linked tests, raising Ouro's effective Resonance dice pool from 5 to **9**!
 
-### Complex Forms
+### Complex Forms & Specialization
 
 Technomancers purchase complex forms for 5 Karma each (*6WC*, p. 29):
 
@@ -342,6 +348,12 @@ Technomancers purchase complex forms for 5 Karma each (*6WC*, p. 29):
 * **Hyperthreading** (*Hack & Slash*, p. 131):
   * `{python} inc('Karma', -5)` `{python} complex_form('Hyperthreading', fading=3, duration='Immediate', target='Persona', notes='Allows simultaneous threading of multiple complex forms in a single action.')`
   * Tactical accelerator granting action economy and the ability to bundle multiple forms in a single action.
+* **Machine Merge** (*Hack & Slash*, p. 64–65):
+  * `{python} inc('Karma', -5)` `{python} complex_form('Machine Merge', fading=4, duration='Sustained', target='Piloted Device', notes='Grants +1 bonus die per 2 hits to Piloting, Engineering, and defense tests while jumped in.')`
+  * Jumped-in somatic resonance bond: Sustained in the Nurse Maid chassis with 4 bought hits on threading, granting a flat **+2 bonus dice to Piloting, Targeting, and Defense tests** while jumped in!
+* **Electronics Specialization (Complex Forms)** (*CRB*, p. 68):
+  * `{python} inc('Karma', -5)`
+  * Adds **+2 dice to Complex Form threading tests**, pushing the baseline threading pool to **16 dice** (RES 5 + Focus 4 + Electronics 5 + Spec 2 = 16d6), guaranteeing **4 bought hits** for out-of-combat preparation!
 
 ---
 
@@ -366,7 +378,7 @@ Technomancers purchase complex forms for 5 Karma each (*6WC*, p. 29):
 
 ### 3. Custom Autosofts (Rating 9 via Cooperative Coding)
 
-Per *Hack & Slash* p. 55 (*Writing Code*), hackers can write software. Ouro codes autosofts with cooperative assistance from **Reiko** or **Indomitable Will**, unlocking custom autosofts up to **Rating 9**:
+Per *Hack & Slash* p. 55 (*Writing Code*), hackers can write software. Ouro codes autosofts with cooperative assistance from **Reiko**, unlocking custom autosofts up to **Rating 9**:
 
 * **8 Autosofts @ Rating 9 ($9 \times 500¥ = 4,500¥$ each = 36,000¥)** `{python} inc('Nuyen', -36000)`:
   * Clearsight (Rating 9): 4,500¥
@@ -411,21 +423,22 @@ Per *SR6 CRB* p. 184–185 and *Hack & Slash* p. 81, cyberprograms are priced ac
 ## 13. Contacts Allocation (24 Points Available)
 
 Starting contact points equal $\text{Charisma} \times 6 = 4 \times 6 = \mathbf{24\text{ Points}}$ (*CRB*, p. 66).
+We allocate all 24 points directly without spending any Karma:
 
-* `{python} inc_many(('Contact_Points', 6 * Charisma))`
+* `{python} inc('Contact_Points', 6 * Charisma)`
 
 ### New Orleans Contacts
 
-* **River People** (NOLA MUG / Technomancer Network, **Connection 7 / Loyalty 4**): `{python} inc('Contact_Points', -11)`
+* **River People** (NOLA MUG / Technomancer Network, **Connection 7 / Loyalty 8**): `{python} inc('Contact_Points', -15)`
   * Per *SRMG v2.4* p. 59–60, Matrix User Groups and magical covens in SRM may be purchased at **Connection 7**, transcending standard starting Charisma limits.
-  * Expends $7 + 4 = \mathbf{11\text{ contact points}}$, fully utilizing the 3 connection points left unspent in the CommLink 6 XML.
-* **Indomitable Will** (NOLA Resonant EI Sysop, **Connection 3 / Loyalty 2**): `{python} inc('Contact_Points', -5)`
-  * "Uncle Indo": Resonant EI mentor and family friend.
+  * Purchasing **Loyalty 8** upfront ($7 + 8 = \mathbf{15\text{ contact points}}$) maximizes submersion discounts across chargen and early campaign play while unlocking the MUG Decay Strategy.
 
 ### Other Contacts
 
-* **Reiko Takahashi** (EI, former shadowrunner, **Connection 4 / Loyalty 4**): `{python} inc('Contact_Points', -8)`
-  * "Mother": EI who raised Ouro. Helps with programming, drone maintenance, and maternal advice.
+* **Reiko Takahashi** (EI, former shadowrunner, **Connection 5 / Loyalty 4**): `{python} inc('Contact_Points', -9)`
+  * "Mother": EI who raised Ouro. Legendary former shadowrunner and technoshaman mentor. Helps with programming, drone maintenance, and maternal advice.
+
+Total Contact Points Remaining: `{python} Contact_Points`
 
 ---
 
@@ -450,10 +463,10 @@ Free Knowledge skills equal Logic (Logic 4 at chargen), plus one free Native Lan
 | **Edge** | `{python} Edge` | 5 / 6 (Chargen cap: 6) | **Rules Legal** |
 | **Resonance (Post-Codemod)** | `{python} Resonance` | 5 (with +4 Focus = 9 effective) | **Rules Legal** |
 | **Spark (AI Essence)** | `{python} round(Spark, 2)` | 5.01 / 6.00 (0.99 loss) | **Rules Legal (> 5.0)** |
-| **Submersion Grade** | **2** | Sprite Conduit, Sprite Symbiosis (MUG Discounted) | **Verified** |
+| **Submersion Grade** | **2** | Sprite Conduit, Sprite Symbiosis (MUG Loyalty 8) | **Verified** |
 | **Pilot Origins (Rigging)** | **Rating 3** | Control Rig R3 equivalent (Intuition + Piloting tests) | **Rules Legal** |
-| **Contact Points** | `{python} Contact_Points` | 0 Remaining (24 Spent; River People C7/L4) | **Exact Match** |
-| **Customization Karma** | `{python} Karma` | 3 Karma in reserve | **Rules Legal** |
+| **Contact Points** | `{python} Contact_Points` | 0 Remaining (24 Spent; River People C7/L8 & Reiko C5/L4) | **Exact Match** |
+| **Customization Karma** | `{python} Karma` | 1 Karma in reserve | **Rules Legal (<= 5)** |
 | **Starting Pocket Cash** | ¥`{python} f"{Nuyen:,}"` | $\le 5,000¥$ limit (2,160¥ remaining) | **Compliant** |
 
 ## Starting Stats/Pools
@@ -465,6 +478,7 @@ Free Knowledge skills equal Logic (Logic 4 at chargen), plus one free Native Lan
   * Encryption / Toolbox: +0011 --> 4787
   * Resonance (5): +1112 --> 5899
 1. Matrix 
+  * Threading (Complex Forms): Electronics (5) + Spec (2) + RES (5) + Focus (4) = **16d6 (4 bought hits)**
   * Actions: Electronics/Cracking (5) + RES (5) + Focus (4) + Sprite Symbiosis (1): 15d6
   * Defense: RES (5) + Focus (4) + Firewall (9) + Personal Assistant (3) + Directional Shield (minor action, adds DP:9): 30d6
 1. Drone Operations
@@ -476,34 +490,51 @@ Free Knowledge skills equal Logic (Logic 4 at chargen), plus one free Native Lan
   * Initiative: 4d6 (Hot-Sim VR)
   * Edge Engine: Resonance Edge accumulation & living persona banking
 
-## Post-Chargen Priorities
+## Post-Chargen Priorities & Downtime Action Protocol
 
-1. **Register Rating 1 Crack Ally Sprite**:
-  * 4 Karma for base sprite (*Hack & Slash*, p. 78)
-  * Grants ASDF bonuses of +0321 via Sprite Symbiosis
-  * Grants access to Phantom and Suppression
-  * 1 Karma to add Engineering (comes with Cracking and Electronics), granting +1 teamwork bonus.
-1. **Acquire Additional Complex Forms (5 Karma each)** (*CRB*, p. 70; *6WC*, p. 29):
-  * **Enhance Autosoft** (*Hack & Slash*, p. 130): Overclocks slotted drone autosofts on the Nurse Maid chassis by 1 per 2 hits.
-  * **Machine Merge** (*Hack & Slash*, p. 64–65): Grants +1 bonus die per 2 hits to Piloting, Engineering, and defense tests while jumped in.
-  * Resonance Wires
-  * Resonance Spike
-  * Technoregeneration
-  * Puppeteer
-  * Diffusion (Firewall)
-1. **Specialize Electronics in Complex Forms (5 Karma)**:
-  * Raises Complex Forms pool from RES (5) + Focus (4) + Electronics (5) + Complex Forms Spec (2) = 16 dice, allowing 4 bought hits for out-of-combat form threading.
-1. **Submersions (10 + Current Submersion Grade - 4 MUG discount Karma)**:
-  * **New Sprite Types** (*Hack & Slash*, p. 72): Unlocks Assassin sprites (if taken before registering the ally sprite, Ouro can register an Assassin instead of Crack sprite).
-  * **Living Network** (*CRB*, p. 195): Allows Ouro's living persona to participate in and master a PAN.
-  * **Transcendent Network** (*Hack & Slash*, p. 69; requires *Living Network*): Enables shared Edge pooling and instant team message relay.
-  * **Overclock** (*CRB*, p. 195; once natural Resonance reaches 6): Adds +1 Minor Action and +1D6 Initiative Die in hot-sim VR.
-1. **Raise Natural Resonance to 6** (30 Karma).
-1. **Quality Progression: Candle in the Dark (5 Karma)** (*No Future*):
-  * Unlocked via the *Honorbound* quality.
-1. **Improve Drone Chassis**:
-  * Secondary Propulsion
-  * Chameleon Coating
-  * Passive Stealth Features
-  * Increase Structural Integrity (4)
-  * Increase Top Speed and Acceleration
+### 1. Downtime Action Economy & Allocation Protocol
+
+Under *SRM Guide v2.4* (pp. 17–20, 59–60), downtime actions between missions are strictly budgeted:
+
+* **Mainline SRM Missions:** Grant **1 Major + 1 Minor** Action (or **3 Minor Actions** if taking no Major).
+* **Convention Mission Packs (CMPs):** Grant **2 Minor Actions only** (no Major Action; Submersion cannot be performed post-CMP).
+* **The CMP Karma Banking Strategy:**
+  * CMPs award nuyen and Karma but grant only Minor downtime actions and do not trigger monthly rent or calendar degradation (*SRMG v2.4*, p. 17).
+  * We assume that any CMPs played **bank Karma directly toward raising Resonance** (e.g. Resonance 5 $\rightarrow$ 6 for 30 Karma, and 6 $\rightarrow$ 7 for 35 Karma), which requires zero downtime actions and can be purchased between runs.
+  * Prioritizing natural Resonance ensures Ouro continually raises the Submersion Grade ceiling ($\text{Grade} \le \text{Resonance}$) and fulfills high-tier echo prerequisites (like *Overclock*'s Natural Resonance 6 requirement) to maximize the high MUG Loyalty discounts before decay reaches the Loyalty 4 floor!
+* **The MUG Decay Protocol (River People):**
+  * Starts at **Loyalty 8** (decaying $8 \rightarrow 7 \rightarrow 6 \rightarrow 5 \rightarrow 4$ over upcoming months without maintenance).
+  * *Submersion Cost Formula:* In SRM with an active MUG possessing *Symmetrical Submersion* (*Hack & Slash*, p. 101), submersion Karma cost is:
+    $$\text{Cost} = 10 + \text{Current Submersion Grade} - \text{MUG Loyalty}$$
+    *(Minimum 2 Karma per Hack & Slash p. 101).*
+    *Because rent is settled every second SRM, Ouro can submerge twice at each Loyalty rating before decay occurs!*
+  * *Action & Nuyen Dividends:* Rather than wasting 1 Major Downtime Action every other SRM to maintain Loyalty 8, we intentionally allow Loyalty to decay by 1 rating per month. Freeing these Major Actions liberates **4 Major Downtime Actions** across Months 1–4 and saves **¥4,800** in unspent dues across Months 1 & 2!
+  * *The Loyalty 4 Floor:* At Loyalty 4, maintenance costs only **1 Minor Downtime Action per month** and dues drop to **¥350/mo** ($50 \times \text{Connection 7}$). This permanently preserves a **-4 Karma submersion discount** while leaving every single SRM Major Downtime Action unencumbered.
+* **The Hooder R3 Synergy:**
+  * Hooder (Rating 3) mandates **¥3,000/month** in charitable donations (*6WC*, p. 137).
+  * Under *SRMG v2.4* p. 19, this monthly donation directly funds the **Work for the People** Minor Downtime Action (+1 Karma per month) at zero additional nuyen charge!
+  * **Monthly Downtime Allocation (Every 2 SRMs = 1 Month):**
+    * **2 Major Downtime Actions:** 100% dedicated to Submersions (2 per month, 1 per SRM).
+    * **2 Minor Downtime Actions:**
+      1. SRM 1: *Register Ally Sprite* (Minor Action, *Hack & Slash* p. 78) / *Work for the People* (+1 Karma).
+      2. SRM 2: *Work for the People* (+1 Karma) or *River People MUG Maintenance at Loyalty 4 Floor* (1 Minor Action, ¥350/mo dues).
+
+---
+
+### 2. Master Unified Progression Queue
+
+| Step | Target Upgrade | Category | Cost | Downtime Action Required | Primary Tactical & Architectural Role |
+| :---: | :--- | :--- | :---: | :---: | :--- |
+| **01** | **Submersion Grade 3**<br>• *Living Network* | Echo | 5 Karma* | 1 Major Action<br>*(SRM #1 / Month 1)* | *CRB* 195: Master of PAN. Allows Ouro's living persona to act as master device for the Nurse Maid chassis, smartlinks, and teammate commlinks. Cost $10+3-8=5\text{K}$ at **Loyalty 8**.<br>*(Note: Ally Sprite Rating 1 Crack is registered in SRM #1 via the **Minor Downtime Action** for 5 Karma, preserving this Major Action for Submersion).* |
+| **02** | **Submersion Grade 4**<br>• *Transcendent Network* | Echo | 6 Karma* | 1 Major Action<br>*(SRM #2 / Month 1)* | *Hack & Slash* 69: **Prerequisite: Living Network**. Unlocks shared Edge pooling and instantaneous encrypted thought relay across all network members. Cost $10+4-8=6\text{K}$ (**still at Loyalty 8!**). *(End of Month 1: Loyalty decays $8 \rightarrow 7$).* |
+| **03** | **Attribute: Resonance 5 $\rightarrow$ 6** | Attribute | 30 Karma | None (Between runs) | **Prioritized via CMP Banked Karma**. Unlocks Submersion Grade 6 cap, expands sprite registering capacity to 18 tasks, and fulfills the *Natural Resonance 6* prerequisite for *Overclock* before Month 2 submersions! |
+| **04** | **Submersion Grade 5**<br>• *Overclock* | Echo | 8 Karma* | 1 Major Action<br>*(SRM #3 / Month 2)* | *CRB* 195: **Prerequisite: Natural Resonance 6**. Adds +1 Minor Action and +1D6 Initiative Die in hot-sim VR, elevating initiative to **5D6 (2 Major Actions)**. Cost $10+5-7=8\text{K}$ at **Loyalty 7**. |
+| **05** | **Submersion Grade 6**<br>• *New Sprite Type* | Echo | 9 Karma* | 1 Major Action<br>*(SRM #4 / Month 2)* | *Hack & Slash* 72: Cost $10+6-7=9\text{K}$ (**still at Loyalty 7!**). Unlocks compilation and registration of new sprite types, specifically **Assassin Sprites** for electronic black-ops and offensive matrix assassination. *(End of Month 2: Loyalty decays $7 \rightarrow 6$).* |
+| **06** | **Attribute: Resonance 6 $\rightarrow$ 7** | Attribute | 35 Karma | None (Between runs) | **Prioritized via CMP Banked Karma**. Unlocks Submersion Grade 7 cap and further strengthens living persona baseline attributes. |
+| **07** | **Submersion Grade 7**<br>• *Mesh Reality* or *Resonant Scream* | Echo | 11 Karma* | 1 Major Action<br>*(SRM #5 / Month 3)* | *CRB* 195 / *Hack & Slash* 71: Cost $10+7-6=11\text{K}$ at **Loyalty 6**. Tactical sensory bridge or devastating offensive matrix blast. |
+| **08** | **Submersion Grade 8**<br>• *Skinlink* | Echo | 12 Karma* | 1 Major Action<br>*(SRM #6 / Month 3)* | *CRB* 195: Cost $10+8-6=12\text{K}$ (**still at Loyalty 6!**). Direct skin contact interface bypasses wireless noise and hardwired air-gaps entirely. *(End of Month 3: Loyalty decays $6 \rightarrow 5$).* |
+| **09** | **Quality: Candle in the Dark** | Positive Quality | 5 Karma | None (Between runs) | *No Future* 161: Unlocked via *Honorbound*. Strengthens community rep and grants social resistance against syndicate intimidation. |
+| **10** | **Acquire Additional Complex Forms**<br>• *Enhance Autosoft*<br>• *Pulse* or *Stitches* | Complex Forms | 5 Karma each | 1 Minor Action each (Study) | *Hack & Slash* 64, 65: Overclocks drone autosofts or repairs compiled sprite damage in real time. |
+| **11** | **Drone Chassis Upgrades** | Vehicle Hardware | Nuyen Budget | 1 Minor Action (Mechanic) | Secondary propulsion, chameleon coating, structural integrity (+4), top speed and acceleration optimization. |
+
+*\*Submersion costs reflect the SRM 2-missions-per-month cadence where degradation occurs every OTHER initiation: Grade 3 (SRM 1 @ L8: 5K), Grade 4 (SRM 2 @ L8: 6K), Grade 5 (SRM 3 @ L7: 8K), Grade 6 (SRM 4 @ L7: 9K), Grade 7 (SRM 5 @ L6: 11K), Grade 8 (SRM 6 @ L6: 12K). Subsequent submersions at Loyalty 4 floor cost $10 + \text{Grade} - 4$.*

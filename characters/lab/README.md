@@ -46,7 +46,7 @@ Every entry in the Lab belongs to one of three developmental stages:
 | Taxonomy | Definition | Typical Structure | Example |
 | :--- | :--- | :--- | :--- |
 | **Active Concept** | In-progress build exploring specific mechanics, archetypes, or rules subsystems. Highly fluid. | Single `character_build.qmd` + optional `notes.md` | `ouro` (Point Buy AI-Pilot Technomancer) |
-| **Mechanics Reference** | Preserved build study benchmarked to test specific rules edge-cases, life paths, or priority arrays. | Single `character_build.qmd` | `dalakitnon_adept` (6WC Life Path double-crucible) |
+| **Mechanics Reference** | Preserved build study benchmarked to test specific rules edge-cases, life paths, or priority arrays. | Single `character_build.qmd` | `mad_dalek` (6WC Life Path double-crucible) |
 | **Ready Prototype** | Mechanically complete portfolio with lore, reference specs, and narrative, awaiting table launch. | Full portfolio (`core/`, `narrative/`, `reference/`, `_quarto.yml`) | `venn` (Monad Street Samurai / Operative) |
 
 ---
@@ -57,7 +57,7 @@ Every entry in the Lab belongs to one of three developmental stages:
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **[`venn`](venn/)** | Monad (Human / AI Dual Entity)<br>Street Samurai / Operative | Point Buy 100 (*6WC*) | **Ready Prototype** | Used synthetic cyberlimbs (0.1 Essence), nanite swarm volume, hot-sim VR skillwires array. Pending SRM 2085 table kickoff. | Fully built; chapters 01–07; mutable |
 | **[`ouro`](ouro/)** | AI-Pilot AI (Emergent Intelligence)<br>Technomancer (Sourcerors) | Point Buy (*6WC* + *H&S*) | **Active Concept** | Anthro Nurse Maid drone rigger frame, Crack sprite symbiosis, ASDF attribution, living persona. kin to Reiko. | Chargen complete; post-chargen mapped |
-| **[`dalakitnon_adept`](dalakitnon_adept/)** | Dalakitnon Elf<br>Mystic Adept | Life Path (*6WC*) | **Mechanics Reference** | Implanted cyberjack + skillwires (Option B), exercising the double-event crucible rule. Full astral + Matrix flexibility. | Complete reference build |
+| **[`mad_dalek`](mad_dalek/)** | Dalakitnon Elf<br>Mystic Adept | Life Path (*6WC*) | **Mechanics Reference** | Implanted cyberjack + skillwires (Option B), exercising the double-event crucible rule. Full astral + Matrix flexibility. | Complete reference build |
 
 ---
 
@@ -133,13 +133,31 @@ Every build in the Lab is evaluated across two distinct, complementary axes: **O
   * Skill Rig, used quality (100,000 nuyen, 0.88 Essence, rating 4)
   * All of these are chosen to provide cost effective access to all skills with only a single point loss of Essence/Magic
   * Choosing a higher rating rig at chargen is not imperative, as these can be upgraded post-chargen cost effectively by joining the Shadow Healthcare Community (SHC) (6 karma, see SRM Guide, can be done post-chargen)
-* Covens
-  * We will generally have mage characters join one of the covens in the SRM Guide
-  * We will join either at Loyalty 4 or 8. This reduces the karma cost of all initiations by the loyalty rating
-    * Loyalty 4: Requires the character to spend one minor downtime action per month to maintain membership
-    * Loyalty 8
-      * Requires a major downtime action per month to maintain.
-      * Alternatively we may choose not to maintain membership, losing 1 loyalty per SRM month until we reach rating 4
+* Covens & The Coven Decay Protocol
+  * We will generally have mage characters join one of the covens in the SRM Guide.
+  * We will join either at Loyalty 4 or 8. This reduces the karma cost of all initiations by the loyalty rating:
+    $$\text{Cost} = 10 + \text{Initiate Grade} - \text{Coven Loyalty}$$
+    * **Loyalty 4:** Requires 1 minor downtime action per month and modest dues to maintain.
+    * **Loyalty 8 Decay Protocol:** We enter at Loyalty 8 and deliberately allow loyalty to decay by 1 per month ($8 \rightarrow 7 \rightarrow 6 \rightarrow 5 \rightarrow 4$). This liberates 4 Major Downtime Actions across Months 1–4 for initiations and saves ¥4,800 in dues.
+    * **The Loyalty 4 Floor:** Decay halts permanently at the Loyalty 4 floor (1 Minor action/mo, ¥350/mo dues for Connection 7), locking in a permanent **-4 Karma discount** on all subsequent initiations forever.
+    * **The "Hoard Magic" Fallacy vs. The 2-Karma Difference:** Delaying an initiation (like Grade 7) from Loyalty 6 to the Loyalty 4 floor costs only **2 Karma** ($10 + 7 - 4 = 13\text{K}$ vs $10 + 7 - 6 = 11\text{K}$). Freezing 35 Karma to raise Magic $6 \rightarrow 7$ prematurely purely to preserve coven discounts is a false economy: it starves the character of table performance for 4–5 missions to save a trivial 2 Karma!
+* Foci Architecture & The Power Focus Arbitrage
+  * **The Power Focus vs. Natural Magic Arbitrage:**
+    * A Power Focus Rating 3 costs **54,000¥ and 18 Karma** (Availability 9L).
+    * It grants **+3 to effective Magic across ALL tests involving Magic** (Spellcasting, Counterspelling, Rituals, Conjuring, Banishing, Astral tests, and Drain Resistance).
+    * Achieving a +3 bonus through natural Magic advancement ($6 \rightarrow 7 \rightarrow 8 \rightarrow 9$) costs an astronomical **120 Karma**!
+    * Convention Mission Packs (CMPs) grant nuyen (~15,000¥–25,000¥) and 2 Minor Downtime Actions (no Major action), making them ideal for funding and bonding foci without burning initiation opportunities.
+  * **The Legal Qi Foci Stacking Architecture (*CRB* p. 154–155; *City Edition* p. 154–155 `[SR6H-0755]`; *SSW FAQ* `[SSWFAQ-0069]`):**
+    * *Individual Force Cap:* *"No focus Force may exceed your Magic attribute."* At Magic $\le 6$, Force 8 Qi Foci are **ILLEGAL** ($8 > \text{Magic}$). Never plan Force 8 foci for characters with Magic 5 or 6.
+    * *Modular Stacking:* Per `[SSWFAQ-0069]`, Qi Foci explicitly stack!
+      * For Combat skills (1.0 PP/rank per FAQ: Sorcery, Conjuring), use modular **Force 4 Qi Foci** (Rating 1 each, 1.0 PP, Avail 4L, 12,000¥, 8 Karma).
+      * To reach +2 on Conjuring at Magic $\le 6$, bond **two Force 4 Qi Foci** instead of one illegal Force 8 focus.
+      * Availability 4L is readily available through mid-tier fixers (Connection 4–5) without high-availability rolls or black clinic time.
+  * **Total Bonded Force Cap (*City Edition: Seattle* p. 154–155 `[SR6H-0755]`):**
+    * The total bonded Force limit is **Magic x 5** (NOT the pre-errata Magic x 3). At Magic 5, this allows up to **25 Force** across up to 5 foci; at Magic 6, **30 Force** across up to 6 foci.
+  * **Sustaining Focus Force Requirement:**
+    * A sustaining focus must equal or exceed the modified Drain Value of the spell (*CRB* p. 155).
+    * *Increase Attribute* at the max +4 bonus has a modified DV of 6 (Base 3 + 3 net hits), requiring a **Force 6 Sustaining Focus** (24,000¥, 12 Karma, Avail 6L).
 * Sustaining Strategy
   * Quickening: Cheapest option by far. Spells cost karma to reapply if they are dropped
   * Focused Concentration: Allows us to drop and change spells at will, far more expensive and limited slots
@@ -152,7 +170,7 @@ Every build in the Lab is evaluated across two distinct, complementary axes: **O
   * Increase Attributes and Increase Reflexes are the highest priority
 * Adept Powers
   * One of the few ways to gain bonuses to Sorcery
-  * Qi Foci are cost effective and are the same cost post-chargen
+  * Qi Foci are cost effective and are the same cost post-chargen (stacking Force 4 foci for Combat skills)
 
 ### Matrix Characters
 
@@ -356,5 +374,5 @@ Evaluating the base starting builds of active campaign characters (`reiko`, `vel
 3. **The 5-Domain Deduplication Principle**: Ouro's valuation avoids double counting: physical/combat domains are handled by cheap autosofts, while the Synthetic Skill Driver receives dividend credit strictly for Domain 5 (Social Utility: Con & Influence).
 4. **Resolved Prototype Compliance**:
    * **Venn**: Fully compliant (<span style="color:green">**PASS**</span>) after allocating the 12 Contact Points to Parnell (Fixer, C4/L2) and Dr. Caleb Ortiz (Streetdoc, C3/L3) from Chapter 7 (*The First Contract*).
-   * **Dalakitnon Adept**: Fully compliant (<span style="color:green">**PASS**</span>) after purchasing 1 month of Low Lifestyle (2,000¥), reducing pocket cash to 3,575¥ ($\le 5,000¥$).
+   * **MAD Dalek**: Fully compliant (<span style="color:green">**PASS**</span>) after purchasing 1 month of Low Lifestyle (2,000¥), reducing pocket cash to 3,575¥ ($\le 5,000¥$).
    * **Reiko**: Note that her original base build retained ¥90,000 unallocated cash prior to session purchases.

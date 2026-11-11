@@ -31,4 +31,26 @@ characters:
     metatype: "Human"
     mortype: "Monad (Human / AI Dual Entity)"
 
+  mad_dalek:
+    name: "MAD Dalek"
+    repo: "characters/lab/mad_dalek"
+    master_yaml: "mad_dalek_master.yaml"
+    status: "prototype"
+    role: "Mystic Adept Decker"
+    metatype: "Dalakitnon Elf"
+    tradition: "Hermetic"
+    mortype: "Mystic Adept"
+    commlink_uuid: "5433ac7e-8a1e-4cec-b6ce-bafad77504a9"
+
+  ouro:
+    name: "Ouro"
+    repo: "characters/lab/ouro"
+    master_yaml: "ouro_master.yaml"
+    status: "prototype"
+    role: "AI-Pilot Technomancer"
+    metatype: "AI-Pilot AI"
+    stream: "Sourcerors"
+    mortype: "Technomancer"
+    commlink_uuid: "49240ec9-2a0d-43fc-a322-37bf31bc0a40"
+
 

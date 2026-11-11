@@ -14,8 +14,8 @@ identity:
   eye_color: Obsidian
   skin_color: White
   system: shadowrun6e
-  karma: 4
-  lifetime_karma: 77
+  karma: 2
+  lifetime_karma: 74
   nuyen: 18265
   lifetime_nuyen: 132590
   heat: 0
@@ -72,9 +72,6 @@ skills:
   id: sorcery
   attribute: Magic
   rating: 5
-  specialization: Spellcasting
-  specializations:
-  - Spellcasting
 - name: Conjuring
   id: conjuring
   attribute: Magic
@@ -157,30 +154,6 @@ spells:
   range: Touch
   drain: 5
   notes: Sorcery + Magic test. Net hits increase Reaction and Initiative Dice.
-- name: Physical Barrier
-  ref: physical_barrier
-  category: Manipulation
-  duration: Sustained
-  type: Physical
-  range: LOS (A)
-  drain: 6
-  notes: Creates translucent barrier with Structure = Magic + net hits (CRB p. 141).
-- name: Increase Reflexes
-  ref: increase_reflexes
-  category: General
-  duration: Instant
-  type: Physical
-  range: TOUCH
-  drain: 5
-  notes: 'Source: core'
-- name: Physical Barrier
-  ref: physical_barrier
-  category: General
-  duration: Instant
-  type: Physical
-  range: LINE_OF_SIGHT_AREA
-  drain: 6
-  notes: 'Source: core'
 adept_powers:
 - name: Cosmetic Control
   ref: cosmetic_control
@@ -224,16 +197,13 @@ adept_powers:
   source: mentor_spirit
   notes: 'Free rank granted by Mentor Spirit: Wise Warrior (Adept Advantage).'
 metamagic:
-- name: Power Point
-  ref: power_point
-  notes: Grants 1.0 Adept Power Point at chargen.
 - name: Channeling
   ref: channeling
   notes: Allows conscious coexistence and spellcasting control while inhabited/channeling
     a spirit.
 - name: Centering
   ref: centering
-  notes: Adds Initiate Grade (+3) to Drain Resistance tests.
+  notes: Adds Initiate Grade (+2) to Drain Resistance tests.
 - name: Masking
   ref: masking
   notes: Disguises aura as mundane and masks bonded foci up to Initiate Grade (CRB
@@ -241,8 +211,11 @@ metamagic:
 - name: Stealth Effect
   ref: stealth_effect
   notes: 'Subtle casting: camouflages spell manifestations and adds Initiate Grade
-    (+5) to perception threshold to detect spellcasting (Deadly Arts p. 173; SRMG
+    (+4) to perception threshold to detect spellcasting (Deadly Arts p. 173; SRMG
     p. 75).'
+- name: Power Point
+  ref: power_point
+  notes: Grants 1.0 Adept Power Point.
 knowledge_skills:
 - name: Korean
   rating: 4

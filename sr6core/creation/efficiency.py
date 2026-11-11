@@ -276,16 +276,23 @@ def resolve_build_qmd_path(char_id_or_path: str) -> Optional[Path]:
 
     repo_root = Path(__file__).resolve().parent.parent.parent
 
+    target_ids = [char_id_or_path]
+    if char_id_or_path in ["dalakitnon_adept", "mad_dalek"]:
+        target_ids = ["mad_dalek", "dalakitnon_adept"]
+
     candidates = [
         p / "core" / "character_build.qmd",
         p / "character_build.qmd",
-        repo_root / "characters" / char_id_or_path / "core" / "character_build.qmd",
-        repo_root / "characters" / "lab" / char_id_or_path / "core" / "character_build.qmd",
-        repo_root / "characters" / "lab" / char_id_or_path / "character_build.qmd",
-        Path.cwd() / "characters" / char_id_or_path / "core" / "character_build.qmd",
-        Path.cwd() / "characters" / "lab" / char_id_or_path / "core" / "character_build.qmd",
-        Path.cwd() / "characters" / "lab" / char_id_or_path / "character_build.qmd",
     ]
+    for tid in target_ids:
+        candidates.extend([
+            repo_root / "characters" / tid / "core" / "character_build.qmd",
+            repo_root / "characters" / "lab" / tid / "core" / "character_build.qmd",
+            repo_root / "characters" / "lab" / tid / "character_build.qmd",
+            Path.cwd() / "characters" / tid / "core" / "character_build.qmd",
+            Path.cwd() / "characters" / "lab" / tid / "core" / "character_build.qmd",
+            Path.cwd() / "characters" / "lab" / tid / "character_build.qmd",
+        ])
 
     for cand in candidates:
         if cand.exists() and cand.is_file():
@@ -554,7 +561,7 @@ def calculate_build_efficiency(target: str) -> Dict[str, Any]:
         gear_karma = 135 # ~270k ware/deck/gear
     elif "ouro" in char_id:
         gear_karma = 87  # ~175k chassis/codemods
-    elif "dalakitnon" in char_id:
+    elif "dalakitnon" in char_id or "mad_dalek" in char_id:
         gear_karma = 47  # ~95k ware/gear
     else:
         gear_karma = max(10, int(total_nuyen / NUYEN_PER_KARMA))

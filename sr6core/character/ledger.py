@@ -44,8 +44,8 @@ CHARGEN_BASELINES: Dict[str, Dict[str, Any]] = {
     },
     "velvet": {
         "Nuyen": 50000,
-        "Karma": 3,
-        "Initiation_Grade": 1,
+        "Karma": 0,
+        "Initiation_Grade": 0,
         "Coven_Loyalty": 8,
         "Heat": 0,
     },
@@ -147,7 +147,7 @@ def reset_log_state():
     })
 
 
-def inc(resource: str, amount: Union[int, float]) -> str:
+def inc(resource: str, amount: Union[int, float] = 1) -> str:
     global _GLOBAL_LOG_STATE
     raw_res = resource.strip()
     if raw_res in _GLOBAL_LOG_STATE:
@@ -173,14 +173,14 @@ def assign(name: str, value: Any) -> Any:
 
 def initiate(echo_or_power: str = "", coven_loyalty: int = 0) -> str:
     """
-    Calculates Initiation cost based on formula (10 + current_grade)
+    Calculates Initiation cost based on formula (10 + target_grade)
     minus Coven/Group Loyalty discount, increments Initiation_Grade by 1,
     and deducts Karma.
     """
     global _GLOBAL_LOG_STATE
     curr_grade = _GLOBAL_LOG_STATE.get("Initiation_Grade", 0)
     target_grade = curr_grade + 1
-    base_cost = 10 + curr_grade
+    base_cost = 10 + target_grade
     final_cost = max(1, base_cost - coven_loyalty)
     _GLOBAL_LOG_STATE["Initiation_Grade"] = target_grade
     inc("Karma", -final_cost)
@@ -242,14 +242,14 @@ def modifier(
 
 def submerge(echo: str = "", group_loyalty: int = 0) -> str:
     """
-    Calculates Submersion cost based on formula (10 + current_grade)
+    Calculates Submersion cost based on formula (10 + target_grade)
     minus Group Loyalty discount, increments Submersion_Grade by 1,
     and deducts Karma.
     """
     global _GLOBAL_LOG_STATE
     curr_grade = _GLOBAL_LOG_STATE.get("Submersion_Grade", 0)
     target_grade = curr_grade + 1
-    base_cost = 10 + curr_grade
+    base_cost = 10 + target_grade
     final_cost = max(1, base_cost - group_loyalty)
     _GLOBAL_LOG_STATE["Submersion_Grade"] = target_grade
     if echo:

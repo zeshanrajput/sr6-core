@@ -672,6 +672,7 @@ Submersion_Grade = state["Submersion_Grade"]
   * *Karma Banking:* Banked +7 Karma (+6 mission, +1 Working for the People).
 * **Inventory & Restock:**
   * Replenished depleted Narcoject supplies in `character_purchases.qmd`.
+  * Obtained a residential framework host 2/2/1 configured as 1/4/3/6 that is about a box of books sized and weighs 25kg
 
 ---
 

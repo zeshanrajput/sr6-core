@@ -430,7 +430,7 @@ def main():
     c_ware.add_argument("--adapsin", action="store_true", help="Apply Adapsin therapy discount if eligible")
 
     c_eff = calc_sub.add_parser("efficiency", aliases=["eff", "tek"], help="Calculate Total Equivalent Karma (TEK), Skillwire Dividend, and validate unspent resources")
-    c_eff.add_argument("target", type=str, help="Character ID or path (reiko, velvet, venn, ouro, dalakitnon_adept, or path)")
+    c_eff.add_argument("target", type=str, help="Character ID or path (reiko, velvet, venn, ouro, mad_dalek, or path)")
 
     # cheat subcommand
     cheat_parser = subparsers.add_parser("cheat", help="Display tabletop rules cheatsheets (matrix, actions, monad, combat, metamagic, echoes, streams)")

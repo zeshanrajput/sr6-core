@@ -420,10 +420,16 @@ def test_commlink_xml_structural_and_decision_invariants():
         "dbb18bb4-89a4-4435-bede-3077ee600bc5",  # Exceptional attribute
         "75f01ecc-60f3-4b5b-98de-c80008ebffec",  # Sprite type echo
         "8b24b2be-c2fc-46f4-a353-7313f1f69d07",  # Resonance focus attribute
+        "55a6dda7-7565-4108-9a04-65b7607081df",  # Allergy allergen
+        "b3cd035c-f2c3-4c56-abcd-9a218954d92a",  # Allergy severity
+        "6a8484c5-043d-4ec7-bbb2-f56d3c51f72b",  # Allergy description
+        "281aba04-1bd9-4d84-b6f4-f7bb97d217f0",  # Spirit bane / affinity choice
+        "05054102-0183-482a-9e2b-84bc8d5f153f",  # Improved ability skill choice
+        "428282c1-c1d2-4d42-94e1-6f5cb5febf2b",  # Honorbound code choice
     }
 
     cm = CharacterManager()
-    for char_id in ["velvet", "venn", "reiko"]:
+    for char_id in ["velvet", "venn", "reiko", "mad_dalek"]:
         data = cm.get_character_data(char_id)
         repo_path = cm.get_character_repo_dir(char_id)
         xml_str = export_commlink_xml(data, char_repo_path=repo_path)

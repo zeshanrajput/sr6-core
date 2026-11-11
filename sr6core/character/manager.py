@@ -94,6 +94,12 @@ class CharacterManager:
                     resolved_repo_dir = cand_dir_abs
                     break
 
+            if not resolved_repo_dir:
+                for cand_dir in candidates:
+                    if cand_dir and os.path.isdir(cand_dir):
+                        resolved_repo_dir = os.path.abspath(cand_dir)
+                        break
+
             if matched_file and os.path.exists(matched_file):
                 try:
                     with open(matched_file, "r", encoding="utf-8") as f:

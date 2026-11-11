@@ -1,11 +1,11 @@
 ---
 title: "Character Creation (Life Path)"
 identity:
-  id: dalakitnon_adept
-  name: "Dalakitnon Mystic Adept"
-  handle: "Dalakitnon Adept"
+  id: mad_dalek
+  name: "MAD Dalek"
+  handle: "MAD Dalek"
   metatype: "Dalakitnon Elf"
-  tradition: "Turgan Magnu"
+  tradition: "Hermetic"
   mortype: "Mystic Adept"
   system: shadowrun6e
 ---
@@ -73,6 +73,8 @@ def inc_many(*pairs):
         op = "+=" if amount >= 0 else "-="
         res.append(f"{name} {op} {abs(amount)}")
     return ", ".join(res)
+
+from sr6core.character.ledger import adept_power, language, knowledge_skill, metamagic, spell
 ```
 
 ## Born This Way
@@ -99,7 +101,9 @@ def inc_many(*pairs):
 * Native Language: English
 * Qualities:
   * Brilliant Heuristics: `{python} inc('Karma', -10)`
-  * Injury Prone: `{python} inc('Karma', 15)`
+  * Mentor Spirit (Wise Warrior): `{python} inc('Karma', -10)`
+  * Honorbound (Pirate's Code): `{python} inc('Karma', 10)`
+  * Finesse: `{python} inc('Karma', 7)`
 
 ## Growing Up: Early Childhood and Adolescence
 
@@ -109,7 +113,7 @@ def inc_many(*pairs):
   * Perception: `{python} assign('Perception', 2)`
   * Stealth: `{python} assign('Stealth', 2)`
 * Qualities:
-  * Hooder (R3): `{python} inc('Karma', 15)`
+  * Hooder (R2): `{python} inc('Karma', 10)`
 * Knowledge: East Asian Pop Culture
 
 ## Coming of Age: Early Adult and Transition to Adulthood
@@ -171,7 +175,7 @@ An unexpected financial windfall (inheritance, liquidated corporate black-budget
 
 * Resources: `{python} inc('Nuyen', 100000)` (+100,000¥)
 * Contact Points: `{python} inc('Contact_Points', 4)`
-* Complication Quality: Distinctive Style `{python} inc('Karma', 6)`
+* Complication Quality: Spirit Bane (Guardian Spirits) `{python} inc('Karma', 12)`
 
 ### 6. Event: You Got Away with a Lucrative Theft (Event)
 
@@ -180,7 +184,7 @@ A successful corporate laboratory heist targeting prototype tech and research be
 * Resources: `{python} inc('Nuyen', 75000)` (+75,000¥)
 * +1 to any attribute or special attribute: `{python} inc('Strength')` (Strength 1 -> 2)
 * Contact Points: `{python} inc('Contact_Points', 4)`
-* Complication Quality: Hunted `{python} inc('Karma', 6)`
+* Complication: Subsumed under the high-yield Spirit Bane (Guardian Spirits, 12 Karma) taken in Event 5 per the Lab design doctrine.
 
 ### 7. Event: You Were Overwhelmed, but Things Worked Out (Event — 1st Time)
 
@@ -190,7 +194,7 @@ A harrowing physical and spiritual crisis that pushed mental resolve to the abso
 * +2 to Charisma, Intuition, Logic, or Willpower: `{python} inc('Willpower', 2)` (Willpower 2 -> 4)
 * +1 to Edge, Magic, or Resonance: `{python} inc('Magic')` (Magic 5 -> 6 pre-ware)
 * Contact Points: `{python} inc('Contact_Points', 4)`
-* Quality: Focused Concentration (R3) `{python} inc('Karma', -36)`
+* Sustaining Strategy: Spells are sustained via Quickening (Initiate Grade 1) rather than the costly Focused Concentration quality, freeing customization resources.
 
 ### 8. Event: You Were Overwhelmed, but Things Worked Out (Event — 2nd Time, Repeated)
 
@@ -240,7 +244,7 @@ Per 6WC p. 32, one module may be taken twice. A second major crisis solidified t
 
 ## Qualities Inventory
 
-The character possesses **3 Inherent Metatype Traits** and exactly **6 Selected Qualities** (2 Positive, 4 Negative), strictly complying with the 6WC character creation ceiling of 6 non-metatype qualities and the 20 bonus Karma limit.
+The character possesses **3 Inherent Metatype Traits** and exactly **6 Selected Qualities** (2 Positive, 4 Negative), strictly complying with the 6WC character creation ceiling of 6 non-metatype qualities and the 20 net bonus Karma limit. Per the Character Lab build strategy (`characters/lab/README.md`), inefficient negative qualities (such as Distinctive Style, Hunted, and Injury Prone) are eliminated in favor of high-yield, low-table-drag choices (**Honorbound: Pirate's Code**, **Finesse**, **Hooder R2**, and **Spirit Bane: Guardian**), while Focused Concentration is removed in favor of a permanent **Quickening** sustain strategy and **Mentor Spirit (Wise Warrior)** is acquired directly at chargen for 10 Karma.
 
 ### Qualities Summary Table
 
@@ -250,20 +254,20 @@ The character possesses **3 Inherent Metatype Traits** and exactly **6 Selected 
 | **Gender Transmorphism** | Inherent (Racial) | — | 0 | 6WC p. 78 | *Born This Way* (Dalakitnon Trait) |
 | **Low-Light Vision** | Inherent (Racial) | — | 0 | 6WC p. 78 / CRB p. 70 | *Born This Way* (Dalakitnon Trait) |
 | **Brilliant Heuristics** | Positive | 1 | -10 | *Hack & Slash* p. 80 | *Born This Way* |
-| **Focused Concentration** | Positive | 3 | -36 | CRB p. 71 | *Event: Overwhelmed (1st)* |
-| **Injury Prone** | Negative | 1 | +15 | 6WC p. 137 | *Born This Way* |
-| **Hooder** | Negative | 3 | +15 | 6WC p. 137 | *Growing Up* |
-| **Distinctive Style** | Negative | 1 | +6 | CRB p. 75 | *Event: Large Sum of Money* |
-| **Hunted** | Negative | 1 | +6 | 6WC p. 137 | *Event: Lucrative Theft* |
-| *Coven Affiliation (Turgan Magnu)* | *Special* | — | -6 | *Street Wyrd* p. 128 | *Finishing Touches* |
-| *Analytical Mind (Planned)* | *Positive (In-Play)* | 1 | -6 | CRB p. 70 | *In-Play Priority (Post-Chargen)* |
+| **Mentor Spirit (Wise Warrior)** | Positive | — | -10 | CRB p. 70, 166 | *Born This Way* |
+| **Honorbound (Pirate's Code)** | Negative | 1 | +10 | CRB p. 74 | *Born This Way* |
+| **Finesse** | Negative | 1 | +7 | 6WC p. 137 | *Born This Way* |
+| **Hooder** | Negative | 2 | +10 | 6WC p. 137 | *Growing Up* |
+| **Spirit Bane (Guardian Spirits)** | Negative | 1 | +12 | CRB p. 77 / *Street Wyrd* p. 122 | *Event: Large Sum of Money* |
+| *Coven Affiliation (Order of the Redhawk)* | *Special* | — | -6 | *Street Wyrd* p. 128 / *SRMG* p. 49 | *Finishing Touches* |
+| *Analytical Mind (Planned)* | *Positive (In-Play)* | 1 | -6 | CRB p. 70 | *In-Play Priority (Post-Initiations)* |
 
-* **Total Non-Metatype Qualities**: **6 / 6 Maximum** (2 Positive, 4 Negative)
 * **Total Non-Metatype Qualities at Chargen**: **6 / 6 Maximum** (2 Positive, 4 Negative)
-* **Total Negative Quality Karma**: **+42 Karma**
-* **Total Positive Quality Karma**: **-46 Karma**
-* **Net Quality Karma**: **-4 Karma** (Net Karma expenditure; fully compliant with the 6WC $\le +20$ net bonus Karma ceiling)
-* **Planned In-Play Addition**: **Analytical Mind** is deliberately deferred to post-chargen. Because it costs only $2 \times 3 = \mathbf{6\text{ Karma}}$ in play (CRB p. 68), acquiring it post-chargen avoids consuming one of the 6 scarce character creation quality slots.
+* **Total Negative Quality Karma**: **+39 Karma** (Honorbound +10, Finesse +7, Hooder R2 +10, Spirit Bane +12)
+* **Total Positive Quality Karma**: **-20 Karma** (Brilliant Heuristics -10, Mentor Spirit -10)
+* **Net Quality Karma**: **+19 Karma** (Strictly $\le +20$ net Karma ceiling, fully compliant with CRB p. 66!)
+* **Sustaining Paradigm**: Spells are sustained via **Quickening** (Initiate Grade 1), completely sidestepping the massive 36 Karma investment required for Focused Concentration R3.
+* **Planned In-Play Addition**: **Analytical Mind** is deliberately deferred to post-chargen and prioritized behind the time-sensitive coven initiation cascade.
 
 ---
 
@@ -290,29 +294,33 @@ The character possesses **3 Inherent Metatype Traits** and exactly **6 Selected 
    * **Source**: *Hack & Slash* p. 80 | **Cost**: 10 Karma
    * **Mechanics**: By spending a **Minor Action** to calibrate processing architecture immediately prior to taking a Matrix Action on a cyberdeck, add **half the Data Processing attribute (rounded up)** as bonus dice to the test.
    * **Tactical Synergy**: With the Alphaware Cyberjack Rating 1 providing **Data Processing 4**, this grants a flat **+2 bonus dice** on any calibrated Matrix test (boosting Hacking / Cracking and Software / Electronics from 14 to **16 dice**!).
-5. **Focused Concentration (Rating 3)**
-   * **Source**: *SR6 Core* p. 71 | **Cost**: 36 Karma (12 Karma / rank)
-   * **Mechanics**: The character compartmentalizes their consciousness to sustain up to **3 spells simultaneously** without suffering the standard -2 dice pool penalty per sustained spell.
-   * **Tactical Synergy**: Fundamental to the Mystic Adept's casting economy. While preparing to Quicken spells (or in situations where quickened spells are temporarily dispelled), the adept can sustain *Increase Reflexes*, *Increase Attribute*, and a utility spell (such as *Invisibility* or *Armor*) with zero sustaining drag.
+5. **Mentor Spirit (Wise Warrior)**
+   * **Source**: *SR6 Core* p. 70, 166 | **Cost**: 10 Karma
+   * **Mechanics**: The Wise Warrior is skilled in the art of war, approaching battle as a tactical exercise of mind and body.
+   * **Advantages**:
+     * *All*: Edge Boosts cost 1 less for Influence tests.
+     * *Magician*: Edge Boosts cost 1 less for spells, preparations, and spell rituals in the Combat category.
+     * *Adept*: **1 free level of Improved Ability on a Combat skill** (allocated to **Conjuring**, stacking with natural Improved Ability for +2 bonus at chargen!).
+   * **Disadvantage**: Must follow the warrior's code of honor and conduct themselves properly; if acting dishonorably or without courtesy, take a -1 dice pool penalty until atoning. (Synergizes seamlessly with *Honorbound: Pirate's Code*!).
 
 #### Negative Qualities
 
-6. **Injury Prone**
-   * **Source**: *Sixth World Companion* p. 137 | **Bonus**: 15 Karma
-   * **Mechanics**: Whenever the character takes damage from any source (Physical or Stun), they immediately take **one extra box of that damage type**.
-   * **Narrative Impact**: Reflects an ethereal, delicate physical frame unsuited for brute trauma. Explains why the character prioritizes staying in the shadows, relying on sustained *Armor* / *Increase Reflexes*, full matrix distance, and heavy concealment.
-7. **Hooder (Rating 3)**
-   * **Source**: *Sixth World Companion* p. 137 | **Bonus**: 15 Karma (5 Karma / rank)
-   * **Mechanics**: A deep altruistic compulsion to aid the vulnerable. The character must tithe or donate at least **1,000¥ per rank every month (3,000¥/month)** toward charitable sprawl causes, medical clinics, or refugee shelters (and cannot direct these funds to teammates).
-   * **Narrative Impact**: Explains their deep, enduring relationship with **Turgan Magnu** in the Ork Underground. Their illicit earnings from corporate heists and decking directly fund clinics and defensive wards for under-sprawl communities.
-8. **Distinctive Style**
-   * **Source**: *SR6 Core* p. 75 | **Bonus**: 6 Karma
-   * **Mechanics**: Observers attempting to identify, recall, or track the character receive a threshold 2 Memory test or benefit from +2 Edge/pool on visual recognition.
-   * **Narrative Impact**: Alabaster-pale skin, vivid white hair, an upper lip lacking a philtrum (Dalakitnon hallmark), and a polished chrome data port nestled beneath fair elven locks make them impossible to forget once seen without holographic disguise.
-9. **Hunted (Rating 1)**
-   * **Source**: *Sixth World Companion* p. 137 | **Bonus**: 6 Karma
-   * **Mechanics**: An enemy syndicate or corporate black-ops squad from their previous heist (*Event: Lucrative Theft*) actively seeks revenge. Whenever the character's personal Heat reaches 15 or higher, an assassin strike team locates them.
-   * **Narrative Impact**: Generates perpetual background tension and operational discipline, requiring rigorous spoofing, burner commlinks, and operational security to keep their safehouse coordinates masked.
+6. **Honorbound (Pirate's Code)**
+   * **Source**: *SR6 Core* p. 74 | **Bonus**: 10 Karma
+   * **Mechanics**: The character strictly adheres to a personal code of conduct—the Pirate's Code (fair share of the spoils, respect for parley, strict defense of crewmates against corporate predation, never betray an agreed contract without breach by the employer). Breaking the code inflicts a loss of Edge and psychological guilt.
+   * **Narrative Impact**: Aligns tightly with Wise Warrior's discipline and Hooder's altruistic street defense.
+7. **Finesse**
+   * **Source**: *Sixth World Companion* p. 137 | **Bonus**: 7 Karma
+   * **Mechanics**: The character prefers to accomplish goals with subtlety and finds brute force tactics unnerving. May not gain or spend Edge on any action that would generate a Heat modifier. If not personally generating any Heat modifiers on a run, apply a **-1 reduction to the team's Heat modifier**!
+   * **Tactical Synergy**: Perfectly captures the operational doctrine of a Hermetic Decker-Adept who relies on sleaze matrix intrusion, invisible masked quickened spells, and surgical precision over loud firefights.
+8. **Hooder (Rating 2)**
+   * **Source**: *Sixth World Companion* p. 137 | **Bonus**: 10 Karma (5 Karma / rank)
+   * **Mechanics**: A deep altruistic compulsion to aid the vulnerable. The character must tithe or donate at least **1,000¥ per rank every month (2,000¥/month)** toward charitable sprawl causes, medical clinics, or refugee shelters (and cannot direct these funds to teammates).
+   * **Narrative Impact**: Explains their deep, enduring relationship with **Turgan Magnu** in the Ork Underground. Under *SRMG v2.4* p. 19, this monthly donation directly funds the **Work for the People** Minor Downtime Action (+1 Karma per month) at zero additional charge.
+9. **Spirit Bane (Guardian Spirits)**
+   * **Source**: *SR6 Core* p. 77 / *Street Wyrd* p. 122 | **Bonus**: 12 Karma
+   * **Mechanics**: Guardian spirits harbor an instinctual antipathy toward the adept. The character suffers a **-1 dice pool modifier** on Conjuring tests involving guardian spirits, and hostile guardian spirits will prioritize targeting the character in astral or physical combat.
+   * **Tactical / Narrative Impact**: Per the Lab design strategy, Guardian spirits virtually never appear as opposition in official SRM campaign missions. Furthermore, as a Hermetic / Dalakitnon mystic adept who primarily summons elemental spirits (Air, Earth, Fire), the character has zero operational need to summon guardian spirits, providing 12 bonus Karma with zero table drag.
 
 ---
 
@@ -382,87 +390,171 @@ After the Skill Rig (125,000¥), Cyberjack (54,000¥), and extra Activesoft (25,
 ### 4. Customization Karma, Initiation, and Coven Membership
 
 * **Customization Karma Accumulated**: `{python} Karma` Karma (41 Karma available)
-* **Join Magical Coven — Turgan Magnu**:
+* **Join Magical Coven — Order of the Redhawk**:
   * Per *Street Wyrd* p. 128 (*Making, Joining, and Leaving Groups*), joining an existing magical group requires spending **6 Karma**: `{python} inc('Karma', -6)`
-  * Membership provides access to magical lodge facilities, training in beginner thaumaturgy, reagents sourcing, and group ritual support.
-* **Initiation Grade 1 & Quickening Metamagic**:
-  * Base Initiation Cost (CRB p. 70): $10 + \text{Initiate Grade} = 10 + 1 = 11\text{ Karma}$.
-  * Coven Benefit (*Street Wyrd* p. 129): Being an active member of a magical group reduces initiation cost by the group's Loyalty rating (**Loyalty 4** $\rightarrow$ -4 Karma).
-  * Discounted Initiation Cost: $11 - 4 = \mathbf{7\text{ Karma}}$ `{python} inc('Karma', -7)`
-  * Metamagic Selected: **Quickening** (CRB p. 168). Allows the caster to take a Major Action and spend Karma while sustaining a spell to make the spell permanently sustained on their aura without sustaining dice pool penalties.
+  * Membership provides access to magical lodge facilities, Hermetic research repositories, reagents sourcing, and group ritual support. (Can alternatively represent the *Guild of Freelance Assets*, Conclave C7 / L8).
+* **Initiation Grade 1 & Quickening Metamagic (Loyalty 8 Coven Discount)**:
+  * Base Initiation Cost (*CRB* p. 70): $10 + \text{Initiate Grade} = 10 + 1 = 11\text{ Karma}$.
+  * Coven Benefit (*Street Wyrd* p. 129): Being an active member of a magical group reduces initiation cost by the group's Loyalty rating (**Loyalty 8** $\rightarrow$ -8 Karma).
+  * Discounted Initiation Cost: $11 - 8 = \mathbf{3\text{ Karma}}$ `{python} inc('Karma', -3)` `{python} metamagic('Quickening', notes='Allows permanent sustaining of spells without dice pool penalty.')`
+  * *Arbitrage & Savings*: Purchasing Loyalty 8 upfront slashes initiation from 11 Karma to **3 Karma**, saving **8 Karma** vs unaligned base and **4 Karma** vs Loyalty 4!
 * **The Magic Rebuy Economy**:
-  * Per SR6 CRB p. 66, raising an attribute with customization Karma costs (New Rating x 5) Karma.
+  * Per *SR6 CRB* p. 66, raising an attribute with customization Karma costs (New Rating x 5) Karma.
   * Rebuying Magic from 4 back to 5 costs **25 Karma** (New Rating $5 \times 5 = 25\text{ Karma}$): `{python} inc('Magic')`, `{python} inc('Karma', -25)`
-  * This restores starting Magic to **5**, leaving **`{python} Karma` Karma** in reserve (ideal for spending 1–2 Karma to quicken spells upon casting).
+  * This restores starting Magic to **5**.
+* **Sorcery Specialization (Spellcasting)**:
+  * Per *CRB* p. 68, 95, acquiring the **Spellcasting** specialization for Sorcery costs **5 Karma**: `{python} inc('Karma', -5)`
+  * Adds **+2 dice to all Spellcasting tests across all magic schools** (Health, Combat, Detection, Illusion, Manipulation), pushing the baseline Spellcasting pool (Sorcery 3 + Spec 2 + Improved Ability 3 + MAG 5) to **13 dice** (buying 3 hits deterministically, or **16–17 dice** with Power Focus / Qi Focus), while sustained *Increase Attribute: Logic* elevates Hermetic Drain Resistance (WIL 5 + LOG 12) to **17 dice** (buying 4 hits deterministically on Drain!).
+* **Purchase Additional Power Points (4.0 PP Total)**:
+  * Per *SRMG v2.4* p. 54 (`[SRMG-0323]`), Mystic Adepts in Life Path gain 2.0 free PP (from 4 remaining pre-ware Magic points after selecting 2 spells) and may purchase additional Power Points at **5 Karma per 0.5 PP** up to Magic.
+  * Purchasing **+2.0 PP** (4 increments of 0.5 PP) costs **20 Karma**: `{python} inc('Karma', -20)`
+  * Total Power Points: **4.0 PP** (plus 1 free level of Improved Ability: Conjuring from Wise Warrior Mentor Spirit!).
+* **Karma Carried into Play**:
+  * Remaining Customization Karma: **`{python} Karma` Karma** in reserve (safely $\le 5$ Karma ceiling, fully compliant with CRB p. 66).
 * **Initial Spells & Power Points (at Magic 5, Initiate Grade 1)**:
   * **Free Spells (from Magic)**:
-    1. **Increase Reflexes** (CRB p. 138): Health Spell, Sustained. Adds +1 Initiative Score and +1 Initiative Die per hit on Spellcasting test (max +4 dice). High-priority target for **Quickening** to achieve permanent 4d6 initiative dice in meatspace without bioware!
-    2. **Increase Attribute** (CRB p. 138): Health Spell, Sustained. Increases a designated attribute (such as Logic, Intuition, or Agility) by +1 per net hit up to metatype augmented max (+4). Another premier target for **Quickening**!
-  * **Power Points (Adept Side, 2.5 PP)**:
-    * Sharp Tongue (1.0)
-    * Commanding Voice (1.0)
-    * Command Presence (0.5)
+    1. **Increase Reflexes** (*CRB* p. 138): Health Spell, Sustained. Adds +1 Initiative Score and +1 Initiative Die per hit on Spellcasting test (max +4 dice). High-priority target for **Quickening** to achieve permanent 4d6 initiative dice in meatspace without bioware!
+    2. **Increase Attribute** (*CRB* p. 138): Health Spell, Sustained. Increases a designated attribute (such as Logic, Intuition, or Agility) by +1 per net hit up to metatype augmented max (+4). Another premier target for **Quickening**!
+  * **Power Points (Adept Side, 4.0 PP + Wise Warrior — Maximizing Arcane Skill Boosts)**:
+    * `{python} adept_power("Improved Ability: Sorcery", rating=3, cost_pp=3.0, notes="Combat skill per SR6 FAQ; stacks with Force 4 Qi Focus for +4 max")` **Improved Ability: Sorcery (Rating 3)** (3.0 PP): Adds +3 dice to all Sorcery tests (Spellcasting, Counterspelling, Ritual Spellcasting). Combines with the planned **Force 4 Qi Focus** (+1) to reach the **+4 maximum skill bonus**, dropping the focus availability to an ultra-accessible **4L**!
+    * `{python} adept_power("Improved Ability: Conjuring", rating=1, cost_pp=1.0, notes="Combat skill per SR6 FAQ; stacks with Wise Warrior (+1) and Force 4 Qi Foci (+1 each) for +4 max")` **Improved Ability: Conjuring (Rating 1)** (1.0 PP): Adds +1 die to Conjuring tests. Combines with the **free level of Improved Ability (Conjuring) from Wise Warrior** (+1) and planned legal **Force 4 Qi Foci** (+1 each, stacking per SSWFAQ-0069) to reach the **+4 maximum skill bonus**!
 
 ---
 
 ### 5. Contacts Allocation (30 Points Available)
 
-#### Seattle Ork Underground
-* **Turgan Magnu** (Magical Coven / Initiation Group, Connection 5 / Loyalty 4): `{python} inc('Contact_Points', -9)`
-  * *Street Wyrd* p. 138: An established, grassroots coven of Awakened underground residents based in Seattle's Ork Underground, protecting against feral and toxic subterranean threats while providing beginner training, mutual defense, and initiation guidance.
-
 #### Seattle
-* Brynne Taggart (Corporate Johnson / Fixer, Connection 4 / Loyalty 2): `{python} inc('Contact_Points', -6)`
-* Vincent Grisome (Matrix Information Broker, Connection 4 / Loyalty 1): `{python} inc('Contact_Points', -5)`
+* **Order of the Redhawk** (Seattle University Magical Conclave / Initiation Group, **Connection 7 / Loyalty 8**): `{python} inc('Contact_Points', -15)`
+  * *SRMG v2.4* p. 49, 59–60: Academic Hermetic order at Seattle University specializing in magical theory and Matrix/magic crossover. SRM Contact: **Professor Vincent Grisome**.
+  * Upfront investment at Loyalty 8 unlocks maximum initiation discounts during the initial campaign run while enabling the Coven Decay Strategy.
+* Brynne Taggart (Corporate Johnson / Fixer, Connection 5 / Loyalty 3): `{python} inc('Contact_Points', -8)`
 
 #### New Orleans
-* Claudette Laurier (Talisman / Reagents Dealer, Connection 4 / Loyalty 1): `{python} inc('Contact_Points', -5)`
+* Claudette Laurier (Talisman / Reagents Dealer, Connection 5 / Loyalty 2): `{python} inc('Contact_Points', -7)`
 
-#### Hong Kong
-* Hana (Triad Decking Specialist, Connection 4 / Loyalty 1): `{python} inc('Contact_Points', -5)`
+Total Contact Points Remaining: `{python} Contact_Points`
 
 ---
 
-### 6. Mid-Run Cyberware Upgrade Roadmap: Deltaware Cyberjack Rating 2
-## In-Play Advancement Roadmap
+## In-Play Advancement Roadmap & Downtime Action Protocol
 
-As an in-play operational milestone, the adept retains the **Deltaware Cyberjack Rating 2** as their premier campaign advancement objective.
-This section outlines immediate post-chargen character advancement goals, establishing clear milestones for Karma and Nuyen expenditure during campaign play.
+### 1. Downtime Action Economy & Allocation Protocol
 
-### 1. Priority Quality Acquisition: Analytical Mind (6 Karma)
+Under *SRM Guide v2.4* (pp. 17–20, 47, 59–60), downtime actions between missions are strictly budgeted:
 
-* **Cost**: $2 \times \text{normal cost} = 2 \times 3 = \mathbf{6\text{ Karma}}$ (SR6 CRB p. 68, *Character Advancement Table*).
-* **Downtime Requirement**: Approximately 1 week of dedicated cognitive conditioning and mental exercises.
-* **Chargen Slot Conservation Strategy**:
-  * Character generation imposes a strict ceiling of **6 total non-metatype qualities** (6WC p. 31).
-  * High-value negative qualities (+15 Karma each for *Injury Prone* and *Hooder 3*) and critical positives (*Focused Concentration 3* for 36 Karma, *Brilliant Heuristics* for 10 Karma) fully occupied these 6 slots.
-  * Because *Analytical Mind* only costs **6 Karma** to acquire in play, deferring it post-chargen saved a scarce character creation quality slot while retaining a very low Karma threshold to unlock early in campaign play.
-* **Game Effect & Tactical Payoffs (CRB p. 70)**:
-  * **Mechanics**: *"You gain a bonus Edge when you make any Logic-based test."*
-  * **The Logic 8 Synergy**: With a natural **Logic 8**, the character generates **+1 free Edge on virtually every Matrix action** (Hacking/Cracking, Matrix Perception, Exploit, Edit/Crack File, Disarm Data Bomb, Software/Electronics), Memory tests, deciphering encrypted files, and knowledge tests!
-  * Combined with *Brilliant Heuristics* (+2 to +3 bonus dice), this makes the adept an unstoppable Matrix juggernaut.
+* **Mainline SRM Missions:** Grant **1 Major + 1 Minor** Action (or **3 Minor Actions** if taking no Major).
+* **Convention Mission Packs (CMPs):** Grant **2 Minor Actions only** (no Major Action; Initiation cannot be performed post-CMP).
+* **The CMP Capital & Karma Banking Strategy (Power Focus vs. Hoarded Magic):**
+  * CMPs award nuyen (~15,000¥–25,000¥ per pack) and Karma but grant only **2 Minor downtime actions** (no Major Action; Initiation cannot be performed post-CMP) and do not trigger monthly rent or calendar degradation (*SRMG v2.4*, p. 17).
+  * *The Power Focus Arbitrage:* A Power Focus Rating 3 costs **54,000¥ and 18 Karma** (Availability 9L), bonding in 3 hours via a single Minor downtime action. It adds **+3 to effective Magic across ALL tests involving Magic** (Spellcasting, Conjuring, Counterspelling, Rituals, and Drain Resistance).
+  * *The "Hoard Magic" Fallacy:* Raising Magic naturally from 6 $\rightarrow$ 7 costs **35 Karma** and yields only **+1 die**! Gaining a +3 bonus through natural Magic advancement ($6 \rightarrow 7 \rightarrow 8 \rightarrow 9$) costs an astronomical **120 Karma**!
+  * Early CMP and SRM mission proceeds are therefore funneled into acquiring the **Power Focus 3** and legal **Force 4 Qi Foci** rather than dead-hoarding Karma for natural Magic.
+* **The Coven Decay Protocol & The Loyalty 4 Soft Landing:**
+  * Starts at **Loyalty 8** (decaying $8 \rightarrow 7 \rightarrow 6 \rightarrow 5 \rightarrow 4$ over upcoming months without maintenance).
+  * *Initiation Cost Formula:* In SRM with an active coven, initiation Karma cost is:
+    $$\text{Cost} = 10 + \text{Current Grade} - \text{Coven Loyalty}$$
+    *(Minimum 1 Karma). Because rent is settled every second SRM, the adept initiates twice at each Loyalty rating before decay occurs!*
+  * *Action & Nuyen Dividends:* Rather than wasting 1 Major Downtime Action every other SRM to maintain Loyalty 8, we intentionally allow Loyalty to decay by 1 rating per month. Freeing these Major Actions liberates **4 Major Downtime Actions** across Months 1–4 and saves **¥4,800** in unspent dues across Months 1 & 2!
+  * *The Loyalty 4 Floor:* At Loyalty 4, maintenance costs only **1 Minor Downtime Action per month** and dues drop to **¥350/mo** ($50 \times \text{Connection 7}$). This permanently preserves a **-4 Karma initiation discount** forever while leaving every single SRM Major Downtime Action unencumbered.
+  * *The 2-Karma Difference:* Delaying an initiation like Grade 7 from Loyalty 6 to the Loyalty 4 floor costs only **2 Karma** ($10 + 7 - 4 = 13\text{K}$ vs $10 + 7 - 6 = 11\text{K}$). Freezing 35 Karma to raise Magic 6 $\rightarrow$ 7 purely to beat coven decay starves the character of table performance for 4–5 missions to save a trivial 2 Karma!
+  * Natural Magic 5 $\rightarrow$ 6 (30 Karma) is purchased strictly to unlock the Initiate Grade 6 ceiling ($\text{Grade} \le \text{Magic}$ per *CRB* p. 167 `[ERRATA-0027]`), while Magic 7+ is deferred until deep progression after all core foci are fully bonded.
+* **The Hooder R3 Synergy:**
+  * Hooder (Rating 3) mandates **¥3,000/month** in charitable donations (*6WC*, p. 137).
+  * Under *SRMG v2.4* p. 19, this monthly donation directly funds the **Work for the People** Minor Downtime Action (+1 Karma per month) at zero additional nuyen charge!
+  * **Monthly Downtime Allocation (Every 2 SRMs = 1 Month):**
+    * **2 Major Downtime Actions:** 100% dedicated to Metamagic Initiation (Grades 2–6) without coven blockage.
+    * **2 Minor Downtime Actions:**
+      1. *Work for the People* (+1 Karma, funded by Hooder R3 obligation).
+      2. *Coven Maintenance at Loyalty 4 Floor* (costs 1 Minor Action, ¥350/mo dues).
 
-### 2. Cyberware Milestone: Deltaware Cyberjack Rating 2 (162,500¥ / 0.75 Essence)
+---
 
-As an in-play operational milestone, the adept retains the **Deltaware Cyberjack Rating 2** as their premier technological campaign objective.
+### 2. Master Unified Progression Queue
 
-#### Essence & Cyber-Surgery Mechanics
-* **Essence Hole Replacement**: Upgrading from the starting Alphaware Cyberjack R1 (0.80 Essence) to the Deltaware Cyberjack R2 (0.75 Essence) utilizes the existing cranial implant footprint.
-* **Net Essence Gain**: Because Deltaware R2 costs only 0.75 Essence, total Essence loss drops from 1.90 to **1.85 Essence** (Essence increases from 4.10 to **4.15**).
-* **Zero Additional Magic Loss**: Essence remains safely above 4.0, meaning **zero Magic is lost**. 
-* **Expanded Augmentation Headroom**: The resulting **0.15 Essence buffer** (up to the 2.0 Essence boundary) leaves exact headroom to install an eye-mounted **Deltaware Smartlink** (0.10 Essence, 10,000¥) with zero magical degradation!
-* **Surgical Recovery**: Surgery inflicts $\text{Essence} \times 3$ boxes of damage ($0.75 \times 3 \approx 2\text{ boxes}$ of Physical and Stun damage), requiring roughly 1 week of clinic recovery.
+Initiations are strictly time-gated by the Coven Loyalty decay schedule (Order of the Redhawk starting at Loyalty 8, decaying by 1 rating each month: Month 1 @ L8, Month 2 @ L7, Month 3 @ L6, Month 4 @ L5, Month 5+ @ L4 floor). Every month that elapses without initiating permanently forfeits a point of initiation discount. Early progression coordinates time-gated initiations (Grades 2–5 at Magic 5), early foci bonding (Qi Focus Sorcery R1, Power Focus Rating 3), Magic 5 $\rightarrow$ 6 to unlock Grade 6, and lets Grade 7+ land softly at the permanent Loyalty 4 floor.
 
-#### Financial & Contact Logistics
-* **Target Capital**: **162,500¥** (reduced to ~135,000¥–149,000¥ if trading in or pawning the Alphaware R1 unit).
-* **Black Clinic Access**: Delta-grade installations require specialized medical facilities, attainable through:
-  * A corporate black clinic run brokered by **Brynne Taggart** (C4 / L2 Fixer)
-  * Triad medical contacts in the Walled City network via **Hana** (C4 / L1 Decking Specialist)
-  * Underground surgical favors arranged through the **Turgan Magnu** network.
+| Step | Target Upgrade | Category | Cost | Downtime Action Required | Primary Tactical & Architectural Role |
+| :---: | :--- | :--- | :---: | :---: | :--- |
+| **01** | **Initiation Grade 2**<br>• *Centering* | Metamagic | 4 Karma* | 1 Major Action<br>*(SRM #1 / Month 1)* | *CRB* 164: Cost $10+2-8=4\text{K}$ at **Loyalty 8**. Adds Initiate Grade (+2) to Drain Resistance tests. Baseline drain resistance pool jumps to **18+ dice** with sustained attribute buffs (Willpower 5 + Logic 12 + Centering 2 = 19d, buying 4 hits). |
+| **02** | **Qi Focus: Improved Sorcery (R1)** | Qi Focus | 12,000¥<br>+8 Karma | 1 Minor Action<br>*(Avail 4L, between runs)* | *CRB* 155, 159: Force 4 (1.0 PP). Stacks with natural Improved Ability (R3) to reach **+4 max skill bonus**. Spellcasting rises from 13 to **14 dice**! Instant downtime buy. |
+| **03** | **Initiation Grade 3**<br>• *Masking* | Metamagic | 5 Karma* | 1 Major Action<br>*(SRM #2 / Month 1)* | *CRB* 165: Cost $10+3-8=5\text{K}$ (**still at Loyalty 8!**). Opposes Assensing with $\text{Magic (5)} + \text{Initiate Grade (3)} = \mathbf{8\text{ dice}}$. Disguises aura as mundane and masks quickened spells. *(End of Month 1: Loyalty decays $8 \rightarrow 7$).* |
+| **04** | **Initiation Grade 4**<br>• *Extended Masking* | Metamagic | 7 Karma* | 1 Major Action<br>*(SRM #3 / Month 2)* | *Street Wyrd* 119: Cost $10+4-7=7\text{K}$ at **Loyalty 7**. **Prerequisite: Masking**. Extends aura masking to cover all quickened spells and cyberware signatures. |
+| **05** | **Initiation Grade 5**<br>• *Adept Item Attunement*<br>*(Cyberdeck — Cracking)* | Metamagic | 8 Karma*<br>+10K Bond | 1 Major Action<br>*(SRM #4 / Month 2)* | *Street Wyrd* 84–85 / *SRMG* 46–47: Cost $10+5-7=8\text{K}$ at **Loyalty 7**. Attuning the cyberdeck costs $10\text{ Karma}$ and adds Initiate Grade (+4 max) to **all Cracking tests**. Eliminates need for Cracking Qi Focus (saving 12 Force!). *(End of Month 2: Loyalty decays $7 \rightarrow 6$).* |
+| **06** | **Power Focus (Rating 3)** | Power Focus | 54,000¥<br>+18 Karma | 1 Minor Action<br>*(Avail 9L, via CMP / runs)* | *CRB* 155: Force 3. **The Power Focus Arbitrage**. Adds **+3 to effective Magic** on all Magic tests: Spellcasting leaps to **17 dice**, Conjuring to **16 dice** (hits **4 bought hits** threshold deterministically!), Drain Resistance to **22+ dice**! |
+| **07** | **Attribute: Magic 5 $\rightarrow$ 6** | Attribute | 30 Karma | None (Between runs) | **Prioritized via CMP Banked Karma**. Unlocks Initiate Grade 6 ceiling ($\text{Grade} \le \text{Magic}$) and expands Focus Bonding Cap to **30 Force** (*City Edition*). |
+| **08** | **Initiation Grade 6**<br>• *Stealth Effect* | Metamagic | 10 Karma* | 1 Major Action<br>*(SRM #5 / Month 3)* | *Deadly Arts* 173: Cost $10+6-6=10\text{K}$ at **Loyalty 6**. Cast spells without sensory manifestation, completely imperceptible to mundane observers! (Wise Warrior mentor spirit already acquired at chargen). *(End of Month 3: Loyalty decays $6 \rightarrow 5$).* |
+| **09** | **Qi Focus: Improved Conjuring (R1)** | Qi Focus | 12,000¥<br>+8 Karma | 1 Minor Action<br>*(Avail 4L, between runs)* | *CRB* 155, 159; *SSWFAQ-0069*: Force 4 (1.0 PP). Stacks with Adept R1 + Wise Warrior (+1) + Power Focus 3 for **17 dice** on Conjuring! Legal at Magic $\le 6$ (unlike illegal Force 8 foci). |
+| **10** | **Qi Focus: Improved Conjuring (R1 - Focus #2)** | Qi Focus | 12,000¥<br>+8 Karma | 1 Minor Action<br>*(Avail 4L, between runs)* | *CRB* 155, 159; *SSWFAQ-0069*: Force 4 (1.0 PP). Second Force 4 focus stacks to achieve the **+4 max augmented skill cap** $\rightarrow$ Conjuring jumps to **18 dice**! Total bonded Force = 15 / 30. |
+| **11** | **Quality: Analytical Mind** | Positive Quality | 6 Karma<br>*(2x 3K)* | None (Between runs) | *CRB* 70: Stacked alongside native **Analytics** adept power to provide redundant Edge generation across Logic tests without diverting critical early initiation Karma. |
+| **12** | **The Loyalty 4 Soft Landing**<br>• *Coven Maintenance at Floor* | Downtime | ¥350/mo<br>1 Minor/mo | 1 Minor Action/mo<br>*(Month 4+)* | Coven reaches Loyalty 4 floor. Maintenance locked at 1 Minor action and ¥350/mo dues, preserving permanent **-4 Karma discount** on all subsequent initiations forever. |
+| **13** | **Attribute: Magic 6 $\rightarrow$ 7** | Attribute | 35 Karma | None (Between runs) | Banked via post-CMP / run Karma. Unlocks Initiate Grade 7 ceiling ($\text{Grade} \le \text{Magic}$) and expands Focus Bonding Cap to **35 Force**. |
+| **14** | **Initiation Grade 7**<br>• *Absorption* or *Flexible Signature* | Metamagic | 13 Karma | 1 Major Action<br>*(SRM #7+ / Loyalty 4 floor)* | *Street Wyrd* 118 / *CRB* 165: Cost $10+7-4=\mathbf{13\text{K}}$ at **Loyalty 4 floor**. Subtle mana absorption or astral signature alteration. |
+| **15** | **Cyberware: Deltaware Cyberjack R2** | Cranial Ware | 162,500¥<br>*(0.75 Ess)* | 1 Week (Black Clinic) | Replaces Alphaware R1 (0.80 Ess) with Deltaware R2 (0.75 Ess). Net Essence rises from 4.10 $\rightarrow$ **4.15** (zero Magic loss). Frees **0.15 Essence buffer** for a Delta Smartlink (0.10 Ess, 10,000¥). DP rises to 5, Firewall to 4. *Brilliant Heuristics* bonus leaps from +2 to **+3 dice**! |
 
-#### Tactical Payoffs Upon Upgrade
-1. **Matrix Defense**: Data Processing rises to **5**, Firewall rises to **4** (increasing biofeedback resistance and Matrix Defense Rating).
-2. **Brilliant Heuristics Leap**: Spending a Minor Action before a Matrix Action adds $\lceil 5 / 2 \rceil = \mathbf{+3\text{ dice}}$ (up from +2 dice), boosting Hacking / Cracking and Software / Electronics from 14 to **15 dice** (or **17 dice** with a +2 specialization).
+*\*Initiation costs reflect the SRM 2-missions-per-month cadence where degradation occurs every OTHER initiation: Grade 2 (SRM 1 @ L8: 4K), Grade 3 (SRM 2 @ L8: 5K), Grade 4 (SRM 3 @ L7: 7K), Grade 5 (SRM 4 @ L7: 8K), Grade 6 (SRM 5 @ L6: 10K). Subsequent initiations at the Loyalty 4 floor cost $10 + \text{Grade} - 4$.*
+
+---
+
+### 3. Dedicated Magical & Matrix Foci Arsenal (The Legal Force $\le 4$ Early Suite)
+
+By purchasing +2.0 Power Points in chargen and dedicating 3.0 PP to **Improved Ability: Sorcery (Rating 3)** alongside **Wise Warrior** (+1 Conjuring), the Sorcery Qi Focus drops to **Force 4 (Availability 4L)**! Replacing the Cracking Qi Focus with the **Adept Item Attunement** metamagic (bonding the cyberdeck directly) eliminates the old 36,000¥ / Force 12 focus and consumes **0 Force against the Focus Cap**.
+
+Furthermore, under canonical SR6 rules (*CRB* p. 155; *City Edition: Seattle* p. 154–155 `[SR6H-0755]`), **"no focus Force may exceed your Magic attribute."** At Magic 5–6, planning single Force 8 Qi Foci is **completely illegal** ($8 > \text{Magic}$). Instead, per *Shadowrun Sixth World FAQ* `[SSWFAQ-0069]`, **Qi Foci explicitly stack**! By stacking modular **Force 4 Qi Foci** (Rating 1 Combat skills, 1.0 PP each, Availability 4L), MAD Dalek legally achieves the maximum +4 augmented skill bonus while keeping every focus legal, cheap, and easily procurable at Magic 5.
+
+#### Foci Acquisition & Bonding Mechanics
+
+* **Force 3 Power Focus**:
+  * **Cost**: $\text{Force} \times 18,000¥ = 3 \times 18,000 = \mathbf{54,000¥}$
+  * **Bonding Cost**: $\text{Force} \times 6\text{ Karma} = 3 \times 6 = \mathbf{18\text{ Karma}}$
+  * **Availability**: $\text{Force} \times 3\text{L} = \mathbf{9L}$
+  * **Operational Benefit**: Adds **+3 to effective Magic** across all tests involving Magic (Spellcasting, Conjuring, Counterspelling, and magical Drain Resistance tests).
+  * **The Nuyen-to-Karma Arbitrage**: Gaining +3 to Magic tests through natural attribute raises costs **120 Karma** ($6 \rightarrow 7 \rightarrow 8 \rightarrow 9$). The Power Focus delivers the exact same +3 dice pool boost for just **18 Karma and ¥54,000**, fully funded by CMP and mission payouts!
+* **The Improved Ability Adept Power & Legal Force 4 Qi Foci Formula**:
+  * *CRB* p. 159 dictates that the Force of a Qi Focus must equal **four times the Power Point cost of the power it holds** ($\text{Force} = 4 \times \text{PP}$).
+  * *Qi Focus Cost*: $3,000¥$ and $2\text{ Karma}$ per point of Force; Availability = $\text{Force(L)}$.
+  * **Combat Abilities (Sorcery, Conjuring)**:
+    * Per the *Shadowrun 6th Edition FAQ*, **Sorcery and Conjuring** are categorized as **combat abilities** for *Improved Ability* (1.0 PP per rank).
+    * **Sorcery Qi Focus (Force 4, Availability 4L)**:
+      * Provides **Rating 1 (+1 rank)**: $1.0\text{ PP} \times 4 = \mathbf{\text{Force } 4}$.
+      * **Cost**: $4 \times 3,000¥ = \mathbf{12,000¥}$; Bonding: $4 \times 2\text{ Karma} = \mathbf{8\text{ Karma}}$; Availability: **4L**.
+      * *Downtime*: Lower than Vincent's Connection 5—**acquired immediately in downtime**!
+      * *Stacking*: Natural Adept Power (Rating 3: +3) + Force 4 Qi Focus (+1) = **+4 dice (Maximum Skill Boost Cap)**!
+    * **Conjuring Qi Foci (#1 & #2, Force 4 each, Availability 4L each)**:
+      * Instead of an illegal Force 8 focus ($8 > \text{Magic 5}$), MAD Dalek bonds **two Force 4 Qi Foci** (Rating 1 each, 1.0 PP each):
+      * **Cost each**: $4 \times 3,000¥ = \mathbf{12,000¥}$; Bonding: $4 \times 2\text{ Karma} = \mathbf{8\text{ Karma}}$; Availability: **4L**.
+      * *Stacking per [SSWFAQ-0069]*: Natural Adept Power (Rating 1: +1) + Wise Warrior Mentor Spirit (+1) + Qi Focus #1 (+1) + Qi Focus #2 (+1) = **+4 dice (Maximum Skill Boost Cap)**!
+      * Both foci are Force 4, fully compliant with Magic 5 and Magic 6 individual Force caps!
+  * **Non-Combat Skills (Electronics)**:
+    * Per *SSW FAQ*, Electronics is a non-combat skill (0.5 PP/rank).
+    * If desired, a **Force 4 Qi Focus** provides Rating 2 (+2 dice, $2 \times 0.5\text{ PP} \times 4 = \text{Force } 4$, 12,000¥ / 8 Karma, Avail 4L).
+    * However, with Activesoft 5 + Logic 8 + 1 wireless + Brilliant Heuristics (+2 dice) already yielding **16 dice** on Matrix tests, an Electronics Qi Focus is deferred behind core magical foci.
+* **Adept Item Attunement (Cyberdeck — Cracking)**:
+  * *Street Wyrd* pp. 84–85 / *SRMG v2.4* pp. 46–47.
+  * Attunement Karma Cost: **10 Karma** (production-line high-tech cyberdeck).
+  * Adds Initiate Grade (up to the **+4 maximum**) as bonus dice to all Cracking tests made through the attuned cyberdeck.
+  * Completely non-magical hardware attunement: requires zero focus slots and consumes **0 Force against the Focus Cap**!
+
+#### Master Foci & Attunement Portfolio
+
+| Focus / Attunement | Target Power / Capability | Force | Nuyen Cost | Karma Cost | Avail | Operational Benefit |
+|:---|:---|:---:|:---:|:---:|:---:|:---|
+| **Power Focus** | General Magic Amplification | 3 | 54,000¥ | 18 Karma | 9L | +3 effective Magic across all magical tests & drain resistance |
+| **Qi Focus #1** | Improved Ability: Sorcery (Rating 1) | 4 | 12,000¥ | 8 Karma | 4L | +1 die (stacks with Natural Adept R3 for **+4 max bonus**; instant downtime buy!) |
+| **Qi Focus #2** | Improved Ability: Conjuring (Rating 1) | 4 | 12,000¥ | 8 Karma | 4L | +1 die (stacks with Adept R1 + Wise Warrior +1; pushes to 17d with Power Focus 3!) |
+| **Qi Focus #3** | Improved Ability: Conjuring (Rating 1) | 4 | 12,000¥ | 8 Karma | 4L | +1 die (stacks per SSWFAQ-0069 for **+4 max bonus** $\rightarrow$ 18d on Conjuring!) |
+| **Item Attunement** | Cyberdeck Attunement (Cracking) | — | 0¥ | 10 Karma | — | Adds Initiate Grade (**+4 max bonus**) to all Cracking tests |
+| **Complete Early Suite** | **4 Foci + 1 Attuned Deck** | **15** | **90,000¥** | **52 Karma** | — | **All 4 primary skills (Conjuring, Sorcery, Cracking, Electronics) capped at +4, 100% legal at Magic 5!** |
+
+#### Focus Cap Architecture & Staged Bonding Protocol
+
+Under *SR6 CRB* p. 154–155 and *City Edition: Seattle* p. 154–155 (`[SR6H-0755]`):
+* **Focus Count Limit**: $\text{Count} \le \text{Magic}$. With **4 foci** in the suite, this fits within starting Magic 5 (4 / 5 slots).
+* **Individual Force Limit**: $\text{Individual Force} \le \text{Magic}$. Every focus is **Force 3** or **Force 4**, strictly $\le 5$ (100% legal at Magic 5!).
+* **Total Bonded Force Limit**: $\text{Force} \le \text{Magic} \times 5$:
+  * **Magic 5**: Max Bonded Force is **25 Force** (*City Edition*). The complete 4-focus suite consumes only **15 / 25 Force**, leaving 10 Force of headroom!
+  * **Magic 6**: Max Bonded Force is **30 Force** (Count $\le 6$). Allows adding a 5th focus (e.g. Force 4 Electronics Qi Focus, totaling 19 / 30 Force).
+  * **Magic 7**: Max Bonded Force is **35 Force** (Count $\le 7$).
+  * **Magic 8**: Max Bonded Force is **40 Force** (Count $\le 8$). At Magic 8, pairs of Force 4 Qi Foci can optionally be consolidated into single Force 8 foci if focus slot count becomes constrained.
 
 ---
 
@@ -472,7 +564,7 @@ As an in-play operational milestone, the adept retains the **Deltaware Cyberjack
 * Initiate Grade: **1** (Metamagic: **Quickening**)
 * Final Essence: **`{python} Essence`**
 * Free Spells: **Increase Reflexes**, **Increase Attribute**
-* Affiliation: **Turgan Magnu** (C5 / L4 Coven)
+* Affiliation: **Order of the Redhawk** (Seattle University Conclave C7 / L8)
 * Remaining Unspent Contact Points: **`{python} Contact_Points`**
 * Remaining Pocket Cash: **`{python} Nuyen`¥**
 * Remaining Customization Karma: **`{python} Karma` Karma**
@@ -481,10 +573,10 @@ As an in-play operational milestone, the adept retains the **Deltaware Cyberjack
 
 ## Starting Operational Pools
 
-* **Astral**: Sorcery (3) + LOG (12 via Increase Attribute) = 15d6 | Conjuring (6) + MAG (5) = 11d6
-* **Matrix**: Cracking/Electronics (5) + LOG (12) + Brilliant Heuristics (3) + Cyberjack R1 = 20d6
-* **Physical**: Firearms/Stealth/Athletics: Skillwires (3) + AGI (3) + Smartlink (2) = 8d6
-* **Social**: Influence (2) + CHA (2) + Command Voice / Presence (2) = 8d6
+* **Astral / Spellcasting**: Spellcasting: Sorcery (3) + Spec: Spellcasting (2) + Improved Ability: Sorcery (3) + MAG (5) = 13d6 (16d6 w/ Power Focus, 17d6 w/ Qi Focus) | Conjuring: Skill (6) + Improved Ability: Conjuring (2 with Wise Warrior) + MAG (5) = 13d6 (18d6 w/ Foci) | Hermetic Drain: WIL (5) + LOG (12 via Increase Attribute) = 17d6 (4 bought hits)
+* **Matrix**: Cracking/Electronics (5) + LOG (12) + Brilliant Heuristics (2) + Cyberjack R1 = 19d6 (or 20d6 with wireless skillwire bonus)
+* **Physical**: Firearms/Stealth/Athletics: Skillwires Activesoft (5) + AGI (3) = 8d6
+* **Social**: Con/Influence: Skillwires Activesoft (5) + CHA (2) + 1 wireless = 8d6 (or natural Influence 4d6)
 * **Defense**: REA (2) + INT (7 via Increase Attribute) = 9d6
-* **Initiative**: 4d6 (Increase Reflexes, 2 Major Actions)
-* **Edge Engine**: Analytical Mind (+1 free Edge on Logic tests) + Brilliant Heuristics
+* **Initiative**: 4d6 (Increase Reflexes, 2 Major Actions via Quickening)
+* **Edge Engine**: Brilliant Heuristics (calibrated Matrix tests) + Wise Warrior (+1 Edge discount on Combat spells and Influence tests) + Analytical Mind (planned post-initiations)

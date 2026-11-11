@@ -454,8 +454,8 @@ def test_magic_and_social_action_pools_and_tables():
 
     # Enhanced mode (Default)
     magic_pools_enh = ModifierEngine.get_magic_action_pools(char, enhanced=True)
-    assert magic_pools_enh["spellcasting"].total_pool == 17  # Sorcery 5 + Wise Warrior 1 + MAG 6 + Focus 3 + Spec (Spellcasting) 2 = 17d6 (4 Hits)
-    assert magic_pools_enh["spellcasting"].bought_hits == 4
+    assert magic_pools_enh["spellcasting"].total_pool == 15  # Sorcery 5 + Wise Warrior 1 + MAG 6 + Focus 3 = 15d6 (3 Hits)
+    assert magic_pools_enh["spellcasting"].bought_hits == 3
     assert magic_pools_enh["drain_resistance"].total_pool == 23  # WIL 9 + CHA 14 = 23d6 (5 Hits)
     assert magic_pools_enh["drain_resistance"].bought_hits == 5
     assert "channeling" in magic_pools_enh
@@ -504,14 +504,14 @@ def test_magic_and_social_action_pools_and_tables():
     assert "Channeled Task Spirit" in strategy_table
     assert "Universal Anchor 1 (Cast First)" in strategy_table
     assert "Channeled Influence Power" in strategy_table
-    assert "**23d6**" in strategy_table
+    assert "**21d6**" in strategy_table
     assert "**18d6**" in strategy_table
     assert "Concealment: -6" in strategy_table
     assert "Wound Tolerance**: Ignore 5 boxes" in strategy_table
     assert "granting **+2 to all physical attributes**" in strategy_table
     assert "**REA 6**" in strategy_table
-    assert "**9 + 5D6**" in strategy_table
-    assert "Channeled Electronics**: **12d6**" in strategy_table
+    assert "**9 + 4D6**" in strategy_table
+    assert "Channeled Electronics**: **11d6**" in strategy_table
 
 
 def test_tactical_action_pools_and_tables_union():

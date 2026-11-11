@@ -255,7 +255,10 @@ def audit_character_missions(char_id: str) -> Dict[str, Any]:
             "char_id": char_id,
             "valid": True,
             "errors": [],
-            "warnings": [f"No character_log.qmd found for {char_id}."]
+            "warnings": [f"No character_log.qmd found for {char_id}."],
+            "total_missions": 0,
+            "srm_count": 0,
+            "cmp_count": 0
         }
 
     log_data = parse_character_missions_log(log_path)

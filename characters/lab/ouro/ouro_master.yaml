@@ -1,0 +1,166 @@
+identity:
+  id: ouro
+  handle: Ouro
+  karma: 0
+  lifetime_karma: 0
+  nuyen: 0
+  lifetime_nuyen: 0
+  heat: 0
+attributes:
+  body: 5
+  agility: 5
+  reaction: 1
+  strength: 1
+  willpower: 5
+  logic: 4
+  intuition: 7
+  charisma: 4
+  edge: 4
+  magic: 0
+  resonance: 5
+  essence: 5.01
+qualities:
+  positive:
+  - name: Natural Hacker
+    ref: natural_hacker
+  - name: Designer
+    ref: designer
+  - name: Sourceror
+    ref: sourceror
+  - name: Pilot Origins
+    ref: pilot_origins
+    rating: 3
+  - name: Sensor Upgrade
+    ref: sensor_upgrade
+  - name: Photographic Memory
+    ref: photographic_memory
+  negative:
+  - name: Sprite Bane
+    ref: sprite_bane
+    choice: primal
+  - name: Injury Prone
+    ref: injury_prone
+  - name: Glitchy
+    ref: glitchy
+  - name: Honorbound
+    ref: honorbound
+  - name: Hooder
+    ref: hooder
+    rating: 3
+skills:
+- name: Tasking
+  id: tasking
+  rating: 6
+  attribute: Resonance
+- name: Electronics
+  id: electronics
+  rating: 5
+  attribute: Logic
+  specialization: Complex Forms
+  specializations:
+  - Complex Forms
+- name: Cracking
+  id: cracking
+  rating: 5
+  attribute: Logic
+modifiers:
+- id: resonance_focus
+  name: Resonance Focus
+  target: attribute:resonance
+  value: 4
+  type: focus
+  sub_skill: null
+  rule_anchor: rules/rules_matrix.html#foci
+  notes: +4 dice to tests using RES
+  enabled: true
+complex_forms:
+- name: Attack Attribution
+  ref: attack_attribution
+  fading: Hits
+  duration: Sustained
+  target: Persona
+  notes: Target gains Attack attribute equal to hits on Electronics + RES test.
+- name: Sleaze Attribution
+  ref: sleaze_attribution
+  fading: Hits
+  duration: Sustained
+  target: Persona
+  notes: Target gains Sleaze attribute equal to hits on Electronics + RES test.
+- name: Enlighten Automaton
+  ref: enlighten_automaton
+  fading: 4
+  duration: Sustained
+  target: Piloted Device
+  notes: Increase Pilot or Sensors of device by 1 per 2 net hits.
+- name: Hyperthreading
+  ref: hyperthreading
+  fading: 3
+  duration: Immediate
+  target: Persona
+  notes: Allows simultaneous threading of multiple complex forms in a single action.
+- name: Machine Merge
+  ref: machine_merge
+  fading: 4
+  duration: Sustained
+  target: Piloted Device
+  notes: Grants +1 bonus die per 2 hits to Piloting, Engineering, and defense tests
+    while jumped in.
+meta_echoes: &id001
+- name: Sprite Conduit
+  ref: sprite_conduit
+  notes: ''
+- name: Sprite Symbiosis
+  ref: sprite_symbiosis
+  notes: ''
+echoes: *id001
+knowledge_skills:
+- name: Mindspeech
+  rating: 4
+  level: Native
+  is_native: true
+  is_linguasoft: false
+  notes: Direct DI/Resonance ideation and machine concept syntax
+- name: English
+  rating: 5
+  level: Linguasoft
+  is_native: false
+  is_linguasoft: true
+  notes: Slotted Linguasoft
+- name: Resonance Realms
+  rating: null
+  notes: Deep Matrix cartography, Nous currents, and emergent fauna
+- name: Garmonbozia
+  rating: null
+  notes: Local Knowledge, Political Awareness, DI culture
+- name: New Orleans Matrix Topology
+  rating: null
+  notes: Bayou wild hosts, Gulf relay nodes, and delta fiber trunks
+- name: Small Unit Tactics
+  rating: null
+  notes: Tactical protocols
+contacts: {}
+reputation: {}
+total_reputation: 0
+drones:
+- name: Nurse MAID Anthro Drone
+  ref: nurse_maid
+  handling: 3
+  handling_off_road: 4
+  speed: 15
+  accel: 5
+  body: 8
+  armor: 6
+  pilot: 4
+  sensor: 3
+weapons: []
+armors: []
+matrix_devices: []
+gear: []
+cyberware: []
+activesofts: []
+sprite_powers: []
+sins: []
+licenses: []
+living_persona: {}
+synergies: {}
+exceptions: []

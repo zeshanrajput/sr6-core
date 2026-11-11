@@ -54,7 +54,6 @@ KNOWN_CHAR_ALIASES = {
 QUALITY_CHOICE_UUIDS = {
     "exceptional_attribute": "4096584c-eb76-49b2-be6b-1a6c0ca9e50a",
     "metagenetic_attribute_improvement": "dbb18bb4-89a4-4435-bede-3077ee600bc5",
-    "allergy": "794d4562-8ca6-4958-81df-cf3cee81087d",
     "sprite_bane": "75f01ecc-60f3-4b5b-98de-c80008ebffec",
     "mentor_spirit": "b69f8371-fa0e-435c-b344-8fc6d64e1fb3",
     "spirit_affinity": "e19ecf4c-1508-406e-9a40-70cf09907bc3",
@@ -62,7 +61,18 @@ QUALITY_CHOICE_UUIDS = {
     "sprite_affinity": "c073da22-050d-4349-8c6c-3519c2a7368d",
     "mutation": "da192302-8f07-41a6-8b7c-e795aff64fcd",
     "paragon": "b69f8371-fa0e-435c-b344-8fc6d64e1fb3",
+    "honorbound": "428282c1-c1d2-4d42-94e1-6f5cb5febf2b",
+    "in_debt": "3011a0ca-1cc5-4ca1-b046-0870a282c3be",
+    "dependents": "b22770d5-de1c-40ed-89ba-a858efa86710",
+    "prejudiced": "2310ce02-abc3-4d23-b833-b5f5d68c3f21",
+    "addiction": "b7a6a592-e334-43a2-adf4-d92fb59de8cd",
+    "social_stress": "93911833-2a2c-418b-b610-4894779879bf",
+    "elemental_resistance": "b60de552-82ee-470d-b7e6-26a2f46c17b8",
 }
+
+ALLERGY_ALLERGEN_CHOICE_UUID = "55a6dda7-7565-4108-9a04-65b7607081df"
+ALLERGY_SEVERITY_CHOICE_UUID = "b3cd035c-f2c3-4c56-abcd-9a218954d92a"
+ALLERGY_DESCRIPTION_CHOICE_UUID = "6a8484c5-043d-4ec7-bbb2-f56d3c51f72b"
 
 # CommLink 6 Mentor Spirits that grant an adept power requiring a choice, but lack default decisions in mentorspirits.xml:
 # - wise_warrior: improved_ability_combat (UUID 97fb1dcd-14e4-456c-aad7-17a7bf8cbbae) -> close_combat, firearms, exotic_weapons
@@ -599,6 +609,29 @@ def is_valid_gear_template(ref_str: Optional[str], db_path: str = DEFAULT_DB_PAT
         return True
 
 
+def is_valid_quality_template(ref_str: Optional[str], db_path: str = DEFAULT_DB_PATH) -> bool:
+    """Verifies that a quality reference exists in CommLink 6's ref_qualities catalog."""
+    if not ref_str or ref_str in ["unknown"]:
+        return False
+    if not os.path.exists(db_path):
+        return True
+    try:
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        count_row = cursor.execute("SELECT COUNT(*) FROM ref_qualities").fetchone()
+        if not count_row or count_row[0] < 10:
+            conn.close()
+            return True
+        row = cursor.execute(
+            "SELECT id FROM ref_qualities WHERE id = ? OR lower(id) = ?",
+            (ref_str, ref_str.lower())
+        ).fetchone()
+        conn.close()
+        return row is not None
+    except Exception:
+        return True
+
+
 def _safe_item_list(raw_section: Any) -> list:
     if not raw_section:
         return []
@@ -977,22 +1010,54 @@ def export_commlink_xml(
 
     qualities_el = ET.SubElement(root, "qualities")
     for q in pos_qualities + neg_qualities:
+        q_ref = lookup_canonical_ref(q.get("ref") or q.get("name", ""), "quality", db_path=db_path)
+        if not is_valid_quality_template(q_ref, db_path=db_path):
+            continue
+
         q_el = ET.SubElement(qualities_el, "quality")
         q_el.set("lang", "en")
-        q_ref = lookup_canonical_ref(q.get("ref") or q.get("name", ""), "quality", db_path=db_path)
         q_el.set("ref", q_ref)
         q_el.set("uuid", q.get("uuid") or str(uuid.uuid4()))
         if "rating" in q and int(q["rating"]) > 1:
             q_el.set("value", str(q["rating"]))
-        if "choice" in q:
-            choice_uuid = QUALITY_CHOICE_UUIDS.get(q_ref, str(uuid.uuid4()))
+
+        if q_ref == "allergy":
+            allergen_val = "common"
+            severity_val = "moderate"
+            desc_val = str(q.get("choice") or "Spices").strip()
+            text_to_search = (str(q.get("name", "")) + " " + str(q.get("notes", "")) + " " + str(q.get("choice", ""))).lower()
+            for opt in ["uncommon", "rare", "seasonal", "common"]:
+                if opt in text_to_search:
+                    allergen_val = opt
+                    break
+            for opt in ["extreme", "severe", "moderate", "mild"]:
+                if opt in text_to_search:
+                    severity_val = opt
+                    break
+
+            d1 = ET.SubElement(q_el, "decision")
+            d1.set("choice", ALLERGY_ALLERGEN_CHOICE_UUID)
+            d1.set("value", allergen_val)
+
+            d2 = ET.SubElement(q_el, "decision")
+            d2.set("choice", ALLERGY_SEVERITY_CHOICE_UUID)
+            d2.set("value", severity_val)
+
+            d3 = ET.SubElement(q_el, "decision")
+            d3.set("choice", ALLERGY_DESCRIPTION_CHOICE_UUID)
+            d3.set("value", desc_val)
+        elif q_ref in QUALITY_CHOICE_UUIDS and q.get("choice"):
+            choice_uuid = QUALITY_CHOICE_UUIDS[q_ref]
             dec_el = ET.SubElement(q_el, "decision")
             dec_el.set("choice", choice_uuid)
             raw_choice = str(q["choice"]).strip()
             if q_ref in ["exceptional_attribute", "metagenetic_attribute_improvement"]:
                 raw_choice = raw_choice.upper()
-            elif q_ref == "mentor_spirit":
+            elif q_ref in ["mentor_spirit", "paragon"]:
                 raw_choice = raw_choice.lower().replace(" ", "_")
+            elif q_ref in ["spirit_bane", "spirit_affinity"]:
+                raw_norm = raw_choice.lower().replace(" ", "_")
+                raw_choice = raw_norm if raw_norm.startswith("spirit_") else f"spirit_{raw_norm}"
             dec_el.set("value", raw_choice)
 
             # In CommLink 6, GetModificationsFromMentorSpirits evaluates adept modifications
@@ -1047,9 +1112,11 @@ def export_commlink_xml(
             p_ref = COMMLINK_ADEPT_POWER_MAP.get(p_ref, p_ref)
             if p_ref not in COMMLINK_VALID_ADEPT_POWERS:
                 continue
-            if p_ref in seen_powers and not p.get("allow_multiple"):
+            p_choice_key = str(p.get("choice") or p.get("specification") or p.get("skill") or "")
+            seen_key = (p_ref, p_choice_key) if p_ref in ["improved_ability", "improved_ability_combat", "attribute_boost", "improved_physical_attribute"] else p_ref
+            if seen_key in seen_powers and not p.get("allow_multiple"):
                 continue
-            seen_powers.add(p_ref)
+            seen_powers.add(seen_key)
 
             if powers_el is None:
                 powers_el = ET.SubElement(root, "adeptPowers")

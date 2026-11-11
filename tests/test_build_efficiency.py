@@ -57,11 +57,16 @@ def test_efficiency_evaluations_lab():
     assert ouro_res["obs"]["total"] == 11
     assert ouro_res["is_complete"]
 
-    dal_res = calculate_build_efficiency("dalakitnon_adept")
+    dal_res = calculate_build_efficiency("mad_dalek")
     assert dal_res["tek"] >= 1300
     assert dal_res["obs"]["total"] == 13
     assert dal_res["obs"]["active_planes"] == 4  # 4/4 Planes Active
     assert dal_res["breakdown"]["sustained_spells_dividend"] == 420  # LOG 12, INT 7, 4D6 Reflexes
     assert dal_res["unspent"]["cash"] == 3575
-    assert dal_res["is_complete"]  # Low Lifestyle prepaid (2,000¥), compliant with <= 5,000¥ limit
+    assert dal_res["unspent"]["karma"] == 5
+    assert dal_res["is_complete"]
+
+    # Backward compatibility alias test
+    dal_res_alias = calculate_build_efficiency("dalakitnon_adept")
+    assert dal_res_alias["tek"] == dal_res["tek"]
 

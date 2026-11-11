@@ -198,8 +198,8 @@ def test_velvet_roll20_export():
     assert payload["streetName"] == "Velvet"
     assert payload["name"] == "Kim Jin-Young"
     assert payload["metaType"] == "Elf"
-    assert payload["karma"] == 77
-    assert payload["freeKarma"] == 4
+    assert payload["karma"] == 74
+    assert payload["freeKarma"] == 2
     assert payload["nuyen"] == 18265
     assert payload["initiation"] == 5
     assert payload["reputation"] == 10
@@ -215,7 +215,7 @@ def test_velvet_roll20_export():
     active_skills = {s["id"]: s for s in payload["skills"] if s["id"] not in ("knowledge", "language")}
     assert set(active_skills.keys()) == {"sorcery", "conjuring", "influence", "con"}
     assert active_skills["sorcery"]["rating"] == 5
-    assert active_skills["sorcery"]["specializations"] == [{"name": "Spellcasting", "expertise": False}]
+    assert active_skills["sorcery"]["specializations"] == []
     assert any("Power Focus" in inf for inf in active_skills["sorcery"]["influencedBy"])
 
     languages = [s["name"] for s in payload["skills"] if s["id"] == "language"]
@@ -229,13 +229,11 @@ def test_velvet_roll20_export():
     assert "Wuxing" in knowledges
     assert "East Asian Media" in knowledges
 
-    # Verify spells are deduplicated (3 unique spells, not 6)
-    assert len(payload["spells"]) == 3
+    # Verify spells are deduplicated (2 unique spells)
+    assert len(payload["spells"]) == 2
     spell_names = {sp["name"]: sp for sp in payload["spells"]}
     assert spell_names["Increase Attribute"]["category"] == "Heal spells"
     assert spell_names["Increase Reflexes"]["category"] == "Heal spells"
-    assert spell_names["Physical Barrier"]["category"] == "Manipulation spells"
-    assert spell_names["Physical Barrier"]["range"] == "Line of sight (Area)"
 
     # Verify adept powers & metamagics with full rulebook descriptions
     assert len(payload["adeptPowers"]) == 5

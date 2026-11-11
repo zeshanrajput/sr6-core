@@ -1,0 +1,170 @@
+identity:
+  id: mad_dalek
+  handle: Mad_Dalek
+  karma: 0
+  lifetime_karma: 0
+  nuyen: 0
+  lifetime_nuyen: 0
+  heat: 0
+attributes:
+  body: 2
+  agility: 3
+  reaction: 2
+  strength: 2
+  willpower: 5
+  logic: 8
+  intuition: 3
+  charisma: 2
+  edge: 2
+  magic: 5
+  resonance: 0
+  essence: 4.1
+  power_points: 4.0
+qualities:
+  positive:
+  - name: Brilliant Heuristics
+    ref: brilliant_heuristics
+    rating: 1
+  - name: Mentor Spirit (Wise Warrior)
+    ref: mentor_spirit
+    choice: wise_warrior
+  negative:
+  - name: Allergy (Spices, Moderate)
+    ref: allergy
+    choice: Spices
+  - name: Gender Transmorphism
+    ref: gender_transmorphism
+  - name: Low-Light Vision
+    ref: low-light_vision
+  - name: Honorbound (Pirate's Code)
+    ref: honorbound
+    choice: Pirate's Code
+  - name: Finesse
+    ref: finesse
+  - name: Hooder
+    ref: hooder
+    rating: 2
+  - name: Spirit Bane (Guardian Spirits)
+    ref: spirit_bane
+    choice: guardian
+skills:
+- name: Conjuring
+  id: conjuring
+  rating: 6
+  attribute: Magic
+- name: Sorcery
+  id: sorcery
+  rating: 3
+  attribute: Magic
+  specialization: Spellcasting
+  specializations:
+  - Spellcasting
+- name: Electronics
+  id: electronics
+  rating: 2
+  attribute: Logic
+- name: Cracking
+  id: cracking
+  rating: 2
+  attribute: Logic
+- name: Stealth
+  id: stealth
+  rating: 2
+  attribute: Agility
+- name: Perception
+  id: perception
+  rating: 2
+  attribute: Intuition
+- name: Influence
+  id: influence
+  rating: 2
+  attribute: Charisma
+modifiers: []
+adept_powers:
+- name: 'Improved Ability: Sorcery'
+  ref: improved_ability:_sorcery
+  rating: 3
+  cost: 3.0 PP
+  cost_pp: 3.0
+  action: Passive
+  source: natural
+  notes: Combat skill per SR6 FAQ; stacks with Force 4 Qi Focus for +4 max
+- name: 'Improved Ability: Conjuring'
+  ref: improved_ability:_conjuring
+  rating: 1
+  cost: 1.0 PP
+  cost_pp: 1.0
+  action: Passive
+  source: natural
+  notes: Combat skill per SR6 FAQ; stacks with Wise Warrior (+1) and Force 4 Qi Foci
+    (+1 each) for +4 max
+metamagic:
+- name: Quickening
+  ref: quickening
+  notes: Allows permanent sustaining of spells without dice pool penalty.
+knowledge_skills: []
+contacts: {}
+reputation: {}
+total_reputation: 0
+drones: []
+weapons: []
+armors:
+- name: Ares SecureTech SkinShield
+  ref: securetech_skinshield
+  defense_rating: 2
+matrix_devices:
+- name: Hermes Chariot
+  ref: hermes_chariot
+  type: cyberdeck
+  device_rating: 2
+  attack: 5
+  sleaze: 4
+  programs:
+  - browse
+  - configurator
+  - exploit
+  - stealth
+- name: Transys Avalon
+  ref: transys_avalon
+  type: commlink
+  device_rating: 6
+gear:
+- name: Savior Medkit (Rating 6)
+  ref: savior_medkit
+  rating: 6
+- name: Nanopaste Disguise Kit
+  ref: nanopaste_disguise_kit
+- name: Contacts (Rating 3 w/ Flare Comp, Image Link, Low-Light Vision)
+  ref: contacts
+  rating: 3
+cyberware:
+- name: Cyberjack (Rating 1)
+  ref: cyberjack
+  rating: 1
+  grade: alphaware
+  essence: 0.8
+- name: Skilljack (Rating 5)
+  ref: skilljack
+  rating: 5
+  grade: used
+  essence: 0.6
+- name: Skillwires (Rating 5)
+  ref: skillwires
+  rating: 5
+  grade: used
+  essence: 0.5
+activesofts:
+- name: 'Activesoft: Firearms'
+  ref: soft_firearms
+  rating: 5
+  skill: firearms
+- name: 'Activesoft: Electronics'
+  ref: soft_electronics
+  rating: 5
+  skill: electronics
+sprite_powers: []
+sins: []
+licenses: []
+living_persona: {}
+synergies: {}
+exceptions: []
