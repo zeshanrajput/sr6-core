@@ -13,11 +13,11 @@ Under *SRM Guide v2.4* (pp. 17–20), downtime actions between missions are stri
 * **Mainline SRM Missions:** Grant **1 Major + 1 Minor** Action (or **3 Minor Actions** if taking no Major).
 * **Convention Mission Packs (CMPs):** Grant **2 Minor Actions only** (no Major Action; Submersion cannot be performed post-CMP).
 * **Strict Priority Hierarchy (Execute in order upon run completion):**
-  1. **Submersion (Major Action):** Consumes the Major Action when Karma (19K) and narrative criteria are met. Submersion grade cannot exceed current Resonance.
+  1. **Submersion (Major Action):** Consumes the Major Action when Karma (15K at River People Loyalty 4 floor, $10 + \text{target} - \text{loyalty}$) and narrative criteria are met. Submersion grade cannot exceed current Resonance. *(Note: CMPs grant 2 Minor Actions only; Submersion cannot be performed post-CMP, but triggers post-SRM).*
   2. **Work for the People (Minor Action):** Non-negotiable conversion of **¥2,000 $\rightarrow$ +1 Karma** (once per run cycle; funded by mission payout).
   3. **Hardware Installation & Repairs (Minor Action):** Repair chassis damage or install queued cyberarms/modifications via DIY sweat equity. Installation only triggers when reaching a financial milestone with an active item on the Nuyen backlog (anthrodrone chassis integrity is paramount to Reiko's physical survival). All modifications or repairs can be done on up to 3 drones for a single minor action.
   4. **Register Expiring Sparks (Minor Action):** If any Rating 8 registered spark (*Ouro, Percy, Cleo, Aisling, Étaín*) has reached 0 missions remaining (3-mission SRM limit) or exhausted tasks, spend 1 Minor Action to re-register/compile them (Rating 8 @ 20d6 Compiling pool buys 5 hits, drain-free). *Priority order if multiple expire:* **Ouro** (Diagnostics) $\rightarrow$ **Percy** (Shield) $\rightarrow$ **Cleo** (Modular) $\rightarrow$ **Aisling/Étaín**. *(Note: Ally Sprite Taz is permanent and never requires maintenance).*
-  5. **Learn a Complex Form (Minor Action):** Absorb the next queued complex form (**5 Karma + 1 Minor Action**).
+  5. **Learn a Complex Form (Minor Action):** Absorb a queued complex form (**5 Karma + 1 Minor Action**). *(Note: Sourceror multi-sustain engine is officially abandoned; Reiko preserves her action economy by having her registered sprites sustain select forms when needed).*
   
 ---
 
@@ -29,23 +29,18 @@ All upcoming upgrades are prioritized sequentially below. When logging post-miss
 
 | Step | Target Upgrade | Category | Cost | Downtime Action Required | Primary Tactical / Architectural Role |
 | :---: | :--- | :--- | :---: | :---: | :--- |
-| **01** | **Resonance 8 $\rightarrow$ 9** | Attribute | 45 Karma | None (Between runs) | Unlocks Prime Runner dice pools, +1 all Tasking/Matrix tests, +1 Fade resist. |
-| **02** | **Submersion Grade 9**<br>• *Echo: Hybrid Sprites*<br>• *Dissonant Submersion* | Submersion | 19 Karma | 1 Major Action<br>*(Mainline SRM only)* | *H&S* 67: Decouples cross-sprite compiling (Machine/Courier sprites) from stream.<br>*SC* 84: Opens access to the Dissonance quality path. |
-| **03** | **Stream Transition: Sourceror** | Stream Quality | 20 Karma | None (Between runs) | *H&S* 130–131: Replaces Technoshaman. Unlocks Aspect Peripheral (sustain $\lfloor\text{Submersion}/2\rfloor = \mathbf{4\text{–}5}$ forms with **zero penalties**). |
-| **04** | **Complex Form: Hyperthreading** | Complex Form | 5 Karma | 1 Minor Action (Study) | *H&S* 131: Combine multiple complex forms into a single test/action. Core multi-sustain engine enabler. |
-| **05** | **Quality: Dissonant Technomancer**<br>(Control / Apophenian)<br>• *Offset by Dissonant Stigma* | Positive Quality<br>*(Net -5K Offset)* | 10 Karma net<br>*(15K base - 5K)* | None (Submersion milestone) | *SC* 84, 86–87: Halves Edge costs (round up) on Matrix actions and complex forms targeting **Devices** (anthrodrones, cyberware, turrets). |
-| **06a** | **Complex Form: Dissonance Spike** | Complex Form | 5 Karma | 1 Minor Action (Study) | *SC* 85: Lethal biofeedback + unreductable noise aura. Hyperthreads with *Resonance Spike* or *Cyber Spike*. Subject to the *Composure Sword of Damocles*. |
-| **06b** | **Complex Form: Dissonant Diffusion** | Complex Form | 5 Karma | 1 Minor Action (Study) | *SC* 85: Strips multiple Matrix attributes simultaneously. Hyperthreads with *Diffusion: Firewall*. Subject to the *Composure Sword of Damocles*. |
-| **07a** | **Complex Form: Enhance Autosofts** | Complex Form | 5 Karma | 1 Minor Action (Study) | *H&S* 64: [Slot 1] +3 dice pool bonus to all autosofts on Man-at-Arms chassis. |
-| **07b** | **Complex Form: Infusion (DP)** | Complex Form | 5 Karma | 1 Minor Action (Study) | *CRB* 190: [Slot 3] Living Persona DP 7 $\rightarrow$ 9 (uncaps Rating 9 autosofts without Karma buys). |
-| **07c** | **Complex Form: Infusion (Firewall)** | Complex Form | 5 Karma | 1 Minor Action (Study) | *CRB* 190: [Slot 3] Living Persona Firewall 9 $\rightarrow$ 11. |
-| **07d** | **Complex Form: Attack Attribution** | Complex Form | 5 Karma | 1 Minor Action (Study) | *H&S* 62: [Slot 2] Replaces weak base Attack (3) with rolled hits (6–8). |
-| **07e** | **Complex Form: Infusion (Sleaze)** | Complex Form | 5 Karma | 1 Minor Action (Study) | *CRB* 190: [Slot 2] Living Persona Sleaze 5 $\rightarrow$ 7–8. |
-| **08** | **Complex Form: Static Bomb** | Complex Form | 5 Karma | 1 Minor Action (Study) | *CRB* 191: Instantly breaks all active locks, traces, and spots in a single action. |
-| **09** | **Resonance 9 $\rightarrow$ 10** | Attribute | 50 Karma | None (Between runs) | Apex Resonance Capstone. Hard ceiling of current biological/persona evolution. |
-| **10** | **Submersion Grade 10**<br>• *Echo: Living Host* | Submersion | 20 Karma | 1 Major Action<br>*(Mainline SRM only)* | *H&S* 68: Requires *Transcendent Network*. Transforms persona into a Rating 10 Living Host with unlimited virtual architecture.<br>*NV* 51: Adapted by ascended Ladies in Red to seize sovereign space within Resonance/Dissonance Realms. Enables the Lucifer Morningstar apotheosis. |
-| **11** | **Quality: Jack Jockey** | Positive Quality | 11 Karma | None (Between runs) | *H&S* 82: Direct connection denies defensive Edge, bypasses external PAN firewalls, and allows powering on cold devices. |
-| **12** | **Electronics Spec: Computers** | Specialization | 5 Karma | None (Between runs) | *DEFERRED BACKLOG:* +2 Matrix Perception & Search (19d6 / 21d6 w/ Oracle R4). Pushed down post-Ch 33. |
+| **01** | **Resonance 8 $\rightarrow$ 9** | Attribute | 45 Karma | None (Between runs post-SRM 2083-13) | Unlocks Prime Runner pools. Through *Natural Hacker* (substituting RES for mental attributes on Matrix actions) and *Override* (substituting RES for device pilot rating), this single point reverberates across nearly every pool she possesses! +1 Fading resist (14d6), +1 all Tasking tests. |
+| **02** | **Submersion Grade 9**<br>• *Echo: Hybrid Sprites*<br>• *Connect with Dissonance* | Submersion | 15 Karma | 1 Major Action<br>*(Post-SRM 2083-13)* | *H&S* 67: Decouples compiling hybrid sprites (Machine/Courier sprites) from stream.<br>*SC* 84: Opens access to the Dissonance quality path. Calculated as $10 + 9 - 4\text{ (River People L4 floor)} = 15\text{ Karma}$. |
+| **03** | **Quality: Dissonant Technomancer**<br>(Control / Apophenian) | Positive Quality | 30 Karma | None (Post-SRM 2083-13 milestone) | *SC* 84–85 / *SRMG* 37: 15 base $\times 2 = 30\text{ Karma}$ post-chargen. Halves Edge cost (-1 Edge) on Matrix actions and complex forms targeting **Devices** (anthrodrones, vehicles, cyberware, weapons). Grants a **wild die** on device actions and reduces fading by wild hits. Subject to the *Composure Sword of Damocles*. |
+| **—** | **POST-SRM 2083-13 TRIPLE SPEND** | **MILESTONE** | **90 Karma** | **1 Major Action** | **Total immediate apotheosis funded by 76 Karma banked + ~14 Karma earned across CMP 2083-07 & SRM 2083-13.** |
+| **04** | **Quality: Dissonance Negative Qualities**<br>• *Dissonant Stigma* (-5K)<br>• *Dissonance Static* (-6K) | Negative Quality | -5K to -11K net | None (Subsequent runs) | *SC* 86–87 / *SRMG* 37: Dissonance negative qualities offset positive post-chargen Karma costs, funding future complex form acquisitions. |
+| **05a** | **Complex Form: Dissonance Diffusion** | Complex Form | 5 Karma | 1 Minor Action (Study) | *SC* 85: Strips multiple Matrix attributes simultaneously. Offset by Dissonance negative qualities. Subject to the *Composure Sword of Damocles*. |
+| **05b** | **Complex Form: Dissonance Spike** | Complex Form | 5 Karma | 1 Minor Action (Study) | *SC* 85: Lethal biofeedback + unreductable noise aura targeting devices. Subject to the *Composure Sword of Damocles*. |
+| **06** | **Complex Form: Static Bomb** | Complex Form | 5 Karma | 1 Minor Action (Study) | *CRB* 191: Instantly breaks all active locks, traces, and spots in a single action. |
+| **07** | **Resonance 9 $\rightarrow$ 10** | Attribute | 50 Karma | None (Between runs) | Apex Resonance Capstone. Hard ceiling of current biological/persona evolution. |
+| **08** | **Submersion Grade 10**<br>• *Echo: Living Host* | Submersion | 16 Karma | 1 Major Action<br>*(Mainline SRM only)* | *H&S* 68: Requires *Transcendent Network*. Transforms persona into a Rating 10 Living Host with unlimited virtual architecture.<br>*NV* 51: Adapted by ascended Ladies in Red to seize sovereign space within Resonance/Dissonance Realms. Enables the Lucifer Morningstar apotheosis. Cost: $10 + 10 - 4 = 16\text{ Karma}$. |
+| **09** | **Quality: Jack Jockey** | Positive Quality | 11 Karma | None (Between runs) | *H&S* 82: Direct connection denies defensive Edge, bypasses external PAN firewalls, and allows powering on cold devices. |
+| **10** | **Electronics Spec: Computers** | Specialization | 5 Karma | None (Between runs) | *DEFERRED BACKLOG:* +2 Matrix Perception & Search (20d6 / 22d6 w/ Oracle R4). Pushed down post-Ch 33. |
 
 ---
 
@@ -119,12 +114,26 @@ Liquid Nuyen earned from runs is dedicated to the **Twin Synthetic Cyberarm & Co
 
 ---
 
-### B. Sourceror 5-Sustain Matrix Engine Blueprint
+### B. Apophenian Dissonant Control & Resonance 9 Architecture
 
-As a Sourceror (*Hack & Slash*, pp. 130–131) at Submersion Grade 8–10, Reiko’s Aspect Peripheral sustains up to $\lfloor\text{Submersion}/2\rfloor$ (**4 to 5 complex forms simultaneously with ZERO dice pool penalties**), using **Hyperthreading** to execute stacked forms in a single action:
+Abandoning the generic multi-sustain *Sourceror* path preserves Reiko's unique identity as an incarnate Technoshaman while unlocking the devastating synergy between **Resonance 9**, **Echo: Hybrid Sprites**, and **Apophenian Dissonant Control**:
 
-1. **Slot 1 (Chassis Combat & Drone Dominance):** *Enhance Autosofts* + *Enlighten Automaton* (Hyperthreaded on Shiawase Man-at-Arms). +2 Sensors, +1 Pilot, and **+3 dice to all autosofts** (Rating 9 autosofts roll at **12 dice**). Drain is shunted to registered sprites via *Sprite Link*.
-2. **Slot 2 (Matrix Offense & Sleaze Infiltration):** *Attack Attribution* + *Infusion (Sleaze)*. Overcomes weak baseline ratings by replacing Attack with rolled hits (**Attack 6–8**) and pushing Sleaze from 5 $\rightarrow$ **7–8**.
-3. **Slot 3 (Living Persona Hardening):** *Infusion (Data Processing)* + *Infusion (Firewall)*. Pushes DP from 7 $\rightarrow$ **9** (fully uncapping Rating 9 autosofts without Karma buys) and Firewall from 9 $\rightarrow$ **11**.
-4. **Slot 4 (Operational Stealth Curtain):** *Sustain Phantom*. Conceals persona icon from matrix search; detection threshold equals rolled hits.
-5. **Slot 5 (Free Combat / Utility Wildcard):** Reserved for dynamic tactical forms: *Puppeteer*, *Resonance Wires*, *Diffusion (Firewall)*, *Dissonance Spike*, or *Static Bomb*.
+1. **The Resonance 9 Reverberation Engine:**
+   * **Natural Hacker (*Hack & Slash*, p. 68):** Reiko substitutes Resonance for Logic, Intuition, Charisma, and Willpower on all Matrix actions. Moving to Resonance 9 pushes all operational pools:
+     * *Cracking (Cybercombat / Electronic Warfare):* Cracking 6 + RES 9 + Spec 2 = **17d6** (19d6 in Hot-Sim, 21d6 with Resonance Focus R2).
+     * *Electronics (Matrix Perception / Software):* Electronics 6 + RES 9 + Spec 2 = **17d6** (21d6 with Oracle R4).
+     * *Tasking (Compiling / Registering):* Tasking 6 + RES 9 + Spec 2 = **17d6** (buys 4–5 hits cleanly; enables compiling Level 9 sprites).
+     * *Fading Resistance:* WIL 5 + RES 9 = **14 dice** against all Drain.
+   * **Override (*Hack & Slash*, p. 69):** Reiko substitutes Resonance for device Pilot ratings when commanding or jumping into vehicles and drones. Her Shiawase Man-at-Arms *Goshintai* flight, maneuvering, and gunnery pools scale directly from her heightened Resonance.
+
+2. **Apophenian Paragon & Control Stream Mechanics (*Shadow Cast*, pp. 79, 84–85 / *SRMG*, p. 37):**
+   * **Preferred Target Category: Devices:** Binds the Dissonant scalpel strictly to hardware (anthrodrones, vehicles, cyberware, smartlinks, weapon systems, turrets) rather than organic metahuman minds.
+   * **Edge Cost Reduction:** Halves Edge costs (-1 Edge per *SRMG-0192*) on Matrix actions and Complex Forms targeting Devices.
+   * **Wild Die & Fading Relief:** Adds a **wild die** to all device-targeting actions (granting bonus hits) and **reduces Fading damage by the number of hits rolled on the wild die**.
+   * **The Tabletop Sword of Damocles:** Whenever tasking Dissonance at the table, roll Composure (10d6). A Glitch permanently triggers her ascension to Human Malice as its Sovereign Pontifex and Healer.
+
+3. **Hybrid Sprites Integration (*Hack & Slash*, p. 67):**
+   * Decouples sprite compiling from stream restrictions. Reiko can compile and register:
+     * **Machine Sprites:** Run *Diagnostics* on the *Goshintai*, granting massive teamwork dice bonuses and threshold reductions to hardware handling, engineering, and repairs.
+     * **Courier Sprites:** Provide untraceable, air-gapped data transfers between the physical sprawl and `~`.
+   * Sustained complex forms are outsourced to registered sprites via *Sprite Link*, preserving Reiko's personal action economy without requiring Sourceror sustain slots.
