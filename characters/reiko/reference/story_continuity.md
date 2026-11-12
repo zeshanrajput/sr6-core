@@ -44,6 +44,7 @@ All narrative outlines, intersession chapters, and character development arcs ad
 | **Roanoke** | `Tier 1` | NOLA Bayou Smuggler & Swamp Pilot / Somatic Anvil | [26](file:///c:/GitHub/sr6-core/characters/reiko/narrative/26%20SIGTSTP.md), [30](file:///c:/GitHub/sr6-core/characters/reiko/narrative/30%20Vim.md) |
 | **Rei (Suzuki Ken)** | `Tier 0` | Fellow Runner PC / Blade Adept / Reiko's *Oniisama* | [rei_suzuki.md](file:///c:/GitHub/sr6-core/characters/reiko/reference/rei_suzuki.md), [I01](file:///c:/GitHub/sr6-core/characters/reiko/narrative/I01.md), [I02](file:///c:/GitHub/sr6-core/characters/reiko/narrative/I02.md), [I03](file:///c:/GitHub/sr6-core/characters/reiko/narrative/I03.md), [I04](file:///c:/GitHub/sr6-core/characters/reiko/narrative/I04.md) |
 | **Takahashi Satomi** | `Tier 3` | Surviving biological daughter of Takahashi Koichi / Renraku computationalist (*Oba* to Aisling & Étaín) | [I04](file:///c:/GitHub/sr6-core/characters/reiko/narrative/I04.md) |
+| **Hliang Win** | `Tier 1` Macro | Burmese Foreign Minister / Executive President following the Khin U coup (Connection 6, Loyalty 1, +1 FP). High-level sovereign government contact in Southeast Asia. | CMP 2083-07 |
 | **Shiawase Man-at-Arms (`Goshintai`)** | `Chassis` | Consecrated Physical Vessel; customized anthrodrone with internal pop-out lasers, Tesla arm, vector thrust (LAV) propulsion, and scapular wing spars | [08](file:///c:/GitHub/sr6-core/characters/reiko/narrative/08%20Abandoning%20Tourism.md), [12](file:///c:/GitHub/sr6-core/characters/reiko/narrative/12%20Defrag.md), [26](file:///c:/GitHub/sr6-core/characters/reiko/narrative/26%20SIGTSTP.md), [30](file:///c:/GitHub/sr6-core/characters/reiko/narrative/30%20Vim.md), [31](file:///c:/GitHub/sr6-core/characters/reiko/narrative/31%20Grep.md), [32](file:///c:/GitHub/sr6-core/characters/reiko/narrative/32%20Whois.md), [33](file:///c:/GitHub/sr6-core/characters/reiko/narrative/33%20Code%20Freeze.md), [34](file:///c:/GitHub/sr6-core/characters/reiko/narrative/34%20Latency.md) |
 | **Nissan Samurai & MCT Butler** | `Archive` | Historical Archive Shells; completely decommissioned and abandoned in *Chapter 30 (Vim)* | [08](file:///c:/GitHub/sr6-core/characters/reiko/narrative/08%20Abandoning%20Tourism.md) |
 
@@ -100,12 +101,16 @@ All narrative outlines, intersession chapters, and character development arcs ad
 | [33 Code Freeze.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/33%20Code%20Freeze.md) | 33. Code Freeze | 3,248 | Verified |
 | [34 Latency.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/34%20Latency.md) | 34. Latency | 2,967 | Verified |
 | [35 ptrace.md](file:///c:/GitHub/sr6reiko/chapters/35 ptrace.md) | 35. ptrace | 2,187 | Verified |
+| [36 chown.md](file:///c:/GitHub/sr6reiko/chapters/36 chown.md) | 36. chown | 2,168 | Verified |
+| [37 dev-null.md](file:///c:/GitHub/sr6reiko/chapters/37 dev-null.md) | 37. /dev/null | 2,627 | Verified |
 
-**Total Anthology Word Count:** 66,564 words across 35 chapters.
+**Total Anthology Word Count:** 71,359 words across 37 chapters.
 
 ## Latest Story beats
 
 > **Macro-Trajectory Keystone Note:** Chapter 30 (*Vim*) is the structural and philosophical keystone of the New Orleans arc. It completes the three-act Roanoke Triptych (*T'In'Abula* mortality $\rightarrow$ *26 SIGTSTP* unmasking $\rightarrow$ *30 Vim* sovereign craft), establishes the Great Inversion (the stock drone is now the cold iron coffin; her scarred Man-at-Arms chassis is living skin), and matures the mother-child dynamic into autonomous partnership. Future narratives build from this settled equilibrium.
+
+* **CMP 2083-07 (*Misplaced Loyalty*):** The Glade sparks completed their first live operational legwork run (claiming locally compiled Burmese virtual t-shirts); Reiko's conversation with Mithral exposed the gulf between physical cyberware acceptance and nous damage (deepening the Ouro codemod dilemma); Yuriko's lightning breath and compassionate triage catalyzed a new "lightning-breathing angel" liberator movement in Burma; Mandalay Icon media archive secured.
 
 ---
 
@@ -113,10 +118,11 @@ All narrative outlines, intersession chapters, and character development arcs ad
 
 * **Taz (Ally Assassin Sprite - Rating 7):** Permanent Companion (Resonant Guardian & Tactical Symbiont; Symbiosis: Cracking, Electronics, Influence, Con)
 * **The Second-Generation Collective (Rating 8 Registered Sprites):**
-  * **Ouro (Rating 8 Machine Sprite):** Registered M15 (1 mission remaining; 1 task expended in M17 / SRM 2081-15; Diagnostics, Override, Clearsight, Evasion)
-  * **Percy (Rating 8 Defender Sprite):** Registered M16 (2 missions remaining; 1 task expended in M17 / SRM 2081-15; Tactical Hardware Guardian; Shield, Stability, Override)
-  * **Cleo (Rating 8 Modular Sprite):** Re-registered during M17 in-session downtime after combat de-res (3 missions remaining; Market Arbitrage Strategist; Cookie, Con, Influence)
-  * **Aisling (Rating 8 Music Sprite) & Étaín (Rating 8 Modular Sprite):** Registered during M17 in-session downtime (3 nights); Glade Twins holding hearth and perimeter in `~` (3 missions remaining; Aisling: Harmonize, Captivate Audience, Shield; Étaín: Phantom [Modular], Suppression, Stability)
+  * **Ouro (Rating 8 Machine Sprite):** (2 missions / tasks remaining; Diagnostics, Override, Clearsight, Evasion)
+  * **Percy (Rating 8 Defender Sprite):** (2 missions / tasks remaining; Tactical Hardware Guardian; Shield, Stability, Override)
+  * **Cleo (Rating 8 Modular Sprite):** (2 missions / tasks remaining; Market Arbitrage Strategist; Cookie, Con, Influence)
+  * **Aisling (Rating 8 Music Sprite):** (2 missions / tasks remaining; Glade Hearth Guardian in `~`; Harmonize, Captivate Audience, Shield)
+  * **Étaín (Rating 8 Modular Sprite):** Re-registered post-CMP 2083-07 downtime (3 tasks remaining; The Skybox Weaver / Phantom [Modular], Suppression, Stability)
 * **Legacy Sprites:** Expired
 * **4Gurds (Floor 281 Pharmaforge Mind):** Allied Industrial Kin (Apothecary Mind)
 
