@@ -132,31 +132,65 @@ def sync_narrative_context(target: str = ".") -> Tuple[Dict[str, Any], Optional[
         in_narrative_log = False
         narrative_chapters_written = False
 
-        i = 0
-        while i < len(q_lines):
-            line = q_lines[i]
-            if re.search(r'part:\s*["\']Narrative Log["\']', line):
-                in_narrative_log = True
-                new_q_lines.append(line)
-                i += 1
-                if i < len(q_lines) and re.search(r'^\s*chapters:', q_lines[i]):
-                    new_q_lines.append(q_lines[i])
-                    indent = "        "
-                    for cm in chapters_meta:
-                        new_q_lines.append(f"{indent}- {dir_rel_name}/{cm['filename']}")
-                    narrative_chapters_written = True
+        has_narrative_log = any(re.search(r'part:\s*["\']Narrative Log["\']', l) for l in q_lines)
+
+        if has_narrative_log:
+            i = 0
+            while i < len(q_lines):
+                line = q_lines[i]
+                if re.search(r'part:\s*["\']Narrative Log["\']', line):
+                    in_narrative_log = True
+                    new_q_lines.append(line)
                     i += 1
-                    # Skip existing chapter entries under narrative log
-                    while i < len(q_lines) and re.match(r'^\s*-\s+' + re.escape(dir_rel_name) + r'/', q_lines[i]):
+                    if i < len(q_lines) and re.search(r'^\s*chapters:', q_lines[i]):
+                        new_q_lines.append(q_lines[i])
+                        indent = "        "
+                        for cm in chapters_meta:
+                            new_q_lines.append(f"{indent}- {dir_rel_name}/{cm['filename']}")
+                        narrative_chapters_written = True
                         i += 1
-                    continue
-            elif in_narrative_log and re.search(r'^\s*-\s*part:', line):
-                in_narrative_log = False
-                new_q_lines.append(line)
-                i += 1
+                        # Skip existing chapter entries under narrative log
+                        while i < len(q_lines) and re.match(r'^\s*-\s+' + re.escape(dir_rel_name) + r'/', q_lines[i]):
+                            i += 1
+                        continue
+                elif in_narrative_log and re.search(r'^\s*-\s*part:', line):
+                    in_narrative_log = False
+                    new_q_lines.append(line)
+                    i += 1
+                else:
+                    new_q_lines.append(line)
+                    i += 1
+        else:
+            # Support multi-part layouts (e.g., "Out-of-Session Narratives") by appending missing chapters
+            existing_q_files = set()
+            for l in q_lines:
+                m = re.match(r'^\s*-\s+' + re.escape(dir_rel_name) + r'/(.+?)\s*$', l)
+                if m:
+                    existing_q_files.add(m.group(1))
+
+            missing_q_chapters = [cm for cm in chapters_meta if cm["filename"] not in existing_q_files]
+            if missing_q_chapters:
+                i = 0
+                in_target_part = False
+                while i < len(q_lines):
+                    line = q_lines[i]
+                    new_q_lines.append(line)
+                    if re.search(r'part:\s*["\']Out-of-Session Narratives["\']', line):
+                        in_target_part = True
+                    elif in_target_part and re.match(r'^\s*-\s+' + re.escape(dir_rel_name) + r'/', line):
+                        # Check if next line leaves the chapter list
+                        next_is_entry = (i + 1 < len(q_lines)) and re.match(r'^\s*-\s+' + re.escape(dir_rel_name) + r'/', q_lines[i + 1])
+                        if not next_is_entry:
+                            indent = line[:len(line) - len(line.lstrip())]
+                            for cm in missing_q_chapters:
+                                new_q_lines.append(f"{indent}- {dir_rel_name}/{cm['filename']}")
+                            narrative_chapters_written = True
+                            in_target_part = False
+                    elif in_target_part and re.search(r'^\s*-\s*part:', line):
+                        in_target_part = False
+                    i += 1
             else:
-                new_q_lines.append(line)
-                i += 1
+                new_q_lines = q_lines
 
         if narrative_chapters_written:
             quarto_file.write_text("\n".join(new_q_lines) + "\n", encoding="utf-8")

@@ -137,7 +137,7 @@ Run the narrative context synchronizer to wire the chapter into the web book and
 uv run sr6 story sync <char_id>
 ```
 Automatically updates:
-1. **`characters/<id>/_quarto.yml`**: Registers the chapter under `part: "Narrative Log"`.
+1. **`characters/<id>/_quarto.yml`**: Registers the chapter under `part: "Narrative Log"` or `part: "Out-of-Session Narratives"`.
 2. **`characters/<id>/index.qmd`**: Appends the chapter under `### 2. Background & Campaign Narratives`.
 3. **`characters/<id>/reference/story_continuity.md`**:
    - Updates contact appearances in Section 1.
