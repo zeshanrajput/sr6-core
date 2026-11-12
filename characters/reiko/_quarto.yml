@@ -66,6 +66,7 @@ book:
         - narrative/33 Code Freeze.md
         - narrative/34 Latency.md
         - narrative/35 ptrace.md
+        - narrative/36 chown.md
     - part: "Inter-Session Interludes"
       chapters:
         - narrative/I01.md
