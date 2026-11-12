@@ -464,28 +464,32 @@ def export_quick_sheet(
 
     # 4. Key Qualities
     sheet.append(_sub_header("KEY QUALITIES"))
-    q_list = []
+    q_entries = []
     if isinstance(qualities, dict):
         for k, v in qualities.items():
+            sign = "-" if str(k).lower() == "negative" else "+"
             if isinstance(v, list):
-                q_list.extend(v)
+                for q in v:
+                    q_name = (q.get("name") or q.get("ref") or "Quality") if isinstance(q, dict) else str(q)
+                    q_entries.append((sign, q_name))
             elif isinstance(v, dict):
-                q_list.extend(v.keys())
+                for qk in v.keys():
+                    q_entries.append((sign, str(qk)))
             else:
-                q_list.append(k)
+                q_entries.append((sign, str(k)))
     elif isinstance(qualities, list):
-        q_list = qualities
+        for q in qualities:
+            q_name = (q.get("name") or q.get("ref") or "Quality") if isinstance(q, dict) else str(q)
+            q_entries.append(("+", q_name))
 
-    q_names = []
-    for q in q_list:
-        if isinstance(q, dict):
-            q_names.append(q.get("name") or q.get("ref") or "Quality")
-        elif isinstance(q, str):
-            q_names.append(q)
-
-    for idx in range(0, min(len(q_names), 6), 2):
-        left = f"+ {q_names[idx]}"[:34]
-        right = f"+ {q_names[idx+1]}"[:34] if idx + 1 < len(q_names) else ""
+    for idx in range(0, min(len(q_entries), 12), 2):
+        s_l, n_l = q_entries[idx]
+        left = f"{s_l} {n_l}"[:34]
+        if idx + 1 < len(q_entries):
+            s_r, n_r = q_entries[idx + 1]
+            right = f"{s_r} {n_r}"[:34]
+        else:
+            right = ""
         sheet.append(_row_2col(left, right))
 
     # 5. Field Gear Summary (Priority-based Auto-Condensing)

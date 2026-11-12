@@ -37,10 +37,6 @@ qualities:
     ref: sensor_upgrade
   - name: Pilot Origins
     ref: pilot_origins
-  - name: Addiction (Telenovelas, Mild)
-    ref: addiction_(telenovelas,_mild)
-    choice: Telenovelas, Mild
-    karma: 0
   negative:
   - name: Buddy System
     ref: buddy_system

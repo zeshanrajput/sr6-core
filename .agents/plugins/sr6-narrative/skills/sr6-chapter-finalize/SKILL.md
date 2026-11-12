@@ -130,11 +130,12 @@ gh release upload narrative-audio-v1 "characters/<char_id>/narrative/audio/<audi
 
 ---
 
-### Step 3: Project Context Synchronization
+### Step 3: Project Context & Ecosystem Synchronization
 
-Run the narrative context synchronizer to wire the chapter into the web book and continuity ledger:
+Run the narrative context synchronizer to wire the chapter into the web book and continuity ledger, then run the full ecosystem sync to keep local character sheets and the Mobile PWA up to date:
 ```bash
 uv run sr6 story sync <char_id>
+uv run sr6 sync-all
 ```
 Automatically updates:
 1. **`characters/<id>/_quarto.yml`**: Registers the chapter under `part: "Narrative Log"` or `part: "Out-of-Session Narratives"`.
@@ -144,6 +145,7 @@ Automatically updates:
    - Appends verified word count row to `## 3. Anthology Narrative Chapter Index`.
    - Recalculates total anthology word count.
    - Strips any stray `\ufffd` artifacts.
+4. **Master YAML, Quick-Sheets & Mobile PWA (`uv run sr6 sync-all`)**: Recompiles `*_master.yaml`, runs deep character audits, and regenerates `output/text/*_sheet.txt`, `output/mobile/index.html`, and `app/index.html`.
 
 ---
 

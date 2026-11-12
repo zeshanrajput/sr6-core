@@ -427,16 +427,33 @@ class PurchasesSyncEngine:
             pos_quals = quals.setdefault("positive", [])
             neg_quals = quals.setdefault("negative", [])
             for q in parsed_qualities:
-                q_ref = q.get("ref", q.get("name", "").lower().replace(" ", "_"))
+                q_name = q.get("name", "")
+                q_ref = q.get("ref", q_name.lower().replace(" ", "_"))
                 row = _query_db_row(
                     "SELECT quality_type FROM ref_qualities WHERE id = ? OR name = ? COLLATE NOCASE",
-                    (q_ref, q.get("name", ""))
+                    (q_ref, q_name)
                 )
-                is_neg = (row and row.get("quality_type") == "negative") or "negative" in q.get("name", "").lower()
+                if not row and "(" in q_name:
+                    base_name = re.sub(r'\(.*?\)', '', q_name).strip()
+                    base_ref = base_name.lower().replace(" ", "_")
+                    row = _query_db_row(
+                        "SELECT quality_type FROM ref_qualities WHERE id = ? OR name = ? COLLATE NOCASE",
+                        (base_ref, base_name)
+                    )
+                is_neg = (row and row.get("quality_type") == "negative") or "negative" in q_name.lower()
                 target_list = neg_quals if is_neg else pos_quals
-                if not any(eq.get("ref") == q_ref or eq.get("name") == q.get("name") for eq in target_list):
+                opposite_list = pos_quals if is_neg else neg_quals
+                # Remove any stale entry from the opposite polarity list
+                before_len = len(opposite_list)
+                opposite_list[:] = [
+                    eq for eq in opposite_list
+                    if eq.get("ref") != q_ref and eq.get("name", "").lower() != q_name.lower()
+                ]
+                if len(opposite_list) < before_len:
+                    changes.append(f"Removed misclassified Quality '{q_name}' from {'positive' if is_neg else 'negative'} qualities")
+                if not any(eq.get("ref") == q_ref or eq.get("name", "").lower() == q_name.lower() for eq in target_list):
                     target_list.append(q)
-                    changes.append(f"Added Quality '{q['name']}' to {'negative' if is_neg else 'positive'} qualities from purchases.qmd")
+                    changes.append(f"Added Quality '{q_name}' to {'negative' if is_neg else 'positive'} qualities from purchases.qmd")
 
         # 6. Sync Matrix Devices
         parsed_devices = parsed.get("matrix_devices", [])
