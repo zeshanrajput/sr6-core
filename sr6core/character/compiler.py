@@ -120,6 +120,14 @@ def compile_character(char_id: str) -> Dict[str, Any]:
             "SELECT quality_type FROM ref_qualities WHERE id = ? OR name = ? COLLATE NOCASE",
             (q_ref, q.get("name", ""))
         )
+        if not row and "(" in q.get("name", ""):
+            import re
+            base_name = re.sub(r'\(.*?\)', '', q.get("name", "")).strip()
+            base_ref = base_name.lower().replace(" ", "_")
+            row = _query_db_row(
+                "SELECT quality_type FROM ref_qualities WHERE id = ? OR name = ? COLLATE NOCASE",
+                (base_ref, base_name)
+            )
         is_neg = (row and row.get("quality_type") == "negative") or "negative" in q.get("name", "").lower()
         target_list = qualities.setdefault("negative" if is_neg else "positive", [])
         if not any(eq.get("ref") == q_ref or eq.get("name") == q.get("name") for eq in target_list):

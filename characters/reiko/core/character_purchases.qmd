@@ -87,6 +87,8 @@ assign("Lifetime_Nuyen", 90000)
 * Other
   * Mapsoft x4 `{python} inc('Nuyen', -400)`
   * Shopsoft x6 `{python} inc('Nuyen',-900)`
+  * Mapsoft: Burma / Rangoon & Irrawaddy Delta *(Provided by Foreign Ministry, CMP 2083-07)*
+  * Linguasoft: Burmese (Rating 3) `{python} language('Burmese', rating=3, notes='Linguasoft: Provided by Burmese Foreign Ministry, CMP 2083-07')`
   * **Coding Facility** `{python} inc_many(('Nuyen',-5000),('Karma',-1))`
 * Data Structures & Resonance Constructs
   * **Oracle (Rating 4)** `{python} inc_many(('Nuyen', -20000), ('Karma', -4))` `{python} modifier("Data Structure: Oracle (Rating 4)", "matrix_search", 4, type="focus", enabled=False, rule_anchor="rules_matrix.html#data-structures", notes="Dormant in Host (~) while Resonance Focus R4 is active (per SRM single Data Structure limit for EIs). Grants +4 dice on Matrix Perception and Matrix Search tests when active.")`
@@ -183,6 +185,10 @@ Under *Double Clutch* p. 123–124, the Man-At-Arms receives 3 free Standard Har
   * Delivered in a carved wooden box upon an orange ribbon and velvet pillow, 
   * Accompanied by a letter from Sigrûn and Crown Princess Emma (*"Sometimes a fighter becomes a princess. Sometimes one becomes a knight. Welcome to the order of the Lion of the United Netherlands."*). 
   * Commemorates the defense of Noordeinde Palace in The Hague; held in sanctuary as sovereign diplomatic regalia.
+* **Mandalay Icon Telenovela Archives & Production Vault** *(CMP 2083-07 Mission Data)*
+  * Complete digital archive of Mandalay Icon's hit telenovela series (Seasons 1–3, unreleased Season 1.5 fan-edit cut, raw camera angles, and unredacted production outtakes; liberated during the station broadcast intrusion).
+* **Burmese Local-Code Virtual T-Shirts** *(CMP 2083-07 Glade Asset)*
+  * Set of copy-protected, locally compiled digital garments from Rangoon, verified by the Glade sparks as authentically coded in Southeast Asia and presented to them as their fee for live-fire legwork.
 
 ### SINs & Licenses
 
@@ -197,5 +203,10 @@ Under *Double Clutch* p. 123–124, the Man-At-Arms receives 3 free Standard Har
 * **Con Rank 2:** *10 Karma (SRM 2083-16 Advancement)*
 * **Resonance Spike (Complex Form):** *5 Karma (SRM 2081-15 Downtime)*
 * **Data Structure Integration (Oracle R4):** *4 Karma (SRM 2081-15 Downtime)*
+
+### Qualities
+
+* **Addiction (Telenovelas, Mild)** *(CMP 2083-07 in-play acquisition; 0 Karma per SRM rules)*
+  * Rating 1 Negative Quality (*SR6 CRB*, p. 70). Behavioral addiction to dramatic trid telenovelas (*Mandalay Icon* and Southeast Asian melodrama).
 
 

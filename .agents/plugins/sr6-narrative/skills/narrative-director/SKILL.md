@@ -50,20 +50,67 @@ The primary autonomous orchestrator for end-to-end Shadowrun 6e narrative genera
 
 ## When to Use
 
-- Writing a new campaign chapter from an outline, mission log, or table beat sheet.
+- Drafting a new campaign chapter iteratively beat-by-beat using a clean-room sub-agent (`narrative-director <target_file> <beat>` or `/draft-beat <target_file> <beat>`).
+- Writing a campaign chapter from an outline, mission log, or table beat sheet.
 - Auditing and refining an existing chapter (`.qmd` or `.md`) to high-end speculative fiction standards.
 - Orchestrating the 7-axis evaluation panel and automated re-draft loop.
 
-## How to Run
+## Command Triggers & How to Run
 
-1. **Deterministic Pre-flight & Linting**:
+1. **Beat-by-Beat Clean-Room Drafting (Primary Interactive Mode)**:
+   Invoke directly in chat:
+   ```text
+   narrative-director <target_file> <beat>
+   /draft-beat <target_file> <beat>
+   ```
+   *Examples:*
+   - `narrative-director characters/reiko/narrative/36.md 2`
+   - `/draft-beat characters/reiko/narrative/36.md "Beat 2"`
+2. **Deterministic Pre-flight & Linting**:
    ```bash
    uv run sr6 lint "characters/<char_id>/chapters/<file>.qmd"
    ```
-2. **Unified 7-Axis Evaluation**:
+3. **Unified 7-Axis Evaluation**:
    ```bash
    uv run sr6 evaluate "characters/<char_id>/chapters/<file>.qmd" --tier <1|2|3> --char <char_id>
    ```
+
+---
+
+## Beat-by-Beat Clean-Room Drafting Protocol (`narrative-director <target_file> <beat>`)
+
+To prevent overfitting ("Checklist Prose") and preserve organic literary voice, this workflow strictly separates **The Writer's Hat** (pure creative synthesis in an unpolluted sub-agent context window) from **The Editor's Hat** (deterministic linting and a single non-human review loop for egregious violations).
+
+### Step 1: Just-in-Time (JIT) Creative Packet Curation
+The coordinator assembles a focused, high-signal creative brief for the target beat containing **only** generative fuel—deliberately withholding 32-pattern slop lists, lexical quota tables, and 7-axis scorecards:
+1. **Central Premise & Beat Target**: The chapter's governing premise, the target Beat outline from `<target_file>`, and the full prose of any preceding beats already drafted in `<target_file>` (to ensure seamless narrative flow and prevent cross-beat repetition).
+2. **Character Voice Essence**: The protagonist's POV lens, active chronological era, Mindspeech (`*...*`) vs. acoustic speech (`"..."`) convention, and physical-vs-AR ontological grounding from `characters/<char_id>/reference/voice_spec.md`.
+3. **Targeted Continuity & Canonical Excerpts**:
+   - Excerpts (30–60 lines) from the 1–2 prior narrative chapters explicitly called back to in the beat.
+   - Canonical SR6 hardware, quality, complex form, or spell descriptions queried via `uv run sr6 rag search` or `uv run sr6 card` for items featured in the beat.
+
+### Step 2: Clean-Room Sub-Agent Dispatch — "The Writer's Hat" (`Draft v1`)
+Invoke `invoke_subagent(TypeName="self", Role="Beat N Creative Drafter", ...)` with the curated creative packet.
+- **No Rubric Policing in Pass 1**: Instruct the sub-agent to focus purely on emotional truth, sensory atmosphere, character voice, and scene momentum—with only basic structural framing (3–6 sentence braided paragraphs, one speaker per paragraph, and somatic translation of mechanics rather than tabletop jargon).
+- Wait for the sub-agent to return `Draft v1`.
+
+### Step 3: Non-Human Review Gate — "The Editor's Hat" (Max 1 Loop)
+1. **Deterministic Diagnostics**: Write `Draft v1` to `scratch/beat_<N>_test.md` and run:
+   ```bash
+   uv run sr6 lint "scratch/beat_<N>_test.md"
+   uv run sr6 evaluate "scratch/beat_<N>_test.md" --tier <1|2|3> --char <char_id>
+   ```
+2. **Egregious Violation Check**: Evaluate `Draft v1` alongside the CLI diagnostics to catch **egregious** narrative standard violations:
+   - *Premise Drift*: Paragraphs that wander away from the central premise into encyclopedic tangents.
+   - *Ontological / Continuity Breaks*: Mixing AR projections with physical mass, misrepresenting canonical SR6 hardware/mechanics, or breaking callback continuity.
+   - *Structural & Slop Redlines*: Merged multi-speaker paragraphs, thesis-statement preaching, banned Tier 0 buzzwords, or glaring proximity echoes.
+3. **Single-Loop Feedback (`v1` $\rightarrow$ `v2`)**:
+   - Send a single targeted editorial note back to the drafting sub-agent via `send_message` (or apply a surgical micro-chisel if only 1–2 words are flagged) to resolve egregious violations.
+   - **Stop after ONE review loop.** Do not iterate endlessly to force a sterile 10/10 mechanical score; it is completely acceptable for minor stylistic nuances to pass through to human review so the prose retains its pulse.
+4. Remove `scratch/beat_<N>_test.md`.
+
+### Step 4: Collaborative Human Line-Edit Gate
+Write `Draft v2` into `<target_file>` (keeping any remaining undrafted beat outlines below a `---` divider), present the drafted beat and a concise pre-flight summary in chat, and **stop** for user line-level review before proceeding to the next beat.
 
 ---
 

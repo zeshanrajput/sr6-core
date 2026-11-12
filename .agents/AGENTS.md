@@ -85,16 +85,20 @@ Before drafting or editing, `narrative-director` ingests:
 6. **Master Character Dossier & Resource Pressure Telemetry**: Reads `character_master.yaml` and executes deterministic resource pressure checks (`uv run sr6 char pressure <id>`) to ground existential financial/karmic weight.
 7. **RAG Story Continuity & Rules**: Queries recent chapter logs via `uv run sr6 continuity` and rule context via `sr6-rules` (always querying local offline FTS5 vault first via `uv run sr6 rag search` before cloud AI synthesis).
 
-### Stage 2: Initial Draft Generation (`v1`)
-`narrative-director` invokes the drafting sub-agent to generate Scene Draft `v1`, adhering to:
-* POV, active era from `arc_chronology`, and cognitive bias from `voice_spec.md` / `narrative_spec.md` (via `literary-analysis`).
-* 4-beat scene structure (Inciting Friction $\rightarrow$ Escalation $\rightarrow$ Climax $\rightarrow$ Aftermath) and braided paragraph cadence from `literary-analysis`.
-* Thematic worldbuilding and atmospheric friction from `literary-analysis`.
-* 30 anti-slop rules (including Rule 30: zero game scaffolding/mechanics jargon in prose), affirmative staging, and "Trust the Reader" discipline from `no-ai-slop`.
-* Two-Tier dramatic sphere from `literary-analysis` (Tier A Canon Ceiling vs Tier B Bespoke Foils).
-* Tactical action, astral magic, and matrix choreography from `literary-analysis` when firefights, spells, or hacking occur.
-* Mechanical reality constraints from `character_master.yaml` and dynamic weapon arrays (`calculate_modified_weapon`) without modifying tabletop balances.
-* Audio narration and TTS readability guidelines (ellipses ceiling $\le 0.60$ per 300 words) from `sr6-chapter-finalize`.
+### Stage 2: Clean-Room Beat-by-Beat Drafting (`narrative-director <target_file> <beat>` / `/draft-beat <target_file> <beat>`)
+To prevent overfitting ("Checklist Prose") and preserve organic voice, `narrative-director` strictly separates **The Writer's Hat** (creative synthesis in an isolated sub-agent context window) from **The Editor's Hat** (deterministic linting and a single non-human review loop):
+1. **Just-in-Time (JIT) Creative Packet**: Assemble a focused prompt for the target beat containing **only** generative fuel:
+   - The chapter's Central Premise, the target Beat outline from `<target_file>`, and any already-drafted preceding beats in `<target_file>`.
+   - Character voice essence, POV, active era, Mindspeech (`*...*`) vs. acoustic speech (`"..."`), and physical-vs-AR ontological rules from `reference/voice_spec.md`.
+   - Targeted excerpts from the 1–2 prior chapters called back to in the beat + canonical SR6 hardware/rule excerpts queried via `uv run sr6 rag search` or `uv run sr6 card`.
+2. **Clean-Room Sub-Agent Dispatch ("The Writer's Hat" — `Draft v1`)**:
+   - Invoke a `self` sub-agent (`invoke_subagent`) with the creative packet. Do **NOT** dump 32-pattern slop lists, lexical quota tables, or 7-axis scorecards into Pass 1 so the drafter focuses 100% on voice, sensory truth, and emotional momentum.
+3. **Non-Human Review Gate ("The Editor's Hat" — Max 1 Loop to `Draft v2`)**:
+   - Write `Draft v1` to `scratch/beat_<N>_test.md` and run `uv run sr6 lint` and `uv run sr6 evaluate`.
+   - Check for **egregious** narrative standard violations (premise drift, ontological AR/meatspace confusion, missed callback/hardware fidelity, merged speaker paragraphs, or Tier 0 buzzwords).
+   - Send at most **one** targeted feedback turn to the sub-agent (or apply a surgical 1-word micro-chisel) to resolve egregious violations, then clean up `scratch/beat_<N>_test.md`. Do not loop endlessly or sterilize the prose; allow minor stylistic nuances through to human review.
+4. **Collaborative Human Line-Edit Gate**:
+   - Write `Draft v2` into `<target_file>`, present the beat and pre-flight summary in chat, and **stop** for user line-level review before advancing to the next beat.
 
 ### Stage 3: Parallel Sub-Agent Audit Panel
 Draft `v1` is first analyzed using deterministic CLI utilities, then evaluated across the **7 audit dimensions**:
@@ -208,8 +212,8 @@ Before completing edits or reviewing narrative/character updates, run correspond
 
 | Skill Name | Role | Primary Command / Pre-Flight |
 | :--- | :--- | :--- |
-| **`narrative-director`** | Master autonomous orchestrator for 6-stage lifecycle | `uv run sr6 evaluate` |
-| **`literary-analysis`** | Unified craft engine: 7-axis audit rubrics, action choreography & chisel | `uv run sr6 evaluate` / `uv run sr6 lint` |
+| **`narrative-director`** | Master orchestrator & clean-room beat drafter | `narrative-director <file> <beat>` / `/draft-beat` |
+| **`literary-analysis`** | Unified craft engine: 7-axis audit rubrics, action choreography & chisel | `literary-analysis <file>` / `sr6 evaluate` |
 | **`no-ai-slop`** | 30 anti-slop patterns, banned terms list, affirmative staging | `uv run sr6 lint` |
 | **`sr6-rules`** | SR6 mechanics, stat blocks, local SQLite FTS5 queries & RAG vault | `uv run sr6 card` / `rag search` |
 | **`sr6-chapter-finalize`** | Stage 7 publishing: Kokoro TTS audio, release asset upload, story sync, CI/CD | `/finalize-chapter` / `sr6 story sync` |

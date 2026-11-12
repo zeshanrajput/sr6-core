@@ -30,9 +30,9 @@ All upcoming upgrades are prioritized sequentially below. When logging post-miss
 | Step | Target Upgrade | Category | Cost | Downtime Action Required | Primary Tactical / Architectural Role |
 | :---: | :--- | :--- | :---: | :---: | :--- |
 | **01** | **Resonance 8 $\rightarrow$ 9** | Attribute | 45 Karma | None (Between runs post-SRM 2083-13) | Unlocks Prime Runner pools. Through *Natural Hacker* (substituting RES for mental attributes on Matrix actions) and *Override* (substituting RES for device pilot rating), this single point reverberates across nearly every pool she possesses! +1 Fading resist (14d6), +1 all Tasking tests. |
-| **02** | **Submersion Grade 9**<br>• *Echo: Hybrid Sprites*<br>• *Connect with Dissonance* | Submersion | 15 Karma | 1 Major Action<br>*(Post-SRM 2083-13)* | *H&S* 67: Decouples compiling hybrid sprites (Machine/Courier sprites) from stream.<br>*SC* 84: Opens access to the Dissonance quality path. Calculated as $10 + 9 - 4\text{ (River People L4 floor)} = 15\text{ Karma}$. |
+| **02** | **Submersion Grade 9**<br>• *Echo: Syntax Error*<br>• *Connect with Dissonance* | Submersion | 15 Karma | 1 Major Action<br>*(Post-SRM 2083-13)* | *H&S* 69–70: Counter and unravel foreign complex forms and sprite powers (Electronics + RES vs. LOG + RES, bonus dice = submersion grade; Minor Anytime action grants target icon defense bonus dice). Captures the unraveling, dissonant syntax without the self-harming detriments of Dissonant Scream or Matrix Amplifier.<br>*SC* 84: Opens access to the Dissonance quality path. Calculated as $10 + 9 - 4\text{ (River People L4 floor)} = 15\text{ Karma}$. |
 | **03** | **Quality: Dissonant Technomancer**<br>(Control / Apophenian) | Positive Quality | 30 Karma | None (Post-SRM 2083-13 milestone) | *SC* 84–85 / *SRMG* 37: 15 base $\times 2 = 30\text{ Karma}$ post-chargen. Halves Edge cost (-1 Edge) on Matrix actions and complex forms targeting **Devices** (anthrodrones, vehicles, cyberware, weapons). Grants a **wild die** on device actions and reduces fading by wild hits. Subject to the *Composure Sword of Damocles*. |
-| **—** | **POST-SRM 2083-13 TRIPLE SPEND** | **MILESTONE** | **90 Karma** | **1 Major Action** | **Total immediate apotheosis funded by 76 Karma banked + ~14 Karma earned across CMP 2083-07 & SRM 2083-13.** |
+| **—** | **POST-SRM 2083-13 TRIPLE SPEND** | **MILESTONE** | **90 Karma** | **1 Major Action** | **Total immediate apotheosis funded by 83 Karma currently banked + ~7–9 Karma earned in SRM 2083-13.** |
 | **04** | **Quality: Dissonance Negative Qualities**<br>• *Dissonant Stigma* (-5K)<br>• *Dissonance Static* (-6K) | Negative Quality | -5K to -11K net | None (Subsequent runs) | *SC* 86–87 / *SRMG* 37: Dissonance negative qualities offset positive post-chargen Karma costs, funding future complex form acquisitions. |
 | **05a** | **Complex Form: Dissonance Diffusion** | Complex Form | 5 Karma | 1 Minor Action (Study) | *SC* 85: Strips multiple Matrix attributes simultaneously. Offset by Dissonance negative qualities. Subject to the *Composure Sword of Damocles*. |
 | **05b** | **Complex Form: Dissonance Spike** | Complex Form | 5 Karma | 1 Minor Action (Study) | *SC* 85: Lethal biofeedback + unreductable noise aura targeting devices. Subject to the *Composure Sword of Damocles*. |
@@ -116,7 +116,7 @@ Liquid Nuyen earned from runs is dedicated to the **Twin Synthetic Cyberarm & Co
 
 ### B. Apophenian Dissonant Control & Resonance 9 Architecture
 
-Abandoning the generic multi-sustain *Sourceror* path preserves Reiko's unique identity as an incarnate Technoshaman while unlocking the devastating synergy between **Resonance 9**, **Echo: Hybrid Sprites**, and **Apophenian Dissonant Control**:
+Abandoning the generic multi-sustain *Sourceror* path preserves Reiko's unique identity as an incarnate Technoshaman while unlocking the devastating synergy between **Resonance 9**, **Echo: Syntax Error**, and **Apophenian Dissonant Control**:
 
 1. **The Resonance 9 Reverberation Engine:**
    * **Natural Hacker (*Hack & Slash*, p. 68):** Reiko substitutes Resonance for Logic, Intuition, Charisma, and Willpower on all Matrix actions. Moving to Resonance 9 pushes all operational pools:
@@ -132,8 +132,8 @@ Abandoning the generic multi-sustain *Sourceror* path preserves Reiko's unique i
    * **Wild Die & Fading Relief:** Adds a **wild die** to all device-targeting actions (granting bonus hits) and **reduces Fading damage by the number of hits rolled on the wild die**.
    * **The Tabletop Sword of Damocles:** Whenever tasking Dissonance at the table, roll Composure (10d6). A Glitch permanently triggers her ascension to Human Malice as its Sovereign Pontifex and Healer.
 
-3. **Hybrid Sprites Integration (*Hack & Slash*, p. 67):**
-   * Decouples sprite compiling from stream restrictions. Reiko can compile and register:
-     * **Machine Sprites:** Run *Diagnostics* on the *Goshintai*, granting massive teamwork dice bonuses and threshold reductions to hardware handling, engineering, and repairs.
-     * **Courier Sprites:** Provide untraceable, air-gapped data transfers between the physical sprawl and `~`.
-   * Sustained complex forms are outsourced to registered sprites via *Sprite Link*, preserving Reiko's personal action economy without requiring Sourceror sustain slots.
+3. **Syntax Error & Unraveling Architecture (*Hack & Slash*, pp. 69–70):**
+   * Decouples Matrix defensive disruption from crude brute-force IC. Reiko gains:
+     * **Sustained Power / Form Unraveling:** When aware of an enemy complex form or sprite power being sustained, take a Major Action to make an `Electronics + Resonance` test with bonus dice equal to Submersion Grade vs. `Logic + Resonance`. Each net hit reduces the net hits of the sustained effect by 1; reducing to 0 immediately collapses the form or power.
+     * **Target Defense Buff (Minor Anytime Action):** When an icon Reiko is aware of is targeted by an offensive Matrix action, spend a Minor Anytime Action to grant that icon bonus defense dice equal to her Submersion Grade (+9 dice at Grade 9!).
+     * **Thematic Integrity:** Captures the entropic, dissecting nature of Dissonance—unraveling foreign digital syntax—without the crippling mechanical detriments of *Dissonant Scream* (which damages allies and burns actions) or *Matrix Amplifier* (which instantly alerts GOD).

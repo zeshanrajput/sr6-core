@@ -995,8 +995,8 @@ def main():
                 is_valid = report["valid"] and m_audit["valid"]
                 print(f"\n--- Deep Audit Report for '{cid}' ---")
                 print(f"  Overall Valid      : {'PASS' if is_valid else 'DEFICITS / WARNINGS'}")
-                print(f"  Positive Karma     : {report['total_pos_karma']}")
-                print(f"  Negative Karma     : {report['total_neg_karma']}")
+                print(f"  Positive Qualities : {report['total_pos_karma']} Karma")
+                print(f"  Negative Qualities : {report['total_neg_karma']} Karma")
                 print(f"  Missions Logged    : {m_audit['total_missions']} ({m_audit['srm_count']} SRMs, {m_audit['cmp_count']} CMPs)")
                 print(f"  Missions Legality  : {'PASS (0 duplicates, rent valid)' if m_audit['valid'] else 'FAIL (Deficits detected)'}")
                 if m_audit.get("errors"):

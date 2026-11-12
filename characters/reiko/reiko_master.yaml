@@ -8,10 +8,10 @@ identity:
   gender: DIVERSE
   age: ~ 10
   system: shadowrun6e
-  karma: 76
-  lifetime_karma: 319
-  nuyen: 6900.0
-  lifetime_nuyen: 480500
+  karma: 83
+  lifetime_karma: 326
+  nuyen: 17900.0
+  lifetime_nuyen: 493500
   heat: -1
   submersion: 8
 attributes:
@@ -37,6 +37,10 @@ qualities:
     ref: sensor_upgrade
   - name: Pilot Origins
     ref: pilot_origins
+  - name: Addiction (Telenovelas, Mild)
+    ref: addiction_(telenovelas,_mild)
+    choice: Telenovelas, Mild
+    karma: 0
   negative:
   - name: Buddy System
     ref: buddy_system
@@ -46,6 +50,10 @@ qualities:
   - name: Hooder
     ref: hooder
     rating: 2
+  - name: Addiction (Telenovelas, Mild)
+    ref: addiction_(telenovelas,_mild)
+    choice: Telenovelas, Mild
+    karma: 0
 skills:
 - name: Tasking
   id: tasking
@@ -290,6 +298,12 @@ knowledge_skills:
   rating: null
   notes: 'Knowsoft: Dissonant realms, entropy math, One Hundred transfer geometry,
     consensus dynamics'
+- name: Burmese
+  rating: 3
+  level: Expert
+  is_native: false
+  is_linguasoft: false
+  notes: 'Linguasoft: Provided by Burmese Foreign Ministry, CMP 2083-07'
 contacts:
   River People:
     name: River People
@@ -1590,6 +1604,22 @@ contacts:
     history:
     - 'SRM.2081.10 (Met: C2 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
+  Hliang Win:
+    name: Hliang Win
+    canonical_name: Hliang Win
+    is_canonical: false
+    connection: 6
+    loyalty: 1
+    favors: 1
+    type: Burmese Foreign Minister / President
+    region: Southeast Asia
+    types:
+    - Street
+    types_str: Street
+    description: CMP 2083-07 Misplaced Loyalty
+    notes: CMP 2083-07 Misplaced Loyalty
+    history:
+    - 'CMP 2083-07 Misplaced Loyalty (Met: C6 L1, +1 FP)'
 reputation:
   Vory: 2
   Seattle: 7
@@ -1602,8 +1632,8 @@ reputation:
   Southeast Asia: 2
   DW: 2
   Kozlowski Family: 2
-  SEA: 4
-total_reputation: 41
+  SEA: 6
+total_reputation: 43
 drones:
 - name: MCT Gnat
   ref: mctgnat
@@ -1878,6 +1908,9 @@ matrix_devices:
   accessories:
   - Mapsoft x4
   - Shopsoft x6
+  - 'Mapsoft: Burma / Rangoon & Irrawaddy Delta (Provided by Foreign Ministry, CMP
+    2083-07)'
+  - 'Linguasoft: Burmese (Rating 3)'
   - Coding Facility
 - name: Data Structures & Resonance Constructs
   rating: 1

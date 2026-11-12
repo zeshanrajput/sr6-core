@@ -702,4 +702,28 @@ Submersion_Grade = state["Submersion_Grade"]
 * **Session Recording & Transcript:**
   * Audio archive and full CUDA timestamped transcript generated in `characters/reiko/sessions/SMH_2083-01/transcript.md`.
 
+---
+
+`{python} mission("CMP.2083.07", date="2026-11-11", karma=6, nuyen=13000, rep={'SEA': 2}, gm="JaGator", difficulty="Normal")`
+
+* **GM:** JaGator
+* **Team:** Bishop (Medtec28), Mithral (Mithral), Ninja (ArrogantNinja), Snow (Wyntr), Coleman Jones (Silicon Mage), Yuriko Star (WarDoctor)
+* **Summary:** Burmese Foreign Minister Hliang Win covertly grounded the team's extraction aircraft in Rangoon following their rescue operation to enlist uncompromised foreign assets against systemic state corruption tied directly to President Khin U and the human-trafficking syndicate Divine Serpent. Ares Arms simultaneously offered a parallel bounty to locate suppressed evidence of army atrocities before their defense supply contracts were publicly tainted. Reiko delegated operational legwork to the fledgling sparks in the Glade for the first time; the children performed flawlessly, requesting payment only in copy-protected, locally coded Burmese virtual t-shirts. During the mission, Yuriko probed Mithral about whether he would ever permit his children to receive cyberware—weighing her own deep anxiety regarding Ouro's pending skill-driver codemod—though Mithral's response ("it depends on whether you consider it like skillwires or like a tattoo") offered cold comfort against the somatic and nous scars she witnesses firsthand. Infiltrating the warded Mandalay Icon broadcast studios under tight military lockdown, Reiko breached the host and liberated the incriminating archives while covertly siphoning the network's entire library of *Mandalay Icon* telenovelas (including unaired footage, alt-angles, and fan edits) along with local mapsofts and linguasofts provided through Foreign Ministry channels, developing a mild obsession with the drama in the process. Proceeding to an ancient jungle-reclaimed Khmer temple on the eastern outskirts, the team breached the Divine Serpent's sanctum to neutralize the leader, a seven-meter naga sorcerer named Jaya. Following the naga's death, Yuriko unleashed her integrated lightning breath to break the zealots' morale; when several cultists surrendered only to be indiscriminately fireballed by Ninja, Yuriko wordlessly administered surgical first aid to the burned captives before taking flight. The display catalyzed a new local religious movement worshipping a "lightning-breathing angel of liberation." Khin U was ousted in the ensuing political coup, leaving Minister Hliang Win in executive leadership and establishing a high-level ministerial ally.
+* **Contacts:**
+  * `{python} contact("Hliang Win", connection=6, loyalty=1, fp=1, type_name="Burmese Foreign Minister / President", region="Southeast Asia", notes="CMP 2083-07 Misplaced Loyalty")`
+* **Downtime Actions (2 Minors Total — CMP Event):**
+  * *Minor Action 1 (Working for the People):* `{python} work_for_the_people()`
+    * 2,000¥ donated toward sustaining her sanctuary and children in Kernel Panic / Glade (Hooder), converting to +1 Karma.
+  * *Minor Action 2 (Register Sprites — Étaín):* `{python} deregister_sprite("Étaín", reason="Re-registered post-mission legwork")` | `{python} add_sprite("Modular", 8, name="Étaín", details="The Skybox Weaver / Phantom (Modular), Suppression, Stability", tasks=3)`
+    * Re-registered elder spark Étaín (Rating 8 Modular Sprite) following heavy task expenditure coordinating the Glade children's Matrix searches and Oracle digests, refreshing her service registry to full tasks (bought 5 hits with 20d6 compiling pool, drain-free).
+* **Character Advancement Telemetry:**
+  * *Karma Banking:* Banked +7 Karma (+6 mission, +1 Working for the People). Liquid Karma reaches **83 Karma** (strictly banked toward the 90-Karma milestone post-SRM 2083-13: *Resonance 8 -> 9*, *Submersion 9 with Echo: Syntax Error*, and *Quality: Dissonant Technomancer*).
+  * *Nuyen Banking:* Banked +11,000¥ (+13,000¥ full cash payout - 2,000¥ Working for the People). Liquid Nuyen reaches **¥17,900** (¥6,900 prior + ¥11,000 net; fully clears funding threshold for the Used Left Synthetic Cyberarm at ¥10,000).
+* **Loot & Equipment Acquisition:**
+  * *Mandalay Icon Telenovela Archives:* Master data steal of Seasons 1–3, unreleased Season 1.5 fan-edit cut, unaired footage, and alternative camera angles.
+  * *Burmese Linguasoft & Mapsoft:* Official regional navigation and language databases provided by the Foreign Ministry (logged in `character_purchases.qmd`).
+  * *Virtual Burmese T-Shirts:* Data tokens coded locally in Rangoon, copy-protected and verified by the Glade children as authentic local craft.
+* **Qualities Acquired (In-Play):**
+  * *Negative Quality:* **Addiction (Telenovelas, Mild)** (Rating 1; 0 Karma awarded per SRM in-play acquisition rules; logged in `character_purchases.qmd`).
+
 

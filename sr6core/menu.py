@@ -84,8 +84,8 @@ def character_actions_menu(cm: CharacterManager, char_id: str):
             report = deep_audit_character(char_id)
             print(f"\n--- Deep Audit Report for '{char_id}' ---")
             print(f"  Overall Compliance : {'PASS' if report['valid'] else 'WARNINGS'}")
-            print(f"  Positive Karma Total: {report['total_pos_karma']}")
-            print(f"  Negative Karma Total: {report['total_neg_karma']}")
+            print(f"  Positive Qualities : {report['total_pos_karma']} Karma")
+            print(f"  Negative Qualities : {report['total_neg_karma']} Karma")
             if report.get("warnings"):
                 print("  Warnings:")
                 for w in report["warnings"]:

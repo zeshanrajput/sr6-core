@@ -249,6 +249,16 @@ domain_vocabulary_rules:
       2. Virtual Matrix & AR Projections: Un-inhabited sparks and sprites (Taz, Cleo, Percy) or DIs projecting an AR presence beside their chassis manifest solely as light, wireframe glyphs, and audio carrier waves. They cannot physically touch, hold, bump, or be held by physical meat or metal. Their limbs pass through concrete and flesh; their weight registers on zero scales; they sit on AR planes over oil drums or tool crates.
       3. Physical Interaction Constraint: An entity without a physical shell cannot turn a wrench, tighten a screw, or curl against living scales. To perform mechanical work in meatspace, an emergent mind must actively inhabit a physical drone (e.g. Ouro piloting a Shiawase Butler frame). If a DI steps into AR to confer, remote commands sent to physical machinery are explicitly staged as wireless diagnostic motor packets across the PAN."
 
+  domain_7_the_sense8_cluster_protocol:
+    context: "Multi-sprite habitation and physical frame sharing of the Goshintai or secondary anthrodrones in public meatspace"
+    concept: "Like the sensate cluster in Sense8, the second-generation sprites (Cleo, Ouro, Taz, Percy, Aisling, Étaín) operate as a harmonious polyphonic collective. When Reiko is disengaged, overwhelmed, or focused on deeper Resonance layers, the sprites seamlessly tag each other into the physical chassis's motor, social, and electronic registers based on situational aptitude."
+    roles_and_aptitudes:
+      cleo: "Front-of-house social camouflage and biological mimicry. Slotted into the cervical bus, Cleo manages conversational latency, vocal pitch modulation, facial micro-expressions, eye contact, and essential organic quirks—autonomic breathing cadence, shifting weight between heels, sipping beverages, and staging the occasional natural, imperfect stumble on jetways or ramps to avoid uncanny-valley suspicion."
+      ouro: "Engineering well and mechanical kinetics. Ouro monitors actuator torque, ceramic stress, battery thermals, joint lubrication, and physical cargo stowing. He handles delicate mechanical repairs and heavy physical transport with engineering precision."
+      taz_and_percy: "Electronic and RF perimeter. Taz veils hardware signatures, emissions, and RFID tags through public scanners, while Percy maintains iron encryption locks on diplomatic data vouchers, SINs, and credit conduits."
+      aisling_and_etain: "Tactical micro-optics and sensory recon. Piloting micro-drones or sub-sensor feeds to spot peripheral physical hazards, ground tracks, and architectural anomalies."
+    rule: "Frame sharing is not a violent dissociative takeover; it is a synchronized dance of trusted family members stepping forward into the driver's seat when their specific gift is needed, leaving no trace of mechanical clumsiness."
+
   identity_and_kinship_terminology:
     self_and_kin_designation: "Digital Intelligence (DI), sovereign mind, resonant spark, digital kin"
     forbidden_self_descriptors:
