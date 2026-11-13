@@ -6,6 +6,7 @@ Checks banned AI buzzwords, cognitive buffer verbs, throat-clearer openers, em-d
 import os
 import re
 import sys
+import math
 import subprocess
 from typing import Dict, Any, List, Tuple, Optional
 
@@ -114,11 +115,8 @@ OMNISCIENT_POV_PATTERNS = [
 ]
 
 
-
-
 def run_markdownlint(file_path: str) -> Tuple[List[str], Optional[str]]:
     try:
-        # Check for .markdownlint.json in file's directory or repository roots
         dir_name = os.path.dirname(file_path)
         config_path = None
         current = dir_name
@@ -144,9 +142,52 @@ def run_markdownlint(file_path: str) -> Tuple[List[str], Optional[str]]:
         return [], f"Markdownlint note: {e}"
 
 
+def split_paragraph_into_sentences(para_text: str) -> List[str]:
+    text = para_text.strip()
+    if not text:
+        return []
+    # Protect common abbreviations and titles from premature splitting
+    for h in ["Mr.", "Mrs.", "Ms.", "Dr.", "Prof.", "Capt.", "Lt.", "Col.", "Gen.", "Sgt.", "Sr.", "Jr."]:
+        text = text.replace(h + " ", h[:-1] + "@DOT@ ")
 
-def analyze_prose(file_path: str) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
-    if os.path.exists(file_path) and os.path.isfile(file_path):
+    pattern = r'(?:(?<=[.!?])|(?<=[.!?]["*\u201d\u2019\']))\s+(?=[A-Z0-9"*\u201c\u2018`])'
+    splits = [s.strip().replace("@DOT@", ".") for s in re.split(pattern, text) if s.strip()]
+    return splits if splits else [para_text.strip()]
+
+
+def _extract_file_tokens(filepath: str) -> List[str]:
+    try:
+        with open(filepath, "r", encoding="utf-8", errors="ignore") as f:
+            lines = f.readlines()
+    except Exception:
+        return []
+    text_content = []
+    in_code = False
+    for line in lines:
+        s = line.strip()
+        if s.startswith("```") or s.startswith("#|"):
+            in_code = not in_code
+            continue
+        if in_code or s.startswith("<") or s.startswith("#"):
+            continue
+        text_content.append(s)
+    clean_text = " ".join(text_content).lower()
+    return re.findall(r'[a-z]{3,}', clean_text)
+
+
+def _build_valid_3grams(tokens: List[str]) -> List[str]:
+    tg = []
+    for i in range(len(tokens) - 2):
+        w1, w2, w3 = tokens[i], tokens[i + 1], tokens[i + 2]
+        valid_words = sum(1 for w in (w1, w2, w3) if w not in PROXIMITY_STOP_WORDS and len(w) >= 4)
+        if valid_words >= 2:
+            tg.append(f"{w1} {w2} {w3}")
+    return tg
+
+
+def analyze_prose(file_path: str, window: int = 3) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
+    is_file = os.path.exists(file_path) and os.path.isfile(file_path)
+    if is_file:
         with open(file_path, "r", encoding="utf-8") as f:
             lines = f.readlines()
     else:
@@ -171,6 +212,12 @@ def analyze_prose(file_path: str) -> Tuple[Optional[Dict[str, Any]], Optional[st
 
     em_dashes = len(re.findall(r'—|--', clean_prose))
     em_dash_density = (em_dashes / word_count) * 300 if word_count > 0 else 0
+
+    # Ellipses count & gate
+    ellipses_matches = re.findall(r'\.{3,}|…', clean_prose)
+    ellipses_count = len(ellipses_matches)
+    ellipses_per_300 = round((ellipses_count / word_count) * 300, 2) if word_count > 0 else 0.0
+    ellipses_valid = bool(ellipses_per_300 <= 0.60)
 
     banned_matches = []
     for line_idx, line in enumerate(lines, 1):
@@ -241,8 +288,6 @@ def analyze_prose(file_path: str) -> Tuple[Optional[Dict[str, Any]], Optional[st
 
     for i in range(n_tokens - 1):
         w1, w2 = token_stream[i][1], token_stream[i + 1][1]
-        # Skip if both are common stop words or too short
-        # Require both words to be non-stop content words for descriptive bigrams
         if w1 in PROXIMITY_STOP_WORDS or w2 in PROXIMITY_STOP_WORDS:
             continue
         if len(w1) < 3 or len(w2) < 3:
@@ -278,7 +323,6 @@ def analyze_prose(file_path: str) -> Tuple[Optional[Dict[str, Any]], Optional[st
         for j in range(i + 2, min(i + 22, n_tokens)):
             if token_stream[j][1] == w:
                 dist = j - i
-                # Avoid duplicate reporting if already covered by a bigram echo on same lines
                 if not any(e["type"] == "bigram" and w in e["text"] and e["line1"] == token_stream[i][0] for e in proximity_echoes):
                     proximity_echoes.append({
                         "type": "word",
@@ -368,7 +412,6 @@ def analyze_prose(file_path: str) -> Tuple[Optional[Dict[str, Any]], Optional[st
                     snippet = f"{prev_text} [Pivot:] {curr_text}"
                     binary_matches.append((prev_idx, snippet))
             else:
-                # Check for split negative foil (e.g. "She was not X. Her form was Y.")
                 prev_is_neg_starter = any(re.search(ns, prev_text, re.IGNORECASE) for ns in negation_starters)
                 curr_is_direct_desc = re.search(r"^\s*(?:she|he|it|they|her|his|their|the\s+\w+)\s+(?:was|were|traveled|stood|opened|surged|materialized|held|lay)\b", curr_text, re.IGNORECASE)
 
@@ -429,13 +472,215 @@ def analyze_prose(file_path: str) -> Tuple[Optional[Dict[str, Any]], Optional[st
     sentence_lengths = [len(re.findall(r'\b\w+\b', s)) for s in sentences if len(re.findall(r'\b\w+\b', s)) > 0]
     avg_sentence_len = sum(sentence_lengths) / len(sentence_lengths) if sentence_lengths else 0
 
-    is_file = os.path.exists(file_path) and os.path.isfile(file_path)
+    if sentence_lengths and avg_sentence_len > 0:
+        sentence_len_std = math.sqrt(sum((x - avg_sentence_len) ** 2 for x in sentence_lengths) / len(sentence_lengths))
+        burstiness_cv = round(sentence_len_std / avg_sentence_len, 2)
+    else:
+        sentence_len_std = 0.0
+        burstiness_cv = 0.0
+
+    # Paragraph Braiding & Multi-Speaker Detection
+    paragraphs: List[Tuple[int, str]] = []
+    current_para_lines: List[str] = []
+    current_para_start: int = 0
+    in_code_block = False
+    in_frontmatter = False
+
+    for line_idx, line in enumerate(lines, 1):
+        s = line.strip()
+        if line_idx == 1 and s.startswith("---"):
+            in_frontmatter = True
+            continue
+        if in_frontmatter:
+            if s.startswith("---"):
+                in_frontmatter = False
+            continue
+
+        if s.startswith("```") or s.startswith("#|"):
+            in_code_block = not in_code_block
+            if current_para_lines:
+                p_text = " ".join(current_para_lines).strip()
+                if p_text:
+                    paragraphs.append((current_para_start, p_text))
+                current_para_lines = []
+                current_para_start = 0
+            continue
+
+        if in_code_block:
+            continue
+
+        if not s or s.startswith(("#", "<", "---", ":::", "{%")):
+            if current_para_lines:
+                p_text = " ".join(current_para_lines).strip()
+                if p_text:
+                    paragraphs.append((current_para_start, p_text))
+                current_para_lines = []
+                current_para_start = 0
+            continue
+
+        if not current_para_lines:
+            current_para_start = line_idx
+        current_para_lines.append(s)
+
+    if current_para_lines:
+        p_text = " ".join(current_para_lines).strip()
+        if p_text:
+            paragraphs.append((current_para_start, p_text))
+
+    paragraph_count = len(paragraphs)
+    braided_paragraph_count = 0
+    single_sentence_paragraphs: List[Tuple[int, str]] = []
+
+    for p_start, p_text in paragraphs:
+        p_sents = split_paragraph_into_sentences(p_text)
+        n_sents = len(p_sents)
+        if 3 <= n_sents <= 6:
+            braided_paragraph_count += 1
+        elif n_sents == 1:
+            single_sentence_paragraphs.append((p_start, p_text))
+
+    braided_ratio = round((braided_paragraph_count / paragraph_count) * 100, 1) if paragraph_count else 0.0
+    single_sentence_per_1k = round((len(single_sentence_paragraphs) / word_count) * 1000, 2) if word_count else 0.0
+
+    # Multi-speaker paragraph detection
+    multi_speaker_paragraphs: List[Tuple[int, str]] = []
+    dialogue_verbs = r'(?:said|sent|replied|asked|transmitted|murmured|whispered|muttered|growled|snapped|shouted|commanded|countered|called)'
+    stop_names = {
+        "The", "He", "She", "They", "It", "Then", "There", "When", "What", "Who", "Where",
+        "Why", "How", "And", "But", "Or", "If", "As", "In", "On", "At", "To", "For", "With"
+    }
+
+    for start_line, p_text in paragraphs:
+        # Check (a): acoustic speech AND mindspeech
+        acoustic_quotes = re.findall(r'["“]([^"”]+)["”]', p_text)
+        has_acoustic = any(len(re.findall(r'\b\w+\b', q)) >= 2 for q in acoustic_quotes)
+
+        mindspeech_spans = re.findall(r'(?<!\*)\*([^*\n]+)\*(?!\*)', p_text)
+        has_mindspeech = False
+        for span in mindspeech_spans:
+            s_clean = span.strip()
+            w_list = re.findall(r'\b\w+\b', s_clean)
+            if len(w_list) >= 4:
+                has_mindspeech = True
+                break
+            if bool(re.search(r'[.?!]$', s_clean)) and len(w_list) >= 1:
+                has_mindspeech = True
+                break
+            if bool(re.search(r'[,]$', s_clean)) and len(w_list) >= 2:
+                has_mindspeech = True
+                break
+
+        if has_acoustic and has_mindspeech:
+            multi_speaker_paragraphs.append((start_line, p_text))
+            continue
+
+        # Check (b): two or more separate quoted speech segments attributed to distinct capitalized speaker names
+        if len(acoustic_quotes) >= 2:
+            speakers = set()
+            for m in re.finditer(rf'\b([A-Z][a-zA-Z0-9_-]+)\s+{dialogue_verbs}\b', p_text):
+                name = m.group(1)
+                if name not in stop_names:
+                    speakers.add(name)
+            for m in re.finditer(rf'\b{dialogue_verbs}\s+([A-Z][a-zA-Z0-9_-]+)\b', p_text):
+                name = m.group(1)
+                if name not in stop_names:
+                    speakers.add(name)
+
+            if len(speakers) >= 2:
+                multi_speaker_paragraphs.append((start_line, p_text))
+
+    # Cross-Chapter Echo Window
+    cross_chapter_echoes = []
+    if is_file and window > 0:
+        base_name = os.path.basename(file_path)
+        m_track = re.match(r'^(\d{1,3})[\s_-]+', base_name)
+        if m_track:
+            curr_track = int(m_track.group(1))
+            dir_name = os.path.dirname(os.path.abspath(file_path))
+            if os.path.isdir(dir_name):
+                sibling_files = []
+                for fname in sorted(os.listdir(dir_name)):
+                    if fname == base_name:
+                        continue
+                    if not (fname.endswith(".md") or fname.endswith(".qmd")):
+                        continue
+                    sm = re.match(r'^(\d{1,3})[\s_-]+', fname)
+                    if sm:
+                        s_track = int(sm.group(1))
+                        if (curr_track - window) <= s_track <= (curr_track - 1):
+                            sibling_files.append((fname, os.path.join(dir_name, fname)))
+
+                if sibling_files:
+                    curr_tokens = re.findall(r'[a-z]{3,}', clean_prose.lower())
+                    curr_3grams_list = _build_valid_3grams(curr_tokens)
+                    curr_3gram_counts: Dict[str, int] = {}
+                    for phrase in curr_3grams_list:
+                        curr_3gram_counts[phrase] = curr_3gram_counts.get(phrase, 0) + 1
+
+                    phrase_to_siblings: Dict[str, List[str]] = {p: [] for p in curr_3gram_counts}
+
+                    for s_fname, s_path in sibling_files:
+                        s_tokens = _extract_file_tokens(s_path)
+                        s_3grams = set(_build_valid_3grams(s_tokens))
+                        for phrase in curr_3gram_counts:
+                            if phrase in s_3grams:
+                                phrase_to_siblings[phrase].append(s_fname)
+
+                    flagged = []
+                    for phrase, cnt in curr_3gram_counts.items():
+                        matched_sibs = phrase_to_siblings.get(phrase, [])
+                        if len(matched_sibs) >= 2:
+                            flagged.append({
+                                "phrase": phrase,
+                                "chapters": matched_sibs,
+                                "count_in_current": cnt
+                            })
+
+                    flagged.sort(key=lambda x: (x["count_in_current"], len(x["chapters"])), reverse=True)
+                    cross_chapter_echoes = flagged[:10]
+
     md_errors, md_err_note = run_markdownlint(file_path) if is_file else ([], None)
 
     unicode_artifact_matches = []
     for line_idx, line in enumerate(lines, 1):
         if '\ufffd' in line:
             unicode_artifact_matches.append((line_idx, line.strip()))
+
+    buzzwords_found = [{"line": l, "word": w, "snippet": s} for l, w, s in banned_matches]
+    cognitive_buffers_found = [{"line": l, "word": w, "snippet": s} for l, w, s in cognitive_matches]
+
+    redlines: List[str] = []
+    for l_no, w, snip in banned_matches:
+        redlines.append(f"Line {l_no}: Forbidden buzzword or overage '{w}'.")
+
+    for item, occs in tier1_overages.items():
+        if len(occs) > tier1_allowance:
+            redlines.append(f"High-salience cliché '{item}' exceeded quota ({len(occs)} found; allowance: {tier1_allowance}).")
+
+    for rw, occs in tier2_overages.items():
+        redlines.append(f"Rare vocabulary '{rw}' exceeded quota ({len(occs)} found; allowance: 1).")
+
+    for echo in proximity_echoes:
+        redlines.append(f"Proximity echo for '{echo['text']}' between lines {echo['line1']} and {echo['line2']} ({echo['distance']} words apart).")
+
+    if not ellipses_valid:
+        redlines.append(f"Ellipses density ({ellipses_per_300:.2f}/300 words) exceeds ceiling of 0.60 per 300 words.")
+
+    for l_no, snip in unicode_artifact_matches:
+        redlines.append(f"Line {l_no}: Corrupted unicode replacement character (\\ufffd).")
+
+    for l_no, p_text in multi_speaker_paragraphs:
+        redlines.append(f"Line {l_no}: Multi-speaker dialogue in single paragraph violates one-speaker-per-paragraph discipline.")
+
+    gates_passed = bool(
+        len(banned_matches) == 0
+        and len(tier1_overages) == 0
+        and len(tier2_overages) == 0
+        and len(proximity_echoes) == 0
+        and ellipses_valid
+        and len(unicode_artifact_matches) == 0
+        and len(multi_speaker_paragraphs) == 0
+    )
 
     report = {
         "file_path": file_path if is_file else "<raw_text>",
@@ -459,10 +704,25 @@ def analyze_prose(file_path: str) -> Tuple[Optional[Dict[str, Any]], Optional[st
         "tier3_density_alerts": tier3_density_alerts,
         "proximity_echoes": proximity_echoes,
         "markdownlint_errors": md_errors,
-        "markdownlint_note": md_err_note
+        "markdownlint_note": md_err_note,
+        "ellipses_count": ellipses_count,
+        "ellipses_per_300": ellipses_per_300,
+        "ellipses_valid": ellipses_valid,
+        "buzzwords_found": buzzwords_found,
+        "cognitive_buffers_found": cognitive_buffers_found,
+        "paragraph_count": paragraph_count,
+        "braided_paragraph_count": braided_paragraph_count,
+        "braided_ratio": braided_ratio,
+        "single_sentence_paragraphs": single_sentence_paragraphs,
+        "single_sentence_per_1k": single_sentence_per_1k,
+        "multi_speaker_paragraphs": multi_speaker_paragraphs,
+        "sentence_len_std": round(sentence_len_std, 2),
+        "burstiness_cv": burstiness_cv,
+        "cross_chapter_echoes": cross_chapter_echoes,
+        "redlines": redlines,
+        "gates_passed": gates_passed,
     }
     return report, None
-
 
 
 def print_prose_report(report: Dict[str, Any]):
@@ -470,13 +730,66 @@ def print_prose_report(report: Dict[str, Any]):
     print(f" PROSE LINTER & NO-AI-SLOP AUDIT REPORT")
     print(f" File: {report['file_path']}")
     print("=" * 65)
-    print(f" Word Count: {report['word_count']}")
-    print(f" Avg Sentence Length: {report['avg_sentence_length']} words")
-    print(f" Em-Dashes: {report['em_dash_count']} (Density: {report['em_dash_density_per_300']} per 300 words)")
-    if report['em_dash_density_per_300'] > 1.0:
-        print("  [WARN] Em-dash density exceeds 1.0 per 300 words!")
+
+    gates_passed = report.get("gates_passed", False)
+    status_str = "[PASS] READY FOR PUBLICATION" if gates_passed else "[FAIL] REVISION REQUIRED"
+    print(f" Editorial Status: {status_str}")
+
+    print("\n--- EDITORIAL READINESS GATES ---")
+    if gates_passed:
+        print("  [PASS] All editorial readiness gates passed.")
     else:
-        print("  [OK] Em-dash density is clean.")
+        redlines = report.get("redlines", [])
+        print(f"  [FAIL] Editorial gates triggered {len(redlines)} redline(s):")
+        for r in redlines:
+            print(f"    - {r}")
+
+    print("\n--- CRAFT TELEMETRY PROFILE ---")
+    print(f"  Word Count: {report['word_count']}")
+    print(f"  Avg Sentence Length: {report['avg_sentence_length']} words")
+    print(f"  Sentence Length Std Dev: {report.get('sentence_len_std', 0.0)}")
+    print(f"  Sentence Burstiness (CV): {report.get('burstiness_cv', 0.0)}")
+    ell_status = "[OK]" if report.get("ellipses_valid", True) else "[EXCEEDS BUDGET]"
+    print(f"  Ellipses: {report.get('ellipses_count', 0)} ({report.get('ellipses_per_300', 0.0)} per 300 words, Budget: <= 0.60) {ell_status}")
+    print(f"  Em-Dashes: {report['em_dash_count']} (Density: {report['em_dash_density_per_300']} per 300 words)")
+    if report['em_dash_density_per_300'] > 1.0:
+        print("    [WARN] Em-dash density exceeds 1.0 per 300 words!")
+    else:
+        print("    [OK] Em-dash density is clean.")
+
+    para_cnt = report.get("paragraph_count", 0)
+    braided_cnt = report.get("braided_paragraph_count", 0)
+    braided_pct = report.get("braided_ratio", 0.0)
+    print(f"  Paragraph Braiding: {braided_cnt} / {para_cnt} paragraphs ({braided_pct}% braided [3-6 sentences])")
+
+    single_paras = report.get("single_sentence_paragraphs", [])
+    single_rate = report.get("single_sentence_per_1k", 0.0)
+    print(f"  Single-Sentence Paragraphs: {len(single_paras)} ({single_rate} per 1k words, Ceiling: <= 1-2 per 1k)")
+    if single_paras:
+        for l_no, p_text in single_paras[:5]:
+            snippet = p_text[:70] + "..." if len(p_text) > 70 else p_text
+            print(f"    - Line {l_no}: \"{snippet}\"")
+        if len(single_paras) > 5:
+            print(f"    ... and {len(single_paras) - 5} more.")
+
+    multi_speakers = report.get("multi_speaker_paragraphs", [])
+    if multi_speakers:
+        print(f"  [MULTI-SPEAKER VIOLATIONS] {len(multi_speakers)} paragraph(s) contain multi-speaker dialogue:")
+        for l_no, p_text in multi_speakers:
+            snippet = p_text[:70] + "..." if len(p_text) > 70 else p_text
+            print(f"    - Line {l_no}: \"{snippet}\"")
+    else:
+        print("  [OK] One-speaker-per-paragraph discipline maintained.")
+
+    cross_echoes = report.get("cross_chapter_echoes", [])
+    if cross_echoes:
+        print(f"\n--- CROSS-CHAPTER ECHOES (Window: 3 preceding chapters) ---")
+        for ce in cross_echoes:
+            chaps = ", ".join(ce.get("chapters", []))
+            print(f"  - '{ce['phrase']}' (found {ce.get('count_in_current', 1)}x in current chapter, echoes in: {chaps})")
+    else:
+        print("\n--- CROSS-CHAPTER ECHOES ---")
+        print("  [OK] Zero cross-chapter recurring phrase echoes detected.")
 
     print("\n--- MARKDOWNLINT ERRORS ---")
     if report['markdownlint_errors']:

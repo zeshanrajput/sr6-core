@@ -66,12 +66,12 @@ arc_chronology:
     mechanical_state: "Submersion Grade 2; established r3sP@wn safehouse network"
 
   arc_4_the_apex_horizon:
-    chapters: "23 – 34"
-    narrative_state: "Entering the sights of megacorp apex curators; technoshamanic parenthood; resolving the Pinocchio defense (26 SIGTSTP); sovereign craft and the Great Inversion (30 Vim); Arcology Floor 281 sanctuary (31 Grep, 32 Whois); hardware code freeze and somatic ceiling (33 Code Freeze); 358-mph vector interceptor overhaul and Ouro's Codemod mirror (34 Latency)"
+    chapters: "23 – 37"
+    narrative_state: "Entering the sights of megacorp apex curators; technoshamanic parenthood; resolving the Pinocchio defense (26 SIGTSTP); sovereign craft and the Great Inversion (30 Vim); Arcology Floor 281 sanctuary (31 Grep, 32 Whois); hardware code freeze and somatic ceiling (33 Code Freeze); 358-mph vector interceptor overhaul and Ouro's Codemod mirror (34 Latency); Human Malice consensus trap (35 ptrace); liberating Lian in Bangkok (36 chown); and consecrated Dissonant apotheosis with Apophenian at point zero (37 dev-null)"
     expressivity: "Quiet, serene authority; gentle maternal warmth; understated confidence; shedding the need to emulate metahuman biology to earn love"
-    cognitive_bias: "Transcending solitary martyrdom; moving from biological emulation to sovereign somatic peace ('entirely metal'); mother and shepherd of a sovereign collective; facing apex adversaries playing decadal chess"
-    visual_palette: "Distributed starlight, damp cypress, brushed teak, twilight glades, unglazed Bizen pottery, pewter river dawn"
-    mechanical_state: "Sprite Link echo unlocked; shared circuit Fading absorption; autonomous fledgling contacts; vector thrust refit"
+    cognitive_bias: "Transcending solitary martyrdom; moving from biological emulation to sovereign somatic peace ('entirely metal'); mother and shepherd of a sovereign collective; facing apex adversaries playing decadal chess; holding the zero-point balance between Resonance and Dissonance"
+    visual_palette: "Distributed starlight, damp cypress, brushed teak, twilight glades, unglazed Bizen pottery, pewter river dawn, matte-black ceramic braided with solar gold and neon indigo"
+    mechanical_state: "Resonance 9 / Submersion 9; Sprite Link & Hybrid Sprites; Dissonant Technomancer (Control / Apophenian); shared circuit Fading absorption; vector thrust refit"
 ```
 
 ---
@@ -98,6 +98,7 @@ chapter_tiers:
       - "30 Vim (The Sovereign Keystone / Great Inversion)"
       - "33 Code Freeze (The Somatic Ceiling & Code Freeze)"
       - "35 ptrace (Soul Hacking — The Descent into Human Malice & The Sin of Unworthiness)"
+      - "37 dev-null (The Frequency of a Zero — Apophenian's Avatar & Resonance 9 Apotheosis)"
 
   tier_2_narrative_evolution:
     passing_threshold: "8.5 / 10"
@@ -121,6 +122,7 @@ chapter_tiers:
       - "31 Grep (Arcology Floor 281 Sovereign Hearth)"
       - "32 Whois (Lineage Unmasking & Takahashi Kinship)"
       - "34 Latency (358-MPH Vector Overhaul, Capacitor Stencils & Ouro's Codemod Mirror)"
+      - "36 chown (The Awakening of Lian — Bangkok Extraction & Caregiver Handshake)"
 
   tier_3_atmospheric_bridges:
     passing_threshold: "8.0 / 10"
@@ -140,7 +142,7 @@ chapter_tiers:
 ```yaml
 voice_schema:
   character_id: "yuriko"
-  narrative_pov: "First Person Limited"
+  narrative_pov: "Third Person Deep Limited"
   cognitive_bias: "Integrated Dual-Nature (Tactical Gold Logic & Resonant Indigo Soul)"
   vocabulary_matrix:
     register: "Tactical-Technoshaman Hybrid (Precise Cybernetic Telemetry + Spiritual Animism)"

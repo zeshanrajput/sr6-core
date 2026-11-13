@@ -232,6 +232,7 @@ def main():
     story_sub = story_parser.add_subparsers(dest="subcommand", help="Story action to perform")
     s_lint = story_sub.add_parser("lint", help="Lint chapter prose for style, ellipses, and AI buzzwords")
     s_lint.add_argument("target", type=str, help="Path to chapter markdown/qmd file")
+    s_lint.add_argument("--window", type=int, default=3, help="Cross-chapter echo lookback window (default: 3)")
     s_cont = story_sub.add_parser("continuity", help="Run campaign timeline & story continuity audit")
     s_cont.add_argument("repo_path", type=str, help="Repository directory path")
     s_narrate = story_sub.add_parser("narrate", help="Generate or manage TTS audio narration")
@@ -243,6 +244,14 @@ def main():
     s_narrate.add_argument("--pacing", type=str, choices=["tight", "balanced", "spacious"], default="balanced", help="Pacing profile")
     s_sync = story_sub.add_parser("sync", help="Synchronize narrative chapters across _quarto.yml, index.qmd, and story_continuity.md")
     s_sync.add_argument("target", type=str, nargs="?", default=".", help="Character ID or directory path (e.g. velvet, characters/velvet, or .)")
+    s_packet = story_sub.add_parser("packet", help="Compile a clean-room JIT creative packet for a character chapter/beat")
+    s_packet.add_argument("char_id", type=str, help="Character ID (e.g. reiko, velvet, venn)")
+    s_packet.add_argument("chapter_file", type=str, help="Path to target chapter markdown file")
+    s_packet.add_argument("--beat", type=int, default=None, help="Target beat number to isolate")
+    s_packet.add_argument("--callbacks", type=str, default=None, help="Comma-separated callback chapter numbers (e.g. 33,34)")
+    s_packet.add_argument("--items", type=str, default=None, help="Comma-separated canonical SR6 items/rules to attach")
+    s_prep = story_sub.add_parser("prep-audio", help="Scan chapter prose for contextual heteronyms and unmapped proper nouns before Kokoro TTS")
+    s_prep.add_argument("target", type=str, help="Path to chapter markdown/qmd file")
 
     story_sync_parser = subparsers.add_parser("story-sync", help="Synchronize narrative chapters across _quarto.yml, index.qmd, and story_continuity.md")
     story_sync_parser.add_argument("target", type=str, nargs="?", default=".", help="Character ID or directory path (e.g. velvet, characters/velvet, or .)")
@@ -313,6 +322,7 @@ def main():
 
     lint_parser = subparsers.add_parser("lint", help="Lint Quarto chapter prose")
     lint_parser.add_argument("target", type=str, help="Path to chapter markdown/qmd file")
+    lint_parser.add_argument("--window", type=int, default=3, help="Cross-chapter echo lookback window (default: 3)")
 
     cont_parser = subparsers.add_parser("continuity", help="Run campaign timeline & story continuity audit")
     cont_parser.add_argument("repo_path", type=str, help="Repository directory path")
@@ -458,6 +468,7 @@ def main():
     eval_parser.add_argument("target", type=str, help="Path to chapter .qmd file or prose text")
     eval_parser.add_argument("--tier", type=int, choices=[1, 2, 3], default=2, help="Chapter Tier (1=Keystone 9.0, 2=Narrative Evolution 8.5, 3=Atmospheric Bridge 8.0)")
     eval_parser.add_argument("--char", type=str, default=None, help="Character ID context (reiko, velvet, venn)")
+    eval_parser.add_argument("--window", type=int, default=3, help="Cross-chapter echo lookback window (default: 3)")
 
     # validate-dossier subcommand
     val_parser = subparsers.add_parser("validate-dossier", help="Validate character YAML items against SQLite catalog keys")
@@ -1113,7 +1124,7 @@ def main():
     elif args.command == "story":
         if args.subcommand == "lint":
             from sr6core.narrative.linter import analyze_prose, print_prose_report
-            res, err = analyze_prose(args.target)
+            res, err = analyze_prose(args.target, window=getattr(args, "window", 3))
             if err:
                 print(f"[Error] {err}")
             else:
@@ -1155,6 +1166,30 @@ def main():
                 print(f"[Error] {err}")
             else:
                 print_sync_report(rep)
+
+        elif args.subcommand == "packet":
+            from sr6core.narrative.packet import build_story_packet
+            callbacks = [c.strip() for c in args.callbacks.split(",") if c.strip()] if getattr(args, "callbacks", None) else None
+            items = [i.strip() for i in args.items.split(",") if i.strip()] if getattr(args, "items", None) else None
+            packet_md, err = build_story_packet(
+                args.char_id,
+                args.chapter_file,
+                beat=getattr(args, "beat", None),
+                callbacks=callbacks,
+                items=items,
+            )
+            if err:
+                print(f"[Error] {err}")
+            else:
+                print(packet_md)
+
+        elif args.subcommand == "prep-audio":
+            from sr6core.narrative.prep_audio import scan_audio_prep, print_audio_prep_report
+            rep, err = scan_audio_prep(args.target)
+            if err:
+                print(f"[Error] {err}")
+            else:
+                print_audio_prep_report(rep)
 
     elif args.command == "story-sync":
         from sr6core.narrative.sync import sync_narrative_context, print_sync_report
@@ -1239,7 +1274,7 @@ def main():
 
     elif args.command == "lint":
         from sr6core.narrative.linter import analyze_prose, print_prose_report
-        report, err = analyze_prose(args.target)
+        report, err = analyze_prose(args.target, window=getattr(args, "window", 3))
         if err:
             print(f"[Error] {err}")
         else:
@@ -1374,7 +1409,7 @@ def main():
 
     elif args.command == "evaluate":
         from sr6core.narrative.linter import analyze_prose, print_prose_report
-        res, err = analyze_prose(args.target)
+        res, err = analyze_prose(args.target, window=getattr(args, "window", 3))
         if err:
             print(f"[Error] {err}")
         else:

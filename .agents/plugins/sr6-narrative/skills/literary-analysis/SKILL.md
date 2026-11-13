@@ -1,31 +1,34 @@
 ---
 name: literary-analysis
-description: Unified literary craft engine: 7-axis audit rubrics, action choreography, and prose chisel refactoring.
-version: 2.0.0
+description: Positive literary craft engine: 4 developmental craft axes, domain action choreography, and prose chisel refactoring.
+version: 2.1.0
 author: Zeshan Rajput (zeshanrajput), Antigravity Agent
 license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
     tags: [shadowrun, narrative, craft, audit, choreography, prose-chisel, refactoring, literary]
-    related_skills: [no-ai-slop, sr6-rules, narrative-director, sr6-chapter-finalize]
+    related_skills: [no-ai-slop, sr6-rules, narrative-director, sr6-chapter-finalize, continuity-tracker]
 ---
 
-# Literary Craft, Audit & Prose Chisel Skill (`literary-analysis`)
+# Literary Craft, Action Staging & Prose Chisel Skill (`literary-analysis`)
 
-The central speculative fiction craft engine for the Shadowrun 6e Narrative Suite. This skill serves a dual purpose across the development lifecycle:
-1. **Stage 3 Unified Audit Panel**: Evaluates scene drafts across Voice, Pacing, Agency, and Worldbuilding against tier-calibrated standards.
+The central **Positive Literary Craft Engine** for the Shadowrun 6e Narrative Suite. This skill serves three core functions across the narrative lifecycle:
+1. **Developmental Craft Audit & Telemetry**: Evaluates scene drafts across Voice, Pacing, Agency, and Worldbuilding using deterministic readiness gates and descriptive craft metrics.
 2. **Domain Action Choreography**: Guides visceral staging for tactical firefights, astral perception/sorcery, and matrix decking/technomancy.
-3. **Stage 4 & 6 Prose Chisel Engine (`apply_prose_chisel`)**: Executes line-level refactoring to braid staccato lines, translate dry mechanics into consecrated capital/debt, and strip negative non-actions.
+3. **Line Chisel Engine (`apply_prose_chisel`)**: Executes line-level refactoring to braid staccato lines, translate mechanics into consecrated debt/capital, prune negative non-actions, and preserve essential domain scaffolding.
 
 ---
 
 ## When to Use
 
-- Running the Stage 3 multi-axis qualitative audit on chapter drafts or scene beats.
-- Staging action scenes involving smartlink combat, spellcasting/drain, or matrix/resonance hacking.
-- Executing Stage 4/6 line-level prose chisel refactoring (`apply_prose_chisel`).
-- Fixing staccato paragraph stacking, show-then-tell redundancy, or passive protagonist syndrome.
+- Conducting developmental craft audits on chapter drafts or scene beats.
+- Staging action scenes involving smartlink ballistics, spellcasting drain, or matrix/resonance hacking.
+- Executing line-level prose chisel refactoring (`apply_prose_chisel`) in Stage 4 and Stage 6.
+- Resolving staccato paragraph stacking, exposition bloat, or passive protagonist syndrome.
+- Measuring sentence-length burstiness, paragraph braiding ratios, and cross-chapter echo proximity.
+
+---
 
 ## Command Triggers & Diagnostics
 
@@ -38,50 +41,71 @@ literary-analysis <target_file>
 
 Execute baseline diagnostics via CLI:
 ```bash
-# Automated paragraph braid ratios, ellipses ceiling, and buzzwords
-uv run sr6 lint "characters/<char_id>/chapters/<file>.qmd"
+# Automated paragraph braid ratios, ellipses ceiling, buzzwords, and N-3 cross-chapter echoes
+uv run sr6 lint "characters/<char_id>/narrative/<file>.md" --window 3
 
-# 7-axis baseline scorecard and tier-calibrated compliance
-uv run sr6 evaluate "characters/<char_id>/chapters/<file>.qmd" --tier <1|2|3> --char <char_id>
+# Multi-axis qualitative evaluation and craft telemetry
+uv run sr6 evaluate "characters/<char_id>/narrative/<file>.md" --tier <1|2|3> --char <char_id>
 ```
 
 ---
 
-## Tier-Calibrated Standards (Unified 1.0–10.0 Scale)
+## Chapter Tiers & Qualitative Craft Expectations
 
 Prose expectations scale with the chapter's designated tier in `reference/voice_spec.md`:
 
-- **Tier 1 (Keystones — Passing Threshold: $\ge 9.0 / 10$):**
-  - Existential breakthroughs, foundational pivots, initiation/submersion milestones, profound moral tragedy.
-  - Irreversible choices; protagonist boldly breaks from conditioning; deep somatic friction. Zero fluff. Word count: 1,500 – 2,500+ words.
-- **Tier 2 (Narrative Evolution — Passing Threshold: $\ge 8.5 / 10$):**
-  - Mission runs, operational tradecraft, shadowrun negotiations, relationship deepening, regional sprawl texture, dark humor, tactical momentum. Word count: 1,200 – 1,800+ words.
-- **Tier 3 (Atmospheric Bridges — Passing Threshold: $\ge 8.0 / 10$):**
-  - Meditative downtime, procedural maintenance, un-monetized tea/noodle sanctuaries, somatic healing truces, affectionately grounded banter. Word count: 1,000 – 1,600+ words.
+- **Tier 1 (Keystones)**:
+  - *Dramatic Scope*: Existential breakthroughs, foundational pivots, initiation/submersion milestones, profound moral tragedy.
+  - *Craft Standards*: Zero gate tolerance; elevated sentence-length burstiness (CV $\ge 0.45$); deep somatic friction; irreversible protagonist agency. Target: 1,500 – 2,500+ words.
+- **Tier 2 (Narrative Evolution)**:
+  - *Dramatic Scope*: Mission runs, operational tradecraft, shadowrun negotiations, relationship deepening, regional sprawl texture, dark humor, tactical momentum.
+  - *Craft Standards*: High kinetic rhythm; balanced dialogue and physical micro-action; crisp sensory staging. Target: 1,200 – 1,800+ words.
+- **Tier 3 (Atmospheric Bridges)**:
+  - *Dramatic Scope*: Meditative downtime, procedural maintenance, un-monetized tea/noodle sanctuaries, somatic healing truces, affectionately grounded banter.
+  - *Craft Standards*: Warm tactile texture; domestic survival routines; comfortable conversational cadence. Target: 1,000 – 1,600+ words.
+
+---
+
+## Hard Editorial Readiness Gates & Descriptive Craft Telemetry
+
+Rather than relying on arbitrary synthetic numeric scores (e.g. `X/10`), drafts are evaluated using deterministic gates and descriptive craft metrics:
+
+### 1. Hard Editorial Readiness Gates (Must Pass Cleanly)
+- **Zero Tier 0 Banned Buzzwords**: Absolute zero-tolerance for editorial clichés (*testament*, *tapestry*, *dance*, *palpable*, *labyrinthine*, *symphony*, *cacophony*).
+- **Zero Multi-Speaker Paragraphs**: Strictly one speaker per paragraph, braiding each speaker turn with that character's own physical micro-actions and delivery.
+- **The Ellipses Ceiling**: Trailing ellipses must not exceed $\le 0.60$ per 300 words to ensure natural Kokoro TTS cadence.
+- **Zero Proximity Echoes**: No prominent nouns or idiosyncratic verbs repeated within 3 paragraphs intra-beat, and zero cross-chapter echo collisions across the `N-3` chapter window (`uv run sr6 lint <file> --window 3`).
+- **Zero Unicode Artifacts**: Zero `\ufffd` replacement characters.
+
+### 2. Descriptive Craft Telemetry (Developmental Health)
+- **Braided Paragraph Cadence**: $\ge 75\%$ of non-dialogue paragraphs must fall within 3 to 6 sentences, weaving sensory atmosphere, physical action, and immediate consequences.
+- **Single-Sentence Pivot Audit**: Single-sentence paragraphs are a high-impact literary tool reserved strictly for irreversible dramatic pivots or flashback hinges. Calibrated to **no more than 1 or 2 per thousand words** ($\le 1\text{–}2 / 1,000$ words).
+- **Sentence-Length Burstiness (Coefficient of Variation)**: Sentence-length CV should achieve $\ge 0.45$, confirming dynamic rhythmic variation between short punchy clauses and flowing compound sentences.
+- **Cross-Chapter Echo Window (`N-3`)**: Scans previous 3 chapters for recurring signature phrases to prevent stylistic homogenization.
 
 ---
 
 ## The 4 Evaluation Axes
 
-### Axis 1: Character Voice & Internality (`axis-voice-internality`)
+### Axis 1: Character Voice & Internality
 - **Deep Limited Third-Person POV**: Stay anchored behind the protagonist’s eyes, sensors, and cognitive biases. Never float into omniscient narrator territory.
 - **Sensory Palette & Vocabulary Matrix**: Ground metaphors in the character's lived professional reality (e.g., Reiko's dual Gold TacNet / Indigo Resonance telemetry; Velvet's transmutational body and aesthetic geomancy; Venn's monad bus clocks and ceramic stress).
 - **Chronological Arc Calibration**: Calibrate to the chapter's active era from `voice_spec.md` (e.g. Arc 1 debt-collar vs. Arc 4 sovereign authority). Avoid retrospective flattening.
 
-### Axis 2: Pacing & Structure (`axis-pacing-structure`)
+### Axis 2: Pacing & Structure
 - **4-Beat Scene Architecture**: Inciting Friction $\rightarrow$ Escalation $\rightarrow$ Climax $\rightarrow$ Aftermath. Arrive late, leave early.
 - **Paragraph Braiding (3 to 6 Sentences)**: Group sensory atmosphere, physical micro-action, gear interaction, and immediate somatic consequences into cohesive braided paragraphs.
-- **Single-Sentence Lines as a Deliberate Literary Tool**: Single-sentence paragraphs are a high-impact literary tool for irreversible pivots or existential turning points. Strictly calibrated to **no more than 1 or 2 per thousand words** ($\le 1\text{–}2 / 1,000$ words).
-- **One Speaker Per Paragraph (Mandatory)**: Never combine lines spoken by different characters into one paragraph. Braid each speaker turn with their own delivery and physical micro-action.
+- **Single-Sentence Lines as a Deliberate Literary Tool**: Strictly reserved for irreversible turns, capped at $\le 1\text{–}2 / 1,000$ words.
+- **One Speaker Per Paragraph**: Every speaker turn is an independent paragraph braiding dialogue with that character's own physical micro-actions.
 
-### Axis 3: Protagonist Agency & Stakes (`axis-agency-motivation`)
+### Axis 3: Protagonist Agency & Stakes
 - **Active Driver vs. Passive Passenger**: The protagonist must make deliberate tactical or moral decisions that dictate the outcome of the scene.
 - **Two-Tier Dramatic Sphere**:
   - *Tier A Campaign Canon (`canonical: true`)*: Respects the Canon Ceiling. Read-only relational orbit; other PCs and campaign VIPs are inviolable.
   - *Tier B Bespoke Foils (`canonical: false`)*: Carry full sovereign agency, permanent moral reckoning, and mortal stakes.
 - **Moral Friction**: Decisions must cost something tangible (nuyen, reputation, physical strain, emotional security).
 
-### Axis 4: Worldbuilding & Dystopian Grit (`axis-worldbuilding-grit`)
+### Axis 4: Worldbuilding & Dystopian Grit
 - **Sensory Dystopian Texture**: Smells of ozone, synthetic soy, wet ferroconcrete, sulfurous drizzle, and industrial cooling hums.
 - **Corporate Omnipresence**: Megacorps permeate daily existence through intrusive AR billboards, bioware licensing rent, and biometric checkpoints.
 - **Zero Info-Dumping**: Never deliver encyclopedic lectures on safehouses or market economics. Embed world details naturally through character interaction and somatic friction.
@@ -126,7 +150,7 @@ When refactoring drafts during Stage 4/6, apply these four transformations:
    - Completely strip game mechanic labels (Edge, Drain points, Defense Rating, dice pools).
 3. **Trust the Reader vs. Contextual Scaffolding**:
    - *Prune Lazy Meta-Exposition*: Cut introductory comparative essays, thesis announcements, and character sheet recaps.
-   - *Preserve Essential Contextual Scaffolding*: Provide grounded sensory grounding when a reader cannot reasonably deduce specialized dynamics (e.g. medical triage desensitization buffering against charisma until the smock comes off).
+   - *Preserve Essential Contextual Scaffolding*: Provide grounded sensory details when a reader cannot reasonably deduce specialized dynamics (e.g. medical triage desensitization buffering against charisma until the smock comes off; Reiko's gold tactical logic versus indigo resonant soul).
 4. **Affirmative Staging & Non-Action Pruning**:
    - Strip gratuitous negative non-actions (*"did not flinch"*, *"did not look back"*) whenever the positive physical detail (*"her hands remained flat against her knees"*) already carries the weight.
 
@@ -135,12 +159,10 @@ When refactoring drafts during Stage 4/6, apply these four transformations:
 ## Output Deliverables
 
 When evaluating or chiseling a chapter, deliver:
-1. **The Unified 7-Axis Scorecard**:
-   - Scores across Voice, Pacing, Agency, Worldbuilding, Slop, Continuity, and Rules.
-   - Final composite score vs. designated tier passing threshold.
-2. **Expanded Literary Craft Telemetry**:
-   - Paragraph braiding ratio, single-sentence line quota compliance, speaker-turn integrity.
-3. **Transparent Craft Callouts**:
-   - Single-sentence paragraph justifications (or "None deployed").
-   - Contextual scaffolding justifications (or "None required").
-4. **Drop-in Polished Prose**: Ready-to-paste markdown replacements or direct file updates.
+1. **Editorial Readiness Gates & Craft Telemetry Table**:
+   - Status of all hard gates (buzzwords, multi-speaker paragraphs, ellipses, proximity echoes, unicode).
+   - Descriptive craft metrics (braiding cadence, single-sentence quota, burstiness CV).
+2. **Transparent Craft Callouts**:
+   - Single-sentence paragraph justifications (identify quote, line, and the dramatic hinge, or "None deployed").
+   - Contextual scaffolding justifications (identify domain mechanic or proprietary motif scaffolded, or "None required").
+3. **Drop-in Polished Prose**: Ready-to-paste markdown replacements or direct file updates.

@@ -1,28 +1,30 @@
 ---
 name: sr6-chapter-finalize
-description: Finalize narrative chapter with Kokoro TTS audio narration, GitHub Release asset upload, project cross-linking, and CI/CD verification.
-version: 2.0.0
+description: Finalize narrative chapter with Kokoro TTS audio narration, GitHub Release asset upload, project cross-linking, series bible closeout, and CI/CD verification.
+version: 2.1.0
 author: Zeshan Rajput (zeshanrajput), Antigravity Agent
 license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
-    tags: [shadowrun, narrative, publishing, tts, kokoro, audio, git, cicd, github-actions]
+    tags: [shadowrun, narrative, publishing, tts, kokoro, audio, git, cicd, github-actions, series-bible]
     related_skills: [literary-analysis, continuity-tracker, no-ai-slop, narrative-director]
 ---
 
 # SR6 Chapter Finalization & Publishing Skill (`sr6-chapter-finalize`)
 
-Standardized end-to-end publishing and audio narration pipeline for finalized Shadowrun 6e narrative chapters. This skill automates the transition from approved prose into audiobook-grade Kokoro TTS narration, GitHub Release asset distribution, project context navigation, version control, and CI/CD deployment verification.
+Standardized end-to-end publishing, audio narration, and series bible closeout pipeline for finalized Shadowrun 6e narrative chapters. This skill automates the transition from approved prose into audiobook-grade Kokoro TTS narration, GitHub Release asset distribution, series bible synchronization, version control, and CI/CD deployment verification.
 
 ---
 
 ## When to Use
 
 - When a chapter draft has passed all audit panel dimensions and completed Stage 4/6 line-level prose chiseling.
+- When scanning for audio pronunciation heteronyms with `uv run sr6 story prep-audio`.
 - When generating Kokoro TTS audio narration and embedding character metadata tags.
 - When uploading newly synthesized chapter MP3s directly to GitHub Release assets under the zero-git-bloat policy.
 - When registering a newly completed chapter across `_quarto.yml`, `index.qmd`, and `story_continuity.md`.
+- When closing out series bible artifacts (`storyboard.md`, `voice_spec.md`, `visual_anchors.md`).
 - When pushing the completed chapter to Git and autonomously waiting/verifying GitHub Actions workflows.
 
 ---
@@ -50,16 +52,17 @@ finalize-chapter <target_file>
                               |
                               v
  +---------------------------------------------------------+
- | 2. KOKORO TTS AUDIO GENERATION & RELEASE UPLOAD         |
+ | 2. AUDIO PREP, KOKORO TTS & RELEASE UPLOAD              |
+ | uv run sr6 story prep-audio "<target_file>"             |
  | uv run --extra narration sr6 narrate "<target>" --char  |
  | gh release upload narrative-audio-v1 "<mp3>" --clobber  |
  +----------------------------+----------------------------+
                               |
                               v
  +---------------------------------------------------------+
- | 3. PROJECT CONTEXT & NAVIGATION SYNCHRONIZATION         |
- | uv run sr6 story sync <char_id>                         |
- | (Updates _quarto.yml, index.qmd, story_continuity.md)   |
+ | 3. PROJECT CONTEXT & SERIES BIBLE CLOSEOUT              |
+ | uv run sr6 story sync <char_id> && uv run sr6 sync-all  |
+ | (Continuity links, storyboard promotion, bible drift)   |
  +----------------------------+----------------------------+
                               |
                               v
@@ -100,18 +103,17 @@ uv run sr6 lint "<target_file>"
 
 ### Step 2: Kokoro TTS Audio Generation & Release Asset Upload
 
-#### 1. Pronunciation & Heteronym Calibration
-Before generating audio, verify phonetics for Sixth World jargon and character handles in `reference/pronunciations.yaml`:
-- **Sixth World Proper Nouns**:
-  - `nuyen`: *new-yen*
-  - `mitsuhama`: *meet-soo-hah-mah*
-  - `aztechnology`: *az-tek-nahl-oh-jee*
-  - `r31k0`: *ray-koh*
-  - `dronomancy`: *droh-noh-man-see*
+#### 1. Pronunciation Prep & Heteronym Calibration
+Before generating audio, scan the prose for contextual heteronyms, Sixth World jargon, and character handles:
+```bash
+uv run sr6 story prep-audio "<target_file>"
+```
 - **Contextual Heteronyms & Homographs**:
   - English G2P phonemizers (Kokoro / Misaki) cannot infer semantic context for heteronyms and default to the primary dictionary entry.
   - **The Keigo / Ceremonial Bow Rule**: In syndicate/corporate keigo fiction, "bow" almost always refers to the physical gesture `/baʊ/` rather than archery/ribbon `/boʊ/`. Map forms to exact phonetic homophones (`bow: bough`, `bows: boughs`, `bowed: boughed`, `bowing: boughing`).
-  - Watch for other high-frequency heteronyms: *tear* (weep vs rip), *lead* (metal vs guide), *read* (past vs present), *wind* (breeze vs coil).
+  - Scans for other high-frequency heteronyms: *tear* (weep vs rip), *lead* (metal vs guide), *read* (past vs present), *wind* (breeze vs coil).
+- **Sixth World Proper Nouns**:
+  - Validates and prompts for unmapped terms in `reference/pronunciations.yaml` (e.g. `nuyen: new-yen`, `mitsuhama: meet-soo-hah-mah`, `aztechnology: az-tek-nahl-oh-jee`, `r31k0: ray-koh`, `dronomancy: droh-noh-man-see`).
 
 #### 2. Synthesize MP3 Audio Narration
 Synthesize high-fidelity 160kbps MP3 audio narration using Kokoro GPU:
@@ -130,22 +132,26 @@ gh release upload narrative-audio-v1 "characters/<char_id>/narrative/audio/<audi
 
 ---
 
-### Step 3: Project Context & Ecosystem Synchronization
+### Step 3: Project Context Synchronization & Series Bible Closeout
 
-Run the narrative context synchronizer to wire the chapter into the web book and continuity ledger, then run the full ecosystem sync to keep local character sheets and the Mobile PWA up to date:
+Run the narrative context synchronizer to wire the chapter into the web book and continuity ledger, then run the full ecosystem sync to close out the series bible and keep local character sheets and Mobile PWA up to date:
 ```bash
 uv run sr6 story sync <char_id>
 uv run sr6 sync-all
 ```
-Automatically updates:
+Automatically updates and verifies:
 1. **`characters/<id>/_quarto.yml`**: Registers the chapter under `part: "Narrative Log"` or `part: "Out-of-Session Narratives"`.
 2. **`characters/<id>/index.qmd`**: Appends the chapter under `### 2. Background & Campaign Narratives`.
 3. **`characters/<id>/reference/story_continuity.md`**:
-   - Updates contact appearances in Section 1.
+   - Updates contact appearances and relationship telemetry in Section 1.
+   - Verifies Section 1 & Section 2 entity tracker links and cross-references.
    - Appends verified word count row to `## 3. Anthology Narrative Chapter Index`.
-   - Recalculates total anthology word count.
-   - Strips any stray `\ufffd` artifacts.
-4. **Master YAML, Quick-Sheets & Mobile PWA (`uv run sr6 sync-all`)**: Recompiles `*_master.yaml`, runs deep character audits, and regenerates `output/text/*_sheet.txt`, `output/mobile/index.html`, and `app/index.html`.
+   - Recalculates total anthology word count and strips any stray `\ufffd` artifacts.
+4. **Series Bible Closeout & Bible Drift Resolution**:
+   - `reference/storyboard.md`: Promote the completed chapter's Story Queue item to `## 2. Major Previous Events & Canon Anchors` with its final word count and narrative resolution. Update active status on governing Thematic Verticals.
+   - `reference/voice_spec.md`: Verify active era alignment and ensure no retrospective cognitive bias drift occurred.
+   - `reference/visual_anchors.md`: Verify that any new physical gear, cyberware, weapons, vehicle modifications, or scars introduced in the chapter are reflected in physical appearance prompts, purging obsolete descriptions.
+5. **Master YAML, Quick-Sheets & Mobile PWA (`uv run sr6 sync-all`)**: Recompiles `*_master.yaml`, runs deep character audits, and regenerates `output/text/*_sheet.txt`, `output/mobile/index.html`, and `app/index.html`.
 
 ---
 
@@ -161,9 +167,10 @@ feat(<char_id>): add Chapter <num> <Title> and project links
 - Generate Kokoro TTS audio narration track and upload to narrative-audio-v1 release
 - Register chapter in _quarto.yml and index.qmd
 - Synchronize character relationship matrix and chapter breakdown in story_continuity.md
+- Close out series bible: update storyboard.md, visual_anchors.md, and voice_spec.md
 "@ | Set-Content -Path "scratch/commit_msg.txt" -Encoding utf8
 
-git add "<target_file>" "characters/<char_id>/_quarto.yml" "characters/<char_id>/index.qmd" "characters/<char_id>/reference/story_continuity.md"
+git add "<target_file>" "characters/<char_id>/_quarto.yml" "characters/<char_id>/index.qmd" "characters/<char_id>/reference/story_continuity.md" "characters/<char_id>/reference/storyboard.md" "characters/<char_id>/reference/visual_anchors.md"
 git commit -F scratch/commit_msg.txt
 Remove-Item "scratch/commit_msg.txt"
 git push origin master

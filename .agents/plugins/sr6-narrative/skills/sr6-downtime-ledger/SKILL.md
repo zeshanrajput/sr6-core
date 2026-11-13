@@ -1,14 +1,14 @@
 ---
 name: sr6-downtime-ledger
 description: Manage SR6 downtime advancement, purchases, session recaps, and ledgers.
-version: 1.1.0
+version: 1.2.0
 author: Zeshan Rajput (zeshanrajput), Hermes Agent
 license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
-    tags: [shadowrun, sr6, downtime, karma, nuyen, purchases, ledger, srm, contacts]
-    related_skills: [sr6-rules, continuity-tracker, shadowrun-campaign-management]
+    tags: [shadowrun, sr6, downtime, karma, nuyen, purchases, ledger, srm, contacts, writers-room]
+    related_skills: [sr6-rules, continuity-tracker, narrative-director, literary-analysis]
 ---
 
 # SR6 Downtime & Financial Ledger Skill (`sr6-downtime-ledger`)
@@ -148,6 +148,13 @@ Game Masters format recaps differently (bullet points, news broadcasts, inline p
 4. **Downtime Accounting**:
    - Clarify the player's chosen Major/Minor downtime actions.
    - Emit standardized `{python} ...` helper blocks.
+5. **Post-Session Writers' Room Pitch**:
+   - Run `uv run sr6 char pressure <char_id>` to measure updated financial and spiritual pressure.
+   - Synthesize 1–2 concrete `storyboard.md` Story Queue pitches sparked by:
+     - *Session Transcript Divergences*: Unscripted table moments, player improvisation, or near-death close calls from `transcript.md`.
+     - *Contact Dynamics*: Relational friction or newly earned Favor Points with Tier B bespoke foils or Tier A campaign figures.
+     - *Hardware & Karmic Mortgages*: Fresh bioware installations, cyberware lease rent, or initiation/submersion spiritual reckonings.
+   - Deliver the story pitches formatted for direct insertion into `characters/<char_id>/reference/storyboard.md` (Story Queue table: Story ID, Central Premise, Thematic Vertical, Tier B Foil, Tabletop Mechanical Anchor).
 
 ---
 

@@ -1,13 +1,332 @@
 """
 Narrative Context Synchronization Engine for SR6 Character Portfolios.
 Synchronizes chapter registries across _quarto.yml, index.qmd, and reference/story_continuity.md,
-ensuring clean chapter ordering, audio tag alignment, and zero unicode corruption artifacts.
+ensuring clean chapter ordering, audio tag alignment, entity appearance indexing, and zero unicode corruption artifacts.
 """
 
 import os
 import re
+import urllib.parse
 from pathlib import Path
-from typing import Dict, Any, List, Tuple, Optional
+from typing import Dict, Any, List, Tuple, Optional, Set
+
+
+def derive_entity_tokens(raw_name: str) -> List[str]:
+    """Derives precise search tokens from an entity or construct name for prose matching."""
+    cleaned = re.sub(r'[*`_]', '', raw_name).strip()
+
+    # Skip macro / generic rows that should not auto-index against broad text
+    if any(k in cleaned.lower() for k in ["corporate tie", "regional dossiers", "megacorps", "megacorporate"]):
+        return []
+
+    # Special-cased known multi-entities or constructs
+    if "aisling" in cleaned.lower() and ("étaín" in cleaned.lower() or "etain" in cleaned.lower()):
+        return ["Aisling", "Étaín", "Etain"]
+
+    if "~" in cleaned:
+        return ["~", "Tilde"]
+
+    if "river people" in cleaned.lower():
+        return ["River People", "Mississippi Renovation"]
+
+    if "resonance realms" in cleaned.lower():
+        return ["Resonance Realms", "UnITy"]
+
+    if "man-at-arms" in cleaned.lower():
+        return ["Man-at-Arms", "Goshintai"]
+
+    if "seattle shadow chapters" in cleaned.lower():
+        return ["Seattle Shadow Chapters", "Shadow Chapters"]
+
+    if "takahashi satomi" in cleaned.lower():
+        return ["Takahashi Satomi", "Satomi"]
+
+    if "ni ni xiaolu" in cleaned.lower():
+        return ["Ni Ni Xiaolu", "Xiaolu"]
+
+    if "liao fa ren" in cleaned.lower():
+        return ["Liao Fa Ren", "Fa Ren"]
+
+    if "sigrûn" in cleaned.lower() or "sigrun" in cleaned.lower():
+        return ["Sigrûn", "Sigrun"]
+
+    tokens = set()
+
+    # Extract parenthetical content (e.g. ("The Curator") or (Suzuki Ken))
+    parens = re.findall(r'\((.*?)\)', cleaned)
+    for p in parens:
+        p_clean = re.sub(r'["\']', '', p).strip()
+        if p_clean and not re.search(r'\b(connection|loyalty|tier|archive)\b', p_clean, re.IGNORECASE):
+            tokens.add(p_clean)
+            no_title = re.sub(r'^(?:Mr\.|Ms\.|The)\s+', '', p_clean).strip()
+            if no_title:
+                tokens.add(no_title)
+
+    # Base part without parentheticals
+    base = re.sub(r'\(.*?\)', '', cleaned).strip()
+    parts = re.split(r'[/&]', base)
+    stop_words = {
+        "the", "mct", "tie", "host", "mind", "peer", "will", "van", "doc", "web", "tea",
+        "river", "people", "resonance", "realms", "tradition", "shamanism", "chapters",
+        "shadow", "corp", "corps", "man", "arms"
+    }
+
+    for part in parts:
+        part_clean = re.sub(r'["\']', '', part).strip()
+        if not part_clean:
+            continue
+        no_title = re.sub(r'^(?:Mr\.|Ms\.|The)\s+', '', part_clean).strip()
+        if no_title:
+            tokens.add(no_title)
+        tokens.add(part_clean)
+
+        words = no_title.split()
+        if len(words) == 2:
+            w1, w2 = words[0], words[1]
+            if len(w1) >= 3 and w1.lower() not in stop_words:
+                tokens.add(w1)
+            if len(w2) >= 3 and w2.lower() not in stop_words:
+                tokens.add(w2)
+
+    res = [t for t in tokens if t == "~" or len(t) >= 2]
+    return sorted(res, key=lambda x: -len(x))
+
+
+def is_chapter_referenced(cm: Dict[str, Any], cell: str) -> bool:
+    """Checks whether a chapter track or filename is already referenced in an appearances cell."""
+    t = cm['track']
+    if cm['filename'] in cell or urllib.parse.quote(cm['filename'], safe='') in cell:
+        return True
+    pattern = rf'\[0*{t}(?:[_\s-][^\]]*)?\]\('
+    if re.search(pattern, cell):
+        return True
+    if re.search(rf'\b(?:Chapter|Ch\.?)\s+0*{t}\b', cell, re.IGNORECASE):
+        return True
+    return False
+
+
+def matches_entity_in_prose(tokens: List[str], text: str) -> bool:
+    """Checks if any entity search token matches within chapter prose using word boundaries."""
+    for tok in tokens:
+        if tok == "~":
+            if "`~`" in text or re.search(r'(?:`~`|(?<=\s)~(?:[\s.,;:!?\)]|$))', text):
+                return True
+        else:
+            if re.search(rf'\b{re.escape(tok)}\b', text):
+                return True
+    return False
+
+
+def process_continuity_table(
+    table_lines: List[str],
+    chapters_meta: List[Dict[str, Any]],
+    chapter_prose: Dict[str, str],
+    section_name: str,
+    char_id: str
+) -> Tuple[List[str], List[Dict[str, Any]]]:
+    """Auto-indexes entity appearances in a single Section 1 or Section 2 markdown table."""
+    if len(table_lines) < 2:
+        return table_lines, []
+
+    header_line = table_lines[0]
+    sep_line = table_lines[1]
+    data_lines = table_lines[2:]
+
+    header_cols = [c.strip() for c in header_line.split("|")[1:-1]]
+    app_col_idx = -1
+    for idx, col in enumerate(header_cols):
+        if re.match(r'^(?:Key\s+)?Chapter\s+Appearances$', col, re.IGNORECASE):
+            app_col_idx = idx
+            break
+
+    if app_col_idx == -1:
+        # Table does not track chapter appearances (e.g. Focus & Narrative Anchor, File Appearances)
+        return table_lines, []
+
+    # Detect style across data lines: Style A ([03](...)) vs Style B ([03_dark_wings.md](...))
+    style = "filename"
+    for row in data_lines:
+        cols = [c.strip() for c in row.split("|")[1:-1]]
+        if app_col_idx < len(cols):
+            cell = cols[app_col_idx]
+            if re.search(r'\[\d{2}\]\(file://', cell):
+                style = "track"
+                break
+            elif re.search(r'\[[^\]]+\.(?:md|qmd)\]\(file://', cell):
+                style = "filename"
+                break
+
+    new_data_lines = []
+    links_added = []
+
+    for row in data_lines:
+        cols = [c.strip() for c in row.split("|")[1:-1]]
+        if len(cols) <= app_col_idx:
+            new_data_lines.append(row)
+            continue
+
+        entity_name_raw = cols[0]
+        cell_appearances = cols[app_col_idx]
+
+        # Skip rows marked as Archive or Throughout Anthology
+        if re.search(r'\bArchive\b', row, re.IGNORECASE):
+            new_data_lines.append(row)
+            continue
+
+        if 'throughout anthology' in cell_appearances.lower():
+            new_data_lines.append(row)
+            continue
+
+        # Skip macro rows with no chapter links
+        if re.search(r'\bMacro\b', row, re.IGNORECASE) and not re.search(r'\[.*?\]\(file://', cell_appearances):
+            new_data_lines.append(row)
+            continue
+
+        # Skip rows where appearance cell has no links and is not a 'none logged' placeholder
+        if not re.search(r'\[.*?\]\(file://', cell_appearances) and not re.search(r'none logged', cell_appearances, re.IGNORECASE):
+            new_data_lines.append(row)
+            continue
+
+        tokens = derive_entity_tokens(entity_name_raw)
+        if not tokens:
+            new_data_lines.append(row)
+            continue
+
+        clean_entity_name = re.sub(r'[*`_]', '', entity_name_raw).strip()
+
+        new_links = []
+        for cm in chapters_meta:
+            if is_chapter_referenced(cm, cell_appearances):
+                continue
+            prose = chapter_prose.get(cm["filename"], "")
+            if matches_entity_in_prose(tokens, prose):
+                abs_chap_posix = cm['path'].resolve().as_posix()
+                if re.match(r'^[A-Z]:', abs_chap_posix):
+                    abs_chap_posix = abs_chap_posix[0].lower() + abs_chap_posix[1:]
+                encoded_uri = urllib.parse.quote(abs_chap_posix, safe=':/')
+
+                if style == "track":
+                    link = f"[{cm['track']:02d}](file:///{encoded_uri})"
+                else:
+                    link = f"[{cm['filename']}](file:///{encoded_uri})"
+
+                new_links.append(link)
+                links_added.append({
+                    "entity": clean_entity_name,
+                    "track": cm["track"],
+                    "chapter": cm["filename"],
+                    "section": section_name
+                })
+
+        if not new_links:
+            new_data_lines.append(row)
+            continue
+
+        if re.search(r'none logged(?: in narrative chapters)?', cell_appearances, re.IGNORECASE):
+            new_cell = re.sub(
+                r'none logged(?: in narrative chapters)?',
+                ", ".join(new_links),
+                cell_appearances,
+                count=1,
+                flags=re.IGNORECASE
+            )
+        else:
+            link_matches = list(re.finditer(r'\[[^\]]+\]\([^)]+\)', cell_appearances))
+            if link_matches:
+                end_pos = link_matches[-1].end()
+                new_cell = cell_appearances[:end_pos] + ", " + ", ".join(new_links) + cell_appearances[end_pos:]
+            else:
+                new_cell = cell_appearances + ", " + ", ".join(new_links)
+
+        cols[app_col_idx] = new_cell
+        new_data_lines.append(f"| {' | '.join(cols)} |\n")
+
+    return [header_line, sep_line] + new_data_lines, links_added
+
+
+def update_continuity_entity_tables(
+    cont_text: str,
+    chapters_meta: List[Dict[str, Any]],
+    chapter_prose: Dict[str, str],
+    char_id: str
+) -> Tuple[str, List[Dict[str, Any]]]:
+    """Updates entity and construct appearances in Section 1 and Section 2 of story_continuity.md."""
+    lines = cont_text.splitlines(keepends=True)
+    output_lines = []
+    entity_links_added = []
+    in_target_section = False
+    current_section_name = ""
+
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        sec_m = re.match(r'^##\s+([12])\.\s+(.*)$', line)
+        if sec_m:
+            in_target_section = True
+            current_section_name = f"## {sec_m.group(1)}. {sec_m.group(2).strip()}"
+            output_lines.append(line)
+            i += 1
+            continue
+
+        if in_target_section and re.match(r'^##\s+', line):
+            in_target_section = False
+            current_section_name = ""
+            output_lines.append(line)
+            i += 1
+            continue
+
+        if in_target_section and line.startswith("|") and (i + 1 < len(lines)) and lines[i+1].startswith("|"):
+            table_lines = []
+            while i < len(lines) and lines[i].startswith("|"):
+                table_lines.append(lines[i])
+                i += 1
+
+            processed, added = process_continuity_table(
+                table_lines, chapters_meta, chapter_prose, current_section_name, char_id
+            )
+            entity_links_added.extend(added)
+            output_lines.extend(processed)
+            continue
+
+        output_lines.append(line)
+        i += 1
+
+    return "".join(output_lines), entity_links_added
+
+
+def check_bible_drift(char_dir: Path, chapters_meta: List[Dict[str, Any]]) -> List[str]:
+    """Checks storyboard.md Post-Session Story Queue and voice_spec.md chapter_tiers for drift."""
+    alerts = []
+
+    # 1. storyboard.md Post-Session Story Queue
+    storyboard_path = char_dir / "reference" / "storyboard.md"
+    if storyboard_path.exists():
+        sb_text = storyboard_path.read_text(encoding="utf-8", errors="replace")
+        queue_m = re.search(r'##\s*(?:[IVXLCDM]+\.\s*)?Post-Session\s+Story\s+Queue.*?(?=\n##|\Z)', sb_text, re.DOTALL | re.IGNORECASE)
+        if queue_m:
+            queue_text = queue_m.group(0)
+            queue_tracks = set(int(t) for t in re.findall(r'\bChapter\s+(\d{1,3})\b', queue_text, re.IGNORECASE))
+            for cm in chapters_meta:
+                if cm["track"] in queue_tracks:
+                    alerts.append(
+                        f"Chapter {cm['track']} ({cm['filename']}) exists on disk but is still listed in storyboard.md Post-Session Story Queue."
+                    )
+
+    # 2. voice_spec.md chapter_tiers
+    voice_spec_path = char_dir / "reference" / "voice_spec.md"
+    if voice_spec_path.exists():
+        vs_text = voice_spec_path.read_text(encoding="utf-8", errors="replace")
+        tiers_m = re.search(r'chapter_tiers:\s*\n(.*?)(?=\n\w|\n##|\Z)', vs_text, re.DOTALL)
+        if tiers_m:
+            tiers_text = tiers_m.group(1)
+            registered_tracks = set(int(t) for t in re.findall(r'-\s*["\']?(\d{1,3})[\s_-]+', tiers_text))
+            for cm in chapters_meta:
+                if cm["track"] not in registered_tracks:
+                    alerts.append(
+                        f"Chapter {cm['track']} ({cm['filename']}) is not registered in voice_spec.md chapter_tiers."
+                    )
+
+    return alerts
 
 
 def resolve_character_dir(target: str) -> Optional[Path]:
@@ -45,8 +364,9 @@ def sync_narrative_context(target: str = ".") -> Tuple[Dict[str, Any], Optional[
     Scans narrative chapters for a character and synchronizes:
       1. _quarto.yml (Narrative Log chapters list)
       2. index.qmd (Background & Campaign Narratives list)
-      3. reference/story_continuity.md (Chapter breakdown table, total word count)
+      3. reference/story_continuity.md (Section 1 & 2 entity index, Section 3 chapter index & word counts)
       4. Auto-cleans any U+FFFD unicode corruption artifacts.
+      5. Generates bible drift alerts against storyboard.md and voice_spec.md.
     """
     char_dir = resolve_character_dir(target)
     if not char_dir:
@@ -78,6 +398,7 @@ def sync_narrative_context(target: str = ".") -> Tuple[Dict[str, Any], Optional[
     chapter_files.sort(key=get_track_num)
 
     chapters_meta = []
+    chapter_prose = {}
     total_words = 0
     cleaned_unicode_files = []
 
@@ -116,6 +437,7 @@ def sync_narrative_context(target: str = ".") -> Tuple[Dict[str, Any], Optional[
             "audio_file": audio_file,
             "path": cf
         })
+        chapter_prose[cf.name] = raw_text
 
     updated_files = []
 
@@ -218,7 +540,6 @@ def sync_narrative_context(target: str = ".") -> Tuple[Dict[str, Any], Optional[
         missing_chapters = [cm for cm in chapters_meta if cm["filename"] not in narrative_entries_seen]
 
         if missing_chapters:
-            # Find insertion point: after the last bullet in section 2
             in_section_2 = False
             last_bullet_idx = -1
             for idx, line in enumerate(idx_lines):
@@ -240,17 +561,23 @@ def sync_narrative_context(target: str = ".") -> Tuple[Dict[str, Any], Optional[
 
     # 3. Update reference/story_continuity.md
     continuity_file = char_dir / "reference" / "story_continuity.md"
+    entity_links_added = []
     if continuity_file.exists():
         cont_text = continuity_file.read_text(encoding="utf-8", errors="replace")
+        original_cont_text = cont_text
         if '\ufffd' in cont_text:
             cont_text = cont_text.replace('\ufffd', '')
             cleaned_unicode_files.append("reference/story_continuity.md")
 
-        # Locate Section 3 table bounds
+        # 3a. Auto-index Section 1 & Section 2 entity tables
+        cont_text, entity_links_added = update_continuity_entity_tables(
+            cont_text, chapters_meta, chapter_prose, char_id
+        )
+
+        # 3b. Locate Section 3 table bounds
         table_start_m = re.search(r'(\|\s*Chapter File\s*\|\s*Title\s*\|\s*Word Count\s*\|\s*Status\s*\|\n\|\s*---\s*\|\s*---\s*\|\s*---\s*\|\s*---\s*\|\n)', cont_text)
         if table_start_m:
             table_header_end = table_start_m.end()
-            # Find where table rows end (first blank line or line not starting with |)
             after_header = cont_text[table_header_end:]
             row_lines = []
             rest_of_file = ""
@@ -262,7 +589,6 @@ def sync_narrative_context(target: str = ".") -> Tuple[Dict[str, Any], Optional[
                     rest_of_file = "".join(lines_after[i:])
                     break
 
-            # Parse existing filenames in table
             existing_rows = {}
             for r in row_lines:
                 m = re.search(r'\|\s*\[([^\]]+)\]', r)
@@ -272,18 +598,24 @@ def sync_narrative_context(target: str = ".") -> Tuple[Dict[str, Any], Optional[
             new_table_rows = []
             for cm in chapters_meta:
                 cname = cm["filename"]
+                abs_chap_posix = cm['path'].resolve().as_posix()
+                if re.match(r'^[A-Z]:', abs_chap_posix):
+                    abs_chap_posix = abs_chap_posix[0].lower() + abs_chap_posix[1:]
+                encoded_uri = urllib.parse.quote(abs_chap_posix, safe=':/')
+
                 if cname in existing_rows:
-                    # Update word count in existing row
                     row_str = existing_rows[cname]
-                    # Replace word count column: | link | title | word count | status |
                     parts = [p.strip() for p in row_str.split("|")]
                     if len(parts) >= 5:
+                        # Fix broken legacy paths (e.g. sr6{char_id}/chapters/)
+                        if f"sr6{char_id}/chapters/" in parts[1] or "sr6{char_id}/chapters/" in parts[1] or re.search(r'sr6(?:' + re.escape(char_id) + r'|\{char_id\})/chapters/', parts[1]):
+                            parts[1] = f"[{cname}](file:///{encoded_uri})"
                         parts[3] = f"{cm['words']:,}"
                         new_table_rows.append(f"| {' | '.join(parts[1:-1])} |\n")
                     else:
                         new_table_rows.append(row_str)
                 else:
-                    rel_link = f"[{cm['filename']}](file:///c:/GitHub/sr6{char_id}/chapters/{cm['filename']})"
+                    rel_link = f"[{cm['filename']}](file:///{encoded_uri})"
                     new_table_rows.append(f"| {rel_link} | {cm['track']}. {cm['title']} | {cm['words']:,} | Verified |\n")
 
             # Update total word count line in rest_of_file
@@ -294,9 +626,15 @@ def sync_narrative_context(target: str = ".") -> Tuple[Dict[str, Any], Optional[
                 flags=re.DOTALL
             )
 
-            new_cont_text = cont_text[:table_header_end] + "".join(new_table_rows) + rest_of_file
-            continuity_file.write_text(new_cont_text, encoding="utf-8")
-            updated_files.append("reference/story_continuity.md")
+            cont_text = cont_text[:table_header_end] + "".join(new_table_rows) + rest_of_file
+
+        if cont_text != original_cont_text:
+            continuity_file.write_text(cont_text, encoding="utf-8")
+            if "reference/story_continuity.md" not in updated_files:
+                updated_files.append("reference/story_continuity.md")
+
+    # 4. Check Bible Drift
+    bible_drift_alerts = check_bible_drift(char_dir, chapters_meta)
 
     report = {
         "character_id": char_id,
@@ -305,7 +643,9 @@ def sync_narrative_context(target: str = ".") -> Tuple[Dict[str, Any], Optional[
         "total_words": total_words,
         "chapters": chapters_meta,
         "updated_files": updated_files,
-        "cleaned_unicode_files": list(set(cleaned_unicode_files))
+        "cleaned_unicode_files": list(set(cleaned_unicode_files)),
+        "entity_links_added": entity_links_added,
+        "bible_drift_alerts": bible_drift_alerts,
     }
 
     return report, None
@@ -327,6 +667,19 @@ def print_sync_report(report: Dict[str, Any]):
         print("\nCleaned Unicode Artifacts (\\ufffd):")
         for cf in report["cleaned_unicode_files"]:
             print(f"  [FIXED] Stripped replacement chars from {cf}")
+
+    if report.get("entity_links_added"):
+        print(f"\nAuto-Indexed Entity Appearances ({len(report['entity_links_added'])} added):")
+        for item in report["entity_links_added"]:
+            if isinstance(item, dict):
+                print(f"  [LINKED] {item.get('entity')}: Track {item.get('track', '?')} ({item.get('chapter', '?')})")
+            else:
+                print(f"  [LINKED] {item}")
+
+    if report.get("bible_drift_alerts"):
+        print(f"\nBible Drift Alerts ({len(report['bible_drift_alerts'])}):")
+        for alert in report["bible_drift_alerts"]:
+            print(f"  [ALERT] {alert}")
 
     print("\nChapter Index:")
     for ch in report.get("chapters", []):

@@ -444,12 +444,25 @@ def handle_lint_prose(arguments: Dict[str, Any]) -> str:
 
     output = [
         f"### SR6 Narrative Evaluation Scorecard (Prose Lint): `{file_path}`",
+    ]
+    if "gates_passed" in report:
+        output.append(f"- **Readiness Status**: {'[PASS] READY FOR PUBLICATION' if report.get('gates_passed') else '[FAIL] REVISIONS REQUIRED'}")
+
+    output.extend([
         f"- **Word Count**: {report.get('word_count', 0):,} words",
         f"- **Ellipses Count**: {report.get('ellipses_count', 0)} (Density: {report.get('ellipses_per_300', 0.0):.2f} / 300 words, Budget: <= 0.60)",
         f"- **Ellipses Status**: {'[PASS]' if report.get('ellipses_valid') else '[FAIL - EXCEEDS BUDGET]'}",
         f"- **Forbidden Buzzwords**: {len(report.get('buzzwords_found', []))} violations",
-        f"- **Cognitive Buffer Verbs**: {len(report.get('cognitive_buffers_found', []))} occurrences"
-    ]
+        f"- **Cognitive Buffer Verbs**: {len(report.get('cognitive_buffers_found', []))} occurrences",
+    ])
+
+    if "burstiness_cv" in report:
+        output.append(f"- **Sentence Burstiness (CV)**: {report.get('burstiness_cv', 0.0)}")
+    if "braided_ratio" in report:
+        output.append(f"- **Paragraph Braiding Ratio**: {report.get('braided_ratio', 0.0)}% (3-6 sentences)")
+    if "single_sentence_per_1k" in report:
+        single_cnt = len(report.get('single_sentence_paragraphs', []))
+        output.append(f"- **Single-Sentence Paragraphs**: {single_cnt} ({report.get('single_sentence_per_1k', 0.0)} per 1k words)")
 
     if report.get("buzzwords_found"):
         output.append("\n#### Forbidden Buzzwords Detected:")

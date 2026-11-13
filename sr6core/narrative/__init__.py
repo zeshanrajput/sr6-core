@@ -28,6 +28,11 @@ from sr6core.narrative.sync import (
     sync_narrative_context,
     print_sync_report,
 )
+from sr6core.narrative.packet import build_story_packet
+from sr6core.narrative.prep_audio import (
+    scan_audio_prep,
+    print_audio_prep_report,
+)
 
 __all__ = [
     "analyze_prose",
@@ -45,4 +50,7 @@ __all__ = [
     "retag_narratives",
     "sync_narrative_context",
     "print_sync_report",
+    "build_story_packet",
+    "scan_audio_prep",
+    "print_audio_prep_report",
 ]
