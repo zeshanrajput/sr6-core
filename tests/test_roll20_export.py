@@ -429,23 +429,23 @@ def test_reiko_roll20_export():
     assert contact_map["Laurig Heartwell"]["loyalty"] == 1
     assert contact_map["Laurig Heartwell"]["connection"] == 2
 
-    assert "Brynne Taggart (3 FP)" in contact_map
-    assert contact_map["Brynne Taggart (3 FP)"]["loyalty"] == 3
-    assert contact_map["Brynne Taggart (3 FP)"]["influence"] == 4
-    assert contact_map["Brynne Taggart (3 FP)"]["favors"] == 3
+    assert "Brynne Taggart (1 FP)" in contact_map
+    assert contact_map["Brynne Taggart (1 FP)"]["loyalty"] == 3
+    assert contact_map["Brynne Taggart (1 FP)"]["influence"] == 4
+    assert contact_map["Brynne Taggart (1 FP)"]["favors"] == 1
 
-    assert "Whiskey" in contact_map
-    assert contact_map["Whiskey"]["loyalty"] == 4
-    assert contact_map["Whiskey"]["influence"] == 2
+    assert "River People" in contact_map
+    assert contact_map["River People"]["loyalty"] == 8
+    assert contact_map["River People"]["connection"] == 7
 
     assert "4Gurds" in contact_map
     assert contact_map["4Gurds"]["loyalty"] == 1
     assert contact_map["4Gurds"]["influence"] == 1
 
-    assert "Roanoke (4 FP)" in contact_map
-    assert contact_map["Roanoke (4 FP)"]["loyalty"] == 4
-    assert contact_map["Roanoke (4 FP)"]["influence"] == 3
-    assert contact_map["Roanoke (4 FP)"]["favors"] == 4
+    assert "Roanoke (3 FP)" in contact_map
+    assert contact_map["Roanoke (3 FP)"]["loyalty"] == 3
+    assert contact_map["Roanoke (3 FP)"]["influence"] == 3
+    assert contact_map["Roanoke (3 FP)"]["favors"] == 3
 
 
 @pytest.mark.parametrize("char_id", ["velvet", "reiko", "venn"])
