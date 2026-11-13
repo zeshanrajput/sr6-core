@@ -93,7 +93,17 @@ def run_sync_all():
 
         print(f"  [2/4] Regenerated Exports     : Saved to {os.path.join(repo_dir, 'output')} (text, mobile, roll20)")
 
-        # 3. Expand Quarto Shortcodes & Inject Narration Audio Players
+        # 3. Optimize Images (-> WebP), Expand Quarto Shortcodes & Inject Narration Audio Players
+        try:
+            from pathlib import Path as _Path
+            from sr6core.narrative.sync import optimize_character_images
+            img_opt = optimize_character_images(_Path(repo_dir))
+            if img_opt.get("converted_images"):
+                saved_kb = img_opt.get("bytes_saved", 0) / 1024.0
+                print(f"  [3/5] Image Hygiene (-> WebP) : Converted {len(img_opt['converted_images'])} image(s), saved {saved_kb:.1f} KB")
+        except Exception as e:
+            print(f"  [3/5] Image Hygiene (-> WebP) : Warning ({e})")
+
         chap_dir = os.path.join(repo_dir, "chapters")
         from sr6core.publishing.enricher import inject_chapter_audio_players
         injected_audio = inject_chapter_audio_players(repo_dir)
@@ -601,13 +611,22 @@ def main():
                 console.print(f"[bold red][Error] npm run build failed: {e.stderr}[/bold red]\n")
 
         # 4. Generate 2-Page ASCII Quick-Sheets & Appendix Dossiers
-        console.print("\n[bold green][4/4] Generating 2-Page ASCII Quick-Sheets...[/bold green]")
+        console.print("\n[bold green][4/4] Optimizing Images & Generating 2-Page ASCII Quick-Sheets...[/bold green]")
         for c in cm.list_characters():
             cid = c["id"]
             if c.get("exists"):
                 try:
                     cfile_path = c.get("path")
                     repo_dir = os.path.dirname(cfile_path) if os.path.isfile(cfile_path) else cfile_path
+                    try:
+                        from pathlib import Path as _Path
+                        from sr6core.narrative.sync import optimize_character_images
+                        img_opt = optimize_character_images(_Path(repo_dir))
+                        if img_opt.get("converted_images"):
+                            saved_kb = img_opt.get("bytes_saved", 0) / 1024.0
+                            console.print(f"  • [{cid}] Image Hygiene: converted {len(img_opt['converted_images'])} image(s) to .webp ({saved_kb:.1f} KB saved)")
+                    except Exception as img_err:
+                        console.print(f"  • [{cid}] Image Hygiene warning: {img_err}")
                     text_dir = os.path.join(repo_dir, "output", "text")
                     os.makedirs(text_dir, exist_ok=True)
                     sheet_path = os.path.join(text_dir, f"{cid}_sheet.txt")

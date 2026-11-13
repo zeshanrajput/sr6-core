@@ -260,18 +260,18 @@ This index compiles all active and archived reference artwork for Reiko (r31-K0 
 
 ### Contemporary Hero Reference Anchors (Active Catalog)
 
-* **[Physical Flight & Vector Thrust Mode: Crossfire Hurricane (The UniOil Derrick)](../images/r31k0%20-%20oil%20platform.jpeg)**
-  * **File:** [`r31k0 - oil platform.jpeg`](../images/r31k0%20-%20oil%20platform.jpeg)
+* **[Physical Flight & Vector Thrust Mode: Crossfire Hurricane (The UniOil Derrick)](../images/r31k0%20-%20oil%20platform.webp)**
+  * **File:** [`r31k0 - oil platform.webp`](../images/r31k0%20-%20oil%20platform.webp)
   * **Operational Mode:** Aerial Maneuver / Vector Thrust / Flight State
   * **Description:** Set during the Gulf hurricane climax on the offshore oil platform, this reference captures Reiko’s physical Goshintai chassis in full aerial maneuver. With her previous retractable skates and rotors completely removed, her flight is driven by sleek, integrated vector thrust ports along her calves and forearms that vent directional indigo-and-gold plasma plumes, stabilized by her articulated black titanium and carbon-fiber succubus wings. She wears the backless black halter-neck qipao lined with faint golden floral embroidery from Hong Kong—engineered to clear her dorsal wing mounts without a jacket—while her neon-indigo and gold circuits pulse in a tight double-weave across her porcelain skin.
 
-* **[Physical Ground & Hostess Mode: DelTree (The Coffin Girls’ Convent Salon, New Orleans)](../images/r31k0%20-%20tea.jpeg)**
-  * **File:** [`r31k0 - tea.jpeg`](../images/r31k0%20-%20tea.jpeg)
+* **[Physical Ground & Hostess Mode: DelTree (The Coffin Girls’ Convent Salon, New Orleans)](../images/r31k0%20-%20tea.webp)**
+  * **File:** [`r31k0 - tea.webp`](../images/r31k0%20-%20tea.webp)
   * **Operational Mode:** Ground State / Hostess Mode / Wings Retracted
   * **Description:** Set in the candlelit French Quarter convent parlor of the Coffin Girls where Reiko serves gyokuro tea from unglazed Bizen stoneware, this reference illustrates her ground-state physical chassis with her wings completely retracted flush into her back. Without the Shiawase corporate jacket, her sleeveless black silk qipao with faint golden floral embroidery frames her bare shoulders and collarbones, where the braided gold tactical logic and neon-indigo emotional pathways glow beneath her porcelain skin. Her jet-black hair is worn down at shoulder length with straight bangs framing her face.
 
-* **[Resonance Realm / Matrix Persona Mode: Saturation (The Deep Souk of Eniac, Garmonbozia)](../images/r31k0%20-%20Garmonbozia.jpeg)**
-  * **File:** [`r31k0 - Garmonbozia.jpeg`](../images/r31k0%20-%20Garmonbozia.jpeg)
+* **[Resonance Realm / Matrix Persona Mode: Saturation (The Deep Souk of Eniac, Garmonbozia)](../images/r31k0%20-%20Garmonbozia.webp)**
+  * **File:** [`r31k0 - Garmonbozia.webp`](../images/r31k0%20-%20Garmonbozia.webp)
   * **Operational Mode:** Deep Matrix / Resonance Realms / AI E-Nation
   * **Description:** Set in the sovereign AI e-nation of Garmonbozia, where immense inverted pyramids of dark granite hang suspended in the starlit void above a canyon of vaulted brass arcades, this reference depicts Reiko’s digital persona in the deep noosphere. Here, she manifests with translucent cyan-blue holographic skin, wearing her sleeveless blue-tinted silk kimono with an obi and no cybernetic wings. Her neon-indigo and gold Resonance pathways braid across her arms and throat, while Taz—her translucent, 8-bit pixelated blue-and-indigo Tasmanian devil ally sprite—perches on her shoulder as they cross the threshold into Chiyo’s basalt-and-cedar courtyard.
 
@@ -295,8 +295,8 @@ This index compiles all active and archived reference artwork for Reiko (r31-K0 
   * **Operational Mode:** High Society / Familial Diplomacy (Hong Kong)
   * **Description:** Front and back studies of the tailored black halter-neck qipao with subtle golden embroidery, engineered with a 10 cm radial clearance zone along the upper back to accommodate dorsal wing deployment without fabric tearing.
 
-* **[Sanctuary Threshold & Second-Generation Sparks: Aisling & Étaín at the Oracle in the Glade](../images/A&E-Glade.jpeg)**
-  * **File:** [`A&E-Glade.jpeg`](../images/A&E-Glade.jpeg)
+* **[Sanctuary Threshold & Second-Generation Sparks: Aisling & Étaín at the Oracle in the Glade](../images/A&E-Glade.webp)**
+  * **File:** [`A&E-Glade.webp`](../images/A&E-Glade.webp)
   * **Operational Mode:** Deep Foundation Sanctuary (`~`) / The Holy Wild
   * **Description:** Depicts second-generation sparks Aisling and Étaín before the Oracle data structure in the glade beyond the quartz threshold.
 

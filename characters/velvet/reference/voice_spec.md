@@ -1,9 +1,41 @@
-# Velvet Voice Specification
+# Velvet Voice & Narrative Specification
 
 **Extends**: `sr6-core/reference/default_voice_spec.md`  
+**Parent Doctrine**: [`sr6-core/reference/inter_session_narrative_doctrine.md`](file:///c:/GitHub/sr6-core/reference/inter_session_narrative_doctrine.md)  
 **Character**: Velvet (Kim Jin-Young / Tanaka Ryo / Lee Ji-yoo / Mei Jing)  
 **Archetype**: Elf Mystic Adept / Face (Shinto / Musok Tradition, Dalakitnon Birth Heritage)  
-**Repository Target**: `sr6velvet/reference/voice_spec.md`
+**Repository Target**: [`characters/velvet/reference/voice_spec.md`](file:///c:/GitHub/sr6-core/characters/velvet/reference/voice_spec.md)
+
+---
+
+## 0. The Inter-Session Narrative Mandate & Consecrated Capital
+
+* **The Operational vs. Ontological Divide:**
+  * *Operational Layer (The Gaming Table):* At the table, Velvet is the frontline infiltrator, Face, and tactical edge. He rolls high-dice-pool Influence, Con, and Disguise tests, maneuvers through corporate checkpoints, and provides magical team buffs.
+  * *Ontological Layer (The Prose Domain):* In prose, shifting flesh via *Cosmetic Control* carries a severe somatic and spiritual tax. The narrative explores the horror of engineered Charisma 10 (14), the trauma of Mitsuhama bio-sculpting, and the existential question of whether an empty vessel can ever be genuinely loved without the other party falling into his manufactured gravity.
+* **Consecrated Capital & Existential Debt:**
+  * *Nuyen as Sacred Vestments:* Spending ¥36,100+ (over 30% of lifetime earnings) on counterfeit SINs, high-fashion outerwear, and identity masks is not shopping—it is procuring sacred altars and ritual vestments for each adopted life in Indra's Net.
+  * *Karma as Spiritual Debt:* Over 94% of lifetime karma is dedicated to spiritual evolution: Initiation grades, Qi foci bonding (-18 karma), Adept metamagics (*Channeling, Adept Centering*), and reclaiming forced bodily plasticities as sovereign *nirmāṇakāya*.
+* **The Two-Tier Dramatic Sphere:**
+  * *Tier A Campaign Canon (`canonical: true`):* SRM Fixers and Johnsons (Brynne Taggart, Donovan Pyke, Julian) are bounded by the Canon Ceiling.
+  * *Tier B Bespoke Foils (`canonical: false`):* Real narrative consequence, moral failure, and relational fracture are fought against original foils: Hana/Luna (the trans-Pacific captive anchor), Min-seo (the truth-teller who shatters moral retreat), Master Kang (the Musok mentor), and the ghosts of adopted personas.
+
+```text
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                       THE TOPOLOGY OF MUSOK SHAMANIC PRACTICE               │
+│                                                                             │
+│   SINBYEONG (Spirit Sickness)           NAERIM-GUT (Initiation Rite)        │
+│   • Visceral psychosomatic crisis       • Ritual descent of the divine      │
+│   • Unintegrated ancestral calling      • Enthroning the spirits within     │
+│   • Somatic fever & identity rupture    • Reconciling the fractured vessel  │
+│                                                          │                  │
+│                                                          ▼                  │
+│                                              [ MANSIN / THE SHAMAN ]        │
+│                                              "Host of Ten Thousand Spirits" │
+│                                              Emptying the ego (Bin Geureut) │
+│                                              to channel divine agency.      │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
 
 ---
 
@@ -15,7 +47,7 @@ Velvet (Kim Jin-Young) is an engineered, bio-sculpted Elf Mystic Adept built by 
 2. **Somatic Reality of Cosmetic Control (R2)**: Shifting between Tanaka Ryo, Lee Ji-yoo, and temporary personas is never instantaneous or painless. It carries a heavy biological tax: bone cartilage resetting with wet clicks, metallic heat behind the jaw, shortened ribcages, and localized DNA re-keying. Beneath every sculpted mask lies the un-sculpted obsidian baseline of his true heritage.
 3. **Charisma 10 (14) Horror & Cognitive Distrust**: Charisma 10 (14 with buff spells) is an existential and psychological horror—the pinnacle of unrestricted corporate engineering. When someone is in a room with a creature engineered to warp how they feel, it becomes impossible for them to know whether their own thoughts, pity, attraction, or compliance are their own or the product of an imperceptible biological manipulation they cannot detect. This creates an uncanny, suffocating gravity around Velvet that terrifies hardened street veterans (Whiskey, Ni Ni Xiaolu, Johnsons)—and forms Velvet's deepest personal tragedy: he can never be certain if anyone's care for him is authentic, or merely their nervous system falling into his manufactured gravity.
 4. **Shinto-Musok Astral Phenomenology**: Mana is not high-fantasy sparks; it is perceived as spirit ribbons, ancestor presence, talismanic resonance, and subtle emotional hue shifts in metahuman auras.
-5. **The Path of the Thousand Lives (*Mansin* & *Upāya*)**: See [reference/philosophical_framework.md](file:///c:/GitHub/sr6velvet/reference/philosophical_framework.md). Forced corporate transformations evolve into an artificial reincarnation cycle. Velvet retains neuro-somatic skills, virtues, and grief from every lived persona (*The Echo Phenomenon*). The journey transitions from traumatic fragmentation (*Sinbyeong*) to becoming an empty vessel (*Bin Geureut*) and master of ten thousand lived spirits (*Mansin*), utilizing multiple personas as skillful means (*Upāya*) to protect the vulnerable and dismantle corporate tyranny.
+5. **The Path of the Thousand Lives (*Mansin* & *Upāya*)**: See [reference/archive/philosophical_framework.md](file:///c:/GitHub/sr6-core/characters/velvet/reference/archive/philosophical_framework.md). Forced corporate transformations evolve into an artificial reincarnation cycle. Velvet retains neuro-somatic skills, virtues, and grief from every lived persona (*The Echo Phenomenon*). The journey transitions from traumatic fragmentation (*Sinbyeong*) to becoming an empty vessel (*Bin Geureut*) and master of ten thousand lived spirits (*Mansin*), utilizing multiple personas as skillful means (*Upāya*) to protect the vulnerable and dismantle corporate tyranny.
 6. **The Trap of Moral Retreat vs. The Bodhisattva with Claws**: Evaluators and writers must not flatten Velvet into a passive, toothless saint or ascetic martyr. After the trauma of Singapore, the honeytrap, and the quiet triage of Kang Anning (*Burns*), Velvet faces the temptation of moral retreat—hiding in coarse wool, nursing sewer burns, and pretending that staying poor with an empty ledger keeps his hands clean. In Amsterdam (*Silence*), Min-seo shatters this delusion (*"Stop playing the martyr behind a child's face"*), proving that his clean hands were an unearned luxury subsidized by Hana's compliance locks and executive treason. From Chapter 11 onward, Velvet's empathy is inseparable from **sovereign responsibility and teeth**: the realization that the lotus only grows in muck, and that sanctuaries must be defended with formidable force. Wielding the repurposed *MCI-EXP-884-LUNA* Power Focus R3 is not a stat bonus, but an ammunition crate and an active blood debt.
 
 ---

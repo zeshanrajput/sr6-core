@@ -333,6 +333,60 @@ chapter_tiers:
         self.assertIn("Bible Drift Alerts (1):", out)
         self.assertIn("[ALERT] Chapter 2", out)
 
+    def test_optimize_character_images_converts_jpegs_and_rewrites_refs(self):
+        """Tests .jpg/.jpeg -> .webp conversion and raw + URL-encoded markdown rewriting."""
+        from PIL import Image
+        from sr6core.narrative.sync import optimize_character_images
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            char_dir = Path(tmpdir) / "testchar"
+            (char_dir / "images").mkdir(parents=True)
+            (char_dir / "reference").mkdir(parents=True)
+            (char_dir / "narrative").mkdir(parents=True)
+
+            jpeg_one = char_dir / "images" / "r31k0 - tea.jpeg"
+            jpg_two = char_dir / "images" / "A&E-Glade.jpg"
+            Image.new("RGB", (64, 64), color=(120, 40, 200)).save(jpeg_one, format="JPEG")
+            Image.new("RGB", (64, 64), color=(20, 180, 90)).save(jpg_two, format="JPEG")
+
+            index_qmd = char_dir / "index.qmd"
+            index_qmd.write_text("![Tea](images/r31k0%20-%20tea.jpeg)\n", encoding="utf-8")
+
+            visual_anchors = char_dir / "reference" / "visual_anchors.md"
+            visual_anchors.write_text(
+                "* **File:** [`r31k0 - tea.jpeg`](../images/r31k0%20-%20tea.jpeg)\n",
+                encoding="utf-8",
+            )
+
+            chap_md = char_dir / "narrative" / "01_test.md"
+            chap_md.write_text("![Glade](../images/A&E-Glade.jpg)\n", encoding="utf-8")
+
+            result = optimize_character_images(char_dir)
+
+            self.assertEqual(len(result["converted_images"]), 2)
+            self.assertFalse(jpeg_one.exists())
+            self.assertFalse(jpg_two.exists())
+            self.assertTrue((char_dir / "images" / "r31k0 - tea.webp").exists())
+            self.assertTrue((char_dir / "images" / "A&E-Glade.webp").exists())
+
+            self.assertIn("images/r31k0%20-%20tea.webp", index_qmd.read_text(encoding="utf-8"))
+            anchors_txt = visual_anchors.read_text(encoding="utf-8")
+            self.assertIn("r31k0 - tea.webp", anchors_txt)
+            self.assertIn("../images/r31k0%20-%20tea.webp", anchors_txt)
+            self.assertIn("../images/A&E-Glade.webp", chap_md.read_text(encoding="utf-8"))
+
+    def test_no_jpeg_files_in_character_portfolios(self):
+        """Ensures all character gallery images remain WebP-only with zero .jpg/.jpeg assets."""
+        chars_dir = Path("characters")
+        leftover_jpegs = [
+            p.as_posix()
+            for p in chars_dir.rglob("*")
+            if p.is_file()
+            and "images" in p.parts
+            and p.suffix.lower() in (".jpg", ".jpeg")
+        ]
+        self.assertEqual(leftover_jpegs, [], f"Found unoptimized JPEG files: {leftover_jpegs}")
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -2,7 +2,7 @@
 
 **Target Characters:** Venn (Nathan Turrent & Veronica)  
 **Primary Sourcebooks:** *Shadowrun Sixth World: Whisper Nets* (CAT28404, pp. 140–152), *Stolen Souls* (CAT26450), *Cutting Black* (CAT28300)  
-**Cross-References:** [philosophical_framework.md](file:///c:/GitHub/sr6-core/characters/venn/reference/philosophical_framework.md), [voice_spec.md](file:///c:/GitHub/sr6-core/characters/venn/reference/voice_spec.md), [mechanical_plan.md](file:///c:/GitHub/sr6-core/characters/venn/reference/mechanical_plan.md)
+**Cross-References:** [archive/philosophical_framework.md](file:///c:/GitHub/sr6-core/characters/lab/venn/reference/archive/philosophical_framework.md), [voice_spec.md](file:///c:/GitHub/sr6-core/characters/lab/venn/reference/voice_spec.md), [mechanical_plan.md](file:///c:/GitHub/sr6-core/characters/lab/venn/reference/mechanical_plan.md)
 
 ---
 

@@ -359,6 +359,94 @@ def resolve_character_dir(target: str) -> Optional[Path]:
     return None
 
 
+def optimize_character_images(char_dir: Path) -> Dict[str, Any]:
+    """Converts .jpg/.jpeg images in images/ to .webp and updates text references."""
+    images_dir = char_dir / "images"
+    if not images_dir.exists() or not images_dir.is_dir():
+        return {"converted_images": [], "updated_ref_files": [], "bytes_saved": 0}
+
+    converted_images: List[Dict[str, Any]] = []
+    name_pairs: Set[Tuple[str, str]] = set()
+    bytes_saved = 0
+
+    jpeg_files = sorted(
+        p for p in images_dir.rglob("*")
+        if p.is_file() and p.suffix.lower() in (".jpg", ".jpeg")
+    )
+
+    if jpeg_files:
+        from PIL import Image, ImageOps
+
+        for img_path in jpeg_files:
+            webp_path = img_path.with_suffix(".webp")
+            old_size = img_path.stat().st_size
+            with Image.open(img_path) as img:
+                transposed = ImageOps.exif_transpose(img)
+                if transposed.mode not in ("RGB", "RGBA"):
+                    transposed = transposed.convert("RGB")
+                transposed.save(webp_path, format="WEBP", quality=85, method=6)
+
+            if not webp_path.exists() or webp_path.stat().st_size <= 0:
+                raise RuntimeError(f"Failed to encode WebP image for {img_path}")
+
+            new_size = webp_path.stat().st_size
+            saved = old_size - new_size
+            bytes_saved += saved
+            img_path.unlink()
+
+            name_pairs.add((img_path.name, webp_path.name))
+            converted_images.append({
+                "old": img_path.relative_to(char_dir).as_posix(),
+                "new": webp_path.relative_to(char_dir).as_posix(),
+                "old_bytes": old_size,
+                "new_bytes": new_size,
+                "bytes_saved": saved,
+            })
+
+    # Also ensure stale .jpg/.jpeg references matching existing .webp assets are rewritten
+    for webp_path in images_dir.rglob("*.webp"):
+        if webp_path.is_file():
+            name_pairs.add((f"{webp_path.stem}.jpeg", webp_path.name))
+            name_pairs.add((f"{webp_path.stem}.jpg", webp_path.name))
+
+    updated_ref_files: List[str] = []
+    if name_pairs:
+        skip_dirs = {"_book", ".quarto", "site_libs", "output", "scratch"}
+        variants: List[Tuple[str, str]] = []
+        for old_name, new_name in sorted(name_pairs):
+            cand_pairs = [
+                (old_name, new_name),
+                (old_name.replace(" ", "%20"), new_name.replace(" ", "%20")),
+                (urllib.parse.quote(old_name, safe=""), urllib.parse.quote(new_name, safe="")),
+            ]
+            for old_v, new_v in cand_pairs:
+                if old_v != new_v and (old_v, new_v) not in variants:
+                    variants.append((old_v, new_v))
+
+        for doc_path in sorted(char_dir.rglob("*")):
+            if not doc_path.is_file() or doc_path.suffix.lower() not in (".md", ".qmd", ".yaml", ".yml"):
+                continue
+            rel_parts = set(doc_path.relative_to(char_dir).parts[:-1])
+            if rel_parts & skip_dirs:
+                continue
+
+            original = doc_path.read_text(encoding="utf-8", errors="replace")
+            updated = original
+            for old_v, new_v in variants:
+                if old_v in updated:
+                    updated = updated.replace(old_v, new_v)
+
+            if updated != original:
+                doc_path.write_text(updated, encoding="utf-8")
+                updated_ref_files.append(doc_path.relative_to(char_dir).as_posix())
+
+    return {
+        "converted_images": converted_images,
+        "updated_ref_files": updated_ref_files,
+        "bytes_saved": bytes_saved,
+    }
+
+
 def sync_narrative_context(target: str = ".") -> Tuple[Dict[str, Any], Optional[str]]:
     """
     Scans narrative chapters for a character and synchronizes:
@@ -633,7 +721,13 @@ def sync_narrative_context(target: str = ".") -> Tuple[Dict[str, Any], Optional[
             if "reference/story_continuity.md" not in updated_files:
                 updated_files.append("reference/story_continuity.md")
 
-    # 4. Check Bible Drift
+    # 4. Optimize JPEG gallery images -> WebP & rewrite markdown references
+    image_optimization = optimize_character_images(char_dir)
+    for ref_file in image_optimization.get("updated_ref_files", []):
+        if ref_file not in updated_files:
+            updated_files.append(ref_file)
+
+    # 5. Check Bible Drift
     bible_drift_alerts = check_bible_drift(char_dir, chapters_meta)
 
     report = {
@@ -645,6 +739,7 @@ def sync_narrative_context(target: str = ".") -> Tuple[Dict[str, Any], Optional[
         "updated_files": updated_files,
         "cleaned_unicode_files": list(set(cleaned_unicode_files)),
         "entity_links_added": entity_links_added,
+        "image_optimization": image_optimization,
         "bible_drift_alerts": bible_drift_alerts,
     }
 
@@ -680,6 +775,14 @@ def print_sync_report(report: Dict[str, Any]):
         print(f"\nBible Drift Alerts ({len(report['bible_drift_alerts'])}):")
         for alert in report["bible_drift_alerts"]:
             print(f"  [ALERT] {alert}")
+
+    img_opt = report.get("image_optimization") or {}
+    if img_opt.get("converted_images"):
+        saved_kb = img_opt.get("bytes_saved", 0) / 1024.0
+        print(f"\nImage Optimization (-> WebP, {saved_kb:.1f} KB saved):")
+        for item in img_opt["converted_images"]:
+            item_saved_kb = item.get("bytes_saved", 0) / 1024.0
+            print(f"  [WEBP] {item['old']} -> {item['new']} ({item_saved_kb:.1f} KB saved)")
 
     print("\nChapter Index:")
     for ch in report.get("chapters", []):

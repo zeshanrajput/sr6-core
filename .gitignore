@@ -53,3 +53,8 @@ characters/*/output/
 characters/lab/*/output/
 app/character_data.json
 app/index.html
+
+# Raster JPEG images (auto-converted to .webp via `sr6 sync-all` / `sr6 story sync`)
+*.jpg
+*.jpeg
+

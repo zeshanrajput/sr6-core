@@ -42,7 +42,7 @@ In the studio of `~`, Reiko stepped out of the transfer buffer, rolling her shou
 
 Instead, the clearing was silent.
 
-![Aisling and Étaín at the Oracle in the Glade.](../images/A&E-Glade.jpeg)
+![Aisling and Étaín at the Oracle in the Glade.](../images/A&E-Glade.webp)
 
 Beneath the weeping curtain of fractal willows, while the wild magenta and turquoise nebulae of Kernel Panic churned beyond the canopy and three white origami doves glided through the twilight, Aisling and Étaín knelt on opposite sides of the Oracle. Neither girl had moved to close the terminal window. Neither had hidden the cache behind an old Renraku patch directory. The translucent buffer hung heavy and unmasked above the amethyst rings, bathing their identical, tear-streaked faces and downcast amber eyes in cold pale light.
 

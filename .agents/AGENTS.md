@@ -29,159 +29,26 @@ The primary purpose of `sr6-core` is to **support physical tabletop roleplay**.
   * *Single Authoritative Voice Spec (No Spec Bifurcation)*: Each character maintains exactly one living voice & narrative specification (`reference/voice_spec.md`). Never maintain parallel `narrative_spec.md` files; merge operational doctrine and somatic mortgage directly into `voice_spec.md`.
   * *Archive-by-Default for Superseded State*: When sanctuaries/safehouses are relocated (e.g. `r3sP@wn` $\rightarrow$ `~`), exploratory worldbuilding essays are completed, or contacts are compiled into `character_master.yaml`, move older standalone files into `reference/archive/`. The root `reference/` directory must strictly represent *active, living reality*.
   * *Continuity Matrix Catchup*: When finalizing chapters or running `sr6 story sync`, ensure the Key Character Foils & Entity Tracker in `reference/story_continuity.md` includes the newly completed chapter appearances.
+  * *WebP-Only Image Hygiene*: All character gallery images (`characters/*/images/`) must use `.webp`. Raw `.jpg`/`.jpeg` files are git-ignored and automatically converted to `.webp` with markdown references updated via `uv run sr6 sync-all` or `uv run sr6 story sync <char_id>`.
 * **Windows PowerShell Git Commit Protocol**: To prevent PowerShell whitespace, quote-escaping, and newline truncation issues when committing multi-line messages, always stage the commit message in a temporary file (e.g. `scratch/commit_msg.txt`), execute `git commit -F scratch/commit_msg.txt`, and immediately clean up the temporary file. Never pass complex multi-line strings directly via `git commit -m "..."`.
 
 ---
 
-## 1. Master Orchestrator: `narrative-director`
+## 1. Editorial House Narrative Pipeline (`sr6-narrative-suite`)
 
-The `narrative-director` is the primary autonomous orchestrator responsible for end-to-end narrative generation, multi-agent evaluation, iterative self-correction, and state tracking.
+All inter-session story breaking, clean-room beat drafting, parallel sub-agent audits, developmental/line editing, and chapter finalization are governed by [`.agents/plugins/sr6-narrative/rules/narrative-director.md`](file:///c:/GitHub/sr6-core/.agents/plugins/sr6-narrative/rules/narrative-director.md) and its plugin skills (`narrative-director`, `literary-analysis`, `no-ai-slop`, `sr6-rules`, `continuity-tracker`, `sr6-downtime-ledger`, `sr6-chapter-finalize`).
 
-```
-                      +-----------------------------+
-                      |   1. CONTEXT INGESTION      |
-                      | Outline, Voice Spec, Dossier|
-                      | Doctrine & Resource Pressure|
-                      +--------------+--------------+
-                                     |
-                                     v
-                      +-----------------------------+
-                      |   2. INITIAL DRAFT (v1)     |
-                      +--------------+--------------+
-                                     |
-                                     v
-         +-------------------------------------------------------+
-         |            3. PARALLEL SUB-AGENT AUDIT PANEL          |
-         |  - axis-voice-internality   - axis-pacing-structure   |
-         |  - axis-agency-motivation   - axis-worldbuilding-grit |
-         |  - no-ai-slop               - continuity-tracker      |
-         |  - sr6-rules                                          |
-         +---------------------------+---------------------------+
-                                     |
-                                     v
-                      +-----------------------------+
-                      | 4. SYNTHESIS & SELF-CORRECT |  <-- (Fails threshold?
-                      |  Passes all 7 thresholds?   |       Re-draft v2, v3)
-                      +--------------+--------------+
-                                     | Passes
-                                     v
-                      +-----------------------------+
-                      |  5. PUBLISH & STATE TRACK   |
-                      | Drop-in Prose & Python diffs|
-                      +-----------------------------+
-```
+Summary pipeline:
+- **Stage 0 (Story Break):** Break 3–5 beats in `reference/storyboard.md` and lock Tier 1/2/3 passing thresholds (**9.0 / 8.5 / 8.0**) before drafting.
+- **Stage 1 (Context & JIT Packet):** Build a clean-room creative packet via `uv run sr6 story packet <char_id> "<target>" [--beat N]` (stripping lint checklists/rubrics) and run `uv run sr6 char pressure <id>`.
+- **Stage 2 (Clean-Room Draft):** Dispatch a `self` sub-agent ("The Writer's Hat") to draft from the packet only; enforce a single pre-flight pass ("The Editor's Hat") via `uv run sr6 lint "<target>" --window 3` + `uv run sr6 evaluate "<target>" --tier <1|2|3> --char <id>`, then pause for collaborative human line-editing.
+- **Stage 3–4 (Parallel Audit & Refinement):** Audit across the 7 craft/continuity/rules dimensions (and run `literary-analysis` prose-chisel passes when revising existing chapters).
+- **Stage 5–6 (State Tracking & Series Bible Closeout):** Emit `{python} inc(...)` snippets for the Markdown Trio (`character_log.qmd`, `character_purchases.qmd`, `character_build.qmd` — **never** hand-edit `*_master.yaml`), and update `storyboard.md`, `voice_spec.md`, `visual_anchors.md`, and `story_continuity.md` via `uv run sr6 story sync <char_id>`.
+- **Stage 7 (Publish & Finalize):** Run `uv run sr6 story prep-audio "<target>"` to catch heteronyms/unmapped proper nouns, generate Kokoro TTS audio (`uv run --extra narration sr6 narrate`), upload MP3s to the GitHub Release (never commit `.mp3` files), commit/push via `scratch/commit_msg.txt`, and verify CI/CD workflows.
 
 ---
 
-## 2. Six-Stage Execution Workflow
-
-### Stage 1: Context Ingestion
-Before drafting or editing, `narrative-director` ingests:
-1. **Scene Outline / Prompt & Tri-Source Ingestion**: User-provided beat sheet, plot points, or tri-source session artifacts (verbatim audio transcripts in `characters/<char_id>/sessions/<session_id>/transcript.md`, official mission documents/modules, and GM Discord/chat reward logs).
-2. **Master Narrative Doctrine & Storyboard Spec**: Loads [`reference/inter_session_narrative_doctrine.md`](file:///c:/GitHub/sr6-core/reference/inter_session_narrative_doctrine.md) and [`reference/default_storyboard_spec.md`](file:///c:/GitHub/sr6-core/reference/default_storyboard_spec.md) as the governing operational, psychological, and structural constitution.
-3. **Master Narrative Storyboard**: Loads local character repository `reference/storyboard.md` as the primary dramatic roadmap (active 6 thematic verticals, controlled Tier B foils, consecrated telemetry, and story queue).
-4. **Sub-Agent Evaluation Skills**: Calibrated directly by `sr6-narrative-suite` skills (`no-ai-slop`, `literary-analysis`, `sr6-rules`, `continuity-tracker`, `sr6-downtime-ledger`, `sr6-chapter-finalize`, `narrative-director`).
-5. **Character Voice Specification / Consolidated Narrative Spec**: Loads local character repository `reference/voice_spec.md` (inheriting `reference/default_voice_spec.md`).
-6. **Master Character Dossier & Resource Pressure Telemetry**: Reads `character_master.yaml` and executes deterministic resource pressure checks (`uv run sr6 char pressure <id>`) to ground existential financial/karmic weight.
-7. **RAG Story Continuity & Rules**: Queries recent chapter logs via `uv run sr6 continuity` and rule context via `sr6-rules` (always querying local offline FTS5 vault first via `uv run sr6 rag search` before cloud AI synthesis).
-
-### Stage 2: Clean-Room Beat-by-Beat Drafting (`narrative-director <target_file> <beat>` / `/draft-beat <target_file> <beat>`)
-To prevent overfitting ("Checklist Prose") and preserve organic voice, `narrative-director` strictly separates **The Writer's Hat** (creative synthesis in an isolated sub-agent context window) from **The Editor's Hat** (deterministic linting and a single non-human review loop):
-1. **Just-in-Time (JIT) Creative Packet**: Assemble a focused prompt for the target beat containing **only** generative fuel:
-   - The chapter's Central Premise, the target Beat outline from `<target_file>`, and any already-drafted preceding beats in `<target_file>`.
-   - Character voice essence, POV, active era, Mindspeech (`*...*`) vs. acoustic speech (`"..."`), and physical-vs-AR ontological rules from `reference/voice_spec.md`.
-   - Targeted excerpts from the 1–2 prior chapters called back to in the beat + canonical SR6 hardware/rule excerpts queried via `uv run sr6 rag search` or `uv run sr6 card`.
-2. **Clean-Room Sub-Agent Dispatch ("The Writer's Hat" — `Draft v1`)**:
-   - Invoke a `self` sub-agent (`invoke_subagent`) with the creative packet. Do **NOT** dump 32-pattern slop lists, lexical quota tables, or 7-axis scorecards into Pass 1 so the drafter focuses 100% on voice, sensory truth, and emotional momentum.
-3. **Non-Human Review Gate ("The Editor's Hat" — Max 1 Loop to `Draft v2`)**:
-   - Write `Draft v1` to `scratch/beat_<N>_test.md` and run `uv run sr6 lint` and `uv run sr6 evaluate`.
-   - Check for **egregious** narrative standard violations (premise drift, ontological AR/meatspace confusion, missed callback/hardware fidelity, merged speaker paragraphs, or Tier 0 buzzwords).
-   - Send at most **one** targeted feedback turn to the sub-agent (or apply a surgical 1-word micro-chisel) to resolve egregious violations, then clean up `scratch/beat_<N>_test.md`. Do not loop endlessly or sterilize the prose; allow minor stylistic nuances through to human review.
-4. **Collaborative Human Line-Edit Gate**:
-   - Write `Draft v2` into `<target_file>`, present the beat and pre-flight summary in chat, and **stop** for user line-level review before advancing to the next beat.
-
-### Stage 3: Parallel Sub-Agent Audit Panel
-Draft `v1` is first analyzed using deterministic CLI utilities, then evaluated across the **7 audit dimensions**:
-
-1. **Deterministic Pre-Flight Check**:
-   - Run `uv run sr6 lint "chapters/<file>.qmd"` for instant automated metrics on word count, paragraph braid ratios, ellipses ceiling, and banned buzzwords.
-   - Run `uv run sr6 evaluate "chapters/<file>.qmd" --tier <1|2|3> --char <id>` to generate the baseline 7-axis scorecard.
-2. **Sub-Agent Panel Dispatch**:
-   - In Hermes Agent or Antigravity, dispatch audits across all 7 evaluation dimensions against the calibrated tier threshold:
-
-| Dimension / Skill | Governing Skill | Focus Dimension | Passing Threshold |
-| :--- | :--- | :--- | :--- |
-| **Voice & Internality** | `literary-analysis` | Character voice, POV integrity, vocabulary matrix, sensory lens, era calibration | Tier Calibrated (8.0–9.0) |
-| **Pacing & Structure** | `literary-analysis` | 4-beat structure, entry/exit discipline, action-to-exposition (80/20) | Tier Calibrated (8.0–9.0) |
-| **Agency & Motivation** | `literary-analysis` | Protagonist proactive choice, consequential stakes, drive alignment | Tier Calibrated (8.0–9.0) |
-| **Worldbuilding & Grit** | `literary-analysis` | Dystopian texture, corporate omnipresence, AR clutter, zero info-dumps | Tier Calibrated (8.0–9.0) |
-| **Anti-Slop Guardian** | `no-ai-slop` | Anti-slop pattern detection, forbidden terms list, redline removal, TTS fluency | **8.5 / 10** |
-| **Continuity & State** | `continuity-tracker` | Ammo/nuyen balances, damage tracks, contacts, state verification | **8.5 / 10** |
-| **Rules & Mechanics** | `sr6-rules` | SR6 mechanics (Edge, Matrix actions, spell drain, tactical arrays) accuracy | **8.5 / 10** |
-
-#### Chapter Tier Threshold Calibration (Unified 1.0–10.0 Scale)
-* **Tier 1 (Keystones)**: Passing threshold **9.0 / 10** (Existential breakthroughs, initiation/submersion milestones, foundational pivots).
-* **Tier 2 (Narrative Evolution)**: Passing threshold **8.5 / 10** (Mission runs, relationship deepening, regional texture, evolutionary steps).
-* **Tier 3 (Atmospheric Bridges)**: Passing threshold **8.0 / 10** (Slice-of-life downtime, procedural mechanics, affectionately grounded banter).
-
-### Stage 4: Synthesis & Automated Self-Correction Loop
-1. `narrative-director` collates the audit reports into a unified **Revision Matrix**.
-2. If any sub-agent score falls below its passing threshold, invoke `literary-analysis` (`apply_prose_chisel`) to formulate targeted line-level fixes.
-3. The re-draft cycle (`v1` $\rightarrow$ `v2` $\rightarrow$ `v3`) repeats autonomously until **all 7 sub-agents pass threshold standards**.
-
-### Stage 5: Publishing & State Tracking
-Upon successful panel approval:
-1. **Narrative Output**: Emits the final polished prose in chat for review, or writes to a clean Quarto markdown file (`.qmd`) in `chapters/` (e.g., `chapters/chapter_04.qmd`) if requested.
-2. **State Updates (Markdown Trio as Single Source of Truth)**:
-   - Tabletop state updates (nuyen, Karma, contacts, foci, ammo, purchases) must ALWAYS be proposed/recorded in the core Markdown Trio (`character_log.qmd`, `character_purchases.qmd`, `character_build.qmd`).
-   - Deliver adjustments as ready-to-paste `{python} inc(...)` snippets in chat.
-   - **NEVER edit `*_master.yaml` by hand.** The master YAML is compiled from scratch from the core markdown files via `uv run sr6 sync-all` or `uv run sr6 build`.
-
-### Stage 6: Refinement Mode for Existing Chapters (`literary-analysis <target>`)
-Invoked via the command/trigger: **`literary-analysis <target_file>`** (e.g., `literary-analysis characters/velvet/narrative/02_faceless_mirror.md` or `/literary-analysis <target_file>`):
-
-1. **Deterministic Diagnostics**: Run `uv run sr6 lint` and `uv run sr6 evaluate` on the target file to benchmark baseline metrics (word count, em-dash density, buzzwords, paragraph structure).
-2. **Methodical Prose Chisel Protocol (`literary-analysis` + `no-ai-slop` + `axis-pacing-structure`)**:
-   - **Paragraph Braiding & Calibrated Cadence**:
-     - Weave sensory texture, physical micro-action, dialogue, and immediate consequences into cohesive 3-to-6 sentence paragraphs.
-     - **Single-Sentence Lines as a Deliberate Tool**: Single-sentence paragraphs are not forbidden—they are a high-impact literary tool for irreversible pivots, flashback hinges, or existential turning points. Use them deliberately and sparingly, calibrated to **no more than 1 or 2 per thousand words** ($\le 1\text{–}2 / 1,000$ words).
-   - **One Speaker Per Paragraph**: Every speaker turn must be an independent paragraph, braiding spoken words directly with that character's own physical micro-actions, voice cadence, or somatic telemetry.
-   - **Trust the Reader vs. Contextual Scaffolding**:
-     - **Prune Lazy Meta-Exposition**: Cut introductory comparative essays (e.g., lecturing on past safehouses or markets before arriving at the scene), thesis announcements (never announce "they traded in sensation" right before showing it), and dialogue dossier recaps (characters speaking their character sheet).
-     - **Preserve Essential Contextual Scaffolding**: Help the reader when an expected reader cannot reasonably deduce the cause-and-effect without subtle narrative grounding. Provide grounded sensory or psychological context for:
-       - *Specialized professional or mechanical dynamics* (e.g., medical triage desensitization buffering a clinician against supernatural charisma until the smock comes off).
-       - *Proprietary symbolic motifs* (e.g., Reiko's gold tactical logic versus indigo resonant soul).
-   - **Affirmative Staging & Non-Action Pruning**: Strip gratuitous negative non-actions (e.g., *"did not flinch"*, *"did not look back"*) whenever the ensuing positive physical detail (e.g., *"her hands remained flat against her knees"*) already carries the narrative and emotional weight.
-3. **Pre-Commit Verification**: Run `uv run sr6 lint` and `uv run sr6 evaluate` on the revised content to ensure zero slop regressions, clean paragraph braiding, and tier compliance before publishing.
-4. **Deliver Scorecard & Drop-in Prose**:
-   - Emit the **Unified 7-Axis Narrative Scorecard** and **Expanded Literary Craft Telemetry** (paragraph braiding cadence, single-sentence quota, one-speaker compliance, affirmative staging).
-   - Deliver drop-in replacements in chat or write the revised content directly to the target file so changes can be inspected instantly via git diff.
-5. **Transparent Literary Craft Breakdown**: In the chat response, explicitly call out any deployment of:
-   - **Single-Sentence Paragraphs**: Identify the quote, location, and the dramatic pivot/existential hinge that justifies isolating it (or "None deployed").
-   - **Contextual Scaffolding**: Identify the passage, location, and the specialized domain dynamics or proprietary character motifs being scaffolded, explaining why the reader could not reasonably deduce it alone (or "None required").
-
-### Stage 7: Standardized Chapter Finalization & CI/CD Verification (`/finalize-chapter <target>`)
-Invoked via the command/trigger: **`/finalize-chapter <target_file>`** (e.g. `/finalize-chapter characters/velvet/narrative/12_Iron.md` or `/publish-chapter <target_file>`):
-
-1. **Pre-Flight Lint & Sanitization**:
-   - Run `uv run sr6 lint "<target_file>"` to verify zero slop regressions, no banned buzzwords, no `\ufffd` unicode artifacts, and em-dash density $\le 0.60$ per 300 words.
-2. **Audio Narration Generation & Release Asset Upload**:
-   - Run `uv run --extra narration sr6 narrate "<target_file>" --char <char_id>`
-   - The engine automatically parses `<audio controls src="audio/(.*?)">` in the markdown header to generate the exact 160kbps MP3 target with embedded character ID3 tags.
-   - Upload the generated MP3 directly to the GitHub Release: `gh release upload narrative-audio-v1 "characters/<char_id>/narrative/audio/<audio_file>" --clobber`
-   - **Do NOT stage or commit MP3 files to Git** (maintaining the `<12MB` Gemini web app ceiling).
-3. **Project Context & Navigation Synchronization**:
-   - Run `uv run sr6 story sync <char_id>` to automatically register the chapter in `_quarto.yml`, `index.qmd`, and `reference/story_continuity.md`, while updating contact appearances, chapter tables, and anthology word counts.
-4. **Windows PowerShell Git Commit & Push Protocol**:
-   - Stage all touched markdown/quarto/context files (excluding audio).
-   - Stage commit message in `scratch/commit_msg.txt`, execute `git commit -F scratch/commit_msg.txt`, clean up temporary file, and push to `origin/master`.
-5. **Scheduled CI/CD Verification (8-Minute Timer)**:
-   - Call `schedule(DurationSeconds="480", Prompt="Verify GitHub Actions build and CI test workflows for commit <hash>")`.
-   - When the timer fires upon expiry, execute `gh run list --limit 3` and `gh run view <run_id>` to verify that `CI Test & Quality Gate` and `Build & Deploy Unified SR6 Books & Mobile PWA` both completed with `success`.
-
----
-
-## 3. CLI Diagnostic Utilities
+## 2. CLI Diagnostic Utilities
 
 Before completing edits or reviewing narrative/character updates, run corresponding CLI commands:
 * **The 2-Step Rules Retrieval Protocol**:
@@ -193,8 +60,10 @@ Before completing edits or reviewing narrative/character updates, run correspond
 * **Cyberlimb & Augmentation Calculator**: `uv run sr6 calc limb --limb <arm|leg> [--grade <grade>] [--adapsin] [--agi N]`
 * **Subsystem Rules Cheatsheets**: `uv run sr6 cheat <matrix|actions|monad|combat>`
 * **Item & PACK Reference Cards**: `uv run sr6 card <quality|weapon|spell|cyberware|pack> <name>`
-* **Prose & Markdown Linter**: `uv run sr6 lint "chapters/<file>.qmd"`
+* **Prose & Markdown Linter**: `uv run sr6 lint "chapters/<file>.qmd" [--window 3]`
 * **7-Axis Narrative Evaluator**: `uv run sr6 evaluate "chapters/<file>.qmd" --tier <1|2|3> --char <id>`
+* **Clean-Room JIT Story Packet Compiler**: `uv run sr6 story packet <char_id> "<chapter_path>" [--beat N]`
+* **Audiobook Pronunciation & Heteronym Scanner**: `uv run sr6 story prep-audio "<chapter_path>"`
 * **Narrative Context Synchronizer**: `uv run sr6 story sync <char_id>`
 * **Combat Ledger Action Parser**: `uv run sr6 ledger parse "chapters/<file>.qmd"`
 * **Continuity Engine**: `uv run sr6 continuity <repo_path>`
@@ -208,7 +77,7 @@ Before completing edits or reviewing narrative/character updates, run correspond
 
 ---
 
-## 4. The Consolidated 7-Skill Narrative Suite Reference
+## 3. The Consolidated 7-Skill Narrative Suite Reference
 
 | Skill Name | Role | Primary Command / Pre-Flight |
 | :--- | :--- | :--- |

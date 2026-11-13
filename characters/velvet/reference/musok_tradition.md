@@ -2,7 +2,7 @@
 
 **Target Character:** Velvet (Kim Jin-Young / Tanaka Ryo)  
 **Primary Sourcebooks:** *Shadowrun Sixth World: Street Wyrd* (CAT28003, pp. 45–60), *Seoul Survivor* (CAT27454), *Shadowrun Sixth World Core Rulebook*  
-**Cross-References:** [philosophical_framework.md](file:///c:/GitHub/sr6-core/characters/velvet/reference/philosophical_framework.md), [karmic_persona_log.md](file:///c:/GitHub/sr6-core/characters/velvet/reference/karmic_persona_log.md), [voice_spec.md](file:///c:/GitHub/sr6-core/characters/velvet/reference/voice_spec.md)
+**Cross-References:** [archive/philosophical_framework.md](file:///c:/GitHub/sr6-core/characters/velvet/reference/archive/philosophical_framework.md), [archive/karmic_persona_log.md](file:///c:/GitHub/sr6-core/characters/velvet/reference/archive/karmic_persona_log.md), [voice_spec.md](file:///c:/GitHub/sr6-core/characters/velvet/reference/voice_spec.md)
 
 ---
 

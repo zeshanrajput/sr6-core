@@ -1,9 +1,45 @@
-# Venn Voice Specification
+# Venn Voice & Narrative Specification
 
 **Extends**: `sr6-core/reference/default_voice_spec.md`  
+**Parent Doctrine**: [`sr6-core/reference/inter_session_narrative_doctrine.md`](file:///c:/GitHub/sr6-core/reference/inter_session_narrative_doctrine.md)  
 **Character**: Venn (Nathan Turrent & Veronica)  
 **Archetype**: Monad (Human / AI Dual Entity) Technomancer & Operative  
-**Repository Target**: `sr6union/reference/voice_spec.md`
+**Repository Target**: [`characters/lab/venn/reference/voice_spec.md`](file:///c:/GitHub/sr6-core/characters/lab/venn/reference/voice_spec.md)
+
+---
+
+## 0. The Inter-Session Narrative Mandate & Consecrated Capital
+
+* **The Operational vs. Ontological Divide:**
+  * *Operational Layer (The Gaming Table):* At the table, Venn is a lethal frontline street samurai and decking asset. They deploy heavy weapons, roll high initiative, and coordinate tactical data feeds.
+  * *Ontological Layer (The Prose Domain):* In prose, inter-session fiction explores the 0.1 Essence chasm, the horror of CFD rewritten into voluntary transhuman kinship, and the physical struggle of two sovereign minds sharing one mortal frame.
+* **Consecrated Capital & Existential Debt:**
+  * *Chrome as Biological Indenture:* Venn’s four used synthetic limbs, adapsin, and nanohives represent a ~¥275,000 somatic investment and 5.51 points of lost Essence (down to 0.49). Every credit spent on bioware stabilizers is the biological rent keeping Nathan's organic heart beating alongside Veronica’s digital pulse.
+  * *The Inversion of Essence Loss:* While Nathan’s nervous system numbs into cyberpsychotic threshold, Veronica provides the synthetic empathy buffer that prevents total dissociation.
+* **The Two-Tier Dramatic Sphere:**
+  * *Tier A Campaign Canon (`canonical: true`):* SRM Fixers and living campaign NPCs operate under the Canon Ceiling.
+  * *Tier B Bespoke Foils (`canonical: false`):* Irreversible moral choices occur with bespoke foils: Marcus (the street doc who seated their chrome), St. Simon's Island boathouse memories, and Atlanta underworld contacts.
+
+```text
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                       THE TOPOLOGY OF THE VENN ACCORD                       │
+│                                                                             │
+│          NATHAN (The Meat)                        VERONICA (The Spark)      │
+│      [Tactile Biological Host]                 [Emergent Resonant Mind]     │
+│  • Sensory grounding & mud             │  • Computational architecture      │
+│  • 0.1 Essence chasm                   │  • Neural buffer / Living persona  │
+│  • Autonomic life support              │  • Guardian of human empathy       │
+│                                  \             /                            │
+│                                   ▼           ▼                             │
+│                              ┌─────────────────────┐                        │
+│                              │   THE SHARED LENS   │                        │
+│                              │       ( VENN )      │                        │
+│                              │  • Sovereign Voice  │                        │
+│                              │  • Distributed Risk │                        │
+│                              │  • Embodied Accord  │                        │
+│                              └─────────────────────┘                        │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
 
 ---
 

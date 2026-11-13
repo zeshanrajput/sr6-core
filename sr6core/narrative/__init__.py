@@ -27,6 +27,7 @@ from sr6core.narrative.narration import (
 from sr6core.narrative.sync import (
     sync_narrative_context,
     print_sync_report,
+    optimize_character_images,
 )
 from sr6core.narrative.packet import build_story_packet
 from sr6core.narrative.prep_audio import (
@@ -50,6 +51,7 @@ __all__ = [
     "retag_narratives",
     "sync_narrative_context",
     "print_sync_report",
+    "optimize_character_images",
     "build_story_packet",
     "scan_audio_prep",
     "print_audio_prep_report",
