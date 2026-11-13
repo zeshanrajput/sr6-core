@@ -716,4 +716,35 @@ Submersion_Grade = state["Submersion_Grade"]
 * **Qualities Acquired (In-Play):**
   * *Negative Quality:* **Addiction (Telenovelas, Mild)** (Rating 1; 0 Karma awarded per SRM in-play acquisition rules; logged in `character_purchases.qmd`).
 
+---
+
+`{python} mission("SRM.2083.13", date="2026-11-13", karma=6, nuyen=11700, rep={'Aurelian': 1, 'Epoch': -1}, gm="Kira_Capalu", difficulty="Normal")`
+
+* **GM:** CDT Agent Kira Capalu
+* **Team:** Scripty (Inirlan), Shades (Reggie), Malk (MedTec), La Lupa (Connor), Snow (Wyntr), Yuriko Star (WarDoctor)
+* **Summary:** The team was contracted for what initially presented as a routine corporate extraction and retrieval from a rival facility, only to find the principal had transformed the site into a macabre, twisted funhouse labyrinth. Choosing an unconventional entry method, Reiko loaded her Shiawase Man-at-Arms anthrodrone chassis directly into a circus cannon, ballistically launching herself through an interior reinforced wall to breach the inner sanctum. In the adjoining chamber, she cornered and caught the rogue drone Busta; after a stern disciplinary talking to, Ouro purged and re-registered the unit's pilot framework, and Reiko loaded Busta into her abdominal drone bay for safe transport home. The runners retrieved the objective for a 4,700¥ contract payout, delivered the intelligence on the Maquis to J. P. Chakraborty for a 2,000¥ corporate bonus, returned the captured bliss stash to its underworld owners for a 3,000¥ split, and Reiko was awarded a 2,000¥ hazard bonus for her ballistic cannon breach. The job shifted street standing across New Orleans (+1 Rep Aurelian, -1 Rep Epoch, +1 Favor Point with J. P. Chakraborty).
+* **Contacts:**
+  * `{python} contact("J. P. Chakraborty", fp=1)`
+* **Downtime Actions (1 Major, 1 Minor):**
+  * *Major Action (Submersion — Echo: Syntax Error):* `{python} inc_many(('Karma', -15), ('Submersion_Grade', 1))` `{python} echo('Syntax Error')`
+    * Submerged to Grade 9 (*SRMG v2.4* p. 19; *Hack & Slash* pp. 69–70; *Shadow Cast* p. 84). Spent 15 Karma (10 + 9 - 4 River People Loyalty 4 floor). Attuned to the *Syntax Error* echo—gaining the ability to actively unravel sustained complex forms and sprite powers (Electronics + RES vs. LOG + RES) and deploy a Minor Anytime action granting target icons +9 defense dice. Expressly connected with the Dissonance, unlocking the Dissonant Technomancer quality path.
+  * *Minor Action (Rent & Working for the People):* `{python} lifestyle('Low')` | `{python} work_for_the_people()`
+    * 2,000¥ paid for bi-monthly Low Lifestyle maintenance (*SR6 CRB*, p. 238; paid every 2nd SRM per *SRMG v2.4*, p. 1).
+    * 2,000¥ donated toward sustaining her sanctuary and children in Kernel Panic / Glade (Hooder), converting to +1 Karma.
+* **Advancement Between Runs (Zero Action Cost):**
+  * *Attribute Advancement (Resonance 8 -> 9):* `{python} inc_many(('Karma', -45), ('Resonance', 1))`
+    * Raised Resonance from 8 to 9 (45 Karma = new rating 9 $\times$ 5; *SR6 CRB*, p. 68). Through *Natural Hacker* (substituting RES for mental attributes on Matrix actions) and *Override* (substituting RES for device pilot ratings), this reverberates across all Matrix pools (Cracking, Electronics, Tasking to 17d6 / 19d6 hot-sim) and scales drone maneuvering pools across the board.
+  * *Qualities Acquired (Dissonant Technomancer & Dissonant Stigma):* `{python} inc('Karma', -25)`
+    * Acquired **Dissonant Technomancer (Control)** (30 Karma post-chargen; *Shadow Cast* pp. 84–85; *SRMG* p. 37) offset by taking the negative quality **Dissonant Stigma** (-5 Karma; *Shadow Cast* p. 86; *SRMG* p. 37). Net cost: 25 Karma. Binds her Dissonant scalpel strictly to Devices with -1 Edge reduction, wild die, and fading reduction; her persona bears the Stigmata of point zero.
+* **In-Session Downtime (Zero Downtime Action Cost):**
+  * *Full Sprite Fleet Refresh:* Over ample in-session downtime during the run, Reiko refreshed and re-registered her entire registered sprite family at Rating 8 (buying 5 hits with her 20d6 compiling pool, drain-free):
+    * `{python} deregister_sprite("Ouro", reason="In-session downtime refresh")` | `{python} add_sprite("Machine", 8, name="Ouro", details="The Logic / Diagnostics, Override, Clearsight, Evasion", tasks=3)`
+    * `{python} deregister_sprite("Percy", reason="In-session downtime refresh")` | `{python} add_sprite("Defender", 8, name="Percy", details="The Shield / Override, Shield, Stability", tasks=3)`
+    * `{python} deregister_sprite("Cleo", reason="In-session downtime refresh")` | `{python} add_sprite("Modular", 8, name="Cleo", details="The Market / Cookie (Modular), Con, Influence", tasks=3)`
+    * `{python} deregister_sprite("Aisling", reason="In-session downtime refresh")` | `{python} add_sprite("Music", 8, name="Aisling", details="The Radiant Hearth / Harmonize, Captivate Audience, Shield", tasks=3)`
+    * `{python} deregister_sprite("Étaín", reason="In-session downtime refresh")` | `{python} add_sprite("Modular", 8, name="Étaín", details="The Skybox Weaver / Phantom (Modular), Suppression, Stability", tasks=3)`
+* **Loot & Acquisitions:**
+  * *Captured Drone ("Busta"):* Subdued in the Funhouse, re-registered by Ouro, and secured within Reiko's abdominal drone rack for rehabilitation (logged in `character_purchases.qmd`).
+
+
 

@@ -8,12 +8,12 @@ identity:
   gender: DIVERSE
   age: ~ 10
   system: shadowrun6e
-  karma: 83
-  lifetime_karma: 326
-  nuyen: 17900.0
-  lifetime_nuyen: 493500
+  karma: 5
+  lifetime_karma: 333
+  nuyen: 25600.0
+  lifetime_nuyen: 505200
   heat: -1
-  submersion: 8
+  submersion: 9
 attributes:
   body: 5
   agility: 3
@@ -24,7 +24,7 @@ attributes:
   intuition: 2
   charisma: 4
   edge: 4
-  resonance: 8
+  resonance: 9
 qualities:
   positive:
   - name: Natural Hacker
@@ -37,6 +37,10 @@ qualities:
     ref: sensor_upgrade
   - name: Pilot Origins
     ref: pilot_origins
+  - name: Dissonant Technomancer (Control)
+    ref: dissonant_technomancer_(control)
+    choice: Control
+    karma: 0
   negative:
   - name: Buddy System
     ref: buddy_system
@@ -49,6 +53,10 @@ qualities:
   - name: Addiction (Telenovelas, Mild)
     ref: addiction_(telenovelas,_mild)
     choice: Telenovelas, Mild
+    karma: 0
+  - name: Dissonant Stigma
+    ref: dissonant_stigma
+    choice: ''
     karma: 0
 skills:
 - name: Tasking
@@ -217,6 +225,9 @@ meta_echoes: &id001
   notes: ''
 - name: Sprite Conduit
   ref: sprite_conduit
+  notes: ''
+- name: Syntax Error
+  ref: syntax_error
   notes: ''
 - name: Sprite Symbiosis
   ref: sprite_symbiosis
@@ -1616,6 +1627,26 @@ contacts:
     notes: CMP 2083-07 Misplaced Loyalty
     history:
     - 'CMP 2083-07 Misplaced Loyalty (Met: C6 L1, +1 FP)'
+  J. P. Chakraborty:
+    name: J. P. Chakraborty
+    canonical_name: J. P. Chakraborty
+    is_canonical: true
+    connection: 4
+    loyalty: 1
+    favors: 0
+    type: Aurelian Design Model
+    region: NOLA
+    types:
+    - Corporate
+    - Matrix
+    types_str: Corporate, Matrix
+    description: 'Uses: Business and economics, getting jobs, fashion | Types: Corporate,
+      Matrix'
+    notes: 'Uses: Business and economics, getting jobs, fashion | Types: Corporate,
+      Matrix'
+    history:
+    - 'SRM.2083.13 (Met: C4 L0, +1 FP)'
+    - Auto-Promoted to Loyalty 1 (-1 FP)
 reputation:
   Vory: 2
   Seattle: 7
@@ -1629,6 +1660,8 @@ reputation:
   DW: 2
   Kozlowski Family: 2
   SEA: 6
+  Aurelian: 1
+  Epoch: -1
 total_reputation: 43
 drones:
 - name: MCT Gnat

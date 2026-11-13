@@ -182,7 +182,7 @@ Details specific to Reiko's physical manifestation in real-world environments (S
 
 * **Twin Ocular Red Fox Lasers:** Mounted flush behind the synthetic iris apertures of her dark almond eyes. Provides lethal, high-precision combat targeting with zero exterior chassis bulge or facial distortion.
 * **Oropharyngeal Tesla Coil Emitter ("Lightning Breath"):** High-voltage transformer coils and power storage banks are nested internally within her right thoracic/cyberarm assembly, but the discharge emitter is routed directly behind the posterior oropharynx wall at the back of her throat. A motorized ceramic/silicone sphincter hermetically seals the arc nodes behind the pharyngeal wall, allowing Reiko to swallow kerosene, diesel, or synthetic fuel into her sub-sternal Hydrocarbon Fuel Converter (HFC) without combusting the electrodes. When firing (Minor Action deploy), the pharyngeal partition retracts, her jaw opens slightly, and a blinding blue-white torrent of electrical plasma erupts from her throat (5S(e) Exotic Spray). Relocating the emitter from her wrist keeps her forearms free for vector thrust nozzles, the upcoming Wrist Shield, and Sensor Dazzler nodes.
-* **Abdominal Microdrone Bay (Sky Commander / Gnat Rack):** A flush, spring-loaded deployment hatch along her lower abdominal seam housing her MCT Gnat microdrone swarm / Sky Commander control unit.
+* **Abdominal Microdrone Bay (Sky Commander / Drone Rack):** A flush, spring-loaded deployment hatch along her lower abdominal seam housing her MCT Gnat microdrone swarm / Sky Commander unit, and accommodating captured/re-registered light units (e.g. captured drone "Busta" post-SRM 2083-13).
 
 ### Physical World Negative Prompt Anchors
 

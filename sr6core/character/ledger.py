@@ -1673,6 +1673,7 @@ def get_log_totals(log_path: Optional[Any] = None) -> Dict[str, Any]:
         "Heat": _GLOBAL_LOG_STATE.get("Heat", 0),
         "Submersion_Grade": _GLOBAL_LOG_STATE.get("Submersion_Grade", 0),
         "Initiation_Grade": _GLOBAL_LOG_STATE.get("Initiation_Grade", 0),
+        "Resonance": _GLOBAL_LOG_STATE.get("Resonance", 0),
         "Nanite_Volume": _GLOBAL_LOG_STATE.get("Nanite_Volume", 6 if _GLOBAL_LOG_STATE.get("Character") == "venn" else 0),
         "Reputation": rep_dict,
         "Total_Reputation": total_rep,

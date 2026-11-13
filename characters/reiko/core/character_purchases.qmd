@@ -107,6 +107,9 @@ Software with karma costs have been learned via the **Software Emulator** echo.
 * MCT Hornet x2 `{python} inc('Nuyen', -2100 * 2)`
   * Stinger (Embedded Close Combat Weapon: 1P, Attack Rating 4, single toxin dose injector)
 
+* Captured Drone ("Busta") *(SRM 2083-13 Mission Capture)*
+  * Captured during the Funhouse breach, subdued, and re-registered by Ouro; carried in abdominal drone bay.
+
 * Shiawase Man-At-Arms `{python} inc('Nuyen', -4500*.9)`
   * Weapon Mount - Standard (1 additional; drone includes 1 stock standard mount, DC p. 117) `{python} inc('Nuyen', -2500/2)`
   * Pop-Out Concealment - Standard x2 (ocular mounts) `{python} inc('Nuyen', -4000/2)`
@@ -208,5 +211,9 @@ Under *Double Clutch* p. 123–124, the Man-At-Arms receives 3 free Standard Har
 
 * **Addiction (Telenovelas, Mild)** *(CMP 2083-07 in-play acquisition; 0 Karma per SRM rules)*
   * Rating 1 Negative Quality (*SR6 CRB*, p. 70). Behavioral addiction to dramatic trid telenovelas (*Mandalay Icon* and Southeast Asian melodrama).
+* **Dissonant Technomancer (Control)** *(SRM 2083-13 Advancement; 30 Karma)*
+  * Positive Quality (*Shadow Cast*, pp. 84–85; *SRMG*, p. 37; 15 base $\times 2 = 30\text{ Karma}$ post-chargen). Preferred target category: Devices. Halves Edge cost (-1 Edge) on Matrix actions and complex forms targeting devices, adds a wild die, reduces fading by wild hits.
+* **Dissonant Stigma** *(SRM 2083-13 Advancement; -5 Karma)*
+  * Negative Quality (*Shadow Cast*, p. 86; *SRMG*, p. 37; offsets positive post-chargen Karma cost by 5). Reiko's living persona and resonant presence hum with the subtle, unmistakable static of point zero.
 
 
