@@ -2070,11 +2070,13 @@ def build_roll20_payload(
                 vtype = "DRONE_MEDIUM"
                 body_val = 10
                 armor_val = 8
-                pilot_val = 9
+                res_val = int(char_data.get("attributes", {}).get("resonance") or 8)
+                des_val = 1 if any("designer" in q.get("name", "").lower() for q in char_data.get("qualities", {}).get("positive", [])) else 0
+                pilot_val = res_val + des_val
                 sensor_val = 2
                 desc_str = (
                     f"{desc_str}\n"
-                    "Primary Inhabited Chassis (Override Sprite Power): Base Pilot 9 (8 Resonance + 1 Designer) +4 Resonance Focus = 13; "
+                    f"Primary Inhabited Chassis (Override Sprite Power): Base Pilot {pilot_val} ({res_val} Resonance + {des_val} Designer) +4 Resonance Focus = {pilot_val + 4}; "
                     "Body 10 +5 Structural Integrity = 15; Sensor 2 +6 (+2 Inc. Sensors, +1 Sensor Upgrade, +2 Enlightened Automaton, +1 Home Device) = 8.\n"
                     "Post-Import: Use JSON={...} string in Notes to set all Autosoft pools and attribute modifiers in a single click."
                 ).strip()

@@ -358,7 +358,7 @@ def test_reiko_roll20_export():
     drone_map = {d["name"]: d for d in payload["drones"]}
     assert "Shiawase Man-at-Arms" in drone_map
     maa = drone_map["Shiawase Man-at-Arms"]
-    assert maa["pilot"] == 9  # 8 Resonance + 1 Designer
+    assert maa["pilot"] == 10  # 9 Resonance + 1 Designer
     assert maa["body"] == 10
     assert maa["armor"] == 8
     assert maa["sensor"] == 2
@@ -368,9 +368,9 @@ def test_reiko_roll20_export():
     sky = drone_map["Federated-Boeing Sky Commander (Seattle Retrans Relay)"]
     assert sky["sensor"] == 4
 
-    # 7. Echoes (All 8 Submersion Echoes)
+    # 7. Echoes (All 9 Submersion Echoes)
     echo_names = {e["name"] for e in payload["echoes"]}
-    assert len(echo_names) == 8
+    assert len(echo_names) == 9
     assert "New Sprite Type" in echo_names
     assert "Sprite Conduit" in echo_names
     assert "Sprite Symbiosis" in echo_names
@@ -379,6 +379,7 @@ def test_reiko_roll20_export():
     assert "Overclocking" in echo_names
     assert "Software Emulator" in echo_names
     assert "Sprite Link" in echo_names
+    assert "Syntax Error" in echo_names
 
     # 8. Complex Forms & Symbiosed Sprite Powers
     cf_map = {cf["name"]: cf for cf in payload["complexForms"]}
@@ -411,8 +412,8 @@ def test_reiko_roll20_export():
     assert payload["armors"][0]["primary"] is True
     assert payload["armors"][0]["rating"] == 8
 
-    # 11. Contacts (Full 69 Contacts Verified Including Kingston, JinJin, Laurig Heartwell & Chargen Contacts)
-    assert len(payload["contacts"]) == 69
+    # 11. Contacts (Full 70 Contacts Verified Including Kingston, JinJin, Laurig Heartwell, J. P. Chakraborty & Chargen Contacts)
+    assert len(payload["contacts"]) == 70
     contact_map = {c["name"]: c for c in payload["contacts"]}
     assert "Kingston" in contact_map
     assert contact_map["Kingston"]["loyalty"] == 2
