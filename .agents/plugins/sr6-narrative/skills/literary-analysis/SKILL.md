@@ -39,14 +39,16 @@ literary-analysis <target_file>
 ```
 *Example: `literary-analysis characters/velvet/narrative/02_faceless_mirror.md`*
 
-Execute baseline diagnostics via CLI:
+Execute baseline diagnostics via CLI (running the unified linter + tier/character calibration in one pass):
 ```bash
-# Automated paragraph braid ratios, ellipses ceiling, buzzwords, and N-3 cross-chapter echoes
-uv run sr6 lint "characters/<char_id>/narrative/<file>.md" --window 3
-
-# Multi-axis qualitative evaluation and craft telemetry
-uv run sr6 evaluate "characters/<char_id>/narrative/<file>.md" --tier <1|2|3> --char <char_id>
+# Automated paragraph braid ratios, cluster saturation, ellipses ceiling, buzzwords, N-3 echoes, and tier/voice calibration
+uv run sr6 lint "characters/<char_id>/narrative/<file>.md" --window 3 --tier <1|2|3> --char <char_id>
 ```
+*(Note: `sr6 evaluate` remains available as an alias for the same unified analyzer.)*
+
+### Sub-Agent Delegation Protocol (Token & Speed Optimization)
+- **Series Bible & Continuity Cross-Checks (Stage 3 / Stage 6)**: Delegate multi-file audits across `storyboard.md`, `voice_spec.md`, `visual_anchors.md`, and `story_continuity.md` to a `research` (read-only) or `flash` sub-agent with explicit file paths and verification questions rather than polling them piecemeal in the parent context.
+- **Line Chisel Execution (Stage 4 / Stage 6)**: Dispatch a `flash` Line Chisel Worker (`apply_prose_chisel`) for surgical line edits and lexical cluster de-duplication, keeping high-reasoning coordination focused on macro craft and user feedback.
 
 ---
 

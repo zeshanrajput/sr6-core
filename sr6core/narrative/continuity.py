@@ -8,14 +8,33 @@ import re
 import glob
 from typing import Dict, Any, Tuple, Optional
 
+from sr6core.narrative.sync import resolve_character_dir
+
+
+def _chapter_sort_key(path: str) -> Tuple[int, str]:
+    name = os.path.basename(path)
+    m = re.match(r"^(\d{1,3})[\s_-]+", name)
+    return (int(m.group(1)), name.lower()) if m else (999999, name.lower())
+
 
 def build_continuity_report(repo_dir: str) -> Tuple[Dict[str, Any], Optional[str]]:
-    if not os.path.exists(repo_dir):
+    resolved_dir = resolve_character_dir(repo_dir)
+    if resolved_dir and resolved_dir.exists():
+        base_dir = str(resolved_dir)
+    elif os.path.exists(repo_dir):
+        base_dir = repo_dir
+    else:
         return {}, f"Repository directory '{repo_dir}' not found."
 
-    chapters_dir = os.path.join(repo_dir, "chapters")
-    chapter_files = sorted(glob.glob(os.path.join(chapters_dir, "*.*")))
-    chapter_files = [f for f in chapter_files if f.endswith(".md") or f.endswith(".qmd")]
+    chapters_dir = os.path.join(base_dir, "narrative")
+    if not os.path.isdir(chapters_dir):
+        chapters_dir = os.path.join(base_dir, "chapters")
+
+    chapter_files = glob.glob(os.path.join(chapters_dir, "*.*"))
+    chapter_files = sorted(
+        [f for f in chapter_files if f.endswith(".md") or f.endswith(".qmd")],
+        key=_chapter_sort_key,
+    )
 
     chapter_summaries = []
     total_words = 0

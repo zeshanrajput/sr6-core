@@ -73,20 +73,16 @@ The **Showrunner & Writers' Room Orchestrator** for Shadowrun 6e narrative gener
    - `narrative-director characters/reiko/narrative/36.md 2`
    - `/draft-beat characters/velvet/narrative/14_Opal.md "Beat 3"`
 
-2. **Deterministic Context Packet Assembly**:
+2. **Deterministic Context Packet Assembly** (write directly to `scratch/` so large packets do not bloat parent chat context):
    ```bash
-   uv run sr6 story packet <char_id> <target_file> [--beat N] [--callbacks ...] [--items ...]
+   uv run sr6 story packet <char_id> <target_file> [--beat N] [--callbacks ...] [--items ...] --output scratch/packet_<char_id>_beat_<N>.md
    ```
 
-3. **Deterministic Linting & N-3 Proximity Echo Window**:
+3. **Deterministic Linting, N-3 Echo Window & Tier/Voice Calibration**:
    ```bash
-   uv run sr6 lint "characters/<char_id>/narrative/<file>.md" --window 3
+   uv run sr6 lint "characters/<char_id>/narrative/<file>.md" --window 3 --tier <1|2|3> --char <char_id>
    ```
-
-4. **Multi-Axis Narrative Evaluation & Craft Telemetry**:
-   ```bash
-   uv run sr6 evaluate "characters/<char_id>/narrative/<file>.md" --tier <1|2|3> --char <char_id>
-   ```
+   *(Replaces separate `sr6 lint` + `sr6 evaluate` calls; `sr6 evaluate` remains available as an alias.)*
 
 ---
 
@@ -98,9 +94,9 @@ To prevent overfitting ("Checklist Prose") and protect natural prose rhythm, `na
 
 Before dispatching any writing agent, the showrunner transforms story intent into a clean generative brief:
 1. **Story Break**: Select a Story Queue item from `characters/<char_id>/reference/storyboard.md` and decompose it into a crisp 4-beat structure (Inciting Friction $\rightarrow$ Escalation $\rightarrow$ Climax $\rightarrow$ Aftermath).
-2. **Deterministic Packet Assembly**: Run `sr6 story packet` to curate an isolated context packet:
+2. **Deterministic Packet Assembly**: Run `sr6 story packet` to curate an isolated context packet directly to `scratch/`:
    ```bash
-   uv run sr6 story packet <char_id> <target_file> --beat <N>
+   uv run sr6 story packet <char_id> <target_file> --beat <N> --output scratch/packet_<char_id>_beat_<N>.md
    ```
    The generated packet bundles:
    - Chapter Central Premise and target Beat outline.
@@ -126,8 +122,8 @@ Before dispatching any writing agent, the showrunner transforms story intent int
                      ▼
  ┌────────────────────────────────────────┐
  │ 2. Non-Human Review Gate (CLI Linter)   │  Deterministic diagnostic checks
- │    - uv run sr6 lint --window 3        │  Flags hard readiness gate failures:
- │    - uv run sr6 evaluate               │  Buzzwords, multi-speaker, echoes, ellipses
+ │    - uv run sr6 lint --window 3        │  Flags hard gates, cluster saturation,
+ │      --tier <1|2|3> --char <id>        │  tier benchmarks & voice_spec rules
  └───────────────────┬────────────────────┘
                      │ Draft v1 + Linter Diffs
                      ▼
@@ -151,12 +147,11 @@ Invoke `invoke_subagent(TypeName="self", Role="Beat N Creative Drafter", ...)` p
 - Drafter returns `Draft v1`.
 
 #### Step 2: Line Chisel Worker (`flash`) — "The Editor's Hat"
-1. Stage `Draft v1` to `scratch/beat_<N>_test.md` and run deterministic diagnostics:
+1. Stage `Draft v1` to `scratch/beat_<N>_test.md` and run unified deterministic diagnostics:
    ```bash
-   uv run sr6 lint "scratch/beat_<N>_test.md" --window 3
-   uv run sr6 evaluate "scratch/beat_<N>_test.md" --tier <1|2|3> --char <char_id>
+   uv run sr6 lint "scratch/beat_<N>_test.md" --window 3 --tier <1|2|3> --char <char_id>
    ```
-2. If `sr6 lint --window 3` flags defects or any hard gate fails, invoke a fast line-chisel sub-agent (`flash`):
+2. If `sr6 lint` flags defects or any hard gate fails, invoke a fast line-chisel sub-agent (`flash`):
    - Provide the chisel worker with **ONLY** `Draft v1`, the specific line warnings from `sr6 lint --window 3`, and the 4 Chisel Transformations from [`literary-analysis`](file:///c:/GitHub/sr6-core/.agents/plugins/sr6-narrative/skills/literary-analysis/SKILL.md) (`apply_prose_chisel`).
    - The worker executes surgical line adjustments and saves `Draft v2` in `scratch/beat_<N>_test.md`.
 3. **Hard Constraint: Max 1 Review Loop**:
@@ -173,7 +168,7 @@ Write `Draft v2` into `<target_file>` (retaining undrafted beat outlines below a
 ### Stage 1: Context Ingestion & Pre-Flight
 - Showrunner pulls active arc milestones from `reference/storyboard.md` and `reference/voice_spec.md`.
 - Gathers financial mortgages and spiritual debt via `uv run sr6 char pressure <char_id>`.
-- Generates creative packet via `uv run sr6 story packet <char_id> <target_file> --beat <N>`.
+- Generates creative packet via `uv run sr6 story packet <char_id> <target_file> --beat <N> --output scratch/packet_<char_id>_beat_<N>.md`.
 
 ### Stage 2: Initial Draft Generation (`v1`)
 - Authored beat-by-beat behind the Context Firewall.
@@ -182,7 +177,7 @@ Write `Draft v2` into `<target_file>` (retaining undrafted beat outlines below a
 - Adheres to the Two-Tier Dramatic Sphere: Tier A campaign NPCs respect the Canon Ceiling; Tier B bespoke foils carry mortal consequence.
 
 ### Stage 3: Editorial House Audit Panel
-Audit drafts across the Editorial House framework:
+Audit drafts across the Editorial House framework (dispatch `research` or `flash` sub-agents for parallel Series Bible, continuity, and craft checks before parent synthesis):
 - **Positive Craft & Action**: Governed by [`literary-analysis`](file:///c:/GitHub/sr6-core/.agents/plugins/sr6-narrative/skills/literary-analysis/SKILL.md).
 - **Negative Copyedit & Anti-Slop**: Governed by [`no-ai-slop`](file:///c:/GitHub/sr6-core/.agents/plugins/sr6-narrative/skills/no-ai-slop/SKILL.md).
 - **Continuity & Entity Tracking**: Governed by [`continuity-tracker`](file:///c:/GitHub/sr6-core/.agents/plugins/sr6-narrative/skills/continuity-tracker/SKILL.md).
@@ -202,7 +197,7 @@ Audit drafts across the Editorial House framework:
 - **NEVER edit `*_master.yaml` directly.** The user or pipeline runs `uv run sr6 sync-all` to recompile master state.
 
 ### Stage 6: Refinement Mode for Existing Chapters
-Invoked via `literary-analysis <target_file>` to run baseline diagnostics (`uv run sr6 lint --window 3`), apply line chiseling, and output drop-in diffs.
+Invoked via `literary-analysis <target_file>` to run unified diagnostics (`uv run sr6 lint "<target_file>" --window 3 --tier <1|2|3> --char <char_id>`), delegate Series Bible cross-checks (`research`/`flash`) and line chiseling (`flash` Line Chisel Worker), and output drop-in diffs.
 
 ---
 

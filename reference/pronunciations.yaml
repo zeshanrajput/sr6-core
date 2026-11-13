@@ -54,6 +54,10 @@ terms:
   "cybermechs": "cybermeks"
   "activesoft": "active soft"
   "activesofts": "active softs"
+  "knowsoft": "know soft"
+  "knowsofts": "know softs"
+  "smartvisor": "smart visor"
+  "/dev/null": "dev null"
 
   # ---------------------------------------------------------------------------
   # 2. Megacorporations & Organizations
@@ -130,6 +134,7 @@ terms:
   "Belle Endo": "Bell En-doh"
   "Ouro": "Oro"
   "Ouroboros": "Oroboros"
+  "de la Mar": "day lah Mahr"
 
   # ---------------------------------------------------------------------------
   # 4. Sprawls, Geography & Trade Hubs

@@ -136,7 +136,16 @@ def run_markdownlint(file_path: str) -> Tuple[List[str], Optional[str]]:
         if res.returncode == 0:
             return [], None
         else:
-            errors = [line.strip() for line in res.stdout.splitlines() + res.stderr.splitlines() if line.strip() and "npm warn" not in line]
+            raw_errors = [
+                line.strip()
+                for line in res.stdout.splitlines() + res.stderr.splitlines()
+                if line.strip() and "npm warn" not in line
+            ]
+            errors = [
+                line for line in raw_errors
+                if "MD013" not in line
+                and not ("MD033" in line and "[Element: audio]" in line)
+            ]
             return errors, None
     except Exception as e:
         return [], f"Markdownlint note: {e}"
@@ -185,7 +194,84 @@ def _build_valid_3grams(tokens: List[str]) -> List[str]:
     return tg
 
 
-def analyze_prose(file_path: str, window: int = 3) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
+TIER_BENCHMARKS: Dict[int, Dict[str, Any]] = {
+    1: {"label": "Tier 1 (Keystone)", "min_words": 2000, "target_words": "2,500–4,500+", "passing_score": 9.0, "min_braided_ratio": 45.0},
+    2: {"label": "Tier 2 (Standard Scene)", "min_words": 1000, "target_words": "1,200–2,500", "passing_score": 8.5, "min_braided_ratio": 35.0},
+    3: {"label": "Tier 3 (Micro-Slice / Vignette)", "min_words": 400, "target_words": "500–1,000", "passing_score": 8.0, "min_braided_ratio": 25.0},
+}
+
+CLUSTER_SATURATION_STOP_WORDS = PROXIMITY_STOP_WORDS | {
+    "here", "into", "over", "back", "down", "only", "even", "them", "they",
+    "have", "been", "were", "like", "make", "made", "take", "took", "look",
+    "eyes", "hand", "face", "head", "time", "still", "first", "last", "long",
+    "little", "thing", "much", "well", "many", "good", "very", "such", "also",
+    "most", "both", "through", "where", "away", "came", "come", "went", "going",
+    "want", "tell", "told", "felt", "feel", "kept", "keep", "left", "right",
+    "must", "need", "used", "seem", "seemed", "word",
+}
+
+
+def _infer_char_id_from_path(file_path: str) -> Optional[str]:
+    norm = file_path.replace("\\", "/")
+    m = re.search(r'(?:^|/)characters/(?:lab/)?([^/]+)/', norm)
+    if m and m.group(1) != "lab":
+        return m.group(1)
+    return None
+
+
+def _load_voice_spec_cliches(char_id: Optional[str]) -> List[str]:
+    if not char_id:
+        return []
+    try:
+        from sr6core.narrative.sync import resolve_character_dir
+        char_dir = resolve_character_dir(char_id)
+    except Exception:
+        char_dir = None
+    if not char_dir:
+        return []
+    voice_spec = char_dir / "reference" / "voice_spec.md"
+    if not voice_spec.exists():
+        return []
+    try:
+        raw_lines = voice_spec.read_text(encoding="utf-8").splitlines()
+    except Exception:
+        return []
+
+    cliches: List[str] = []
+    in_banned = False
+    banned_indent = 0
+    for line in raw_lines:
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#"):
+            continue
+        indent = len(line) - len(line.lstrip())
+        if stripped.startswith("banned_cliches:"):
+            in_banned = True
+            banned_indent = indent
+            continue
+        if in_banned:
+            if indent <= banned_indent and not stripped.startswith("-"):
+                in_banned = False
+                continue
+            if stripped.startswith("- "):
+                item = stripped[2:].strip()
+                # Extract quoted phrase when present, skipping meta instructions
+                qm = re.match(r'^"([^"]+)"', item) or re.match(r"^'([^']+)'", item)
+                phrase = qm.group(1) if qm else item
+                phrase = re.sub(r'\.\.\.$', '', phrase).strip()
+                lower_p = phrase.lower()
+                if not phrase or "used as" in lower_p or "crutches" in lower_p or "[" in phrase:
+                    continue
+                cliches.append(phrase)
+    return cliches
+
+
+def analyze_prose(
+    file_path: str,
+    window: int = 3,
+    tier: Optional[int] = None,
+    char_id: Optional[str] = None,
+) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
     is_file = os.path.exists(file_path) and os.path.isfile(file_path)
     if is_file:
         with open(file_path, "r", encoding="utf-8") as f:
@@ -335,6 +421,39 @@ def analyze_prose(file_path: str, window: int = 3) -> Tuple[Optional[Dict[str, A
                     })
                     seen_echo_words.add(w)
                 break
+
+    # Cluster Saturation Alerts (>= 4 occurrences of a 4+ letter content word within 250 tokens)
+    cluster_saturation_alerts: List[Dict[str, Any]] = []
+    word_positions: Dict[str, List[int]] = {}
+    for idx, (_l_no, w_low, _raw_w, _snip) in enumerate(token_stream):
+        if len(w_low) < 4 or w_low in CLUSTER_SATURATION_STOP_WORDS:
+            continue
+        word_positions.setdefault(w_low, []).append(idx)
+
+    for w_low, idxs in word_positions.items():
+        if len(idxs) < 4:
+            continue
+        best_count = 0
+        best_start_pos = 0
+        best_end_pos = 0
+        r = 0
+        for l in range(len(idxs)):
+            while r + 1 < len(idxs) and idxs[r + 1] - idxs[l] <= 250:
+                r += 1
+            cnt = r - l + 1
+            if cnt >= 4 and cnt > best_count:
+                best_count = cnt
+                best_start_pos = l
+                best_end_pos = r
+        if best_count >= 4:
+            cluster_saturation_alerts.append({
+                "word": w_low,
+                "count": best_count,
+                "window_tokens": idxs[best_end_pos] - idxs[best_start_pos] + 1,
+                "line_start": token_stream[idxs[best_start_pos]][0],
+                "line_end": token_stream[idxs[best_end_pos]][0],
+            })
+    cluster_saturation_alerts.sort(key=lambda x: (x["count"], -x["window_tokens"]), reverse=True)
 
     cognitive_matches = []
     for line_idx, line in enumerate(lines, 1):
@@ -672,6 +791,32 @@ def analyze_prose(file_path: str, window: int = 3) -> Tuple[Optional[Dict[str, A
     for l_no, p_text in multi_speaker_paragraphs:
         redlines.append(f"Line {l_no}: Multi-speaker dialogue in single paragraph violates one-speaker-per-paragraph discipline.")
 
+    resolved_char_id = char_id or (_infer_char_id_from_path(file_path) if is_file else None)
+    tier_targets = TIER_BENCHMARKS.get(tier) if tier in TIER_BENCHMARKS else None
+    tier_warnings: List[str] = []
+    if tier_targets:
+        if word_count < tier_targets["min_words"]:
+            tier_warnings.append(
+                f"{tier_targets['label']} word count ({word_count}) is below minimum benchmark "
+                f"({tier_targets['min_words']}; target {tier_targets['target_words']})."
+            )
+        if braided_ratio < tier_targets["min_braided_ratio"]:
+            tier_warnings.append(
+                f"{tier_targets['label']} paragraph braiding ({braided_ratio}%) is below benchmark "
+                f"({tier_targets['min_braided_ratio']}%)."
+            )
+
+    voice_spec_warnings: List[str] = []
+    spec_cliches = _load_voice_spec_cliches(resolved_char_id)
+    if spec_cliches:
+        for line_idx, line in clean_lines:
+            line_low = line.lower()
+            for sc in spec_cliches:
+                if sc.lower() in line_low:
+                    voice_spec_warnings.append(
+                        f"Line {line_idx} [{resolved_char_id} voice_spec]: Matched banned cliche '{sc}'."
+                    )
+
     gates_passed = bool(
         len(banned_matches) == 0
         and len(tier1_overages) == 0
@@ -684,6 +829,11 @@ def analyze_prose(file_path: str, window: int = 3) -> Tuple[Optional[Dict[str, A
 
     report = {
         "file_path": file_path if is_file else "<raw_text>",
+        "char_id": resolved_char_id,
+        "tier": tier if tier in TIER_BENCHMARKS else None,
+        "tier_targets": tier_targets,
+        "tier_warnings": tier_warnings,
+        "voice_spec_warnings": voice_spec_warnings,
         "word_count": word_count,
         "em_dash_count": em_dashes,
         "em_dash_density_per_300": round(em_dash_density, 2),
@@ -703,6 +853,7 @@ def analyze_prose(file_path: str, window: int = 3) -> Tuple[Optional[Dict[str, A
         "tier2_rare_overages": tier2_overages,
         "tier3_density_alerts": tier3_density_alerts,
         "proximity_echoes": proximity_echoes,
+        "cluster_saturation_alerts": cluster_saturation_alerts,
         "markdownlint_errors": md_errors,
         "markdownlint_note": md_err_note,
         "ellipses_count": ellipses_count,
@@ -848,6 +999,38 @@ def print_prose_report(report: Dict[str, Any]):
                 print(f"  [PROXIMITY ECHO] Line {echo['line1']} -> Line {echo['line2']} ({echo['distance']} words): Word '{echo['text']}'")
     else:
         print("  [OK] Zero proximity echoes detected.")
+
+    print("\n--- CLUSTER SATURATION ALERTS (>= 4 occurrences within 250 tokens) ---")
+    cluster_alerts = report.get("cluster_saturation_alerts", [])
+    if cluster_alerts:
+        for ca in cluster_alerts:
+            print(
+                f"  [CLUSTER WARNING] '{ca['word']}': {ca['count']}x across {ca['window_tokens']} tokens "
+                f"(Lines {ca['line_start']}-{ca['line_end']})"
+            )
+    else:
+        print("  [OK] Zero lexical cluster saturation spikes detected.")
+
+    if report.get("tier_targets") or report.get("char_id"):
+        tier_targets = report.get("tier_targets")
+        header = tier_targets["label"] if tier_targets else "Character Calibration"
+        char_label = report.get("char_id") or "unspecified"
+        print(f"\n--- TIER & VOICE CALIBRATION ({header} | Char: {char_label}) ---")
+        if tier_targets:
+            print(
+                f"  Benchmark: {tier_targets['target_words']} words | "
+                f"Passing >= {tier_targets['passing_score']}/10 | "
+                f"Min Braiding >= {tier_targets['min_braided_ratio']}%"
+            )
+        tier_warns = report.get("tier_warnings", [])
+        voice_warns = report.get("voice_spec_warnings", [])
+        if tier_warns or voice_warns:
+            for tw in tier_warns:
+                print(f"  [TIER WARNING] {tw}")
+            for vw in voice_warns:
+                print(f"  [VOICE SPEC WARNING] {vw}")
+        else:
+            print("  [OK] Tier benchmarks and voice_spec rules satisfied.")
 
     print("\n--- COGNITIVE BUFFER VERBS ---")
     if report['cognitive_matches']:

@@ -438,13 +438,20 @@ def handle_lint_prose(arguments: Dict[str, Any]) -> str:
     if not file_path:
         return "Error: file_path parameter is required."
 
-    report, err = analyze_prose(file_path)
+    raw_tier = arguments.get("tier")
+    tier = int(raw_tier) if raw_tier is not None else None
+    char_id = arguments.get("char_id")
+
+    report, err = analyze_prose(file_path, tier=tier, char_id=char_id)
     if err:
         return f"Error analyzing prose: {err}"
 
     output = [
         f"### SR6 Narrative Evaluation Scorecard (Prose Lint): `{file_path}`",
     ]
+    if report.get("tier_targets") or report.get("char_id"):
+        t_lbl = report["tier_targets"]["label"] if report.get("tier_targets") else "Unspecified Tier"
+        output.append(f"- **Calibration**: {t_lbl} | Char: `{report.get('char_id') or 'unspecified'}`")
     if "gates_passed" in report:
         output.append(f"- **Readiness Status**: {'[PASS] READY FOR PUBLICATION' if report.get('gates_passed') else '[FAIL] REVISIONS REQUIRED'}")
 
@@ -469,6 +476,21 @@ def handle_lint_prose(arguments: Dict[str, Any]) -> str:
         for b in report["buzzwords_found"][:10]:
             output.append(f"- Line {b.get('line')}: `{b.get('word')}` -> {b.get('snippet')}")
 
+    if report.get("cluster_saturation_alerts"):
+        output.append("\n#### Cluster Saturation Alerts (>= 4 occurrences in 250 tokens):")
+        for ca in report["cluster_saturation_alerts"][:10]:
+            output.append(f"- `{ca['word']}`: {ca['count']}x across {ca['window_tokens']} tokens (Lines {ca['line_start']}-{ca['line_end']})")
+
+    if report.get("tier_warnings"):
+        output.append("\n#### Tier Benchmark Warnings:")
+        for tw in report["tier_warnings"]:
+            output.append(f"- {tw}")
+
+    if report.get("voice_spec_warnings"):
+        output.append("\n#### Voice Spec Warnings:")
+        for vw in report["voice_spec_warnings"][:10]:
+            output.append(f"- {vw}")
+
     if report.get("redlines"):
         output.append("\n#### Prose Redlines & Suggestions:")
         for r in report["redlines"][:10]:
@@ -485,7 +507,7 @@ def handle_evaluate_draft(arguments: Dict[str, Any]) -> str:
     if not text_or_path:
         return "Error: text_or_path parameter is required."
 
-    return handle_lint_prose({"file_path": text_or_path})
+    return handle_lint_prose({"file_path": text_or_path, "tier": tier, "char_id": char_id})
 
 
 def handle_parse_combat_ledger(arguments: Dict[str, Any]) -> str:

@@ -163,6 +163,59 @@ class TestNarrativeLinter(unittest.TestCase):
         self.assertIn("Paragraph Braiding Ratio", res)
         self.assertIn("Single-Sentence Paragraphs", res)
 
+    def test_cluster_saturation_alerts(self):
+        prose = (
+            "She stared across the empty void between server racks while traffic hummed overhead. "
+            "Cold static drifted out of the void beneath the floor panels. "
+            "Another packet dropped into the void without an acknowledgment frame. "
+            "Even the backup node echoed back from that same quiet void.\n"
+        )
+        report, err = analyze_prose(prose)
+        self.assertIsNone(err)
+        self.assertIsNotNone(report)
+        self.assertTrue(report["gates_passed"])
+        alerts = report.get("cluster_saturation_alerts", [])
+        void_alert = next((a for a in alerts if a["word"] == "void"), None)
+        self.assertIsNotNone(void_alert)
+        self.assertGreaterEqual(void_alert["count"], 4)
+
+    def test_tier_and_char_calibration_and_evaluate(self):
+        from sr6core.mcp import handle_evaluate_draft
+        prose = (
+            "The servo whined softly in the rain-slicked alley. "
+            "Her CPU hit 98% as the encrypted payload dropped through the conduit. "
+            "She steadied her stance on the wet basalt tiles.\n"
+        )
+        report, err = analyze_prose(prose, tier=1, char_id="reiko")
+        self.assertIsNone(err)
+        self.assertEqual(report["tier"], 1)
+        self.assertEqual(report["char_id"], "reiko")
+        self.assertGreater(len(report["tier_warnings"]), 0)
+        self.assertGreater(len(report["voice_spec_warnings"]), 0)
+
+        mcp_eval = handle_evaluate_draft({"text_or_path": prose, "tier": 1, "char_id": "reiko"})
+        self.assertIn("Tier 1 (Keystone)", mcp_eval)
+        self.assertIn("Tier Benchmark Warnings", mcp_eval)
+        self.assertIn("Voice Spec Warnings", mcp_eval)
+
+    def test_markdownlint_suppression(self):
+        from unittest.mock import patch, MagicMock
+        from sr6core.narrative.linter import run_markdownlint
+
+        mock_res = MagicMock()
+        mock_res.returncode = 1
+        mock_res.stdout = (
+            "chapter.md:10:81 MD013/line-length Line length [Expected: 80; Actual: 210]\n"
+            "chapter.md:5:1 MD033/no-inline-html Inline HTML [Element: audio]\n"
+            "chapter.md:12:1 MD022/blanks-around-headings Headings should be surrounded by blank lines\n"
+        )
+        mock_res.stderr = ""
+        with patch("subprocess.run", return_value=mock_res):
+            errors, err_note = run_markdownlint("chapter.md")
+        self.assertIsNone(err_note)
+        self.assertEqual(len(errors), 1)
+        self.assertIn("MD022", errors[0])
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -105,6 +105,7 @@ Centralized technical properties, color swatches, and emission multipliers for r
 * **Resonance Pathways & Emissive Circuit Channels:**
   * **Neon-Indigo Channel (Emotion / Empathy / Resonance):** `#4B0082` (Deep Indigo) to `#6A0DAD` (Electric Violet Glow), Peak Emission Multiplier: 3.5.
   * **Tactical Gold Channel (Logic / Hacking / Combat):** `#FFD700` (Cybernetic Gold) to `#FFC107` (Amber Gold), Peak Emission Multiplier: 4.0.
+  * **Lightless Void & Silver Syntax Channel (Post-Ch 37 Dissonant Stigmata / Apophenian Covenant):** `#08080A` (Lightless Void / Matte-Black Core) edged with `#C0C8D8` (Luminous Silver Syntax), Peak Emission Multiplier: 2.5 along seam edges. A third subtractive strand winding into the gold-and-indigo double helix, manifesting physically/virtually from a matte-black dead pixel at the inner left wrist up the throat and arms.
 * **Cybernetic Wings Materials:**
   * Titanium Skeletal Spars: Black Titanium PBR shader (Metallic 0.9, Specular Roughness 0.2).
   * Netting Membrane: Dark grey carbon fiber weave (Anisotropic Roughness map, Low Translucency).
@@ -118,12 +119,13 @@ Centralized technical properties, color swatches, and emission multipliers for r
 
 ### Emotion-to-Circuit Integration Rules{#resonance-pathways}
 
-* **Resonance Pathways:** Bioluminescent neon-indigo and tactical gold circuit lines tracing seamlessly across her skin. Circuits are never fully absent, though they may be muted. Dual-channel self-illuminating pathways mapped via vector displacement and emissive masks across forearms, wrists, neck, and torso.
+* **Resonance Pathways:** Bioluminescent neon-indigo and tactical gold circuit lines (plus, post-Chapter 37, the third lightless-void / silver-syntax Dissonant Stigmata thread) tracing seamlessly across her skin. Circuits are never fully absent, though they may be muted. Multi-channel self-illuminating pathways mapped via vector displacement and emissive masks across forearms, wrists, neck, and torso.
 * **Circuit Luminescence & Color Sync Rules:**
   * **Baseline / Resting:** Soft, muted violet/indigo pulse.
   * **High Emotion / Empathy:** Broad, flaring neon-indigo pathways across forearms, wrists, neck, and cheeks.
   * **Active Processing / Hacking / Combat:** Sharp, geometric gold lines along her wrists, temples, and torso.
   * **Harmonized / Peak State:** Both neon-indigo and geometric gold circuit lines appear simultaneously.
+  * **Dissonant Stigmata / Triple-Braided Core (Post-Ch 37):** A matte-black / lightless-void strand laced with silver syntax winds between the gold and indigo braid, originating at the wrist stigmata and flaring when invoking Apophenian's Control or Syntax Error unraveling.
 
 ---
 
@@ -221,10 +223,11 @@ Details specific to Reiko's digital persona manifestation inside VR, grid hosts,
 
 * **Digital Circuitry:** Bioluminescent neon-indigo and gold circuit lines trace seamlessly across her translucent skin (forearms, wrists, neck, torso). Circuitry cues are significantly more pronounced in Matrix/Resonance spaces. Neon-indigo flares on emotional shifts; gold flares on active analytical/hacking processing. See [Resonance Pathways](#resonance-pathways) for color palette and state rules.
 
-### Digital Attire & Companion Sprite
+### Digital Attire, Consecrated Hardsuit & Companion Sprite
 
-* **Attire:** Blue-tinted full-length kimono or short yukata top (sleeveless with traditional undergarments and obi).
-* **Companion Sprite (Taz):** Small, translucent 8-bit Tasmanian devil sprite glowing with a pixelated blue/indigo aura (scampering on her shoulder, hanging from her outfit, or floating nearby).
+* **Baseline Construct Attire:** Blue-tinted full-length kimono or short yukata top (sleeveless with traditional undergarments and obi).
+* **Avatar of Apophenian — Consecrated Obsidian Hardsuit State (Post-Ch 37):** When standing at point zero or acting in her consecrated office as Apophenian's Avatar, articulated plates of matte-black ceramic crystallize directly out of her triple-braided core to seal her living persona (nous-soul) inside a sleek, form-fitting hardsuit of obsidian armor traced with luminous seams of silver syntax and violet fire, capped by a high ceramic gorget.
+* **Companion Sprite (Taz):** Small, translucent 8-bit Tasmanian devil sprite glowing with a pixelated blue/indigo aura (scampering on her shoulder, hanging from her outfit, or floating nearby). In her consecrated Obsidian Hardsuit state, Taz's night-dark and electric-blue 8-bit voxel lattice is woven directly into the sternum and collarbone gorget, anchoring her runtime from the inside out.
 
 ### Technology World Negative Prompt Anchors
 
@@ -251,6 +254,12 @@ Details specific to Reiko's digital persona manifestation inside VR, grid hosts,
 **Prompt:** Photorealistic cyberpunk digital portrait of a petite 4'7" Pan-Asian woman in her early 20s manifesting as an ethereal holographic digital construct inside the Matrix. She features semi-translucent cyan-blue skin with internal light projection at 75% opacity, framed by electric cyan rim lighting. Her hair is semi-translucent electric cyan-blue (`#00BFFF` to `#00FFFF`), shoulder-length straight with bangs, worn loose. Bioluminescent [`neon-indigo` / golden] circuit lines trace seamlessly across her translucent forearms, neck, and torso. She wears a blue-tinted sleeveless yukata top with traditional undergarments and an obi. Her back is completely smooth with NO WINGS. Surrounding her are floating holographic UI diagnostic panels, data graphs, and wireframe schematics glowing in neon green and teal. Next to her is Taz, a small translucent 8-bit Tasmanian devil sprite glowing with a pixelated blue-indigo aura. [INSERT VIRTUAL SETTING & DIGITAL LIGHTING]. 8k resolution, cinematic digital lighting, cyberspace construct aesthetic.
 
 **Negative Prompt:** opaque human skin, biological texture, flesh, mechanical wings, succubus wings, feather wings, bird wings, physical furniture, real-world outdoor lighting, physical environment, metallic robot faceplate, heavy armor, extra limbs.
+
+### Template D: Avatar of Apophenian (Deep Resonance / Consecrated Obsidian Hardsuit Mode)
+
+**Prompt:** Photorealistic cyberpunk digital portrait of a petite 4'7" Pan-Asian woman in her early 20s standing on a narrow black wire suspended in a starless zero-point void between swirling golden Resonance and shadow-violet Dissonance storms. Her living persona is sealed inside a sleek, form-fitting hardsuit of articulated matte-black ceramic obsidian armor with a high ceramic gorget, traced along every seam by luminous silver syntax (`#C0C8D8`), violet fire, and subtle gold-and-indigo double-helix traces beneath her porcelain face. Her shoulder-length jet-black hair with soft bangs frames calm, resolute dark almond eyes. Across her armored sternum and collarbone, a small eight-bit Tasmanian devil sprite woven from night-dark voxels and electric-blue light anchors directly into the plating. [INSERT DEEP MATRIX SETTING & LIGHTING]. 8k resolution, cinematic lighting, photorealistic.
+
+**Negative Prompt:** bulky mech suit, mechanical robot faceplate, featureless face, feathered wings, biological gore, physical city streets, extra limbs, neon-green text rain.
 
 ---
 

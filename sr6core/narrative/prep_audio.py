@@ -35,25 +35,30 @@ HETERONYM_REGEX = re.compile(
 )
 
 ITALIC_LORE_REGEX = re.compile(
-    r"(?<!\*)\*([A-Za-z0-9][^*]*?[A-Za-z0-9])\*(?!\*)"
+    r"(?<!\*)\*([A-Za-z0-9\u00C0-\u024F][^*]*?[A-Za-z0-9\u00C0-\u024F])\*(?!\*)"
 )
 
 CAPITALIZED_TOKEN_REGEX = re.compile(
-    r"\b[A-Z][a-zA-Z0-9\'-]*\b"
+    r"\b[A-Z\u00C0-\u00D6\u00D8-\u00DE][A-Za-z0-9\u00C0-\u024F\'-]*\b"
 )
 
 EXTRA_STOP_WORDS = {
     "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday",
     "january", "february", "march", "april", "may", "june", "july", "august",
     "september", "october", "november", "december",
-    "mr", "mrs", "ms", "dr", "sir", "madam", "ma'am",
-    "mom", "dad", "uncle", "aunt",
+    "mr", "mrs", "ms", "dr", "sir", "madam", "ma'am", "lady", "lord", "god", "gods",
+    "mom", "dad", "mother", "father", "uncle", "aunt", "sister", "brother",
     "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
     "first", "second", "third", "fourth", "fifth",
     "north", "south", "east", "west",
-    "chapter", "beat", "part", "act", "volume", "book", "section",
-    "yes", "no", "oh", "ah", "okay",
-    "god", "lord",
+    "chapter", "beat", "part", "act", "volume", "book", "section", "page",
+    "yes", "no", "oh", "ah", "okay", "ok", "hey", "hi", "hello", "goodbye", "bye",
+    "please", "sorry", "thank", "thanks", "well", "wait", "look", "right", "sure",
+    "fine", "now", "then", "here", "there", "maybe", "perhaps", "never", "always",
+    "everyone", "everything", "someone", "something", "anyone", "anything", "nobody",
+    "nothing", "hell", "damn", "christ", "jesus", "amen",
+    "street", "avenue", "road", "boulevard", "lane", "drive", "way", "ave", "blvd",
+    "jr", "sr", "ii", "iii", "iv", "vi", "vii", "viii", "am", "pm", "us", "usa", "uk",
 }
 
 
@@ -177,6 +182,7 @@ def scan_audio_prep(file_path: str) -> Tuple[Optional[Dict[str, Any]], Optional[
             })
 
         # 2. Italicized Lore Terms Scan (*Word* or *Word Word*, 1-3 words)
+        italic_spans: List[Tuple[int, int]] = []
         for m in ITALIC_LORE_REGEX.finditer(cleaned_line):
             content = m.group(1).strip()
             # Skip dialogue sentences ending in sentence punctuation
@@ -188,6 +194,7 @@ def scan_audio_prep(file_path: str) -> Tuple[Optional[Dict[str, Any]], Optional[
                 t_low = term.lower()
                 if len(term) <= 1:
                     continue
+                italic_spans.append((m.start(), m.end()))
                 if t_low in terms_lower:
                     if term not in mapped_lore_dict:
                         mapped_lore_dict[term] = {"mapped_to": terms_lower[t_low], "lines": []}
@@ -195,10 +202,10 @@ def scan_audio_prep(file_path: str) -> Tuple[Optional[Dict[str, Any]], Optional[
                 elif t_low not in stop_words:
                     unmapped_occurrences.setdefault(term, []).append(idx)
 
-        # 3. Mid-Sentence Capitalized Tokens Scan
+        # 3. Mid-Sentence & Known Capitalized Tokens Scan
         for m in CAPITALIZED_TOKEN_REGEX.finditer(cleaned_line):
             start_pos = m.start()
-            if _is_sentence_or_quote_start(cleaned_line, start_pos):
+            if any(s <= start_pos and m.end() <= e for s, e in italic_spans):
                 continue
 
             raw_token = m.group(0)
@@ -207,15 +214,19 @@ def scan_audio_prep(file_path: str) -> Tuple[Optional[Dict[str, Any]], Optional[
                 continue
 
             t_low = token.lower()
-            if t_low in stop_words:
-                continue
-
             if t_low in terms_lower:
                 if token not in mapped_lore_dict:
                     mapped_lore_dict[token] = {"mapped_to": terms_lower[t_low], "lines": []}
                 mapped_lore_dict[token]["lines"].append(idx)
-            else:
-                unmapped_occurrences.setdefault(token, []).append(idx)
+                continue
+
+            if _is_sentence_or_quote_start(cleaned_line, start_pos):
+                continue
+
+            if t_low in stop_words:
+                continue
+
+            unmapped_occurrences.setdefault(token, []).append(idx)
 
     # Aggregate unmapped terms
     unmapped_terms: List[Dict[str, Any]] = []

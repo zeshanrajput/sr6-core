@@ -243,6 +243,8 @@ def main():
     s_lint = story_sub.add_parser("lint", help="Lint chapter prose for style, ellipses, and AI buzzwords")
     s_lint.add_argument("target", type=str, help="Path to chapter markdown/qmd file")
     s_lint.add_argument("--window", type=int, default=3, help="Cross-chapter echo lookback window (default: 3)")
+    s_lint.add_argument("--tier", type=int, choices=[1, 2, 3], default=None, help="Optional chapter tier benchmark (1=Keystone 9.0, 2=Standard 8.5, 3=Micro-slice 8.0)")
+    s_lint.add_argument("--char", type=str, default=None, help="Optional character ID context for voice_spec calibration (auto-inferred from path when omitted)")
     s_cont = story_sub.add_parser("continuity", help="Run campaign timeline & story continuity audit")
     s_cont.add_argument("repo_path", type=str, help="Repository directory path")
     s_narrate = story_sub.add_parser("narrate", help="Generate or manage TTS audio narration")
@@ -260,6 +262,7 @@ def main():
     s_packet.add_argument("--beat", type=int, default=None, help="Target beat number to isolate")
     s_packet.add_argument("--callbacks", type=str, default=None, help="Comma-separated callback chapter numbers (e.g. 33,34)")
     s_packet.add_argument("--items", type=str, default=None, help="Comma-separated canonical SR6 items/rules to attach")
+    s_packet.add_argument("--output", "-o", type=str, default=None, help="Write compiled packet to disk instead of printing full content to stdout")
     s_prep = story_sub.add_parser("prep-audio", help="Scan chapter prose for contextual heteronyms and unmapped proper nouns before Kokoro TTS")
     s_prep.add_argument("target", type=str, help="Path to chapter markdown/qmd file")
 
@@ -333,6 +336,8 @@ def main():
     lint_parser = subparsers.add_parser("lint", help="Lint Quarto chapter prose")
     lint_parser.add_argument("target", type=str, help="Path to chapter markdown/qmd file")
     lint_parser.add_argument("--window", type=int, default=3, help="Cross-chapter echo lookback window (default: 3)")
+    lint_parser.add_argument("--tier", type=int, choices=[1, 2, 3], default=None, help="Optional chapter tier benchmark (1=Keystone 9.0, 2=Standard 8.5, 3=Micro-slice 8.0)")
+    lint_parser.add_argument("--char", type=str, default=None, help="Optional character ID context for voice_spec calibration (auto-inferred from path when omitted)")
 
     cont_parser = subparsers.add_parser("continuity", help="Run campaign timeline & story continuity audit")
     cont_parser.add_argument("repo_path", type=str, help="Repository directory path")
@@ -1143,7 +1148,12 @@ def main():
     elif args.command == "story":
         if args.subcommand == "lint":
             from sr6core.narrative.linter import analyze_prose, print_prose_report
-            res, err = analyze_prose(args.target, window=getattr(args, "window", 3))
+            res, err = analyze_prose(
+                args.target,
+                window=getattr(args, "window", 3),
+                tier=getattr(args, "tier", None),
+                char_id=getattr(args, "char", None),
+            )
             if err:
                 print(f"[Error] {err}")
             else:
@@ -1199,6 +1209,13 @@ def main():
             )
             if err:
                 print(f"[Error] {err}")
+            elif getattr(args, "output", None):
+                out_dir = os.path.dirname(os.path.abspath(args.output))
+                if out_dir:
+                    os.makedirs(out_dir, exist_ok=True)
+                with open(args.output, "w", encoding="utf-8") as f:
+                    f.write(packet_md)
+                print(f"[OK] Wrote JIT creative packet ({len(packet_md):,} chars) to {args.output}")
             else:
                 print(packet_md)
 
@@ -1293,7 +1310,12 @@ def main():
 
     elif args.command == "lint":
         from sr6core.narrative.linter import analyze_prose, print_prose_report
-        report, err = analyze_prose(args.target, window=getattr(args, "window", 3))
+        report, err = analyze_prose(
+            args.target,
+            window=getattr(args, "window", 3),
+            tier=getattr(args, "tier", None),
+            char_id=getattr(args, "char", None),
+        )
         if err:
             print(f"[Error] {err}")
         else:
@@ -1428,7 +1450,12 @@ def main():
 
     elif args.command == "evaluate":
         from sr6core.narrative.linter import analyze_prose, print_prose_report
-        res, err = analyze_prose(args.target, window=getattr(args, "window", 3))
+        res, err = analyze_prose(
+            args.target,
+            window=getattr(args, "window", 3),
+            tier=getattr(args, "tier", None),
+            char_id=getattr(args, "char", None),
+        )
         if err:
             print(f"[Error] {err}")
         else:

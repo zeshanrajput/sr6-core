@@ -40,8 +40,8 @@ All inter-session story breaking, clean-room beat drafting, parallel sub-agent a
 
 Summary pipeline:
 - **Stage 0 (Story Break):** Break 3–5 beats in `reference/storyboard.md` and lock Tier 1/2/3 passing thresholds (**9.0 / 8.5 / 8.0**) before drafting.
-- **Stage 1 (Context & JIT Packet):** Build a clean-room creative packet via `uv run sr6 story packet <char_id> "<target>" [--beat N]` (stripping lint checklists/rubrics) and run `uv run sr6 char pressure <id>`.
-- **Stage 2 (Clean-Room Draft):** Dispatch a `self` sub-agent ("The Writer's Hat") to draft from the packet only; enforce a single pre-flight pass ("The Editor's Hat") via `uv run sr6 lint "<target>" --window 3` + `uv run sr6 evaluate "<target>" --tier <1|2|3> --char <id>`, then pause for collaborative human line-editing.
+- **Stage 1 (Context & JIT Packet):** Build a clean-room creative packet via `uv run sr6 story packet <char_id> "<target>" [--beat N] --output scratch/packet.md` (stripping lint checklists/rubrics) and run `uv run sr6 char pressure <id>`.
+- **Stage 2 (Clean-Room Draft):** Dispatch a `self` sub-agent ("The Writer's Hat") to draft from the packet only; enforce a single pre-flight pass ("The Editor's Hat") via `uv run sr6 lint "<target>" --window 3 --tier <1|2|3> --char <id>`, then pause for collaborative human line-editing.
 - **Stage 3–4 (Parallel Audit & Refinement):** Audit across the 7 craft/continuity/rules dimensions (and run `literary-analysis` prose-chisel passes when revising existing chapters).
 - **Stage 5–6 (State Tracking & Series Bible Closeout):** Emit `{python} inc(...)` snippets for the Markdown Trio (`character_log.qmd`, `character_purchases.qmd`, `character_build.qmd` — **never** hand-edit `*_master.yaml`), and update `storyboard.md`, `voice_spec.md`, `visual_anchors.md`, and `story_continuity.md` via `uv run sr6 story sync <char_id>`.
 - **Stage 7 (Publish & Finalize):** Run `uv run sr6 story prep-audio "<target>"` to catch heteronyms/unmapped proper nouns, generate Kokoro TTS audio (`uv run --extra narration sr6 narrate`), upload MP3s to the GitHub Release (never commit `.mp3` files), commit/push via `scratch/commit_msg.txt`, and verify CI/CD workflows.
@@ -60,9 +60,9 @@ Before completing edits or reviewing narrative/character updates, run correspond
 * **Cyberlimb & Augmentation Calculator**: `uv run sr6 calc limb --limb <arm|leg> [--grade <grade>] [--adapsin] [--agi N]`
 * **Subsystem Rules Cheatsheets**: `uv run sr6 cheat <matrix|actions|monad|combat>`
 * **Item & PACK Reference Cards**: `uv run sr6 card <quality|weapon|spell|cyberware|pack> <name>`
-* **Prose & Markdown Linter**: `uv run sr6 lint "chapters/<file>.qmd" [--window 3]`
-* **7-Axis Narrative Evaluator**: `uv run sr6 evaluate "chapters/<file>.qmd" --tier <1|2|3> --char <id>`
-* **Clean-Room JIT Story Packet Compiler**: `uv run sr6 story packet <char_id> "<chapter_path>" [--beat N]`
+* **Prose & Markdown Linter (Unified Evaluator)**: `uv run sr6 lint "chapters/<file>.qmd" [--window 3] [--tier <1|2|3>] [--char <id>]`
+* **7-Axis Narrative Evaluator (Alias)**: `uv run sr6 evaluate "chapters/<file>.qmd" --tier <1|2|3> --char <id>`
+* **Clean-Room JIT Story Packet Compiler**: `uv run sr6 story packet <char_id> "<chapter_path>" [--beat N] [--output scratch/packet.md]`
 * **Audiobook Pronunciation & Heteronym Scanner**: `uv run sr6 story prep-audio "<chapter_path>"`
 * **Narrative Context Synchronizer**: `uv run sr6 story sync <char_id>`
 * **Combat Ledger Action Parser**: `uv run sr6 ledger parse "chapters/<file>.qmd"`
