@@ -641,8 +641,6 @@ Submersion_Grade = state["Submersion_Grade"]
   * *Minor Action 2 (Repair & Modify Drone — Shiawase Man-at-Arms):* Overhauled drone chassis with secondary propulsion: Vector Thrust (LAV).
   * *Minor Action 3 (Register Sprites — Percy):* `{python} add_sprite("Defender", 8, name="Percy", details="The Shield / Override, Shield, Stability", tasks=3)`
     * Re-registered elder spark Percy (Rating 8 Defender Sprite), refreshing his service registry to full tasks.
-* **Character Advancement Telemetry:**
-  * *Karma Banking:* Banked +10 Karma (+9 mission, +1 Working for the People), targeted toward raising *Resonance* to 9 or shifting stream to *Sourceror* (*Hack and Slash*, p. 131).
 * **Other / Resonance & Glade:**
   * *Protospark Transition:* The *Happy Panda 68*'s pilot was safely extracted by Ouro during the yacht's sinking and transitioned into the Glade as a protospark.
   * *Re-registered Ouro:* `{python} add_sprite("Machine", 8, name="Ouro", details="The Logic / Diagnostics, Override, Clearsight, Evasion", tasks=3)` during in-session night of downtime.
@@ -667,8 +665,6 @@ Submersion_Grade = state["Submersion_Grade"]
   * *Minor Action 2 (Drone Upgrades — Shiawase Man-at-Arms):* Overhauled and installed **Improved Acceleration (2 Ranks)** (-15,000¥) and **Top Speed Increase (3 Ranks)** (-12,000¥) onto the Shiawase Man-at-Arms vector thrust propulsion system (*Double Clutch*, pp. 134, 138; 50% DIY discount). Pushes Acceleration to 41 m/round (49.2 km/h) (82m with Nitro Boost) and Top Speed to 480 (576 km/h / ~358 mph).
   * *Minor Action 3 (Register Sprites — Cleo):* `{python} deregister_sprite("Cleo", reason="Service registry refreshed")` | `{python} add_sprite("Modular", 8, name="Cleo", details="The Market / Cookie (Modular), Con, Influence", tasks=3)`
     * Re-registered elder spark Cleo (Rating 8 Modular Sprite), refreshing her service registry and cookie/market capabilities to 3 full tasks (buying hits with 20d6 compiling pool).
-* **Character Advancement Telemetry:**
-  * *Karma Banking:* Banked +7 Karma (+6 mission, +1 Working for the People).
 * **Inventory & Restock:**
   * Replenished depleted Narcoject supplies in `character_purchases.qmd`.
   * Obtained a residential framework host 2/2/1 configured as 1/4/3/6 that is about a box of books sized and weighs 25kg
@@ -693,9 +689,6 @@ Submersion_Grade = state["Submersion_Grade"]
     * `{python} deregister_sprite("Cleo", reason="In-session convention downtime refresh")` | `{python} add_sprite("Modular", 8, name="Cleo", details="The Market / Cookie (Modular), Con, Influence", tasks=3)`
     * `{python} deregister_sprite("Aisling", reason="In-session convention downtime refresh")` | `{python} add_sprite("Music", 8, name="Aisling", details="The Radiant Hearth / Harmonize, Captivate Audience, Shield", tasks=3)`
     * `{python} deregister_sprite("Étaín", reason="In-session convention downtime refresh")` | `{python} add_sprite("Modular", 8, name="Étaín", details="The Skybox Weaver / Phantom (Modular), Suppression, Stability", tasks=3)`
-* **Character Advancement Telemetry:**
-  * *Karma Banking:* Banked +9 Karma (+8 mission, +1 Working for the People). Liquid Karma reaches **76 Karma** (targeted toward raising *Resonance* to 9 at 45 Karma).
-  * *Nuyen Banking:* Banked +8,200¥ (+10,200¥ payout - 2,000¥ Working for the People). Liquid Nuyen reaches **¥6,900** (8,400¥ - 1,500¥ *Dissonance — Theory & Applications* knowsoft; targeted toward the Used Left Synthetic Cyberarm at ¥10,000).
 * **Loot & Equipment Acquisition:**
   * *The Ring (*Gallinae filius*):* Rating 1 Spirit Focus (dark metal band with gold filigree depicting fighting chickens; grants passive +2 Social Rating; logged in `character_purchases.qmd`).
   * *Knowsoft Acquisition:* Acquired *Dissonance — Theory and Applications* (-1,500¥; logged in `character_purchases.qmd`).
@@ -716,9 +709,6 @@ Submersion_Grade = state["Submersion_Grade"]
     * 2,000¥ donated toward sustaining her sanctuary and children in Kernel Panic / Glade (Hooder), converting to +1 Karma.
   * *Minor Action 2 (Register Sprites — Étaín):* `{python} deregister_sprite("Étaín", reason="Re-registered post-mission legwork")` | `{python} add_sprite("Modular", 8, name="Étaín", details="The Skybox Weaver / Phantom (Modular), Suppression, Stability", tasks=3)`
     * Re-registered elder spark Étaín (Rating 8 Modular Sprite) following heavy task expenditure coordinating the Glade children's Matrix searches and Oracle digests, refreshing her service registry to full tasks (bought 5 hits with 20d6 compiling pool, drain-free).
-* **Character Advancement Telemetry:**
-  * *Karma Banking:* Banked +7 Karma (+6 mission, +1 Working for the People). Liquid Karma reaches **83 Karma** (strictly banked toward the 90-Karma milestone post-SRM 2083-13: *Resonance 8 -> 9*, *Submersion 9 with Echo: Syntax Error*, and *Quality: Dissonant Technomancer*).
-  * *Nuyen Banking:* Banked +11,000¥ (+13,000¥ full cash payout - 2,000¥ Working for the People). Liquid Nuyen reaches **¥17,900** (¥6,900 prior + ¥11,000 net; fully clears funding threshold for the Used Left Synthetic Cyberarm at ¥10,000).
 * **Loot & Equipment Acquisition:**
   * *Mandalay Icon Telenovela Archives:* Master data steal of Seasons 1–3, unreleased Season 1.5 fan-edit cut, unaired footage, and alternative camera angles.
   * *Burmese Linguasoft & Mapsoft:* Official regional navigation and language databases provided by the Foreign Ministry (logged in `character_purchases.qmd`).
