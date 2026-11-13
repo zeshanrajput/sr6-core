@@ -27,16 +27,15 @@ All upcoming upgrades are prioritized sequentially below. When logging post-miss
 
 ### A. Karma Progression Pipeline (Ontological & Matrix Scaling)
 
-* **Current Active Baseline (Post-SRM 2083-13 Apotheosis):** **Resonance 9 / Submersion Grade 9** (*Echo: Syntax Error*); **Dissonant Technomancer (Control)** & **Dissonant Stigma**. All Matrix action pools scale to 17d6 (19d6 hot-sim / 21d6 with foci/Oracle); Fading resistance 14d6.
+* **Current Active Baseline (Post-SRM 2083-13 Apotheosis):** **Resonance 9 / Submersion Grade 9** (*Echo: Syntax Error*); **Dissonant Technomancer (Control)** & **Dissonant Stigma**. All Matrix action pools scale to 17d6 (21d6 with foci/Oracle); Fading resistance 14d6.
 
 | Step | Target Upgrade | Category | Cost | Downtime Action Required | Primary Tactical / Architectural Role |
 | :---: | :--- | :--- | :---: | :---: | :--- |
-| **01** | **Complex Form: Dissonance Diffusion** | Complex Form | 5 Karma | 1 Minor Action (Study) | *SC* 85: Strips multiple Matrix attributes simultaneously. Offset by Dissonance negative qualities. Subject to the *Composure Sword of Damocles*. |
-| **02** | **Complex Form: Dissonance Spike** | Complex Form | 5 Karma | 1 Minor Action (Study) | *SC* 85: Lethal biofeedback + unreductable noise aura targeting devices. Subject to the *Composure Sword of Damocles*. |
-| **03** | **Quality: Dissonance Static** | Negative Quality | -6 Karma net | None (Subsequent runs) | *SC* 86–87 / *SRMG* 37: Offsets positive post-chargen Karma costs, funding future complex form acquisitions. |
+| **01** | **Dissonance Diffusion** | Positive Quality | 10 Karma | No Minor Action | *SC* 85: Strips multiple Matrix attributes simultaneously. Offset by Dissonance negative qualities. Subject to the *Composure Sword of Damocles*. |
+| **02** | **Dissonance Spike** | Positive Quality | 10 Karma | No Minor Action | *SC* 85: Lethal biofeedback + unreductable noise aura targeting devices. Subject to the *Composure Sword of Damocles*. |
 | **04** | **Complex Form: Static Bomb** | Complex Form | 5 Karma | 1 Minor Action (Study) | *CRB* 191: Instantly breaks all active locks, traces, and spots in a single action. |
 | **05** | **Resonance 9 $\rightarrow$ 10** | Attribute | 50 Karma | None (Between runs) | Apex Resonance Capstone. Hard ceiling of current biological/persona evolution. |
-| **06** | **Submersion Grade 10**<br>• *Echo: Living Host* | Submersion | 16 Karma | 1 Major Action<br>*(Mainline SRM only)* | *H&S* 68: Requires *Transcendent Network*. Transforms persona into a Rating 10 Living Host with unlimited virtual architecture.<br>*NV* 51: Adapted by ascended Ladies in Red to seize sovereign space within Resonance/Dissonance Realms. Enables the Lucifer Morningstar apotheosis. Cost: $10 + 10 - 4 = 16\text{ Karma}$. |
+| **06** | **Submersion Grade 10**<br>• *Echo: Living Host* | Submersion | 16 Karma | 1 Major Action<br>*(Mainline SRM only)* | *H&S* 68: Requires *Transcendent Network*. Transforms persona into a Rating 10 Living Host with unlimited virtual architecture.<br>*NV* 51: Adapted by ascended Ladies in Red to seize sovereign space within Resonance/Dissonance Realms. Enables the Queen of Malice apotheosis. Cost: $10 + 10 - 4 = 16\text{ Karma}$. |
 | **07** | **Quality: Jack Jockey** | Positive Quality | 11 Karma | None (Between runs) | *H&S* 82: Direct connection denies defensive Edge, bypasses external PAN firewalls, and allows powering on cold devices. |
 | **08** | **Electronics Spec: Computers** | Specialization | 5 Karma | None (Between runs) | *DEFERRED BACKLOG:* +2 Matrix Perception & Search (20d6 / 22d6 w/ Oracle R4). Pushed down post-Ch 33. |
 

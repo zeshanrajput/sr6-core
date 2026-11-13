@@ -212,7 +212,7 @@ Under *Double Clutch* p. 123–124, the Man-At-Arms receives 3 free Standard Har
 * **Addiction (Telenovelas, Mild)** *(CMP 2083-07 in-play acquisition; 0 Karma per SRM rules)*
   * Rating 1 Negative Quality (*SR6 CRB*, p. 70). Behavioral addiction to dramatic trid telenovelas (*Mandalay Icon* and Southeast Asian melodrama).
 * **Dissonant Technomancer (Control)** *(SRM 2083-13 Advancement; 30 Karma)*
-  * Positive Quality (*Shadow Cast*, pp. 84–85; *SRMG*, p. 37; 15 base $\times 2 = 30\text{ Karma}$ post-chargen). Preferred target category: Devices. Halves Edge cost (-1 Edge) on Matrix actions and complex forms targeting devices, adds a wild die, reduces fading by wild hits.
+  * Positive Quality (*Shadow Cast*, pp. 84–85; *SRMG*, p. 37; 15 base $\times 2 = 30\text{ Karma}$ post-chargen). Preferred target category: Devices. Edge Boosts cost 1 less on Matrix actions and complex forms targeting devices, adds a wild die, reduces fading by wild hits.
 * **Dissonant Stigma** *(SRM 2083-13 Advancement; -5 Karma)*
   * Negative Quality (*Shadow Cast*, p. 86; *SRMG*, p. 37; offsets positive post-chargen Karma cost by 5). Reiko's living persona and resonant presence hum with the subtle, unmistakable static of point zero.
 

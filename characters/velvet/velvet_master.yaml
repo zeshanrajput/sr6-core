@@ -31,7 +31,7 @@ attributes:
   charisma: 10
   edge: 2
   magic: 6
-  resonance: 6
+  resonance: 0
   power_points: 3
 qualities:
   positive:

@@ -21,7 +21,7 @@ def test_mobile_json_export_reiko():
 
     assert res["identity"]["handle"] == "Yuriko Star" or res["identity"]["handle"] == "Reiko"
     assert res["identity"]["is_ai"] is True
-    assert res["attributes"]["resonance"] == 8
+    assert res["attributes"]["resonance"] == 9
     assert len(res["skills"]) > 0
 
     # Verify AI Matrix Attributes exist in attributes_list
@@ -93,7 +93,7 @@ def test_mobile_json_export_reiko():
     maa = next((v for v in res["vehicles"] if "man-at-arms" in v["name"].lower()), None)
     assert maa is not None
     assert maa["body"] == 15      # 10 base + 5 structural integrity (home device tuning moved to sensor)
-    assert maa["pilot"] == 9     # Replaced by Reiko's RES 8 + 1 Designer
+    assert maa["pilot"] == 10     # Replaced by Reiko's RES 9 + 1 Designer
     assert maa["armor"] == 8     # 8 base (armor increase stripped for legal nuyen balance)
     assert maa["sensor"] == 6    # 4 hardware (base 2 + mod 2) + 1 sensor upgrade quality + 1 home device
     assert maa["enlightened_sensor"] == 8  # +2 from Enlighten Automaton sustained (up to 8)

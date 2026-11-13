@@ -105,17 +105,17 @@ def test_multi_modifier_interactions_reiko():
     assert any("Electronics" in n for n in names)
     assert any("ASDF" in n or "Resonance" in n for n in names)
 
-    # Check Cracking pool details (21d6 with Resonance Focus, Taz Symbiosis, Specialization)
+    # Check Cracking pool details (22d6 with Resonance Focus, Taz Symbiosis, Specialization)
     cr = next(i for i in interactions if "Cracking" in i["name"])
-    assert "21d6" in cr["total_pool"]
+    assert "22d6" in cr["total_pool"]
     rf_mod = next(m for m in cr["modifiers"] if "Resonance Focus" in m["source"])
     assert rf_mod["value"] == 4
     assert rf_mod["type"] == "focus"
     assert "rules_matrix.html#foci" in rf_mod["rule_anchor"]
 
-    # Check Electronics pool details (21d6)
+    # Check Electronics pool details (22d6)
     el = next(i for i in interactions if "Electronics" in i["name"])
-    assert "21d6" in el["total_pool"]
+    assert "22d6" in el["total_pool"]
     el_sources = [m["source"] for m in el["modifiers"]]
     assert any("Resonance Focus" in s for s in el_sources)
 

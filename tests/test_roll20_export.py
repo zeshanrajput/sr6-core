@@ -316,7 +316,7 @@ def test_reiko_roll20_export():
     assert payload["streetName"] == "Yuriko Star"
     assert payload["name"] == "r31k0 Takahashi"
     assert "AI" in payload["metaType"]
-    assert payload["submersion"] == 8
+    assert payload["submersion"] == 9
 
     # 2. Core Attributes (Man-at-Arms Body 15, DP 7 -> Agi 7, Sleaze 9 -> Rea 9, Attack 7 -> Str 7)
     attr_map = {a["id"]: a["modifiedValue"] for a in payload["attributes"]}
@@ -329,7 +329,7 @@ def test_reiko_roll20_export():
     assert attr_map["INTUITION"] == 2
     assert attr_map["CHARISMA"] == 4
     assert attr_map["EDGE"] == 4
-    assert attr_map["RESONANCE"] == 8
+    assert attr_map["RESONANCE"] == 9
 
     # 3. Qualities (Includes Network Benefits and Matrix Defense Umbrella)
     q_names = {q["name"] for q in payload["qualities"]}

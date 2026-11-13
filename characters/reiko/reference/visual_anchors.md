@@ -336,4 +336,3 @@ The following reference assets represent earlier development phases, superseded 
 | **Symlink Clinic Scene** | [`r31k0 - symlink.webp`](../images/archive/r31k0%20-%20symlink.webp) | Chapter 24 (*Symlink*) scene with Reiko, Percy, and Brynne before entering `~`. |
 | **Tilde Sanctuary Boundary** | [`r31k0 - ~.webp`](../images/archive/r31k0%20-%20~.webp) | Chapter 21 (*~*) scene with Reiko and Indomitable Will holding hands at the boundary. |
 | **P0cH1 Full Form** | [`P0cH1_full.webp`](../images/archive/P0cH1_full.webp) | Early companion/chassis design study. |
-

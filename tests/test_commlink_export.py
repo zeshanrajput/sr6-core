@@ -148,9 +148,9 @@ def test_export_reiko_commlink_xml():
     cforms = root.findall(".//complexforms/complexforms")
     assert len(cforms) >= 3, "Technoshaman must serialize complex forms"
 
-    # Meta Echoes - verify no duplicates and exact submersion grade 8
+    # Meta Echoes - verify no duplicates and exact submersion grade 9
     echoes = root.findall(".//metaEchoes/metaEcho")
-    assert len(echoes) == 8, f"Reiko submersion echoes must be exactly 8, got {len(echoes)}"
+    assert len(echoes) == 9, f"Reiko submersion echoes must be exactly 9, got {len(echoes)}"
     echo_refs = [e.get("ref") for e in echoes]
     assert len(echo_refs) == len(set(echo_refs)), "Submersion echoes must not contain duplicates"
 
@@ -365,7 +365,7 @@ def test_commlink_archetype_subsystem_segregation():
     assert r_root.find("spells") is None or len(r_root.find("spells")) == 0
     assert r_root.find("adeptPowers") is None or len(r_root.find("adeptPowers")) == 0
     echoes = r_root.find("metaEchoes")
-    assert echoes is not None and len(echoes) == 8, f"Submersion grade must be 8, got {len(echoes)}"
+    assert echoes is not None and len(echoes) == 9, f"Submersion grade must be 9, got {len(echoes)}"
     cforms = r_root.find("complexforms")
     assert cforms is not None and len(cforms) >= 3
 

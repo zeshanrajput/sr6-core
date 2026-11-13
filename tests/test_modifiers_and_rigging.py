@@ -326,10 +326,10 @@ def test_matrix_action_table_renderer():
     table_md = get_matrix_action_table("reiko")
     assert "| Action Category / Test | Base Stat + Skill | Applied Modifiers Math | Final Dice Pool | Bought Hits |" in table_md
     assert "**Offensive Cracking: Hacking**" in table_md
-    assert "**27d6** (1 wild)" in table_md
-    assert "**6 Hits**" in table_md
+    assert "**28d6** (1 wild)" in table_md
+    assert "**7 Hits**" in table_md
     assert "**Full Matrix Defense Test**" in table_md
-    assert "**34d6**" in table_md
+    assert "**35d6**" in table_md
     assert "**8 Hits**" in table_md
 
 

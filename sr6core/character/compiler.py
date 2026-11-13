@@ -86,7 +86,7 @@ def compile_character(char_id: str) -> Dict[str, Any]:
     attributes: Dict[str, int] = {}
     if existing_char and "attributes" in existing_char:
         attributes = dict(existing_char["attributes"])
-    if totals.get("Resonance", 0) > 0:
+    if attributes.get("resonance", 0) > 0 and totals.get("Resonance", 0) > 0:
         attributes["resonance"] = totals["Resonance"]
 
     # 4. Parse Purchases from character_purchases.qmd
