@@ -92,27 +92,38 @@ def compile_character(char_id: str) -> Dict[str, Any]:
     # 4. Parse Purchases from character_purchases.qmd
     purchases_data = PurchasesSyncEngine.parse_purchases_qmd(purchases_path) if os.path.exists(purchases_path) else {}
 
-    skills = list(existing_char.get("skills", []))
-    for spec_entry in purchases_data.get("specializations", []):
-        sk_target = spec_entry.get("skill", "").lower()
-        sp_val = spec_entry.get("specialization", "").strip()
-        for sk in skills:
-            if sk.get("name", "").lower() == sk_target:
-                curr_specs = list(sk.get("specializations", []))
-                if sk.get("specialization") and sk["specialization"] not in curr_specs:
-                    curr_specs.append(sk["specialization"])
-                if sp_val not in curr_specs:
-                    curr_specs.append(sp_val)
-                sk["specializations"] = curr_specs
-                if not sk.get("specialization"):
-                    sk["specialization"] = sp_val
+    skills = [dict(s) for s in existing_char.get("skills", [])]
+    if os.path.exists(build_path):
+        with open(build_path, "r", encoding="utf-8") as bf:
+            build_text = bf.read()
+        build_skill_totals: Dict[str, int] = {}
+        for m_sk in re.finditer(r"inc\(\s*['\"]([^'\"]+)['\"]\s*,\s*(\d+)\s*\)", build_text):
+            k_low = m_sk.group(1).strip().lower()
+            build_skill_totals[k_low] = build_skill_totals.get(k_low, 0) + int(m_sk.group(2))
+        build_specs_map: Dict[str, list] = {}
+        for m_sp in re.finditer(r"^\s*[\*\-]\s*([A-Za-z]+)\s+specialization\s*-\s*([^:\n`]+)", build_text, re.MULTILINE | re.IGNORECASE):
+            k_low = m_sp.group(1).strip().lower()
+            build_specs_map.setdefault(k_low, []).append(m_sp.group(2).strip())
 
-    for rank_entry in purchases_data.get("skill_ranks", []):
-        sk_target = rank_entry.get("skill", "").lower()
-        r_val = rank_entry.get("rating", 1)
         for sk in skills:
-            if sk.get("name", "").lower() == sk_target:
-                sk["rating"] = r_val
+            sk_low = sk.get("name", "").lower()
+            if sk_low in build_skill_totals:
+                sk["rating"] = build_skill_totals[sk_low]
+            if build_specs_map:
+                base_specs = list(build_specs_map.get(sk_low, []))
+                sk.pop("expertise", None)
+                if base_specs:
+                    sk["specialization"] = base_specs[0]
+                    sk["specializations"] = base_specs
+                else:
+                    sk.pop("specialization", None)
+                    sk.pop("specializations", None)
+
+    PurchasesSyncEngine.apply_skill_updates(
+        skills,
+        purchases_data.get("specializations", []),
+        purchases_data.get("skill_ranks", []),
+    )
 
     # Determine base qualities from character_build.qmd or existing_char chargen snapshot
     base_qualities = {"positive": [], "negative": []}
@@ -132,7 +143,6 @@ def compile_character(char_id: str) -> Dict[str, Any]:
             (q_ref, q.get("name", ""))
         )
         if not row and "(" in q.get("name", ""):
-            import re
             base_name = re.sub(r'\(.*?\)', '', q.get("name", "")).strip()
             base_ref = base_name.lower().replace(" ", "_")
             row = _query_db_row(

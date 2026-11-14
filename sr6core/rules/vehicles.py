@@ -17,6 +17,7 @@ FUTURE RIGGER & RCC EXPANSION HOOKS:
   - RCC Features: Noise Reduction (reduces distance/spam penalties), Program Sharing (Autosofts broadcast to swarm).
 """
 
+import math
 import re
 from typing import Dict, Any, List, Optional, Tuple
 from sr6core.rules.modifiers import ModifierEngine
@@ -75,6 +76,8 @@ def parse_vehicle_modifications(drone_dict: Dict[str, Any], char_data: Optional[
         max_sensor_cap = 7
 
     has_smart_tires = False
+    improved_accel_ranks = 0
+    top_speed_ranks = 0
 
     # Parse Modifications
     for m in mods:
@@ -119,6 +122,15 @@ def parse_vehicle_modifications(drone_dict: Dict[str, Any], char_data: Optional[
         # 4c. Secondary Propulsion (Vector Thrust / LAV)
         if "vector" in m_lower or "lav" in m_lower:
             has_vector = True
+
+        # 4d. Improved Acceleration & Top Speed Increase (DC p. 134, 138)
+        imp_acc_m = re.search(r"improved\s+acceleration(?:\s*\(?(\d+)(?:\s*ranks?)?\)?)?", m_lower)
+        if imp_acc_m and "rp purposes only" not in m_lower:
+            improved_accel_ranks = int(imp_acc_m.group(1)) if imp_acc_m.group(1) else 1
+
+        top_spd_m = re.search(r"top\s+speed\s+increase(?:\s*\(?(\d+)(?:\s*ranks?)?\)?)?", m_lower)
+        if top_spd_m and "rp purposes only" not in m_lower:
+            top_speed_ranks = int(top_spd_m.group(1)) if top_spd_m.group(1) else 1
 
         # 5. Retractable Skates
         if "skates" in m_lower:
@@ -204,7 +216,7 @@ def parse_vehicle_modifications(drone_dict: Dict[str, Any], char_data: Optional[
 
     cfs = char_data.get("complex_forms", []) if char_data else []
     has_enlighten = any("enlighten" in (cf.get("name", "") if isinstance(cf, dict) else str(cf)).lower() for cf in cfs)
-    enlighten_bonus = min(sensor, 2) if (has_enlighten and is_home_device) else 0
+    enlighten_bonus = min(hardware_sensor, max(0, 8 - aug_sensor)) if (has_enlighten and is_home_device) else 0
     enlightened_sensor = aug_sensor + enlighten_bonus
     if enlighten_bonus:
         notes_list.append(f"Enlighten Automaton (+{enlighten_bonus} SEN when sustained)")
@@ -231,7 +243,9 @@ def parse_vehicle_modifications(drone_dict: Dict[str, Any], char_data: Optional[
     if has_retractable_skates:
         mobility_parts.append("Skates: 10/30/+2")
     if has_vector:
-        mobility_parts.append("Vector Thrust (LAV): Han 4, Acc 41, SPD 50/480 (Iron-Man thrusters)")
+        vt_acc = 25 + improved_accel_ranks * math.ceil(25 * 0.30)
+        vt_top = 300 + top_speed_ranks * math.ceil(300 * 0.20)
+        mobility_parts.append(f"Vector Thrust (LAV): Han 4, Acc {vt_acc}, SPD 50/{vt_top} (Iron-Man thrusters)")
     mobility_str = ". ".join(mobility_parts)
 
     return {
@@ -329,6 +343,8 @@ def calculate_vehicle_mod_slots(
     for m in all_mod_items:
         m_str = str(m.get("name", m) if isinstance(m, dict) else m).strip()
         m_low = m_str.lower()
+        if "rp purposes only" in m_low or "narrative/rp only" in m_low:
+            continue
         if "cyberarm" in m_low or "cyberleg" in m_low or "cyberskull" in m_low or "cybertorso" in m_low:
             cap_match = re.search(r"(\d+)\s+capacity", m_low)
             if cap_match:
@@ -348,6 +364,18 @@ def calculate_vehicle_mod_slots(
     for m in all_mod_items:
         m_str = str(m.get("name", m) if isinstance(m, dict) else m).strip()
         m_low = m_str.lower()
+
+        # 0. Narrative / RP-only inactive props (0 active mod slots claimed)
+        if "rp purposes only" in m_low or "narrative/rp only" in m_low:
+            categorized["accessory"].append({
+                "name": m_str,
+                "category": "accessory",
+                "rating": None,
+                "slots_cost": 0,
+                "notes": "Narrative/RP prop only (consumes 0 active mod slots)",
+                "rule_ref": "DC p. 120 (Inactive RP Prop)"
+            })
+            continue
 
         # 1. Weapon Mounts
         if "weapon mount" in m_low:
@@ -561,7 +589,47 @@ def calculate_vehicle_mod_slots(
                 "rating": None,
                 "slots_cost": s_cost,
                 "notes": notes,
-                "rule_ref": "DC p. 134-135"
+                "rule_ref": "DC pp. 136-137"
+            })
+            continue
+
+        # 10b. Improved Acceleration (DC p. 134)
+        imp_acc_m = re.search(r"improved\s+acceleration(?:\s*\(?(\d+)(?:\s*ranks?)?\)?)?", m_low)
+        if imp_acc_m:
+            r_val = int(imp_acc_m.group(1)) if imp_acc_m.group(1) else 1
+            categorized["powertrain"].append({
+                "name": m_str,
+                "category": "powertrain",
+                "rating": r_val,
+                "slots_cost": r_val,
+                "notes": f"+{r_val * 30}% Acceleration (round up per rank)",
+                "rule_ref": "DC p. 134"
+            })
+            continue
+
+        # 10c. Top Speed Increase (DC p. 138)
+        top_spd_m = re.search(r"top\s+speed\s+increase(?:\s*\(?(\d+)(?:\s*ranks?)?\)?)?", m_low)
+        if top_spd_m:
+            r_val = int(top_spd_m.group(1)) if top_spd_m.group(1) else 1
+            categorized["powertrain"].append({
+                "name": m_str,
+                "category": "powertrain",
+                "rating": r_val,
+                "slots_cost": r_val,
+                "notes": f"+{r_val * 20}% Top Speed",
+                "rule_ref": "DC p. 138"
+            })
+            continue
+
+        # 10d. Hydrocarbon Fuel Converter (DC p. 135)
+        if "hydrocarbon fuel converter" in m_low:
+            categorized["powertrain"].append({
+                "name": m_str,
+                "category": "powertrain",
+                "rating": None,
+                "slots_cost": 2,
+                "notes": "Electrical recharge from commercial hydrocarbon fuels",
+                "rule_ref": "DC p. 135"
             })
             continue
 
@@ -573,7 +641,19 @@ def calculate_vehicle_mod_slots(
                 "rating": None,
                 "slots_cost": 2,
                 "notes": "Doubles Acceleration for 1D6 rounds (1 Wild Die)",
-                "rule_ref": "DC p. 133"
+                "rule_ref": "DC pp. 134-135"
+            })
+            continue
+
+        # 11b. Passive Stealth Features (DC p. 139)
+        if "passive stealth features" in m_low:
+            categorized["electronic"].append({
+                "name": m_str,
+                "category": "electronic",
+                "rating": None,
+                "slots_cost": 1,
+                "notes": "+1 Detection threshold / -1 defender hit on Stealth",
+                "rule_ref": "DC p. 139"
             })
             continue
 
@@ -939,6 +1019,7 @@ def calculate_drone_action_pools(
 
     cfs = char_data.get("complex_forms", []) if char_data else []
     has_enlighten = any("enlighten" in (cf.get("name", "") if isinstance(cf, dict) else str(cf)).lower() for cf in cfs)
+    enlighten_bonus = drone_profile["enlightened_sensor"] - drone_profile["augmented_sensor"]
 
     if mode == "inhabited_override" and is_home_device:
         # Mode 1: Inhabited Override (Reiko Primary)
@@ -948,14 +1029,14 @@ def calculate_drone_action_pools(
         piloting_breakdown = f"Maneuvering {active_d} + Pilot/RES {inhabited_pilot} + Focus {focus_bonus} + Taz Diagnosis {taz_diagnosis}{po_str} = {piloting_pool}d6{thresh_note}"
 
         gunnery_pool = active_d + sensor_val + taz_symbiosis + pilot_origins_bonus + targeting_other_bonus
-        enlighten_g_note = f" ({gunnery_pool + 2}d6 with Enlighten Automaton sustained)" if (has_enlighten and is_home_device) else ""
+        enlighten_g_note = f" ({gunnery_pool + enlighten_bonus}d6 with Enlighten Automaton sustained)" if (has_enlighten and is_home_device and enlighten_bonus > 0) else ""
         gunnery_breakdown = f"Targeting {active_d} + Sensor {sensor_val} + Taz Symbiosis {taz_symbiosis}{po_str}{other_gunnery_str} = {gunnery_pool}d6{enlighten_g_note}"
 
         evasion_pool = active_d + inhabited_pilot + focus_bonus + taz_symbiosis + pilot_origins_bonus
         evasion_breakdown = f"Evasion {active_d} + Pilot/RES {inhabited_pilot} + Focus {focus_bonus} + Taz Symbiosis {taz_symbiosis}{po_str} = {evasion_pool}d6"
 
         perception_pool = active_d + sensor_val + taz_symbiosis + pilot_origins_bonus
-        enlighten_p_note = f" ({perception_pool + 2}d6 with Enlighten Automaton sustained)" if (has_enlighten and is_home_device) else ""
+        enlighten_p_note = f" ({perception_pool + enlighten_bonus}d6 with Enlighten Automaton sustained)" if (has_enlighten and is_home_device and enlighten_bonus > 0) else ""
         perception_breakdown = f"Clearsight {active_d} + Sensor {sensor_val} + Taz Symbiosis {taz_symbiosis}{po_str} = {perception_pool}d6{enlighten_p_note}"
 
         stealth_pool = active_d + inhabited_pilot + focus_bonus + taz_symbiosis + 2 + pilot_origins_bonus
@@ -967,18 +1048,18 @@ def calculate_drone_action_pools(
         piloting_pool = active_d + active_s + taz_diagnosis
         piloting_breakdown = f"Maneuvering {active_d} + Sleaze/REA {active_s} + Taz Diagnosis {taz_diagnosis} = {piloting_pool}d6"
 
-        # Gunnery/Targeting: Targeting (7) + Sensor (6) + Taz Symbiosis (4) + Other Modifiers = 18d6
+        # Gunnery/Targeting: Targeting (7) + Sensor + Taz Symbiosis (4) + Other Modifiers
         gunnery_pool = active_d + sensor_val + taz_symbiosis + targeting_other_bonus
-        enlighten_g_note = f" ({gunnery_pool + 2}d6 with Enlighten Automaton sustained)" if (has_enlighten and is_home_device) else ""
+        enlighten_g_note = f" ({gunnery_pool + enlighten_bonus}d6 with Enlighten Automaton sustained)" if (has_enlighten and is_home_device and enlighten_bonus > 0) else ""
         gunnery_breakdown = f"Targeting {active_d} + Sensor {sensor_val} + Taz Symbiosis {taz_symbiosis}{other_gunnery_str} = {gunnery_pool}d6{enlighten_g_note}"
 
         # Evasion: Evasion (7) + Sleaze/REA (9) + Taz Symbiosis (4) = 20d6
         evasion_pool = active_d + active_s + taz_symbiosis
         evasion_breakdown = f"Evasion {active_d} + Sleaze/REA {active_s} + Taz Symbiosis {taz_symbiosis} = {evasion_pool}d6"
 
-        # Perception: Clearsight (7) + Sensor (6) + Taz Symbiosis (4) = 17d6
+        # Perception: Clearsight (7) + Sensor + Taz Symbiosis (4)
         perception_pool = active_d + sensor_val + taz_symbiosis
-        enlighten_p_note = f" ({perception_pool + 2}d6 with Enlighten Automaton sustained)" if (has_enlighten and is_home_device) else ""
+        enlighten_p_note = f" ({perception_pool + enlighten_bonus}d6 with Enlighten Automaton sustained)" if (has_enlighten and is_home_device and enlighten_bonus > 0) else ""
         perception_breakdown = f"Clearsight {active_d} + Sensor {sensor_val} + Taz Symbiosis {taz_symbiosis} = {perception_pool}d6{enlighten_p_note}"
 
         # Stealth: Stealth (7) + Data Proc/AGI (7) + Taz Symbiosis (4) + Sneak-Sneak (2) = 20d6

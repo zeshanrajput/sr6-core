@@ -114,7 +114,7 @@ print(get_matrix_action_table("reiko"))
 
 ::: {.callout-note icon=false}
 ### Threading vs. Overclock & Personal Assistant Notes
-* **Overclocking Scope (*Hack & Slash*, p. 58)**: *Overclock* (`+2` dice, converts 1 die to a Wild Die) applies strictly to **Matrix Actions** (Cracking, Computer, Hardware, Software)—**not** Resonance **Complex Forms**. Consequently, Complex Forms thread at `22d6` (`5 Bought Hits`); taking an *Electronics (Complex Forms)* specialization (`+2`) later restores `24d6` (`6 Bought Hits`).
+* **Overclocking Scope (*Hack & Slash*, p. 58)**: *Overclock* (`+2` dice, converts 1 die to a Wild Die) applies strictly to **Matrix Actions** (Cracking, Computer, Hardware, Software)—**not** Resonance **Complex Forms**. With *Electronics Expertise (Software)* (`+3`, *SR6 Core*, pp. 69, 92) unlocking *Electronics Specialization (Complex Forms)* (`+2`, *SRMG v2.4*, p. 31), Complex Forms thread at **`24d6` (`6 Bought Hits`)** cleanly without Overclock.
 * **Personal Assistant Protocol**: Personal Assistant (R6) is reserved exclusively for continuous **Full Matrix Defense** on behalf of the PAN (`+3` bought hits), preserving its operational capacity to anchor Full Matrix Defense and unlock *Directional Shield* without dividing its focus on sporadic Electronics tests. Taz provides `+4` Teamwork to Electronics tests directly.
 :::
 
@@ -160,9 +160,9 @@ print(get_matrix_action_table("reiko"))
 * **Inhabited Override (`Pilot {python} MAA_PILOT_BASE` / `{python} MAA_PILOT_FOCUS` w/ Focus)**: Via *Override* (*Hack & Slash*, p. 71; *SR6 Core*, p. 194), Reiko substitutes Resonance (`{python} RESONANCE`) for the Man-at-Arms Pilot rating. The *Designer* quality (*Hack & Slash*, p. 119) adds `+1` Pilot (`{python} MAA_PILOT_BASE` base); on Resonance-linked Piloting/Evasion/Stealth tests, Resonance Focus R4 adds `+4` (`{python} MAA_PILOT_FOCUS` effective).
 * **Pilot Origins (Control Rig Rating 1 Equivalent)** (*Hack & Slash*, p. 119): When inhabiting a drone or vehicle, *Pilot Origins* grants **`+1` dice pool** on all vehicle/drone tests (Piloting, Gunnery, Evasion, Perception, Stealth) and **reduces all vehicle test thresholds by `1`** (reducing Man-at-Arms Handling `4` to **Effective Threshold `{python} MAA_EFF_HANDLING`**).
 * **Sensor Pool Construction (`{python} MAA_SEN_ENL` Active)**:
-  * **Hardware Array (`{python} MAA_SEN_HW`)**: Base (`2`) + *Increased Sensors 2* (`+2`, Medium Drone hardware maximum per *CRB*, p. 277) = **`{python} MAA_SEN_HW`**.
-  * **Passive Augmentations (`+{python} MAA_SEN_AUG - MAA_SEN_HW` = `{python} MAA_SEN_AUG`)**: **`+1`** from *Sensor Upgrade* quality (*H&S*, p. 120) + **`+1`** from AI *Home Device* optimization allowing an AI to raise a single drone attribute by 1 (*H&S*, p. 124).
-  * **Combat Buff (*Enlighten Automaton*, `+2` $\rightarrow$ `{python} MAA_SEN_ENL`)**: Threaded with bought hits and **sustained by a registered sprite during combat**.
+  * **Hardware Array (`{python} MAA_SEN_HW`)**: Base (`2`) + *Increased Sensors 1* (`+1`, *DC*, p. 142; 1 Electronics slot) = **`{python} MAA_SEN_HW`**.
+  * **Passive Augmentations (`+{python} MAA_SEN_AUG - MAA_SEN_HW` $\rightarrow$ `{python} MAA_SEN_AUG`)**: **`+1`** from *Sensor Upgrade* quality (*H&S*, p. 120) + **`+1`** from AI *Home Device* optimization allowing an AI to raise a single drone attribute by 1 (*H&S*, p. 124).
+  * **Combat Buff (*Enlighten Automaton*, `+{python} MAA_SEN_ENL - MAA_SEN_AUG` $\rightarrow$ `{python} MAA_SEN_ENL`)**: Threaded with bought hits (`5–6` hits; `+3` max within *H&S* p. 64's double Hardware `3` cap) and **sustained by a registered sprite during combat**, preserving Sensor **`{python} MAA_SEN_ENL`**.
   * *Sprite Task Economy*: Maintaining *Enlighten Automaton* costs a minimum of **1 sprite task per combat scene**. The Minor Action used to issue the command is refunded by **Sprite Link** (*Hack & Slash*, p. 69), and because Reiko registers at least one sprite per event, this 1-task cost is operationally negligible.
 * **Anthroform Armor & Device Rating** (*SRMG v2.4*; *Hack & Slash*, p. 124): Per the *Shadowrun Missions Guide*, an anthroform drone uses the **higher** of its base armor or worn armor (they do not stack). Consequently, Reiko wears no external armor on this chassis—its Armor remains **Base `{python} MAA_ARMOR`** (`Body {python} MAA_BODY + Armor {python} MAA_ARMOR = {python} MAA_PHYS_DR` Physical Defense Rating). *Designer* Home Device increases **Device Rating** by `+4` (`DR 2 -> 6`).
 
@@ -180,7 +180,7 @@ print(get_drone_action_table("reiko", "man-at-arms", mode="inhabited_override"))
 | :--- | :---: | :---: | :--- |
 | **Chassis Category** | Medium Anthro Drone | Medium Anthro Drone | *Double Clutch*, p. 117 |
 | **Handling (On / Off)** | 3 / 3 | **4 / 4** *(LAV)* | Secondary Propulsion: Vector Thrust (*DC*, p. 137) |
-| **Acceleration (ACC)** | 5 / 5 m/round | **41** *(82 Nitro)* | Vector Thrust Base 25 + Improved Accel 2 (+60%, *DC* p. 134); Nitro doubles for 1D6 rds (*DC*, pp. 134–135) |
+| **Acceleration (ACC)** | 5 / 5 m/round | **41** *(82 Nitro: RP only)* | Vector Thrust Base 25 + Improved Accel 2 (+60%, *DC* p. 134); lateral thigh Nitro stored for RP only |
 | **Speed Interval / Top** | 5 / 10 m/round | **50 / 480 m/round** *(576 km/h)* | Vector Thrust Base 300 + Top Speed Increase 3 (+60%, *DC* pp. 137–138) |
 | **Body (BOD)** | 10 | **`{python} MAA_BODY`** | Base 10 + Increased Structural Integrity 5 (*DC*, p. 121) |
 | **Armor (ARM)** | 8 | **`{python} MAA_ARMOR`** *(Phys DR **`{python} MAA_PHYS_DR`**)* | Anthrodrone uses higher of base or worn armor per *SRMG* (no external armor worn) |
@@ -194,23 +194,23 @@ Under *Double Clutch* (p. 120), a vehicle or drone receives mod slots equal to i
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
-│ SHIAWASE MAN-AT-ARMS MODIFICATION INVENTORY & CAPACITY BALANCE                         │
+│ SHIAWASE MAN-AT-ARMS MODIFICATION INVENTORY & CAPACITY BALANCE (OPTION C+)             │
 ├───────────────────────┬──────────────┬──────────────┬──────────────────────────────────┤
 │ Category & Subsystem  │ Slots Used   │ Total Slots  │ Installed Modifications & Roles │
 ├───────────────────────┼──────────────┼──────────────┼──────────────────────────────────┤
 │ 1. Chassis Slots      │ 11 Slots     │ 11 Available │ • Increased Structural Integrity 5 (5 slots)   │
-│    (10 Base + 1 Shift)│ (100% Used)  │              │ • Realistic Features 4 (4 slots)               │
+│    (10 Base + 1 Shift)│ (100% Used)  │ (2 from Elec)│ • Realistic Features 4 (4 slots)               │
 │                       │              │              │ • Pop-Out Concealment - Standard x2 (2 slots)  │
 ├───────────────────────┼──────────────┼──────────────┼──────────────────────────────────┤
-│ 2. Powertrain Slots   │ 9 Slots      │ 10 Available │ • Secondary Propulsion: Vector Thrust (5 slots)│
-│    (10 Base)          │ (1 Free)     │              │ • Nitro Boost (2 slots)                        │
+│ 2. Powertrain Slots   │ 12 Slots     │ 12 Available │ • Secondary Propulsion: Vector Thrust (5 slots)│
+│    (10 Base + 2 Shift)│ (100% Used)  │ (4 from Elec)│ • Improved Acceleration 2 [VT] (2 slots)       │
+│                       │              │              │ • Top Speed Increase 3 [VT] (3 slots)          │
 │                       │              │              │ • Hydrocarbon Fuel Converter (2 slots)         │
 ├───────────────────────┼──────────────┼──────────────┼──────────────────────────────────┤
-│ 3. Electronics Slots  │ 10 Slots     │ 10 Available │ • Chameleon Coating 4 (2 slots)                │
-│    (10 Base)          │ (100% Used)  │              │ • Passive Stealth Features (1 slot)            │
-│                       │              │              │ • Increased Sensors 2 (Array R4; 2 slots)      │
-│                       │              │              │ • Augmented Single Sensors (3 slots, SR6 277)  │
-│                       │              │              │ • [2 Slots permanently shifted to Chassis]     │
+│ 3. Electronics Slots  │ 4 Slots      │ 4 Remaining  │ • Chameleon Coating 4 (2 slots)                │
+│    (10 Base - 6 Shift)│ (100% Used)  │ (-2 Ch / -4P)│ • Passive Stealth Features (1 slot)            │
+│                       │              │              │ • Increased Sensors 1 (Array R3; 1 slot)       │
+│                       │              │              │ • [2 Slots -> Chassis; 4 Slots -> Powertrain]  │
 ├───────────────────────┼──────────────┼──────────────┼──────────────────────────────────┤
 │ 4. Hardpoints         │ 3 Hardpoints │ 3 Available  │ • Standard Weapon Mount (Stock) - Left Eye     │
 │    (⌊Body / 3⌋ = 3)    │ (100% Used)  │ (Floor B/3)  │ • Standard Weapon Mount (Added) - Right Eye    │
@@ -219,14 +219,15 @@ Under *Double Clutch* (p. 120), a vehicle or drone receives mod slots equal to i
 │ 5. Right Cyberarm     │ [8] Capacity │ [8] Capacity │ • Used Synthetic Cyberarm (Right; CRB 282, 289)│
 │    (Factory Replace)  │ (100% Used)  │              │ • Tesla Coil ([8] Cap; Body Shop p. 49)        │
 ├───────────────────────┼──────────────┼──────────────┼──────────────────────────────────┤
-│ 6. Accessories        │ 0 Slots      │ Unlimited    │ • Satellite Link (DC p. 120)                   │
-│    (0 Mod Slots, DC)  │ (DC p. 120)  │              │ • Laser Jack (DC p. 120)                       │
+│ 6. Accessories & RP   │ 0 Slots      │ Unlimited    │ • Satellite Link, Laser Jack (DC p. 120)       │
+│    (0 Active Mod Slot)│ (DC p. 120)  │              │ • Stock Sensor Suite & Utility/RP Sensors      │
+│                       │              │              │ • Nitro Boost (lateral thigh cyberlegs; RP only│
 └───────────────────────┴──────────────┴──────────────┴──────────────────────────────────┘
 ```
 
-1. **Chassis (11/11 Slots)**: *Increased Structural Integrity 5* (*DC*, p. 121; `BOD 15`, 16 Physical boxes); *Realistic Features 4* (*DC*, p. 121); *Pop-Out Concealment x2* (*DC*, p. 121) hiding the ocular lasers.
-2. **Powertrain (9/10 Slots + Dedicated Vector Thrust Subsystem)**: *Secondary Propulsion: Vector Thrust* (*DC*, pp. 136–137; 5 slots) with dedicated *Improved Acceleration 2* (`25 -> 41 m/round`, *DC*, p. 134) and *Top Speed Increase 3* (`300 -> 480 m/round`, *DC*, p. 138); *Nitro Boost* (*DC*, pp. 134–135; 2 slots); *Hydrocarbon Fuel Converter* (*DC*, pp. 133–134; 2 slots) providing indefinite electrical recharge from commercial fuels.
-3. **Electronics (10/10 Slots)**: `2` slots permanently shifted to Chassis (2:1 for the 11th Chassis slot, *DC*, p. 120); *Chameleon Coating 4* (`2` slots, *DC*, p. 129); *Passive Stealth Features* (`1` slot, *DC*, p. 130); *Increased Sensors 2* (`2` slots, *DC*, p. 130; 4-function core array: Camera [Image Link, Low-Light, Flare Comp], Omni Mic [Sound Link], Motion Ultrasound, Oral Chemical/Olfactory Sensor); plus `3` single sensor slots (*SR6 Core*, pp. 276–277): *MAD Scanner*, *Tactile Sensors* (*Deadly Arts*, p. 178), and *Cyberware Scanner*.
+1. **Chassis (11/11 Slots)**: `2` Electronics slots permanently shifted to `+1` Chassis slot at `2:1` (*DC*, p. 120); *Increased Structural Integrity 5* (*DC*, p. 125; `BOD 15`, 16 Physical boxes); *Realistic Features 4* (*DC*, p. 131); *Pop-Out Concealment x2* (*DC*, p. 143) hiding the ocular lasers.
+2. **Powertrain (12/12 Slots)**: `4` Electronics slots permanently shifted to `+2` Powertrain slots at `2:1` (*DC*, p. 120), giving `12` Powertrain slots to legally house *Secondary Propulsion: Vector Thrust* (*DC*, pp. 136–137; `5` slots) together with its dedicated *Improved Acceleration 2* (`25 -> 41 m/round`, *DC*, p. 134; `2` slots) and *Top Speed Increase 3* (`300 -> 480 m/round`, *DC*, p. 138; `3` slots), plus *Hydrocarbon Fuel Converter* (*DC*, p. 135; `2` slots) for indefinite electrical recharge. *Nitro Boost* (`BRYNNE` & `CEDAR` lateral thigh cyberleg capacitors; *DC*, pp. 134–135) is retained physically in the legs for **narrative/RP purposes only** (`0` active Powertrain slots; swapped in only if audited/reallocated).
+3. **Electronics (4/4 Remaining Slots; 100% Used)**: After permanently shifting `6` Electronics slots (`2` $\rightarrow$ `+1` Chassis, `4` $\rightarrow$ `+2` Powertrain), `4` Electronics slots remain: *Chameleon Coating 4* (`2` slots, *DC*, p. 138) + *Passive Stealth Features* (`1` slot, *DC*, p. 139) + *Increased Sensors 1* (`1` slot, *DC*, p. 142; 3-function core Sensor `3` Array: Camera [Image Link], Omni Mic [Sound Link], Motion Ultrasound) = `4/4`, alongside utility/RP olfactory, oral chemical, low-light, flare comp, and tactile sensors.
 4. **Hardpoints ($\lfloor 10 / 3 \rfloor = 3$) & Right Cyberarm (`[8]/[8]` Cap)**: 1 Stock Weapon Mount (*DC*, p. 117) + 1 Added Weapon Mount (eyes) + 1 Small Drone Rack (abdomen housing Sky Commander); Used Synthetic Right Cyberarm (`8` Capacity, *CRB* pp. 282, 289; 0 drone slots per *DC* p. 131) houses the `[8]` Capacity *Tesla Coil* (*Body Shop*, p. 49).
 
 ### Vector Thrust Flight Telemetry
@@ -236,7 +237,7 @@ $$\text{Distance Traveled (m)} = \text{Starting Speed} + \frac{1}{2}(\text{Accel
 
 Base Handling threshold is `4`, reduced to **Effective Threshold `{python} MAA_EFF_HANDLING`** when inhabited via **Pilot Origins** (`-1` Threshold, *Hack & Slash*, p. 119). Every full **Speed Interval (`50 m/round`)** passed inflicts a cumulative **`-1` dice pool penalty** on Piloting tests and vehicle-mounted attacks (*SR6 Core*, p. 199).
 
-| Combat Round | Standard Mode (`ACC 41 m/rnd`)<br>Start $\rightarrow$ End Speed (Dist / Total) | Standard<br>Threshold & Penalty | Nitro Boost Mode (`ACC 82 m/rnd`, Wild Die)<br>Start $\rightarrow$ End Speed (Dist / Total) | Nitro Boost<br>Threshold & Penalty |
+| Combat Round | Standard Mode (`ACC 41 m/rnd`)<br>Start $\rightarrow$ End Speed (Dist / Total) | Standard<br>Threshold & Penalty | Nitro Boost *(Narrative / RP Only — Inactive at Table, `ACC 82 m/rnd`)*<br>Start $\rightarrow$ End Speed (Dist / Total) | Nitro Boost *(RP)*<br>Threshold & Penalty |
 | :---: | :--- | :---: | :--- | :---: |
 | **Round 1** | $0 \rightarrow \mathbf{41}$ ($20.5\text{m}$ / $20.5\text{m}$)<br>*(49.2 km/h / 30.6 mph)* | Thresh 3 *(4-1)*<br>**-0 Dice** | $0 \rightarrow \mathbf{82}$ ($41.0\text{m}$ / $41.0\text{m}$)<br>*(98.4 km/h / 61.1 mph)* | Thresh 3 *(4-1)*<br>**-0 Dice** *(1 Wild)* |
 | **Round 2** | $41 \rightarrow \mathbf{82}$ ($61.5\text{m}$ / $82.0\text{m}$)<br>*(98.4 km/h / 61.1 mph)* | Thresh 3<br>**-0 Dice** | $82 \rightarrow \mathbf{164}$ ($123.0\text{m}$ / $164.0\text{m}$)<br>*(196.8 km/h / 122.3 mph)* | Thresh 3<br>**-1 Die** *(1 Wild)* |

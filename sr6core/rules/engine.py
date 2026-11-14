@@ -289,7 +289,16 @@ def get_drone_statblock_table(char_id: str, drone_identifier: str) -> str:
         f"| **Body (BOD)** | **{profile['augmented_body']}** | Base {profile['base_body']} + Modifications |",
         f"| **Armor (ARM)** | **{profile['augmented_armor']}** | Base {profile['base_armor']} + Armor Increase / Ballistics Suite |",
         f"| **Pilot (PLT)** | **{profile['pilot_str']}** | Base {profile['base_pilot']} | Override when inhabited |",
-        f"| **Sensor (SEN)** | **{profile['sensor_str']}** | Base {profile['base_sensor']} + Enhanced Sensors (Rating 4) + Home Device (+1) + Sensor Upgrade (+1) |"
+        (
+            f"| **Sensor (SEN)** | **{profile['sensor_str']}** | "
+            + (
+                f"Base {profile['base_sensor']} + Enhanced Sensors (Rating {profile['hardware_sensor']})"
+                if profile["hardware_sensor"] > profile["base_sensor"]
+                else f"Base {profile['base_sensor']}"
+            )
+            + (" + Home Device (+1)" if profile.get("is_home_device") else "")
+            + " + Sensor Upgrade (+1) |"
+        )
     ]
     if profile.get("mobility_str"):
         rows.append(f"| **Propulsion Modes** | **{profile['mobility_str']}** | Secondary & Special Propulsion Profiles |")
@@ -1426,11 +1435,16 @@ def get_multi_modifier_interactions(char_id: str, threshold: int = 2) -> List[Di
             primary_drone = next((d for d in drones if isinstance(d, dict) and any(k in d.get("name", "").lower() for k in ["man-at-arms", "butler"])), None)
             if primary_drone:
                 dp = calculate_drone_action_pools(data, primary_drone, mode="inhabited_override")
+                p_prof = parse_vehicle_modifications(primary_drone, char_data=data)
+                hw_s = p_prof["hardware_sensor"]
+                aug_s = p_prof["augmented_sensor"]
+                enl_s = p_prof["enlightened_sensor"]
+                enl_delta = enl_s - aug_s
                 drone_mods = [
                     {"source": "Inhabited Override + Designer", "value": f"Pilot {res_val + 1}", "type": "override", "notes": f"Override substitutes Resonance ({res_val}) for Pilot + Designer Home Device (+1) = {res_val + 1}", "rule_anchor": "rules/rules_and_downtime.html#shiawase-man-at-arms"},
                     {"source": "Pilot Origins (Control Rig R1 Equiv.)", "value": "+1d6 / -1 Thresh", "type": "quality", "notes": "Grants +1 dice pool on inhabited vehicle/drone tests and reduces all vehicle test thresholds by 1 (H&S p. 119)", "rule_anchor": "rules/rules_and_downtime.html#shiawase-man-at-arms"},
                     {"source": "Resonance Focus R4 + Taz", "value": "+4 Focus / +3–4 Taz", "type": "focus", "notes": "Focus applies on Resonance-linked tests; Taz adds +4 Symbiosis (+3 Diagnosis on Piloting)", "rule_anchor": "rules/rules_and_downtime.html#shiawase-man-at-arms"},
-                    {"source": "Sensor Upgrade + Home Device + Enlighten", "value": "Sensor 6 (8)", "type": "sensor", "notes": "Hardware 4 (Medium Drone max) + Sensor Upgrade (+1) + Home Device (+1) = 6; Enlighten Automaton (+2, 1 sprite task/scene) = 8", "rule_anchor": "rules/rules_and_downtime.html#shiawase-man-at-arms"}
+                    {"source": "Sensor Upgrade + Home Device + Enlighten", "value": f"Sensor {aug_s} ({enl_s})", "type": "sensor", "notes": f"Hardware {hw_s} + Sensor Upgrade (+1) + Home Device (+1) = {aug_s}; Enlighten Automaton (+{enl_delta}, 1 sprite task/scene) = {enl_s}", "rule_anchor": "rules/rules_and_downtime.html#shiawase-man-at-arms"}
                 ]
                 if len(drone_mods) > threshold:
                     results.append({
@@ -1440,7 +1454,7 @@ def get_multi_modifier_interactions(char_id: str, threshold: int = 2) -> List[Di
                         "base_summary": dp["piloting"]["breakdown"],
                         "modifiers": drone_mods,
                         "stacking_legality": "Pilot Origins (+1 dice pool, -1 threshold), Designer (+1 Pilot, +4 Device Rating), Home Device (+1 Sensor), and Sensor Upgrade (+1 Sensor) operate on distinct vehicle attributes and test modifiers.",
-                        "operational_constraints": "Enlighten Automaton (+2 Sensor) requires 1 sprite task per combat scene to sustain; the commanding Minor Action is refunded by Sprite Link (H&S p. 69).",
+                        "operational_constraints": f"Enlighten Automaton (+{enl_delta} Sensor) requires 1 sprite task per combat scene to sustain; the commanding Minor Action is refunded by Sprite Link (H&S p. 69).",
                         "count": len(drone_mods)
                     })
 

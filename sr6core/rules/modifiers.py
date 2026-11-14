@@ -899,6 +899,7 @@ class ModifierEngine:
 
         hacking_spec_bonus = _get_spec_bonus(cracking_rec, "hacking")
         software_spec_bonus = _get_spec_bonus(electronics_rec, "software")
+        cf_spec_bonus = _get_spec_bonus(electronics_rec, "complex forms")
 
         if "monad" in mortype or res == 0:
             # Monad Living Persona Matrix Pools (No Resonance, Focus, Overclock, or Sprite Allies)
@@ -1054,7 +1055,8 @@ class ModifierEngine:
         e_attr_soft = PoolComponent("Resonance", res, "attribute", [
             PoolModifier("attribute:resonance", "focus", "Focus", focus_bonus, is_srm_capped=True)
         ])
-        s_spec = PoolModifier("skill:electronics", "specialization", "Software", software_spec_bonus or 2)
+        s_spec_type = "expertise" if (software_spec_bonus == 3) else "specialization"
+        s_spec = PoolModifier("skill:electronics", s_spec_type, "Software", software_spec_bonus or 2)
         electronics_soft_opt = PoolOptimization(
             name="Electronics: Software Tests",
             components=[e_skill_soft, e_attr_soft],
@@ -1086,11 +1088,27 @@ class ModifierEngine:
         e_attr_cf = PoolComponent("Resonance", res, "attribute", [
             PoolModifier("attribute:resonance", "focus", "Focus", focus_bonus, is_srm_capped=True)
         ])
+        cf_spec = (
+            PoolModifier(
+                "skill:electronics",
+                "expertise" if cf_spec_bonus == 3 else "specialization",
+                "Complex Forms",
+                cf_spec_bonus,
+            )
+            if cf_spec_bonus > 0
+            else None
+        )
+        cf_notes = (
+            "Resonance Action (No Overclock/PA; Electronics: Complex Forms specialization active)"
+            if cf_spec_bonus > 0
+            else "Resonance Action (No Overclock/PA; +2 Complex Forms Spec reaches 24d6 / 6 Hits)"
+        )
         complex_forms_opt = PoolOptimization(
             name="Complex Forms (Threading)",
             components=[e_skill_cf, e_attr_cf],
+            specialization=cf_spec,
             teamwork=PoolModifier("skill:electronics", "teamwork", "Taz Teamwork", 4),
-            notes="Resonance Action (No Overclock/PA; +2 Complex Forms Spec reaches 24d6 / 6 Hits)"
+            notes=cf_notes
         )
 
         e_skill_buy = PoolComponent("Electronics", e_skill_val, "skill")
@@ -1115,7 +1133,7 @@ class ModifierEngine:
         programming_opt = PoolOptimization(
             name="Programming / Coding Tests",
             components=[e_skill_prog, e_attr_prog],
-            specialization=PoolModifier("skill:electronics", "specialization", "Software", 2),
+            specialization=PoolModifier("skill:electronics", s_spec_type, "Software", software_spec_bonus or 2),
             teamwork=PoolModifier("skill:electronics", "teamwork", "Ally Teamwork", 4),
             tactical_modifiers=[
                 PoolModifier("test:matrix", "tactical", "Overclock", 2)

@@ -545,10 +545,9 @@ Submersion_Grade = state["Submersion_Grade"]
 * **Downtime Actions (Converted 1 Major -> 2 Minors; 2 Minors Total):**
   * *Minor Action 1 (Work for the People):* `{python} work_for_the_people()`
   * *Minor Action 2 (Repair & Modify Drone — Shiawase Man-at-Arms):* Routine chassis maintenance, sensor calibration, and structural checks following Arcology direct connection.
-* **Character Advancement & Ally Sprite Training:**
-  * *Taz Skill Training (Con):* `{python} inc('Karma', -4)` Spent 4 Karma to teach ally sprite Taz the Con skill (*Hack and Slash*, p. 156: adding a non-matrix skill to an existing ally sprite costs $2 \times 2 = 4\text{ Karma}$). Taz (Level 7) grants a teamwork bonus of up to +4 dice, dynamically clamped to Reiko's underlying Con rating (*SR6 Core*, p. 17; currently +1 die with Con 1).
+* **Ally Sprite Training:**
+  * *Taz Skill Training (Con):* `{python} inc('Karma', -4)` Spent 4 Karma to teach ally sprite Taz the Con skill (*Hack and Slash*, p. 156: adding a non-matrix skill to an existing ally sprite costs $2 \times 2 = 4\text{ Karma}$), enabling Cleo to share Con via Hybrid Sprites upon registration and granting a teamwork bonus dynamically clamped to Reiko's underlying Con rating (*SR6 Core*, p. 17; +1 die with Con 1).
   * `{python} modifier('Taz Symbiosis (Con)', 'skill:con', 4, type='teamwork', rule_anchor='rules_sprites.html#sprite-symbiosis-powers', notes='Taz Level 7 teamwork bonus (up to +4, dynamically clamped to Reiko Con rating)')`
-  * *Con Specialization (Disguise):* `{python} inc('Karma', -5)` Acquired Disguise specialization for Con (+2 dice to disguise and physical masquerade tests).
 
 ---
 
@@ -589,9 +588,6 @@ Submersion_Grade = state["Submersion_Grade"]
     * Compiled and registered Level 8 Defender Sprite (buying hits).
   * *Minor Action 3 (Register Sprites — Cleo):* `{python} add_sprite("Modular", 8, name="Cleo", details="The Market / Cookie (Modular), Con, Influence", tasks=3)`
     * Compiled and registered Level 8 Modular Sprite with Cookie power (buying hits).
-* **Character Advancement:**
-  * *Con (Rank 1 -> 2):* `{python} inc('Karma', -10)`
-    * Elevated Con from Rank 1 to 2. Uncaps ally sprite Taz's teamwork bonus on Con/Disguise tests from +1 to +2 dice, raising Reiko's active Disguise pool to 10d6 (2 Con + 4 CHA + 2 Spec + 2 Taz).
 
 ---
 
@@ -735,6 +731,8 @@ Submersion_Grade = state["Submersion_Grade"]
     * 2,000¥ donated toward sustaining her sanctuary and children in Kernel Panic / Glade (Hooder), converting to +1 Karma.
 * **Advancement Between Runs (Zero Action Cost):**
   * *Attribute Advancement (Resonance 8 -> 9):* `{python} inc_many(('Karma', -45), ('Resonance', 1))`
+  * *Electronics Expertise (Software):* `{python} inc('Karma', -5)` Upgraded Electronics (`Software`) from `+2` Specialization to `+3` Expertise (*SR6 Core*, pp. 69, 92), unlocking a second specialization slot on Electronics.
+  * *Electronics Specialization (Complex Forms):* `{python} inc('Karma', -5)` Acquired `Complex Forms` specialization (`+2` dice to Electronics-linked complex forms per *SRMG v2.4*, p. 31), raising Complex Forms threading from `22d6` (`5` bought hits) to **`24d6` (`6` bought hits)**.
   * *Qualities Acquired (Dissonant Technomancer):* `{python} inc('Karma', -30)`
     * Acquired **Dissonant Technomancer (Control)** (30 Karma post-chargen; *Shadow Cast* pp. 84–85; *SRMG* p. 37). Preferred target category: Devices. Edge Boosts cost 1 less on Matrix actions and complex forms targeting devices, adds a wild die, reduces fading by wild hits. *(Note: Dissonance Stigma roleplayed diegetically as the cold, unmistakable static of point zero without taking the mechanical negative quality).*
 * **In-Session Downtime (Zero Downtime Action Cost):**

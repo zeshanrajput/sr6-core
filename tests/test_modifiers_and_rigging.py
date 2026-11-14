@@ -333,7 +333,7 @@ def test_matrix_action_table_renderer():
     assert "**41d6**" in table_md
     assert "**10 Hits**" in table_md
     assert "**Complex Forms (Threading)**" in table_md
-    assert "**22d6**" in table_md
+    assert "**24d6**" in table_md
     assert "Ally Teamwork (+4)" in table_md
 
 
@@ -346,9 +346,9 @@ def test_reiko_pilot_origins_drone_pools():
     assert pools["piloting"]["pool"] == 25
     assert "Pilot Origins 1" in pools["piloting"]["breakdown"]
     assert "(-1 Threshold)" in pools["piloting"]["breakdown"]
-    assert pools["gunnery"]["pool"] == 19
+    assert pools["gunnery"]["pool"] == 18
     assert pools["evasion"]["pool"] == 26
-    assert pools["perception"]["pool"] == 18
+    assert pools["perception"]["pool"] == 17
     assert pools["stealth"]["pool"] == 28
 
 

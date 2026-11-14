@@ -225,14 +225,15 @@ class PurchasesSyncEngine:
                         "notes": f"Rating {rating} activesoft synced from purchases.qmd. Runs on Skillwires R6 with Wireless-ON (+1) for {rating + 1} effective skill dice."
                     })
 
-            # In Skill Specialization entries
-            m_spec = re.search(r'\*\*\s*([A-Za-z]+)\s+Specialization\s*\((.*?)\)\s*:\s*\*\*', stripped)
+            # In Skill Specialization & Expertise entries
+            m_spec = re.search(r'\*\*\s*([A-Za-z]+)\s+(Specialization|Expertise)\s*\((.*?)\)\s*:\s*\*\*', stripped, re.IGNORECASE)
             if m_spec:
                 if 'specializations' not in locals():
                     specializations = []
                 specializations.append({
                     "skill": m_spec.group(1).strip(),
-                    "specialization": m_spec.group(2).strip()
+                    "specialization": m_spec.group(3).strip(),
+                    "expertise": m_spec.group(2).strip().lower() == "expertise"
                 })
 
             # In Skill Rank entries (e.g. **Con (Rank 2):** or **Con Rank 2:**)
@@ -297,6 +298,63 @@ class PurchasesSyncEngine:
             "skill_ranks": locals().get("skill_ranks", [])
         }
 
+
+    @staticmethod
+    def apply_skill_updates(
+        skills: List[Dict[str, Any]],
+        parsed_specs: List[Dict[str, Any]],
+        parsed_ranks: List[Dict[str, Any]],
+    ) -> List[str]:
+        """Applies parsed skill specializations, expertises, and rank upgrades to a skills list."""
+        changes: List[str] = []
+        for spec_entry in parsed_specs:
+            sk_target = spec_entry.get("skill", "").lower()
+            sp_val = spec_entry.get("specialization", "").strip()
+            is_exp = bool(spec_entry.get("expertise", False))
+            if not sp_val:
+                continue
+            for sk in skills:
+                if sk.get("name", "").lower() != sk_target:
+                    continue
+                curr_specs = list(sk.get("specializations", []))
+                if sk.get("specialization") and sk["specialization"] not in curr_specs and f"{sk['specialization']} (Expertise)" not in curr_specs:
+                    curr_specs.append(sk["specialization"])
+
+                if is_exp:
+                    exp_label = f"{sp_val} (Expertise)"
+                    new_specs = [
+                        s for s in curr_specs
+                        if str(s).strip().lower() not in {sp_val.lower(), exp_label.lower()}
+                    ]
+                    new_specs.insert(0, exp_label)
+                    if new_specs != curr_specs or sk.get("expertise") != sp_val:
+                        sk["specializations"] = new_specs
+                        sk["expertise"] = sp_val
+                        if str(sk.get("specialization", "")).strip().lower() == sp_val.lower():
+                            sk.pop("specialization", None)
+                        changes.append(f"Upgraded Expertise '{sp_val}' on skill '{sk['name']}'")
+                else:
+                    already = any(
+                        re.sub(r'\s*\(expertise\)', '', str(s), flags=re.IGNORECASE).strip().lower() == sp_val.lower()
+                        for s in curr_specs
+                    )
+                    if not already:
+                        curr_specs.append(sp_val)
+                        sk["specializations"] = curr_specs
+                        changes.append(f"Added Specialization '{sp_val}' to skill '{sk['name']}'")
+                    if not sk.get("specialization") and str(sk.get("expertise", "")).strip().lower() != sp_val.lower():
+                        sk["specialization"] = sp_val
+
+        for rank_entry in parsed_ranks:
+            sk_target = rank_entry.get("skill", "").lower()
+            r_val = rank_entry.get("rating", 1)
+            for sk in skills:
+                if sk.get("name", "").lower() == sk_target:
+                    old_r = sk.get("rating", 1)
+                    if old_r != r_val:
+                        sk["rating"] = r_val
+                        changes.append(f"Updated skill '{sk['name']}' rating from {old_r} to {r_val}")
+        return changes
 
     @classmethod
     def sync_character_purchases(cls, char_id: str) -> Dict[str, Any]:
@@ -386,38 +444,14 @@ class PurchasesSyncEngine:
                 data["activesofts"] = parsed_activesofts
                 changes.append(f"Updated Activesofts from purchases.qmd ({len(parsed_activesofts)} softs synced)")
 
-        # 4. Sync Skill Specializations
-        parsed_specs = parsed.get("specializations", [])
-        if parsed_specs:
-            skills = data.get("skills", [])
-            for spec_entry in parsed_specs:
-                sk_target = spec_entry.get("skill", "").lower()
-                sp_val = spec_entry.get("specialization", "").strip()
-                for sk in skills:
-                    if sk.get("name", "").lower() == sk_target:
-                        curr_specs = list(sk.get("specializations", []))
-                        if sk.get("specialization") and sk["specialization"] not in curr_specs:
-                            curr_specs.append(sk["specialization"])
-                        if sp_val not in curr_specs:
-                            curr_specs.append(sp_val)
-                            sk["specializations"] = curr_specs
-                            changes.append(f"Added Specialization '{sp_val}' to skill '{sk['name']}'")
-                        if not sk.get("specialization"):
-                            sk["specialization"] = sp_val
-
-        # 4b. Sync Skill Ranks
-        parsed_ranks = parsed.get("skill_ranks", [])
-        if parsed_ranks:
-            skills = data.get("skills", [])
-            for rank_entry in parsed_ranks:
-                sk_target = rank_entry.get("skill", "").lower()
-                r_val = rank_entry.get("rating", 1)
-                for sk in skills:
-                    if sk.get("name", "").lower() == sk_target:
-                        old_r = sk.get("rating", 1)
-                        if old_r != r_val:
-                            sk["rating"] = r_val
-                            changes.append(f"Updated skill '{sk['name']}' rating from {old_r} to {r_val}")
+        # 4 & 4b. Sync Skill Specializations, Expertises & Ranks
+        changes.extend(
+            cls.apply_skill_updates(
+                data.get("skills", []),
+                parsed.get("specializations", []),
+                parsed.get("skill_ranks", []),
+            )
+        )
 
         # 5. Sync Qualities
         parsed_qualities = parsed.get("qualities", [])

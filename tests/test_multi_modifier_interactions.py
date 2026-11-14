@@ -113,9 +113,9 @@ def test_multi_modifier_interactions_reiko():
     assert rf_mod["type"] == "focus"
     assert "rules_matrix.html#foci" in rf_mod["rule_anchor"]
 
-    # Check Electronics pool details (22d6)
+    # Check Electronics pool details (27d6 Software / 24d6 Matrix / 24d6 Complex Forms)
     el = next(i for i in interactions if "Electronics" in i["name"])
-    assert "22d6" in el["total_pool"]
+    assert "24d6 Complex Forms" in el["total_pool"]
     el_sources = [m["source"] for m in el["modifiers"]]
     assert any("Resonance Focus" in s for s in el_sources)
 
@@ -125,6 +125,6 @@ def test_multi_modifier_interactions_reiko():
     assert "Automated Multi-Modifier Audit" in rendered
     assert "Cracking" in rendered
     assert "Resonance Focus" in rendered
-    assert "22d6" in rendered
+    assert "24d6" in rendered
 
 

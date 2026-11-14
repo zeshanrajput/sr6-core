@@ -8,9 +8,9 @@ identity:
   gender: DIVERSE
   age: ~ 10
   system: shadowrun6e
-  karma: 0
+  karma: 5
   lifetime_karma: 333
-  nuyen: 25600.0
+  nuyen: 28100.0
   lifetime_nuyen: 505200
   heat: -1
   submersion: 9
@@ -68,13 +68,17 @@ skills:
   attribute: Logic
   rating: 5
   specialization: Hacking
+  specializations:
+  - Hacking
 - name: Electronics
   id: electronics
   attribute: Logic
   rating: 5
-  specialization: Software
   specializations:
-  - Software
+  - Software (Expertise)
+  - Complex Forms
+  expertise: Software
+  specialization: Complex Forms
 - name: Influence
   id: influence
   attribute: Charisma
@@ -82,10 +86,7 @@ skills:
 - name: Con
   id: con
   attribute: Charisma
-  rating: 2
-  specialization: Disguise
-  specializations:
-  - Disguise
+  rating: 1
 - name: Native Language
   id: language
   attribute: Logic
@@ -1773,20 +1774,21 @@ drones:
   - Top Speed Increase (3 Ranks)
   - Increases Top Speed by +60% (from 300 to 480 / 576 km/h / ~358 mph; Double Clutch
     p. 138, DIY 50%)
-  - Nitro Boost
-  - Increased Sensors 2
-  - Camera w/ image link
-  - Low-light Vision
-  - Omni-directional mic with sound link
-  - Flare compensation
-  - Ultrasound
-  - Olfactory Sensor
-  - Oral chemical analyzer
-  - Tactile Sensors (from the EVO Orderly, DA p. 178. Taken for RP purposes only -
-    I will not be using the Biotech bonus)
+  - Nitro Boost (lateral thigh cyberleg cells; taken for narrative/RP purposes only
+    - not used at the table)
+  - Increased Sensors 1
   - Hydrocarbon Fuel Converter
   - Satellite Link
   - Laser Jack
+  - Camera w/ image link (Sensor 3 Array)
+  - Omni-directional mic with sound link (Sensor 3 Array)
+  - Ultrasound (Sensor 3 Array)
+  - Low-light Vision (Utility / RP sensor)
+  - Flare compensation (Utility / RP sensor)
+  - Olfactory Sensor (Utility / RP sensor)
+  - Oral chemical analyzer (Utility / RP sensor)
+  - Tactile Sensors (from the EVO Orderly, DA p. 178. Taken for RP purposes only -
+    I will not be using the Biotech bonus)
 weapons:
   ranged:
   - name: Red Fox Array (2x Link-Fired)

@@ -1560,7 +1560,10 @@ def build_roll20_payload(
             if isinstance(sp, dict):
                 _add_spec(str(sp.get("name", "")), bool(sp.get("expertise", False)))
             else:
-                _add_spec(str(sp), False)
+                sp_str = str(sp)
+                is_exp = "expertise" in sp_str.lower()
+                sp_clean = re.sub(r'\s*\(expertise\)', '', sp_str, flags=re.IGNORECASE).strip()
+                _add_spec(sp_clean, is_exp)
 
         inf_list = list(skill_influences.get(r20_skill_id, []))
         skills_list.append(

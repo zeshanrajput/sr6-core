@@ -64,11 +64,11 @@ def test_full_compiler_sync_and_mobile_export():
             maa = next((d for d in mobile_doc["drones"] if "man-at-arms" in d["name"].lower()), None)
             assert maa is not None
             assert maa["body"] == 15
-            assert maa["sensor"] == 6
+            assert maa["sensor"] == 5
             assert maa["enlightened_sensor"] == 8
-            assert any("increased sensors 2" in m.lower() for m in maa["modifications"])
-            assert maa["rigged_pools"]["gunnery"]["pool"] == 19
-            assert maa["rigged_pools"]["perception"]["pool"] == 18
+            assert any("increased sensors 1" in m.lower() for m in maa["modifications"])
+            assert maa["rigged_pools"]["gunnery"]["pool"] == 18
+            assert maa["rigged_pools"]["perception"]["pool"] == 17
 
 
 def test_multiple_specializations_compilation_and_export():
@@ -84,7 +84,12 @@ def test_multiple_specializations_compilation_and_export():
     assert "compiling" in [sp.lower() for sp in skills_map["tasking"].get("specializations", [])]
 
     assert "electronics" in skills_map
-    assert "software" in [sp.lower() for sp in skills_map["electronics"].get("specializations", [])]
+    elec_specs_lower = [sp.lower() for sp in skills_map["electronics"].get("specializations", [])]
+    assert any("software" in sp for sp in elec_specs_lower)
+    assert "complex forms" in elec_specs_lower
+    assert "con" in skills_map
+    assert skills_map["con"]["rating"] == 1
+    assert not skills_map["con"].get("specializations")
 
     # Check mobile json export
     repo_dir = cm.get_character_repo_dir("reiko")
@@ -101,7 +106,8 @@ def test_multiple_specializations_compilation_and_export():
 
     elec_entry = compiled_skills.get("electronics")
     assert elec_entry is not None
-    assert len(elec_entry["specializations"]) >= 1
+    assert len(elec_entry["specializations"]) >= 2
     elec_buff_sources = [b["source"].lower() for b in elec_entry.get("buffs", [])]
     assert any("software" in src for src in elec_buff_sources)
+    assert any("complex forms" in src for src in elec_buff_sources)
 

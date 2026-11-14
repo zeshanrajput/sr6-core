@@ -54,7 +54,8 @@ def test_quick_sheet_multiple_specializations_rendered(char_manager):
     sheet = char_manager.export_character("reiko", fmt="quick_sheet")
     assert "-- Registering: 21d6" in sheet
     assert "-- Compiling: 21d6" in sheet
-    assert "-- Software: 24d6" in sheet
+    assert "-- Software (Expertise): 25d6" in sheet
+    assert "-- Complex Forms: 24d6" in sheet
 
 
 def test_quick_sheet_karma_and_nuyen_values(char_manager):

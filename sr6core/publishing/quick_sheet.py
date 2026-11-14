@@ -275,7 +275,9 @@ def export_quick_sheet(
 
         block = [f"{s_name}: (R{s_rtg}, {s_buff}d6)"]
         for spec_item in specs:
-            block.append(f"  -- {spec_item}: {s_spec_pool}d6")
+            is_exp = "expertise" in str(spec_item).lower()
+            item_pool = (s_buff + 3) if is_exp else s_spec_pool
+            block.append(f"  -- {spec_item}: {item_pool}d6")
         skill_blocks.append(block)
 
     left_lines: List[str] = []

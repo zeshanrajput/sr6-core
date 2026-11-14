@@ -183,15 +183,19 @@ def test_explicit_shift_override():
 
 def test_reiko_man_at_arms_complete_accounting():
     """
-    Comprehensive verification of Reiko's Shiawase Man-at-Arms:
+    Comprehensive verification of Reiko's Shiawase Man-at-Arms (Option C+):
       - Unmodified Body: 10
       - Chassis (11 slots used): Structural Integrity 5 (5), Realistic Features 4 (4),
         Pop-Out Concealment x2 (2), Used Synthetic Cyberarm (0 per SRM).
-      - Powertrain (6 or 8 slots used): Rotor (4), Wheeled (2), (Nitro Boost 2).
-      - Electronic (4 slots used): Chameleon Coating (2), Increased Sensors 2 (2).
+      - Powertrain (12 slots used): Secondary Propulsion: Vector Thrust (5),
+        Improved Acceleration 2 (2), Top Speed Increase 3 (3), Hydrocarbon Fuel Converter (2).
+        (Thigh Nitro Boost is marked RP-only and consumes 0 active slots.)
+      - Electronic (4 slots used): Chameleon Coating 4 (2), Passive Stealth Features (1),
+        Increased Sensors 1 (1).
       - Hardpoints: 3/3 Standard used (2 Weapon Mounts + 1 Drone Rack).
       - Right Cyberarm: 8/8 Capacity used (Tesla Coil).
-      - Least-used conversion: Pulls 2 slots from Electronic (spare 6 > spare 2/4) @ 2:1 -> +1 Chassis.
+      - Auto 2:1 shifts from Electronic: 2 -> +1 Chassis (11/11), 4 -> +2 Powertrain (12/12),
+        leaving Electronic at 4/4 (100% allocated).
     """
     cm = CharacterManager()
     char = cm.load_character("reiko")
@@ -208,24 +212,28 @@ def test_reiko_man_at_arms_complete_accounting():
     assert slots["unmodified_body"] == 10
     assert slots["is_anthro"] is True
 
-    # Check raw used slots
+    # Check raw used slots (Option C+)
     assert slots["raw_used"]["chassis"] == 11
-    assert slots["raw_used"]["powertrain"] in [6, 7, 8]
+    assert slots["raw_used"]["powertrain"] == 12
     assert slots["raw_used"]["electronic"] == 4
 
-    # Check auto 2:1 shift
-    # Deficit of 1 in Chassis is filled by pulling 2 slots from Electronic (least-used resource)
-    assert len(slots["shifts"]) >= 1
-    s0 = slots["shifts"][0]
+    # Check auto 2:1 shifts from Electronic -> Chassis (+1) and Powertrain (+2)
+    assert len(slots["shifts"]) == 2
+    s0, s1 = slots["shifts"][0], slots["shifts"][1]
     assert s0["to"] == "chassis"
     assert s0["slots_gained"] == 1
     assert s0["slots_spent"] == 2
+    assert s1["to"] == "powertrain"
+    assert s1["slots_gained"] == 2
+    assert s1["slots_spent"] == 4
 
     # Check effective capacity and legality
     assert slots["effective_cap"]["chassis"] == 11
+    assert slots["effective_cap"]["powertrain"] == 12
+    assert slots["effective_cap"]["electronic"] == 4
     assert slots["remaining"]["chassis"] == 0
-    assert slots["remaining"]["powertrain"] >= 0
-    assert slots["remaining"]["electronic"] >= 0
+    assert slots["remaining"]["powertrain"] == 0
+    assert slots["remaining"]["electronic"] == 0
     assert slots["is_legal"] is True
 
     # Check Hardpoints
@@ -264,14 +272,70 @@ def test_drone_statblock_table_rendering():
     assert "Realistic Features" in table_md
     assert "Pop-Out Concealment" in table_md
     assert "Secondary Propulsion (Vector Thrust / LAV)" in table_md
-    assert "Nitro Boost" in table_md
+    assert "Improved Acceleration (2 Ranks)" in table_md
+    assert "Top Speed Increase (3 Ranks)" in table_md
+    assert "Hydrocarbon Fuel Converter" in table_md
     assert "Chameleon Coating" in table_md
-    assert "Increased Sensors" in table_md
+    assert "Passive Stealth Features" in table_md
     assert "Drone Rack (Small)" in table_md
 
     # Check cyberlimb row
     assert "Used Synthetic Cyberarm (Right" in table_md
     assert "Tesla Coil (8 Capacity, 5S(e) Spray 20m)" in table_md
+
+
+def test_secondary_propulsion_and_powertrain_slot_accounting():
+    """
+    Verifies Double Clutch secondary propulsion slot accounting:
+      - Secondary Propulsion costs 5 Powertrain slots (grants 0 internal slots).
+      - Improved Acceleration 2 (2) + Top Speed Increase 3 (3) + HFC (2) + Nitro Boost (2)
+        are charged to Powertrain (total 14 slots -> over budget on Body 10 without shifts).
+      - Vector Thrust profile dynamically scales Acc and Top Speed with installed ranks.
+    """
+    base_vt_drone = {
+        "name": "Stock VT",
+        "body": 10,
+        "modifications": ["Secondary Propulsion (Vector Thrust / LAV)"]
+    }
+    base_prof = parse_vehicle_modifications(base_vt_drone)
+    assert "Vector Thrust (LAV): Han 4, Acc 25, SPD 50/300" in base_prof["mobility_str"]
+
+    overloaded_drone = {
+        "name": "Overloaded VT",
+        "body": 10,
+        "modifications": [
+            "Secondary Propulsion (Vector Thrust / LAV)",
+            "Improved Acceleration (2 Ranks)",
+            "Top Speed Increase (3 Ranks)",
+            "Hydrocarbon Fuel Converter",
+            "Nitro Boost",
+        ]
+    }
+    over_slots = calculate_vehicle_mod_slots(overloaded_drone)
+    assert over_slots["raw_used"]["powertrain"] == 14
+    assert over_slots["effective_cap"]["powertrain"] == 14  # covers 4-slot deficit via 2:1 shift of 8 slots
+    assert over_slots["is_legal"] is True
+
+    overloaded_full_other = {
+        "name": "Overloaded Full Chassis/Elec",
+        "body": 10,
+        "modifications": [
+            "Increased Structural Integrity 5",
+            "Realistic Features 4",
+            "Pop-Out Concealment x2",
+            "Chameleon Coating 4",
+            "Passive Stealth Features",
+            "Secondary Propulsion (Vector Thrust / LAV)",
+            "Improved Acceleration (2 Ranks)",
+            "Top Speed Increase (3 Ranks)",
+            "Hydrocarbon Fuel Converter",
+            "Nitro Boost",
+        ]
+    }
+    full_slots = calculate_vehicle_mod_slots(overloaded_full_other)
+    assert full_slots["raw_used"]["powertrain"] == 14
+    assert full_slots["remaining"]["powertrain"] < 0
+    assert full_slots["is_legal"] is False
 
 
 def test_gnat_stock_realistic_features_and_omits_mod_table():

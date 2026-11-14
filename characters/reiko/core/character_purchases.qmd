@@ -128,20 +128,20 @@ Software with karma costs have been learned via the **Software Emulator** echo.
     * Increases combat Acceleration by +60% (from 25 to 41 m/round / 49.2 km/h; Double Clutch p. 134, DIY 50%)
   * Top Speed Increase (3 Ranks): `{python} inc('Nuyen', -24000/2)`
     * Increases Top Speed by +60% (from 300 to 480 / 576 km/h / ~358 mph; Double Clutch p. 138, DIY 50%)
-  * Nitro Boost: `{python} inc('Nuyen',-5000/2)` 
-  * Increased Sensors 2 `{python} inc('Nuyen', -10000/2)`
-    * Camera w/ image link
-    * Low-light Vision
-    * Omni-directional mic with sound link
-    * Flare compensation
-    * Ultrasound
-    * Olfactory Sensor
-    * Oral chemical analyzer
-    * Tactile Sensors (from the EVO Orderly, DA p. 178. Taken for RP purposes only - I will not be using the Biotech bonus)
+  * Nitro Boost (lateral thigh cyberleg cells; taken for narrative/RP purposes only - not used at the table): `{python} inc('Nuyen', -5000/2)`
+  * Increased Sensors 1 `{python} inc('Nuyen', -5000/2)`
   * Hydrocarbon Fuel Converter `{python} inc('Nuyen', -15000/2)`
   * Accessories
     * Satellite Link
     * Laser Jack
+    * Camera w/ image link *(Sensor 3 Array)*
+    * Omni-directional mic with sound link *(Sensor 3 Array)*
+    * Ultrasound *(Sensor 3 Array)*
+    * Low-light Vision *(Utility / RP sensor)*
+    * Flare compensation *(Utility / RP sensor)*
+    * Olfactory Sensor *(Utility / RP sensor)*
+    * Oral chemical analyzer *(Utility / RP sensor)*
+    * Tactile Sensors (from the EVO Orderly, DA p. 178. Taken for RP purposes only - I will not be using the Biotech bonus)
 
 * Federated-Boeing Sky Commander `{python} inc('Nuyen', -12500)`
   * Drone Bay (Micro/Mini) `{python} inc('Nuyen', -1000/2)`
@@ -159,7 +159,7 @@ Software with karma costs have been learned via the **Software Emulator** echo.
 
 Drone mods include a 50% discount on mods Yuriko installed herself (DC p. 120). Shiawase drones include a 10% discount (Smile for the Camera!).
 
-Under *Double Clutch* p. 123–124, the Man-At-Arms receives 3 free Standard Hardpoints ($\lfloor\text{Body}/3\rfloor = 3$), accommodating both Red Fox weapon mounts and the Small Drone Rack with zero added hardpoints. Mod slot balance: 2 unused Electronics slots are permanently shifted to +1 Chassis slot at a 2:1 ratio (DC p. 120), providing 11 Chassis slots (Structural Integrity 5 + Realistic Features 4 + Pop-Out 2 = 11), with 9/10 Powertrain (Vector Thrust 5 + Nitro Boost 2 + HFC 2 = 9, 1 free), and 10/10 Electronics slots (Chameleon Coating 2 + Passive Stealth 1 + Increased Sensors Array 2 + 2 shifted to Chassis + 3 single sensor expansions per CRB pp. 276–277). Anthroform cyberlimbs are standard equipment per DC p. 131 and consume 0 drone mod slots.
+Under *Double Clutch* p. 123–124, the Man-At-Arms receives 3 free Standard Hardpoints ($\lfloor\text{Body}/3\rfloor = 3$), accommodating both Red Fox weapon mounts and the Small Drone Rack with zero added hardpoints. Mod slot balance (Option C+): 2 Electronics slots are permanently shifted to +1 Chassis slot and 4 Electronics slots are permanently shifted to +2 Powertrain slots at a 2:1 ratio (DC p. 120). That yields **11/11 Chassis** (Structural Integrity 5 + Realistic Features 4 + Pop-Out 2 = 11), **12/12 Powertrain** (Vector Thrust 5 + Improved Acceleration 2 [2, DC p. 134] + Top Speed Increase 3 [3, DC p. 138] + HFC 2 = 12), and **4/4 Electronics** (Chameleon Coating 2 + Passive Stealth 1 + Increased Sensors 1 = 4, 100% allocated). `Nitro Boost` remains installed narratively in the lateral thigh cyberlegs (`BRYNNE` & `CEDAR`) for RP/flavor purposes only (0 Powertrain slots claimed unless audited/reallocated). Anthroform cyberlimbs are standard equipment per DC p. 131 and consume 0 drone mod slots.
 
 ### Electronics
 
@@ -201,9 +201,9 @@ Under *Double Clutch* p. 123–124, the Man-At-Arms receives 3 free Standard Har
 
 ### Skills & Specializations
 
-* **Con Specialization (Disguise):** *5 Karma (SRM 2081-12 Downtime)*
 * **Tasking Specialization (Compiling):** *5 Karma (SRM 2081-13 Advancement)*
-* **Con Rank 2:** *10 Karma (SRM 2083-16 Advancement)*
+* **Electronics Expertise (Software):** *5 Karma (SRM 2083-13 Advancement — upgrades Software from +2 Specialization to +3 Expertise per SR6 Core pp. 69, 92)*
+* **Electronics Specialization (Complex Forms):** *5 Karma (SRM 2083-13 Advancement — +2 dice to Complex Forms threading per SRMG v2.4 p. 31, bringing threading to 24d6 / 6 bought hits)*
 * **Resonance Spike (Complex Form):** *5 Karma (SRM 2081-15 Downtime)*
 * **Data Structure Integration (Oracle R4):** *4 Karma (SRM 2081-15 Downtime)*
 
