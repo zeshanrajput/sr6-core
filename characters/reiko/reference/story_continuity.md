@@ -91,11 +91,11 @@ All narrative outlines, intersession chapters, and character development arcs ad
 | [22 C Sharp.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/22%20C%20Sharp.md) | C Sharp | 1,872 | Verified |
 | [23 Tea with a Ghost.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/23%20Tea%20with%20a%20Ghost.md) | Tea with a Ghost | 1,792 | Verified |
 | [24 Symlink.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/24%20Symlink.md) | Symlink | 1,893 | Verified |
-| [25 DelTree.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/25%20DelTree.md) | DelTree | 2,274 | Verified |
+| [25 DelTree.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/25%20DelTree.md) | DelTree | 2,289 | Verified |
 | [26 SIGTSTP.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/26%20SIGTSTP.md) | SIGTSTP | 2,819 | Verified |
 | [27 Malloc.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/27%20Malloc.md) | Malloc | 3,021 | Verified |
 | [28 Renice.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/28%20Renice.md) | Renice | 1,679 | Verified |
-| [29 Saturation.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/29%20Saturation.md) | Saturation | 1,923 | Verified |
+| [29 Saturation.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/29%20Saturation.md) | Saturation | 1,936 | Verified |
 | [30 Vim.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/30%20Vim.md) | 30. Vim | 1,815 | Verified |
 | [31 Grep.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/31%20Grep.md) | 31. Grep | 2,016 | Verified |
 | [32 Whois.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/32%20Whois.md) | 32. Whois | 3,141 | Verified |
@@ -103,9 +103,9 @@ All narrative outlines, intersession chapters, and character development arcs ad
 | [34 Latency.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/34%20Latency.md) | 34. Latency | 2,943 | Verified |
 | [35 ptrace.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/35%20ptrace.md) | 35. ptrace | 2,129 | Verified |
 | [36 chown.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/36%20chown.md) | 36. chown | 2,090 | Verified |
-| [37 dev-null.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/37%20dev-null.md) | 37. /dev/null | 2,447 | Verified |
+| [37 dev-null.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/37%20dev-null.md) | 37. /dev/null | 2,462 | Verified |
 
-**Total Anthology Word Count:** 71,019 words across 37 chapters.
+**Total Anthology Word Count:** 71,062 words across 37 chapters.
 
 ## Latest Story beats
 

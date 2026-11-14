@@ -22,6 +22,8 @@ As Nagai stepped past her, Reiko reached into the ambient Matrix to map his carr
 
 Reiko carried the cast-iron kettle and two cups of unglazed Bizen stoneware to the table, her steps silent on the cypress planks. She locked her physical posture down to the millimeter, willing the cold porcelain of her face to remain smooth against the dread pooling in her chest. As she tipped the kettle, pouring the pale jade stream, the actuator in her left wrist caught—a fraction-of-a-millimeter shudder as dead nanite slag ground against the titanium gears.
 
+![Reiko serving gyokuro tea in the Coffin Girls convent](../images/archive/r31k0%20-%20tea.webp)
+
 Nagai lifted the warm cup to inspect the iron-rich grain of the clay, his dark eyes crinkling with quiet observation. "Bizen pottery," he remarked softly. "Unglazed, wood-fired for two weeks to let the ash paint the surface. Rare to find such patience in the sprawl. Modern cafes prefer synthetic porcelain that never chips, never stains, and never remembers the fire."
 
 "Imperfection gives the clay its voice, Mr. Nagai," Reiko replied, settling onto the bench opposite him, her hands folded in her lap.

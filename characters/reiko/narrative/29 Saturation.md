@@ -20,6 +20,8 @@ A silk merchant caught the hem of her sleeve, running eager fingers across the d
 
 The courtyard opened into an enclave of profound stillness, paved with dark river stones and enclosed by low cedar lattices. Beyond the open fretwork lay the vast, starlit gulf between Eniac’s foundation pillars, where distant data-streams drifted like luminous dust motes in the dark. In the center of the terrace, a square basin of black basalt murmured softly, fed by a thin trickle of pale water that smelled of rain and crushed mint.
 
+![Saturation (The Deep Souk of Eniac, Garmonbozia)](../images/archive/r31k0%20-%20Garmonbozia.webp)
+
 The woman walked to a low wooden table set with two handleless ceramic bowls and a cast-iron pot, kneeling on a woven rush mat with deliberate, unhurried grace. “Sit,” she said, nodding toward the cushion opposite her.
 
 Reiko lowered herself to the mat, her knees settling against the dry reeds with the mechanical stiffness of a chassis holding its balance. On her shoulder, Taz smoothed his jagged static edges, though his pixelated eyes remained fixed on the cast-iron pot. The woman lifted it without a sound, filling both bowls with clear, pale green liquor that released the faint, warming aroma of toasted rice and dried leaves into the cool air. Setting the pot down, she rested her slender forearms on the polished wood and simply waited.

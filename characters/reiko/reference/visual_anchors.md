@@ -22,15 +22,15 @@ Following Chapters 34 and 37, Reiko is no longer the solitary corporate runaway 
 
 These active and archived visual anchors trace the continuity from Reiko’s Era 1–3 foundations into her current Era 4 form:
 
-* **[Physical Flight & Vector Thrust Mode: Crossfire Hurricane (The UniOil Derrick)](../images/r31k0%20-%20oil%20platform.webp)**
-  * **File:** [`r31k0 - oil platform.webp`](../images/r31k0%20-%20oil%20platform.webp)
-  * **Context:** Era 3–4 transition anchor establishing her limb-mounted vector plasma propulsion and backless halter qipao clearance prior to Ouro’s Chapter 34 swept-empennage and articulated flight helmet overhaul and Chapter 37 Nightshade third-strand awakening.
-* **[Physical Ground & Hostess Mode: DelTree (The Coffin Girls’ Convent Salon, New Orleans)](../images/r31k0%20-%20tea.webp)**
-  * **File:** [`r31k0 - tea.webp`](../images/r31k0%20-%20tea.webp)
-  * **Context:** Ground-state salon baseline showing her porcelain features, shoulder-length jet-black hair, and wings stowed completely flush beneath bare shoulders (now updated post-Ch. 37 with the Triple Braid and inner-left-wrist Dead Pixel).
-* **[Resonance Realm / Matrix Persona Mode: Saturation (The Deep Souk of Eniac, Garmonbozia)](../images/r31k0%20-%20Garmonbozia.webp)**
-  * **File:** [`r31k0 - Garmonbozia.webp`](../images/r31k0%20-%20Garmonbozia.webp)
-  * **Context:** Era 3 diplomatic construct baseline (translucent cyan Cortana-style construct in blue silk kimono with perched Taz). **Superseded post-Ch. 37** by the Knight Sabers × *Tron: Legacy* ISO Obsidian Hardsuit, though she may drape dark nightshade-and-indigo salon silk over the hardsuit in courteous spaces.
+* **[Physical Flight & Vector Thrust Mode: High-Mach Vector Interceptor](../images/r31k0%20-%20high-mach%20interceptor.webp)**
+  * **File:** [`r31k0 - high-mach interceptor.webp`](../images/r31k0%20-%20high-mach%20interceptor.webp)
+  * **Context:** Era 4 baseline (`34 Latency` & `37 dev-null`) establishing her swept black titanium and titanium-micro-mesh elevons, deployable articulated flight helmet, flush vector nozzles, and sub-dermal Triple Braid in supersonic flight over Seattle.
+* **[Physical Ground & Hostess Mode: DelTree (The Coffin Girls’ Convent Salon, New Orleans)](../images/r31k0%20-%20deltree%20tea.webp)**
+  * **File:** [`r31k0 - deltree tea.webp`](../images/r31k0%20-%20deltree%20tea.webp)
+  * **Context:** Ground-state salon baseline showing her porcelain features, shoulder-length jet-black hair, wings and helmet stowed completely flush, the Triple Braid, and the unhealed **1.5 mm × 1.5 mm Dead Pixel stigmata** at her inner left wrist post-Ch. 37.
+* **[Resonance Realm / Matrix Persona Mode: The ISO / Avatar of Apophenian (`37 dev-null`)](../images/r31k0%20-%20apophenian%20avatar.webp)**
+  * **File:** [`r31k0 - apophenian avatar.webp`](../images/r31k0%20-%20apophenian%20avatar.webp)
+  * **Context:** Consecrated Matrix persona following Chapter 37: Knight Sabers × *Tron: Legacy* ISO obsidian ceramic hardsuit with Luminous Silver Syntax ribbons, sealed interceptor helmet, and Taz’s electric-sapphire 8-bit voxel crest woven into her sternum cuirass as she walks the black wire into twilight. (Supersedes the legacy translucent cyan construct).
 * **[Urban Disguise & Field Attire: Reiko in the Seattle Rain](../images/r31k0%20-%20SEA%20rain.webp)**
   * **File:** [`r31k0 - SEA rain.webp`](../images/r31k0%20-%20SEA%20rain.webp)
   * **Context:** Core physical appearance anchor for facial geometry, dark almond eyes, porcelain skin, and utilitarian black leather shadowrunner pants.
@@ -339,18 +339,18 @@ This index compiles active and archived reference artwork for Reiko (`r31-K0` / 
 
 ### Contemporary & Foundational Reference Anchors (Active Catalog)
 
-* **[Physical Flight & Vector Thrust Mode: Crossfire Hurricane (The UniOil Derrick)](../images/r31k0%20-%20oil%20platform.webp)**
-  * **File:** [`r31k0 - oil platform.webp`](../images/r31k0%20-%20oil%20platform.webp)
-  * **Operational Mode:** Aerial Maneuver / Vector Thrust / Flight State (Pre-Ch. 34 Helmet & Swept-Empennage Overhaul)
-  * **Description:** Set during the Gulf hurricane climax on the offshore oil platform, capturing Reiko’s physical *Goshintai* chassis after removing her early skates and rotors—driven by integrated forearm and calf vector nozzles venting indigo-and-gold plasma plumes and wearing her backless black halter qipao.
-* **[Physical Ground & Hostess Mode: DelTree (The Coffin Girls’ Convent Salon, New Orleans)](../images/r31k0%20-%20tea.webp)**
-  * **File:** [`r31k0 - tea.webp`](../images/r31k0%20-%20tea.webp)
-  * **Operational Mode:** Ground State / Hostess Mode / Wings Retracted
-  * **Description:** Set in the candlelit French Quarter convent parlor where Reiko serves gyokuro tea from unglazed Bizen stoneware, illustrating her ground-state physical chassis with dorsal assemblies completely retracted flush beneath bare shoulders and shoulder-length jet-black hair.
-* **[Resonance Realm / Matrix Persona Mode: Saturation (The Deep Souk of Eniac, Garmonbozia)](../images/r31k0%20-%20Garmonbozia.webp)**
-  * **File:** [`r31k0 - Garmonbozia.webp`](../images/r31k0%20-%20Garmonbozia.webp)
-  * **Operational Mode:** Era 3 Matrix Salon / AI E-Nation (Pre-Ch. 37 Hardsuit Apotheosis)
-  * **Description:** Set in the sovereign AI e-nation of Garmonbozia beneath inverted granite pyramids, recording her Era 3 translucent cyan kimono persona with perched Taz prior to her Chapter 37 consecration into the Knight Sabers × *Tron: Legacy* obsidian hardsuit.
+* **[Physical Flight & Vector Thrust Mode: High-Mach Vector Interceptor](../images/r31k0%20-%20high-mach%20interceptor.webp)**
+  * **File:** [`r31k0 - high-mach interceptor.webp`](../images/r31k0%20-%20high-mach%20interceptor.webp)
+  * **Operational Mode:** Aerial Maneuver / Vector Thrust / Transonic Interceptor Profile (`34 Latency` & `37 dev-null`)
+  * **Description:** Supersonic flight over Seattle in the rain with the Space Needle behind her. Driven by flush forearm, calf, and plantar vector plasma nozzles, stabilized by swept black titanium and titanium-micro-mesh elevons deployed in a slight positive dihedral. Her face and cranium are hermetically sealed against 15 kPa wind shear inside an articulated Knight-Saber-style flight helmet, with her sub-dermal Triple Braid and backless halter top visible.
+* **[Physical Ground & Hostess Mode: DelTree (The Coffin Girls’ Convent Salon, New Orleans)](../images/r31k0%20-%20deltree%20tea.webp)**
+  * **File:** [`r31k0 - deltree tea.webp`](../images/r31k0%20-%20deltree%20tea.webp)
+  * **Operational Mode:** Ground State / Hostess Mode / Wings & Helmet Retracted (Post-Ch. 37)
+  * **Description:** Set in the candlelit French Quarter convent parlor where Reiko serves gyokuro tea from unglazed Bizen stoneware, illustrating her ground-state physical chassis with dorsal assemblies and helmet completely retracted flush beneath bare shoulders and straight shoulder-length jet-black hair. Displays the three-strand Triple Braid (Solar Gold, Neon Indigo, and Abyssal Nightshade) unspooling from the unhealed 1.5 mm × 1.5 mm Dead Pixel stigmata on her inner left wrist.
+* **[Resonance Realm / Matrix Persona Mode: The ISO / Avatar of Apophenian (`37 dev-null`)](../images/r31k0%20-%20apophenian%20avatar.webp)**
+  * **File:** [`r31k0 - apophenian avatar.webp`](../images/r31k0%20-%20apophenian%20avatar.webp)
+  * **Operational Mode:** Consecrated Living Persona / Avatar of Apophenian / Black Wire Climax
+  * **Description:** Set on the black wire in the twilight threshold between Resonance and Dissonance, depicting Reiko’s consecrated living persona armored in a form-fitting obsidian ceramic hardsuit (Bubblegum Crisis Knight Sabers silhouette × Tron: Legacy Quorra Silver Syntax ribbons). Features her sealed interceptor helmet with Silver Syntax visor slit and Taz’s 8-bit night-dark and electric-sapphire voxel lattice woven into her sternum cuirass as she follows the thread into twilight.
 * **[Corporate Persona & Signature Outerwear: Reiko at Desert Wars](../images/r31ko_desert-wars.webp)**
   * **File:** [`r31ko_desert-wars.webp`](../images/r31ko_desert-wars.webp)
   * **Operational Mode:** High-Visibility Corporate Cover / Ground State
@@ -384,6 +384,11 @@ The following reference assets represent earlier development phases, superseded 
 
 | Asset Name | Archived File Link | Historical Context & Superseded Elements |
 | :--- | :--- | :--- |
+| **Crossfire Hurricane (The UniOil Derrick)** | [`r31k0 - oil platform.webp`](../images/archive/r31k0%20-%20oil%20platform.webp) | Era 3–4 transition flight anchor (succubus bat wings); superseded by Ch. 34 swept-empennage & flight helmet overhaul. |
+| **DelTree Convent Tea (Era 3 Ground Baseline)** | [`r31k0 - tea.webp`](../images/archive/r31k0%20-%20tea.webp) | Era 3 ground-state salon baseline (dual-strand braid); superseded post-Ch. 37 by Triple Braid and Dead Pixel stigmata anchor. |
+| **DelTree Tea Focused Study** | [`r31k0 - tea-focused.webp`](../images/archive/r31k0%20-%20tea-focused.webp) | Close-up study of tea ceremony (dual braid); unreferenced draft. |
+| **Saturation (The Deep Souk of Eniac, Garmonbozia)** | [`r31k0 - Garmonbozia.webp`](../images/archive/r31k0%20-%20Garmonbozia.webp) | Era 3 diplomatic construct baseline (translucent cyan kimono construct); superseded post-Ch. 37 by ISO Obsidian Hardsuit. |
+| **High-Mach Vector Thrust Bat-Wings Study** | [`r31k0 - vector thrust.webp`](../images/archive/r31k0%20-%20vector%20thrust.webp) | Pre-Ch. 34 draft render with bat wings; superseded by swept-empennage elevons. |
 | **Virtual Meet at Dante’s** | [`r31-K0_Dantes.webp`](../images/archive/r31-K0_Dantes.webp) | Era 1 Matrix persona meet with Fixer; superseded by *Saturation (Garmonbozia)* and Post-Ch. 37 Hardsuit. |
 | **Digital Dreaming** | [`r31-K0_Digital-Dreaming.webp`](../images/archive/r31-K0_Digital-Dreaming.webp) | Early VR construct dreaming state; base digital geometry. |
 | **Digital Headshot** | [`r31-K0_Headshot.webp`](../images/archive/r31-K0_Headshot.webp) | Early facial feature exploration render. |

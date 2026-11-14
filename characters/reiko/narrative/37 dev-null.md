@@ -71,3 +71,6 @@ Taz let out a triumphant, static-laced bark and flowed back into the articulated
 Apophenian gestured down the wire. *From here, the thread narrows to a walk only the two of you can take. Follow this chord until the pull of light and dark cancel each other out. Where the tension reaches rest, you will know the true frequency of a zero. Walk well, Reiko. I will meet you on the far shore.*
 
 Beneath her obsidian sternum plate, Taz answered with a steady purr of static that locked her clock cycle into step with his own. Turning her face toward the horizon where the two wells met in silence, Reiko followed the thread into the twilight.
+
+![Avatar of Apophenian walking the black wire into twilight](../images/r31k0%20-%20apophenian%20avatar.webp)
+
