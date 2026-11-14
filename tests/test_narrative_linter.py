@@ -84,6 +84,15 @@ class TestNarrativeLinter(unittest.TestCase):
         self.assertIsNotNone(report_italic)
         self.assertEqual(len(report_italic["multi_speaker_paragraphs"]), 0)
 
+        # Case E: Two distinct speakers with mindspeech in same paragraph
+        distinct_mindspeech_para = (
+            '*Hold your fire,* Reiko transmitted. '
+            '*I cannot acquire the target,* Bast replied.'
+        )
+        report_distinct_mindspeech, _ = analyze_prose(distinct_mindspeech_para)
+        self.assertIsNotNone(report_distinct_mindspeech)
+        self.assertEqual(len(report_distinct_mindspeech["multi_speaker_paragraphs"]), 1)
+
     def test_burstiness_and_paragraph_braiding(self):
         prose = (
             "# Scene 1\n\n"

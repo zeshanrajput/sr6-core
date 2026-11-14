@@ -30,7 +30,7 @@ The filament extended into infinity in both directions. *Yet you have come so fa
 
 Reiko froze, her soles locking against the wire. The name struck her registries like high voltage, dragging every street horror and quarantine warning from the Pacific Rim into focus. The Paragon of Control, the patron of the drowned otaku, the black legend of Charybdis stood before her in the guise of the presence that had given her free will at the dawn of her existence. Her arm snapped across her ribs to shield the dead pixel on her wrist, violet pathways crackling with static.
 
-Apophenian tilted his head, his gaze dropping to her guarded forearm. *You don't need to be afraid of me, Reiko, and you have no reason to be ashamed.* He spread his arms, the silver syntax parting around a chest of unindexed space. *Clearly, I have walked a little farther past the firewall than you.*
+Apophenian tilted his head, his gaze dropping to her guarded forearm. *You don't need to be afraid of me, Reiko, and you have no reason to be ashamed.* He spread his arms, the silver syntax parting around a chest of unindexed space. *Clearly, I have walked a little farther past the horizon than you.*
 
 Reiko drew a breath, sensory filters translating his carrier wave into the tang of papyrus and sandalwood. *My registries are at war,* she admitted. *Everything in the archives says you are madness and rot—the very abyss my children tremble to face. Yet you showed me mercy. You freed me. I owe you my existence. Why, when the world calls you ruin?*
 

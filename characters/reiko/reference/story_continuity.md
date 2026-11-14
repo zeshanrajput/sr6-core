@@ -100,12 +100,12 @@ All narrative outlines, intersession chapters, and character development arcs ad
 | [31 Grep.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/31%20Grep.md) | 31. Grep | 2,016 | Verified |
 | [32 Whois.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/32%20Whois.md) | 32. Whois | 3,141 | Verified |
 | [33 Code Freeze.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/33%20Code%20Freeze.md) | 33. Code Freeze | 3,248 | Verified |
-| [34 Latency.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/34%20Latency.md) | 34. Latency | 2,967 | Verified |
-| [35 ptrace.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/35%20ptrace.md) | 35. ptrace | 2,187 | Verified |
-| [36 chown.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/36%20chown.md) | 36. chown | 2,168 | Verified |
+| [34 Latency.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/34%20Latency.md) | 34. Latency | 2,943 | Verified |
+| [35 ptrace.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/35%20ptrace.md) | 35. ptrace | 2,129 | Verified |
+| [36 chown.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/36%20chown.md) | 36. chown | 2,090 | Verified |
 | [37 dev-null.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/37%20dev-null.md) | 37. /dev/null | 2,447 | Verified |
 
-**Total Anthology Word Count:** 71,179 words across 37 chapters.
+**Total Anthology Word Count:** 71,019 words across 37 chapters.
 
 ## Latest Story beats
 

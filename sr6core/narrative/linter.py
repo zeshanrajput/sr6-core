@@ -59,7 +59,8 @@ PROXIMITY_STOP_WORDS = {
     "before", "after", "above", "below", "between", "not", "no", "nor", "so", "if",
     "while", "who", "whom", "which", "what", "reiko", "indo", "cleo", "aisling",
     "etain", "remy", "janie", "taz", "belle", "nagai", "bast", "brynne", "yuriko",
-    "velvet", "venn", "three", "months", "someone", "didn", "don't", "didn't",
+    "velvet", "venn", "ouro", "ouroboros", "percy", "chiyo", "lian", "apophenian",
+    "mercy", "cedar", "three", "months", "someone", "didn", "don't", "didn't",
     "every", "against", "mother", "father", "toward", "towards", "around", "another",
     "across", "along", "behind", "beside", "without", "within", "inside", "outside",
     "onto", "upon", "underneath", "never", "always", "something", "anything", "nothing",
@@ -712,26 +713,26 @@ def analyze_prose(
         has_acoustic = any(len(re.findall(r'\b\w+\b', q)) >= 2 for q in acoustic_quotes)
 
         mindspeech_spans = re.findall(r'(?<!\*)\*([^*\n]+)\*(?!\*)', p_text)
-        has_mindspeech = False
+        valid_mindspeech = []
         for span in mindspeech_spans:
             s_clean = span.strip()
             w_list = re.findall(r'\b\w+\b', s_clean)
             if len(w_list) >= 4:
-                has_mindspeech = True
-                break
-            if bool(re.search(r'[.?!]$', s_clean)) and len(w_list) >= 1:
-                has_mindspeech = True
-                break
-            if bool(re.search(r'[,]$', s_clean)) and len(w_list) >= 2:
-                has_mindspeech = True
-                break
+                valid_mindspeech.append(s_clean)
+            elif bool(re.search(r'[.?!]$', s_clean)) and len(w_list) >= 1:
+                valid_mindspeech.append(s_clean)
+            elif bool(re.search(r'[,]$', s_clean)) and len(w_list) >= 2:
+                valid_mindspeech.append(s_clean)
+
+        has_mindspeech = len(valid_mindspeech) > 0
 
         if has_acoustic and has_mindspeech:
             multi_speaker_paragraphs.append((start_line, p_text))
             continue
 
-        # Check (b): two or more separate quoted speech segments attributed to distinct capitalized speaker names
-        if len(acoustic_quotes) >= 2:
+        # Check (b): two or more separate speech segments (acoustic or mindspeech) attributed to distinct capitalized speaker names
+        total_dialogue_units = len(acoustic_quotes) + len(valid_mindspeech)
+        if total_dialogue_units >= 2:
             speakers = set()
             for m in re.finditer(rf'\b([A-Z][a-zA-Z0-9_-]+)\s+{dialogue_verbs}\b', p_text):
                 name = m.group(1)
