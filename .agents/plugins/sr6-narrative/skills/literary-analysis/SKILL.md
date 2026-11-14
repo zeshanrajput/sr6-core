@@ -137,9 +137,9 @@ Rather than relying on arbitrary synthetic numeric scores (e.g. `X/10`), drafts 
 
 ---
 
-## The 4 Chisel Transformations (`apply_prose_chisel`)
+## The 5 Chisel Transformations (`apply_prose_chisel`)
 
-When refactoring drafts during Stage 4/6, apply these four transformations:
+When refactoring drafts during Stage 4/6, apply these five transformations:
 
 1. **Braid Fragmented Lines into Cohesive Paragraphs**:
    - Merge isolated 1–2 sentence lines into flowing 3–6 sentence paragraphs.
@@ -155,6 +155,30 @@ When refactoring drafts during Stage 4/6, apply these four transformations:
    - *Preserve Essential Contextual Scaffolding*: Provide grounded sensory details when a reader cannot reasonably deduce specialized dynamics (e.g. medical triage desensitization buffering against charisma until the smock comes off; Reiko's gold tactical logic versus indigo resonant soul).
 4. **Affirmative Staging & Non-Action Pruning**:
    - Strip gratuitous negative non-actions (*"did not flinch"*, *"did not look back"*) whenever the positive physical detail (*"her hands remained flat against her knees"*) already carries the weight.
+5. **The "Pay Rent" Modifier & Stage-Direction Scalpel**:
+   - *Strip Tautological Modifiers*: Cut adjectives that restate the noun (*"narrow wire"*, *"solitary filament"*, *"dry papyrus"*, *"luminous fire"*, *"internally seeded"*).
+   - *De-Stack Intensifiers in High-Voltage Beats*: In climax or horror paragraphs, strip editorializing intensifiers (*"crushing"*, *"terrifying"*, *"annihilating"*, *"bone-chilling"*) so concrete nouns and verbs carry the weight.
+   - *Prune Pre-Action Emotional Labels*: Never pre-label an emotion (*"fiercely affectionate hiss"*, *"defensive static"*) when the physical action in the same or next sentence (*"butted his forehead against her jaw"*, *"her arm snapped across her ribs"*) already stages it.
+   - *Cut Pacing Throat-Clearers & Clinical Intrusions*: Strip transitional padding (*"A moment passed as..."*, *"a soft hint of..."*) and textbook qualifiers (*"anthroform"*, *"sapient"*) during mythic or emotional beats.
+   - *Audit Repeated Body Staging & Adjacent Image Echoes*: Check that no single body-part anchor (e.g., *"bare soles"*) or closing horizon image is staged twice across nearby paragraphs.
+
+### The 3-Step Active Chisel Discipline (Saunders / Klinkenborg Loop)
+
+Do not treat line-editing as passive re-reading; execute an active subtraction and verification loop on every pass:
+
+1. **Step 1 — Lock the Paragraph's Load-Bearing Job**: Before cutting, identify the exact work the paragraph must perform (dramatic hinge, sensory anchor, relational shift, or essential domain scaffolding).
+2. **Step 2 — The Active Eviction Pass (Target: `-5%` to `-8%` Word Delta)**: Hunt across every sentence to delete at least 1 non-rent-paying modifier or throat-clearer per multi-clause sentence and 1 redundant clause per multi-paragraph beat, guided by `sr6 lint`'s `ZERO-RENT SUSPECTS` list and the 6-Category Zero-Rent Taxonomy:
+
+| Category | What It Looks Like | Example (`37 dev-null`) |
+| :--- | :--- | :--- |
+| **1. Tautological Modifiers** | Adjective restates a property built into the noun | `narrow wire`, `solitary filament`, `dry papyrus`, `luminous fire`, `internally seeded` |
+| **2. Pre-Action Emotional Spoilers** | Labels an emotion right before a physical action stages it | `defensive static` before an arm snaps across ribs; `fiercely affectionate hiss` before a forehead butt |
+| **3. High-Voltage Intensifier Stacking** | 3+ "tell" adjectives in a climax/horror paragraph | `crushing silence`, `bone-chilling sub-bass`, `terrifying`, `annihilating`, `entropic` |
+| **4. Pacing Throat-Clearers** | Transitional padding before the character acts or thinks | `A moment passed as...`, `a soft hint of...`, `came to stand` |
+| **5. Sensory Filter Scaffolding** | Naming the act of sensing instead of the sensation | `the sensory echoes of Seattle rain` $\rightarrow$ `Seattle rain` |
+| **6. Adjacent Bookend Echoes** | Repeating a body anchor or horizon image in nearby paragraphs | `bare soles` 4x; framing `where the storms/wells met in silence` twice across L71 & L73 |
+
+3. **Step 3 — The Load-Bearing Readback Test**: Read the tightened paragraph back in full. If any cut weakened the paragraph's job, flattened character voice, or left staccato fragments, restore the load-bearing beam; if the paragraph performs 100% of its work with sharper nouns and cleaner rhythm, lock the cut.
 
 ---
 
@@ -163,7 +187,7 @@ When refactoring drafts during Stage 4/6, apply these four transformations:
 When evaluating or chiseling a chapter, deliver:
 1. **Editorial Readiness Gates & Craft Telemetry Table**:
    - Status of all hard gates (buzzwords, multi-speaker paragraphs, ellipses, proximity echoes, unicode).
-   - Descriptive craft metrics (braiding cadence, single-sentence quota, burstiness CV).
+   - Descriptive craft metrics (braiding cadence, single-sentence quota, burstiness CV, plus **net before/after word-count delta** when executing an active chisel pass).
 2. **Transparent Craft Callouts**:
    - Single-sentence paragraph justifications (identify quote, line, and the dramatic hinge, or "None deployed").
    - Contextual scaffolding justifications (identify domain mechanic or proprietary motif scaffolded, or "None required").

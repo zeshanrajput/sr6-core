@@ -114,6 +114,19 @@ OMNISCIENT_POV_PATTERNS = [
     r'\b[sS]?he was waiting for the cue with\b'
 ]
 
+ZERO_RENT_SUSPECT_PATTERNS: List[Tuple[str, str]] = [
+    ("tautological-modifier", r"\b(?:narrow wire|solitary filament|dry papyrus|luminous fire|endless infinity|frozen ice|hollow void|free gift|past history|internally seeded|seeded internally|completely surrounded|entirely empty)\b"),
+    ("throat-clearer", r"\b(?:a moment passed as|for a long moment|a soft hint of|came to stand|moved to stand|began to|proceeded to|in order to)\b"),
+    ("sensory-scaffolding", r"\bthe (?:sensory echoes|sound|feeling|sensation|sight) of\b"),
+    ("taxonomic-intrusion", r"\b(?:anthroform|sapient existence)\b"),
+]
+
+HIGH_DRAMA_INTENSIFIERS = {
+    "crushing", "terrifying", "annihilating", "bone-chilling", "unimaginable",
+    "unspeakable", "fathomless", "shattering", "devastating", "overwhelming",
+    "excruciating", "relentless", "merciless", "blinding", "deafening",
+}
+
 
 def run_markdownlint(file_path: str) -> Tuple[List[str], Optional[str]]:
     try:
@@ -587,6 +600,30 @@ def analyze_prose(
                 omniscient_pov_matches.append((line_idx, line.strip()))
                 break
 
+    zero_rent_suspects: List[Dict[str, Any]] = []
+    for line_idx, line in enumerate(lines, 1):
+        s = line.strip()
+        if not s or s.startswith(("#", "<", "```", "---")):
+            continue
+        line_lower = s.lower()
+        for cat, pat in ZERO_RENT_SUSPECT_PATTERNS:
+            for m in re.finditer(pat, line_lower):
+                zero_rent_suspects.append({
+                    "line": line_idx,
+                    "category": cat,
+                    "match": m.group(0),
+                    "snippet": s,
+                })
+        words_in_line = re.findall(r"\b[a-zA-Z-]+\b", line_lower)
+        intensifiers_found = [w for w in words_in_line if w in HIGH_DRAMA_INTENSIFIERS]
+        if len(intensifiers_found) >= 3:
+            zero_rent_suspects.append({
+                "line": line_idx,
+                "category": "intensifier-stacking",
+                "match": ", ".join(intensifiers_found),
+                "snippet": s,
+            })
+
     sentences = [s.strip() for s in re.split(r'[.!?]+', clean_prose) if s.strip()]
     sentence_lengths = [len(re.findall(r'\b\w+\b', s)) for s in sentences if len(re.findall(r'\b\w+\b', s)) > 0]
     avg_sentence_len = sum(sentence_lengths) / len(sentence_lengths) if sentence_lengths else 0
@@ -854,6 +891,7 @@ def analyze_prose(
         "tier3_density_alerts": tier3_density_alerts,
         "proximity_echoes": proximity_echoes,
         "cluster_saturation_alerts": cluster_saturation_alerts,
+        "zero_rent_suspects": zero_rent_suspects,
         "markdownlint_errors": md_errors,
         "markdownlint_note": md_err_note,
         "ellipses_count": ellipses_count,
@@ -1010,6 +1048,14 @@ def print_prose_report(report: Dict[str, Any]):
             )
     else:
         print("  [OK] Zero lexical cluster saturation spikes detected.")
+
+    print("\n--- ZERO-RENT SUSPECTS (Active Eviction Candidates) ---")
+    zr_suspects = report.get("zero_rent_suspects", [])
+    if zr_suspects:
+        for zr in zr_suspects:
+            print(f"  [SUSPECT: {zr['category']}] Line {zr['line']} ('{zr['match']}'): \"{zr['snippet'][:80]}...\"")
+    else:
+        print("  [OK] Zero high-confidence zero-rent modifier/throat-clearer suspects detected.")
 
     if report.get("tier_targets") or report.get("char_id"):
         tier_targets = report.get("tier_targets")

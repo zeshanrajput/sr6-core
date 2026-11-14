@@ -78,7 +78,7 @@ To prevent overfitting ("Checklist Prose") and protect voice, `narrative-directo
      uv run sr6 lint "scratch/beat_<N>_test.md" --window 3 --tier <1|2|3> --char <char_id>
      ```
    - Check for **egregious violations**: premise drift, AR/physical ontological blurring, merged multi-speaker paragraphs, Tier 0 buzzwords, or broken callback continuity.
-   - Dispatch the Line Chisel Worker (`flash`) with `Draft v1` + `sr6 lint` output + the 4 Chisel transformations from `literary-analysis` to produce `Draft v2` in `scratch/`.
+   - Dispatch the Line Chisel Worker (`flash`) with `Draft v1` + `sr6 lint` output (`ZERO-RENT SUSPECTS` + gate warnings) + the 5 Chisel Transformations and **3-Step Active Chisel Discipline** (Declare Paragraph Job $\rightarrow$ Active Eviction Pass targeting `-5%` to `-8%` words $\rightarrow$ Post-Cut Load-Bearing Readback Test, reporting net word-count delta) from `literary-analysis` to produce `Draft v2` in `scratch/`.
    - **Stop after ONE review loop.** Minor stylistic nuances pass through to human review to preserve organic voice. Clean up `scratch/beat_<N>_test.md`.
 3. **Collaborative Human Line-Edit Gate**:
    - Promote `Draft v2` into `<target_file>`, present the beat and pre-flight telemetry in chat, and **stop** for user line-level review before advancing to the next beat.
@@ -103,10 +103,10 @@ Drafts are audited against **Hard Editorial Readiness Gates** and **Descriptive 
 
 ### Stage 4: Synthesis & Line Chisel Refactoring Loop
 1. `narrative-director` collates audit findings into a unified **Revision Matrix**.
-2. If any Hard Readiness Gate fails or craft telemetry flags defects:
-   - Invoke `literary-analysis` (`apply_prose_chisel`) and `no-ai-slop` to execute surgical line-level refactoring.
+2. If any Hard Readiness Gate fails or craft telemetry / `ZERO-RENT SUSPECTS` flags defects:
+   - Invoke `literary-analysis` (`apply_prose_chisel`) and `no-ai-slop` via the **3-Step Active Chisel Discipline** (Declare Paragraph Job $\rightarrow$ Active Eviction Pass targeting `-5%` to `-8%` words $\rightarrow$ Load-Bearing Readback Test, reporting net word-count delta).
    - Refactor staccato lines into braided 3–6 sentence paragraphs, enforce single-sentence quotas ($\le 1\text{–}2 / 1,000$ words), and prune negative non-actions.
-   - Re-verify using `uv run sr6 lint "<target_file>" --window 3`.
+   - Re-verify using `uv run sr6 lint "<target_file>" --window 3 --tier <1|2|3> --char <id>`.
 
 ### Stage 5: Publishing & State Tracking (Markdown Trio as Single Source of Truth)
 Upon panel approval:
@@ -118,8 +118,8 @@ Upon panel approval:
 ### Stage 6: Refinement Mode for Existing Chapters (`literary-analysis <target_file>`)
 Invoked via `literary-analysis <target_file>` or `/literary-analysis <target_file>`:
 1. Run `uv run sr6 lint "<target_file>" --window 3 --tier <1|2|3> --char <id>`.
-2. Delegate Series Bible/continuity cross-checks (`research`/`flash`) and execute the 4 Chisel Transformations via a `flash` Line Chisel Worker (`apply_prose_chisel`).
-3. Re-verify zero regressions and deliver drop-in prose diffs with transparent craft callouts (single-sentence pivot justifications and contextual scaffolding rationale).
+2. Delegate Series Bible/continuity cross-checks (`research`/`flash`) and execute the 5 Chisel Transformations via a `flash` Line Chisel Worker (`apply_prose_chisel`) using the **3-Step Active Chisel Discipline** (Lock Paragraph Job $\rightarrow$ Active Eviction Pass $\rightarrow$ Load-Bearing Readback Test).
+3. Re-verify zero regressions and deliver drop-in prose diffs with net word-count deltas and transparent craft callouts (single-sentence pivot justifications and contextual scaffolding rationale).
 
 ### Stage 7: Standardized Chapter Finalization & CI/CD Verification (`/finalize-chapter <target_file>`)
 Invoked via `/finalize-chapter <target_file>` or `finalize-chapter <target_file>`:

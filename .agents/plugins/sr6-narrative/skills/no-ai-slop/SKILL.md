@@ -23,19 +23,17 @@ Audit narrative chapters, dialogue, and campaign fiction to strip AI clichés, r
 
 ## How to Run
 
-1. **Deterministic Pre-flight (Instant Check)**:
-   Run the prose linter via the `terminal` tool to instantly catch banned buzzwords and ellipses ceiling violations in <10ms:
+1. **Deterministic Pre-flight & Unified Diagnostics**:
+   Run the unified prose linter via the `terminal` tool to catch banned buzzwords, ellipses ceiling violations, cluster saturation, tier/voice calibration, and zero-rent eviction suspects:
    ```bash
-   uv run sr6 lint "characters/<char_id>/chapters/<file>.qmd"
+   uv run sr6 lint "characters/<char_id>/narrative/<file>.md" --window 3 --tier <1|2|3> --char <char_id>
    ```
-2. **Unified Evaluator**:
-   ```bash
-   uv run sr6 evaluate "characters/<char_id>/chapters/<file>.qmd" --tier <1|2|3> --char <char_id>
-   ```
+   *(Note: `sr6 evaluate` remains available as an alias for the same unified analyzer.)*
 
 ## Editing Principles
 
 - **Make the Minimum Effective Edit:** Fix slop patterns, repetition, and robotic structure. Leave strong human sentences alone.
+- **Active Eviction & Load-Bearing Readback (Saunders / Klinkenborg Loop):** Never rely on passive re-reading. Declare the paragraph's load-bearing job first, actively hunt for zero-rent words (tautological modifiers, pre-action emotional spoilers, stacked horror intensifiers, pacing throat-clearers, sensory filter scaffolding) targeting a `-5%` to `-8%` word delta, then run a post-cut readback to verify 100% of the paragraph's job remains intact.
 - **Affirmative Staging & Non-Action Pruning:** Stage scenes through what characters *do*, not what they *don't* do. When an affirmative physical micro-action or posture carries the weight (e.g. *"her hands remained flat against her knees"*), ruthlessly delete the leading filler negative (*"did not flinch"*).
 - **Trust the Reader vs. Contextual Scaffolding:** Dramatize through physical action and dialogue subtext. Cut explanatory codas, thesis slogans, and comparative essay preambles. However, preserve essential grounded scaffolding when specialized professional dynamics (e.g. medical triage detachment buffering supernatural charisma) or proprietary character motifs (e.g. gold vs. indigo pathways) cannot reasonably be deduced by the reader alone.
 - **One Speaker Per Paragraph:** Never combine lines spoken by different characters into the same paragraph block. Braid that speaker's dialogue with their own physical micro-action.

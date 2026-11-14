@@ -216,6 +216,27 @@ class TestNarrativeLinter(unittest.TestCase):
         self.assertEqual(len(errors), 1)
         self.assertIn("MD022", errors[0])
 
+    def test_zero_rent_suspects(self):
+        prose = (
+            "She balanced on the narrow wire above the alley while the wind hummed overhead. "
+            "A moment passed as the sensory echoes of freezing traffic faded below her boots. "
+            "The crushing, terrifying, annihilating silence pressed against her chassis.\n"
+        )
+        report, err = analyze_prose(prose)
+        self.assertIsNone(err)
+        self.assertIsNotNone(report)
+        self.assertTrue(report["gates_passed"])
+        cats = {item["category"]: item["match"] for item in report.get("zero_rent_suspects", [])}
+        self.assertEqual(cats.get("tautological-modifier"), "narrow wire")
+        self.assertEqual(cats.get("throat-clearer"), "a moment passed as")
+        self.assertEqual(cats.get("sensory-scaffolding"), "the sensory echoes of")
+        self.assertIn("intensifier-stacking", cats)
+        self.assertIn("crushing", cats["intensifier-stacking"])
+
+        mcp_out = handle_lint_prose({"file_path": prose})
+        self.assertIn("Zero-Rent Suspects", mcp_out)
+        self.assertIn("tautological-modifier", mcp_out)
+
 
 if __name__ == "__main__":
     unittest.main()

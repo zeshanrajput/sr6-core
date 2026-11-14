@@ -481,6 +481,12 @@ def handle_lint_prose(arguments: Dict[str, Any]) -> str:
         for ca in report["cluster_saturation_alerts"][:10]:
             output.append(f"- `{ca['word']}`: {ca['count']}x across {ca['window_tokens']} tokens (Lines {ca['line_start']}-{ca['line_end']})")
 
+    if report.get("zero_rent_suspects"):
+        output.append("\n#### Zero-Rent Suspects (Active Eviction Candidates):")
+        for zr in report["zero_rent_suspects"][:10]:
+            snip = zr["snippet"][:80] + ("..." if len(zr["snippet"]) > 80 else "")
+            output.append(f"- Line {zr['line']} [`{zr['category']}`: `{zr['match']}`] -> {snip}")
+
     if report.get("tier_warnings"):
         output.append("\n#### Tier Benchmark Warnings:")
         for tw in report["tier_warnings"]:
