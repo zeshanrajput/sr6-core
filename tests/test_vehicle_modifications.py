@@ -241,7 +241,7 @@ def test_reiko_man_at_arms_complete_accounting():
     assert cl["capacity"] - cl["used_capacity"] == 0
 
     # Check Vector Thrust (LAV) Propulsion
-    assert "Vector Thrust (LAV): Han 4, Acc 25, SPD 50/300" in prof["mobility_str"]
+    assert "Vector Thrust (LAV): Han 4, Acc 41, SPD 50/480" in prof["mobility_str"]
 
 
 def test_drone_statblock_table_rendering():
@@ -257,7 +257,7 @@ def test_drone_statblock_table_rendering():
     assert "| **Powertrain** | 10 |" in table_md
     assert "| **Electronic** | 10 |" in table_md
     assert "| **Hardpoints** | 3 (Standard) |" in table_md
-    assert "Vector Thrust (LAV): Han 4, Acc 25, SPD 50/300" in table_md
+    assert "Vector Thrust (LAV): Han 4, Acc 41, SPD 50/480" in table_md
 
     # Check modifications rows
     assert "Increased Structural Integrity" in table_md

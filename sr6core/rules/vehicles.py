@@ -904,6 +904,15 @@ def calculate_drone_action_pools(
     designer_pilot_bonus = 1 if (has_designer and is_home_device) else 0
     inhabited_pilot = res + designer_pilot_bonus
 
+    has_pilot_origins = any(
+        "pilot_origins" in str(q.get("ref", q.get("name", q)) if isinstance(q, dict) else q).lower()
+        or "pilot origins" in str(q.get("name", q) if isinstance(q, dict) else q).lower()
+        for q in pos_qualities
+    )
+    pilot_origins_bonus = 1 if (has_pilot_origins and is_home_device) else 0
+    po_str = f" + Pilot Origins {pilot_origins_bonus}" if pilot_origins_bonus else ""
+    thresh_note = " (-1 Threshold)" if pilot_origins_bonus else ""
+
     drone_profile = parse_vehicle_modifications(drone_dict, char_data=char_data)
     sensor_val = drone_profile["augmented_sensor"]
     focus_mods = ModifierEngine.get_focus_modifiers(char_data, "resonance") if is_home_device else []
@@ -933,28 +942,24 @@ def calculate_drone_action_pools(
 
     if mode == "inhabited_override" and is_home_device:
         # Mode 1: Inhabited Override (Reiko Primary)
-        # Pilot replaced with Resonance (8) + Designer Quality (+1) = 9. Because test involves Resonance, Resonance Focus (+4) applies.
-        # Maneuvering R9 (7 effective) + Pilot/RES (9) + Focus (4) + Taz Diagnosis (3) = 23d6
-        piloting_pool = active_d + inhabited_pilot + focus_bonus + taz_diagnosis
-        piloting_breakdown = f"Maneuvering {active_d} + Pilot/RES {inhabited_pilot} + Focus {focus_bonus} + Taz Diagnosis {taz_diagnosis} = {piloting_pool}d6"
+        # Pilot replaced with Resonance + Designer Quality (+1). Because test involves Resonance, Resonance Focus (+4) applies.
+        # Pilot Origins grants Control Rig R1 equivalent (+1 dice pool to all inhabited vehicle/drone tests, -1 threshold).
+        piloting_pool = active_d + inhabited_pilot + focus_bonus + taz_diagnosis + pilot_origins_bonus
+        piloting_breakdown = f"Maneuvering {active_d} + Pilot/RES {inhabited_pilot} + Focus {focus_bonus} + Taz Diagnosis {taz_diagnosis}{po_str} = {piloting_pool}d6{thresh_note}"
 
-        # Targeting R9 (7 effective) + Sensor (6) + Taz Symbiosis (4) + Other Modifiers = 18d6 (20d6 with Enlighten Automaton sustained)
-        gunnery_pool = active_d + sensor_val + taz_symbiosis + targeting_other_bonus
+        gunnery_pool = active_d + sensor_val + taz_symbiosis + pilot_origins_bonus + targeting_other_bonus
         enlighten_g_note = f" ({gunnery_pool + 2}d6 with Enlighten Automaton sustained)" if (has_enlighten and is_home_device) else ""
-        gunnery_breakdown = f"Targeting {active_d} + Sensor {sensor_val} + Taz Symbiosis {taz_symbiosis}{other_gunnery_str} = {gunnery_pool}d6{enlighten_g_note}"
+        gunnery_breakdown = f"Targeting {active_d} + Sensor {sensor_val} + Taz Symbiosis {taz_symbiosis}{po_str}{other_gunnery_str} = {gunnery_pool}d6{enlighten_g_note}"
 
-        # Evasion R9 (7 effective) + Pilot/RES (9) + Focus (4) + Taz Symbiosis (4) = 24d6
-        evasion_pool = active_d + inhabited_pilot + focus_bonus + taz_symbiosis
-        evasion_breakdown = f"Evasion {active_d} + Pilot/RES {inhabited_pilot} + Focus {focus_bonus} + Taz Symbiosis {taz_symbiosis} = {evasion_pool}d6"
+        evasion_pool = active_d + inhabited_pilot + focus_bonus + taz_symbiosis + pilot_origins_bonus
+        evasion_breakdown = f"Evasion {active_d} + Pilot/RES {inhabited_pilot} + Focus {focus_bonus} + Taz Symbiosis {taz_symbiosis}{po_str} = {evasion_pool}d6"
 
-        # Clearsight R9 (7 effective) + Sensor (6) + Taz Symbiosis (4) = 17d6 (19d6 with Enlighten Automaton sustained)
-        perception_pool = active_d + sensor_val + taz_symbiosis
+        perception_pool = active_d + sensor_val + taz_symbiosis + pilot_origins_bonus
         enlighten_p_note = f" ({perception_pool + 2}d6 with Enlighten Automaton sustained)" if (has_enlighten and is_home_device) else ""
-        perception_breakdown = f"Clearsight {active_d} + Sensor {sensor_val} + Taz Symbiosis {taz_symbiosis} = {perception_pool}d6{enlighten_p_note}"
+        perception_breakdown = f"Clearsight {active_d} + Sensor {sensor_val} + Taz Symbiosis {taz_symbiosis}{po_str} = {perception_pool}d6{enlighten_p_note}"
 
-        # Stealth R9 (7 effective) + Pilot/RES (9) + Focus (4) + Taz Symbiosis (4) + Sneak-Sneak (2) = 26d6
-        stealth_pool = active_d + inhabited_pilot + focus_bonus + taz_symbiosis + 2
-        stealth_breakdown = f"Stealth {active_d} + Pilot/RES {inhabited_pilot} + Focus {focus_bonus} + Taz Symbiosis {taz_symbiosis} + Tactical Soft Sneak-Sneak 2 = {stealth_pool}d6"
+        stealth_pool = active_d + inhabited_pilot + focus_bonus + taz_symbiosis + 2 + pilot_origins_bonus
+        stealth_breakdown = f"Stealth {active_d} + Pilot/RES {inhabited_pilot} + Focus {focus_bonus} + Taz Symbiosis {taz_symbiosis} + Tactical Soft Sneak-Sneak 2{po_str} = {stealth_pool}d6"
 
     elif mode == "remote_ar":
         # Mode 2: Remote AR Control (AI Physical attributes mapped to ASDF)

@@ -329,9 +329,27 @@ def test_matrix_action_table_renderer():
     assert "**Offensive Cracking: Hacking**" in table_md
     assert "**28d6** (1 wild)" in table_md
     assert "**7 Hits**" in table_md
-    assert "**Full Matrix Defense Test**" in table_md
+    assert "**Matrix Defense Test**" in table_md
     assert "**41d6**" in table_md
     assert "**10 Hits**" in table_md
+    assert "**Complex Forms (Threading)**" in table_md
+    assert "**22d6**" in table_md
+    assert "Ally Teamwork (+4)" in table_md
+
+
+def test_reiko_pilot_origins_drone_pools():
+    """Verifies Pilot Origins (+1 Control Rig dice pool and -1 threshold) on Reiko's Man-at-Arms."""
+    from sr6core.character.manager import CharacterManager
+    char = CharacterManager().get_character_data("reiko")
+    maa = next(d for d in char["drones"] if "man-at-arms" in d["name"].lower())
+    pools = calculate_drone_action_pools(char, maa, mode="inhabited_override")
+    assert pools["piloting"]["pool"] == 25
+    assert "Pilot Origins 1" in pools["piloting"]["breakdown"]
+    assert "(-1 Threshold)" in pools["piloting"]["breakdown"]
+    assert pools["gunnery"]["pool"] == 19
+    assert pools["evasion"]["pool"] == 26
+    assert pools["perception"]["pool"] == 18
+    assert pools["stealth"]["pool"] == 28
 
 
 def test_sprite_action_table_renderer():

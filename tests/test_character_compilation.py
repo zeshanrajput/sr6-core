@@ -67,8 +67,8 @@ def test_full_compiler_sync_and_mobile_export():
             assert maa["sensor"] == 6
             assert maa["enlightened_sensor"] == 8
             assert any("increased sensors 2" in m.lower() for m in maa["modifications"])
-            assert maa["rigged_pools"]["gunnery"]["pool"] == 18
-            assert maa["rigged_pools"]["perception"]["pool"] == 17
+            assert maa["rigged_pools"]["gunnery"]["pool"] == 19
+            assert maa["rigged_pools"]["perception"]["pool"] == 18
 
 
 def test_multiple_specializations_compilation_and_export():

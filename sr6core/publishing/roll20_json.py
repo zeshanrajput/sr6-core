@@ -1459,16 +1459,16 @@ def build_roll20_payload(
         qualities_list.append(
             {
                 "name": "Matrix Defense Umbrella",
-                "choice": "21d6 Standard / 34d6 Full Matrix Defense",
+                "choice": "22d6 Standard / 25d6 Base Full Defense / 41d6 All-In",
                 "positive": True,
                 "rating": "",
-                "page": "CRB p.181 / Hack & Slash p.33, 65, 119",
+                "page": "CRB p.181 / Hack & Slash p.33, 58, 69-70",
                 "description": (
                     "• Matrix Defense Rating (DR): 16 (Data Processing 7 + Firewall 9) — treated as +4 higher (20 DR) for Edge comparison via Designer Home Device (H&S p.119).\n"
                     "• Encryption: +1 threshold to all incoming Cracking tests against any device on Reiko's PAN.\n"
-                    "• Standard Matrix Defense vs. Attack Actions (e.g., Data Spike, Crack File): 21d6 (5 Bought Hits) = Firewall (9) + Natural Hacker Resonance (8) + Resonance Focus (+4).\n"
-                    "• Standard Matrix Defense vs. Sleaze Actions (e.g., Spoof Command, Backdoor Entry, Probe): 21d6 (5 Bought Hits) = Firewall (9) + Natural Hacker Resonance (8) + Resonance Focus (+4).\n"
-                    "• Full Matrix Defense (Major Action — All Matrix Attacks for Round): 34d6 (8 Bought Hits) = Resonance (8) + Resonance Focus (+4) + Firewall (9) + Personal Assistant App R6 (+6) + Directional Shield Active Data Processing (+7).\n"
+                    "• Standard Matrix Defense (Free Action): 22d6 (5 Bought Hits) = Firewall (9) + Natural Hacker Resonance (9) + Resonance Focus (+4).\n"
+                    "• Base Full Matrix Defense (PA R6 3 Bought Hits): 25d6 (6 Bought Hits) = 22d6 Standard + 3 Bought Hits from Personal Assistant R6.\n"
+                    "• All-In Matrix Defense (Minor Anytime Actions when aware): 41d6 (10 Bought Hits) = 25d6 Base + Echo: Syntax Error (+9 Submersion) + Directional Shield Active Data Processing (+7).\n"
                     "• Biofeedback / Matrix Soak: Firewall (9) + Armor Program (+2) + Biofeedback Filter (+2 vs Biofeedback)."
                 ),
             }
@@ -3374,14 +3374,19 @@ def generate_roll20_helper_guide(
                 f"&{{template:rolls-computed}}{{{{header=@{{character_name}}}}}}{{{{base=Tesla Coil (Sweep Cone)}}}}{{{{dice=[[(20+@{{wounds_toggle}}+@{{modifiers_toggle}}+@{{edge_toggle}})d6>5@{{explode_toggle}}]]}}}}{{{{desc=Mode: SS, Damage: 2S(e), AR: 14/16/-/-/-}}}}{{{{notes=BS 49 / SR6 117. Fires in a cone 20m long, 10m wide at base (apex angle 28.07°). May use wild die. 2S(e) Electrical damage. 20 charges.}}}}{{{{mod=[[@{{modifiers_toggle}}]]}}}}{{{{wound=[[@{{wounds_toggle}}]]}}}}{{{{edge=[[@{{edge_toggle}}]]}}}}",
                 "```",
                 "",
-                "### Standard Matrix Defense Umbrella (`21d6` — 5 Bought Hits vs Attack & Sleaze Actions)",
+                "### Standard Matrix Defense Umbrella (`22d6` — 5 Bought Hits vs Attack & Sleaze Actions)",
                 "```text",
-                f"@{{{c_ref}|gm_toggle}} &{{template:rolls-computed}}{{{{header=@{{{c_ref}|character_name}}}}}}{{{{base=Matrix Defense Umbrella (FW 9 + RES 12)}}}}{{{{dice=[[(21+@{{{c_ref}|wounds_toggle}}+@{{{c_ref}|modifiers_toggle}}+@{{{c_ref}|edge_toggle}})d6>5@{{{c_ref}|explode_toggle}}]]}}}}{{{{mod=[[@{{{c_ref}|modifiers_toggle}}]]}}}}{{{{wound=[[@{{{c_ref}|wounds_toggle}}]]}}}}{{{{edge=[[@{{{c_ref}|edge_toggle}}]]}}}}{{{{notes=Standard Matrix Defense (21d6 = 5 Bought Hits): Firewall (9) + Natural Hacker Resonance (8) + Resonance Focus (+4). Matrix DR 16 (treated as 20 DR for Edge via Designer Home Device). Encryption: +1 threshold to incoming Cracking tests.}}}}",
+                f"@{{{c_ref}|gm_toggle}} &{{template:rolls-computed}}{{{{header=@{{{c_ref}|character_name}}}}}}{{{{base=Matrix Defense Umbrella (FW 9 + RES 13)}}}}{{{{dice=[[(22+@{{{c_ref}|wounds_toggle}}+@{{{c_ref}|modifiers_toggle}}+@{{{c_ref}|edge_toggle}})d6>5@{{{c_ref}|explode_toggle}}]]}}}}{{{{mod=[[@{{{c_ref}|modifiers_toggle}}]]}}}}{{{{wound=[[@{{{c_ref}|wounds_toggle}}]]}}}}{{{{edge=[[@{{{c_ref}|edge_toggle}}]]}}}}{{{{notes=Standard Matrix Defense (22d6 = 5 Bought Hits): Firewall (9) + Natural Hacker Resonance (9) + Resonance Focus (+4). Matrix DR 16 (treated as 20 DR for Edge via Designer Home Device). Encryption: +1 threshold to incoming Cracking tests.}}}}",
                 "```",
                 "",
-                "### Full Matrix Defense Umbrella (`34d6` — 8 Bought Hits, Major Action)",
+                "### Base Full Matrix Defense Umbrella (`25d6` — 6 Bought Hits, Passive PA R6)",
                 "```text",
-                f"@{{{c_ref}|gm_toggle}} &{{template:rolls-computed}}{{{{header=@{{{c_ref}|character_name}}}}}}{{{{base=Full Matrix Defense (34d6 -> 8 Bought Hits)}}}}{{{{dice=[[(34+@{{{c_ref}|wounds_toggle}}+@{{{c_ref}|modifiers_toggle}}+@{{{c_ref}|edge_toggle}})d6>5@{{{c_ref}|explode_toggle}}]]}}}}{{{{mod=[[@{{{c_ref}|modifiers_toggle}}]]}}}}{{{{wound=[[@{{{c_ref}|wounds_toggle}}]]}}}}{{{{edge=[[@{{{c_ref}|edge_toggle}}]]}}}}{{{{notes=Full Matrix Defense (34d6 = 8 Bought Hits): RES (8) + RES Focus (+4) + FW (9) + Personal Assistant R6 (+6) + Directional Shield Active DP (+7).}}}}",
+                f"@{{{c_ref}|gm_toggle}} &{{template:rolls-computed}}{{{{header=@{{{c_ref}|character_name}}}}}}{{{{base=Base Matrix Defense (25d6 -> 6 Bought Hits)}}}}{{{{dice=[[(25+@{{{c_ref}|wounds_toggle}}+@{{{c_ref}|modifiers_toggle}}+@{{{c_ref}|edge_toggle}})d6>5@{{{c_ref}|explode_toggle}}]]}}}}{{{{mod=[[@{{{c_ref}|modifiers_toggle}}]]}}}}{{{{wound=[[@{{{c_ref}|wounds_toggle}}]]}}}}{{{{edge=[[@{{{c_ref}|edge_toggle}}]]}}}}{{{{notes=Base Full Matrix Defense (25d6 = 6 Bought Hits): RES (9) + RES Focus (+4) + FW (9) + Personal Assistant R6 (3 Bought Hits).}}}}",
+                "```",
+                "",
+                "### All-In Matrix Defense Umbrella (`41d6` — 10 Bought Hits, Minor Anytime Actions)",
+                "```text",
+                f"@{{{c_ref}|gm_toggle}} &{{template:rolls-computed}}{{{{header=@{{{c_ref}|character_name}}}}}}{{{{base=All-In Matrix Defense (41d6 -> 10 Bought Hits)}}}}{{{{dice=[[(41+@{{{c_ref}|wounds_toggle}}+@{{{c_ref}|modifiers_toggle}}+@{{{c_ref}|edge_toggle}})d6>5@{{{c_ref}|explode_toggle}}]]}}}}{{{{mod=[[@{{{c_ref}|modifiers_toggle}}]]}}}}{{{{wound=[[@{{{c_ref}|wounds_toggle}}]]}}}}{{{{edge=[[@{{{c_ref}|edge_toggle}}]]}}}}{{{{notes=All-In Matrix Defense (41d6 = 10 Bought Hits): Base 25d6 + Echo: Syntax Error (+9 Submersion) + Directional Shield Active DP (+7).}}}}",
                 "```",
                 "",
                 "### Cyber Spike (`23d6` — Electronics Test vs Body + Essence)",

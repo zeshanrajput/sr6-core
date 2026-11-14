@@ -1061,24 +1061,22 @@ def get_matrix_asdf_derivation_table(char_id: str = "reiko") -> str:
         return "\n".join(rows + notes)
 
     # Reiko / Emerged Technoshaman Living Persona Derivation
-    # Point Buy: Attack 3, Sleaze 5, Data Processing 3, Firewall 5
-    # Assassin Sprite Symbiosis: +3 / +2 / +1 / +0
-    # Programs: Toolbox (+1 DP), Encryption (+1 FW)
-    # Resonance Split (Resonance 8): Distributed (+1 / +2 / +2 / +3 = 8) to reach the +4 Augmented Limit on all 4 attributes
-    # Final Active ASDF: 7 / 9 / 7 / 9 -> Attack Rating 16, Defense Rating 16
+    attrs = data.get("attributes", {})
+    res = int(attrs.get("resonance", 9))
+    fw_res_split = min(4, max(0, res - 5))
     rows = [
-        "| Matrix Attribute | Base (Point Buy) | Sprite Symbiosis (Assassin) | Programs (Toolbox / Encryption) | Resonance Split (Res 8) | Total Buff (+4 Cap) | Active Rating |",
+        f"| Matrix Attribute | Base (Point Buy) | Sprite Symbiosis (Assassin) | Programs (Toolbox) | Resonance Split (Res {res}) | Total Buff (+4 Cap) | Active Rating |",
         "| :--- | :---: | :---: | :---: | :---: | :---: | :---: |",
         "| **Attack (A)** | 3 | +3 | — | +1 | **+4** | **7** |",
         "| **Sleaze (S)** | 5 | +2 | — | +2 | **+4** | **9** |",
         "| **Data Processing (D)** | 3 | +1 | +1 *(Toolbox)* | +2 | **+4** | **7** |",
-        "| **Firewall (F)** | 5 | +0 | +1 *(Encryption)* | +3 | **+4** | **9** |"
+        f"| **Firewall (F)** | 5 | +0 | — | +{fw_res_split} | **+4** | **9** |"
     ]
 
     notes = [
         "\n* **Matrix Attack Rating (AR = Attack + Sleaze)**: $7 + 9 = \\mathbf{16}$",
         "* **Matrix Defense Rating (DR = Data Processing + Firewall)**: $7 + 9 = \\mathbf{16}$",
-        "* **Augmentation Cap Enforcement**: Under SR6 AI and living persona rules (*Hack & Slash* pp. 116–120), Matrix attributes are subject to the standard **+4 Augmented Attribute Limit**. Reiko's 8 flexible Resonance points are distributed ($1 + 2 + 2 + 3 = 8$) to bring each attribute to exactly the +4 maximum buff ceiling."
+        f"* **Augmentation Cap Enforcement**: Under SR6 AI and living persona rules (*Hack & Slash* pp. 116–120), Matrix attributes are subject to the standard **+4 Augmented Attribute Limit**. With Resonance **{res}**, Reiko distributes $1 + 2 + 2 + {fw_res_split} = {res}$ across her persona and requires only **Toolbox** (+1 DP) to cap all four attributes at +4, freeing the program slot formerly occupied by *Encryption*."
     ]
     return "\n".join(rows + notes)
 
@@ -1279,6 +1277,7 @@ def get_multi_modifier_interactions(char_id: str, threshold: int = 2) -> List[Di
         if len(mods_list) > threshold:
             legality = "All active modifiers stack legally. "
             constraints = ""
+            total_pool_str = f"{s.get('buffed_pool', s.get('pool', 0))}d6"
             if any(m["type"] == "augmentation" for m in mods_list):
                 legality += "Total augmentation bonuses remain within the SRMG +4 Augmentation Cap. "
             if any("Skillwires" in m["source"] for m in mods_list):
@@ -1288,10 +1287,25 @@ def get_multi_modifier_interactions(char_id: str, threshold: int = 2) -> List[Di
             if any("Math SPU" in m["source"] for m in mods_list):
                 constraints += "Math SPU reduces Edge boost costs by 1 (min 1). "
 
+            if s_name.lower().startswith("electronics") and int(attrs.get("resonance", 0)) > 0:
+                m_pools = ModifierEngine.get_matrix_action_pools(data)
+                soft_p = m_pools["electronics_software"].total_pool
+                other_p = m_pools["electronics_other"].total_pool
+                cf_p = m_pools["complex_forms"].total_pool
+                total_pool_str = f"{soft_p}d6 Software / {other_p}d6 Matrix (1 wild) | {cf_p}d6 Complex Forms"
+                mods_list.append({
+                    "source": "Overclock (Matrix Actions Only)",
+                    "value": "+2 (1 Wild Die)",
+                    "type": "tactical",
+                    "notes": "Applies to Matrix Electronics actions only (Computer, Hardware, Software); excluded from Resonance Complex Forms",
+                    "rule_anchor": "rules/rules_and_downtime.html#matrix-action-pools"
+                })
+                legality = "Taz provides +4 Teamwork. Personal Assistant R6 is dedicated exclusively to continuous Full Matrix Defense. Overclock applies strictly to Matrix actions; Complex Forms thread at 22d6 (24d6 / 6 Hits with Complex Forms Specialization)."
+
             results.append({
                 "category": "Skill & Action Pools",
                 "name": s_name,
-                "total_pool": f"{s.get('buffed_pool', s.get('pool', 0))}d6",
+                "total_pool": total_pool_str,
                 "base_summary": s.get("breakdown_text") or s.get("breakdown") or f"{linked_attr.upper()} {attrs.get(linked_attr, 0)} + Skill {s.get('base_rating', 0)}",
                 "modifiers": mods_list,
                 "stacking_legality": legality.strip(),
@@ -1352,7 +1366,7 @@ def get_multi_modifier_interactions(char_id: str, threshold: int = 2) -> List[Di
                     "count": len(fw_mods)
                 })
         elif int(attrs.get("resonance", 0)) > 0:
-            res_val = int(attrs.get("resonance", 8))
+            res_val = int(attrs.get("resonance", 9))
             asdf = ModifierEngine.get_living_persona_asdf(data)
             act_a = asdf.get("attack", 7)
             act_s = asdf.get("sleaze", 9)
@@ -1362,47 +1376,73 @@ def get_multi_modifier_interactions(char_id: str, threshold: int = 2) -> List[Di
             base_s = max(1, act_s - 4)
             base_d = max(1, act_d - 4)
             base_f = max(1, act_f - 4)
+            fw_res_split = min(4, max(0, res_val - 5))
 
             asdf_mods = [
-                {"source": "Base Point-Buy ASDF Array", "value": f"A:{base_a} S:{base_s} D:{base_d} F:{base_f}", "type": "base", "notes": "Digital Intelligence / Pilot AI point-buy base Matrix attributes", "rule_anchor": "rules/rules_and_downtime.html#matrix-attributes"},
-                {"source": "Taz Symbiosis (+6) + Programs (+2) + Resonance Split (+8)", "value": "+4 to all ASDF (+4 Cap)", "type": "augmentation", "notes": "Taz Assassin Sprite (+3/+2/+1/+0), Toolbox (+1 DP), Encryption (+1 FW), Resonance 8 (+1/+2/+2/+3) capped at +4 per attribute", "rule_anchor": "rules/rules_and_downtime.html#matrix-attributes"},
-                {"source": "Taz Symbiosis", "value": "+4 Teamwork", "type": "teamwork", "notes": "Companion sprite assistance adds +4 teamwork dice to Cracking & Electronics", "rule_anchor": "rules/rules_and_downtime.html#matrix-action-pools"},
+                {"source": "Base Point-Buy ASDF Array", "value": f"A:{base_a} S:{base_s} D:{base_d} F:{base_f}", "type": "base", "notes": "Digital Intelligence / Pilot AI point-buy base Matrix attributes", "rule_anchor": "rules/rules_and_downtime.html#matrix-operations"},
+                {"source": f"Taz Symbiosis (+6) + Toolbox (+1) + Resonance {res_val} Split", "value": "+4 to all ASDF (+4 Cap)", "type": "augmentation", "notes": f"Taz Assassin Sprite (+3/+2/+1/+0), Toolbox (+1 DP; Encryption slot freed), Resonance {res_val} (+1/+2/+2/+{fw_res_split}) capped at +4 per attribute", "rule_anchor": "rules/rules_and_downtime.html#matrix-operations"},
+                {"source": "Taz Symbiosis", "value": "+4 Teamwork", "type": "teamwork", "notes": "Companion sprite adds +4 teamwork to Cracking & Electronics (Personal Assistant R6 is dedicated exclusively to Full Matrix Defense)", "rule_anchor": "rules/rules_and_downtime.html#matrix-action-pools"},
                 {"source": "Resonance Focus R4", "value": "+4 Focus", "type": "focus", "notes": "Applies +4 dice to Resonance-linked action and defense tests (Natural Hacker)", "rule_anchor": "rules/rules_and_downtime.html#matrix-action-pools"}
             ]
             if len(asdf_mods) > threshold:
                 results.append({
                     "category": "Resonance & Living Persona",
                     "name": "Living Persona ASDF & Resonance Operations",
-                    "total_pool": f"A:{act_a} S:{act_s} D:{act_d} F:{act_f} (Matrix AR {act_a + act_s} / DR {act_d + act_f} [20 Edge]; RES {res_val} + Focus 4 = {res_val + 4}d6 Base)",
+                    "total_pool": f"A:{act_a} S:{act_s} D:{act_d} F:{act_f} (Matrix AR {act_a + act_s} / DR {act_d + act_f}; RES {res_val} + Focus 4 = {res_val + 4}d6 Base)",
                     "base_summary": f"Base ASDF (A:{base_a} S:{base_s} D:{base_d} F:{base_f}) + Augmented Cap (+4/+4/+4/+4) = A:{act_a} S:{act_s} D:{act_d} F:{act_f}",
                     "modifiers": asdf_mods,
-                    "stacking_legality": "Under Hack & Slash pp. 116–120, AI/EI Matrix attributes are subject to the +4 Augmented Attribute Limit. Taz Symbiosis provides teamwork dice capped at skill rating. Resonance Focus applies to the Resonance attribute component.",
+                    "stacking_legality": "Under Hack & Slash pp. 116–120, AI/EI Matrix attributes are subject to the +4 Augmented Attribute Limit. Taz Symbiosis and Personal Assistant R6 teamwork are capped at the active skill rating. Resonance Focus applies to the Resonance attribute component.",
                     "operational_constraints": "Only one Data Structure may be active at a time per SRM rules (Resonance Focus R4 is active; Oracle R4 remains dormant in the Sanctuary Host). Taz must remain registered and in PAN proximity.",
                     "count": len(asdf_mods)
                 })
 
-            # Matrix Defense Umbrella (Standard 21d6 / Full Matrix Defense 34d6)
+            # Matrix Defense Umbrella (Standard 22d6 / Base Defense 25d6 / All-In 41d6)
+            sub_g = int(identity.get("submersion", 9))
             mdef_mods = [
-                {"source": "Firewall (Active Living Persona)", "value": str(act_f), "type": "attribute", "notes": f"Base Firewall {base_f} + Encryption (+1) + Resonance Split (+3) = {act_f}", "rule_anchor": "rules/rules_and_downtime.html#matrix-attributes"},
+                {"source": "Firewall (Active Living Persona)", "value": str(act_f), "type": "attribute", "notes": f"Base Firewall {base_f} + Resonance {res_val} Split (+{fw_res_split}) = {act_f}", "rule_anchor": "rules/rules_and_downtime.html#matrix-operations"},
                 {"source": "Resonance (Natural Hacker Substitution)", "value": f"+{res_val}", "type": "attribute", "notes": "Natural Hacker (H&S p. 120) substitutes Resonance for Willpower/Intuition on Matrix defenses", "rule_anchor": "rules/rules_and_downtime.html#matrix-defense-umbrella"},
-                {"source": "Resonance Focus (Rating 4)", "value": "+4", "type": "focus", "notes": "Adds +4 dice to Resonance component -> Standard Matrix Defense = 21d6 (5 Bought Hits)", "rule_anchor": "rules/rules_and_downtime.html#matrix-defense-umbrella"},
-                {"source": "Personal Assistant App (Rating 6 via Emulator)", "value": "+6", "type": "software", "notes": "Continuously takes the Full Matrix Defense action every round for the entire PAN", "rule_anchor": "rules/rules_and_downtime.html#matrix-defense-umbrella"},
-                {"source": "Directional Shield (Active Data Processing)", "value": f"+{act_d}", "type": "software", "notes": "Minor Anytime Action in Full Matrix Defense adds Data Processing (+7) to defense pool", "rule_anchor": "rules/rules_and_downtime.html#matrix-defense-umbrella"},
-                {"source": "Encryption & Designer Home Device", "value": "+1 Threshold / DR 20 (Edge)", "type": "network", "notes": "Encryption adds +1 threshold to incoming Cracking tests; Designer raises effective Matrix DR from 16 to 20 for Edge comparison", "rule_anchor": "rules/rules_and_downtime.html#network-benefits"}
+                {"source": "Resonance Focus (Rating 4)", "value": "+4", "type": "focus", "notes": f"Adds +4 dice to Resonance component -> Standard Matrix Defense = {act_f + res_val + 4}d6 ({(act_f + res_val + 4) // 4} Bought Hits)", "rule_anchor": "rules/rules_and_downtime.html#matrix-defense-umbrella"},
+                {"source": "Personal Assistant App (R6 Bought Hits)", "value": "+3", "type": "software", "notes": "Rolls 12 dice (Rating 6 x 2) and buys 3 hits for Full Matrix Defense on behalf of the PAN, avoiding contentious double-Firewall stacking", "rule_anchor": "rules/rules_and_downtime.html#matrix-defense-umbrella"},
+                {"source": "Echo: Syntax Error", "value": f"+{sub_g}", "type": "echo", "notes": f"Minor Anytime Action when aware of incoming Matrix action adds Submersion Grade (+{sub_g})", "rule_anchor": "rules/rules_and_downtime.html#matrix-defense-umbrella"},
+                {"source": "Directional Shield (Active Data Processing)", "value": f"+{act_d}", "type": "software", "notes": f"Minor Anytime Action in Full Matrix Defense when aware of attacker adds Data Processing (+{act_d})", "rule_anchor": "rules/rules_and_downtime.html#matrix-defense-umbrella"}
             ]
             std_mdef = act_f + res_val + 4
-            full_mdef = std_mdef + 6 + act_d
+            base_mdef = std_mdef + 3
+            all_in_mdef = base_mdef + sub_g + act_d
             if len(mdef_mods) > threshold:
                 results.append({
                     "category": "Matrix Defense Umbrella",
-                    "name": "Standard & Full Matrix Defense Umbrella",
-                    "total_pool": f"{std_mdef}d6 Standard ({std_mdef // 4} Hits) / {full_mdef}d6 Full Defense ({full_mdef // 4} Hits)",
-                    "base_summary": f"FW {act_f} + RES {res_val} + Focus 4 = {std_mdef}d6 Standard | + Personal Assistant R6 (6) + Directional Shield DP ({act_d}) = {full_mdef}d6 Full Matrix Defense",
+                    "name": "Matrix Defense Umbrella",
+                    "total_pool": f"{base_mdef}d6 Base ({base_mdef // 4} Hits) / {all_in_mdef}d6 All-In ({all_in_mdef // 4} Hits)",
+                    "base_summary": f"FW {act_f} + RES {res_val} + Focus 4 + PA R6 (3) = {base_mdef}d6 Base | + Syntax Error ({sub_g}) + Directional Shield DP ({act_d}) = {all_in_mdef}d6 All-In",
                     "modifiers": mdef_mods,
-                    "stacking_legality": "Standard Matrix Defense pairs Firewall (9) with Resonance (8 + 4 Focus = 12) via Natural Hacker. Full Matrix Defense adds Personal Assistant R6 (+6) and Directional Shield Data Processing (+7 via Minor Anytime Action), all from distinct multi-component/action sources.",
-                    "operational_constraints": "Personal Assistant R6 runs in Software Emulator and maintains Full Matrix Defense passively for the PAN. Directional Shield requires 1 Minor Anytime Action when attacked.",
+                    "stacking_legality": f"Standard Matrix Defense pairs Firewall (9) with Resonance (9 + 4 Focus = 13) via Natural Hacker (22d6). Base Matrix Defense adds Personal Assistant R6 (+3 bought hits for Full Matrix Defense, totaling 25d6). When aware, Minor Anytime actions add Echo: Syntax Error (+{sub_g}) and Directional Shield (+{act_d}), reaching {all_in_mdef}d6 All-In across distinct legal categories.",
+                    "operational_constraints": "Personal Assistant R6 contributes 3 bought hits passively. Syntax Error and Directional Shield each require 1 Minor Anytime Action when aware of the incoming action/attacker. Designer Home Device grants +4 Device Rating (not Matrix DR).",
                     "count": len(mdef_mods)
                 })
+
+            # Inhabited Drone Override & Pilot Origins
+            drones = data.get("drones", [])
+            primary_drone = next((d for d in drones if isinstance(d, dict) and any(k in d.get("name", "").lower() for k in ["man-at-arms", "butler"])), None)
+            if primary_drone:
+                dp = calculate_drone_action_pools(data, primary_drone, mode="inhabited_override")
+                drone_mods = [
+                    {"source": "Inhabited Override + Designer", "value": f"Pilot {res_val + 1}", "type": "override", "notes": f"Override substitutes Resonance ({res_val}) for Pilot + Designer Home Device (+1) = {res_val + 1}", "rule_anchor": "rules/rules_and_downtime.html#shiawase-man-at-arms"},
+                    {"source": "Pilot Origins (Control Rig R1 Equiv.)", "value": "+1d6 / -1 Thresh", "type": "quality", "notes": "Grants +1 dice pool on inhabited vehicle/drone tests and reduces all vehicle test thresholds by 1 (H&S p. 119)", "rule_anchor": "rules/rules_and_downtime.html#shiawase-man-at-arms"},
+                    {"source": "Resonance Focus R4 + Taz", "value": "+4 Focus / +3–4 Taz", "type": "focus", "notes": "Focus applies on Resonance-linked tests; Taz adds +4 Symbiosis (+3 Diagnosis on Piloting)", "rule_anchor": "rules/rules_and_downtime.html#shiawase-man-at-arms"},
+                    {"source": "Sensor Upgrade + Home Device + Enlighten", "value": "Sensor 6 (8)", "type": "sensor", "notes": "Hardware 4 (Medium Drone max) + Sensor Upgrade (+1) + Home Device (+1) = 6; Enlighten Automaton (+2, 1 sprite task/scene) = 8", "rule_anchor": "rules/rules_and_downtime.html#shiawase-man-at-arms"}
+                ]
+                if len(drone_mods) > threshold:
+                    results.append({
+                        "category": "Inhabited Drone Operations",
+                        "name": f"{primary_drone.get('name', 'Anthrodrone')} (Inhabited Override)",
+                        "total_pool": f"Pilot {dp['piloting']['pool']}d6 (-1 Thresh) / Gunnery {dp['gunnery']['pool']}d6 / Evasion {dp['evasion']['pool']}d6",
+                        "base_summary": dp["piloting"]["breakdown"],
+                        "modifiers": drone_mods,
+                        "stacking_legality": "Pilot Origins (+1 dice pool, -1 threshold), Designer (+1 Pilot, +4 Device Rating), Home Device (+1 Sensor), and Sensor Upgrade (+1 Sensor) operate on distinct vehicle attributes and test modifiers.",
+                        "operational_constraints": "Enlighten Automaton (+2 Sensor) requires 1 sprite task per combat scene to sustain; the commanding Minor Action is refunded by Sprite Link (H&S p. 69).",
+                        "count": len(drone_mods)
+                    })
 
     # 3. Damage Resistance & Armor
     bod = int(attrs.get("body", 1))

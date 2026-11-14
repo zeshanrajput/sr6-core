@@ -125,6 +125,6 @@ def test_multi_modifier_interactions_reiko():
     assert "Automated Multi-Modifier Audit" in rendered
     assert "Cracking" in rendered
     assert "Resonance Focus" in rendered
-    assert "21d6" in rendered
+    assert "22d6" in rendered
 
 

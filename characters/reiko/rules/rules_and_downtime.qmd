@@ -11,19 +11,32 @@ from sr6core.rules.engine import (
     get_weapon_attack_table,
     get_matrix_asdf_derivation_table,
     get_matrix_action_table,
-    render_matrix_actions_markdown,
-    render_multi_modifier_interactions,
+    get_drone_action_table,
     get_matrix_protocols_summary,
-    render_sprite_stable
 )
 from sr6core.rules.modifiers import ModifierEngine
+from sr6core.rules.vehicles import parse_vehicle_modifications, calculate_drone_action_pools
 
 cm = CharacterManager()
 _char = cm.get_character_data("reiko") or {}
 attrs = _char.get("attributes", {})
 log_totals = get_log_totals(["core/character_log.qmd", "core/character_purchases.qmd"])
 
-SUBMERSION_GRADE = log_totals.get("Submersion_Grade", 8)
+SUBMERSION_GRADE = int(log_totals.get("Submersion_Grade") or _char.get("identity", {}).get("submersion", 9))
+WIL = int(attrs.get("willpower", 6))
+CHA = int(attrs.get("charisma", 4))
+RESONANCE = int(attrs.get("resonance", 9))
+focus_mods = ModifierEngine.get_focus_modifiers(_char, "resonance")
+RESONANCE_FOCUS = sum(m.value for m in focus_mods) if focus_mods else 4
+
+skills_map = {str(s.get("name", "")).lower(): s for s in _char.get("skills", []) if isinstance(s, dict)}
+TASKING_RATING = int(skills_map.get("tasking", {}).get("rating", 6))
+TASKING_POOL = TASKING_RATING + 2 + RESONANCE + RESONANCE_FOCUS
+TASKING_HITS = TASKING_POOL // 4
+FADE_POOL = WIL + CHA + SUBMERSION_GRADE
+FADE_HITS = FADE_POOL // 4
+COMPOSURE_POOL = WIL + CHA
+
 edge_storage_mtoc = 5
 edge_storage_total = SUBMERSION_GRADE + edge_storage_mtoc
 
@@ -33,20 +46,43 @@ ACTIVE_A = active_asdf.get("attack", 7)
 ACTIVE_S = active_asdf.get("sleaze", 9)
 ACTIVE_D = active_asdf.get("data_processing", 7)
 ACTIVE_F = active_asdf.get("firewall", 9)
-active_asdf_str = matrix_summary.get("asdf_str", "A:7 S:9 D:7 F:9")
-full_def_hits = matrix_summary.get("full_defense_hits", 8)
-full_def_pool = matrix_summary.get("full_defense_pool", 34)
+MATRIX_AR = ACTIVE_A + ACTIVE_S
+MATRIX_DR = ACTIVE_D + ACTIVE_F
 
-RESONANCE = int(attrs.get("resonance", 8))
-focus_mods = ModifierEngine.get_focus_modifiers(_char, "resonance")
-RESONANCE_FOCUS = sum(m.value for m in focus_mods) if focus_mods else 4
 std_def_pool = ACTIVE_F + RESONANCE + RESONANCE_FOCUS
 std_def_hits = std_def_pool // 4
+full_def_obj = ModifierEngine.get_full_matrix_defense(_char)
+full_def_pool = full_def_obj.get("pool", 25)
+full_def_base_hits = full_def_pool // 4
+full_def_all_in = full_def_obj.get("all_in_pool", 41)
+full_def_hits = full_def_obj.get("effective_hits", full_def_all_in // 4)
+soak_hits = ACTIVE_F // 4
+
+maa_drone = next(
+    (d for d in _char.get("drones", []) if isinstance(d, dict) and "man-at-arms" in d.get("name", "").lower()),
+    {},
+)
+maa_profile = parse_vehicle_modifications(maa_drone, char_data=_char)
+MAA_BODY = maa_profile["augmented_body"]
+MAA_ARMOR = maa_profile["augmented_armor"]
+MAA_PHYS_DR = MAA_BODY + MAA_ARMOR
+MAA_PILOT_BASE = maa_profile["inhabited_pilot"]
+MAA_PILOT_FOCUS = MAA_PILOT_BASE + RESONANCE_FOCUS
+MAA_SEN_HW = maa_profile["hardware_sensor"]
+MAA_SEN_AUG = maa_profile["augmented_sensor"]
+MAA_SEN_ENL = maa_profile["enlightened_sensor"]
+
+maa_pools = calculate_drone_action_pools(_char, maa_drone, mode="inhabited_override")
+MAA_PILOT_POOL = maa_pools["piloting"]["pool"]
+MAA_PILOT_HITS = MAA_PILOT_POOL // 4
+MAA_MIN_SPEED_POOL = MAA_PILOT_POOL - 9
+MAA_MIN_SPEED_HITS = MAA_MIN_SPEED_POOL // 4
+MAA_EFF_HANDLING = 4 - 1  # Pilot Origins Control Rig R1 equivalent reduces vehicle thresholds by 1
 ```
 
 ::: {.callout-note icon=false}
 ## 🎲 Physical Tabletop Companion Mandate
-This chapter documents the underlying rules, citations, and stacking legality behind Reiko's stats. 
+This chapter documents the underlying rules, citations, and stacking legality behind Reiko's stats.
 
 Live situational dice pools, condition modifiers, and active gear ratings are calculated dynamically in the companion tools:
 * 📱 **[Mobile PWA Interactive Sheet](../output/mobile/index.html)**
@@ -56,42 +92,11 @@ Live situational dice pools, condition modifiers, and active gear ratings are ca
 
 ---
 
-## 1. Tactical Weapons & Attack Ratings (AR)
+## 1. Living Persona, Matrix Attributes & Network Architecture{#matrix-operations}
 
-Reiko integrates weapon mounts directly into her Shiawase Man-at-Arms anthrodrone chassis and custom cybernetic assemblies. The table below displays live calculated values from the engine:
+### Living Persona ASDF Derivation{#matrix-attributes}
 
-```{python}
-#| echo: false
-#| output: asis
-print(get_weapon_attack_table("reiko"))
-```
-
-### Mechanical Construction & Citations
-
-1. **Red Fox Lasers (Twin Eye-Mounts)**:
-   * **Source**: *Firing Squad*, p. 44 / p. 116 (Energy Weapons) & *Double Clutch*, p. 143 (Link-Firing).
-   * **Mounting Stability**: Built into cybernetic eye mounts / anthrodrone head assembly, granting **+2 AR** across all active ranges (*Firing Squad*, p. 112).
-   * **Smartlink Integration**: Smartlink grants **+2 AR** (*SR6 Core*, p. 260); network coordination via Master Tactical Operations Commlink (M-TOC II) adds an additional **+1 AR** (*Firing Squad*, p. 90).
-   * **Link-Firing Array**: Firing both emitters simultaneously adds **+2 DV** and **+1 AR**, costing 1 Major and 1 Minor action for the attack (*Double Clutch*, p. 143).
-
-2. **Tesla Coil (Oropharyngeal Emitter / "Lightning Breath")**:
-   * **Source**: *Body Shop*, p. 49 & *SR6 Core*, pp. 117–118 (Exotic Ranged / Spray Attack).
-   * **Chassis Architecture**: Mechanically anchored to her right cyberarm/thoracic assembly ([8] Capacity), with the discharge aperture routed behind the posterior oropharynx wall at the back of her throat. A motorized ceramic/silicone sphincter keeps the arc nodes hermetically sealed from her esophageal fuel intake (Hydrocarbon Fuel Converter).
-   * **Discharge Cones & Firing Modes**:
-     * *Straight Stream*: Direct beam against the first target along a 20-meter line of fire. Standard base damage (`5S(e)`) and range profile (`10/12*`).
-     * *Wobbly Cone*: Arc discharging across an $8.58^\circ$ cone (3 meters wide at 20m). Modifies attack by **+2 AR** (`12/14*`) and **-1 DV** (`4S(e)`). Affects all targets in the cone.
-     * *Sweeping Arc*: Wide electrical discharge across a $28.07^\circ$ cone (10 meters wide at 20m). Modifies attack by **+4 AR** (`14/16*`) and **-3 DV** (`2S(e)`). Affects all targets in the cone.
-   * **Wild Die Acceleration**: When executing a Wobbly or Sweeping discharge, Reiko may substitute one normal die with a **Wild Die** to accelerate stream speed (*SR6 Core*, p. 118).
-
-3. **Amalgam Cestas (Anti-Spirit CQC)**:
-   * **Source**: *Scotophobia*, p. 181 (Grey Mana Technology & Exotic Alloys).
-   * **Overcoming Immunity to Normal Weapons (ItNW)**: Against materialized spirits or critters possessing ItNW, the entity's Essence-based Hardened Armor is treated as **normal armor** rather than hardened armor. Armor dice do not automatically convert to automatic hits, permitting mundane physical penetration without weapon foci (*Scotophobia*, p. 181).
-
----
-
-## 2. Matrix Attributes, Defense Umbrella & Network Protocols{#matrix-attributes}
-
-Reiko's base point-buy Living Persona ASDF is **`3 / 5 / 3 / 5`**. She gains **+6** from Sprite Symbiosis with Taz (`+3 / +2 / +1 / +0`), **+1** Data Processing from *Toolbox*, **+1** Firewall from *Encryption*, and **+8** from her Resonance (`+1 / +2 / +2 / +3`), for a raw total of **+16**. Under SR6 AI rules (*Hack & Slash*, pp. 116–120), Matrix ASDF attributes represent the intrinsic physical and mental characteristics of Digital Intelligences and are subject to the standard **+4 Augmented Attribute Limit**, bringing her active array to **`7 / 9 / 7 / 9`** (`Attack 7, Sleaze 9, Data Processing 7, Firewall 9`).
+Under SR6 AI and Digital Intelligence rules (*Hack & Slash*, pp. 116–120), Living Persona Matrix attributes represent an Emergent Intelligence's intrinsic stats and remain capped by the standard **+4 Augmented Attribute Limit**. With Resonance **`{python} RESONANCE`**, Reiko distributes `{python} RESONANCE` flexible points (`+1 / +2 / +2 / +4`) alongside Taz's Assassin Sprite Symbiosis (`+3 / +2 / +1 / +0`) and **Toolbox** (`+1 Data Processing`) to cap all four attributes at +4—eliminating any need for the **Encryption** program and freeing up a program slot.
 
 ```{python}
 #| echo: false
@@ -99,31 +104,7 @@ Reiko's base point-buy Living Persona ASDF is **`3 / 5 / 3 / 5`**. She gains **+
 print(get_matrix_asdf_derivation_table("reiko"))
 ```
 
-### Matrix Defense Umbrella{#matrix-defense-umbrella}
-
-Reiko's Matrix Defense Umbrella protects her Living Persona and every device/persona slaved to her PAN:
-
-* **Matrix Defense Rating (`DR 16` / Effective `DR 20` vs. Enemy Edge)**:
-  * **Base Matrix DR**: $\text{Data Processing } (\text{`{python} ACTIVE_D`}) + \text{Firewall } (\text{`{python} ACTIVE_F`}) = \mathbf{\text{`{python} ACTIVE_D + ACTIVE_F`}\;DR}$.
-  * **Designer Home Device Bonus**: When inhabiting or protecting her Home Device (*Hack & Slash*, pp. 119, 124), her Defense Rating is considered **+4 higher (`{python} ACTIVE_D + ACTIVE_F + 4` DR)** for Edge comparisons.
-* **Encryption Threshold Shift (`+1 Threshold`)**:
-  * Running the **Encryption** program increases the threshold of all incoming **Cracking** tests against any device or persona on the network by **`+1`**.
-* **Standard Matrix Defense (vs. Attack Actions — *Brute Force, Data Spike, Crash Program, Tarpit*)**: **`{python} std_def_pool`d6** $\rightarrow$ **`{python} std_def_hits` Bought Hits**
-  * *Applied Modifiers*: Firewall (`{python} ACTIVE_F`) + Natural Hacker RES (`{python} RESONANCE`) + Resonance Focus (+`{python} RESONANCE_FOCUS`).
-* **Standard Matrix Defense (vs. Sleaze Actions — *Probe, Backdoor Entry, Hack on the Fly, Spoof Command*)**: **`{python} std_def_pool`d6** $\rightarrow$ **`{python} std_def_hits` Bought Hits**
-  * *Applied Modifiers*: Firewall (`{python} ACTIVE_F`) + Natural Hacker RES (`{python} RESONANCE`) + Resonance Focus (+`{python} RESONANCE_FOCUS`).
-* **Full Matrix Defense Umbrella (Passive PAN Overwatch + Directional Shield + Syntax Error)**: **`{python} full_def_pool`d6** $\rightarrow$ **`{python} full_def_hits` Bought Hits**
-  * *Applied Modifiers*: RES (`{python} RESONANCE`) + Resonance Focus (+`{python} RESONANCE_FOCUS`) + Firewall (`{python} ACTIVE_F`) + **Personal Assistant App R6** (+3; rolls 12 dice and buys 3 hits for Full Matrix Defense every round for the network, *Hack & Slash* p. 55) $\rightarrow$ **25d6 Base Matrix Defense**.
-  * *Minor Anytime Reaction Modifiers (When Aware)*:
-    * **Echo: Syntax Error**: **+`{python} SUBMERSION_GRADE` dice** (+9 dice, Minor Anytime Action when aware of incoming Matrix action, *Hack & Slash* pp. 69–70).
-    * **Directional Shield Active DP**: **+`{python} ACTIVE_D` dice** (+7 dice, Minor Anytime Action when aware of attacker, *Hack & Slash* p. 58).
-  * *(Passively provides **25d6 $\rightarrow$ 6 Bought Hits**; scales to **25(41)d6 $\rightarrow$ 10 Bought Hits** All-In).*
-* **Matrix Damage Mitigation**:
-  * **Matrix Soak**: **`{python} ACTIVE_F`d6** (`{python} ACTIVE_F // 4` Bought Hits via Firewall `{python} ACTIVE_F`).
-  * **Sprite Link Echo**: May transfer any Stun, Physical, or Matrix damage boxes to a registered sprite's Condition Monitor (*Hack & Slash*, p. 121).
-  * **P-ICE Spines App**: Any attacker who fails an Attack action against the PAN suffers **2S Matrix damage** (*Hack & Slash*, p. 55).
-
-### Standardized Matrix Action Pools{#matrix-action-pools}
+### Standardized Matrix & Threading Action Pools{#matrix-action-pools}
 
 ```{python}
 #| echo: false
@@ -131,112 +112,85 @@ Reiko's Matrix Defense Umbrella protects her Living Persona and every device/per
 print(get_matrix_action_table("reiko"))
 ```
 
-### Network Benefits (PAN & M-TOC Mark II){#network-benefits}
+::: {.callout-note icon=false}
+### Threading vs. Overclock & Personal Assistant Notes
+* **Overclocking Scope (*Hack & Slash*, p. 58)**: *Overclock* (`+2` dice, converts 1 die to a Wild Die) applies strictly to **Matrix Actions** (Cracking, Computer, Hardware, Software)—**not** Resonance **Complex Forms**. Consequently, Complex Forms thread at `22d6` (`5 Bought Hits`); taking an *Electronics (Complex Forms)* specialization (`+2`) later restores `24d6` (`6 Bought Hits`).
+* **Personal Assistant Protocol**: Personal Assistant (R6) is reserved exclusively for continuous **Full Matrix Defense** on behalf of the PAN (`+3` bought hits), preserving its operational capacity to anchor Full Matrix Defense and unlock *Directional Shield* without dividing its focus on sporadic Electronics tests. Taz provides `+4` Teamwork to Electronics tests directly.
+:::
 
-* **Edge Storage**: Capacity **`{python} edge_storage_total` Edge** (`{python} edge_storage_mtoc` M-TOC Mark II + `{python} SUBMERSION_GRADE` *Transcendent Network* Submersion Grade).
-* **-6 Noise Reduction**: **-2** *Designer* Home Device (*Hack & Slash*, p. 124) + **-2** *Signal Scrubber* program (*SR6 Core*, p. 185) + **-2** *ECM Warrior II* TacApp (*Firing Squad*, p. 89).
-* **+1 Sensor Rating**: Added to any connected sensor on the network (*Sensor Upgrade* quality, *Hack & Slash* p. 120).
-* **Coordination (*Living Network* Echo)**: Connected characters using **Send Message** (Minor Action) among themselves immediately gain **1 bonus Minor Action** (*Hack & Slash*, p. 120).
-* **Smartsoft Array**:
-  * Drone Sensor/Target Locks are shared among all networked drones (*Double Clutch*, p. 125).
-  * Target-locked victims cannot spend Edge against attacking networked drones.
-* **Detect Ambush**: **-2 threshold** on Perception/Surprise tests to detect an ambush (*Firing Squad*, p. 90).
-* **Smartguns**: **+1 extra AR** to all smartlinked weapons on the network (*Firing Squad*, p. 90).
-* **Encryption**: **+1 threshold** for all incoming Cracking tests against the network.
-* **Tactical Software Apps (M-TOC Mark II)**:
-  * *Artillery Barrage*: **+1 dice pool** to Launchers (grenade, rocket, mortar) and -2m scatter.
-  * *ECM Warrior II*: **+2 dice pool** to all Cracking tests (including offensive Cracking-based Complex Forms such as *Cyber Spike* and *Resonance Spike*) and **-2 Noise**.
-  * *Sneak-Sneak*: **+2 dice pool** (Teamwork) to Stealth tests.
-  * *Target Artist*: Shared Line of Sight (attack without LOS penalty on painted targets).
+### Matrix Defense, Damage Soak & P-ICE Protocols{#matrix-defense-umbrella}
+
+* **Matrix Defense Rating**: $\text{Data Processing } (\text{`{python} ACTIVE_D`}) + \text{Firewall } (\text{`{python} ACTIVE_F`}) = \mathbf{\text{`{python} MATRIX_DR`}\;DR}$ (Active Living Persona Matrix AR **`{python} MATRIX_AR`** / DR **`{python} MATRIX_DR`**). Note that the *Designer* Home Device bonus increases physical **Device Rating** (`+4`), not Matrix Defense Rating.
+* **Three-Tier Matrix Defense Umbrella**:
+  * **Standard Defense (`{python} std_def_pool`d6 / `{python} std_def_hits` Hits)**: Firewall (`{python} ACTIVE_F`) + *Natural Hacker* Resonance (`{python} RESONANCE`) + Resonance Focus (`+{python} RESONANCE_FOCUS`).
+  * **Passive PAN Defense (`{python} full_def_pool`d6 / `{python} full_def_base_hits` Hits)**: Adds **Personal Assistant R6** (`+3` bought hits via `12d6 / 4`). *Table Ruling:* Although *Hack & Slash* describes a Personal Assistant as continuously performing Full Matrix Defense, we deliberately opt **not** to double-add Firewall (`+{python} ACTIVE_F`) into the dice pool, taking only its `3` bought hits.
+  * **All-In Reaction (`{python} full_def_all_in`d6 / `{python} full_def_hits` Hits)**: Spend 1 Minor Anytime Action each when aware to add **Echo: Syntax Error** (`+{python} SUBMERSION_GRADE` Submersion Grade, *Hack & Slash*, pp. 69–70) and **Directional Shield** (`+{python} ACTIVE_D` Active Data Processing, *Hack & Slash*, p. 58).
+* **Matrix Damage Mitigation & Countermeasures**:
+  * **Matrix Soak**: **`{python} ACTIVE_F`d6** (`{python} soak_hits` Bought Hits) via active Firewall.
+  * **Sprite Link (*Hack & Slash*, p. 69)**: Spend 1 Minor Anytime Action and 1 sprite task to transfer unresisted **Fading damage** that Reiko would suffer to one of her registered sprites (`-1` Sprite Reputation). Note that Sprite Link transfers Fading damage only; it does not transfer Matrix or meatspace damage.
+  * **P-ICE: Spines (*Hack & Slash*, p. 57)**: Whenever an attacker takes a Matrix action opposed by the PAN's Firewall, if the attack succeeds the hacker suffers **`1` Matrix damage**; if the attack fails, the hacker suffers **`1` Matrix damage for every net hit against them** (minimum `1` damage). Prevented only by *Spineshield*.
+
+### Network Benefits (PAN, M-TOC Mark II & Transcendent Network){#network-benefits}
+
+* **Edge Storage (`{python} edge_storage_total` Edge)**: `{python} edge_storage_mtoc` (*M-TOC Mark II*, *Double Clutch*, p. 124) + `{python} SUBMERSION_GRADE` (*Transcendent Network* Echo equal to Submersion Grade, *Hack & Slash*, p. 69).
+* **-6 Ambient Noise Reduction**: `-2` *Designer* Home Device (*Hack & Slash*, p. 124) + `-2` *Signal Scrubber* (*SR6 Core*, p. 185) + `-2` *ECM Warrior II* (*Firing Squad*, p. 89).
+* **Coordination (*Living Network* Echo)**: Connected PAN members using *Send Message* (Minor Action) among themselves gain **1 bonus Minor Action** (*Hack & Slash*, p. 69).
+* **Smartsoft & Tactical Network Suite**:
+  * *Smartsoft Array* (*Double Clutch*, p. 125): Shares Drone Sensor/Target Locks across all networked drones; target-locked targets cannot spend Edge against attacking networked drones.
+  * *M-TOC II TacApps*: *Artillery Barrage* (`+1` Launcher dice, `-2m` scatter), *ECM Warrior II* (`+2` Cracking, `-2` Noise), *Sneak-Sneak* (`+2` Teamwork Stealth), *Target Artist* (shared LOS on painted targets), and *Mobile Medic*.
+  * *Hardware Network Bonuses* (*Firing Squad*, p. 90; *Hack & Slash*, p. 120): `-2` threshold on Perception/Surprise ambush detection, `+1 AR` to networked smartguns, and `+1` Sensor Rating (*Sensor Upgrade*).
 
 ---
 
-## 3. High-Dice Pools Over 20 (Tabletop Audit)
+## 2. Resonance, Submersion & Sprite Operations{#resonance-and-sprites}
 
-Any dice pool exceeding 20 dice is presented for review highlighting stacking legality, modifier categories, and augmented limits.
+* **Compiling & Registering (`{python} TASKING_POOL`d6 / `{python} TASKING_HITS` Bought Hits)**: Tasking (`{python} TASKING_RATING`) + Specialization (`+2` Compiling / Registering) + Resonance (`{python} RESONANCE`) + Resonance Focus (`+{python} RESONANCE_FOCUS`).
+* **Fading Resistance (`{python} FADE_POOL`d6 / `{python} FADE_HITS` Bought Hits)**: Willpower (`{python} WIL`) + Charisma (`{python} CHA`) + Submersion Grade (`{python} SUBMERSION_GRADE` via *Sprite Conduit*, *Hack & Slash*, p. 69) = `{python} WIL` + `{python} CHA` + `{python} SUBMERSION_GRADE` = **`{python} FADE_POOL`d6**. As a Technoshaman (*SR6 Core*, p. 190), compiling and decompiling actions also reduce Fading Value by **2**.
+* **Dissonant Technomancer (Control / Apophenian)** (*Shadow Cast*, pp. 84–85; *SRMG*, p. 37):
+  * *Preferred Target Category — Devices*: Halves / reduces Edge Boost costs by **`-1` Edge** (min 1) on Matrix actions and Complex Forms targeting Devices, adds **1 Wild Die** to device-targeting tests, and reduces Fading by hits rolled on the wild die.
+  * *Activation Check*: Tasking Dissonance triggers a **Composure (`{python} COMPOSURE_POOL`d6)** test (`WIL {python} WIL + CHA {python} CHA`).
+* **Single Active Data Structure & Sanctuary Host (`~`)** (*SRMG v2.4*, pp. 7, 39; *Hack & Slash*, pp. 69–70, 128): Under *SRMG v2.4*, an Emergent Intelligence can actively bond **one** data structure at a time. Reiko keeps her **Rating 4 Resonance Focus** active inside her inhabited Man-at-Arms (`+4` to all Resonance tests, `0` Fading) and leaves her **Rating 4 Oracle** dormant within her Rating 2 Foundation Host (`~`) aboard the Federated-Boeing Sky Commander, whose rear quartz doorway opens into the Holy Wild glade (*Hack & Slash*, p. 128).
+
+---
+
+## 3. Inhabited Anthrodrone Chassis, Rigging Pools & Vector Thrust Telemetry{#shiawase-man-at-arms}
+
+### Inhabited Override, Pilot Origins & Sensor Construction
+
+* **Inhabited Override (`Pilot {python} MAA_PILOT_BASE` / `{python} MAA_PILOT_FOCUS` w/ Focus)**: Via *Override* (*Hack & Slash*, p. 71; *SR6 Core*, p. 194), Reiko substitutes Resonance (`{python} RESONANCE`) for the Man-at-Arms Pilot rating. The *Designer* quality (*Hack & Slash*, p. 119) adds `+1` Pilot (`{python} MAA_PILOT_BASE` base); on Resonance-linked Piloting/Evasion/Stealth tests, Resonance Focus R4 adds `+4` (`{python} MAA_PILOT_FOCUS` effective).
+* **Pilot Origins (Control Rig Rating 1 Equivalent)** (*Hack & Slash*, p. 119): When inhabiting a drone or vehicle, *Pilot Origins* grants **`+1` dice pool** on all vehicle/drone tests (Piloting, Gunnery, Evasion, Perception, Stealth) and **reduces all vehicle test thresholds by `1`** (reducing Man-at-Arms Handling `4` to **Effective Threshold `{python} MAA_EFF_HANDLING`**).
+* **Sensor Pool Construction (`{python} MAA_SEN_ENL` Active)**:
+  * **Hardware Array (`{python} MAA_SEN_HW`)**: Base (`2`) + *Increased Sensors 2* (`+2`, Medium Drone hardware maximum per *CRB*, p. 277) = **`{python} MAA_SEN_HW`**.
+  * **Passive Augmentations (`+{python} MAA_SEN_AUG - MAA_SEN_HW` = `{python} MAA_SEN_AUG`)**: **`+1`** from *Sensor Upgrade* quality (*H&S*, p. 120) + **`+1`** from AI *Home Device* optimization allowing an AI to raise a single drone attribute by 1 (*H&S*, p. 124).
+  * **Combat Buff (*Enlighten Automaton*, `+2` $\rightarrow$ `{python} MAA_SEN_ENL`)**: Threaded with bought hits and **sustained by a registered sprite during combat**.
+  * *Sprite Task Economy*: Maintaining *Enlighten Automaton* costs a minimum of **1 sprite task per combat scene**. The Minor Action used to issue the command is refunded by **Sprite Link** (*Hack & Slash*, p. 69), and because Reiko registers at least one sprite per event, this 1-task cost is operationally negligible.
+* **Anthroform Armor & Device Rating** (*SRMG v2.4*; *Hack & Slash*, p. 124): Per the *Shadowrun Missions Guide*, an anthroform drone uses the **higher** of its base armor or worn armor (they do not stack). Consequently, Reiko wears no external armor on this chassis—its Armor remains **Base `{python} MAA_ARMOR`** (`Body {python} MAA_BODY + Armor {python} MAA_ARMOR = {python} MAA_PHYS_DR` Physical Defense Rating). *Designer* Home Device increases **Device Rating** by `+4` (`DR 2 -> 6`).
+
+### Standardized Inhabited Drone Action Pools
 
 ```{python}
 #| echo: false
 #| output: asis
-print(render_multi_modifier_interactions("reiko", threshold=2))
+print(get_drone_action_table("reiko", "man-at-arms", mode="inhabited_override"))
 ```
 
-### Stacking Legality Summary
+### Chassis Profiles: Factory Stock vs. Active Inhabited Profile
 
-* **Full Matrix Defense (`{python} full_def_pool`d6)**: Constructed from Resonance (`{python} RESONANCE`, via *Natural Hacker*) + Resonance Focus (+`{python} RESONANCE_FOCUS`) + Firewall (`{python} ACTIVE_F`) + Personal Assistant R6 (+3 bought hits for Full Matrix Defense) = 25d6 base, scaling to **41d6 All-In** via Echo: Syntax Error (+`{python} SUBMERSION_GRADE` Submersion) and Directional Shield (+`{python} ACTIVE_D` Data Processing via Minor Anytime Actions).
-* **Hacking & Electronic Warfare (`27d6` / `25d6`)**: Combines base skill rating (5) + specialization bonus (+2) + Resonance (`{python} RESONANCE`, via *Natural Hacker*) + Resonance Focus (+`{python} RESONANCE_FOCUS`) + Taz's companion teamwork assistance (+4) + Overclocking (+2, 1 wild die) + ECM Warrior II (+2). All bonuses fall into distinct operational categories (Skill + Attribute + Focus + Teamwork + Echo + Tactical Software), adhering to SR6 stacking legality.
-* **Compiling & Registering (`20d6`)**: Combines Tasking skill (6) + specialization (+2) + Resonance (`{python} RESONANCE`) + Resonance Focus (+`{python} RESONANCE_FOCUS`).
-
----
-
-## 4. Decking Protocols Cheat Sheet
-
-Standardized action categorization grouped strictly by Skill & Specialization per the SRM FAQ, incorporating **Natural Hacker** (Resonance attribute substitution), active specialization bonuses, and opposed resistance tests:
-
-```{python}
-#| echo: false
-#| output: asis
-print(render_matrix_actions_markdown("reiko"))
-```
-
-### Matrix Edge Actions
-
-* **1 Edge**: Batch Exec, Emergency Boost, Paint Target.
-* **2 Edge**: Technobabble (CHA instead of LOG), Intervene, Hog, Signal Scream.
-* **3 Edge**: Under the Radar (Action does not increase OS).
-
----
-
-## 5. Complex Mechanical Interplays Specific to Reiko
-
-### I. Inhabited Anthrodrone Override & Augmented Limits
-* **Source**: *Hack & Slash*, pp. 116–124 (AI & Emergent Intelligences) & *SR6 Core*, p. 194 (Sprite Power *Override*).
-* **Pilot Replacement**: When inhabiting her Shiawase Man-at-Arms anthrodrone, Reiko executes the Sprite Power *Override* (or her intrinsic AI pilot core) to substitute her Resonance rating (`{python} RESONANCE`) for the drone's Pilot rating. The **Designer** quality (*Hack & Slash*, p. 119) adds another **+1** to the Pilot rating of any drone she designates as her Home Device (base Pilot **9** + **+4** Resonance Focus = **13**).
-* **Augmented Limit (+4)**: As a Digital Intelligence, Reiko's Matrix ASDF attributes are treated as personal attributes subject to the standard **+4 Augmented Attribute Limit** (*Hack & Slash*, p. 116).
-
-### II. Edge Storage Capacity Stacking
-* **Source**: *Double Clutch*, p. 124 (M-TOC II Network Host) & *Hack & Slash*, p. 120 (Echo: Transcendent Network).
-* **Construction**:
-  * Master Tactical Operations Commlink (M-TOC II): **5 Edge** storage capacity.
-  * Transcendent Network Echo: Grants Edge storage equal to current **Submersion Grade** (`{python} SUBMERSION_GRADE`).
-  * **Total Storage**: **`{python} edge_storage_total` Edge points** (`{python} edge_storage_mtoc` M-TOC II + `{python} SUBMERSION_GRADE` Submersion Grade).
-
-### III. Sprite Symbiosis, Resonance Focus & Data Structure Exclusivity
-* **Source**: *SR6 Core*, pp. 190–193, *Hack & Slash*, pp. 70–71 & *Shadowrun Missions Guide v2.4*, pp. 7, 39.
-* **Single Active Data Structure Rule**: Under *SRMG v2.4*, an Emergent Intelligence can only actively use **one** data structure at a time. Reiko keeps her **Rating 4 Resonance Focus** active (+4 dice to all Resonance tests, passive, 0 Fading) and leaves the **Rating 4 Oracle** dormant inside the physical foundation of her Sanctuary Host (`~`) aboard the Sky Commander.
-* **Fading Mitigation**: As a Technoshaman, Reiko mitigates fading from tasking. All compiling and decompiling actions reduce FV by 2 (*Hack & Slash*, p. 131). **Sprite Conduit** allows her to add her Submersion Grade (`{python} SUBMERSION_GRADE`) in dice to Fading Resistance tests from compiling and registering (`WIL 6 + CHA 4 + SUB 8 = 18d6`).
-
-### IV. Home Device & Sanctuary Host Architecture
-* **Source**: *Hack & Slash*, pp. 124, 128 (Foundation Hosts & AI Home Devices).
-* **Active Venue Configuration**: Reiko designates her active inhabited anthrodrone (`Shiawase Man-at-Arms`) as her Home Device, granting **+1 Pilot** (*Designer*), **+1 Sensor** (flexible Home Device attribute boost), **+2 Noise Reduction**, and **+4 effective Matrix DR for Edge comparisons** (*Hack & Slash*, pp. 119, 124).
-* **The Sanctuary Host (`~`)**: A Rating 2 Foundation Host compiled within the Deep Matrix (housed on the Federated-Boeing Sky Commander alongside the M-TOC Mark II and dormant Oracle R4 data structure). Its back quartz sliding glass door opens into a permanent un-insulated tear into the Holy Wild glade in the Deep Foundation (*Hack & Slash*, p. 128).
-
----
-
-## 6. Shiawase Man-at-Arms Chassis, Mod Capacity & Vector Thrust Audit
-
-This section documents the mechanical audit, sourcebook citations, mod slot balance, cyberarm integration, and flight telemetry for Reiko's primary physical chassis—the **Shiawase Bi-Drone Man-at-Arms** (*Double Clutch*, pp. 117, 120–138) upgraded with **Vector Thrust (LAV)** low-altitude propulsion and **Nitro Boost**.
-
-### I. Chassis Profiles: Factory Stock vs. Active Inhabited Profile
-
-| Attribute / Telemetry | Factory Stock Chassis (*DC*, p. 117) | Active Inhabited & Modified Profile | Sourcebook Citations & Modifiers |
+| Attribute / Telemetry | Factory Stock (*DC*, p. 117) | Active Inhabited Profile | Sourcebook Citations & Modifiers |
 | :--- | :---: | :---: | :--- |
 | **Chassis Category** | Medium Anthro Drone | Medium Anthro Drone | *Double Clutch*, p. 117 |
-| **Handling (On / Off)** | 3 / 3 | **4 / 4** | Secondary Propulsion: Vector Thrust (*DC*, p. 137) |
-| **Acceleration (ACC)** | 5 m/round | **41 m/round** (Standard)<br>**82 m/round** (Nitro Boost) | Base 25 + 16 (Improved Acceleration 2, +60%, *DC* p. 134); Nitro Boost doubles ACC for 1D6 rounds (*DC*, pp. 134–135) |
-| **Speed Interval** | 5 m/round | **50 m/round** | Vector Thrust LAV baseline (*DC*, p. 137) |
-| **Top Speed** | 10 m/round (12 km/h / 7.5 mph) | **480 m/round** (576.0 km/h / 357.9 mph) | Base 300 + 180 (Top Speed Increase 3, +60%, *DC* p. 138; secondary propulsion subsystems, *DC* pp. 136–138) |
-| **Body (BOD)** | 10 | **15** | Base 10 + 5 Increased Structural Integrity (*DC*, p. 121) |
-| **Armor (ARM)** | 8 | **16** (Effective **DR 20** vs. Edge) | Base 8 + Metahuman Worn Armor (*Sleeping Tiger* 5 + *Synergist Longcoat* 3 = 8; *DC* p. 131); +4 DR Home Device bonus (*H&S*, p. 124) |
-| **Pilot (PLT)** | 2 | **13** (Override via AI Pilot Core) | AI Inhabited Override (RES 8) + Designer Quality (+1) + Resonance Focus R4 (+4) (*H&S*, pp. 116–124; *SR6*, p. 194) |
-| **Sensor (SENS)** | 2 | **4** (Hardware) / **6** (Networked) / **8** (Enlightened) | Hardware 4 (Increased Sensors 2, *DC* p. 130); +1 Network Sensor Upgrade; +1 Home Device tuning; +2 sustained *Enlighten Automaton* |
-| **Primary Propulsion** | Walker (Bipedal) | **Vector Thrust (LAV)** | Iron-Man limb thruster ports & scapular wing spars (*DC*, p. 137) |
+| **Handling (On / Off)** | 3 / 3 | **4 / 4** *(LAV)* | Secondary Propulsion: Vector Thrust (*DC*, p. 137) |
+| **Acceleration (ACC)** | 5 / 5 m/round | **41** *(82 Nitro)* | Vector Thrust Base 25 + Improved Accel 2 (+60%, *DC* p. 134); Nitro doubles for 1D6 rds (*DC*, pp. 134–135) |
+| **Speed Interval / Top** | 5 / 10 m/round | **50 / 480 m/round** *(576 km/h)* | Vector Thrust Base 300 + Top Speed Increase 3 (+60%, *DC* pp. 137–138) |
+| **Body (BOD)** | 10 | **`{python} MAA_BODY`** | Base 10 + Increased Structural Integrity 5 (*DC*, p. 121) |
+| **Armor (ARM)** | 8 | **`{python} MAA_ARMOR`** *(Phys DR **`{python} MAA_PHYS_DR`**)* | Anthrodrone uses higher of base or worn armor per *SRMG* (no external armor worn) |
+| **Pilot (PLT)** | 2 | **`{python} MAA_PILOT_BASE`** *(`{python} MAA_PILOT_FOCUS` w/ Focus)* | *Override* RES `{python} RESONANCE` + *Designer* +1 (*H&S*, p. 119; *SR6*, p. 194); `+1d6` / `-1` Thresh (*Pilot Origins*, *H&S* p. 119) |
+| **Sensor (SEN)** | 2 | **`{python} MAA_SEN_HW`** *(HW)* / **`{python} MAA_SEN_AUG`** *(Net)* / **`{python} MAA_SEN_ENL`** *(Enl.)* | See Sensor Pool Construction above |
+| **Device Rating (DR)** | 2 | **6** | Base 2 + *Designer* Home Device `+4` (*Hack & Slash*, p. 124) |
 
----
+### Mod Slot & Capacity Accounting
 
-### II. Comprehensive Mod Slot & Capacity Accounting
-
-Under *Double Clutch* (p. 120), a vehicle or drone receives mod slots equal to its unmodified Body attribute (10) across Chassis, Powertrain, and Electronics. Mod slots can be permanently shifted between categories at a **2:1 ratio**. Anthroform cyberlimbs are standard equipment (*DC*, p. 131) and consume **0 vehicle mod slots**.
+Under *Double Clutch* (p. 120), a vehicle or drone receives mod slots equal to its unmodified Body attribute (`10`) across Chassis, Powertrain, and Electronics. Unused slots permanently shift between categories at a **2:1 ratio**. Anthroform cyberlimbs are standard equipment (*DC*, p. 131) and consume **0 vehicle mod slots**.
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
@@ -270,82 +224,43 @@ Under *Double Clutch* (p. 120), a vehicle or drone receives mod slots equal to i
 └───────────────────────┴──────────────┴──────────────┴──────────────────────────────────┘
 ```
 
-#### Detailed Subsystem Citations:
-1. **Chassis Architecture (11 / 11 Slots)**:
-   * *Increased Structural Integrity 5* (*DC*, p. 121): Pushes Body from 10 to 15, adding 5 damage boxes to the Physical Condition Monitor (Total: 16 boxes).
-   * *Realistic Features 4* (*DC*, p. 121): Rating 4 soft-tissue simulation, eliminating synthetic seams, ball joints, and robotic rigidity for perfect metahuman passing.
-   * *Pop-Out Concealment (Standard) x2* (*DC*, p. 121): Conceals the twin Red Fox laser mounts behind synthetic iris apertures.
-2. **Powertrain & Propulsion (9 / 10 Slots, 1 Free; Dedicated Vector Thrust Subsystem Fully Outfitted)**:
-   * *Secondary Propulsion: Vector Thrust (LAV)* (*DC*, pp. 136–137): 5 Powertrain slots. Sets Handling to 4, baseline Acceleration to 25, Speed Interval to 50, and Top Speed to 300. Integrated limb vector thrusters along calves and forearms, stabilized by scapular succubus wing spars.
-   * *Improved Acceleration (2 Ranks)* (*DC*, p. 134): Installed into dedicated Vector Thrust subsystem. Increases combat Acceleration by +60% ($25 \rightarrow \mathbf{41\text{ m/round}}$ / $49.2\text{ km/h}$).
-   * *Top Speed Increase (3 Ranks)* (*DC*, p. 138): Installed into dedicated Vector Thrust subsystem. Increases Top Speed by +60% ($300 \rightarrow \mathbf{480\text{ m/round}}$ / $576.0\text{ km/h}$ / ~358 mph).
-   * *Nitro Boost* (*DC*, pp. 134–135): 2 Powertrain slots. Minor Action to activate; doubles Acceleration from 41 to **82 m/round** ($98.4\text{ km/h}$) for 1D6 rounds. Vehicle tests during boost convert 1 die to a **Wild Die**.
-   * *Hydrocarbon Fuel Converter* (*DC*, pp. 133–134): 2 Powertrain slots. Drives an auxiliary micro-generator (APU) that continuously recharges Reiko's internal solid-state battery banks and high-drain capacitors from commercial kerosene, diesel, or synthetic fuel, providing endless field autonomy for her fully electric chassis and high-voltage plasma vector thrusters.
-3. **Electronics & Augmented Sensor Suite (10 / 10 Slots, 100% Utilized)**:
-   * *2 Slots Permanently Shifted to Chassis* (*DC*, p. 120): Converted at a 2:1 ratio to provide the 11th Chassis slot for Structural Integrity 5.
-   * *Chameleon Coating 4* (*DC*, p. 129): 2 slots. Grants Improved Invisibility (4).
-   * *Passive Stealth Features* (*DC*, p. 130): 1 slot. Raises threshold to detect by auditory or visual means..
-   * *Increased Sensors 2 (Core Sensor Array R4)* (*DC*, p. 130; *SR6 Core*, pp. 276–277): 2 slots. Upgrades base hardware Sensor attribute from 2 to 4 (the maximum rating cap for Medium Anthrodrones per *SR6 Core*, p. 277). As an array, it accommodates up to 4 core sensor functions:
-     1. *Camera* (with Image Link, Low-Light Vision, Flare Compensation)
-     2. *Omnidirectional Microphone* (with Sound Link)
-     3. *Motion (Ultrasound/low-power infrared)* (topographic active/passive mapping)
-     4. *Oral Chemical Analyzer / Olfactory Sensor* (molecular vapor sampling)
-   * *Augmented Single Sensors (3 Slots)* (*SR6 Core*, pp. 276–277): Under *SR6 Core* p. 277, single sensors outside the base 4-function array cap consume 1 device Capacity / Mod Slot each. The remaining 3 Electronics mod slots are fully absorbed by these specialized sensory expansions:
-     1. *Magnetic Anomaly Detection (MAD)* (1 slot; weapons and concentrations of metal)
-     2. *Tactile Sensors* (1 slot; adapted from the EVO Orderly, *Deadly Arts* p. 178, providing delicate somatic telemetry)
-     3. *Cyberware* (1 slot)
-4. **Hardpoints ($\lfloor\text{Body}/3\rfloor = 3$ Standard Hardpoints, *DC* pp. 123–124)**:
-   * Drone includes 1 stock Standard Weapon Mount (*DC*, p. 117).
-   * 1 additional Standard Weapon Mount added (consumes 1 hardpoint).
-   * 1 Small Drone Rack added (consumes 1 hardpoint), flush-mounted in the abdomen to house the Federated-Boeing Sky Commander.
-5. **Right Cyberarm Capacity ([8] / [8] Capacity)**:
-   * Replaces factory anthroform right arm per *Double Clutch* p. 131 (0 vehicle mod slots consumed).
-   * Used Synthetic Cyberarm (*SR6 Core*, pp. 282, 289): Base 8 Capacity.
-   * *Tesla Coil* (*Body Shop*, p. 49): Consumes exactly **[8] Capacity** (mechanically anchored to the cyberlimb assembly; narratively the emitter is placed in the posterior oropharynx behind a hermetic seal). High-voltage electrical sprayer (5S(e) damage, Straight Stream, Wobbly Cone, or Sweeping Arc).
+1. **Chassis (11/11 Slots)**: *Increased Structural Integrity 5* (*DC*, p. 121; `BOD 15`, 16 Physical boxes); *Realistic Features 4* (*DC*, p. 121); *Pop-Out Concealment x2* (*DC*, p. 121) hiding the ocular lasers.
+2. **Powertrain (9/10 Slots + Dedicated Vector Thrust Subsystem)**: *Secondary Propulsion: Vector Thrust* (*DC*, pp. 136–137; 5 slots) with dedicated *Improved Acceleration 2* (`25 -> 41 m/round`, *DC*, p. 134) and *Top Speed Increase 3* (`300 -> 480 m/round`, *DC*, p. 138); *Nitro Boost* (*DC*, pp. 134–135; 2 slots); *Hydrocarbon Fuel Converter* (*DC*, pp. 133–134; 2 slots) providing indefinite electrical recharge from commercial fuels.
+3. **Electronics (10/10 Slots)**: `2` slots permanently shifted to Chassis (2:1 for the 11th Chassis slot, *DC*, p. 120); *Chameleon Coating 4* (`2` slots, *DC*, p. 129); *Passive Stealth Features* (`1` slot, *DC*, p. 130); *Increased Sensors 2* (`2` slots, *DC*, p. 130; 4-function core array: Camera [Image Link, Low-Light, Flare Comp], Omni Mic [Sound Link], Motion Ultrasound, Oral Chemical/Olfactory Sensor); plus `3` single sensor slots (*SR6 Core*, pp. 276–277): *MAD Scanner*, *Tactile Sensors* (*Deadly Arts*, p. 178), and *Cyberware Scanner*.
+4. **Hardpoints ($\lfloor 10 / 3 \rfloor = 3$) & Right Cyberarm (`[8]/[8]` Cap)**: 1 Stock Weapon Mount (*DC*, p. 117) + 1 Added Weapon Mount (eyes) + 1 Small Drone Rack (abdomen housing Sky Commander); Used Synthetic Right Cyberarm (`8` Capacity, *CRB* pp. 282, 289; 0 drone slots per *DC* p. 131) houses the `[8]` Capacity *Tesla Coil* (*Body Shop*, p. 49).
 
----
+### Vector Thrust Flight Telemetry
 
-### III. Vector Thrust Flight Telemetry: Acceleration, Top Speed & Piloting Thresholds
+Under SR6 vehicle movement (*SR6 Core*, pp. 199–200):
+$$\text{Distance Traveled (m)} = \text{Starting Speed} + \frac{1}{2}(\text{Acceleration}), \qquad \text{Ending Speed} = \text{Starting Speed} + \text{Acceleration}$$
 
-Under SR6 vehicle movement (*SR6 Core*, pp. 199–200), vehicle distance per round is calculated as:
-$$\text{Distance Traveled (m)} = \text{Starting Speed} + \frac{1}{2}(\text{Acceleration})$$
-$$\text{Ending Speed (m/round)} = \text{Starting Speed} + \text{Acceleration}$$
+Base Handling threshold is `4`, reduced to **Effective Threshold `{python} MAA_EFF_HANDLING`** when inhabited via **Pilot Origins** (`-1` Threshold, *Hack & Slash*, p. 119). Every full **Speed Interval (`50 m/round`)** passed inflicts a cumulative **`-1` dice pool penalty** on Piloting tests and vehicle-mounted attacks (*SR6 Core*, p. 199).
 
-The base Handling test threshold is equal to the vehicle's **Handling rating (4)**. For every full **Speed Interval (50 m/round)** passed, the driver incurs a cumulative **-1 dice pool penalty** to all Piloting tests and vehicle-mounted weapon attacks (*SR6 Core*, p. 199).
-
-The table below contrasts standard full-throttle vector acceleration against **Nitro Boost** acceleration round-by-round from a stationary hover ($0\text{ m/round}$) to Top Speed ($480\text{ m/round}$ / $576.0\text{ km/h}$ / $357.9\text{ mph}$):
-
-| Combat Round | Standard Mode (ACC 41 m/rnd)<br>Start $\rightarrow$ End Speed (Dist / Total) | Standard Mode<br>Piloting Threshold & Penalty | Nitro Boost Mode (ACC 82 m/rnd, Wild Die)<br>Start $\rightarrow$ End Speed (Dist / Total) | Nitro Boost Mode<br>Piloting Threshold & Penalty |
+| Combat Round | Standard Mode (`ACC 41 m/rnd`)<br>Start $\rightarrow$ End Speed (Dist / Total) | Standard<br>Threshold & Penalty | Nitro Boost Mode (`ACC 82 m/rnd`, Wild Die)<br>Start $\rightarrow$ End Speed (Dist / Total) | Nitro Boost<br>Threshold & Penalty |
 | :---: | :--- | :---: | :--- | :---: |
-| **Round 1** | $0 \rightarrow \mathbf{41\text{ m/rnd}}$ ($20.5\text{m}$ / $20.5\text{m}$)<br>*(49.2 km/h / 30.6 mph)* | Threshold 4<br>**-0 Dice Penalty** | $0 \rightarrow \mathbf{82\text{ m/rnd}}$ ($41.0\text{m}$ / $41.0\text{m}$)<br>*(98.4 km/h / 61.1 mph)* | Threshold 4<br>**-0 Dice Penalty** *(1 Wild Die)* |
-| **Round 2** | $41 \rightarrow \mathbf{82\text{ m/rnd}}$ ($61.5\text{m}$ / $82.0\text{m}$)<br>*(98.4 km/h / 61.1 mph)* | Threshold 4<br>**-0 Dice Penalty** | $82 \rightarrow \mathbf{164\text{ m/rnd}}$ ($123.0\text{m}$ / $164.0\text{m}$)<br>*(196.8 km/h / 122.3 mph)* | Threshold 4<br>**-1 Die Penalty** *(1 Wild Die)* |
-| **Round 3** | $82 \rightarrow \mathbf{123\text{ m/rnd}}$ ($102.5\text{m}$ / $184.5\text{m}$)<br>*(147.6 km/h / 91.7 mph)* | Threshold 4<br>**-1 Die Penalty** | $164 \rightarrow \mathbf{246\text{ m/rnd}}$ ($205.0\text{m}$ / $369.0\text{m}$)<br>*(295.2 km/h / 183.4 mph)* | Threshold 4<br>**-3 Dice Penalty** *(1 Wild Die)* |
-| **Round 4** | $123 \rightarrow \mathbf{164\text{ m/rnd}}$ ($143.5\text{m}$ / $328.0\text{m}$)<br>*(196.8 km/h / 122.3 mph)* | Threshold 4<br>**-2 Dice Penalty** | $246 \rightarrow \mathbf{328\text{ m/rnd}}$ ($287.0\text{m}$ / $656.0\text{m}$)<br>*(393.6 km/h / 244.6 mph)* | Threshold 4<br>**-4 Dice Penalty** *(1 Wild Die)* |
-| **Round 5** | $164 \rightarrow \mathbf{205\text{ m/rnd}}$ ($184.5\text{m}$ / $512.5\text{m}$)<br>*(246.0 km/h / 152.9 mph)* | Threshold 4<br>**-3 Dice Penalty** | $328 \rightarrow \mathbf{410\text{ m/rnd}}$ ($369.0\text{m}$ / $1,025.0\text{m}$)<br>*(492.0 km/h / 305.7 mph)* | Threshold 4<br>**-6 Dice Penalty** *(1 Wild Die)* |
-| **Round 6** | $205 \rightarrow \mathbf{246\text{ m/rnd}}$ ($225.5\text{m}$ / $738.0\text{m}$)<br>*(295.2 km/h / 183.4 mph)* | Threshold 4<br>**-4 Dice Penalty** | $410 \rightarrow \mathbf{480\text{ m/rnd}}$ ($445.0\text{m}$ / $1,470.0\text{m}$)<br>**TOP SPEED REACHED!**<br>*(576.0 km/h / 357.9 mph)* | Threshold 4<br>**-8 Dice Penalty** *(1 Wild Die)* |
-| **Round 7** | $246 \rightarrow \mathbf{287\text{ m/rnd}}$ ($266.5\text{m}$ / $1,004.5\text{m}$)<br>*(344.4 km/h / 214.0 mph)* | Threshold 4<br>**-4 Dice Penalty** | $480 \rightarrow \mathbf{480\text{ m/rnd}}$ ($480.0\text{m}$ / $1,950.0\text{m}$)<br>*(Cruising: 576.0 km/h / 357.9 mph)* | Threshold 4<br>**-9 Dice Penalty** |
-| **Round 8** | $287 \rightarrow \mathbf{328\text{ m/rnd}}$ ($307.5\text{m}$ / $1,312.0\text{m}$)<br>*(393.6 km/h / 244.6 mph)* | Threshold 4<br>**-5 Dice Penalty** | $480 \rightarrow \mathbf{480\text{ m/rnd}}$ ($480.0\text{m}$ / $2,430.0\text{m}$)<br>*(Cruising: 576.0 km/h / 357.9 mph)* | Threshold 4<br>**-9 Dice Penalty** |
-| **Round 9** | $328 \rightarrow \mathbf{369\text{ m/rnd}}$ ($348.5\text{m}$ / $1,660.5\text{m}$)<br>*(442.8 km/h / 275.1 mph)* | Threshold 4<br>**-6 Dice Penalty** | $480 \rightarrow \mathbf{480\text{ m/rnd}}$ ($480.0\text{m}$ / $2,910.0\text{m}$)<br>*(Cruising: 576.0 km/h / 357.9 mph)* | Threshold 4<br>**-9 Dice Penalty** |
-| **Round 10** | $369 \rightarrow \mathbf{410\text{ m/rnd}}$ ($389.5\text{m}$ / $2,050.0\text{m}$)<br>*(492.0 km/h / 305.7 mph)* | Threshold 4<br>**-7 Dice Penalty** | $480 \rightarrow \mathbf{480\text{ m/rnd}}$ ($480.0\text{m}$ / $3,390.0\text{m}$)<br>*(Cruising: 576.0 km/h / 357.9 mph)* | Threshold 4<br>**-9 Dice Penalty** |
-| **Round 11** | $410 \rightarrow \mathbf{451\text{ m/rnd}}$ ($430.5\text{m}$ / $2,480.5\text{m}$)<br>*(541.2 km/h / 336.3 mph)* | Threshold 4<br>**-8 Dice Penalty** | $480 \rightarrow \mathbf{480\text{ m/rnd}}$ ($480.0\text{m}$ / $3,870.0\text{m}$)<br>*(Cruising: 576.0 km/h / 357.9 mph)* | Threshold 4<br>**-9 Dice Penalty** |
-| **Round 12** | $451 \rightarrow \mathbf{480\text{ m/rnd}}$ ($465.5\text{m}$ / $2,946.0\text{m}$)<br>**TOP SPEED REACHED!**<br>*(576.0 km/h / 357.9 mph)* | Threshold 4<br>**-9 Dice Penalty** | $480 \rightarrow \mathbf{480\text{ m/rnd}}$ ($480.0\text{m}$ / $4,350.0\text{m}$)<br>*(Cruising: 576.0 km/h / 357.9 mph)* | Threshold 4<br>**-9 Dice Penalty** |
+| **Round 1** | $0 \rightarrow \mathbf{41}$ ($20.5\text{m}$ / $20.5\text{m}$)<br>*(49.2 km/h / 30.6 mph)* | Thresh 3 *(4-1)*<br>**-0 Dice** | $0 \rightarrow \mathbf{82}$ ($41.0\text{m}$ / $41.0\text{m}$)<br>*(98.4 km/h / 61.1 mph)* | Thresh 3 *(4-1)*<br>**-0 Dice** *(1 Wild)* |
+| **Round 2** | $41 \rightarrow \mathbf{82}$ ($61.5\text{m}$ / $82.0\text{m}$)<br>*(98.4 km/h / 61.1 mph)* | Thresh 3<br>**-0 Dice** | $82 \rightarrow \mathbf{164}$ ($123.0\text{m}$ / $164.0\text{m}$)<br>*(196.8 km/h / 122.3 mph)* | Thresh 3<br>**-1 Die** *(1 Wild)* |
+| **Round 3** | $82 \rightarrow \mathbf{123}$ ($102.5\text{m}$ / $184.5\text{m}$)<br>*(147.6 km/h / 91.7 mph)* | Thresh 3<br>**-1 Die** | $164 \rightarrow \mathbf{246}$ ($205.0\text{m}$ / $369.0\text{m}$)<br>*(295.2 km/h / 183.4 mph)* | Thresh 3<br>**-3 Dice** *(1 Wild)* |
+| **Round 4** | $123 \rightarrow \mathbf{164}$ ($143.5\text{m}$ / $328.0\text{m}$)<br>*(196.8 km/h / 122.3 mph)* | Thresh 3<br>**-2 Dice** | $246 \rightarrow \mathbf{328}$ ($287.0\text{m}$ / $656.0\text{m}$)<br>*(393.6 km/h / 244.6 mph)* | Thresh 3<br>**-4 Dice** *(1 Wild)* |
+| **Round 5** | $164 \rightarrow \mathbf{205}$ ($184.5\text{m}$ / $512.5\text{m}$)<br>*(246.0 km/h / 152.9 mph)* | Thresh 3<br>**-3 Dice** | $328 \rightarrow \mathbf{410}$ ($369.0\text{m}$ / $1,025.0\text{m}$)<br>*(492.0 km/h / 305.7 mph)* | Thresh 3<br>**-6 Dice** *(1 Wild)* |
+| **Round 6** | $205 \rightarrow \mathbf{246}$ ($225.5\text{m}$ / $738.0\text{m}$)<br>*(295.2 km/h / 183.4 mph)* | Thresh 3<br>**-4 Dice** | $410 \rightarrow \mathbf{480}$ ($445.0\text{m}$ / $1,470.0\text{m}$)<br>**TOP SPEED!** *(576.0 km/h / 357.9 mph)* | Thresh 3<br>**-8 Dice** *(1 Wild)* |
+| **Round 7** | $246 \rightarrow \mathbf{287}$ ($266.5\text{m}$ / $1,004.5\text{m}$)<br>*(344.4 km/h / 214.0 mph)* | Thresh 3<br>**-4 Dice** | $480 \rightarrow \mathbf{480}$ ($480.0\text{m}$ / $1,950.0\text{m}$)<br>*(Cruising: 576.0 km/h / 357.9 mph)* | Thresh 3<br>**-9 Dice** |
+| **Round 8–11** | $287 \rightarrow \mathbf{451}$ ($1,312 \rightarrow 2,480.5\text{m}$)<br>*(Up to 541.2 km/h / 336.3 mph)* | Thresh 3<br>**-5 to -8 Dice** | $480 \rightarrow \mathbf{480}$ ($480.0\text{m}$/rnd)<br>*(Cruising: 576.0 km/h / 357.9 mph)* | Thresh 3<br>**-9 Dice** |
+| **Round 12** | $451 \rightarrow \mathbf{480}$ ($465.5\text{m}$ / $2,946.0\text{m}$)<br>**TOP SPEED!** *(576.0 km/h / 357.9 mph)* | Thresh 3<br>**-9 Dice** | $480 \rightarrow \mathbf{480}$ ($480.0\text{m}$/rnd)<br>*(Cruising: 576.0 km/h / 357.9 mph)* | Thresh 3<br>**-9 Dice** |
 
-#### Operational Takeaways:
-* **Nitro Boost Acceleration Advantage**: Triggering Nitro Boost (Minor Action) cuts the time to achieve Top Speed (480 m/round / 576.0 km/h / ~358 mph / Mach 0.47) **in half**—from **12 combat rounds (36 seconds)** down to **6 combat rounds (18 seconds)**, while covering **1,470 meters** vs. 2,946 meters.
-* **Braking & High-G Deceleration**: Per *Double Clutch* (p. 135), Nitro Boost's industrial capacitor applies equally to deceleration, permitting Reiko to bleed up to **82 m/round** (98.4 km/h / 61.1 mph) in a single combat round to avoid crashes.
-* **Inhabited Piloting Pool**: When Reiko inhabits her Man-at-Arms, she rolls Piloting (or autosoft) + Reaction / Pilot Override (13). Even at maximum Speed Interval penalty (-9 dice at 480 m/round), her baseline AI pilot pool comfortably meets the Handling 4 threshold.
+* **Nitro Acceleration & High-G Braking (*DC*, p. 135)**: Nitro Boost (Minor Action) halves time to Top Speed (`480 m/round` / Mach `0.47` in **6 rounds** over `1,470 m` vs. `12 rounds` over `2,946 m`) and applies equally to deceleration (`82 m/round` braking).
+* **Inhabited Piloting Performance**: Reiko rolls **`{python} MAA_PILOT_POOL`d6** (`{python} MAA_PILOT_HITS` Bought Hits) against **Effective Threshold `{python} MAA_EFF_HANDLING`**. Even at maximum Speed Interval penalty (`-9` dice at `480 m/round`), she rolls **`{python} MAA_MIN_SPEED_POOL`d6** (`{python} MAA_MIN_SPEED_HITS` Bought Hits), still buying hits cleanly over Threshold `{python} MAA_EFF_HANDLING`.
 
 ---
 
-### IV. Installed Vector Thrust Subsystem Upgrades (Double Clutch pp. 134–138; Acquired SRM 2081-10)
+## 4. Tactical Weapons & Attack Ratings (AR){#tactical-combat}
 
-As documented in [mechanical_plan.md](file:///c:/GitHub/sr6-core/characters/reiko/reference/mechanical_plan.md), secondary propulsion systems possess **dedicated subsystem mod slots** (*DC* pp. 136–138) that do not consume primary chassis slots. The following upgrades are fully installed and active:
+```{python}
+#| echo: false
+#| output: asis
+print(get_weapon_attack_table("reiko"))
+```
 
-1. **Improved Acceleration (2 Ranks)** (*DC*, p. 134):
-   * Consumes 2 dedicated subsystem slots (15,000¥ DIY; 50% parts discount).
-   * Adds +60% to base acceleration: **$25 \rightarrow 33 \rightarrow \mathbf{41\text{ m/round}}$** ($49.2\text{ km/h}$ / $\approx 30.6\text{ mph}$ burst in 3 seconds).
-   * *Nitro Boost Synergy*: Under Nitro Boost, acceleration jumps to **$82\text{ m/round}$** ($98.4\text{ km/h}$ / $\approx 61.1\text{ mph}$ burst in 3 seconds), reaching 300 m/round ($360.0\text{ km/h}$ / $223.7\text{ mph}$) in just **4 rounds (12 seconds)**, and maximum Top Speed (480 m/round) in **6 rounds (18 seconds)**!
-2. **Top Speed Increase (3 Ranks)** (*DC*, p. 138):
-   * Consumes 3 dedicated subsystem slots (12,000¥ DIY; 50% parts discount).
-   * Adds +60% to base Top Speed: **$300 \rightarrow \mathbf{480\text{ m/round}}$** ($576.0\text{ km/h}$ / $\approx 357.9\text{ mph}$ / Mach 0.47).
-   * *Combined Performance*: With both upgrades and Nitro Boost active, Reiko accelerates from stationary to high-speed subsonic cruise (480 m/round / 576.0 km/h / ~357.9 mph / Mach 0.47) in just **6 combat rounds (18 seconds)**, covering 1,470 meters.
+1. **Red Fox Lasers (Twin Eye-Mounts)** (*Firing Squad*, pp. 44, 112, 116; *Double Clutch*, p. 143): Integral ocular mounts grant **+2 AR** at all ranges (*FS*, p. 112); Smartlink grants **+2 AR** (*SR6 Core*, p. 260); M-TOC II coordination adds **+1 AR** (*FS*, p. 90). Link-firing both emitters adds **+2 DV** and **+1 AR** for 1 Major + 1 Minor action (*DC*, p. 143).
+2. **Tesla Coil (Oropharyngeal Emitter)** (*Body Shop*, p. 49; *SR6 Core*, pp. 117–118): Housed in the `[8]`-Capacity right synthetic cyberarm with discharge aperture routed behind a hermetic ceramic/silicone oropharyngeal seal. Straight Stream (`5S(e)`, `10/12*`), Wobbly Cone ($8.58^\circ$ / 3m at 20m; `+2 AR` -> `12/14*`, `-1 DV` -> `4S(e)`), Sweeping Arc ($28.07^\circ$ / 10m at 20m; `+4 AR` -> `14/16*`, `-3 DV` -> `2S(e)`), substituting 1 normal die for a **Wild Die** on spray cones (*SR6 Core*, p. 118).
+3. **Amalgam Cestas (Anti-Spirit CQC)** (*Scotophobia*, p. 181): Against materialized spirits or critters with Immunity to Normal Weapons, treats Essence-based Hardened Armor as **normal armor** rather than hardened armor.

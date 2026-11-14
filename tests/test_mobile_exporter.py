@@ -98,7 +98,7 @@ def test_mobile_json_export_reiko():
     assert maa["sensor"] == 6    # 4 hardware (base 2 + mod 2) + 1 sensor upgrade quality + 1 home device
     assert maa["enlightened_sensor"] == 8  # +2 from Enlighten Automaton sustained (up to 8)
     assert "Vector Thrust (LAV)" in maa["mobility_str"]
-    assert "SPD 50/300" in maa["mobility_str"]
+    assert "SPD 50/480" in maa["mobility_str"]
 
     # Verify secondary drones (MCT Gnat, MCT Hornet) have native base pilot 2 (no override/designer bonus)
     gnat = next((v for v in res["vehicles"] if "gnat" in v["name"].lower()), None)

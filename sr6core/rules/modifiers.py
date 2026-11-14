@@ -13,6 +13,7 @@ Handles:
 
 from typing import Dict, Any, List, Optional, Tuple, Set
 import math
+import re
 
 
 class PoolModifier:
@@ -1041,11 +1042,12 @@ class ModifierEngine:
         if sub_grade:
             action_mods.append(PoolModifier("action:defense", "action", f"Syntax Error (Submersion {sub_grade})", sub_grade))
 
+        # Full Matrix Defense Optimization
         mdef_opt = PoolOptimization(
-            name="Full Matrix Defense Test",
+            name="Matrix Defense Test",
             components=[c_def_res, c_def_fw],
             action_modifiers=action_mods,
-            notes=f"Base 25d6 | All-In {res + fw + focus_bonus + 3 + dp + sub_grade}d6"
+            notes=f"Standard {res + fw + focus_bonus}d6 | Passive w/ PA {res + fw + focus_bonus + 3}d6 | All-In {res + fw + focus_bonus + 3 + dp + sub_grade}d6"
         )
 
         e_skill_soft = PoolComponent("Electronics", e_skill_val, "skill")
@@ -1065,7 +1067,7 @@ class ModifierEngine:
         )
 
 
-        e_skill_other = PoolComponent("Electronics", 5, "skill")
+        e_skill_other = PoolComponent("Electronics", e_skill_val, "skill")
         e_attr_other = PoolComponent("Resonance", res, "attribute", [
             PoolModifier("attribute:resonance", "focus", "Focus", focus_bonus, is_srm_capped=True)
         ])
@@ -1077,10 +1079,21 @@ class ModifierEngine:
                 PoolModifier("test:matrix", "tactical", "Overclock", 2)
             ],
             wild_dice=1,
-            notes="Computer, Hardware & Complex Forms"
+            notes="Computer & Hardware Matrix Actions"
         )
 
-        e_skill_buy = PoolComponent("Electronics", 5, "skill")
+        e_skill_cf = PoolComponent("Electronics", e_skill_val, "skill")
+        e_attr_cf = PoolComponent("Resonance", res, "attribute", [
+            PoolModifier("attribute:resonance", "focus", "Focus", focus_bonus, is_srm_capped=True)
+        ])
+        complex_forms_opt = PoolOptimization(
+            name="Complex Forms (Threading)",
+            components=[e_skill_cf, e_attr_cf],
+            teamwork=PoolModifier("skill:electronics", "teamwork", "Taz Teamwork", 4),
+            notes="Resonance Action (No Overclock/PA; +2 Complex Forms Spec reaches 24d6 / 6 Hits)"
+        )
+
+        e_skill_buy = PoolComponent("Electronics", e_skill_val, "skill")
         e_attr_buy = PoolComponent("Resonance", res, "attribute", [
             PoolModifier("attribute:resonance", "focus", "Focus", focus_bonus, is_srm_capped=True)
         ])
@@ -1095,7 +1108,7 @@ class ModifierEngine:
             wild_dice=1
         )
 
-        e_skill_prog = PoolComponent("Electronics", 5, "skill")
+        e_skill_prog = PoolComponent("Electronics", e_skill_val, "skill")
         e_attr_prog = PoolComponent("Resonance", res, "attribute", [
             PoolModifier("attribute:resonance", "focus", "Focus", focus_bonus, is_srm_capped=True)
         ])
@@ -1116,6 +1129,7 @@ class ModifierEngine:
             "full_matrix_defense": mdef_opt,
             "electronics_software": electronics_soft_opt,
             "electronics_other": electronics_other_opt,
+            "complex_forms": complex_forms_opt,
             "buy_gear": buy_gear_opt,
             "programming": programming_opt
         }
