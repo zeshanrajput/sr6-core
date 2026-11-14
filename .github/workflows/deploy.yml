@@ -93,6 +93,17 @@ jobs:
           cp -r characters/reiko/_book/* _site/characters/reiko/
           cp -r characters/velvet/_book/* _site/characters/velvet/
           cp -r characters/lab/venn/_book/* _site/characters/venn/
+          # Ensure output/ directories (PDFs, text, roll20) are available at characters/<id>/output/
+          for c in reiko velvet; do
+            if [ -d "characters/$c/output" ]; then
+              mkdir -p "_site/characters/$c/output"
+              cp -r "characters/$c/output"/* "_site/characters/$c/output/" 2>/dev/null || true
+            fi
+          done
+          if [ -d "characters/lab/venn/output" ]; then
+            mkdir -p "_site/characters/venn/output"
+            cp -r "characters/lab/venn/output"/* "_site/characters/venn/output/" 2>/dev/null || true
+          fi
           # Copy audio assets if present locally
           for char in reiko velvet; do
             if [ -d "characters/$char/narrative/audio" ]; then

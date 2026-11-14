@@ -151,7 +151,7 @@ Automatically updates and verifies:
    - `reference/storyboard.md`: Promote the completed chapter's Story Queue item to `## 2. Major Previous Events & Canon Anchors` with its final word count and narrative resolution. Update active status on governing Thematic Verticals.
    - `reference/voice_spec.md`: Verify active era alignment and ensure no retrospective cognitive bias drift occurred.
    - `reference/visual_anchors.md`: Verify that any new physical gear, cyberware, weapons, vehicle modifications, or scars introduced in the chapter are reflected in physical appearance prompts, purging obsolete descriptions.
-5. **Master YAML, Quick-Sheets & Mobile PWA (`uv run sr6 sync-all`)**: Recompiles `*_master.yaml`, runs deep character audits, and regenerates `output/text/*_sheet.txt`, `output/mobile/index.html`, and `app/index.html`.
+5. **Master YAML, Quick-Sheets & Mobile PWA (`uv run sr6 sync-all`)**: Recompiles `*_master.yaml`, runs deep character audits, and regenerates `output/pdf/*_sheet.pdf`, `output/text/*_sheet.txt`, `output/mobile/index.html`, and `app/index.html`.
 
 ---
 

@@ -281,7 +281,7 @@ class CharacterManager:
                     os.remove(entry_path)
                 except Exception:
                     pass
-            elif entry in ["xml", "pdf", "cards"] and os.path.isdir(entry_path):
+            elif entry in ["xml", "cards"] and os.path.isdir(entry_path):
                 import shutil
                 try:
                     shutil.rmtree(entry_path)
@@ -323,6 +323,9 @@ class CharacterManager:
             else:
                 ok, msg, stats = export_to_commlink(char_id)
                 return msg
+        elif fmt in ["pdf", "fillable_pdf", "sheet_pdf"]:
+            from sr6core.publishing.fillable_pdf import export_fillable_pdf
+            return export_fillable_pdf(data, char_repo_path=repo_path, output_path=output_path)
         else:
             raise ValueError(f"Unsupported export format '{fmt}'.")
 

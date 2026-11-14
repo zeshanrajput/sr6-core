@@ -48,7 +48,7 @@ The master engine, dataset compiler, and CLI portfolio manager for Shadowrun 6th
   - `shortcodes`: Expands `{{< rule "Topic" >}}` and `{{< quality "id" >}}` into styled HTML callout boxes with stat blocks and book citations.
   - `prose linter`: Scans chapters for banned AI buzzwords, cognitive buffer verbs, ellipses density, and markdownlint formatting.
 - **CI/CD & GitHub Pages Integration**: Native `pyproject.toml` Git dependency specifications (`[tool.uv.sources] sr6-core = { git = "...", branch = "master" }`) enabling headless `uv run quarto render` builds on remote GitHub Actions runners without requiring relative directory pathing.
-- **Ecosystem Sync (`sr6 sync-all`)**: Single-command workspace synchronizer that audits portfolios, regenerates VTT/JSON/XML sheets into `output/` folders, and patches CommLink6 GUI player saves across all character repos.
+- **Ecosystem Sync (`sr6 sync-all`)**: Single-command workspace synchronizer that audits portfolios, regenerates PDF/VTT/JSON/XML sheets into `output/` folders, and patches CommLink6 GUI player saves across all character repos.
 
 ---
 

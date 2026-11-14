@@ -6,6 +6,7 @@ project:
     - output/text/
     - output/roll20/
     - output/mobile/
+    - output/pdf/
   pre-render:
     - uv run --directory ../../.. sr6 sync-all
 

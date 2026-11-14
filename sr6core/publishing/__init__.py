@@ -28,6 +28,10 @@ from sr6core.publishing.commlink_xml import (
     generate_commlink_metadata,
 )
 from sr6core.publishing.campaign_roadmap import render_campaign_roadmap
+from sr6core.publishing.fillable_pdf import (
+    build_pdf_field_map,
+    export_fillable_pdf,
+)
 
 __all__ = [
     "export_quick_sheet",
@@ -46,4 +50,6 @@ __all__ = [
     "scan_commlink_player_saves",
     "generate_commlink_metadata",
     "render_campaign_roadmap",
+    "build_pdf_field_map",
+    "export_fillable_pdf",
 ]

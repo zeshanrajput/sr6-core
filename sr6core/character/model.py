@@ -598,6 +598,22 @@ class Character:
 
         return export_quick_sheet(self._raw, char_repo_path=self._repo_dir, output_path=output_path)
 
+    def export_fillable_pdf(self, output_path: Optional[str] = None) -> str:
+        """
+        Populates Catalyst's official 2-page fillable AcroForm PDF character sheet
+        and writes it to disk with fields remaining editable.
+
+        Args:
+            output_path: Optional destination path. Defaults to
+                `characters/{char_id}/output/pdf/{char_id}_sheet.pdf`.
+
+        Returns:
+            str: Path to the generated PDF file.
+        """
+        from sr6core.publishing.fillable_pdf import export_fillable_pdf
+
+        return export_fillable_pdf(self._raw, char_repo_path=self._repo_dir, output_path=output_path)
+
     def generate_dossier(self) -> str:
         """
         Generates Quarto appendix dossier markdown containing dynamic tables,

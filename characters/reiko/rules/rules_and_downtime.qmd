@@ -50,7 +50,8 @@ This chapter documents the underlying rules, citations, and stacking legality be
 
 Live situational dice pools, condition modifiers, and active gear ratings are calculated dynamically in the companion tools:
 * 📱 **[Mobile PWA Interactive Sheet](../output/mobile/index.html)**
-* 📄 **[Plain-Text Tabletop Sheet (reiko_sheet.txt)](../output/text/reiko_sheet.txt)**
+* 📄 **[Official Fillable PDF Sheet (reiko_sheet.pdf)](../output/pdf/reiko_sheet.pdf)**
+* 📝 **[Plain-Text Tabletop Sheet (reiko_sheet.txt)](../output/text/reiko_sheet.txt)**
 :::
 
 ---

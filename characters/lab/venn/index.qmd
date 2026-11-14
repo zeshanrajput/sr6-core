@@ -18,7 +18,8 @@ log_totals = get_log_totals(["core/character_log.qmd", "core/character_purchases
 ::: {.callout-tip icon=false}
 ## 🎲 At-the-Table Companion Tools
 * 📱 **Interactive Mobile Sheet**: [Launch Mobile PWA](output/mobile/index.html){.btn .btn-primary target="_blank"} *(Live attributes, dynamic action pools, condition monitors, and inventory)*
-* 📄 **Plain-Text Quick Sheet**: [Download ASCII Sheet](output/text/venn_sheet.txt){.btn .btn-outline-secondary target="_blank"} *(76-column physical tabletop reference)*
+* 📄 **Official Fillable PDF Sheet**: [Download PDF Sheet](output/pdf/venn_sheet.pdf){.btn .btn-outline-danger target="_blank"} *(Official Catalyst 2-page fillable character dossier)*
+* 📝 **Plain-Text Quick Sheet**: [Download ASCII Sheet](output/text/venn_sheet.txt){.btn .btn-outline-secondary target="_blank"} *(76-column physical tabletop reference)*
 :::
 
 ::: {.grid}

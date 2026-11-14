@@ -39,6 +39,7 @@ bin/
 # Binary documents & other players' character lore (kept locally, not published)
 *.docx
 *.pdf
+!templates/SR6-Character-Sheet-Fillable.pdf
 characters/reiko/reference/Rei_oniisama/
 characters/reiko/reference/BunnyR/
 scratch/

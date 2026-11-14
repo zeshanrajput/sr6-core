@@ -28,7 +28,8 @@ In accordance with our tabletop doctrine, players roll physical dice at the gami
 
 Live situational dice pools, condition modifiers, and active gear ratings are calculated dynamically in your companion tools:
 * 📱 **[Mobile PWA Interactive Sheet](../output/mobile/index.html)**
-* 📄 **[Plain-Text Tabletop Sheet (velvet_sheet.txt)](../output/text/velvet_sheet.txt)**
+* 📄 **[Official Fillable PDF Sheet (velvet_sheet.pdf)](../output/pdf/velvet_sheet.pdf)**
+* 📝 **[Plain-Text Tabletop Sheet (velvet_sheet.txt)](../output/text/velvet_sheet.txt)**
 :::
 
 ---
