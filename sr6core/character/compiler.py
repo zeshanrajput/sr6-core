@@ -114,7 +114,16 @@ def compile_character(char_id: str) -> Dict[str, Any]:
             if sk.get("name", "").lower() == sk_target:
                 sk["rating"] = r_val
 
-    qualities = dict(existing_char.get("qualities", {"positive": [], "negative": []}))
+    # Determine base qualities from character_build.qmd or existing_char chargen snapshot
+    base_qualities = {"positive": [], "negative": []}
+    if existing_char and "qualities" in existing_char:
+        # Preserve base chargen qualities while refreshing post-chargen purchases
+        base_pos = [q for q in existing_char["qualities"].get("positive", []) if not any(pq.get("name") == q.get("name") for pq in purchases_data.get("qualities", []))]
+        base_neg = [q for q in existing_char["qualities"].get("negative", []) if not any(pq.get("name") == q.get("name") for pq in purchases_data.get("qualities", []))]
+        base_qualities["positive"] = base_pos
+        base_qualities["negative"] = base_neg
+
+    qualities = dict(base_qualities)
     from sr6core.character.ledger import _query_db_row
     for q in purchases_data.get("qualities", []):
         q_ref = q.get("ref", q.get("name", "").lower().replace(" ", "_"))

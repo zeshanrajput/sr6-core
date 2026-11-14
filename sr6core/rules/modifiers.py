@@ -818,19 +818,24 @@ class ModifierEngine:
             }
 
         dp_val = asdf.get("data_processing", 7)
-        pa_rating = 6
+        # Personal Assistant Commlink App: rolls Rating x 2 (R6 -> 12 dice) and buys 3 hits for Full Matrix Defense
+        pa_bonus = 3
         focus_bonus = 4 if res > 0 else 0
+        sub_grade = int(identity.get("submersion", 0))
 
-        total_pool = res + fw + pa_rating + dp_val + focus_bonus
-        effective_hits = total_pool // 4
-        breakdown = f"RES {res} + FW {fw} + PA {pa_rating} + DP {dp_val} + Focus {focus_bonus} = {total_pool}d6"
+        base_pool = res + fw + pa_bonus + focus_bonus
+        # All-in pool when aware: includes Syntax Error (+sub_grade) and Directional Shield (+dp_val)
+        all_in_pool = base_pool + sub_grade + dp_val
+        effective_hits = all_in_pool // 4
+        breakdown = f"RES {res} + FW {fw} + Focus {focus_bonus} + PA R6 (3 Hits) = {base_pool}d6 | All-In (+Syntax Error {sub_grade}, +Directional Shield {dp_val}) = {all_in_pool}d6"
         return {
-            "pool": total_pool,
+            "pool": base_pool,
+            "all_in_pool": all_in_pool,
             "effective_hits": effective_hits,
             "breakdown": breakdown,
             "base_persona_pool": res + fw,
             "base_persona_hits": (res + fw) // 4,
-            "full_persona_pool": total_pool,
+            "full_persona_pool": all_in_pool,
             "full_persona_hits": effective_hits,
             "base_data_spike_pool": dp_val + fw,
             "base_data_spike_hits": (dp_val + fw) // 4,
@@ -1028,13 +1033,19 @@ class ModifierEngine:
             PoolModifier("attribute:resonance", "focus", "Focus", focus_bonus, is_srm_capped=True)
         ])
         c_def_fw = PoolComponent("Firewall", fw, "attribute")
+        sub_grade = int(identity.get("submersion", 0))
+        action_mods = [
+            PoolModifier("action:defense", "action", "Personal Assistant App R6 (3 Hits)", 3),
+            PoolModifier("action:defense", "action", "Directional Shield (Active DP)", dp)
+        ]
+        if sub_grade:
+            action_mods.append(PoolModifier("action:defense", "action", f"Syntax Error (Submersion {sub_grade})", sub_grade))
+
         mdef_opt = PoolOptimization(
             name="Full Matrix Defense Test",
             components=[c_def_res, c_def_fw],
-            action_modifiers=[
-                PoolModifier("action:defense", "action", "Personal Assistant App R6", 6),
-                PoolModifier("action:defense", "action", "Directional Shield (Active DP)", dp)
-            ]
+            action_modifiers=action_mods,
+            notes=f"Base 25d6 | All-In {res + fw + focus_bonus + 3 + dp + sub_grade}d6"
         )
 
         e_skill_soft = PoolComponent("Electronics", e_skill_val, "skill")

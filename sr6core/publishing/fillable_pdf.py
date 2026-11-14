@@ -16,6 +16,7 @@ import pymupdf
 
 from sr6core.character.ledger import get_log_totals
 from sr6core.publishing.mobile_json import export_mobile_json
+from sr6core.rules.modifiers import ModifierEngine
 
 DEFAULT_TEMPLATE_PATH = os.path.abspath(
     os.path.join(
@@ -479,7 +480,7 @@ def _compute_unarmed_summary(attrs_dict: Dict[str, Any], bundle_attrs: Dict[str,
 
 def _format_essence(ess_raw: Any, is_ai: bool) -> str:
     if is_ai:
-        return "N/A (AI)"
+        return "6.0"
     try:
         ess_f = float(ess_raw)
     except Exception:
@@ -627,7 +628,7 @@ def build_pdf_field_map(
     elif is_ai and primary_v:
         primary_armor_name = f"{_clean_pdf_text(primary_v.get('name', 'Chassis'))} Armor"
         primary_armor_rtg = str(primary_v.get("armor", 0))
-        def_rating_str = f"{int(primary_v.get('body', 0)) + int(primary_v.get('armor', 0))} (Chass)"
+        def_rating_str = f"{int(primary_v.get('body', 0)) + int(primary_v.get('armor', 0))} (Chassis)"
     else:
         primary_armor_name = "None"
         primary_armor_rtg = "0"
@@ -675,9 +676,13 @@ def build_pdf_field_map(
     for extra_v in vehicles[1:]:
         gear_lines.append(
             f"[Drone] {_clean_pdf_text(extra_v.get('name', 'Drone'))} "
-            f"(B:{_format_val(extra_v.get('base_body'), extra_v.get('body'))} "
+            f"(H:{extra_v.get('handling', '-')} "
+            f"AC:{extra_v.get('accel', '-')} "
+            f"SP:{extra_v.get('speed', '-')} "
+            f"B:{_format_val(extra_v.get('base_body'), extra_v.get('body'))} "
             f"A:{_format_val(extra_v.get('base_armor'), extra_v.get('armor'))} "
-            f"P:{_format_val(extra_v.get('base_pilot'), extra_v.get('pilot'))})"
+            f"P:{_format_val(extra_v.get('base_pilot'), extra_v.get('pilot'))} "
+            f"S:{_format_val(extra_v.get('hardware_sensor', extra_v.get('base_sensor')), extra_v.get('enlightened_sensor', extra_v.get('sensor')))})"
         )
 
     cf_spell_txt, other_abs_txt = _build_powers_and_spells_texts(bundle, raw_identity, char_data)
@@ -693,7 +698,10 @@ def build_pdf_field_map(
     asdf = bundle.get("matrix", {}).get("asdf", {})
     matrix_devs = bundle.get("matrix_devices", [])
     if bundle.get("identity", {}).get("is_ai") or bundle_attrs.get("resonance", 0) > 0:
-        lp_label = f"Living Persona (MDef {bundle.get('matrix', {}).get('matrix_defense', 0)}d6)"
+        mdef_obj = ModifierEngine.get_full_matrix_defense(char_data)
+        base_mdef = mdef_obj.get("pool", 25)
+        all_in_mdef = mdef_obj.get("all_in_pool", base_mdef)
+        lp_label = f"Living Persona (MDef {base_mdef}({all_in_mdef})d6)"
         if matrix_devs:
             lp_label += f" + {_clean_pdf_text(matrix_devs[0].get('name', 'Commlink'))} DR{matrix_devs[0].get('rating', '')}"
         devices_dr_str = lp_label
@@ -820,17 +828,27 @@ def build_pdf_field_map(
             for k, v_obj in list(v_pools.items())[:4]
             if isinstance(v_obj, dict) and v_obj.get("pool") is not None
         )
-        mob_short = _clean_pdf_text(primary_v.get("mobility_str") or ", ".join(primary_v.get("profile_notes", [])[:2]))
+        mob_raw = primary_v.get("mobility_str", "")
+        has_lav = "lav" in mob_raw.lower() or "vector" in mob_raw.lower()
+
+        # Extract LAV-specific values if available
+        # Base vector thrust: Han 4, Acc 25 (*1.6 = 41), Spd Interval 50, Top Speed 300 (*1.6 = 480)
+        h_str = f"{primary_v.get('handling', '')} (LAV 4)" if has_lav else _clean_pdf_text(primary_v.get("handling", ""))
+        acc_str = f"{primary_v.get('accel', '')} (LAV 41)" if has_lav else _clean_pdf_text(primary_v.get("accel", ""))
+        interval_str = f"{primary_v.get('interval', '')} (LAV 50)" if has_lav else _clean_pdf_text(primary_v.get("interval", ""))
+        speed_str = f"{primary_v.get('speed', '')} (LAV 480)" if has_lav else _clean_pdf_text(primary_v.get("speed", ""))
+
+        mob_short = _clean_pdf_text(mob_raw or ", ".join(primary_v.get("profile_notes", [])[:2]))
         mob_short = mob_short.replace(" (Iron-Man thrusters)", "").replace("Vector Thrust (LAV):", "LAV:")
         v_notes = " | ".join(p for p in (pool_summary, mob_short) if p)
         sensor_s = _format_val(primary_v.get("hardware_sensor", primary_v.get("base_sensor")), primary_v.get("enlightened_sensor", primary_v.get("sensor")))
         field_map.update(
             {
                 "Vehicle": _clean_pdf_text(primary_v.get("name", "")),
-                "Handling": _clean_pdf_text(primary_v.get("handling", "")),
-                "Acceleration.0.0": _clean_pdf_text(primary_v.get("accel", "")),
-                "Speed Interval": _clean_pdf_text(primary_v.get("interval", "")),
-                "Top Speed": _clean_pdf_text(primary_v.get("speed", "")),
+                "Handling": h_str,
+                "Acceleration.0.0": acc_str,
+                "Speed Interval": interval_str,
+                "Top Speed": speed_str,
                 "Vehicle Body": _format_val(primary_v.get("base_body"), primary_v.get("body")),
                 "Vehicle Armor": _format_val(primary_v.get("base_armor"), primary_v.get("armor")),
                 "Pilot": _format_val(primary_v.get("base_pilot"), primary_v.get("pilot")),

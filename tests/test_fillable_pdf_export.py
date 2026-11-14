@@ -80,7 +80,7 @@ def test_fillable_pdf_template_repairs_and_reiko_fields(char_manager, tmp_path):
 
     # Reiko dossier accuracy
     assert values["MagicResonance"] == "9(13)"
-    assert values["Karma"] == "5"
+    assert values["Karma"] == "0"
     assert values["Total Karma"] == "333"
     assert values["Vehicle"] == "Shiawase Man-at-Arms"
     assert values["Pilot"] == "2(10)"

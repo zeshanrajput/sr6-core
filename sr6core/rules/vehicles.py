@@ -231,7 +231,7 @@ def parse_vehicle_modifications(drone_dict: Dict[str, Any], char_data: Optional[
     if has_retractable_skates:
         mobility_parts.append("Skates: 10/30/+2")
     if has_vector:
-        mobility_parts.append("Vector Thrust (LAV): Han 4, Acc 25, SPD 50/300 (Iron-Man thrusters)")
+        mobility_parts.append("Vector Thrust (LAV): Han 4, Acc 41, SPD 50/480 (Iron-Man thrusters)")
     mobility_str = ". ".join(mobility_parts)
 
     return {

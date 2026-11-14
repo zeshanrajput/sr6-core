@@ -735,8 +735,8 @@ Submersion_Grade = state["Submersion_Grade"]
     * 2,000¥ donated toward sustaining her sanctuary and children in Kernel Panic / Glade (Hooder), converting to +1 Karma.
 * **Advancement Between Runs (Zero Action Cost):**
   * *Attribute Advancement (Resonance 8 -> 9):* `{python} inc_many(('Karma', -45), ('Resonance', 1))`
-  * *Qualities Acquired (Dissonant Technomancer & Dissonant Stigma):* `{python} inc('Karma', -25)`
-    * Acquired **Dissonant Technomancer (Control)** (30 Karma post-chargen; *Shadow Cast* pp. 84–85; *SRMG* p. 37) offset by taking the negative quality **Dissonant Stigma** (-5 Karma; *Shadow Cast* p. 86; *SRMG* p. 37). Net cost: 25 Karma.
+  * *Qualities Acquired (Dissonant Technomancer):* `{python} inc('Karma', -30)`
+    * Acquired **Dissonant Technomancer (Control)** (30 Karma post-chargen; *Shadow Cast* pp. 84–85; *SRMG* p. 37). Preferred target category: Devices. Edge Boosts cost 1 less on Matrix actions and complex forms targeting devices, adds a wild die, reduces fading by wild hits. *(Note: Dissonance Stigma roleplayed diegetically as the cold, unmistakable static of point zero without taking the mechanical negative quality).*
 * **In-Session Downtime (Zero Downtime Action Cost):**
   * *Full Sprite Fleet Refresh:* Over ample in-session downtime during the run, Reiko refreshed and re-registered her entire registered sprite family at Rating 8 (buying 5 hits with her 21d6 compiling pool, drain-free):
     * `{python} deregister_sprite("Ouro", reason="In-session downtime refresh")` | `{python} add_sprite("Machine", 8, name="Ouro", details="The Logic / Diagnostics, Override, Clearsight, Evasion", tasks=3)`

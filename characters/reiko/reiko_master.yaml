@@ -8,7 +8,7 @@ identity:
   gender: DIVERSE
   age: ~ 10
   system: shadowrun6e
-  karma: 5
+  karma: 0
   lifetime_karma: 333
   nuyen: 25600.0
   lifetime_nuyen: 505200
@@ -53,10 +53,6 @@ qualities:
   - name: Addiction (Telenovelas, Mild)
     ref: addiction_(telenovelas,_mild)
     choice: Telenovelas, Mild
-    karma: 0
-  - name: Dissonant Stigma
-    ref: dissonant_stigma
-    choice: ''
     karma: 0
 skills:
 - name: Tasking

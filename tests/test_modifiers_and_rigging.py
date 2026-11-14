@@ -222,10 +222,10 @@ def test_matrix_action_pools_comprehensive():
     assert other.bought_hits == 6
     assert other.wild_dice == 1
 
-    # 3. Full Matrix Defense -> 34d6, 8 Hits
+    # 3. Full Matrix Defense -> 31d6, 7 Hits (RES 8 + FW 9 + Focus 4 + PA 3 + DP 7 = 31d6)
     mdef = pools["full_matrix_defense"]
-    assert mdef.total_pool == 34
-    assert mdef.bought_hits == 8
+    assert mdef.total_pool == 31
+    assert mdef.bought_hits == 7
 
     # 4. Electronics: Software -> 25d6 (1 wild), 6 Hits
     soft = pools["electronics_software"]
@@ -317,8 +317,9 @@ def test_matrix_protocols_summary():
     assert asdf["firewall"] == 9
 
     mdef = ModifierEngine.get_full_matrix_defense(SAMPLE_YURIKO)
-    assert mdef["pool"] == 34  # 8 RES + 9 FW + 6 PA + 7 DP + 4 Focus = 34
-    assert mdef["effective_hits"] == 8
+    assert mdef["pool"] == 24  # 8 RES + 9 FW + 3 PA (12/4 Hits) + 4 Focus = 24 (with RES 8)
+    assert mdef["all_in_pool"] == 31  # 24 Base + 7 DP = 31 (SAMPLE_YURIKO has no submersion grade)
+    assert mdef["effective_hits"] == 7
 
 
 def test_matrix_action_table_renderer():
@@ -329,8 +330,8 @@ def test_matrix_action_table_renderer():
     assert "**28d6** (1 wild)" in table_md
     assert "**7 Hits**" in table_md
     assert "**Full Matrix Defense Test**" in table_md
-    assert "**35d6**" in table_md
-    assert "**8 Hits**" in table_md
+    assert "**41d6**" in table_md
+    assert "**10 Hits**" in table_md
 
 
 def test_sprite_action_table_renderer():

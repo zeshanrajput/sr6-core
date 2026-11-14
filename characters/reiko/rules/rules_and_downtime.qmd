@@ -112,9 +112,12 @@ Reiko's Matrix Defense Umbrella protects her Living Persona and every device/per
   * *Applied Modifiers*: Firewall (`{python} ACTIVE_F`) + Natural Hacker RES (`{python} RESONANCE`) + Resonance Focus (+`{python} RESONANCE_FOCUS`).
 * **Standard Matrix Defense (vs. Sleaze Actions — *Probe, Backdoor Entry, Hack on the Fly, Spoof Command*)**: **`{python} std_def_pool`d6** $\rightarrow$ **`{python} std_def_hits` Bought Hits**
   * *Applied Modifiers*: Firewall (`{python} ACTIVE_F`) + Natural Hacker RES (`{python} RESONANCE`) + Resonance Focus (+`{python} RESONANCE_FOCUS`).
-* **Full Matrix Defense Umbrella (Passive PAN Overwatch + Directional Shield)**: **`{python} full_def_pool`d6** $\rightarrow$ **`{python} full_def_hits` Bought Hits**
-  * *Applied Modifiers*: RES (`{python} RESONANCE`) + Resonance Focus (+`{python} RESONANCE_FOCUS`) + Firewall (`{python} ACTIVE_F`) + **Personal Assistant App R6** (+6; runs in *Software Emulator* and takes the Full Matrix Defense action every round for the entire network, *Hack & Slash* p. 55) + **Directional Shield Active DP** (+`{python} ACTIVE_D`; Minor Anytime Action in Full Matrix Defense adds Data Processing to the defense pool, *Hack & Slash* p. 61).
-  * *(Passively provides **`{python} std_def_pool + 6`d6 $\rightarrow$ `{python} (std_def_pool + 6) // 4` Bought Hits`** before spending the Minor Anytime Action for Directional Shield).*
+* **Full Matrix Defense Umbrella (Passive PAN Overwatch + Directional Shield + Syntax Error)**: **`{python} full_def_pool`d6** $\rightarrow$ **`{python} full_def_hits` Bought Hits**
+  * *Applied Modifiers*: RES (`{python} RESONANCE`) + Resonance Focus (+`{python} RESONANCE_FOCUS`) + Firewall (`{python} ACTIVE_F`) + **Personal Assistant App R6** (+3; rolls 12 dice and buys 3 hits for Full Matrix Defense every round for the network, *Hack & Slash* p. 55) $\rightarrow$ **25d6 Base Matrix Defense**.
+  * *Minor Anytime Reaction Modifiers (When Aware)*:
+    * **Echo: Syntax Error**: **+`{python} SUBMERSION_GRADE` dice** (+9 dice, Minor Anytime Action when aware of incoming Matrix action, *Hack & Slash* pp. 69–70).
+    * **Directional Shield Active DP**: **+`{python} ACTIVE_D` dice** (+7 dice, Minor Anytime Action when aware of attacker, *Hack & Slash* p. 58).
+  * *(Passively provides **25d6 $\rightarrow$ 6 Bought Hits**; scales to **25(41)d6 $\rightarrow$ 10 Bought Hits** All-In).*
 * **Matrix Damage Mitigation**:
   * **Matrix Soak**: **`{python} ACTIVE_F`d6** (`{python} ACTIVE_F // 4` Bought Hits via Firewall `{python} ACTIVE_F`).
   * **Sprite Link Echo**: May transfer any Stun, Physical, or Matrix damage boxes to a registered sprite's Condition Monitor (*Hack & Slash*, p. 121).
@@ -160,7 +163,7 @@ print(render_multi_modifier_interactions("reiko", threshold=2))
 
 ### Stacking Legality Summary
 
-* **Full Matrix Defense (`{python} full_def_pool`d6)**: Constructed from Resonance (`{python} RESONANCE`, via *Natural Hacker*) + Resonance Focus (+`{python} RESONANCE_FOCUS`) + Firewall (`{python} ACTIVE_F`) + Personal Assistant R6 (+6 Full Matrix Defense action) + Directional Shield (+`{python} ACTIVE_D` Data Processing via Minor Anytime Action).
+* **Full Matrix Defense (`{python} full_def_pool`d6)**: Constructed from Resonance (`{python} RESONANCE`, via *Natural Hacker*) + Resonance Focus (+`{python} RESONANCE_FOCUS`) + Firewall (`{python} ACTIVE_F`) + Personal Assistant R6 (+3 bought hits for Full Matrix Defense) = 25d6 base, scaling to **41d6 All-In** via Echo: Syntax Error (+`{python} SUBMERSION_GRADE` Submersion) and Directional Shield (+`{python} ACTIVE_D` Data Processing via Minor Anytime Actions).
 * **Hacking & Electronic Warfare (`27d6` / `25d6`)**: Combines base skill rating (5) + specialization bonus (+2) + Resonance (`{python} RESONANCE`, via *Natural Hacker*) + Resonance Focus (+`{python} RESONANCE_FOCUS`) + Taz's companion teamwork assistance (+4) + Overclocking (+2, 1 wild die) + ECM Warrior II (+2). All bonuses fall into distinct operational categories (Skill + Attribute + Focus + Teamwork + Echo + Tactical Software), adhering to SR6 stacking legality.
 * **Compiling & Registering (`20d6`)**: Combines Tasking skill (6) + specialization (+2) + Resonance (`{python} RESONANCE`) + Resonance Focus (+`{python} RESONANCE_FOCUS`).
 
