@@ -570,6 +570,7 @@ def test_reiko_roll20_macro_guide_and_skill_cleanup():
         "Erase-Matrix-Signature",
         "Cleaner",
         "Oracle-Search",
+        "Sprite-Oracle-Search",
         "Compile-Register-Sprite",
         "Fade-Resistance",
         "Matrix-Defense",
@@ -581,6 +582,12 @@ def test_reiko_roll20_macro_guide_and_skill_cleanup():
     assert "Each hit reduces your Overwatch Score by 1" in guide_md
     assert "{{fade=[[2]]}}" in guide_md
     assert "Net Hits vs Threshold" not in guide_md
+
+    # Oracle Search (+3 PA -> 27d6 -> 26d6) & Sprite Oracle Search (23d6 -> 22d6, no toggles/wild die)
+    assert "Elec (5) + RES (9) + Focus (+4) + Taz (+4) + Overclock (+2, 1w) + PA (+3)" in guide_md
+    assert "Sprite Level (8) x2 + Oracle (+4) + PA (+3)" in guide_md
+    assert "{{dicepool=[[(23)]]}}{{dice=[[(23)d6>5cs>5cf<1]]}}{{wilddie=[[0]]}}" in guide_md
+    assert "{{dicepool=[[(22)]]}}{{dice=[[(22)d6>5cs>5cf<1]]}}{{wilddie=[[0]]}}" in guide_md
 
     # Verify skill influences deduplication & clamped teamwork ratings
     skill_map = {s["id"]: s for s in payload["skills"]}

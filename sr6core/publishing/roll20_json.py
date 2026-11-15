@@ -3937,6 +3937,9 @@ def generate_roll20_helper_guide(
         hide_p = cybercombat_p
         software_p = elec_sk + 3 + eff_res + taz_b + overclock_b
         elec_base_p = elec_sk + eff_res + taz_b + overclock_b
+        pa_b = 3
+        oracle_search_p = elec_base_p + pa_b
+        sprite_oracle_p = 16 + 4 + pa_b
         cf_p = elec_sk + 2 + eff_res + taz_b
         res_spike_p = crack_sk + eff_res + taz_b + ecm_b
         std_mdef_p = 9 + eff_res
@@ -4152,16 +4155,26 @@ def generate_roll20_helper_guide(
         tip: str = "",
         opp: str = "",
         include_wounds: bool = True,
+        include_toggles: bool = True,
         gm_whisper: bool = True,
     ) -> str:
         """Build a Roll20 `rolls-computed` Ability macro with explicit pool/wilddie rendering."""
         prefix = "@{gm_toggle} " if gm_whisper else ""
-        wounds_part = "+@{wounds_toggle}" if include_wounds else ""
-        full_pool = f"({pool_expr}{wounds_part}+@{{modifiers_toggle}}+@{{edge_toggle}})"
+        if include_toggles:
+            wounds_part = "+@{wounds_toggle}" if include_wounds else ""
+            toggles_part = f"{wounds_part}+@{{modifiers_toggle}}+@{{edge_toggle}}"
+            explode_part = "@{explode_toggle}"
+            bad_luck_part = "[[(1+@{bad_luck})]]"
+        else:
+            toggles_part = ""
+            explode_part = ""
+            bad_luck_part = "1"
+
+        full_pool = f"({pool_expr}{toggles_part})"
         if dice_count_expr is not None:
-            roll_cnt = f"({dice_count_expr}{wounds_part}+@{{modifiers_toggle}}+@{{edge_toggle}})"
+            roll_cnt = f"({dice_count_expr}{toggles_part})"
         elif wild_die is True:
-            roll_cnt = f"(({pool_expr})-1{wounds_part}+@{{modifiers_toggle}}+@{{edge_toggle}})"
+            roll_cnt = f"(({pool_expr})-1{toggles_part})"
         else:
             roll_cnt = full_pool
 
@@ -4170,19 +4183,22 @@ def generate_roll20_helper_guide(
             "{{header=@{character_name}}}",
             f"{{{{base={base}}}}}",
             f"{{{{dicepool=[[{full_pool}]]}}}}",
-            f"{{{{dice=[[{roll_cnt}d6>5@{{explode_toggle}}cs>5cf<[[(1+@{{bad_luck}})]]]]}}}}",
-            "{{mod=[[@{modifiers_toggle}]]}}",
+            f"{{{{dice=[[{roll_cnt}d6>5{explode_part}cs>5cf<{bad_luck_part}]]}}}}",
         ]
-        if include_wounds:
-            parts.append("{{wound=[[@{wounds_toggle}]]}}")
-        parts.append("{{edge=[[@{edge_toggle}]]}}")
-        if isinstance(wild_die, str):
-            parts.append(f"{{{{wilddie=[[{wild_die}]]}}}}")
-        elif wild_die:
-            parts.append("{{wilddie=[[1+@{wild_die}]]}}")
+        if include_toggles:
+            parts.append("{{mod=[[@{modifiers_toggle}]]}}")
+            if include_wounds:
+                parts.append("{{wound=[[@{wounds_toggle}]]}}")
+            parts.append("{{edge=[[@{edge_toggle}]]}}")
+            if isinstance(wild_die, str):
+                parts.append(f"{{{{wilddie=[[{wild_die}]]}}}}")
+            elif wild_die:
+                parts.append("{{wilddie=[[1+@{wild_die}]]}}")
+            else:
+                parts.append("{{wilddie=[[@{wild_die}]]}}")
+            parts.append("{{wilddie_dice=[[1d6@{explode_toggle}cs>5cf<1]]}}")
         else:
-            parts.append("{{wilddie=[[@{wild_die}]]}}")
-        parts.append("{{wilddie_dice=[[1d6@{explode_toggle}cs>5cf<1]]}}")
+            parts.append("{{wilddie=[[0]]}}")
         if isinstance(overclock, str):
             parts.append(f"{{{{overclock=[[{overclock}]]}}}}")
         elif overclock:
@@ -4375,23 +4391,46 @@ def generate_roll20_helper_guide(
                 ),
                 "```",
                 "",
-                f"### `Oracle-Search` (`{elec_base_p}d6 [1w]` -> `{elec_base_p - 1}d6 [1w]` 2-Major-Action / 1-Round Extended Search)",
+                f"### `Oracle-Search` (`{oracle_search_p}d6 [1w]` -> `{oracle_search_p - 1}d6 [1w]` 2-Major-Action / 1-Round Extended Search)",
                 "```text",
                 _r20_ability(
                     base="Oracle Search — Major Action 1/2 (1 Combat Round)",
-                    pool_expr=f"{elec_base_p}",
+                    pool_expr=f"{oracle_search_p}",
                     wild_die=True,
                     overclock=True,
                     desc="(Legal), Extended Search Interval 1 (10 min base; 1 Major Action w/ Oracle R4), CRB p.183.",
-                    tip=f"Pool {elec_base_p}d6 ({elec_base_p - 1}d6 + 1w): Electronics ({elec_sk}) + RES ({resonance}) + Focus (+{res_focus_r}) + Taz (+{taz_b}) + Overclock (+{overclock_b}, 1w) (28d6 if Oracle R4 swapped in for Focus).",
+                    tip=f"Pool {oracle_search_p}d6 ({oracle_search_p - 1}d6 + 1w): Elec ({elec_sk}) + RES ({resonance}) + Focus (+{res_focus_r}) + Taz (+{taz_b}) + Overclock (+{overclock_b}, 1w) + PA (+{pa_b}).",
                     opp="Availability / Obscurity Threshold",
                 ),
                 _r20_ability(
                     base="Oracle Search — Major Action 2/2 (-1d6 Decay)",
-                    pool_expr=f"{elec_base_p - 1}",
+                    pool_expr=f"{oracle_search_p - 1}",
                     wild_die=True,
                     overclock=True,
                     desc="(Legal), Extended Search Interval 2 (completes 1 Combat Round / 2 Major Actions, -1d6 cumulative decay), CRB p.183.",
+                    opp="Availability / Obscurity Threshold",
+                ),
+                "```",
+                "",
+                f"### `Sprite-Oracle-Search` (`{sprite_oracle_p}d6` -> `{sprite_oracle_p - 1}d6` 2-Major-Action / 1-Round Extended Search)",
+                "```text",
+                _r20_ability(
+                    base="Sprite Oracle Search — Major Action 1/2 (1 Combat Round)",
+                    pool_expr=f"{sprite_oracle_p}",
+                    wild_die=False,
+                    overclock=False,
+                    include_toggles=False,
+                    desc="(Legal), Sprite Extended Search Interval 1 (10 min base; 1 Major Action w/ Oracle R4), CRB p.183.",
+                    tip=f"Sprite Level (8) x2 + Oracle (+4) + PA (+{pa_b}).",
+                    opp="Availability / Obscurity Threshold",
+                ),
+                _r20_ability(
+                    base="Sprite Oracle Search — Major Action 2/2 (-1d6 Decay)",
+                    pool_expr=f"{sprite_oracle_p - 1}",
+                    wild_die=False,
+                    overclock=False,
+                    include_toggles=False,
+                    desc="(Legal), Sprite Extended Search Interval 2 (completes 1 Combat Round / 2 Major Actions, -1d6 cumulative decay), CRB p.183.",
                     opp="Availability / Obscurity Threshold",
                 ),
                 "```",
