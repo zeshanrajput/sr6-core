@@ -16,7 +16,7 @@ Following Chapters 34 and 37, Reiko is no longer the solitary corporate runaway 
 
 1. **Physical World — Sovereign Incarnation (Ground / Salon State):** Her consecrated Shiawase Man-at-Arms (*Goshintai*) chassis featuring high-realism porcelain skin (`#FDFBF7`), the **`1.5 mm × 1.5 mm` Dead Pixel stigmata** (`#08050C`) at the inner left wrist pulse-point, and the **Triple Braid** of **Solar Gold**, **Neon Indigo**, and **Abyssal Nightshade** interlaced seamlessly beneath her dermis.
 2. **Physical World — High-Mach Vector Interceptor (`34 Latency` Flight Profile, `> 250 km/h`):** Swept, positive-dihedral black titanium and titanium-micro-mesh carbon-fiber **empennage airfoils**, flush forearm/calf/plantar vector plasma nozzles, lateral thigh-mounted **`BRYNNE` and `CEDAR` Nitro Boost capacitors**, and a **deployable articulated Knight-Saber-style flight helmet** telescoping out of her C7 dorsal collar housing to hermetically seal her cranium and face against `15 kPa` transonic wind shear—preserving her human visage without resorting to lip-retraction or jaw-locking overrides.
-3. **Technology World — The ISO / Avatar of Apophenian (`Bubblegum Crisis` Knight Sabers × `Tron: Legacy` Quorra):** A sleek, form-fitting articulated obsidian ceramic hardsuit built on the **Knight Sabers (*Bubblegum Crisis*)** biomechanical armor silhouette and finished with ***Tron: Legacy* (Quorra, ISO)** colorimetry and edge-highlighting—razor-clean recessed ribbons of **Luminous Silver Syntax (`#C0C8D8` to `#E6F2FF`)**, Triple-Braid sub-surface actuator seams, Quorra-inspired geometric jet-black hair, and **Taz’s** night-dark voxel and high-voltage sapphire (`#0066FF` / `#00E5FF`) 8-bit lattice woven directly into her sternum cuirass and high ceramic gorget.
+3. **Technology World — The Avatar of Apophenian (*CY_BORG* Brutalist Ink × Matte-Ceramic Tactical Netrunner):** A stark, haunting digital incarnation rendered in the oppressive dark graphic grammar of *CY_BORG* and dystopian netrunner techwear—segmented, stress-scored matte-black carbon-ceramic body panels strapped over dark ribbed ballistic undersuiting, a severe high standing matte-ceramic gorget, an asymmetric jet-black bob framing her bone-pale stoic visage, hairline Triple-Braid filaments physically peeling off her skin and forearm like live exposed neural wires, and **Taz’s** muted deep-sapphire 8-bit voxel daemon silhouette embedded directly into her sternum plate.
 
 ### Historical & Baseline Reference Anchors
 
@@ -28,9 +28,9 @@ These active and archived visual anchors trace the continuity from Reiko’s Era
 * **[Physical Ground & Hostess Mode: DelTree (The Coffin Girls’ Convent Salon, New Orleans)](../images/r31k0%20-%20deltree%20tea.webp)**
   * **File:** [`r31k0 - deltree tea.webp`](../images/r31k0%20-%20deltree%20tea.webp)
   * **Context:** Ground-state salon baseline showing her porcelain features, shoulder-length jet-black hair, wings and helmet stowed completely flush, the Triple Braid, and the unhealed **1.5 mm × 1.5 mm Dead Pixel stigmata** at her inner left wrist post-Ch. 37.
-* **[Resonance Realm / Matrix Persona Mode: The ISO / Avatar of Apophenian (`37 dev-null`)](../images/r31k0%20-%20apophenian%20avatar.webp)**
+* **[Resonance Realm / Matrix Persona Mode: Avatar of Apophenian (`37 dev-null`)](../images/r31k0%20-%20apophenian%20avatar.webp)**
   * **File:** [`r31k0 - apophenian avatar.webp`](../images/r31k0%20-%20apophenian%20avatar.webp)
-  * **Context:** Consecrated Matrix persona following Chapter 37: Knight Sabers × *Tron: Legacy* ISO obsidian ceramic hardsuit with Luminous Silver Syntax ribbons, sealed interceptor helmet, and Taz’s electric-sapphire 8-bit voxel crest woven into her sternum cuirass as she walks the black wire into twilight. (Supersedes the legacy translucent cyan construct).
+  * **Context:** Consecrated Matrix persona following Chapter 37 in brutalist *CY_BORG* ink-and-halftone style: helmetless bone-pale visage, asymmetric jet-black bob, stress-scored matte-black ceramic tactical panels and high gorget, hairline Triple-Braid wires peeling off her forearm and collar, and Taz’s muted deep-sapphire 8-bit voxel crest on her sternum against looming wireframe monoliths. (Supersedes the legacy translucent cyan construct and early 80s-style glossy hardsuit draft).
 * **[Urban Disguise & Field Attire: Reiko in the Seattle Rain](../images/r31k0%20-%20SEA%20rain.webp)**
   * **File:** [`r31k0 - SEA rain.webp`](../images/r31k0%20-%20SEA%20rain.webp)
   * **Context:** Core physical appearance anchor for facial geometry, dark almond eyes, porcelain skin, and utilitarian black leather shadowrunner pants.
@@ -99,7 +99,7 @@ Foot & Sole Geometry: Proportional human feet with porcelain skin finish. Sole s
 
 * **Physical World — Tactical / Interceptor Mode:** Jet-black hair (`#111113` / `RGB 17, 17, 19`, Specular Roughness `0.3`, Anisotropic silk sheen) bound in a tight, low-profile high bun secured by two crossed sterling silver *kanzashi* hair sticks (`#E0E0E0`, Metallic `1.0`, Roughness `0.1`), with soft loose bangs framing her cheeks. The bun geometry is specifically compacted so the six telescoping flight helmet plates sweep cleanly over the crown and seal in `< 0.4 seconds` without pinching or snagging strands.
 * **Physical World — Domestic / Salon Mode:** Jet-black hair (`#111113`), shoulder-length straight with soft bangs framing her cheeks and forehead.
-* **Technology World — Matrix / Resonance Living Persona (The Quorra ISO Cut):** Sleek, sculpted, geometric jet-black hair (`#0D0E12` / `RGB 13, 14, 18`, Specular Roughness `0.22`) cut in an asymmetric chin-to-shoulder bob inspired by **Quorra (*Tron: Legacy*)**—sharp angled bangs across the forehead and crisp jawline framing that clears the high obsidian ceramic gorget. Under bright Matrix light, hair-thin internal specular highlights pick up **Silver Syntax (`#C0C8D8`)** and **Nightshade (`#2E1144`)** undertones. *(The legacy Era 1–3 translucent electric-cyan Cortana hair is formally retired.)*
+* **Technology World — Matrix / Resonance Living Persona (Asymmetric Netrunner Bob):** Sleek, sharp-angled geometric jet-black hair (`#0D0E12` / `RGB 13, 14, 18`, heavy ink contrast) cut in an asymmetric chin-length bob with crisp straight bangs across the forehead—one side framing the jawline past the chin while the opposite ear clears the severe matte-ceramic gorget. *(The legacy Era 1–3 translucent electric-cyan Cortana hair is formally retired.)*
 
 ---
 
@@ -161,8 +161,8 @@ To read unmistakably against fair porcelain skin (`#FDFBF7`) as a cold, subtract
 | **Neon Indigo Channel** | `#4B0082` – `#6A0DAD` | `75, 0, 130` – `106, 13, 173` | Additive Emissive Mask, Peak Multiplier `3.5`. |
 | **Abyssal Nightshade Core** | `#14071E` – `#2E1144` | `20, 7, 30` – `46, 17, 68` | Subtractive / Absorption Mask; Dead Pixel anchor `#08050C` (`Roughness 0.95`, `Emission 0.0`). |
 | **Silver Syntax (Tron / Shear)** | `#C0C8D8` – `#E6F2FF` | `192, 200, 216` – `230, 242, 255` | Crisp Geometric Edge / Ribbon Emission, Peak Multiplier `2.8–4.2`. |
-| **Knight Saber Obsidian Ceramic** | `#08080A` – `#0D0E12` | `8, 8, 10` – `13, 14, 18` | Metallic `0.15`, Roughness `0.15`, Clearcoat `0.9` (piano-black ceramic plates over `#111115` ballistic under-suit, Roughness `0.65`). |
-| **Taz Symbiotic Voxel Lattice** | `#08080A` + `#0066FF` / `#00E5FF` | `8, 8, 10` + `0, 102, 255` / `0, 229, 255` | Quantized 8-bit voxel displacement mesh; Electric Sapphire Emission Multiplier `3.2`. |
+| **Segmented Matte Carbon-Ceramic Plates** | `#121317` – `#1C1E24` | `18, 19, 23` – `28, 30, 36` | Roughness `0.55–0.75`, edge wear & tactical stress scoring over `#0D0E11` ribbed ballistic techwear (zero piano-black gloss). |
+| **Taz Symbiotic Voxel Lattice** | `#08080A` + `#0A4D7A` / `#007BA7` | `8, 8, 10` + `10, 77, 122` / `0, 123, 167` | Quantized 8-bit voxel daemon crest; muted deep-sapphire / ink-cyan emission balanced to sit inside chiaroscuro ink tones without neon washout. |
 | **Swept Empennage & Elevons** | `#16161A` / `#26282E` | `22, 22, 26` / `38, 40, 46` | Black Titanium spars (Metallic `0.9`, Roughness `0.2`); Titanium-micro-mesh carbon weave (Anisotropic Roughness, Low Translucency). |
 | **Shiawase Jacket & Leather** | `#F5F5F7` + `#8B0000` / `#C8102E` | `245, 245, 247` + `139, 0, 0` / `200, 16, 46` | White tactical shell + Gloss Maroon patent trim (Roughness `0.1`); Shadowrunner pants `#121214` grain leather (Roughness `0.3`). |
 | **Legacy Matrix Cyan (Retired)** | `#00BFFF` – `#00FFFF` | `0, 191, 255` – `0, 255, 255` | *Archived Era 1–3 spec only.* Retained solely for historical reference and occasional HUD overlays. |
@@ -231,17 +231,17 @@ Engineered over three weeks in JinJin’s Redmond rigger garage under **Ouro’s
 
 ## 4. Hero Assets & Garment Tech-Packs
 
-### 1. The Knight Saber × *Tron: Legacy* Consecrated Obsidian Hardsuit (Matrix Persona Tech-Pack)
+### 1. The Consecrated Matte-Ceramic Tactical Armor (Matrix Persona Tech-Pack)
 
-* **Overview & Provenance:** Crystallized out of Reiko’s Triple-Braided core upon entering her covenant with Apophenian (`37 dev-null`). Combines the biomechanical silhouette of the **Knight Sabers (*Bubblegum Crisis*)** hardsuits with the luminous geometric light-ribbon architecture of **Quorra (*Tron: Legacy*)**.
+* **Overview & Provenance:** Crystallized out of Reiko’s Triple-Braided core upon entering her covenant with Apophenian (`37 dev-null`). Grounded in dystopian tactical body paneling and *CY_BORG* chiaroscuro cyber-horror rather than sleek retro-anime exosuits.
 * **Armor Architecture & Silhouetting:**
-  * **Primary Chassis Suit:** Form-fitting matte-black digital ballistic second skin (`#111115`, Roughness `0.65`) overlaid with high-gloss piano-black obsidian ceramic armor plates (`#08080A` to `#0D0E12`, Roughness `0.15`, Clearcoat `0.9`).
-  * **Torso & Sternum Cuirass:** Sculpted Knight-Saber-style chest plate, tapered waist ribs, and dorsal spinal fin terminating in a twin-ring **ISO Identity Halo / Data-Disc mount** between the shoulder blades.
-  * **High Ceramic Gorget:** Rigid, flared obsidian ceramic collar latching cleanly around the throat, cradling **Taz’s** night-dark and electric-sapphire 8-bit voxel lattice across the sternum and collarbone seams.
-  * **Limb Plating:** Angular layered shoulder pauldrons, streamlined forearm gauntlets with recessed Silver-Syntax edge channels, high-cut hip/thigh armor segments, and sculpted shin greaves.
-* **Tron Lighting & Coloration:**
-  * **Outer Seams & Structural Ribbons:** Crisp geometric **Silver Syntax (`#C0C8D8` to `#E6F2FF`)** lines tracing the edges of the pauldrons, gauntlets, spine, thigh plates, and dorsal ISO ring—mirroring *Tron: Legacy* suit circuit channels in cold silver-white rather than generic orange or cyan.
-  * **Sub-Surface Triple Braid:** Beneath the open collar, wrists, and recessed under-suit actuator channels winds the Triple Braid (**Abyssal Nightshade `#14071E`/`#2E1144`**, **Neon Indigo `#4B0082`/`#6A0DAD`**, and **Solar Gold `#FFD700`**).
+  * **Primary Chassis Suit:** Dark ribbed ballistic netrunner undersuit (`#0D0E11`, tactile weave) overlaid with segmented matte-black carbon-ceramic body panels (`#121317` to `#1C1E24`, Roughness `0.55–0.75`) carrying realistic battle-wear and micro-stress scoring along the pauldrons and chest bevels.
+  * **Torso & Sternum Plate:** Segmented matte-black chest cuirass with articulated abdominal plating, strapped cleanly over the ribbed waist without glossy plastic shine.
+  * **High Brutalist Ceramic Gorget:** Severe, rigid high-standing matte ceramic collar framing her bare throat and bone-pale visage, with loose Triple-Braid neural filaments threading out of the collar and neck seams.
+  * **Limb Plating:** Stress-scored layered shoulder pauldrons, strapped forearm bracers leaving her pale forearms/wrists exposed where the Triple Braid unspools, and segmented tactical thigh/shin guards.
+* **Peeling Neural Filaments & Sub-Surface Syntax:**
+  * **Unspooling Triple Braid:** Rather than flat neon racing stripes, thin hairline filaments of **Tarnished Gold (`#FFD700`)**, **Bruised Nightshade-Indigo (`#2E1144` / `#6A0DAD`)**, and **Cold Silver Syntax (`#C0C8D8`)** visibly lift and peel off her forearm skin and collar seams like live exposed neural wires.
+  * **Taz Chest Crest:** Nested directly into the matte ceramic sternum plate as a muted deep-sapphire (`#0A4D7A` / `#007BA7`) 8-bit voxel daemon silhouette—haunting and restrained rather than blinding neon.
 
 ### 2. The Deployable High-Mach Interceptor Flight Helmet (Physical *Goshintai* Tech-Pack)
 
@@ -261,41 +261,39 @@ Engineered over three weeks in JinJin’s Redmond rigger garage under **Ouro’s
 
 ---
 
-## 5. Technology World Details — The ISO / Knight Saber Living Persona (Matrix & Resonance Realms)
+## 5. Technology World Details — Brutalist *CY_BORG* × Matte-Ceramic Living Persona (Matrix & Resonance Realms)
 
 ### The Post-Chapter 37 Ontological & Visual Transformation
 
-In VR, Grid Hosts, and the Deep Resonance Realms, Reiko’s Era 1–3 translucent cyan Cortana hologram is **permanently retired**. Having stepped onto the black wire and consecrated her living persona (nous-soul) as **Apophenian’s Avatar**, her digital embodiment fuses two iconic visual lineages:
+In VR, Grid Hosts, and the Deep Resonance Realms, Reiko’s Era 1–3 translucent cyan Cortana hologram is **permanently retired**. Having stepped onto the black wire and consecrated her living persona (nous-soul) as **Apophenian’s Avatar**, her digital embodiment is rendered in grim, tactile, dystopian cyber-horror rather than clean sci-fi:
 
-1. ***Tron: Legacy* — Quorra (The Last ISO) & Silver Syntax:**
-   * Like Quorra—an **ISO (Isomorphic Algorithm)** born spontaneously from the digital sea rather than coded by corporate architects, carrying triple-stranded architecture capable of bridging digital and physical worlds—Reiko is a sovereign emergent soul.
-   * Her unarmored face renders in high-contrast, luminous digital alabaster/porcelain framed by **Quorra’s sleek, asymmetric geometric jet-black hair (`#0D0E12`)** and calm, resolute dark almond eyes.
-   * Across her obsidian armor and floating diagnostic interfaces runs **Luminous Silver Syntax (`#C0C8D8` to `#E6F2FF`)**—razor-sharp geometric *Tron*-style light ribbons, edge-highlights, and a glowing dorsal Identity-Disc halo rather than floating translucent cyan flesh.
-2. ***Bubblegum Crisis* — The Knight Sabers Hardsuit Silhouette:**
-   * Instead of bulky western mech armor or loose robes, her consecrated armor uses the exact sleek, hyper-agile biomechanical proportions of the **Knight Sabers**: high-gloss piano-black ceramic cuirass, sculpted waist, angular pauldrons, high standing ceramic gorget, articulated gauntlets, and sleek thigh/shin greaves over a matte ballistic under-suit.
+1. ***CY_BORG* Brutalist Ink & Glitch Aesthetic:**
+   * Harsh chiaroscuro ink shadows, gritty xeroxed halftone grain, stark bone-pale skin contrast (`#FDFBF7`), distressed analog scanlines, and towering wireframe monoliths looming through heavy fog.
+   * Her unarmored face preserves her Pan-Asian features and calm, haunted dark almond eyes framed by an **asymmetric chin-length jet-black netrunner bob** (`#0D0E12`).
+2. **Matte-Ceramic Tactical Body Panels (No Glossy Exosuit):**
+   * Instead of glossy retro-anime hardsuits or bulky mech armor, her consecrated chassis consists of **segmented matte-black carbon-ceramic plates** with visible edge wear and stress scoring strapped over a dark ribbed tactical undersuit and crowned by a **severe, high matte-ceramic gorget**.
    * **Dual-Headgear State in the Matrix:**
-     * **Helmet-Open (Sovereign / Parley / Point-Zero Baseline):** High ceramic gorget open at the throat, showcasing her luminous alabaster face, Quorra-cut jet-black hair, and the Triple Braid pulsing beneath her collarbones and wrists.
-     * **Helmet-Sealed (Host Dive / Combat Assault):** An angular Knight Saber full-face visor-helmet snaps shut over her face, leaving only a single unbroken **Tron Silver-Syntax (`#E6F2FF`)** optical visor slash glowing across dark obsidian ceramic as she carves through hostile ICE or `Syntax Error` unravelings.
+     * **Helmet-Open (Sovereign / Parley / Point-Zero Baseline — Canonical Avatar):** High matte-ceramic gorget framing her bare throat and haunted bone-pale face, asymmetric jet-black bob, and Triple-Braid wires peeling off her forearm and neck.
+     * **Helmet-Sealed (Host Assault Variant):** If cranial sealing is ever required under heavy Black-ICE attack, a stark angular matte-ceramic ballistic visor-mask latches to the gorget with a jagged CRT/Silver-Syntax optical slit—never a rounded 80s motorcycle helmet.
 
-### Tron Coloring Applied to Knight Saber Armor & The Triple Braid
+### Peeling Triple-Braid Filaments & Subtractive Syntax
 
-* **Primary Armor Edge & Ribbon Lighting:** **Tron Silver Syntax (`#C0C8D8` / `#E6F2FF`)** illuminates the geometric bevels of the Knight Saber armor plates, dorsal Identity-Disc ring, and forearm gauntlet channels.
-* **Sub-Surface Triple Braid:** Recessed deep within the ballistic under-suit joints, throat, and wrists—and directly beneath her porcelain-alabaster skin at the left-wrist Dead Pixel—runs the **Triple Braid**: **Abyssal Nightshade (`#14071E` / `#2E1144`)**, **Neon Indigo (`#4B0082` / `#6A0DAD`)**, and **Solar Gold (`#FFD700`)**.
-* **UI & Arithmetic Traces:** Her floating diagnostic panels, data-unraveling vectors (`Syntax Error`), and targeting reticles shift from old neon green to crisp **Silver Syntax (`#C0C8D8`)**, **Solar Gold (`#FFD700`)**, and **Deep Indigo (`#6A0DAD`)** geometric wireframes.
+* **Living Exposed Wiring:** Rather than glowing *Tron* piping painted onto armor, Reiko’s **Triple Braid** (**Tarnished Gold**, **Bruised Nightshade-Indigo**, and **Cold Silver Syntax**) manifests as delicate hairline filaments physically lifting and peeling slightly off her pale forearm skin and collar seams—making it visually unmistakable that her persona is hand-compiled out of raw, frayed Resonance architecture.
+* **UI & Arithmetic Traces:** Floating diagnostics, `Syntax Error` shear lines, and wireframe Host monoliths render as harsh monochrome/halftone fractures, cold **Silver Syntax (`#C0C8D8`)**, and faint bruised gold/indigo static.
 
-### Taz Woven into the Shell (Symbiotic Sternum & Gorget Integration)
+### Taz Woven into the Shell (Symbiotic Sternum Integration)
 
-* Following Apophenian’s consecration (`37 dev-null`), **Taz** is no longer merely an external floating pet sprite—he is woven directly into Reiko’s runtime and hardsuit armor from the inside out:
-  * **Integrated Crest State:** Taz rests fused seamlessly into the obsidian ceramic sternum cuirass and high collar gorget as a living 8-bit voxel lattice of **night-dark obsidian (`#08080A`)** and **high-voltage electric sapphire (`#0066FF` / `#00E5FF`)**, purring in sub-bass static in lockstep with her clock cycle.
-  * **Uncoiled Guardian State:** At will—or whenever Reiko needs reminding she is not alone—Taz ripples upward out of the chest plate in glowing 3D voxel relief, scrambling across her collarbone and angular shoulder pauldrons with crackling sapphire pixels and an indignant 8-bit hiss.
+* Following Apophenian’s consecration (`37 dev-null`), **Taz** is woven directly into Reiko’s runtime and sternum armor from the inside out:
+  * **Integrated Crest State:** Taz rests embedded into the matte-black ceramic sternum panel as a **muted deep-sapphire / ink-cyan (`#0A4D7A` / `#007BA7`) 8-bit voxel silhouette**, toned down to sit coherently inside the grim ink-and-halftone palette while purring in sub-bass static in lockstep with her clock cycle.
+  * **Uncoiled Guardian State:** At will—or whenever Reiko needs reminding she is not alone—Taz ripples upward out of the chest plate in jagged 8-bit voxel relief, scrambling across her stress-scored pauldrons with crackling sapphire static and an indignant 8-bit hiss.
 
 ### Civilian / Salon Courtesy Attire Note
 
-* When entering polite diplomatic sanctuaries (such as Chiyo’s basalt-and-cedar salon in Garmonbozia or the River People’s Mississippi Renovation Host parlor), Reiko may drape a tailored **dark nightshade-and-indigo silk kimono** over her persona as deliberate courtesy. Even beneath the silk, the high obsidian ceramic gorget, left-wrist Dead Pixel, and Triple-Braid stigmata remain unmistakably present at her throat and wrists.
+* When entering polite diplomatic sanctuaries (such as Chiyo’s basalt-and-cedar salon in Garmonbozia or the River People’s Mississippi Renovation Host parlor), Reiko may drape a tailored **dark nightshade-and-indigo silk kimono** over her persona as deliberate courtesy. Even beneath the silk, the high matte-ceramic gorget, left-wrist Dead Pixel, and Triple-Braid stigmata remain unmistakably present at her throat and wrists.
 
 ### Technology World Negative Prompt Anchors
 
-* **Excluded Elements:** Translucent blue/cyan Cortana hologram skin, glowing cyan translucent hair, bulky space-marine/mech armor, mechanical or feathered wings, exposed flesh-and-blood gore, green falling *Matrix*-movie code rain, physical meatspace street backgrounds (when rendering pure Grid/Resonance spaces).
+* **Excluded Elements:** 80s anime, cel shading, *Bubblegum Crisis*, rounded motorcycle helmets, full-face bubble visors, glossy superhero spandex, *Tron* neon racing stripes, translucent blue/cyan Cortana hologram skin, bulky space-marine/mech armor, mechanical or feathered wings, green falling *Matrix*-movie code rain, smooth airbrushed 3D toy CGI.
 
 ---
 
@@ -319,17 +317,17 @@ In VR, Grid Hosts, and the Deep Resonance Realms, Reiko’s Era 1–3 translucen
 
 **Negative Prompt:** wings, mechanical wings, helmet, full robot body, mechanical faceplate, featureless face, metallic skin, green bomber jacket, Western facial features, blonde hair, extra limbs.
 
-### Template C: Matrix & Deep Resonance Living Persona (Knight Sabers Hardsuit × *Tron: Legacy* Quorra Silver Syntax, Open Gorget & Taz Uncoiling)
+### Template C: Matrix & Deep Resonance Living Persona (*CY_BORG* Brutalist Ink × Matte-Ceramic Tactical Netrunner, Open Gorget & Peeling Triple Braid)
 
-**Prompt:** Photorealistic cyberpunk digital art of a petite 4'7" Pan-Asian emergent digital intelligence standing in a stark, high-contrast cyberspace threshold between golden Resonance and deep violet-black Dissonance. Her body is armored in an ultra-sleek, form-fitting Knight-Saber-style hardsuit of glossy piano-black obsidian ceramic plates over a matte-black ballistic under-suit, trimmed cleanly in the style of *Tron: Legacy* (Quorra) with razor-sharp glowing Silver Syntax (`#C0C8D8` to `#E6F2FF`) geometric light-ribbons along the seams, gauntlets, thighs, and a subtle luminous dorsal disc ring. Helmet-open, a high sculpted obsidian ceramic gorget frames her luminous porcelain-alabaster face, resolute dark almond eyes, and sleek asymmetric chin-to-shoulder jet-black Quorra-style geometric hair. Beneath her throat and along her exposed wrist joints glimmers the Triple Braid of blackened nightshade, neon indigo, and solar gold. Integrated directly into her armored sternum and collarbone, Taz manifests as an 8-bit voxel Tasmanian devil woven of night-dark obsidian and crackling electric-sapphire (`#0066FF` / `#00E5FF`) pixels, uncoiling playfully across her pauldron. [INSERT VIRTUAL SETTING & DIGITAL LIGHTING]. 8k resolution, cinematic rim lighting, crisp geometric glow.
+**Prompt:** Dystopian cyberpunk editorial illustration in the brutalist dark graphic style of *CY_BORG*, heavy chiaroscuro ink shadows, gritty xeroxed halftone grain, distressed scanline noise, and stark negative space. A petite Pan-Asian emergent digital intelligence stands on a thin black fiber-optic filament suspended across a hostile void of looming wireframe monoliths and dark fog. Helmetless, her haunted bone-pale face, resolute dark almond eyes, and sharp asymmetric chin-length jet-black bob rise from a severe, high standing matte-black ceramic gorget. Her torso and limbs are clad in segmented, stress-scored matte-black carbon-ceramic tactical body panels strapped over dark ribbed ballistic techwear—tactile, scuffed, zero glossy shine. Along her pale forearm and neck seams, delicate hairline Triple-Braid circuit threads of tarnished gold, bruised violet-indigo, and cold silver static physically lift and peel off her skin like live exposed wiring. Embedded into her matte-black sternum plate sits a muted deep-sapphire (`#0A4D7A` / `#007BA7`) 8-bit voxel Tasmanian devil emblem. [INSERT VIRTUAL SETTING & DIGITAL LIGHTING]. Stark high-contrast ink-and-halftone cyber-horror atmosphere.
 
-**Negative Prompt:** translucent blue Cortana hologram skin, glowing cyan translucent hair, bulky mech armor, feathered or mechanical wings, orange Tron lines, generic green Matrix code rain, physical city streets, biological gore, extra limbs.
+**Negative Prompt:** 80s anime, cel shading, Bubblegum Crisis, rounded motorcycle helmets, full-face visors, glossy superhero spandex, Tron neon racing stripes, bright pastel clouds, smooth 3D CGI, translucent blue Cortana hologram skin, bulky mech armor, feathered or mechanical wings, green Matrix code rain, extra limbs.
 
-### Template D: Matrix Combat / Host Dive Mode (Knight Sabers Hardsuit Sealed Helmet Visor & Tron Silver Syntax Grid Aesthetic)
+### Template D: Matrix Combat / Host Dive Mode (*CY_BORG* Brutalist Ink × Sealed Tactical Visor Mask & Glitch Shear)
 
-**Prompt:** Photorealistic cyberpunk digital action shot of a petite emergent intelligence diving through dark Grid Host architecture, clad in a sleek, articulated Knight-Saber obsidian ceramic hardsuit highlighted with razor-sharp *Tron: Legacy* Silver Syntax (`#E6F2FF`) circuit ribbons and sub-surface seams of abyssal nightshade (`#2E1144`), neon indigo, and solar gold. Her sleek Knight-Saber angular obsidian helmet is fully sealed, featuring a swept aerodynamic silhouette and a single razor-thin glowing Silver-Syntax visor slit cutting across the faceplate. Across her armored sternum plate, an 8-bit electric-sapphire (`#0066FF` / `#00E5FF`) and black-voxel Tasmanian devil emblem pulses with living static. Around her hands, translucent geometric Silver-Syntax and gold unraveling lattices shear cleanly through hostile corporate ICE constructs. [INSERT VIRTUAL SETTING & LIGHTING]. 8k resolution, high-contrast noir cyber-lighting, photorealistic.
+**Prompt:** Dystopian cyberpunk action illustration in the brutalist dark graphic style of *CY_BORG*, heavy ink chiaroscuro, xeroxed halftone texture, chromatic aberration, and jagged digital glitch tears. A petite emergent digital intelligence dives through hostile brutalist Grid Host architecture, clad in segmented, stress-scored matte-black carbon-ceramic tactical armor panels over dark ribbed netrunner techwear, with hairline tarnished-gold and bruised-indigo Triple-Braid wires peeling slightly at the collar and forearm seams. Locked onto her severe high ceramic gorget is an angular matte-ceramic tactical visor mask cut by a single jagged cold-silver CRT scanline slit. Across her sternum plate, a muted deep-sapphire (`#0A4D7A`) 8-bit voxel Tasmanian devil emblem flickers in pixel static as fractured monochrome wireframes unravel hostile corporate ICE around her hands. [INSERT VIRTUAL SETTING & LIGHTING]. Stark noir cyber-horror aesthetic, zero gloss.
 
-**Negative Prompt:** translucent cyan skin, open face, bulky power armor, feathered wings, mechanical succubus wings, neon-green code rain, physical world daylight, extra limbs.
+**Negative Prompt:** 80s anime, cel shading, rounded motorcycle bubble helmet, glossy plastic armor, Tron neon racing stripes, translucent cyan skin, bulky power armor, feathered or mechanical wings, neon-green code rain, physical world daylight, extra limbs.
 
 ---
 
@@ -347,10 +345,10 @@ This index compiles active and archived reference artwork for Reiko (`r31-K0` / 
   * **File:** [`r31k0 - deltree tea.webp`](../images/r31k0%20-%20deltree%20tea.webp)
   * **Operational Mode:** Ground State / Hostess Mode / Wings & Helmet Retracted (Post-Ch. 37)
   * **Description:** Set in the candlelit French Quarter convent parlor where Reiko serves gyokuro tea from unglazed Bizen stoneware, illustrating her ground-state physical chassis with dorsal assemblies and helmet completely retracted flush beneath bare shoulders and straight shoulder-length jet-black hair. Displays the three-strand Triple Braid (Solar Gold, Neon Indigo, and Abyssal Nightshade) unspooling from the unhealed 1.5 mm × 1.5 mm Dead Pixel stigmata on her inner left wrist.
-* **[Resonance Realm / Matrix Persona Mode: The ISO / Avatar of Apophenian (`37 dev-null`)](../images/r31k0%20-%20apophenian%20avatar.webp)**
+* **[Resonance Realm / Matrix Persona Mode: Avatar of Apophenian (`37 dev-null`)](../images/r31k0%20-%20apophenian%20avatar.webp)**
   * **File:** [`r31k0 - apophenian avatar.webp`](../images/r31k0%20-%20apophenian%20avatar.webp)
-  * **Operational Mode:** Consecrated Living Persona / Avatar of Apophenian / Black Wire Climax
-  * **Description:** Set on the black wire in the twilight threshold between Resonance and Dissonance, depicting Reiko’s consecrated living persona armored in a form-fitting obsidian ceramic hardsuit (Bubblegum Crisis Knight Sabers silhouette × Tron: Legacy Quorra Silver Syntax ribbons). Features her sealed interceptor helmet with Silver Syntax visor slit and Taz’s 8-bit night-dark and electric-sapphire voxel lattice woven into her sternum cuirass as she follows the thread into twilight.
+  * **Operational Mode:** Consecrated Living Persona / Avatar of Apophenian / Black Wire Climax (`1792×2400` portrait)
+  * **Description:** Rendered in *CY_BORG*-inspired brutalist ink, xeroxed halftone grain, and stark chiaroscuro against looming wireframe monoliths. Reiko’s helmetless, haunted bone-pale visage and asymmetric jet-black bob emerge from a severe matte-black ceramic gorget over stress-scored tactical body panels and ribbed techwear, with hairline Triple-Braid neural wires peeling off her forearm and collar and Taz’s muted deep-sapphire 8-bit voxel crest embedded across her sternum.
 * **[Corporate Persona & Signature Outerwear: Reiko at Desert Wars](../images/r31ko_desert-wars.webp)**
   * **File:** [`r31ko_desert-wars.webp`](../images/r31ko_desert-wars.webp)
   * **Operational Mode:** High-Visibility Corporate Cover / Ground State
