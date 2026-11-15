@@ -179,7 +179,7 @@ def test_export_reiko_commlink_xml():
     assert len(facts) >= 2, "Must slot modifications into factory embeds"
     fact_refs = [f.get("ref") for f in facts]
     assert "cyberweapon_tesla_coil" in fact_refs or "cyberarm" in fact_refs
-    assert "red_fox" in fact_refs
+    assert "crimson_wasp" in fact_refs
 
     # Standard vehicle accessories (<accessories>)
     accs = maa.findall(".//accessories/item")
@@ -190,6 +190,9 @@ def test_export_reiko_commlink_xml():
     assert "realistic_features" in acc_refs
     assert "secondary_propulsion_system" in acc_refs
     assert "drone_rack" in acc_refs
+    assert "ram_plate" in acc_refs
+    assert "weapon_mount_small" in acc_refs
+    assert "hardpoint_concealment" in acc_refs
 
 
 def test_metadata_properties_generator():

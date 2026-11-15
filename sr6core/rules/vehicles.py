@@ -23,6 +23,26 @@ from typing import Dict, Any, List, Optional, Tuple
 from sr6core.rules.modifiers import ModifierEngine
 
 
+def _resolve_sensor_upgrade(base_sensor: int, mod_text: str) -> Optional[Tuple[int, int]]:
+    """
+    Resolve (target_hardware_sensor, slots_cost) for Enhanced/Increased Sensors mods (DC p. 120, 142; SR6 FAQ).
+    Under Double Clutch p. 142 and the Official SR6 FAQ, vehicle/drone Sensor attributes ignore CRB p. 277
+    package size caps and scale up to Rating 9.
+    """
+    m_low = mod_text.lower()
+    m = re.search(r"(?:enhanced|increased)\s+sensors?\s*(\+?)\s*(\d+)", m_low)
+    if not m:
+        return None
+    has_plus = m.group(1) == "+"
+    val = int(m.group(2))
+    if val > base_sensor and not has_plus:
+        target = min(9, val)
+    else:
+        target = min(9, base_sensor + val)
+    slots = max(0, target - base_sensor)
+    return target, slots
+
+
 def parse_vehicle_modifications(drone_dict: Dict[str, Any], char_data: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
     """
     Parses a vehicle or drone's modifications list and returns the augmented chassis profile.
@@ -49,6 +69,7 @@ def parse_vehicle_modifications(drone_dict: Dict[str, Any], char_data: Optional[
     has_wheeled = False
     has_vector = False
     has_wrist_shield = False
+    has_ram_plate = False
     notes_list = []
 
     # Inspect Character Network Sensor Upgrade
@@ -60,20 +81,8 @@ def parse_vehicle_modifications(drone_dict: Dict[str, Any], char_data: Optional[
             sensor_bonus += 1
             notes_list.append("Network Sensor Upgrade (+1)")
 
-    # Anthroform Drone Detection & Sensor Package Size Caps (SR6 p. 277)
+    # Anthroform Drone Detection
     is_anthro = any(k in name.lower() for k in ["butler", "man-at-arms", "man_at_arms", "samurai", "duelist", "anthro"]) or "anthro" in str(drone_dict.get("category", "")).lower()
-    d_cat = str(drone_dict.get("category", "")).lower()
-    d_type = str(drone_dict.get("type", "")).lower()
-    if "micro" in d_cat or "micro" in d_type or "mini" in d_cat or "mini" in d_type or "small" in d_cat or "small" in d_type:
-        max_sensor_cap = 3
-    elif is_anthro or "medium" in d_cat or "medium" in d_type:
-        max_sensor_cap = 4
-    elif "large" in d_cat or "large" in d_type:
-        max_sensor_cap = 5
-    elif "motorcycle" in d_cat or "motorcycle" in d_type or "bike" in d_cat:
-        max_sensor_cap = 6
-    else:
-        max_sensor_cap = 7
 
     has_smart_tires = False
     improved_accel_ranks = 0
@@ -98,18 +107,16 @@ def parse_vehicle_modifications(drone_dict: Dict[str, Any], char_data: Optional[
             armor_bonus += a_val
             notes_list.append(f"Armor Increase (+{a_val} ARM)")
 
-        # 3. Enhanced / Increased Sensors (Rating replacement / upgrade, DC p. 120, 142 / SR6 p. 277)
-        sensor_match = re.search(r"(enhanced|increased)\s+sensors?\s+(\d+)", m_lower)
-        if sensor_match:
-            s_val = int(sensor_match.group(2))
-            # Supports both additive rating (e.g. Rating 2 adding +2 to base 2 -> 4) or target rating (e.g. Rating 4)
-            target_hardware = min(max_sensor_cap, max(sensor + s_val, s_val))
-            hardware_sensor = target_hardware
+        # 3. Enhanced / Increased Sensors (Rating replacement / upgrade, DC p. 120, 142; SR6 FAQ ignores p. 277 size cap)
+        sens_res = _resolve_sensor_upgrade(sensor, m_str)
+        if sens_res is not None:
+            target_hardware, _ = sens_res
+            hardware_sensor = max(hardware_sensor, target_hardware)
             if target_hardware > sensor:
-                sensor_bonus += (target_hardware - sensor)
+                sensor_bonus = max(sensor_bonus, (target_hardware - sensor) + (1 if any("Network Sensor Upgrade" in n for n in notes_list) else 0))
                 notes_list.append(f"Enhanced Sensors ({sensor} -> {target_hardware} SEN)")
             else:
-                notes_list.append(f"Enhanced Sensors (Rating {s_val})")
+                notes_list.append(f"Enhanced Sensors (Rating {target_hardware})")
 
         # 4. Secondary Propulsion (Rotor)
         if "rotor" in m_lower:
@@ -146,6 +153,12 @@ def parse_vehicle_modifications(drone_dict: Dict[str, Any], char_data: Optional[
             ram_val = int(ram_match.group(1))
             armor_bonus += ram_val
             notes_list.append(f"RAM Plating (+{ram_val} ARM)")
+
+        # 7b. Ram Plate (DC p. 144: Standard hardpoint; +Body to Ramming AR, halves return damage)
+        if "ram plate" in m_lower or "ram_plate" in m_lower:
+            has_ram_plate = True
+            if not any("Ram Plate" in n for n in notes_list):
+                notes_list.append("Ram Plate (+BOD Ram AR, ½ Return DMG)")
 
         # 8. Smart Tires
         if "smart tires" in m_lower or "smart_tires" in m_lower:
@@ -216,7 +229,13 @@ def parse_vehicle_modifications(drone_dict: Dict[str, Any], char_data: Optional[
 
     cfs = char_data.get("complex_forms", []) if char_data else []
     has_enlighten = any("enlighten" in (cf.get("name", "") if isinstance(cf, dict) else str(cf)).lower() for cf in cfs)
-    enlighten_bonus = min(hardware_sensor, max(0, 8 - aug_sensor)) if (has_enlighten and is_home_device) else 0
+    if has_enlighten and is_home_device:
+        cf_pools = ModifierEngine.get_matrix_action_pools(char_data) if char_data else {}
+        cf_obj = cf_pools.get("complex_forms")
+        cf_hits = getattr(cf_obj, "bought_hits", 0) if cf_obj is not None else 0
+        enlighten_bonus = min(hardware_sensor, cf_hits) if cf_hits > 0 else hardware_sensor
+    else:
+        enlighten_bonus = 0
     enlightened_sensor = aug_sensor + enlighten_bonus
     if enlighten_bonus:
         notes_list.append(f"Enlighten Automaton (+{enlighten_bonus} SEN when sustained)")
@@ -269,6 +288,7 @@ def parse_vehicle_modifications(drone_dict: Dict[str, Any], char_data: Optional[
         "pilot_str": pilot_str,
         "has_rotor": has_rotor,
         "has_skates": has_retractable_skates,
+        "has_ram_plate": has_ram_plate,
         "mobility_str": mobility_str,
         "notes": notes_list,
         "mod_slots": calculate_vehicle_mod_slots(drone_dict, char_data=char_data),
@@ -431,18 +451,43 @@ def calculate_vehicle_mod_slots(
             })
             continue
 
-        # 3. Pop-Out Concealment
+        # 3. Pop-Out Concealment (DC p. 143-144: Small = 0.5, Standard = 1, Large = 2, Huge = 3)
         if "pop-out concealment" in m_low:
             x_m = re.search(r"x(\d+)", m_low)
             count = int(x_m.group(1)) if x_m else 1
-            slot_cost = 1 * count
+            if "small" in m_low:
+                per_slot = 0.5
+                size_str = "Small"
+            elif "large" in m_low:
+                per_slot = 2.0
+                size_str = "Large"
+            elif "huge" in m_low:
+                per_slot = 3.0
+                size_str = "Huge"
+            else:
+                per_slot = 1.0
+                size_str = "Standard"
+            slot_cost = per_slot * count
             categorized["chassis"].append({
                 "name": m_str,
                 "category": "chassis",
                 "rating": None,
                 "slots_cost": slot_cost,
-                "notes": f"Conceals weapon mounts under vehicle skin ({count}x)",
-                "rule_ref": "DC p. 143"
+                "notes": f"Conceals {size_str} weapon mounts under vehicle skin ({count}x)",
+                "rule_ref": "DC p. 143-144"
+            })
+            continue
+
+        # 3b. Ram Plate (DC p. 144: Standard hardpoint, 0 mod slots)
+        if "ram plate" in m_low or "ram_plate" in m_low:
+            categorized["hardpoint"].append({
+                "name": m_str,
+                "category": "hardpoint",
+                "rating": None,
+                "slots_cost": 0,
+                "hardpoints_used": 1.0,
+                "notes": "Adds Body to Ramming AR & halves return collision damage",
+                "rule_ref": "DC p. 144"
             })
             continue
 
@@ -671,19 +716,16 @@ def calculate_vehicle_mod_slots(
             })
             continue
 
-        # 13. Enhanced / Increased Sensors (DC p. 120, 142)
-        sens_m = re.search(r"(?:enhanced|increased)\s+sensors?\s+(\d+)", m_low)
-        if sens_m:
-            r_val = int(sens_m.group(1))
-            # If rating represents an upgrade differential (e.g. Rating 6 replacing base 3), cost is differential.
-            # If rating represents an installed rating upgrade (e.g. Rating 2 adding +2), cost is 1 x Rating = r_val.
-            slots_cost = r_val - base_sensor if r_val > base_sensor else r_val
+        # 13. Enhanced / Increased Sensors (DC p. 120, 142; SR6 FAQ)
+        sens_res = _resolve_sensor_upgrade(base_sensor, m_str)
+        if sens_res is not None:
+            target_sen, slots_cost = sens_res
             categorized["electronic"].append({
                 "name": m_str,
                 "category": "electronic",
-                "rating": r_val,
+                "rating": target_sen,
                 "slots_cost": slots_cost,
-                "notes": f"Enhanced Sensors Rating {r_val} ({slots_cost} slots)",
+                "notes": f"Enhanced Sensors Rating {target_sen} ({slots_cost} slots)",
                 "rule_ref": "DC p. 120, 142"
             })
             continue

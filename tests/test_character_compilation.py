@@ -64,11 +64,11 @@ def test_full_compiler_sync_and_mobile_export():
             maa = next((d for d in mobile_doc["drones"] if "man-at-arms" in d["name"].lower()), None)
             assert maa is not None
             assert maa["body"] == 15
-            assert maa["sensor"] == 5
-            assert maa["enlightened_sensor"] == 8
-            assert any("increased sensors 1" in m.lower() for m in maa["modifications"])
-            assert maa["rigged_pools"]["gunnery"]["pool"] == 18
-            assert maa["rigged_pools"]["perception"]["pool"] == 17
+            assert maa["sensor"] == 11
+            assert maa["enlightened_sensor"] == 17
+            assert any("enhanced sensors 9" in m.lower() for m in maa["modifications"])
+            assert maa["rigged_pools"]["gunnery"]["pool"] == 24
+            assert maa["rigged_pools"]["perception"]["pool"] == 23
 
 
 def test_multiple_specializations_compilation_and_export():

@@ -1276,7 +1276,7 @@ def build_roll20_payload(
     is_ai = "ai" in metatype.lower()
     _raw_w = char_data.get("weapons") or []
     _all_w = (_raw_w.get("ranged", []) + _raw_w.get("melee", [])) if isinstance(_raw_w, dict) else (_raw_w if isinstance(_raw_w, list) else [])
-    has_red_fox = any("red fox" in str(w.get("name", "")).lower() for w in _all_w if isinstance(w, dict))
+    has_red_fox = any("red fox" in str(w.get("name", "")).lower() or "crimson wasp" in str(w.get("name", "")).lower() for w in _all_w if isinstance(w, dict))
     attributes_list: List[Dict[str, Any]] = []
     core_attr_map = [
         ("BODY", "physical", "body", 1),
@@ -2068,28 +2068,43 @@ def build_roll20_payload(
         desc_str = str(v.get("notes") or v.get("description") or "").strip()
 
         if is_ai and is_drone:
+            from sr6core.rules.vehicles import parse_vehicle_modifications, calculate_drone_action_pools
+
+            v_prof = parse_vehicle_modifications(v, char_data=char_data)
             if "man-at-arms" in vname.lower():
                 # Primary Inhabited Chassis via Override Sprite Power
                 vtype = "DRONE_MEDIUM"
-                body_val = 10
-                armor_val = 8
+                body_val = v_prof["base_body"]
+                armor_val = v_prof["base_armor"]
+                pilot_val = v_prof["inhabited_pilot"]
+                sensor_val = v_prof["hardware_sensor"]
                 res_val = int(char_data.get("attributes", {}).get("resonance") or 8)
                 des_val = 1 if any("designer" in q.get("name", "").lower() for q in char_data.get("qualities", {}).get("positive", [])) else 0
-                pilot_val = res_val + des_val
-                sensor_val = 2
+                aug_sen = v_prof["augmented_sensor"]
+                enl_sen = v_prof["enlightened_sensor"]
+                enl_delta = enl_sen - aug_sen
+                pools = calculate_drone_action_pools(char_data, v, mode="inhabited_override")
                 desc_str = (
                     f"{desc_str}\n"
                     f"Primary Inhabited Chassis (Override Sprite Power): Base Pilot {pilot_val} ({res_val} Resonance + {des_val} Designer) +4 Resonance Focus = {pilot_val + 4}; "
-                    "Body 10 +5 Structural Integrity = 15; Sensor 2 +6 (+2 Inc. Sensors, +1 Sensor Upgrade, +2 Enlightened Automaton, +1 Home Device) = 8.\n"
+                    f"Body {body_val} +{v_prof['augmented_body'] - body_val} Structural Integrity = {v_prof['augmented_body']}; "
+                    f"Sensor {sensor_val} (Hardware) +{aug_sen - sensor_val} (+1 Sensor Upgrade, +1 Home Device) = {aug_sen} Passive (+{enl_delta} Enlighten Automaton = {enl_sen} Sustained).\n"
+                    f"Pilot Origins (Control Rig R1 Equiv.): +1d6 and -1 Threshold on all inhabited drone tests "
+                    f"(Piloting {pools['piloting']['pool']}d6 [-1 Thresh], Gunnery {pools['gunnery']['pool']}d6 [{pools['gunnery']['pool'] + enl_delta}d6], "
+                    f"Evasion {pools['evasion']['pool']}d6, Clearsight {pools['perception']['pool']}d6 [{pools['perception']['pool'] + enl_delta}d6], "
+                    f"Stealth {pools['stealth']['pool']}d6).\n"
                     "Post-Import: Use JSON={...} string in Notes to set all Autosoft pools and attribute modifiers in a single click."
                 ).strip()
             else:
-                if "sky commander" in vname.lower() and sensor_val < 4:
-                    sensor_val = 4
+                sensor_val = v_prof["hardware_sensor"]
+                aug_sen = v_prof["augmented_sensor"]
+                pools = calculate_drone_action_pools(char_data, v, mode="autopilot")
                 desc_str = (
                     f"{desc_str}\n"
-                    "Networked Secondary Drone (+1 Sensor from Sensor Upgrade quality). "
-                    "Modified Autosoft Pools: Clearsight 11, Evasion 11, Maneuvering 11, Stealth 13 (+2 Sneak-Sneak), Targeting 12 (+1 Smartlink)."
+                    f"Networked Secondary Drone: Sensor {sensor_val} (Hardware) +1 Sensor Upgrade = {aug_sen}. "
+                    f"Autopilot Pools (R9 Emulated, capped by DP 7): Piloting {pools['piloting']['pool']}d6, "
+                    f"Targeting {pools['gunnery']['pool']}d6, Evasion {pools['evasion']['pool']}d6, "
+                    f"Clearsight {pools['perception']['pool']}d6, Stealth {pools['stealth']['pool']}d6."
                 ).strip()
 
         return {
@@ -2333,8 +2348,93 @@ def build_roll20_payload(
             else:
                 ranged_items.append(w)
 
+    has_crimson_wasp = any("crimson wasp" in str(rw.get("name", "")).lower() for rw in ranged_items)
     has_red_fox = any("red fox" in str(rw.get("name", "")).lower() for rw in ranged_items)
-    if is_ai and has_red_fox:
+    if is_ai and has_crimson_wasp:
+        from sr6core.rules.vehicles import calculate_drone_action_pools
+
+        maa_src = next(
+            (d for d in (char_data.get("drones") or []) if isinstance(d, dict) and "man-at-arms" in str(d.get("name", "")).lower()),
+            {"name": "Shiawase Man-at-Arms", "sensor": 2, "pilot": 2, "body": 10},
+        )
+        maa_pools = calculate_drone_action_pools(char_data, maa_src, mode="inhabited_override")
+        wasp_pool = maa_pools["gunnery"]["pool"]
+        # Tesla Coil is an internal cyberweapon without a Smartgun System (-1 vs smartlinked Targeting pool)
+        has_smartlink_mod = any(
+            isinstance(m, dict) and m.get("enabled", True) and m.get("id") == "smartlink_wireless"
+            for m in (char_data.get("modifiers") or [])
+        )
+        tesla_pool = wasp_pool - (1 if has_smartlink_mod else 0)
+        ranged_weapons_list.extend(
+            [
+                {
+                    "name": "Crimson Wasp Array (2x Link-Fired)",
+                    "skill": "exotic_weapons",
+                    "pool": wasp_pool,
+                    "damage": "7P*",
+                    "attackRating": "22/20/17/12/-",
+                    "mode": "SS",
+                    "ammunition": "30",
+                    "page": "FS 44",
+                    "description": "Weapon: FS 44. Link Fire: DC 143 (+2 DV, +1 AR). Costs 1 major & 1 minor action to fire. 1 Wild Die. Decreases by 2P at Medium.",
+                    "wifi": [],
+                    "accessories": [{"name": "Smartgun System (Internal)"}, {"name": "Peak-Discharge Laser Battery Clips"}],
+                },
+                {
+                    "name": "Tesla Coil (Straight)",
+                    "skill": "exotic_weapons",
+                    "pool": tesla_pool,
+                    "damage": "5S(e)",
+                    "attackRating": "10/12*/-/-/-",
+                    "mode": "SS",
+                    "ammunition": "20",
+                    "page": "BS 49",
+                    "description": "Weapon: BS 49. Flamethrower rules: SR6 117.",
+                    "wifi": [],
+                    "accessories": [],
+                },
+                {
+                    "name": "Crimson Wasp (single beam)",
+                    "skill": "exotic_weapons",
+                    "pool": wasp_pool,
+                    "damage": "5P*",
+                    "attackRating": "21/19/16/11/-",
+                    "mode": "SS",
+                    "ammunition": "30",
+                    "page": "FS 44",
+                    "description": "Weapon: FS 44. Independent eye mount. 1 Wild Die. Decreases to 3P at Medium.",
+                    "wifi": [],
+                    "accessories": [{"name": "Smartgun System (Internal)"}],
+                },
+                {
+                    "name": "Tesla Coil (Wobbly)",
+                    "skill": "exotic_weapons",
+                    "pool": tesla_pool,
+                    "damage": "4S(e)",
+                    "attackRating": "12/14*/-/-/-",
+                    "mode": "SS",
+                    "ammunition": "20",
+                    "page": "BS 49",
+                    "description": "Weapon: BS 49. Flamethrower rules: SR6 117. Fires in a cone 20m long, 3m at base (apex angle 8.58). May use wild die.",
+                    "wifi": [],
+                    "accessories": [],
+                },
+                {
+                    "name": "Tesla Coil (Sweep)",
+                    "skill": "exotic_weapons",
+                    "pool": tesla_pool,
+                    "damage": "2S(e)",
+                    "attackRating": "14/16*/-/-/-",
+                    "mode": "SS",
+                    "ammunition": "20",
+                    "page": "BS 49",
+                    "description": "Weapon: BS 49. Flamethrower rules: SR6 117. Fires in a cone 20m long, 10m at base (apex angle 28.07). May use wild die.",
+                    "wifi": [],
+                    "accessories": [],
+                },
+            ]
+        )
+    elif is_ai and has_red_fox:
         ranged_weapons_list.extend(
             [
                 {
@@ -3150,6 +3250,29 @@ def generate_roll20_helper_guide(
         )
 
     if resonance > 0:
+        from sr6core.rules.vehicles import parse_vehicle_modifications, calculate_drone_action_pools
+
+        maa_src = next(
+            (d for d in (char_data.get("drones") or []) if isinstance(d, dict) and "man-at-arms" in str(d.get("name", "")).lower()),
+            {"name": "Shiawase Man-at-Arms", "sensor": 2, "pilot": 2, "body": 10},
+        )
+        maa_prof = parse_vehicle_modifications(maa_src, char_data=char_data)
+        maa_pools = calculate_drone_action_pools(char_data, maa_src, mode="inhabited_override")
+        enl_delta = maa_prof["enlightened_sensor"] - maa_prof["augmented_sensor"]
+        wasp_p = maa_pools["gunnery"]["pool"]
+        wasp_p_enl = wasp_p + enl_delta
+        tesla_p = wasp_p - 1
+        tesla_p_enl = tesla_p + enl_delta
+        clr_p = maa_pools["perception"]["pool"]
+        clr_p_enl = clr_p + enl_delta
+        plt_p = maa_pools["piloting"]["pool"]
+        eva_p = maa_pools["evasion"]["pool"]
+        stl_p = maa_pools["stealth"]["pool"]
+        start_exotic = agi - 1
+        wasp_mod = wasp_p - start_exotic
+        wasp_mod_enl = wasp_p_enl - start_exotic
+        tesla_mod = tesla_p - start_exotic
+        tesla_mod_enl = tesla_p_enl - start_exotic
         lines.extend(
             [
                 "3. **Select Technomancer Stream (Matrix Tab)**: On the **Matrix** tab, select **`Technoshamans (Charisma)`** so Fade Resistance rolls `Willpower + Charisma` (`6 + 4 = 10d6`).",
@@ -3161,35 +3284,32 @@ def generate_roll20_helper_guide(
                 "Every time you re-import `reiko_roll20.json`, Roll20's `clean()` wipes repeating rows and restores default values. Follow these 4 quick adjustments to finalize the sheet for tabletop play:",
                 "",
                 "### 1) Drone Autosofts (`Vehicles` Tab)",
-                "- **Base Autosofts**: Set each autosoft rating to **`11`** (Rating 7 + 4 Sprite Symbiosis teamwork):",
-                "  - **Clearsight**: `11` (click power toggle ON)",
-                "  - **Evasion**: `11` (click power toggle ON)",
-                "  - **Maneuvering**: `11` (click power toggle ON)",
-                "  - **Electronic Warfare**: `11` (click power toggle ON, if present)",
-                "- **Stealth**: Set to **`13`** (`11` base + `2` from Sneak-Sneak TacApp on M-TOC Mark II; click power toggle ON).",
-                "- **Targeting**: Set to **`12`** (`11` base + `1` Smartlinked weapons; click power toggle ON).",
+                "- **Inhabited Man-at-Arms Autosofts** (Emulated Rating 7 + 4 Sprite Symbiosis + **1 Pilot Origins** = **`12`** base effective autosoft/rig contribution; click power toggle ON):",
+                "  - **Clearsight**: `12` (`7` Clearsight + `4` Taz + `1` Pilot Origins; click power toggle ON)",
+                "  - **Evasion**: `12` (`7` Evasion + `4` Taz + `1` Pilot Origins; click power toggle ON)",
+                "  - **Maneuvering**: `11` (`7` Maneuvering + `3` Taz Diagnosis + `1` Pilot Origins, **-1 Threshold**; click power toggle ON)",
+                "  - **Stealth**: `14` (`7` Stealth + `4` Taz + `2` Sneak-Sneak + `1` Pilot Origins; click power toggle ON)",
+                "  - **Targeting (Crimson Wasps)**: `13` (`7` Targeting + `4` Taz + `1` Smartlink + `1` Pilot Origins; click power toggle ON)",
+                "  - **Targeting (Tesla Coil)**: `12` (`7` Targeting + `4` Taz + `1` Pilot Origins; un-smartlinked)",
                 "- **Shiawase Man-at-Arms (Overridden Drone Body)**:",
-                "  - **Pilot Mod**: `+4` (Resonance Focus R4 -> Pilot 13)",
-                "  - **Body Mod**: `+5` (Reinforced Frame -> Body 15)",
-                "  - **Sensor Mod**: `+6` (Base 2 + 2 Improved Sensors + 1 Sensor Upgrade + 1 Designer Home Device -> Sensor 8)",
-                "- **Secondary Drones** (`Sky Commander`, `MCT Gnat`, `MCT Hornet`, `Dream Genie`, `Utility-One`):",
-                "  - **Sensor Mod**: `+1` (Sensor Upgrade quality)",
-                "  - Autosofts: `11` base, `13` stealth, `12` targeting (all powered ON)",
+                f"  - **Pilot Mod**: `+4` (Resonance Focus R4 -> Effective Pilot {maa_prof['inhabited_pilot'] + 4})",
+                f"  - **Body Mod**: `+{maa_prof['augmented_body'] - maa_prof['base_body']}` (Reinforced Frame -> Body {maa_prof['augmented_body']})",
+                f"  - **Sensor Mod**: `+{maa_prof['augmented_sensor'] - maa_prof['hardware_sensor']}` Passive (Hardware {maa_prof['hardware_sensor']} + 1 Sensor Upgrade + 1 Home Device -> Sensor {maa_prof['augmented_sensor']}), or **`+{maa_prof['enlightened_sensor'] - maa_prof['hardware_sensor']}`** with **Enlighten Automaton** (`+{enl_delta}` -> Sensor {maa_prof['enlightened_sensor']})",
+                "- **Secondary Drones** (`Sky Commander`, `MCT Gnat`, `MCT Hornet`):",
+                "  - **Sensor Mod**: `+1` (`Sensor Upgrade` quality -> Sky Commander `6`, Hornet `3`, Gnat `2`)",
+                "  - Autopilot Autosofts: `7` (Emulated capped by DP 7) + Taz Teamwork (`4`) when assisted",
                 "",
                 "### 2) Weapon Pools to Reflect Targeting Pool (`Arms` & `Core` Tabs)",
-                "The 5 Man-at-Arms weapons are exported using skill **`Exotic Weapons`** so your new `Engineering (Drones)` skill doesn't inflate your weapon pools. Here is the math for the **20d6** target pool:",
-                "- **Starting Pool**: `Agility (7) + Exotic Weapons (-1 unskilled) = 6`.",
-                "- **Drone Targeting Pool**: `Targeting Autosoft (12) + Man-at-Arms Sensor (8) = 20`.",
-                "- **Modifier to Add**: `20 - 6 = +14`.",
-                "*(Note: If you ever revert weapons to `Engineering`, the starting pool is `Logic 12 - 1 = 11`, which needed `+9` to reach 20. With `Exotic Weapons`, you add `+14`.)*",
+                f"The 5 Man-at-Arms weapons are exported using skill **`Exotic Weapons`** so your `Engineering (Drones)` skill doesn't inflate your weapon pools. Starting Roll20 pool = `Agility ({agi}) + Exotic Weapons (-1 unskilled) = {start_exotic}`:",
+                f"- **Crimson Wasps (Smartlinked)**: `Targeting (7) + Sensor ({maa_prof['augmented_sensor']}) + Taz (4) + Pilot Origins (1) + Smartlink (1) = {wasp_p}d6` Passive (`{wasp_p_enl}d6` w/ Enlighten Automaton) -> Set Mod to **`+{wasp_mod}`** (`+{wasp_mod_enl}` sustained).",
+                f"- **Tesla Coil (No Smartlink)**: `Targeting (7) + Sensor ({maa_prof['augmented_sensor']}) + Taz (4) + Pilot Origins (1) = {tesla_p}d6` Passive (`{tesla_p_enl}d6` w/ Enlighten Automaton) -> Set Mod to **`+{tesla_mod}`** (`+{tesla_mod_enl}` sustained).",
                 "",
                 "- Click the settings toggle (`x`) on each of the 5 weapons:",
-                "  1. **Red Fox Array (2x Link-Fired)**: Set **Modifier** to **`+14`** (Pool = **20d6**, 8P DV, 2 Wild Dice, AR 21/23/21/14/-).",
-                "  2. **Single Red Fox (Eye Mount)**: Set **Modifier** to **`+14`** (Pool = **20d6**, 6P DV, 1 Wild Die, AR 20/22/20/13/-).",
-                "  3. **Tesla Coil (Straight Line)**: Set **Modifier** to **`+14`** (Pool = **20d6**, 5S(e) DV, AR 10/12/-/-/-).",
-                "  4. **Tesla Coil (Wobbly Cone)**: Set **Modifier** to **`+14`** (Pool = **20d6**, 4S(e) DV, Cone 20m x 3m base, Apex 8.58°).",
-                "  5. **Tesla Coil (Sweep Cone)**: Set **Modifier** to **`+14`** (Pool = **20d6**, 2S(e) DV, Cone 20m x 10m base, Apex 28.07°).",
-                "  *(Note: If rolling unassisted drone targeting without sensor pairing, set Pool to `12`.)*",
+                f"  1. **Crimson Wasp Array (2x Link-Fired)**: Set **Modifier** to **`+{wasp_mod}`** (Pool = **{wasp_p}d6** Passive / **{wasp_p_enl}d6** Sustained, 7P* DV [SS] / 8P* DV [SA], 1 Wild Die, AR 22/20/17/12/-).",
+                f"  2. **Single Crimson Wasp (Eye Mount)**: Set **Modifier** to **`+{wasp_mod}`** (Pool = **{wasp_p}d6** Passive / **{wasp_p_enl}d6** Sustained, 5P* DV [SS] / 6P* DV [SA], 1 Wild Die, AR 21/19/16/11/-).",
+                f"  3. **Tesla Coil (Straight Line)**: Set **Modifier** to **`+{tesla_mod}`** (Pool = **{tesla_p}d6** Passive / **{tesla_p_enl}d6** Sustained, 5S(e) DV, AR 10/12/-/-/-).",
+                f"  4. **Tesla Coil (Wobbly Cone)**: Set **Modifier** to **`+{tesla_mod}`** (Pool = **{tesla_p}d6** Passive / **{tesla_p_enl}d6** Sustained, 4S(e) DV, Cone 20m x 3m base, Apex 8.58°).",
+                f"  5. **Tesla Coil (Sweep Cone)**: Set **Modifier** to **`+{tesla_mod}`** (Pool = **{tesla_p}d6** Passive / **{tesla_p_enl}d6** Sustained, 2S(e) DV, Cone 20m x 10m base, Apex 28.07°).",
                 "",
                 "",
                 "### 3) Complex Form Rolls (`Matrix` Tab)",
@@ -3337,24 +3457,44 @@ def generate_roll20_helper_guide(
         lines.extend(
             [
                 "",
-                "### Red Fox Array (2x Link-Fired) Attack (`20d6` Pool — 2 Wild Dice, 8P DV)",
+                f"### Drone Perception / Clearsight (`{clr_p}d6` Passive / `{clr_p_enl}d6` Sustained — `-1` Threshold)",
                 "```text",
-                f"&{{template:rolls-computed}}{{{{header=@{{character_name}}}}}}{{{{base=Red Fox Array (2x Link-Fired)}}}}{{{{dice=[[(20+@{{wounds_toggle}}+@{{modifiers_toggle}}+@{{edge_toggle}})d6>5@{{explode_toggle}}]]}}}}{{{{wilddie=[[@{{wild_die}}]]}}}}{{{{wilddie_dice=[[2]]}}}}{{{{desc=Mode: SS (Link-Fired), Damage: 8P, AR: 21/23/21/14/-, Ammo: 30(c)}}}}{{{{notes=FS 44 / DC 143. Link-Fired 2x Red Foxes in Eye Mounts. Costs 1 Major & 1 Minor Action. 2 Wild Dice. -3P at Medium range. Smartgun (+1 AR).}}}}{{{{mod=[[@{{modifiers_toggle}}]]}}}}{{{{wound=[[@{{wounds_toggle}}]]}}}}{{{{edge=[[@{{edge_toggle}}]]}}}}",
+                f"&{{template:rolls-computed}}{{{{header=@{{character_name}}}}}}{{{{base=Drone Perception (Clearsight + Sensor)}}}}{{{{dice=[[({clr_p}+@{{wounds_toggle}}+@{{modifiers_toggle}}+@{{edge_toggle}})d6>5@{{explode_toggle}}]]}}}}{{{{mod=[[@{{modifiers_toggle}}]]}}}}{{{{wound=[[@{{wounds_toggle}}]]}}}}{{{{edge=[[@{{edge_toggle}}]]}}}}{{{{notes={clr_p}d6 Passive ({clr_p_enl}d6 w/ +{enl_delta} Enlighten Automaton): Clearsight (7) + Sensor ({maa_prof['augmented_sensor']}/{maa_prof['enlightened_sensor']}) + Taz (+4) + Pilot Origins (+1, -1 Threshold).}}}}",
                 "```",
                 "",
-                "### Red Fox Single Beam (`20d6` Pool — 1 Wild Die, 6P DV)",
+                f"### Drone Piloting / Maneuvering & Wrist-Shield Ram (`{plt_p}d6` — `-1` Threshold, `33/39` AR, `8P*` DV)",
                 "```text",
-                f"&{{template:rolls-computed}}{{{{header=@{{character_name}}}}}}{{{{base=Red Fox (Single Beam)}}}}{{{{dice=[[(20+@{{wounds_toggle}}+@{{modifiers_toggle}}+@{{edge_toggle}})d6>5@{{explode_toggle}}]]}}}}{{{{wilddie=[[@{{wild_die}}]]}}}}{{{{wilddie_dice=[[1]]}}}}{{{{desc=Mode: SS, Damage: 6P, AR: 20/22/20/13/-, Ammo: 30(c)}}}}{{{{notes=FS 44. Independent Single Eye Mount (No extra minor action). 1 Wild Die. -3P at Medium range. Smartgun (+1 AR).}}}}{{{{mod=[[@{{modifiers_toggle}}]]}}}}{{{{wound=[[@{{wounds_toggle}}]]}}}}{{{{edge=[[@{{edge_toggle}}]]}}}}",
+                f"&{{template:rolls-computed}}{{{{header=@{{character_name}}}}}}{{{{base=Drone Piloting / Ramming (Maneuvering + Pilot/RES)}}}}{{{{dice=[[({plt_p}+@{{wounds_toggle}}+@{{modifiers_toggle}}+@{{edge_toggle}})d6>5@{{explode_toggle}}]]}}}}{{{{mod=[[@{{modifiers_toggle}}]]}}}}{{{{wound=[[@{{wounds_toggle}}]]}}}}{{{{edge=[[@{{edge_toggle}}]]}}}}{{{{notes={plt_p}d6 Pool (-1 Threshold via Pilot Origins; Effective Handling 3): Maneuvering (7) + Pilot/RES (10) + Focus (+4) + Taz Diagnosis (+3) + Pilot Origins (+1). Ram Plate (Left Wrist Shield Mount): AR 33 Passive / 39 Enlightened, DV 8P* (+1/Speed Interval), Halved Return Damage.}}}}",
                 "```",
                 "",
-                "### Tesla Coil: Straight Line (`20d6` Pool — 5S(e) DV)",
+                f"### Drone Evasion (`{eva_p}d6` Defense Test)",
                 "```text",
-                f"&{{template:rolls-computed}}{{{{header=@{{character_name}}}}}}{{{{base=Tesla Coil (Straight Line)}}}}{{{{dice=[[(20+@{{wounds_toggle}}+@{{modifiers_toggle}}+@{{edge_toggle}})d6>5@{{explode_toggle}}]]}}}}{{{{desc=Mode: SS, Damage: 5S(e), AR: 10/12/-/-/-}}}}{{{{notes=BS 49 / SR6 117 Flamethrower rules. Fires in a straight line 20m long. Target defends with REA + INT vs AR. 5S(e) Electrical damage. 20 charges.}}}}{{{{mod=[[@{{modifiers_toggle}}]]}}}}{{{{wound=[[@{{wounds_toggle}}]]}}}}{{{{edge=[[@{{edge_toggle}}]]}}}}",
+                f"&{{template:rolls-computed}}{{{{header=@{{character_name}}}}}}{{{{base=Drone Evasion (Evasion + Pilot/RES)}}}}{{{{dice=[[({eva_p}+@{{wounds_toggle}}+@{{modifiers_toggle}}+@{{edge_toggle}})d6>5@{{explode_toggle}}]]}}}}{{{{mod=[[@{{modifiers_toggle}}]]}}}}{{{{wound=[[@{{wounds_toggle}}]]}}}}{{{{edge=[[@{{edge_toggle}}]]}}}}{{{{notes={eva_p}d6 Pool: Evasion (7) + Pilot/RES (10) + Focus (+4) + Taz Symbiosis (+4) + Pilot Origins (+1). Add +4 Defense Dice for Full Defense or Dodge.}}}}",
                 "```",
                 "",
-                "### Tesla Coil: Wobbly Cone (`20d6` Pool — 4S(e) DV, Apex 8.58°)",
+                f"### Drone Stealth (`{stl_p}d6` — `-1` Threshold)",
                 "```text",
-                f"&{{template:rolls-computed}}{{{{header=@{{character_name}}}}}}{{{{base=Tesla Coil (Wobbly Cone)}}}}{{{{dice=[[(20+@{{wounds_toggle}}+@{{modifiers_toggle}}+@{{edge_toggle}})d6>5@{{explode_toggle}}]]}}}}{{{{desc=Mode: SS, Damage: 4S(e), AR: 12/14/-/-/-}}}}{{{{notes=BS 49 / SR6 117. Fires in a cone 20m long, 3m wide at base (apex angle 8.58°). May use wild die. 4S(e) Electrical damage. 20 charges.}}}}{{{{mod=[[@{{modifiers_toggle}}]]}}}}{{{{wound=[[@{{wounds_toggle}}]]}}}}{{{{edge=[[@{{edge_toggle}}]]}}}}",
+                f"&{{template:rolls-computed}}{{{{header=@{{character_name}}}}}}{{{{base=Drone Stealth (Stealth + Pilot/RES)}}}}{{{{dice=[[({stl_p}+@{{wounds_toggle}}+@{{modifiers_toggle}}+@{{edge_toggle}})d6>5@{{explode_toggle}}]]}}}}{{{{mod=[[@{{modifiers_toggle}}]]}}}}{{{{wound=[[@{{wounds_toggle}}]]}}}}{{{{edge=[[@{{edge_toggle}}]]}}}}{{{{notes={stl_p}d6 Pool (-1 Threshold via Pilot Origins): Stealth (7) + Pilot/RES (10) + Focus (+4) + Taz Symbiosis (+4) + Sneak-Sneak (+2) + Pilot Origins (+1).}}}}",
+                "```",
+                "",
+                f"### Crimson Wasp Array (2x Link-Fired) Attack (`{wasp_p}d6` Passive / `{wasp_p_enl}d6` Sustained — 1 Wild Die, 7P* SS / 8P* SA)",
+                "```text",
+                f"&{{template:rolls-computed}}{{{{header=@{{character_name}}}}}}{{{{base=Crimson Wasp Array (2x Link-Fired)}}}}{{{{dice=[[({wasp_p}+@{{wounds_toggle}}+@{{modifiers_toggle}}+@{{edge_toggle}})d6>5@{{explode_toggle}}]]}}}}{{{{wilddie=[[@{{wild_die}}]]}}}}{{{{wilddie_dice=[[1]]}}}}{{{{desc=Mode: SS/SA (Link-Fired), Damage: 7P* (SS) / 8P* (SA), AR: 22/20/17/12/- (SS) or 21/19/16/11/- (SA), Ammo: 30(c)}}}}{{{{notes=FS 44 / DC 143 / SRMG 51. {wasp_p}d6 Passive ({wasp_p_enl}d6 w/ +{enl_delta} Enlighten Automaton): Targeting (7) + Sensor ({maa_prof['augmented_sensor']}/{maa_prof['enlightened_sensor']}) + Taz (+4) + Pilot Origins (+1) + Smartlink (+1). Link-Fired 2x Crimson Wasps (1 Major & 1 Minor Action). 1 Wild Die. -2P at Medium range.}}}}",
+                "```",
+                "",
+                f"### Crimson Wasp Single Beam (`{wasp_p}d6` Passive / `{wasp_p_enl}d6` Sustained — 1 Wild Die, 5P* SS / 6P* SA)",
+                "```text",
+                f"&{{template:rolls-computed}}{{{{header=@{{character_name}}}}}}{{{{base=Crimson Wasp (Single Beam)}}}}{{{{dice=[[({wasp_p}+@{{wounds_toggle}}+@{{modifiers_toggle}}+@{{edge_toggle}})d6>5@{{explode_toggle}}]]}}}}{{{{wilddie=[[@{{wild_die}}]]}}}}{{{{wilddie_dice=[[1]]}}}}{{{{desc=Mode: SS/SA, Damage: 5P* (SS) / 6P* (SA), AR: 21/19/16/11/- (SS) or 20/18/15/10/- (SA), Ammo: 30(c)}}}}{{{{notes=FS 44 / SRMG 51. {wasp_p}d6 Passive ({wasp_p_enl}d6 w/ +{enl_delta} Enlighten Automaton): Targeting (7) + Sensor ({maa_prof['augmented_sensor']}/{maa_prof['enlightened_sensor']}) + Taz (+4) + Pilot Origins (+1) + Smartlink (+1). Independent Eye Mount. 1 Wild Die. -2P at Medium range.}}}}",
+                "```",
+                "",
+                f"### Tesla Coil: Straight Line (`{tesla_p}d6` Passive / `{tesla_p_enl}d6` Sustained — 5S(e) DV)",
+                "```text",
+                f"&{{template:rolls-computed}}{{{{header=@{{character_name}}}}}}{{{{base=Tesla Coil (Straight Line)}}}}{{{{dice=[[({tesla_p}+@{{wounds_toggle}}+@{{modifiers_toggle}}+@{{edge_toggle}})d6>5@{{explode_toggle}}]]}}}}{{{{desc=Mode: SS, Damage: 5S(e), AR: 10/12/-/-/-}}}}{{{{notes=BS 49 / SR6 117. {tesla_p}d6 Passive ({tesla_p_enl}d6 w/ +{enl_delta} Enlighten Automaton): Targeting (7) + Sensor ({maa_prof['augmented_sensor']}/{maa_prof['enlightened_sensor']}) + Taz (+4) + Pilot Origins (+1). Direct line 20m; REA+INT vs AR; 5S(e).}}}}",
+                "```",
+                "",
+                f"### Tesla Coil: Wobbly Cone (`{tesla_p}d6` Passive / `{tesla_p_enl}d6` Sustained — 4S(e) DV, Apex 8.58°)",
+                "```text",
+                f"&{{template:rolls-computed}}{{{{header=@{{character_name}}}}}}{{{{base=Tesla Coil (Wobbly Cone)}}}}{{{{dice=[[({tesla_p}+@{{wounds_toggle}}+@{{modifiers_toggle}}+@{{edge_toggle}})d6>5@{{explode_toggle}}]]}}}}{{{{desc=Mode: SS, Damage: 4S(e), AR: 12/14/-/-/-}}}}{{{{notes=BS 49 / SR6 117. {tesla_p}d6 Passive ({tesla_p_enl}d6 w/ +{enl_delta} Enlighten Automaton). Cone 20m x 3m base (apex 8.58°). May use wild die. 4S(e).}}}}",
                 "```",
                 "",
                 "### Engineering: Drones (`15d6` Pool — Drone Maintenance & Repairs)",
@@ -3372,9 +3512,9 @@ def generate_roll20_helper_guide(
                 f"&{{template:rolls-computed}}{{{{header=@{{character_name}}}}}}{{{{base=Outdoors (Navigation)}}}}{{{{dice=[[(9+@{{wounds_toggle}}+@{{modifiers_toggle}}+@{{edge_toggle}})d6>5@{{explode_toggle}}]]}}}}{{{{mod=[[@{{modifiers_toggle}}]]}}}}{{{{wound=[[@{{wounds_toggle}}]]}}}}{{{{edge=[[@{{edge_toggle}}]]}}}}{{{{notes=9d6 Pool: Real Intuition (2) + Outdoors (5) + Navigation Spec (+2). Meatspace action (Natural Hacker does not apply). Autosoft only applies to Navigation.}}}}",
                 "```",
                 "",
-                "### Tesla Coil: Sweep Cone (`20d6` Pool — 2S(e) DV, Apex 28.07°)",
+                f"### Tesla Coil: Sweep Cone (`{tesla_p}d6` Passive / `{tesla_p_enl}d6` Sustained — 2S(e) DV, Apex 28.07°)",
                 "```text",
-                f"&{{template:rolls-computed}}{{{{header=@{{character_name}}}}}}{{{{base=Tesla Coil (Sweep Cone)}}}}{{{{dice=[[(20+@{{wounds_toggle}}+@{{modifiers_toggle}}+@{{edge_toggle}})d6>5@{{explode_toggle}}]]}}}}{{{{desc=Mode: SS, Damage: 2S(e), AR: 14/16/-/-/-}}}}{{{{notes=BS 49 / SR6 117. Fires in a cone 20m long, 10m wide at base (apex angle 28.07°). May use wild die. 2S(e) Electrical damage. 20 charges.}}}}{{{{mod=[[@{{modifiers_toggle}}]]}}}}{{{{wound=[[@{{wounds_toggle}}]]}}}}{{{{edge=[[@{{edge_toggle}}]]}}}}",
+                f"&{{template:rolls-computed}}{{{{header=@{{character_name}}}}}}{{{{base=Tesla Coil (Sweep Cone)}}}}{{{{dice=[[({tesla_p}+@{{wounds_toggle}}+@{{modifiers_toggle}}+@{{edge_toggle}})d6>5@{{explode_toggle}}]]}}}}{{{{desc=Mode: SS, Damage: 2S(e), AR: 14/16/-/-/-}}}}{{{{notes=BS 49 / SR6 117. {tesla_p}d6 Passive ({tesla_p_enl}d6 w/ +{enl_delta} Enlighten Automaton). Cone 20m x 10m base (apex 28.07°). May use wild die. 2S(e).}}}}",
                 "```",
                 "",
                 "### Standard Matrix Defense Umbrella (`22d6` — 5 Bought Hits vs Attack & Sleaze Actions)",

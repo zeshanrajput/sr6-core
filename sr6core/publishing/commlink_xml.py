@@ -181,9 +181,8 @@ CANONICAL_REF_ALIASES = {
     "mct_gnat": "mct_gnat",
     "mcthornet": "mct_hornet",
     "mct_hornet": "mct_hornet",
-    "federatedboeingskycommander_seattle": "boing_sky_commander",
+    "federatedboeingskycommander": "boing_sky_commander",
     "federated_boeing_sky_commander": "boing_sky_commander",
-    "federated_boeing_sky_commander_(seattle_retrans_relay)": "boing_sky_commander",
     "boing_sky_commander": "boing_sky_commander",
     "shiawasebdmanatarms": "shiawase_BD_man_at_arms",
     "shiawase_bd_man_at_arms": "shiawase_BD_man_at_arms",
@@ -224,6 +223,11 @@ CANONICAL_REF_ALIASES = {
     "single_red_fox_(eye_mount)": "red_fox",
     "single_red_fox": "red_fox",
     "red_fox": "red_fox",
+    "crimson_wasp_array_(2x_link_fired)": "crimson_wasp",
+    "crimson_wasp_array": "crimson_wasp",
+    "single_crimson_wasp_(eye_mount)": "crimson_wasp",
+    "single_crimson_wasp": "crimson_wasp",
+    "crimson_wasp": "crimson_wasp",
     "tesla_coil_(straight)": "cyberweapon_tesla_coil",
     "tesla_coil_(wobbly)": "cyberweapon_tesla_coil",
     "tesla_coil_(sweeping)": "cyberweapon_tesla_coil",
@@ -233,6 +237,7 @@ CANONICAL_REF_ALIASES = {
     "cestas": "knucks",
     "cesta": "knucks",
     "5x_peak_discharge_laser_battery_clips_(red_fox)": "ammo_battery_laser",
+    "5x_peak_discharge_laser_battery_clips_(crimson_wasp)": "ammo_battery_laser",
     "peak_discharge_laser_battery_clips": "ammo_battery_laser",
     "peak_discharge_laser_battery_clip": "ammo_battery_laser",
     "laser_battery_clips": "ammo_battery_laser",
@@ -260,14 +265,20 @@ CANONICAL_REF_ALIASES = {
     "enhanced_sensors": "enhanced_sensors",
     "smart_tires": "tires_small",
     "weapon_mount": "weapon_turret_standard",
+    "weapon_mount_(small)": "weapon_mount_small",
+    "weapon_mount_small": "weapon_mount_small",
+    "weapon_turret_(small)": "weapon_turret_small",
     "weapon_mount_(standard)": "weapon_turret_standard",
     "weapon_turret_(standard)": "weapon_turret_standard",
     "weapon_turret_standard": "weapon_turret_standard",
     "pop_out_concealment": "hardpoint_concealment",
     "pop-out_concealment": "hardpoint_concealment",
+    "pop_out_concealment_(small)": "hardpoint_concealment",
+    "pop-out_concealment_(small)": "hardpoint_concealment",
     "pop_out_concealment_(standard)": "hardpoint_concealment",
     "pop-out_concealment_(standard)": "hardpoint_concealment",
     "hardpoint_concealment": "hardpoint_concealment",
+    "ram_plate": "ram_plate",
     "drone_rack_(small)": "drone_rack",
     "drone_bay": "drone_rack",
     "drone_bay_(micro/mini)": "drone_rack",
@@ -388,8 +399,10 @@ def get_accessory_slot(acc_ref: str, is_vehicle: bool = False) -> str:
             return "VEHICLE_POWERTRAIN"
         if any(k in r for k in ["features", "integrity", "chassis", "concealment"]):
             return "VEHICLE_CHASSIS"
-        if any(k in r for k in ["rack", "mount", "turret"]):
+        if any(k in r for k in ["rack", "mount", "turret", "ram_plate"]):
             return "VEHICLE_HARDPOINT"
+        if any(k in r for k in ["crimson_wasp"]):
+            return "VEHICLE_WEAPON_SMALL"
         if any(k in r for k in ["red_fox", "weapon"]):
             return "VEHICLE_WEAPON_LARGE"
         if any(k in r for k in ["cyberarm", "cyberleg", "cyberlimb", "tesla_coil", "cyberweapon"]):
@@ -503,6 +516,9 @@ def parse_drone_mod(raw_mod: str, db_path: str = DEFAULT_DB_PATH) -> Dict[str, A
 
     ref = CANONICAL_REF_ALIASES.get(clean_ref, clean_ref)
     ref = lookup_canonical_ref(ref, "gear", db_path=db_path)
+    if clean_ref == "weapon_mount" and variant == "small":
+        ref = "weapon_mount_small"
+        variant = None
 
     return {
         "raw": raw_mod,
@@ -1404,7 +1420,7 @@ def export_commlink_xml(
             g_el.set("variant", variant)
 
         count_val = g.get("qty") or g.get("count", 1)
-        if "red_fox" in g_ref and (not count_val or int(count_val) == 1):
+        if ("red_fox" in g_ref or "crimson_wasp" in g_ref) and (not count_val or int(count_val) == 1):
             count_val = 2
         if count_val and int(count_val) > 1:
             g_el.set("count", str(count_val))
@@ -1477,6 +1493,11 @@ def export_commlink_xml(
             for w in _safe_item_list(char_data.get("weapons", [])):
                 if isinstance(w, dict) and w.get("is_vehicle_mounted"):
                     w_name = w.get("name", "")
+                    if "crimson wasp" in w_name.lower():
+                        count_cw = w.get("link_fired_count", 2 if "array" in w_name.lower() or "2x" in w_name.lower() else 1)
+                        for _ in range(count_cw):
+                            mods.append("Crimson Wasp")
+                        break
                     if "red fox" in w_name.lower():
                         count_rf = w.get("link_fired_count", 2 if "array" in w_name.lower() or "2x" in w_name.lower() else 1)
                         for _ in range(count_rf):
@@ -1496,7 +1517,7 @@ def export_commlink_xml(
                         if fe["id"] not in used_factory and fe["ref"] == "integrated_cyberarm":
                             matched_embed = fe
                             break
-                elif (p["ref"] in ["red_fox"] or "weapon" in p["ref"]) and not ("mount" in p["ref"] or "turret" in p["ref"]):
+                elif (p["ref"] in ["red_fox", "crimson_wasp"] or "weapon" in p["ref"]) and not ("mount" in p["ref"] or "turret" in p["ref"]):
                     for fe in factory_embeds:
                         if fe["id"] not in used_factory and fe["ref"] == "weapon_mount_standard":
                             matched_embed = fe
@@ -1518,7 +1539,7 @@ def export_commlink_xml(
                         d_dec = ET.SubElement(f_item, "decision")
                         d_dec.set("choice", "c2d17c87-1cfe-4355-9877-a20fe09c170c")
                         d_dec.set("value", p["grade"] or "USED")
-                    if p["ref"] == "red_fox":
+                    if p["ref"] in ["red_fox", "crimson_wasp"]:
                         enh_el = ET.SubElement(f_item, "enhancements")
                         enh_sub = ET.SubElement(enh_el, "enhancement")
                         enh_sub.set("lang", "en")
@@ -1541,7 +1562,7 @@ def export_commlink_xml(
                             dec_el = ET.SubElement(a_sub, "decision")
                             dec_el.set("choice", "c2d17c87-1cfe-4355-9877-a20fe09c170c")
                             dec_el.set("value", p["grade"])
-                        if p["ref"] == "red_fox":
+                        if p["ref"] in ["red_fox", "crimson_wasp"]:
                             enh_el = ET.SubElement(a_sub, "enhancements")
                             enh_sub = ET.SubElement(enh_el, "enhancement")
                             enh_sub.set("lang", "en")

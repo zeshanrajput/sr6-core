@@ -193,7 +193,7 @@ Engineered over three weeks in JinJin’s Redmond rigger garage under **Ouro’s
 * **Deployable Articulated Flight Helmet (High-Mach Cranial Seal):**
   * *Solving the Wind-Shear Dilemma:* At `500+ km/h` and `15 kPa` dynamic pressure, any unsealed dermal seam becomes an air scoop capable of peeling synthetic skin off the chassis. Rather than executing Ouro’s unsettling contingency wireframe—which retracted her lips and locked her jaw into a blind, mouthless artillery shell (`34 Latency`)—the *Goshintai* incorporates an **articulated Knight-Saber-style flight helmet** stored flush inside a reinforced C7 cervical collar seam.
   * *Deployment Mechanics (`< 0.4 s`):* When crossing high-Mach thresholds (`> 250–500 km/h`) or entering high-threat interception, six interlocking plates of matte-black carbon-ceramic (`#0D0E12`) and porcelain-white alloy (`#FDFBF7`) telescope upward from the dorsal collar ring, curve smoothly over the compact kanzashi bun, and latch forward across her cheekbones and jawline with a hermetically sealed micro-gasket.
-  * *Optics & Styling:* Angular **Knight Sabers (*Bubblegum Crisis*)** interceptor geometry featuring a sculpted aerodynamic chin guard, swept rear sensor fins, hairline Triple-Braid seam glow (Gold, Indigo, Nightshade), and a flush dark-iridium / **Silver Syntax (`#C0C8D8`)** optical visor strip aligned directly with her twin ocular Red Fox lasers and LIDAR array.
+  * *Optics & Styling:* Angular **Knight Sabers (*Bubblegum Crisis*)** interceptor geometry featuring a sculpted aerodynamic chin guard, swept rear sensor fins, hairline Triple-Braid seam glow (Gold, Indigo, Nightshade), and a flush dark-iridium / **Silver Syntax (`#C0C8D8`)** optical visor strip aligned directly with her twin ocular Crimson Wasp micro-lasers and LIDAR array.
 
 ### Integrated Mobility & Vector Propulsion (LAV Refit)
 
@@ -218,8 +218,9 @@ Engineered over three weeks in JinJin’s Redmond rigger garage under **Ouro’s
 
 ### Integrated Tactical Hardware
 
-* **Twin Ocular Red Fox Lasers:** Mounted flush behind the synthetic iris apertures of her dark almond eyes (and optically aligned with the flight helmet’s visor slit when sealed).
-* **Oropharyngeal Tesla Coil Emitter ("Lightning Breath"):** High-voltage transformers nest inside her right thoracic/cyberarm assembly, routing waveguides to a discharge emitter sealed behind a motorized ceramic-silicone sphincter in her posterior oropharynx (`5S(e)` Exotic Spray). Keeps her esophageal HFC intake completely isolated during normal fueling and keeps her forearms uncluttered for vector nozzles, the upcoming Sensor Dazzler, and Wrist Shield.
+* **Twin Ocular Crimson Wasp Micro-Lasers:** Compact small-hardpoint emitters mounted flush inside pop-out apertures behind the synthetic iris housings of her dark almond eyes (and optically aligned with the flight helmet’s visor slit when sealed).
+* **Left Forearm Wrist-Shield Ram Plate Assembly:** Structural titanium-ceramic impact buckler and shock-absorbing bracer seated on the left forearm hardpoint (`3rd Standard Hardpoint`)—built specifically as the load-bearing impact mount and housing for her upcoming Phase 2 Left Cyberarm **Wrist Shield** (`+15` Body AR on ramming impacts, halved collision return damage; folds flush along the left forearm beneath Realistic Features 4 until snapped forward for melee/ramming or shield cover).
+* **Oropharyngeal Tesla Coil Emitter ("Lightning Breath"):** High-voltage transformers nest inside her right thoracic/cyberarm assembly, routing waveguides to a discharge emitter sealed behind a motorized ceramic-silicone sphincter in her posterior oropharynx (`5S(e)` Exotic Spray). Keeps her esophageal HFC intake completely isolated during normal fueling and keeps her right forearm ready for vector nozzles and the upcoming Sensor Dazzler while the left forearm carries the Wrist-Shield Ram Plate assembly.
 * **`BRYNNE` & `CEDAR` Lateral Thigh Nitro Boost Capacitors:** Two matte-black high-discharge cylindrical cells wired into the primary lateral thigh bus beneath flush dermal access panels, each bearing crisp white-lacquer stenciling (`BRYNNE` and `CEDAR`) visible whenever Ouro or Reiko unlatches the thigh plates for maintenance.
 * **Abdominal Microdrone Bay (Sky Commander / Drone Rack):** Flush spring-loaded lower abdominal deployment hatch housing her folding Federated-Boeing Sky Commander, MCT Gnat swarm, and captured/re-registered light units (e.g., `"Busta"`).
 
@@ -250,7 +251,7 @@ Engineered over three weeks in JinJin’s Redmond rigger garage under **Ouro’s
   1. **Dorsal Crown Shell:** Swept carbon-ceramic hood (`#0D0E12`) arcing forward over the compact kanzashi bun.
   2. **Twin Parietal Side-Cheeks:** Porcelain-white (`#FDFBF7`) and matte-black composite plates sweeping forward from behind the ears with swept lateral comms/sensor fins.
   3. **Sculpted Chin Guard & Seal:** Angular Knight-Saber-inspired lower mandible fairing locking cleanly along the jawline with a silicone micro-gasket.
-  4. **Central Optical Visor Strip:** Flush dark-iridium wrap-around visor etched with a thin **Silver Syntax (`#C0C8D8`)** horizon line aligned precisely with her ocular Red Fox laser emitters.
+  4. **Central Optical Visor Strip:** Flush dark-iridium wrap-around visor etched with a thin **Silver Syntax (`#C0C8D8`)** horizon line aligned precisely with her ocular Crimson Wasp micro-laser emitters.
   5. **Cervical Locking Ring:** Illuminated by hairline Triple-Braid telemetry strips (Gold, Indigo, Nightshade) indicating seal pressure (`15 kPa` rated).
 
 ### 3. The Shiawase Corporate Jacket (Hero Outerwear Tech-Pack)

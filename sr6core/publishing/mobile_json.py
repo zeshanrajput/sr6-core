@@ -815,29 +815,32 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
                 except Exception:
                     pass
 
-            # Calculate modified weapon stats if available
-            try:
-                from sr6core.character.model import WeaponStatBlock
-                from sr6core.vault.statblock_parser import calculate_modified_weapon
-                raw_ar_val = ar if isinstance(ar, list) else ([int(x.strip()) if x.strip().isdigit() else 0 for x in str(ar).split("/")] if "/" in str(ar) else [10, 10, 8, 0, 0])
-                base_w = WeaponStatBlock(
-                    name=w_name,
-                    category=category,
-                    damage=str(dmg),
-                    attack_rating=raw_ar_val,
-                    firing_modes=modes.split("/") if isinstance(modes, str) else list(modes),
-                    ammo_capacity=int(re.search(r"\d+", str(ammo)).group(0)) if ammo and re.search(r"\d+", str(ammo)) else None,
-                    ammo_feed="c",
-                )
-                mod_w = calculate_modified_weapon(base_w, accessories=mods, ammo_type=loaded_ammo)
-                dmg = mod_w.damage
-                ar = mod_w.attack_rating
-                if mod_w.ammo_capacity:
-                    ammo = f"{mod_w.ammo_capacity}({mod_w.ammo_feed or 'c'})"
-                if mod_w.firing_modes:
-                    modes = "/".join(mod_w.firing_modes)
-            except Exception:
-                pass
+            raw_ar_val = ar if isinstance(ar, list) else ([int(x.strip()) if x.strip().isdigit() else 0 for x in str(ar).split("/")] if "/" in str(ar) else [10, 10, 8, 0, 0])
+            ar = raw_ar_val
+
+            # Calculate modified weapon stats if available (unless precomputed_ar is set)
+            if not w.get("precomputed_ar"):
+                try:
+                    from sr6core.character.model import WeaponStatBlock
+                    from sr6core.vault.statblock_parser import calculate_modified_weapon
+                    base_w = WeaponStatBlock(
+                        name=w_name,
+                        category=category,
+                        damage=str(dmg),
+                        attack_rating=raw_ar_val,
+                        firing_modes=modes.split("/") if isinstance(modes, str) else list(modes),
+                        ammo_capacity=int(re.search(r"\d+", str(ammo)).group(0)) if ammo and re.search(r"\d+", str(ammo)) else None,
+                        ammo_feed="c",
+                    )
+                    mod_w = calculate_modified_weapon(base_w, accessories=mods, ammo_type=loaded_ammo)
+                    dmg = mod_w.damage
+                    ar = mod_w.attack_rating
+                    if mod_w.ammo_capacity:
+                        ammo = f"{mod_w.ammo_capacity}({mod_w.ammo_feed or 'c'})"
+                    if mod_w.firing_modes:
+                        modes = "/".join(mod_w.firing_modes)
+                except Exception:
+                    pass
 
             def _format_ar(val: Any) -> str:
                 if isinstance(val, list):

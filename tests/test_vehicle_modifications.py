@@ -183,19 +183,18 @@ def test_explicit_shift_override():
 
 def test_reiko_man_at_arms_complete_accounting():
     """
-    Comprehensive verification of Reiko's Shiawase Man-at-Arms (Option C+):
+    Comprehensive verification of Reiko's Shiawase Man-at-Arms (10/10/10 Native):
       - Unmodified Body: 10
-      - Chassis (11 slots used): Structural Integrity 5 (5), Realistic Features 4 (4),
-        Pop-Out Concealment x2 (2), Used Synthetic Cyberarm (0 per SRM).
-      - Powertrain (12 slots used): Secondary Propulsion: Vector Thrust (5),
-        Improved Acceleration 2 (2), Top Speed Increase 3 (3), Hydrocarbon Fuel Converter (2).
-        (Thigh Nitro Boost is marked RP-only and consumes 0 active slots.)
-      - Electronic (4 slots used): Chameleon Coating 4 (2), Passive Stealth Features (1),
-        Increased Sensors 1 (1).
-      - Hardpoints: 3/3 Standard used (2 Weapon Mounts + 1 Drone Rack).
+      - Chassis (10 slots used): Structural Integrity 5 (5), Realistic Features 4 (4),
+        Pop-Out Concealment (Small) x2 (1), Used Synthetic Cyberarm (0 per SRM).
+      - Powertrain (10 slots used): Secondary Propulsion: Vector Thrust (5),
+        Improved Acceleration 2 (2), Top Speed Increase 3 (3).
+        (Hydrocarbon Fuel Converter and thigh Nitro Boost are marked RP-only and consume 0 active slots.)
+      - Electronic (10 slots used): Chameleon Coating 4 (2), Passive Stealth Features (1),
+        Enhanced Sensors 9 (7, Base 2 -> 9).
+      - Hardpoints: 3/3 Standard used (2 Small Weapon Mounts [1 HP] + 1 Drone Rack [1 HP] + 1 Ram Plate [1 HP]).
       - Right Cyberarm: 8/8 Capacity used (Tesla Coil).
-      - Auto 2:1 shifts from Electronic: 2 -> +1 Chassis (11/11), 4 -> +2 Powertrain (12/12),
-        leaving Electronic at 4/4 (100% allocated).
+      - Zero category shifts needed (10/10, 10/10, 10/10).
     """
     cm = CharacterManager()
     char = cm.load_character("reiko")
@@ -212,34 +211,28 @@ def test_reiko_man_at_arms_complete_accounting():
     assert slots["unmodified_body"] == 10
     assert slots["is_anthro"] is True
 
-    # Check raw used slots (Option C+)
-    assert slots["raw_used"]["chassis"] == 11
-    assert slots["raw_used"]["powertrain"] == 12
-    assert slots["raw_used"]["electronic"] == 4
+    # Check raw used slots (10/10/10 Native)
+    assert slots["raw_used"]["chassis"] == 10
+    assert slots["raw_used"]["powertrain"] == 10
+    assert slots["raw_used"]["electronic"] == 10
 
-    # Check auto 2:1 shifts from Electronic -> Chassis (+1) and Powertrain (+2)
-    assert len(slots["shifts"]) == 2
-    s0, s1 = slots["shifts"][0], slots["shifts"][1]
-    assert s0["to"] == "chassis"
-    assert s0["slots_gained"] == 1
-    assert s0["slots_spent"] == 2
-    assert s1["to"] == "powertrain"
-    assert s1["slots_gained"] == 2
-    assert s1["slots_spent"] == 4
+    # Check zero category shifts required
+    assert len(slots["shifts"]) == 0
 
     # Check effective capacity and legality
-    assert slots["effective_cap"]["chassis"] == 11
-    assert slots["effective_cap"]["powertrain"] == 12
-    assert slots["effective_cap"]["electronic"] == 4
+    assert slots["effective_cap"]["chassis"] == 10
+    assert slots["effective_cap"]["powertrain"] == 10
+    assert slots["effective_cap"]["electronic"] == 10
     assert slots["remaining"]["chassis"] == 0
     assert slots["remaining"]["powertrain"] == 0
     assert slots["remaining"]["electronic"] == 0
     assert slots["is_legal"] is True
 
-    # Check Hardpoints
+    # Check Hardpoints & Ram Plate
     assert slots["base_hardpoints"] == 3
-    assert slots["hardpoints_used"] == 2
-    assert slots["hardpoints_remaining"] == 1
+    assert slots["hardpoints_used"] == 3
+    assert slots["hardpoints_remaining"] == 0
+    assert prof["has_ram_plate"] is True
 
     # Check Cyberlimbs & Tesla Coil
     assert len(slots["cyberlimbs"]) == 1
@@ -278,6 +271,7 @@ def test_drone_statblock_table_rendering():
     assert "Chameleon Coating" in table_md
     assert "Passive Stealth Features" in table_md
     assert "Drone Rack (Small)" in table_md
+    assert "Ram Plate" in table_md
 
     # Check cyberlimb row
     assert "Used Synthetic Cyberarm (Right" in table_md

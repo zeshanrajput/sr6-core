@@ -78,6 +78,22 @@ Liquid Nuyen earned from runs is dedicated to the **Twin Synthetic Cyberarm & Co
 
 ---
 
+### C. Phase 3 Hardware & Software Pipeline (Post-Dazzler: Twin Bat Overwatch Squadron)
+
+Queued **after** the Phase 2 Dual Cyberarm & Sensor Dazzler overhaul (`H1–H7`). Pairs two **Hawker-Siddley Bats** (*Double Clutch*, pp. 106–107) with the **Essy Motors DroneMaster RCC** (`DR 3, DP 4, FW 4`) and active **Level 8 Registered Sprites** operating independently via `Override` (skipping Chameleon Coating to keep costs lean). Mod prices reflect Reiko's **50% DIY discount** (*DC*, p. 120).
+
+| Step | Target Upgrade | Source / Book | Cost | Downtime Action | Slots & Tactical Role |
+| :---: | :--- | :--- | :---: | :---: | :--- |
+| **B1** | **2× Hawker-Siddley Bat** *(Hulls)* | *DC* 106–107 | ¥11,000<br>*(¥5,500 × 2)* | None (Purchase) | Small surveillance drones (`BOD 4 / ARM 4 / SENS 3`). Stock `1` Standard Hardpoint (split into `2` Small Hardpoints per *DC* p. 124) + `1` free `Small Hardpoint` (`BOD > 3`) = `3` Small Hardpoints, `+2` auditory threshold. Avail `2`. |
+| **B2** | **6× Crimson Wasp + 2× Internal Smartguns** | *FS* 44 / *CRB* 261 | ¥10,000<br>*(¥1,500 × 6 + ¥500 × 2)* | 1 Minor Action *(DIY Prep)* | `3` Crimson Wasps per Bat (`1` with Internal Smartgun per Bat as primary link-fire anchor; `+2 AR` smartgun + `+1 AR` M-TOC II; Pilot interface per *SRMG*, p. 51). Adds `+4 DV` (`+2` per added `5+ DV` weapon under *DC* p. 143) when link-fired. Avail `6(I)` / `1(L)`. *(Note: Installing `1` Extra Small Hardpoint for `0.5` Chassis + `¥400 DIY` enables `4× Crimson Wasp` per Bat = `11P*` SS / `12P*` SA!)* |
+| **B3** | **6× Small Weapon Mounts** | *DC* 124, 142–143 | ¥4,500 DIY<br>*(¥9,000 retail)* | Same Minor Action *(DIY Install)* | Per Bat: `3` Small Weapon Mounts (`0` Chassis slots; stock Standard HP split into `2× Small` + `1` free Small HP; ¥750 × 3 DIY). Avail `3(I)`. |
+| **B4** | **2× Passive Stealth Features** | *DC* 138 | ¥1,000 DIY<br>*(¥2,000 retail)* | Same Minor Action *(DIY Install)* | Per Bat: `1 Electronics` slot (`0 C / 0 P / 1 E` total used; `4 C / 4 P / 3 E` free). `+1` visual/auditory threshold (`+3` auditory total) / `-1` opp. Stealth hit. |
+| **B5** | **Software Tags (×2–4) & Derivative Autosofts** | *H&S* 43 / *CRB* 201 | ¥200–¥400<br>+ **2 Karma** | 12h / soft *(Software Emulator)* | Chained to `DroneMaster` (`DP 4`) to share `Maneuvering (Bat) R9` (`1K`), `Stealth (Bat) R9` (`1K`), `Evasion R9`, existing `Targeting (Crimson Wasp) R9`, `Clearsight R9`, plus optional `Swarm`/`Smartsoft`. |
+
+*Phase 3 Cost Summary:* **¥26,500** hardware (¥13,250/Bat DIY, saving **¥1,900** and `0.5` Chassis slots/Bat vs. Red Fox mix) + **¥200–¥400** Software Tags + **2 Karma** (plus ¥100 per spare non-rechargeable laser battery pack as needed).
+
+---
+
 ## 3. Forward Architectural Blueprints
 
 ### A. Dual Cyberarm & Counter-Surveillance Suite Blueprint
@@ -134,3 +150,20 @@ Abandoning the generic multi-sustain *Sourceror* path preserves Reiko's unique i
      * **Sustained Power / Form Unraveling:** When aware of an enemy complex form or sprite power being sustained, take a Major Action to make an `Electronics + Resonance` test with bonus dice equal to Submersion Grade vs. `Logic + Resonance`. Each net hit reduces the net hits of the sustained effect by 1; reducing to 0 immediately collapses the form or power.
      * **Target Defense Buff (Minor Anytime Action):** When an icon Reiko is aware of is targeted by an offensive Matrix action, spend a Minor Anytime Action to grant that icon bonus defense dice equal to her Submersion Grade (+9 dice at Grade 9!).
      * **Thematic Integrity:** Captures the entropic, dissecting nature of Dissonance—unraveling foreign digital syntax—without the crippling mechanical detriments of *Dissonant Scream* (which damages allies and burns actions) or *Matrix Amplifier* (which instantly alerts GOD).
+
+---
+
+### C. Twin Hawker-Siddley Bat Autonomous Sprite Squadron
+
+Designed for independent thematic operations—two Level 8 registered sprites (*e.g., Ouro, Percy, Cleo, Aisling, Étaín*) each control one Bat via **`Override`** (*CRB*, p. 194), while the RCC shares R9 autosofts and Reiko's **M-TOC II** provides network telemetry. **`Swarm`** (*DC*, p. 146) remains offloaded by default to preserve thematic independence, and is held in reserve on the RCC only if table turn speed requires collapsing both Bats into a single Group Attack roll.
+
+* **Overridden Bat Combat & Stealth Profile (Per Drone, Level 8 Sprite `Override`):**
+  * **Pilot & Defense:** `Pilot 8` (via `Override`), `Armor 4` $\rightarrow$ **`12 Defense Rating`** (`10` Condition Monitor boxes); **Dodge/Evasion:** **`17d6`** (`Pilot 8 + Evasion R9`); **Maneuvering:** **`17d6`** vs. Handling `4`.
+  * **Initiative & Action Economy:** `(Pilot 8 × 2) + 4D6 =` **`16 + 4D6`** (**`1` Major + `5` Minor Actions** per round, *CRB* pp. 40, 201). Link-firing all three mounted lasers costs **`1` Major + `1` Minor Action** (*DC*, p. 143), leaving `4` Minors free for movement, `Take Aim`, or `Dodge`.
+  * **Stealth:** `Pilot 8 + Stealth [Bat] R9 = 17d6` + **`+2` Teamwork** from M-TOC II **Sneak-Sneak** (*Firing Squad*, p. 90) = **`19d6`**, stacked with **`+3` Auditory Detection Threshold** (`+2` Bat stock + `+1` Passive Stealth) and **`+1` Visual Threshold / `-1` opponent Stealth hit** (*DC*, p. 138).
+  * **Link-Fired Laser Attack (`3× Crimson Wasps` under *DC* p. 143 DV Rules):**
+    * **Attack Pool:** `Targeting (Crimson Wasp) R9 + Sensor 3` (`+1 Sensor Upgrade` = `4` while networked to Reiko's icon) = **`13d6`** (**`3` Wild Dice** when link-firing all 3 lasers per *SRMG v2.4*, p. 143; `+1d6` w/ `Take Aim`).
+    * **Attack Rating:** Crimson Wasp (`16/14/11/6/—`) + `+2` Weapon Mount (*FS*, p. 112) + `+2` Internal Smartgun (*CRB*, p. 261; *SRMG*, p. 51) + `+2` Link-Fire (*DC*, p. 143) + `+1` M-TOC II Networked Smartgun (*FS*, p. 90; *Weapon Mount halves burst penalties*):
+      * **Single Shot (SS, `1/gun`):** **`23 / 21 / 18 / 13 / —`** | **`9P*`** Close/Near (`7P*` Medium per *FS*, p. 44)
+      * **Semi-Auto (SA, `2/gun`, `-1 AR / +1 DV`):** **`22 / 20 / 17 / 12 / —`** | **`10P*`** Close/Near (`8P*` Medium)
+  * **Optional `Swarm` Collapse Mode (*DC*, p. 146):** If combined into a single Group Attack (`2` Bats = `3` effective participants), add **`+2 AR`** (`25/23/20/15/—` SS | `24/22/19/14/—` SA) and **`+1d6`** (`14d6`, `3` Wild Dice).

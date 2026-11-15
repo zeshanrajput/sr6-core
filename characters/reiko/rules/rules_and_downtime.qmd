@@ -158,12 +158,37 @@ print(get_matrix_action_table("reiko"))
 
 * **Inhabited Override (`Pilot {python} MAA_PILOT_BASE` / `{python} MAA_PILOT_FOCUS` w/ Focus)**: Via *Override* (*Hack & Slash*, p. 71; *SR6 Core*, p. 194), Reiko substitutes Resonance (`{python} RESONANCE`) for the Man-at-Arms Pilot rating. The *Designer* quality (*Hack & Slash*, p. 119) adds `+1` Pilot (`{python} MAA_PILOT_BASE` base); on Resonance-linked Piloting/Evasion/Stealth tests, Resonance Focus R4 adds `+4` (`{python} MAA_PILOT_FOCUS` effective).
 * **Pilot Origins (Control Rig Rating 1 Equivalent)** (*Hack & Slash*, p. 119): When inhabiting a drone or vehicle, *Pilot Origins* grants **`+1` dice pool** on all vehicle/drone tests (Piloting, Gunnery, Evasion, Perception, Stealth) and **reduces all vehicle test thresholds by `1`** (reducing Man-at-Arms Handling `4` to **Effective Threshold `{python} MAA_EFF_HANDLING`**).
-* **Sensor Pool Construction (`{python} MAA_SEN_ENL` Active)**:
-  * **Hardware Array (`{python} MAA_SEN_HW`)**: Base (`2`) + *Increased Sensors 1* (`+1`, *DC*, p. 142; 1 Electronics slot) = **`{python} MAA_SEN_HW`**.
+* **Sensor Pool Construction (`{python} MAA_SEN_ENL` Active)**
+  * **Hardware Array (`{python} MAA_SEN_HW`)**: Base (`2`) + *Enhanced Sensors 9* (`+7` levels, *DC*, p. 142; `7` Electronics slots) = **`{python} MAA_SEN_HW`**.
   * **Passive Augmentations (`+{python} MAA_SEN_AUG - MAA_SEN_HW` $\rightarrow$ `{python} MAA_SEN_AUG`)**: **`+1`** from *Sensor Upgrade* quality (*H&S*, p. 120) + **`+1`** from AI *Home Device* optimization allowing an AI to raise a single drone attribute by 1 (*H&S*, p. 124).
-  * **Combat Buff (*Enlighten Automaton*, `+{python} MAA_SEN_ENL - MAA_SEN_AUG` $\rightarrow$ `{python} MAA_SEN_ENL`)**: Threaded with bought hits (`5–6` hits; `+3` max within *H&S* p. 64's double Hardware `3` cap) and **sustained by a registered sprite during combat**, preserving Sensor **`{python} MAA_SEN_ENL`**.
+  * **Combat Buff (*Enlighten Automaton*, `+{python} MAA_SEN_ENL - MAA_SEN_AUG` $\rightarrow$ `{python} MAA_SEN_ENL`)**: Threaded with `6` bought hits (`24d6` pool, within *H&S* p. 64's double Hardware `9` = `18` cap) and **sustained by a registered sprite during combat**, preserving Sensor **`{python} MAA_SEN_ENL`**.
   * *Sprite Task Economy*: Maintaining *Enlighten Automaton* costs a minimum of **1 sprite task per combat scene**. The Minor Action used to issue the command is refunded by **Sprite Link** (*Hack & Slash*, p. 69), and because Reiko registers at least one sprite per event, this 1-task cost is operationally negligible.
 * **Anthroform Armor & Device Rating** (*SRMG v2.4*; *Hack & Slash*, p. 124): Per the *Shadowrun Missions Guide*, an anthroform drone uses the **higher** of its base armor or worn armor (they do not stack). Consequently, Reiko wears no external armor on this chassis—its Armor remains **Base `{python} MAA_ARMOR`** (`Body {python} MAA_BODY + Armor {python} MAA_ARMOR = {python} MAA_PHYS_DR` Physical Defense Rating). *Designer* Home Device increases **Device Rating** by `+4` (`DR 2 -> 6`).
+
+::: {.callout-note icon=false}
+### Rules Justification: Hardware `Sensor 9` & Modifier Stacking (`9 -> 11 -> 17`)
+1. **Drone `Sensor` Attribute Ignores *CRB* p. 277 Size Caps (*Official SR6 FAQ* & *Double Clutch*, p. 142):**
+   * *Official SR6 FAQ* (`https://shadowrunsixthworld.com/shadowrun-sixth-world-faq/`):
+     > "Drones and vehicles' Sensor attribute is a sensor array that ignores the size requirements listed on p. 277"
+   * *Double Clutch*, p. 142 (*Enhanced Sensors* — `MOD SLOTS: 1 x Rating | RATING: 1 - 9 | AVAILABILITY: Rating | COST: Rating x 5,000¥`):
+     > "The Sensor attribute doubles as a Sensor Array (see p. 276, SR6) with a capacity allowance equal to the Sensor attribute. Note that the maximum value of gear sensors that may be installed in a housing is based on the size of the vehicle or drone (see p. 277, SR6). Sensors may have an rating from 1 to 9."
+   * *SR6 Core Rulebook*, p. 277 (*Sensor Packages* — `Medium drone: Max Sensor Rating 4`):
+     > "Not every type of sensor package is capable of holding every sensor. The Sensor Packages table tells you the maximum sensor rating any particular package can hold."
+   * *Net Ruling:* Both *Double Clutch* p. 142 and the Official SR6 FAQ confirm that a drone's **`Sensor` attribute** (governing Gunnery, Perception, Device Rating, Attack Rating, and total array Capacity allowance) scales up to **Rating 9**, while *CRB* p. 277 only caps the rating of individual discrete **gear sensor functions** installed inside that Capacity-9 array (each staying within Rating `1–4` on a Medium anthrodrone).
+2. **Replacement Slot & DIY Cost Differential (*Double Clutch*, p. 120):**
+   * *Double Clutch*, p. 120 (*Modification System Rules*):
+     > "Unless stated otherwise, matching components that have a higher rating cost the difference in Mod slots to replace."
+     > "Installing the mod yourself saves you fifty percent of the listed nuyen cost, but this do-it-yourself saving does not apply to accessories. Unless stated otherwise, matching components that have a higher price will only cost the difference in price to replace."
+   * *Net Ruling:* Upgrading the Shiawase Man-at-Arms from factory `Sensor 2` (*DC*, p. 118) to **`Sensor 9`** (`+7` levels) consumes **`7` Electronics slots** (`9 - 2 = 7`) and costs **`¥35,000` retail / `¥17,500` DIY**.
+3. **Distinct Active Modifiers (`9 -> 11` Passive / `17` Sustained, *Hack & Slash*, pp. 64, 120, 124):**
+   * **`Sensor Upgrade` (*H&S*, p. 120):** *"The AI adds a +1 to the Sensor rating of any vehicle, drone, or device that is linked to its icon. All functions of a single sensor array gain this bonus, if applicable."* (`+1`, `9 -> 10`)
+   * **`Home Device` Optimization (*H&S*, p. 124):** *"Optimization can also improve an attribute of vehicles and drones, but the bonus is static +1."* (`+1`, `10 -> 11`)
+   * **`Enlighten Automaton` (*H&S*, p. 64):** *"You may increase either the Pilot or Sensor rating of the target by your hits, and you may split up your hits between Pilot and Sensors if you choose. Neither Pilot nor Sensor can be increased to more than double its original rating."* (`+6` bought hits at `24d6` threading, within the `2 x 9 = 18` cap, raising active Sensor `11 -> 17`).
+4. **Mounted Smartgun Interface Without a Cybernetic/Vision Smartlink (*SRMG v2.4*, p. 51):**
+   * *Shadowrun Missions Guide v2.4*, p. 51 (*Do drones have smartlinks?*):
+     > "Pilot systems can interface with a mounted smartgun without needing a smartlink."
+   * *Net Ruling:* Because drone pilot systems interface directly with mounted smartguns (reinforced by Reiko's *Pilot Origins* background, *H&S*, p. 120, and Living Persona DNI, *SSWFAQ*, `DNI`), the mounted Crimson Wasp smartguns grant **`+1` dice pool** and **`+2 AR`** (*CRB*, p. 261) without requiring a separate *Smartlink Adapter* codemod.
+:::
 
 ### Standardized Inhabited Drone Action Pools
 
@@ -193,41 +218,39 @@ Under *Double Clutch* (p. 120), a vehicle or drone receives mod slots equal to i
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
-│ SHIAWASE MAN-AT-ARMS MODIFICATION INVENTORY & CAPACITY BALANCE (OPTION C+)             │
+│ SHIAWASE MAN-AT-ARMS MODIFICATION INVENTORY & CAPACITY BALANCE (10/10/10 NATIVE)       │
 ├───────────────────────┬──────────────┬──────────────┬──────────────────────────────────┤
-│ Category & Subsystem  │ Slots Used   │ Total Slots  │ Installed Modifications & Roles │
+│ Category & Subsystem  │ Slots Used   │ Total Slots  │ Installed Modifications & Roles  │
 ├───────────────────────┼──────────────┼──────────────┼──────────────────────────────────┤
-│ 1. Chassis Slots      │ 11 Slots     │ 11 Available │ • Increased Structural Integrity 5 (5 slots)   │
-│    (10 Base + 1 Shift)│ (100% Used)  │ (2 from Elec)│ • Realistic Features 4 (4 slots)               │
-│                       │              │              │ • Pop-Out Concealment - Standard x2 (2 slots)  │
+│ 1. Chassis Slots      │ 10 Slots     │ 10 Available │ • Increased Structural Integrity 5 (5 slots)   │
+│    (10 Base)          │ (100% Used)  │ (0 Shifts)   │ • Realistic Features 4 (4 slots)               │
+│                       │              │              │ • Pop-Out Concealment - Small x2 (1 slot)      │
 ├───────────────────────┼──────────────┼──────────────┼──────────────────────────────────┤
-│ 2. Powertrain Slots   │ 12 Slots     │ 12 Available │ • Secondary Propulsion: Vector Thrust (5 slots)│
-│    (10 Base + 2 Shift)│ (100% Used)  │ (4 from Elec)│ • Improved Acceleration 2 [VT] (2 slots)       │
+│ 2. Powertrain Slots   │ 10 Slots     │ 10 Available │ • Secondary Propulsion: Vector Thrust (5 slots)│
+│    (10 Base)          │ (100% Used)  │ (0 Shifts)   │ • Improved Acceleration 2 [VT] (2 slots)       │
 │                       │              │              │ • Top Speed Increase 3 [VT] (3 slots)          │
-│                       │              │              │ • Hydrocarbon Fuel Converter (2 slots)         │
 ├───────────────────────┼──────────────┼──────────────┼──────────────────────────────────┤
-│ 3. Electronics Slots  │ 4 Slots      │ 4 Remaining  │ • Chameleon Coating 4 (2 slots)                │
-│    (10 Base - 6 Shift)│ (100% Used)  │ (-2 Ch / -4P)│ • Passive Stealth Features (1 slot)            │
-│                       │              │              │ • Increased Sensors 1 (Array R3; 1 slot)       │
-│                       │              │              │ • [2 Slots -> Chassis; 4 Slots -> Powertrain]  │
+│ 3. Electronics Slots  │ 10 Slots     │ 10 Available │ • Enhanced Sensors 9 (Base 2 -> 9; 7 slots)    │
+│    (10 Base)          │ (100% Used)  │ (0 Shifts)   │ • Chameleon Coating 4 (2 slots)                │
+│                       │              │              │ • Passive Stealth Features (1 slot)            │
 ├───────────────────────┼──────────────┼──────────────┼──────────────────────────────────┤
-│ 4. Hardpoints         │ 3 Hardpoints │ 3 Available  │ • Standard Weapon Mount (Stock) - Left Eye     │
-│    (⌊Body / 3⌋ = 3)    │ (100% Used)  │ (Floor B/3)  │ • Standard Weapon Mount (Added) - Right Eye    │
+│ 4. Hardpoints         │ 3 Hardpoints │ 3 Available  │ • Small Weapon Mount x2 (Split 1 Std) - Eyes   │
+│    (⌊Body / 3⌋ = 3)    │ (100% Used)  │ (Floor B/3)  │ • Ram Plate (1 Std HP; +BOD Ram AR, ½ Return)  │
 │                       │              │              │ • Drone Rack (Small) - Sky Commander Bay       │
 ├───────────────────────┼──────────────┼──────────────┼──────────────────────────────────┤
 │ 5. Right Cyberarm     │ [8] Capacity │ [8] Capacity │ • Used Synthetic Cyberarm (Right; CRB 282, 289)│
 │    (Factory Replace)  │ (100% Used)  │              │ • Tesla Coil ([8] Cap; Body Shop p. 49)        │
 ├───────────────────────┼──────────────┼──────────────┼──────────────────────────────────┤
 │ 6. Accessories & RP   │ 0 Slots      │ Unlimited    │ • Satellite Link, Laser Jack (DC p. 120)       │
-│    (0 Active Mod Slot)│ (DC p. 120)  │              │ • Stock Sensor Suite & Utility/RP Sensors      │
-│                       │              │              │ • Nitro Boost (lateral thigh cyberlegs; RP only│
+│    (0 Active Mod Slot)│ (DC p. 120)  │              │ • Sensor 9 Array Suite & Tactile Sensors       │
+│                       │              │              │ • Hydrocarbon Fuel Converter & Nitro Boost (RP)│
 └───────────────────────┴──────────────┴──────────────┴──────────────────────────────────┘
 ```
 
-1. **Chassis (11/11 Slots)**: `2` Electronics slots permanently shifted to `+1` Chassis slot at `2:1` (*DC*, p. 120); *Increased Structural Integrity 5* (*DC*, p. 125; `BOD 15`, 16 Physical boxes); *Realistic Features 4* (*DC*, p. 131); *Pop-Out Concealment x2* (*DC*, p. 143) hiding the ocular lasers.
-2. **Powertrain (12/12 Slots)**: `4` Electronics slots permanently shifted to `+2` Powertrain slots at `2:1` (*DC*, p. 120), giving `12` Powertrain slots to legally house *Secondary Propulsion: Vector Thrust* (*DC*, pp. 136–137; `5` slots) together with its dedicated *Improved Acceleration 2* (`25 -> 41 m/round`, *DC*, p. 134; `2` slots) and *Top Speed Increase 3* (`300 -> 480 m/round`, *DC*, p. 138; `3` slots), plus *Hydrocarbon Fuel Converter* (*DC*, p. 135; `2` slots) for indefinite electrical recharge. *Nitro Boost* (`BRYNNE` & `CEDAR` lateral thigh cyberleg capacitors; *DC*, pp. 134–135) is retained physically in the legs for **narrative/RP purposes only** (`0` active Powertrain slots; swapped in only if audited/reallocated).
-3. **Electronics (4/4 Remaining Slots; 100% Used)**: After permanently shifting `6` Electronics slots (`2` $\rightarrow$ `+1` Chassis, `4` $\rightarrow$ `+2` Powertrain), `4` Electronics slots remain: *Chameleon Coating 4* (`2` slots, *DC*, p. 138) + *Passive Stealth Features* (`1` slot, *DC*, p. 139) + *Increased Sensors 1* (`1` slot, *DC*, p. 142; 3-function core Sensor `3` Array: Camera [Image Link], Omni Mic [Sound Link], Motion Ultrasound) = `4/4`, alongside utility/RP olfactory, oral chemical, low-light, flare comp, and tactile sensors.
-4. **Hardpoints ($\lfloor 10 / 3 \rfloor = 3$) & Right Cyberarm (`[8]/[8]` Cap)**: 1 Stock Weapon Mount (*DC*, p. 117) + 1 Added Weapon Mount (eyes) + 1 Small Drone Rack (abdomen housing Sky Commander); Used Synthetic Right Cyberarm (`8` Capacity, *CRB* pp. 282, 289; 0 drone slots per *DC* p. 131) houses the `[8]` Capacity *Tesla Coil* (*Body Shop*, p. 49).
+1. **Chassis (10/10 Slots)**: *Increased Structural Integrity 5* (*DC*, p. 125; `BOD 15`, 16 Physical boxes) + *Realistic Features 4* (*DC*, p. 131) + *Pop-Out Concealment - Small x2* (`0.5 × 2 = 1` slot, *DC*, pp. 143–144).
+2. **Powertrain (10/10 Slots)**: *Secondary Propulsion: Vector Thrust* (*DC*, pp. 136–137; `5` slots) together with its dedicated *Improved Acceleration 2* (`25 -> 41 m/round`, *DC*, p. 134; `2` slots) and *Top Speed Increase 3* (`300 -> 480 m/round`, *DC*, p. 138; `3` slots). Both *Hydrocarbon Fuel Converter* (*DC*, p. 135) and *Nitro Boost* (`BRYNNE` & `CEDAR` thigh cyberleg capacitors; *DC*, pp. 134–135) are retained physically for **narrative/RP purposes only** (`0` active Powertrain slots, `0¥`).
+3. **Electronics (10/10 Slots; 100% Used)**: *Enhanced Sensors 9* (`7` slots, replacing Base `2` $\rightarrow$ **`9`** per *DC*, pp. 120, 142 & Official SR6 FAQ) + *Chameleon Coating 4* (`2` slots, *DC*, p. 138) + *Passive Stealth Features* (`1` slot, *DC*, p. 139) = `10/10`, housing Camera (Image Link), Omni Mic (Sound Link), Ultrasound, Low-light Vision, Flare Compensation, Olfactory Sensor, and Oral Chemical Analyzer inside the Sensor 9 Array.
+4. **Hardpoints ($\lfloor 10 / 3 \rfloor = 3$) & Right Cyberarm (`[8]/[8]` Cap)**: `1` Standard Hardpoint split into `2×` Small Hardpoints (*Small Weapon Mounts x2* in eye sockets, *DC*, p. 124) + `1` Standard Hardpoint (*Ram Plate*, *DC*, p. 144) + `1` Standard Hardpoint (*Small Drone Rack* in abdomen housing Sky Commander); Used Synthetic Right Cyberarm (`8` Capacity, *CRB* pp. 282, 289; 0 drone slots per *DC* p. 131) houses the `[8]` Capacity *Tesla Coil* (*Body Shop*, p. 49).
 
 ### Vector Thrust Flight Telemetry
 
@@ -261,6 +284,7 @@ Base Handling threshold is `4`, reduced to **Effective Threshold `{python} MAA_E
 print(get_weapon_attack_table("reiko"))
 ```
 
-1. **Red Fox Lasers (Twin Eye-Mounts)** (*Firing Squad*, pp. 44, 112, 116; *Double Clutch*, p. 143): Integral ocular mounts grant **+2 AR** at all ranges (*FS*, p. 112); Smartlink grants **+2 AR** (*SR6 Core*, p. 260); M-TOC II coordination adds **+1 AR** (*FS*, p. 90). Link-firing both emitters adds **+2 DV** and **+1 AR** for 1 Major + 1 Minor action (*DC*, p. 143).
-2. **Tesla Coil (Oropharyngeal Emitter)** (*Body Shop*, p. 49; *SR6 Core*, pp. 117–118): Housed in the `[8]`-Capacity right synthetic cyberarm with discharge aperture routed behind a hermetic ceramic/silicone oropharyngeal seal. Straight Stream (`5S(e)`, `10/12*`), Wobbly Cone ($8.58^\circ$ / 3m at 20m; `+2 AR` -> `12/14*`, `-1 DV` -> `4S(e)`), Sweeping Arc ($28.07^\circ$ / 10m at 20m; `+4 AR` -> `14/16*`, `-3 DV` -> `2S(e)`), substituting 1 normal die for a **Wild Die** on spray cones (*SR6 Core*, p. 118).
-3. **Amalgam Cestas (Anti-Spirit CQC)** (*Scotophobia*, p. 181): Against materialized spirits or critters with Immunity to Normal Weapons, treats Essence-based Hardened Armor as **normal armor** rather than hardened armor.
+1. **Crimson Wasp Lasers (Twin Small Eye-Mounts)** (*Firing Squad*, pp. 44, 112, 116; *Double Clutch*, pp. 124, 143; *SRMG v2.4*, p. 51): Compact micro-lasers housed in split Small Hardpoints (`0.5 × 2` Chassis via *Pop-Out Concealment - Small*). Integral ocular mounts grant **+2 AR** at all ranges (*FS*, p. 112); Smartlink grants **+2 AR** and **+1d6** (*SR6 Core*, p. 261 — drone pilot systems interface directly with mounted smartguns without needing a smartlink, *SRMG v2.4*, p. 51); M-TOC II coordination adds **+1 AR** (*FS*, p. 90). Link-firing both emitters adds **+2 DV** and **+1 AR** for 1 Major + 1 Minor action (*DC*, p. 143). Decreases by 2P at Medium (`5P` -> `3P`).
+2. **Wrist-Shield Ram Plate Reinforcement** (*Double Clutch*, p. 144; *SR6 Core*, p. 201): Mounted on the freed 3rd Standard Hardpoint as the left forearm/wrist shield impact assembly; adds **Body (`+15`) to Ramming AR** (**33 passive / 39 sustained**, rolled on Piloting **`25d6`**, `-1` Threshold via *Pilot Origins*) and **halves return collision damage** suffered by the Man-at-Arms.
+3. **Tesla Coil (Oropharyngeal Emitter)** (*Body Shop*, p. 49; *SR6 Core*, pp. 117–118): Housed in the `[8]`-Capacity right synthetic cyberarm with discharge aperture routed behind a hermetic ceramic/silicone oropharyngeal seal (no smartgun system: rolls **`23d6` passive / `29d6` sustained**). Straight Stream (`5S(e)`, `10/12*`), Wobbly Cone ($8.58^\circ$ / 3m at 20m; `+2 AR` -> `12/14*`, `-1 DV` -> `4S(e)`), Sweeping Arc ($28.07^\circ$ / 10m at 20m; `+4 AR` -> `14/16*`, `-3 DV` -> `2S(e)`), substituting 1 normal die for a **Wild Die** on spray cones (*SR6 Core*, p. 118).
+4. **Amalgam Cestas (Anti-Spirit CQC)** (*Scotophobia*, p. 181): Against materialized spirits or critters with Immunity to Normal Weapons, treats Essence-based Hardened Armor as **normal armor** rather than hardened armor.

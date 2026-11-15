@@ -10,7 +10,7 @@ identity:
   system: shadowrun6e
   karma: 5
   lifetime_karma: 333
-  nuyen: 28100.0
+  nuyen: 25075.0
   lifetime_nuyen: 505200
   heat: -1
   submersion: 9
@@ -1695,8 +1695,9 @@ drones:
   modifications:
   - 'Stinger (Embedded Close Combat Weapon: 1P, Attack Rating 4, single toxin dose
     injector)'
-- name: Federated-Boeing Sky Commander (Seattle Retrans Relay)
-  ref: federatedboeingskycommander_seattle
+  - Realistic Features 1
+- name: Federated-Boeing Sky Commander
+  ref: federatedboeingskycommander
   body: 3
   armor: 0
   pilot: 3
@@ -1756,9 +1757,11 @@ drones:
   speed_interval_on: 5
   page: DC 116
   modifications:
-  - Weapon Mount (Standard) (1 additional; drone includes 1 stock standard mount,
-    DC p. 117)
-  - Pop-Out Concealment (Standard) x2 (ocular mounts)
+  - Weapon Mount (Small) x2 (splits stock Standard Hardpoint into 2 Small Hardpoints
+    per DC p. 124)
+  - Pop-Out Concealment (Small) x2 (ocular mounts; 0.5 Chassis slots each, DC p. 143-144)
+  - Ram Plate (3rd Standard Hardpoint, left forearm wrist-shield mount; adds Body
+    15 to Ramming AR & halves return collision damage, DC p. 144)
   - Chameleon Coating 4
   - Passive Stealth Features
   - Drone Rack (Small)
@@ -1775,50 +1778,53 @@ drones:
   - Top Speed Increase (3 Ranks)
   - Increases Top Speed by +60% (from 300 to 480 / 576 km/h / ~358 mph; Double Clutch
     p. 138, DIY 50%)
-  - Nitro Boost (lateral thigh cyberleg cells; taken for narrative/RP purposes only
-    - not used at the table)
-  - Increased Sensors 1
-  - Hydrocarbon Fuel Converter
+  - Nitro Boost (capacitors in each thigh; taken for narrative/RP purposes only)
+  - Enhanced Sensors 9 (Base 2 -> 9; Sensor Array R9)
+  - Hydrocarbon Fuel Converter (taken for narrative/RP purposes only)
   - Satellite Link
   - Laser Jack
-  - Camera w/ image link (Sensor 3 Array)
-  - Omni-directional mic with sound link (Sensor 3 Array)
-  - Ultrasound (Sensor 3 Array)
-  - Low-light Vision (Utility / RP sensor)
-  - Flare compensation (Utility / RP sensor)
-  - Olfactory Sensor (Utility / RP sensor)
-  - Oral chemical analyzer (Utility / RP sensor)
+  - Camera w/ image link (Sensor 9 Array)
+  - Omni-directional mic with sound link (Sensor 9 Array)
+  - Ultrasound (Sensor 9 Array)
+  - Low-light Vision (Sensor 9 Array)
+  - Flare compensation (Sensor 9 Array)
+  - Olfactory Sensor (Sensor 9 Array)
+  - Oral chemical analyzer (Sensor 9 Array)
   - Tactile Sensors (from the EVO Orderly, DA p. 178. Taken for RP purposes only -
     I will not be using the Biotech bonus)
 weapons:
   ranged:
-  - name: Red Fox Array (2x Link-Fired)
-    damage: 9P
-    attack_rating: 19/21/21/14/-
-    mode: SA/BF/SS
+  - name: Crimson Wasp Array (2x Link-Fired)
+    damage: 7P*
+    attack_rating: 22/20/17/12/-
+    mode: SA/SS
     ammo: 30(c)
     smartlink: true
+    precomputed_ar: true
     is_vehicle_mounted: true
     link_fired_count: 2
     accessories:
-    - Smartlink
+    - Smartlink (+2 AR)
     - Drone Mount (+2 AR)
-    - Link-Fired (2x Red Foxes, Minor Action)
-    notes: Link-fired 2x Red Foxes in Eye Mounts (Costs Minor Action; +2 DV, +1 AR).
-      1 Wild Die. Decreases by 3P at Medium range.
-  - name: Single Red Fox (Eye Mount)
-    damage: 7P
-    attack_rating: 18/20/20/13/-
-    mode: SA/BF/SS
+    - M-TOC II (+1 AR)
+    - Link-Fired (2x Crimson Wasps, Minor Action)
+    notes: Link-fired 2x Crimson Wasps in Small Eye Mounts (Costs Minor Action; +2
+      DV, +1 AR). 1 Wild Die. Decreases by 2P (to 5P*) at Medium range.
+  - name: Single Crimson Wasp (Eye Mount)
+    damage: 5P*
+    attack_rating: 21/19/16/11/-
+    mode: SA/SS
     ammo: 30(c)
     smartlink: true
+    precomputed_ar: true
     is_vehicle_mounted: true
     link_fired_count: 1
     accessories:
-    - Smartlink
+    - Smartlink (+2 AR)
     - Drone Mount (+2 AR)
-    notes: Independent Eye Mount (NO Minor Action required). 1 Wild Die. Decreases
-      by 3P at Medium range.
+    - M-TOC II (+1 AR)
+    notes: Independent Small Eye Mount (NO Minor Action required). 1 Wild Die. Decreases
+      to 3P at Medium range.
   - name: Tesla Coil (Straight)
     category: Cyberweapons
     damage: 5S(e)
@@ -1871,16 +1877,16 @@ weapons:
       (ItNW). 1 Wild Die.
   - name: Drone Martial Arts (Ramming)
     damage: 8P
-    attack_rating: 15/-/-/-/-
+    attack_rating: 33 (39)/-/-/-/-
     category: close_combat
     is_melee: true
     skill: piloting
-    notes: 'Ramming attack using Shiawase Man-at-Arms chassis (CRB p. 201). Attack
-      roll is a Piloting test (Piloting 7 + REA vs. Defense). AR = Piloting of Driver
-      (7) + Vehicle Sensors (8 buffed) = 15. Base DV = BOD/2 rounded up (Body 15 /
-      2 = 8P) + 1 per Speed Interval. Attacker resists damage based on target''s Body:
-      Target BOD/2 (+1/Speed Interval) for vehicles, or Target BOD/4 (rounded up)
-      for soft targets.'
+    notes: Ramming attack using Shiawase Man-at-Arms chassis w/ Ram Plate (CRB p.
+      201; DC p. 144). Attack roll is a Piloting test (Maneuvering 7 + Pilot/RES vs.
+      Defense). AR = Piloting (7) + Sensors (11 passive / 17 Enlightened) + Ram Plate
+      Body (15) = 33 (39). Base DV = BOD/2 rounded up (Body 15 / 2 = 8P) + 1 per Speed
+      Interval. Ram Plate halves return collision damage (1/2 Target BOD/2 [+1/Speed
+      Interval] for vehicles, or 1/2 Target BOD/4 rounded up for soft targets).
 armors: []
 matrix_devices:
 - name: M-TOC II
@@ -1899,7 +1905,7 @@ matrix_devices:
   - Thermal Mood Reading
   - Vocal Tension Detection
 gear:
-- name: 5x Peak-Discharge Laser Battery Clips (Red Fox)
+- name: 5x Peak-Discharge Laser Battery Clips (Crimson Wasp)
   qty: 5
 - name: 10x Glitter Grenades
   qty: 10

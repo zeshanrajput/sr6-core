@@ -68,7 +68,8 @@ def test_fillable_pdf_template_repairs_and_reiko_fields(char_manager, tmp_path):
     assert values["Age"] == "~ 10"
     assert values["Height"] == "-"
     assert values["Primary Ranged Stats"] != values["Primary Melee Stats"]
-    assert "DV 9P" in values["Primary Ranged Stats"]
+    assert "DV 7P*" in values["Primary Ranged Stats"]
+    assert "22/20/17/12" in values["Primary Ranged Stats"]
     assert "DV 3P" in values["Primary Melee Stats"]
     assert values["Armor"] != values["Vehicle Armor"]
     assert values["Vehicle Armor"] == "8"

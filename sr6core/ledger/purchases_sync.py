@@ -67,6 +67,7 @@ class PurchasesSyncEngine:
         sins: List[Dict[str, Any]] = []
         licenses: List[Dict[str, Any]] = []
         qualities: List[Dict[str, Any]] = []
+        combat_items: List[str] = []
 
         # Keywords that represent sub-headers or nested sub-items, not top-level modifications
         ignore_mod_prefixes = [
@@ -123,8 +124,8 @@ class PurchasesSyncEngine:
 
                     # Normalize format
                     norm_mod = mod_text
-                    norm_mod = re.sub(r'Weapon Mount\s*-\s*Standard', 'Weapon Mount (Standard)', norm_mod, flags=re.IGNORECASE)
-                    norm_mod = re.sub(r'Pop-Out Concealment\s*-\s*Standard', 'Pop-Out Concealment (Standard)', norm_mod, flags=re.IGNORECASE)
+                    norm_mod = re.sub(r'Weapon Mount\s*-\s*(Small|Standard|Large|Huge)', r'Weapon Mount (\1)', norm_mod, flags=re.IGNORECASE)
+                    norm_mod = re.sub(r'Pop-Out Concealment\s*-\s*(Small|Standard|Large|Huge)', r'Pop-Out Concealment (\1)', norm_mod, flags=re.IGNORECASE)
                     norm_mod = re.sub(r'Retractible Skates.*', 'Retractable Skates', norm_mod, flags=re.IGNORECASE)
                     norm_mod = re.sub(r'Retractable Skates.*', 'Retractable Skates', norm_mod, flags=re.IGNORECASE)
                     norm_mod = re.sub(r':$', '', norm_mod).strip()
@@ -193,6 +194,11 @@ class PurchasesSyncEngine:
                             gear_items.append(item_name)
 
             # In SINs & Licenses section
+            elif current_section == 'combat':
+                item_cleaned = cls.clean_item_text(stripped)
+                if item_cleaned:
+                    combat_items.append(item_cleaned)
+
             elif current_section == 'sins':
                 item_cleaned = cls.clean_item_text(stripped)
                 if not item_cleaned:
@@ -307,6 +313,7 @@ class PurchasesSyncEngine:
             "sins": sins,
             "licenses": licenses,
             "qualities": qualities,
+            "combat_items": combat_items,
             "specializations": locals().get("specializations", []),
             "skill_ranks": locals().get("skill_ranks", [])
         }
@@ -518,6 +525,97 @@ class PurchasesSyncEngine:
             if old_devices != parsed_devices:
                 data["matrix_devices"] = parsed_devices
                 changes.append(f"Updated Matrix Devices from purchases.qmd ({len(parsed_devices)} devices synced)")
+
+        # 7. Sync Combat Weapons & Battery Gear Labels (when eye-mounted laser arrays or Ram Plate change in ### Combat)
+        combat_items = parsed.get("combat_items", [])
+        combat_low = " ".join(combat_items).lower()
+        weapons_block = data.get("weapons")
+        if combat_items and isinstance(weapons_block, dict):
+            ranged_list = weapons_block.get("ranged", [])
+            wasp_templates = [
+                {
+                    "name": "Crimson Wasp Array (2x Link-Fired)",
+                    "damage": "7P*",
+                    "attack_rating": "22/20/17/12/-",
+                    "mode": "SA/SS",
+                    "ammo": "30(c)",
+                    "smartlink": True,
+                    "precomputed_ar": True,
+                    "is_vehicle_mounted": True,
+                    "link_fired_count": 2,
+                    "accessories": [
+                        "Smartlink (+2 AR)",
+                        "Drone Mount (+2 AR)",
+                        "M-TOC II (+1 AR)",
+                        "Link-Fired (2x Crimson Wasps, Minor Action)",
+                    ],
+                    "notes": "Link-fired 2x Crimson Wasps in Small Eye Mounts (Costs Minor Action; +2 DV, +1 AR). 1 Wild Die. Decreases by 2P (to 5P*) at Medium range.",
+                },
+                {
+                    "name": "Single Crimson Wasp (Eye Mount)",
+                    "damage": "5P*",
+                    "attack_rating": "21/19/16/11/-",
+                    "mode": "SA/SS",
+                    "ammo": "30(c)",
+                    "smartlink": True,
+                    "precomputed_ar": True,
+                    "is_vehicle_mounted": True,
+                    "link_fired_count": 1,
+                    "accessories": [
+                        "Smartlink (+2 AR)",
+                        "Drone Mount (+2 AR)",
+                        "M-TOC II (+1 AR)",
+                    ],
+                    "notes": "Independent Small Eye Mount (NO Minor Action required). 1 Wild Die. Decreases to 3P at Medium range.",
+                },
+            ]
+            if "crimson wasp" in combat_low and any(
+                "red fox" in str(w.get("name", "")).lower()
+                or ("crimson wasp" in str(w.get("name", "")).lower() and not w.get("precomputed_ar"))
+                for w in ranged_list if isinstance(w, dict)
+            ):
+                new_ranged = []
+                inserted_wasp = False
+                for w in ranged_list:
+                    w_name_low = str(w.get("name", "")).lower() if isinstance(w, dict) else ""
+                    if "red fox" in w_name_low or "crimson wasp" in w_name_low:
+                        if not inserted_wasp:
+                            new_ranged.extend(wasp_templates)
+                            inserted_wasp = True
+                    else:
+                        new_ranged.append(w)
+                weapons_block["ranged"] = new_ranged
+                changes.append("Synced eye-mounted Crimson Wasp weapons from purchases.qmd")
+
+            gear_list = data.get("gear", [])
+            if "crimson wasp" in combat_low and isinstance(gear_list, list):
+                for g in gear_list:
+                    if isinstance(g, dict) and "peak-discharge laser battery" in str(g.get("name", "")).lower() and "red fox" in str(g.get("name", "")).lower():
+                        g["name"] = re.sub(r"\(Red Fox\)", "(Crimson Wasp)", g["name"], flags=re.IGNORECASE)
+                        changes.append("Updated laser battery clip label to Crimson Wasp")
+
+            close_list = weapons_block.get("close_combat", [])
+            has_ram_plate_mod = any(
+                "ram plate" in str(m).lower()
+                for d in data.get("drones", []) if isinstance(d, dict)
+                for m in d.get("modifications", [])
+            )
+            if has_ram_plate_mod and isinstance(close_list, list):
+                for cw in close_list:
+                    if isinstance(cw, dict) and "ramming" in str(cw.get("name", "")).lower():
+                        target_ar = "33 (39)/-/-/-/-"
+                        target_notes = (
+                            "Ramming attack using Shiawase Man-at-Arms chassis w/ Ram Plate (CRB p. 201; DC p. 144). "
+                            "Attack roll is a Piloting test (Maneuvering 7 + Pilot/RES vs. Defense). "
+                            "AR = Piloting (7) + Sensors (11 passive / 17 Enlightened) + Ram Plate Body (15) = 33 (39). "
+                            "Base DV = BOD/2 rounded up (Body 15 / 2 = 8P) + 1 per Speed Interval. "
+                            "Ram Plate halves return collision damage (1/2 Target BOD/2 [+1/Speed Interval] for vehicles, "
+                            "or 1/2 Target BOD/4 rounded up for soft targets)."
+                        )
+                        if cw.get("attack_rating") != target_ar or cw.get("notes") != target_notes:
+                            cw["attack_rating"] = target_ar
+                            cw["notes"] = target_notes
+                            changes.append("Updated Drone Martial Arts (Ramming) AR and Ram Plate notes")
 
         # Save back to YAML if changes occurred
         if changes:

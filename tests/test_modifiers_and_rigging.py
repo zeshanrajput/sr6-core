@@ -346,9 +346,9 @@ def test_reiko_pilot_origins_drone_pools():
     assert pools["piloting"]["pool"] == 25
     assert "Pilot Origins 1" in pools["piloting"]["breakdown"]
     assert "(-1 Threshold)" in pools["piloting"]["breakdown"]
-    assert pools["gunnery"]["pool"] == 18
+    assert pools["gunnery"]["pool"] == 24
     assert pools["evasion"]["pool"] == 26
-    assert pools["perception"]["pool"] == 17
+    assert pools["perception"]["pool"] == 23
     assert pools["stealth"]["pool"] == 28
 
 
@@ -375,13 +375,16 @@ def test_weapon_attack_table_renderer():
     from sr6core.rules.engine import get_weapon_attack_table
     table_md = get_weapon_attack_table("reiko")
     assert "| Weapon Name | Mode (Rounds) | Final DV | Final Effective AR (C / N / M / F / E) | Notes & Constraints |" in table_md
-    assert "**Red Fox Array (2x Link-Fired)**" in table_md
+    assert "**Crimson Wasp Array (2x Link-Fired)**" in table_md
+    assert "**22 / 20 / 17 / 12 / —**" in table_md
+    assert "**21 / 19 / 16 / 11 / —**" in table_md
     assert "**Tesla Coil (Straight)**" in table_md
     assert "**Tesla Coil (Wobbly)**" in table_md
     assert "**Tesla Coil (Sweeping)**" in table_md
     assert "8.58°" in table_md
     assert "28.07°" in table_md
     assert "**Amalgam Cestas" in table_md
+    assert "**33 (39) / — / — / — / —**" in table_md
 
     table_venn = get_weapon_attack_table("venn")
     assert "**Colt Manhunter**" in table_venn

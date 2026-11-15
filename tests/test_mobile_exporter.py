@@ -94,8 +94,8 @@ def test_mobile_json_export_reiko():
     assert maa["body"] == 15      # 10 base + 5 structural integrity (home device tuning moved to sensor)
     assert maa["pilot"] == 10     # Replaced by Reiko's RES 9 + 1 Designer
     assert maa["armor"] == 8     # 8 base (armor increase stripped for legal nuyen balance)
-    assert maa["sensor"] == 5    # 3 hardware (base 2 + mod 1) + 1 sensor upgrade quality + 1 home device
-    assert maa["enlightened_sensor"] == 8  # +3 from Enlighten Automaton sustained (double hardware 3 -> 6, total 8)
+    assert maa["sensor"] == 11   # 9 hardware (base 2 + mod 7) + 1 sensor upgrade quality + 1 home device
+    assert maa["enlightened_sensor"] == 17  # +6 from Enlighten Automaton sustained (6 bought hits, within 2x9=18 cap)
     assert "Vector Thrust (LAV)" in maa["mobility_str"]
     assert "SPD 50/480" in maa["mobility_str"]
 

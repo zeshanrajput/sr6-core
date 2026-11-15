@@ -79,7 +79,7 @@ def _clean_card_text(raw_text: str, item_name: str, category: str = "") -> str:
     text = re.sub(r"\*\*----- Start of picture text -----.*?\*\*----- End of picture text -----\*\*", "", text, flags=re.DOTALL)
 
     clean_name = item_name.strip()
-    # Normalize common name suffixes like "Array (2x Link-Fired)" or "(Seattle Retrans Relay)"
+    # Normalize common name suffixes like "Array (2x Link-Fired)" or "(Independent)"
     base_name = re.sub(r"\s*\(.*?\)", "", clean_name).strip()
 
     # If searching for an echo, quality, or weapon in a composite list, extract the specific bold item

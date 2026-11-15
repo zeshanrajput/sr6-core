@@ -104,11 +104,11 @@ CANONICAL_SUPPLEMENT_WEAPONS: Dict[str, Dict[str, Any]] = {
         "name": "Drone Martial Arts (Ramming)",
         "category": "Melee",
         "dv": "8P",
-        "ar": [15, None, None, None, None],
+        "ar": [33, None, None, None, None],
         "mode": "Melee",
         "ammo": "—",
-        "source": "Core Rulebook p. 201",
-        "notes": "Drone ramming attack. Attack roll: Piloting test (Piloting 7 + REA vs. Defense). AR = Piloting of Driver (7) + Buffed Sensors (8) = 15. Base DV = BOD/2 = 8P (+1/Speed Interval). Attacker resists damage based on target's Body: Target BOD/2 (+1/Speed Interval) for vehicles, or Target BOD/4 (rounded up) for soft targets."
+        "source": "Core Rulebook p. 201 / Double Clutch p. 144",
+        "notes": "Drone ramming attack w/ Ram Plate. Attack roll: Piloting test (Maneuvering 7 + Pilot/RES vs. Defense). AR = Piloting (7) + Sensor (11 passive / 17 Enlightened) + Ram Plate Body (15) = 33 (39 sustained). Base DV = BOD/2 = 8P (+1/Speed Interval). Ram Plate halves return collision damage (DC p. 144)."
     }
 }
 
@@ -593,24 +593,48 @@ def get_weapon_attack_table(char_id: str) -> str:
                     out.append("—")
             return " / ".join(out)
 
-        # 1. Red Fox Array (2x Link-Fired - Eye Mounts)
-        fox_stat = get_weapon_stats("red_fox") or {"dv": "6P", "ar": [14, 16, 16, 9]}
-        fox_base_dv = int(re.sub(r"[^\d]", "", fox_stat["dv"])) if re.search(r"\d", fox_stat["dv"]) else 6
-        # Link-fired: Base + 1 link-fired + 3 smartlink + 2 mount = +6 AR, +2 DV
-        fox_link_ss_ar = format_ar(fox_stat["ar"], ar_bonus=6, burst_pen=0)
-        fox_link_sa_ar = format_ar(fox_stat["ar"], ar_bonus=6, burst_pen=1)
-        fox_link_bf_ar = format_ar(fox_stat["ar"], ar_bonus=6, burst_pen=2)
-        rows.append(f"| **Red Fox Array (2x Link-Fired)** | **SS** (1/gun) | {fox_base_dv + 2}P* | **{fox_link_ss_ar}** | Link-fired 2x Red Foxes in Eye Mounts (Costs Minor Action; +2 DV, +1 AR). **1 round/gun** (2 rds total). 1 Wild Die. *Decreases by 3P at Medium. |")
-        rows.append(f"| | **SA** (2/gun) | {fox_base_dv + 3}P* | **{fox_link_sa_ar}** | Link-fired array (Drone mount halves SA penalty). **2 rounds/gun** (4 rds total). *Decreases by 3P at Medium. |")
-        rows.append(f"| | **BF** (4/gun) | {fox_base_dv + 4}P* | **{fox_link_bf_ar}** | Link-fired array (Drone mount halves BF penalty). **4 rounds/gun** (8 rds total). *Decreases by 3P at Medium. |")
+        weapons_raw = data.get("weapons", [])
+        all_w_list = (
+            (weapons_raw.get("ranged", []) + weapons_raw.get("melee", []))
+            if isinstance(weapons_raw, dict)
+            else (weapons_raw if isinstance(weapons_raw, list) else [])
+        )
+        has_wasp = any("crimson wasp" in str(w.get("name", "")).lower() for w in all_w_list if isinstance(w, dict))
+        has_fox = any("red fox" in str(w.get("name", "")).lower() for w in all_w_list if isinstance(w, dict))
 
-        # 1b. Single Red Fox (Independent - Eye Mount)
-        fox_single_ss_ar = format_ar(fox_stat["ar"], ar_bonus=5, burst_pen=0)
-        fox_single_sa_ar = format_ar(fox_stat["ar"], ar_bonus=5, burst_pen=1)
-        fox_single_bf_ar = format_ar(fox_stat["ar"], ar_bonus=5, burst_pen=2)
-        rows.append(f"| **Single Red Fox (Independent)** | **SS** (1) | {fox_base_dv}P* | **{fox_single_ss_ar}** | Independent Eye Mount (NO Minor Action required). **1 round**. 1 Wild Die. *Decreases by 3P at Medium. |")
-        rows.append(f"| | **SA** (2) | {fox_base_dv + 1}P* | **{fox_single_sa_ar}** | Independent mount (Drone mount halves SA penalty). **2 rounds**. *Decreases by 3P at Medium. |")
-        rows.append(f"| | **BF** (4) | {fox_base_dv + 2}P* | **{fox_single_bf_ar}** | Independent mount (Drone mount halves BF penalty). **4 rounds**. *Decreases by 3P at Medium. |")
+        # 1. Eye-Mounted Laser Array (Crimson Wasp preferred; Red Fox fallback)
+        if has_wasp or not has_fox:
+            wasp_stat = get_weapon_stats("crimson_wasp") or {"dv": "5P", "ar": [16, 14, 11, 6, None]}
+            wasp_base_dv = int(re.sub(r"[^\d]", "", wasp_stat["dv"])) if re.search(r"\d", wasp_stat["dv"]) else 5
+            # Link-fired: Base + 1 link-fired (DC p. 143) + 2 smartlink (CRB p. 261 / SRMG v2.4 p. 51) + 1 M-TOC II (FS p. 90) + 2 mount (FS p. 112) = +6 AR, +2 DV (5+ DV weapon)
+            wasp_link_ss_ar = format_ar(wasp_stat["ar"], ar_bonus=6, burst_pen=0)
+            wasp_link_sa_ar = format_ar(wasp_stat["ar"], ar_bonus=6, burst_pen=1)
+            rows.append(f"| **Crimson Wasp Array (2x Link-Fired)** | **SS** (1/gun) | {wasp_base_dv + 2}P* | **{wasp_link_ss_ar}** | Link-fired 2x Crimson Wasps in Small Eye Mounts (Costs Minor Action; +2 DV, +1 AR). **1 round/gun** (2 rds total). 1 Wild Die. *Decreases by 2P (to {wasp_base_dv}P) at Medium. |")
+            rows.append(f"| | **SA** (2/gun) | {wasp_base_dv + 3}P* | **{wasp_link_sa_ar}** | Link-fired array (Drone mount halves SA penalty). **2 rounds/gun** (4 rds total). *Decreases by 2P (to {wasp_base_dv + 1}P) at Medium. |")
+
+            # 1b. Single Crimson Wasp (Independent - Eye Mount)
+            wasp_single_ss_ar = format_ar(wasp_stat["ar"], ar_bonus=5, burst_pen=0)
+            wasp_single_sa_ar = format_ar(wasp_stat["ar"], ar_bonus=5, burst_pen=1)
+            rows.append(f"| **Single Crimson Wasp (Independent)** | **SS** (1) | {wasp_base_dv}P* | **{wasp_single_ss_ar}** | Independent Small Eye Mount (NO Minor Action required). **1 round**. 1 Wild Die. *Decreases by 2P (to 3P) at Medium. |")
+            rows.append(f"| | **SA** (2) | {wasp_base_dv + 1}P* | **{wasp_single_sa_ar}** | Independent mount (Drone mount halves SA penalty). **2 rounds**. *Decreases by 2P (to 4P) at Medium. |")
+        else:
+            fox_stat = get_weapon_stats("red_fox") or {"dv": "6P", "ar": [14, 16, 16, 9]}
+            fox_base_dv = int(re.sub(r"[^\d]", "", fox_stat["dv"])) if re.search(r"\d", fox_stat["dv"]) else 6
+            # Link-fired: Base + 1 link-fired (DC p. 143) + 2 smartlink (CRB p. 261 / SRMG v2.4 p. 51) + 1 M-TOC II (FS p. 90) + 2 mount (FS p. 112) = +6 AR, +2 DV
+            fox_link_ss_ar = format_ar(fox_stat["ar"], ar_bonus=6, burst_pen=0)
+            fox_link_sa_ar = format_ar(fox_stat["ar"], ar_bonus=6, burst_pen=1)
+            fox_link_bf_ar = format_ar(fox_stat["ar"], ar_bonus=6, burst_pen=2)
+            rows.append(f"| **Red Fox Array (2x Link-Fired)** | **SS** (1/gun) | {fox_base_dv + 2}P* | **{fox_link_ss_ar}** | Link-fired 2x Red Foxes in Eye Mounts (Costs Minor Action; +2 DV, +1 AR). **1 round/gun** (2 rds total). 1 Wild Die. *Decreases by 3P at Medium. |")
+            rows.append(f"| | **SA** (2/gun) | {fox_base_dv + 3}P* | **{fox_link_sa_ar}** | Link-fired array (Drone mount halves SA penalty). **2 rounds/gun** (4 rds total). *Decreases by 3P at Medium. |")
+            rows.append(f"| | **BF** (4/gun) | {fox_base_dv + 4}P* | **{fox_link_bf_ar}** | Link-fired array (Drone mount halves BF penalty). **4 rounds/gun** (8 rds total). *Decreases by 3P at Medium. |")
+
+            # 1b. Single Red Fox (Independent - Eye Mount)
+            fox_single_ss_ar = format_ar(fox_stat["ar"], ar_bonus=5, burst_pen=0)
+            fox_single_sa_ar = format_ar(fox_stat["ar"], ar_bonus=5, burst_pen=1)
+            fox_single_bf_ar = format_ar(fox_stat["ar"], ar_bonus=5, burst_pen=2)
+            rows.append(f"| **Single Red Fox (Independent)** | **SS** (1) | {fox_base_dv}P* | **{fox_single_ss_ar}** | Independent Eye Mount (NO Minor Action required). **1 round**. 1 Wild Die. *Decreases by 3P at Medium. |")
+            rows.append(f"| | **SA** (2) | {fox_base_dv + 1}P* | **{fox_single_sa_ar}** | Independent mount (Drone mount halves SA penalty). **2 rounds**. *Decreases by 3P at Medium. |")
+            rows.append(f"| | **BF** (4) | {fox_base_dv + 2}P* | **{fox_single_bf_ar}** | Independent mount (Drone mount halves BF penalty). **4 rounds**. *Decreases by 3P at Medium. |")
 
         # 2. Tesla Coil (Spray Attack Profiles - Flamethrower rules, SR6 Core p. 117)
         rows.append("| **Tesla Coil (Straight)** | **SS** (1) | 5S(e) | **10 / 12 / — / — / —** | Direct stream attack (first valid target on 20m line). Cyberarm Mount (+2 AR). 5(c) capacitor bank. |")
@@ -621,7 +645,45 @@ def get_weapon_attack_table(char_id: str) -> str:
         rows.append("| **Amalgam Cestas (Man-at-Arms - Phys)** | **Melee** | 3P | **12 / — / — / — / —** | Personalized Grip +2 AR. Overrides Immunity to Normal Weapons. 1 Wild Die. |")
 
         # 4. Drone Martial Arts (Ramming)
-        rows.append("| **Drone Martial Arts (Ramming)** | **Melee** | 8P* | **15 / — / — / — / —** | Ramming attack (CRB p. 201). Attack roll: Piloting test (Piloting 7 + REA vs. Defense). AR = Piloting of Driver (7) + Buffed Sensor (8) = 15. Base DV = MAA BOD (15)/2 = 8P (+1/Speed Interval). Attacker resists damage based on target's Body: Target BOD/2 (+1/Speed Interval) for vehicles, or Target BOD/4 (rounded up) for soft targets. |")
+        drones = data.get("drones", [])
+        primary_drone = next(
+            (d for d in drones if isinstance(d, dict) and any(k in d.get("name", "").lower() for k in ["man-at-arms", "butler"])),
+            None
+        )
+        asdf = ModifierEngine.get_living_persona_asdf(data)
+        maneuvering_val = asdf.get("data_processing", 7)
+        if primary_drone:
+            p_prof = parse_vehicle_modifications(primary_drone, char_data=data)
+            aug_s = p_prof["augmented_sensor"]
+            enl_s = p_prof["enlightened_sensor"]
+            maa_body = p_prof["augmented_body"]
+            has_ram_plate = p_prof.get("has_ram_plate", False)
+        else:
+            aug_s = 11
+            enl_s = 17
+            maa_body = 15
+            has_ram_plate = False
+        ram_dv = (maa_body + 1) // 2
+        ram_plate_bonus = maa_body if has_ram_plate else 0
+        ram_ar_passive = maneuvering_val + aug_s + ram_plate_bonus
+        ram_ar_sustained = maneuvering_val + enl_s + ram_plate_bonus
+        ram_ar_str = f"{ram_ar_passive} ({ram_ar_sustained})" if enl_s > aug_s else str(ram_ar_passive)
+        if has_ram_plate:
+            ram_note = (
+                f"Ramming attack (CRB p. 201) w/ Ram Plate (DC p. 144). Attack roll: Piloting test (Maneuvering {maneuvering_val} + Pilot/RES vs. Defense). "
+                f"AR = Piloting ({maneuvering_val}) + Sensor ({aug_s} passive / {enl_s} Enlightened) + Ram Plate Body ({maa_body}) = {ram_ar_passive} ({ram_ar_sustained} sustained). "
+                f"Base DV = MAA BOD ({maa_body})/2 = {ram_dv}P (+1/Speed Interval). Ram Plate halves return collision damage (½ Target BOD/2 [+1/Speed Int] vehicles, or ½ Target BOD/4 rounded up soft targets)."
+            )
+        else:
+            ram_note = (
+                f"Ramming attack (CRB p. 201). Attack roll: Piloting test (Maneuvering {maneuvering_val} + Pilot/RES vs. Defense). "
+                f"AR = Piloting of Driver ({maneuvering_val}) + Sensor ({aug_s} passive / {enl_s} Enlighten Automaton) = {ram_ar_passive} ({ram_ar_sustained} sustained). "
+                f"Base DV = MAA BOD ({maa_body})/2 = {ram_dv}P (+1/Speed Interval). Attacker resists damage based on target's Body: "
+                f"Target BOD/2 (+1/Speed Interval) for vehicles, or Target BOD/4 (rounded up) for soft targets."
+            )
+        rows.append(
+            f"| **Drone Martial Arts (Ramming)** | **Melee** | {ram_dv}P* | **{ram_ar_str} / — / — / — / —** | {ram_note} |"
+        )
         return "\n".join(rows)
 
     if flat_list:

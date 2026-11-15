@@ -10,11 +10,12 @@ from sr6core.rules.engine import render_sprite_stable
 
 ::: {.callout-note icon=false}
 ## 🎲 Tabletop Companion & Ontological Doctrine
-In accordance with our tabletop doctrine, tabletop play represents the **Operational Layer** (action economy, task tracking, physical dice pools), while narrative prose represents the **Ontological Layer** (spiritual animism, permanent kinship). 
+In accordance with our tabletop doctrine, tabletop play represents the **Operational Layer** (action economy, task tracking, dice pools), while narrative prose represents the **Ontological Layer** (spiritual animism, permanent kinship). 
 
 * **The Sovereign Conduit:** Reiko does not treat sprites as disposable, slave background scripts. Her second-generation sparks exist as autonomous, sovereign intelligences residing in her Deep Matrix sanctuary host (`~`) and Kernel Panic.
 * **Tabletop Manifestation:** To grant them an operational tether into meatspace grids and combat PANs, Reiko dedicates minor downtime actions to renewing their registration.
-* **Buying Hits Discipline:** With a Compiling pool of **20d6** (8 Resonance + 8 Tasking + 2 Spec [Compiling] + 2 Focus), Reiko buys **5 guaranteed hits** under *Shadowrun Missions (SRMG)* rules, enabling safe, drain-free compiling and registering of **Level 8 Sprites** without rolling physical dice.
+* **Buying Hits Discipline:** With a Compiling pool of **21d6** (9 Resonance + 6 Tasking + 2 Spec [Compiling] + 4 Focus), Reiko buys **5 guaranteed hits** under *Shadowrun Missions (SRMG)* rules, enabling safe, drain-free compiling and registering of **Level 8 Sprites** without rolling dice.
+* **Hybrid Sprites and the "Sprite Conduit" edge:** Hybrid Sprites allows Reiko to "provide the sprite with a skill or power that is normally only available to a different type of sprite that you know how to compile. (Hns 67)" Per the rules of Permanent Sprite Creation (HnS 77), Reiko must know her ally sprite's code and be able to compile him herself. Ally sprites may learn any skill so long as we have access to an activesoft or autosoft for it. This is how we justify providing Ouro with autosofts or Cleo with the Influence and Con skills.
 * **Deep Narrative & Lore Reference:** For extensive narrative backgrounds, individual spark philosophies, origin arcs (`24 Symlink`, `28 Renice`, `30 Vim`), and Floor 281 machine kin (*4Gurds*), see [sparks_second_generation.md](../reference/sparks_second_generation.md).
 * **Master Visual Anchors & AI Image Prompts:** For complete anatomical geometry, identical twin specifications, and prompt templates for Percy, Cleo, Ouro, Aisling, Étaín, and Taz, see [sparks_visual_anchors.md](../reference/sparks_visual_anchors.md).
 :::

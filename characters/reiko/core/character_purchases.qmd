@@ -16,15 +16,15 @@ assign("Lifetime_Nuyen", 90000)
 
 * Amalgam Cestas (obtained in SRM 2083-18)
   * Personalized Grip `{python} inc('Nuyen', -200)`
-* Red Fox x2 `{python} inc('Nuyen', -2800 * 2)`
-  * Smartgun System (Internal) `{python} modifier('Smartlink (Wireless)', 'autosoft:targeting', 1, type='other', rule_anchor='rules_combat.html#tactical-weapon-arrays', notes='Wireless bonus: +1 dice pool to attack tests (SR6 p. 261)')`
+* Crimson Wasp x2 `{python} inc('Nuyen', -1500 * 2)`
+  * Smartgun System (Internal) `{python} inc('Nuyen', -500 * 2)` `{python} modifier('Smartlink (Wireless)', 'autosoft:targeting', 1, type='other', rule_anchor='rules_combat.html#tactical-weapon-arrays', notes='Wireless bonus: +1 dice pool to attack tests (SR6 p. 261)')`
   * Peak-Discharge Laser Battery Clips x5 `{python} inc('Nuyen', -500)`
 * Glitter Grenades x10 `{python} inc('Nuyen', -1000)`
 * Drone Martial Arts (Ramming Attack - Shiawase Man-at-Arms)
-  * *Attack Rating:* 15 (Piloting 7 + Buffed Sensors 8; Close Range 15 / — / — / — / —)
+  * *Attack Rating:* 33 passive / 39 sustained (Maneuvering 7 + Sensors 11 passive / 17 Enlighten Automaton + Ram Plate Body 15; Close Range 33 (39) / — / — / — / —)
   * *Damage:* 8P base (MAA Body 15 / 2 rounded up, +1 per current Speed Interval)
   * *Test:* Piloting + Reaction vs. Defense (CRB p. 201)
-  * *Recoil / Self-Damage:* Attacker resists damage based on target's Body: Target BOD/2 (rounded up, +1/speed interval) for vehicles, or Target BOD/4 (rounded up) for soft metahuman targets (CRB p. 201)
+  * *Recoil / Self-Damage:* **Halved by Ram Plate** (DC p. 144): 1/2 [Target BOD/2 (+1/speed interval)] for vehicles, or 1/2 [Target BOD/4 (rounded up)] for soft metahuman targets (CRB p. 201)
 
 ### Matrix
 
@@ -73,8 +73,8 @@ assign("Lifetime_Nuyen", 90000)
   * **Targeting (1, R9)** `{python} inc_many(('Nuyen', -4500),('Karma', -1))`
   * **Tracking (R9)** `{python} inc_many(('Nuyen', -4500),('Karma', -1))`
 * Knowsofts
-  * Japanese Cultural Etiquette (R3) `{python} inc('Nuyen', -2500)` `{python} knowledge_skill('Japanese Cultural Etiquette', rating=3, notes='Rating 3 Knowsoft: Corporate hierarchy, bowing registers, formal tea hospitality')`
-  * New Orleans Vodou & Loa Syncretism (R3) `{python} inc('Nuyen', -2500)` `{python} knowledge_skill('New Orleans Vodou & Loa Syncretism', rating=3, notes='Rating 3 Knowsoft: Baron Samedi, Loa of the Wires, League of Laveau, Zobop')`
+  * Japanese Cultural Etiquette (R3) `{python} inc('Nuyen', -1500)` `{python} knowledge_skill('Japanese Cultural Etiquette', rating=3, notes='Rating 3 Knowsoft: Corporate hierarchy, bowing registers, formal tea hospitality')`
+  * New Orleans Vodou & Loa Syncretism (R3) `{python} inc('Nuyen', -1500)` `{python} knowledge_skill('New Orleans Vodou & Loa Syncretism', rating=3, notes='Rating 3 Knowsoft: Baron Samedi, Loa of the Wires, League of Laveau, Zobop')`
   * Gross Metahuman Fluids `{python} knowledge_skill('Gross Metahuman Fluids', notes='Free knowledge skill earned in SRM 2081-15: visceral biowaste, bodily excretions, and thaumaturgic contamination')`
   * Dissonance — Theory & Applications `{python} inc('Nuyen', -1500)` `{python} knowledge_skill('Dissonance — Theory and Applications', notes='Knowsoft: Dissonant realms, entropy math, One Hundred transfer geometry, consensus dynamics')`
 * Commlink Apps
@@ -106,14 +106,16 @@ Software with karma costs have been learned via the **Software Emulator** echo.
 
 * MCT Hornet x2 `{python} inc('Nuyen', -2100 * 2)`
   * Stinger (Embedded Close Combat Weapon: 1P, Attack Rating 4, single toxin dose injector)
+  * Realistic Features 1
 
 * Captured Drone ("Busta") *(SRM 2083-13 Mission Capture)*
-  * Captured during the Funhouse breach, subdued, and re-registered by Ouro; carried in abdominal drone bay.
+  * Captured during the Funhouse breach, subdued, and re-registered by Ouro.
 
 * Shiawase Man-At-Arms `{python} inc('Nuyen', -4500*.9)`
-  * Weapon Mount - Standard (1 additional; drone includes 1 stock standard mount, DC p. 117) `{python} inc('Nuyen', -2500/2)`
-  * Pop-Out Concealment - Standard x2 (ocular mounts) `{python} inc('Nuyen', -4000/2)`
-    * Red Fox x2 (Eye laser mounts)
+  * Weapon Mount - Small x2 (splits stock Standard Hardpoint into 2 Small Hardpoints per DC p. 124) `{python} inc('Nuyen', -1500 * 2 / 2)`
+  * Pop-Out Concealment - Small x2 (ocular mounts; 0.5 Chassis slots each, DC p. 143-144) `{python} inc('Nuyen', -1500 * 2 / 2)`
+    * Crimson Wasp x2 (Eye laser mounts)
+  * Ram Plate (3rd Standard Hardpoint, left forearm wrist-shield mount; adds Body 15 to Ramming AR & halves return collision damage, DC p. 144) `{python} inc('Nuyen', -15 * 250 / 2)`
   * Chameleon Coating 4 `{python} inc('Nuyen', -18000/2)`
   * Passive Stealth Features `{python} inc('Nuyen', -1000/2)`
   * Drone Rack (Small) `{python} inc('Nuyen', -2000/2)`
@@ -128,19 +130,19 @@ Software with karma costs have been learned via the **Software Emulator** echo.
     * Increases combat Acceleration by +60% (from 25 to 41 m/round / 49.2 km/h; Double Clutch p. 134, DIY 50%)
   * Top Speed Increase (3 Ranks): `{python} inc('Nuyen', -24000/2)`
     * Increases Top Speed by +60% (from 300 to 480 / 576 km/h / ~358 mph; Double Clutch p. 138, DIY 50%)
-  * Nitro Boost (lateral thigh cyberleg cells; taken for narrative/RP purposes only - not used at the table): `{python} inc('Nuyen', -5000/2)`
-  * Increased Sensors 1 `{python} inc('Nuyen', -5000/2)`
-  * Hydrocarbon Fuel Converter `{python} inc('Nuyen', -15000/2)`
+  * Nitro Boost (capacitors in each thigh; taken for narrative/RP purposes only)
+  * Enhanced Sensors 9 (Base 2 -> 9; Sensor Array R9) `{python} inc('Nuyen', -35000/2)`
+  * Hydrocarbon Fuel Converter (taken for narrative/RP purposes only)
   * Accessories
     * Satellite Link
     * Laser Jack
-    * Camera w/ image link *(Sensor 3 Array)*
-    * Omni-directional mic with sound link *(Sensor 3 Array)*
-    * Ultrasound *(Sensor 3 Array)*
-    * Low-light Vision *(Utility / RP sensor)*
-    * Flare compensation *(Utility / RP sensor)*
-    * Olfactory Sensor *(Utility / RP sensor)*
-    * Oral chemical analyzer *(Utility / RP sensor)*
+    * Camera w/ image link *(Sensor 9 Array)*
+    * Omni-directional mic with sound link *(Sensor 9 Array)*
+    * Ultrasound *(Sensor 9 Array)*
+    * Low-light Vision *(Sensor 9 Array)*
+    * Flare compensation *(Sensor 9 Array)*
+    * Olfactory Sensor *(Sensor 9 Array)*
+    * Oral chemical analyzer *(Sensor 9 Array)*
     * Tactile Sensors (from the EVO Orderly, DA p. 178. Taken for RP purposes only - I will not be using the Biotech bonus)
 
 * Federated-Boeing Sky Commander `{python} inc('Nuyen', -12500)`
@@ -159,7 +161,7 @@ Software with karma costs have been learned via the **Software Emulator** echo.
 
 Drone mods include a 50% discount on mods Yuriko installed herself (DC p. 120). Shiawase drones include a 10% discount (Smile for the Camera!).
 
-Under *Double Clutch* p. 123–124, the Man-At-Arms receives 3 free Standard Hardpoints ($\lfloor\text{Body}/3\rfloor = 3$), accommodating both Red Fox weapon mounts and the Small Drone Rack with zero added hardpoints. Mod slot balance (Option C+): 2 Electronics slots are permanently shifted to +1 Chassis slot and 4 Electronics slots are permanently shifted to +2 Powertrain slots at a 2:1 ratio (DC p. 120). That yields **11/11 Chassis** (Structural Integrity 5 + Realistic Features 4 + Pop-Out 2 = 11), **12/12 Powertrain** (Vector Thrust 5 + Improved Acceleration 2 [2, DC p. 134] + Top Speed Increase 3 [3, DC p. 138] + HFC 2 = 12), and **4/4 Electronics** (Chameleon Coating 2 + Passive Stealth 1 + Increased Sensors 1 = 4, 100% allocated). `Nitro Boost` remains installed narratively in the lateral thigh cyberlegs (`BRYNNE` & `CEDAR`) for RP/flavor purposes only (0 Powertrain slots claimed unless audited/reallocated). Anthroform cyberlimbs are standard equipment per DC p. 131 and consume 0 drone mod slots.
+Under *Double Clutch* p. 123–124, the Man-At-Arms receives 3 free Standard Hardpoints ($\lfloor\text{Body}/3\rfloor = 3$): `1` Standard Hardpoint split into `2×` Small Hardpoints (`Weapon Mount - Small x2` for Crimson Wasp eye lasers, DC p. 124), `1` Standard Hardpoint for the `Drone Rack (Small)`, and `1` Standard Hardpoint for the `Ram Plate` (DC p. 144), consuming zero extra hardpoints (`3/3` Standard eq.). Mod slot balance (`0` category shifts required): **10/10 Chassis** (Structural Integrity 5 + Realistic Features 4 + Pop-Out Concealment - Small x2 [0.5 × 2 = 1] = 10), **10/10 Powertrain** (Vector Thrust 5 + Improved Acceleration 2 [2, DC p. 134] + Top Speed Increase 3 [3, DC p. 138] = 10), and **10/10 Electronics** (Chameleon Coating 4 [2] + Passive Stealth Features [1] + Enhanced Sensors 9 [7, Base 2 -> 9, DC p. 142] = 10, 100% allocated). `Hydrocarbon Fuel Converter` and `Nitro Boost` (`BRYNNE` & `CEDAR` lateral thigh capacitors) are retained physically for narrative/RP purposes only (`0` Powertrain slots, `0¥`). Anthroform cyberlimbs are standard equipment per DC p. 131 and consume 0 drone mod slots.
 
 ### Electronics
 

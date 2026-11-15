@@ -346,27 +346,30 @@ def test_reiko_roll20_export():
 
     # 4. Ranged Weapons & Tesla Cone Angles Preserved
     rw_map = {rw["name"]: rw for rw in payload["longRangeWeapons"]}
-    assert "Red Fox Array (2x Link-Fired)" in rw_map
-    assert "Red Fox (single beam)" in rw_map
+    assert "Crimson Wasp Array (2x Link-Fired)" in rw_map
+    assert "Crimson Wasp (single beam)" in rw_map
     assert "Tesla Coil (Straight)" in rw_map
     assert "Tesla Coil (Wobbly)" in rw_map
     assert "Tesla Coil (Sweep)" in rw_map
+    assert rw_map["Crimson Wasp Array (2x Link-Fired)"]["pool"] == 24
+    assert rw_map["Crimson Wasp (single beam)"]["pool"] == 24
+    assert rw_map["Tesla Coil (Straight)"]["pool"] == 23
     assert "apex angle 8.58" in rw_map["Tesla Coil (Wobbly)"]["description"]
     assert "apex angle 28.07" in rw_map["Tesla Coil (Sweep)"]["description"]
 
-    # 5. Shiawase Man-at-Arms Drone Stats
+    # 5. Shiawase Man-at-Arms Drone Stats (Hardware Sensor 9, 11 Passive / 17 Enlightened)
     drone_map = {d["name"]: d for d in payload["drones"]}
     assert "Shiawase Man-at-Arms" in drone_map
     maa = drone_map["Shiawase Man-at-Arms"]
     assert maa["pilot"] == 10  # 9 Resonance + 1 Designer
     assert maa["body"] == 10
     assert maa["armor"] == 8
-    assert maa["sensor"] == 2
+    assert maa["sensor"] == 9  # Enhanced Sensors 9 hardware
 
-    # 6. Secondary Drones have Sensor Upgrade +1
-    assert "Federated-Boeing Sky Commander (Seattle Retrans Relay)" in drone_map
-    sky = drone_map["Federated-Boeing Sky Commander (Seattle Retrans Relay)"]
-    assert sky["sensor"] == 4
+    # 6. Secondary Drones (Sky Commander has Enhanced Sensors 2 -> 5 HW, +1 Sensor Upgrade = 6)
+    assert "Federated-Boeing Sky Commander" in drone_map
+    sky = drone_map["Federated-Boeing Sky Commander"]
+    assert sky["sensor"] == 5
 
     # 7. Echoes (All 9 Submersion Echoes)
     echo_names = {e["name"] for e in payload["echoes"]}

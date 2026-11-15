@@ -876,7 +876,7 @@ def build_pdf_field_map(
         abbr = {"piloting": "PLT", "gunnery": "GUN", "evasion": "EVA", "perception": "PER", "stealth": "STL"}
         pool_summary = " ".join(
             f"{abbr.get(k, k[:3].upper())}:{v_obj['pool']}d6"
-            for k, v_obj in list(v_pools.items())[:4]
+            for k, v_obj in v_pools.items()
             if isinstance(v_obj, dict) and v_obj.get("pool") is not None
         )
         mob_raw = primary_v.get("mobility_str", "")
