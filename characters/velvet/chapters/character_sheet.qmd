@@ -1,31 +1,16 @@
-# Character Dossier & Quick Sheet
-
-```{python}
-#| echo: false
-#| include: false
-from sr6core.character.manager import CharacterManager
-from sr6core.publishing.quick_sheet import export_quick_sheet
-
-cm = CharacterManager()
-char_data = cm.get_character_data("velvet") or {}
-repo_dir = cm.get_character_repo_dir("velvet")
-
-sheet_txt = export_quick_sheet(char_data, char_repo_path=repo_dir)
-```
+# Character Dossier & Fillable Sheet
 
 ::: {.callout-note}
-### Character Views & Quick Reference
-* 📱 **Mobile Character App**: [Launch Mobile Interactive Sheet](../output/mobile/index.html){.btn .btn-primary target="_blank"}
-* 📄 **Official Fillable PDF Sheet**: [velvet_sheet.pdf](../output/pdf/velvet_sheet.pdf)
-* 📝 **Plain-Text Quick Sheet**: [velvet_sheet.txt](../output/text/velvet_sheet.txt)
+### Character Views & Exports
+* 📄 **Official Fillable PDF Sheet**: [Download velvet_sheet.pdf](../output/pdf/velvet_sheet.pdf){.btn .btn-primary target="_blank"}
 * 🎲 **Roll20 Genesis JSON**: [velvet_roll20.json](../output/roll20/velvet_roll20.json)
 * 📜 **Roll20 Macros & Effects Guide**: [velvet_roll20_macros.md](../output/roll20/velvet_roll20_macros.md)
 :::
 
-## Tabletop Quick Reference Sheet
+## Official Fillable PDF Character Sheet
 
-```{python}
-#| echo: false
-#| output: asis
-print(f"```text\n{sheet_txt}\n```")
+```{=html}
+<iframe src="../output/pdf/velvet_sheet.pdf" width="100%" height="920px" style="border: 1px solid rgba(255,255,255,0.12); border-radius: 8px;" title="Velvet Fillable PDF Character Sheet">
+  <p>Your browser does not support embedded PDFs. <a href="../output/pdf/velvet_sheet.pdf" target="_blank">Download velvet_sheet.pdf</a>.</p>
+</iframe>
 ```

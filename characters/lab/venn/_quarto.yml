@@ -3,9 +3,7 @@ project:
   output-dir: _book
   resources:
     - narrative/audio/
-    - output/text/
     - output/roll20/
-    - output/mobile/
     - output/pdf/
   pre-render:
     - uv run --directory ../../.. sr6 sync-all

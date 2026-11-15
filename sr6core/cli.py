@@ -50,40 +50,8 @@ def run_sync_all():
         for w in warnings_list:
             print(f"         +-- {w}")
 
-        # 2. Tabletop Quick-Sheet & Mobile App Exports
+        # 2. Fillable PDF & Roll20 Exports
         cm.clean_output_directory(repo_dir)
-        text_dir = os.path.join(repo_dir, "output", "text")
-        mobile_dir = os.path.join(repo_dir, "output", "mobile")
-        for d in [text_dir, mobile_dir]:
-            os.makedirs(d, exist_ok=True)
-
-        # 2-Page 76-Column ASCII Quick Sheet
-        try:
-            sheet_content = cm.export_character(cid, fmt="quick_sheet")
-            sheet_path = os.path.join(text_dir, f"{cid}_sheet.txt")
-            with open(sheet_path, "w", encoding="utf-8") as f:
-                f.write(sheet_content)
-        except Exception as e:
-            print(f"         +-- Export Quick-Sheet error: {e}")
-
-        # Standalone Mobile PWA Export
-        try:
-            mobile_html_content = cm.export_character(cid, fmt="mobile_html")
-            with open(os.path.join(mobile_dir, "index.html"), "w", encoding="utf-8") as f:
-                f.write(mobile_html_content)
-            char_json_data = cm.export_character(cid, fmt="mobile_json")
-            with open(os.path.join(mobile_dir, "character_data.json"), "w", encoding="utf-8") as f:
-                import json
-                json.dump(char_json_data, f, indent=2)
-            # Copy sw.js and manifest.json if present
-            app_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "app")
-            for asset in ["sw.js", "manifest.json"]:
-                asset_src = os.path.join(app_dir, asset)
-                if os.path.exists(asset_src):
-                    import shutil
-                    shutil.copy2(asset_src, os.path.join(mobile_dir, asset))
-        except Exception as e:
-            print(f"         +-- Export Mobile App error: {e}")
 
         # Roll20 Genesis JSON & Macros Export
         try:
@@ -99,7 +67,7 @@ def run_sync_all():
         except Exception as e:
             print(f"         +-- Export Fillable PDF error: {e}")
 
-        print(f"  [2/4] Regenerated Exports     : Saved to {os.path.join(repo_dir, 'output')} (text, mobile, roll20, pdf)")
+        print(f"  [2/4] Regenerated Exports     : Saved to {os.path.join(repo_dir, 'output')} (roll20, pdf)")
 
         # 3. Optimize Images (-> WebP), Expand Quarto Shortcodes & Inject Narration Audio Players
         try:
@@ -134,32 +102,6 @@ def run_sync_all():
                         pass
         print(f"  [5/5] Shortcodes & Narration Audio : Processed {linter_count} chapters{audio_info} in {chap_dir}\n")
 
-    # Build Master Multi-Character PWA at app/index.html
-    try:
-        from sr6core.publishing.mobile_json import export_mobile_json
-        from sr6core.publishing.mobile_html import get_mobile_html_template
-        multi_bundle = {}
-        for c in chars:
-            cid = c["id"]
-            if c.get("exists"):
-                c_data = cm.get_character_data(cid)
-                c_repo = cm.get_character_repo_dir(cid)
-                if c_data:
-                    multi_bundle[cid] = export_mobile_json(c_data, char_repo_path=c_repo)
-        
-        if multi_bundle:
-            app_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "app")
-            os.makedirs(app_dir, exist_ok=True)
-            master_html = get_mobile_html_template(multi_bundle, initial_char_id="reiko")
-            with open(os.path.join(app_dir, "index.html"), "w", encoding="utf-8") as f:
-                f.write(master_html)
-            with open(os.path.join(app_dir, "character_data.json"), "w", encoding="utf-8") as f:
-                import json
-                json.dump(multi_bundle, f, indent=2)
-            print(f"  [+] Multi-Character Mobile PWA  : Built at {os.path.join(app_dir, 'index.html')} ({len(multi_bundle)} characters)\n")
-    except Exception as e:
-        print(f"  [!] Master Mobile App Build Error: {e}\n")
-
     print("============================================================")
     print("      SR6 ECOSYSTEM SYNC COMPLETED SUCCESSFULLY!")
     print("============================================================\n")
@@ -181,10 +123,9 @@ def main():
     # -------------------------------------------------------------
     # 1. VERB: build (Primary single-source build pipeline)
     # -------------------------------------------------------------
-    build_parser = subparsers.add_parser("build", aliases=["sync-all"], help="Rebuild master YAMLs, sync purchases, run audits, generate dossiers, and export quick-sheets")
+    build_parser = subparsers.add_parser("build", aliases=["sync-all"], help="Rebuild master YAMLs, sync purchases, run audits, and export PDF/Roll20/CommLink6 sheets")
     build_parser.add_argument("--rebuild-yaml", action="store_true", default=True, help="Recompile master YAML files completely from Markdown Trio (default: True)")
     build_parser.add_argument("--skip-rebuild-yaml", action="store_false", dest="rebuild_yaml", help="Skip recompiling master YAML files")
-    build_parser.add_argument("--skip-npm", action="store_true", help="Skip npm build step")
 
     # -------------------------------------------------------------
     # 2. VERB: char (Character portfolio management)
@@ -198,7 +139,7 @@ def main():
     sync_parser.add_argument("char_id", type=str, nargs="?", help="Character ID (or omit to sync all)")
     audit_parser = char_sub.add_parser("audit", help="Audit character creation compliance")
     audit_parser.add_argument("char_id", type=str, nargs="?", help="Character ID (reiko, velvet, venn)")
-    sheet_parser = char_sub.add_parser("sheet", help="Print or export 2-page ASCII quick-sheet")
+    sheet_parser = char_sub.add_parser("sheet", help="Export official fillable PDF character sheet")
     sheet_parser.add_argument("char_id", type=str, help="Character ID (reiko, velvet, venn)")
     sheet_parser.add_argument("--output", type=str, default=None, help="Custom output filepath")
     adv_parser = char_sub.add_parser("advance", help="Purchase gear/qualities for character")
@@ -358,9 +299,9 @@ def main():
     narrate_parser.add_argument("--voice", type=str, default="af_heart", help="Kokoro voice model")
     narrate_parser.add_argument("--pacing", type=str, choices=["tight", "balanced", "spacious"], default="balanced", help="Pacing profile")
 
-    export_parser = subparsers.add_parser("export", help="Export character to Roll20 JSON, CommLink 6 XML, 2-Page ASCII Quick-Sheet, Fillable PDF, or Standalone Mobile PWA")
+    export_parser = subparsers.add_parser("export", help="Export character to Fillable PDF, Roll20 JSON, CommLink 6 XML, or derived JSON bundle")
     export_parser.add_argument("char_id", type=str, help="Character ID (reiko, velvet, venn)")
-    export_parser.add_argument("--format", type=str, choices=["roll20", "roll20_json", "commlink", "xml", "quick_sheet", "sheet", "mobile", "text", "pdf", "fillable_pdf"], default="quick_sheet", help="Export format (quick_sheet, roll20, commlink, mobile, pdf)")
+    export_parser.add_argument("--format", type=str, choices=["pdf", "fillable_pdf", "roll20", "roll20_json", "commlink", "xml", "mobile_json"], default="pdf", help="Export format (pdf, roll20, commlink, mobile_json)")
     export_parser.add_argument("--output", "-o", type=str, default=None, help="Custom output filepath")
 
     # transcribe subcommand
@@ -536,11 +477,6 @@ def main():
     v_pdf.add_argument("--output-dir", type=str, default=None, help="Output directory for markdown files")
 
     # serve subcommand
-    serve_parser = subparsers.add_parser("serve", help="Launch local live-sync server & web tactical PWA")
-    serve_parser.add_argument("--port", type=int, default=8080, help="HTTP port (default: 8080)")
-    serve_parser.add_argument("--host", type=str, default="0.0.0.0", help="HTTP host (default: 0.0.0.0)")
-
-
     args = parser.parse_args()
     cm = CharacterManager()
 
@@ -586,51 +522,15 @@ def main():
             else:
                 console.print(f"  • [{r.get('char_id', 'Unknown')}] {r.get('message', 'Skipped')}")
 
-        # 3. Ingest characters & bake defaultBundle.ts
-        console.print("\n[bold green][3/4] Exporting mobile JSON bundles & regenerating defaultBundle.ts...[/bold green]")
-        bundle = {}
-        for c in cm.list_characters():
-            cid = c["id"]
-            if c.get("exists"):
-                c_data = cm.get_character_data(cid)
-                repo_dir = cm.get_character_repo_dir(cid)
-                if c_data:
-                    bundle[cid] = export_mobile_json(c_data, char_repo_path=repo_dir)
-
-        bundle_dir = os.path.join(os.path.dirname(__file__), "..", "web", "src", "data")
-        os.makedirs(bundle_dir, exist_ok=True)
-        bundle_path = os.path.join(bundle_dir, "defaultBundle.ts")
-        with open(bundle_path, "w", encoding="utf-8") as f:
-            f.write("export const defaultBundle: any = " + json.dumps(bundle, indent=2, ensure_ascii=False) + ";\n")
-        console.print(f"[green]  • Inlined {len(bundle)} character portfolios into {bundle_path}[/green]")
-
-        # Also emit standalone mobile app HTML directly into app/index.html
-        from sr6core.publishing.mobile_html import get_mobile_html_template
-        app_html_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "app", "index.html"))
-        os.makedirs(os.path.dirname(app_html_path), exist_ok=True)
-        with open(app_html_path, "w", encoding="utf-8") as f:
-            f.write(get_mobile_html_template(bundle, initial_char_id="velvet"))
-        console.print(f"[green]  • Standalone mobile PWA refreshed: {app_html_path}[/green]")
-
-        # 3. Optional Vite PWA build if web/package.json exists
-        web_dir = os.path.join(os.path.dirname(__file__), "..", "web")
-        if not getattr(args, "skip_npm", False) and os.path.exists(os.path.join(web_dir, "package.json")):
-            console.print("\n[bold green][3/3] Compiling single-file offline PWA via npm...[/bold green]")
-            try:
-                res = subprocess.run(["npm", "run", "build"], cwd=web_dir, capture_output=True, text=True, check=True, shell=True)
-                out_html = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "app", "index.html"))
-                console.print(f"[bold green][OK] Single-file mobile PWA successfully built: {out_html}[/bold green]\n")
-            except subprocess.CalledProcessError as e:
-                console.print(f"[bold red][Error] npm run build failed: {e.stderr}[/bold red]\n")
-
-        # 4. Generate 2-Page ASCII Quick-Sheets & Appendix Dossiers
-        console.print("\n[bold green][4/4] Optimizing Images & Generating 2-Page ASCII Quick-Sheets...[/bold green]")
+        # 3. Export Fillable PDFs, CommLink 6 XML, Roll20 JSON & Optimize Images
+        console.print("\n[bold green][3/3] Optimizing Images & Exporting PDF / Roll20 / CommLink6 Sheets...[/bold green]")
         for c in cm.list_characters():
             cid = c["id"]
             if c.get("exists"):
                 try:
                     cfile_path = c.get("path")
                     repo_dir = os.path.dirname(cfile_path) if os.path.isfile(cfile_path) else cfile_path
+                    cm.clean_output_directory(repo_dir)
                     try:
                         from pathlib import Path as _Path
                         from sr6core.narrative.sync import optimize_character_images
@@ -640,11 +540,9 @@ def main():
                             console.print(f"  • [{cid}] Image Hygiene: converted {len(img_opt['converted_images'])} image(s) to .webp ({saved_kb:.1f} KB saved)")
                     except Exception as img_err:
                         console.print(f"  • [{cid}] Image Hygiene warning: {img_err}")
-                    text_dir = os.path.join(repo_dir, "output", "text")
-                    os.makedirs(text_dir, exist_ok=True)
-                    sheet_path = os.path.join(text_dir, f"{cid}_sheet.txt")
-                    cm.export_character(cid, fmt="quick_sheet", output_path=sheet_path)
-                    console.print(f"  • [{cid}] Quick-Sheet: {sheet_path}")
+
+                    pdf_path = cm.export_character(cid, fmt="pdf")
+                    console.print(f"  • [{cid}] Fillable PDF: {pdf_path}")
 
                     # CommLink 6 XML Export
                     xml_path = os.path.join(repo_dir, "output", f"{cid}_sheet.xml")
@@ -1026,8 +924,8 @@ def main():
             from sr6core.character import load_character
             char = load_character(args.char_id)
             out_p = getattr(args, "output", None)
-            sheet = char.export_quick_sheet(output_path=out_p)
-            print(sheet)
+            pdf_path = char.export_fillable_pdf(output_path=out_p)
+            print(f"[OK] Exported fillable PDF sheet for '{args.char_id}' to {pdf_path}")
 
         elif args.subcommand == "audit":
             from sr6core.character.mission_match import audit_character_missions
@@ -1593,10 +1491,6 @@ def main():
             except Exception as e:
                 print(f"\n Gemini API Store Status: [Unavailable / {e}]")
             print()
-
-    elif args.command == "serve":
-        from sr6core.server import run_server
-        run_server(port=args.port, host=args.host)
 
     elif args.command == "source":
         from sr6core.rules.source_explorer import search_source_book, format_source_results

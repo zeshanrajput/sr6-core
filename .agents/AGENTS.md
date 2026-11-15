@@ -72,7 +72,7 @@ Before completing edits or reviewing narrative/character updates, run correspond
 * **Dice Pool Roller**: `uv run sr6 roll <dice_pool> [--edge]`
 * **TTS Narration Generation**: `uv run --extra narration sr6 narrate "chapters/<file>.qmd" --voice af_heart`
 * **Ecosystem Sync & Build**: `uv run sr6 sync-all`
-* **Multi-Format Exporters**: `uv run sr6 export <char_id> --format=roll20|vtt|xml|text_modular`
+* **Multi-Format Exporters**: `uv run sr6 export <char_id> --format=pdf|roll20|xml|mobile_json`
 * **Plugin Management**: `uv run sr6 plugin status` / `uv run sr6 plugin install`
 
 ---

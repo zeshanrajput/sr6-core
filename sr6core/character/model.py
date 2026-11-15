@@ -6,7 +6,7 @@ This module provides:
    spells, cyberware, vehicles, statblocks).
 2. The high-level, unified `Character` class wrapping tabletop state with rich,
    documented properties (.name, .nuyen, .karma, .attributes, .skills, .pools,
-   .gear, .weapons) and lifecycle methods (.sync(), .audit(), .export_quick_sheet()).
+   .gear, .weapons) and lifecycle methods (.sync(), .audit(), .export_fillable_pdf()).
 """
 
 from __future__ import annotations
@@ -415,7 +415,7 @@ class Character:
         >>> char = sr6core.load_character("reiko")
         >>> print(f"{char.name} has {char.nuyen}¥ and {char.karma} Karma")
         >>> print(f"Firearms pool: {char.pools.get('Firearms', 0)}d6")
-        >>> char.export_quick_sheet()  # Generates 2-page ASCII reference sheet
+        >>> char.export_fillable_pdf()  # Generates Catalyst 2-page fillable PDF sheet
     """
 
     def __init__(self, raw_data: Dict[str, Any], repo_dir: Optional[str] = None):
@@ -581,22 +581,6 @@ class Character:
         from sr6core.character.audit import deep_audit_character
 
         return deep_audit_character(self.id)
-
-    def export_quick_sheet(self, output_path: Optional[str] = None) -> str:
-        """
-        Generates the strictly budgeted 2-page ASCII reference sheet (<= 120 lines total,
-        76-column fixed width) and writes it to disk.
-
-        Args:
-            output_path: Optional destination path. Defaults to
-                `characters/{char_id}/output/text/{char_id}_sheet.txt`.
-
-        Returns:
-            str: Path to the generated sheet file.
-        """
-        from sr6core.publishing.quick_sheet import export_quick_sheet
-
-        return export_quick_sheet(self._raw, char_repo_path=self._repo_dir, output_path=output_path)
 
     def export_fillable_pdf(self, output_path: Optional[str] = None) -> str:
         """

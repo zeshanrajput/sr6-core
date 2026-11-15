@@ -52,6 +52,7 @@ _COMPACT_DA_FIELDS = {
     "Programs 4": "(/Helv 6.5 Tf 0 g)",
     "Sensor": "(/Helv 6.5 Tf 0 g)",
     "Notes": "(/Helv 5.5 Tf 0 g)",
+    "Augmentations": "(/Helv 6 Tf 0 g)",
 }
 
 
@@ -490,6 +491,50 @@ def _format_essence(ess_raw: Any, is_ai: bool) -> str:
     return f"{ess_f:.2f}"
 
 
+def _format_chassis_mod_lines(mods: List[Any]) -> List[str]:
+    """
+    Format primary drone/vehicle chassis modifications concisely for the Page 2
+    `Augmentations` box (~85pt tall) when an AI character inhabits a drone body.
+    """
+    items: List[str] = []
+    for raw_mod in mods:
+        text = _clean_pdf_text(raw_mod).strip()
+        if not text:
+            continue
+        low = text.lower()
+        # Skip descriptive sub-bullets that explain a preceding modification rank.
+        if low.startswith("increases combat acceleration") or low.startswith("increases top speed"):
+            continue
+        # Trim verbose cost/citation prose inside parentheticals while keeping key tags.
+        if "; base " in text:
+            head = text.split("; base ")[0].strip()
+            text = f"{head})" if "(" in head and not head.endswith(")") else head
+        elif "from the evo orderly" in low:
+            text = re.sub(r"\s*\(from the EVO Orderly[^)]*\)", "", text, flags=re.IGNORECASE).strip()
+        elif "; drone includes " in low:
+            text = re.sub(r"\s*\(1 additional;\s*drone includes[^)]*\)", "", text, flags=re.IGNORECASE).strip()
+        elif "taken for narrative/rp purposes only" in low:
+            text = re.sub(r"\s*\([^)]*narrative/rp purposes only[^)]*\)", " (RP)", text, flags=re.IGNORECASE).strip()
+        items.append(text)
+
+    if len(items) <= 10:
+        return items
+
+    # Pack intact items onto wrapped lines so all modifications remain readable on printouts.
+    lines: List[str] = []
+    current = ""
+    for item in items:
+        candidate = f"{current}; {item}" if current else item
+        if current and len(candidate) > 74:
+            lines.append(current)
+            current = item
+        else:
+            current = candidate
+    if current:
+        lines.append(current)
+    return lines
+
+
 def _chunk_programs(items: List[str], num_slots: int = 4) -> List[str]:
     """Distribute Matrix programs/autosofts evenly across `Programs 1..4` lines."""
     slots = ["", "", "", ""]
@@ -661,6 +706,8 @@ def build_pdf_field_map(
     if bundle.get("nanohive"):
         nh = bundle["nanohive"]
         aug_lines.append(f"Nanohive Rating {nh.get('rating', 6)} ({nh.get('max_volume', 18)} Max NV, {nh.get('replenish_rate', '')})")
+    if not aug_lines and is_ai and primary_v and primary_v.get("modifications"):
+        aug_lines.extend(_format_chassis_mod_lines(primary_v.get("modifications", [])))
 
     gear_lines = []
     for g in bundle.get("gear_items", []):
@@ -672,10 +719,14 @@ def build_pdf_field_map(
         rtg_s = f" (R{rtg})" if rtg is not None and not has_rtg else ""
         gear_lines.append(f"{qty_s}{g_name}{rtg_s}")
     for md in bundle.get("matrix_devices", []):
-        gear_lines.append(f"[Commlink] {_clean_pdf_text(md.get('name', 'Device'))} (DR {md.get('rating', 3)})")
+        md_qty = int(md.get("qty") or 1)
+        md_qty_s = f"{md_qty}x " if md_qty > 1 else ""
+        gear_lines.append(f"{md_qty_s}[Commlink] {_clean_pdf_text(md.get('name', 'Device'))} (DR {md.get('rating', 3)})")
     for extra_v in vehicles[1:]:
+        v_qty = int(extra_v.get("qty") or extra_v.get("quantity") or 1)
+        v_qty_s = f"{v_qty}x " if v_qty > 1 else ""
         gear_lines.append(
-            f"[Drone] {_clean_pdf_text(extra_v.get('name', 'Drone'))} "
+            f"{v_qty_s}[Drone] {_clean_pdf_text(extra_v.get('name', 'Drone'))} "
             f"(H:{extra_v.get('handling', '-')} "
             f"AC:{extra_v.get('accel', '-')} "
             f"SP:{extra_v.get('speed', '-')} "

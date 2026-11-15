@@ -64,7 +64,7 @@ def character_actions_menu(cm: CharacterManager, char_id: str):
         print(" [1] View Sheet Summary & Attributes")
         print(" [2] Deep Audit (Item-by-Item & Transaction Pricing)")
         print(" [3] Advance / Shop for Gear, Qualities & Spells")
-        print(" [4] Export Modular Plain-Text Sheets (Base, Contacts, Combat, etc.)")
+        print(" [4] Export Official Fillable PDF Character Sheet")
         print(" [5] Export Roll20 JSON")
         print(" [6] Export Genesis / CommLink6 Compliant XML")
         print(" [B] Back to Character Selection")
@@ -112,15 +112,8 @@ def character_actions_menu(cm: CharacterManager, char_id: str):
                         print(f"\n{msg}")
 
         elif choice == '4':
-            sheets = cm.export_character(char_id, fmt="text_modular")
-            repo_dir = cm.get_character_repo_dir(char_id) or "."
-            txt_dir = os.path.join(repo_dir, "output", "text")
-            os.makedirs(txt_dir, exist_ok=True)
-            for fname, content in sheets.items():
-                target = os.path.join(txt_dir, fname)
-                with open(target, "w", encoding="utf-8") as f:
-                    f.write(content)
-            print(f"\n[OK] Generated {len(sheets)} Modular Text Sheets in {txt_dir}\n")
+            pdf_path = cm.export_character(char_id, fmt="pdf")
+            print(f"\n[OK] Generated Fillable PDF Sheet at {pdf_path}\n")
 
         elif choice == '5':
             out = cm.export_character(char_id, fmt="roll20")

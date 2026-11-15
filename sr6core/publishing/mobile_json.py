@@ -945,6 +945,7 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
         return {
             "name": v_name,
             "category": "drone" if is_drone else "vehicle",
+            "qty": int(item.get("quantity") or item.get("qty") or 1),
             "role": v_role,
             "handling": aug_profile.get("handling_str", f"{han_on}/{han_off}"),
             "accel": aug_profile.get("accel_str", f"{acc_on}/{acc_off}"),

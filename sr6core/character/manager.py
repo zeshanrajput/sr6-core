@@ -281,21 +281,21 @@ class CharacterManager:
                     os.remove(entry_path)
                 except Exception:
                     pass
-            elif entry in ["xml", "cards"] and os.path.isdir(entry_path):
+            elif entry in ["xml", "cards", "text", "mobile"] and os.path.isdir(entry_path):
                 import shutil
                 try:
                     shutil.rmtree(entry_path)
                 except Exception:
                     pass
 
-    def export_character(self, char_id: str, fmt: str = "quick_sheet", output_path: Optional[str] = None) -> Any:
+    def export_character(self, char_id: str, fmt: str = "pdf", output_path: Optional[str] = None) -> Any:
         data = self.get_character_data(char_id)
         if not data:
             raise ValueError(f"Character data for '{char_id}' not found.")
 
         repo_path = self.get_character_repo_dir(char_id)
         fmt = fmt.lower()
-        if fmt in ["roll20", "roll20_json", "genesis", "json"]:
+        if fmt in ["roll20", "roll20_json", "genesis", "json", "vtt"]:
             from sr6core.publishing.roll20_json import export_roll20_json
             content = export_roll20_json(data, char_repo_path=repo_path)
             if output_path:
@@ -303,12 +303,6 @@ class CharacterManager:
                 with open(output_path, "w", encoding="utf-8") as f:
                     f.write(content)
             return content
-        elif fmt in ["quick_sheet", "sheet", "text", "txt", "text_modular", "vtt", "base"]:
-            from sr6core.publishing.quick_sheet import export_quick_sheet
-            return export_quick_sheet(data, char_repo_path=repo_path, output_path=output_path)
-        elif fmt in ["mobile", "mobile_html", "html"]:
-            from sr6core.publishing.mobile_html import export_mobile_html
-            return export_mobile_html(data, char_id=char_id, char_repo_path=repo_path)
         elif fmt in ["mobile_json"]:
             from sr6core.publishing.mobile_json import export_mobile_json
             return export_mobile_json(data, char_repo_path=repo_path)

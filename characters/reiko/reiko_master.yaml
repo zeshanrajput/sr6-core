@@ -1677,6 +1677,7 @@ drones:
   modifications:
   - Realistic Features 4
   - Laser Jack
+  quantity: 5
 - name: MCT Hornet
   ref: mct_hornet
   body: 1
@@ -1897,57 +1898,6 @@ matrix_devices:
   - Social HUD (R6)
   - Thermal Mood Reading
   - Vocal Tension Detection
-- name: Software Library
-  rating: 1
-  qty: 1
-  accessories:
-  - Basic Programs
-  - Baby Monitor
-  - Browse
-  - Edit
-  - Emulator
-  - Encryption
-  - Signal Scrubber
-  - Toolbox
-  - Virtual Machine
-  - Hacking Programs
-  - Decryption
-  - Defense Pods
-  - Directional Shields
-  - Fork
-  - Hitchhiker
-  - Nexus Protocol
-  - Overclock
-  - Trace
-  - 'Sleepsey (Original Exploit Program) (SRM 2081-13 Mission Loot: targets 2066 Herkimer
-    Schützenpanzers, fills rigger stun track and bricks rigging controls)'
-- name: Knowsofts
-  rating: 1
-  qty: 1
-  accessories:
-  - Japanese Cultural Etiquette (R3)
-  - New Orleans Vodou & Loa Syncretism (R3)
-  - Gross Metahuman Fluids
-  - Dissonance — Theory & Applications
-- name: Other
-  rating: 1
-  qty: 1
-  accessories:
-  - Mapsoft x4
-  - Shopsoft x6
-  - 'Mapsoft: Burma / Rangoon & Irrawaddy Delta (Provided by Foreign Ministry, CMP
-    2083-07)'
-  - 'Linguasoft: Burmese (Rating 3)'
-  - Coding Facility
-- name: Data Structures & Resonance Constructs
-  rating: 1
-  qty: 1
-  accessories:
-  - Oracle (Rating 4)
-  - 'Integration: Incorporated into the physical optical cluster substrate and foundation
-    brick of Reiko''s home host,  (aboard the Federated-Boeing Sky Commander). Under
-    SRMG v2.4, an Emergent Intelligence residing in the host device can actively bond
-    and use one data structure as a focus.'
 gear:
 - name: 5x Peak-Discharge Laser Battery Clips (Red Fox)
   qty: 5

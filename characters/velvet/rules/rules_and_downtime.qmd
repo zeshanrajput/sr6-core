@@ -26,10 +26,9 @@ Willpower = attrs.get("willpower", 5)
 ## 🎲 Physical Tabletop Companion Mandate
 In accordance with our tabletop doctrine, players roll physical dice at the gaming table. This chapter documents the underlying rules, citations, and stacking legality behind Velvet's stats. 
 
-Live situational dice pools, condition modifiers, and active gear ratings are calculated dynamically in your companion tools:
-* 📱 **[Mobile PWA Interactive Sheet](../output/mobile/index.html)**
+Exported tabletop sheets and VTT payloads:
 * 📄 **[Official Fillable PDF Sheet (velvet_sheet.pdf)](../output/pdf/velvet_sheet.pdf)**
-* 📝 **[Plain-Text Tabletop Sheet (velvet_sheet.txt)](../output/text/velvet_sheet.txt)**
+* 🎲 **[Roll20 Genesis JSON (velvet_roll20.json)](../output/roll20/velvet_roll20.json)**
 :::
 
 ---

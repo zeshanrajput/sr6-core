@@ -144,4 +144,4 @@ Before completing edits or reviewing narrative/character updates, run correspond
 * **Item Reference Cards**: `uv run sr6 card <quality|weapon|spell|cyberware|pack> <name>`
 * **Character Creation Auditor**: `uv run sr6 characters audit [char_id]`
 * **Ecosystem Sync & Build**: `uv run sr6 sync-all`
-* **Multi-Format Exporters**: `uv run sr6 export <char_id> --format=roll20|vtt|xml|text_modular`
+* **Multi-Format Exporters**: `uv run sr6 export <char_id> --format=pdf|roll20|xml|mobile_json`

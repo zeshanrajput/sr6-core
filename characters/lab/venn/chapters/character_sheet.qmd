@@ -1,31 +1,16 @@
-# Character Dossier & Quick Sheet
-
-```{python}
-#| echo: false
-#| include: false
-from sr6core.character.manager import CharacterManager
-from sr6core.publishing.quick_sheet import export_quick_sheet
-
-cm = CharacterManager()
-char_data = cm.get_character_data("venn") or {}
-repo_dir = cm.get_character_repo_dir("venn")
-
-sheet_txt = export_quick_sheet(char_data, char_repo_path=repo_dir)
-```
+# Character Dossier & Fillable Sheet
 
 ::: {.callout-note}
-### Character Views & Quick Reference
-* 📱 **Mobile Character App**: [Launch Mobile Interactive Sheet](../output/mobile/index.html){.btn .btn-primary target="_blank"}
-* 📄 **Official Fillable PDF Sheet**: [venn_sheet.pdf](../output/pdf/venn_sheet.pdf)
-* 📝 **Plain-Text Quick Sheet**: [venn_sheet.txt](../output/text/venn_sheet.txt)
+### Character Views & Exports
+* 📄 **Official Fillable PDF Sheet**: [Download venn_sheet.pdf](../output/pdf/venn_sheet.pdf){.btn .btn-primary target="_blank"}
 * 🎲 **Roll20 Genesis JSON**: [venn_roll20.json](../output/roll20/venn_roll20.json)
 * 📜 **Roll20 Macros & Effects Guide**: [venn_roll20_macros.md](../output/roll20/venn_roll20_macros.md)
 :::
 
-## Tabletop Quick Reference Sheet
+## Official Fillable PDF Character Sheet
 
-```{python}
-#| echo: false
-#| output: asis
-print(f"```text\n{sheet_txt}\n```")
+```{=html}
+<iframe src="../output/pdf/venn_sheet.pdf" width="100%" height="920px" style="border: 1px solid rgba(255,255,255,0.12); border-radius: 8px;" title="Venn Fillable PDF Character Sheet">
+  <p>Your browser does not support embedded PDFs. <a href="../output/pdf/venn_sheet.pdf" target="_blank">Download venn_sheet.pdf</a>.</p>
+</iframe>
 ```

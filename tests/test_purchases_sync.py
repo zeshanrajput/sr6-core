@@ -31,6 +31,17 @@ def test_parse_purchases_qmd_reiko():
     assert not any("used synthetic cyberarm (left" in m.lower() for m in maa_mods)
     assert any("secondary propulsion (vector thrust" in m.lower() for m in maa_mods)
 
+    # Verify Drone quantities parsed (e.g. MCT Gnat x5, MCT Hornet x2)
+    qtys = parsed.get("drone_quantities", {})
+    assert any("gnat" in k.lower() and v == 5 for k, v in qtys.items())
+    assert any("hornet" in k.lower() and v == 2 for k, v in qtys.items())
+
+    # Verify non-device Matrix headings are not misclassified as commlink hardware
+    dev_names = [d.get("name", "").lower() for d in parsed.get("matrix_devices", [])]
+    assert "m-toc ii" in dev_names
+    assert "software library" not in dev_names
+    assert "knowsofts" not in dev_names
+
     # Verify Autosofts list
     assert "autosofts" in parsed
     assert any("targeting" in a.lower() for a in parsed["autosofts"])

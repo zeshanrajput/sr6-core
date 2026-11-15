@@ -56,6 +56,7 @@ class PurchasesSyncEngine:
         current_sin = None
 
         drone_mods: Dict[str, List[str]] = {}
+        drone_quantities: Dict[str, int] = {}
         autosofts: List[str] = []
         programs: List[str] = []
         commlink_apps: List[str] = []
@@ -101,10 +102,15 @@ class PurchasesSyncEngine:
             if current_section == 'vehicles':
                 # Check indentation / bullet level
                 if raw_line.startswith('* ') or (raw_line.startswith('- ') and not raw_line.startswith('  -')):
-                    # Top-level drone entry (e.g. * Shiawase Man-At-Arms ...)
+                    # Top-level drone entry (e.g. * Shiawase Man-At-Arms ..., * MCT Gnat x5)
                     drone_title = cls.clean_item_text(stripped)
-                    # Normalize drone name
-                    current_drone = drone_title.split('(')[0].strip()
+                    # Normalize drone name and extract optional quantity (e.g. x5)
+                    raw_drone = drone_title.split('(')[0].strip()
+                    m_dqty = re.search(r'\s+x\s*(\d+)\b', raw_drone, re.IGNORECASE)
+                    d_qty = int(m_dqty.group(1)) if m_dqty else 1
+                    current_drone = re.sub(r'\s+x\s*\d+\b', '', raw_drone, flags=re.IGNORECASE).strip()
+                    if d_qty > 1:
+                        drone_quantities[current_drone] = d_qty
                     if current_drone not in drone_mods:
                         drone_mods[current_drone] = []
                 elif current_drone and (raw_line.startswith('  *') or raw_line.startswith('    *') or raw_line.startswith('  -')):
@@ -141,6 +147,12 @@ class PurchasesSyncEngine:
                         current_device = None
                     elif 'sensor' in low_stripped or 'audio' in low_stripped:
                         current_sub_category = 'sensors'
+                        current_device = None
+                    elif any(
+                        kw in low_stripped
+                        for kw in ('software library', 'knowsoft', 'data structures', 'resonance constructs')
+                    ) or low_stripped in ('* other', '- other'):
+                        current_sub_category = 'ignored_header'
                         current_device = None
                     else:
                         dev_text = cls.clean_item_text(stripped)
@@ -285,6 +297,7 @@ class PurchasesSyncEngine:
 
         return {
             "drone_modifications": drone_mods,
+            "drone_quantities": drone_quantities,
             "autosofts": autosofts,
             "programs": programs,
             "commlink_apps": commlink_apps,
@@ -390,9 +403,10 @@ class PurchasesSyncEngine:
         data = char_record["data"]
         changes = []
 
-        # 1. Sync Drone Modifications
+        # 1. Sync Drone Modifications & Quantities
         drones = data.get("drones", []) + data.get("vehicles", [])
         parsed_drones = parsed.get("drone_modifications", {})
+        parsed_drone_qtys = parsed.get("drone_quantities", {})
 
         for d in drones:
             if not isinstance(d, dict):
@@ -410,6 +424,14 @@ class PurchasesSyncEngine:
                 if old_mods != matched_mods:
                     d["modifications"] = matched_mods
                     changes.append(f"Updated {d_name} modifications ({len(matched_mods)} mods synced from purchases.qmd)")
+
+            for p_name, p_qty in parsed_drone_qtys.items():
+                if p_name.lower() in d_name.lower() or d_name.lower() in p_name.lower():
+                    old_qty = d.get("quantity", d.get("qty", 1))
+                    if old_qty != p_qty:
+                        d["quantity"] = p_qty
+                        changes.append(f"Updated {d_name} quantity ({old_qty} -> {p_qty})")
+                    break
 
         # 2. Sync SINs & Licenses
         parsed_sins = parsed.get("sins", [])

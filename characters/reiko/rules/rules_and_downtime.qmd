@@ -84,10 +84,9 @@ MAA_EFF_HANDLING = 4 - 1  # Pilot Origins Control Rig R1 equivalent reduces vehi
 ## 🎲 Physical Tabletop Companion Mandate
 This chapter documents the underlying rules, citations, and stacking legality behind Reiko's stats.
 
-Live situational dice pools, condition modifiers, and active gear ratings are calculated dynamically in the companion tools:
-* 📱 **[Mobile PWA Interactive Sheet](../output/mobile/index.html)**
+Exported tabletop sheets and VTT payloads:
 * 📄 **[Official Fillable PDF Sheet (reiko_sheet.pdf)](../output/pdf/reiko_sheet.pdf)**
-* 📝 **[Plain-Text Tabletop Sheet (reiko_sheet.txt)](../output/text/reiko_sheet.txt)**
+* 🎲 **[Roll20 Genesis JSON (reiko_roll20.json)](../output/roll20/reiko_roll20.json)**
 :::
 
 ---

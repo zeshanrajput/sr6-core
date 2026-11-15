@@ -133,7 +133,7 @@ TOOLS_DEFINITIONS: List[Dict[str, Any]] = [
     },
     {
         "name": "sr6_export_character",
-        "description": "Exports a character sheet to Roll20 JSON, Genesis XML, or Modular Text formats.",
+        "description": "Exports a character sheet to Fillable PDF, Roll20 JSON, CommLink 6 XML, or derived JSON bundle.",
         "inputSchema": {
             "type": "object",
             "properties": {
@@ -143,8 +143,8 @@ TOOLS_DEFINITIONS: List[Dict[str, Any]] = [
                 },
                 "format": {
                     "type": "string",
-                    "enum": ["text_modular", "roll20", "vtt", "xml", "mobile", "mobile_json"],
-                    "default": "text_modular",
+                    "enum": ["pdf", "roll20", "vtt", "xml", "mobile_json"],
+                    "default": "pdf",
                     "description": "Target export format."
                 }
             },
@@ -637,7 +637,7 @@ def handle_calculate_limb(arguments: Dict[str, Any]) -> str:
 def handle_export_character(arguments: Dict[str, Any]) -> str:
     from sr6core.character.manager import CharacterManager
     char_id = arguments.get("char_id", "")
-    fmt = arguments.get("format", "quick_sheet")
+    fmt = arguments.get("format", "pdf")
     if not char_id:
         return "Error: char_id is required."
     try:

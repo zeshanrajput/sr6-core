@@ -1,14 +1,13 @@
 """
-Test suite for SR6 Mobile JSON and HTML exporters.
+Test suite for SR6 Derived Character Sheet JSON exporter.
 Validates multi-character compilation, standard buffs calculation, AI matrix attributes,
-melee weapon fire mode handling, base vs buffed attributes, and standalone HTML generation.
+melee weapon fire mode handling, and base vs buffed attributes.
 """
 
 import os
 import pytest
 from sr6core.character.manager import CharacterManager
 from sr6core.publishing.mobile_json import export_mobile_json
-from sr6core.publishing.mobile_html import export_mobile_html, get_mobile_html_template
 
 
 def test_mobile_json_export_reiko():
@@ -253,30 +252,4 @@ def test_mobile_json_export_venn():
     assert venn_init["modes"]["physical"]["dice"] == 1
     assert venn_init["modes"]["vr_hotsim"]["score"] == 11  # DP 6 + INT 5
     assert venn_init["modes"]["vr_hotsim"]["dice"] == 3
-
-
-def test_standalone_mobile_html():
-    cm = CharacterManager()
-    char_data = cm.get_character_data("reiko")
-    repo_dir = cm.get_character_repo_dir("reiko")
-    
-    html = export_mobile_html(char_data, char_id="reiko", char_repo_path=repo_dir)
-    assert "<!DOCTYPE html>" in html
-    assert "window.__SR6_DATA_BUNDLE__" in html
-    assert "Cracking" in html
-    assert "sw.js" in html
-
-
-def test_multi_bundle_mobile_html():
-    cm = CharacterManager()
-    bundle = {}
-    for cid in ["reiko", "velvet", "venn"]:
-        c_data = cm.get_character_data(cid)
-        c_repo = cm.get_character_repo_dir(cid)
-        bundle[cid] = export_mobile_json(c_data, char_repo_path=c_repo)
-
-    html = get_mobile_html_template(bundle, initial_char_id="reiko")
-    assert "<!DOCTYPE html>" in html
-    assert "window.__SR6_DATA_BUNDLE__" in html
-    assert "Velvet" in html
 

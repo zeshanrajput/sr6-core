@@ -86,6 +86,11 @@ def test_fillable_pdf_template_repairs_and_reiko_fields(char_manager, tmp_path):
     assert values["Pilot"] == "2(10)"
     assert "Syntax Error" in values["Adept Powers or Other Abilities"]
     assert "Harmonize" in values["Adept Powers or Other Abilities"]
+    assert "Chameleon Coating 4" in values["Augmentations"]
+    assert "Secondary Propulsion (Vector Thrust / LAV)" in values["Augmentations"]
+    assert "5x [Drone] MCT Gnat" in values["Gear"]
+    assert "2x [Drone] MCT Hornet" in values["Gear"]
+    assert "[Commlink] Software Library" not in values["Gear"]
 
 
 def test_fillable_pdf_velvet_and_venn(char_manager, tmp_path):
