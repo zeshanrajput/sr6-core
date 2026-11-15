@@ -366,25 +366,47 @@ def test_reiko_roll20_export():
     assert maa["armor"] == 8
     assert maa["sensor"] == 9  # Enhanced Sensors 9 hardware
 
-    # 6. Secondary Drones (Sky Commander has Enhanced Sensors 2 -> 5 HW, +1 Sensor Upgrade = 6)
+    # 6. Secondary Drones (Autonomous Own Pilot +1 Sensor Upgrade + R9 Shared Autosofts + Stealth 11 w/ Sneak-Sneak)
     assert "Federated-Boeing Sky Commander" in drone_map
     sky = drone_map["Federated-Boeing Sky Commander"]
-    assert sky["sensor"] == 5
+    assert sky["pilot"] == 3
+    assert sky["sensor"] == 6
+    assert sky["clearsight"] == 9
+    assert sky["stealth"] == 11
+    assert "Sprite-inhabited" in sky["description"]
 
-    # 7. Echoes (All 9 Submersion Echoes)
-    echo_names = {e["name"] for e in payload["echoes"]}
-    assert len(echo_names) == 9
-    assert "New Sprite Type" in echo_names
-    assert "Sprite Conduit" in echo_names
-    assert "Sprite Symbiosis" in echo_names
-    assert "Living Network" in echo_names
-    assert "Transcendent Network" in echo_names
-    assert "Overclocking" in echo_names
-    assert "Software Emulator" in echo_names
-    assert "Sprite Link" in echo_names
-    assert "Syntax Error" in echo_names
+    assert "MCT Hornet" in drone_map
+    hornet = drone_map["MCT Hornet"]
+    assert hornet["pilot"] == 2
+    assert hornet["sensor"] == 3
+    assert hornet["clearsight"] == 9
+    assert hornet["stealth"] == 11
 
-    # 8. Complex Forms & Symbiosed Sprite Powers
+    assert "MCT Gnat" in drone_map
+    gnat = drone_map["MCT Gnat"]
+    assert gnat["pilot"] == 2
+    assert gnat["sensor"] == 2
+    assert gnat["clearsight"] == 9
+    assert gnat["stealth"] == 11
+
+    qualities_map = {q["name"]: q for q in payload["qualities"]}
+    assert "20 DR" not in qualities_map["Matrix Defense Umbrella"]["description"]
+
+    # 7. Echoes (All 9 Submersion Echoes including Syntax Error)
+    echo_map = {e["name"]: e for e in payload["echoes"]}
+    assert len(echo_map) == 9
+    assert "New Sprite Type" in echo_map
+    assert "Sprite Conduit" in echo_map
+    assert "Sprite Symbiosis" in echo_map
+    assert "Living Network" in echo_map
+    assert "Transcendent Network" in echo_map
+    assert "Overclocking" in echo_map
+    assert "Software Emulator" in echo_map
+    assert "Sprite Link" in echo_map
+    assert "Syntax Error" in echo_map
+    assert "Hack & Slash p.69" in echo_map["Syntax Error"]["page"]
+
+    # 8. Complex Forms & Symbiosed Sprite Powers (Clean Descriptions, Dynamic 24d6 Pools in Influences)
     cf_map = {cf["name"]: cf for cf in payload["complexForms"]}
     assert "Cyber Spike" in cf_map
     assert "Resonance Spike" in cf_map
@@ -393,10 +415,55 @@ def test_reiko_roll20_export():
     assert "Sprite Power: Phantom" in cf_map
     assert "Sprite Power: Override" in cf_map
     assert "Sprite Power: Harmonize" in cf_map
-    assert "23d6" in cf_map["Cyber Spike"]["description"]
-    assert "23d6" in cf_map["Resonance Spike"]["description"]
+    assert any("24d6" in inf for inf in cf_map["Cyber Spike"]["influences"])
+    assert any("24d6" in inf for inf in cf_map["Resonance Spike"]["influences"])
+    assert any("24d6" in inf for inf in cf_map["Sprite Power: Death Mark"]["influences"])
+    assert "Total Pool:" not in cf_map["Cyber Spike"]["description"]
+    assert "Total Pool:" not in cf_map["Resonance Spike"]["description"]
+    assert "Total Pool:" not in cf_map["Sprite Power: Death Mark"]["description"]
+    assert not cf_map["Resonance Spike"]["description"].startswith("Source:")
 
-    # 9. Matrix Devices
+    # 9. Augmentations (9 Structured Man-at-Arms Chassis Systems at 0.0 Essence)
+    aug_names = {a["name"] for a in payload["augmentations"]}
+    assert len(payload["augmentations"]) >= 9
+    for expected_aug in (
+        "Increased Structural Integrity",
+        "Secondary Propulsion: Vector Thrust (LAV) & Thruster Tuning",
+        "Chameleon Coating & Passive Stealth",
+        "Realistic Features",
+        "Synthetic Cyberarm (Right) — 8 Capacity",
+        "Enhanced Sensors Array",
+        "Weapon Mount (Small) x2 & Ocular Pop-Out Concealment",
+        "Ram Plate (Left Forearm Wrist-Shield)",
+        "Drone Rack (Small) & Integrated Hardline Comms",
+    ):
+        assert expected_aug in aug_names
+    for aug in payload["augmentations"]:
+        assert aug["essence"] == 0.0
+
+    # 10. Items (Clean Gear List: Deduplicated Commlink Apps, Electronics, Supplies, Regalia)
+    items_map = {i["name"]: i for i in payload["items"]}
+    assert "Commlink Software Library" in items_map
+    for app_dup in (
+        "Facial Scanner",
+        "P-ICE Spines",
+        "Personal Assistant (R6)",
+        "Social HUD (R6)",
+        "Thermal Mood Reading",
+        "Vocal Tension Detection",
+    ):
+        assert app_dup not in items_map
+    assert items_map["Peak-Discharge Laser Battery Clips (Crimson Wasp)"]["count"] == 5
+    assert items_map["Glitter Grenades"]["count"] == 10
+    assert items_map["Laser Jack"]["count"] == 10
+    assert items_map["Satellite Link"]["count"] == 2
+    assert items_map["Narcoject"]["count"] == 20
+    assert items_map["Cyanide"]["count"] == 5
+    assert "Coding Facility" in items_map
+    assert "Brooch of the Seelie Court" in items_map
+    assert "Dagger of the Sacred Rose" in items_map
+
+    # 11. Matrix Devices & Programs
     m_dev_map = {md["name"]: md for md in payload["matrixItems"]}
     assert "Living Persona (r31-K0 / Pilot AI)" in m_dev_map
     lp = m_dev_map["Living Persona (r31-K0 / Pilot AI)"]
@@ -404,12 +471,28 @@ def test_reiko_roll20_export():
     assert lp["sleaze"] == 9
     assert lp["dataProcessing"] == 7
     assert lp["firewall"] == 9
+    assert "20 DR" not in lp["description"]
+    assert "Toolbox [+1 DP]" in lp["description"]
+    sw_emu = next(a for a in lp["accessories"] if a["name"] == "Software Emulator Echo")
+    assert sw_emu["rating"] == 9
+
+    assert "M-TOC II" not in m_dev_map
     assert "M-TOC Mark II" in m_dev_map
+    assert m_dev_map["M-TOC Mark II"]["accessories"] == []
     assert "Essy Motors DroneMaster" in m_dev_map
     assert "The Holy Wild Sanctuary Host (~)" in m_dev_map
     assert "Oracle" in m_dev_map["The Holy Wild Sanctuary Host (~)"]["description"]
+    assert m_dev_map["The Holy Wild Sanctuary Host (~)"]["accessories"] == []
 
-    # 10. Armor (Man-At-Arms Base Armor is Primary)
+    prog_descs = "\n".join(p.get("description", "") for p in lp.get("programs", []))
+    for false_pos in ("Browser's Den", "Levitate", "Traceless Walk", "Catalan"):
+        assert false_pos not in prog_descs
+
+    serialized = json.dumps(payload)
+    assert "core p.CRB" not in serialized
+    assert "double_clutch p.CRB" not in serialized
+
+    # 12. Armor (Man-At-Arms Base Armor is Primary)
     assert len(payload["armors"]) == 1
     assert payload["armors"][0]["name"] == "Man-At-Arms Base Armor"
     assert payload["armors"][0]["primary"] is True
@@ -450,6 +533,64 @@ def test_reiko_roll20_export():
     assert contact_map["Roanoke (3 FP)"]["loyalty"] == 3
     assert contact_map["Roanoke (3 FP)"]["influence"] == 3
     assert contact_map["Roanoke (3 FP)"]["favors"] == 3
+
+
+def test_reiko_roll20_macro_guide_and_skill_cleanup():
+    """Verify Reiko's Roll20 helper guide macros, Effect 1, Tasking Mod, and skill dedup."""
+    from pathlib import Path
+    import yaml
+    from sr6core.publishing.roll20_json import build_roll20_payload, generate_roll20_helper_guide
+
+    master_path = Path("characters/reiko/reiko_master.yaml")
+    char_data = yaml.safe_load(master_path.read_text(encoding="utf-8"))
+    payload = build_roll20_payload(char_data, char_repo_path="characters/reiko")
+    guide_md = generate_roll20_helper_guide(char_data, payload)
+
+    # Tasking receives no ally sprite teamwork bonus; Mod stays 0
+    assert "`Tasking`**: Keep **`Mod`** at **`0`**" in guide_md
+    # Designer Home Device does not modify Matrix DR on Effect 1
+    assert "matrix_defense_rating_modifier" not in guide_md
+    # Natural Hacker includes Willpower +3 for Matrix Defense tests
+    assert "willpower_modifier: +3" in guide_md
+
+    # Roll20 rolls-computed fixes: real dicepool & wilddie_dice expressions, no dead fields
+    assert "{{dicepool=[[(" in guide_md
+    assert "{{dicepool=[[0]]}}" not in guide_md
+    assert "{{wilddie_dice=[[0]]}}" not in guide_md
+    assert "{{rerolls=" not in guide_md
+    assert "{{notes=" not in guide_md
+
+    # Requested grouped, combined attack, and standalone reminder macros
+    for expected_macro in (
+        "Matrix-Hacking",
+        "Matrix-Electronic-Warfare",
+        "Matrix-Computer",
+        "Matrix-Hardware",
+        "Matrix-Attack",
+        "Erase-Matrix-Signature",
+        "Cleaner",
+        "Oracle-Search",
+        "Compile-Register-Sprite",
+        "Fade-Resistance",
+        "Matrix-Defense",
+    ):
+        assert expected_macro in guide_md
+
+    # Cleaner complex form verification: Permanent duration, hits reduce OS, autorolls Fade
+    assert "Resist Fade: Cleaner (Fade 2)" in guide_md
+    assert "Each hit reduces your Overwatch Score by 1" in guide_md
+    assert "{{fade=[[2]]}}" in guide_md
+    assert "Net Hits vs Threshold" not in guide_md
+
+    # Verify skill influences deduplication & clamped teamwork ratings
+    skill_map = {s["id"]: s for s in payload["skills"]}
+    assert any("ECM Warrior II" in inf for inf in skill_map["cracking"]["influencedBy"])
+    assert not any("symbiosis" in inf.lower() for inf in skill_map["tasking"]["influencedBy"])
+    assert any("clamped to skill rating 1" in inf for inf in skill_map["influence"]["influencedBy"])
+    assert any("clamped to skill rating 1" in inf for inf in skill_map["con"]["influencedBy"])
+    for sk_id in ("biotech", "engineering", "outdoors"):
+        assert not any("Emulated Autosoft (Rating 9" in inf for inf in skill_map[sk_id]["influencedBy"])
+        assert "Emulated Autosoft" not in skill_map[sk_id]["description"]
 
 
 @pytest.mark.parametrize("char_id", ["velvet", "reiko", "venn"])

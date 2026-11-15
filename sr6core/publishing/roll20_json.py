@@ -300,7 +300,7 @@ CANONICAL_RULE_DESCRIPTIONS: Dict[str, Tuple[str, str]] = {
         "Hack & Slash p.64",
     ),
     "transcendent network": (
-        "Echo: Must have Living Network. When living persona functions as master device in a network, act as an advanced conduit for data, storing up to Submersion Grade (8) in shared network Edge and broadcasting TacApps.",
+        "Echo: Must have Living Network. When living persona functions as master device in a network, act as an advanced conduit for data, storing up to Submersion Grade in shared network Edge and broadcasting TacApps.",
         "Hack & Slash p.65",
     ),
     "overclocking": (
@@ -308,12 +308,16 @@ CANONICAL_RULE_DESCRIPTIONS: Dict[str, Tuple[str, str]] = {
         "CRB p.195",
     ),
     "software emulator": (
-        "Echo: Must have Living Network. Capable of running commlink apps, cyberprograms, and autosofts directly on living persona. Program slots equal to Submersion Grade (8).",
+        "Echo: Must have Living Network. Capable of running commlink apps, cyberprograms, and autosofts directly on living persona. Program slots equal to Submersion Grade.",
         "Hack & Slash p.68",
     ),
     "sprite link": (
         "Echo: Mind is more closely linked to sprites. When spending a task and a Minor Action to command a sprite to assist with a Matrix action, gain +1 Edge for that action.",
         "Hack & Slash p.64",
+    ),
+    "syntax error": (
+        "Echo: When aware of a Matrix action targeting an icon you are also aware of, spend a Minor Anytime Action to provide the target with bonus dice equal to your Submersion Grade on their defense test. You may also attempt to reduce or cancel a sustained complex form or sprite power you are aware of (Electronics + Resonance + Submersion Grade vs. Logic + Resonance).",
+        "Hack & Slash p.69",
     ),
     "technoregeneration": (
         "Fade: Hits | Duration: Permanent | Target: Electronic Device\n"
@@ -468,13 +472,27 @@ def _lookup_rule_text_and_page(
 
 def _format_page(source: Any, page: Any = "", fallback_page: str = "") -> str:
     """Format book source and page string cleanly for Roll20 notes."""
-    if fallback_page and ("p." in fallback_page or not source):
-        return fallback_page
     src_str = str(source or "").strip()
     pg_str = str(page or "").strip()
-    if src_str and pg_str and pg_str not in src_str:
-        return f"{src_str} p.{pg_str}"
-    return src_str or pg_str or fallback_page
+    fb_str = str(fallback_page or "").strip()
+
+    def _has_book_ref(s: str) -> bool:
+        if not s:
+            return False
+        if "/" in s:
+            return True
+        return bool(re.search(r"[A-Za-z]{2,}", re.sub(r"^p\.\s*", "", s)))
+
+    if pg_str:
+        if _has_book_ref(pg_str):
+            return pg_str
+        clean_pg = re.sub(r"^p\.\s*", "", pg_str)
+        return f"{src_str} p.{clean_pg}" if src_str else pg_str
+    if fb_str:
+        if _has_book_ref(fb_str) or "p." in fb_str or not src_str:
+            return fb_str
+        return f"{src_str} p.{fb_str}"
+    return src_str
 
 
 def _combine_descriptions(char_notes: str, rule_desc: str) -> str:
@@ -863,6 +881,44 @@ def _parse_extra_purchases_matrix_and_gear(char_repo_path: Optional[str]) -> Dic
     current_section = ""
     current_sub_group = ""
     current_device: Optional[Dict[str, Any]] = None
+    current_artifact: Optional[Dict[str, Any]] = None
+
+    def _extract_gear_entry(raw_clean: str, category: str) -> Dict[str, Any]:
+        txt = raw_clean.strip()
+        notes_parts: List[str] = []
+        m_note = re.search(
+            r"\s*\(([^)]*(?:Initial|Restock|SRM|CMP|SMH|Provided by|Mission|Loot|Asset|Data|Glade)[^)]*)\)\s*$",
+            txt,
+            re.IGNORECASE,
+        )
+        if m_note:
+            notes_parts.append(m_note.group(1).strip())
+            txt = txt[: m_note.start()].strip()
+
+        qty = 1
+        m_qty = re.search(r"\s+\bx(\d+)\b", txt, re.IGNORECASE)
+        if m_qty:
+            qty = int(m_qty.group(1))
+            txt = (txt[: m_qty.start()] + txt[m_qty.end() :]).strip()
+
+        rating: Any = ""
+        m_rat = re.search(r"\s*\((?:Rating|R)\s*(\d+)\)\s*$", txt, re.IGNORECASE)
+        if m_rat:
+            rating = int(m_rat.group(1))
+            txt = txt[: m_rat.start()].strip()
+        else:
+            m_rat_bare = re.search(r"\s+(?:Rating|R)\s*(\d+)\b", txt, re.IGNORECASE)
+            if m_rat_bare:
+                rating = int(m_rat_bare.group(1))
+                txt = (txt[: m_rat_bare.start()] + txt[m_rat_bare.end() :]).strip()
+
+        return {
+            "name": txt.strip(),
+            "rating": rating,
+            "quantity": qty,
+            "category": category,
+            "notes": " ".join(notes_parts).strip(),
+        }
 
     for raw_line in lines:
         stripped = raw_line.strip()
@@ -872,12 +928,21 @@ def _parse_extra_purchases_matrix_and_gear(char_repo_path: Optional[str]) -> Dic
             current_section = stripped[4:].strip().lower()
             current_sub_group = ""
             current_device = None
+            current_artifact = None
             continue
 
         is_top_bullet = bool(re.match(r"^[\*\-]\s+", raw_line))
         is_sub_bullet = bool(re.match(r"^\s+[\*\-]\s+", raw_line))
 
-        if any(k in current_section for k in ("matrix", "electronic", "commlink", "software")):
+        if "electronic" in current_section and not any(
+            k in current_section for k in ("matrix", "commlink", "software")
+        ):
+            if is_top_bullet:
+                clean_txt = _clean_qmd_line_text(stripped)
+                if clean_txt:
+                    result["extra_gear"].append(_extract_gear_entry(clean_txt, "Electronics"))
+
+        elif any(k in current_section for k in ("matrix", "electronic", "commlink", "software")):
             if is_top_bullet:
                 current_device = None
                 current_sub_group = ""
@@ -898,8 +963,11 @@ def _parse_extra_purchases_matrix_and_gear(char_repo_path: Optional[str]) -> Dic
                 if "sensor" in low_txt or "audio / visual" in low_txt:
                     current_sub_group = "sensors"
                     continue
-                if any(k in low_txt for k in ("data structure", "other")):
+                if "data structure" in low_txt:
                     current_sub_group = "ignore"
+                    continue
+                if low_txt == "other" or low_txt.startswith("other "):
+                    current_sub_group = "matrix_other"
                     continue
 
                 m_dr = re.search(r"Device Rating\s*(\d+)", clean_txt, re.IGNORECASE)
@@ -967,6 +1035,38 @@ def _parse_extra_purchases_matrix_and_gear(char_repo_path: Optional[str]) -> Dic
                             "category": "Sensor / Audio-Visual",
                         }
                     )
+                elif current_sub_group == "matrix_other":
+                    if sub_txt.lower().startswith("linguasoft"):
+                        continue
+                    result["extra_gear"].append(
+                        _extract_gear_entry(sub_txt, "Software / Matrix Asset")
+                    )
+
+        elif "other supplies" in current_section:
+            if is_top_bullet:
+                clean_txt = _clean_qmd_line_text(stripped)
+                if clean_txt:
+                    result["extra_gear"].append(
+                        _extract_gear_entry(clean_txt, "Supplies / Medical & Toxins")
+                    )
+
+        elif "courtly regalia" in current_section or "mission artifact" in current_section:
+            if is_top_bullet:
+                clean_txt = _clean_qmd_line_text(stripped)
+                if clean_txt:
+                    current_artifact = _extract_gear_entry(clean_txt, "Mission Artifact / Regalia")
+                    result["extra_gear"].append(current_artifact)
+            elif is_sub_bullet and current_artifact is not None:
+                sub_txt = _clean_qmd_line_text(stripped)
+                if sub_txt:
+                    prev_notes = current_artifact.get("notes") or ""
+                    current_artifact["notes"] = (
+                        f"{prev_notes} {sub_txt}".strip() if prev_notes else sub_txt
+                    )
+                    if current_artifact.get("rating", "") == "":
+                        m_art_r = re.search(r"\bRating\s*(\d+)\b", sub_txt, re.IGNORECASE)
+                        if m_art_r:
+                            current_artifact["rating"] = int(m_art_r.group(1))
 
         elif (
             "special asset" in current_section
@@ -994,14 +1094,63 @@ def _parse_extra_purchases_matrix_and_gear(char_repo_path: Optional[str]) -> Dic
 def _collect_skill_influences(char_data: Dict[str, Any]) -> Dict[str, List[str]]:
     """
     Build a mapping of active skill_id -> list of modifier descriptions from
-    `modifiers`, `synergies` (foci, mentor spirit), `adept_powers`, and `augmentations`.
+    `modifiers`, `synergies` (foci, mentor spirit), `adept_powers`, `augmentations`,
+    and equipped matrix devices.
     """
     influences: Dict[str, List[str]] = {}
+    skill_ratings: Dict[str, int] = {}
+    for sk in char_data.get("skills") or []:
+        if not isinstance(sk, dict):
+            continue
+        sk_rating = _parse_int(sk.get("rating"), 0)
+        for key_field in ("id", "name"):
+            k = str(sk.get(key_field) or "").strip().lower().replace(" ", "_")
+            if k:
+                skill_ratings[k] = sk_rating
 
     def add_inf(skill_id: str, text: str) -> None:
         bucket = influences.setdefault(skill_id, [])
-        if text not in bucket:
+        if not any(text.lower() == x.lower() for x in bucket):
             bucket.append(text)
+
+    def _format_mod_label(
+        mname: str, val: int, mnotes: str, target_sk: Optional[str] = None
+    ) -> str:
+        clean_name = mname
+        clean_notes = mnotes
+        if target_sk:
+            sk_display = target_sk.replace("_", " ")
+            sk_pat = re.compile(rf"\s*\(\s*{re.escape(sk_display)}\s*\)", re.IGNORECASE)
+            clean_name = sk_pat.sub("", clean_name).strip()
+            clean_notes = sk_pat.sub("", clean_notes).strip()
+
+        redundant_note_pat = re.compile(
+            r"^(?:[+-]?\d+\s*(?:d6|dice)?(?:\s+(?:to|for)\s+(?:res|resonance)(?:\s+attribute)?)?|(?:res|resonance)\s*[+-]\d+)\.?$",
+            re.IGNORECASE,
+        )
+        if redundant_note_pat.match(clean_notes) or clean_notes.lower() == clean_name.lower():
+            clean_notes = ""
+
+        eff_val = val
+        if target_sk and "clamped to" in clean_notes.lower():
+            sk_rating = skill_ratings.get(target_sk)
+            if sk_rating is not None:
+                if eff_val <= 0:
+                    m_bonus = re.search(r"\+(\d+)", clean_notes)
+                    if m_bonus:
+                        eff_val = int(m_bonus.group(1))
+                if eff_val > 0:
+                    eff_val = min(eff_val, sk_rating)
+                    return f"{clean_name} ({eff_val:+d}d6, clamped to skill rating {sk_rating})"
+
+        val_str = f"{eff_val:+d}d6" if eff_val else ""
+        if val_str and clean_notes:
+            return f"{clean_name} ({val_str}: {clean_notes})"
+        if val_str:
+            return f"{clean_name} ({val_str})"
+        if clean_notes:
+            return f"{clean_name} ({clean_notes})"
+        return clean_name
 
     for mod in char_data.get("modifiers") or []:
         if not isinstance(mod, dict) or not mod.get("enabled", True):
@@ -1010,27 +1159,23 @@ def _collect_skill_influences(char_data: Dict[str, Any]) -> Dict[str, List[str]]
         target = str(mod.get("target") or "").strip().lower()
         val = _parse_int(mod.get("value"), 0)
         mnotes = str(mod.get("notes") or "").strip()
-        val_str = f"{val:+d}d6" if val else ""
-        label = (
-            f"{mname} ({val_str}: {mnotes})"
-            if (val_str and mnotes)
-            else (f"{mname} ({val_str})" if val_str else f"{mname} ({mnotes})")
-        )
 
         if target.startswith("skill:"):
             sk_key = target.split(":", 1)[1].strip().replace(" ", "_")
             if sk_key in ROLL20_ACTIVE_SKILLS:
-                add_inf(sk_key, label)
+                # No ally sprite or teamwork bonus applies to Tasking itself.
+                if sk_key == "tasking" and ("teamwork" in mname.lower() or "symbiosis" in mname.lower()):
+                    continue
+                add_inf(sk_key, _format_mod_label(mname, val, mnotes, sk_key))
         elif target == "attribute:magic":
             for m_sk in ("sorcery", "conjuring", "enchanting", "astral"):
-                add_inf(m_sk, label)
+                add_inf(m_sk, _format_mod_label(mname, val, mnotes, m_sk))
         elif target == "attribute:resonance":
-            add_inf("tasking", label)
-            add_inf("cracking", label)
-            add_inf("electronics", label)
+            for r_sk in ("tasking", "cracking", "electronics"):
+                add_inf(r_sk, _format_mod_label(mname, val, mnotes, r_sk))
         elif target in ("matrix_actions", "all_matrix_actions"):
             for r_sk in ("cracking", "electronics", "tasking"):
-                add_inf(r_sk, label)
+                add_inf(r_sk, _format_mod_label(mname, val, mnotes, r_sk))
 
     synergies = char_data.get("synergies") or {}
     if isinstance(synergies, dict):
@@ -1040,6 +1185,7 @@ def _collect_skill_influences(char_data: Dict[str, Any]) -> Dict[str, List[str]]
             fname = str(focus.get("name") or "Focus").strip()
             if "oracle" in fname.lower():
                 continue
+            fname_base = re.sub(r"\s*\([^)]*\)", "", fname).strip().lower() or fname.lower()
             frating = _parse_int(focus.get("rating", focus.get("force", 0)), 0)
             fmods = focus.get("modifiers") or {}
             bonus = _parse_int(
@@ -1049,12 +1195,12 @@ def _collect_skill_influences(char_data: Dict[str, Any]) -> Dict[str, List[str]]
                 label = f"{fname} (+{bonus}d6)"
                 if "resonance" in fname.lower():
                     for r_skill in ("tasking", "cracking", "electronics"):
-                        if not any(fname.lower() in x.lower() for x in influences.get(r_skill, [])):
+                        if not any(fname_base in x.lower() for x in influences.get(r_skill, [])):
                             add_inf(r_skill, label)
                 else:
                     for m_skill in ("sorcery", "conjuring", "enchanting", "astral"):
                         if not any(
-                            fname.lower() in x.lower() or "power focus" in x.lower()
+                            fname_base in x.lower() or "power focus" in x.lower()
                             for x in influences.get(m_skill, [])
                         ):
                             add_inf(m_skill, label)
@@ -1095,7 +1241,159 @@ def _collect_skill_influences(char_data: Dict[str, Any]) -> Dict[str, List[str]]
         elif "smartlink" in aug_name.lower():
             add_inf("firearms", f"{aug_name} (+1d6 wireless Dice Pool, +2 AR)")
 
+    # Attach ECM Warrior offensive Cracking bonus for M-TOC / ECM-equipped characters.
+    if not any("ecm warrior" in x.lower() for x in influences.get("cracking", [])):
+        ecm_chunks: List[str] = []
+        for md in char_data.get("matrix_devices") or []:
+            if isinstance(md, dict):
+                ecm_chunks.append(
+                    f"{md.get('name', '')} {md.get('notes', '')} {md.get('description', '')} "
+                    + " ".join(str(a) for a in (md.get("accessories") or []))
+                )
+        for q_list in ((char_data.get("qualities") or {}).get("positive") or []):
+            ecm_chunks.append(str(q_list))
+        ecm_blob = " ".join(ecm_chunks)
+        m_ecm = re.search(r"\bECM\s+Warrior\s*(III|II|I|\d+)\b", ecm_blob, re.IGNORECASE)
+        if m_ecm:
+            tier_raw = m_ecm.group(1).upper()
+            tier_map = {"I": 1, "II": 2, "III": 3}
+            bonus = tier_map.get(tier_raw) or _parse_int(tier_raw, 2)
+            add_inf("cracking", f"ECM Warrior {tier_raw} (+{bonus}d6 Offensive Cracking)")
+        elif "m-toc ii" in ecm_blob.lower() or "m-toc mark ii" in ecm_blob.lower():
+            add_inf("cracking", "ECM Warrior II (+2d6 Offensive Cracking)")
+
     return influences
+
+
+_PROGRAM_CATALOG: Dict[str, Tuple[str, str]] = {
+    # Basic Matrix Programs (CRB p.184)
+    "browse": ("CRB p.184", "Matrix Search tests take half the normal base time."),
+    "baby monitor": (
+        "CRB p.184",
+        "Monitors your current Overwatch Score and alerts you before convergence.",
+    ),
+    "configurator": (
+        "CRB p.184",
+        "Reconfigure ASDF array and swap active Matrix programs with a single Minor Action.",
+    ),
+    "edit": (
+        "CRB p.184",
+        "Grants +2 Attack Rating to Edit File tests and automates routine file copying/tagging.",
+    ),
+    "encryption": (
+        "CRB p.184",
+        "Adds +1 Firewall (or +1 threshold against incoming Cracking tests on encrypted files).",
+    ),
+    "signal scrubber": ("CRB p.184", "Provides +2 Noise Reduction."),
+    "toolbox": ("CRB p.184", "Increases Data Processing by +1."),
+    "virtual machine": (
+        "CRB p.184",
+        "Adds +2 concurrent program slots; Matrix damage taken increases by +1 box.",
+    ),
+    # Hacking Programs (CRB p.185)
+    "armor": ("CRB p.185", "Grants +2 dice to resist Matrix damage."),
+    "biofeedback": (
+        "CRB p.185",
+        "Inflicts Biofeedback damage (Stun vs Cold-Sim, Physical vs Hot-Sim) alongside Matrix damage.",
+    ),
+    "biofeedback filter": ("CRB p.185", "Grants +2 dice to resist Biofeedback damage."),
+    "blackout": (
+        "CRB p.185",
+        "Biofeedback damage dealt is always Stun regardless of VR mode.",
+    ),
+    "decryption": ("CRB p.185", "Increases Attack attribute by +1."),
+    "defuse": ("CRB p.185", "Grants +4 dice to Disarm Data Bomb tests."),
+    "exploit": ("CRB p.185", "Grants +2 Attack Rating on Hacking actions."),
+    "fork": (
+        "CRB p.185",
+        "Execute a single Matrix action simultaneously against two valid targets.",
+    ),
+    "lockdown": (
+        "CRB p.185",
+        "Target persona becomes Link-Locked whenever you deal Matrix damage to it.",
+    ),
+    "mugger": ("CRB p.185", "Increases Matrix damage from Tar Pit / Crash Program by +1."),
+    "overclock": ("CRB p.185", "Adds +2 Attack Rating (or +1 Attack/Sleaze bonus)."),
+    "shell": ("CRB p.185", "Grants +1 die to resist both Matrix and Biofeedback damage."),
+    "sneak": (
+        "CRB p.185",
+        "Adds +2 Attack Rating to defensive Matrix actions; blocks Trace Icon physical location.",
+    ),
+    "stealth": ("CRB p.185", "Increases Sleaze by +1."),
+    "trace": ("CRB p.185", "Grants +2 Attack Rating on Trace Icon tests."),
+    "track": ("CRB p.185", "Grants +2 dice on Trace Icon tests."),
+    # Drone Autosofts (CRB p.269)
+    "clearsight": ("CRB p.269", "Drone autosoft used in place of Perception."),
+    "electronic warfare": (
+        "CRB p.269",
+        "Drone autosoft used in place of Electronics (Electronic Warfare).",
+    ),
+    "evasion": ("CRB p.269", "Drone autosoft used for defense and dodge tests."),
+    "maneuvering": ("CRB p.269", "Drone autosoft used in place of Piloting."),
+    "stealth (autosoft)": ("CRB p.269", "Drone autosoft used in place of Stealth."),
+    "targeting": ("CRB p.269", "Weapon-linked drone autosoft used for autonomous Gunnery."),
+    # Commlink Apps & M-TOC TacApps (Hack & Slash / 6WC / Firing Squad)
+    "ticker": (
+        "Hack & Slash p.58",
+        "Automated AR feed pushing monitored alerts, OS warnings, and status telemetry.",
+    ),
+    "diagnostics": (
+        "Hack & Slash p.58",
+        "Tracks real-time PAN, drone, and chassis damage/condition monitors.",
+    ),
+    "mapper": (
+        "Hack & Slash p.58",
+        "Builds real-time physical and Matrix spatial overlays shared across the PAN.",
+    ),
+    "personal assistant": (
+        "Hack & Slash p.58",
+        "AI commlink agent (Bought Hits = Rating / 2) assisting Perception, Electronics, or Full Matrix Defense.",
+    ),
+    "social hud": (
+        "Hack & Slash p.59",
+        "AR social analysis overlay flagging micro-expressions, etiquette, and tactical social cues.",
+    ),
+    "p-ice spines": (
+        "Hack & Slash p.59",
+        "Retaliatory PAN defense app inflicting Matrix feedback damage against hostile intruders.",
+    ),
+    "facial scanner": (
+        "Hack & Slash p.58",
+        "Real-time facial recognition scanner querying SIN and public registries.",
+    ),
+    "thermal mood reading": (
+        "Sixth World Companion p.131",
+        "Micro-thermal facial imaging app reading stress, excitement, and deception cues.",
+    ),
+    "vocal tension detection": (
+        "Sixth World Companion p.131",
+        "Audio analyzer flagging stress and deception markers in spoken speech.",
+    ),
+    "nanomask": (
+        "Sixth World Companion p.131",
+        "Replaces outgoing AR/video commlink feeds with a synthetic persona mask.",
+    ),
+    "ecm warrior ii": (
+        "Firing Squad p.68",
+        "M-TOC TacApp granting +2d6 Offensive Cracking and -2 Noise to PAN deckers/technomancers.",
+    ),
+    "sneak-sneak": (
+        "Firing Squad p.68",
+        "M-TOC TacApp sharing +2d6 Stealth teamwork across networked PAN and drone assets.",
+    ),
+    "target artist": (
+        "Firing Squad p.68",
+        "M-TOC TacApp sharing LOS, reducing target cover by -1, and negating blind-fire penalties.",
+    ),
+    "artillery barrage": (
+        "Firing Squad p.68",
+        "M-TOC TacApp providing +1d6 indirect-fire and launcher coordination.",
+    ),
+    "mobile medic": (
+        "Firing Squad p.68",
+        "M-TOC TacApp providing +4d6 networked Biotech / First Aid triage support.",
+    ),
+}
 
 
 def build_roll20_payload(
@@ -1440,7 +1738,7 @@ def build_roll20_payload(
                 "rating": "",
                 "page": "Firing Squad p.68 / Hack & Slash p.65",
                 "description": (
-                    "• 13 Edge Storage (5 M-TOC Mark II, 8 Transcendent Network)\n"
+                    f"• {5 + (submersion or 9)} Edge Storage (5 M-TOC Mark II, {submersion or 9} Transcendent Network)\n"
                     "• -6 Noise Reduction (-2 Signal Scrubber program, -2 Home Device / Designer quality, -2 ECM Warrior II TacApp)\n"
                     "• +1 Sensor Rating to any connected drone/vehicle (Sensor Upgrade quality)\n"
                     "• Detect Ambush: -2 threshold (M-TOC Mark II)\n"
@@ -1462,9 +1760,9 @@ def build_roll20_payload(
                 "choice": "22d6 Standard / 25d6 Base Full Defense / 41d6 All-In",
                 "positive": True,
                 "rating": "",
-                "page": "CRB p.181 / Hack & Slash p.33, 58, 69-70",
+                "page": "CRB p.181 / Hack & Slash p.33, 58, 69-70, 124",
                 "description": (
-                    "• Matrix Defense Rating (DR): 16 (Data Processing 7 + Firewall 9) — treated as +4 higher (20 DR) for Edge comparison via Designer Home Device (H&S p.119).\n"
+                    "• Matrix Defense Rating (DR): 16 (Data Processing 7 + Firewall 9). Note: Designer Home Device (H&S p.124) treats Man-at-Arms physical Device Rating as +4 higher (Base 2 + 4 = 6) vs. Data Processing (7) for Edge comparison — it does NOT add +4 to Matrix DR.\n"
                     "• Encryption: +1 threshold to all incoming Cracking tests against any device on Reiko's PAN.\n"
                     "• Standard Matrix Defense (Free Action): 22d6 (5 Bought Hits) = Firewall (9) + Natural Hacker Resonance (9) + Resonance Focus (+4).\n"
                     "• Base Full Matrix Defense (PA R6 3 Bought Hits): 25d6 (6 Bought Hits) = 22d6 Standard + 3 Bought Hits from Personal Assistant R6.\n"
@@ -1589,8 +1887,11 @@ def build_roll20_payload(
                     "rating": 7,
                     "attribute": "@{logic}",
                     "specializations": [],
-                    "influencedBy": ["Emulated Autosoft (Rating 9, capped by Data Processing 7)"],
-                    "description": "Emulated Autosoft via Pilot Origins (H&S p. 120) & Software Emulator echo. Rating 9 software capped by DP 7. Meatspace skill: uses Real Logic 4 (not Natural Hacker 12) + Rating 7 + Mobile Medic 4 = 15d6 Pool. Set Modifier to -4 (-8 Natural Hacker + 4 Mobile Medic).",
+                    "influencedBy": [
+                        "Pilot Origins / Software Emulator (H&S p.120, R9 capped at DP 7)",
+                        "Mobile Medic (+4d6)",
+                    ],
+                    "description": "Meatspace skill: uses Real Logic 4 (not Matrix Logic 13) + Rating 7 + Mobile Medic 4 = 15d6 Pool. Set Modifier to -5 (-9 Natural Hacker/Focus + 4 Mobile Medic; or -1 if Focus Effect is toggled off).",
                 }
             )
         if "engineering" not in seen_active_skills:
@@ -1602,8 +1903,11 @@ def build_roll20_payload(
                     "rating": 5,
                     "attribute": "@{logic}",
                     "specializations": [{"name": "Drones", "expertise": False}],
-                    "influencedBy": ["Emulated Autosoft (Rating 9, capped by DP 7 -> Rating 5 + Drones Spec 2)"],
-                    "description": "Emulated Autosoft via Pilot Origins (H&S p. 120) & Software Emulator echo. Rating 5 + Drones Spec 2 (effective autosoft ceiling 7). Usable only for Drones. Meatspace skill: uses Real Logic 4 (not Natural Hacker 12) + Rating 5 + Drones Spec 2 + Taz Teamwork 4 = 15d6 Pool. Set Modifier to -4 (-8 Natural Hacker + 4 Taz Teamwork).",
+                    "influencedBy": [
+                        "Pilot Origins / Software Emulator (H&S p.120, R5 + Drones Spec 2 = 7 cap)",
+                        "Taz Teamwork (+4d6)",
+                    ],
+                    "description": "Usable only for Drones. Meatspace skill: uses Real Logic 4 (not Matrix Logic 13) + Rating 5 + Drones Spec 2 + Taz Teamwork 4 = 15d6 Pool. Set Modifier to -5 (-9 Natural Hacker/Focus + 4 Taz Teamwork; or -1 if Focus Effect is toggled off).",
                 }
             )
         if "outdoors" not in seen_active_skills:
@@ -1615,8 +1919,10 @@ def build_roll20_payload(
                     "rating": 5,
                     "attribute": "@{intuition}",
                     "specializations": [{"name": "Navigation", "expertise": False}],
-                    "influencedBy": ["Emulated Autosoft (Rating 9, capped by DP 7 -> Rating 5 + Navigation Spec 2)"],
-                    "description": "Emulated Autosoft via Pilot Origins (H&S p. 120) & Software Emulator echo. Rating 5 + Navigation Spec 2 (effective autosoft ceiling 7). Usable only for Navigation. Meatspace skill: uses Real Intuition 2 (not Natural Hacker 12) + Rating 5 + Navigation Spec 2 = 9d6 Pool. Set Modifier to -10 (-10 Natural Hacker).",
+                    "influencedBy": [
+                        "Pilot Origins / Software Emulator (H&S p.120, R5 + Navigation Spec 2 = 7 cap)",
+                    ],
+                    "description": "Usable only for Navigation. Meatspace skill: uses Real Intuition 2 (not Matrix Intuition 13) + Rating 5 + Navigation Spec 2 = 9d6 Pool. Set Modifier to -11 (-7 Natural Hacker - 4 Focus; or -7 if Focus Effect is toggled off).",
                 }
             )
 
@@ -1875,6 +2181,71 @@ def build_roll20_payload(
                 }
             )
 
+    commlink_app_names_lower = set()
+    for _app in extra_purchases.get("commlink_apps", []):
+        _an = str(_app.get("name") or "").strip().lower()
+        if _an:
+            commlink_app_names_lower.add(_an)
+            commlink_app_names_lower.add(re.sub(r"\s*\([^)]*\)\s*$", "", _an).strip())
+
+    extra_medkit_rating = next(
+        (
+            eg.get("rating")
+            for eg in extra_purchases.get("extra_gear", [])
+            if isinstance(eg, dict)
+            and "medkit" in str(eg.get("name") or "").lower()
+            and isinstance(eg.get("rating"), int)
+        ),
+        "",
+    )
+
+    fallback_gear_info: Dict[str, Tuple[str, str]] = {
+        "peak-discharge laser battery clips": (
+            "Spare peak-discharge laser battery clips for Crimson Wasp eye mounts.",
+            "Firing Squad p.44",
+        ),
+        "glitter grenades": (
+            "Aerosol dispersal grenades releasing reflective chaff.",
+            "Firing Squad p.36-37",
+        ),
+        "built-in medkit": (
+            "Drone-integrated diagnostic and trauma stabilization medkit on the Man-at-Arms chassis.",
+            "CRB p.119",
+        ),
+        "medkit": (
+            "Portable medical diagnostic and trauma stabilization kit.",
+            "CRB p.119",
+        ),
+        "laser jack": (
+            "Line-of-sight optical transceiver for direct optical Matrix links.",
+            "Hack & Slash p.41",
+        ),
+        "satellite link": (
+            "Satellite uplink transceiver for remote Matrix access outside grid coverage.",
+            "CRB p.268",
+        ),
+        "narcoject": (
+            "Fast-acting non-lethal knockout toxin.",
+            "CRB p.122",
+        ),
+        "cyanide": (
+            "Fast-acting lethal toxin.",
+            "Body Shop p.113",
+        ),
+        "mapsoft": (
+            "Geospatial and regional navigation database software.",
+            "CRB p.271",
+        ),
+        "shopsoft": (
+            "Technical diagnostic and repair schematic software.",
+            "CRB p.271",
+        ),
+        "coding facility": (
+            "Dedicated software engineering and compilation facility for custom programming work.",
+            "Hack & Slash",
+        ),
+    }
+
     all_gear_sources = list(char_data.get("gear") or []) + extra_purchases.get("extra_gear", [])
     for g in all_gear_sources:
         if isinstance(g, str):
@@ -1892,18 +2263,56 @@ def build_roll20_payload(
             else ""
         )
         gcount = _parse_int(g.get("qty", g.get("quantity", g.get("count", 1))), 1)
+
+        m_lead_qty = re.match(r"^(\d+)\s*x\s+(.+)$", gname, re.IGNORECASE)
+        if m_lead_qty:
+            parsed_qty = int(m_lead_qty.group(1))
+            gname = m_lead_qty.group(2).strip()
+            if gcount <= 1:
+                gcount = parsed_qty
+
+        gname_low = gname.lower()
+        gname_base_low = re.sub(r"\s*\([^)]*\)\s*$", "", gname_low).strip()
+        if gname_low in commlink_app_names_lower or gname_base_low in commlink_app_names_lower:
+            continue
+
+        if "built-in medkit" in gname_low and grating == "" and extra_medkit_rating != "":
+            grating = extra_medkit_rating
+        elif (
+            "medkit" in gname_low
+            and "savior" not in gname_low
+            and any("medkit" in s and "savior" not in s for s in seen_items)
+        ):
+            continue
+
         gnotes = str(g.get("notes") or g.get("description") or "").strip()
 
-        db_row = _lookup_db_row(conn, "ref_gear", g.get("ref"), gname)
-        rule_desc, rule_page = _lookup_rule_text_and_page(conn, gname)
+        lookup_gname = gname
+        if "glitter grenades" in gname_low:
+            lookup_gname = "Glitter Grenade"
+        elif "built-in medkit" in gname_low:
+            lookup_gname = "Medkit"
+        elif gname_low == "mapsoft":
+            lookup_gname = "Mapsofts"
+        elif gname_low == "shopsoft":
+            lookup_gname = "Shopsofts"
+
+        db_row = _lookup_db_row(conn, "ref_gear", g.get("ref"), lookup_gname)
+        rule_desc, rule_page = _lookup_rule_text_and_page(conn, lookup_gname)
+        fb_desc, fb_page = "", ""
+        for fk, (fd, fp) in fallback_gear_info.items():
+            if fk in gname_low:
+                fb_desc, fb_page = fd, fp
+                break
+
         page_str = _format_page(
             g.get("source") or (db_row or {}).get("source"),
             g.get("page") or _parse_xml_attr((db_row or {}).get("raw_xml", ""), "page"),
-            fallback_page=rule_page,
+            fallback_page=rule_page or fb_page,
         )
         full_gdesc = _combine_descriptions(
             gnotes or _strip_xml_tags((db_row or {}).get("raw_xml", "")),
-            rule_desc,
+            rule_desc or fb_desc,
         )
 
         # Check if this gear item belongs in Augmentations (Nanopaste, Nanocosmetics, Savior Medkit)
@@ -2024,6 +2433,188 @@ def build_roll20_payload(
             }
         )
 
+    # Route inhabited anthrodrone (Shiawase Man-at-Arms) chassis upgrades into Augmentations
+    if is_ai:
+        maa_drone = next(
+            (
+                d
+                for d in (char_data.get("drones") or [])
+                if isinstance(d, dict) and "man-at-arms" in str(d.get("name", "")).lower()
+            ),
+            None,
+        )
+        if maa_drone is not None:
+            from sr6core.rules.vehicles import parse_vehicle_modifications
+
+            maa_prof = parse_vehicle_modifications(maa_drone, char_data=char_data)
+            maa_mods_blob = " | ".join(
+                str(m) for m in (maa_drone.get("modifications") or [])
+            ).lower()
+            body_gain = max(0, maa_prof["augmented_body"] - maa_prof["base_body"]) or 5
+            maa_chassis_entries: List[Tuple[str, Dict[str, Any]]] = [
+                (
+                    "structural integrity",
+                    {
+                        "name": "Increased Structural Integrity",
+                        "level": body_gain,
+                        "quality": "STANDARD",
+                        "essence": 0.0,
+                        "page": "Double Clutch p.125",
+                        "description": (
+                            f"Chassis reinforcement (+{body_gain} Body: Base {maa_prof['base_body']} -> Body {maa_prof['augmented_body']}; 5 Chassis slots). "
+                            f"Physical Condition Monitor {8 + (maa_prof['augmented_body'] + 1) // 2} and Physical DR {maa_prof['augmented_body'] + maa_prof['base_armor']}."
+                        ),
+                        "accessories": [],
+                    },
+                ),
+                (
+                    "vector thrust",
+                    {
+                        "name": "Secondary Propulsion: Vector Thrust (LAV) & Thruster Tuning",
+                        "level": "",
+                        "quality": "STANDARD",
+                        "essence": 0.0,
+                        "page": "Double Clutch p.134, 136-138",
+                        "description": (
+                            "Forearm/calf vector thrusters with scapular wing spars (5 Powertrain slots; flight speed/handling), "
+                            "Improved Acceleration (2 Ranks: +60% -> 41 m/rd), Top Speed Increase (3 Ranks: +60% -> 480 / 576 km/h), "
+                            "plus thigh Nitro Boost capacitors (RP) and Hydrocarbon Fuel Converter (RP)."
+                        ),
+                        "accessories": [
+                            {"name": "Improved Acceleration (2 Ranks)"},
+                            {"name": "Top Speed Increase (3 Ranks)"},
+                            {"name": "Nitro Boost (RP)"},
+                            {"name": "Hydrocarbon Fuel Converter (RP)"},
+                        ],
+                    },
+                ),
+                (
+                    "chameleon coating",
+                    {
+                        "name": "Chameleon Coating & Passive Stealth",
+                        "level": 4,
+                        "quality": "STANDARD",
+                        "essence": 0.0,
+                        "page": "Double Clutch p.138",
+                        "description": (
+                            "Chameleon Coating 4 (2 Electronics slots; grants Improved Invisibility 4 below second speed interval) "
+                            "paired with Passive Stealth Features (1 Electronics slot)."
+                        ),
+                        "accessories": [{"name": "Passive Stealth Features"}],
+                    },
+                ),
+                (
+                    "realistic features",
+                    {
+                        "name": "Realistic Features",
+                        "level": 4,
+                        "quality": "STANDARD",
+                        "essence": 0.0,
+                        "page": "Double Clutch p.132",
+                        "description": (
+                            "Realistic anthropomorphic mimicry (4 Chassis slots, Rating 4)."
+                        ),
+                        "accessories": [],
+                    },
+                ),
+                (
+                    "cyberarm",
+                    {
+                        "name": "Synthetic Cyberarm (Right) — 8 Capacity",
+                        "level": "",
+                        "quality": "USED",
+                        "essence": 0.0,
+                        "page": "CRB p.282, 289 / DC p.131",
+                        "description": (
+                            "Used Synthetic Cyberarm replacing factory right anthroform cyberlimb (0 vehicle mod slots); "
+                            "houses integrated Tesla Coil cyberweapon."
+                        ),
+                        "accessories": [{"name": "Tesla Coil (Cyberweapon)"}],
+                    },
+                ),
+                (
+                    "enhanced sensors",
+                    {
+                        "name": "Enhanced Sensors Array",
+                        "level": maa_prof["hardware_sensor"],
+                        "quality": "STANDARD",
+                        "essence": 0.0,
+                        "page": "Double Clutch p.142 / DA p.178",
+                        "description": (
+                            f"Base Sensor 2 upgraded to Hardware Sensor {maa_prof['hardware_sensor']} (7 Electronics slots; "
+                            f"{maa_prof['augmented_sensor']} Passive w/ Sensor Upgrade & Home Device, "
+                            f"{maa_prof['enlightened_sensor']} w/ Enlighten Automaton). Also houses Tactile Sensors (RP only)."
+                        ),
+                        "accessories": [
+                            {"name": "Camera w/ Image Link"},
+                            {"name": "Omni-Directional Mic w/ Sound Link"},
+                            {"name": "Ultrasound"},
+                            {"name": "Low-Light Vision"},
+                            {"name": "Flare Compensation"},
+                            {"name": "Olfactory Sensor"},
+                            {"name": "Oral Chemical Analyzer"},
+                            {"name": "Tactile Sensors (RP Only)"},
+                        ],
+                    },
+                ),
+                (
+                    "weapon mount",
+                    {
+                        "name": "Weapon Mount (Small) x2 & Ocular Pop-Out Concealment",
+                        "level": "",
+                        "quality": "STANDARD",
+                        "essence": 0.0,
+                        "page": "Double Clutch p.124, 143-144",
+                        "description": (
+                            "1 Standard Hardpoint split into 2 Small Hardpoints (DC p.124) with ocular Pop-Out Concealment "
+                            "(0.5 Chassis slots each, DC p.143-144) mounting 2x Crimson Wasp eye lasers."
+                        ),
+                        "accessories": [
+                            {"name": "Pop-Out Concealment (Small) x2"},
+                            {"name": "Crimson Wasp x2 (Eye Mounts)"},
+                        ],
+                    },
+                ),
+                (
+                    "ram plate",
+                    {
+                        "name": "Ram Plate (Left Forearm Wrist-Shield)",
+                        "level": "",
+                        "quality": "STANDARD",
+                        "essence": 0.0,
+                        "page": "Double Clutch p.144",
+                        "description": (
+                            f"3rd Standard Hardpoint on left forearm wrist-shield mount; adds Body ({maa_prof['augmented_body']}) "
+                            "to Ramming Attack Rating and halves return collision damage."
+                        ),
+                        "accessories": [],
+                    },
+                ),
+                (
+                    "drone rack",
+                    {
+                        "name": "Drone Rack (Small) & Integrated Hardline Comms",
+                        "level": "",
+                        "quality": "STANDARD",
+                        "essence": 0.0,
+                        "page": "Double Clutch p.143",
+                        "description": (
+                            "2nd Standard Hardpoint abdominal bay storing Federated-Boeing Sky Commander "
+                            "(foldable swing-wing geometry). Includes integrated Satellite Link and Laser Jack hardpoints."
+                        ),
+                        "accessories": [
+                            {"name": "Stores: Federated-Boeing Sky Commander"},
+                            {"name": "Satellite Link"},
+                            {"name": "Laser Jack"},
+                        ],
+                    },
+                ),
+            ]
+            for mod_key, aug_entry in maa_chassis_entries:
+                if (mod_key in maa_mods_blob or not maa_mods_blob) and aug_entry["name"].lower() not in seen_augs:
+                    seen_augs.add(aug_entry["name"].lower())
+                    augmentations_list.append(aug_entry)
+
     # 8. Vehicles & Drones (`json.vehicles`, `json.drones`)
     vehicles_list: List[Dict[str, Any]] = []
     drones_list: List[Dict[str, Any]] = []
@@ -2066,6 +2657,7 @@ def build_roll20_payload(
         pilot_val = _parse_int(v.get("pilot"), 2)
         sensor_val = _parse_int(v.get("sensor") or (db_row or {}).get("sensor"), 2)
         desc_str = str(v.get("notes") or v.get("description") or "").strip()
+        extra_autosofts: Dict[str, int] = {}
 
         if is_ai and is_drone:
             from sr6core.rules.vehicles import parse_vehicle_modifications, calculate_drone_action_pools
@@ -2078,12 +2670,19 @@ def build_roll20_payload(
                 armor_val = v_prof["base_armor"]
                 pilot_val = v_prof["inhabited_pilot"]
                 sensor_val = v_prof["hardware_sensor"]
-                res_val = int(char_data.get("attributes", {}).get("resonance") or 8)
+                res_val = res_eff or 8
                 des_val = 1 if any("designer" in q.get("name", "").lower() for q in char_data.get("qualities", {}).get("positive", [])) else 0
                 aug_sen = v_prof["augmented_sensor"]
                 enl_sen = v_prof["enlightened_sensor"]
                 enl_delta = enl_sen - aug_sen
                 pools = calculate_drone_action_pools(char_data, v, mode="inhabited_override")
+                acc_out = [
+                    {"name": "Chassis mods listed in Augmentations tab (9 systems)"},
+                    {"name": "Crimson Wasp Array (2x Small Eye Mounts)"},
+                    {"name": "Tesla Coil (Right Synthetic Cyberarm)"},
+                    {"name": "Drone Rack: Federated-Boeing Sky Commander"},
+                    {"name": f"Sensor Array (Hardware Rating {sensor_val} -> {aug_sen} Passive / {enl_sen} Enlightened)"},
+                ]
                 desc_str = (
                     f"{desc_str}\n"
                     f"Primary Inhabited Chassis (Override Sprite Power): Base Pilot {pilot_val} ({res_val} Resonance + {des_val} Designer) +4 Resonance Focus = {pilot_val + 4}; "
@@ -2092,22 +2691,42 @@ def build_roll20_payload(
                     f"Pilot Origins (Control Rig R1 Equiv.): +1d6 and -1 Threshold on all inhabited drone tests "
                     f"(Piloting {pools['piloting']['pool']}d6 [-1 Thresh], Gunnery {pools['gunnery']['pool']}d6 [{pools['gunnery']['pool'] + enl_delta}d6], "
                     f"Evasion {pools['evasion']['pool']}d6, Clearsight {pools['perception']['pool']}d6 [{pools['perception']['pool'] + enl_delta}d6], "
-                    f"Stealth {pools['stealth']['pool']}d6).\n"
-                    "Post-Import: Use JSON={...} string in Notes to set all Autosoft pools and attribute modifiers in a single click."
+                    f"Stealth {pools['stealth']['pool']}d6)."
                 ).strip()
             else:
-                sensor_val = v_prof["hardware_sensor"]
-                aug_sen = v_prof["augmented_sensor"]
-                pools = calculate_drone_action_pools(char_data, v, mode="autopilot")
+                hw_sen = v_prof["hardware_sensor"]
+                sensor_val = v_prof["augmented_sensor"]
+                shared_auto = 9
+                sneak_chunks = [
+                    str(v.get("modifications") or ""),
+                    str(v.get("accessories") or ""),
+                ]
+                for md in char_data.get("matrix_devices") or []:
+                    if isinstance(md, dict):
+                        sneak_chunks.append(
+                            f"{md.get('name', '')} {md.get('notes', '')} {md.get('description', '')} {md.get('accessories', '')}"
+                        )
+                sneak_bonus = 2 if "sneak-sneak" in " ".join(sneak_chunks).lower() else 0
+                stealth_auto = shared_auto + sneak_bonus
+                sprite_pilot = 8
+                sprite_mod = max(0, sprite_pilot - pilot_val)
+                extra_autosofts = {
+                    "clearsight": shared_auto,
+                    "electronicWarfare": shared_auto,
+                    "evasion": shared_auto,
+                    "maneuvering": shared_auto,
+                    "targeting": shared_auto,
+                    "stealth": stealth_auto,
+                }
                 desc_str = (
                     f"{desc_str}\n"
-                    f"Networked Secondary Drone: Sensor {sensor_val} (Hardware) +1 Sensor Upgrade = {aug_sen}. "
-                    f"Autopilot Pools (R9 Emulated, capped by DP 7): Piloting {pools['piloting']['pool']}d6, "
-                    f"Targeting {pools['gunnery']['pool']}d6, Evasion {pools['evasion']['pool']}d6, "
-                    f"Clearsight {pools['perception']['pool']}d6, Stealth {pools['stealth']['pool']}d6."
+                    f"Autonomous Secondary Drone (Own Pilot {pilot_val}, Sensor {hw_sen} +1 Sensor Upgrade = {sensor_val}; "
+                    f"R{shared_auto} Shared Autosofts via RCC/Software Emulator, +{sneak_bonus} Stealth from Sneak-Sneak = {stealth_auto}): "
+                    f"Piloting/Evasion {pilot_val + shared_auto}d6, Targeting/Clearsight {sensor_val + shared_auto}d6, Stealth {pilot_val + stealth_auto}d6. "
+                    f"If Sprite-inhabited (set Pilot Mod +{sprite_mod} -> Pilot {sprite_pilot}): Piloting/Evasion {sprite_pilot + shared_auto}d6, Stealth {sprite_pilot + stealth_auto}d6."
                 ).strip()
 
-        return {
+        out_veh = {
             "name": vname,
             "type": vtype,
             "subtype": str(
@@ -2129,6 +2748,8 @@ def build_roll20_payload(
             "description": desc_str,
             "accessories": acc_out,
         }
+        out_veh.update(extra_autosofts)
+        return out_veh
 
     for veh in char_data.get("vehicles") or []:
         if isinstance(veh, dict):
@@ -2832,6 +3453,48 @@ def build_roll20_payload(
     # 16. Complex Forms (`json.complexForms`) - Includes Complex Forms & Symbiosed Sprite Powers
     complex_forms_list: List[Dict[str, Any]] = []
     seen_cfs = set()
+    elec_sk = next((s for s in skills_list if s["id"] == "electronics"), {})
+    elec_rat = _parse_int(elec_sk.get("rating"), 5)
+    has_cf_spec = any(
+        "complex forms" in sp.get("name", "").lower() for sp in elec_sk.get("specializations", [])
+    )
+    cf_spec_b = 2 if has_cf_spec else 0
+    crack_sk = next((s for s in skills_list if s["id"] == "cracking"), {})
+    crack_rat = _parse_int(crack_sk.get("rating"), 5)
+    has_cybercombat_spec = any(
+        "cybercombat" in sp.get("name", "").lower() for sp in crack_sk.get("specializations", [])
+    )
+    cybercombat_spec_b = 2 if has_cybercombat_spec else 0
+    res_focus_b = next(
+        (
+            _parse_int(i.get("rating"), 4)
+            for i in items_list
+            if "resonance focus" in i["name"].lower() and i.get("rating") not in ("", None)
+        ),
+        4 if is_ai else 0,
+    )
+    taz_b = (
+        4
+        if (
+            char_data.get("sprite_powers")
+            or any("sprite symbiosis" in e["name"].lower() for e in echoes_list)
+        )
+        else 0
+    )
+    ecm_b = (
+        2
+        if any(
+            "ecm warrior" in str(a).lower()
+            for md in (char_data.get("matrix_devices") or char_data.get("matrixItems") or [])
+            if isinstance(md, dict)
+            for a in (md.get("accessories") or [])
+        )
+        else (2 if is_ai else 0)
+    )
+    effective_res = res_eff or 9
+    elec_cf_pool = elec_rat + cf_spec_b + effective_res + res_focus_b + taz_b
+    crack_cf_pool = crack_rat + cybercombat_spec_b + effective_res + res_focus_b + taz_b + ecm_b
+
     for cf in char_data.get("complex_forms") or []:
         if not isinstance(cf, dict):
             continue
@@ -2857,41 +3520,43 @@ def build_roll20_payload(
             or _strip_xml_tags(raw_xml)
             or ""
         ).strip()
+        char_cf_desc = re.sub(r"^Source:\s*[^|.\n]+[|.\n]*\s*", "", char_cf_desc, flags=re.IGNORECASE).strip()
 
         cf_infs = [str(x) for x in (cf.get("influences") or [])]
         if is_ai:
             if cf_name.lower() == "cyber spike":
                 cf_infs.extend(
                     [
-                        "Resonance Focus R4 (+4d6)",
-                        "Electronics: Complex Forms Spec (+2d6)",
-                        "Taz Sprite Symbiosis (+4d6)",
+                        f"Electronics ({elec_rat}) + Complex Forms Spec (+{cf_spec_b}) + Resonance ({effective_res})",
+                        f"Resonance Focus R{res_focus_b} (+{res_focus_b}d6)",
+                        f"Taz Sprite Symbiosis (+{taz_b}d6)",
+                        f"Total Pool: {elec_cf_pool}d6 vs Body + Essence (ECM Warrior II N/A; Electronics test)",
                     ]
                 )
-                char_cf_desc = (
-                    f"{char_cf_desc}\n"
-                    "[Electronics test vs Body + Essence. Total Pool: 23d6 = Electronics 5 + Complex Forms Spec 2 + Resonance 8 + Focus 4 + Taz 4. ECM Warrior II does not apply (Electronics test, not Cracking); Cybercombat spec not possessed.]"
-                ).strip()
             elif cf_name.lower() == "resonance spike":
                 cf_infs.extend(
                     [
-                        "Resonance Focus R4 (+4d6)",
-                        "Taz Sprite Symbiosis (+4d6)",
-                        "ECM Warrior II TacApp (+2d6 Offensive Cracking)",
+                        f"Cracking ({crack_rat}) + Resonance ({effective_res})",
+                        f"Resonance Focus R{res_focus_b} (+{res_focus_b}d6)",
+                        f"Taz Sprite Symbiosis (+{taz_b}d6)",
+                        f"ECM Warrior II TacApp (+{ecm_b}d6 Offensive Cracking)",
+                        f"Total Pool: {crack_cf_pool}d6 vs Willpower + Firewall",
                     ]
                 )
-                char_cf_desc = (
-                    f"{char_cf_desc}\n"
-                    "[Cracking test vs Willpower + Firewall. Total Pool: 23d6 = Cracking 5 + Resonance 8 + Focus 4 + Taz 4 + ECM Warrior II 2. Cybercombat spec not possessed.]"
-                ).strip()
             else:
                 cf_infs.extend(
                     [
-                        "Resonance Focus R4 (+4d6)",
-                        "Electronics: Complex Forms Spec (+2d6)",
-                        "Taz Sprite Symbiosis (+4d6)",
+                        f"Electronics ({elec_rat}) + Complex Forms Spec (+{cf_spec_b}) + Resonance ({effective_res})",
+                        f"Resonance Focus R{res_focus_b} (+{res_focus_b}d6)",
+                        f"Taz Sprite Symbiosis (+{taz_b}d6)",
+                        f"Total Pool: {elec_cf_pool}d6",
                     ]
                 )
+
+        if rule_desc and len(char_cf_desc) < 90:
+            cf_final_desc = rule_desc
+        else:
+            cf_final_desc = _combine_descriptions(char_cf_desc, rule_desc)
 
         complex_forms_list.append(
             {
@@ -2899,7 +3564,7 @@ def build_roll20_payload(
                 "duration": dur_out,
                 "fading": fading_val,
                 "page": page_str,
-                "description": _combine_descriptions(char_cf_desc, rule_desc),
+                "description": cf_final_desc,
                 "influences": cf_infs,
             }
         )
@@ -2927,18 +3592,15 @@ def build_roll20_payload(
             )
             if x and str(x).strip()
         )
-        sp_infs = ["Sprite Symbiosis (Taz — Companion Sprite R6)"]
+        sp_infs = [f"Sprite Symbiosis (Taz — Companion Sprite R6, +{taz_b}d6)"]
         if is_ai and "death mark" in sp_name.lower():
-            sp_infs.extend(
-                [
-                    "Resonance Focus R4 (+4d6)",
-                    "ECM Warrior II TacApp (+2d6 Offensive Cracking)",
-                ]
-            )
-            sp_desc = (
-                f"{sp_desc} | "
-                "[Offensive Cracking test vs Intuition + Firewall. Total Pool: 23d6 = Cracking 5 + Resonance 8 + Focus 4 + Taz 4 + ECM Warrior II 2.]"
-            ).strip()
+            sp_infs = [
+                f"Cracking ({crack_rat}) + Resonance ({effective_res})",
+                f"Resonance Focus R{res_focus_b} (+{res_focus_b}d6)",
+                f"Sprite Symbiosis (Taz — Companion Sprite R6, +{taz_b}d6)",
+                f"ECM Warrior II TacApp (+{ecm_b}d6 Offensive Cracking)",
+                f"Total Pool: {crack_cf_pool}d6 vs Intuition + Firewall",
+            ]
 
         complex_forms_list.append(
             {
@@ -2991,24 +3653,24 @@ def build_roll20_payload(
         seen_programs.add(pname.lower())
         db_row = _lookup_db_row(conn, "ref_programs", prog.get("ref"), pname)
         raw_xml = (db_row or {}).get("raw_xml", "")
-        rule_desc, rule_page = _lookup_rule_text_and_page(conn, pname)
+        pname_base = re.sub(r"\s*\([^)]*\)", "", pname).strip().lower()
+        cat_key = f"{pname_base} (autosoft)" if "autosoft" in pname.lower() else pname_base
+        cat_page, cat_desc = _PROGRAM_CATALOG.get(
+            cat_key,
+            _PROGRAM_CATALOG.get(pname_base, ("", "")),
+        )
+        yaml_desc = str(
+            prog.get("description") or prog.get("notes") or _strip_xml_tags(raw_xml) or ""
+        ).strip()
         programs_out.append(
             {
                 "name": pname,
                 "page": _format_page(
                     prog.get("source") or (db_row or {}).get("source"),
                     prog.get("page") or _parse_xml_attr(raw_xml, "page"),
-                    fallback_page=rule_page,
+                    fallback_page=cat_page,
                 ),
-                "description": _combine_descriptions(
-                    str(
-                        prog.get("description")
-                        or prog.get("notes")
-                        or _strip_xml_tags(raw_xml)
-                        or ""
-                    ).strip(),
-                    rule_desc,
-                ),
+                "description": _combine_descriptions(yaml_desc, cat_desc),
             }
         )
 
@@ -3027,15 +3689,15 @@ def build_roll20_payload(
                 "dataProcessing": 7,
                 "firewall": 9,
                 "source": "CRB / Hack & Slash",
-                "page": "116",
+                "page": "116, 124",
                 "description": (
                     "Emergent Intelligence Living Persona: Base ASDF 3/5/3/5 increased by +4 augmented cap "
-                    "(Taz Sprite Symbiosis +6, Toolbox +1, Encryption +1) to 7/9/7/9. "
-                    "Matrix AR 16 (Attack 7 + Sleaze 9), Matrix DR 16 (DP 7 + FW 9, treated as 20 DR via Designer Home Device)."
+                    "(Resonance 9 [+1/+2/+2/+4] + Taz Sprite Symbiosis [+3/+2/+1/+0] + Toolbox [+1 DP]) to 7/9/7/9. "
+                    "Matrix AR 16 (Attack 7 + Sleaze 9), Matrix DR 16 (DP 7 + FW 9; Designer Home Device raises Man-at-Arms Device Rating 2 -> 6 vs. DP 7 so opponents gain no Edge)."
                 ),
                 "accessories": [
                     {"name": "Resonance Focus (Bonded)", "rating": 4},
-                    {"name": "Software Emulator Echo", "rating": 8},
+                    {"name": "Software Emulator Echo", "rating": submersion or res_eff or 9},
                 ],
             },
             {
@@ -3055,13 +3717,7 @@ def build_roll20_payload(
                     "Sneak-Sneak (+2 Stealth TW), Target Artist (shared LOS; -1 cover; ignore blind fire), Artillery Barrage (+1 Launcher). "
                     "[In Library: Mobile Medic]."
                 ),
-                "accessories": [
-                    {"name": "ECM Warrior II (Active TacApp)", "rating": 0},
-                    {"name": "Sneak-Sneak (Active TacApp)", "rating": 0},
-                    {"name": "Target Artist (Active TacApp)", "rating": 0},
-                    {"name": "Artillery Barrage (Active TacApp)", "rating": 0},
-                    {"name": "Mobile Medic (Library TacApp)", "rating": 0},
-                ],
+                "accessories": [],
             },
             {
                 "name": "Essy Motors DroneMaster",
@@ -3093,9 +3749,7 @@ def build_roll20_payload(
                     "Houses dormant Data Structure: Oracle (Rating 4) in its optical cluster substrate "
                     "(inactive on character sheet while Resonance Focus R4 is active, per SRM single Data Structure rule for EIs)."
                 ),
-                "accessories": [
-                    {"name": "Data Structure: Oracle (Dormant / Inactive)", "rating": 4},
-                ],
+                "accessories": [],
             },
         ]
         raw_matrix_devices = ai_matrix_devices + raw_matrix_devices
@@ -3104,9 +3758,10 @@ def build_roll20_payload(
         if not isinstance(dev, dict):
             continue
         dname = str(dev.get("name") or "").strip()
-        if not dname or dname.lower() in seen_matrix_devices:
+        dname_norm = re.sub(r"\bmark\s+", "", dname.lower()).strip()
+        if not dname or dname_norm in seen_matrix_devices:
             continue
-        seen_matrix_devices.add(dname.lower())
+        seen_matrix_devices.add(dname_norm)
 
         dr = _parse_int(dev.get("deviceRating", dev.get("device_rating", dev.get("rating", 3))), 3)
         subtype = str(dev.get("subType") or dev.get("type") or "COMMLINK").upper()
@@ -3252,6 +3907,47 @@ def generate_roll20_helper_guide(
     if resonance > 0:
         from sr6core.rules.vehicles import parse_vehicle_modifications, calculate_drone_action_pools
 
+        sub_lvl = _parse_int(payload.get("submersion"), 9) or 9
+        wil = attr_map.get("WILLPOWER", 6)
+        log = attr_map.get("LOGIC", 4)
+        intu = attr_map.get("INTUITION", 2)
+        cha = attr_map.get("CHARISMA", 4)
+        res_focus_r = next(
+            (
+                _parse_int(i.get("rating"), 4)
+                for i in payload.get("items", [])
+                if "resonance focus" in i["name"].lower() and i.get("rating") not in ("", None)
+            ),
+            4,
+        )
+        eff_res = resonance + res_focus_r
+        nh_wil = max(0, resonance - wil)
+        nh_log = max(0, resonance - log)
+        nh_int = max(0, resonance - intu)
+        nh_ji_mod = nh_int + nh_wil
+        nh_log_init = nh_log + nh_int
+        crack_sk = next((s["rating"] for s in payload.get("skills", []) if s["id"] == "cracking"), 5)
+        elec_sk = next((s["rating"] for s in payload.get("skills", []) if s["id"] == "electronics"), 5)
+        task_sk = next((s["rating"] for s in payload.get("skills", []) if s["id"] == "tasking"), 6)
+        taz_b = 4
+        ecm_b = 2
+        overclock_b = 2
+        hacking_p = crack_sk + 2 + eff_res + taz_b + ecm_b + overclock_b
+        cybercombat_p = crack_sk + eff_res + taz_b + ecm_b + overclock_b
+        hide_p = cybercombat_p
+        software_p = elec_sk + 3 + eff_res + taz_b + overclock_b
+        elec_base_p = elec_sk + eff_res + taz_b + overclock_b
+        cf_p = elec_sk + 2 + eff_res + taz_b
+        res_spike_p = crack_sk + eff_res + taz_b + ecm_b
+        std_mdef_p = 9 + eff_res
+        base_mdef_p = std_mdef_p + 3
+        allin_mdef_p = base_mdef_p + sub_lvl + 7
+        fade_compile_p = wil + cha + sub_lvl + res_focus_r
+        fade_cf_p = wil + cha
+        eng_mod_val = -(eff_res - log) + 4
+        bio_mod_val = -(eff_res - log) + 4
+        out_mod_val = -(eff_res - intu)
+
         maa_src = next(
             (d for d in (char_data.get("drones") or []) if isinstance(d, dict) and "man-at-arms" in str(d.get("name", "")).lower()),
             {"name": "Shiawase Man-at-Arms", "sensor": 2, "pilot": 2, "body": 10},
@@ -3275,15 +3971,40 @@ def generate_roll20_helper_guide(
         tesla_mod_enl = tesla_p_enl - start_exotic
         lines.extend(
             [
-                "3. **Select Technomancer Stream (Matrix Tab)**: On the **Matrix** tab, select **`Technoshamans (Charisma)`** so Fade Resistance rolls `Willpower + Charisma` (`6 + 4 = 10d6`).",
+                f"3. **Select Technomancer Stream (Matrix Tab)**: On the **Matrix** tab, select **`Technoshamans (Charisma)`** so Fade Resistance uses `Willpower + Charisma` (`{wil} + {cha} = {fade_cf_p}d6` base, `{fade_compile_p}d6` Compiling/Registering with Sprite Conduit +{sub_lvl} and Resonance Focus +{res_focus_r}).",
+                "4. **Enable Overclock (Matrix Tab)**: Check the **`Overclock`** toggle on the **Matrix** tab so Roll20's native Matrix Action buttons automatically add **`+2d6`** (`@{matrix_overclock}*2`) and **`+1 Wild Die`**.",
                 "",
                 "---",
                 "",
-                "## 2. Post-Flight Adjustments (The 4 Post-Import Steps)",
+                "## 2. Post-Flight Adjustments (Native Roll20 Sheet Sync)",
                 "",
-                "Every time you re-import `reiko_roll20.json`, Roll20's `clean()` wipes repeating rows and restores default values. Follow these 4 quick adjustments to finalize the sheet for tabletop play:",
+                "Every time you re-import `reiko_roll20.json`, Roll20's `clean()` wipes repeating rows and restores default values. Apply these adjustments so native sheet buttons, GM opposition links, and custom Abilities all match:",
                 "",
-                "### 1) Drone Autosofts (`Vehicles` Tab)",
+                "### 1) Skill Modifiers & Overclock (`Skills` & `Matrix` Tabs)",
+                "Roll20's `repeating_effects` cannot directly modify active skill ranks (`Cracking`, `Electronics`, `Tasking`), **but setting each skill's `Mod` box (`x` settings on the Skills tab) DOES update every native Matrix Action button, Complex Form, and Sprite roll!**",
+                "",
+                f"Assuming **Effects 1–4** below are active (`RES {eff_res}`, `LOG {eff_res}`, `INT {eff_res}`, `WIL {wil + nh_wil + res_focus_r}`) and **`Overclock` is checked (`+2d6`, `1w`)** on the Matrix tab:",
+                "",
+                "- **Matrix Skills (`Skills` Tab -> Settings `x` -> `Mod`)**:",
+                f"  - **`Cracking`**: Set **`Mod`** to **`+{taz_b + ecm_b}`** (`+4` Taz Symbiosis + `+2` ECM Warrior II = effective rating `{crack_sk + taz_b + ecm_b}`).",
+                f"  - **`Electronics`**: Set **`Mod`** to **`+{taz_b}`** (`+4` Taz Symbiosis = effective rating `{elec_sk + taz_b}`).",
+                "  - **`Tasking`**: Keep **`Mod`** at **`0`** (rating `6`; **no ally sprite can learn or assist with Tasking**).",
+                "- **Native Matrix Action Dropdown (`Training Level?`) Lookup Table**:",
+                f"  - **Hacking Actions** (`Backdoor Entry`, `Brute Force`, `Crack File`, `Probe`, `Spoof Command`): choose **`Specialized (+2)`** -> **`{hacking_p}d6 (1w)`**",
+                f"  - **Cybercombat / EW Actions** (`Data Spike`, `Snoop`, `Tar Pit`, `Jam Signals`, `Disarm Data Bomb`, `Crash Program`, `Check OS`, `Hide`): choose **`Trained (0)`** -> **`{cybercombat_p}d6 (1w)`** *(note: `Hide` is defensive Cracking; subtract 2 -> `24d6 (1w)` if GM excludes `ECM Warrior II`)*",
+                f"  - **Software Actions** (`Edit File`, `Encrypt File`, `Hash Check`, `Erase Matrix Signature`): choose **`Expertise (+3)`** -> **`{software_p}d6 (1w)`**",
+                f"  - **Computer / Hardware / Search** (`Control Device`, `Matrix Perception`, `Matrix Search`, `Format Device`, `Trace Icon`, `Reboot Device`): choose **`Trained (0)`** -> **`{elec_base_p}d6 (1w)`**",
+                f"- **Meatspace Emulated Skills (`Skills` Tab `Mod` to cancel Matrix `LOG {eff_res}` / `INT {eff_res}`)**:",
+                f"  - **`Engineering (Drones)`**: Set **`Mod`** to **`{eng_mod_val}`** (`-{eff_res - log}` LOG offset + `4` Taz = **`15d6`** pool; use **`-1`** if `Resonance Focus` Effect is toggled off).",
+                f"  - **`Biotech`**: Set **`Mod`** to **`{bio_mod_val}`** (`-{eff_res - log}` LOG offset + `4` Mobile Medic = **`15d6`** pool; use **`-1`** if `Resonance Focus` Effect is toggled off).",
+                f"  - **`Outdoors (Navigation)`**: Set **`Mod`** to **`{out_mod_val}`** (`-{eff_res - intu}` INT offset = **`9d6`** pool; use **`-7`** if `Resonance Focus` Effect is toggled off).",
+                "",
+                "### 2) Complex Form Rolls (`Matrix` Tab)",
+                "Open settings (`x`) on each Complex Form row:",
+                f"- **Electronics Forms** (`Puppeteer`, `Cleaner`, `Diffusion of Firewall`, `Technoregeneration`, `Resonance Wires`, `Enlighten Automaton`, `Cyber Spike`): Skill = **`Electronics`** (effective `{elec_sk + taz_b}` w/ `Mod +4`), check **Specialization (`+2`)**, Modifier = **`0`** (or **`+{res_focus_r}`** if `Resonance Focus` Effect is toggled off) -> **`{cf_p}d6`** (`6` bought hits).",
+                f"- **Resonance Spike** (`Cracking`): Skill = **`Cracking`** (effective `{crack_sk + taz_b + ecm_b}` w/ `Mod +6`), leave Specialization unchecked (`0`), Modifier = **`0`** (or **`+{res_focus_r}`** if `Resonance Focus` Effect is toggled off) -> **`{res_spike_p}d6`** (`6` bought hits).",
+                "",
+                "### 3) Drone Autosofts (`Vehicles` Tab)",
                 "- **Inhabited Man-at-Arms Autosofts** (Emulated Rating 7 + 4 Sprite Symbiosis + **1 Pilot Origins** = **`12`** base effective autosoft/rig contribution; click power toggle ON):",
                 "  - **Clearsight**: `12` (`7` Clearsight + `4` Taz + `1` Pilot Origins; click power toggle ON)",
                 "  - **Evasion**: `12` (`7` Evasion + `4` Taz + `1` Pilot Origins; click power toggle ON)",
@@ -3292,14 +4013,15 @@ def generate_roll20_helper_guide(
                 "  - **Targeting (Crimson Wasps)**: `13` (`7` Targeting + `4` Taz + `1` Smartlink + `1` Pilot Origins; click power toggle ON)",
                 "  - **Targeting (Tesla Coil)**: `12` (`7` Targeting + `4` Taz + `1` Pilot Origins; un-smartlinked)",
                 "- **Shiawase Man-at-Arms (Overridden Drone Body)**:",
-                f"  - **Pilot Mod**: `+4` (Resonance Focus R4 -> Effective Pilot {maa_prof['inhabited_pilot'] + 4})",
+                f"  - **Pilot Mod**: `+{res_focus_r}` (Resonance Focus R{res_focus_r} -> Effective Pilot {maa_prof['inhabited_pilot'] + res_focus_r})",
                 f"  - **Body Mod**: `+{maa_prof['augmented_body'] - maa_prof['base_body']}` (Reinforced Frame -> Body {maa_prof['augmented_body']})",
                 f"  - **Sensor Mod**: `+{maa_prof['augmented_sensor'] - maa_prof['hardware_sensor']}` Passive (Hardware {maa_prof['hardware_sensor']} + 1 Sensor Upgrade + 1 Home Device -> Sensor {maa_prof['augmented_sensor']}), or **`+{maa_prof['enlightened_sensor'] - maa_prof['hardware_sensor']}`** with **Enlighten Automaton** (`+{enl_delta}` -> Sensor {maa_prof['enlightened_sensor']})",
-                "- **Secondary Drones** (`Sky Commander`, `MCT Gnat`, `MCT Hornet`):",
-                "  - **Sensor Mod**: `+1` (`Sensor Upgrade` quality -> Sky Commander `6`, Hornet `3`, Gnat `2`)",
-                "  - Autopilot Autosofts: `7` (Emulated capped by DP 7) + Taz Teamwork (`4`) when assisted",
+                "- **Secondary Drones** (`Sky Commander`, `MCT Hornet`, `MCT Gnat` — Autonomous Pilot, never inhabited by Reiko):",
+                "  - **Pilot**: Own Pilot (`3` Sky Commander, `2` Hornet, `2` Gnat). If a Sprite inhabits the drone, set **Pilot Mod** to **`+5`** (`Sky Commander`) or **`+6`** (`Hornet`/`Gnat`) for **Pilot `8`** (`17d6` Piloting/Evasion, `19d6` Stealth).",
+                "  - **Sensor**: Hardware + `1` (`Sensor Upgrade` quality -> Sky Commander `6`, Hornet `3`, Gnat `2`).",
+                "  - **Autosofts**: `9` (`Clearsight 9`, `Electronic Warfare 9`, `Evasion 9`, `Maneuvering 9`, `Targeting 9` shared via RCC/Software tags) and **Stealth `11`** (`9` + `2` from `Sneak-Sneak`).",
                 "",
-                "### 2) Weapon Pools to Reflect Targeting Pool (`Arms` & `Core` Tabs)",
+                "### 4) Weapon Pools (`Arms` & `Core` Tabs)",
                 f"The 5 Man-at-Arms weapons are exported using skill **`Exotic Weapons`** so your `Engineering (Drones)` skill doesn't inflate your weapon pools. Starting Roll20 pool = `Agility ({agi}) + Exotic Weapons (-1 unskilled) = {start_exotic}`:",
                 f"- **Crimson Wasps (Smartlinked)**: `Targeting (7) + Sensor ({maa_prof['augmented_sensor']}) + Taz (4) + Pilot Origins (1) + Smartlink (1) = {wasp_p}d6` Passive (`{wasp_p_enl}d6` w/ Enlighten Automaton) -> Set Mod to **`+{wasp_mod}`** (`+{wasp_mod_enl}` sustained).",
                 f"- **Tesla Coil (No Smartlink)**: `Targeting (7) + Sensor ({maa_prof['augmented_sensor']}) + Taz (4) + Pilot Origins (1) = {tesla_p}d6` Passive (`{tesla_p_enl}d6` w/ Enlighten Automaton) -> Set Mod to **`+{tesla_mod}`** (`+{tesla_mod_enl}` sustained).",
@@ -3310,32 +4032,6 @@ def generate_roll20_helper_guide(
                 f"  3. **Tesla Coil (Straight Line)**: Set **Modifier** to **`+{tesla_mod}`** (Pool = **{tesla_p}d6** Passive / **{tesla_p_enl}d6** Sustained, 5S(e) DV, AR 10/12/-/-/-).",
                 f"  4. **Tesla Coil (Wobbly Cone)**: Set **Modifier** to **`+{tesla_mod}`** (Pool = **{tesla_p}d6** Passive / **{tesla_p_enl}d6** Sustained, 4S(e) DV, Cone 20m x 3m base, Apex 8.58°).",
                 f"  5. **Tesla Coil (Sweep Cone)**: Set **Modifier** to **`+{tesla_mod}`** (Pool = **{tesla_p}d6** Passive / **{tesla_p_enl}d6** Sustained, 2S(e) DV, Cone 20m x 10m base, Apex 28.07°).",
-                "",
-                "",
-                "### 3) Complex Form Rolls (`Matrix` Tab)",
-                "Roll20's importer omits setting skill attributes on Complex Forms, leaving them at 'No Roll'. Open settings (`x`) on each form:",
-                "- **Electronics Forms** (`Puppeteer`, `Cleaner`, `Diffusion of Firewall`, `Technoregeneration`, `Resonance Wires`, `Enlighten Automaton`, `Cyber Spike`):",
-                "  - **Skill**: Select **`Electronics`**",
-                "  - **Specialization**: Check box (**`+2`**)",
-                "  - **Modifier**: Set to **`+7`** (Focus +4 + Taz Symbiosis +3) to roll full **`23d6`** pool (or leave blank to roll base 16d6).",
-                "- **Resonance Spike** (`Cracking`):",
-                "  - **Skill**: Select **`Cracking`**",
-                "  - **Specialization**: Check box (**`+2`**)",
-                "  - **Modifier**: Set to **`+7`** (Focus +4 + Taz Symbiosis + ECM Warrior II) to roll full **`23d6`** pool.",
-                "",
-                "### 4) Add Sprite Symbiosis & TacApp Modifiers to Skills (`Core` & `Skills` Tabs)",
-                "Because Natural Hacker (*Hack & Slash* p. 83) strictly replaces Logic and Intuition on *Matrix actions*, meatspace skills (Engineering, Biotech, Navigation) cannot use your inflated Matrix attributes (Logic 12, Intuition 12). Instead, they roll with your real meatspace attributes (Logic 4, Intuition 2).",
-                "",
-                "To counteract the +8 Logic and +10 Intuition bonuses provided by the Natural Hacker Effect in Roll20, apply the following compensating modifiers on the **Skills** tab (click settings `x` on each skill):",
-                "",
-                "- **Matrix Skills** (Natural Hacker Resonance 12 applies):",
-                "  - **Cracking**: Set Modifier to **`+4`** (Taz Teamwork -> Pool **21d6**, or **23d6** with Hacking Spec).",
-                "  - **Electronics**: Set Modifier to **`+4`** (Taz Teamwork -> Pool **21d6**, or **23d6** with Software/Complex Forms Spec).",
-                "  - **Tasking**: Set Modifier to **`+4`** (Taz Teamwork -> Pool **22d6**, or **24d6** with Registering/Compiling Spec).",
-                "- **Meatspace Emulated Skills** (Compensate for Natural Hacker +8 LOG / +10 INT):",
-                "  - **Engineering (Drones)**: Set Modifier to **`-4`** (Real Logic 4 + Rating 5 + Drones Spec 2 + Taz Teamwork 4 = **15d6** Pool. Roll20 calculates 12 + 5 + 2 = 19; `19 - 4 = 15d6`).",
-                "  - **Biotech**: Set Modifier to **`-4`** (Real Logic 4 + Rating 7 + Mobile Medic 4 = **15d6** Pool. Roll20 calculates 12 + 7 = 19; `19 - 4 = 15d6`).",
-                "  - **Outdoors (Navigation)**: Set Modifier to **`-10`** (Real Intuition 2 + Rating 5 + Navigation Spec 2 = **9d6** Pool. Roll20 calculates 12 + 5 + 2 = 19; `19 - 10 = 9d6`).",
             ]
         )
     lines.extend(
@@ -3345,8 +4041,8 @@ def generate_roll20_helper_guide(
             "",
             "## 3. One-Time Setup: Copy-Paste Effects (`Core Tab -> Attributes -> Effects`)",
             "",
-            "> **Why Skill Modifiers (`cracking`, `electronics`) Are Handled Via Macros Rather Than Effects**:",
-            "> Roll20's `repeating_effects` sheet worker only supports attributes and derived pools in `allowed_modifiers` (`logic_modifier`, `attack_modifier`, `fade_compiling_modifier`, etc.). Active skill ratings (`attr_cracking`, `attr_electronics`) are managed by a separate worker (`update_skill_ratings`) that overwrites hidden skill attributes upon any change. To ensure your +4d6 Taz teamwork and +2d6 ECM Warrior II bonuses always roll reliably without desyncing, they are pre-calculated into the dedicated chat macros in Section 3 below.",
+            "> **Clean Modular Effects (`repeating_effects` survive JSON re-imports)**:",
+            "> Separating modifiers into 4 dedicated Effects lets you inspect every single active source at a glance and toggle any piece (such as the bonded Resonance Focus) independently without breaking ASDF, Stun, derived mental tests, or Initiative.",
             "",
         ]
     )
@@ -3395,18 +4091,36 @@ def generate_roll20_helper_guide(
     if resonance > 0:
         lines.extend(
             [
-                "### Effect 1: Natural Hacker + Resonance Focus (R4) + Living Persona (`7/9/7/9`) — *With Initiative Fix!*",
-                "- **Name**: `Natural Hacker + Resonance Focus R4 + Living Persona 7/9/7/9`",
-                "- **Duration**: `Permanent / Bonded`",
-                "- **Source**: `Natural Hacker + Resonance Focus R4 + Taz Symbiosis`",
-                "- **Why this solves the Initiative & ASDF headaches**:",
-                "  1. Raises `Resonance` (`8 + 4 = 12`), `Logic` (`4 + 8 = 12`), and `Intuition` (`2 + 10 = 12`) so all `Cracking`, `Electronics`, and `Tasking` rolls use `12`.",
-                "  2. Cancels out the `+10` Intuition inflation on **all 4 Initiative buttons** (`initiative_mod: -10`, `matrix_initiative_mod: -10`, `cold_sim_initiative_mod: -10`, `hot_sim_initiative_mod: -10`, plus `hot_sim_initiative_dice_mod: +1` for Overclocking) so you **never have to disable this Effect before rolling Initiative** (`Physical = 11 + 1d6`, `Matrix AR = 9 + 2d6`, `Cold-Sim = 9 + 3d6`, `Hot-Sim = 9 + 5d6`)!",
-                "  3. Compensates for `techno_update()` so your Living Persona ASDF stays locked at **`Attack 7, Sleaze 9, Data Processing 7, Firewall 9`** (`Matrix AR 16`, `Matrix DR 16`).",
-                "  4. Adds `fade_compiling_modifier: +8` (`+4` Resonance Focus + `+4` Taz Symbiosis on Compiling/Registering) and `sprite_resist_dv_modifier: +1` (`Technoshamans` stream).",
+                "### Effect 1: `Living Persona ASDF & Overclocking`",
+                "- **Duration**: `Permanent` | **Source**: `Living Persona (7/9/7/9) + Designer Home Device + Overclocking`",
+                "- **What it does**: Sets Living Persona ASDF to **`7/9/7/9`** (`attack: 4+3=7`, `sleaze: 2+7=9`, `data_processing: 4+3=7`, `firewall: 6+3=9`), keeping **Matrix DR at `16`** (`DP 7 + FW 9`) while adding **`+1d6` Hot-Sim Initiative Dice** (`Overclocking`). *(Designer Home Device raises Man-at-Arms physical Device Rating `2 -> 6` vs. DP `7` for Edge comparison, rather than adding `+4` to Matrix DR.)*",
                 "- **Modifications** *(copy-paste as a single line)*:",
                 "```text",
-                "resonance_modifier: +4, logic_modifier: +8, intuition_modifier: +10, attack_modifier: +3, sleaze_modifier: -3, data_processing_modifier: -5, firewall_modifier: +3, initiative_mod: -10, matrix_initiative_mod: -10, cold_sim_initiative_mod: -10, hot_sim_initiative_mod: -10, hot_sim_initiative_dice_mod: +1, judge_intentions_modifier: -10, memory_modifier: -8, fade_compiling_modifier: +8, sprite_resist_dv_modifier: +1",
+                "attack_modifier: +3, sleaze_modifier: +7, data_processing_modifier: +3, firewall_modifier: +3, hot_sim_initiative_dice_mod: +1",
+                "```",
+                "",
+                f"### Effect 2: `Natural Hacker (Subikari Stream — RES {resonance} Sub)`",
+                "- **Duration**: `Permanent` | **Source**: `Natural Hacker (H&S p.83)`",
+                f"- **What it does**: Replaces `Willpower` (`{wil} -> {resonance}`, `+{nh_wil}`), `Logic` (`{log} -> {resonance}`, `+{nh_log}`), and `Intuition` (`{intu} -> {resonance}`, `+{nh_int}`) with `Resonance {resonance}` for Matrix actions and defense tests (`WIL + FW`, `WIL + SLZ`, `Jack Out`). Cleanly offsets ASDF (`-{nh_wil} FW`, `-{nh_log} DP`, `-{nh_int} SLZ`), Stun boxes (`-2`), Composure (`-{nh_wil}`), Judge Intentions (`-{nh_ji_mod}`), Lift/Carry (`-{nh_wil}`), Compiling Fade (`-{nh_wil}`), Memory (`-{nh_log_init}`), and all 4 Initiative buttons (`-{nh_int}` / `-{nh_log_init}` Astral) so meatspace stats stay exact.",
+                "- **Modifications** *(copy-paste as a single line)*:",
+                "```text",
+                f"willpower_modifier: +{nh_wil}, logic_modifier: +{nh_log}, intuition_modifier: +{nh_int}, firewall_modifier: -{nh_wil}, data_processing_modifier: -{nh_log}, sleaze_modifier: -{nh_int}, stun_modifier: -2, composure_modifier: -{nh_wil}, judge_intentions_modifier: -{nh_ji_mod}, lift_carry_modifier: -{nh_wil}, fade_compiling_modifier: -{nh_wil}, memory_modifier: -{nh_log_init}, initiative_mod: -{nh_int}, astral_initiative_mod: -{nh_log_init}, matrix_initiative_mod: -{nh_int}, cold_sim_initiative_mod: -{nh_int}, hot_sim_initiative_mod: -{nh_int}",
+                "```",
+                "",
+                f"### Effect 3: `Resonance Focus (Rating {res_focus_r} — Bonded Data Structure)`",
+                "- **Duration**: `Bonded (Toggleable)` | **Source**: `Resonance Focus R4 (Man-at-Arms)`",
+                f"- **What it does**: Adds **`+{res_focus_r}` Resonance** (`{resonance} -> {eff_res}`), **`+{res_focus_r}` Willpower** (`{resonance} -> {eff_res}` for Matrix/Full Defense vs `WIL + FW`/`WIL + SLZ`), **`+{res_focus_r}` Logic**, and **`+{res_focus_r}` Intuition** (`{resonance} -> {eff_res}` for Natural Hacker), while offsetting ASDF (`-{res_focus_r}`), Stun (`-2`), `Composure` (`-{res_focus_r}`), `Judge Intentions` (`-{res_focus_r * 2}`), `Memory` (`-{res_focus_r * 2}`), `Lift/Carry` (`-{res_focus_r}`), Initiatives (`-{res_focus_r}` / `-{res_focus_r * 2}` Astral), and `fade_compiling_modifier` (`-{res_focus_r}`). Toggle OFF if unbonded — zero residual drift!",
+                "- **Modifications** *(copy-paste as a single line)*:",
+                "```text",
+                f"resonance_modifier: +{res_focus_r}, willpower_modifier: +{res_focus_r}, logic_modifier: +{res_focus_r}, intuition_modifier: +{res_focus_r}, firewall_modifier: -{res_focus_r}, data_processing_modifier: -{res_focus_r}, sleaze_modifier: -{res_focus_r}, stun_modifier: -2, composure_modifier: -{res_focus_r}, judge_intentions_modifier: -{res_focus_r * 2}, memory_modifier: -{res_focus_r * 2}, lift_carry_modifier: -{res_focus_r}, initiative_mod: -{res_focus_r}, astral_initiative_mod: -{res_focus_r * 2}, matrix_initiative_mod: -{res_focus_r}, cold_sim_initiative_mod: -{res_focus_r}, hot_sim_initiative_mod: -{res_focus_r}, fade_compiling_modifier: -{res_focus_r}",
+                "```",
+                "",
+                "### Effect 4: `Sprite Conduit, Taz Symbiosis & Technoshaman`",
+                "- **Duration**: `Permanent / Symbiosis` | **Source**: `Sprite Conduit (Sub 9) + Resonance Focus R4 + Technoshamans`",
+                f"- **What it does**: Adds **`+13` Compiling/Registering Fade Resistance** (`+9` Sprite Conduit + `+4` Resonance Focus, making `WIL 6 + CHA 4 + 13 = {fade_compile_p}d6` on `~fade_compiling` chat buttons) and **`+1` Sprite Resist DV** (`Technoshamans`). *(Note: Roll20's direct Submersion `Resist Fade` button omits `fade_compiling_modifier`, so use Section 4's `Fade-Resistance` Ability for direct one-click Fade rolls.)*",
+                "- **Modifications** *(copy-paste as a single line)*:",
+                "```text",
+                f"fade_compiling_modifier: +{sub_lvl + res_focus_r}, sprite_resist_dv_modifier: +1",
                 "```",
             ]
         )
@@ -3427,164 +4141,412 @@ def generate_roll20_helper_guide(
         ]
     )
 
+    def _r20_ability(
+        base: str,
+        pool_expr: str,
+        dice_count_expr: Optional[str] = None,
+        wild_die: Any = False,
+        overclock: Any = False,
+        fade: Optional[int] = None,
+        desc: str = "",
+        tip: str = "",
+        opp: str = "",
+        include_wounds: bool = True,
+        gm_whisper: bool = True,
+    ) -> str:
+        """Build a Roll20 `rolls-computed` Ability macro with explicit pool/wilddie rendering."""
+        prefix = "@{gm_toggle} " if gm_whisper else ""
+        wounds_part = "+@{wounds_toggle}" if include_wounds else ""
+        full_pool = f"({pool_expr}{wounds_part}+@{{modifiers_toggle}}+@{{edge_toggle}})"
+        if dice_count_expr is not None:
+            roll_cnt = f"({dice_count_expr}{wounds_part}+@{{modifiers_toggle}}+@{{edge_toggle}})"
+        elif wild_die is True:
+            roll_cnt = f"(({pool_expr})-1{wounds_part}+@{{modifiers_toggle}}+@{{edge_toggle}})"
+        else:
+            roll_cnt = full_pool
+
+        parts = [
+            f"{prefix}&{{template:rolls-computed}}",
+            "{{header=@{character_name}}}",
+            f"{{{{base={base}}}}}",
+            f"{{{{dicepool=[[{full_pool}]]}}}}",
+            f"{{{{dice=[[{roll_cnt}d6>5@{{explode_toggle}}cs>5cf<[[(1+@{{bad_luck}})]]]]}}}}",
+            "{{mod=[[@{modifiers_toggle}]]}}",
+        ]
+        if include_wounds:
+            parts.append("{{wound=[[@{wounds_toggle}]]}}")
+        parts.append("{{edge=[[@{edge_toggle}]]}}")
+        if isinstance(wild_die, str):
+            parts.append(f"{{{{wilddie=[[{wild_die}]]}}}}")
+        elif wild_die:
+            parts.append("{{wilddie=[[1+@{wild_die}]]}}")
+        else:
+            parts.append("{{wilddie=[[@{wild_die}]]}}")
+        parts.append("{{wilddie_dice=[[1d6@{explode_toggle}cs>5cf<1]]}}")
+        if isinstance(overclock, str):
+            parts.append(f"{{{{overclock=[[{overclock}]]}}}}")
+        elif overclock:
+            parts.append("{{overclock=[[2]]}}")
+        if fade is not None:
+            parts.append(f"{{{{fade=[[{fade}]]}}}}")
+        if desc:
+            parts.append(f"{{{{desc={desc}}}}}")
+        if tip:
+            parts.append(f"{{{{tip={tip}}}}}")
+        if opp:
+            parts.append(f"{{{{opp={opp}}}}}")
+        return "".join(parts)
+
     if magic > 0:
         lines.extend(
             [
                 "",
                 "### Leadership / Command Presence Roll (`Influence + Charisma + 2`)",
                 "```text",
-                f"@{{{c_ref}|gm_toggle}} &{{template:rolls-computed}}{{{{header=@{{{c_ref}|character_name}}}}}}{{{{base=Influence (Leadership + Command Presence)}}}}{{{{dice=[[(@{{{c_ref}|influence}}+@{{{c_ref}|charisma}}+2+@{{{c_ref}|wounds_toggle}}+@{{{c_ref}|modifiers_toggle}}+@{{{c_ref}|edge_toggle}})d6>5@{{{c_ref}|explode_toggle}}]]}}}}{{{{mod=[[@{{{c_ref}|modifiers_toggle}}]]}}}}{{{{wound=[[@{{{c_ref}|wounds_toggle}}]]}}}}{{{{edge=[[@{{{c_ref}|edge_toggle}}]]}}}}{{{{notes=Wise Warrior (-1 Edge cost, min 1) + Command Presence (+2d6, +1 Edge) + Inspire Competence}}}}",
+                f"@{{{c_ref}|gm_toggle}} &{{template:rolls-computed}}{{{{header=@{{{c_ref}|character_name}}}}}}{{{{base=Influence (Leadership + Command Presence)}}}}{{{{dicepool=[[(@{{{c_ref}|influence}}+@{{{c_ref}|charisma}}+2+@{{{c_ref}|wounds_toggle}}+@{{{c_ref}|modifiers_toggle}}+@{{{c_ref}|edge_toggle}})]]}}}}{{{{dice=[[(@{{{c_ref}|influence}}+@{{{c_ref}|charisma}}+2+@{{{c_ref}|wounds_toggle}}+@{{{c_ref}|modifiers_toggle}}+@{{{c_ref}|edge_toggle}})d6>5@{{{c_ref}|explode_toggle}}cs>5cf<[[(1+@{{{c_ref}|bad_luck}})]]]]}}}}{{{{mod=[[@{{{c_ref}|modifiers_toggle}}]]}}}}{{{{wound=[[@{{{c_ref}|wounds_toggle}}]]}}}}{{{{edge=[[@{{{c_ref}|edge_toggle}}]]}}}}{{{{desc=Wise Warrior (-1 Edge cost, min 1) + Command Presence (+2d6, +1 Edge) + Inspire Competence}}}}",
                 "```",
                 "",
                 "### Con / Cosmetic Control Disguise Roll (`Con + Charisma`)",
                 "```text",
-                f"@{{{c_ref}|gm_toggle}} &{{template:rolls-computed}}{{{{header=@{{{c_ref}|character_name}}}}}}{{{{base=Con (Cosmetic Control R2)}}}}{{{{dice=[[(@{{{c_ref}|con}}+@{{{c_ref}|charisma}}+@{{{c_ref}|wounds_toggle}}+@{{{c_ref}|modifiers_toggle}}+@{{{c_ref}|edge_toggle}})d6>5@{{{c_ref}|explode_toggle}}]]}}}}{{{{mod=[[@{{{c_ref}|modifiers_toggle}}]]}}}}{{{{wound=[[@{{{c_ref}|wounds_toggle}}]]}}}}{{{{edge=[[@{{{c_ref}|edge_toggle}}]]}}}}{{{{notes=Cosmetic Control R2 (-1 Edge boost cost on Con tests) + Nanopaste/Nanocosmetics}}}}",
+                f"@{{{c_ref}|gm_toggle}} &{{template:rolls-computed}}{{{{header=@{{{c_ref}|character_name}}}}}}{{{{base=Con (Cosmetic Control R2)}}}}{{{{dicepool=[[(@{{{c_ref}|con}}+@{{{c_ref}|charisma}}+@{{{c_ref}|wounds_toggle}}+@{{{c_ref}|modifiers_toggle}}+@{{{c_ref}|edge_toggle}})]]}}}}{{{{dice=[[(@{{{c_ref}|con}}+@{{{c_ref}|charisma}}+@{{{c_ref}|wounds_toggle}}+@{{{c_ref}|modifiers_toggle}}+@{{{c_ref}|edge_toggle}})d6>5@{{{c_ref}|explode_toggle}}cs>5cf<[[(1+@{{{c_ref}|bad_luck}})]]]]}}}}{{{{mod=[[@{{{c_ref}|modifiers_toggle}}]]}}}}{{{{wound=[[@{{{c_ref}|wounds_toggle}}]]}}}}{{{{edge=[[@{{{c_ref}|edge_toggle}}]]}}}}{{{{desc=Cosmetic Control R2 (-1 Edge boost cost on Con tests) + Nanopaste/Nanocosmetics}}}}",
                 "```",
                 "",
                 "### Spellcasting (`Sorcery + Magic + Specialization +2 + Wise Warrior +1`)",
                 "```text",
-                f"@{{{c_ref}|gm_toggle}} &{{template:rolls-computed}}{{{{header=@{{{c_ref}|character_name}}}}}}{{{{base=Spellcasting (Sorcery + Magic)}}}}{{{{dice=[[(@{{{c_ref}|sorcery}}+@{{{c_ref}|magic}}+3+@{{{c_ref}|wounds_toggle}}+@{{{c_ref}|modifiers_toggle}}+@{{{c_ref}|edge_toggle}})d6>5@{{{c_ref}|explode_toggle}}]]}}}}{{{{mod=[[@{{{c_ref}|modifiers_toggle}}]]}}}}{{{{wound=[[@{{{c_ref}|wounds_toggle}}]]}}}}{{{{edge=[[@{{{c_ref}|edge_toggle}}]]}}}}{{{{notes=Includes +2 Spellcasting Spec & +1 Improved Ability (Sorcery)}}}}",
+                f"@{{{c_ref}|gm_toggle}} &{{template:rolls-computed}}{{{{header=@{{{c_ref}|character_name}}}}}}{{{{base=Spellcasting (Sorcery + Magic)}}}}{{{{dicepool=[[(@{{{c_ref}|sorcery}}+@{{{c_ref}|magic}}+3+@{{{c_ref}|wounds_toggle}}+@{{{c_ref}|modifiers_toggle}}+@{{{c_ref}|edge_toggle}})]]}}}}{{{{dice=[[(@{{{c_ref}|sorcery}}+@{{{c_ref}|magic}}+3+@{{{c_ref}|wounds_toggle}}+@{{{c_ref}|modifiers_toggle}}+@{{{c_ref}|edge_toggle}})d6>5@{{{c_ref}|explode_toggle}}cs>5cf<[[(1+@{{{c_ref}|bad_luck}})]]]]}}}}{{{{mod=[[@{{{c_ref}|modifiers_toggle}}]]}}}}{{{{wound=[[@{{{c_ref}|wounds_toggle}}]]}}}}{{{{edge=[[@{{{c_ref}|edge_toggle}}]]}}}}{{{{desc=Includes +2 Spellcasting Spec & +1 Improved Ability (Sorcery)}}}}",
                 "```",
                 "",
                 "### Drain Resistance (`Willpower + Charisma`)",
                 "```text",
-                f"@{{{c_ref}|gm_toggle}} &{{template:rolls-computed}}{{{{header=@{{{c_ref}|character_name}}}}}}{{{{base=Drain Resistance (WIL + CHA)}}}}{{{{dice=[[(@{{{c_ref}|willpower}}+@{{{c_ref}|charisma}}+@{{{c_ref}|modifiers_toggle}}+@{{{c_ref}|edge_toggle}})d6>5@{{{c_ref}|explode_toggle}}]]}}}}{{{{mod=[[@{{{c_ref}|modifiers_toggle}}]]}}}}{{{{edge=[[@{{{c_ref}|edge_toggle}}]]}}}}{{{{notes=Shinto / Musok Tradition Drain Resistance}}}}",
+                f"@{{{c_ref}|gm_toggle}} &{{template:rolls-computed}}{{{{header=@{{{c_ref}|character_name}}}}}}{{{{base=Drain Resistance (WIL + CHA)}}}}{{{{dicepool=[[(@{{{c_ref}|willpower}}+@{{{c_ref}|charisma}}+@{{{c_ref}|modifiers_toggle}}+@{{{c_ref}|edge_toggle}})]]}}}}{{{{dice=[[(@{{{c_ref}|willpower}}+@{{{c_ref}|charisma}}+@{{{c_ref}|modifiers_toggle}}+@{{{c_ref}|edge_toggle}})d6>5@{{{c_ref}|explode_toggle}}cs>5cf<[[(1+@{{{c_ref}|bad_luck}})]]]]}}}}{{{{mod=[[@{{{c_ref}|modifiers_toggle}}]]}}}}{{{{edge=[[@{{{c_ref}|edge_toggle}}]]}}}}{{{{desc=Shinto / Musok Tradition Drain Resistance}}}}",
                 "```",
             ]
         )
 
     if resonance > 0:
+        compile_p = task_sk + 2 + eff_res
+        compile_link_p = compile_p + 2
+        register_p = compile_p
+        ew_q = (
+            f"?{{EW Action?"
+            f"|Snoop ({cybercombat_p}d6 + 1w),{cybercombat_p}"
+            f"|Hide w/ ECM II ({cybercombat_p}d6 + 1w),{cybercombat_p}"
+            f"|Hide Defensive ({cybercombat_p - 2}d6 + 1w),{cybercombat_p - 2}"
+            f"}}"
+        )
+        atk_base_p = min(res_spike_p, cf_p)
+        atk_delta = cybercombat_p - atk_base_p
+        atk_q = (
+            f"?{{Matrix Attack?"
+            f"|Data Spike — Overclock & Fork ({cybercombat_p}d6 + 1w),1"
+            f"|Resonance Spike — Complex Form ({res_spike_p}d6),0"
+            f"|Cyber Spike — Complex Form ({cf_p}d6),0"
+            f"}}"
+        )
+        task_q = (
+            f"?{{Tasking Action?"
+            f"|Compile Sprite ({compile_link_p}d6 w/ +2 Resonance Link),2"
+            f"|Register Sprite ({register_p}d6),0"
+            f"}}"
+        )
+        fade_q = (
+            f"?{{Fade Type?"
+            f"|Compiling / Registering ({fade_compile_p}d6 w/ Conduit +{sub_lvl} & Focus +{res_focus_r}),{fade_compile_p}"
+            f"|Complex Form Threading ({fade_cf_p}d6 = WIL + CHA),{fade_cf_p}"
+            f"}}"
+        )
+        mdef_q = (
+            f"?{{Defense Mode?"
+            f"|All-In Full Matrix Defense ({allin_mdef_p}d6 -> 10 Bought Hits),{allin_mdef_p}"
+            f"|Base Full Matrix Defense w/ PA R6 ({base_mdef_p}d6 -> 6 Bought Hits),{base_mdef_p}"
+            f"|Standard Matrix Defense ({std_mdef_p}d6 -> 5 Bought Hits),{std_mdef_p}"
+            f"|Matrix Soak: FW + Armor (11d6 / 13d6 vs Biofeedback),11"
+            f"}}"
+        )
+        meat_q = (
+            f"?{{Meatspace Skill?"
+            f"|Engineering: Drones (15d6),15"
+            f"|Biotech: First Aid & Mobile Medic (15d6),15"
+            f"|Outdoors: Navigation (9d6),9"
+            f"}}"
+        )
+
         lines.extend(
             [
                 "",
+                f"### `Matrix-Hacking` (`{hacking_p}d6 [1w]`: Backdoor Entry | Known Exploit Backdoor Entry | Probe | Spoof Command)",
+                "```text",
+                _r20_ability(
+                    base="Matrix Hacking: ?{Hacking Action?|Backdoor Entry|Known Exploit Backdoor Entry|Probe|Spoof Command}",
+                    pool_expr=f"{hacking_p}",
+                    wild_die=True,
+                    overclock=True,
+                    desc="(Illegal), AR 16. Backdoor/Probe: Major/Extended, Admin access. Known Exploit Backdoor (H&S p.30): Major, no prior Probe needed; you cannot gain/spend Edge; target +1 Edge; failure raises OS without immediate alarm. Spoof: Major vs Pilot/FW.",
+                    tip=f"Pool {hacking_p}d6 ({hacking_p - 1}d6 + 1w): Cracking ({crack_sk}) + Hacking Spec (+2) + RES ({resonance}) + Focus (+{res_focus_r}) + Taz (+{taz_b}) + ECM Warrior II (+{ecm_b}) + Overclock (+{overclock_b}, 1w).",
+                    opp="Backdoor/Probe: [Willpower + Firewall](~selected|matrixresist_w_f) | [Firewall x2](~selected|matrixresist_f_f) / Spoof: [DP + Firewall](~selected|matrixresist_dp_f)",
+                ),
+                "```",
+                "",
+                f"### `Matrix-Electronic-Warfare` (`{cybercombat_p}d6 [1w]` / `{cybercombat_p - 2}d6 [1w]`: Hide | Snoop)",
+                "```text",
+                _r20_ability(
+                    base=f"Matrix Electronic Warfare ({cybercombat_p}d6 Snoop/Hide | {cybercombat_p - 2}d6 Defensive Hide)",
+                    pool_expr=ew_q,
+                    dice_count_expr=f"({ew_q})-1",
+                    wild_die=True,
+                    overclock=True,
+                    desc="(Illegal), CRB p.182, 184. Hide: Major/Minor evasive concealment. Snoop: Major, intercept comms (Net Hits min).",
+                    tip=f"Cracking ({crack_sk}) + RES ({resonance}) + Focus (+{res_focus_r}) + Taz (+{taz_b}) + Overclock (+{overclock_b}, 1w) = {cybercombat_p - 2}d6 (+2 ECM Warrior II = {cybercombat_p}d6).",
+                    opp="Hide: [Intuition + Data Processing](~selected|matrixresist_int_dp) | [DP + Sleaze](~selected|matrixresist_dp_s) / Snoop: [Willpower + Firewall](~selected|matrixresist_w_f)",
+                ),
+                "```",
+                "",
+                f"### `Matrix-Computer` (`{elec_base_p}d6 [1w]`: Matrix Perception | Threat Analysis)",
+                "```text",
+                _r20_ability(
+                    base="Matrix Computer: ?{Computer Action?|Matrix Perception|Threat Analysis}",
+                    pool_expr=f"{elec_base_p}",
+                    wild_die=True,
+                    overclock=True,
+                    desc="(Legal). Matrix Perception (Minor/Major): spot hidden icons/files, CRB p.182. Threat Analysis (H&S p.31, Major): allies with AR access on PAN (up to DP 7 users) gain hits as Defense bonus dice until next turn.",
+                    tip=f"Pool {elec_base_p}d6 ({elec_base_p - 1}d6 + 1w): Electronics ({elec_sk}) + RES ({resonance}) + Focus (+{res_focus_r}) + Taz (+{taz_b}) + Overclock (+{overclock_b}, 1w).",
+                    opp="Perception (Silent): [Willpower + Sleaze](~selected|matrixresist_w_s) | Threat Analysis: Unopposed",
+                ),
+                "```",
+                "",
+                f"### `Matrix-Hardware` (`{elec_base_p}d6 [1w]`: Squelch | Subvert Infrastructure)",
+                "```text",
+                _r20_ability(
+                    base="Matrix Hardware: ?{Hardware Action?|Squelch|Subvert Infrastructure}",
+                    pool_expr=f"{elec_base_p}",
+                    wild_die=True,
+                    overclock=True,
+                    desc="(Illegal, H&S p.31). Squelch (Minor, Outsider): prevents target device calls/transmissions for (Net Hits) min. Subvert Infrastructure (Major sustain, Admin): control 1 group of similar slaved simple devices per net hit (not an attack).",
+                    tip=f"Pool {elec_base_p}d6 ({elec_base_p - 1}d6 + 1w): Electronics ({elec_sk}) + RES ({resonance}) + Focus (+{res_focus_r}) + Taz (+{taz_b}) + Overclock (+{overclock_b}, 1w).",
+                    opp="Squelch: [Intuition + Sleaze](~selected|matrixresist_int_s) / [Sleaze x2](~selected|matrixresist_s_s) | Subvert: [Willpower + Firewall](~selected|matrixresist_w_f)",
+                ),
+                "```",
+                "",
+                f"### `Matrix-Attack` (`Data Spike {cybercombat_p}d6 [1w]` w/ Overclock & Fork | `Resonance Spike {res_spike_p}d6` | `Cyber Spike {cf_p}d6`)",
+                "```text",
+                _r20_ability(
+                    base=f"Matrix Attack (Data Spike {cybercombat_p}d6+1w | Resonance/Cyber Spike {atk_base_p}d6)",
+                    pool_expr=f"{atk_base_p}+{atk_delta}*{atk_q}",
+                    dice_count_expr=f"{atk_base_p}+{atk_q}",
+                    wild_die=f"{atk_q}+@{{wild_die}}",
+                    overclock=f"{atk_delta}*{atk_q}",
+                    desc="(Illegal), AR 16. Data Spike (CRB p.181, Fork up to 2 targets): Base DV 4 + net hits. | Resonance Spike (CF, Instant): Net hits = Matrix DV. | Cyber Spike (CF, Sustained, F2): Matrix damage vs target.",
+                    tip=f"Data Spike ({cybercombat_p}d6+1w) includes Overclock +2 (+1w) & ECM Warrior II (+2). Resonance Spike uses Cracking ({crack_sk}); Cyber Spike uses Electronics ({elec_sk}) + CF Spec (+2); both have no Overclock.",
+                    opp="Data Spike: [DP + Firewall](~selected|matrixresist_dp_f) | Resonance Spike: [Willpower + Firewall](~selected|matrixresist_w_f) | Cyber Spike: [Body + Essence](~selected|soak)",
+                ),
+                "```",
+                "",
+                f"### `Erase-Matrix-Signature` (`{software_p}d6 [1w]` Standalone Reminder)",
+                "```text",
+                _r20_ability(
+                    base="Erase Matrix Signature (Software Expertise)",
+                    pool_expr=f"{software_p}",
+                    wild_die=True,
+                    overclock=True,
+                    desc="(Legal), Major Action, CRB p.181. Scrubs a Matrix signature (1 hit erases standard signature; complex forms/sprites require hits > Rating).",
+                    tip=f"Pool {software_p}d6 ({software_p - 1}d6 + 1w): Electronics ({elec_sk}) + Software Expertise (+3) + RES ({resonance}) + Focus (+{res_focus_r}) + Taz (+{taz_b}) + Overclock (+{overclock_b}, 1w).",
+                    opp="Threshold (Signature Rating)",
+                ),
+                "```",
+                "",
+                f"### `Cleaner` (`{cf_p}d6` Complex Form — Reduce OS & Autoroll Fade)",
+                "```text",
+                _r20_ability(
+                    base="Cleaner (Complex Form — Reduce OS)",
+                    pool_expr=f"{cf_p}",
+                    wild_die=False,
+                    overclock=False,
+                    fade=2,
+                    desc="(Complex Form), Permanent, Fade 2, CRB p.190. Each hit reduces your Overwatch Score by 1.",
+                    tip=f"Pool {cf_p}d6: Electronics ({elec_sk}) + Complex Forms Spec (+2) + RES ({resonance}) + Focus (+{res_focus_r}) + Taz (+{taz_b}). Fade 2.",
+                ),
+                _r20_ability(
+                    base="Resist Fade: Cleaner (Fade 2)",
+                    pool_expr=f"{fade_cf_p}",
+                    wild_die=False,
+                    overclock=False,
+                    include_wounds=False,
+                    desc=f"Fade DV 2 (Drain: Stun damage if hits < 2). Technoshamans: WIL ({wil}) + CHA ({cha}) = {fade_cf_p}d6 (ignores wound penalties).",
+                ),
+                "```",
+                "",
+                f"### `Oracle-Search` (`{elec_base_p}d6 [1w]` -> `{elec_base_p - 1}d6 [1w]` 2-Major-Action / 1-Round Extended Search)",
+                "```text",
+                _r20_ability(
+                    base="Oracle Search — Major Action 1/2 (1 Combat Round)",
+                    pool_expr=f"{elec_base_p}",
+                    wild_die=True,
+                    overclock=True,
+                    desc="(Legal), Extended Search Interval 1 (10 min base; 1 Major Action w/ Oracle R4), CRB p.183.",
+                    tip=f"Pool {elec_base_p}d6 ({elec_base_p - 1}d6 + 1w): Electronics ({elec_sk}) + RES ({resonance}) + Focus (+{res_focus_r}) + Taz (+{taz_b}) + Overclock (+{overclock_b}, 1w) (28d6 if Oracle R4 swapped in for Focus).",
+                    opp="Availability / Obscurity Threshold",
+                ),
+                _r20_ability(
+                    base="Oracle Search — Major Action 2/2 (-1d6 Decay)",
+                    pool_expr=f"{elec_base_p - 1}",
+                    wild_die=True,
+                    overclock=True,
+                    desc="(Legal), Extended Search Interval 2 (completes 1 Combat Round / 2 Major Actions, -1d6 cumulative decay), CRB p.183.",
+                    opp="Availability / Obscurity Threshold",
+                ),
+                "```",
+                "",
+                f"### `Compile-Register-Sprite` (`{compile_link_p}d6` Compiling w/ Resonance Link | `{register_p}d6` Registering)",
+                "```text",
+                _r20_ability(
+                    base=f"Tasking (Compile {compile_link_p}d6 | Register {register_p}d6)",
+                    pool_expr=f"{compile_p}+{task_q}",
+                    wild_die=False,
+                    overclock=False,
+                    desc="Level ?{Level?|6} Sprite. Technoshamans: -2 Fade Value (+1 Service if Compiling >= 1 hit).",
+                    tip=f"Tasking ({task_sk}) + Spec (+2) + RES ({resonance}) + Focus (+{res_focus_r}) = {compile_p}d6 (+2 Resonance Link when Compiling = {compile_link_p}d6). No ally sprite can learn or assist with Tasking.",
+                    opp="Sprite Resistance (Level / Level x2)",
+                ),
+                "```",
+                "",
+                f"### `Fade-Resistance` (`{fade_compile_p}d6` Compiling/Registering | `{fade_cf_p}d6` Complex Form Threading)",
+                "```text",
+                _r20_ability(
+                    base=f"Resist Fade (Compiling {fade_compile_p}d6 | Complex Form {fade_cf_p}d6)",
+                    pool_expr=fade_q,
+                    wild_die=False,
+                    overclock=False,
+                    include_wounds=False,
+                    desc="Fade Resistance ignores Wound modifiers. Technoshamans: -2 Fade Value on Compiling/Decompiling.",
+                    tip=f"Compiling/Registering = WIL ({wil}) + CHA ({cha}) + Sprite Conduit (+{sub_lvl}) + Focus (+{res_focus_r}) = {fade_compile_p}d6. Complex Form Threading = WIL ({wil}) + CHA ({cha}) = {fade_cf_p}d6.",
+                ),
+                "```",
+                "",
+                f"### `Matrix-Defense` (`{allin_mdef_p}d6` All-In | `{base_mdef_p}d6` Base Full | `{std_mdef_p}d6` Standard | `11d6` Soak)",
+                "```text",
+                _r20_ability(
+                    base="Matrix Defense Umbrella",
+                    pool_expr=mdef_q,
+                    wild_die=False,
+                    overclock=False,
+                    desc=f"Standard ({std_mdef_p}d6 = 5 BH): FW 9 + RES {eff_res}. Base Full Defense ({base_mdef_p}d6 = 6 BH): +PA R6. All-In ({allin_mdef_p}d6 = 10 BH): +Syntax Error ({sub_lvl}) + Directional Shield DP (7). Soak: FW 9 + Armor 2 (+2 Biofeedback Filter).",
+                ),
+                "```",
+                "",
+                f"### `Death-Mark` (`{res_spike_p}d6` Sprite Power — Offensive Cracking vs Intuition + Firewall)",
+                "```text",
+                _r20_ability(
+                    base="Sprite Power: Death Mark (Cracking + RES)",
+                    pool_expr=f"{res_spike_p}",
+                    wild_die=False,
+                    overclock=False,
+                    desc="Sustained Sprite Power (Offensive Cracking).",
+                    tip=f"Pool {res_spike_p}d6: Cracking ({crack_sk}) + RES ({resonance}) + Focus (+{res_focus_r}) + Taz (+{taz_b}) + ECM Warrior II (+{ecm_b}).",
+                    opp="[Intuition + Firewall](~selected|matrixresist_int_f)",
+                ),
+                "```",
+                "",
                 f"### Drone Perception / Clearsight (`{clr_p}d6` Passive / `{clr_p_enl}d6` Sustained — `-1` Threshold)",
                 "```text",
-                f"&{{template:rolls-computed}}{{{{header=@{{character_name}}}}}}{{{{base=Drone Perception (Clearsight + Sensor)}}}}{{{{dice=[[({clr_p}+@{{wounds_toggle}}+@{{modifiers_toggle}}+@{{edge_toggle}})d6>5@{{explode_toggle}}]]}}}}{{{{mod=[[@{{modifiers_toggle}}]]}}}}{{{{wound=[[@{{wounds_toggle}}]]}}}}{{{{edge=[[@{{edge_toggle}}]]}}}}{{{{notes={clr_p}d6 Passive ({clr_p_enl}d6 w/ +{enl_delta} Enlighten Automaton): Clearsight (7) + Sensor ({maa_prof['augmented_sensor']}/{maa_prof['enlightened_sensor']}) + Taz (+4) + Pilot Origins (+1, -1 Threshold).}}}}",
+                _r20_ability(
+                    base="Drone Perception (Clearsight + Sensor)",
+                    pool_expr=f"{clr_p}",
+                    wild_die=False,
+                    overclock=False,
+                    gm_whisper=False,
+                    desc=f"{clr_p}d6 Passive ({clr_p_enl}d6 w/ +{enl_delta} Enlighten Automaton), -1 Threshold via Pilot Origins.",
+                    tip=f"Clearsight (7) + Sensor ({maa_prof['augmented_sensor']}/{maa_prof['enlightened_sensor']}) + Taz (+4) + Pilot Origins (+1).",
+                ),
                 "```",
                 "",
                 f"### Drone Piloting / Maneuvering & Wrist-Shield Ram (`{plt_p}d6` — `-1` Threshold, `33/39` AR, `8P*` DV)",
                 "```text",
-                f"&{{template:rolls-computed}}{{{{header=@{{character_name}}}}}}{{{{base=Drone Piloting / Ramming (Maneuvering + Pilot/RES)}}}}{{{{dice=[[({plt_p}+@{{wounds_toggle}}+@{{modifiers_toggle}}+@{{edge_toggle}})d6>5@{{explode_toggle}}]]}}}}{{{{mod=[[@{{modifiers_toggle}}]]}}}}{{{{wound=[[@{{wounds_toggle}}]]}}}}{{{{edge=[[@{{edge_toggle}}]]}}}}{{{{notes={plt_p}d6 Pool (-1 Threshold via Pilot Origins; Effective Handling 3): Maneuvering (7) + Pilot/RES (10) + Focus (+4) + Taz Diagnosis (+3) + Pilot Origins (+1). Ram Plate (Left Wrist Shield Mount): AR 33 Passive / 39 Enlightened, DV 8P* (+1/Speed Interval), Halved Return Damage.}}}}",
+                _r20_ability(
+                    base="Drone Piloting / Ramming (Maneuvering + Pilot/RES)",
+                    pool_expr=f"{plt_p}",
+                    wild_die=False,
+                    overclock=False,
+                    gm_whisper=False,
+                    desc=f"-1 Threshold via Pilot Origins; Effective Handling 3. Ram Plate: AR 33 Passive / 39 Enlightened, DV 8P* (+1/Speed Interval), Halved Return Damage.",
+                    tip=f"Maneuvering (7) + Pilot/RES ({maa_prof['inhabited_pilot']}) + Focus (+{res_focus_r}) + Taz Diagnosis (+3) + Pilot Origins (+1).",
+                ),
                 "```",
                 "",
                 f"### Drone Evasion (`{eva_p}d6` Defense Test)",
                 "```text",
-                f"&{{template:rolls-computed}}{{{{header=@{{character_name}}}}}}{{{{base=Drone Evasion (Evasion + Pilot/RES)}}}}{{{{dice=[[({eva_p}+@{{wounds_toggle}}+@{{modifiers_toggle}}+@{{edge_toggle}})d6>5@{{explode_toggle}}]]}}}}{{{{mod=[[@{{modifiers_toggle}}]]}}}}{{{{wound=[[@{{wounds_toggle}}]]}}}}{{{{edge=[[@{{edge_toggle}}]]}}}}{{{{notes={eva_p}d6 Pool: Evasion (7) + Pilot/RES (10) + Focus (+4) + Taz Symbiosis (+4) + Pilot Origins (+1). Add +4 Defense Dice for Full Defense or Dodge.}}}}",
+                _r20_ability(
+                    base="Drone Evasion (Evasion + Pilot/RES)",
+                    pool_expr=f"{eva_p}",
+                    wild_die=False,
+                    overclock=False,
+                    gm_whisper=False,
+                    desc="Add +4 Defense Dice for Full Defense or Dodge.",
+                    tip=f"Evasion (7) + Pilot/RES ({maa_prof['inhabited_pilot']}) + Focus (+{res_focus_r}) + Taz Symbiosis (+4) + Pilot Origins (+1).",
+                ),
                 "```",
                 "",
                 f"### Drone Stealth (`{stl_p}d6` — `-1` Threshold)",
                 "```text",
-                f"&{{template:rolls-computed}}{{{{header=@{{character_name}}}}}}{{{{base=Drone Stealth (Stealth + Pilot/RES)}}}}{{{{dice=[[({stl_p}+@{{wounds_toggle}}+@{{modifiers_toggle}}+@{{edge_toggle}})d6>5@{{explode_toggle}}]]}}}}{{{{mod=[[@{{modifiers_toggle}}]]}}}}{{{{wound=[[@{{wounds_toggle}}]]}}}}{{{{edge=[[@{{edge_toggle}}]]}}}}{{{{notes={stl_p}d6 Pool (-1 Threshold via Pilot Origins): Stealth (7) + Pilot/RES (10) + Focus (+4) + Taz Symbiosis (+4) + Sneak-Sneak (+2) + Pilot Origins (+1).}}}}",
+                _r20_ability(
+                    base="Drone Stealth (Stealth + Pilot/RES)",
+                    pool_expr=f"{stl_p}",
+                    wild_die=False,
+                    overclock=False,
+                    gm_whisper=False,
+                    desc="-1 Threshold via Pilot Origins.",
+                    tip=f"Stealth (7) + Pilot/RES ({maa_prof['inhabited_pilot']}) + Focus (+{res_focus_r}) + Taz Symbiosis (+4) + Sneak-Sneak (+2) + Pilot Origins (+1).",
+                ),
                 "```",
                 "",
                 f"### Crimson Wasp Array (2x Link-Fired) Attack (`{wasp_p}d6` Passive / `{wasp_p_enl}d6` Sustained — 1 Wild Die, 7P* SS / 8P* SA)",
                 "```text",
-                f"&{{template:rolls-computed}}{{{{header=@{{character_name}}}}}}{{{{base=Crimson Wasp Array (2x Link-Fired)}}}}{{{{dice=[[({wasp_p}+@{{wounds_toggle}}+@{{modifiers_toggle}}+@{{edge_toggle}})d6>5@{{explode_toggle}}]]}}}}{{{{wilddie=[[@{{wild_die}}]]}}}}{{{{wilddie_dice=[[1]]}}}}{{{{desc=Mode: SS/SA (Link-Fired), Damage: 7P* (SS) / 8P* (SA), AR: 22/20/17/12/- (SS) or 21/19/16/11/- (SA), Ammo: 30(c)}}}}{{{{notes=FS 44 / DC 143 / SRMG 51. {wasp_p}d6 Passive ({wasp_p_enl}d6 w/ +{enl_delta} Enlighten Automaton): Targeting (7) + Sensor ({maa_prof['augmented_sensor']}/{maa_prof['enlightened_sensor']}) + Taz (+4) + Pilot Origins (+1) + Smartlink (+1). Link-Fired 2x Crimson Wasps (1 Major & 1 Minor Action). 1 Wild Die. -2P at Medium range.}}}}",
+                _r20_ability(
+                    base="Crimson Wasp Array (2x Link-Fired)",
+                    pool_expr=f"{wasp_p}",
+                    wild_die=True,
+                    overclock=False,
+                    gm_whisper=False,
+                    desc="Mode: SS/SA (Link-Fired), Damage: 7P* (SS) / 8P* (SA), AR: 22/20/17/12/- (SS) or 21/19/16/11/- (SA), Ammo: 30(c). 1 Wild Die; -2P at Medium range.",
+                    tip=f"FS 44 / DC 143 / SRMG 51. {wasp_p}d6 Passive ({wasp_p_enl}d6 w/ +{enl_delta} Enlighten Automaton): Targeting (7) + Sensor ({maa_prof['augmented_sensor']}/{maa_prof['enlightened_sensor']}) + Taz (+4) + Pilot Origins (+1) + Smartlink (+1).",
+                ),
                 "```",
                 "",
                 f"### Crimson Wasp Single Beam (`{wasp_p}d6` Passive / `{wasp_p_enl}d6` Sustained — 1 Wild Die, 5P* SS / 6P* SA)",
                 "```text",
-                f"&{{template:rolls-computed}}{{{{header=@{{character_name}}}}}}{{{{base=Crimson Wasp (Single Beam)}}}}{{{{dice=[[({wasp_p}+@{{wounds_toggle}}+@{{modifiers_toggle}}+@{{edge_toggle}})d6>5@{{explode_toggle}}]]}}}}{{{{wilddie=[[@{{wild_die}}]]}}}}{{{{wilddie_dice=[[1]]}}}}{{{{desc=Mode: SS/SA, Damage: 5P* (SS) / 6P* (SA), AR: 21/19/16/11/- (SS) or 20/18/15/10/- (SA), Ammo: 30(c)}}}}{{{{notes=FS 44 / SRMG 51. {wasp_p}d6 Passive ({wasp_p_enl}d6 w/ +{enl_delta} Enlighten Automaton): Targeting (7) + Sensor ({maa_prof['augmented_sensor']}/{maa_prof['enlightened_sensor']}) + Taz (+4) + Pilot Origins (+1) + Smartlink (+1). Independent Eye Mount. 1 Wild Die. -2P at Medium range.}}}}",
+                _r20_ability(
+                    base="Crimson Wasp (Single Beam)",
+                    pool_expr=f"{wasp_p}",
+                    wild_die=True,
+                    overclock=False,
+                    gm_whisper=False,
+                    desc="Mode: SS/SA, Damage: 5P* (SS) / 6P* (SA), AR: 21/19/16/11/- (SS) or 20/18/15/10/- (SA), Ammo: 30(c). Independent Eye Mount; 1 Wild Die; -2P at Medium range.",
+                    tip=f"FS 44 / SRMG 51. {wasp_p}d6 Passive ({wasp_p_enl}d6 w/ +{enl_delta} Enlighten Automaton): Targeting (7) + Sensor ({maa_prof['augmented_sensor']}/{maa_prof['enlightened_sensor']}) + Taz (+4) + Pilot Origins (+1) + Smartlink (+1).",
+                ),
                 "```",
                 "",
-                f"### Tesla Coil: Straight Line (`{tesla_p}d6` Passive / `{tesla_p_enl}d6` Sustained — 5S(e) DV)",
+                f"### Tesla Coil: Straight / Wobbly / Sweep (`{tesla_p}d6` Passive / `{tesla_p_enl}d6` Sustained)",
                 "```text",
-                f"&{{template:rolls-computed}}{{{{header=@{{character_name}}}}}}{{{{base=Tesla Coil (Straight Line)}}}}{{{{dice=[[({tesla_p}+@{{wounds_toggle}}+@{{modifiers_toggle}}+@{{edge_toggle}})d6>5@{{explode_toggle}}]]}}}}{{{{desc=Mode: SS, Damage: 5S(e), AR: 10/12/-/-/-}}}}{{{{notes=BS 49 / SR6 117. {tesla_p}d6 Passive ({tesla_p_enl}d6 w/ +{enl_delta} Enlighten Automaton): Targeting (7) + Sensor ({maa_prof['augmented_sensor']}/{maa_prof['enlightened_sensor']}) + Taz (+4) + Pilot Origins (+1). Direct line 20m; REA+INT vs AR; 5S(e).}}}}",
+                _r20_ability(
+                    base="Tesla Coil (?{Mode?|Straight Line (5S(e) AR 10/12)|Wobbly Cone (4S(e) AR 12/14)|Sweep Cone (2S(e) AR 14/16)})",
+                    pool_expr=f"{tesla_p}",
+                    wild_die=False,
+                    overclock=False,
+                    gm_whisper=False,
+                    desc="BS 49 / SR6 117. Straight 20m line (REA+INT vs AR) or 20m cones (Wobbly 3m base 8.58° / Sweep 10m base 28.07°, may toggle Wild Die).",
+                    tip=f"{tesla_p}d6 Passive ({tesla_p_enl}d6 w/ +{enl_delta} Enlighten Automaton): Targeting (7) + Sensor ({maa_prof['augmented_sensor']}/{maa_prof['enlightened_sensor']}) + Taz (+4) + Pilot Origins (+1).",
+                ),
                 "```",
                 "",
-                f"### Tesla Coil: Wobbly Cone (`{tesla_p}d6` Passive / `{tesla_p_enl}d6` Sustained — 4S(e) DV, Apex 8.58°)",
+                "### Engineering: Drones (`15d6`), Biotech (`15d6`) & Outdoors: Navigation (`9d6`) — Meatspace Emulated Skills",
                 "```text",
-                f"&{{template:rolls-computed}}{{{{header=@{{character_name}}}}}}{{{{base=Tesla Coil (Wobbly Cone)}}}}{{{{dice=[[({tesla_p}+@{{wounds_toggle}}+@{{modifiers_toggle}}+@{{edge_toggle}})d6>5@{{explode_toggle}}]]}}}}{{{{desc=Mode: SS, Damage: 4S(e), AR: 12/14/-/-/-}}}}{{{{notes=BS 49 / SR6 117. {tesla_p}d6 Passive ({tesla_p_enl}d6 w/ +{enl_delta} Enlighten Automaton). Cone 20m x 3m base (apex 8.58°). May use wild die. 4S(e).}}}}",
-                "```",
-                "",
-                "### Engineering: Drones (`15d6` Pool — Drone Maintenance & Repairs)",
-                "```text",
-                f"&{{template:rolls-computed}}{{{{header=@{{character_name}}}}}}{{{{base=Engineering (Drones)}}}}{{{{dice=[[(15+@{{wounds_toggle}}+@{{modifiers_toggle}}+@{{edge_toggle}})d6>5@{{explode_toggle}}]]}}}}{{{{mod=[[@{{modifiers_toggle}}]]}}}}{{{{wound=[[@{{wounds_toggle}}]]}}}}{{{{edge=[[@{{edge_toggle}}]]}}}}{{{{notes=15d6 Pool: Real Logic (4) + Engineering (5) + Drones Spec (+2) + Taz Teamwork (+4). Meatspace action (Natural Hacker does not apply). Autosoft only applies to Drones.}}}}",
-                "```",
-                "",
-                "### Biotech: First Aid & Medicine (`15d6` Pool — Mobile Medic TacApp)",
-                "```text",
-                f"&{{template:rolls-computed}}{{{{header=@{{character_name}}}}}}{{{{base=Biotech (First Aid / Medicine)}}}}{{{{dice=[[(15+@{{wounds_toggle}}+@{{modifiers_toggle}}+@{{edge_toggle}})d6>5@{{explode_toggle}}]]}}}}{{{{mod=[[@{{modifiers_toggle}}]]}}}}{{{{wound=[[@{{wounds_toggle}}]]}}}}{{{{edge=[[@{{edge_toggle}}]]}}}}{{{{notes=15d6 Pool: Real Logic (4) + Biotech (7) + Mobile Medic TacApp (+4, half Resonance). Meatspace action (Natural Hacker does not apply). Heals damage, stabilizes patients, and treats trauma.}}}}",
-                "```",
-                "",
-                "### Outdoors: Navigation (`9d6` Pool — Land & Route Navigation)",
-                "```text",
-                f"&{{template:rolls-computed}}{{{{header=@{{character_name}}}}}}{{{{base=Outdoors (Navigation)}}}}{{{{dice=[[(9+@{{wounds_toggle}}+@{{modifiers_toggle}}+@{{edge_toggle}})d6>5@{{explode_toggle}}]]}}}}{{{{mod=[[@{{modifiers_toggle}}]]}}}}{{{{wound=[[@{{wounds_toggle}}]]}}}}{{{{edge=[[@{{edge_toggle}}]]}}}}{{{{notes=9d6 Pool: Real Intuition (2) + Outdoors (5) + Navigation Spec (+2). Meatspace action (Natural Hacker does not apply). Autosoft only applies to Navigation.}}}}",
-                "```",
-                "",
-                f"### Tesla Coil: Sweep Cone (`{tesla_p}d6` Passive / `{tesla_p_enl}d6` Sustained — 2S(e) DV, Apex 28.07°)",
-                "```text",
-                f"&{{template:rolls-computed}}{{{{header=@{{character_name}}}}}}{{{{base=Tesla Coil (Sweep Cone)}}}}{{{{dice=[[({tesla_p}+@{{wounds_toggle}}+@{{modifiers_toggle}}+@{{edge_toggle}})d6>5@{{explode_toggle}}]]}}}}{{{{desc=Mode: SS, Damage: 2S(e), AR: 14/16/-/-/-}}}}{{{{notes=BS 49 / SR6 117. {tesla_p}d6 Passive ({tesla_p_enl}d6 w/ +{enl_delta} Enlighten Automaton). Cone 20m x 10m base (apex 28.07°). May use wild die. 2S(e).}}}}",
-                "```",
-                "",
-                "### Standard Matrix Defense Umbrella (`22d6` — 5 Bought Hits vs Attack & Sleaze Actions)",
-                "```text",
-                f"@{{{c_ref}|gm_toggle}} &{{template:rolls-computed}}{{{{header=@{{{c_ref}|character_name}}}}}}{{{{base=Matrix Defense Umbrella (FW 9 + RES 13)}}}}{{{{dice=[[(22+@{{{c_ref}|wounds_toggle}}+@{{{c_ref}|modifiers_toggle}}+@{{{c_ref}|edge_toggle}})d6>5@{{{c_ref}|explode_toggle}}]]}}}}{{{{mod=[[@{{{c_ref}|modifiers_toggle}}]]}}}}{{{{wound=[[@{{{c_ref}|wounds_toggle}}]]}}}}{{{{edge=[[@{{{c_ref}|edge_toggle}}]]}}}}{{{{notes=Standard Matrix Defense (22d6 = 5 Bought Hits): Firewall (9) + Natural Hacker Resonance (9) + Resonance Focus (+4). Matrix DR 16 (treated as 20 DR for Edge via Designer Home Device). Encryption: +1 threshold to incoming Cracking tests.}}}}",
-                "```",
-                "",
-                "### Base Full Matrix Defense Umbrella (`25d6` — 6 Bought Hits, Passive PA R6)",
-                "```text",
-                f"@{{{c_ref}|gm_toggle}} &{{template:rolls-computed}}{{{{header=@{{{c_ref}|character_name}}}}}}{{{{base=Base Matrix Defense (25d6 -> 6 Bought Hits)}}}}{{{{dice=[[(25+@{{{c_ref}|wounds_toggle}}+@{{{c_ref}|modifiers_toggle}}+@{{{c_ref}|edge_toggle}})d6>5@{{{c_ref}|explode_toggle}}]]}}}}{{{{mod=[[@{{{c_ref}|modifiers_toggle}}]]}}}}{{{{wound=[[@{{{c_ref}|wounds_toggle}}]]}}}}{{{{edge=[[@{{{c_ref}|edge_toggle}}]]}}}}{{{{notes=Base Full Matrix Defense (25d6 = 6 Bought Hits): RES (9) + RES Focus (+4) + FW (9) + Personal Assistant R6 (3 Bought Hits).}}}}",
-                "```",
-                "",
-                "### All-In Matrix Defense Umbrella (`41d6` — 10 Bought Hits, Minor Anytime Actions)",
-                "```text",
-                f"@{{{c_ref}|gm_toggle}} &{{template:rolls-computed}}{{{{header=@{{{c_ref}|character_name}}}}}}{{{{base=All-In Matrix Defense (41d6 -> 10 Bought Hits)}}}}{{{{dice=[[(41+@{{{c_ref}|wounds_toggle}}+@{{{c_ref}|modifiers_toggle}}+@{{{c_ref}|edge_toggle}})d6>5@{{{c_ref}|explode_toggle}}]]}}}}{{{{mod=[[@{{{c_ref}|modifiers_toggle}}]]}}}}{{{{wound=[[@{{{c_ref}|wounds_toggle}}]]}}}}{{{{edge=[[@{{{c_ref}|edge_toggle}}]]}}}}{{{{notes=All-In Matrix Defense (41d6 = 10 Bought Hits): Base 25d6 + Echo: Syntax Error (+9 Submersion) + Directional Shield Active DP (+7).}}}}",
-                "```",
-                "",
-                "### Cyber Spike (`23d6` — Electronics Test vs Body + Essence)",
-                "```text",
-                f"@{{{c_ref}|gm_toggle}} &{{template:rolls-computed}}{{{{header=@{{{c_ref}|character_name}}}}}}{{{{base=Cyber Spike (Electronics + RES)}}}}{{{{dice=[[(23+@{{{c_ref}|wounds_toggle}}+@{{{c_ref}|modifiers_toggle}}+@{{{c_ref}|edge_toggle}})d6>5@{{{c_ref}|explode_toggle}}]]}}}}{{{{mod=[[@{{{c_ref}|modifiers_toggle}}]]}}}}{{{{wound=[[@{{{c_ref}|wounds_toggle}}]]}}}}{{{{edge=[[@{{{c_ref}|edge_toggle}}]]}}}}{{{{notes=23d6 Pool: Electronics (5) + Complex Forms Spec (+2) + Resonance (8) + Resonance Focus (+4) + Taz Symbiosis (+4) vs Body + Essence. Note: ECM Warrior II does not apply (Electronics test); Cybercombat spec not possessed. Net hits = Physical damage + cyberware stress. Sustained.}}}}",
-                "```",
-                "",
-                "### Resonance Spike (`23d6` — Cracking Test vs Willpower + Firewall)",
-                "```text",
-                f"@{{{c_ref}|gm_toggle}} &{{template:rolls-computed}}{{{{header=@{{{c_ref}|character_name}}}}}}{{{{base=Resonance Spike (Cracking + RES)}}}}{{{{dice=[[(23+@{{{c_ref}|wounds_toggle}}+@{{{c_ref}|modifiers_toggle}}+@{{{c_ref}|edge_toggle}})d6>5@{{{c_ref}|explode_toggle}}]]}}}}{{{{mod=[[@{{{c_ref}|modifiers_toggle}}]]}}}}{{{{wound=[[@{{{c_ref}|wounds_toggle}}]]}}}}{{{{edge=[[@{{{c_ref}|edge_toggle}}]]}}}}{{{{notes=23d6 Pool: Cracking (5) + Resonance (8) + Resonance Focus (+4) + Taz Symbiosis (+4) + ECM Warrior II (+2) vs Willpower + Firewall. Note: Cybercombat spec not possessed. Net hits = unresisted Matrix damage. Instant.}}}}",
-                "```",
-                "",
-                "### Sprite Power: Death Mark (`23d6` — Offensive Cracking Test vs Intuition + Firewall)",
-                "```text",
-                f"@{{{c_ref}|gm_toggle}} &{{template:rolls-computed}}{{{{header=@{{{c_ref}|character_name}}}}}}{{{{base=Sprite Power: Death Mark (Cracking + RES)}}}}{{{{dice=[[(23+@{{{c_ref}|wounds_toggle}}+@{{{c_ref}|modifiers_toggle}}+@{{{c_ref}|edge_toggle}})d6>5@{{{c_ref}|explode_toggle}}]]}}}}{{{{mod=[[@{{{c_ref}|modifiers_toggle}}]]}}}}{{{{wound=[[@{{{c_ref}|wounds_toggle}}]]}}}}{{{{edge=[[@{{{c_ref}|edge_toggle}}]]}}}}{{{{notes=23d6 Pool: Cracking (5) + Resonance (8) + Resonance Focus (+4) + Taz Symbiosis (+4) + ECM Warrior II (+2) vs Intuition + Firewall. Target takes net hits as extra Matrix DV on all attacks. Sustained.}}}}",
-                "```",
-                "",
-                "### Data Spike (`23d6` — Matrix Cybercombat Action)",
-                "```text",
-                f"@{{{c_ref}|gm_toggle}} &{{template:rolls-computed}}{{{{header=@{{{c_ref}|character_name}}}}}}{{{{base=Data Spike (Cracking + RES/LOG)}}}}{{{{dice=[[(23+@{{{c_ref}|wounds_toggle}}+@{{{c_ref}|modifiers_toggle}}+@{{{c_ref}|edge_toggle}})d6>5@{{{c_ref}|explode_toggle}}]]}}}}{{{{mod=[[@{{{c_ref}|modifiers_toggle}}]]}}}}{{{{wound=[[@{{{c_ref}|wounds_toggle}}]]}}}}{{{{edge=[[@{{{c_ref}|edge_toggle}}]]}}}}{{{{notes=23d6 Pool: Cracking (5) + Natural Hacker RES (12) + Taz (+4) + ECM Warrior II (+2) vs Intuition + Firewall. Base DV = Attack/2 (4P) + net hits. AR 16 (Attack 7 + Sleaze 9).}}}}",
-                "```",
-                "",
-                "### Brute Force (`23d6` — Matrix Cracking Action)",
-                "```text",
-                f"@{{{c_ref}|gm_toggle}} &{{template:rolls-computed}}{{{{header=@{{{c_ref}|character_name}}}}}}{{{{base=Brute Force (Cracking + RES/LOG)}}}}{{{{dice=[[(23+@{{{c_ref}|wounds_toggle}}+@{{{c_ref}|modifiers_toggle}}+@{{{c_ref}|edge_toggle}})d6>5@{{{c_ref}|explode_toggle}}]]}}}}{{{{mod=[[@{{{c_ref}|modifiers_toggle}}]]}}}}{{{{wound=[[@{{{c_ref}|wounds_toggle}}]]}}}}{{{{edge=[[@{{{c_ref}|edge_toggle}}]]}}}}{{{{notes=23d6 Pool: Cracking (5) + Natural Hacker RES (12) + Taz (+4) + ECM Warrior II (+2) vs Willpower + Firewall. Grants User Access (+1 Edge if 2+ net hits).}}}}",
-                "```",
-                "",
-                "### Hack on the Fly (`21d6` — Matrix Sleaze Action)",
-                "```text",
-                f"@{{{c_ref}|gm_toggle}} &{{template:rolls-computed}}{{{{header=@{{{c_ref}|character_name}}}}}}{{{{base=Hack on the Fly (Cracking + RES/LOG)}}}}{{{{dice=[[(21+@{{{c_ref}|wounds_toggle}}+@{{{c_ref}|modifiers_toggle}}+@{{{c_ref}|edge_toggle}})d6>5@{{{c_ref}|explode_toggle}}]]}}}}{{{{mod=[[@{{{c_ref}|modifiers_toggle}}]]}}}}{{{{wound=[[@{{{c_ref}|wounds_toggle}}]]}}}}{{{{edge=[[@{{{c_ref}|edge_toggle}}]]}}}}{{{{notes=21d6 Pool: Cracking (5) + Natural Hacker RES (12) + Taz (+4) vs Intuition + Firewall. Stealthy access without raising alarm. AR 16.}}}}",
-                "```",
-                "",
-                "### Matrix Perception (`23d6` — Electronics + RES/LOG + Software Spec)",
-                "```text",
-                f"@{{{c_ref}|gm_toggle}} &{{template:rolls-computed}}{{{{header=@{{{c_ref}|character_name}}}}}}{{{{base=Matrix Perception (Electronics + RES/LOG)}}}}{{{{dice=[[(23+@{{{c_ref}|wounds_toggle}}+@{{{c_ref}|modifiers_toggle}}+@{{{c_ref}|edge_toggle}})d6>5@{{{c_ref}|explode_toggle}}]]}}}}{{{{mod=[[@{{{c_ref}|modifiers_toggle}}]]}}}}{{{{wound=[[@{{{c_ref}|wounds_toggle}}]]}}}}{{{{edge=[[@{{{c_ref}|edge_toggle}}]]}}}}{{{{notes=23d6 Pool: Electronics (5) + Software Spec (+2) + Natural Hacker RES (12) + Taz (+4) vs Sleaze + Willpower. Inspects Matrix icons, running programs, and hidden nodes.}}}}",
-                "```",
-                "",
-                "### Control Device (`21d6` — Electronics + RES/LOG)",
-                "```text",
-                f"@{{{c_ref}|gm_toggle}} &{{template:rolls-computed}}{{{{header=@{{{c_ref}|character_name}}}}}}{{{{base=Control Device (Electronics + RES/LOG)}}}}{{{{dice=[[(21+@{{{c_ref}|wounds_toggle}}+@{{{c_ref}|modifiers_toggle}}+@{{{c_ref}|edge_toggle}})d6>5@{{{c_ref}|explode_toggle}}]]}}}}{{{{mod=[[@{{{c_ref}|modifiers_toggle}}]]}}}}{{{{wound=[[@{{{c_ref}|wounds_toggle}}]]}}}}{{{{edge=[[@{{{c_ref}|edge_toggle}}]]}}}}{{{{notes=21d6 Pool: Electronics (5) + Natural Hacker RES (12) + Taz (+4) vs Willpower + Firewall. Remotely commands or triggers target electronics.}}}}",
-                "```",
-                "",
-                "### Compile Sprite (`22d6` — Tasking + RES + Compiling Spec + Resonance Link)",
-                "```text",
-                f"@{{{c_ref}|gm_toggle}} &{{template:rolls-computed}}{{{{header=@{{{c_ref}|character_name}}}}}}{{{{base=Compile Sprite (Tasking + RES)}}}}{{{{dice=[[(22+@{{{c_ref}|wounds_toggle}}+@{{{c_ref}|modifiers_toggle}}+@{{{c_ref}|edge_toggle}})d6>5@{{{c_ref}|explode_toggle}}]]}}}}{{{{mod=[[@{{{c_ref}|modifiers_toggle}}]]}}}}{{{{wound=[[@{{{c_ref}|wounds_toggle}}]]}}}}{{{{edge=[[@{{{c_ref}|edge_toggle}}]]}}}}{{{{notes=22d6 Pool: Tasking (6) + Compiling Spec (+2) + Resonance (12) + Resonance Link (+2) vs Sprite Level. Technoshamans: -2 Fade Value, +1 Service on >= 1 hit.}}}}",
-                "```",
-                "",
-                "### Register Sprite (`20d6` — Tasking + RES + Registering Spec)",
-                "```text",
-                f"@{{{c_ref}|gm_toggle}} &{{template:rolls-computed}}{{{{header=@{{{c_ref}|character_name}}}}}}{{{{base=Register Sprite (Tasking + RES)}}}}{{{{dice=[[(20+@{{{c_ref}|wounds_toggle}}+@{{{c_ref}|modifiers_toggle}}+@{{{c_ref}|edge_toggle}})d6>5@{{{c_ref}|explode_toggle}}]]}}}}{{{{mod=[[@{{{c_ref}|modifiers_toggle}}]]}}}}{{{{wound=[[@{{{c_ref}|wounds_toggle}}]]}}}}{{{{edge=[[@{{{c_ref}|edge_toggle}}]]}}}}{{{{notes=20d6 Pool: Tasking (6) + Registering Spec (+2) + Resonance (12) vs Sprite Level x 2. Technoshamans: -2 Fade Value.}}}}",
-                "```",
-                "",
-                "### Fade Resistance (`10d6` — Willpower + Charisma)",
-                "```text",
-                f"@{{{c_ref}|gm_toggle}} &{{template:rolls-computed}}{{{{header=@{{{c_ref}|character_name}}}}}}{{{{base=Fade Resistance (WIL + CHA)}}}}{{{{dice=[[(10+@{{{c_ref}|modifiers_toggle}}+@{{{c_ref}|edge_toggle}})d6>5@{{{c_ref}|explode_toggle}}]]}}}}{{{{mod=[[@{{{c_ref}|modifiers_toggle}}]]}}}}{{{{edge=[[@{{{c_ref}|edge_toggle}}]]}}}}{{{{notes=Technoshamans Stream Fade Resistance: Willpower (6) + Charisma (4) = 10d6. Compiling/Decompiling actions reduce Fade Value by 2.}}}}",
+                _r20_ability(
+                    base="Meatspace Emulated Skill (Engineering 15d6 | Biotech 15d6 | Outdoors 9d6)",
+                    pool_expr=meat_q,
+                    wild_die=False,
+                    overclock=False,
+                    gm_whisper=False,
+                    desc=f"Uses Real Logic ({log}) / Real Intuition ({intu}) instead of Natural Hacker. Engineering = LOG {log} + 5 + Spec 2 + Taz 4 = 15d6; Biotech = LOG {log} + 7 + Mobile Medic 4 = 15d6; Outdoors = INT {intu} + 5 + Spec 2 = 9d6.",
+                ),
                 "```",
             ]
         )
