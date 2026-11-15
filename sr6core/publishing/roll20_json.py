@@ -180,11 +180,11 @@ CANONICAL_RULE_DESCRIPTIONS: Dict[str, Tuple[str, str]] = {
     ),
     "elemental attack": (
         "Type: P | Action: Major | Range: LOS | Duration: Instant\n"
-        "Make a ranged combat attack using the spirit's Magic + Agility (or Spellcasting while Channeling). "
+        "Make a ranged combat attack using Magic + Agility. "
         "The attack has a DV of (Force)P Elemental and Attack Ratings of Near (Force x 2), Close (Force x 2) - 2, "
         "Medium (Force x 2) - 8, Far (Force x 2) - 10. Targets also suffer the elemental Status Effect: "
         "Zapped (Electricity), Burning (Fire), Corroded (Chemical), or Chilled (Cold).",
-        "CRB p.223 / Street Wyrd p.113",
+        "CRB p.223 / Street Wyrd p.121",
     ),
     "cosmetic control": (
         "Cost: 1.0 PP per level (max 2 levels) | Activation: Major Action\n"
@@ -3167,7 +3167,7 @@ def build_roll20_payload(
 
     # If the character has the Channeling metamagic, include `Elemental Attack` as a
     # ranged weapon macro card so the GM gets the full range-band AR & DV display in chat!
-    # (Per Street Wyrd p.113, channeling mages do not gain access to Engulf.)
+    # (Per Street Wyrd p.121, channeling mages do not gain access to Engulf.)
     has_channeling = any(
         "channeling" in str(m.get("name", m) if isinstance(m, dict) else m).lower()
         for m in metamagic_raw
@@ -3177,15 +3177,13 @@ def build_roll20_payload(
     ):
         _, cha_eff = _resolve_attribute_from_block(attrs_block, "mental", "charisma", 6)
         _, agi_eff = _resolve_attribute_from_block(attrs_block, "physical", "agility", 3)
-        sorcery_rating = next(
-            (s["rating"] for s in skills_list if s["id"] == "sorcery"), 5
+        exotic_rating = next(
+            (s["rating"] for s in skills_list if s["id"] == "exotic_weapons"), 0
         )
-        # Base Sorcery + Magic (+ Power Focus + Wise Warrior if present)
-        focus_bonus = 3 if any("power focus" in i["name"].lower() for i in items_list) else 0
-        ww_bonus = 1 if any("improved ability (sorcery)" in str(ap.get("name", "")).lower() for ap in adept_powers_raw) else 0
-        spellcasting_pool = sorcery_rating + magic_eff + focus_bonus + ww_bonus
-        # Roll20 computes Ranged Weapon Pool as Agility + Skill (-1 if unskilled) + Mod
-        recommended_mod = spellcasting_pool - (agi_eff - 1)
+        # Per CRB p.223, Elemental Attack uses Magic + Agility.
+        # Roll20 computes Ranged Weapon Pool as Agility + Exotic Weapons (-1 if unskilled) + Mod.
+        elem_pool = magic_eff + agi_eff
+        recommended_mod = magic_eff - (exotic_rating if exotic_rating > 0 else -1)
         ar_val = magic_eff + cha_eff
         elem_desc, elem_page = _lookup_rule_text_and_page(conn, "Elemental Attack", chapter_hint="Critter")
         ranged_weapons_list.append(
@@ -3196,10 +3194,10 @@ def build_roll20_payload(
                 "attackRating": f"{ar_val}/{ar_val}/{ar_val}/-/-",
                 "mode": "SS",
                 "ammunition": "0",
-                "page": elem_page or "CRB p.224 / Street Wyrd p.113",
+                "page": elem_page or "CRB p.223 / Street Wyrd p.121",
                 "description": _combine_descriptions(
-                    f"Channeled Spirit Ranged Attack (DV = Force P Elemental, AP/AR = 2x Force). "
-                    f"Post-Import Setup: Set Weapon 'Mod' to +{recommended_mod} so total pool equals {spellcasting_pool}d6.",
+                    f"Channeled Spirit Ranged Attack (DV = Force P Elemental, AR = 2x Force). "
+                    f"Post-Import Setup: Set Weapon 'Mod' to +{recommended_mod} so total pool equals {elem_pool}d6 (Magic + Agility).",
                     elem_desc,
                 ),
                 "wifi": [],
@@ -3891,16 +3889,13 @@ def generate_roll20_helper_guide(
                 "4. **Elemental Attack (Core / Arms Tab)**:",
             ]
         )
-        sorcery_sk = next((s["rating"] for s in payload.get("skills", []) if s["id"] == "sorcery"), 5)
-        focus_b = 3 if any("power focus" in i["name"].lower() for i in payload.get("items", [])) else 0
-        ww_b = 1 if any("improved ability (sorcery)" in ap["name"].lower() for ap in payload.get("adeptPowers", [])) else 0
-        base_sc_pool = sorcery_sk + magic + focus_b + ww_b
-        # Unskilled exotic_weapons = Agility - 1
-        unbuffed_mod = base_sc_pool - (agi - 1)
+        exotic_sk = next((s["rating"] for s in payload.get("skills", []) if s["id"] == "exotic_weapons"), 0)
+        elem_pool = magic + agi
+        elem_mod = magic - (exotic_sk if exotic_sk > 0 else -1)
         lines.extend(
             [
                 f"   - Check **Primary** next to **`Elemental Attack`** on the Arms tab so it appears on your Core tab.",
-                f"   - Because Roll20's weapon macro rolls `Agility + Exotic Weapons (-1 unskilled) + Mod`, set the weapon's **`Mod`** field to **`+{unbuffed_mod}`** (or **`+{unbuffed_mod - 2}`** while Channeled `Agility +2` is active) so the macro rolls your exact **{base_sc_pool}d6** Spellcasting pool.",
+                f"   - Because Roll20's weapon macro rolls `Agility + Exotic Weapons (-1 unskilled) + Mod`, set the weapon's **`Mod`** field to **`+{elem_mod}`** so the macro rolls **`{elem_pool}d6`** (`Magic + Agility`, CRB p. 223).",
             ]
         )
 
@@ -4238,6 +4233,57 @@ def generate_roll20_helper_guide(
                 "```",
             ]
         )
+        has_channeling = any(
+            "channeling" in str(m.get("name", "")).lower()
+            for m in payload.get("metamagic", [])
+            if isinstance(m, dict)
+        )
+        if has_channeling:
+            init_grade = _parse_int(payload.get("initiation"), 0)
+            has_centering = any(
+                "centering" in str(m.get("name", "")).lower()
+                for m in payload.get("metamagic", [])
+                if isinstance(m, dict)
+            )
+            center_b = init_grade if has_centering else 0
+            center_label = f" + Centering +{center_b}" if center_b > 0 else ""
+            spirit_q = "?{Spirit Type|Air|Beasts|Earth|Fire|Guardian|Guidance|Kin (Kindred)|Plant|Task|Water}"
+            force_q = "?{Force|5}"
+            summon_pool = f"@{{{c_ref}|conjuring}}+@{{{c_ref}|magic}}+@{{{c_ref}|wounds_toggle}}+@{{{c_ref}|modifiers_toggle}}+@{{{c_ref}|edge_toggle}}"
+            channel_pool = f"@{{{c_ref}|conjuring}}+@{{{c_ref}|magic}}+{init_grade}+@{{{c_ref}|wounds_toggle}}+@{{{c_ref}|modifiers_toggle}}+@{{{c_ref}|edge_toggle}}"
+            drain_pool = f"@{{{c_ref}|willpower}}+@{{{c_ref}|charisma}}+{center_b}+@{{{c_ref}|modifiers_toggle}}+@{{{c_ref}|edge_toggle}}"
+            lines.extend(
+                [
+                    "",
+                    f"### Spirit Summoning & Channeling (All 6 Tests + Summary — Initiate Grade {init_grade}{center_label})",
+                    "```text",
+                    (
+                        f"@{{{c_ref}|gm_toggle}} &{{template:rolls-computed}}"
+                        f"{{{{header=@{{{c_ref}|character_name}}}}}}"
+                        f"{{{{base=Channeling: Force {force_q} {spirit_q} Spirit — 1. Summoning}}}}"
+                        f"{{{{dicepool=[[({summon_pool})]]}}}}"
+                        f"{{{{dice=[[({summon_pool})d6>5@{{{c_ref}|explode_toggle}}cs>5cf<1]]}}}}"
+                        f"{{{{mod=[[@{{{c_ref}|modifiers_toggle}}]]}}}}"
+                        f"{{{{wound=[[@{{{c_ref}|wounds_toggle}}]]}}}}"
+                        f"{{{{edge=[[@{{{c_ref}|edge_toggle}}]]}}}}"
+                        f"{{{{desc="
+                        f"**2. Spirit Resist (Summon, 2xF):** [[(2*{force_q})d6>5cs>5cf<1]] | "
+                        f"**3. Summon Drain Soak (WIL+CHA{center_label}):** [[({drain_pool})d6>5@{{{c_ref}|explode_toggle}}cs>5cf<1]] | "
+                        f"**4. Channeling (+{init_grade} IG):** [[({channel_pool})d6>5@{{{c_ref}|explode_toggle}}cs>5cf<1]] | "
+                        f"**5. Spirit Resist (Channel, 2xF):** [[(2*{force_q})d6>5cs>5cf<1]] | "
+                        f"**6. Channel Drain Soak (On Drop, WIL+CHA{center_label}):** [[({drain_pool})d6>5@{{{c_ref}|explode_toggle}}cs>5cf<1]]"
+                        f"}}}}"
+                        f"{{{{tip="
+                        f"**SUMMARY — F{force_q} {spirit_q} Spirit:** "
+                        f"**Tasks:** Summon $[[1]] vs $[[5]] (need 1+ net) + Channel $[[7]] vs $[[8]] | "
+                        f"**Summon Drain (Now):** DV $[[5]] vs Soak $[[6]] | "
+                        f"**Channel Drain (When Dropped):** DV $[[8]] vs Soak $[[9]] | "
+                        f"**Buffs:** +[[floor({force_q}/2)]] BOD/AGI/REA/STR (if < F{force_q}), Ignore {force_q} Wound boxes, Dual Natured."
+                        f"}}}}"
+                    ),
+                    "```",
+                ]
+            )
 
     if resonance > 0:
         compile_p = task_sk + 2 + eff_res
