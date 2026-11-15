@@ -362,7 +362,7 @@ Technomancers purchase complex forms for 5 Karma each (*6WC*, p. 29):
 ### 1. Drone & Chassis: Nurse MAID Anthro Drone (Deadly Arts, p. 57, 177)
 
 * **Nurse Maid Anthro Drone**: **57,500¥** `{python} inc('Nuyen', -57500)`
-  * *Handling*: 3/4 | *Speed*: 15 | *Accel*: 5 | *Body*: 8 | *Armor*: 6 | *Pilot*: 4 | *Sensor*: 3
+  * *Handling*: 3/4 (3/4 Wheeled) | *Speed*: 15 (120 Wheeled) | *Accel*: 5 (10 Wheeled) | *Body*: 8 | *Armor*: 6 | *Pilot*: 4 | *Sensor*: 3
   * *Factory Embedded Features (Stock Free Benefits)*:
     * **2x Anthroform Cyberarms with built-in Shock Limbs**: The "Thunder Slap". Delivers 4S(e) electrical shock attacks. *(Note: The Krime Gloves in the raw XML were an artifact to model these stock shock limbs; removed to refund 1,050¥).*
     * **Stock Biotech Autosoft (Rating 6)**: Included free from Ares factory.
@@ -370,6 +370,10 @@ Technomancers purchase complex forms for 5 Karma each (*6WC*, p. 29):
     * **Integrated Medkit (Rating 4)**: Included free.
     * **Realistic Features (Rating 4)**: High-end civilian aesthetic presentation.
     * Anti-Theft System (Rating 1).
+  * *Chargen Modifications & Tools (Double Clutch, pp. 120, 137, 139; CRB, p. 274)*:
+    * **Secondary Propulsion (Wheeled)**: **8,000¥** `{python} inc('Nuyen', -8000)` *(Avail 3, 2 Powertrain slots; Body 8 $\times$ 1,000¥; Accel 10, Speed Interval 15, Top Speed 120, 2 turns to deploy/retract).*
+    * **Passive Stealth Features**: **1,000¥** `{python} inc('Nuyen', -1000)` *(Avail 3, 1 Electronics slot; +1 detection Threshold / -1 defender hit).*
+    * **Engineering [Industrial Mechanic] Toolkit**: **500¥** `{python} inc('Nuyen', -500)` *(Avail 1; supports field repairs, 1-slot mod installation, and SRM downtime maintenance on 1 drone).*
 
 ### 2. Data Structure Hardware (*Hack & Slash*, p. 71)
 
@@ -380,15 +384,14 @@ Technomancers purchase complex forms for 5 Karma each (*6WC*, p. 29):
 
 Per *Hack & Slash* p. 55 (*Writing Code*), hackers can write software. Ouro codes autosofts with cooperative assistance from **Reiko**, unlocking custom autosofts up to **Rating 9**:
 
-* **8 Autosofts @ Rating 9 ($9 \times 500¥ = 4,500¥$ each = 36,000¥)** `{python} inc('Nuyen', -36000)`:
+* **6 Autosofts @ Rating 9 ($6 \times 4,500¥ = 27,000¥$)** `{python} inc('Nuyen', -27000)`:
   * Clearsight (Rating 9): 4,500¥
   * Evasion (Rating 9): 4,500¥
   * Maneuvering [Nurse Maid] (Rating 9): 4,500¥
   * Stealth Auto [Nurse Maid] (Rating 9): 4,500¥
-  * Soft Navigation (Rating 9): 4,500¥
   * Soft Con / Performance (Rating 9): 4,500¥
-  * Soft Tracking (Rating 9): 4,500¥
   * Soft Engineering [Industrial Mechanic] (Rating 9): 4,500¥
+  * *(Deferred to post-chargen: `Soft Navigation` and `Soft Tracking`, freeing 9,000¥ to fund Route A drone mods and toolkit).*
 
 ### 4. Datasofts & Utilities (4,850¥ from XML)
 
@@ -467,7 +470,7 @@ Free Knowledge skills equal Logic (Logic 4 at chargen), plus one free Native Lan
 | **Pilot Origins (Rigging)** | **Rating 3** | Control Rig R3 equivalent (Intuition + Piloting tests) | **Rules Legal** |
 | **Contact Points** | `{python} Contact_Points` | 0 Remaining (24 Spent; River People C7/L8 & Reiko C5/L4) | **Exact Match** |
 | **Customization Karma** | `{python} Karma` | 1 Karma in reserve | **Rules Legal (<= 5)** |
-| **Starting Pocket Cash** | ¥`{python} f"{Nuyen:,}"` | $\le 5,000¥$ limit (2,160¥ remaining) | **Compliant** |
+| **Starting Pocket Cash** | ¥`{python} f"{Nuyen:,}"` | $\le 5,000¥$ limit (1,660¥ remaining) | **Compliant** |
 
 ## Starting Stats/Pools
 
@@ -535,6 +538,6 @@ Under *SRM Guide v2.4* (pp. 17–20, 59–60), downtime actions between missions
 | **08** | **Submersion Grade 8**<br>• *Skinlink* | Echo | 12 Karma* | 1 Major Action<br>*(SRM #6 / Month 3)* | *CRB* 195: Cost $10+8-6=12\text{K}$ (**still at Loyalty 6!**). Direct skin contact interface bypasses wireless noise and hardwired air-gaps entirely. *(End of Month 3: Loyalty decays $6 \rightarrow 5$).* |
 | **09** | **Quality: Candle in the Dark** | Positive Quality | 5 Karma | None (Between runs) | *No Future* 161: Unlocked via *Honorbound*. Strengthens community rep and grants social resistance against syndicate intimidation. |
 | **10** | **Acquire Additional Complex Forms**<br>• *Enhance Autosoft*<br>• *Pulse* or *Stitches* | Complex Forms | 5 Karma each | 1 Minor Action each (Study) | *Hack & Slash* 64, 65: Overclocks drone autosofts or repairs compiled sprite damage in real time. |
-| **11** | **Drone Chassis Upgrades** | Vehicle Hardware | Nuyen Budget | 1 Minor Action (Mechanic) | Secondary propulsion, chameleon coating, structural integrity (+4), top speed and acceleration optimization. |
+| **11** | **Drone Chassis Upgrades (Phase 2)** | Vehicle Hardware | Nuyen Budget | 1 Minor Action each (Mechanic) | Acquire *Engineering [Industrial Mechanic] Shop* (5,000¥, Avail 4), then DIY-install *Chameleon Coating 4* (9,000¥ DIY, Avail 8(I)), *Increased Structural Integrity* up to 4 (2,500¥/rank DIY, 2 ranks per Minor Action for bought-hits threshold), deferred *Tracking*/*Navigation* R9 autosofts, and optional *Vector Thrust* later. |
 
 *\*Submersion costs reflect the SRM 2-missions-per-month cadence where degradation occurs every OTHER initiation: Grade 3 (SRM 1 @ L8: 5K), Grade 4 (SRM 2 @ L8: 6K), Grade 5 (SRM 3 @ L7: 8K), Grade 6 (SRM 4 @ L7: 9K), Grade 7 (SRM 5 @ L6: 11K), Grade 8 (SRM 6 @ L6: 12K). Subsequent submersions at Loyalty 4 floor cost $10 + \text{Grade} - 4$.*
