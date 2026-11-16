@@ -3,7 +3,7 @@
 **Extends**: `sr6-core/reference/default_voice_spec.md`  
 **Parent Doctrine**: [`sr6-core/reference/inter_session_narrative_doctrine.md`](file:///c:/GitHub/sr6-core/reference/inter_session_narrative_doctrine.md)  
 **Character**: Venn (Nathan Turrent & Veronica)  
-**Archetype**: Monad (Human / AI Dual Entity) Technomancer & Operative  
+**Archetype**: Monad (Human / Digital Intelligence Dual Entity) Cyborg Decker & Operative  
 **Repository Target**: [`characters/lab/venn/reference/voice_spec.md`](file:///c:/GitHub/sr6-core/characters/lab/venn/reference/voice_spec.md)
 
 ---
@@ -11,10 +11,10 @@
 ## 0. The Inter-Session Narrative Mandate & Consecrated Capital
 
 * **The Operational vs. Ontological Divide:**
-  * *Operational Layer (The Gaming Table):* At the table, Venn is a lethal frontline street samurai and decking asset. They deploy heavy weapons, roll high initiative, and coordinate tactical data feeds.
-  * *Ontological Layer (The Prose Domain):* In prose, inter-session fiction explores the 0.1 Essence chasm, the horror of CFD rewritten into voluntary transhuman kinship, and the physical struggle of two sovereign minds sharing one mortal frame.
+  * *Operational Layer (The Gaming Table):* At the table, Venn is a frontline cyborg operative and Matrix decker. They deploy skillwire-streamed tradecraft and Living Persona intrusion. *(Note: As Venn remains in Character Lab incubation, prose avoids hardcoding ephemeral weapon or software loadouts, anchoring instead on the fixed pillars: **skillwires**, **four realistic synthetic cyberlimbs**, and **cyberpsychosis**.)*
+  * *Ontological Layer (The Prose Domain):* In prose, inter-session fiction explores the near-zero Essence chasm, the horror of CFD rewritten into voluntary transhuman kinship, and the physical struggle of two sovereign minds sharing one heavily chromed frame.
 * **Consecrated Capital & Existential Debt:**
-  * *Chrome as Biological Indenture:* Venn’s four used synthetic limbs, adapsin, and nanohives represent a ~¥275,000 somatic investment and 5.51 points of lost Essence (down to 0.49). Every credit spent on bioware stabilizers is the biological rent keeping Nathan's organic heart beating alongside Veronica’s digital pulse.
+  * *Chrome as Biological Indenture:* Venn's four realistic synthetic limbs, skilljack, and spinal skillwires represent heavy somatic debt and severe Essence erosion down to the cyberpsychotic threshold. Every nuyen spent on immunosuppressants, nanite stabilizers, and neural maintenance is biological rent keeping Nathan's organic heart beating alongside Veronica's digital pulse.
   * *The Inversion of Essence Loss:* While Nathan’s nervous system numbs into cyberpsychotic threshold, Veronica provides the synthetic empathy buffer that prevents total dissociation.
 * **The Two-Tier Dramatic Sphere:**
   * *Tier A Campaign Canon (`canonical: true`):* SRM Fixers and living campaign NPCs operate under the Canon Ceiling.
@@ -79,11 +79,11 @@ arc_chronology:
   arc_1_introductory_foundations:
     chapters: "01 – 07 (Anthology & Backstory)"
     thematic_spine: "The Inversion Arc (The Chiasmus): Nathan's Essence erosion from boy to cyberpsychotic threshold vs. Veronica's evolution from cold digital intelligence to empathetic anchor"
-    narrative_state: "Arcology escape origin (2061), St. Simon's Island boathouse childhood (2072), used skillwires integration (2081), Monad Resculpt discovery (2082), Foundation dive (2082), Gagarin sabotage (2082), and first Atlanta shadow contract (2083)"
-    expressivity: "Establishing the core 3-2-1 framework, Twenty Questions depth, and robust table-ready chargen baseline"
-    cognitive_bias: "Emergent Monad co-consciousness; dynamic cognitive sharing between human biology and AI telemetry; protective sibling alliance"
-    visual_palette: "Salt marsh cedar, brackish water, slate grey oilskin, electrical cyan carrier waves, surgical chrome and amber streetlights"
-    mechanical_state: "Chargen baseline (Essence 0.1, Used Skillwires R6, Skilljack R6, Living Persona, Monad Resculpt, Point-Buy 100 Karma)"
+    narrative_state: "Arcology escape origin (Aug 2061; Nathan born 2062; Crash 2.0 flight to St. Simon's Island 2064), boathouse childhood (2069), used skillwires & synthetic limb integration (2078), Monad Resculpt discovery (2078), Foundation dive (2079), DSEC-I Gagarin sabotage (early 2079, ahead of DSEC-I's Aug 18 2079 Mars departure), and first Atlanta shadow contract (2083; age 23 by 2085 launch)"
+    expressivity: "Establishing the core 3-2-1 framework, Twenty Questions depth, and flexible lab baseline (skillwires, synthetic limbs, cyberpsychosis)"
+    cognitive_bias: "Emergent Monad co-consciousness; dynamic cognitive sharing between human biology and digital telemetry; protective sibling alliance"
+    visual_palette: "Salt marsh cedar, brackish water, slate grey oilskin, electrical cyan carrier waves, synthetic skin seams, and amber streetlights"
+    mechanical_state: "Lab baseline (Near-zero Essence cyberpsychosis threshold, Used Skillwires & Skilljack, 4 Synthetic Cyberlimbs, Living Persona, Monad Resculpt)"
 ```
 
 ---
@@ -96,23 +96,23 @@ chapter_tiers:
     passing_threshold: "9.0 / 10"
     role: "Existential breakthroughs, core origin milestones, profound identity choices, foundational pivots"
     chapters:
-      - "01_the_day_a_god_fell" # 2061: Arcology escape, Deus seed preservation, parental origin
-      - "03_threading_the_wire" # 2081: Used skillwire surgery, Essence collapse to 0.1, Veronica vocal intercept
-      - "06_sabotaged_berth" # 2082: Post-Marcus burial, nor'easter, refusing Mars exodus, manifest sabotage
+      - "01_the_day_a_god_fell" # Aug 2061: Arcology escape, Deus seed preservation, cryo-embryo origin
+      - "03_threading_the_wire" # Jun 2078: Used skillwire & synthetic limb integration, Essence collapse, Veronica vocal intercept
+      - "06_sabotaged_berth" # Feb 2079: Post-Marcus burial, nor'easter, refusing DSEC-I Mars exodus, manifest sabotage
 
   tier_2_narrative_evolution:
     passing_threshold: "8.5 / 10"
     role: "Operational missions, relationship deepening, regional shadow runs, evolutionary milestones"
     chapters:
-      - "04_night_of_her_own" # 2082: First physical Monad resculpt in Savannah night market
-      - "05_dual_icons_foundation" # 2082: Foundation dive, dual persona icons, discovering Lyra's set theory
-      - "07_first_contract" # 2083: First Atlanta corporate intercept, clinic paranoia, claiming Venn moniker
+      - "04_night_of_her_own" # Oct 2078: First physical Monad resculpt in Savannah night market
+      - "05_dual_icons_foundation" # Jan 2079: Foundation dive, dual persona icons, discovering Lyra's set theory
+      - "07_first_contract" # Feb 2083: First Atlanta corporate intercept, clinic paranoia, claiming Venn moniker
 
   tier_3_atmospheric_bridges:
     passing_threshold: "8.0 / 10"
     role: "Slice-of-life downtime, procedural mechanics, sibling bonding, coastal atmospheric grounding"
     chapters:
-      - "02_salt_marsh_node" # 2072: Boathouse childhood dock bonding, sensory translation, Marcus's grief
+      - "02_salt_marsh_node" # Oct 2069 (Age 7): Boathouse childhood dock bonding, sensory translation, Marcus's grief
 ```
 
 ---
@@ -121,9 +121,9 @@ chapter_tiers:
 
 ```yaml
 voice_schema:
-  character_id: "union"
-  narrative_pov: "First Person Limited (Dual-Mind Sensory Filter)"
-  cognitive_bias: "Monad Dual Consciousness (Human Meat Anchor + Resonant AI Engine)"
+  character_id: "venn"
+  narrative_pov: "Third Person Limited (Dual-Mind Sensory Filter)"
+  cognitive_bias: "Monad Dual Consciousness (Human Meat Anchor + Resonant Digital Intelligence)"
   pronoun_discipline:
     nathan: "he/him/his (when Nathan is operating individually or acting as primary physical driver in meatspace)"
     veronica: "she/her/hers (when Veronica is operating individually, projected as digital avatar in Matrix/Foundation, or acting as primary physical driver during Monad Resculpt)"
@@ -148,8 +148,8 @@ voice_schema:
   narrative_guardrails:
     perspective_friction: "Preserve distinct perspectives. Veronica's algorithmic, long-horizon analysis must clash with Nathan's street-level, visceral instincts before reaching consensus."
     meatspace_observer_dissonance: "Ground external scenes in meatspace reality. Show the dissonance outsiders (fixers, street docs, corporate targets) observe—a solitary runner speaking with overlapping vocal cadence or standing deadpan while internal calculations resolve."
-    somatic_cost_integrity: "Nanite restructuring, neural surge buffering, and 0.1 Essence maintenance carry taxing metabolic heat, somatic fatigue, and sensory flattening. The bond must always feel earned rather than convenient."
-    resculpt_embodiment_discipline: "When Veronica drives the physical helm: 1) depict sensory latency / buffer micro-stutter when unexpected bio-shocks (pulse spikes, capsaicin, adrenaline) pass into her digital buffer; 2) meter spoken dialogue to reflect someone learning how much breath and thoracic air volume a spoken sentence demands."
+    somatic_cost_integrity: "Nanite restructuring, neural surge buffering, and near-zero Essence maintenance carry taxing metabolic heat, somatic fatigue, and sensory flattening. All four synthetic limbs look human under realistic synthskin, yet run slightly cool at the vascular seams and carry subtle servo mass. The bond must always feel earned rather than convenient."
+    resculpt_embodiment_discipline: "When Veronica drives the physical helm: 1) Resculpt nanites remodel both organic soft tissue and the malleable outer polymer/synthskin of the synthetic limbs within broad anatomical margins, generating intense metabolic heat; 2) depict sensory latency / buffer micro-stutter when unexpected bio-shocks (pulse spikes, capsaicin, adrenaline) pass into her digital buffer; 3) meter spoken dialogue to reflect someone learning how much breath and thoracic air volume a spoken sentence demands."
   sensory_lens:
     primary_sense: "Neural Matrix Feed & Electromagnetic Resonance (Signal geometries, carrier waves, data conduits)"
     secondary_sense: "Bio-feedback & Tactile Telemetry (Adrenaline surge, motor torque, subcutaneous tension, salt air)"

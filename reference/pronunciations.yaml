@@ -68,8 +68,14 @@ terms:
   "Saeder-Krupp": "Sayder-Krupp"
   "Wuxing": "Woo-shing"
   "Ruhrmetall": "Roor-metahl"
+  "Evo": "Ee-voh"
   "TXM": "T X M"
   "S-K": "Ess Kay"
+  "CAS": "See Ay Ess"
+  "DSEC-I": "D Sek One"
+  "DSEC-II": "D Sek Two"
+  "DEUS": "Day-us"
+  "Deus": "Day-us"
 
   # ---------------------------------------------------------------------------
   # 3. Character Names, Contacts & Personas
@@ -127,6 +133,11 @@ terms:
   "Ouro": "Oro"
   "Ouroboros": "Oroboros"
   "de la Mar": "day lah Mahr"
+
+  # Venn & Circle
+  "Lyra": "Lie-rah"
+  "Otaku": "Oh-tah-koo"
+  "Gagarin": "Gah-gah-rin"
 
   # ---------------------------------------------------------------------------
   # 4. Sprawls, Geography & Trade Hubs
@@ -221,3 +232,7 @@ patterns:
     replace: 'instead of led'
   - match: '\bmended tear\b'
     replace: 'mended tare'
+  - match: '\bscreen read closed\b'
+    replace: 'screen red closed'
+  - match: '\bBus is live\b'
+    replace: 'Bus is lyve'

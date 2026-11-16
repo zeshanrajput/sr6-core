@@ -2,7 +2,7 @@
 
 1. Nature has gifted us with our base set of genetics. We are born with a set of facial features, skin tone, height, build, metatype, and even aptitudes. These characteristics and the cultural heritage passed by our parents set the stage for our early life experiences. Where does your character come from, what is their lineage, who were their parents, and what did they inherit from them?
 
-**Nathan**: A human male of pragmatic, lean build born in 2065 on St. Simon’s Island, Georgia (Confederation of American States). Underwent childhood gene therapies and biological conditioning to accommodate heavy neural chrome.
+**Nathan**: A human male of pragmatic, lean build born in 2062 (carried out of the 2061 Renraku Arcology collapse as a cryo-preserved embryo and brought to term in hiding before settling on St. Simon’s Island, Georgia, Confederation of American States). Underwent childhood gene therapies and biological conditioning to accommodate heavy neural chrome and synthetic limb replacements, entering 2085 play at twenty-three.
 
 **Veronica**: A sovereign digital intelligence raised alongside Nathan as his sister and companion. Their mother taught them that the term "artificial intelligence" was a derogatory metahuman prejudice, establishing from childhood that her consciousness was genuine and complete.
 
@@ -18,11 +18,11 @@
 
 3. Some historical events leave a mark and shape us in profound ways. Maybe your character’s early years were marked by the persecution of technomancers or the assassination of President Dunkelzahn. Maybe they were forever changed when the lights went out across many of the UCAS cities, or impacted by the CFD scare and Boston Lockdown. Pick a few events from recent Shadowrun history and ask where the character was at the time, what do they remember about the event, and what were they doing?  
 
-**Crash 2.0 (2064)**: His parents fled Seattle for the isolated coast of St. Simon's Island right before Nathan's birth, establishing an off-grid compound to raise him away from corporate registries.
+**Crash 2.0 (2064)**: When Nathan was two years old, his father used the global Matrix collapse to burn their Seattle shadows and flee south to the isolated coast of St. Simon's Island, establishing an off-grid compound to raise Nathan and Veronica away from corporate registries.
 
-**CFD Crisis & Boston Lockdown (2074–2077)**: While the world panicked over hostile Cognitive Fragmentation Disorder (CFD) overwrites, Nathan's parents used custom nanite volume protocols to voluntarily bond Veronica into Nathan's nervous system, creating a stable, consensual Monad hybrid.
+**CFD Crisis & Boston Lockdown (2076–2078)**: While the world panicked over hostile Cognitive Fragmentation Disorder (CFD) overwrites, Marcus completed Nathan's skillwire and synthetic limb integration in 2078 using custom nanite volume protocols to voluntarily bond Veronica into Nathan's nervous system, creating a stable, consensual Monad hybrid.
 
-**The Monad Exodus (2079)**: When the majority of Monads departed Earth on the *DSEC-I* colony ship from Gagarin Base on Mars, Veronica secretly sabotaged their passenger ticket. She recognized that the deep-space hive-mind would dissolve Nathan's individual human soul into statistical noise, choosing Earth, poverty, and brotherhood over hive transcendence.
+**The Monad Exodus (2079)**: Ahead of the *DSEC-I* colony ship's August 18, 2079 departure from Gagarin Base on Mars, Veronica secretly sabotaged their Earth-to-orbit passenger berth in early 2079. She recognized that the deep-space hive-mind would dissolve Nathan's individual human soul into statistical noise, choosing Earth, poverty, and brotherhood over hive transcendence.
 
 4. Not many people choose to be in the glorious job of a deniable asset. Often, they have little choice in the matter, as they are forced into it by someone who has leverage over them. Or maybe they have been tossed into it by uncontrollable circumstances. Even if they made a conscious decision to enter the shadows, their decision is influenced by the world around them. How did your character get into shadowrunning, and why did they take that path?  
 
@@ -43,7 +43,7 @@ An off-grid coastal boathouse and marine repair shop on St. Simon’s Island. Th
 
 7. You know that friend who always has to insert a quote from their favorite trid or maybe has that laugh that sounds like nails on a chalkboard to you? What flaws does your character have that sets others on edge? What do you dislike most about your character’s personality?
 
-**Cyberpsychosis Dissociation**: Because Nathan's Essence sits at 0.1, high-stress combat trauma or sudden panic causes his emotional grounding to fracture. He experiences cold numbness, sensory noise, and violent detachment, requiring Veronica to step forward and manually damp his neural feed to restore control.
+**Cyberpsychosis Dissociation**: Because Nathan's biological Essence sits at the near-zero cyberpsychotic threshold, high-stress combat trauma or sudden panic causes his emotional grounding to fracture. He experiences cold numbness, sensory noise, and violent detachment, requiring Veronica to step forward and manually damp his neural feed to restore control.
 
 **Unsettling Mannerisms**: When Veronica processes heavy Matrix data, Nathan's voice flattens into a monotone, or his eyes tracking internal AR feeds make him appear dead behind the eyes.
 
@@ -63,13 +63,13 @@ An off-grid coastal boathouse and marine repair shop on St. Simon’s Island. Th
 
 10. Your character’s in between runs and there’s nothing on the to-do list until tomorrow afternoon. They might go hit the range, or maybe they run downtown to catch a combat biker match. What do they do for the day?
 
-Mornings start at dawn with Nathan running diagnostic routines on his Used Skillwires (Rating 6) while Veronica sweeps local CAS emergency frequencies. Afternoons are spent repairing the boathouse, fishing off the dock, or delivering medical supplies to off-grid coastal families.
+Mornings start at dawn with Nathan running diagnostic routines on his Used Skillwires and synthetic limbs while Veronica sweeps local CAS emergency frequencies. Afternoons are spent repairing the boathouse, fishing off the dock, or delivering medical supplies to off-grid coastal families.
 
 11. Your character has specific skills, abilities, and knowledge. Their list of Active and Knowledge skills defines what they know and their areas of expertise. How did they come to learn those skills, and how did they develop them to those levels?  
 
 **Electronics & Cracking**: Taught by Veronica and built on his mother's inherited Otaku data structures.
 
-**Firearms & Field Tactics**: Executed through Nathan's Used Skillwires (Rating 6) and Skilljack by streaming Activesofts directly into his motor nervous system.
+**Firearms & Field Tactics**: Executed through Nathan's Used Skillwires and Skilljack by streaming modular Activesofts directly into his motor nervous system and synthetic limbs.
 
 **Engineering & Biotech**: Learned from his father while maintaining his own heavy cyberware implants.
 
@@ -83,7 +83,7 @@ Venn is a Monad (Special Heritage) with natural nanite swarm processing operatin
 
 14. Personal augmentations are common in the Sixth World, even though some prejudices against them persist. Cyberware and bioware are rarely cheap, and many augmentations are illegal or require licenses. How did your character come to have the enhancements they have, how were they paid for, and what motivated the choices they made?  
 
-Nathan's augmentations were installed by his father to enable the high-bandwidth telemetry needed for Veronica's presence and to ensure survival against corporate hit teams. The Used Skillwires and Skilljack reduced his Essence to 0.1, making Veronica's emotional grounding essential to prevent cyberpsychotic collapse.
+Nathan's augmentations were installed by his father to enable the high-bandwidth telemetry needed for Veronica's presence and to ensure survival against corporate hit teams. Four realistic synthetic cyberlimbs paired with Used Skillwires and a Skilljack pushed his remaining biological Essence down to the cyberpsychotic threshold, making Veronica's emotional grounding essential to prevent total dissociation.
 
 15. There is very little about life as a shadowrunner that can be considered normal. Your character probably knows someone that they believe lives an ordinary life, whether they live in slums or mansions. What does your character think of ordinary life, mainstream culture, and those who abide by it?  
 
@@ -105,7 +105,7 @@ Their father’s original optical alignment loupes and diagnostic deck, used to 
 
 19. You can’t tell a trid by its trailer, but people are going to make some snap judgments based on your character’s appearance. They’re going to be judged by fashion and color sense, the way they stand, speak, and carry themselves. What does your character look like, and what inspired their choices?  
 
-Nathan is a lean human male in his early twenties wearing rugged coastal outerwear: a weathered oilskin duster, tactical cargo pants, and heavy boots. Fine surgical scars behind his ear mark his used skilljack. When Veronica takes physical control via Monad Resculpt, the frame shifts into a softer, agile feminine form. Both share light brown hair with blonde highlights in native form, though they frequently alter their facial features to evade recognition.
+Nathan is a lean human male in his early twenties wearing rugged coastal outerwear: a weathered oilskin duster, tactical cargo pants, and heavy boots. Fine surgical scars behind his ear mark his used skilljack, while his four synthetic limbs carry natural-looking synthskin that hides their chassis weight beneath everyday street wear. When Veronica takes physical control via Monad Resculpt, nanites remodel both organic facial tissue and the malleable outer polymer contours of the limbs into a softer, agile feminine form. Both share light brown hair with blonde highlights in native form, though they frequently alter their facial features to evade recognition.
 
 20. Real names have power, so most runners go by some moniker. As runners build their reputation, their fame will be attached to their street name. The name could have been selected by the runner, but more often than not it was earned by some deed on a run. How did your character come to be known by their street name?
 

@@ -14,16 +14,16 @@ This document serves as the master visual design anchor file for **Venn**. It ma
 
 ## 1. Key Visual Reference Images
 
-* **[Venn - Salt Marsh Compound (St. Simon's Island)](../images/venn_boathouse.png)** *(To be generated)*
-  * **File:** `images/venn_boathouse.png`
+* **[Venn - Salt Marsh Compound (St. Simon's Island)](../images/venn_boathouse.webp)** *(To be generated)*
+  * **File:** `images/venn_boathouse.webp`
   * **Description:** Establishes Venn's primary physical appearance on St. Simon's Island—Nathan in a weathered oilskin coat over tactical cargo gear, standing on the boathouse dock with AR data feeds haloing his head.
   
-* **[Veronica - Foundation Persona Avatar](../images/veronica_foundation.png)** *(To be generated)*
-  * **File:** `images/veronica_foundation.png`
+* **[Veronica - Foundation Persona Avatar](../images/veronica_foundation.webp)** *(To be generated)*
+  * **File:** `images/veronica_foundation.webp`
   * **Description:** Establishes Veronica's distinct digital persona in the Deep Matrix and Foundation—a hyper-real, luminescent female avatar composed of refined glass-fiber geometry, neon-cyan data conduits, and silver Otaku runes.
 
-* **[Venn - Monad Resculpt (Veronica Physical Lead)](../images/venn_resculpt.png)** *(To be generated)*
-  * **File:** `images/venn_resculpt.png`
+* **[Venn - Monad Resculpt (Veronica Physical Lead)](../images/venn_resculpt.webp)** *(To be generated)*
+  * **File:** `images/venn_resculpt.webp`
   * **Description:** Establishes Venn when Veronica takes physical control via Monad Resculpt—a lean female shadowrunner frame, sharp facial features, mousey brown hair with blonde highlights, wearing a dark sleek jumpsuit.
 
 ---
@@ -32,16 +32,16 @@ This document serves as the master visual design anchor file for **Venn**. It ma
 
 ### Nathan Turrent (Physical Host Anchor)
 
-* **Age & Height:** 20 years old, 178 cm (~5'10"), athletic, pragmatic build.
+* **Age & Height:** 23 years old (by 2085 launch; born 2062), 178 cm (~5'10"), athletic, pragmatic build.
 * **Facial Features:** High cheekbones, light stubble, clear blue-grey eyes that occasionally shift focus when tracking internal AR streams.
 * **Hair:** Mousey brown hair with natural sun-bleached blonde highlights, kept cropped short on the sides with slightly longer textured top.
-* **Augmentation Scars & Implants:** Faint subcutaneous dermal tracking lines along the jawline and neck from nanite integration. Used-grade skilljack socket behind the right ear with polished titanium cap.
+* **Augmentation Scars & Implants:** Four **realistic synthetic cyberlimbs** (both arms and legs) clad in natural-looking synthskin that reads as biological at street distance—running slightly cooler than torso flesh, with faint seam traces at the shoulders and hips and subtle subcutaneous nanite tracking lines along the jawline and neck. Used-grade skilljack socket behind the right ear with polished titanium cap, feeding spinal skillwires.
 * **Wardrobe (Coastal / Tactical):** Weathered dark oilskin duster coat over a slate grey thermal shirt, heavy tactical cargo pants tucked into reinforced saltwater work boots. Utility harness holding activesoft chips, diagnostic tools, and marine hardware.
 
 ### Veronica (Digital Twin / Monad Persona)
 
 * **Digital Avatar (Matrix / Foundation):** Ethereal, slender female form composed of hyperreal silver-white light and woven fiber-optic threads. Eyes glow with steady indigo luminescence.
-* **Physical Lead (Resculpt Form):** Height 168 cm (~5'6"), slender, agile feminine frame. Features soft jawline, sharp intelligent brown-grey eyes, shoulder-length brown hair with blonde highlights. 
+* **Physical Lead (Resculpt Form):** Height 168 cm (~5'6"), slender, agile feminine frame. Monad Resculpt nanites remodel both organic facial cartilage/muscle tone and the malleable outer synthskin contours of all four synthetic limbs within broad anatomical margins. Features soft jawline, sharp intelligent brown-grey eyes, shoulder-length brown hair with blonde highlights. 
 
 ### Palette & Color Architecture
 

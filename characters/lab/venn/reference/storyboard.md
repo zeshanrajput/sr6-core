@@ -129,8 +129,8 @@ We will create these as we get closer to launching this character.
 
 ### Cybernetic & Neurological Suite
 
-* **Skillwire Infrastructure:** **Rating 6 Used Skillwires & Skilljack** ([Build][build], [Purchases][purchases]).
-  * *Somatic Reality:* Wet hydraulic clicks at the base of the skull; constant low-voltage thrum along the spine; requires conscious cognitive effort to process non-combat tactile sensation.
+* **Skillwire & Synthetic Limb Infrastructure:** **Used Skillwires & Skilljack** paired with **four realistic synthetic cyberlimbs** ([Build][build], [Purchases][purchases]). *(Specific software and weapon loadouts remain flexible while in Character Lab incubation.)*
+  * *Somatic Reality:* Wet hydraulic clicks at the base of the skull; constant low-voltage thrum along the spine; synthskin-clad limbs that read as natural flesh at a glance while running slightly cooler at the seams; requires conscious cognitive effort to process non-combat tactile sensation.
 * **Matrix & Resonant Profile:** **Living Persona / Monad** ([Build][build]):
   * *Living Interface:* Direct biological-digital translation without commlink hardware.
 * **Monad Capabilities:** **Monad Resculpt & Neural Co-Presence** — Biological plasticity allowing shift between Nathan-dominant and Veronica-dominant physical presentations.
@@ -154,13 +154,13 @@ TBD
 | `[build]` | [character_build.qmd](../core/character_build.qmd) | State | Chargen priorities, Essence 0.1, used skillwires, technomancy |
 | `[purchases]` | [character_purchases.qmd](../core/character_purchases.qmd) | State | Skillwire debt ledger, lifestyle, gear acquisitions |
 | `[lore-monads]` | [monads_cfd.md](monads_cfd.md) | Lore | CFD origins, Monad psychology, Evo/Gagarin background |
-| `[ch-01]` | [01_the_day_a_god_fell.md](../narrative/01_the_day_a_god_fell.md) | Chapter | 2061: Arcology escape origin; Deus seed preservation |
-| `[ch-02]` | [02_salt_marsh_node.md](../narrative/02_salt_marsh_node.md) | Chapter | 2072: Boathouse childhood with Marcus on St. Simons Island |
-| `[ch-03]` | [03_threading_the_wire.md](../narrative/03_threading_the_wire.md) | Chapter | 2081: Used skillwires surgery; Essence drop to 0.1 |
-| `[ch-04]` | [04_night_of_her_own.md](../narrative/04_night_of_her_own.md) | Chapter | 2082: Veronica's first physical embodiment |
-| `[ch-05]` | [05_dual_icons_foundation.md](../narrative/05_dual_icons_foundation.md) | Chapter | 2082: Foundation dive; dual resonant icons |
-| `[ch-06]` | [06_sabotaged_berth.md](../narrative/06_sabotaged_berth.md) | Chapter | 2082: Marcus's burial; sabotaging the Gagarin Mars manifest |
-| `[ch-07]` | [07_first_contract.md](../narrative/07_first_contract.md) | Chapter | 2083: First professional shadow contract in Atlanta |
+| `[ch-01]` | [01_the_day_a_god_fell.md](../narrative/01_the_day_a_god_fell.md) | Chapter | Aug 2061: Arcology escape origin; Deus seed & cryo-embryo preservation |
+| `[ch-02]` | [02_salt_marsh_node.md](../narrative/02_salt_marsh_node.md) | Chapter | Oct 2069: Boathouse childhood (age 7) with Marcus on St. Simons Island |
+| `[ch-03]` | [03_threading_the_wire.md](../narrative/03_threading_the_wire.md) | Chapter | Jun 2078: Used skillwires & synthetic limb threshold; Essence collapse |
+| `[ch-04]` | [04_night_of_her_own.md](../narrative/04_night_of_her_own.md) | Chapter | Oct 2078: Veronica's first physical embodiment via Resculpt |
+| `[ch-05]` | [05_dual_icons_foundation.md](../narrative/05_dual_icons_foundation.md) | Chapter | Jan 2079: Foundation dive; dual resonant icons |
+| `[ch-06]` | [06_sabotaged_berth.md](../narrative/06_sabotaged_berth.md) | Chapter | Feb 2079: Marcus's burial; sabotaging the DSEC-I Gagarin Mars manifest |
+| `[ch-07]` | [07_first_contract.md](../narrative/07_first_contract.md) | Chapter | Feb 2083: First professional shadow contract in Atlanta |
 
 <!-- Markdown Reference Link Definitions (Single Point of Maintenance) -->
 [doctrine]: ../../../reference/inter_session_narrative_doctrine.md

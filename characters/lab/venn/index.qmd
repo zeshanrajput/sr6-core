@@ -30,7 +30,7 @@ log_totals = get_log_totals(["core/character_log.qmd", "core/character_purchases
 * **Physical Driver:** Nathan Turrent (Human Male)
 * **Resonant AI Engine:** Veronica (Emergent Digital Intelligence)
 * **Classification:** Monad (Consensual Dual Consciousness) (*Whisper Nets*, p. 149)
-* **Essence:** 0.1 *(Full Cybernetic Conversion & Neural Chrome)*
+* **Essence:** Cyberpsychotic Threshold *(Synthetic Cyberlimbs & Used Skillwires)*
 * **System Status:** ONLINE // ACTIVE
 :::
 
@@ -41,7 +41,7 @@ log_totals = get_log_totals(["core/character_log.qmd", "core/character_purchases
 * **Current Karma:** `{python} log_totals.get('Karma', 0)`
 * **Lifetime Nuyen Earned:** ¥`{python} f"{log_totals.get('Lifetime_Nuyen', 4745):,}"`
 * **Liquid Capital:** ¥`{python} f"{log_totals.get('Nuyen', 4745):,}"`
-* **Hooder Commitment:** ¥3,000/month *(Coastal Free Clinics & Refugee Grids)*
+* **Hooder Commitment:** ¥2,000/month *(Coastal Free Clinics & Refugee Grids)*
 * **Total Reputation:** `{python} log_totals.get('Total_Reputation', 0)`
 :::
 
@@ -49,13 +49,25 @@ log_totals = get_log_totals(["core/character_log.qmd", "core/character_purchases
 
 ::: {.cyber-card}
 ### [CORE_SUMMARY & CREATIVE VISION]
-Born in 2065 on the salt marshes of St. Simon's Island, Georgia, Nathan Turrent was raised alongside Veronica—an emergent digital intelligence salvaged from the Renraku Arcology Shutdown. When heavy used neural chrome reduced Nathan's Essence to 0.1 and threatened severe cyberpsychosis, Veronica voluntarily bonded with his nervous system to form **Venn**: a stable, sovereign Monad entity.
+Born in 2062 from an embryo salvaged during the Renraku Arcology Shutdown and raised on the salt marshes of St. Simon's Island, Georgia, Nathan Turrent grew up alongside Veronica—an emergent digital intelligence recovered from the same sublevels. When four realistic synthetic limbs, a skilljack, and used spinal skillwires drove Nathan to the cyberpsychotic Essence threshold, Veronica voluntarily bonded with his nervous system to form **Venn**: a stable, sovereign Monad entity entering the 2085 shadows in his early twenties.
 
 This anthology explores the tactile reality of dual-consciousness, extreme augmentation, and somatic integration:
 
 * **The Shared Sensory Reservoir:** Overlapping meatspace telemetry and Matrix resonance without cartoon transformations or diagnostic jargon.
 * **Mutual Neural Grounding:** Veronica anchoring Nathan's fracturing human soul when the chrome goes cold, while Nathan provides a warm biological home in defiance of corporate extraction teams.
-* **Retaining Humanity at Low Essence:** The moral and visceral reckoning of extreme cyberware implantation (Essence 0.1) balanced by quiet communal empathy on the coastal fringe.
+* **Retaining Humanity at Low Essence:** The moral and visceral reckoning of extreme cyberware implantation balanced by quiet communal empathy on the coastal fringe.
 
 For Venn's canonical background questionnaire, Monad co-existence schema, ethics, and contact network, see **[Twenty Questions](chapters/twenty_questions.qmd)**.
+
+---
+
+### 2. Background & Campaign Narratives
+
+* **[The Day a God Fell](narrative/01_the_day_a_god_fell.md)** *(Aug 2061 — Renraku Arcology Escape)*
+* **[The Salt Marsh Node](narrative/02_salt_marsh_node.md)** *(Oct 2069 — St. Simon's Island Childhood)*
+* **[Threading the Wire](narrative/03_threading_the_wire.md)** *(Jun 2078 — Skillwire & Cyberpsychosis Threshold)*
+* **[A Night of Her Own](narrative/04_night_of_her_own.md)** *(Oct 2078 — Savannah Monad Resculpt)*
+* **[Dual Icons](narrative/05_dual_icons_foundation.md)** *(Jan 2079 — Deep Matrix Foundation)*
+* **[The Sabotaged Berth](narrative/06_sabotaged_berth.md)** *(Feb 2079 — Refusing the DSEC-I Mars Exodus)*
+* **[The First Contract](narrative/07_first_contract.md)** *(Feb 2083 — Atlanta Rail Yards & Claiming Venn)*
 :::
