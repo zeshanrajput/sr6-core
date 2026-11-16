@@ -75,7 +75,7 @@ The **Showrunner & Writers' Room Orchestrator** for Shadowrun 6e narrative gener
 
 2. **Deterministic Context Packet Assembly** (write directly to `scratch/` so large packets do not bloat parent chat context):
    ```bash
-   uv run sr6 story packet <char_id> <target_file> [--beat N] [--callbacks ...] [--items ...] --output scratch/packet_<char_id>_beat_<N>.md
+   uv run sr6 story packet <char_id> <target_file> [--beat N] [--mission "<code_or_title>"] [--callbacks ...] [--items ...] --output scratch/packet_<char_id>_beat_<N>.md
    ```
 
 3. **Deterministic Linting, N-3 Echo Window & Tier/Voice Calibration**:
@@ -94,14 +94,16 @@ To prevent overfitting ("Checklist Prose") and protect natural prose rhythm, `na
 
 Before dispatching any writing agent, the showrunner transforms story intent into a clean generative brief:
 1. **Story Break**: Select a Story Queue item from `characters/<char_id>/reference/storyboard.md` and decompose it into a crisp 4-beat structure (Inciting Friction $\rightarrow$ Escalation $\rightarrow$ Climax $\rightarrow$ Aftermath).
+   - **Mission Backdrop & Pyrotechnics Check**: When the chapter follows a tabletop module, look up its entry in `ref_missions` (`uv run sr6 db query "SELECT code, title, synopsis, scenes_json FROM ref_missions WHERE code LIKE '%...%'" --compact` or `missions_fts`) and tag `Mission: <CODE>` in the outline (or pass `--mission "<CODE>"`). Explicitly separate the **external pyrotechnics** (run hazards, alarms, teammate explosives) from the protagonist's **signature resolution** (e.g., Velvet's *pianissimo* subtraction and quiet diffusion).
 2. **Deterministic Packet Assembly**: Run `sr6 story packet` to curate an isolated context packet directly to `scratch/`:
    ```bash
-   uv run sr6 story packet <char_id> <target_file> --beat <N> --output scratch/packet_<char_id>_beat_<N>.md
+   uv run sr6 story packet <char_id> <target_file> --beat <N> [--mission "<code_or_title>"] --output scratch/packet_<char_id>_beat_<N>.md
    ```
    The generated packet bundles:
    - Chapter Central Premise and target Beat outline.
    - Verbatim prose of preceding drafted beats in `<target_file>` (preventing repetition and preserving momentum).
    - Character Voice Essence: POV constraints, active chronological era, Mindspeech (`*...*`) vs acoustic speech (`"..."`) rules, and sensory/somatic translation lenses from `reference/voice_spec.md`.
+   - Tabletop Mission Backdrop (`ref_missions` synopsis & scene sequence, when `--mission` or `Mission:` metadata is present) to anchor external operational friction.
    - Canonical SR6 item and quality reference cards queried from the rules vault.
    - Targeted excerpts (30–60 lines) from the 1–2 prior narrative chapters called back to in the beat.
 
@@ -160,6 +162,11 @@ Invoke `invoke_subagent(TypeName="self", Role="Beat N Creative Drafter", ...)` p
 
 #### Step 3: Collaborative Human Line-Edit Gate
 Write `Draft v2` into `<target_file>` (retaining undrafted beat outlines below a `---` divider). Present the drafted beat and a concise craft telemetry summary in chat, then **stop** for user line-level review before advancing to the next beat.
+
+When presenting a **Velvet** beat (or any stealth/social-subtraction character) at this review gate, always include a brief **Dynamic Range Check** reminding the user to verify:
+1. *Who owns the volume in this beat?* (Are the mission's pyrotechnics/alarms framing external pressure while Velvet stays still, or is Velvet competing with the sirens?)
+2. *Where does the climax land?* (Does the emotional or tactical hinge resolve *pianissimo* on a small, concrete physical detail rather than blockbuster rhetoric?)
+3. *Could Velvet have left without anyone knowing he was there?* (Is Velvet's agency quiet diffusion and subtraction rather than collateral wake?)
 
 ---
 

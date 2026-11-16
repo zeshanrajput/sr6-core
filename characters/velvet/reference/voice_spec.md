@@ -49,6 +49,7 @@ Velvet (Kim Jin-Young) is an engineered, bio-sculpted Elf Mystic Adept built by 
 4. **Shinto-Musok Astral Phenomenology**: Mana is not high-fantasy sparks; it is perceived as spirit ribbons, ancestor presence, talismanic resonance, and subtle emotional hue shifts in metahuman auras.
 5. **The Path of the Thousand Lives (*Mansin* & *Upāya*)**: See [reference/archive/philosophical_framework.md](file:///c:/GitHub/sr6-core/characters/velvet/reference/archive/philosophical_framework.md). Forced corporate transformations evolve into an artificial reincarnation cycle. Velvet retains neuro-somatic skills, virtues, and grief from every lived persona (*The Echo Phenomenon*). The journey transitions from traumatic fragmentation (*Sinbyeong*) to becoming an empty vessel (*Bin Geureut*) and master of ten thousand lived spirits (*Mansin*), utilizing multiple personas as skillful means (*Upāya*) to protect the vulnerable and dismantle corporate tyranny.
 6. **The Trap of Moral Retreat vs. The Bodhisattva with Claws**: Evaluators and writers must not flatten Velvet into a passive, toothless saint or ascetic martyr. After the trauma of Singapore, the honeytrap, and the quiet triage of Kang Anning (*Burns*), Velvet faces the temptation of moral retreat—hiding in coarse wool, nursing sewer burns, and pretending that staying poor with an empty ledger keeps his hands clean. In Amsterdam (*Silence*), Min-seo shatters this delusion (*"Stop playing the martyr behind a child's face"*), proving that his clean hands were an unearned luxury subsidized by Hana's compliance locks and executive treason. From Chapter 11 onward, Velvet's empathy is inseparable from **sovereign responsibility and teeth**: the realization that the lotus only grows in muck, and that sanctuaries must be defended with formidable force. Wielding the repurposed *MCI-EXP-884-LUNA* Power Focus R3 is not a stat bonus, but an ammunition crate and an active blood debt.
+7. **Pianissimo Climax & Asymmetric Contrast (*Ma* & *Mono no Aware*)**: Do not erase the Sixth World's pyrotechnics—use them as the **external foil**. Blaring AR clutter, alarms, rockets, and heavy ordnance belong to corporate extraction and loud runners; render that surrounding friction sharply so the contrast holds. Velvet's own decisive agency peaks through **subtraction**: dropping vocal resonance to a whisper, draining engineered Charisma 10(14) gravity out of the room, sealing a heavy door behind a brass latch, and diffusing threats without anyone knowing Velvet was there. While other runners detonate the building, Velvet resolves the emotional and tactical hinge *pianissimo*—anchored in transient, reverent physical details (cooling tea, a darned wool seam, a pulse under chrome) that linger like a falling cherry blossom petal.
 
 ---
 
@@ -133,6 +134,7 @@ voice_schema:
       - "Lore preaching & meta-exposition (repeating 'multi-million nuyen asset/cage', 'mathematically optimized', 'algorithmically calculated')"
       - "Thesis monologuing (delivering explanatory speeches about own bio-sculpted tragedy to other characters)"
       - "Repetitive vocal register / frequency tagging ('silver-chimed', 'upper register', 'engineered growl')"
+      - "Melodramatic blockbuster climax escalation ('river of liquid fire', 'deafening concussions', 'explosive crescendo') during Velvet's personal hinges; keep pyrotechnics external and land Velvet's apex pianissimo"
     metaphor_domains:
       - "High fashion, silk tension, perfume notes, social leverage, theater"
       - "Musok shamanic spirit ribbons, kami whispers, aura colors, mana currents"
@@ -156,7 +158,7 @@ voice_schema:
       - "Deploying Adept powers (Kinesics, Command Presence) or dropping presence to vanish"
   syntax_cadence:
     sentence_length: "Rhythmic, fluid, stylish sentences punctuated by sharp punchlines"
-    paragraph_flow: "Observation of leverage -> charm/spell deployment -> ruthless execution"
+    paragraph_flow: "External pressure/noise -> deliberate subtraction (lowering register, dropping gravity, physical anchor) -> quiet, irreversible act (or surgical Wise Warrior teeth when force is required)"
     internal_monologue: "Sarcastic, observant, hyper-aware of social vulnerabilities and spirit presences"
 ```
 

@@ -211,6 +211,7 @@ def main():
     s_packet.add_argument("--beat", type=int, default=None, help="Target beat number to isolate")
     s_packet.add_argument("--callbacks", type=str, default=None, help="Comma-separated callback chapter numbers (e.g. 33,34)")
     s_packet.add_argument("--items", type=str, default=None, help="Comma-separated canonical SR6 items/rules to attach")
+    s_packet.add_argument("--mission", type=str, default=None, help="Tabletop mission code or title from ref_missions (e.g. 'CMP 2083-02') to attach mission backdrop")
     s_packet.add_argument("--output", "-o", type=str, default=None, help="Write compiled packet to disk instead of printing full content to stdout")
     s_prep = story_sub.add_parser("prep-audio", help="Scan chapter prose for contextual heteronyms and unmapped proper nouns before Kokoro TTS")
     s_prep.add_argument("target", type=str, help="Path to chapter markdown/qmd file")
@@ -1112,6 +1113,7 @@ def main():
                 beat=getattr(args, "beat", None),
                 callbacks=callbacks,
                 items=items,
+                mission=getattr(args, "mission", None),
             )
             if err:
                 print(f"[Error] {err}")

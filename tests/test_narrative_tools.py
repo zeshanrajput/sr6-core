@@ -54,6 +54,42 @@ def test_build_story_packet_with_items():
     assert "ares predator vi" in packet_md.lower()
 
 
+def test_build_story_packet_velvet_with_mission_and_auto_detect(tmp_path):
+    """Verifies Velvet's pianissimo voice principle and ref_missions backdrop injection (explicit & auto-detected)."""
+    packet_md, err = build_story_packet(
+        "velvet",
+        "characters/velvet/narrative/13_Illusion.md",
+        mission="CMP 2083-02",
+    )
+
+    assert err is None
+    assert packet_md is not None
+    packet_lower = packet_md.lower()
+
+    # Velvet's updated voice_spec essence passes through the Context Firewall
+    assert "pianissimo climax" in packet_lower
+    assert "mono no aware" in packet_lower
+
+    # Evaluation rubrics remain firewalled out
+    assert "passing_threshold" not in packet_lower
+    assert "tier_1_keystones" not in packet_lower
+
+    # Mission backdrop from ref_missions is injected
+    assert "tabletop mission backdrop" in packet_lower
+    assert "royal road" in packet_lower
+    assert "scene 0: a free ride" in packet_lower
+
+    # Auto-detection from chapter outline Mission: header
+    draft = tmp_path / "draft_14.md"
+    draft.write_text(
+        "**Mission**: CMP 2083-02\n\n---\n\n### Beat 1: Friction\nQuiet entry.\n",
+        encoding="utf-8",
+    )
+    auto_packet, auto_err = build_story_packet("velvet", str(draft), beat=1)
+    assert auto_err is None
+    assert "royal road" in auto_packet.lower()
+
+
 def test_build_story_packet_invalid_character():
     """Verifies graceful handling of non-existent characters."""
     packet_md, err = build_story_packet(

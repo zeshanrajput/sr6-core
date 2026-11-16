@@ -93,6 +93,7 @@ Rather than relying on arbitrary synthetic numeric scores (e.g. `X/10`), drafts 
 - **Deep Limited Third-Person POV**: Stay anchored behind the protagonist’s eyes, sensors, and cognitive biases. Never float into omniscient narrator territory.
 - **Sensory Palette & Vocabulary Matrix**: Ground metaphors in the character's lived professional reality (e.g., Reiko's dual Gold TacNet / Indigo Resonance telemetry; Velvet's transmutational body and aesthetic geomancy; Venn's monad bus clocks and ceramic stress).
 - **Chronological Arc Calibration**: Calibrate to the chapter's active era from `voice_spec.md` (e.g. Arc 1 debt-collar vs. Arc 4 sovereign authority). Avoid retrospective flattening.
+- **Asymmetric Dynamic Range (*Ma* & Pianissimo Climaxes)**: When `voice_spec.md` defines quiet subtraction as the protagonist's signature (e.g., Velvet), protect the contrast between loud external pressure (alarms, AR clutter, heavy ordnance) and a *pianissimo* internal/relational apex. Never inflate a quiet moral hinge into blockbuster rhetoric or strip away pauses of *Ma* during editing.
 
 ### Axis 2: Pacing & Structure
 - **4-Beat Scene Architecture**: Inciting Friction $\rightarrow$ Escalation $\rightarrow$ Climax $\rightarrow$ Aftermath. Arrive late, leave early.

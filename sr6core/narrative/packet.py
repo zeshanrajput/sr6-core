@@ -350,17 +350,80 @@ def _get_items_slice(items: List[str]) -> str:
     return "\n\n".join(excerpts)
 
 
+def _detect_mission_from_chapter(chapter_file: Optional[Path]) -> Optional[str]:
+    """Extracts an explicit Mission reference from YAML frontmatter or chapter header/outline."""
+    if not chapter_file or not chapter_file.is_file():
+        return None
+    try:
+        text = chapter_file.read_text(encoding="utf-8")
+    except Exception:
+        return None
+
+    m = re.search(
+        r"(?im)^(?:\*\*Mission\*\*|Mission)\s*:\s*(.+?)\s*$",
+        text,
+    )
+    if m:
+        val = m.group(1).strip().strip("\"'`")
+        if val:
+            return val
+    return None
+
+
+def _get_mission_slice(mission_query: str) -> str:
+    """Queries ref_missions in SQLite for the mission synopsis and scene breakdown."""
+    clean_q = mission_query.strip()
+    if not clean_q:
+        return ""
+    try:
+        from sr6core.character.mission_registry import get_mission_record
+
+        rec = get_mission_record(clean_q)
+    except Exception as e:
+        return f"*[Mission lookup unavailable for '{clean_q}': {e}]*"
+
+    if not rec:
+        return f"*[No mission record found in ref_missions for '{clean_q}']*"
+
+    code = rec.get("code") or rec.get("id") or clean_q
+    title = rec.get("title") or "Untitled Mission"
+    season = rec.get("season") or ""
+    arc = rec.get("arc") or ""
+    region = rec.get("region") or ""
+    meta_parts = [p for p in [season, arc, region] if p]
+    meta_line = " | ".join(meta_parts)
+
+    lines = [f"### {code}: {title}"]
+    if meta_line:
+        lines.append(f"*{meta_line}*")
+
+    synopsis = (rec.get("synopsis") or "").strip()
+    if synopsis:
+        if len(synopsis) > 2000:
+            synopsis = synopsis[:2000].rsplit(" ", 1)[0].rstrip() + "..."
+        lines.extend(["", "**Mission Synopsis & External Friction:**", synopsis])
+
+    scenes = rec.get("scenes") or []
+    if scenes:
+        lines.extend(["", "**Mission Scene Sequence:**"])
+        for sc in scenes:
+            lines.append(f"- {sc}")
+
+    return "\n".join(lines)
+
+
 def build_story_packet(
     char_id: str,
     chapter_path: str,
     beat: Optional[int] = None,
     callbacks: Optional[List[str]] = None,
     items: Optional[List[str]] = None,
+    mission: Optional[str] = None,
 ) -> Tuple[str, Optional[str]]:
     """
     Builds a focused clean-room story packet for a narrative drafting beat.
     Firewalls out evaluation rubrics and scorecard policing while injecting character voice,
-    resource pressure, target chapter / beat outline, historical callbacks, and rules context.
+    resource pressure, target chapter / beat outline, historical callbacks, rules, and mission backdrop.
     """
     char_dir = resolve_character_dir(char_id)
     if not char_dir:
@@ -388,6 +451,10 @@ def build_story_packet(
     if items:
         items_md = _get_items_slice(items)
 
+    # 6. Tabletop Mission Backdrop (explicit or auto-detected from chapter outline)
+    resolved_mission = mission.strip() if mission else _detect_mission_from_chapter(chapter_file)
+    mission_md = _get_mission_slice(resolved_mission) if resolved_mission else ""
+
     # Assembly
     packet_lines = [
         f"# Clean-Room Story Packet: {char_dir.name.title()}",
@@ -405,6 +472,13 @@ def build_story_packet(
         "## Target Chapter & Beat Outline",
         chapter_slice,
     ]
+
+    if mission_md:
+        packet_lines.extend([
+            "",
+            "## Tabletop Mission Backdrop (External Friction & Pyrotechnics)",
+            mission_md,
+        ])
 
     if callbacks_md:
         packet_lines.extend([

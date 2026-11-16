@@ -56,9 +56,9 @@ The SR6 narrative ecosystem is organized as an **Editorial House** of specialize
 
 ### Stage 1: Context Ingestion & Story Breaking
 Before drafting or editing, `narrative-director` ingests:
-1. **Writers' Room Story Break & Pre-Flight Packet**: Turn a `storyboard.md` queue item into a 4-beat scene card and compile the writer's context deterministically directly to `scratch/`:
+1. **Writers' Room Story Break & Pre-Flight Packet**: Turn a `storyboard.md` queue item into a 4-beat scene card—querying `ref_missions` when the chapter follows a tabletop module to anchor the mission's external hazards/pyrotechnics—and compile the writer's context deterministically directly to `scratch/`:
    ```bash
-   uv run sr6 story packet <char_id> <target_file> [--beat N] [--callbacks ...] [--items ...] --output scratch/packet_<char_id>_beat_<N>.md
+   uv run sr6 story packet <char_id> <target_file> [--beat N] [--mission "<code_or_title>"] [--callbacks ...] [--items ...] --output scratch/packet_<char_id>_beat_<N>.md
    ```
 2. **Master Narrative Doctrine & Storyboard Spec**: Ingest [`reference/inter_session_narrative_doctrine.md`](file:///c:/GitHub/sr6-core/reference/inter_session_narrative_doctrine.md) and [`reference/default_storyboard_spec.md`](file:///c:/GitHub/sr6-core/reference/default_storyboard_spec.md) as the governing operational constitution.
 3. **Master Character Voice Specification**: Ingest `characters/<char_id>/reference/voice_spec.md` (inheriting `reference/default_voice_spec.md`): active era, POV lens, vocabulary matrix, sensory lens, and somatic translation doctrine.
@@ -81,7 +81,7 @@ To prevent overfitting ("Checklist Prose") and protect voice, `narrative-directo
    - Dispatch the Line Chisel Worker (`flash`) with `Draft v1` + `sr6 lint` output (`ZERO-RENT SUSPECTS` + gate warnings) + the 5 Chisel Transformations and **3-Step Active Chisel Discipline** (Declare Paragraph Job $\rightarrow$ Active Eviction Pass targeting `-5%` to `-8%` words $\rightarrow$ Post-Cut Load-Bearing Readback Test, reporting net word-count delta) from `literary-analysis` to produce `Draft v2` in `scratch/`.
    - **Stop after ONE review loop.** Minor stylistic nuances pass through to human review to preserve organic voice. Clean up `scratch/beat_<N>_test.md`.
 3. **Collaborative Human Line-Edit Gate**:
-   - Promote `Draft v2` into `<target_file>`, present the beat and pre-flight telemetry in chat, and **stop** for user line-level review before advancing to the next beat.
+   - Promote `Draft v2` into `<target_file>`, present the beat and pre-flight telemetry in chat (including the 3-question Dynamic Range & *Pianissimo* Check for Velvet drafts: who owns the volume, where the climax lands, and whether Velvet left without a wake), and **stop** for user line-level review before advancing to the next beat.
 
 ### Stage 3: Sub-Agent Audit Panel (Hard Gates & Craft Telemetry)
 Drafts are audited against **Hard Editorial Readiness Gates** and **Descriptive Craft Telemetry** calibrated to chapter tier (delegate Series Bible, continuity, and craft checks to `research` or `flash` sub-agents before synthesis):
