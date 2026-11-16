@@ -104,6 +104,8 @@ chapter_tiers:
       - "09 Heat (Europort Tradecraft & Wool Merchant Infiltration)"
       - "10 Burns (Sham Shui Po Triage, Daesul & The Emergence of Kang Anning)"
       - "11 Silence (The Reforged Collar, Shattering the Ascetic Delusion & Min-seo Confrontation)"
+      - "12 Iron (ACHE Ascent, Sunny's Laying to Rest & Wise Warrior Covenant)"
+      - "13 Illusion (Scheveningen Pier, Frederika's Doubt & Consecrated Vow)"
 
   tier_3_atmospheric_bridges:
     passing_threshold: "8.0 / 10"
