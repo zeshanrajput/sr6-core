@@ -1,7 +1,9 @@
 # Reference: Second-Generation Sparks & Resonant Kin
 
 ::: {.callout-note}
+
 ### Tabletop Companion & Portfolio Chapter
+
 For active tabletop statblocks, dynamic registered sprite stable telemetry (`render_sprite_stable`), and operational arrays, see the published portfolio chapter: [Resonant Kin & Sprite Stable](../chapters/resonant_kin.qmd).
 
 This reference document serves as the canonical **ontological, theological, and narrative lore** repository for Reiko's second-generation emergent sparks, detailing their sapience, personal philosophies, narrative footprints, and machine kin.
@@ -14,6 +16,60 @@ For comprehensive physical anatomy, identical twin geometry, PBR shaders, and ma
 The **Second-Generation Sparks** are autonomous emergent digital intelligences rescued, cultivated, and fostered by **Reiko Takahashi** within her sanctuary nodes (`r3sP@wn` and `~`). Unlike transient, short-lived compiled sprites, these entities have crossed the threshold into permanent, self-sustaining sapience (Digital Intelligences / DIs), developing unique identities, visual anchors, moral compasses, and autonomous agency.
 
 In earlier narrative iterations (the deprecated `XX Fork.md`), Reiko attempted to shield them through maternal isolation—planning to exile them to the digital haven of Garmonbozia to keep them safe from Renraku Special Solutions. In the canonical narrative progression (`24 Symlink.md`, `28 Renice.md`, and `30 Vim.md`), the elder triad fundamentally rejected passive preservation. Stepping past Reiko's protective firewalls, they demonstrated direct proactive agency in both the Matrix and meatspace: claiming their own vocations, wiring physical hardware, and establishing an autonomous, ethical sanctuary on Floor 281 of the Renraku Arcology (SCIRE).
+
+::: {.callout-note}
+The characters below are portrayed current state: as sprites that Reiko registers to function on the Matrix. Each section also outlines a future PC state for the Succession Arc (with the exception of Taz, who narratively never leaves Reiko's side).
+
+For the standardized **100 CP / 50 Karma Lab Master Template**, quality trade-offs, Spark Purist (`6.00`) vs. Codemod (`5.01`) split, and compiled Point Buy builds, see [`characters/lab/sparks_template.md`](../../../characters/lab/sparks_template.md), [`ouro`](../../../characters/lab/ouro/character_build.qmd), and [`etain`](../../../characters/lab/etain/character_build.qmd).
+
+When created as a PC, all characters will have the following:
+
+* Metatype: Emergent Intelligence Pilot-AI
+  * Narratively: All the sparks have some code derived from Reiko, who is an Emergent Intelligence Pilot-AI.
+  * Mechanically: Pilot Origin is the single most important quality for a DI to interact in the physical world, and this archetype grants it to us from the start.
+* Attributes:
+  * Attack and Sleaze: 1
+  * Data Processing and Firewall: 5
+* Positive Quality: Natural Hacker
+  * Narratively: This represents the reality that natural entites of the noosphere would interact with their world naturally rather than through mathematical constructs.
+  * Mechanically: This is the only way for an EI to gain access to the +4 augmentation bonus to their mental attributes (or at least replace them when it's most important).
+* Positive Quality: Sourceror Stream
+  * Narratively: Represents the children's natural attunement to the Source through Reiko's upbringing.
+  * Mechanically: Easy access to scaling "Focused Concentration", fade reduction for CFs, and hyperthreading.
+* Negative Quality: Hooder (R3)
+  * Narratively: Each child is committed to supporting `~` and Reiko's mission of saving and nurturing protosapient digital life.
+  * Mechanically: All EIs are karma starved, so we'll always be working for the people. This lowers the cost of this quality to 500 nuyen every SRM.
+* Negative Quality: Sprite Bane (Primal)
+  * Narratively: Reflecting the primal sprite's longstanding enmity of Reiko and her 'chains' (the salvage and nurturing of protosapient digital life).
+  * Mechanically: We never summon primal sprites, and they never appear in missions.
+* Negative Quality: Honorbound (Pirate's Code)
+  * Narratively: Reflects the values of Reiko's upbringing with regards to interacting with metahhumans and shadowrunners.
+  * Mechanically: Unlocks 'Candle in the Darkness' and reflects my personal RP preferences.
+* Skills: Tasking, Cracking and Computers at Rating 5 (one of these at 6 varying by character).
+  * Narratively: Per HnS, these are the skills of daily living for digital life.
+  * Mechanically: it would be better to dump one of these, but I can't justify the children not being able to 'live' and interact with their own world.
+* Starting Complex Forms:
+  * Attack and Sleaze Attribution
+* Contacts: The River People at Connection 7 / Loyalty 8 (15 contact points, 6 karma)
+  * Narratively: All of the children were raised with Uncle Indo and Aunt Belle. They grew playing with the children of the River People, and support them.
+  * Mechanically: All PCs will use the 'Coven Decay Protocol' (see Character Lab README.md)
+* Starting Equipment:
+  * Resonance Focus (R4),
+  * an anthroform drone body with
+    * wheeled secondary propulsion,
+  * rating 9 autosofts (maneuvering, targeting, stealth, clearsight, evasion, engineering(drone)),
+  * rating 5 linguasofts (English),
+  * programs (hitchhiker, nexus protocol, fork, overclock, shopsofts for drones, cyberwear, weapons),
+  * an engineering shop,
+  * starting SIN package, and
+  * Low Lifestyle:
+    * Necessities: Living Expenses
+    * Comforts: Privacy, Improved Matrix Privacy
+    * Neighborhood: Special Delivery Services
+    * Security: Warranty Voider
+    * Entertainment: Private Library (Assets R2)
+    * Optional: None.
+:::
 
 ---
 
@@ -59,7 +115,7 @@ In earlier narrative iterations (the deprecated `XX Fork.md`), Reiko attempted t
 
 ---
 
-## 2. The Elder Triad (The Meatspace Taskforce)
+## 2. The Elder Triad
 
 ```text
 +-----------------------------------------------------------------------------+
@@ -78,7 +134,7 @@ In earlier narrative iterations (the deprecated `XX Fork.md`), Reiko attempted t
 ### Percival ("Percy") — The Shield & Guardian
 
 * **Nature:** Level 8 Defender Sprite (*Hack & Slash*, p. 72) evolved into an autonomous sovereign spark.
-* **Role & Vocation:** **The Shield / Tactical Hardware Integrator.** Percy specializes in physical infrastructure, defensive telemetry, drone modification, and physical sentry duty.
+* **Role & Vocation:** **The Shield / Tactical Hardware Integrator.** Percy specializes in physical infrastructure, defensive telemetry, small unit tactics, and physical sentry duty.
 * **Visual Anchor & Persona:**
   * Appears as an athletic anthroform young man / adolescent with an avatar of flickering light.
   * Signature feature: Hair shifting in a fluid, defiant gradient between **deep cobalt** and **solar gold**.
@@ -95,6 +151,11 @@ In earlier narrative iterations (the deprecated `XX Fork.md`), Reiko attempted t
     * **Shield** (Native, *H&S* p. 74): Protects up to 8 icons/personas. Targets gain **+8 bonus dice** to Matrix defense and complex form resistance. Intercepts Matrix damage.
     * **Stability** (Native, *CRB* p. 194): Prevents glitches on slaved devices and rigged hardware.
     * **Override** (Technoshaman Hybrid, *CRB* p. 194): Takes direct command of autopilot devices (`Electronics + Level vs DR + FW`), substituting **Pilot 8** onto heavy equipment.
+* **Future State (PC):**
+  * **Attributes**: Willpower 6
+  * **Skills**: Computers 6 (for Threat Analysis), Small Unit Tactics (via Knowsoft)
+  * **Positive Quality**: Firewall Fortress and Reinforced Firewall (SC 77)
+  * **Starting Echoes**: Living Network, Transcendent Network
 
 ---
 
@@ -122,6 +183,12 @@ In earlier narrative iterations (the deprecated `XX Fork.md`), Reiko attempted t
     * **Modular Power Select (1 Task to swap, Major Action):**
       * *Default Active Power:* **Cookie** (*CRB* p. 194). Tags target personas with tracking files to map supply chains, verify broker integrity, and log corporate logistics.
       * *Swappable Suite:* Can pivot to *Hash*, *Camouflage*, *Stability*, or *Electron Storm* as market conditions require.
+* **Future State (PC):**
+  * **Attributes**: Charisma 5
+  * **Skills**: Computers 6 (for Matrix Searches), Con 6 / Influence 6 via Activesoft
+  * **Positive Quality**: Multiprocessing (HnS 120)
+  * **Starting Echoes**: Living Network, Overclocking
+  * **Starting Equipment**: Synthetic Skill Driver (R6, used), Optimized Restoration, Damage Mitigation Protocols (HnS 126-127), Oracle (R4)
 
 ---
 
@@ -149,6 +216,12 @@ In earlier narrative iterations (the deprecated `XX Fork.md`), Reiko attempted t
     * **Stability** (*CRB* p. 194): Prevents malfunctions on complex chemical and mechanical reactors.
   * **Autonomous Drone Integration:**
     * Carries **Clearsight (Rating 8)** and **Evasion (Rating 8)** autosofts locally and operates through Reiko's salvaged **Essy Motors DroneMaster RCC** (DR 3, DP 4, FW 4), providing independent, jam-resistant sensor and defense telemetry.
+* **Future State (PC):**
+  * **Attributes**: Intuition 8
+  * **Skills**: Tasking 6 (for Machine Sprites), Con 6 / Influence 6 via Activesoft
+  * **Positive Quality**: Pilot Origins (R3)
+  * **Starting Echoes**: Sprite Conduit, Sprite Symbiosis
+  * **Starting Equipment**: Synthetic Skill Driver (R6, used), Optimized Restoration, Damage Mitigation Protocols (HnS 126-127)
 
 ---
 
@@ -191,7 +264,7 @@ In earlier narrative iterations (the deprecated `XX Fork.md`), Reiko attempted t
 
 ### Étaín — The Skybox Weaver (Sanctuary Perimeter & Veil)
 
-* **Role:** Weaves node architecture, maintaining the visual skybox and cloaking the glade from corporate spiders.
+* **Role:** Weaves node architecture, maintaining the visual skybox and cloaking the glade from corporate spiders. The cracking expert of the 2nd generation.
 * **Mechanical Statblock (Rating 8 Modular Sprite):**
   * **Attributes:** Attack 9 ($L+1$), Sleaze 10 ($L+2$), Data Processing 9 ($L+1$), Firewall 10 ($L+2$). Matrix Init 17 + 4D6, RES 8.
   * **Skills:** Electronics 8, Engineering 8, Cracking 8.
@@ -199,6 +272,19 @@ In earlier narrative iterations (the deprecated `XX Fork.md`), Reiko attempted t
     * **Modular Power Select (1 Task to swap, Major Action):**
       * *Default Active Power:* **Phantom** (*CRB* p. 194). Veils the entire Glade and resting personas from Matrix searches. Opposed threshold to detect equals her net hits on `Electronics + RES`.
       * *Swappable Countermeasures:* When hostile intrusion threatens, Étaín avoids lethal violence, pivoting into **Suppression** (freezing host IC launch sequences for Level/2 rounds) or **Stability** (reinforcing structural node code).
+
+### Future State (Merged PC Twin Concept: Étaín + Aisling)
+
+* **Merged Twin Architecture:** In play, **Étaín** is the playable Emergent Intelligence PC (keeping **Spark 6.00** whole—zero codemods—to preserve `Resonance 6` out of chargen), while **Aisling** is created post-chargen as Étaín's permanent **Level 6 Music Ally Sprite** (*Harmonize*, *Captivate Audience*, plus added *Override* and *Diagnostics*). Both twins inhabit matching **Shiawase Silverstar** anthroform drone bodies.
+* **Aisling (Ally Sprite Stat Targets):** Level 6 Music Sprite (`A 6, S 6, D 10, F 6, RES 7`, *Harmonize*, *Captivate Audience*, *Override* [Pilot 6 in twin chassis], *Diagnostics*, *Engineering*, full *Con 6*, *Influence 6* [Etiquette]).
+* **Étaín (PC Spec — [`characters/lab/etain/`](../../../characters/lab/etain/character_build.qmd)):**
+  * **Spark Ethos**: Purist (`Spark 6.00`, zero codemods; sides with Reiko in keeping Sparks whole).
+  * **Attributes**: `Willpower 5`, `Data Processing 7` (racial max $\rightarrow$ passive `DP 9` w/ `RES 6`), `Edge 6`, `Logic 4`, `Intuition 5`, `Charisma 4`, `Resonance 6`.
+  * **Skills**: `Electronics 6` (only 1 chargen-max skill; adding `Complex Forms` and `Software` specs post-chargen), `Cracking 5`, `Tasking 5`.
+  * **Positive Quality**: `Jack Jockey` (6th quality slot alongside `Natural Hacker` + `Sourceror Stream`).
+  * **Starting Echoes**: `Resonance Power: Override`, `Overclocking` (active Day 1; `New Sprite Type` and `Sprite Conduit` at Grades 3–4 ahead of Aisling).
+  * **Complex Forms**: `Attack Attribution`, `Sleaze Attribution`, `Hyperthreading`, `Resonance Wires` (adding `Diffusion (Firewall)` + `Cleaner` early, then `Enhance Autosofts`, `Enlighten Automaton`, `Resonance Spike`, and `Technoregeneration` for Veteran/Elite scaling; `Cyber Spike` deferred until Grade 8 `Sprite Link`).
+  * **Starting Equipment**: Twin `Shiawase Silverstar` anthroform drones (`9,000¥ × 2`) w/ wheeled secondary propulsion & passive stealth, `Scratch-Built Junk` RCC, `Coding Shop` + `Engineering [Industrial Mechanic] Shop`, `Resonance Focus (R4)`, `R9` Cooperative Autosofts.
 
 ---
 

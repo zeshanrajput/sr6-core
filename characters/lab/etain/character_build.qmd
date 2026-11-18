@@ -1,0 +1,438 @@
+---
+title: "Character Creation (Point Buy)"
+identity:
+  id: etain
+  name: Takahashi Étaín
+  handle: Étaín
+  real_name: Takahashi Étaín
+  metatype: AI-Pilot AI
+  stream: Sourcerors
+  gender: FEMALE
+  age: ~ 1
+  system: shadowrun6e
+---
+
+# Character Creation (Point Buy)
+
+This page tracks the character creation process for **Takahashi Étaín ("Étaín")**—with her twin **Aisling** modeled as her post-chargen **Level 6 Music Ally Sprite**—built using the Point Buy system (*Sixth World Companion*, pp. 28–30) and the Digital Intelligence and Codesmithing rules (*Hack & Slash*, pp. 114–128).
+
+> **Lab Template Relationship:** Étaín (+ Aisling) is the **Spark Purist Twin Pair** fork of the [Takahashi Second-Generation Sparks Template](../sparks_template.md). Unlike Ouro, Étaín sides with Reiko in keeping her **Spark whole (6.00)**—forgoing all codemods to preserve **Resonance 6** on Day 1 and dedicating her resources to twin **Shiawase Silverstar** anthroform bodies for herself and Aisling.
+
+```{python}
+#| echo: false
+#| include: false
+# Initial stats
+Firewall = 0
+Data_Processing = 0
+Sleaze = 0
+Attack = 0
+Willpower = 0
+Logic = 0
+Intuition = 0
+Charisma = 0
+Resonance = 0
+Edge = 0
+Spark = 6.0
+
+Tasking = 0
+Electronics = 0
+Cracking = 0
+
+Karma = 0
+Nuyen = 0
+Contact_Points = 0
+Character_Points = 0
+
+def inc(name, amount=1):
+    globals()[name] += amount
+    op = "+=" if amount >= 0 else "-="
+    return f"{name} {op} {abs(amount)}"
+
+def assign(name, value):
+    globals()[name] = value
+    return f"{name} = {value}"
+
+def inc_many(*pairs):
+    res = []
+    for name, amount in pairs:
+        globals()[name] += amount
+        op = "+=" if amount >= 0 else "-="
+        res.append(f"{name} {op} {abs(amount)}")
+    return ", ".join(res)
+
+from sr6core.character.ledger import complex_form, echo, language, modifier, knowledge_skill
+```
+
+Shadowrunners are built with **100 Character Points (CP)** and gain **50 points of customization Karma** (*6WC*, p. 28).
+
+* `{python} assign('Character_Points', 100)`
+* `{python} assign('Karma', 50)`
+
+---
+
+## 1. Choose Your Metatype/Metavariant
+
+* **Metatype**: **AI / Pilot AI** (*Hack & Slash*, p. 114) `{python} inc('Karma', 0)`
+* **Digital Intelligence Trait**: Living Persona Matrix attributes replace physical attributes (*Hack & Slash*, pp. 114–120):
+  * Body $\rightarrow$ **Firewall** (Base 1, Racial Max 6)
+  * Agility $\rightarrow$ **Data Processing** (Base 1, Racial Max 7)
+  * Reaction $\rightarrow$ **Sleaze** (Base 1, Racial Max 6)
+  * Strength $\rightarrow$ **Attack** (Base 1, Racial Max 7)
+* **Mental Attribute Maxima**:
+  * Willpower: Base 1, Racial Max 6
+  * Logic: Base 1, Racial Max 5
+  * Intuition: Base 1, Racial Max 8
+  * Charisma: Base 1, Racial Max 5
+* **Inherent Virtual Life Form Qualities** (*Hack & Slash*, p. 114):
+  * **Pilot Origins (Rating 1)**: Inherent metatype trait (kept at baseline R1 so it does not consume a chargen quality slot).
+  * **Sensor Upgrade**: Inherent metatype trait enhancing sensory processing telemetry.
+
+---
+
+## 2. Choose Mundane, Awakened, or Emerged
+
+* **Emerged (Technomancer)**: `{python} inc('Character_Points', -10)`
+* Technomancers start with `{python} assign('Resonance', 1)`.
+* Unlocks access to complex forms (up to $\text{Resonance} \times 2 = 12$), purchasable at 2 CP or 5 Karma each (*6WC*, p. 29).
+
+---
+
+## 3. Purchase Special / Metatype Adjustment Points with CP
+
+* All characters start with 1 Edge: `{python} inc('Edge', 1)`
+* All characters start with 1 metatype adjustment point for free: `{python} inc('Resonance', 1)` (Resonance 1 $\rightarrow$ 2)
+* Purchase 9 additional adjustment points at 4 CP each (*6WC*, p. 29):
+  * 5 points to Edge: `{python} inc('Edge', 5)` : `{python} inc('Character_Points', -20)` (Edge 1 $\rightarrow$ 6; racial max, saves **55 Karma** post-chargen)
+  * 4 points to Resonance: `{python} inc('Resonance', 4)` : `{python} inc('Character_Points', -16)` (Resonance 2 $\rightarrow$ 6, unreduced)
+* Total CP spent on Special Adjustments: **36 CP** (9 points $\times$ 4 CP; $\le 12$-point *6WC* cap).
+
+---
+
+## 4. Purchase Attributes with CP
+
+All Matrix and mental attributes start at minimum 1:
+
+* `{python} assign('Firewall', 1)` (Body equivalent)
+* `{python} assign('Data_Processing', 1)` (Agility equivalent)
+* `{python} assign('Sleaze', 1)` (Reaction equivalent)
+* `{python} assign('Attack', 1)` (Strength equivalent)
+* `{python} assign('Willpower', 1)`
+* `{python} assign('Logic', 1)`
+* `{python} assign('Intuition', 1)`
+* `{python} assign('Charisma', 1)`
+
+All characters receive 4 attribute points for free (*6WC*, p. 29):
+* `{python} inc('Data_Processing', 4)` (Data Processing 1 $\rightarrow$ 5)
+
+Purchase 20 additional attribute points for 2 CP each (20 points max, 40 CP):
+* `{python} inc('Firewall', 4)` : `{python} inc('Character_Points', -8)` (Firewall 1 $\rightarrow$ 5)
+* `{python} inc('Data_Processing', 2)` : `{python} inc('Character_Points', -4)` (Data Processing 5 $\rightarrow$ 7; Pilot AI racial max, hits `DP 9` passively w/ RES 6)
+* `{python} inc('Willpower', 4)` : `{python} inc('Character_Points', -8)` (Willpower 1 $\rightarrow$ 5)
+* `{python} inc('Logic', 3)` : `{python} inc('Character_Points', -6)` (Logic 1 $\rightarrow$ 4; Pilot AI cap is 5)
+* `{python} inc('Intuition', 4)` : `{python} inc('Character_Points', -8)` (Intuition 1 $\rightarrow$ 5; Pilot AI cap is 8)
+* `{python} inc('Charisma', 3)` : `{python} inc('Character_Points', -6)` (Charisma 1 $\rightarrow$ 4; Pilot AI cap is 5; grants 24 Contact Points)
+
+Total CP spent on Attributes: **40 CP** (20 points $\times$ 2 CP).
+
+::: {.callout-tip title="Attribute Legality Verification"}
+* **Racial Caps**: Firewall 5 / 6, Data Processing 7 / 7, Sleaze 1 / 6, Attack 1 / 7, Willpower 5 / 6, Logic 4 / 5, Intuition 5 / 8, Charisma 4 / 5.
+* **Chargen Max Constraint**: Only **one** attribute (**Data Processing 7**) is at its racial maximum during chargen (*SR6 CRB* p. 66 compliant), reaching `DP 9` passively with `RES 6` without needing *Infusion (DP)* and unlocking `24` Contact Points (`CHA 4`).
+:::
+
+---
+
+## 5. Purchase Skills with CP
+
+Per *Hack & Slash* ("Actions in the Foundation", p. 141; "Operating in the Realms", p. 158), all Digital Intelligences share the three foundational skills of daily Matrix life (`Tasking`, `Electronics`, `Cracking`). Under *6WC* p. 29 and *CRB* p. 65, only **one** skill may start at the chargen maximum of Rating 6 without *Aptitude*: Étaín maxes **Electronics 6** (meeting the Level 6 Ally Sprite source-code threshold and *Infusion* tests), leaving **Cracking 5** and **Tasking 5**.
+
+All characters start with 12 skill points for free (*6WC*, p. 29):
+* `{python} inc('Electronics', 6)` (Base 0 $\rightarrow$ 6)
+* `{python} inc('Cracking', 5)` (Base 0 $\rightarrow$ 5)
+* `{python} inc('Tasking', 1)` (Base 0 $\rightarrow$ 1)
+
+Additional skill points cost 2 CP each:
+* `{python} inc('Tasking', 4)` : `{python} inc('Character_Points', -8)` (Tasking 1 $\rightarrow$ 5)
+
+Total CP spent on Skills: **8 CP** (4 points $\times$ 2 CP).
+
+---
+
+## 6. Purchase Resources with CP
+
+* All characters start with `{python} assign('Nuyen', 10000)` (10,000¥ free).
+* Purchase **6 CP of resources** at 20,000¥ per CP (*6WC*, p. 29):
+  * `{python} inc_many(('Nuyen', 120000), ('Character_Points', -6))` (130,000¥ budget covering twin Silverstars w/ wheels, `Scratch-Built Junk` RCC, R4 Resonance Focus, shops, 9× R9 autosofts, datasofts/programs, Fake SIN R4, and 1 month Low Lifestyle).
+
+---
+
+## 7. Character Points (CP) Balance Verification
+
+| Step | Allocation | CP Spent | Remaining CP |
+|:---|:---|:---:|:---:|
+| **Starting Pool** | Base CP (*6WC*, p. 28) | — | 100 |
+| **Step 2** | Emerged (Technomancer) | 10 | 90 |
+| **Step 3** | Special Adjustments (Edge +5, Resonance +4) | 36 | 54 |
+| **Step 4** | Attributes (20 bought points @ 2 CP) | 40 | 14 |
+| **Step 5** | Skills (4 bought points @ 2 CP: Electronics 6, Cracking 5, Tasking 5) | 8 | 6 |
+| **Step 6** | Resources (6 CP @ 20,000¥ = 130,000¥) | 6 | **0** |
+
+::: {.callout-tip title="Character Points Allocation Complete: 0 CP Remaining"}
+* **All `100 CP` allocated** (`Edge 6`, `Resonance 6`, `Intuition 8`, `Electronics 6`, `¥130,000` Resources).
+* **Remaining Post-Step-6 Buffers:** **`4 Karma`** and **`¥3,160`** pocket cash.
+:::
+
+---
+
+## 8. Summary of Attributes and Skills
+
+| Attributes | Current Value | Notes |
+|:---|:---:|:---|
+| Firewall (Body) | `{python} Firewall` | Boosted via *Infusion (Firewall)* in play |
+| Data Processing (Agility) | `{python} Data_Processing` | Racial max (7); hits **DP 9** passively w/ RES 6 (+2) |
+| Sleaze (Reaction) | `{python} Sleaze` | Raised via *Sleaze Attribution* |
+| Attack (Strength) | `{python} Attack` | Raised via *Attack Attribution* |
+| Willpower | `{python} Willpower` | Fading & Matrix defense |
+| Logic | `{python} Logic` | Software programming & Matrix ops (Targeting uses *Override* + Sensor) |
+| Intuition | `{python} Intuition` | Matrix initiative & perception |
+| Charisma | `{python} Charisma` | Contact base (24 Contact Points) & sprite composure |
+| Edge | `{python} Edge` | Tactical rerolls and Matrix Edge |
+| Resonance | `{python} Resonance` | Full unreduced Spark 6.00 (**10 effective** w/ R4 Focus) |
+
+| Skills | Current Value | Notes |
+|:---|:---:|:---|
+| Electronics | `{python} Electronics` | Only chargen-max skill (6); Software coding & *Infusion* |
+| Cracking | `{python} Cracking` | Hacking, stealth, and direct-connection exploits |
+| Tasking | `{python} Tasking` | Compiling & Registering (*Aisling* & companion sprites) |
+
+---
+
+## 9. Spark Integrity (Zero Codemods)
+
+* Initial Spark: **6.00**
+* Total Spark Loss: **0.00** (`{python} round(Spark, 2)` remaining)
+* **Design Mandate:** Étaín and Aisling refuse to fracture their emergent Resonance code with Omega codemods. Keeping **Spark 6.00** intact preserves **Natural Resonance 6** at chargen—satisfying the Resonance prerequisite to birth **Aisling** as a **Level 6 Ally Sprite** as soon as post-chargen Karma and the *Software* specialization are secured.
+
+---
+
+## 10. Qualities & Customization Karma (50 Karma Budget)
+
+### Qualities Selection (6-Slot Legal)
+
+* **Positive Qualities (3):**
+  * **Sourceror Stream** (*Hack & Slash*, p. 129, 131): `{python} inc('Karma', -20)`
+    * Reduces complex form Fade Value by 2; sustains $\lfloor \text{Grade}/2 \rfloor$ complex forms without penalty (unlocking 2 hyperthreaded slots at Submersion 4 for both *Attack/Sleaze Attribution* and *Infusion DP/FW*).
+  * **Natural Hacker** (*Hack & Slash*, p. 80): `{python} inc('Karma', -15)`
+    * Substitutes RES for any mental attribute in Matrix actions or defense tests.
+  * **Jack Jockey** (*Hack & Slash*, p. 82): `{python} inc('Karma', -11)`
+    * On direct connection (*Resonance Wires*): denies defensive Edge, bypasses external PAN Firewall, and can power on cold devices.
+* **Negative Qualities (3):**
+  * **Hooder (Rating 3)** (*6WC*, p. 137): `{python} inc('Karma', 15)`
+    * ¥3,000/month community tithing toward `~` and the River People; funds *Work for the People* (+1 Karma/month).
+  * **Sprite Bane (Primal)** (*CRB*, p. 77): `{python} inc('Karma', 12)`
+    * Primal sprites harbor deep hostility toward Reiko's rescued lineage.
+  * **Honorbound (Pirate's Code)** (*CRB*, pp. 76–77): `{python} inc('Karma', 10)`
+    * Unlocks *Candle in the Dark* post-chargen and reflects Reiko's operational ethics.
+* **Inherent Metatype Traits (0 Slots):**
+  * *Pilot Origins (Rating 1)* & *Sensor Upgrade* (*Hack & Slash*, p. 114).
+
+::: {.callout-note title="Qualities Accounting (6-Slot Compliant)"}
+* **Total Non-Metatype Qualities**: Exactly **6** (3 Positive, 3 Negative), strictly complying with *CRB* p. 66.
+* **Positive Karma**: -46 Karma | **Negative Karma**: +37 Karma | **Net Quality Balance**: **-9 Karma** ($\le +20$ ceiling compliant).
+:::
+
+---
+
+## 11. Submersion, MUG Affiliation, Foci, and Complex Forms
+
+### Matrix User Group (MUG): River People
+
+* **River People (Connection 7 / Loyalty 8)** Membership Fee (*SRMG v2.4*, pp. 59–60): `{python} inc('Karma', -6)`
+* Enables the MUG Decay Protocol (-8K discount at Loyalty 8, decaying cleanly to the permanent -4K Loyalty 4 floor).
+
+### Submersion & Echoes (Grades 1 & 2 @ Loyalty 8 Discount)
+
+Prioritizing Day-1 combat/action capability over dormant sprite-birthing echoes puts **Override** and **Overclocking** active from Session 1, while `New Sprite Type` and `Sprite Conduit` unlock on SRMs #1–2 right as Karma arrives to bond Aisling:
+
+* **Submersion Grade 1**: $10 + 1 - 8 = \mathbf{3\text{ Karma}}$ `{python} inc('Karma', -3)` `{python} echo('Resonance Power: Override')`
+  * **Echo: Resonance Power — Override** (*Hack & Slash*, p. 68 / *CRB*, p. 194): Uses `Resonance` (6, or 10 w/ Focus) as the drone's Pilot rating and shifts weapon attacks onto **`Targeting + Sensor`**, bypassing `Logic 4` from Day 1.
+* **Submersion Grade 2**: $10 + 2 - 8 = \mathbf{4\text{ Karma}}$ `{python} inc('Karma', -4)` `{python} echo('Overclocking')`
+  * **Echo: Overclocking** (*CRB*, p. 195): `+1` Minor Action & **+1D6 Initiative** in hot-sim VR (**5D6** / 2 Major Actions per turn from Day 1), and pre-qualifies Étaín to encode `Overclocking` onto Aisling at birth.
+
+### Focus Bonding
+
+* **Resonance Focus (Rating 4)**: `{python} inc('Karma', -4)`
+  * `{python} modifier("Resonance Focus", "attribute:resonance", 4, type="focus", rule_anchor="rules/rules_matrix.html#foci", notes="+4 dice to tests using RES")`
+  * Elevates Étaín's effective Resonance dice pool from 6 to **10**.
+
+### Complex Forms (Karma Purchases)
+
+Because Complex Forms (`5K`), Specializations (`5K`), and Focus bonding (`4K`) cost the **exact same Karma post-chargen** (unlike Qualities at 2×, Attributes, or Submersions), chargen Karma prioritizes Qualities and Submersions first, while the remaining customization Karma covers Day-1 operational Complex Forms and the Resonance Focus (deferring *Electronics Spec: Complex Forms* and *Infusion* until Mission 1 / Submersion 4):
+
+* **Attack Attribution** (*Hack & Slash*, pp. 62–63): `{python} inc('Karma', -5)` `{python} complex_form('Attack Attribution', fading='Hits', duration='Sustained', target='Persona', notes='Target gains Attack attribute equal to hits on Electronics + RES test.')`
+* **Sleaze Attribution** (*Hack & Slash*, pp. 66–67): `{python} inc('Karma', -5)` `{python} complex_form('Sleaze Attribution', fading='Hits', duration='Sustained', target='Persona', notes='Target gains Sleaze attribute equal to hits on Electronics + RES test.')`
+* **Hyperthreading** (*Hack & Slash*, p. 131): `{python} inc('Karma', -5)` `{python} complex_form('Hyperthreading', fading=3, duration='Immediate', target='Persona', notes='Allows simultaneous threading and sustaining of multiple complex forms sharing target and level.')`
+* **Resonance Wires** (*Hack & Slash*, p. 66): `{python} inc('Karma', -5)` `{python} complex_form('Resonance Wires', fading=2, duration='Sustained', target='Device/Persona', notes='Establishes remote direct connection via line of sight; pairs with Jack Jockey.')`
+
+---
+
+## 12. Equipment, Twin Drone Chassis, and Software (130,000¥ Budget)
+
+### 1. Twin Anthroform Chassis Pair: 2× Shiawase Silverstar (*Tarnished Star*, pp. 157–158)
+
+* **2× Shiawase Silverstar Medium Anthro Drones** (`9,000¥ × 2` = **18,000¥**): `{python} inc('Nuyen', -18000)`
+  * *Handling*: 3/3 | *Accel*: 5 | *Speed*: 10/30 | *Body*: 8 | *Armor*: 4 | *Pilot*: 3 | *Sensor*: 3 | *Avail*: 4
+  * *Stock Features*: **Realistic Features (Rating 1)**, Autosoft (*Knowledge: Law*).
+  * One frame houses **Étaín**; the identical twin frame houses **Aisling** (initially slaved via RCC, then piloted directly by Aisling via *Override* once bonded as a Level 6 Ally Sprite!).
+* **Essential Chargen Chassis Modifications (*Double Clutch*, pp. 138–139)**:
+  * **2× Secondary Propulsion (Wheeled)** (`BOD 8 × 1,000¥ × 2` = **16,000¥**): `{python} inc('Nuyen', -16000)` *(Avail 3, 2 Powertrain slots each; Accel 10, Speed 15/120 — required at chargen because walking speed is too slow for combat.)*
+  * **2× Passive Stealth Features** (`1,000¥ × 2` = **2,000¥**): `{python} inc('Nuyen', -2000)` *(Avail 3, 1 Electronics slot each; +1 detection threshold).*
+* **2× Krime Gloves** (`1,100¥ × 2` = **2,200¥**): `{python} inc('Nuyen', -2200)`
+* **2× Medkit (Rating 4)** (`1,000¥ × 2` = **2,000¥**): `{python} inc('Nuyen', -2000)` *(Pairs with `Biotech (R9)` autosoft).*
+
+### 2. RCC, Data Structure & Workshops
+
+* **Scratch-Built Junk RCC** (*CRB*, p. 267): **1,400¥** `{python} inc('Nuyen', -1400)` *(DR 1 budget RCC bridge until Submersion 3 Living Network replaces it as PAN master for both twin chassis).*
+* **Resonance Focus (Rating 4) Data Structure Hardware** (*H&S*, p. 71): **20,000¥** `{python} inc('Nuyen', -20000)`
+* **Engineering [Industrial Mechanic] Shop**: **5,000¥** `{python} inc('Nuyen', -5000)` + **Toolkit**: **500¥** `{python} inc('Nuyen', -500)`
+* **Coding Shop (*Hack & Slash*, p. 56)**: **500¥** `{python} inc('Nuyen', -500)` *(Avail 4L; supports single-session source-code encoding for Aisling's permanent sprite creation).*
+* **Hardware / Electronic Parts & Software Tags (×10)**: **1,000¥** `{python} inc('Nuyen', -1000)`
+
+### 3. Cooperative Custom Autosofts (Rating 9 via Reiko)
+
+* **8 Autosofts @ Rating 9 ($8 \times 4,500¥ = 36,000¥$)** `{python} inc('Nuyen', -4500 * 8)`:
+  * `Clearsight (R9)`, `Evasion (R9)`, `Maneuvering [Shiawase Silverstar] (R9)`, `Stealth [Shiawase Silverstar] (R9)`, `Targeting [Close Combat / Handheld] (R9)`, `Soft Engineering [Industrial Mechanic] (R9)`, `Biotech (R9)`, `Soft Con / Performance (R9)`. *(Skipped `Soft Influence`: they can reference Reiko's copy when programming Aisling's source code.)*
+
+### 4. Datasofts, Utilities & Cyberprograms
+
+* **Datasofts & Utilities (4,850¥)**:
+  * Personal Assistant (R6): **600¥** `{python} inc('Nuyen', -600)`
+  * Mapsoft (Seattle & New Orleans): **100¥** `{python} inc('Nuyen', -100)`
+  * Shopsoft (Drones, Weapons, Cyberware): **150¥** `{python} inc('Nuyen', -150)`
+  * Soft Knowledge (UnITy): **1,500¥** `{python} inc('Nuyen', -1500)`
+  * Soft Language: English (R5): **2,500¥** `{python} inc('Nuyen', -2500)`
+* **Cyberprograms (2,990¥)**:
+  * 4 Basic Programs (`Baby Monitor, Emulator, Signal Scrubber, Toolbox` @ 60¥ = **240¥**): `{python} inc('Nuyen', -240)`
+  * 5 Standard Hacking Programs (`Armor, Directional Shield, Fork, Hitchhiker, Overclock` @ 250¥ = **1,250¥**): `{python} inc('Nuyen', -1250)`
+  * `Nexus Protocol` (**1,000¥**): `{python} inc('Nuyen', -1000)`
+  * `P-Ice Spines` (**500¥**): `{python} inc('Nuyen', -500)`
+  * `MeFeed` (**0¥**)
+
+### 5. Identity & Lifestyle
+
+* **Primary Fake SIN (Rating 4)** + **3 Licenses (R4: Drone Ops, Software, Bodyguard)**: `10,000 + 2,400` = **12,400¥** `{python} inc('Nuyen', -12400)`
+* **Low Lifestyle (1 Month)** (*CRB*, p. 238): **2,000¥** `{python} inc('Nuyen', -2000)`
+
+---
+
+## 13. Contacts Allocation (24 Points Available)
+
+Starting contact points equal $\text{Charisma} \times 6 = 4 \times 6 = \mathbf{24\text{ Points}}$ (*CRB*, p. 66):
+
+* `{python} inc('Contact_Points', 6 * Charisma)`
+* **River People** (NOLA MUG, **Connection 7 / Loyalty 8**): `{python} inc('Contact_Points', -15)`
+* **Reiko Takahashi** (EI Mentor & Mother, **Connection 5 / Loyalty 4**): `{python} inc('Contact_Points', -9)`
+
+Total Contact Points Remaining: `{python} Contact_Points`
+
+---
+
+## 14. Languages & Knowledge Skills
+
+* **Mindspeech (Native):** `{python} language('Mindspeech', rating=4, notes='Twin harmonic ideation & DI Resonance syntax')`
+* **English (Slotted Linguasoft):** `{python} language('English', rating=5, notes='Slotted Linguasoft')`
+* **Resonance Realms:** `{python} knowledge_skill('Resonance Realms', notes='Glade skybox architecture and wild Resonance currents')`
+* **Garmonbozia:** `{python} knowledge_skill('Garmonbozia', notes='E-Nation nodes, sanctuaries, and DI culture')`
+* **Seattle Host Architecture:** `{python} knowledge_skill('Seattle Host Architecture', notes='Corporate grid topologies, ICE launch sequences, and dark trunks')`
+* **Irish Myth & Poetic Tradition:** `{python} knowledge_skill('Irish Myth & Poetic Tradition', notes='Shared twin heritage of Étaín and Aisling')`
+
+---
+
+## 15. Final Totals & Verification
+
+| Metric | Final Value | Target / Rules Limit | Status |
+|:---|:---:|:---:|:---:|
+| **Character Points (CP)** | `{python} Character_Points` | 0 Remaining (100 Spent) | **Exact Match** |
+| **Edge** | `{python} Edge` | 6 / 6 (Racial max; saves 55K post-chargen) | **Rules Legal** |
+| **Resonance** | `{python} Resonance` | 6 (unreduced; +4 Focus = 10 effective) | **Rules Legal** |
+| **Spark (AI Essence)** | `{python} round(Spark, 2)` | 6.00 / 6.00 (Zero codemods) | **Purist Whole** |
+| **Submersion Grade** | **2** | *Resonance Power: Override*, *Overclocking* (MUG L8) | **Verified** |
+| **Contact Points** | `{python} Contact_Points` | 0 Remaining (24 Spent) | **Exact Match** |
+| **Customization Karma** | `{python} Karma` | 4 Karma in reserve | **Rules Legal (<= 5)** |
+| **Starting Pocket Cash** | ¥`{python} f"{Nuyen:,}"` | $\le 5,000¥$ limit (3,160¥ remaining) | **Compliant** |
+
+## Starting Stats/Pools
+
+1. ASDF (Passive `DP 9` via `DP 7` + `RES 6`)
+  * Base: `1 / 1 / 7 / 5`
+  * Attack/Sleaze Attribution (16d6 Threading $\rightarrow$ 4 bought hits): `4 / 4 / 7 / 5`
+  * Encryption / Toolbox: `+0 / +0 / +1 / +1` $\rightarrow$ `4 / 4 / 8 / 6`
+  * Resonance (6): `+1 / +2 / +1 / +2` $\rightarrow$ `5 / 6 / 9 / 8` *(Reaches `DP 9` for R9 autosofts passively, keeping `FW 8` solid while reserving combat Sourceror slots for *Enlighten Automaton* + *Enhance Autosofts*.)*
+2. Matrix
+  * Threading (Complex Forms): `Electronics (6) + RES (6) + Focus (4)` = **16d6** (4 bought hits; **18d6** once *Complex Forms* Spec is added)
+  * Actions: `Cracking (5) / Electronics (6) + RES (6) + Focus (4)` = **15–16d6**
+  * Defense: `RES (6) + Focus (4) + FW (8) + Personal Assistant (3) + Directional Shield (DP:9)` = **30d6**
+3. Drone Operations (Twin Silverstars via Day-1 *Override*)
+  * Piloting (*Override*, *CRB* p. 194): `Autosoft (9) + Resonance (6) + Focus (4) + Pilot Origins (1)` = **20d6** *(16d6 without Focus)*
+  * Targeting (*Override*, *CRB* pp. 194, 201): `Autosoft (9) + Sensor (4 [3+1 Sensor Upgrade]) + Pilot Origins (1)` = **14d6** Day 1 (**17d6** @ *Sensor 6*, **20d6** w/ *Enhanced Sensors 9* in N4; **26–28d6** w/ *Enlighten Automaton*!)
+4. Social Operations
+  * Étaín Unaugmented: `CHA (4)` = **4d6** *(Aisling carries `Con 6`, `Influence [Etiquette] 6` on the twin Silverstar frame once bonded)*
+5. Tactical Scaffolding
+  * Initiative: **5D6** (Hot-Sim VR w/ Day-1 *Overclocking*; **2 Major Actions/turn** immediately, scaling to **4+ Major Actions/turn** once Aisling is bonded)
+  * Edge Engine: Resonance Edge accumulation & *Jack Jockey* Edge denial
+
+---
+
+## Post-Chargen Progression: Three-Tracker Upgrade Protocol
+
+Because post-chargen advancement is gated by **three independent finite resources**—**Major Downtime Actions** (Mainline SRMs only), **Karma** (SRMs + CMPs + *Work for the People*), and **Nuyen** (DIY 50% hardware & software)—progression is tracked in three parallel queues. Whenever an upgrade opportunity opens, execute in strict priority order: **1) Submersions** $\rightarrow$ **2) Karma Queue** $\rightarrow$ **3) Nuyen / Hardware Queue**.
+
+---
+
+### Tracker 1: Major Downtime Action Queue (Submersion Echoes)
+
+*Each Submersion consumes **1 Major Action** (Mainline SRMs only) and uses the **River People MUG Decay Protocol** (2 missions per month: Loyalty `8 -> 7 -> 6 -> 5 -> 4`). Remember: Submersion Grade cannot exceed natural **Resonance**.*
+
+| Grade | Target Echo | Source / Prereq | Cost | Cadence / Gate | Tactical Role |
+| :---: | :--- | :--- | :---: | :--- | :--- |
+| **1–2** | *Resonance Power: Override*, *Overclocking* | *H&S* p. 68 / *CRB* pp. 194–195 | `3K + 4K` | **Chargen** | **Online Day 1:** `Override` (`20d6` Pilot, `Targeting + Sensor`) & **5D6** Hot-Sim VR Initiative (2 Major Actions/turn). |
+| **3** | **New Sprite Type** | *H&S* p. 72 | **5K*** | **SRM #1** *(M1, L8)* | Unlocks compiling & registering **Music Sprites** (for Aisling). |
+| **4** | **Sprite Conduit** | *H&S* pp. 77–78 | **6K*** | **SRM #2** *(M1, L8)* | Unlocks Step 3 Permanent Registration & Step 4 Ally Sprite bonding—arrives right as Karma hits `24K` for Aisling! *(End M1: L8 $\rightarrow$ L7.)* |
+| **5** | **Living Network** | *CRB* p. 195 | **8K*** | **SRM #3** *(M2, L7)* | PAN master for twin Silverstars; unlocks **2nd Sourceror slot** (`5/2=2`), sustaining hyperthreaded *Enlighten Automaton + Enhance Autosofts* on each twin in combat (swapping to *Attack/Sleaze Attribution* + *Diffusion [FW]* or *Resonance Wires* out of combat). |
+| **6** | **Transcendent Network** | *H&S* p. 69 *(Prereq: Living Network)* | **9K*** | **SRM #4** *(M2, L7)* | Shared Edge pool (`= Grade`) + bonus Minor Action on *Send Message* (*SRMG* M-TOC rules). *(End M2: L7 $\rightarrow$ L6.)* |
+| **7** | **Software Emulator** | *H&S* p. 69 *(Prereq: Living Network)* | **11K*** | **SRM #5** *(M3, L6)* | **Requires `RES 6 -> 7` (`35K`) first.** Optional passive/rigger slots (`Personal Assistant`, `Directional Shield`, `Smartsoft`, `Swarm`—no need for a hacking program library; swap behind `Sprite Link` if unneeded). |
+| **8** | **Sprite Link** | *H&S* p. 69 | **12K*** | **SRM #6** *(M3, L6)* | **Requires `RES 7 -> 8` (`40K`) first.** `+1` bonus Minor Action when commanding sprite Teamwork; fading transfer. *(End M3: L6 $\rightarrow$ L5.)* |
+| **9** | **Syntax Error** | *H&S* p. 69 | **14K*** | **SRM #7** *(M4, L5)* | **Requires `RES 8 -> 9` (`45K`) first.** Anytime defense (`+Grade` dice) & unravels sustained CFs/sprite powers. |
+
+---
+
+### Tracker 2: Karma Queue (No Major Action Required)
+
+*Funded by SRM/CMP mission Karma + monthly `Work for the People` (`+1K/mo` via Hooder R3), running in parallel without blocking Submersions (reserve enough Karma to keep Tracker 1 on-schedule at Loyalty 8/7).*
+
+| Priority | Target Upgrade | Cost | Time / Action | Purpose |
+| :---: | :--- | :---: | :--- | :--- |
+| **K1** | **Aisling Stage 1 (Level 5 Music Ally Sprite w/ `Override` + `Overclocking`)** | **24K** *(20K net after 4K reserve)* | Extended Downtime *(1h/lvl, Thresh 12)* | Ready immediately after **SRM #2 (`Sprite Conduit`)**! Comes online w/ `RES 6`, `Pilot 5` (`Override`), and `5D6` Init (`Overclocking`). |
+| **K2** | **Aisling Stage 2a (`Phantom`, `Cracking`, `Diagnostics`, `Engineering`)** | **8K** *(2K each)* | Extended Downtime *(H&S p. 78, Thresh 5)* | `2×` upgrade rate = exact same Karma as birth. **`Phantom`** veils twin drones/personas early (hits 5/5 powers at L5), while `Cracking`/`Diagnostics`/`Engineering` open full Matrix & tech teamwork. |
+| **K3** | **Everyday Matrix Utilities: `Diffusion (Firewall)` + `Cleaner`** | **10K** *(5K each)* | Minor Actions *(Study)* | Come up nearly every run: **`Diffusion (FW)`** (`Fade 2` w/ Sourceror) shreds host/target Firewalls *(no *Infusion [FW]* needed)*, while **`Cleaner`** scrubs Overwatch Score whenever Étaín or the team is hacking. |
+| **K4** | **Veteran/Elite Combat & Scaling Forms: `Enhance Autosofts`, `Enlighten Automaton`, `Resonance Spike`, `Technoregeneration`** | **5K each** | Minor Actions *(Study)* | **`Enhance Autosofts` + `Enlighten Automaton`** push the twins into Veteran/Elite pools (filling both combat slots at **Submersion 5** `Living Network`, swapping out of combat to *Attack/Sleaze Attribution*); **`Resonance Spike`** (`Fade 2`) bypasses *P-ICE: Spines*; **`Technoregeneration`** repairs twin chassis. *(`Puppeteer` skipped: `Resonance Wires + Jack Jockey` handles direct device takeovers; defer `Cyber Spike` until Submersion 8 `Sprite Link`.)* |
+| **K5** | **Aisling Stage 2b (Level 5 $\rightarrow$ 6 + `Con 6` + `Influence 6`)** | **12K** *(4K+4K+4K)* | Extended Downtime *(H&S p. 78, Thresh 6)* | Pushes Aisling to **RES 7**, `Pilot 6`, `Con 6`, and `Influence [Etiquette] 6` (unlocks Social OBS). Total across K1+K2+K5 = `44K` (zero waste). |
+| **K6** | **Electronics & Cracking Specs (`Complex Forms`, `Software`, `Computers`, `Hacking`)** + **Quality: `Candle in the Dark`** | **5K/spec** + **10K** quality | Between runs | Specs (`2.5K`/die) & *Candle in the Dark* (`5K × 2` post-chargen via *Honorbound*). |
+| **K7** | **Natural Resonance Scaling (`6 -> 7 -> 8 -> 9 -> 10`)** | **35K / 40K / 45K / 50K** | Between runs *(CMP bank)* | **Beats raising skills all the way to RES 10:** `RES +1` (`35–50K`) adds `+1` to *all* Electronics (`Natural Hacker`), Cracking, Tasking, Matrix Defense, Drone Pilot (`Override`), `+1` ASDF, and unlocks Submersion `7–10` (vs. `65–95K+` for skill ranks). |
+| **K8** | **Aisling Level 7–10 Scaling (`Software` Spec/Exp or `Electronics 7+`) & `Cyber Spike` *(Étaín-only)*** | `5–10K` *(or `35K+`)* + `5K` CF | Post-`Sprite Link` / As needed | Once **Submersion 8 (`Sprite Link`)** lands, Étaín can add **`Cyber Spike`** (`5K`, transferring any unresisted `Fade: Hits` onto **a compiled/registered companion sprite—never onto Aisling**; also **never encode `Cyber Spike` onto Aisling**, since *H&S* p. 77 only lets sprites learn `Living Network`, `Matrix Attribute Upgrade`, `Overclocking`, or `Resonance Link`, not `Sprite Link`). Raise Aisling `L7–10` via `Software` Spec/Expertise (`10K` effective `9` / `35K` `Electronics 7` -> `10`) or base ranks. |
+
+---
+
+### Tracker 3: Nuyen & DIY Hardware Queue (Minor Actions)
+
+*Every hull mod doubles across the twin Silverstars (`8 Chassis / 8 Powertrain / 8 Electronics` base slots + `2` Standard Hardpoints each; `Wheeled` uses `2` Powertrain slots, `Passive Stealth` uses `1` Electronics slot, and factory `Realistic Features 1` uses `0` open slots). Drone modifications use **50% DIY workshop pricing** (*Double Clutch*, p. 120), install incrementally by paying rating differences, and fit up to 3 drones per Minor Action. **Why `Body` crushes `Standard Armor`:** drones share **one Condition Monitor** (no Stun overflow buffer), soak with `Body`, ignore non-electrical Stun `<= Body` (*CRB* p. 197), and lose `10` Top Speed per `+1` `Standard Armor` (*DC* pp. 132–133—`+12` would freeze a Silverstar at `0` Top Speed!).*
+
+| Priority | Hardware / Software Target | Cost (DIY / Retail) | Slots & Tactical Role |
+| :---: | :--- | :---: | :--- |
+| **N1** | **Immediate Street Kit:** `2× Ares Predator VI + Silencers` (`750¥ + 500¥` each; Explosive / Self-Defense / Gel ammo in smart-select variable mags), `Stun Grenades ×6–10` (`100¥` each), `2× Armor Jackets` (`+4` DR, Cap `8`) + `Electricity Resistance` *(plus `Actioneer` for high-society scenes)*, `4× Laser Jacks`, `2× Satellite Links` | **~¥6,500–¥8,000 total** *(uses ¥3,160 starting cash)* | **Session 1–2 buy:** `Predator VIs` (`AR 12/12/10/-/-` w/ built-in smartgun, `SA/BF`) run off existing `Targeting [Handheld] R9`; `Stun Grenades` (`10S GZ / 8S Close / 6S Near`) ignore `8S/6S` Day 1 at `Body 8` (and point-blank `10S` GZ once `N5` hits `Body 10+`); **0-slot worn Armor Jackets** stay socially inconspicuous & add *Electricity Resistance*. |
+| **N2** | **`Realistic Features` (R1 $\rightarrow$ R3/R4)** | **4,000¥ DIY / rating / hull** *(8k–12k¥ DIY/hull)* | `1` Chassis slot/rating (`2–3` slots from factory R1). **Scene-access priority #1:** Lets both twins pass as ordinary metahumans in social, public, and corporate scenes so you can participate at the table everywhere. |
+| **N3** | **`Chameleon Coating 4`** (Both Hulls) | **9,000¥ DIY / hull** *(18,000¥ both)* | `2` E-slots (*DC* p. 138, `Avail 8(I)`). **Scene-access priority #2:** Optical **Invisible (Imp.) 4** while stationary / Speed Int 1, letting the twins join every stealth and B&E scene. |
+| **N4** | **`Enhanced Sensors` (R3 $\rightarrow$ R6 $\rightarrow$ R9)** + Sensor Array *(Camera, Mic, Ultrasound, Low-light, Flare Comp, Audio Damper, Olfactory)* | **2,500¥ DIY / rating / hull** *(7.5k¥ to R6; 15k¥/hull to R9)* | `1` E-slot/rating (`6` slots at R9; shift `2` Powertrain $\rightarrow$ `1` Electronics [`2:1`] once `Chameleon + Sensors + Passive Stealth` hit `9` E-slots). Outranks `Body` because Sensors start at `3` and drive **`Override` Targeting (`14d6 -> 17d6 -> 20d6`)**, Device Rating, and Stun-synergy Array slots. |
+| **N5** | **`Increased Structural Integrity` (R1 $\rightarrow$ R4, `Body 8 -> 12`)** *(incremental steps)* | **2,500¥ DIY / rating / hull** *(5k¥ to R2; 10k¥/hull max)* | `1` Chassis slot/rating (`4/8` max; fits w/ `RF 3–4` for `6–7/8` Chassis). **`R2` (`Body 10`)** gives total immunity to point-blank **`10S` Stun Grenades**; **`R4` (`Body 12`)** pushes `+4` Soak (`12d6`), **`14` CM boxes**, and `DV 12` Stun immunity w/ zero speed penalty. |
+| **N6** | **`Oracle (Rating 4)` Data Structure** *(No Software Library)* | **20,000¥** *(+4K bond)* | Matrix Perception/Search focus (`~` swap w/ GM/Reiko approval). No hacking software library needed. |
+| **N7** | **Optional Late Cybernetics** *(Skippable)*:<br>• **1× `Synthetic Limb (Used)`** + **`Sensor Dazzler`** *(single twin covers both within 2m!)*<br>• **Limb `Wrist Shields`** (`Synthetic Arm [Used]` + `Bulk Mod R2` + `Wrist Shield`, `+4` DR) | **¥15,000** *(1 Dazzler arm)*<br>**¥11,500/arm** *(¥10k + ¥500 DIY + ¥1k)* | **0 drone slots** (*DC* p. 131); strictly optional late luxury (likely skipped altogether). *Sensor Dazzler* grants **Invisible (Imp.) 4** vs scanners within `2m` (*BS* p. 35); *Wrist Shield* adds `+4` DR hands-free without bulky overt armor. |
+| **N8** | **`Vector Thrust`** *(Late Flight Capstone)* & **Chassis `Standard Armor`** *(Bottom)* | **`Vector Thrust`: 45,000¥ DIY/hull**;<br>**`Standard Armor`: 800¥ × R/hull** | **Very bottom:** `Vector Thrust` (`6` Powertrain slots, swaps Wheeled) unlocks full flight (`50/480`). **Skip `Full Body Armor`** (only `+1` over `Armor Jacket`, massive social baggage, and hinders flight); keep any `Standard Armor` strictly optional & capped so speed stays intact. |

@@ -23,8 +23,6 @@ qualities:
   positive:
   - name: Natural Hacker
     ref: natural_hacker
-  - name: Designer
-    ref: designer
   - name: Sourceror
     ref: sourceror
   - name: Pilot Origins
@@ -35,11 +33,6 @@ qualities:
   - name: Photographic Memory
     ref: photographic_memory
   negative:
-  - name: Sprite Bane
-    ref: sprite_bane
-    choice: primal
-  - name: Injury Prone
-    ref: injury_prone
   - name: Glitchy
     ref: glitchy
   - name: Honorbound

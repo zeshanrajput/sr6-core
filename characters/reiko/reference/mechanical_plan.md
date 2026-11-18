@@ -27,24 +27,23 @@ All upcoming upgrades are prioritized sequentially below. When logging post-miss
 
 ### A. Karma Progression Pipeline (Ontological & Matrix Scaling)
 
-* **Current Active Baseline (Post-SRM 2083-13 Apotheosis):** **Resonance 9 / Submersion Grade 9** (*Echo: Syntax Error*); **Dissonant Technomancer (Control)** & **Dissonant Stigma**. All Matrix action pools scale to 17d6 (21d6 with foci/Oracle); Fading resistance 14d6.
+* **Current Active Baseline (Post-SRM 2083-13 Apotheosis):** **Resonance 9 / Submersion Grade 9** (*Echo: Syntax Error*); **Dissonant Technomancer (Control)**
 
 | Step | Target Upgrade | Category | Cost | Downtime Action Required | Primary Tactical / Architectural Role |
 | :---: | :--- | :--- | :---: | :---: | :--- |
 | **01** | **Dissonance Diffusion** | Positive Quality | 10 Karma | No Minor Action | *SC* 85: Strips multiple Matrix attributes simultaneously. Offset by Dissonance negative qualities. Subject to the *Composure Sword of Damocles*. |
 | **02** | **Dissonance Spike** | Positive Quality | 10 Karma | No Minor Action | *SC* 85: Lethal biofeedback + unreductable noise aura targeting devices. Subject to the *Composure Sword of Damocles*. |
-| **04** | **Complex Form: Static Bomb** | Complex Form | 5 Karma | 1 Minor Action (Study) | *CRB* 191: Instantly breaks all active locks, traces, and spots in a single action. |
-| **05** | **Resonance 9 $\rightarrow$ 10** | Attribute | 50 Karma | None (Between runs) | Apex Resonance Capstone. Hard ceiling of current biological/persona evolution. |
+| **05** | **Resonance 9 $\rightarrow$ 10** | Attribute | 50 Karma | None (Between runs) | Apex Resonance Capstone. |
 | **06** | **Submersion Grade 10**<br>• *Echo: Living Host* | Submersion | 16 Karma | 1 Major Action<br>*(Mainline SRM only)* | *H&S* 68: Requires *Transcendent Network*. Transforms persona into a Rating 10 Living Host with unlimited virtual architecture.<br>*NV* 51: Adapted by ascended Ladies in Red to seize sovereign space within Resonance/Dissonance Realms. Enables the Queen of Malice apotheosis. Cost: $10 + 10 - 4 = 16\text{ Karma}$. |
-| **07** | **Quality: Jack Jockey** | Positive Quality | 11 Karma | None (Between runs) | *H&S* 82: Direct connection denies defensive Edge, bypasses external PAN firewalls, and allows powering on cold devices. |
-| **08** | **Electronics Spec: Computers** | Specialization | 5 Karma | None (Between runs) | *DEFERRED BACKLOG:* +2 Matrix Perception & Search (20d6 / 22d6 w/ Oracle R4). Pushed down post-Ch 33. |
+| **07** | **Quality: Jack Jockey** | Positive Quality | 22 Karma | None (Between runs) | *H&S* 82: Direct connection denies defensive Edge, bypasses external PAN firewalls, and allows powering on cold devices. |
+| **08** | **Electronics Spec: Computers** | Specialization | 5 Karma | None (Between runs) | *DEFERRED BACKLOG:* +2 Matrix Perception & Search, Threat Analysis. Pushed down post-Ch 33. |
 
 ---
 
 ### The Endgame Protocol: The Composure Sword of Damocles & The Succession Arc
 
 * **The Tabletop Mechanic (The Composure Check):**
-  Once Reiko acquires Dissonant abilities (*Dissonance Spike*, *Dissonant Diffusion*), every single time she activates a Dissonant Complex Form or Matrix action at the physical tabletop, the player rolls her **Composure (10 dice: Willpower 5 + Charisma 5)**.
+  Once Reiko acquires Dissonant abilities (*Dissonance Spike*, *Dissonant Diffusion*), every single time she activates a Dissonant Complex Form or Matrix action at the physical tabletop, the player rolls her **Composure (10 dice as of last update)**.
 * **The Permanent Fall Threshold:**
   If she ever rolls a **Glitch** (more than half the dice show 1s, i.e., six or more 1s on 10d6) on a Composure test while tasking Dissonance:
   * **Her story as an active shadowrunner at the table ends permanently that day.**
@@ -72,9 +71,8 @@ Liquid Nuyen earned from runs is dedicated to the **Twin Synthetic Cyberarm & Co
 | **H4** | **Bulk Modification R4 (Left Arm)** | *Body Shop* 44 | ¥1,000 DIY<br>*(¥2,000 retail)* | 1 Minor Action (DIY Mod) | Expands Left Cyberarm from 8 $\rightarrow$ **12 Capacity** (enables Wrist Shield installation). |
 | **H5** | **Sensor Dazzler (Right Arm)** | *Body Shop* 35 | ¥5,000 | 1 Minor Action (Used Cyberware) | Consumes **[4] Capacity** in Right Arm (Tesla Coil [8] + Dazzler [4] = 12/12). Invisible (Imp.) 4/5 vs scanners. |
 | **H6** | **Wrist Shield (Left Arm)** | *Body Shop* 49 | ¥1,000 | 1 Minor Action (Used Cyberware) | Consumes **[10] Capacity** in Left Arm. Concealed 1m disc; Minor Action deploy; **+4 DR**; hands-free; 2P/3S melee. |
-| **H7** | **Armor Increase (+2 DR)** | *CRB* 289 | ¥5,000 | 1 Minor Action (Used Cyberware) | Consumes remaining **[2] Capacity** in Left Arm (12/12 Cap). Stacks +2 passive DR (+6 DR deployed). |
 
-*Cost Summary:* **¥24,500**.
+*Cost Summary:* **¥19,500**.
 
 ---
 

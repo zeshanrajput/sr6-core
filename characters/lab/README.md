@@ -56,8 +56,11 @@ Every entry in the Lab belongs to one of three developmental stages:
 | Codename / Slug | Archetype & Metatype | Chargen System | Taxonomy | Core Gimmick / Concept Notes | Status |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **[`venn`](venn/)** | Monad (Human / AI Dual Entity)<br>Street Samurai / Operative | Point Buy 100 (*6WC*) | **Ready Prototype** | Used synthetic cyberlimbs (0.1 Essence), nanite swarm volume, hot-sim VR skillwires array. Pending SRM 2085 table kickoff. | Fully built; chapters 01–07; mutable |
-| **[`ouro`](ouro/)** | AI-Pilot AI (Emergent Intelligence)<br>Technomancer (Sourcerors) | Point Buy (*6WC* + *H&S*) | **Active Concept** | Anthro Nurse Maid drone rigger frame, Crack sprite symbiosis, ASDF attribution, living persona. kin to Reiko. | Chargen complete; post-chargen mapped |
+| **[`ouro`](ouro/)** | AI-Pilot AI (Emergent Intelligence)<br>Technomancer (Sourcerors) | Point Buy (*6WC* + *H&S*) | **Active Concept** | Utilitarian fork of [`sparks_template.md`](sparks_template.md): Nurse MAID drone rigger, Omega codemods (`Spark 5.01`), `Sprite Symbiosis` (Machine Sprite). Kin to Reiko. | Chargen complete (6-quality compliant); post-chargen mapped |
+| **[`etain`](etain/)** | AI-Pilot AI (Emergent Intelligence)<br>Technomancer (Sourcerors) | Point Buy (*6WC* + *H&S*) | **Active Concept** | Spark Purist twin fork of [`sparks_template.md`](sparks_template.md): `Spark 6.00` (0 codemods, `RES 6`), twin `Shiawase Silverstar` chassis, `Étaín` PC + `Aisling` Level 6 Music Ally Sprite target. | Chargen complete; post-chargen Aisling bonding mapped |
 | **[`mad_dalek`](mad_dalek/)** | Dalakitnon Elf<br>Mystic Adept | Life Path (*6WC*) | **Mechanics Reference** | Implanted cyberjack + skillwires (Option B), exercising the double-event crucible rule. Full astral + Matrix flexibility. | Complete reference build |
+
+> **Takahashi Second-Generation Family Blueprint:** See [`sparks_template.md`](sparks_template.md) for the shared Pilot-AI chassis and per-sibling diffs (`Ouro`, `Étaín & Aisling`, `Percy`, `Cleo`).
 
 ---
 
@@ -141,6 +144,7 @@ Every build in the Lab is evaluated across two distinct, complementary axes: **O
     * **Loyalty 8 Decay Protocol:** We enter at Loyalty 8 and deliberately allow loyalty to decay by 1 per month ($8 \rightarrow 7 \rightarrow 6 \rightarrow 5 \rightarrow 4$). This liberates 4 Major Downtime Actions across Months 1–4 for initiations and saves ¥4,800 in dues.
     * **The Loyalty 4 Floor:** Decay halts permanently at the Loyalty 4 floor (1 Minor action/mo, ¥350/mo dues for Connection 7), locking in a permanent **-4 Karma discount** on all subsequent initiations forever.
     * **The "Hoard Magic" Fallacy vs. The 2-Karma Difference:** Delaying an initiation (like Grade 7) from Loyalty 6 to the Loyalty 4 floor costs only **2 Karma** ($10 + 7 - 4 = 13\text{K}$ vs $10 + 7 - 6 = 11\text{K}$). Freezing 35 Karma to raise Magic $6 \rightarrow 7$ prematurely purely to preserve coven discounts is a false economy: it starves the character of table performance for 4–5 missions to save a trivial 2 Karma!
+    * Note that per 6WC p 175 Group Contact ratings (Connection or Loyalty) are not limited by Charisma.
 * Foci Architecture & The Power Focus Arbitrage
   * **The Power Focus vs. Natural Magic Arbitrage:**
     * A Power Focus Rating 3 costs **54,000¥ and 18 Karma** (Availability 9L).

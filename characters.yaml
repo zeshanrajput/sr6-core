@@ -53,4 +53,15 @@ characters:
     mortype: "Technomancer"
     commlink_uuid: "49240ec9-2a0d-43fc-a322-37bf31bc0a40"
 
+  etain:
+    name: "Étaín & Aisling"
+    repo: "characters/lab/etain"
+    master_yaml: "etain_master.yaml"
+    status: "prototype"
+    role: "AI-Pilot Technomancer (Twin PC + Ally Sprite)"
+    metatype: "AI-Pilot AI"
+    stream: "Sourcerors"
+    mortype: "Technomancer"
+
+
 

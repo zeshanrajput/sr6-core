@@ -1,0 +1,182 @@
+identity:
+  id: etain
+  name: Takahashi Étaín
+  handle: Étaín
+  real_name: Takahashi Étaín
+  metatype: AI-Pilot AI
+  stream: Sourcerors
+  gender: FEMALE
+  age: ~ 1
+  system: shadowrun6e
+  karma: 4
+  lifetime_karma: 50
+  nuyen: 3160
+  lifetime_nuyen: 130000
+  heat: 0
+  submersion: 2
+attributes:
+  body: 5
+  agility: 7
+  reaction: 1
+  strength: 1
+  willpower: 5
+  logic: 4
+  intuition: 5
+  charisma: 4
+  edge: 6
+  magic: 0
+  resonance: 6
+  essence: 6.0
+qualities:
+  positive:
+  - name: Sourceror Stream
+    ref: sourceror
+  - name: Natural Hacker
+    ref: natural_hacker
+  - name: Jack Jockey
+    ref: jack_jockey
+  - name: Pilot Origins
+    ref: pilot_origins
+    rating: 1
+  - name: Sensor Upgrade
+    ref: sensor_upgrade
+  negative:
+  - name: Hooder
+    ref: hooder
+    rating: 3
+  - name: Sprite Bane
+    ref: sprite_bane
+    choice: primal
+  - name: Honorbound
+    ref: honorbound
+    choice: Pirate's Code
+skills:
+- name: Electronics
+  id: electronics
+  rating: 6
+  attribute: Logic
+- name: Cracking
+  id: cracking
+  rating: 5
+  attribute: Logic
+- name: Tasking
+  id: tasking
+  rating: 5
+  attribute: Resonance
+modifiers:
+- id: resonance_focus
+  name: Resonance Focus
+  target: attribute:resonance
+  value: 4
+  type: focus
+  sub_skill: null
+  rule_anchor: rules/rules_matrix.html#foci
+  notes: +4 dice to tests using RES
+  enabled: true
+complex_forms:
+- name: Hyperthreading
+  ref: hyperthreading
+  fading: 3
+  duration: Immediate
+  target: Persona
+  notes: Allows simultaneous threading and sustaining of multiple complex forms sharing target and level.
+- name: Resonance Wires
+  ref: resonance_wires
+  fading: 2
+  duration: Sustained
+  target: Device/Persona
+  notes: Establishes remote direct connection via line of sight; pairs with Jack Jockey.
+- name: Attack Attribution
+  ref: attack_attribution
+  fading: Hits
+  duration: Sustained
+  target: Persona
+  notes: Target gains Attack attribute equal to hits on Electronics + RES test.
+- name: Sleaze Attribution
+  ref: sleaze_attribution
+  fading: Hits
+  duration: Sustained
+  target: Persona
+  notes: Target gains Sleaze attribute equal to hits on Electronics + RES test.
+meta_echoes: &id001
+- name: "Resonance Power: Override"
+  ref: resonance_power
+  choice: override
+  notes: Substitutes Resonance for Pilot rating and shifts drone attacks to Targeting + Sensor from Day 1.
+- name: Overclocking
+  ref: overclocking
+  notes: "+1 Minor Action and +1D6 Initiative in hot-sim VR (5D6 / 2 Major Actions/turn Day 1)."
+echoes: *id001
+knowledge_skills:
+- name: Mindspeech
+  rating: 4
+  level: Native
+  is_native: true
+  is_linguasoft: false
+  notes: Twin harmonic ideation & DI Resonance syntax
+- name: English
+  rating: 5
+  level: Linguasoft
+  is_native: false
+  is_linguasoft: true
+  notes: Slotted Linguasoft
+- name: Resonance Realms
+  rating: null
+  notes: Glade skybox architecture and wild Resonance currents
+- name: Garmonbozia
+  rating: null
+  notes: E-Nation nodes, sanctuaries, and DI culture
+- name: Seattle Host Architecture
+  rating: null
+  notes: Corporate grid topologies, ICE launch sequences, and dark trunks
+- name: Irish Myth & Poetic Tradition
+  rating: null
+  notes: Shared twin heritage of Étaín and Aisling
+contacts:
+- name: River People
+  connection: 7
+  loyalty: 8
+  role: NOLA MUG / Technomancer Network
+- name: Reiko Takahashi
+  connection: 5
+  loyalty: 4
+  role: EI Mentor & Mother
+drones:
+- name: Shiawase Silverstar (Étaín)
+  ref: shiawase_silverstar
+  handling: 3
+  handling_off_road: 3
+  speed: 30
+  accel: 5
+  body: 8
+  armor: 4
+  pilot: 3
+  sensor: 3
+- name: Shiawase Silverstar (Aisling Twin)
+  ref: shiawase_silverstar
+  handling: 3
+  handling_off_road: 3
+  speed: 30
+  accel: 5
+  body: 8
+  armor: 4
+  pilot: 3
+  sensor: 3
+weapons: []
+armors: []
+matrix_devices:
+- name: Scratch-Built Junk RCC
+  ref: scratch_built_junk
+gear: []
+cyberware: []
+activesofts: []
+sprite_powers: []
+sins: []
+licenses: []
+living_persona: {}
+synergies:
+  foci:
+  - name: Resonance Focus
+    rating: 4
+    applies_to: Resonance
+exceptions: []
