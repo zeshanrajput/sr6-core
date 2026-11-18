@@ -151,11 +151,11 @@ Invoke `invoke_subagent(TypeName="self", Role="Beat N Creative Drafter", ...)` p
 #### Step 2: Line Chisel Worker (`flash`) — "The Editor's Hat"
 1. Stage `Draft v1` to `scratch/beat_<N>_test.md` and run unified deterministic diagnostics:
    ```bash
-   uv run sr6 lint "scratch/beat_<N>_test.md" --window 3 --tier <1|2|3> --char <char_id>
+   uv run sr6 lint "scratch/beat_<N>_test.md" --window 3 --tier <1|2|3> --char <char_id> --fast --compact
    ```
-2. If `sr6 lint` flags defects or any hard gate fails, invoke a fast line-chisel sub-agent (`flash`):
-   - Provide the chisel worker with **ONLY** `Draft v1`, the specific line warnings and `ZERO-RENT SUSPECTS` from `sr6 lint`, and the 5 Chisel Transformations + 3-Step Active Chisel Discipline (Declare Paragraph Job $\rightarrow$ Active Eviction Pass targeting `-5%` to `-8%` words $\rightarrow$ Post-Cut Load-Bearing Readback Test, reporting net word-count delta) from [`literary-analysis`](file:///c:/GitHub/sr6-core/.agents/plugins/sr6-narrative/skills/literary-analysis/SKILL.md) (`apply_prose_chisel`).
-   - The worker executes surgical line adjustments and saves `Draft v2` in `scratch/beat_<N>_test.md`.
+2. If `sr6 lint` flags defects or any hard gate fails, invoke a fast line-chisel sub-agent (`flash`, `EnableMCPTools: false`):
+   - Provide the chisel worker with **ONLY** `Draft v1`, the compact diagnostics from `sr6 lint`, and the 5 Chisel Transformations + 3-Step Active Chisel Discipline (Declare Paragraph Job $\rightarrow$ Active Eviction Pass targeting `-5%` to `-8%` words $\rightarrow$ Post-Cut Load-Bearing Readback Test, reporting net word-count delta) from [`literary-analysis`](file:///c:/GitHub/sr6-core/.agents/plugins/sr6-narrative/skills/literary-analysis/SKILL.md) (`apply_prose_chisel`).
+   - Instruct the worker to execute **1 whole-file `write_file(Overwrite=true)` pass** saving `Draft v2` in `scratch/beat_<N>_test.md`, followed by **1 `uv run sr6 lint ... --fast --compact` verification** (never multi-step incremental `edit_file` loops).
 3. **Hard Constraint: Max 1 Review Loop**:
    - The system executes at most **ONE** automated chisel pass. Minor stylistic nuances are preserved for the human editor rather than over-sterilizing the prose to satisfy a mechanical metric.
 4. Clean up `scratch/beat_<N>_test.md`.
@@ -205,7 +205,7 @@ Audit drafts across the Editorial House framework (dispatch `research` or `flash
 - **NEVER edit `*_master.yaml` directly.** The user or pipeline runs `uv run sr6 sync-all` to recompile master state.
 
 ### Stage 6: Refinement Mode for Existing Chapters
-Invoked via `literary-analysis <target_file>` to run unified diagnostics (`uv run sr6 lint "<target_file>" --window 3 --tier <1|2|3> --char <char_id>`), delegate Series Bible cross-checks (`research`/`flash`) and active line chiseling (`flash` Line Chisel Worker running the 3-Step Active Chisel Discipline with net word-count delta), and output drop-in diffs.
+Invoked via `literary-analysis <target_file>` to run unified directory/file diagnostics (`uv run sr6 lint "characters/<char_id>/narrative" --char <char_id> --fast --compact`), delegate Series Bible cross-checks (`research`/`flash`, `EnableMCPTools: false`), run 1-shot whole-file `write_file` line chiseling (`flash`, `EnableMCPTools: false`) under the 3-Step Active Chisel Discipline, inspect diffs via a read-only `flash` Diff Reviewer, and output drop-in diffs.
 
 ---
 
@@ -232,8 +232,8 @@ Replaces legacy synthetic scorecards with deterministic gates and descriptive cr
 ### 📊 Descriptive Craft Telemetry
 | Metric | Observed Range | Target Benchmark | Craft Assessment |
 | :--- | :---: | :---: | :--- |
-| **Braided Paragraph Cadence** | [N]% | $\ge 75\%$ (3–6 sentences) | [Cohesive flow / Staccato warnings] |
-| **Single-Sentence Pivots** | [N] / 1k words | $\le 1\text{–}2$ per 1k words | [Reserved for dramatic pivots] |
+| **Braided Paragraph Cadence** | [N]% | $\ge 75\%$ non-dialogue (3–6 sentences) | [Cohesive flow / No invented padding] |
+| **Sequential Staccato Runs** | [N] runs | `0` stacks of $\ge 3$ 1-sentence lines | [Merge stacks; isolated beats allowed] |
 | **Sentence Burstiness (CV)** | [Value] | $\ge 0.45$ | [Rhythmic variation vs. monotone] |
 | **Domain Staging & Somatic Rent**| [Verified] | Zero game jargon | [Clean somatic immersion] |
 

@@ -41,14 +41,19 @@ literary-analysis <target_file>
 
 Execute baseline diagnostics via CLI (running the unified linter + tier/character calibration in one pass):
 ```bash
-# Automated paragraph braid ratios, cluster saturation, ellipses ceiling, buzzwords, N-3 echoes, and tier/voice calibration
-uv run sr6 lint "characters/<char_id>/narrative/<file>.md" --window 3 --tier <1|2|3> --char <char_id>
+# Single chapter (omit --tier to auto-resolve from character voice_spec.md)
+uv run sr6 lint "characters/<char_id>/narrative/<file>.md" --window 3 --char <char_id> --compact
+
+# Entire anthology directory (single batch markdownlint or --fast to skip Node spawn; skips I0*.md unless --include-interludes)
+uv run sr6 lint "characters/<char_id>/narrative" --char <char_id> --fast --compact
 ```
 *(Note: `sr6 evaluate` remains available as an alias for the same unified analyzer.)*
 
 ### Sub-Agent Delegation Protocol (Token & Speed Optimization)
-- **Series Bible & Continuity Cross-Checks (Stage 3 / Stage 6)**: Delegate multi-file audits across `storyboard.md`, `voice_spec.md`, `visual_anchors.md`, and `story_continuity.md` to a `research` (read-only) or `flash` sub-agent with explicit file paths and verification questions rather than polling them piecemeal in the parent context.
-- **Line Chisel Execution (Stage 4 / Stage 6)**: Dispatch a `flash` Line Chisel Worker (`apply_prose_chisel`) for surgical line edits and lexical cluster de-duplication, keeping high-reasoning coordination focused on macro craft and user feedback.
+- **Tool Diet (`EnableMCPTools: false`)**: When defining `arc_auditor`, `prose_chisel_worker`, or `diff_reviewer` subagents via `define_subagent`, always set `EnableMCPTools: false` so unused MCP schemas are never injected into worker context.
+- **Arc-First Audit & Protected Callback Ledger (Stage 6)**: Run `uv run sr6 lint "characters/<char_id>/narrative" --char <char_id> --fast --compact` for anthology telemetry instead of ad-hoc Python scanners. Compile a Protected Callback Ledger of recurring verbatim/mirrored motifs across the anthology, then dispatch a read-only `flash` Arc Auditor (`EnableWriteTools: false, EnableMCPTools: false`) across a 4–8 chapter slice to flag cross-chapter redundancies, hardware/timeline anachronisms, developmental voice shifts, and `-ly` adverb triage (`DELETE`, `EXPAND_WITH_DETAIL`, `KEEP`)—trusting the reader instead of heavy-handed forward-seeding.
+- **Series Bible & Continuity Cross-Checks (Stage 3 / Stage 6)**: Delegate multi-file audits across `storyboard.md`, `voice_spec.md`, `visual_anchors.md`, and `story_continuity.md` to a `research` (read-only) or `flash` sub-agent (`EnableMCPTools: false`) with explicit file paths and verification questions rather than polling them piecemeal in the parent context.
+- **Disjoint 1-Shot Line Chisel Execution & Flash Diff Review (Stage 4 / Stage 6)**: Fan out surgical edits to small, disjoint `flash` Line Chisel Workers (`apply_prose_chisel`, `EnableMCPTools: false`) locked to the Protected Callback Ledger, targeting `>= 75%` braiding on **non-dialogue narrative paragraphs**. Instruct workers to plan all chapter edits after 1 read, apply **1 whole-file `write_file(Overwrite=true)` pass per chapter**, and verify with **1 `uv run sr6 lint "<file>" --char <id> --fast --compact`** check (targeting `6–10` worker steps instead of incremental `edit_file` loops). Finally, delegate `git diff` anomaly inspection (`-ly` introductions, callback drift, seams) to a read-only `flash` Diff Reviewer (`EnableMCPTools: false`) returning a `<15`-line summary rather than dumping raw multi-chapter diffs into the parent context.
 
 ---
 
@@ -80,8 +85,8 @@ Rather than relying on arbitrary synthetic numeric scores (e.g. `X/10`), drafts 
 - **Zero Unicode Artifacts**: Zero `\ufffd` replacement characters.
 
 ### 2. Descriptive Craft Telemetry (Developmental Health)
-- **Braided Paragraph Cadence**: $\ge 75\%$ of non-dialogue paragraphs must fall within 3 to 6 sentences, weaving sensory atmosphere, physical action, and immediate consequences.
-- **Single-Sentence Pivot Audit**: Single-sentence paragraphs are a high-impact literary tool reserved strictly for irreversible dramatic pivots or flashback hinges. Calibrated to **no more than 1 or 2 per thousand words** ($\le 1\text{–}2 / 1,000$ words).
+- **Braided Paragraph Cadence**: $\ge 75\%$ of non-dialogue paragraphs fall within 3 to 6 sentences, weaving sensory atmosphere, physical action, and immediate consequences. **Zero-Padding Rule**: Never invent filler stage business or ambient scenery to stretch 1–2 sentence beats into 3 sentences; fix genuinely choppy prose only by **merging** adjacent related beats.
+- **Sequential Staccato Run Audit**: Isolated single-sentence narrative beats and punchy dialogue lines are valid dramatic rhythm and are **never** penalized by a per-1k ceiling. Only consecutive stacks (`>= 3` sequential 1-sentence non-dialogue paragraphs) trigger a staccato merge warning.
 - **Sentence-Length Burstiness (Coefficient of Variation)**: Sentence-length CV should achieve $\ge 0.45$, confirming dynamic rhythmic variation between short punchy clauses and flowing compound sentences.
 - **Cross-Chapter Echo Window (`N-3`)**: Scans previous 3 chapters for recurring signature phrases to prevent stylistic homogenization.
 
@@ -97,9 +102,9 @@ Rather than relying on arbitrary synthetic numeric scores (e.g. `X/10`), drafts 
 
 ### Axis 2: Pacing & Structure
 - **4-Beat Scene Architecture**: Inciting Friction $\rightarrow$ Escalation $\rightarrow$ Climax $\rightarrow$ Aftermath. Arrive late, leave early.
-- **Paragraph Braiding (3 to 6 Sentences)**: Group sensory atmosphere, physical micro-action, gear interaction, and immediate somatic consequences into cohesive braided paragraphs.
-- **Single-Sentence Lines as a Deliberate Literary Tool**: Strictly reserved for irreversible turns, capped at $\le 1\text{–}2 / 1,000$ words.
-- **One Speaker Per Paragraph**: Every speaker turn is an independent paragraph braiding dialogue with that character's own physical micro-actions.
+- **Paragraph Braiding (3 to 6 Sentences)**: Group sensory atmosphere, physical micro-action, gear interaction, and immediate somatic consequences into cohesive braided non-dialogue paragraphs without padding crisp dialogue volleys.
+- **Sequential Staccato Prevention**: Avoid stacking `3+` sequential 1-sentence non-dialogue lines; isolated 1-sentence pivots and dialogue beats require no filler or justification.
+- **One Speaker Per Paragraph**: Every speaker turn is an independent paragraph; short dialogue exchanges may stay 1–2 sentences cleanly without invented stage business.
 
 ### Axis 3: Protagonist Agency & Stakes
 - **Active Driver vs. Passive Passenger**: The protagonist must make deliberate tactical or moral decisions that dictate the outcome of the scene.
@@ -142,9 +147,9 @@ Rather than relying on arbitrary synthetic numeric scores (e.g. `X/10`), drafts 
 
 When refactoring drafts during Stage 4/6, apply these five transformations:
 
-1. **Braid Fragmented Lines into Cohesive Paragraphs**:
-   - Merge isolated 1–2 sentence lines into flowing 3–6 sentence paragraphs.
-   - Enforce single-sentence quota ($\le 1\text{–}2 / 1000$ words) reserved for dramatic hinges.
+1. **Resolve Sequential Staccato Stacks (`>= 3` Lines) by Merging — Never Padding**:
+   - Merge stacked sequential 1-sentence non-dialogue lines (`staccato_runs`) into cohesive paragraphs **without inventing filler sentences**.
+   - **Zero-Padding Rule**: Never add ambient scenery, physical props, or synthetic internal monologues merely to lengthen a 1–2 sentence dialogue or narrative beat. Every added word must carry thematic or continuity weight consistent with the scene.
    - Enforce one speaker per paragraph.
 2. **Translate Dry TTRPG Math -> Consecrated Fiction**:
    - *Nuyen as Existential Debt*: Rent, identity masks, cyberware maintenance leases, chassis mortgages.
@@ -156,7 +161,8 @@ When refactoring drafts during Stage 4/6, apply these five transformations:
    - *Preserve Essential Contextual Scaffolding*: Provide grounded sensory details when a reader cannot reasonably deduce specialized dynamics (e.g. medical triage desensitization buffering against charisma until the smock comes off; Reiko's gold tactical logic versus indigo resonant soul).
 4. **Affirmative Staging & Non-Action Pruning**:
    - Strip gratuitous negative non-actions (*"did not flinch"*, *"did not look back"*) whenever the positive physical detail (*"her hands remained flat against her knees"*) already carries the weight.
-5. **The "Pay Rent" Modifier & Stage-Direction Scalpel**:
+5. **The "Pay Rent" Modifier, Adverb & Stage-Direction Scalpel**:
+   - *Triage Every `-ly` Adverb (`DELETE` / `EXPAND_WITH_DETAIL` / `KEEP`)*: Evaluate every adverb surfaced by `sr6 lint`'s `-ly` audit. Delete hollow modifiers and dialogue adverbs (`said quietly/softly/simply`); whenever an adverb masks a rushed beat, replace it with a brief concrete sensory or physical detail that adds breathing room and color.
    - *Strip Tautological Modifiers*: Cut adjectives that restate the noun (*"narrow wire"*, *"solitary filament"*, *"dry papyrus"*, *"luminous fire"*, *"internally seeded"*).
    - *De-Stack Intensifiers in High-Voltage Beats*: In climax or horror paragraphs, strip editorializing intensifiers (*"crushing"*, *"terrifying"*, *"annihilating"*, *"bone-chilling"*) so concrete nouns and verbs carry the weight.
    - *Prune Pre-Action Emotional Labels*: Never pre-label an emotion (*"fiercely affectionate hiss"*, *"defensive static"*) when the physical action in the same or next sentence (*"butted his forehead against her jaw"*, *"her arm snapped across her ribs"*) already stages it.
@@ -188,8 +194,7 @@ Do not treat line-editing as passive re-reading; execute an active subtraction a
 When evaluating or chiseling a chapter, deliver:
 1. **Editorial Readiness Gates & Craft Telemetry Table**:
    - Status of all hard gates (buzzwords, multi-speaker paragraphs, ellipses, proximity echoes, unicode).
-   - Descriptive craft metrics (braiding cadence, single-sentence quota, burstiness CV, plus **net before/after word-count delta** when executing an active chisel pass).
+   - Descriptive craft metrics (non-dialogue braiding cadence, sequential staccato run count, burstiness CV, plus **net before/after word-count delta**; `diff_reviewer` flags any positive word growth not explicitly justified by continuity or theme).
 2. **Transparent Craft Callouts**:
-   - Single-sentence paragraph justifications (identify quote, line, and the dramatic hinge, or "None deployed").
    - Contextual scaffolding justifications (identify domain mechanic or proprietary motif scaffolded, or "None required").
 3. **Drop-in Polished Prose**: Ready-to-paste markdown replacements or direct file updates.

@@ -15,10 +15,10 @@ terms:
   "SRM": "S R M"
   "IC": "Ice"
   "ICE": "Ice"
-  "ARO": "A R O"
-  "AROs": "A R Os"
-  "APDS": "A P D S"
-  "ASDF": "A S D F"
+  "ARO": "[ARO](/ˈAˌɑɹˈO/)"
+  "AROs": "[AROs](/ˈAˌɑɹˈOz/)"
+  "APDS": "[APDS](/ˈApˌidˌiˈɛs/)"
+  "ASDF": "[ASDF](/ˈAˌɛsdˌiˈɛf/)"
   "M-TOC": "Em Toc"
   "M-TOCs": "Em Toc"
   "MCT": "Em See Tee"
@@ -71,7 +71,7 @@ terms:
   "Evo": "Ee-voh"
   "TXM": "T X M"
   "S-K": "Ess Kay"
-  "CAS": "See Ay Ess"
+  "CAS": "[CAS](/sˈiˈAˈɛs/)"
   "DSEC-I": "D Sek One"
   "DSEC-II": "D Sek Two"
   "DEUS": "Day-us"
@@ -120,11 +120,11 @@ terms:
   "Yuri-chan": "Yuri chahn"
   "Yuriko-san": "Yooreeko sahn"
   "Ah-Mei": "Ah Mei"
-  "Étaín": "Ay-teen"
-  "Etain": "Ay-teen"
+  "Étaín": "[Étaín](/ˌAtˈin/)"
+  "Etain": "[Etain](/ˌAtˈin/)"
   "Aisling": "Ash ling"
-  "Apophenian": "Ah poh fee nee an"
-  "Goshintai": "Go sheen tye"
+  "Apophenian": "[Apophenian](/ˌæpəfˈiniən/)"
+  "Goshintai": "[Goshintai](/ɡOʃˈintI/)"
   "Nous": "Noose"
   "Zero-One": "Zero One"
   "Discidium": "Dis-sid-ee-um"
@@ -222,6 +222,45 @@ patterns:
     replace: '\1meks'
   - match: '\b([a-zA-Z]+)mech\b'
     replace: '\1mek'
+  - phase: pre
+    match: '\b((?:paused|resumed|continued|stopped|began|finished)\s+(?:her|his|my|their|the)\s+)bowing\b'
+    replace: '\1[bowing](/bˈOɪŋ/)'
+  - phase: pre
+    match: '\b((?:violin|cello|fiddle|stradivarius|rosin|horsehair|archery)\s+)bow\b'
+    replace: '\1[bow](/bˈO/)'
+  - phase: pre
+    match: '\b((?:violin|cello|fiddle|stradivarius|rosin|horsehair|archery)\s+)bows\b'
+    replace: '\1[bows](/bˈOz/)'
+  - phase: pre
+    match: '\b((?:violin|cello|fiddle|stradivarius|rosin|horsehair|archery)\s+)bowed\b'
+    replace: '\1[bowed](/bˈOd/)'
+  - phase: pre
+    match: '\b((?:violin|cello|fiddle|stradivarius|rosin|horsehair|archery)\s+)bowing\b'
+    replace: '\1[bowing](/bˈOɪŋ/)'
+  - phase: pre
+    match: '\bbow(\s+(?:of\s+the\s+(?:violin|cello|fiddle)|hair|hand|arm|stroke|strokes|across\s+(?:the\s+)?strings?|over\s+(?:the\s+)?strings?))\b'
+    replace: '[bow](/bˈO/)\1'
+  - phase: pre
+    match: '\bbowed(\s+(?:the\s+)?(?:strings?|violin|cello|fiddle|notes?|melody))\b'
+    replace: '[bowed](/bˈOd/)\1'
+  - phase: pre
+    match: '\bbowing(\s+(?:the\s+)?(?:strings?|violin|cello|fiddle|notes?|melody|across))\b'
+    replace: '[bowing](/bˈOɪŋ/)\1'
+  - phase: pre
+    match: '\b(draw(?:s|ing)?|drew|rosin(?:ed|ing)?|resin(?:ed|ing)?|tighten(?:ed|ing)?|tuck(?:ed|ing)?|stowed|lifted|raised)\s+(her|his|my|their|the|a)\s+bow\b'
+    replace: '\1 \2 [bow](/bˈO/)'
+  - phase: pre
+    match: '\b(like|heavy as|made of|cast in|solid|molten|gray|grey|hail of|rain of|curtain of|sheet of|sheets of|pumped|eating|while the|as the)\s+lead\b'
+    replace: '\1 led'
+  - phase: pre
+    match: '\blead(?=[-\s]+(?:lined|pipe|pipes|pipework|shield|shielding|vest|apron|ballast|weight|weights|slug|slugs|bullet|bullets|core|cores|brick|bricks|shot|alloy|solder|seal|seals|jacketed|flew|flies|flying|rained|poured))\b'
+    replace: 'led'
+  - phase: pre
+    match: '\b(stream|river|creek|brook|path|road|trail|alley|corridor|staircase|stairs|vine|vines|root|roots|wire|wires|cable|cables|thread|threads|rope|ribbon|serpent|snake)\s+wound\b'
+    replace: '\1 [wound](/wˈWnd/)'
+  - phase: pre
+    match: '\bwound\s+(its way|their way|into a coil|tightly|tight)\b'
+    replace: '[wound](/wˈWnd/) \1'
   - match: '\bcatch lead\b'
     replace: 'catch led'
   - match: '\breach the lead\b'

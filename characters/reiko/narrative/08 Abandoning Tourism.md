@@ -2,29 +2,29 @@
 
 <audio controls src="audio/08 Abandoning Tourism.mp3" style="width: 100%; margin-bottom: 20px;"></audio>
 
-Reiko locked her drone into a rented Louisville charging stall. Moments later she relocated to r3sP@wn, her sanctuary in the Matrix. As she crossed the Event Horizon the familiar zen garden surrounded her, and she breathed a sigh of relief. Her drone shell's minimal sensors and limited compute power always made her feel like she was wearing oven mitts on both hands and had gauze wrapped around her head, and she hated it.
+Reiko locked her drone into a rented Louisville charging stall. Moments later she relocated to r3sP@wn, her sanctuary in the Matrix. As she crossed the Event Horizon the familiar zen garden—still scarred at the outer moss from Renraku's sweep—surrounded her, and she breathed a sigh of relief. Her drone shell's minimal sensors and limited compute power always made her feel like she was wearing oven mitts on both hands and had gauze wrapped around her head, and she hated it.
 
-She needed to talk to someone. Someone on the other side, but someone who understood her. She needed to resolve the disquiet inside her. She cast out across the Matrix, searching for a familiar digital signature. A pull tugged at the other end of a thread: Roanoke. Perfect. She sent an ARO, inviting her to tea.
+She needed to talk to someone. Someone on the other side, but someone who understood her. The disquiet inside her refused to settle. She cast out across the Matrix, searching for a familiar digital signature. A pull tugged at the other end of a thread: Roanoke. Perfect. She sent an ARO, inviting her to tea.
 
-A few cycles later, Roanoke's avatar appeared over the Horizon. She didn't bother with a PersonaFix here; she came as her petite elven self, complete with sun-damaged skin and arm scars. Reiko smiled and motioned to a bench by the garden.
+A few cycles later, her friend's avatar appeared over the Horizon. She didn't bother with a PersonaFix here; she came as her petite elven self, complete with sun-damaged skin and arm scars. Reiko smiled and motioned to a bench by the garden.
 
 "Yuriko," Roanoke greeted her. "How was Kentucky?"
 
 "Please," Reiko said. "You don't need to use my alias here, just as you came here as yourself. And Kentucky is the reason I called. I got scared, I think."
 
-Roanoke nodded thoughtfully and took the offered seat. "So spill. Without the unnecessary details, of course. Plausible deniability and all."
+Roanoke leaned back on the stone bench and tucked one scarred wrist over her knee. "So spill. Without the unnecessary details, of course. Plausible deniability and all."
 
 Reiko laughed. "I'm learning, I promise! Well, it's public knowledge now that T´In´Abula has been discovered. And I can neither confirm nor deny that I was there, right?"
 
 Roanoke grinned. "Good! I'm with you."
 
-"So," Reiko paused, leaning back and petting Taz absentmindedly. "What isn't public is that part of the city is a null zone. I don't understand it, more magic nonsense. But I couldn't feel any resonance at all."
+"So," Reiko paused, leaning back and running her fingers through the crackling static of Taz's ruff. "What isn't public is that part of the city is a null zone. I don't understand it, more arcane nonsense. But I couldn't feel any resonance at all."
 
 Roanoke's grin broadened. "You're literally a ghost in our machines and you call magic 'nonsense'?"
 
-"Hey!" Reiko exclaimed. "It makes perfect sense to me!"
+Taz's ears twitched, throwing a tiny blue arc into the grass. "Hey!" Reiko exclaimed. "It makes perfect sense to me!"
 
-Roanoke shrugged. "And other than Technomancers, who nobody on your side or mine understands, who the hell would understand your nonsense?"
+Roanoke shrugged, tilting her chin toward the violet willow canopy. "And other than Technomancers, who nobody on your side or mine understands, who the hell would understand your nonsense?"
 
 It was Reiko's turn to grin. "Between you and me, I doubt most Technomancers understand themselves."
 
@@ -42,21 +42,21 @@ A look of confusion crossed Reiko's face as she failed to connect the dots. "Bar
 
 "Right," Roanoke said. "They're disposable to you. You didn't invest anything into them."
 
-Reiko nodded, but her confusion betrayed her lack of understanding.
+Reiko nodded, staring past her friend's shoulder.
 
-"Reiko, this was probably the first time you had any stake in a run. Up until now, if you lost a shell what would you have done?" Roanoke asked.
+"Reiko, this was the first time you had any stake in a run. Up until now, if you lost a shell what would you have done?"
 
 "Just slip through the wires," Reiko said. "Back here, or hide deeper in the Holy Wild."
 
-"Exactly," Roanoke leaned forward. "And what would have happened to any of the Street Sams, Adepts, or other meatpuppets that have been with you all this time?"
+"Exactly." Roanoke leaned forward. "And what would have happened to any of the Street Sams, Adepts, or other meatbags that have been with you all this time?"
 
-"Hey!" Reiko exclaimed again. "I don't call them that!"
+Reiko sat up straight, the indigo lines along her sleeves flaring bright. "Hey!" she protested. "I don't call them that!"
 
-"But you think of them that way," Roanoke pushed on. "At least, we aren't part of your world. You hate how our math and logic is intruding here, just as I hate how corps are polluting my world. But my point is this: if they had died, that would have been it for them. That's why they buy armor, guns, and mod themselves until their essence is gone. That's where they exist, that's where their soul is bound to. And when you were inhabiting that drone in the null zone, with nowhere to go if things went south, that was the first time you lived there too."
+"But you think of them that way," Roanoke pushed on. "At least, you aren't part of ours. You hate how cold corporate math is intruding here, just as I hate how corps are polluting meatspace. But my point is this: if they had died, that would have been it for them. That's why they buy armor, guns, and mod themselves until their essence is gone. That's where they exist, that's where their soul is bound to. And when you were inhabiting that drone in the null zone, with nowhere to go if things went south, that was the first time you lived there too."
 
 A few moments passed while Reiko processed her friend's input. Roanoke viewed the physical world as the only real plane, unable to see that for Reiko, squeezing her vast indigo light into the Nissan Samurai was an act of severe limitation and sensory starvation.
 
-"I was scared because I could have died," Reiko said, her voice quiet. "Because I couldn't have escaped. And I was in a Samurai with stock specs and a pea shooter."
+"I was scared," Reiko said, her voice quiet. "I could have died in there, with no way to escape. And I was in a Samurai with stock specs and a pea shooter."
 
 "Dying in stock armor isn't flattering, I'll grant," Roanoke said, the glint returning as the air cleared. "Still wanna run in the shadows?"
 
@@ -70,6 +70,6 @@ Reiko nodded. "I guess I'm done with paper tigers. It's time I got something mea
 
 It was Reiko's turn to smile. "More mischief on your mind?"
 
-Roanoke smiled as she made her way across the threshold. "You know me. See you soon, Reiko."
+Roanoke sketched a two-fingered salute as she stepped across the threshold. "You know me. See you soon, Reiko."
 
 Reiko bowed until the avatar crossed the horizon. She pulled up a drone shopsoft with one hand while she nuzzled Taz. "Looks like we're getting someplace nice to stay."

@@ -45,11 +45,18 @@ def clean_markdown_for_tts(text: str) -> str:
     # 5. Remove HTML tags
     text = re.sub(r'<[^>]+>', '', text)
     
-    # 6. Normalize section breaks (---, ***, ___) to a scene pause placeholder
+    # 6. Strip leading YAML frontmatter if present and normalize section breaks (---, ***, ___)
+    raw_lines = text.splitlines()
+    if raw_lines and raw_lines[0].strip() == "---":
+        for fm_idx in range(1, min(len(raw_lines), 60)):
+            if raw_lines[fm_idx].strip() == "---":
+                raw_lines = raw_lines[fm_idx + 1:]
+                break
+
     lines = []
-    for line in text.splitlines():
+    for line in raw_lines:
         stripped = line.strip()
-        if re.match(r'^(---|[*]{3}|___|===\s*)+$', stripped):
+        if re.match(r'^(?:---+|\*{3,}|_{3,}|={3,}|(?:\*\s+){2,}\*|(?:-\s+){2,}-)$', stripped):
             lines.append("<SCENE_PAUSE>")
             continue
         # Strip header markers (# Title -> Title)
@@ -66,14 +73,16 @@ def clean_markdown_for_tts(text: str) -> str:
     # 7. Convert italicized mindspeech / non-acoustic dialogue (*...*) to spoken double quotes for TTS cadence
     text = re.sub(r'(?<!\*)\*([A-Z0-9][^*]+?[.,?!])\*(?!\*)', r'"\1"', text)
 
-    # 8. Strip inline code backticks, bold, italic, strikethrough markers
+    # 8. Strip inline code backticks, bold, italic, strikethrough markers (single-line safe; preserve <SCENE_PAUSE>)
     text = re.sub(r'```.*?```', '', text, flags=re.DOTALL)
-    text = re.sub(r'`([^`]+)`', r'\1', text)
-    text = re.sub(r'\*\*([^*]+)\*\*', r'\1', text)
-    text = re.sub(r'\*([^*]+)\*', r'\1', text)
-    text = re.sub(r'__([^_]+)__', r'\1', text)
-    text = re.sub(r'_([^_]+)_', r'\1', text)
-    text = re.sub(r'~~([^~]+)~~', r'\1', text)
+    text = re.sub(r'`([^`\n]+)`', r'\1', text)
+    text = re.sub(r'\*\*([^*\n]+)\*\*', r'\1', text)
+    text = re.sub(r'\*([^*\n]+)\*', r'\1', text)
+    text = "\n".join(
+        line if line == "<SCENE_PAUSE>" else re.sub(r'_([^_\n]+)_', r'\1', re.sub(r'__([^_\n]+)__', r'\1', line))
+        for line in text.splitlines()
+    )
+    text = re.sub(r'~~([^~\n]+)~~', r'\1', text)
     
     # 9. Clean up stray markdown symbols like orphan --- or *** in prose
     text = re.sub(r'\s*---+\s*', ' -- ', text)
@@ -129,8 +138,20 @@ def get_pronunciation_dictionary() -> Tuple[dict, list]:
     return _PRONUNCIATION_CACHE
 
 
+_PHONEME_LINK_SPLIT_RE = re.compile(r'(\[[^\]]+\]\(/[^)]+/\))')
+
+
+def _apply_outside_phoneme_links(text: str, transform) -> str:
+    """Applies a regex transform only outside Kokoro [word](/IPA/) spans."""
+    parts = _PHONEME_LINK_SPLIT_RE.split(text)
+    for idx in range(0, len(parts), 2):
+        if parts[idx]:
+            parts[idx] = transform(parts[idx])
+    return "".join(parts)
+
+
 def clean_pronunciation(text: str) -> str:
-    """Applies comprehensive pronunciation corrections for Shadowrun terms, currency, acronyms, honorifics, and hyphenated compound words using external YAML dictionary."""
+    """Applies comprehensive pronunciation corrections for Shadowrun terms, currency, acronyms, honorifics, and contextual heteronyms using external YAML dictionary."""
     # 0. Standalone ~ as host name / home directory
     text = re.sub(r'(?<=[\s(\[\'"`])~(?=[\s)\]\'"`.,;!?]|$)', 'tilde', text)
     text = re.sub(r'^~(?=[\s)\]\'"`.,;!?]|$)', 'tilde', text)
@@ -145,25 +166,43 @@ def clean_pronunciation(text: str) -> str:
     # Load external dictionaries
     terms, patterns = get_pronunciation_dictionary()
 
-    # Apply term replacements (sorted by length descending so longer compound phrases match first)
+    # Phase 1: Contextual pre-patterns (run before generic terms so heteronym overrides win cleanly)
+    for pat in patterns:
+        if pat.get("phase") == "pre" and pat.get("match") and pat.get("replace") is not None:
+            m, r = pat["match"], pat["replace"]
+            text = _apply_outside_phoneme_links(text, lambda s, _m=m, _r=r: re.sub(_m, _r, s, flags=re.IGNORECASE))
+
+    # Phase 2: Exact term replacements (sorted by length descending so longer compound phrases match first)
     sorted_terms = sorted(terms.items(), key=lambda x: len(x[0]), reverse=True)
     for term, replacement in sorted_terms:
         escaped = re.escape(term)
+        ipa_link = re.match(r'^\[([^\]]+)\]\(/([^/]+)/\)$', replacement)
         # Support possessives automatically if term is a clean alphanumeric word
         if re.match(r'^\w+$', term):
             pattern = rf'\b{escaped}(\'s)?\b'
-            rep = rf'{replacement}\1'
-            text = re.sub(pattern, rep, text, flags=re.IGNORECASE)
+            if ipa_link:
+                disp, ipa = ipa_link.group(1), ipa_link.group(2)
+                def _sub_ipa(match, _d=disp, _i=ipa):
+                    if match.group(1):
+                        suf = "ɪz" if _i.endswith(("s", "z", "ʃ", "ʒ", "ʧ", "ʤ")) else "z"
+                        return f"[{_d}'s](/{_i}{suf}/)"
+                    return f"[{_d}](/{_i}/)"
+                text = _apply_outside_phoneme_links(text, lambda s, _p=pattern, _fn=_sub_ipa: re.sub(_p, _fn, s, flags=re.IGNORECASE))
+            else:
+                rep = rf'{replacement}\1'
+                text = _apply_outside_phoneme_links(text, lambda s, _p=pattern, _r=rep: re.sub(_p, _r, s, flags=re.IGNORECASE))
         else:
             pattern = rf'(?<!\w){escaped}(?!\w)'
-            text = re.sub(pattern, replacement, text, flags=re.IGNORECASE)
+            text = _apply_outside_phoneme_links(text, lambda s, _p=pattern, _r=replacement: re.sub(_p, _r, s, flags=re.IGNORECASE))
 
-    # Apply regex pattern replacements
+    # Phase 3: Post-patterns (default legacy/suffix catch-alls)
     for pat in patterns:
+        if pat.get("phase") == "pre":
+            continue
         m = pat.get("match")
         r = pat.get("replace")
         if m and r is not None:
-            text = re.sub(m, r, text, flags=re.IGNORECASE)
+            text = _apply_outside_phoneme_links(text, lambda s, _m=m, _r=r: re.sub(_m, _r, s, flags=re.IGNORECASE))
 
     return text.replace('\\', '')
 
@@ -586,37 +625,37 @@ def generate_narration(file_path: str, output_mp3: Optional[str] = None, pacing:
 
     sample_rate = 24000
     pcm_float_segments = []
-    last_text_index = None
+
+    # Split on <SCENE_PAUSE> BEFORE invoking Kokoro so Kokoro never phonemizes or speaks the placeholder
+    scene_blocks = [blk.strip() for blk in re.split(r'(?:\s*<SCENE_PAUSE>\s*)+', clean_text) if blk.strip()]
 
     try:
-        generator = pipeline(clean_text, voice=voice, speed=1.0)
-        for res in generator:
-            # Check if this segment is a scene pause placeholder
-            graphtext = res.graphemes.strip() if hasattr(res, "graphemes") and res.graphemes else ""
-            if graphtext == "<SCENE_PAUSE>":
+        for blk_idx, block_text in enumerate(scene_blocks):
+            if blk_idx > 0:
                 pcm_float_segments.append(np.zeros(int(sample_rate * scene_pause), dtype=np.float32))
-                last_text_index = getattr(res, "text_index", None)
-                continue
 
-            audio_tensor = getattr(res, "audio", None)
-            if audio_tensor is None and isinstance(res, (list, tuple)) and len(res) >= 3:
-                audio_tensor = res[2]
+            last_text_index = None
+            generator = pipeline(block_text, voice=voice, speed=1.0)
+            for res in generator:
+                audio_tensor = getattr(res, "audio", None)
+                if audio_tensor is None and isinstance(res, (list, tuple)) and len(res) >= 3:
+                    audio_tensor = res[2]
 
-            if audio_tensor is not None and len(audio_tensor) > 0:
-                if hasattr(audio_tensor, "numpy"):
-                    samples_float32 = audio_tensor.detach().cpu().numpy().astype(np.float32)
-                else:
-                    samples_float32 = np.array(audio_tensor, dtype=np.float32)
+                if audio_tensor is not None and len(audio_tensor) > 0:
+                    if hasattr(audio_tensor, "numpy"):
+                        samples_float32 = audio_tensor.detach().cpu().numpy().astype(np.float32)
+                    else:
+                        samples_float32 = np.array(audio_tensor, dtype=np.float32)
 
-                faded_samples = apply_micro_fade(samples_float32, sample_rate, fade_ms=4.0)
+                    faded_samples = apply_micro_fade(samples_float32, sample_rate, fade_ms=4.0)
 
-                # Add natural paragraph pause when transitioning between distinct paragraphs
-                curr_idx = getattr(res, "text_index", None)
-                if last_text_index is not None and curr_idx is not None and curr_idx != last_text_index:
-                    pcm_float_segments.append(np.zeros(int(sample_rate * p_pause), dtype=np.float32))
+                    # Add natural paragraph pause when transitioning between distinct paragraphs
+                    curr_idx = getattr(res, "text_index", None)
+                    if last_text_index is not None and curr_idx is not None and curr_idx != last_text_index:
+                        pcm_float_segments.append(np.zeros(int(sample_rate * p_pause), dtype=np.float32))
 
-                pcm_float_segments.append(faded_samples)
-                last_text_index = curr_idx
+                    pcm_float_segments.append(faded_samples)
+                    last_text_index = curr_idx
     except Exception as e:
         print(f"[Warning] Error during Kokoro synthesis: {e}")
 

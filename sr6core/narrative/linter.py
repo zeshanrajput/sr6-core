@@ -16,7 +16,8 @@ TIER0_HARD_BANNED = [
     "streamline", "robust", "cutting-edge", "paradigm shift", "game changer",
     "this is huge", "this changes everything", "realm", "beacon",
     "multifaceted", "meticulous", "paramount", "transformative",
-    "elevate", "embark", "supercharge", "harness", "ever-evolving"
+    "elevate", "embark", "supercharge", "harness", "ever-evolving",
+    "testament", "palpable", "symphony", "cacophony"
 ]
 
 BANNED_WORDS = TIER0_HARD_BANNED
@@ -64,7 +65,7 @@ PROXIMITY_STOP_WORDS = {
     "every", "against", "mother", "father", "toward", "towards", "around", "another",
     "across", "along", "behind", "beside", "without", "within", "inside", "outside",
     "onto", "upon", "underneath", "never", "always", "something", "anything", "nothing",
-    "knows", "know", "turned", "said", "asked", "replied"
+    "knows", "know", "turned", "said", "asked", "replied", "because"
 }
 
 COGNITIVE_VERBS = ["realized", "felt", "decided", "noticed"]
@@ -120,7 +121,20 @@ ZERO_RENT_SUSPECT_PATTERNS: List[Tuple[str, str]] = [
     ("throat-clearer", r"\b(?:a moment passed as|for a long moment|a soft hint of|came to stand|moved to stand|began to|proceeded to|in order to)\b"),
     ("sensory-scaffolding", r"\bthe (?:sensory echoes|sound|feeling|sensation|sight) of\b"),
     ("taxonomic-intrusion", r"\b(?:anthroform|sapient existence)\b"),
+    ("dialogue-adverb", r"\b(?:said|asked|replied|answered|whispered|murmured|nodded|spoke|added)\s+(?:quietly|softly|simply|calmly|gently|thoughtfully|earnestly|dryly|flatly|coldly)\b"),
 ]
+
+NON_ADVERB_LY_WORDS = {
+    "only", "early", "daily", "weekly", "monthly", "yearly", "hourly",
+    "family", "friendly", "holy", "likely", "unlikely", "lovely", "lonely",
+    "ugly", "silly", "belly", "supply", "rely", "reply", "july", "assembly",
+    "monopoly", "anomaly", "poly", "fly", "ally", "bully", "lily", "jelly",
+    "folly", "tally", "rally", "melancholy", "italy", "emily", "kelly",
+    "sally", "billy", "molly", "holly", "chilly", "oily", "curly", "burly",
+    "surly", "ghastly", "ghostly", "deadly", "costly", "lively", "worldly",
+    "motherly", "fatherly", "brotherly", "sisterly", "elderly", "orderly",
+    "timely", "untimely", "saintly", "knightly", "manly", "womanly",
+}
 
 HIGH_DRAMA_INTENSIFIERS = {
     "crushing", "terrifying", "annihilating", "bone-chilling", "unimaginable",
@@ -131,7 +145,7 @@ HIGH_DRAMA_INTENSIFIERS = {
 
 def run_markdownlint(file_path: str) -> Tuple[List[str], Optional[str]]:
     try:
-        dir_name = os.path.dirname(file_path)
+        dir_name = os.path.abspath(file_path) if os.path.isdir(file_path) else os.path.dirname(os.path.abspath(file_path))
         config_path = None
         current = dir_name
         while current and current != os.path.dirname(current):
@@ -280,11 +294,64 @@ def _load_voice_spec_cliches(char_id: Optional[str]) -> List[str]:
     return cliches
 
 
+def _infer_tier_from_voice_spec(file_path: str, char_id: Optional[str]) -> Optional[int]:
+    """Resolves a chapter's Tier (1, 2, or 3) from its character's voice_spec.md when omitted."""
+    if not char_id or not file_path:
+        return None
+    try:
+        from sr6core.narrative.sync import resolve_character_dir
+        char_dir = resolve_character_dir(char_id)
+    except Exception:
+        char_dir = None
+    if not char_dir:
+        return None
+    voice_spec = char_dir / "reference" / "voice_spec.md"
+    if not voice_spec.exists():
+        return None
+    try:
+        raw_lines = voice_spec.read_text(encoding="utf-8").splitlines()
+    except Exception:
+        return None
+
+    stem = os.path.splitext(os.path.basename(file_path))[0].lower()
+    m_track = re.match(r'^(\d{1,3})', stem)
+    track = m_track.group(1) if m_track else None
+
+    active_tier: Optional[int] = None
+    in_chapters = False
+    for line in raw_lines:
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#"):
+            continue
+        if stripped.startswith("tier_1"):
+            active_tier = 1
+            in_chapters = False
+        elif stripped.startswith("tier_2"):
+            active_tier = 2
+            in_chapters = False
+        elif stripped.startswith("tier_3"):
+            active_tier = 3
+            in_chapters = False
+        elif active_tier and stripped.startswith("chapters:"):
+            in_chapters = True
+        elif in_chapters:
+            if stripped.startswith("- "):
+                entry = stripped[2:].split("#", 1)[0].strip().strip("\"'").lower()
+                if stem == entry or entry.startswith(stem):
+                    return active_tier
+                if track and re.match(rf'^0*{int(track)}(?:[\s_-]|$)', entry):
+                    return active_tier
+            elif not line.startswith(" "):
+                in_chapters = False
+    return None
+
+
 def analyze_prose(
     file_path: str,
     window: int = 3,
     tier: Optional[int] = None,
     char_id: Optional[str] = None,
+    skip_markdownlint: bool = False,
 ) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
     is_file = os.path.exists(file_path) and os.path.isfile(file_path)
     if is_file:
@@ -329,13 +396,41 @@ def analyze_prose(
     # Build clean lines and token stream for lexical budget & echo analysis
     clean_lines = []
     token_stream = []
+    adverb_candidates: List[Dict[str, Any]] = []
+    glued_punctuation_matches: List[Tuple[int, str, str]] = []
+    in_callout = False
     for line_idx, line in enumerate(lines, 1):
         s = line.strip()
-        if not s or s.startswith(("#", "<", "```", "---")):
+        if s.startswith(":::"):
+            in_callout = not in_callout
+            continue
+        if in_callout or not s or s.startswith(("#", "<", "```", "---", "![", "> |", ">|")):
             continue
         clean_lines.append((line_idx, line))
+
+        # Detect missing space after sentence-ending punctuation (e.g. "void.The")
+        for gm in re.finditer(r'\b([a-z]{2,}[.!?][A-Z][a-z]{1,})\b', line):
+            glued_punctuation_matches.append((line_idx, gm.group(1), s))
+
+        # Collect -ly adverb candidates for manual/subagent breathing-room triage
+        for am in re.finditer(r'\b([a-zA-Z]{3,}ly)\b', line):
+            w_raw = am.group(1)
+            if w_raw.lower() not in NON_ADVERB_LY_WORDS:
+                adverb_candidates.append({"line": line_idx, "word": w_raw, "snippet": s})
+
+        # Track acoustic quote and mindspeech spans so cross-turn callbacks stay distinct from narrator echoes
+        dlg_spans: List[Tuple[int, int]] = []
+        for dm in re.finditer(r'["\u201c][^"\u201d\n]+["\u201d]', line):
+            dlg_spans.append((dm.start(), dm.end()))
+        for dm in re.finditer(r'(?<!\*)\*([^*\n]+)\*(?!\*)', line):
+            inner = dm.group(1).strip()
+            if len(re.findall(r'\b\w+\b', inner)) >= 2 or re.search(r'[.?!,]$', inner):
+                dlg_spans.append((dm.start(), dm.end()))
+
         for m in re.finditer(r'\b[a-zA-Z-]{2,}\b', line):
-            token_stream.append((line_idx, m.group(0).lower(), m.group(0), line.strip()))
+            pos = m.start()
+            in_dlg = any(a <= pos < b for a, b in dlg_spans)
+            token_stream.append((line_idx, m.group(0).lower(), m.group(0), s, in_dlg))
 
     # Tier 1: High-Salience Sensory Cliché Budget (Quota: 1 per 3,000 words)
     tier1_allowance = max(1, word_count // 3000)
@@ -366,7 +461,7 @@ def analyze_prose(
     # Tier 3: Sensory Modifiers & Palette Density (Target: <= 3.5 per 1k words)
     tier3_density_alerts = []
     counts_by_token = {}
-    for _, tok_lower, _, _ in token_stream:
+    for _, tok_lower, _, _, _ in token_stream:
         counts_by_token[tok_lower] = counts_by_token.get(tok_lower, 0) + 1
 
     for sw in TIER3_SENSORY_WORDS:
@@ -383,6 +478,7 @@ def analyze_prose(
 
     # Proximity Echo Detection (Bigrams <= 45 words, Content words <= 20 words)
     proximity_echoes = []
+    dialogue_echo_notes = []
     seen_echo_bigrams = set()
     n_tokens = len(token_stream)
 
@@ -400,6 +496,22 @@ def analyze_prose(
         for j in range(i + 1, min(i + 45, n_tokens - 1)):
             if (token_stream[j][1], token_stream[j + 1][1]) == bg:
                 dist = j - i
+                is_dialogue_bigram = (
+                    token_stream[i][4] and token_stream[i + 1][4]
+                    and token_stream[j][4] and token_stream[j + 1][4]
+                )
+                if is_dialogue_bigram:
+                    dialogue_echo_notes.append({
+                        "type": "bigram",
+                        "text": f"{w1} {w2}",
+                        "line1": token_stream[i][0],
+                        "line2": token_stream[j][0],
+                        "distance": dist,
+                        "snippet1": token_stream[i][3],
+                        "snippet2": token_stream[j][3],
+                    })
+                    seen_echo_bigrams.add(bg)
+                    break
                 proximity_echoes.append({
                     "type": "bigram",
                     "text": f"{w1} {w2}",
@@ -413,6 +525,7 @@ def analyze_prose(
                 break
 
     seen_echo_words = set()
+    seen_dlg_echo_words = set()
     for i in range(n_tokens):
         w = token_stream[i][1]
         if w in PROXIMITY_STOP_WORDS or len(w) < 5:
@@ -423,6 +536,20 @@ def analyze_prose(
         for j in range(i + 2, min(i + 22, n_tokens)):
             if token_stream[j][1] == w:
                 dist = j - i
+                is_dialogue_anaphora = bool(token_stream[i][4] and token_stream[j][4])
+                if is_dialogue_anaphora:
+                    if w not in seen_dlg_echo_words:
+                        dialogue_echo_notes.append({
+                            "type": "word",
+                            "text": w,
+                            "line1": token_stream[i][0],
+                            "line2": token_stream[j][0],
+                            "distance": dist,
+                            "snippet1": token_stream[i][3],
+                            "snippet2": token_stream[j][3],
+                        })
+                        seen_dlg_echo_words.add(w)
+                    continue
                 if not any(e["type"] == "bigram" and w in e["text"] and e["line1"] == token_stream[i][0] for e in proximity_echoes):
                     proximity_echoes.append({
                         "type": "word",
@@ -439,7 +566,7 @@ def analyze_prose(
     # Cluster Saturation Alerts (>= 4 occurrences of a 4+ letter content word within 250 tokens)
     cluster_saturation_alerts: List[Dict[str, Any]] = []
     word_positions: Dict[str, List[int]] = {}
-    for idx, (_l_no, w_low, _raw_w, _snip) in enumerate(token_stream):
+    for idx, (_l_no, w_low, _raw_w, _snip, _in_dlg) in enumerate(token_stream):
         if len(w_low) < 4 or w_low in CLUSTER_SATURATION_STOP_WORDS:
             continue
         word_positions.setdefault(w_low, []).append(idx)
@@ -666,7 +793,7 @@ def analyze_prose(
         if in_code_block:
             continue
 
-        if not s or s.startswith(("#", "<", "---", ":::", "{%")):
+        if not s or s.startswith(("#", "<", "---", ":::", "{%", "![", "> |", ">|")):
             if current_para_lines:
                 p_text = " ".join(current_para_lines).strip()
                 if p_text:
@@ -686,17 +813,45 @@ def analyze_prose(
 
     paragraph_count = len(paragraphs)
     braided_paragraph_count = 0
+    non_dialogue_paragraph_count = 0
+    non_dialogue_braided_count = 0
     single_sentence_paragraphs: List[Tuple[int, str]] = []
+    staccato_runs: List[Tuple[int, int, int]] = []
+    current_staccato_run: List[int] = []
 
     for p_start, p_text in paragraphs:
         p_sents = split_paragraph_into_sentences(p_text)
         n_sents = len(p_sents)
+        is_dlg_para = bool(
+            re.search(r'["“][^"”]{2,}["”]', p_text)
+            or re.search(r'(?<!\*)\*[^*\n]{4,}\*(?!\*)', p_text)
+        )
+        if not is_dlg_para:
+            non_dialogue_paragraph_count += 1
+            if 3 <= n_sents <= 6:
+                non_dialogue_braided_count += 1
         if 3 <= n_sents <= 6:
             braided_paragraph_count += 1
-        elif n_sents == 1:
+            if len(current_staccato_run) >= 3:
+                staccato_runs.append((current_staccato_run[0], current_staccato_run[-1], len(current_staccato_run)))
+            current_staccato_run = []
+        elif n_sents == 1 and not is_dlg_para:
             single_sentence_paragraphs.append((p_start, p_text))
+            current_staccato_run.append(p_start)
+        else:
+            if len(current_staccato_run) >= 3:
+                staccato_runs.append((current_staccato_run[0], current_staccato_run[-1], len(current_staccato_run)))
+            current_staccato_run = []
+
+    if len(current_staccato_run) >= 3:
+        staccato_runs.append((current_staccato_run[0], current_staccato_run[-1], len(current_staccato_run)))
 
     braided_ratio = round((braided_paragraph_count / paragraph_count) * 100, 1) if paragraph_count else 0.0
+    non_dialogue_braided_ratio = (
+        round((non_dialogue_braided_count / non_dialogue_paragraph_count) * 100, 1)
+        if non_dialogue_paragraph_count
+        else braided_ratio
+    )
     single_sentence_per_1k = round((len(single_sentence_paragraphs) / word_count) * 1000, 2) if word_count else 0.0
 
     # Multi-speaker paragraph detection
@@ -708,11 +863,12 @@ def analyze_prose(
     }
 
     for start_line, p_text in paragraphs:
-        # Check (a): acoustic speech AND mindspeech
+        # Check (a): acoustic speech AND mindspeech (ignoring italics nested inside acoustic quotes)
         acoustic_quotes = re.findall(r'["“]([^"”]+)["”]', p_text)
         has_acoustic = any(len(re.findall(r'\b\w+\b', q)) >= 2 for q in acoustic_quotes)
 
-        mindspeech_spans = re.findall(r'(?<!\*)\*([^*\n]+)\*(?!\*)', p_text)
+        p_no_quotes = re.sub(r'["“][^"”]+["”]', ' " " ', p_text)
+        mindspeech_spans = re.findall(r'(?<!\*)\*([^*\n]+)\*(?!\*)', p_no_quotes)
         valid_mindspeech = []
         for span in mindspeech_spans:
             s_clean = span.strip()
@@ -730,15 +886,16 @@ def analyze_prose(
             multi_speaker_paragraphs.append((start_line, p_text))
             continue
 
-        # Check (b): two or more separate speech segments (acoustic or mindspeech) attributed to distinct capitalized speaker names
+        # Check (b): two or more separate speech segments attributed outside dialogue text to distinct speaker names
         total_dialogue_units = len(acoustic_quotes) + len(valid_mindspeech)
         if total_dialogue_units >= 2:
+            p_narrative = re.sub(r'(?<!\*)\*[^*\n]+\*(?!\*)', ' ', p_no_quotes)
             speakers = set()
-            for m in re.finditer(rf'\b([A-Z][a-zA-Z0-9_-]+)\s+{dialogue_verbs}\b', p_text):
+            for m in re.finditer(rf'\b([A-Z][a-zA-Z0-9_-]+)\s+{dialogue_verbs}\b', p_narrative):
                 name = m.group(1)
                 if name not in stop_names:
                     speakers.add(name)
-            for m in re.finditer(rf'\b{dialogue_verbs}\s+([A-Z][a-zA-Z0-9_-]+)\b', p_text):
+            for m in re.finditer(rf'\b{dialogue_verbs}\s+([A-Z][a-zA-Z0-9_-]+)\b', p_narrative):
                 name = m.group(1)
                 if name not in stop_names:
                     speakers.add(name)
@@ -796,7 +953,7 @@ def analyze_prose(
                     flagged.sort(key=lambda x: (x["count_in_current"], len(x["chapters"])), reverse=True)
                     cross_chapter_echoes = flagged[:10]
 
-    md_errors, md_err_note = run_markdownlint(file_path) if is_file else ([], None)
+    md_errors, md_err_note = ([], None) if (skip_markdownlint or not is_file) else run_markdownlint(file_path)
 
     unicode_artifact_matches = []
     for line_idx, line in enumerate(lines, 1):
@@ -829,8 +986,12 @@ def analyze_prose(
     for l_no, p_text in multi_speaker_paragraphs:
         redlines.append(f"Line {l_no}: Multi-speaker dialogue in single paragraph violates one-speaker-per-paragraph discipline.")
 
+    for l_no, token, _snip in glued_punctuation_matches:
+        redlines.append(f"Line {l_no}: Missing space after sentence punctuation ('{token}').")
+
     resolved_char_id = char_id or (_infer_char_id_from_path(file_path) if is_file else None)
-    tier_targets = TIER_BENCHMARKS.get(tier) if tier in TIER_BENCHMARKS else None
+    resolved_tier = tier if tier in TIER_BENCHMARKS else (_infer_tier_from_voice_spec(file_path, resolved_char_id) if is_file else None)
+    tier_targets = TIER_BENCHMARKS.get(resolved_tier) if resolved_tier in TIER_BENCHMARKS else None
     tier_warnings: List[str] = []
     if tier_targets:
         if word_count < tier_targets["min_words"]:
@@ -838,9 +999,9 @@ def analyze_prose(
                 f"{tier_targets['label']} word count ({word_count}) is below minimum benchmark "
                 f"({tier_targets['min_words']}; target {tier_targets['target_words']})."
             )
-        if braided_ratio < tier_targets["min_braided_ratio"]:
+        if non_dialogue_braided_ratio < tier_targets["min_braided_ratio"]:
             tier_warnings.append(
-                f"{tier_targets['label']} paragraph braiding ({braided_ratio}%) is below benchmark "
+                f"{tier_targets['label']} non-dialogue paragraph braiding ({non_dialogue_braided_ratio}%) is below benchmark "
                 f"({tier_targets['min_braided_ratio']}%)."
             )
 
@@ -863,12 +1024,13 @@ def analyze_prose(
         and ellipses_valid
         and len(unicode_artifact_matches) == 0
         and len(multi_speaker_paragraphs) == 0
+        and len(glued_punctuation_matches) == 0
     )
 
     report = {
         "file_path": file_path if is_file else "<raw_text>",
         "char_id": resolved_char_id,
-        "tier": tier if tier in TIER_BENCHMARKS else None,
+        "tier": resolved_tier,
         "tier_targets": tier_targets,
         "tier_warnings": tier_warnings,
         "voice_spec_warnings": voice_spec_warnings,
@@ -885,14 +1047,17 @@ def analyze_prose(
         "scent_trio_matches": scent_trio_matches,
         "omniscient_pov_matches": omniscient_pov_matches,
         "unicode_artifact_matches": unicode_artifact_matches,
+        "glued_punctuation_matches": glued_punctuation_matches,
         "tier1_cliche_usage": tier1_usage,
         "tier1_cliche_overages": tier1_overages,
         "tier1_allowance": tier1_allowance,
         "tier2_rare_overages": tier2_overages,
         "tier3_density_alerts": tier3_density_alerts,
         "proximity_echoes": proximity_echoes,
+        "dialogue_echo_notes": dialogue_echo_notes,
         "cluster_saturation_alerts": cluster_saturation_alerts,
         "zero_rent_suspects": zero_rent_suspects,
+        "adverb_candidates": adverb_candidates,
         "markdownlint_errors": md_errors,
         "markdownlint_note": md_err_note,
         "ellipses_count": ellipses_count,
@@ -903,8 +1068,12 @@ def analyze_prose(
         "paragraph_count": paragraph_count,
         "braided_paragraph_count": braided_paragraph_count,
         "braided_ratio": braided_ratio,
+        "non_dialogue_paragraph_count": non_dialogue_paragraph_count,
+        "non_dialogue_braided_count": non_dialogue_braided_count,
+        "non_dialogue_braided_ratio": non_dialogue_braided_ratio,
         "single_sentence_paragraphs": single_sentence_paragraphs,
         "single_sentence_per_1k": single_sentence_per_1k,
+        "staccato_runs": staccato_runs,
         "multi_speaker_paragraphs": multi_speaker_paragraphs,
         "sentence_len_std": round(sentence_len_std, 2),
         "burstiness_cv": burstiness_cv,
@@ -915,7 +1084,123 @@ def analyze_prose(
     return report, None
 
 
-def print_prose_report(report: Dict[str, Any]):
+def analyze_directory(
+    dir_path: str,
+    window: int = 3,
+    tier: Optional[int] = None,
+    char_id: Optional[str] = None,
+    skip_markdownlint: bool = False,
+    include_interludes: bool = False,
+) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
+    """Scans all chapter markdown/qmd files in a directory with optional single-spawn markdownlint."""
+    if not os.path.isdir(dir_path):
+        return None, f"Directory not found: {dir_path}"
+
+    files = []
+    for fname in sorted(os.listdir(dir_path)):
+        if not (fname.endswith(".md") or fname.endswith(".qmd")):
+            continue
+        if not include_interludes and re.match(r'^I\d+', fname, re.IGNORECASE):
+            continue
+        full_p = os.path.join(dir_path, fname)
+        if os.path.isfile(full_p):
+            files.append(full_p)
+
+    if not files:
+        return None, f"No markdown/qmd chapters found in {dir_path}."
+
+    md_by_file: Dict[str, List[str]] = {}
+    if not skip_markdownlint:
+        all_md_errs, _ = run_markdownlint(dir_path)
+        for err_msg in all_md_errs:
+            bname = os.path.basename(err_msg.split(":", 1)[0])
+            md_by_file.setdefault(bname, []).append(err_msg)
+
+    reports: List[Dict[str, Any]] = []
+    total_words = 0
+    passed_count = 0
+    for fp in files:
+        rep, err = analyze_prose(
+            fp,
+            window=window,
+            tier=tier,
+            char_id=char_id,
+            skip_markdownlint=True,
+        )
+        if err or not rep:
+            continue
+        rep["markdownlint_errors"] = md_by_file.get(os.path.basename(fp), [])
+        total_words += rep.get("word_count", 0)
+        if rep.get("gates_passed"):
+            passed_count += 1
+        reports.append(rep)
+
+    resolved_char = char_id or _infer_char_id_from_path(files[0])
+    return {
+        "dir_path": dir_path,
+        "char_id": resolved_char,
+        "total_files": len(reports),
+        "passed_count": passed_count,
+        "failed_count": len(reports) - passed_count,
+        "total_words": total_words,
+        "reports": reports,
+    }, None
+
+
+def print_directory_report(summary: Dict[str, Any], compact: bool = False):
+    """Prints a concise anthology lint table and details only for failing/flagged files."""
+    print(f"=== ANTHOLOGY LINT SUMMARY: {summary['dir_path']} (char: {summary.get('char_id') or 'auto'}) ===")
+    print(f"Files: {summary['total_files']} | Passed: {summary['passed_count']} | Failed: {summary['failed_count']} | Total Words: {summary['total_words']:,}")
+    print("| File | Tier | Status | Words | ND-Br% | CV | Stac | -ly | Redlines |")
+    print("| :--- | :---: | :---: | ---: | ---: | ---: | ---: | ---: | ---: |")
+    for rep in summary["reports"]:
+        name = os.path.basename(rep["file_path"])
+        tier_s = f"T{rep['tier']}" if rep.get("tier") else "-"
+        st = "PASS" if rep.get("gates_passed") else "FAIL"
+        wc = rep.get("word_count", 0)
+        nd = rep.get("non_dialogue_braided_ratio", rep.get("braided_ratio", 0.0))
+        cv = rep.get("burstiness_cv", 0.0)
+        stac_n = len(rep.get("staccato_runs", []))
+        adv_n = len(rep.get("adverb_candidates", []))
+        rl_n = len(rep.get("redlines", []))
+        print(f"| {name} | {tier_s} | {st} | {wc} | {nd}% | {cv} | {stac_n} | {adv_n} | {rl_n} |")
+
+    if not compact:
+        failing = [r for r in summary["reports"] if not r.get("gates_passed") or r.get("zero_rent_suspects")]
+        for rep in failing:
+            print_prose_report(rep, compact=True)
+
+
+def print_prose_report(report: Dict[str, Any], compact: bool = False):
+    if compact:
+        name = os.path.basename(report["file_path"])
+        st = "PASS" if report.get("gates_passed") else "FAIL"
+        nd = report.get("non_dialogue_braided_ratio", report.get("braided_ratio", 0.0))
+        br = report.get("braided_ratio", 0.0)
+        stac_n = len(report.get("staccato_runs", []))
+        print(
+            f"[{st}] {name} (T{report.get('tier') or '-'} | {report.get('char_id') or '-'}) | "
+            f"W:{report['word_count']} | ND-Br:{nd}% | Br:{br}% | CV:{report.get('burstiness_cv', 0.0)} | "
+            f"Stac:{stac_n} | Ell:{report.get('ellipses_per_300', 0.0)}"
+        )
+        for r in report.get("redlines", []):
+            print(f"  REDLINE: {r}")
+        for ca in report.get("cluster_saturation_alerts", []):
+            print(f"  CLUSTER: '{ca['word']}' {ca['count']}x (L{ca['line_start']}-{ca['line_end']})")
+        for zr in report.get("zero_rent_suspects", []):
+            print(f"  ZR L{zr['line']} [{zr['category']}]: {zr['match']}")
+        for tw in report.get("tier_warnings", []):
+            print(f"  TIER: {tw}")
+        for vw in report.get("voice_spec_warnings", []):
+            print(f"  VOICE: {vw}")
+        advs = report.get("adverb_candidates", [])
+        if advs:
+            preview = ", ".join(f"L{a['line']}:{a['word']}" for a in advs[:25])
+            extra = f" (+{len(advs) - 25} more)" if len(advs) > 25 else ""
+            print(f"  -LY ({len(advs)}): {preview}{extra}")
+        for md in report.get("markdownlint_errors", []):
+            print(f"  MD: {md}")
+        return
     print("=" * 65)
     print(f" PROSE LINTER & NO-AI-SLOP AUDIT REPORT")
     print(f" File: {report['file_path']}")
@@ -950,17 +1235,20 @@ def print_prose_report(report: Dict[str, Any]):
     para_cnt = report.get("paragraph_count", 0)
     braided_cnt = report.get("braided_paragraph_count", 0)
     braided_pct = report.get("braided_ratio", 0.0)
-    print(f"  Paragraph Braiding: {braided_cnt} / {para_cnt} paragraphs ({braided_pct}% braided [3-6 sentences])")
+    nd_cnt = report.get("non_dialogue_paragraph_count", 0)
+    nd_braided_cnt = report.get("non_dialogue_braided_count", 0)
+    nd_pct = report.get("non_dialogue_braided_ratio", braided_pct)
+    print(f"  Paragraph Braiding (Non-Dialogue): {nd_braided_cnt} / {nd_cnt} paragraphs ({nd_pct}% braided [3-6 sentences])")
+    print(f"  Paragraph Braiding (All Paragraphs): {braided_cnt} / {para_cnt} paragraphs ({braided_pct}% braided [3-6 sentences])")
 
     single_paras = report.get("single_sentence_paragraphs", [])
     single_rate = report.get("single_sentence_per_1k", 0.0)
-    print(f"  Single-Sentence Paragraphs: {len(single_paras)} ({single_rate} per 1k words, Ceiling: <= 1-2 per 1k)")
-    if single_paras:
-        for l_no, p_text in single_paras[:5]:
-            snippet = p_text[:70] + "..." if len(p_text) > 70 else p_text
-            print(f"    - Line {l_no}: \"{snippet}\"")
-        if len(single_paras) > 5:
-            print(f"    ... and {len(single_paras) - 5} more.")
+    staccato_runs = report.get("staccato_runs", [])
+    print(f"  Single-Sentence Non-Dialogue Beats: {len(single_paras)} ({single_rate} per 1k words; isolated beats allowed)")
+    if staccato_runs:
+        print(f"  [STACCATO RUNS] {len(staccato_runs)} stacked run(s) of >=3 sequential 1-sentence paragraphs (merge rather than pad):")
+        for r_start, r_end, r_len in staccato_runs[:5]:
+            print(f"    - Lines {r_start}-{r_end} ({r_len} consecutive 1-sentence lines)")
 
     multi_speakers = report.get("multi_speaker_paragraphs", [])
     if multi_speakers:
@@ -1039,6 +1327,12 @@ def print_prose_report(report: Dict[str, Any]):
     else:
         print("  [OK] Zero proximity echoes detected.")
 
+    dlg_notes = report.get("dialogue_echo_notes", [])
+    if dlg_notes:
+        print("\n--- CROSS-TURN DIALOGUE CALLBACKS (Advisory, Non-Gating) ---")
+        for dn in dlg_notes:
+            print(f"  [DIALOGUE ECHO] Line {dn['line1']} -> Line {dn['line2']} ({dn['distance']} words): '{dn['text']}'")
+
     print("\n--- CLUSTER SATURATION ALERTS (>= 4 occurrences within 250 tokens) ---")
     cluster_alerts = report.get("cluster_saturation_alerts", [])
     if cluster_alerts:
@@ -1057,6 +1351,15 @@ def print_prose_report(report: Dict[str, Any]):
             print(f"  [SUSPECT: {zr['category']}] Line {zr['line']} ('{zr['match']}'): \"{zr['snippet'][:80]}...\"")
     else:
         print("  [OK] Zero high-confidence zero-rent modifier/throat-clearer suspects detected.")
+
+    advs = report.get("adverb_candidates", [])
+    print(f"\n--- ADVERB AUDIT (-LY CANDIDATES: {len(advs)}) ---")
+    if advs:
+        preview = ", ".join(f"L{a['line']}:{a['word']}" for a in advs[:25])
+        suffix = f" (+{len(advs) - 25} more)" if len(advs) > 25 else ""
+        print(f"  [ADVISORY] Triage DELETE / EXPAND_WITH_DETAIL / KEEP: {preview}{suffix}")
+    else:
+        print("  [OK] Zero -ly adverb candidates detected.")
 
     if report.get("tier_targets") or report.get("char_id"):
         tier_targets = report.get("tier_targets")

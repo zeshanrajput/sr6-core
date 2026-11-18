@@ -105,7 +105,7 @@ Drafts are audited against **Hard Editorial Readiness Gates** and **Descriptive 
 1. `narrative-director` collates audit findings into a unified **Revision Matrix**.
 2. If any Hard Readiness Gate fails or craft telemetry / `ZERO-RENT SUSPECTS` flags defects:
    - Invoke `literary-analysis` (`apply_prose_chisel`) and `no-ai-slop` via the **3-Step Active Chisel Discipline** (Declare Paragraph Job $\rightarrow$ Active Eviction Pass targeting `-5%` to `-8%` words $\rightarrow$ Load-Bearing Readback Test, reporting net word-count delta).
-   - Refactor staccato lines into braided 3–6 sentence paragraphs, enforce single-sentence quotas ($\le 1\text{–}2 / 1,000$ words), and prune negative non-actions.
+   - Merge sequential staccato stacks (`3+` stacked 1-sentence non-dialogue lines) without inventing filler sentences (**Zero-Padding Rule**: isolated 1-sentence beats and crisp dialogue lines stay unpadded), and prune negative non-actions.
    - Re-verify using `uv run sr6 lint "<target_file>" --window 3 --tier <1|2|3> --char <id>`.
 
 ### Stage 5: Publishing & State Tracking (Markdown Trio as Single Source of Truth)
@@ -117,9 +117,9 @@ Upon panel approval:
 
 ### Stage 6: Refinement Mode for Existing Chapters (`literary-analysis <target_file>`)
 Invoked via `literary-analysis <target_file>` or `/literary-analysis <target_file>`:
-1. Run `uv run sr6 lint "<target_file>" --window 3 --tier <1|2|3> --char <id>`.
-2. Delegate Series Bible/continuity cross-checks (`research`/`flash`) and execute the 5 Chisel Transformations via a `flash` Line Chisel Worker (`apply_prose_chisel`) using the **3-Step Active Chisel Discipline** (Lock Paragraph Job $\rightarrow$ Active Eviction Pass $\rightarrow$ Load-Bearing Readback Test).
-3. Re-verify zero regressions and deliver drop-in prose diffs with net word-count deltas and transparent craft callouts (single-sentence pivot justifications and contextual scaffolding rationale).
+1. **Protected Callback Ledger & Directory Baseline Lint**: Before editing an anthology arc, map recurring motif/callback lines across sibling chapters (e.g. `02` $\leftrightarrow$ `37`) into a Protected Callback Ledger so neither linters nor workers break intentional anthology mirrors. Run `uv run sr6 lint "characters/<id>/narrative" --char <id> --fast --compact` (or single-file `--compact`; tier auto-resolves from `voice_spec.md`).
+2. **Arc Auditor (`flash`, read-only) $\rightarrow$ 1-Shot Disjoint Line Chisel Workers (`flash`)**: Set `EnableMCPTools: false` on `arc_auditor`, `prose_chisel_worker`, and `diff_reviewer` so unused MCP schemas are never injected. Dispatch one read-only `flash` Arc Auditor across a 4–8 chapter slice to flag cross-chapter duplications, hardware/timeline anachronisms, voice shifts, and `-ly` adverb triage (`DELETE`, `EXPAND_WITH_DETAIL`, `KEEP`) without heavy-handed forward-seeding. Fan out disjoint `flash` Line Chisel Workers (`apply_prose_chisel`) per 3–4 chapter batch using **1 read + 1 whole-file `write_file(Overwrite=true)` pass + 1 `uv run sr6 lint "<file>" --char <id> --fast --compact` check** per chapter (target `6–10` worker steps rather than incremental `edit_file` loops).
+3. **Diff Reviewer (`flash`, read-only) & Regression Gate**: Delegate `git diff` inspection (`-ly` introductions, Protected Callback Ledger drift, seam blemishes, and a **Net-Growth Tripwire** rejecting unexplained `+Words` padding added merely to lengthen short beats) to a read-only `flash` Diff Reviewer (`<15`-line summary) to protect parent context, run a final anthology `uv run sr6 lint "characters/<id>/narrative" --char <id> --compact`, and deliver net word-count deltas with transparent craft callouts.
 
 ### Stage 7: Standardized Chapter Finalization & CI/CD Verification (`/finalize-chapter <target_file>`)
 Invoked via `/finalize-chapter <target_file>` or `finalize-chapter <target_file>`:

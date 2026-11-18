@@ -100,9 +100,9 @@ This document provides complete descriptions, examples, and fixes for all 29 AI 
 - *Fix (Affirmative Staging):* "His eyes remained locked to the commlink display. She stepped into the rain."
 - *Exception:* Allow negatives when the absence of a natural human response is itself the dramatic point (*"He's quiet. He doesn't cry."*).
 
-### Pattern 23: Staccato / Single-Sentence Paragraph Habit
-- *Flagged:* Stacking 4–6 single-sentence lines sequentially to simulate thriller tension.
-- *Fix:* Braid into cohesive 3–6 sentence paragraphs weaving physical action, sensory cues, and consequences.
+### Pattern 23: Staccato / Stacked Single-Sentence Habit
+- *Flagged:* Stacking 3+ single-sentence non-dialogue paragraphs sequentially to simulate thriller tension.
+- *Fix (Zero-Padding Rule):* Merge sequential staccato beats into cohesive paragraphs rather than inventing filler sentences or scenery. Isolated 1-sentence narrative beats and crisp dialogue turns are exempt.
 
 ### Pattern 24: False Agency / Inanimate Anthropomorphism
 - *Flagged:* "The cyberware yearned for connection." / "The alley swallowed them."
@@ -126,7 +126,7 @@ This document provides complete descriptions, examples, and fixes for all 29 AI 
 
 ### Pattern 28: One Speaker Per Paragraph (MANDATORY)
 - *Flagged:* Combining spoken lines from two different speakers into a single paragraph.
-- *Fix:* Every speaker change requires a new paragraph. Braid dialogue with that speaker's physical actions (2–4 sentences per turn).
+- *Fix:* Every speaker change requires a new paragraph. Short dialogue turns may stay 1–2 sentences without padding; never invent filler actions just to stretch a dialogue paragraph.
 
 ### Pattern 29: Mindspeech & Non-Acoustic Communication Discipline
 - *Flagged:* Formatting direct DI/technomancer/Monad resonant mindspeech with double-quotes (`"..."`) or treating it as acoustic speech.

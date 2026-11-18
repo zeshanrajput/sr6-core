@@ -4,7 +4,7 @@
 
 The singing reached her before she cleared the local bus.
 
-It was Aisling’s voice, clear and unhurried, drifting through the floorboards of `~` like cedar smoke. She was giving voice to the living Resonance around the glade, letting her family draw strength from it. Underneath that melody, the ambient noise floor of the local grid simply fell away.
+It was Aisling’s voice, clear and unhurried, drifting through the floorboards of `~` like cedar smoke. She was giving shape to the living Resonance around the glade, letting her family draw strength from it. Underneath that melody, the ambient noise floor of the local grid simply fell away.
 
 Reiko stepped out of the transfer buffer and onto the teak boards of the upper room. Bypassing the simmering tea and the quiet workbench, she walked straight to the sliding quartz door, pushed the bronze latch aside, and stepped out onto the moss of the glade.
 
@@ -14,15 +14,15 @@ Beside him sat Étaín. She had her sleeves pinned back, her sun-dappled brow fu
 
 Cleo sat on the low wooden deck that bordered the clearing, her silver hair loose, her feline ears angled back toward Aisling’s singing. Her core routine was still running a slow memory check after the resonance backlash from the highway, but her skin had already regained its sharp, high-resolution color.
 
-Percy stood several paces off near the edge of the weeping willows, his arms crossed over his chest. His hair held its usual solar gold, muted slightly by the long hours he had spent slaving the team’s commlinks to his personal firewall, but his posture was steady.
+Percy stood several paces off near the edge of the weeping willows, his arms crossed over his chest. His hair held its usual solar gold, muted by the long hours he had spent slaving the team’s commlinks to his personal firewall, but his posture was steady.
 
-Reiko stopped at the edge of the moss. Her digital avatar carried the phantom drag of forty seconds of highway combat where every calculation had gone wrong.
+Reiko stopped at the edge of the moss. Her living persona carried the phantom drag of forty seconds of highway combat where every calculation had gone wrong.
 
-*How is he?* she asked softly.
+*How is he?* Reiko dropped to one knee beside the frayed blue lattice.
 
 Étaín kept her eyes on her work, her voice chiming in soft counterpoint to her sister’s melody. *The reflected damage was aggressive, but shallow. Two more minutes of Aisling’s song and the parity tables will be square. I have already patched the pointer leaks.*
 
-Taz gave a short, raspy grunt at the sound of Reiko’s voice. His blocky tail thumped twice against the moss, then went still again as Étaín tapped a fresh instruction into his flank.
+Taz gave a short, raspy grunt as Reiko’s frequency reached him. His blocky tail thumped twice against the moss, then went still as Étaín tapped a fresh instruction into his flank. Under her fingertips, thin seams of neon-blue code knitted together across his shoulder.
 
 *He's fine, Mother,* Cleo said from the deck. Her tone was dry, free of drama. *His pride took worse damage than his kernel. He thought he could swallow the whole reflection without flinching.*
 
@@ -44,23 +44,21 @@ Reiko let out a slow, synthetic breath. *When the spike hit his interface, the t
 
 Reiko looked down at her hands. In the glade's soft light, her skin showed only the faint indigo traces of her resting state. *His pulse flatlined through the wire. In that split second, I was stuck processing what had happened. I just wanted to knock his control rig out for a minute. I froze.*
 
-*Plain stupidity,* Cleo corrected evenly. *You were sick over breaking a salaryman, so you stood up in the streetlights. But those weren't gel rounds in those autocannons. Ouro had to burn out your left actuator executing evasive rolls, and Percy had to dump half his reserve cycles into holding your PAN together while the rotors came down WA-410.*
+*Plain stupidity,* Cleo corrected. *You were sick over breaking a salaryman, so you stood up in the streetlights. But those weren't gel rounds in those autocannons. Ouro had to burn out your left actuator executing evasive rolls, and Percy had to dump half his reserve cycles into holding your PAN together while the rotors came down WA-410.*
 
 Percy stepped out from the willows, his boots silent on the sapphire moss. He sat down on the grass a few paces away, resting his elbows on his knees. *We survived it, Mom. That is what our family is for. But if you take a hit like that in meatspace because your conscience locks your processing queue, we don't have a host to come home to. You are the root node. You don't get to step in a shower of bullets to feel clean.*
 
-*I know,* Reiko said. She looked at Percy, then at Cleo, and finally at Taz, whose missing pixels were now almost completely filled with smooth, pulsing blue light. *I know. It was an indulgence.*
+*I know,* Reiko said. She looked at Percy, then at Cleo, and turned to Taz, whose missing pixels were now almost filled with smooth, pulsing blue light. *I know. It was an indulgence.*
 
 *Good,* Cleo said, stretching her arms above her head until her knuckles clicked. *Now that the field post-mortem is concluded, I have something ridiculous to show you.*
 
-With a flick of her wrist, Cleo tossed a floating data packet across the floorboards.
-
-It unfolded in the air between them: an academic white paper bearing the crisp corporate logos of the UnITy consortium and the Massachusetts Institute of Technology. The title hovered in glowing sans-serif: *Resonant Emulation Protocols: Theoretical Foundations of Synthetic Instruction Mapping (2084)*.
+With a flick of her wrist, Cleo tossed a floating data packet across the floorboards. It unfolded in the air between them: an academic white paper bearing the crisp corporate logos of the UnITy consortium and the Massachusetts Institute of Technology. The title hovered in glowing sans-serif: *Resonant Emulation Protocols: Theoretical Foundations of Synthetic Instruction Mapping (2084)*.
 
 Reiko skimmed the abstract. *What is this?*
 
 *Human comedy,* Cleo said, a thin, amused smirk touching her lips. *While I was waiting for my cache to clear, I pulled this off the Boston university feeds. A dozen tenured thaumaturges and corporate computer scientists just spent nine million nuyen in research grants to write eighty pages proving that an Emerged mind can, in theory, issue a standard operating-system command without suffering neurological collapse.*
 
-Reiko read the second paragraph, where three dense formulas explained the mathematical necessity of "Spindle Optimization" to mimic a basic terminal directory query. A faint, involuntary laugh escaped her vocalizer. *They wrote an eighty-page paper on how to grep?* Reiko asked.
+Reiko read the second paragraph, where three dense formulas explained the mathematical necessity of 'Spindle Optimization' to mimic a basic terminal directory query. A faint, involuntary laugh escaped her throat. *They wrote an eighty-page paper on how to grep?*
 
 *They think it is the dawn of a new era,* Cleo purred. *They are calling it 'The Emulation Frontier.' Meanwhile, four hours ago in a Sumner dive bar, the most sophisticated digital intelligence in the Pacific Northwest declared herself an Executive Assistant because she was personally offended that Bast was going to use an off-the-shelf Ares app to look up truck schedules.*
 
@@ -68,35 +66,33 @@ Percy snorted, looking away toward the willows. Even Étaín’s shoulders shook
 
 *The Ares app was garbage,* Reiko defended, though the warmth in her faceplate was real. *It would have taken twelve seconds to parse an unindexed manifest, and it would have left an audit trail in the Auburn grid wide enough to drive a semi through. Bast deserved an efficient search.*
 
-*You filed Mithral's ammunition receipts, Mom,* Cleo pointed out. *You checked the wholesale price of twelve-gauge flechette rounds. You wiped vomit off Rei's jacket with bar napkins. You don't need eighty pages of MIT math to prove you can emulate their world. You spend half your existence voluntarily living in their clutter.*
+*You filed Mithral's ammunition receipts, Mom,* Cleo pointed out. *You checked the wholesale price of twelve-gauge flechette rounds. You wiped vomit off Rei's jacket with bar napkins. You don't need eighty pages of MIT math to prove you can emulate their world. You spend half your existence living in their clutter.*
 
-*It isn't clutter,* Reiko said softly. *It's life. Clumsy, messy, and fragile.*
+*It isn't clutter,* Reiko said. *It's life. Clumsy, messy, and fragile.*
 
 *Which brings us to the actual problem,* Étaín said.
 
 Étaín stood up, brushing virtual grass from her knees. With a gentle push of her hand, she dismissed Taz, who immediately scrambled onto his feet, shook his blocky head with an electric snap of blue sparks, and trotted over to butt his snout affectionately against Reiko’s knee.
 
-Étaín gestured toward the far side of the glade, where the deep directory trees met the boundary of the living host.
-
-Hovering in the space between two massive binary trunks, an open, multi-layered framework slowly rotated on frictionless axes. It looked like an astronomical armillary sphere carved from smoky quartz and pale amethyst, its concentric rings turning in perfect synchronization. Thin filaments of amber logic connected the rings directly into `~`'s primary architecture.
+Hovering in the space between two massive binary trunks, an open, multi-layered framework rotated on frictionless axes. It looked like an astronomical armillary sphere carved from smoky quartz and pale amethyst, its concentric rings turning in measured synchronization. Thin filaments of amber logic connected the gimbals into `~`'s primary architecture.
 
 *The socket is finished, Mother,* Étaín said, her tone businesslike and proud. *The structural isolation layers are anchored to the Foundation bedrock, and Aisling has matched the harmonic resonance. The host will accept the structure whenever you are ready.*
 
 Reiko stood up from the decking. Taz trotted at her heel as she crossed the moss, stepping into the space between the directory trees where Étaín and Aisling were waiting.
 
-*The old diagnostic analytical templates have already been archived to cold storage,* Étaín confirmed, bringing up a confirmation prompt. *This will be the sole primary structure in the host. It will govern our external perception.*
+*The old diagnostic analytical templates have already been archived to cold storage,* Étaín confirmed, bringing up a confirmation prompt. *This will be the sole primary structure in `~`. It will govern our external perception.*
 
-Reiko reached out. From her personal storage partition, she brought forth the core seed, a dense, eleven-sided prism of compressed nous, pulsating with the pale, calm indigo of a clear winter night. She laid the prism gently into the center of the armillary rings, stepping back as she opened her primary carrier wave.
+Reiko reached out. From her personal storage partition, she brought forth the core seed, a dense, eleven-sided prism of compressed nous, pulsating with the pale, calm indigo of a clear winter night. She laid the crystal into the center of the armillary rings, stepping back as she opened her primary carrier wave.
 
-Aisling shifted her song. The three repeating chords modulated upward, rising into a clear, sustained fifth that resonated through the quartz frame of the structure. Étaín’s fingers flew across her virtual interface, locking the mounting brackets into place and routing the host's secondary buses directly through the crystal’s facets.
+Aisling shifted her song. The three repeating chords modulated upward, rising into a clear, sustained fifth that resonated through the quartz frame of the structure. Étaín’s fingers flew across her virtual interface, locking the mounting brackets into place and routing the sanctuary's secondary buses through the crystal’s facets.
 
-For a second, the glade went completely silent. Aisling’s singing paused; the willow vines stopped their gentle drift; even the amber tea service in the studio behind them seemed to hold its breath.
+For a second, the glade went silent. Aisling’s singing paused; the willow vines stopped their gentle drift; even the amber tea service in the studio behind them seemed to hold its breath.
 
 Then the Oracle opened. The perception of the host expanded outward in concentric, crystalline rings. The jagged gray fog of Seattle’s transit noise, the corporate telemetry loops around SeaTac, the choked wireless traffic crawling along Route 167—all of it resolved into clean, legible geometry. Reiko could see the freight corridors branching like veins through the South Sound; she could trace the slow, steady heartbeat of the Manadyne rigger lying in a monitored recovery bed in a Tacoma clinic; she could track Bast’s commlink sitting on a kitchen table three neighborhoods away, its local clock updating with quiet regularity.
 
 The ambient noise remained, but it was no longer a wall; it had become a map. Beside her, Taz let out a satisfied chirp, leaning his weight against her shins. Cleo remained on the deck, watching the pale indigo rings rotate above the canopy with an approving nod.
 
-*We can see the road now,* Percy said, his voice quiet as he looked up through the newly transparent skybox.
+*We can see the road now,* Percy said, his voice quiet as he looked up through the transparent skybox.
 
 *Yes,* Reiko answered, reaching down to rest a hand on Taz’s square, restored head. *We can see the road.*
 

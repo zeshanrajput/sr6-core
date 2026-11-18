@@ -469,7 +469,8 @@ def handle_lint_prose(arguments: Dict[str, Any]) -> str:
         output.append(f"- **Paragraph Braiding Ratio**: {report.get('braided_ratio', 0.0)}% (3-6 sentences)")
     if "single_sentence_per_1k" in report:
         single_cnt = len(report.get('single_sentence_paragraphs', []))
-        output.append(f"- **Single-Sentence Paragraphs**: {single_cnt} ({report.get('single_sentence_per_1k', 0.0)} per 1k words)")
+        stac_cnt = len(report.get('staccato_runs', []))
+        output.append(f"- **Single-Sentence Paragraphs**: {single_cnt} non-dialogue ({report.get('single_sentence_per_1k', 0.0)} per 1k words | Staccato Runs >=3: {stac_cnt})")
 
     if report.get("buzzwords_found"):
         output.append("\n#### Forbidden Buzzwords Detected:")
@@ -486,6 +487,17 @@ def handle_lint_prose(arguments: Dict[str, Any]) -> str:
         for zr in report["zero_rent_suspects"][:10]:
             snip = zr["snippet"][:80] + ("..." if len(zr["snippet"]) > 80 else "")
             output.append(f"- Line {zr['line']} [`{zr['category']}`: `{zr['match']}`] -> {snip}")
+
+    if report.get("adverb_candidates"):
+        adv_preview = ", ".join(f"L{a['line']}:{a['word']}" for a in report["adverb_candidates"][:20])
+        extra = f" (+{len(report['adverb_candidates']) - 20} more)" if len(report["adverb_candidates"]) > 20 else ""
+        output.append(f"\n#### Adverb Audit (-ly Candidates: {len(report['adverb_candidates'])}, Triage DELETE/EXPAND/KEEP):")
+        output.append(f"- {adv_preview}{extra}")
+
+    if report.get("dialogue_echo_notes"):
+        output.append("\n#### Cross-Turn Dialogue Callbacks (Advisory):")
+        for dn in report["dialogue_echo_notes"][:10]:
+            output.append(f"- Lines {dn['line1']}->{dn['line2']}: `{dn['text']}`")
 
     if report.get("tier_warnings"):
         output.append("\n#### Tier Benchmark Warnings:")

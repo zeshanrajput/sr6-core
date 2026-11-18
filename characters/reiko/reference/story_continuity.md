@@ -67,45 +67,45 @@ All narrative outlines, intersession chapters, and character development arcs ad
 
 | Chapter File | Title | Word Count | Status |
 | --- | --- | --- | --- |
-| [01 The Weight of Zero.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/01%20The%20Weight%20of%20Zero.md) | The Weight of Zero | 395 | Verified |
-| [02 Color Blind Mathematics.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/02%20Color%20Blind%20Mathematics.md) | Color-Blind Mathematics | 688 | Verified |
-| [03 The Soul Broker's Stall.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/03%20The%20Soul%20Broker's%20Stall.md) | The Soul-Broker's Stall | 1,008 | Verified |
-| [04 The War Crime.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/04%20The%20War%20Crime.md) | The War Crime | 787 | Verified |
-| [05 A SINner's Loan.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/05%20A%20SINner's%20Loan.md) | A SINner's Loan | 999 | Verified |
-| [06 The Ghost in the Ledger.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/06%20The%20Ghost%20in%20the%20Ledger.md) | The Ghost in the Ledger | 891 | Verified |
-| [07 Sunday at r3sP@wn.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/07%20Sunday%20at%20r3sP@wn.md) | Sunday at r3sP@wn | 1,138 | Verified |
-| [08 Abandoning Tourism.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/08%20Abandoning%20Tourism.md) | Abandoning Tourism | 1,088 | Verified |
-| [09 Triangulation.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/09%20Triangulation.md) | Triangulation | 1,777 | Verified |
-| [10 Game Theory.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/10%20Game%20Theory.md) | Game Theory | 2,435 | Verified |
-| [11 Integrating over Infinity.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/11%20Integrating%20over%20Infinity.md) | Integrating over Infinity | 1,340 | Verified |
-| [12 Defrag.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/12%20Defrag.md) | Defrag | 2,188 | Verified |
-| [13 Field Trip.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/13%20Field%20Trip.md) | Field Trip | 2,969 | Verified |
-| [14 A Point of Favor.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/14%20A%20Point%20of%20Favor.md) | A Point of Favor | 1,468 | Verified |
-| [15 Core.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/15%20Core.md) | Core | 3,011 | Verified |
-| [16 Faith.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/16%20Faith.md) | Faith | 3,236 | Verified |
-| [17 Sheets.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/17%20Sheets.md) | Sheets | 2,419 | Verified |
-| [18 The Geometry of a Sieve.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/18%20The%20Geometry%20of%20a%20Sieve.md) | The Geometry of the Sieve | 1,522 | Verified |
-| [19 Legacy Code.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/19%20Legacy%20Code.md) | Legacy Code | 1,485 | Verified |
-| [20 The Price of Silk.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/20%20The%20Price%20of%20Silk.md) | The Price of Silk | 1,209 | Verified |
-| [21 ~.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/21%20~.md) | ~ | 1,864 | Verified |
-| [22 C Sharp.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/22%20C%20Sharp.md) | C Sharp | 1,872 | Verified |
-| [23 Tea with a Ghost.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/23%20Tea%20with%20a%20Ghost.md) | Tea with a Ghost | 1,792 | Verified |
-| [24 Symlink.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/24%20Symlink.md) | Symlink | 1,893 | Verified |
-| [25 DelTree.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/25%20DelTree.md) | DelTree | 2,289 | Verified |
-| [26 SIGTSTP.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/26%20SIGTSTP.md) | SIGTSTP | 2,819 | Verified |
-| [27 Malloc.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/27%20Malloc.md) | Malloc | 3,021 | Verified |
-| [28 Renice.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/28%20Renice.md) | Renice | 1,679 | Verified |
-| [29 Saturation.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/29%20Saturation.md) | Saturation | 1,936 | Verified |
-| [30 Vim.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/30%20Vim.md) | 30. Vim | 1,815 | Verified |
-| [31 Grep.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/31%20Grep.md) | 31. Grep | 2,016 | Verified |
-| [32 Whois.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/32%20Whois.md) | 32. Whois | 3,141 | Verified |
-| [33 Code Freeze.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/33%20Code%20Freeze.md) | 33. Code Freeze | 3,248 | Verified |
+| [01 The Weight of Zero.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/01%20The%20Weight%20of%20Zero.md) | The Weight of Zero | 342 | Verified |
+| [02 Color Blind Mathematics.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/02%20Color%20Blind%20Mathematics.md) | Color-Blind Mathematics | 699 | Verified |
+| [03 The Soul Broker's Stall.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/03%20The%20Soul%20Broker's%20Stall.md) | The Soul-Broker's Stall | 964 | Verified |
+| [04 The War Crime.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/04%20The%20War%20Crime.md) | The War Crime | 794 | Verified |
+| [05 A SINner's Loan.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/05%20A%20SINner's%20Loan.md) | A SINner's Loan | 961 | Verified |
+| [06 The Ghost in the Ledger.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/06%20The%20Ghost%20in%20the%20Ledger.md) | The Ghost in the Ledger | 913 | Verified |
+| [07 Sunday at r3sP@wn.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/07%20Sunday%20at%20r3sP@wn.md) | Sunday at r3sP@wn | 1,127 | Verified |
+| [08 Abandoning Tourism.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/08%20Abandoning%20Tourism.md) | Abandoning Tourism | 1,138 | Verified |
+| [09 Triangulation.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/09%20Triangulation.md) | Triangulation | 1,822 | Verified |
+| [10 Game Theory.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/10%20Game%20Theory.md) | Game Theory | 2,386 | Verified |
+| [11 Integrating over Infinity.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/11%20Integrating%20over%20Infinity.md) | Integrating over Infinity | 1,469 | Verified |
+| [12 Defrag.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/12%20Defrag.md) | Defrag | 2,233 | Verified |
+| [13 Field Trip.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/13%20Field%20Trip.md) | Field Trip | 2,968 | Verified |
+| [14 A Point of Favor.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/14%20A%20Point%20of%20Favor.md) | A Point of Favor | 1,494 | Verified |
+| [15 Core.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/15%20Core.md) | Core | 3,002 | Verified |
+| [16 Faith.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/16%20Faith.md) | Faith | 3,226 | Verified |
+| [17 Sheets.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/17%20Sheets.md) | Sheets | 2,399 | Verified |
+| [18 The Geometry of a Sieve.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/18%20The%20Geometry%20of%20a%20Sieve.md) | The Geometry of the Sieve | 1,510 | Verified |
+| [19 Legacy Code.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/19%20Legacy%20Code.md) | Legacy Code | 1,464 | Verified |
+| [20 The Price of Silk.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/20%20The%20Price%20of%20Silk.md) | The Price of Silk | 1,201 | Verified |
+| [21 ~.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/21%20~.md) | ~ | 1,824 | Verified |
+| [22 C Sharp.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/22%20C%20Sharp.md) | C Sharp | 1,890 | Verified |
+| [23 Tea with a Ghost.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/23%20Tea%20with%20a%20Ghost.md) | Tea with a Ghost | 1,793 | Verified |
+| [24 Symlink.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/24%20Symlink.md) | Symlink | 1,889 | Verified |
+| [25 DelTree.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/25%20DelTree.md) | DelTree | 2,270 | Verified |
+| [26 SIGTSTP.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/26%20SIGTSTP.md) | SIGTSTP | 2,842 | Verified |
+| [27 Malloc.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/27%20Malloc.md) | Malloc | 3,001 | Verified |
+| [28 Renice.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/28%20Renice.md) | Renice | 1,658 | Verified |
+| [29 Saturation.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/29%20Saturation.md) | Saturation | 1,928 | Verified |
+| [30 Vim.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/30%20Vim.md) | 30. Vim | 1,800 | Verified |
+| [31 Grep.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/31%20Grep.md) | 31. Grep | 1,999 | Verified |
+| [32 Whois.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/32%20Whois.md) | 32. Whois | 3,271 | Verified |
+| [33 Code Freeze.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/33%20Code%20Freeze.md) | 33. Code Freeze | 3,229 | Verified |
 | [34 Latency.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/34%20Latency.md) | 34. Latency | 2,943 | Verified |
 | [35 ptrace.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/35%20ptrace.md) | 35. ptrace | 2,129 | Verified |
 | [36 chown.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/36%20chown.md) | 36. chown | 2,090 | Verified |
-| [37 dev-null.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/37%20dev-null.md) | 37. /dev/null | 2,462 | Verified |
+| [37 dev-null.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/37%20dev-null.md) | 37. /dev/null | 2,463 | Verified |
 
-**Total Anthology Word Count:** 71,062 words across 37 chapters.
+**Total Anthology Word Count:** 71,131 words across 37 chapters.
 
 ## Latest Story beats
 

@@ -76,6 +76,40 @@ class TestNarrationEngine(unittest.TestCase):
         self.assertFalse(is_narrative_chapter("dronomancy.md"))
         self.assertFalse(is_narrative_chapter("rules_combat.qmd"))
 
+    def test_multi_scene_break_preserves_scene_pause_and_strips_frontmatter(self):
+        raw = (
+            "---\n"
+            'title: "Test Chapter"\n'
+            "---\n\n"
+            "First scene with _italic_ cue.\n\n"
+            "---\n\n"
+            "Second scene with multiple breaks.\n\n"
+            "---\n\n"
+            "Third scene.\n"
+        )
+        cleaned = clean_markdown_for_tts(raw)
+        self.assertNotIn("title:", cleaned)
+        self.assertNotIn("<SCENEPAUSE>", cleaned)
+        self.assertEqual(cleaned.count("<SCENE_PAUSE>"), 2)
+        self.assertIn("First scene with italic cue.", cleaned)
+
+    def test_contextual_heteronyms_and_ipa_pronunciation(self):
+        sample = (
+            "Apophenian's cloak brushed past Étaín's hand near the ARO beacon. "
+            "She paused her bowing, stowed the violin, and offered a low bow. "
+            "Guilt sat like lead ballast while the stream wound over pebbles, "
+            "and does it lead back home?"
+        )
+        cleaned = clean_pronunciation(sample)
+        self.assertIn("[Apophenian's](/ˌæpəfˈiniənz/)", cleaned)
+        self.assertIn("[Étaín's](/ˌAtˈinz/)", cleaned)
+        self.assertIn("[ARO](/ˈAˌɑɹˈO/)", cleaned)
+        self.assertIn("paused her [bowing](/bˈOɪŋ/)", cleaned)
+        self.assertIn("low bough", cleaned)
+        self.assertIn("like led ballast", cleaned)
+        self.assertIn("stream [wound](/wˈWnd/)", cleaned)
+        self.assertIn("lead back home", cleaned)
+
 
 if __name__ == "__main__":
     unittest.main()

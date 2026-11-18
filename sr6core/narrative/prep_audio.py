@@ -174,6 +174,14 @@ def scan_audio_prep(file_path: str) -> Tuple[Optional[Dict[str, Any]], Optional[
             w = m.group(0)
             w_low = w.lower()
             mapped_val = terms_lower.get(w_low)
+            for pat in patterns:
+                pat_m = pat.get("match")
+                if not pat_m:
+                    continue
+                for pm in re.finditer(pat_m, cleaned_line, re.IGNORECASE):
+                    if pm.start() <= m.start() and m.end() <= pm.end():
+                        mapped_val = f"pattern -> {pat.get('replace', '')}"
+                        break
             heteronyms.append({
                 "line": idx,
                 "word": w,

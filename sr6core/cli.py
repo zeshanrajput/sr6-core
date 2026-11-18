@@ -14,6 +14,59 @@ from sr6core.rules.advancement import search_catalog, purchase_item_for_characte
 from sr6core.publishing.enricher import expand_quarto_shortcodes
 
 
+def _add_lint_arguments(parser: argparse.ArgumentParser, default_tier: int | None = None):
+    """Registers unified prose-lint options across lint, story lint, and evaluate commands."""
+    parser.add_argument("target", type=str, help="Path to chapter markdown/qmd file or directory")
+    parser.add_argument("--window", type=int, default=3, help="Cross-chapter echo lookback window (default: 3)")
+    parser.add_argument("--tier", type=int, choices=[1, 2, 3], default=default_tier, help="Chapter tier benchmark (auto-inferred from voice_spec.md when omitted)")
+    parser.add_argument("--char", type=str, default=None, help="Character ID context for voice_spec calibration (auto-inferred from path when omitted)")
+    parser.add_argument("--compact", action="store_true", help="Output compact token-lean diagnostics")
+    parser.add_argument("--fast", action="store_true", help="Skip external markdownlint-cli subprocess for sub-second scans")
+    parser.add_argument("--include-interludes", action="store_true", help="Include I0*.md interludes during directory scans")
+
+
+def _execute_lint_command(args: argparse.Namespace):
+    """Runs single-file or directory anthology linting with unified formatting."""
+    from sr6core.narrative.linter import (
+        analyze_prose,
+        analyze_directory,
+        print_prose_report,
+        print_directory_report,
+    )
+    window = getattr(args, "window", 3)
+    tier = getattr(args, "tier", None)
+    char_id = getattr(args, "char", None)
+    compact = getattr(args, "compact", False)
+    fast = getattr(args, "fast", False)
+    include_interludes = getattr(args, "include_interludes", False)
+
+    if os.path.isdir(args.target):
+        summary, err = analyze_directory(
+            args.target,
+            window=window,
+            tier=tier,
+            char_id=char_id,
+            skip_markdownlint=fast,
+            include_interludes=include_interludes,
+        )
+        if err:
+            print(f"[Error] {err}")
+        else:
+            print_directory_report(summary, compact=compact)
+    else:
+        res, err = analyze_prose(
+            args.target,
+            window=window,
+            tier=tier,
+            char_id=char_id,
+            skip_markdownlint=fast,
+        )
+        if err:
+            print(f"[Error] {err}")
+        else:
+            print_prose_report(res, compact=compact)
+
+
 def run_sync_all():
     print("\n============================================================")
     print("      RUNNING FULL SR6 ECOSYSTEM SYNC (sync-all)")
@@ -189,11 +242,8 @@ def main():
     # -------------------------------------------------------------
     story_parser = subparsers.add_parser("story", help="Narrative prose linting, continuity, and audio narration")
     story_sub = story_parser.add_subparsers(dest="subcommand", help="Story action to perform")
-    s_lint = story_sub.add_parser("lint", help="Lint chapter prose for style, ellipses, and AI buzzwords")
-    s_lint.add_argument("target", type=str, help="Path to chapter markdown/qmd file")
-    s_lint.add_argument("--window", type=int, default=3, help="Cross-chapter echo lookback window (default: 3)")
-    s_lint.add_argument("--tier", type=int, choices=[1, 2, 3], default=None, help="Optional chapter tier benchmark (1=Keystone 9.0, 2=Standard 8.5, 3=Micro-slice 8.0)")
-    s_lint.add_argument("--char", type=str, default=None, help="Optional character ID context for voice_spec calibration (auto-inferred from path when omitted)")
+    s_lint = story_sub.add_parser("lint", help="Lint chapter prose or directory for style, ellipses, and AI buzzwords")
+    _add_lint_arguments(s_lint)
     s_cont = story_sub.add_parser("continuity", help="Run campaign timeline & story continuity audit")
     s_cont.add_argument("repo_path", type=str, help="Repository directory path")
     s_narrate = story_sub.add_parser("narrate", help="Generate or manage TTS audio narration")
@@ -283,11 +333,8 @@ def main():
     m_get.add_argument("id", type=str, help="Mission ID or code")
     m_get.add_argument("--json", action="store_true", help="Output in JSON format")
 
-    lint_parser = subparsers.add_parser("lint", help="Lint Quarto chapter prose")
-    lint_parser.add_argument("target", type=str, help="Path to chapter markdown/qmd file")
-    lint_parser.add_argument("--window", type=int, default=3, help="Cross-chapter echo lookback window (default: 3)")
-    lint_parser.add_argument("--tier", type=int, choices=[1, 2, 3], default=None, help="Optional chapter tier benchmark (1=Keystone 9.0, 2=Standard 8.5, 3=Micro-slice 8.0)")
-    lint_parser.add_argument("--char", type=str, default=None, help="Optional character ID context for voice_spec calibration (auto-inferred from path when omitted)")
+    lint_parser = subparsers.add_parser("lint", help="Lint Quarto chapter prose or narrative directory")
+    _add_lint_arguments(lint_parser)
 
     cont_parser = subparsers.add_parser("continuity", help="Run campaign timeline & story continuity audit")
     cont_parser.add_argument("repo_path", type=str, help="Repository directory path")
@@ -430,10 +477,7 @@ def main():
 
     # evaluate subcommand
     eval_parser = subparsers.add_parser("evaluate", help="Perform unified 7-axis narrative audit with tier-calibrated scoring")
-    eval_parser.add_argument("target", type=str, help="Path to chapter .qmd file or prose text")
-    eval_parser.add_argument("--tier", type=int, choices=[1, 2, 3], default=2, help="Chapter Tier (1=Keystone 9.0, 2=Narrative Evolution 8.5, 3=Atmospheric Bridge 8.0)")
-    eval_parser.add_argument("--char", type=str, default=None, help="Character ID context (reiko, velvet, venn)")
-    eval_parser.add_argument("--window", type=int, default=3, help="Cross-chapter echo lookback window (default: 3)")
+    _add_lint_arguments(eval_parser, default_tier=None)
 
     # validate-dossier subcommand
     val_parser = subparsers.add_parser("validate-dossier", help="Validate character YAML items against SQLite catalog keys")
@@ -1054,17 +1098,7 @@ def main():
 
     elif args.command == "story":
         if args.subcommand == "lint":
-            from sr6core.narrative.linter import analyze_prose, print_prose_report
-            res, err = analyze_prose(
-                args.target,
-                window=getattr(args, "window", 3),
-                tier=getattr(args, "tier", None),
-                char_id=getattr(args, "char", None),
-            )
-            if err:
-                print(f"[Error] {err}")
-            else:
-                print_prose_report(res)
+            _execute_lint_command(args)
 
         elif args.subcommand == "continuity":
             from sr6core.narrative.continuity import build_continuity_report, print_continuity_report
@@ -1219,17 +1253,7 @@ def main():
                 print(f"[Error] Schema lookup failed: {e}")
 
     elif args.command == "lint":
-        from sr6core.narrative.linter import analyze_prose, print_prose_report
-        report, err = analyze_prose(
-            args.target,
-            window=getattr(args, "window", 3),
-            tier=getattr(args, "tier", None),
-            char_id=getattr(args, "char", None),
-        )
-        if err:
-            print(f"[Error] {err}")
-        else:
-            print_prose_report(report)
+        _execute_lint_command(args)
 
     elif args.command == "continuity":
         from sr6core.narrative.continuity import build_continuity_report, print_continuity_report
@@ -1359,17 +1383,7 @@ def main():
             print_plugin_status_rich()
 
     elif args.command == "evaluate":
-        from sr6core.narrative.linter import analyze_prose, print_prose_report
-        res, err = analyze_prose(
-            args.target,
-            window=getattr(args, "window", 3),
-            tier=getattr(args, "tier", None),
-            char_id=getattr(args, "char", None),
-        )
-        if err:
-            print(f"[Error] {err}")
-        else:
-            print_prose_report(res)
+        _execute_lint_command(args)
 
     elif args.command == "validate-dossier":
         from sr6core.validation import DossierValidator

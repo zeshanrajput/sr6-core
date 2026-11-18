@@ -7,10 +7,18 @@ Unit tests for Narrative Linter enhancements:
 - MCP prose linting formatting
 """
 
+import contextlib
+import io
 import os
 import tempfile
 import unittest
-from sr6core.narrative.linter import analyze_prose, print_prose_report
+from sr6core.narrative.linter import (
+    _infer_tier_from_voice_spec,
+    analyze_directory,
+    analyze_prose,
+    print_directory_report,
+    print_prose_report,
+)
 from sr6core.mcp import handle_lint_prose, handle_evaluate_draft
 
 
@@ -92,6 +100,15 @@ class TestNarrativeLinter(unittest.TestCase):
         report_distinct_mindspeech, _ = analyze_prose(distinct_mindspeech_para)
         self.assertIsNotNone(report_distinct_mindspeech)
         self.assertEqual(len(report_distinct_mindspeech["multi_speaker_paragraphs"]), 1)
+
+        # Case F: Italicized title inside spoken quote & quoted dialogue verb must NOT false-trigger
+        quoted_title_para = (
+            '"Have you ever read *The Magnificent Magician in the Multiverse of Mayhem*?" she asked.\n\n'
+            '"He called Yuriko his imouto," Reiko said. "Do you remember that, Taz?"'
+        )
+        report_false_pos, _ = analyze_prose(quoted_title_para)
+        self.assertIsNotNone(report_false_pos)
+        self.assertEqual(len(report_false_pos["multi_speaker_paragraphs"]), 0)
 
     def test_burstiness_and_paragraph_braiding(self):
         prose = (
@@ -245,6 +262,114 @@ class TestNarrativeLinter(unittest.TestCase):
         mcp_out = handle_lint_prose({"file_path": prose})
         self.assertIn("Zero-Rent Suspects", mcp_out)
         self.assertIn("tautological-modifier", mcp_out)
+
+    def test_dialogue_callbacks_adverbs_glued_and_tier0_sync(self):
+        # 1. Cross-turn dialogue callbacks must not fail hard proximity echo gate
+        callback_prose = (
+            "*What is the frequency of a zero?* he asked.\n\n"
+            "*A zero has no frequency,* she answered across the quiet wire.\n"
+        )
+        rep_cb, err_cb = analyze_prose(callback_prose)
+        self.assertIsNone(err_cb)
+        self.assertEqual(len(rep_cb["proximity_echoes"]), 0)
+        self.assertTrue(any(d["text"] == "frequency" for d in rep_cb["dialogue_echo_notes"]))
+        self.assertTrue(rep_cb["gates_passed"])
+
+        # 2. Dialogue adverb, glued punctuation, and synced Tier 0 buzzwords must flag
+        defect_prose = (
+            '"Stay low," she said quietly across the catwalk.\n\n'
+            "She fell toward the void.The alarms became a cacophony.\n"
+        )
+        rep_def, err_def = analyze_prose(defect_prose)
+        self.assertIsNone(err_def)
+        self.assertFalse(rep_def["gates_passed"])
+        self.assertTrue(any(b[1] == "cacophony" for b in rep_def["banned_matches"]))
+        self.assertTrue(any(g[1] == "void.The" for g in rep_def["glued_punctuation_matches"]))
+        self.assertTrue(any(z["category"] == "dialogue-adverb" for z in rep_def["zero_rent_suspects"]))
+        self.assertTrue(any(a["word"] == "quietly" for a in rep_def["adverb_candidates"]))
+
+        # 3. Quarto callouts and image embeds must not trigger proximity echoes
+        callout_prose = (
+            '::: {.callout-warning title="Spoilers!"}\n'
+            "This chapter contains spoilers for SRM 2081-06.\n"
+            ":::\n\n"
+            "She walked into the twilight.\n\n"
+            "![Walking into twilight](../images/test.webp)\n"
+        )
+        rep_co, err_co = analyze_prose(callout_prose)
+        self.assertIsNone(err_co)
+        self.assertEqual(len(rep_co["proximity_echoes"]), 0)
+        self.assertTrue(rep_co["gates_passed"])
+
+    def test_directory_lint_auto_tier_and_compact_reports(self):
+        # 1. Auto-tier inference from character voice_spec.md
+        t_reiko = _infer_tier_from_voice_spec("characters/reiko/narrative/02 Color Blind Mathematics.md", "reiko")
+        self.assertIn(t_reiko, (1, 2, 3))
+        self.assertIsNone(_infer_tier_from_voice_spec("02 Color Blind Mathematics.md", "nonexistent_char_xyz"))
+
+        # 2. Directory scan skips I0*.md by default and includes them when flagged
+        with tempfile.TemporaryDirectory() as tmpdir:
+            ch1 = os.path.join(tmpdir, "01 Alpha.md")
+            ch2 = os.path.join(tmpdir, "02 Beta.md")
+            interlude = os.path.join(tmpdir, "I01 Interlude.md")
+            clean_body = (
+                "Rain tapped the slate sill while she checked the latch. "
+                "Her coat dripped onto the cedar boards near the door. "
+                "No one crossed the courtyard below.\n"
+            )
+            noisy_body = (
+                "The digital glow felt palpable while she waited quietly.\n"
+            )
+            with open(ch1, "w", encoding="utf-8") as f:
+                f.write(clean_body)
+            with open(ch2, "w", encoding="utf-8") as f:
+                f.write(noisy_body)
+            with open(interlude, "w", encoding="utf-8") as f:
+                f.write(clean_body)
+
+            summary, err = analyze_directory(tmpdir, skip_markdownlint=True, include_interludes=False)
+            self.assertIsNone(err)
+            self.assertEqual(summary["total_files"], 2)
+            self.assertEqual(summary["passed_count"], 1)
+            self.assertEqual(summary["failed_count"], 1)
+
+            summary_inc, err_inc = analyze_directory(tmpdir, skip_markdownlint=True, include_interludes=True)
+            self.assertIsNone(err_inc)
+            self.assertEqual(summary_inc["total_files"], 3)
+
+            # 3. Compact single-file and directory reports emit concise telemetry
+            buf_dir = io.StringIO()
+            with contextlib.redirect_stdout(buf_dir):
+                print_directory_report(summary, compact=True)
+            out_dir = buf_dir.getvalue()
+            self.assertIn("ANTHOLOGY LINT SUMMARY", out_dir)
+            self.assertIn("| 01 Alpha.md |", out_dir)
+            self.assertIn("| 02 Beta.md |", out_dir)
+            self.assertNotIn("REDLINE:", out_dir)
+
+            failing_rep = [r for r in summary["reports"] if not r["gates_passed"]][0]
+            buf_file = io.StringIO()
+            with contextlib.redirect_stdout(buf_file):
+                print_prose_report(failing_rep, compact=True)
+            out_file = buf_file.getvalue()
+            self.assertIn("[FAIL] 02 Beta.md", out_file)
+            self.assertIn("REDLINE:", out_file)
+            self.assertIn("-LY (1): L1:quietly", out_file)
+
+    def test_staccato_runs_and_dialogue_exemption(self):
+        # Dialogue turns must not inflate single_sentence_paragraphs; 3+ consecutive non-dialogue 1-liners trigger staccato_runs
+        prose = (
+            '"Quiet," she whispered.\n\n'
+            '*Wait,* he transmitted.\n\n'
+            "Rain hit the glass.\n\n"
+            "Neon bled across the sill.\n\n"
+            "Boots scraped outside.\n"
+        )
+        rep, err = analyze_prose(prose)
+        self.assertIsNone(err)
+        self.assertEqual(len(rep["single_sentence_paragraphs"]), 3)
+        self.assertEqual(len(rep["staccato_runs"]), 1)
+        self.assertEqual(rep["staccato_runs"][0][2], 3)
 
 
 if __name__ == "__main__":

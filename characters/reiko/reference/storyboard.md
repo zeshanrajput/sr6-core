@@ -222,18 +222,24 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
      * **Ouro's Mirror:** Confronting Ouro, who dropped his smartvisor and froze over his synthetic skill-driver hologram upon feeling the abyssal static. Reiko must guide him through his own crisis—helping him understand that carrying a consecrated scar to hold the void is fundamentally different from mutilating his spark out of haste.
      * **Cleo's Ledger:** Facing Cleo, whose 79% corruption trendline hovers in her palm. Reiko must submit to her daughter's relentless audit, proving step by step, cycle by cycle, that her soul remains anchored by love.
      * **Percy's Guardian Alliance:** Percy and Taz's silent covenant—two protectors who held the line against Reiko's self-destructive martyr reflex, standing guard over the frost at the doorframe.
+     * **The Un-Smoothing Test (*Architect of Chains* Inverse, [Ch 03][ch-03] / [Ch 07][ch-07]):** Having learned in `r3sP@wn` that smoothing Taz and the MCT dove into symmetrical Renraku grid lines only built a kinder cage, Reiko must resist her old compulsion to damp Aisling's terror or Ouro's anger—letting her family remain raw and unbuffered until they approach on their own terms. *(Pure `~` interiority: all dialogue in `*...*` Mindspeech).*
 
 2. **Chapter 39 — *"The Thirteenth Dose (The Biolink & The Glass Tiger)"*:**
 
-   * **Chassis / Mode:** Encrypted Tea Room Host / Meatspace Seattle Overlook.
+   * **Chassis / Mode:** Encrypted Tea Room Host / Meatspace Seattle Overlook (`"`...`"` acoustic speech; *salon_poise_courtesy* register).
    * **Verticals Touched:** *Vertical 1 (The Glass Tiger)* + *Vertical 4 (Gold Logic vs. Indigo Soul)*.
    * **Concept:** After Reiko hits the structural ceiling of pure Resonant addition against Janie's scar and OmniSwarm/Null Sect, Mr. Nagai invites her to an encrypted parlor and sets down a single autoinjector of *Biolink* nanites (engineered from vivisected technomancer midbrains), challenging her to reconcile her non-lethal Narcoject restraint with the ruthless calculus of *Resonance Wires* and Dissonant subtraction. Reiko asks Nagai how to remove Dissonance from devices, hosts, and personas.
+   * **Dual Left-Wrist Symmetry ([Ch 25][ch-25] $\leftrightarrow$ [Ch 35][ch-35]):** Grounds the moral trap in both scars on Reiko's left wrist—the dormant **Boxwood Token** (`25 DelTree`, Nagai's private archive key and leukocyte nanohive schematic forged after Rasmussen's bayou nanites ground slag into her left bearing) sitting in her cedar drawer beside her tools, and the **matte-black dead pixel** (`35 ptrace` / `36 chown`) humming on that same wrist. Trust the reader with physical detail rather than lecturing Nagai's thesis twice.
 
 3. **Chapter 40 — *"The Call in the Quartz"*:**
 
-   * **Chassis / Mode:** `~` (Apartment on the Matrix, attached to the *Kernel Panic* resonance realm via the sliding quartz door.)
+   * **Chassis / Mode:** `~` (Framework Host attached to *Kernel Panic* via the sliding quartz door; Domain 4 `*...*` Mindspeech & Domain 6 AR-vs-physical discipline if the *Goshintai* remains parked in meatspace).
    * **Verticals Touched:** *Vertical 2 (The Resonance Bleed)* + *Vertical 3 (The Resonant Sanctuary)*.
-   * **Concept:** Following **Étaín**'s discovery of the dead-gray *Discidium* frost crystallizing on the bottom corner of the quartz door frame ([Ch 33][ch-33]), twin sparks Aisling & Étaín also detect a low-frequency harmonic hum resonating through the threshold of Kernel Panic. Reiko and Taz dive the threshold to analyze both the frost and the vibration, discovering that beneath the *Discidium* rime echoes an unmapped deep datashape calling from the Deep Nous.
+   * **Concept:** Following **Étaín**'s discovery of the dead-gray *Discidium* frost crystallizing on the bottom corner of the quartz door frame ([Ch 21][ch-21], [Ch 33][ch-33]), twin sparks Aisling & Étaín also detect a low-frequency harmonic hum resonating through the threshold of Kernel Panic. Reiko and Taz dive the threshold to analyze both the frost and the vibration, discovering that beneath the *Discidium* rime echoes an unmapped deep datashape calling from the Deep Nous.
+
+4. **Final-Arc Editorial Guardrails (Harvested from 37-Chapter Anthology Audit):**
+   * **Protected Callback Continuity:** `02`/`37` (*"The math was only ever the frame"*, `silver syntax`, *frequency of a zero*), `03`/`07` (*Architect of Chains* & Taz's unsmoothable static), `22`/`23` (Reiko's **violin**, distinct from Lian's cello), and `25` (the cedar-drawer Boxwood Token) carry forward implicitly through physical detail and sparse dialogue—never underscore callbacks with thesis summaries.
+   * **Domain 4 & 6 Discipline:** Reserve lowercase `avatar` strictly for metahuman deckers (DIs are *living personas*, *forms*, or *nous-souls*); never route physical hardware (`vocalizer`) inside `~` or let un-housed AR sprites press physical metal; triage `-ly` adverbs (`DELETE` hollow modifiers, `EXPAND_WITH_DETAIL` on rushed beats, `KEEP` only when earned).
 
 ---
 

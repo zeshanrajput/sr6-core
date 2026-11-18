@@ -72,5 +72,5 @@ Apophenian gestured down the wire. *From here, the thread narrows to a walk only
 
 Beneath her obsidian sternum plate, Taz answered with a steady purr of static that locked her clock cycle into step with his own. Turning her face toward the horizon where the two wells met in silence, Reiko followed the thread into the twilight.
 
-![Avatar of Apophenian walking the black wire into twilight](../images/r31k0%20-%20apophenian%20avatar.webp)
+![Avatar of Apophenian walking the black wire toward the horizon](../images/r31k0%20-%20apophenian%20avatar.webp)
 

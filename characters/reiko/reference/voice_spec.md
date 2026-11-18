@@ -59,10 +59,10 @@ arc_chronology:
 
   arc_3_sovereign_sanctuary:
     chapters: "18 – 22"
-    narrative_state: "Brynne's debt cleared; inheritance of full agency; studio sanctuary with Indomitable Will; acoustic cello"
+    narrative_state: "Brynne's debt cleared; inheritance of full agency; studio sanctuary with Indomitable Will; acoustic violin"
     expressivity: "Reflexive, authentic micro-expressions; pre-compiled masks completely discarded"
     cognitive_bias: "Complete spiritual and financial autonomy; sovereign Digital Intelligence (DI); artistic resonance"
-    visual_palette: "Radiant indigo and solar gold; deep physical grounding (silk, roasted barley tea, cello string friction)"
+    visual_palette: "Radiant indigo and solar gold; deep physical grounding (silk, roasted barley tea, violin string friction)"
     mechanical_state: "Submersion Grade 2; established r3sP@wn safehouse network"
 
   arc_4_the_apex_horizon:
