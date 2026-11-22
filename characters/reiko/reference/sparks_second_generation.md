@@ -275,7 +275,7 @@ When created as a PC, all characters will have the following:
 
 ### Future State (Merged PC Twin Concept: Étaín + Aisling)
 
-* **Merged Twin Architecture:** In play, **Étaín** is the playable Emergent Intelligence PC (keeping **Spark 6.00** whole—zero codemods—to preserve `Resonance 6` out of chargen), while **Aisling** is created post-chargen as Étaín's permanent **Level 6 Music Ally Sprite** (*Harmonize*, *Captivate Audience*, plus added *Override* and *Diagnostics*). Both twins inhabit matching **Shiawase Silverstar** anthroform drone bodies.
+* **Merged Twin Architecture:** In play, **Étaín** is the playable Emergent Intelligence PC (keeping **Spark 6.00** whole—zero codemods—to preserve `Resonance 6` out of chargen), while **Aisling** is created post-chargen as Étaín's permanent **Level 6 Music Ally Sprite** (*Harmonize*, *Captivate Audience*, plus added *Override* and *Diagnostics*). Both twins inhabit matching **Shiawase Man-at-Arms** anthroform drone bodies.
 * **Aisling (Ally Sprite Stat Targets):** Level 6 Music Sprite (`A 6, S 6, D 10, F 6, RES 7`, *Harmonize*, *Captivate Audience*, *Override* [Pilot 6 in twin chassis], *Diagnostics*, *Engineering*, full *Con 6*, *Influence 6* [Etiquette]).
 * **Étaín (PC Spec — [`characters/lab/etain/`](../../../characters/lab/etain/character_build.qmd)):**
   * **Spark Ethos**: Purist (`Spark 6.00`, zero codemods; sides with Reiko in keeping Sparks whole).
@@ -284,7 +284,7 @@ When created as a PC, all characters will have the following:
   * **Positive Quality**: `Jack Jockey` (6th quality slot alongside `Natural Hacker` + `Sourceror Stream`).
   * **Starting Echoes**: `Resonance Power: Override`, `Overclocking` (active Day 1; `New Sprite Type` and `Sprite Conduit` at Grades 3–4 ahead of Aisling).
   * **Complex Forms**: `Attack Attribution`, `Sleaze Attribution`, `Hyperthreading`, `Resonance Wires` (adding `Diffusion (Firewall)` + `Cleaner` early, then `Enhance Autosofts`, `Enlighten Automaton`, `Resonance Spike`, and `Technoregeneration` for Veteran/Elite scaling; `Cyber Spike` deferred until Grade 8 `Sprite Link`).
-  * **Starting Equipment**: Twin `Shiawase Silverstar` anthroform drones (`9,000¥ × 2`) w/ wheeled secondary propulsion & passive stealth, `Scratch-Built Junk` RCC, `Coding Shop` + `Engineering [Industrial Mechanic] Shop`, `Resonance Focus (R4)`, `R9` Cooperative Autosofts.
+  * **Starting Equipment**: Twin `Shiawase Man-at-Arms` anthroform drones (`4,500¥ × 2`) w/ wheeled secondary propulsion & passive stealth, `Scratch-Built Junk` RCC, `Coding Shop` + `Engineering [Industrial Mechanic] Shop`, `Resonance Focus (R4)`, `R9` Cooperative Autosofts.
 
 ---
 

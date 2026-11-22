@@ -27,18 +27,24 @@ def compile_character(char_id: str) -> Dict[str, Any]:
     if not repo_dir or not os.path.exists(repo_dir):
         raise FileNotFoundError(f"Character repository not found for '{char_id}'.")
 
-    # Locate core markdown files (prefer core/ over chapters/)
+    # Locate core markdown files (prefer core/ over chapters/, then root repo_dir)
     build_path = os.path.join(repo_dir, "core", "character_build.qmd")
     if not os.path.exists(build_path):
         build_path = os.path.join(repo_dir, "chapters", "character_build.qmd")
+    if not os.path.exists(build_path):
+        build_path = os.path.join(repo_dir, "character_build.qmd")
 
     purchases_path = os.path.join(repo_dir, "core", "character_purchases.qmd")
     if not os.path.exists(purchases_path):
         purchases_path = os.path.join(repo_dir, "chapters", "character_purchases.qmd")
+    if not os.path.exists(purchases_path):
+        purchases_path = os.path.join(repo_dir, "character_purchases.qmd")
 
     log_path = os.path.join(repo_dir, "core", "character_log.qmd")
     if not os.path.exists(log_path):
         log_path = os.path.join(repo_dir, "chapters", "character_log.qmd")
+    if not os.path.exists(log_path):
+        log_path = os.path.join(repo_dir, "character_log.qmd")
 
     # 1. Run Log Engine across the Trio to gather all state totals, declared modifiers,
     # spells, complex forms, adept powers, metamagics, echoes, and knowledge skills.
@@ -71,18 +77,29 @@ def compile_character(char_id: str) -> Dict[str, Any]:
         identity["handle"] = identity.get("name", char_id.title())
 
     # Attach dynamic balances from log totals
+    existing_char = cm.get_character_data(char_id) or {}
+    existing_identity = existing_char.get("identity", {}) if isinstance(existing_char, dict) else {}
+    has_log = os.path.exists(log_path)
+
     identity["karma"] = totals.get("Karma", 0)
     identity["lifetime_karma"] = totals.get("Lifetime_Karma", identity["karma"])
     identity["nuyen"] = totals.get("Nuyen", 0)
     identity["lifetime_nuyen"] = totals.get("Lifetime_Nuyen", identity["nuyen"])
+    if not has_log:
+        if existing_identity.get("lifetime_karma") is not None and identity["lifetime_karma"] == identity["karma"]:
+            identity["lifetime_karma"] = existing_identity["lifetime_karma"]
+        if existing_identity.get("lifetime_nuyen") is not None and identity["lifetime_nuyen"] == identity["nuyen"]:
+            identity["lifetime_nuyen"] = existing_identity["lifetime_nuyen"]
     identity["heat"] = totals.get("Heat", 0)
-    if totals.get("Submersion_Grade", 0) > 0:
-        identity["submersion"] = totals["Submersion_Grade"]
+    submersion_val = totals.get("Submersion_Grade", 0)
+    if not has_log and submersion_val <= 0:
+        submersion_val = existing_identity.get("submersion", 0) or len(totals.get("Echoes", []))
+    if submersion_val > 0:
+        identity["submersion"] = submersion_val
     if totals.get("Initiation_Grade", 0) > 0:
         identity["initiation"] = totals["Initiation_Grade"]
 
     # 3. Parse Attributes from character_build.qmd
-    existing_char = cm.get_character_data(char_id)
     attributes: Dict[str, int] = {}
     if existing_char and "attributes" in existing_char:
         attributes = dict(existing_char["attributes"])
@@ -97,9 +114,17 @@ def compile_character(char_id: str) -> Dict[str, Any]:
         with open(build_path, "r", encoding="utf-8") as bf:
             build_text = bf.read()
         build_skill_totals: Dict[str, int] = {}
-        for m_sk in re.finditer(r"inc\(\s*['\"]([^'\"]+)['\"]\s*,\s*(\d+)\s*\)", build_text):
-            k_low = m_sk.group(1).strip().lower()
-            build_skill_totals[k_low] = build_skill_totals.get(k_low, 0) + int(m_sk.group(2))
+        for m_sk in re.finditer(
+            r"\b(assign|inc)\(\s*['\"]([^'\"]+)['\"](?:\s*,\s*(-?\d+))?\s*\)",
+            build_text,
+        ):
+            op = m_sk.group(1)
+            k_low = m_sk.group(2).strip().lower()
+            val = int(m_sk.group(3)) if m_sk.group(3) is not None else 1
+            if op == "assign":
+                build_skill_totals[k_low] = val
+            else:
+                build_skill_totals[k_low] = build_skill_totals.get(k_low, 0) + val
         build_specs_map: Dict[str, list] = {}
         for m_sp in re.finditer(r"^\s*[\*\-]\s*([A-Za-z]+)\s+specialization\s*-\s*([^:\n`]+)", build_text, re.MULTILINE | re.IGNORECASE):
             k_low = m_sp.group(1).strip().lower()
@@ -187,7 +212,7 @@ def compile_character(char_id: str) -> Dict[str, Any]:
         "meta_echoes": totals.get("Echoes", []),
         "echoes": totals.get("Echoes", []),
         "knowledge_skills": totals.get("Knowledge_Skills", []),
-        "contacts": totals.get("Contacts", []),
+        "contacts": totals.get("Contacts") or existing_char.get("contacts", {}),
         "reputation": totals.get("Reputation", {}),
         "total_reputation": totals.get("Total_Reputation", 0),
         "drones": existing_char.get("drones", []),

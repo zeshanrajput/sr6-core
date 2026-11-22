@@ -165,7 +165,8 @@ Submersion_Grade = state["Submersion_Grade"]
 * **Team:** Poe (Dreamwalker), Caitlin/Artemis (Kira Capalu), Yuriko Star  
 * **Contacts:**
   * `{python} contact("Duan Yuhai", fp=1)`
-  * `{python} contact("Xiong Giuyin", fp=1)`  
+  * `{python} contact("Xiong Giuyin", fp=1)`
+  * `{python} contact("River People", loyalty=7, force=True, notes="Month 1 MUG decay")`  
 * **Downtime Actions (1 Major & 1 Minor):**  
   * *Submersion - Living Network:* `{python} inc_many(('Karma', -6), ('Submersion_Grade', 1))` *(Grade 4 with River People Loyalty 8: 10 + 4 - 8 = 6 Karma; Month 1 concludes, Loyalty decays 8 -> 7)*  
   * *Rent & Working for the People (Hooder):* `{python} lifestyle('Low')` | `{python} work_for_the_people()`
@@ -253,6 +254,7 @@ Submersion_Grade = state["Submersion_Grade"]
 * **Contacts:**
   * `{python} contact("Fernand Anato", fp=1)`
   * `{python} contact("Monsieur Johnson", fp=3)`
+  * `{python} contact("River People", loyalty=6, force=True, notes="Month 2 MUG decay")`
 * **Downtime Actions (1 Minor):**
   * *Rent & Working for the People (Hooder):* `{python} lifestyle('Low')` | `{python} work_for_the_people()`
   * *Submersion - Overclocking:* `{python} inc_many(('Karma', -9), ('Submersion_Grade', 1))` *(Grade 6 with River People Loyalty 7: 10 + 6 - 7 = 9 Karma; Month 2 concludes, Loyalty decays 7 -> 6)*
@@ -312,6 +314,7 @@ Submersion_Grade = state["Submersion_Grade"]
   * `{python} contact("Ni Ni Xiaolu", fp=3)`
   * `{python} contact("Bookie", fp=1)`
   * `{python} contact("Trudy", fp=1)`
+  * `{python} contact("River People", loyalty=5, force=True, notes="Month 3 MUG decay")`
 * **Downtime Actions (3 Minor):**
   * *Working for the People:* `{python} work_for_the_people()`
   * *Submersion - Software Emulator:* `{python} inc_many(('Karma', -12), ('Submersion_Grade', 1))` *(Grade 7 with River People Loyalty 5: 10 + 7 - 5 = 12 Karma; Month 3 decayed 6 -> 5)*
@@ -482,6 +485,7 @@ Submersion_Grade = state["Submersion_Grade"]
   * `{python} contact("Ni Ni Xiaolu", fp=1)`
   * `{python} contact("Saint James", fp=1)`
   * `{python} contact("Blackstone", fp=1)`
+  * `{python} contact("River People", loyalty=4, force=True, notes="MUG decay reaches stable collective floor")`
 * **Downtime Actions (1 Major, 1 Minor):**
   * *Submersion - Sprite Link:* `{python} inc_many(('Karma', -14), ('Submersion_Grade', 1))` *(Grade 8 with River People Loyalty 4 floor: 10 + 8 - 4 = 14 Karma)*
   * *Working for the People:* `{python} work_for_the_people()`
@@ -687,7 +691,7 @@ Submersion_Grade = state["Submersion_Grade"]
     * `{python} deregister_sprite("Étaín", reason="In-session convention downtime refresh")` | `{python} add_sprite("Modular", 8, name="Étaín", details="The Skybox Weaver / Phantom (Modular), Suppression, Stability", tasks=3)`
 * **Loot & Equipment Acquisition:**
   * *The Ring (*Gallinae filius*):* Rating 1 Spirit Focus (dark metal band with gold filigree depicting fighting chickens; grants passive +2 Social Rating; logged in `character_purchases.qmd`).
-  * *Knowsoft Acquisition:* Acquired *Dissonance — Theory and Applications* (-1,500¥; logged in `character_purchases.qmd`).
+  * *Knowsoft Acquisition:* Acquired *Dissonance: Theories and Application* (Rating 3 Knowledge Autosoft, -1,500¥; logged in `character_purchases.qmd`).
 * **Session Recording & Transcript:**
   * Audio archive and full CUDA timestamped transcript generated in `characters/reiko/sessions/SMH_2083-01/transcript.md`.
 

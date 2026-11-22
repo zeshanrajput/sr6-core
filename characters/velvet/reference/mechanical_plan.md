@@ -3,6 +3,7 @@
 This document has one operational role: **directing the exact sequence of Karma and Nuyen expenditures, downtime activity allocations, and architectural upgrades during character log updates.**
 
 * **Active State & Historical Records:** Current attributes, known spells, metamagics, acquired gear, bonded foci, and ledger balances are maintained in the Markdown Trio ([`character_log.qmd`](file:///c:/GitHub/sr6-core/characters/velvet/core/character_log.qmd), [`character_purchases.qmd`](file:///c:/GitHub/sr6-core/characters/velvet/core/character_purchases.qmd), [`character_build.qmd`](file:///c:/GitHub/sr6-core/characters/velvet/core/character_build.qmd)) and compiled into `velvet_master.yaml`. Full tabletop mechanics, spirit binding math, and stacking legality rules are codified in [`rules_and_downtime.qmd`](file:///c:/GitHub/sr6-core/characters/velvet/rules/rules_and_downtime.qmd).
+* **Current Active Baseline (Post-SRM 2083-16 / Session 10):** **Initiation Grade 6** (*Channeling, Centering, Masking, Stealth Effect, Power Point, The Magician's Way*); **Magic 6**; **Power Focus R3**; **Mentor Spirit Wise Warrior**; **Finesse** negative quality active. Banked Balances: **1 Karma**, **¥28,265.0**.
 
 ---
 
@@ -14,71 +15,104 @@ Under *SRM Guide v2.4* (pp. 17–20, 47, 59–60), downtime actions between miss
 * **Convention Mission Packs (CMPs):** Grant **2 Minor Actions only** (no Major Action; Initiation cannot be performed post-CMP).
 * **The Coven Decay Protocol (Guild of Freelance Assets):**
   * Currently at **Loyalty 6** (decaying $6 \rightarrow 5 \rightarrow 4$ over upcoming months without maintenance).
+  * *Initiation Cost Formula:* In SRM with an active coven possessing *Symmetrical Initiation* (*Street Wyrd*, p. 128), initiation Karma cost is:
+    $$\text{Cost} = 10 + \text{Target Initiation Grade} - \text{Coven Loyalty}$$
+    *(At Loyalty 6: $10 + \text{Grade} - 6$; at Loyalty 5: $10 + \text{Grade} - 5$; at Loyalty 4 floor: $10 + \text{Grade} - 4$).*
   * **The Loyalty 4 Floor:** Once stabilized at Loyalty 4, maintenance costs only **1 Minor Downtime Action per month** and dues drop to **¥350/mo** ($50 \times \text{Connection 7}$). This permanently preserves a **-4 Karma initiation discount** while leaving every single SRM Major Downtime Action unencumbered.
+* **The Hooder R3 Synergy:**
+  * Hooder (Rating 3) mandates **¥3,000/month** in charitable donations (*6WC*, p. 137).
+  * Under *SRMG v2.4* p. 19, this monthly donation directly funds the **Work for the People** Minor Downtime Action (+1 Karma per month) at zero additional nuyen charge!
 * **Strict Priority Hierarchy (Execute in order upon run completion):**
-  1. **Initiation (Major Action):** Consumes the Major Action on mainline SRMs when Karma threshold is reached. Initiate Grade is hard-capped by current Magic rating (**Grade 6 cap at Magic 6**).
+  1. **Initiation (Tracker 1 — Major Action):** Consumes the Major Action on mainline SRMs when Karma threshold is reached. Initiate Grade is hard-capped by current natural Magic rating ($\text{Grade} \le \text{Magic}$; Grade 6 cap at Magic 6).
   2. **Work for the People (Minor Action):** Non-negotiable conversion of **¥2,000 $\rightarrow$ +1 Karma** (funded directly by the ¥3,000 Hooder R3 monthly obligation).
-  3. **Learn Spells (Minor Action):** Absorb queued spells (**5 Karma + 1 Minor Action study** each).
-     * *Direct Combat & Teamwork Core:* **`Stunball`** (*CRB*, p. 134) $\rightarrow$ **`Wingman`** (*Smooth Operations*, p. 110) $\rightarrow$ **`Wreck (Drones)`** (*Street Wyrd*, p. 27) $\rightarrow$ **`Manaball`** (*CRB*, p. 133).
-     * *Zero Footprint Protocol:* **`Sterilize`** (*Street Wyrd*, p. 56).
-     * *Deferred Flavor & Cosmetic Utility Backlog:* **`Charm`** (*CRB*, p. 138) and **`Fashion`** (*Street Wyrd*, p. 48) (deprioritized due to natural 19–24d social pools and *Cosmetic Control 2*).
-  4. **Spirit Binding & Re-Binding (Minor Action):** Bind Fire or Air spirits up to the Magic $\times$ 3 Force cap (18 Force at Magic 6).
+  3. **Learn Spells (Tracker 2 — Minor Action):** Absorb queued spells (**5 Karma + 1 Minor Action study** each).
+  4. **Focus Bonding (Tracker 3 — Minor Action):** Bond newly acquired Qi or Sustaining foci (**Bonding Karma + 1 Minor Action**).
+  5. **Spirit Binding & Re-Binding (Minor Action):** Bind Fire or Air spirits up to the Magic $\times$ 3 Force cap (18 Force at Magic 6).
 
 ---
 
-## 2. Master Unified Progression Queue
+## 2. Post-Chargen Progression: Three-Tracker Upgrade Protocol
 
-All upcoming upgrades are prioritized sequentially below. When logging post-mission downtime, advance the next available item in this table according to banked Karma, liquid Nuyen, and available action slots.
+Because post-chargen advancement is gated by **three independent finite resources**—**Major Downtime Actions** (Mainline SRMs only), **Karma** (SRMs + CMPs + *Work for the People*), and **Nuyen** (Foci acquisitions, lifestyle, and gear)—progression is tracked in three parallel queues. Whenever an upgrade opportunity opens, execute in strict priority order: **1) Initiation (Tracker 1)** $\rightarrow$ **2) Karma Queue (Tracker 2)** $\rightarrow$ **3) Nuyen & Foci Queue (Tracker 3)**.
 
-### A. Karma Progression Pipeline (Ontological & Metamagic Scaling)
+---
 
-*(Current Baseline: Initiation Grade 5 [Channeling, Centering, Masking, Stealth Effect, Power Point], Magic 6, Power Focus R3, Mentor Spirit Wise Warrior, 2 Karma banked after Session 9, Finesse negative quality active).*
+### Tracker 1: Major Downtime Action Queue (Initiations & Metamagics)
 
-<!-- TODO: Add Attribute Mastery: Charisma (DC 168) -->
+*Each Initiation consumes **1 Major Action** (Mainline SRMs only) and uses the **Guild of Freelance Assets Coven Decay Protocol** (decaying to Loyalty 4 floor). Remember: Initiate Grade cannot exceed natural **Magic** ($\text{Grade} \le \text{Magic}$); therefore, **Initiate Grade 6 is the current cap at Magic 6**, and Grades 7 and 8 require **Magic 6 $\rightarrow$ 7 (K11)** and **Magic 7 $\rightarrow$ 8 (K13)** from Tracker 2 first.*
 
-| Step | Target Upgrade | Category | Cost | Downtime Action Required | Primary Tactical & Architectural Role |
-| :---: | :--- | :--- | :---: | :---: | :--- |
-| **01** | **Sorcery Specialization**<br>• *Spellcasting* | Active Skill | 5 Karma | None (Between runs) | *CRB* 69: Adds **+2 dice** to all Spellcasting tests (raises Spellcasting pool from **15d6 $\rightarrow$ 17d6**). Top priority to restore combat sorcery precision after accelerating Grade 5 initiation. |
-| **02** | **Tactical Defense: Physical Barrier** | Manipulation (Area) | 5 Karma | 1 Minor Action (Study) | *CRB* 141: LOS(A), Sustained, Drain 6. Translucent barrier (Structure = Magic + net hits) providing mobile ballistic cover, barricading hallways, and stopping vehicle ramming. |
-| **03** | **Initiation Grade 6**<br>• *The Magician's Way* | Metamagic | 12 Karma* | 1 Major Action<br>*(Mainline SRM)* | *Street Wyrd* 76: Cost $10+6-4=12\text{K}$ at **Loyalty 4 floor**. Apex capstone at Magic 6. Unlocks dual mentor spirit benefits for *Wise Warrior* (Adept combat sorcery bonus + **-1 Edge cost discount on Combat category spells/rituals**) and Adept drain resistance using $\text{Body} + \text{Charisma}$ (14+ dice). |
-| **04** | **Spell: Stunball** | Direct Combat (Area) | 5 Karma | 1 Minor Action (Study) | *CRB* 134: LOS(A), DV 4, Stun. Non-lethal AoE that **completely bypasses armor** ($\text{Sorcery} + \text{Magic}$ vs $\text{Willpower} + \text{Intuition}$). Immediately activates *Wise Warrior*’s -1 Edge discount on Combat spells. |
-| **05** | **Spell: Wingman** | Detection Spell | 5 Karma | 1 Minor Action (Study) | *Smooth Operations* 110: Specialized sustained Mindlink for social teamwork. Helper gets 1 temporary Edge on assistance; leader gains 1 temporary Edge for *each* die provided (19–24d). Solves the "two faces at the table" dilemma by turning Velvet into an unbeatable cooperative Edge battery. Sustained via *Focused Concentration*. |
-| **06** | **Spell: Wreck (Drones)** | Direct Combat (LOS) | 5 Karma | 1 Minor Action (Study) | *Street Wyrd* 27: LOS, DV 4, Object destruction. Directly bypasses drone armor to destroy chassis/optics. Classified as a **Direct Combat** spell, so it reaps the *Wise Warrior* -1 Edge boost discount. |
-| **07** | **Spell: Manaball** | Direct Combat (Area) | 5 Karma | 1 Minor Action (Study) | *CRB* 133: LOS(A), DV 5, Physical. Silent, lethal direct mana destruction that **completely bypasses armor**. Deployed against hardened combat teams, cybered hit squads, or hostile spirits when stun is insufficient. Reaps *Wise Warrior* -1 Edge discount. |
-| **08** | **Quality: Charismatic Defense** | Positive Quality | 24 Karma<br>*(2x 12K)* | None (Between runs) | *Power Plays* 85: Bases Defense Rating off Charisma instead of Body! DR leaps from 2 $\rightarrow$ **10 (unarmored) / 14 (buffed) / 18–22 (armored)**. Generates defensive Edge against almost all incoming gunfire ("too damn pretty to shoot!"). Prioritized before attribute tax. |
-| **09** | **Untrained Skill Repair**<br>• *Perception 1 (Intuition)*<br>• *Astral 1 (Intuition)* | Active Skills | 10 Karma tot<br>*(5K each)* | None (Between runs) | Removes -1 untrained penalty (+2 dice swing each; Perception 3d $\rightarrow$ 5d, Astral 3d $\rightarrow$ 5d). Essential for spotting physical ambushes and reading emotional auras. |
-| **10** | **Tactical Sabotage: Sterilize** | Manipulation (Area) | 5 Karma | 1 Minor Action (Study) | *Street Wyrd* 56: Complete forensic DNA, biometric, and physical evidence cleansing. Eliminates material crime scene traces. |
-| **11** | **Attribute: Magic 6 $\rightarrow$ 7** | Attribute | 35 Karma | None (Between runs) | Unlocks Initiate Grades 7+, expands Focus Bonding Cap from 30 $\rightarrow$ **35 Force**, and raises safe spirit summoning threshold to Force 6. |
-| **12** | **Initiation Grade 7**<br>• *Extended Masking* | Metamagic | 13 Karma* | 1 Major Action<br>*(Mainline SRM)* | *Street Wyrd* 119 / *SRMG* 37–38: Cost $10+7-4=13\text{K}$ at **Loyalty 4 floor**. **Prerequisite: Masking**. Crucial stealth capstone. Extends aura masking to cover all sustained spells (*Increase Charisma*, *Increase Reflexes*, *Wingman*). Adversary mages and astral security assensing Velvet see only a completely mundane metahuman with zero active magic! |
-| **13** | **Attribute: Magic 7 $\rightarrow$ 8** | Attribute | 40 Karma | None (Between runs) | Expands Individual Focus Force limit to **Force 8** and total cap to **40 Force** ($\text{Magic } 8 \times 5$). Unlocks upgrading 1 Sorcery focus (Force 4 $\rightarrow$ 8) and both Conjuring foci (Force 4 $\rightarrow$ 8 each), bringing **both Sorcery and Conjuring to the maximum +4 Augmented Skill Cap** (37 / 40 Force total across 6 foci, with Sustaining Focus R6). |
-| **14** | **Initiation Grade 8**<br>• *Flexible Signature* | Metamagic | 14 Karma* | 1 Major Action<br>*(Mainline SRM)* | *CRB* 165: Cost $10+8-4=14\text{K}$ at **Loyalty 4 floor**. Enables altering or completely erasing astral signatures from instantaneous spellcasting within turns equal to Initiate Grade (8 turns). Completes the astral ghost footprint. |
-| **15** | **Quality: Teamwork Makes Dream Work** | Positive Quality | 12 Karma<br>*(2x 6K)* | None (Between runs) | *Hack & Slash* 83: Extends social teamwork bonuses to all party members, multiplying Edge generation when paired with *Wingman*. |
+| Grade | Target Metamagic | Source / Prereq | Cost | Cadence / Gate | Tactical & Ontological Role |
+| :---: | :--- | :--- | :---: | :--- | :--- |
+| **1–6** | *Channeling*, *Centering*, *Masking*, *Stealth Effect*, *Power Point*, *The Magician's Way* | *CRB* / *SW* / *DA* | Completed | **Session 1–10** | **Active Baseline:** Conscious spirit channeling, +6 Centering drain resistance, aura & foci masking, sensory stealth casting, +1.0 Adept PP, dual *Wise Warrior* benefits, and Body + Charisma drain resistance. |
+| **7** | **Extended Masking** | *Street Wyrd* 119<br>*SRMG* 37–38 *(Prereq: Masking)* | **13 Karma*** | **1 Major Action**<br>*(Mainline SRM; post-K11)* | **Requires `Magic 6 -> 7` (K11) first.** Cost $10+7-4=13\text{K}$ at **Loyalty 4 floor**. Crucial stealth capstone. Extends aura masking to cover all sustained spells (*Increase Charisma*, *Increase Reflexes*, *Wingman*). Adversary mages and patrol spirits assensing Velvet perceive only a completely mundane metahuman with zero active magic! |
+| **8** | **Flexible Signature** | *CRB* 165 | **14 Karma*** | **1 Major Action**<br>*(Mainline SRM; post-K13)* | **Requires `Magic 7 -> 8` (K13) first.** Cost $10+8-4=14\text{K}$ at **Loyalty 4 floor**. Enables altering or completely erasing astral signatures from instantaneous spellcasting within turns equal to Initiate Grade (8 turns). Completes the astral ghost footprint. |
 
 *\*Initiation cost formula at Loyalty 6: $10 + \text{Grade} - 6$; at Loyalty 4 floor: $10 + \text{Grade} - 4$.*
 
-#### Tactical Note on Debuff Spells vs. Direct Combat
+---
 
-* *Decrease Attribute (Willpower / Intuition):* While tempting to erode defender resistance against *Stunball* or *Manaball*, *Decrease Attribute* (*CRB*, p. 136) has severe mechanical constraints: **Range Touch**, **Sustained duration** (competing for one of Velvet's 3 Focused Concentration slots), and zero effect on Object Resistance. In contrast, Velvet's high Sorcery pool (17–19d6, reaching 21+ with Qi Focus) combined with *The Magician's Way* Edge discounts makes direct offensive casting faster, cleaner, and far more lethal from long range without burning sustaining overhead.
+### Tracker 2: Karma Queue (No Major Action Required)
 
-#### Deferred Backlog ("Nice-to-Have Flavor & Cosmetic Utility")
+*Funded by SRM/CMP mission Karma + monthly `Work for the People` (`+1K/mo` via Hooder R3), running in parallel without consuming Major Actions (reserving sufficient Karma to fund Tracker 1 initiations when mainline SRMs open).*
 
-* **Spell: Charm** (*CRB*, p. 138; 5 Karma) — Manipulation spell granting +4 dice to social tests. Deprioritized because Velvet already operates with natural 19–24d social pools (buying 4–5 hits routinely); +4 extra dice is win-more overkill.
-* **Spell: Fashion** (*Street Wyrd*, p. 48; 5 Karma) — Instant clothing transformation. Deprioritized because *Cosmetic Control 2* already handles biological shape/gender/height alteration, while physical nanopaste disguise kits and high-fashion modular wardrobes cover cosmetic apparel.
+| Priority | Target Upgrade | Category | Cost | Time / Action Required | Primary Tactical & Architectural Role |
+| :---: | :--- | :--- | :---: | :---: | :--- |
+| **K1** | **Sorcery Specialization: Spellcasting** | Active Skill | 5 Karma | None (Between runs) | *CRB* 69: Adds **+2 dice** to all Spellcasting tests (raises Spellcasting pool from **15d6 $\rightarrow$ 17d6**). Top priority to restore combat sorcery precision after accelerating Grade 5 initiation. |
+| **K2** | **Quality: Spirit Affinity (Water)** | Positive Quality | 28 Karma<br>*(2× 14K)* | None (Between runs) | *CRB* 73 / *Astral Ways* 46: Grants +1 bonus Edge on Conjuring tests for Water spirits and unlocks Water elementals. Unlocks Force 4 **Undine** (Channeled `Mist Form` for gaseous infiltration with foci) and Force 4 **Brume** (Channeled `Innate Spell: Fashion` & `Makeover` using Velvet's Sorcery pool), plus Force 10 **Jökulhlaup** (*Ice Dragon*) post-Magic scaling. |
+| **K3** | **Tactical Defense: Physical Barrier** | Manipulation (Area) | 5 Karma | 1 Minor Action (Study) | *CRB* 141: LOS(A), Sustained, Drain 6. Translucent barrier (Structure = Magic + net hits) providing mobile ballistic cover, barricading hallways, and stopping vehicle ramming. |
+| **K4** | **Quality: Attribute Mastery (Charisma)** | Positive Quality | 6 Karma<br>*(2× 3K)* | None (Between runs) | *Double Clutch* 168: Generates a **bonus Edge** on *any* test based on Charisma (all Drain resistance tests, social Influence/Con/Leadership tests, and Charismatic Defense DR) unless Edge is already gained from Attack Rating. Perfect synergy with CHA 10 (14 buffed!). |
+| **K5** | **Spell: Stunball** | Direct Combat (Area) | 5 Karma | 1 Minor Action (Study) | *CRB* 134: LOS(A), DV 4, Stun. Non-lethal AoE that **completely bypasses armor** ($\text{Sorcery} + \text{Magic}$ vs $\text{Willpower} + \text{Intuition}$). Immediately reaps *Wise Warrior*’s -1 Edge discount on Combat spells post-Grade 6. |
+| **K6** | **Spell: Wingman** | Detection Spell | 5 Karma | 1 Minor Action (Study) | *Smooth Operations* 110: Specialized sustained Mindlink for social teamwork. Helper gets 1 temporary Edge on assistance; leader gains 1 temporary Edge for *each* die provided (19–24d). Solves the "two faces at the table" dilemma by turning Velvet into an unbeatable cooperative Edge battery. |
+| **K7** | **Spell: Wreck (Drones)** | Direct Combat (LOS) | 5 Karma | 1 Minor Action (Study) | *Street Wyrd* 27: LOS, DV 4, Object destruction. Spellcasting vs Object Resistance, does net hits unresisted damage. Classified as a **Direct Combat** spell, reaping *Wise Warrior* -1 Edge discount. |
+| **K8** | **Spell: Manaball** | Direct Combat (Area) | 5 Karma | 1 Minor Action (Study) | *CRB* 133: LOS(A), DV 5, Physical. Silent, lethal direct mana destruction that **completely bypasses armor**. Deployed against hardened combat teams, cybered hit squads, or hostile spirits when stun is insufficient. |
+| **K9** | **Quality: Charismatic Defense** | Positive Quality | 24 Karma<br>*(2× 12K)* | None (Between runs) | *Power Plays* 85: Bases Defense Rating off Charisma instead of Body! DR leaps from 2 $\rightarrow$ **10 (unarmored) / 14 (buffed) / 18–22 (armored)**. Generates defensive Edge against almost all incoming gunfire ("too damn pretty to shoot!"). |
+| **K10** | **Spell: Sterilize** | Manipulation (Area) | 5 Karma | 1 Minor Action (Study) | *Street Wyrd* 56: Complete forensic DNA, biometric, and physical evidence cleansing. Eliminates material crime scene traces. |
+| **K11** | **Attribute: Magic 6 $\rightarrow$ 7** | Attribute | 35 Karma | None (Between runs) | **Apex Scaling Milestone:** Unlocks Initiate Grade 7 (Tracker 1), expands Focus Bonding Cap from 30 $\rightarrow$ **35 Force**, and raises safe spirit summoning threshold to Force 6. |
+| **K12** | **Untrained Skill Repair**<br>• *Perception 1 (Intuition)*<br>• *Astral 1 (Intuition)* | Active Skills | 10 Karma tot<br>*(5K each)* | None (Between runs) | Removes -1 untrained penalty (+2 dice swing each; Perception 3d $\rightarrow$ 5d, Astral 3d $\rightarrow$ 5d). Essential for spotting physical ambushes and reading emotional auras. |
+| **K13** | **Attribute: Magic 7 $\rightarrow$ 8** | Attribute | 40 Karma | None (Between runs) | Expands Individual Focus Force limit to **Force 8** and total cap to **40 Force** ($\text{Magic } 8 \times 5$). Unlocks upgrading foci to cap both Sorcery and Conjuring at the **+4 Augmented Skill Maximum**. |
+| **K14** | **Quality: Dreamwork** | Positive Quality | 10 Karma<br>*(2× 5K)* | None (Between runs) | *Smooth Operations* 162: When assisting another character in a Teamwork test, increases the amount of dice they can potentially gain by 1. |
+
+Spell Priorities:
+
+* Physical Barrier
+* Stunball
+* Wingman
+* Wreck (Drones)
+* Manaball
+* Mind Probe
+* Heal
+* Shape Metal
+* Decrease Attribute
+* Silence
+* Sterilize
+* Trid Phantasm
+* Fashion
+* Charm
+
+#### Maintenance & Ongoing Downtime Tasks (Tracker 2 Minor Actions)
+
+* **Work for the People:** Spend 1 Minor Action (funded by Hooder R3 ¥3,000/mo donation) $\rightarrow$ **+1 Karma** per month.
+* **Guild of Freelance Assets Maintenance:** At Loyalty 4 floor, spend 1 Minor Action + ¥350/mo dues once per month to stabilize the permanent -4 Karma initiation discount.
+
+#### Deferred Flavor & Cosmetic Backlog
+
+* **Spell: Charm** (*CRB*, p. 138; 5 Karma) — Manipulation spell granting +4 dice to social tests. Deprioritized because Velvet already operates with natural 19–24d social pools (buying 4–5 hits routinely).
+* **Spell: Fashion** (*Street Wyrd*, p. 48; 5 Karma) — Instant clothing transformation. Deprioritized because *Cosmetic Control 2* already handles biological shape/gender/height alteration, while physical disguise kits and high-fashion wardrobes cover apparel.
 
 ---
 
-### B. Nuyen & Foci Progression Pipeline
+### Tracker 3: Nuyen & Foci Progression Pipeline (Minor Actions)
 
-*(Current Baseline: Power Focus Rating 3 bonded, ¥22,915 liquid nuyen after Session 9).*
+*Current Baseline: Power Focus Rating 3 bonded; **¥28,265.0** liquid nuyen on hand. Foci acquisitions require Nuyen for purchase, **Bonding Karma** (drawn from Tracker 2 funds), and **1 Minor Downtime Action** to bond. In SR6 (*CRB*, pp. 154–155), total bonded Force cannot exceed $\text{Magic} \times 5$ (30 Force at Magic 6; 40 Force at Magic 8), and no single focus can exceed natural Magic ($6\text{ Force}$ at Magic 6).*
 
-| Step | Target Hardware / Focus Upgrade | Source / Book | Cost | Downtime Action Required | Capacity & Tactical Role |
+| Priority | Target Hardware / Focus Upgrade | Source / Book | Cost (Nuyen + Karma) | Downtime Action Required | Capacity & Tactical Role |
 | :---: | :--- | :--- | :--- | :---: | :--- |
-| **H1** | **Qi Focus: Improved Conjuring (R1)** | *CRB* 146, 155<br>*GMP* 12 | ¥12,000 + 8 Karma | Minor Action (Bond Focus) | Force 4 Qi Focus ($4 \times 1.0\text{ PP}$; Conjuring is a Combat skill per SR6 FAQ). **#1 Hardware Priority:** Pushes Conjuring from 15 $\rightarrow$ **16 dice**, unlocking the **4 bought hits threshold** ($16 \div 4 = 4$ hits). Under *CRB* p. 146, spirits resist with $\text{Force} \times 2$; under *SRM GM Primer* p. 12, spirits with $\text{Force} > \text{Magic} - 2$ (Force 5+ at Magic 6) spend Edge to reroll the summoner's successes. Against standard **Force 4 spirits** (8 resistance dice, buying 2 hits), 4 bought hits guarantees **2 net tasks** (up from 1 task at 15d) with **zero drain risk** (4 Drain soaked by 16 Drain dice). **Avail 4L** (instant buy). Fits Magic 6 cap ($4 \le 6$). Ready as soon as 4 more Karma is banked (¥22,915 liquid nuyen on hand!). |
-| **H2** | **Qi Focus: Improved Sorcery (R1)** | *CRB* 155, 294<br>*SSW FAQ* | ¥12,000 + 8 Karma | Minor Action (Bond Focus) | Force 4 Qi Focus ($4 \times 1.0\text{ PP}$; Sorcery is a Combat skill per SR6 FAQ). Adds **+1 die to Sorcery**, stacking with Wise Warrior (+1) for **+2 total bonus** (pushes Spellcasting baseline from 18 $\rightarrow$ **19 dice**). **Avail 4L** (instant downtime buy). Fits within Magic 6 individual Force cap ($4 \le 6$). |
-| **H3** | **Sustaining Focus: Health (R6)** | *CRB* 137, 155, 294 | ¥24,000 + 12 Karma | Minor Action (Bond Focus) | Force 6 Focus (**Avail 6L**; $6 \times ¥4,000$, $6 \times 2\text{ Karma}$). Required to sustain *Increase Attribute* at the maximum **+4 bonus** (base DV 3 + 3 net hits = DV 6; sustained spell DV cannot exceed focus Force per *CRB* 155). Frees a *Focused Concentration* slot for *Wingman*. Fits within Magic 6 individual Force cap ($6 \le 6$). |
-| **H4** | **Qi Focus: Improved Sorcery (R1) [#2]** | *CRB* 155<br>*SSWFAQ-0069* | ¥12,000 + 8 Karma | Minor Action (Bond Focus) | Force 4 Qi Focus. Per official FAQ, Qi Foci stack: adds a second +1 die to Sorcery (combined with Wise Warrior +1 and Qi Focus #1 for **+3 total bonus**, pushing Spellcasting to **20 dice = 5 bought hits**). |
-| **H5** | **Qi Focus: Improved Conjuring (R1) [#2]** | *CRB* 155<br>*SSWFAQ-0069* | ¥12,000 + 8 Karma | Minor Action (Bond Focus) | Force 4 Qi Focus. Adds a second +1 die to Conjuring (pushes pool to **17 dice**). |
-| **H6** | **M-TOC Tactical Network Node** | *Firing Squad* 110 | ¥15,000–¥30,000 | None (Market Purchase) | *Deferred Backlog:* Team Edge storage bank and encrypted squad tactical coordination network. Deprioritized to bottom of queue as team deckers and riggers consistently deploy one. |
+| **N1** | **Qi Focus: Improved Conjuring (R1, Force 4)** | *CRB* 146, 155<br>*GMP* 12 | **¥12,000**<br>+ 8 Karma | 1 Minor Action (Bond Focus) | Force 4 Qi Focus ($4 \times 1.0\text{ PP}$; Conjuring is a Combat skill per SR6 FAQ). **#1 Hardware Priority:** Pushes Conjuring from 15 $\rightarrow$ **16 dice**, unlocking the **4 bought hits threshold** ($16 \div 4 = 4$ hits). Against standard **Force 4 spirits** (8 resistance dice, buying 2 hits), guarantees **2 net tasks** (up from 1 task) with **zero drain risk**. Avail 4L. Fits Magic 6 cap ($4 \le 6$). **Funded right now by liquid reserves!** |
+| **N2** | **Qi Focus: Improved Sorcery (R1, Force 4)** | *CRB* 155, 294<br>*SSW FAQ* | **¥12,000**<br>+ 8 Karma | 1 Minor Action (Bond Focus) | Force 4 Qi Focus ($4 \times 1.0\text{ PP}$; Sorcery is a Combat skill per SR6 FAQ). Adds **+1 die to Sorcery**, stacking with Wise Warrior (+1) for **+2 total bonus** (pushes Spellcasting baseline from 17 $\rightarrow$ **19 dice**). Avail 4L. Fits within Magic 6 cap ($4 \le 6$). |
+| **N3** | **Sustaining Focus: Health (R6, Force 6)** | *CRB* 137, 155, 294 | **¥24,000**<br>+ 12 Karma | 1 Minor Action (Bond Focus) | Force 6 Focus (**Avail 6L**; $6 \times ¥4,000$, $6 \times 2\text{ Karma}$). Required to sustain *Increase Attribute* at the maximum **+4 bonus** (base DV 3 + 3 net hits = DV 6; sustained spell DV cannot exceed focus Force per *CRB* 155). Frees a *Focused Concentration* slot for *Wingman*. Fits within Magic 6 individual Force cap ($6 \le 6$). |
+| **N4** | **Qi Focus: Improved Sorcery (R1) [#2, Force 4]** | *CRB* 155<br>*SSWFAQ-0069* | **¥12,000**<br>+ 8 Karma | 1 Minor Action (Bond Focus) | Force 4 Qi Focus. Per official FAQ, Qi Foci stack: adds a second +1 die to Sorcery (combined with Wise Warrior +1 and Qi Focus #1 for **+3 total bonus**, pushing Spellcasting to **20 dice = 5 bought hits**). |
+| **N5** | **Qi Focus: Improved Conjuring (R1) [#2, Force 4]** | *CRB* 155<br>*SSWFAQ-0069* | **¥12,000**<br>+ 8 Karma | 1 Minor Action (Bond Focus) | Force 4 Qi Focus. Adds a second +1 die to Conjuring (pushes pool to **17 dice**). |
+| **N6** | **M-TOC Tactical Network Node** | *Firing Squad* 110 | **¥15,000–¥30,000** | None (Market Purchase) | *Deferred Backlog:* Team Edge storage bank and encrypted squad tactical coordination network. Deprioritized to bottom of queue as team deckers and riggers consistently deploy one. |
 
 ---
 
@@ -111,7 +145,7 @@ All upcoming upgrades are prioritized sequentially below. When logging post-miss
 ```
 
 * **Solving the "Two Faces at the Table" Problem:** Usually, having two social specialists at the table creates role friction and dilutes spotlight. *Wingman* completely inverts this: Velvet steps into the helper/co-pilot role, giving the lead Face an avalanche of temporary Edge (1 Edge per die contributed from Velvet’s 19–24d pool) while Velvet pockets a free Edge. The lead negotiator enters every high-stakes corporate sit-down saturated with maximum Edge.
-* **Covert Social Support:** *Stealth Effect* allows Velvet to establish *Wingman* or cast covert assistance in plain sight across a high-security boardroom without manifesting light flares or astral ripples. Noticing magic requires a Perception + Intuition (Mage's Magic rank)(CRB 129).
+* **Covert Social Support:** *Stealth Effect* allows Velvet to establish *Wingman* or cast covert assistance in plain sight across a high-security boardroom without manifesting light flares or astral ripples. Noticing magic requires a Perception + Intuition (Mage's Magic rank) (*CRB*, p. 129).
 
 ---
 
@@ -169,8 +203,8 @@ Active operational mode allocations, spirit channeling stats, and deterministic 
   +-----------------------------+
 ```
 
-1. **4th Spell Slot Expansion via Sustaining Focus: Health R6 (Step H3):** Acquiring the Force 6 Sustaining Focus (¥24,000 / 12 Karma) unlocks a permanent **4th simultaneous sustained spell**, allowing Velvet to maintain *Increase Charisma* (+4), *Increase Willpower* (+4), and *Increase Reflexes* (+3 Rea / +3d6 Init) simultaneously while keeping a dedicated dynamic slot for *Wingman* or *Physical Barrier*.
-2. **Astral Invisibility via Extended Masking (Step 10, Grade 7):** Standard Masking only hides the caster's personal aura and bonded foci. *Extended Masking* (*Street Wyrd*, p. 119; *SRMG*, pp. 37–38) extends this concealment across all active sustained spells. Adversary mages and patrol spirits assensing Velvet perceive only a completely mundane metahuman with zero active spell signatures.
+1. **4th Spell Slot Expansion via Sustaining Focus: Health R6 (Step N3):** Acquiring the Force 6 Sustaining Focus (¥24,000 / 12 Karma) unlocks a permanent **4th simultaneous sustained spell**, allowing Velvet to maintain *Increase Charisma* (+4), *Increase Willpower* (+4), and *Increase Reflexes* (+3 Rea / +3d6 Init) simultaneously while keeping a dedicated dynamic slot for *Wingman* or *Physical Barrier*.
+2. **Astral Invisibility via Extended Masking (Step 7, Grade 7):** Standard Masking only hides the caster's personal aura and bonded foci. *Extended Masking* (*Street Wyrd*, p. 119; *SRMG*, pp. 37–38) extends this concealment across all active sustained spells. Adversary mages and patrol spirits assensing Velvet perceive only a completely mundane metahuman with zero active spell signatures.
 
 ---
 

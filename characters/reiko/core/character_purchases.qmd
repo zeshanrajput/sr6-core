@@ -76,7 +76,7 @@ assign("Lifetime_Nuyen", 90000)
   * Japanese Cultural Etiquette (R3) `{python} inc('Nuyen', -1500)` `{python} knowledge_skill('Japanese Cultural Etiquette', rating=3, notes='Rating 3 Knowsoft: Corporate hierarchy, bowing registers, formal tea hospitality')`
   * New Orleans Vodou & Loa Syncretism (R3) `{python} inc('Nuyen', -1500)` `{python} knowledge_skill('New Orleans Vodou & Loa Syncretism', rating=3, notes='Rating 3 Knowsoft: Baron Samedi, Loa of the Wires, League of Laveau, Zobop')`
   * Gross Metahuman Fluids `{python} knowledge_skill('Gross Metahuman Fluids', notes='Free knowledge skill earned in SRM 2081-15: visceral biowaste, bodily excretions, and thaumaturgic contamination')`
-  * Dissonance — Theory & Applications `{python} inc('Nuyen', -1500)` `{python} knowledge_skill('Dissonance — Theory and Applications', notes='Knowsoft: Dissonant realms, entropy math, One Hundred transfer geometry, consensus dynamics')`
+  * Dissonance: Theories and Application (R3) `{python} inc('Nuyen', -1500)` `{python} knowledge_skill('Dissonance: Theories and Application', rating=3, notes='Rating 3 Knowledge Autosoft (Double Clutch p. 145): Dissonant realms, entropy math, One Hundred transfer geometry, consensus dynamics')`
 * Commlink Apps
   * Facial Scanner `{python} inc('Nuyen', -750)`
   * P-ICE Spines `{python} inc('Nuyen', -500)`

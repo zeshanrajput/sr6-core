@@ -1,9 +1,14 @@
 identity:
   id: mad_dalek
-  handle: Mad_Dalek
-  karma: 0
+  name: MAD Dalek
+  handle: MAD Dalek
+  metatype: Dalakitnon Elf
+  tradition: Hermetic
+  mortype: Mystic Adept
+  system: shadowrun6e
+  karma: 5
   lifetime_karma: 0
-  nuyen: 0
+  nuyen: 3575
   lifetime_nuyen: 0
   heat: 0
 attributes:

@@ -372,5 +372,16 @@ class TestNarrativeLinter(unittest.TestCase):
         self.assertEqual(rep["staccato_runs"][0][2], 3)
 
 
+    def test_proper_noun_proximity_echo_exemption(self):
+        # Mid-sentence capitalized proper names (e.g. Vance) must be exempted from single-word proximity echoes
+        prose = (
+            "Across the table, Vance tapped his slate once. "
+            "He waited for Vance to lower the barrier before speaking.\n"
+        )
+        rep, err = analyze_prose(prose)
+        self.assertIsNone(err)
+        self.assertEqual(rep["proximity_echoes"], [])
+
+
 if __name__ == "__main__":
     unittest.main()

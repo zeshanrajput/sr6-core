@@ -396,6 +396,7 @@ def analyze_prose(
     # Build clean lines and token stream for lexical budget & echo analysis
     clean_lines = []
     token_stream = []
+    detected_proper_nouns = set()
     adverb_candidates: List[Dict[str, Any]] = []
     glued_punctuation_matches: List[Tuple[int, str, str]] = []
     in_callout = False
@@ -429,8 +430,13 @@ def analyze_prose(
 
         for m in re.finditer(r'\b[a-zA-Z-]{2,}\b', line):
             pos = m.start()
+            raw_w = m.group(0)
+            w_low = raw_w.lower()
+            prefix = line[:pos].rstrip()
+            if raw_w[0].isupper() and prefix and prefix[-1] not in '.!?:—"\u201c\'\u2018#':
+                detected_proper_nouns.add(w_low)
             in_dlg = any(a <= pos < b for a, b in dlg_spans)
-            token_stream.append((line_idx, m.group(0).lower(), m.group(0), s, in_dlg))
+            token_stream.append((line_idx, w_low, raw_w, s, in_dlg))
 
     # Tier 1: High-Salience Sensory Cliché Budget (Quota: 1 per 3,000 words)
     tier1_allowance = max(1, word_count // 3000)
@@ -528,7 +534,7 @@ def analyze_prose(
     seen_dlg_echo_words = set()
     for i in range(n_tokens):
         w = token_stream[i][1]
-        if w in PROXIMITY_STOP_WORDS or len(w) < 5:
+        if w in PROXIMITY_STOP_WORDS or w in detected_proper_nouns or len(w) < 5:
             continue
         if w in seen_echo_words:
             continue

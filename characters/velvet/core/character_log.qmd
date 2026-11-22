@@ -160,6 +160,21 @@ init_character("velvet")
 
 ---
 
+`{python} mission("SRM.2083.16", date="2026-11-20", karma=8, nuyen=16000, rep=0, bribe=1000, difficulty="Veteran")`
+
+* **Team:** Angel, Croaker, Doom, Lupa, Ninja, Velvet
+* **Summary:** Operating under the blue-collar Louisiana oil-worker persona **Travis Fontenot**, Velvet met ecological activist **Roanoke** and her ork associate **Mariano** at the dilapidated *Boomerang* bar in Destrehan's Cancer Alley as Hurricane Lorenzo bore down on New Orleans. Hired to eliminate rogue blood mage **Belle Moderne** before she could weaponize the incoming storm, the team tracked an Aurelian Design waste-disposal crew to a bayou dump site, captured their commlink intel, and relayed it to Roanoke. Tracing Moderne to the derelict UniOil offshore platform **Site Laputa**, the runners navigated the rising storm by boat and breached the volatile, gas-choked rig amidst Force 9 greater spirits and Cultist security. After Belle Moderne was brought down mid-extraction by precision fire and the platform's demolition charges were disarmed, the team evacuated surviving rig workers ahead of the Coast Guard and collected two bricks of uncut novacoke plus an orichalcum chunk from Roanoke at *Gator's Grip*. Fencing the novacoke through Kozlowski Capo **Fernand Amato** yielded top-dollar payout (¥16,000 net with Veteran bonus), and the runners each chipped in ¥1,000 to pay down the resulting Heat modifier.
+* **Contacts:**
+  * `{python} contact("Roanoke", fp=3)`
+  * `{python} contact("Fernand Amato", fp=1)`
+* **Monthly Expenses & Downtime (SRM #6 / Month 3 Ends):**
+  * *Monthly Expenses:* `{python} lifestyle("Low", cost=2000)` | *Hooder Community Contribution:* `{python} inc('Nuyen', -3000)`
+  * *Major Action (Initiation Grade 6 — The Magician's Way):* `{python} initiate("The Magician's Way", coven_loyalty=state['Coven_Loyalty'])`
+  * *Minor Action (Work for the People):* `{python} work_for_the_people(funded=True)`
+  * *Coven Loyalty Decay:* Forgoing monthly maintenance dues (saving ¥2,400); Coven Loyalty remains 6 during downtime, then decays: `{python} inc('Coven_Loyalty', -1)` (now Loyalty 5).
+
+---
+
 ## **Active Contacts Summary**
 
 ```{python}

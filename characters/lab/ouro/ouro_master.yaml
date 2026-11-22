@@ -1,11 +1,19 @@
 identity:
   id: ouro
+  name: Takahashi Ouroboros
   handle: Ouro
-  karma: 0
+  real_name: Takahashi Ouroboros
+  metatype: AI-Pilot AI
+  stream: Sourcerors
+  gender: MALE
+  age: ~ 1
+  system: shadowrun6e
+  karma: 4
   lifetime_karma: 0
-  nuyen: 0
+  nuyen: 2160
   lifetime_nuyen: 0
   heat: 0
+  submersion: 2
 attributes:
   body: 5
   agility: 5
@@ -67,6 +75,19 @@ modifiers:
   notes: +4 dice to tests using RES
   enabled: true
 complex_forms:
+- name: Hyperthreading
+  ref: hyperthreading
+  fading: 3
+  duration: Immediate
+  target: Persona
+  notes: Allows simultaneous threading of multiple complex forms in a single action.
+- name: Machine Merge
+  ref: machine_merge
+  fading: 4
+  duration: Sustained
+  target: Piloted Device
+  notes: Grants +1 bonus die per 2 hits to Piloting, Engineering, and defense tests
+    while jumped in.
 - name: Attack Attribution
   ref: attack_attribution
   fading: Hits
@@ -85,19 +106,6 @@ complex_forms:
   duration: Sustained
   target: Piloted Device
   notes: Increase Pilot or Sensors of device by 1 per 2 net hits.
-- name: Hyperthreading
-  ref: hyperthreading
-  fading: 3
-  duration: Immediate
-  target: Persona
-  notes: Allows simultaneous threading of multiple complex forms in a single action.
-- name: Machine Merge
-  ref: machine_merge
-  fading: 4
-  duration: Sustained
-  target: Piloted Device
-  notes: Grants +1 bonus die per 2 hits to Piloting, Engineering, and defense tests
-    while jumped in.
 meta_echoes: &id001
 - name: Sprite Conduit
   ref: sprite_conduit
@@ -107,6 +115,10 @@ meta_echoes: &id001
   notes: ''
 echoes: *id001
 knowledge_skills:
+- name: 'Dissonance: Theories and Application'
+  rating: 3
+  notes: 'Rating 3 Knowledge Autosoft (Double Clutch p. 145; slotted via Pilot Origins):
+    Reiko''s thesis'
 - name: Mindspeech
   rating: 4
   level: Native
@@ -154,6 +166,17 @@ activesofts: []
 sprite_powers: []
 sins: []
 licenses: []
-living_persona: {}
-synergies: {}
+living_persona:
+  asdf_bonuses:
+    attack: 1
+    sleaze: 1
+    data_processing: 5
+    firewall: 5
+synergies:
+  living_persona_network_tuning:
+    asdf_bonuses:
+      attack: 4
+      sleaze: 4
+      data_processing: 4
+      firewall: 4
 exceptions: []

@@ -57,7 +57,7 @@ Every entry in the Lab belongs to one of three developmental stages:
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **[`venn`](venn/)** | Monad (Human / AI Dual Entity)<br>Street Samurai / Operative | Point Buy 100 (*6WC*) | **Ready Prototype** | Used synthetic cyberlimbs (0.1 Essence), nanite swarm volume, hot-sim VR skillwires array. Pending SRM 2085 table kickoff. | Fully built; chapters 01–07; mutable |
 | **[`ouro`](ouro/)** | AI-Pilot AI (Emergent Intelligence)<br>Technomancer (Sourcerors) | Point Buy (*6WC* + *H&S*) | **Active Concept** | Utilitarian fork of [`sparks_template.md`](sparks_template.md): Nurse MAID drone rigger, Omega codemods (`Spark 5.01`), `Sprite Symbiosis` (Machine Sprite). Kin to Reiko. | Chargen complete (6-quality compliant); post-chargen mapped |
-| **[`etain`](etain/)** | AI-Pilot AI (Emergent Intelligence)<br>Technomancer (Sourcerors) | Point Buy (*6WC* + *H&S*) | **Active Concept** | Spark Purist twin fork of [`sparks_template.md`](sparks_template.md): `Spark 6.00` (0 codemods, `RES 6`), twin `Shiawase Silverstar` chassis, `Étaín` PC + `Aisling` Level 6 Music Ally Sprite target. | Chargen complete; post-chargen Aisling bonding mapped |
+| **[`etain`](etain/)** | AI-Pilot AI (Emergent Intelligence)<br>Technomancer (Sourcerors) | Point Buy (*6WC* + *H&S*) | **Active Concept** | Spark Purist twin fork of [`sparks_template.md`](sparks_template.md): `Spark 6.00` (0 codemods, `RES 6`), twin `Shiawase Man-at-Arms` chassis, `Étaín` PC + `Aisling` Level 6 Music Ally Sprite target. | Chargen complete; post-chargen Aisling bonding mapped |
 | **[`mad_dalek`](mad_dalek/)** | Dalakitnon Elf<br>Mystic Adept | Life Path (*6WC*) | **Mechanics Reference** | Implanted cyberjack + skillwires (Option B), exercising the double-event crucible rule. Full astral + Matrix flexibility. | Complete reference build |
 
 > **Takahashi Second-Generation Family Blueprint:** See [`sparks_template.md`](sparks_template.md) for the shared Pilot-AI chassis and per-sibling diffs (`Ouro`, `Étaín & Aisling`, `Percy`, `Cleo`).
@@ -185,8 +185,7 @@ Every build in the Lab is evaluated across two distinct, complementary axes: **O
   * We will purchase an anthroform drone with realistic features in chargen to allow the character to function in normal society
     * The Ares Nurse MAID (DA 176, 57500 nuyen; BOD 8, ARM 6, realistic features 4 without using mod slots)
     * The Shiawase Butler (DC 117, 3000 nuyen, realistic features 1 but BOD 4, ARM 0)
-    * Shiawase Man-At-Arms (DC 118, 4500 nuyen, BOD 10, ARM 8, but no realistic features)
-    * Shiawase Silverstar (Tarnished Star 158, 9000 nuyen, BOD 8, ARM 4, realistic features 1)
+    * Shiawase Man-At-Arms (DC 118, 4500 nuyen, BOD 10, ARM 8, no realistic features; avoids *Tarnished Star* +1 Heat modifier)
     * Nissan Samurai (CRB 300, 4500 nuyen, BOD 6, ARM 6. Strictly worse than the Man-At-Arms)
     * Large Drones (Nurse MAID Troll, Nissan Oni): higher sensor max rating but less discreet
 * **Technomancers** are a close second.

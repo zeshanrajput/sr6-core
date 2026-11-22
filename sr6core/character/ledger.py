@@ -464,7 +464,8 @@ def contact(
     region: str = "",
     types: Optional[Union[str, List[str]]] = None,
     notes: str = "",
-    event: str = ""
+    event: str = "",
+    force: bool = False
 ) -> str:
     """
     Records or updates a campaign contact.
@@ -539,11 +540,11 @@ def contact(
             c_info["types"] = eff_types
             c_info["types_str"] = ", ".join(eff_types)
         
-        # Connection: immutable for canonical contacts; can increase for non-canon
-        if not is_canon and connection is not None and connection > c_info["connection"]:
+        # Connection: immutable for canonical contacts; can increase for non-canon (or override if force)
+        if connection is not None and (force or (not is_canon and connection > c_info["connection"])):
             c_info["connection"] = connection
         
-        if loyalty is not None and loyalty > c_info["loyalty"]:
+        if loyalty is not None and (force or loyalty > c_info["loyalty"]):
             c_info["loyalty"] = loyalty
 
         if fp != 0:
@@ -1569,7 +1570,8 @@ def get_log_totals(log_path: Optional[Any] = None) -> Dict[str, Any]:
             contents.append(f.read())
 
     content = "\n\n".join(contents)
-    env = create_quarto_eval_env()
+    has_log_file = any("log" in os.path.basename(f).lower() for f in files)
+    env = create_quarto_eval_env() if has_log_file else dict(create_quarto_eval_env())
 
     pattern = re.compile(r'```\{python\}(.*?)```|`\{python\}\s*(.*?)`', re.DOTALL)
     with contextlib.redirect_stdout(io.StringIO()):
@@ -1596,6 +1598,13 @@ def get_log_totals(log_path: Optional[Any] = None) -> Dict[str, Any]:
     final_lifetime_karma = _GLOBAL_LOG_STATE.get("Lifetime_Karma", final_karma)
     final_nuyen = _GLOBAL_LOG_STATE.get("Nuyen", 0)
     final_lifetime_nuyen = _GLOBAL_LOG_STATE.get("Lifetime_Nuyen", final_nuyen)
+    if not has_log_file:
+        if final_karma == 0 and isinstance(env.get("Karma"), (int, float)):
+            final_karma = env["Karma"]
+            final_lifetime_karma = env.get("Lifetime_Karma", final_karma)
+        if final_nuyen == 0 and isinstance(env.get("Nuyen"), (int, float)):
+            final_nuyen = env["Nuyen"]
+            final_lifetime_nuyen = env.get("Lifetime_Nuyen", final_nuyen)
 
     session_logs = list(_GLOBAL_LOG_STATE.get("Session_Logs", []))
     if not session_logs:

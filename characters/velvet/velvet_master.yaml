@@ -14,12 +14,12 @@ identity:
   eye_color: Obsidian
   skin_color: White
   system: shadowrun6e
-  karma: 2
-  lifetime_karma: 74
-  nuyen: 18265
-  lifetime_nuyen: 132590
+  karma: 1
+  lifetime_karma: 83
+  nuyen: 28265
+  lifetime_nuyen: 148590
   heat: 0
-  initiation: 5
+  initiation: 6
 attributes:
   body: 2
   agility: 3
@@ -216,6 +216,10 @@ metamagic:
 - name: Power Point
   ref: power_point
   notes: Grants 1.0 Adept Power Point.
+- name: The Magician's Way
+  ref: the_magician's_way
+  notes: Unlocks dual Mentor Spirit (Wise Warrior) Magician + Adept benefits (-1 Edge
+    cost on Combat spells/rituals) and allows Drain Resistance using Body + Charisma.
 knowledge_skills:
 - name: Korean
   rating: 4
@@ -593,6 +597,46 @@ contacts:
       and Nordic mage, House Oranje-Nassau Johnson.
     history:
     - 'CMP.2083.02 (Met: C5 L0, +1 FP)'
+    - Auto-Promoted to Loyalty 1 (-1 FP)
+  Roanoke:
+    name: Roanoke
+    canonical_name: Roanoke
+    is_canonical: true
+    connection: 3
+    loyalty: 2
+    favors: 0
+    type: Ecological Activist
+    region: NOLA
+    types:
+    - Criminal
+    - Matrix
+    types_str: Criminal, Matrix
+    description: 'Uses: Getting jobs, environmental science, shamanism | Types: Criminal,
+      Matrix'
+    notes: 'Uses: Getting jobs, environmental science, shamanism | Types: Criminal,
+      Matrix'
+    history:
+    - 'SRM.2083.16 (Met: C3 L0, +3 FP)'
+    - Auto-Promoted to Loyalty 1 (-1 FP)
+    - Auto-Promoted to Loyalty 2 (-2 FP)
+  Fernand Amato:
+    name: Fernand Amato
+    canonical_name: Fernand Amato
+    is_canonical: true
+    connection: 4
+    loyalty: 1
+    favors: 0
+    type: Kozlowski Capo
+    region: NOLA
+    types:
+    - Criminal
+    - Street
+    types_str: Criminal, Street
+    description: 'Uses: Getting jobs, fencing gear, organized crime | Types: Criminal,
+      Street'
+    notes: 'Uses: Getting jobs, fencing gear, organized crime | Types: Criminal, Street'
+    history:
+    - 'SRM.2083.16 (Met: C4 L0, +1 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
 reputation:
   SEA: 7

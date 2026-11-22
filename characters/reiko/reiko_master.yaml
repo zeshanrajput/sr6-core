@@ -298,10 +298,10 @@ knowledge_skills:
   rating: null
   notes: 'Free knowledge skill earned in SRM 2081-15: visceral biowaste, bodily excretions,
     and thaumaturgic contamination'
-- name: Dissonance — Theory and Applications
-  rating: null
-  notes: 'Knowsoft: Dissonant realms, entropy math, One Hundred transfer geometry,
-    consensus dynamics'
+- name: 'Dissonance: Theories and Application'
+  rating: 3
+  notes: 'Rating 3 Knowledge Autosoft (Double Clutch p. 145): Dissonant realms, entropy
+    math, One Hundred transfer geometry, consensus dynamics'
 - name: Burmese
   rating: 3
   level: Expert
@@ -314,7 +314,7 @@ contacts:
     canonical_name: River People
     is_canonical: false
     connection: 7
-    loyalty: 8
+    loyalty: 4
     favors: 0
     type: NOLA Technomancer Network / MUG
     region: GEN
@@ -326,6 +326,10 @@ contacts:
     notes: Character Creation
     history:
     - 'Character Creation (Met: C7 L8)'
+    - Month 1 MUG decay
+    - Month 2 MUG decay
+    - Month 3 MUG decay
+    - MUG decay reaches stable collective floor
   Brynne Taggart:
     name: Brynne Taggart
     canonical_name: Brynne Taggart
