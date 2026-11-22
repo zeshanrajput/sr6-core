@@ -179,6 +179,7 @@ To protect shared campaign continuity while allowing high-stakes personal storyt
 | **Tanaka Ryo** | MCT Senior Auditor / Negotiator | Active Operational | [04][ch-04], [08][ch-08] | Broad shoulders; deliberate stillness; low baritone |
 | **Lee Ji-yoo** | Pan-Asian Media Pop Star | Burned / Quarantined | [01][ch-01], [04][ch-04] | High vocal register; micro-smiles; stage choreography |
 | **Sunny (Sun-hee Diaz)** | Deceased Renraku ACHE Courier | Laid to Rest | [12][ch-12] | Compact runner build; bone-clicks; honored with prayer |
+| **Travis Fontenot** | Deceased Destrehan Refinery Roughneck | Laid to Rest (*Songsin*) | [14][ch-14] | Broad shoulders; oil-stained coveralls; chemical spill victim released after bayou drum recovery |
 | **Alix Lindqvist** | Provenance Risk Auditor | Consecrated (Frederika van de Poll) | [Sess 83-02][sess-83-02], [Ch 13][ch-13] | Tailored boiled wool; Mid-Atlantic register; retired from field ops, vowed solely to Frederika |
 | **Zhang Wei** | Elder Hong Kong Talismonger | Dormant Cover | [10][ch-10] | Stooped posture; arthritic hands; Tieguanyin aroma |
 | **Noekie (Anouk)** | Thirteen-Year-Old Ball-Runner | Single-Run Shell | [11][ch-11] | Scuffed knees; oversized windbreaker; canal slang |
@@ -199,24 +200,23 @@ To protect shared campaign continuity while allowing high-stakes personal storyt
    * **Setting:** Scheveningen pier winter pavilion after the Hague blizzard ([Session 83-02][sess-83-02]).
    * **Verticals Touched:** *Vertical 3 (The Sovereign Web)* + *Vertical 4 (Empathy vs. Manipulation)* + *Vertical 6 (Terror of the Engineered Self)*.
    * **Synthesis:** Confronted by Jonkvrouw Frederika van de Poll regarding the boundary between genuine human gratitude and corporate biological illusion. Velvet exposes the bruised sternum and makes the un-purchasable vow (*"an illusion cannot catch lead"*), permanently consecrating the Alix persona solely to her.
-2. **Immediate Post-Session Priority — Chapter 14: *"Consensus"* (`14_Consensus.md`, Tier 2 — 8.5/10):**
-   * **Status:** Locked Story Break (Post-`SRM.2083.16` *Crossfire Hurricane*).
+2. **Post-*Crossfire Hurricane* Vignette — *"Lagniappe"* ([Ch 14][ch-14]) — *(Completed)*:**
    * **Mission:** `SRM.2083.16`
-   * **Adversary / Foil:** **Aiden Vance** (Horizon / Dawkins Group Senior Field Evaluator) ([Section III.1](#1-aiden-vance--the-algorithmic-mirror)).
-   * **Persona:** **Tanaka Ryo** (never un-sculpted Kim Jin-Young in operational space; Ryo is his operational armor and alibi, freshly shifted out of the *Travis Fontenot* roughneck shell).
-   * **Setting:** A sunlit private VIP transit lounge at **Baton Rouge Metropolitan Airport (BTR)** just as Hurricane Lorenzo's clouds break over a tarmac crowded with emergency relief aircraft and corporate jets.
+   * **Supporting / Anchor Character:** **Roanoke** (GreenWar ecological activist; deep chemical scarring along her hands and arms; Connection 3).
+   * **Personas:** **Travis Fontenot** (deceased Destrehan refinery roughneck hosted via *Go-puri* & released via *Songsin*) $\rightarrow$ **Tanaka Ryo** (shadow-broker mask; Kim Jin-Young remains strictly unexposed).
+   * **Setting:** Fixer Lanyap's bar (*The Gnome's Groove*) $\rightarrow$ *Boomerang* dive bar in Destrehan's Cancer Alley and the humid pre-hurricane night outside.
    * **Verticals Touched:** *Vertical 3 (The Sovereign Web)* + *Vertical 4 (Anatomy of Un-Manufactured Solace)* + *Vertical 5 (Asceticism vs. Sovereign Teeth / The Magician's Way)*.
-   * **The Dramatic Engine (Daylight HumInt Deconstruction & Unified Circuit):**
-     * Aiden Vance ambushes Ryo in harsh morning daylight—not for a cozy sanctuary, but for a sharp tradecraft sparring match. Vance is running Horizon's damage control for **Aurelian Design** after star couturier **Belle Moderne**'s sudden "retirement" on Site Laputa.
-     * Vance pitches Horizon's Consensus protection against two anomalies: the Coast Guard report of eight terrified Aurelian guards evacuated in an inflatable RIB through inexplicably calm waters, and two kilos of uncut Colombian novacoke entering **Fernand Amato’s** Seattle Mafia pipeline.
-     * Ryo deconstructs Vance's HumInt script piece by piece (the Dawkins handbook brew temperature, synthetic pheromone lapel diffuser, matched breathing, AR telemetry feed) and flips the leverage: Horizon cannot expose Site Laputa or the novacoke without exposing that Aurelian Design's star designer was dumping toxic waste, conducting a Great Form Pollution ritual, and paying off runners with corporate-stamped duffel bags of cocaine.
-     * Ontologically, **The Magician's Way** (Grade 6 Initiation) settles into Ryo's frame: the physical vessel (*Body*) and the resonant court (*Charisma* + *Wise Warrior*) lock into a single unified circuit, contrasting Belle Moderne's self-destructive Grade 5 channeling with Velvet's sovereign control.
-   * **The 4-Beat Narrative Architecture:**
-     * **Beat 1: Inciting Friction (The Daylight Transit Lounge):** Fresh from shedding the thick-necked *Travis Fontenot* shell in a private concourse washroom—a faint trace of industrial Tarnished Star solvent still clinging to his cuff—Tanaka Ryo steps into the sunlit BTR VIP lounge overlooking emergency relief jets. Aiden Vance is already waiting with two porcelain cups and Dawkins Group precision.
-     * **Beat 2: Escalation (The Consensus Squeeze):** Vance lays out the two anomalies in smooth, empathetic corporate cadence: the eight Aurelian guards rescued from Site Laputa through a calm corridor in a Category 2 hurricane, and two kilos of uncut novacoke hitting **Fernand Amato’s** Seattle pipeline. He pitches Horizon's Consensus shield in exchange for Ryo acting as an off-book cultural subcontractor.
-     * **Beat 3: Climax (Deconstructing the Script & The Unified Circuit):** Ryo does not flare his aura or retreat; he audits Vance's HumInt toolkit aloud in broad daylight—naming the brew temperature, the pheromone cadence, and the Consensus blind spot that cannot model why runners would save enemy guards for zero profit. As *The Magician's Way* locks Body and Charisma into one steady circuit behind *Wise Warrior*, Ryo flips the corporate exposure back onto Aurelian Design's black-account duffel bags.
-     * **Beat 4: Aftermath (The Honorable Off-Ramp):** Ryo hands Vance a clean, non-zero-sum settlement: Vance gets to tell Los Angeles that Belle Moderne's ritual is permanently dead and the eight guards will honor their NDAs, while Amato's Seattle trace stays off Horizon's board. Vance is left alone in the bright glass room with cooling coffee and an operator his predictive algorithm cannot model.
-3. **Sub-Basement Vignette — *"The Ash of Synthetic Silver"*:**
+   * **Synthesis:** Velvet skips the celebration novacoke, slips Roanoke an *"At your service"* napkin, and walks her to *Boomerang* to pour two memorial rounds (*Heonjak*) for the dead bayou haulers. Bridging Roanoke's GreenWar rage and Boudreaux & Thibodeaux's grief, he secures their captured GMC Grizzly and Ares Roadmaster back as an advance to pull the thirty toxic drums out of the marsh—untying Travis Fontenot's knot (*Go-puri*), releasing him in the Gulf rain (*Songsin*), and peeling down one layer to **Tanaka Ryo** as Roanoke's defensive astral armor breaks open.
+3. **Future Candidate — *"Consensus"* (Aiden Vance Foil Duel, Tier 2 — 8.5/10):**
+   * **Status:** Pre-Draft Architecture (Awaiting Future Corporate / Transit Session Anchor).
+   * **Adversary / Foil:** **Aiden Vance** (Horizon / Dawkins Group Senior Field Evaluator) ([Section III.1](#1-aiden-vance--the-algorithmic-mirror)).
+   * **Persona:** **Tanaka Ryo** (or designated operational mask; never un-sculpted Jin-Young in operational space).
+   * **Setting:** Soundproofed, sunlit private VIP lounge or corporate transit hub.
+   * **Verticals Touched:** *Vertical 3 (The Sovereign Web)* + *Vertical 4 (Anatomy of Un-Manufactured Solace)* + *Vertical 5 (The Magician's Way)*.
+   * **The Dramatic Engine (Daylight HumInt Deconstruction vs. Non-Zero-Sum Trade):**
+     * Aiden Vance attempts to execute a Consensus "reversal" on Velvet—using simulated warmth, tailored pheromones, and Horizon sentiment telemetry to pitch protection against predictive Heat in exchange for off-book subcontractor leverage.
+     * Velvet audits Vance's HumInt script aloud in daylight (brew temperature, lapel diffuser, matched breathing, AR prompt cadence), exposes the Consensus blind spot around un-monetized runner solidarity, and flips the corporate containment liability back onto Vance's client for a clean, non-zero-sum settlement.
+4. **Sub-Basement Vignette — *"The Ash of Synthetic Silver"*:**
    * **Persona:** Un-sculpted Jin-Young.
    * **Setting:** Deep Seattle Underground safehouse or Whiskey's sub-basement lodge ([Ch 12][ch-12]).
    * **Verticals Touched:** *Vertical 5 (Asceticism vs. Sovereign Teeth)* + *Vertical 6 (Terror of the Engineered Self)*.
@@ -247,6 +247,7 @@ To protect shared campaign continuity while allowing high-stakes personal storyt
 | `[ch-11]` | [11_Silence.md](../narrative/11_Silence.md) | Chapter | Amsterdam bruin café; Min-seo's rebuke; Power Focus covenant |
 | `[ch-12]` | [12_Iron.md](../narrative/12_Iron.md) | Chapter | ACHE ascent; Rodina safehouse; Wise Warrior mentor covenant |
 | `[ch-13]` | [13_Illusion.md](../narrative/13_Illusion.md) | Chapter | Scheveningen pier; Frederika's doubt; vow of consecrated skin |
+| `[ch-14]` | [14_Lagniappe.md](../narrative/14_Lagniappe.md) | Chapter | Post-*Crossfire Hurricane* wake at *Boomerang*; *Go-puri* & *Songsin* for Travis Fontenot; Grizzly advance |
 | `[sess-83-02]` | [CMP 2083-02: Royal Road](../sessions/2083_02_royal_road.md) | Tabletop | Escher Palace infiltration; Alix Lindqvist; Frederika extraction |
 | `[lore-mct]` | [megacorps_power_plays.md](../../../reference/megacorps_power_plays.md) | Lore | MCT post-Disian collapse; Phase 1 audit; TXM asset recovery |
 | `[lore-30-pieces]` | [megacorps_power_plays.md](../../../reference/megacorps_power_plays.md) | Lore | Post-Disian shadow war; anti-Disian vigilante cells |
@@ -267,6 +268,7 @@ To protect shared campaign continuity while allowing high-stakes personal storyt
 [ch-11]: ../narrative/11_Silence.md
 [ch-12]: ../narrative/12_Iron.md
 [ch-13]: ../narrative/13_Illusion.md
+[ch-14]: ../narrative/14_Lagniappe.md
 [sess-83-02]: ../sessions/2083_02_royal_road.md
 [lore-mct]: ../../../reference/megacorps_power_plays.md
 [lore-30-pieces]: ../../../reference/megacorps_power_plays.md

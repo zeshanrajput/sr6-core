@@ -44,9 +44,10 @@ Within the narrative architecture of `sr6-core`, Velvet’s Musok heritage is no
 * **The Emptied Self (*Śūnyatā*):** When Mitsuhama Applied Technologies bio-sculpted away Jin-Young’s Daleketnon face and forced him through 15 years of corporate idol trauma, they believed they were creating an obedient, soulless tool.
 * **The Transhuman Inversion:** Drawing upon classical Buddhist and Musok doctrine, Velvet reframed the loss of his static ego: because he has no permanent, fixed face, he is the **unconditioned hollow vessel (*Bin Geureut*)** capable of hosting any human soul with boundless compassion.
 
-### B. Indra’s Jewel Net & Artificial Reincarnation
-* **Every Persona an Archetype:** The identities Velvet inhabits (*Lee Ji-yoo, Tanaka Ryo, Mei Jing, Noekie, Zhang Wei*) are not deceptive corporate lies; they are authentic archetypes anchored in **Indra's Net**—the holographic web of lived human experience across creation.
-* **The Bodhisattva with Teeth (*Upāya*):** Velvet practices *Skillful Means*—wearing the faces and motor memory of mortals to uncover corporate crimes, bear witness to the suffering of wage-slaves, and enact justice on behalf of the silenced.
+### B. Indra’s Jewel Net & Reverent Hosting (*Go-puri* & *Songsin*)
+* **Adopted Souls, Never Synthetic Costumes:** Velvet never invents disposable throwaway masks out of thin air. Every temporary working-class persona he adopts (*Sun-hee Diaz*, *Travis Fontenot*, *Leung Hoi-ching*, *Zhang Wei*) belongs to a real human being—often one who died unjustly or abruptly with unfinished grievances (*Wonhan* / *Go*) binding their spirit (*Neok*).
+* **The Living Vessel (*Momju*) & Untying the Knot (*Go-puri*):** By lending a dead soul his hollow vessel (*Bin Geureut*), Velvet becomes a shadowrunner's *Baksu* (male *Mudang*), wearing their motor memory, scars, and voice to settle the unfinished debt they left behind (such as finishing Sunny's last climb in the ACHE or recovering toxic barrels from Travis Fontenot's parish marsh). Once the debt is paid (*Go-puri*), Velvet releases the dead cleanly at the threshold with a purifying libation (*Songsin*).
+* **The Bodhisattva with Teeth (*Upāya*):** Velvet practices *Skillful Means*—honoring both the living and the unrequited dead to uncover corporate crimes, bear witness to the suffering of wage-slaves, and build solidarity on behalf of the silenced.
 
 ### C. The Gaiasphere vs. The Noosphere
 * **Velvet’s Primordial Root:** Velvet is the sole protagonist of the three who accesses the **original Akashic record in the Gaiasphere**—the living astral plane and primordial mana matrix of Earth and living souls.
