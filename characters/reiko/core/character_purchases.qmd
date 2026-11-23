@@ -111,6 +111,10 @@ Software with karma costs have been learned via the **Software Emulator** echo.
 * Captured Drone ("Busta") *(SRM 2083-13 Mission Capture)*
   * Captured during the Funhouse breach, subdued, and re-registered by Ouro.
 
+* Hawker-Siddley Bat #1 *(SRM 2081-04 Advancement)* `{python} inc('Nuyen', -5500)`
+  * Weapon Mount - Small x3 (stock Standard Hardpoint split into 2x Small + 1 free Small Hardpoint from BOD 4; 0 Chassis slots, DC pp. 124, 142-143, DIY 50%) `{python} inc('Nuyen', -750 * 3)`
+  * Crimson Wasp x3 (1 with Internal Smartgun; link-fired laser array) `{python} inc('Nuyen', -1500 * 3 - 500)`
+
 * Shiawase Man-At-Arms `{python} inc('Nuyen', -4500*.9)`
   * Weapon Mount - Small x2 (splits stock Standard Hardpoint into 2 Small Hardpoints per DC p. 124) `{python} inc('Nuyen', -1500 * 2 / 2)`
   * Pop-Out Concealment - Small x2 (ocular mounts; 0.5 Chassis slots each, DC p. 143-144) `{python} inc('Nuyen', -1500 * 2 / 2)`
@@ -120,8 +124,14 @@ Software with karma costs have been learned via the **Software Emulator** echo.
   * Passive Stealth Features `{python} inc('Nuyen', -1000/2)`
   * Drone Rack (Small) `{python} inc('Nuyen', -2000/2)`
     * Stores Federated-Boeing Sky Commander (variable swing-wing / nanite extension geometry folds flush for carriage inside abdominal rack)
-  * Used Synthetic Cyberarm (Right, 8 Capacity; base 20,000¥ x 0.5 Used grade = 10,000¥, CRB p. 282, 289; replaces factory anthroform cyberlimb per DC p. 131, consuming 0 vehicle mod slots) `{python} inc('Nuyen', -10000)`
-    * Tesla Coil `{python} inc('Nuyen', -15000/2)`
+  * Used Synthetic Cyberarm (Right, 8 -> 12 Capacity; base 20,000¥ x 0.5 Used grade = 10,000¥, CRB p. 282, 289; replaces factory anthroform cyberlimb per DC p. 131, consuming 0 vehicle mod slots) `{python} inc('Nuyen', -10000)`
+    * Bulk Modification R4 (Right Arm; expands capacity 8 -> 12, Body Shop p. 44, DIY 50%) `{python} inc('Nuyen', -1000)`
+    * Tesla Coil (8 Cap) `{python} inc('Nuyen', -15000/2)`
+    * Sensor Dazzler (4 Cap; Invisible [Imp.] 4/5 vs MAD, mm-Wave, Ultrasound, Chem Sniffers, Body Shop p. 35) `{python} inc('Nuyen', -5000)`
+  * Used Synthetic Cyberarm (Left, 8 -> 12 Capacity; base 20,000¥ x 0.5 Used grade = 10,000¥, CRB p. 282, 289; replaces factory anthroform cyberlimb per DC p. 131, consuming 0 vehicle mod slots) `{python} inc('Nuyen', -10000)`
+    * Bulk Modification R4 (Left Arm; expands capacity 8 -> 12, Body Shop p. 44, DIY 50%) `{python} inc('Nuyen', -1000)`
+    * Wrist Shield (10 Cap; concealed 1m disc, Minor Action deploy, +4 DR, hands-free, 2P/3S melee, Body Shop p. 49) `{python} inc('Nuyen', -1000)`
+    * Built-In Utility Kit (2 Cap; Engineering tools + -1 Edge Boost/Action cost, Body Shop p. 49, DIY 50%) `{python} inc('Nuyen', -500)`
   * Increased Structural Integrity 5 `{python} inc('Nuyen', -25000/2)`
   * Realistic Features 4 `{python} inc('Nuyen', -4 * 10 * 1000 / 2)`
   * Secondary Propulsion (Vector Thrust / LAV): `{python} inc('Nuyen', -90000/2)`
@@ -215,5 +225,11 @@ Under *Double Clutch* p. 123–124, the Man-At-Arms receives 3 free Standard Har
   * Rating 1 Negative Quality (*SR6 CRB*, p. 70). Behavioral addiction to dramatic trid telenovelas (*Mandalay Icon* and Southeast Asian melodrama).
 * **Dissonant Technomancer (Control)** *(SRM 2083-13 Advancement; 30 Karma)*
   * Positive Quality (*Shadow Cast*, pp. 84–85; *SRMG*, p. 37; 15 base $\times 2 = 30\text{ Karma}$ post-chargen). Preferred target category: Devices. Edge Boosts cost 1 less on Matrix actions and complex forms targeting devices, adds a wild die, reduces fading by wild hits.
+* **Dissonance Diffusion** *(SRM 2081-04 Advancement; 10 Karma)*
+  * Positive Quality (*Shadow Cast*, p. 85; 5 base $\times 2 = 10\text{ Karma}$ post-chargen). Affects multiple Matrix attributes simultaneously; additional net hits reduce whichever Matrix attributes are chosen.
+* **Dissonance Spike** *(SRM 2081-04 Advancement; 10 Karma)*
+  * Positive Quality (*Shadow Cast*, p. 85; 5 base $\times 2 = 10\text{ Karma}$ post-chargen). Inflicts Matrix damage infused with dissonant corruption; can be hyperthreaded with Resonance Spike.
+* **Dissonance Stigma** *(SRM 2081-04 Advancement; -5 Karma Path Offset)*
+  * Negative Quality (*Shadow Cast*, pp. 86–87; reduces doubled post-chargen *Shadow Cast* Dissonance quality path cost by 5 Karma per *SRMG v2.4*). Other technomancers easily detect connection to the Dissonance; if persona is observed by non-Dissonant technomancers during a run, apply +4 personal Heat modifier at run end, and reduce Astral (Assensing) thresholds against Reiko by Submersion Grade.
 
 

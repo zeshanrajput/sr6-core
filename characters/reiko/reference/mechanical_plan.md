@@ -3,7 +3,7 @@
 This document has one operational role: **directing the exact sequence of Karma and Nuyen expenditures, downtime activity allocations, and architectural upgrades during character log updates.**
 
 * **Active State & Historical Records:** Current attributes, known complex forms, acquired gear, and ledger balances are maintained in the Markdown Trio ([character_log.qmd](file:///c:/GitHub/sr6-core/characters/reiko/core/character_log.qmd), [character_purchases.qmd](file:///c:/GitHub/sr6-core/characters/reiko/core/character_purchases.qmd), [character_build.qmd](file:///c:/GitHub/sr6-core/characters/reiko/core/character_build.qmd)) and compiled into `reiko_master.yaml`. Full vehicle and drone flight telemetry is codified in [rules_and_downtime.qmd](file:///c:/GitHub/sr6-core/characters/reiko/rules/rules_and_downtime.qmd).
-* **Current Active Baseline (Post-SRM 2083-13 Apotheosis):** **Resonance 9 / Submersion Grade 9** (*Echo: Syntax Error*); **Dissonant Technomancer (Control)**. Banked Balances: **5 Karma**, **¥25,075.0**.
+* **Current Active Baseline (Post-SRM 2081-04 Trailblazers):** **Resonance 9 / Submersion Grade 9** (*Echo: Syntax Error*); **Dissonant Technomancer (Control)** + **Dissonance Diffusion**, **Dissonance Spike**, **Dissonance Stigma** (*Dead Pixel Erosion* clock **ACTIVE — Gear 1**); **Phase 2 Dual Synthetic Cyberarm & Counter-Surveillance Suite** complete; **1× Armed Hawker-Siddley Bat** active; **7/9 Registered Sprites** (5 2nd-Gen + `Ouro (Thread B)` [Machine] + `Cleo (Thread B)` [Modular, `Override`]). Banked Balances: **0 Karma**, **¥3,025.0**.
 
 ---
 
@@ -53,9 +53,7 @@ Because post-apotheosis advancement is gated by **three independent finite resou
 
 | Priority | Target Upgrade | Category | Cost | Downtime Action Required | Primary Tactical / Architectural Role |
 | :---: | :--- | :--- | :---: | :---: | :--- |
-| **K1** | **Dissonance Diffusion** | Positive Quality | 10 Karma | None (Between runs) | *SC* 85: Strips multiple Matrix attributes simultaneously. Paid in full (10 Karma post-chargen); Dissonance Stigma/Static roleplayed diegetically without mechanical negative qualities. Subject to the *Dead Pixel Erosion* protocol once K1 + K2 are acquired. |
-| **K2** | **Dissonance Spike** | Positive Quality | 10 Karma | None (Between runs) | *SC* 85: Lethal biofeedback + unreductable noise aura targeting devices. Paid in full (10 Karma post-chargen); Dissonance Stigma/Static roleplayed diegetically without mechanical negative qualities. Unlocks the start of the *Dead Pixel Erosion* Composure clock. |
-| **K3** | **Resonance 9 $\rightarrow$ 10** | Attribute | 50 Karma | None (Between runs) | Apex Resonance Capstone. Pushes all Matrix pools to **18d6+** (*Natural Hacker*), Fading Resistance to **16d6**, Pilot to **10** (*Override*), ASDF arrays, and unlocks Tracker 1 (Submersion Grade 10). |
+| **K3** | **Resonance 9 $\rightarrow$ 10** | Attribute | 50 Karma | None (Between runs) | Apex Resonance Capstone. Pushes all Matrix pools to **18d6+** (*Natural Hacker*), Fading Resistance to **16d6**, Pilot to **10** (*Override*), ASDF arrays, and unlocks Tracker 1 (Submersion Grade 10). *(Note: Dissonance Diffusion, Dissonance Spike, and Dissonance Stigma acquired post-SRM 2081-04).* |
 
 K4+: Increases to Resonance
 
@@ -63,29 +61,20 @@ K4+: Increases to Resonance
 
 ### Tracker 3: Nuyen & DIY Hardware Queue (Minor Actions)
 
-*Liquid Nuyen earned from runs is dedicated to the **Twin Synthetic Cyberarm & Counter-Surveillance Suite** (~¥19,500 DIY; currently fully funded by Reiko's ¥25,075.0 liquid reserve) followed by the **Phase 3 Twin Hawker-Siddley Bat Overwatch Squadron** (~¥26,500 DIY + 2 Karma). Installed cyberlimbs consume **0 drone mod slots** (*Double Clutch*, p. 131). Drone modifications use **50% DIY workshop pricing** (*DC*, p. 120), install incrementally, and fit up to 3 drones per Minor Action.*
+*Phase 2 (**Twin Synthetic Cyberarms & Counter-Surveillance Suite**: Right Arm 12/12 Cap [Tesla Coil 8 + Sensor Dazzler 4], Left Arm 12/12 Cap [Wrist Shield 10 + Built-In Utility Kit 2]) is **COMPLETE** (installed post-SRM 2081-04 for ¥18,500 DIY; ¥15,775.0 liquid remaining). Next up is the **Phase 3 Twin Hawker-Siddley Bat Overwatch Squadron** (~¥26,500 DIY + 2 Karma). Installed cyberlimbs consume **0 drone mod slots** (*Double Clutch*, p. 131). Drone modifications use **50% DIY workshop pricing** (*DC*, p. 120), install incrementally, and fit up to 3 drones per Minor Action.*
 
-#### Phase 2: Twin Synthetic Cyberarms & Counter-Surveillance Suite
+#### Phase 3: Twin Hawker-Siddley Bat Overwatch Squadron (1/2 Bats Complete)
 
-| Priority | Target Hardware Upgrade | Source / Book | Cost (DIY / Retail) | Downtime Action Required | Capacity & Tactical Role |
-| :---: | :--- | :--- | :---: | :---: | :--- |
-| **N2** | **Left Synthetic Cyberarm (Used)** | *CRB* 289 / *DC* 131 | ¥10,000 | 1 Minor Action (DIY Swap) | Base 8 Capacity, Avail 1. Replaces stock factory arm with 0 drone mod slots consumed (*SRMG-0314*). |
-| **N3** | **Bulk Modification R4 (Right Arm)** | *Body Shop* 44 | ¥1,000 DIY<br>*(¥2,000 retail)* | 1 Minor Action (DIY Mod) | Expands Right Cyberarm from 8 $\rightarrow$ **12 Capacity** (enables Sensor Dazzler installation). |
-| **N4** | **Bulk Modification R4 (Left Arm)** | *Body Shop* 44 | ¥1,000 DIY<br>*(¥2,000 retail)* | 1 Minor Action (DIY Mod) | Expands Left Cyberarm from 8 $\rightarrow$ **12 Capacity** (enables Wrist Shield installation). |
-| **N5** | **Sensor Dazzler (Right Arm)** | *Body Shop* 35 | ¥5,000 | 1 Minor Action (Used Cyberware) | Consumes **[4] Capacity** in Right Arm (Tesla Coil [8] + Dazzler [4] = 12/12). Invisible (Imp.) 4/5 vs scanners. |
-| **N6** | **Wrist Shield (Left Arm)** | *Body Shop* 49 | ¥1,000 | 1 Minor Action (Used Cyberware) | Consumes **[10] Capacity** in Left Arm. Concealed 1m disc; Minor Action deploy; **+4 DR**; hands-free; 2P/3S melee. |
-| **N6.5** | **Built-In Utility Kit (Left Arm)** | *Body Shop* 49 | ¥500 DIY<br>*(¥1,000 retail)* | 1 Minor Action (Used Cyberware) | Consumes **[2] Capacity** in Left Arm. Provides easy access to all tools needed for Engineering. Wireless bonus grants a cost reduction of 1 on all Edge Boosts and Actions using the kit. |
-
-*Queued **after** the Phase 2 Dual Cyberarm & Sensor Dazzler overhaul (`N1–N6`). Pairs two **Hawker-Siddley Bats** (*Double Clutch*, pp. 106–107) with the **Essy Motors DroneMaster RCC** (`DR 3, DP 4, FW 4`) and active **Level 8 Registered Sprites** operating independently via `Override` (skipping Chameleon Coating to keep costs lean).*
+*Bat #1 (`Hawker-Siddley Bat` + `3× Small Weapon Mounts` + `3× Crimson Wasps` w/ `1× Internal Smartgun`) was acquired and fitted post-**SRM 2081-04** (`¥12,750`). Remaining queue below completes Bat #2 and the shared Bat autosofts:*
 
 | Priority | Target Upgrade | Source / Book | Cost (DIY / Retail) | Downtime Action Required | Slots & Tactical Role |
 | :---: | :--- | :--- | :---: | :---: | :--- |
-| **N7** | **2× Hawker-Siddley Bat** *(Hulls)* | *DC* 106–107 | ¥11,000<br>*(¥5,500 × 2)* | None (Purchase) | Small surveillance drones (`BOD 4 / ARM 4 / SENS 3`). Stock `1` Standard Hardpoint (split into `2` Small Hardpoints per *DC* p. 124) + `1` free `Small Hardpoint` (`BOD > 3`) = `3` Small Hardpoints, `+2` auditory threshold. Avail `2`. |
-| **N8** | **6× Crimson Wasp + 2× Internal Smartguns** | *FS* 44 / *CRB* 261 | ¥10,000<br>*(¥1,500 × 6 + ¥500 × 2)* | 1 Minor Action *(DIY Prep)* | `3` Crimson Wasps per Bat (`1` with Internal Smartgun per Bat as primary link-fire anchor; `+2 AR` smartgun + `+1 AR` M-TOC II; Pilot interface per *SRMG*, p. 51). Adds `+4 DV` (`+2` per added `5+ DV` weapon under *DC* p. 143) when link-fired. Avail `6(I)` / `1(L)`. *(Note: Installing `1` Extra Small Hardpoint for `0.5` Chassis + `¥400 DIY` enables `4× Crimson Wasp` per Bat = `11P*` SS / `12P*` SA!)* |
-| **N9** | **6× Small Weapon Mounts** | *DC* 124, 142–143 | ¥4,500 DIY<br>*(¥9,000 retail)* | Same Minor Action *(DIY Install)* | Per Bat: `3` Small Weapon Mounts (`0` Chassis slots; stock Standard HP split into `2× Small` + `1` free Small HP; ¥750 × 3 DIY). Avail `3(I)`. |
+| **N7** | **1× Hawker-Siddley Bat #2** *(Hull)* | *DC* 106–107 | ¥5,500 | None (Purchase) | Small surveillance drone (`BOD 4 / ARM 4 / SENS 3`). Stock `1` Standard Hardpoint (split into `2` Small Hardpoints per *DC* p. 124) + `1` free `Small Hardpoint` (`BOD > 3`) = `3` Small Hardpoints, `+2` auditory threshold. Avail `2`. |
+| **N8** | **3× Crimson Wasp + 1× Internal Smartgun** | *FS* 44 / *CRB* 261 | ¥5,000<br>*(¥1,500 × 3 + ¥500)* | 1 Minor Action *(DIY Prep)* | `3` Crimson Wasps on Bat #2 (`1` with Internal Smartgun as primary link-fire anchor; `+2 AR` smartgun + `+1 AR` M-TOC II; Pilot interface per *SRMG*, p. 51). Adds `+4 DV` (`+2` per added `5+ DV` weapon under *DC* p. 143) when link-fired. Avail `6(I)` / `1(L)`. *(Note: Installing `1` Extra Small Hardpoint for `0.5` Chassis + `¥400 DIY` enables `4× Crimson Wasp` per Bat = `11P*` SS / `12P*` SA!)* |
+| **N9** | **3× Small Weapon Mounts** | *DC* 124, 142–143 | ¥2,250 DIY<br>*(¥4,500 retail)* | Same Minor Action *(DIY Install)* | `3` Small Weapon Mounts (`0` Chassis slots; stock Standard HP split into `2× Small` + `1` free Small HP; ¥750 × 3 DIY). Avail `3(I)`. |
 | **N11** | **Software Tags (×2–4) & Derivative Autosofts** | *H&S* 43 / *CRB* 201 | ¥200–¥400<br>+ **2 Karma** | 12h / soft *(Software Emulator)* | Chained to `DroneMaster` (`DP 4`) to share `Maneuvering (Bat) R9` (`1K`), `Stealth (Bat) R9` (`1K`), `Evasion R9`, existing `Targeting (Crimson Wasp) R9`, `Clearsight R9`, plus optional `Swarm`/`Smartsoft`. |
 
-*Phase 3 Cost Summary:* **¥26,500** hardware (¥13,250/Bat DIY, saving **¥1,900** and `0.5` Chassis slots/Bat vs. Red Fox mix) + **¥200–¥400** Software Tags + **2 Karma** (plus ¥100 per spare non-rechargeable laser battery pack as needed).
+*Phase 3 Remaining Cost Summary:* **¥12,750** hardware (Bat #2 DIY) + **¥200–¥400** Software Tags + **2 Karma** (plus ¥100 per spare non-rechargeable laser battery pack as needed).
 
 N12 (Later): Increased Sensors +6 for each bat. Bat's weapons attack would be Targeting (9) + Sensors (3 to start, but we can add +6). (Slot note: Bod 4 gives 4 Electronics slots, but we need 6. We can convert 2 each from Powertrain and Chassis for the remaining 2 slots). Cost: 30k nuyen total (50% DIY, but 2 bats)
 
@@ -94,7 +83,7 @@ N12 (Later): Increased Sensors +6 for each bat. Bat's weapons attack would be Ta
 ## 3. The Endgame Protocol: The Dead Pixel Erosion (Level 4 Roleplay Rule)
 
 * **Baseline Pool:** Composure **10d6** (`WIL 6 + CHA 4`), replacing 1 die with a **matte-black Wild Die** (`SR6 CRB`, p. 48).
-* **Clock Start Gate:** The erosion clock remains dormant until Reiko acquires Steps K1–K2 (**Dissonance Diffusion** and **Dissonance Spike**, ~15 more Karma / ~2 missions). **Syntax Error** does not trigger erosion prior to acquiring those qualities.
+* **Clock Start Gate:** **ACTIVE (Gear 1)** as of post-**SRM 2081-04 Trailblazers** (**Dissonance Diffusion**, **Dissonance Spike**, and **Dissonance Stigma** acquired). **Syntax Error** and both Dissonance qualities now trigger Composure erosion rolls at the table.
 * **Roll Guardrails:** **No Edge** may be spent and **hits may not be bought** on Composure erosion tests.
 * **Triggers (Roll Openly at the Table):**
   1. Activating **Dissonance Diffusion** or **Dissonance Spike** (`Shadow Cast`, p. 85).

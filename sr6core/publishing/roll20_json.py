@@ -4209,6 +4209,15 @@ def generate_roll20_helper_guide(
         return "".join(parts)
 
     if magic > 0:
+        init_grade = _parse_int(payload.get("initiation"), 0)
+        has_centering = any(
+            "centering" in str(m.get("name", "")).lower()
+            for m in payload.get("metamagic", [])
+            if isinstance(m, dict)
+        )
+        center_b = init_grade if has_centering else 0
+        center_query = f"+?{{Centering?|Yes (+{center_b} IG),{center_b}|No,0}}" if center_b > 0 else ""
+        center_desc = f" (+{center_b} Centering optional)" if center_b > 0 else ""
         lines.extend(
             [
                 "",
@@ -4229,7 +4238,7 @@ def generate_roll20_helper_guide(
                 "",
                 "### Drain Resistance (`Willpower + Charisma`)",
                 "```text",
-                f"@{{{c_ref}|gm_toggle}} &{{template:rolls-computed}}{{{{header=@{{{c_ref}|character_name}}}}}}{{{{base=Drain Resistance (WIL + CHA)}}}}{{{{dicepool=[[(@{{{c_ref}|willpower}}+@{{{c_ref}|charisma}}+@{{{c_ref}|modifiers_toggle}}+@{{{c_ref}|edge_toggle}})]]}}}}{{{{dice=[[(@{{{c_ref}|willpower}}+@{{{c_ref}|charisma}}+@{{{c_ref}|modifiers_toggle}}+@{{{c_ref}|edge_toggle}})d6>5@{{{c_ref}|explode_toggle}}cs>5cf<[[(1+@{{{c_ref}|bad_luck}})]]]]}}}}{{{{mod=[[@{{{c_ref}|modifiers_toggle}}]]}}}}{{{{edge=[[@{{{c_ref}|edge_toggle}}]]}}}}{{{{desc=Shinto / Musok Tradition Drain Resistance}}}}",
+                f"@{{{c_ref}|gm_toggle}} &{{template:rolls-computed}}{{{{header=@{{{c_ref}|character_name}}}}}}{{{{base=Drain Resistance (WIL + CHA)}}}}{{{{dicepool=[[(@{{{c_ref}|willpower}}+@{{{c_ref}|charisma}}{center_query}+@{{{c_ref}|modifiers_toggle}}+@{{{c_ref}|edge_toggle}})]]}}}}{{{{dice=[[(@{{{c_ref}|willpower}}+@{{{c_ref}|charisma}}{center_query}+@{{{c_ref}|modifiers_toggle}}+@{{{c_ref}|edge_toggle}})d6>5@{{{c_ref}|explode_toggle}}cs>5cf<[[(1+@{{{c_ref}|bad_luck}})]]]]}}}}{{{{mod=[[@{{{c_ref}|modifiers_toggle}}]]}}}}{{{{edge=[[@{{{c_ref}|edge_toggle}}]]}}}}{{{{desc=Shinto / Musok Tradition Drain Resistance{center_desc}}}}}",
                 "```",
             ]
         )
@@ -4239,13 +4248,6 @@ def generate_roll20_helper_guide(
             if isinstance(m, dict)
         )
         if has_channeling:
-            init_grade = _parse_int(payload.get("initiation"), 0)
-            has_centering = any(
-                "centering" in str(m.get("name", "")).lower()
-                for m in payload.get("metamagic", [])
-                if isinstance(m, dict)
-            )
-            center_b = init_grade if has_centering else 0
             center_label = f" + Centering +{center_b}" if center_b > 0 else ""
             spirit_q = "?{Spirit Type|Air|Beasts|Earth|Fire|Guardian|Guidance|Kin (Kindred)|Plant|Task|Water}"
             force_q = "?{Force|5}"
@@ -4258,28 +4260,15 @@ def generate_roll20_helper_guide(
                     f"### Spirit Summoning & Channeling (All 6 Tests + Summary — Initiate Grade {init_grade}{center_label})",
                     "```text",
                     (
-                        f"@{{{c_ref}|gm_toggle}} &{{template:rolls-computed}}"
-                        f"{{{{header=@{{{c_ref}|character_name}}}}}}"
-                        f"{{{{base=Channeling: Force {force_q} {spirit_q} Spirit — 1. Summoning}}}}"
-                        f"{{{{dicepool=[[({summon_pool})]]}}}}"
-                        f"{{{{dice=[[({summon_pool})d6>5@{{{c_ref}|explode_toggle}}cs>5cf<1]]}}}}"
-                        f"{{{{mod=[[@{{{c_ref}|modifiers_toggle}}]]}}}}"
-                        f"{{{{wound=[[@{{{c_ref}|wounds_toggle}}]]}}}}"
-                        f"{{{{edge=[[@{{{c_ref}|edge_toggle}}]]}}}}"
-                        f"{{{{desc="
-                        f"**2. Spirit Resist (Summon, 2xF):** [[(2*{force_q})d6>5cs>5cf<1]] | "
-                        f"**3. Summon Drain Soak (WIL+CHA{center_label}):** [[({drain_pool})d6>5@{{{c_ref}|explode_toggle}}cs>5cf<1]] | "
-                        f"**4. Channeling (+{init_grade} IG):** [[({channel_pool})d6>5@{{{c_ref}|explode_toggle}}cs>5cf<1]] | "
-                        f"**5. Spirit Resist (Channel, 2xF):** [[(2*{force_q})d6>5cs>5cf<1]] | "
-                        f"**6. Channel Drain Soak (On Drop, WIL+CHA{center_label}):** [[({drain_pool})d6>5@{{{c_ref}|explode_toggle}}cs>5cf<1]]"
-                        f"}}}}"
-                        f"{{{{tip="
-                        f"**SUMMARY — F{force_q} {spirit_q} Spirit:** "
-                        f"**Tasks:** Summon $[[1]] vs $[[5]] (need 1+ net) + Channel $[[7]] vs $[[8]] | "
-                        f"**Summon Drain (Now):** DV $[[5]] vs Soak $[[6]] | "
-                        f"**Channel Drain (When Dropped):** DV $[[8]] vs Soak $[[9]] | "
-                        f"**Buffs:** +[[floor({force_q}/2)]] BOD/AGI/REA/STR (if < F{force_q}), Ignore {force_q} Wound boxes, Dual Natured."
-                        f"}}}}"
+                        f"@{{{c_ref}|gm_toggle}} &{{template:default}}"
+                        f"{{{{name=@{{{c_ref}|character_name}} — F{force_q} {spirit_q} Spirit (Channeling)}}}}"
+                        f"{{{{1. Summoning=[[({summon_pool})d6>5@{{{c_ref}|explode_toggle}}cs>5cf<1]]}}}}"
+                        f"{{{{2. Spirit Resist (Summon, 2xF)=[[(2*{force_q})d6>5cs>5cf<1]]}}}}"
+                        f"{{{{3. Summon Drain Soak (WIL+CHA{center_label})=[[({drain_pool})d6>5@{{{c_ref}|explode_toggle}}cs>5cf<1]]}}}}"
+                        f"{{{{4. Channeling (+{init_grade} IG)=[[({channel_pool})d6>5@{{{c_ref}|explode_toggle}}cs>5cf<1]]}}}}"
+                        f"{{{{5. Spirit Resist (Channel, 2xF)=[[(2*{force_q})d6>5cs>5cf<1]]}}}}"
+                        f"{{{{6. Channel Drain Soak (On Drop, WIL+CHA{center_label})=[[({drain_pool})d6>5@{{{c_ref}|explode_toggle}}cs>5cf<1]]}}}}"
+                        f"{{{{Buffs=+[[floor({force_q}/2)]] BOD/AGI/REA/STR (if < F{force_q}), Ignore {force_q} Wound boxes, Dual Natured}}}}"
                     ),
                     "```",
                 ]

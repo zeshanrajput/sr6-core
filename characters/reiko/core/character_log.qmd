@@ -743,8 +743,40 @@ Submersion_Grade = state["Submersion_Grade"]
   * *Full Sprite Fleet Refresh:* Over ample in-session downtime during the run, Reiko refreshed and re-registered her entire registered sprite family at Rating 8 (buying 5 hits with her 21d6 compiling pool, drain-free):
     * `{python} deregister_sprite("Ouro", reason="In-session downtime refresh")` | `{python} add_sprite("Machine", 8, name="Ouro", details="The Logic / Diagnostics, Override, Clearsight, Evasion", tasks=3)`
     * `{python} deregister_sprite("Percy", reason="In-session downtime refresh")` | `{python} add_sprite("Defender", 8, name="Percy", details="The Shield / Override, Shield, Stability", tasks=3)`
-    * `{python} deregister_sprite("Cleo", reason="In-session downtime refresh")` | `{python} add_sprite("Modular", 8, name="Cleo", details="The Market / Cookie (Modular), Con, Influence", tasks=3)`
+    * `{python} deregister_sprite("Cleo", reason="In-session downtime refresh")` | `{python} add_sprite("Modular", 8, name="Cleo", details="The Market / Override (Modular), Con, Influence", tasks=3)`
     * `{python} deregister_sprite("Aisling", reason="In-session downtime refresh")` | `{python} add_sprite("Music", 8, name="Aisling", details="The Radiant Hearth / Harmonize, Captivate Audience, Shield", tasks=3)`
     * `{python} deregister_sprite("Étaín", reason="In-session downtime refresh")` | `{python} add_sprite("Modular", 8, name="Étaín", details="The Skybox Weaver / Phantom (Modular), Suppression, Stability", tasks=3)`
 * **Loot & Acquisitions:**
   * *Captured Drone ("Busta"):* Subdued in the Funhouse, re-registered by Ouro, and secured within Reiko's abdominal drone rack for rehabilitation (logged in `character_purchases.qmd`).
+
+---
+
+`{python} mission("SRM.2081.04", date="2026-11-21", karma=9, nuyen=12200, rep={'SEA': 1}, gm="Kira_Capalu", difficulty="Veteran")`
+
+* **GM:** CDT Agent Kira Capalu
+* **Team:** Ninja (Arrogant Ninja), La Lupa (Connor), ESMe (JaGator; with little sister Messy), Imugi (Inirlan), Phoenix (FireWraith), Yuriko Star (WarDoctor)
+* **Summary:** Toil and Trubble contracted the team out of the Seattle Underground to scout a forgotten smuggling route terminating at a warehouse in Snohomish, picking up survival gear from McAllister at the Gold Mine and outfitting with Piper at Bob's Underground Outfitters and the Goblin Market (Reiko covering ESMe's expenses and buying reagents for Piper). Navigating 15 km of collapsed sewers, the team neutralized a pair of feral ghouls and later encountered Tako, a sapient Crimson Crush ghoul whose colony had been driven from their morgue by ferals. After clearing the feral nest led by a bruiser troll, the runners discovered a FungiTech subterranean farm managed by Hayden Mills (`Initiate 1`), whose crew had collapsed part of the tunnel with explosives to hold off waves of coordinated ghouls wearing electronic control collars. Crossing an underground waterfall chasm via Phoenix's *Physical Barrier* bridge, the team located a massive cavern housing roughly 150 collared ghouls, dozens of ferals, white-coated researchers, a Magic 8 vampire overseer, and ~20 uninfected captives (including surviving smugglers). While Phoenix dispelled the vampire's wards and sniped him with explosive rounds, Reiko unleashed Taz, a summoned Rating 10 sprite, and all five of her Rating 8 registered sparks (`Ouro`, `Percy`, `Cleo`, `Aisling`, `Étaín`) in a synchronized two-wave `Exploit` + `Control Device` assault across all 15 RCCs—turning all 150 collared ghouls against their handlers and freeing the captives. Returning the recovered smuggler backpacks to Toil's men in Snohomish, the team earned a hazard/recovery bonus (+1 Seattle Reputation net: +1 smugglers rescued, +1 vampire defeated, -1 returning smuggler goods) and chipped in on bribes (`-1,000¥`) to keep Heat clean.
+* **Contacts:**
+  * `{python} contact("McAllister", connection=5, loyalty=1, fp=1, type_name="Underground Fixer", region="Seattle", notes="SRM 2081-04 Trailblazers")`
+  * `{python} contact("Piper", fp=2)`
+  * `{python} contact("Toil", fp=2)`
+  * *Trubble:* +0 Favor Points (no insults traded).
+* **In-Session Expenses:**
+  * *Heat Reduction Bribe:* `{python} bribe(amount=1000, heat_reduced=1)`
+* **Downtime Actions (Converted 1 Major -> 2 Minors; 3 Minors Total):**
+  * *Minor Action 1 (Working for the People):* `{python} work_for_the_people()`
+    * 2,000¥ donated toward sustaining her sanctuary and children in Kernel Panic / Glade (Hooder), converting to +1 Karma.
+  * *Minor Action 2 (Drone Upgrades — Shiawase Man-at-Arms Phase 2 & Hawker-Siddley Bat #1):*
+    * **Shiawase Man-at-Arms (Drone #1):** Installed **Left Synthetic Cyberarm (Used)** (`-10,000¥`), **Bulk Modification R4** on both arms (`-2,000¥` DIY), **Sensor Dazzler** (`-5,000¥`), **Wrist Shield** (`-1,000¥`), and **Built-In Utility Kit** (`-500¥` DIY) (`-18,500¥` total; 0 drone mod slots consumed per *DC* p. 131).
+    * **Hawker-Siddley Bat #1 (Drone #2):** Purchased hull (`-5,500¥`), installed **3× Small Weapon Mounts** (`-2,250¥` DIY, 0 Chassis slots), and mounted **3× Crimson Wasps** (`-4,500¥`) with **1× Internal Smartgun** (`-500¥`) (`-12,750¥` total; logged in `character_purchases.qmd`).
+  * *Minor Action 3 (Register Sprites — Cleo [Thread B]):* `{python} add_sprite("Modular", 8, name="Cleo (Thread B)", details="The Market (Parallel Thread) / Override (Modular), Con, Influence", tasks=3)`
+    * Compiled and registered a second Rating 8 Modular Sprite (parallel thread of Cleo's architecture with the `Override` power, buying 5 hits with 21d6 compiling pool, drain-free).
+* **In-Session Downtime (Night 1 in the Tunnels — Zero Downtime Action Cost):**
+  * *Register Sprites (Ouro [Thread B] — 2nd Machine Sprite):* `{python} add_sprite("Machine", 8, name="Ouro (Thread B)", details="The Logic (Parallel Thread) / Diagnostics, Override, Clearsight, Evasion", tasks=3)`
+    * During the overnight camp in the collapsed Seattle Underground tunnels, Reiko compiled and registered a second Rating 8 Machine Sprite (parallel thread of Ouro's architecture, buying 5 hits with 21d6 compiling pool, drain-free).
+* **Advancement Between Runs (Zero Action Cost):**
+  * *Dissonance Qualities (Shadow Cast Quality Path):* `{python} inc('Karma', -15)`
+    * Acquired **Dissonance Diffusion** (*Shadow Cast*, p. 85; 5 base $\times 2 = 10\text{ Karma}$ post-chargen) and **Dissonance Spike** (*Shadow Cast*, p. 85; 5 base $\times 2 = 10\text{ Karma}$ post-chargen), offset by taking **Dissonance Stigma** (*Shadow Cast*, pp. 86–87; 5 Karma negative quality reducing the doubled post-chargen path cost by 5 Karma per *SRMG v2.4*).
+    * Unlocks the *Dead Pixel Erosion* Composure clock (Gear 1, active).
+* **Session Recording & Transcript:**
+  * Full CUDA timestamped transcript archived in `characters/reiko/sessions/SRM_2081-04/transcript.md` (source `.mp4` verified and deleted).
