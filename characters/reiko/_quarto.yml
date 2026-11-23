@@ -67,6 +67,8 @@ book:
         - narrative/35 ptrace.md
         - narrative/36 chown.md
         - narrative/37 dev-null.md
+        - narrative/38 chroot.md
+        - narrative/39 modprobe.md
     - part: "Inter-Session Interludes"
       chapters:
         - narrative/I01.md

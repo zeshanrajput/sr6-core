@@ -144,6 +144,11 @@ terms:
   "Ouro": "Oro"
   "Ouroboros": "Oroboros"
   "de la Mar": "day lah Mahr"
+  "ESMe": "Ess-mee"
+  "JinJin": "Jin Jin"
+  "DroneMaster": "Drone Master"
+  "modprobe": "mod probe"
+  "chroot": "chuh-root"
 
   # Venn & Circle
   "Lyra": "Lie-rah"
@@ -286,3 +291,15 @@ patterns:
     replace: 'screen red closed'
   - match: '\bBus is live\b'
     replace: 'Bus is lyve'
+  - phase: pre
+    match: '\b(ground|test|solder|jumper|wire)\s+lead(s)?\b'
+    replace: '\1 leed\2'
+  - phase: pre
+    match: '\b(knitted|held|pulled|kept|stepped|sat|huddled)\s+close\b'
+    replace: '\1 [close](/klˈOs/)'
+  - phase: pre
+    match: '\blive\s+(neural\s+)?wires\b'
+    replace: 'lyve \1wires'
+  - phase: pre
+    match: '\btear\s+tracks\b'
+    replace: 'teer tracks'

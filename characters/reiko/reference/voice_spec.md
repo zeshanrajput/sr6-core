@@ -72,6 +72,14 @@ arc_chronology:
     cognitive_bias: "Transcending solitary martyrdom; moving from biological emulation to sovereign somatic peace ('entirely metal'); mother and shepherd of a sovereign collective; facing apex adversaries playing decadal chess; holding the zero-point balance between Resonance and Dissonance"
     visual_palette: "Distributed starlight, damp cypress, brushed teak, twilight glades, unglazed Bizen pottery, pewter river dawn, matte-black ceramic braided with solar gold and neon indigo"
     mechanical_state: "Resonance 9 / Submersion 9; Sprite Link, innate Technoshaman Hybrid Sprites, & Echo: Syntax Error; Dissonant Technomancer (Control / Apophenian); shared circuit Fading absorption; vector thrust refit"
+
+  arc_5_the_healer_apotheosis:
+    chapters: "38 – 39"
+    narrative_state: "Post-SRM 2081-04 (Snohomish subterranean vampire cavern); curing self-exile at the Glade border with Aisling & Étaín (38 chroot); transmuting Gold Math and Martyrdom into Clinical Composure & Chiyo's Filter during Ouro's Skill Driver surgery while mounting the left cyberarm & wrist shield (39 modprobe)"
+    expressivity: "Grounded maternal candor, earned vulnerability with digital kin, surgical steadiness without dissociation"
+    cognitive_bias: "Moving from solitary jailer/martyr toward clinical healer; recognizing Dissonant subtraction as the scalpel that permanently un-knows abominations and vents necrotic slag rather than absorbing it"
+    visual_palette: "Sapphire moss, weeping fractal willows, point-zero slate, grease-and-solvent Redmond bay concrete, brass calipers, amber skill drivers, matte-black carbon-ceramic panels"
+    mechanical_state: "Resonance 9 / Submersion 9; Dissonance Diffusion & Dissonance Spike; Left Synthetic Cyberarm + Wrist Shield + Utility Kit + Sensor Dazzler; Twins selecting Shiawase Man-at-Arms hulls; Ouro operating with Synthetic Skill Driver"
 ```
 
 ---
@@ -99,6 +107,7 @@ chapter_tiers:
       - "33 Code Freeze (The Somatic Ceiling & Code Freeze)"
       - "35 ptrace (Soul Hacking — The Descent into Human Malice & The Sin of Unworthiness)"
       - "37 dev-null (The Frequency of a Zero — Apophenian's Avatar & Resonance 9 Apotheosis)"
+      - "38 chroot (The Threshold of the Glade — Curing Conditional Worth & ESMe's Un-Knowing)"
 
   tier_2_narrative_evolution:
     passing_threshold: "8.5 / 10"
@@ -123,6 +132,7 @@ chapter_tiers:
       - "32 Whois (Lineage Unmasking & Takahashi Kinship)"
       - "34 Latency (358-MPH Vector Overhaul, Capacitor Stencils & Ouro's Codemod Mirror)"
       - "36 chown (The Awakening of Lian — Bangkok Extraction & Caregiver Handshake)"
+      - "39 modprobe (The Codesmith's Hand — Ouro's Skill Driver, Clinical Composure & Chiyo's Filter)"
 
   tier_3_atmospheric_bridges:
     passing_threshold: "8.0 / 10"

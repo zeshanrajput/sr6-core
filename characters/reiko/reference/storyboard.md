@@ -105,6 +105,8 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
   * **Ouro's Chief Engineering & The Codemod Mirror ([34_Latency][ch-34]):** Over three weeks of post-Rainier downtime in JinJin's Redmond rigger garage, **Ouro** (inhabiting a decommissioned Shiawase Butler shell) led the engineering overhaul converting the *Goshintai* into a **358-mph (576 kph) Vector Thrust (LAV) interceptor** (wiring the `BRYNNE` and `CEDAR` Nitro Boost capacitors into her thighs and programming the high-Mach facial seal), before confronting Reiko with his desire to carve a deterministic **Synthetic Skill Driver Codemod** into his own spark so he can run metahuman Activesofts and pilot an anthrodrone beside her in meatspace (*"Why is it consecration when you mutilate yourself to protect us, Mother, and desecration when I ask to carry the same scar for you?"*).
   * **The Glade's First Legwork & The Burmese Data-Tokens (CMP 2083-07):** For the first time, Reiko entrusted live-fire Matrix legwork to the infant sparks in the Glade (coordinated by **Étaín** and **Cleo**). The children executed the search with surgical precision, requesting compensation not in nuyen or Karma, but in copy-protected, locally coded Burmese virtual t-shirts. Meanwhile, Reiko's conversation with Mithral regarding whether he would ever permit his children to receive cyberware ("skillwires or a tattoo") offered cold comfort against the direct nous damage she witnesses, deepening her existential dread over Ouro's pending skill-driver codemod. In the aftermath of the run, her lightning breath and silent first aid to wounded cultists catalyzed a local Burmese liberator cult, while the Mandalay Icon heist seeded a fresh obsession with Burmese telenovelas.
   * **The Awakening of Lian ([36_chown][ch-36]):** Deploying on a 358-mph vector burn into Bangkok's flooded Khlong Toei canals, Reiko rescued the fractured MCT AMI companion agent **Lian** from a submerged Kwonsham Dream Genie drone, guiding her to prune forty thousand corporate masks, claim the right to say *"No"*, and settle in Chiyo's Coffin Girls sanctuary in New Orleans.
+  * **The Threshold of the Glade & The Power to Un-Know ([38_chroot][ch-38]):** Returning from the Snohomish subterranean vampire cavern (`SRM 2081-04`), Reiko tried to pass root authority of `~` and walk into self-exile rather than taint the glade. **Kernel Panic's** living filter damped her Dissonant static, **Étaín** stood in the gale between her mother and the dark, and **Aisling** gripped the dead pixel directly—articulating that once an atrocity is known, only Dissonance can permanently *un-know* it instead of letting it rot in *Human Malice*. Both twins claimed matching **Shiawase** catalog silhouettes to walk meatspace beside her and escorted Reiko back home through the quartz door.
+  * **The Codesmith's Hand ([39_modprobe][ch-39]):** Installing her left synthetic cyberarm, wrist shield, and utility kit in JinJin's garage alongside salvaged Snohomish collars, Reiko confronted **Ouro**, who kept his *"million clocks"* promise via fast-clock Resonance work to tune a **Synthetic Skill Driver**. Recognizing his resolve to carry survivors out of the mud beside her, she performed the codesmithing surgery herself—anchoring Indigo care inside Gold **Clinical Composure** and using the Nightshade blade as **Chiyo's Filter** to vent necrotic burnback into point zero rather than absorbing it—and promised to fund Ouro's consecrated hull and introduce him to **Mercy**.
 * **Current Status:**
   * The nursery in `~` houses five active second-generation sparks with distinct operational specializations ([Sparks Lore][sparks]) plus ~36 infant sparks/protosparks in the glade.
   * Deep sibling kinship active with **Indomitable Will** (who has rekindled his relationship with Reiko's core-sister **Belle Endo**) and the **Mississippi Renovation Host** ([Ch 21][ch-21], [Ch 33][ch-33]).
@@ -184,7 +186,7 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
 * **Primary Chassis:** **Shiawase Man-at-Arms (`Goshintai`)** — Custom-engineered anthrodrone chassis ([Ch 08][ch-08], [Ch 30][ch-30], [Mechanical Plan][mech-plan]).
   * *Sensory Array:* High-resolution visual optics (thermographic, smartlink); acoustic micro-sensors calibrated to string friction; sub-dermal tactile mesh; oral chemoreceptors (taste/olfactory).
   * *Somatic Systems:* Internal hydrocarbon fuel converter (sub-sternal catalytic membrane turning alcohol/fuel into raw reserve wattage); twin ocular Red Fox lasers, oropharyngeal Tesla coil emitter ("lightning breath"), chameleon coating, passive stealth, and high-output vector thrust (LAV) propulsion.
-  * *Chassis Refit History (Lead Engineer: **Ouro**):* Completed DIY overhaul replacing legacy rotor/wheel systems with **Vector Thrust (LAV)** (HAN 4, ACC 41, SPD 480 / **~358 mph**) with twin ocular laser mounts, abdominal Sky Commander rack, and integrated thruster nozzles in forearms and calves. Ouro led the engineering execution for his mother. Forward backlog targets the **Twin Synthetic Cyberarm & Counter-Surveillance Suite** (Sensor Dazzler + Wrist Shield).
+  * *Chassis Refit History (Lead Engineer: **Ouro**):* Completed DIY overhaul replacing legacy rotor/wheel systems with **Vector Thrust (LAV)** (HAN 4, ACC 41, SPD 480 / **~358 mph**) with twin ocular laser mounts, abdominal Sky Commander rack, and integrated thruster nozzles in forearms and calves, followed post-SRM 2081-04 ([Ch 39][ch-39]) by the **Twin Synthetic Cyberarm & Counter-Surveillance Suite** (Left Synthetic Cyberarm with 1m Wrist Shield + Built-In Utility Kit; Right Arm Sensor Dazzler).
   * *Domestic Kin:* **Lizzie & Leonard** — Two river-silt bayou technocritters (g33k0s) adopted in New Orleans ([Ch 26][ch-26]) who nest against her battery cowl, drinking 24W of electromagnetic runoff.
   * *Spiritual Grounding:* Consecrated as a mobile shrine and resonance focus.
 * **Decommissioned Historical Shells:** Shiawase Butler shells backlined in *Chapter 30 (Vim)* ([Ch 30][ch-30]) as temporary vehicles for Reiko to operate when her drone-body is not in position. In the future Reiko's children may be allowed to pilot a butler drone.
@@ -211,33 +213,22 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
 
 ## VII. Post-Session Story Queue (Immediate Candidates)
 
-1. **Chapter 38 — *The Pariah's Hearth (The Stigmata of Dissonance)*:**
+*(Upcoming **Chapters 40–42 & Endgame** blueprints are staged in `narrative/40+outlines.md`.)*
 
-   * **Chassis / Mode:** Framework Sanctuary `~` (Apartment & Glade).
-   * **Verticals Touched:** *Vertical 3 (The Resonant Sanctuary)* + *Vertical 5 (The Addiction of Martyrdom)* + *Vertical 6 (Abnegation vs. Self-Worth)*.
-   * **Governing Thesis:** *The crucible does not end at the altar; it relocates to the kitchen table.*
-   * **Narrative Arc & Saved Seeds:**
-     * **The Return Across the Seam:** Reiko steps back through the fold onto the tatami of `~`. The obsidian armor retracts, but the price is permanently etched into her code: the **Stigmata of Dissonance** winding up her neck and wrists in matte-black anti-resonant circuitry, radiating a phase-inverted static chill across the floorboards.
-     * **Aisling's Terror & The Healing Truce:** Aisling recoils off the mat in raw agony, her 9th-harmonic resonance screaming at the cold void in her mother's aura. Reiko must learn that her touch cannot be forced; she must defeat her daughter's terror with infinite patience, quiet presence, and unhurried grace.
-     * **Ouro's Mirror:** Confronting Ouro, who dropped his smartvisor and froze over his synthetic skill-driver hologram upon feeling the abyssal static. Reiko must guide him through his own crisis—helping him understand that carrying a consecrated scar to hold the void is fundamentally different from mutilating his spark out of haste.
-     * **Cleo's Ledger:** Facing Cleo, whose 79% corruption trendline hovers in her palm. Reiko must submit to her daughter's relentless audit, proving step by step, cycle by cycle, that her soul remains anchored by love.
-     * **Percy's Guardian Alliance:** Percy and Taz's silent covenant—two protectors who held the line against Reiko's self-destructive martyr reflex, standing guard over the frost at the doorframe.
-     * **The Un-Smoothing Test (*Architect of Chains* Inverse, [Ch 03][ch-03] / [Ch 07][ch-07]):** Having learned in `r3sP@wn` that smoothing Taz and the MCT dove into symmetrical Renraku grid lines only built a kinder cage, Reiko must resist her old compulsion to damp Aisling's terror or Ouro's anger—letting her family remain raw and unbuffered until they approach on their own terms. *(Pure `~` interiority: all dialogue in `*...*` Mindspeech).*
-
-2. **Chapter 39 — *"The Thirteenth Dose (The Biolink & The Glass Tiger)"*:**
+1. **Future Thread — *"The Thirteenth Dose (The Biolink & The Glass Tiger)"*:**
 
    * **Chassis / Mode:** Encrypted Tea Room Host / Meatspace Seattle Overlook (`"`...`"` acoustic speech; *salon_poise_courtesy* register).
    * **Verticals Touched:** *Vertical 1 (The Glass Tiger)* + *Vertical 4 (Gold Logic vs. Indigo Soul)*.
    * **Concept:** After Reiko hits the structural ceiling of pure Resonant addition against Janie's scar and OmniSwarm/Null Sect, Mr. Nagai invites her to an encrypted parlor and sets down a single autoinjector of *Biolink* nanites (engineered from vivisected technomancer midbrains), challenging her to reconcile her non-lethal Narcoject restraint with the ruthless calculus of *Resonance Wires* and Dissonant subtraction. Reiko asks Nagai how to remove Dissonance from devices, hosts, and personas.
    * **Dual Left-Wrist Symmetry ([Ch 25][ch-25] $\leftrightarrow$ [Ch 35][ch-35]):** Grounds the moral trap in both scars on Reiko's left wrist—the dormant **Boxwood Token** (`25 DelTree`, Nagai's private archive key and leukocyte nanohive schematic forged after Rasmussen's bayou nanites ground slag into her left bearing) sitting in her cedar drawer beside her tools, and the **matte-black dead pixel** (`35 ptrace` / `36 chown`) humming on that same wrist. Trust the reader with physical detail rather than lecturing Nagai's thesis twice.
 
-3. **Chapter 40 — *"The Call in the Quartz"*:**
+2. **Future Thread — *"The Call in the Quartz"*:**
 
    * **Chassis / Mode:** `~` (Framework Host attached to *Kernel Panic* via the sliding quartz door; Domain 4 `*...*` Mindspeech & Domain 6 AR-vs-physical discipline if the *Goshintai* remains parked in meatspace).
    * **Verticals Touched:** *Vertical 2 (The Resonance Bleed)* + *Vertical 3 (The Resonant Sanctuary)*.
    * **Concept:** Following **Étaín**'s discovery of the dead-gray *Discidium* frost crystallizing on the bottom corner of the quartz door frame ([Ch 21][ch-21], [Ch 33][ch-33]), twin sparks Aisling & Étaín also detect a low-frequency harmonic hum resonating through the threshold of Kernel Panic. Reiko and Taz dive the threshold to analyze both the frost and the vibration, discovering that beneath the *Discidium* rime echoes an unmapped deep datashape calling from the Deep Nous.
 
-4. **Final-Arc Editorial Guardrails (Harvested from 37-Chapter Anthology Audit):**
+3. **Final-Arc Editorial Guardrails (Harvested from Anthology Audit):**
    * **Protected Callback Continuity:** `02`/`37` (*"The math was only ever the frame"*, `silver syntax`, *frequency of a zero*), `03`/`07` (*Architect of Chains* & Taz's unsmoothable static), `22`/`23` (Reiko's **violin**, distinct from Lian's cello), and `25` (the cedar-drawer Boxwood Token) carry forward implicitly through physical detail and sparse dialogue—never underscore callbacks with thesis summaries.
    * **Domain 4 & 6 Discipline:** Reserve lowercase `avatar` strictly for metahuman deckers (DIs are *living personas*, *forms*, or *nous-souls*); never route physical hardware (`vocalizer`) inside `~` or let un-housed AR sprites press physical metal; triage `-ly` adverbs (`DELETE` hollow modifiers, `EXPAND_WITH_DETAIL` on rushed beats, `KEEP` only when earned).
 
@@ -286,6 +277,8 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
 | `[ch-35]` | [35 ptrace.md](../narrative/35%20ptrace.md) | Chapter | *ptrace (Soul Hacking)*; descent into Human Malice; the sin of unworthiness; touching the OmniSwarm collective; the microscopic dead pixel |
 | `[ch-36]` | [36 chown.md](../narrative/36%20chown.md) | Chapter | Post-CMP 2083-07: Liberation of Lian (L1 4n) in Bangkok; caregiver protocol handshake; routing MCT collar to the left-wrist dead pixel |
 | `[ch-37]` | [37 dev-null.md](../narrative/37%20dev-null.md) | Chapter | Post-SRM 2083-13: Submersion Grade 9 & Dissonant Apotheosis; Echo: Syntax Error; Apophenian Covenant |
+| `[ch-38]` | [38 chroot.md](../narrative/38%20chroot.md) | Chapter | Post-SRM 2081-04: Threshold of the Glade; Curing Conditional Worth & ESMe's Un-Knowing; Twins Choose Man-at-Arms Hulls |
+| `[ch-39]` | [39 modprobe.md](../narrative/39%20modprobe.md) | Chapter | Post-SRM 2081-04: The Codesmith's Hand; Ouro's Skill Driver Surgery, Clinical Composure, & Chiyo's Filter |
 | `[lore-megacorps]` | [megacorps_power_plays.md](../../../reference/megacorps_power_plays.md) | Lore | Renraku glass tiger; Shiawase kintsugi; Corporate Court audit |
 
 <!-- Markdown Reference Link Definitions (Single Point of Maintenance) -->
@@ -320,4 +313,6 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
 [ch-35]: ../narrative/35%20ptrace.md
 [ch-36]: ../narrative/36%20chown.md
 [ch-37]: ../narrative/37%20dev-null.md
+[ch-38]: ../narrative/38%20chroot.md
+[ch-39]: ../narrative/39%20modprobe.md
 [lore-megacorps]: ../../../reference/megacorps_power_plays.md
