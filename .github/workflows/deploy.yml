@@ -81,12 +81,15 @@ jobs:
           (cd characters/reiko && quarto render)
           (cd characters/velvet && quarto render)
           (cd characters/lab/venn && quarto render)
+          (cd reference && quarto render anthrodrone_chassis_guide.md --to html -M theme:darkly -M embed-resources:true -M toc:true)
 
       - name: Assemble Static Distribution
         run: |
-          mkdir -p _site/characters/reiko _site/characters/velvet _site/characters/venn
+          mkdir -p _site/characters/reiko _site/characters/velvet _site/characters/venn _site/reference
           # Copy Hub / Landing Portal to Web Root
           cp index.html _site/
+          # Copy rendered reference pages
+          cp reference/anthrodrone_chassis_guide.html _site/reference/
           # Copy rendered character books
           cp -r characters/reiko/_book/* _site/characters/reiko/
           cp -r characters/velvet/_book/* _site/characters/velvet/
