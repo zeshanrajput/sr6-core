@@ -332,8 +332,9 @@ CANONICAL_RULE_DESCRIPTIONS: Dict[str, Tuple[str, str]] = {
     ),
     "diffusion": (
         "Fade: 4 | Duration: Sustained\n"
-        "Make an Electronics + Resonance vs. Willpower + Firewall opposed test. Each net hit reduces the target's Matrix attribute (Firewall) by 1 (to a minimum of 1).",
-        "CRB p.190",
+        "Make an Electronics + Resonance vs. Willpower + Firewall opposed test. Each net hit reduces the target's Matrix attribute (Firewall) by 1 (to a minimum of 1).\n"
+        "Dissonance Diffusion (Shadow Cast p.85): May affect multiple Matrix attributes simultaneously. At least 1 net hit must be applied to Firewall, and additional net hits may reduce whichever Matrix attributes you choose by 1 (to a minimum of 1) while sustained.",
+        "CRB p.190 / Shadow Cast p.85",
     ),
     "puppeteer": (
         "Fade: 5 | Duration: Sustained\n"
@@ -360,8 +361,29 @@ CANONICAL_RULE_DESCRIPTIONS: Dict[str, Tuple[str, str]] = {
     ),
     "resonance spike": (
         "Fade: 4 | Duration: Immediate\n"
-        "Make a Cracking + Resonance vs. Willpower + Firewall test; each net hit causes 1 box of unresisted Matrix damage.",
-        "CRB p.190",
+        "Make a Cracking + Resonance vs. Willpower + Firewall test; each net hit causes 1 box of unresisted Matrix damage.\n"
+        "Dissonance Spike (Shadow Cast p.85): Also deals lethal biofeedback damage. If the target takes any damage (and survives), it suffers 1 point of Matrix Noise per point of unresisted damage (Matrix and physical) for 1d6 minutes. This noise cannot be reduced by any noise reduction and persists even if the target reboots. Can be hyperthreaded with Resonance Spike.",
+        "CRB p.190 / Shadow Cast p.85",
+    ),
+    "dissonant technomancer": (
+        "Cost: 15 Karma (30 Post-Chargen). Choose a preferred target category (Devices).\n"
+        "• Game Effect: Halves/reduces Edge Boost costs by 1 (min 1) on Matrix actions and Complex Forms targeting Devices, adds +1 Wild Die to device-targeting tests, and reduces Fading by hits rolled on the Wild Die.",
+        "Shadow Cast p.84-85 / SRMG p.37",
+    ),
+    "dissonance diffusion": (
+        "Cost: 5 Karma (10 Post-Chargen).\n"
+        "• Game Effect: Diffusion may affect multiple Matrix attributes simultaneously. At least 1 net hit must be applied to Firewall; additional net hits may reduce whichever Matrix attributes you choose by 1 (minimum 1) while sustained.",
+        "Shadow Cast p.85",
+    ),
+    "dissonance spike": (
+        "Cost: 5 Karma (10 Post-Chargen).\n"
+        "• Game Effect: Resonance Spike also deals lethal biofeedback damage and inflicts 1 point of uncurable Matrix Noise per point of unresisted damage (Matrix and physical) for 1d6 minutes if the target survives, persisting even through reboot. Can be hyperthreaded with Resonance Spike.",
+        "Shadow Cast p.85",
+    ),
+    "dissonance stigma": (
+        "Bonus: 5 Karma.\n"
+        "• Game Effect: Other technomancers easily detect your connection to the Dissonance; if observed by non-Dissonant technomancers during a run, apply +4 personal Heat modifier at run end and reduce Astral (Assensing) thresholds against you by Submersion Grade.",
+        "Shadow Cast p.86-87",
     ),
 }
 CANONICAL_COMPLEX_FORMS: Dict[str, Dict[str, Any]] = {
@@ -998,12 +1020,15 @@ def _parse_extra_purchases_matrix_and_gear(char_repo_path: Optional[str]) -> Dic
                 sub_txt = _clean_qmd_line_text(stripped)
                 if not sub_txt:
                     continue
-                if sub_txt.lower() in (
-                    "basic programs",
-                    "hacking programs",
-                    "rigger programs",
-                    "knowledge",
-                ):
+                sub_low = sub_txt.lower()
+                if sub_low in ("basic programs", "hacking programs"):
+                    if current_sub_group == "programs":
+                        current_sub_group = "programs"
+                    continue
+                if sub_low == "rigger programs":
+                    current_sub_group = "rigger_programs"
+                    continue
+                if sub_low == "knowledge":
                     continue
                 if current_sub_group == "device_mods" and current_device is not None:
                     m_r = re.search(r"\((?:Rating|R)\s*(\d+)\)", sub_txt, re.I)
@@ -1012,17 +1037,38 @@ def _parse_extra_purchases_matrix_and_gear(char_repo_path: Optional[str]) -> Dic
                         r"\s*\((?:Rating|R)\s*\d+\)", "", sub_txt, flags=re.I
                     ).strip()
                     current_device["accessories"].append({"name": mod_clean, "rating": r_val})
-                elif current_sub_group in ("programs", "autosofts", "knowsofts", "apps"):
+                elif current_sub_group in ("programs", "apps"):
                     result["programs"].append(
                         {
                             "name": sub_txt,
                             "page": "CRB / Hack & Slash",
-                            "description": f"Matrix Program ({current_sub_group.title()})",
+                            "description": f"Matrix Program ({'Commlink App' if current_sub_group == 'apps' else 'Basic / Hacking'})",
                         }
                     )
                     if current_sub_group == "apps":
                         result["commlink_apps"].append(
                             {"name": sub_txt, "page": "CRB/HS", "description": "Commlink App"}
+                        )
+                elif current_sub_group == "autosofts":
+                    # Rating 9 Autosofts go on the Gear tab (Software Emulator rules);
+                    # base Knowledge / Language autosoft templates live in Knowledge Skills.
+                    if "r9" in sub_low or "rating 9" in sub_low:
+                        is_emulated = any(
+                            em in sub_low
+                            for em in ("clearsight", "close combat", "evasion", "maneuvering", "stealth", "targeting", "tracking")
+                        )
+                        result["extra_gear"].append(
+                            {
+                                "name": sub_txt,
+                                "rating": 9,
+                                "quantity": 1,
+                                "category": "AUTOSOFT",
+                                "notes": (
+                                    "Rating 9 Autosoft (learned via Software Emulator Echo, 1 Karma; always slotted across Living Persona / emulation slots)."
+                                    if is_emulated
+                                    else "Rating 9 Autosoft (always slotted via Living Persona / Software Emulator)."
+                                ),
+                            }
                         )
                 elif current_sub_group == "sensors":
                     m_r = re.search(r"\((?:Rating|R)\s*(\d+)", sub_txt, re.I)
@@ -1036,7 +1082,7 @@ def _parse_extra_purchases_matrix_and_gear(char_repo_path: Optional[str]) -> Dic
                         }
                     )
                 elif current_sub_group == "matrix_other":
-                    if sub_txt.lower().startswith("linguasoft"):
+                    if any(sw_k in sub_low for sw_k in ("linguasoft", "mapsoft", "shopsoft")):
                         continue
                     result["extra_gear"].append(
                         _extract_gear_entry(sub_txt, "Software / Matrix Asset")
@@ -1573,8 +1619,8 @@ def build_roll20_payload(
     # 2. Attributes (`json.attributes`)
     is_ai = "ai" in metatype.lower()
     _raw_w = char_data.get("weapons") or []
-    _all_w = (_raw_w.get("ranged", []) + _raw_w.get("melee", [])) if isinstance(_raw_w, dict) else (_raw_w if isinstance(_raw_w, list) else [])
-    has_red_fox = any("red fox" in str(w.get("name", "")).lower() or "crimson wasp" in str(w.get("name", "")).lower() for w in _all_w if isinstance(w, dict))
+    _all_w = (_raw_w.get("ranged", []) + _raw_w.get("close_combat", []) + _raw_w.get("melee", [])) if isinstance(_raw_w, dict) else (_raw_w if isinstance(_raw_w, list) else [])
+    has_red_fox = any(k in str(w.get("name", "")).lower() for w in _all_w if isinstance(w, dict) for k in ("red fox", "crimson wasp", "dual eye lasers", "eye beam"))
     attributes_list: List[Dict[str, Any]] = []
     core_attr_map = [
         ("BODY", "physical", "body", 1),
@@ -1754,19 +1800,23 @@ def build_roll20_payload(
                 ),
             }
         )
+        sub_g_val = submersion or 9
+        res_v = res_eff or 9
+        unaware_def = 9 + res_v + 4
+        std_def_syn = unaware_def + sub_g_val
+        full_def_cyber = std_def_syn + 3 + 7
         qualities_list.append(
             {
                 "name": "Matrix Defense Umbrella",
-                "choice": "22d6 Standard / 25d6 Base Full Defense / 41d6 All-In",
+                "choice": f"{std_def_syn}d6 Standard (w/ Syntax Error) / {full_def_cyber}d6 Full Defense (vs. Cybercombat & Res Spike)",
                 "positive": True,
                 "rating": "",
-                "page": "CRB p.181 / Hack & Slash p.33, 58, 69-70, 124",
+                "page": "CRB p.181 / SRMG p.32 / H&S p.33, 58, 69-70, 124",
                 "description": (
                     "• Matrix Defense Rating (DR): 16 (Data Processing 7 + Firewall 9). Note: Designer Home Device (H&S p.124) treats Man-at-Arms physical Device Rating as +4 higher (Base 2 + 4 = 6) vs. Data Processing (7) for Edge comparison — it does NOT add +4 to Matrix DR.\n"
                     "• Encryption: +1 threshold to all incoming Cracking tests against any device on Reiko's PAN.\n"
-                    "• Standard Matrix Defense (Free Action): 22d6 (5 Bought Hits) = Firewall (9) + Natural Hacker Resonance (9) + Resonance Focus (+4).\n"
-                    "• Base Full Matrix Defense (PA R6 3 Bought Hits): 25d6 (6 Bought Hits) = 22d6 Standard + 3 Bought Hits from Personal Assistant R6.\n"
-                    "• All-In Matrix Defense (Minor Anytime Actions when aware): 41d6 (10 Bought Hits) = 25d6 Base + Echo: Syntax Error (+9 Submersion) + Directional Shield Active Data Processing (+7).\n"
+                    f"• Standard Matrix Defense (All Matrix Actions, Complex Forms & Sprite Powers): {std_def_syn}d6 ({std_def_syn // 4} Bought Hits) = Firewall (9) + Natural Hacker Resonance ({res_v}) + Resonance Focus (+4) + Echo: Syntax Error (+{sub_g_val} Submersion Grade, Minor Anytime Action when aware; {unaware_def}d6 / {unaware_def // 4} Hits if surprised).\n"
+                    f"• Full Matrix Defense (ONLY vs. Cybercombat & Resonance Spike, SRMG p.32): {full_def_cyber}d6 ({full_def_cyber // 4} Bought Hits) = {std_def_syn}d6 Standard + Personal Assistant R6 (+3 Bought Hits; {std_def_syn + 3}d6 passive) + Directional Shield (+7 Active Data Processing, Minor Anytime Action).\n"
                     "• Biofeedback / Matrix Soak: Firewall (9) + Armor Program (+2) + Biofeedback Filter (+2 vs Biofeedback)."
                 ),
             }
@@ -1925,14 +1975,6 @@ def build_roll20_payload(
                     "description": "Usable only for Navigation. Meatspace skill: uses Real Intuition 2 (not Matrix Intuition 13) + Rating 5 + Navigation Spec 2 = 9d6 Pool. Set Modifier to -11 (-7 Natural Hacker - 4 Focus; or -7 if Focus Effect is toggled off).",
                 }
             )
-
-    if is_ai and has_red_fox:
-        extra_emulated_knowledges = [
-            {"name": "Performance (R9 Autosoft)", "category": "knowledge", "notes": "Emulated Autosoft (Rating 9, capped by DP 7) via Pilot Origins. Emulates Con: Performance."},
-        ]
-        raw_knowledges = list(raw_knowledges) + [
-            k for k in extra_emulated_knowledges if not any(k["name"].lower() in str(rk.get("name", "")).lower() for rk in raw_knowledges)
-        ]
 
     for ksk in raw_knowledges:
         if not isinstance(ksk, dict):
@@ -2275,6 +2317,8 @@ def build_roll20_payload(
         gname_base_low = re.sub(r"\s*\([^)]*\)\s*$", "", gname_low).strip()
         if gname_low in commlink_app_names_lower or gname_base_low in commlink_app_names_lower:
             continue
+        if is_ai and any(sw_k in gname_low for sw_k in ("mapsoft", "shopsoft")):
+            continue
 
         if "built-in medkit" in gname_low and grating == "" and extra_medkit_rating != "":
             grating = extra_medkit_rating
@@ -2357,8 +2401,8 @@ def build_roll20_payload(
             }
         )
 
-    # Add consolidated Software Library item to Gear if commlink apps exist
-    if extra_purchases.get("commlink_apps"):
+    # Add consolidated Software Library item to Gear if commlink apps exist (for non-AI characters)
+    if extra_purchases.get("commlink_apps") and not is_ai:
         app_names = [a["name"] for a in extra_purchases["commlink_apps"] if a.get("name")]
         if app_names and "software library" not in seen_items:
             seen_items.add("software library")
@@ -2518,18 +2562,41 @@ def build_roll20_payload(
                     },
                 ),
                 (
-                    "cyberarm",
+                    "cyberarm (right",
                     {
-                        "name": "Synthetic Cyberarm (Right) — 8 Capacity",
+                        "name": "Synthetic Cyberarm (Right) — 12 Capacity",
                         "level": "",
                         "quality": "USED",
                         "essence": 0.0,
-                        "page": "CRB p.282, 289 / DC p.131",
+                        "page": "CRB p.282, 289 / DC p.131 / BS p.35, 44, 49",
                         "description": (
                             "Used Synthetic Cyberarm replacing factory right anthroform cyberlimb (0 vehicle mod slots); "
-                            "houses integrated Tesla Coil cyberweapon."
+                            "Bulk Modification R4 expands capacity 8 -> 12 [c]. Houses Tesla Coil (8 Cap) and Sensor Dazzler (4 Cap)."
                         ),
-                        "accessories": [{"name": "Tesla Coil (Cyberweapon)"}],
+                        "accessories": [
+                            {"name": "Bulk Modification R4 (+4 Cap)"},
+                            {"name": "Tesla Coil (Cyberweapon, 8 Cap)"},
+                            {"name": "Sensor Dazzler (4 Cap)"},
+                        ],
+                    },
+                ),
+                (
+                    "cyberarm (left",
+                    {
+                        "name": "Synthetic Cyberarm (Left) — 12 Capacity",
+                        "level": "",
+                        "quality": "USED",
+                        "essence": 0.0,
+                        "page": "CRB p.282, 289 / DC p.131 / BS p.44, 49",
+                        "description": (
+                            "Used Synthetic Cyberarm replacing factory left anthroform cyberlimb (0 vehicle mod slots); "
+                            "Bulk Modification R4 expands capacity 8 -> 12 [c]. Houses Wrist Shield (10 Cap, +4 DR) and Built-In Utility Kit (2 Cap)."
+                        ),
+                        "accessories": [
+                            {"name": "Bulk Modification R4 (+4 Cap)"},
+                            {"name": "Wrist Shield (10 Cap, +4 DR)"},
+                            {"name": "Built-In Utility Kit (2 Cap)"},
+                        ],
                     },
                 ),
                 (
@@ -2670,16 +2737,16 @@ def build_roll20_payload(
                 armor_val = v_prof["base_armor"]
                 pilot_val = v_prof["inhabited_pilot"]
                 sensor_val = v_prof["hardware_sensor"]
-                res_val = res_eff or 8
+                res_val = res_eff or 9
                 des_val = 1 if any("designer" in q.get("name", "").lower() for q in char_data.get("qualities", {}).get("positive", [])) else 0
                 aug_sen = v_prof["augmented_sensor"]
                 enl_sen = v_prof["enlightened_sensor"]
                 enl_delta = enl_sen - aug_sen
                 pools = calculate_drone_action_pools(char_data, v, mode="inhabited_override")
                 acc_out = [
-                    {"name": "Chassis mods listed in Augmentations tab (9 systems)"},
-                    {"name": "Crimson Wasp Array (2x Small Eye Mounts)"},
-                    {"name": "Tesla Coil (Right Synthetic Cyberarm)"},
+                    {"name": "Chassis mods listed in Augmentations tab (10 systems)"},
+                    {"name": "Dual Eye Lasers / Eye Beam (2x Small Eye Mounts)"},
+                    {"name": "Lightning Breath (Tesla Coil in Right Synthetic Cyberarm)"},
                     {"name": "Drone Rack: Federated-Boeing Sky Commander"},
                     {"name": f"Sensor Array (Hardware Rating {sensor_val} -> {aug_sen} Passive / {enl_sen} Enlightened)"},
                 ]
@@ -2954,7 +3021,7 @@ def build_roll20_payload(
 
     if isinstance(raw_weapons, dict):
         ranged_items.extend(raw_weapons.get("ranged") or [])
-        melee_items.extend(raw_weapons.get("melee") or [])
+        melee_items.extend(raw_weapons.get("close_combat") or raw_weapons.get("melee") or [])
     elif isinstance(raw_weapons, list):
         for w in raw_weapons:
             if not isinstance(w, dict):
@@ -2969,7 +3036,11 @@ def build_roll20_payload(
             else:
                 ranged_items.append(w)
 
-    has_crimson_wasp = any("crimson wasp" in str(rw.get("name", "")).lower() for rw in ranged_items)
+    has_crimson_wasp = any(
+        k in str(rw.get("name", "")).lower()
+        for rw in ranged_items
+        for k in ("crimson wasp", "dual eye lasers", "eye beam")
+    )
     has_red_fox = any("red fox" in str(rw.get("name", "")).lower() for rw in ranged_items)
     if is_ai and has_crimson_wasp:
         from sr6core.rules.vehicles import calculate_drone_action_pools
@@ -2989,33 +3060,33 @@ def build_roll20_payload(
         ranged_weapons_list.extend(
             [
                 {
-                    "name": "Crimson Wasp Array (2x Link-Fired)",
+                    "name": "Dual Eye Lasers",
                     "skill": "exotic_weapons",
                     "pool": wasp_pool,
                     "damage": "7P*",
                     "attackRating": "22/20/17/12/-",
                     "mode": "SS",
                     "ammunition": "30",
-                    "page": "FS 44",
-                    "description": "Weapon: FS 44. Link Fire: DC 143 (+2 DV, +1 AR). Costs 1 major & 1 minor action to fire. 1 Wild Die. Decreases by 2P at Medium.",
+                    "page": "FS 44 / DC 143",
+                    "description": "Weapon: FS 44 / DC 143. Dual Crimson Wasps (Crimson Wasp Array, 2x Link-Fired). Link Fire: DC 143 (+2 DV, +1 AR). Costs 1 major & 1 minor action to fire. 1 Wild Die. Decreases by 2P at Medium.",
                     "wifi": [],
                     "accessories": [{"name": "Smartgun System (Internal)"}, {"name": "Peak-Discharge Laser Battery Clips"}],
                 },
                 {
-                    "name": "Tesla Coil (Straight)",
+                    "name": "Lightning Breath",
                     "skill": "exotic_weapons",
                     "pool": tesla_pool,
                     "damage": "5S(e)",
                     "attackRating": "10/12*/-/-/-",
                     "mode": "SS",
                     "ammunition": "20",
-                    "page": "BS 49",
-                    "description": "Weapon: BS 49. Flamethrower rules: SR6 117.",
+                    "page": "BS 49 / SR6 117",
+                    "description": "Weapon: BS 49 / SR6 117. Tesla Coil (single target / Straight). Flamethrower rules: SR6 117. Direct 20m stream.",
                     "wifi": [],
                     "accessories": [],
                 },
                 {
-                    "name": "Crimson Wasp (single beam)",
+                    "name": "Eye Beam",
                     "skill": "exotic_weapons",
                     "pool": wasp_pool,
                     "damage": "5P*",
@@ -3023,33 +3094,33 @@ def build_roll20_payload(
                     "mode": "SS",
                     "ammunition": "30",
                     "page": "FS 44",
-                    "description": "Weapon: FS 44. Independent eye mount. 1 Wild Die. Decreases to 3P at Medium.",
+                    "description": "Weapon: FS 44. Single Crimson Wasp (Eye Mount). Independent eye mount. 1 Wild Die. Decreases to 3P at Medium.",
                     "wifi": [],
                     "accessories": [{"name": "Smartgun System (Internal)"}],
                 },
                 {
-                    "name": "Tesla Coil (Wobbly)",
+                    "name": "Mega Lightning Breath",
                     "skill": "exotic_weapons",
                     "pool": tesla_pool,
                     "damage": "4S(e)",
                     "attackRating": "12/14*/-/-/-",
                     "mode": "SS",
                     "ammunition": "20",
-                    "page": "BS 49",
-                    "description": "Weapon: BS 49. Flamethrower rules: SR6 117. Fires in a cone 20m long, 3m at base (apex angle 8.58). May use wild die.",
+                    "page": "BS 49 / SR6 117",
+                    "description": "Weapon: BS 49 / SR6 117. Tesla Coil (narrow cone / Wobbly). Flamethrower rules: SR6 117. Fires in a cone 20m long, 3m at base (apex angle 8.58). May use wild die.",
                     "wifi": [],
                     "accessories": [],
                 },
                 {
-                    "name": "Tesla Coil (Sweep)",
+                    "name": "Giga Lightning Breath",
                     "skill": "exotic_weapons",
                     "pool": tesla_pool,
                     "damage": "2S(e)",
                     "attackRating": "14/16*/-/-/-",
                     "mode": "SS",
                     "ammunition": "20",
-                    "page": "BS 49",
-                    "description": "Weapon: BS 49. Flamethrower rules: SR6 117. Fires in a cone 20m long, 10m at base (apex angle 28.07). May use wild die.",
+                    "page": "BS 49 / SR6 117",
+                    "description": "Weapon: BS 49 / SR6 117. Tesla Coil (wide cone / Sweeping). Flamethrower rules: SR6 117. Fires in a cone 20m long, 10m at base (apex angle 28.07). May use wild die.",
                     "wifi": [],
                     "accessories": [],
                 },
@@ -3207,6 +3278,38 @@ def build_roll20_payload(
 
     for mw in melee_items:
         wname = str(mw.get("name") or "Melee Weapon").strip()
+        if is_ai and ("drone martial arts" in wname.lower() or "ramming" in wname.lower()):
+            from sr6core.rules.vehicles import parse_vehicle_modifications, calculate_drone_action_pools
+
+            maa_src = next(
+                (d for d in (char_data.get("drones") or []) if isinstance(d, dict) and "man-at-arms" in str(d.get("name", "")).lower()),
+                {"name": "Shiawase Man-at-Arms", "sensor": 2, "pilot": 2, "body": 10},
+            )
+            maa_prof = parse_vehicle_modifications(maa_src, char_data=char_data)
+            maa_pools = calculate_drone_action_pools(char_data, maa_src, mode="inhabited_override")
+            ram_pool = maa_pools["piloting"]["pool"]
+            ram_ar = 7 + maa_prof["augmented_sensor"] + maa_prof["augmented_body"]
+            ram_ar_enl = 7 + maa_prof["enlightened_sensor"] + maa_prof["augmented_body"]
+            ram_dv = f"{(maa_prof['augmented_body'] + 1) // 2}P*"
+            melee_weapons_list.append(
+                {
+                    "name": "Drone Martial Arts",
+                    "skill": "close_combat",
+                    "pool": ram_pool,
+                    "damage": ram_dv,
+                    "attackRating": f"{ram_ar}/-/-/-/-",
+                    "page": "CRB p.201 / DC p.144",
+                    "description": (
+                        f"Weapon: CRB p.201 / DC p.144. Vehicle Ramming w/ Ram Plate (Shiawase Man-at-Arms). "
+                        f"{ram_pool}d6 Piloting test (-1 Threshold via Pilot Origins); {ram_ar} Passive / {ram_ar_enl} Enlightened AR. "
+                        f"Base DV {ram_dv} (+1/Speed Interval). Ram Plate moves blowback damage to BOD/8 (vehicles) and BOD/16 (non-vehicles)."
+                    ),
+                    "wifi": [],
+                    "accessories": [{"name": "Ram Plate (Standard Hardpoint)"}, {"name": "Wrist Shield (10 Cap)"}],
+                }
+            )
+            continue
+
         db_row = _lookup_db_row(conn, "ref_weapons", mw.get("ref"), wname)
         wcat = str(mw.get("category") or (db_row or {}).get("category") or "Melee")
         wskill = _normalize_weapon_skill(mw.get("skill"), wcat, is_melee=True)
@@ -3219,22 +3322,26 @@ def build_roll20_payload(
             mw.get("source") or (db_row or {}).get("source"),
             mw.get("page") or "",
         )
+        if not page_str and "amalgam" in wname.lower():
+            page_str = "Scotophobia p.181"
         acc_out = [
             {"name": _stringify_accessory_item(m)}
             for m in (mw.get("modifications") or mw.get("accessories") or [])
         ]
-        melee_weapons_list.append(
-            {
-                "name": wname,
-                "skill": wskill,
-                "damage": wdmg,
-                "attackRating": war,
-                "page": page_str,
-                "description": str(mw.get("notes") or mw.get("description") or ""),
-                "wifi": [],
-                "accessories": acc_out,
-            }
-        )
+        mw_entry: Dict[str, Any] = {
+            "name": wname,
+            "skill": wskill,
+            "damage": wdmg,
+            "attackRating": war,
+            "page": page_str,
+            "description": str(mw.get("notes") or mw.get("description") or ""),
+            "wifi": [],
+            "accessories": acc_out,
+        }
+        if is_ai:
+            # Man-at-Arms close-combat attacks use Targeting (DP, 7) + Sensors (10) + Ally TW (4) = 21d6
+            mw_entry["pool"] = 21
+        melee_weapons_list.append(mw_entry)
 
     if not melee_weapons_list:
         _, str_eff = _resolve_attribute_from_block(attrs_block, "physical", "strength", 2)
@@ -3551,7 +3658,45 @@ def build_roll20_payload(
                     ]
                 )
 
-        if rule_desc and len(char_cf_desc) < 90:
+        pos_qual_blob = " ".join(
+            str(q.get("name", q) if isinstance(q, dict) else q).lower()
+            for q in (char_data.get("qualities") or {}).get("positive", [])
+        )
+        if cf_name.lower() == "diffusion":
+            base_cf = (
+                "Fade: 4 | Duration: Sustained\n"
+                "Make an Electronics + Resonance vs. Willpower + Firewall opposed test. Each net hit reduces the target's Matrix attribute (Firewall) by 1 (to a minimum of 1)."
+            )
+            extras_cf: List[str] = []
+            if "dissonance diffusion" in pos_qual_blob:
+                extras_cf.append(
+                    "Dissonance Diffusion (Shadow Cast p.85): May affect multiple Matrix attributes simultaneously. At least 1 net hit must be applied to Firewall, and additional net hits may reduce whichever Matrix attributes you choose by 1 (to a minimum of 1) while sustained."
+                )
+            if "dissonant technomancer" in pos_qual_blob:
+                extras_cf.append(
+                    "Dissonant Technomancer (Control, Shadow Cast p.84 / SRMG p.37): When targeting Devices, gain +1 Wild Die, Edge boosts cost 1 less, and hits rolled on the Wild Die reduce Fading."
+                )
+            cf_final_desc = "\n".join([base_cf] + extras_cf)
+            if "dissonance diffusion" in pos_qual_blob and "Shadow Cast" not in page_str:
+                page_str = f"{page_str} / Shadow Cast p.85"
+        elif cf_name.lower() == "resonance spike":
+            base_cf = (
+                "Fade: 4 | Duration: Immediate\n"
+                "Make a Cracking + Resonance vs. Willpower + Firewall test; each net hit causes 1 box of unresisted Matrix damage."
+            )
+            extras_cf = []
+            if "dissonance spike" in pos_qual_blob:
+                extras_cf.append(
+                    "Dissonance Spike (Shadow Cast p.85): Also deals lethal biofeedback damage. If the target takes any damage (and survives), it suffers 1 point of Matrix Noise per point of unresisted damage (Matrix and physical) for 1d6 minutes. This noise cannot be reduced by any noise reduction and persists even if the target reboots. Can be hyperthreaded with Resonance Spike."
+                )
+            if "dissonant technomancer" in pos_qual_blob:
+                extras_cf.append(
+                    "Dissonant Technomancer (Control, Shadow Cast p.84 / SRMG p.37): When targeting Devices, gain +1 Wild Die, Edge boosts cost 1 less, and hits rolled on the Wild Die reduce Fading."
+                )
+            cf_final_desc = "\n".join([base_cf] + extras_cf)
+            if "dissonance spike" in pos_qual_blob and "Shadow Cast" not in page_str:
+                page_str = f"{page_str} / Shadow Cast p.85"
+        elif rule_desc and len(char_cf_desc) < 90:
             cf_final_desc = rule_desc
         else:
             cf_final_desc = _combine_descriptions(char_cf_desc, rule_desc)
@@ -3937,10 +4082,11 @@ def generate_roll20_helper_guide(
         sprite_oracle_p = 16 + 4 + pa_b
         cf_p = elec_sk + 2 + eff_res + taz_b
         res_spike_p = crack_sk + eff_res + taz_b + ecm_b
-        std_mdef_p = 9 + eff_res
+        std_mdef_p = 9 + eff_res + sub_lvl
+        unaware_mdef_p = 9 + eff_res
         base_mdef_p = std_mdef_p + 3
-        allin_mdef_p = base_mdef_p + sub_lvl + 7
-        fade_compile_p = wil + cha + sub_lvl + res_focus_r
+        allin_mdef_p = base_mdef_p + 7
+        fade_compile_p = wil + cha + sub_lvl
         fade_cf_p = wil + cha
         eng_mod_val = -(eff_res - log) + 4
         bio_mod_val = -(eff_res - log) + 4
@@ -3969,7 +4115,7 @@ def generate_roll20_helper_guide(
         tesla_mod_enl = tesla_p_enl - start_exotic
         lines.extend(
             [
-                f"3. **Select Technomancer Stream (Matrix Tab)**: On the **Matrix** tab, select **`Technoshamans (Charisma)`** so Fade Resistance uses `Willpower + Charisma` (`{wil} + {cha} = {fade_cf_p}d6` base, `{fade_compile_p}d6` Compiling/Registering with Sprite Conduit +{sub_lvl} and Resonance Focus +{res_focus_r}).",
+                f"3. **Select Technomancer Stream (Matrix Tab)**: On the **Matrix** tab, select **`Technoshamans (Charisma)`** so Fade Resistance uses `Willpower + Charisma` (`{wil} + {cha} = {fade_cf_p}d6` base, `{fade_compile_p}d6` Compiling/Registering with Sprite Conduit +{sub_lvl}; Resonance Focus does not apply to Fade Resistance).",
                 "4. **Enable Overclock (Matrix Tab)**: Check the **`Overclock`** toggle on the **Matrix** tab so Roll20's native Matrix Action buttons automatically add **`+2d6`** (`@{matrix_overclock}*2`) and **`+1 Wild Die`**.",
                 "",
                 "---",
@@ -4020,16 +4166,17 @@ def generate_roll20_helper_guide(
                 "  - **Autosofts**: `9` (`Clearsight 9`, `Electronic Warfare 9`, `Evasion 9`, `Maneuvering 9`, `Targeting 9` shared via RCC/Software tags) and **Stealth `11`** (`9` + `2` from `Sneak-Sneak`).",
                 "",
                 "### 4) Weapon Pools (`Arms` & `Core` Tabs)",
-                f"The 5 Man-at-Arms weapons are exported using skill **`Exotic Weapons`** so your `Engineering (Drones)` skill doesn't inflate your weapon pools. Starting Roll20 pool = `Agility ({agi}) + Exotic Weapons (-1 unskilled) = {start_exotic}`:",
-                f"- **Crimson Wasps (Smartlinked)**: `Targeting (7) + Sensor ({maa_prof['augmented_sensor']}) + Taz (4) + Pilot Origins (1) + Smartlink (1) = {wasp_p}d6` Passive (`{wasp_p_enl}d6` w/ Enlighten Automaton) -> Set Mod to **`+{wasp_mod}`** (`+{wasp_mod_enl}` sustained).",
-                f"- **Tesla Coil (No Smartlink)**: `Targeting (7) + Sensor ({maa_prof['augmented_sensor']}) + Taz (4) + Pilot Origins (1) = {tesla_p}d6` Passive (`{tesla_p_enl}d6` w/ Enlighten Automaton) -> Set Mod to **`+{tesla_mod}`** (`+{tesla_mod_enl}` sustained).",
+                f"The Man-at-Arms ranged weapons are exported using skill **`Exotic Weapons`** (`{wasp_p}d6` / `{tesla_p}d6`) and **`Drone Martial Arts`** uses **`Close Combat`** (`{plt_p}d6` Piloting test). Starting Roll20 ranged pool = `Agility ({agi}) + Exotic Weapons (-1 unskilled) = {start_exotic}`:",
+                f"- **Dual Eye Lasers & Eye Beam (Crimson Wasps, Smartlinked)**: `Targeting (7) + Sensor ({maa_prof['augmented_sensor']}) + Taz (4) + Pilot Origins (1) + Smartlink (1) = {wasp_p}d6` Passive (`{wasp_p_enl}d6` w/ Enlighten Automaton) -> Set Mod to **`+{wasp_mod}`** (`+{wasp_mod_enl}` sustained).",
+                f"- **Lightning Breath Modes (Tesla Coil, No Smartlink)**: `Targeting (7) + Sensor ({maa_prof['augmented_sensor']}) + Taz (4) + Pilot Origins (1) = {tesla_p}d6` Passive (`{tesla_p_enl}d6` w/ Enlighten Automaton) -> Set Mod to **`+{tesla_mod}`** (`+{tesla_mod_enl}` sustained).",
                 "",
-                "- Click the settings toggle (`x`) on each of the 5 weapons:",
-                f"  1. **Crimson Wasp Array (2x Link-Fired)**: Set **Modifier** to **`+{wasp_mod}`** (Pool = **{wasp_p}d6** Passive / **{wasp_p_enl}d6** Sustained, 7P* DV [SS] / 8P* DV [SA], 1 Wild Die, AR 22/20/17/12/-).",
-                f"  2. **Single Crimson Wasp (Eye Mount)**: Set **Modifier** to **`+{wasp_mod}`** (Pool = **{wasp_p}d6** Passive / **{wasp_p_enl}d6** Sustained, 5P* DV [SS] / 6P* DV [SA], 1 Wild Die, AR 21/19/16/11/-).",
-                f"  3. **Tesla Coil (Straight Line)**: Set **Modifier** to **`+{tesla_mod}`** (Pool = **{tesla_p}d6** Passive / **{tesla_p_enl}d6** Sustained, 5S(e) DV, AR 10/12/-/-/-).",
-                f"  4. **Tesla Coil (Wobbly Cone)**: Set **Modifier** to **`+{tesla_mod}`** (Pool = **{tesla_p}d6** Passive / **{tesla_p_enl}d6** Sustained, 4S(e) DV, Cone 20m x 3m base, Apex 8.58°).",
-                f"  5. **Tesla Coil (Sweep Cone)**: Set **Modifier** to **`+{tesla_mod}`** (Pool = **{tesla_p}d6** Passive / **{tesla_p_enl}d6** Sustained, 2S(e) DV, Cone 20m x 10m base, Apex 28.07°).",
+                "- Click the settings toggle (`x`) on each of the weapons:",
+                f"  1. **Dual Eye Lasers** (`Crimson Wasp Array (2x Link-Fired)`): Set **Modifier** to **`+{wasp_mod}`** (Pool = **{wasp_p}d6** Passive / **{wasp_p_enl}d6** Sustained, 7P* DV [SS] / 8P* DV [SA], 1 Wild Die, AR 22/20/17/12/-).",
+                f"  2. **Eye Beam** (`Single Crimson Wasp (Eye Mount)`): Set **Modifier** to **`+{wasp_mod}`** (Pool = **{wasp_p}d6** Passive / **{wasp_p_enl}d6** Sustained, 5P* DV [SS] / 6P* DV [SA], 1 Wild Die, AR 21/19/16/11/-).",
+                f"  3. **Lightning Breath** (`Tesla Coil (single target / Straight)`): Set **Modifier** to **`+{tesla_mod}`** (Pool = **{tesla_p}d6** Passive / **{tesla_p_enl}d6** Sustained, 5S(e) DV, AR 10/12/-/-/-).",
+                f"  4. **Mega Lightning Breath** (`Tesla Coil (narrow cone / Wobbly)`): Set **Modifier** to **`+{tesla_mod}`** (Pool = **{tesla_p}d6** Passive / **{tesla_p_enl}d6** Sustained, 4S(e) DV, Cone 20m x 3m base, Apex 8.58°).",
+                f"  5. **Giga Lightning Breath** (`Tesla Coil (wide cone / Sweeping)`): Set **Modifier** to **`+{tesla_mod}`** (Pool = **{tesla_p}d6** Passive / **{tesla_p_enl}d6** Sustained, 2S(e) DV, Cone 20m x 10m base, Apex 28.07°).",
+                f"  6. **Drone Martial Arts** (`Vehicle Ramming w/ Ram Plate`, `CRB p.201 / DC p.144`): Piloting test (**{plt_p}d6**, `-1` Threshold, 33 Passive / 39 Enlightened AR, 8P* Base DV + 1/Speed Interval; Ram Plate moves blowback damage to `BOD/8` [vehicles] and `BOD/16` [non-vehicles]).",
             ]
         )
     lines.extend(
@@ -4114,11 +4261,11 @@ def generate_roll20_helper_guide(
                 "```",
                 "",
                 "### Effect 4: `Sprite Conduit, Taz Symbiosis & Technoshaman`",
-                "- **Duration**: `Permanent / Symbiosis` | **Source**: `Sprite Conduit (Sub 9) + Resonance Focus R4 + Technoshamans`",
-                f"- **What it does**: Adds **`+13` Compiling/Registering Fade Resistance** (`+9` Sprite Conduit + `+4` Resonance Focus, making `WIL 6 + CHA 4 + 13 = {fade_compile_p}d6` on `~fade_compiling` chat buttons) and **`+1` Sprite Resist DV** (`Technoshamans`). *(Note: Roll20's direct Submersion `Resist Fade` button omits `fade_compiling_modifier`, so use Section 4's `Fade-Resistance` Ability for direct one-click Fade rolls.)*",
+                "- **Duration**: `Permanent / Symbiosis` | **Source**: `Sprite Conduit (Sub 9) + Technoshamans`",
+                f"- **What it does**: Adds **`+{sub_lvl}` Compiling/Registering Fade Resistance** (`+{sub_lvl}` Sprite Conduit, making `WIL {wil} + CHA {cha} + {sub_lvl} = {fade_compile_p}d6` on `~fade_compiling` chat buttons; Resonance Focus does not apply because Fade Resistance does not use Resonance) and **`+1` Sprite Resist DV** (`Technoshamans`). *(Note: Roll20's direct Submersion `Resist Fade` button omits `fade_compiling_modifier`, so use Section 4's `Fade-Resistance` Ability for direct one-click Fade rolls.)*",
                 "- **Modifications** *(copy-paste as a single line)*:",
                 "```text",
-                f"fade_compiling_modifier: +{sub_lvl + res_focus_r}, sprite_resist_dv_modifier: +1",
+                f"fade_compiling_modifier: +{sub_lvl}, sprite_resist_dv_modifier: +1",
                 "```",
             ]
         )
@@ -4281,19 +4428,19 @@ def generate_roll20_helper_guide(
         ew_q = (
             f"?{{EW Action?"
             f"|Snoop ({cybercombat_p}d6 + 1w),{cybercombat_p}"
+            f"|Jam Signals ({cybercombat_p}d6 + 1w),{cybercombat_p}"
             f"|Hide w/ ECM II ({cybercombat_p}d6 + 1w),{cybercombat_p}"
             f"|Hide Defensive ({cybercombat_p - 2}d6 + 1w),{cybercombat_p - 2}"
+            f"|Check Overwatch Score ({cybercombat_p - 2}d6 + 1w),{cybercombat_p - 2}"
             f"}}"
         )
-        atk_base_p = min(res_spike_p, cf_p)
-        atk_delta = cybercombat_p - atk_base_p
-        atk_q = (
-            f"?{{Matrix Attack?"
-            f"|Data Spike — Overclock & Fork ({cybercombat_p}d6 + 1w),1"
-            f"|Resonance Spike — Complex Form ({res_spike_p}d6),0"
-            f"|Cyber Spike — Complex Form ({cf_p}d6),0"
+        oracle_q = (
+            f"?{{Oracle Searcher?"
+            f"|Yuriko ({oracle_search_p}d6 -> {oracle_search_p - 1}d6 + 1w),1"
+            f"|Level 8 Sprite ({sprite_oracle_p}d6 -> {sprite_oracle_p - 1}d6),0"
             f"}}"
         )
+        oracle_delta = oracle_search_p - sprite_oracle_p
         task_q = (
             f"?{{Tasking Action?"
             f"|Compile Sprite ({compile_link_p}d6 w/ +2 Resonance Link),2"
@@ -4302,15 +4449,16 @@ def generate_roll20_helper_guide(
         )
         fade_q = (
             f"?{{Fade Type?"
-            f"|Compiling / Registering ({fade_compile_p}d6 w/ Conduit +{sub_lvl} & Focus +{res_focus_r}),{fade_compile_p}"
+            f"|Compiling / Registering ({fade_compile_p}d6 w/ Conduit +{sub_lvl}),{fade_compile_p}"
             f"|Complex Form Threading ({fade_cf_p}d6 = WIL + CHA),{fade_cf_p}"
             f"}}"
         )
         mdef_q = (
             f"?{{Defense Mode?"
-            f"|All-In Full Matrix Defense ({allin_mdef_p}d6 -> 10 Bought Hits),{allin_mdef_p}"
-            f"|Base Full Matrix Defense w/ PA R6 ({base_mdef_p}d6 -> 6 Bought Hits),{base_mdef_p}"
-            f"|Standard Matrix Defense ({std_mdef_p}d6 -> 5 Bought Hits),{std_mdef_p}"
+            f"|Full Matrix Defense vs. Cybercombat & Res Spike ({allin_mdef_p}d6 -> 10 Bought Hits),{allin_mdef_p}"
+            f"|Cybercombat Defense w/ Syntax Error + PA R6 ({base_mdef_p}d6 -> 8 Bought Hits),{base_mdef_p}"
+            f"|Standard Matrix Defense w/ Syntax Error ({std_mdef_p}d6 -> 7 Bought Hits),{std_mdef_p}"
+            f"|Unaware Standard Matrix Defense ({unaware_mdef_p}d6 -> 5 Bought Hits),{unaware_mdef_p}"
             f"|Matrix Soak: FW + Armor (11d6 / 13d6 vs Biofeedback),11"
             f"}}"
         )
@@ -4325,74 +4473,9 @@ def generate_roll20_helper_guide(
         lines.extend(
             [
                 "",
-                f"### `Matrix-Hacking` (`{hacking_p}d6 [1w]`: Backdoor Entry | Known Exploit Backdoor Entry | Probe | Spoof Command)",
-                "```text",
-                _r20_ability(
-                    base="Matrix Hacking: ?{Hacking Action?|Backdoor Entry|Known Exploit Backdoor Entry|Probe|Spoof Command}",
-                    pool_expr=f"{hacking_p}",
-                    wild_die=True,
-                    overclock=True,
-                    desc="(Illegal), AR 16. Backdoor/Probe: Major/Extended, Admin access. Known Exploit Backdoor (H&S p.30): Major, no prior Probe needed; you cannot gain/spend Edge; target +1 Edge; failure raises OS without immediate alarm. Spoof: Major vs Pilot/FW.",
-                    tip=f"Pool {hacking_p}d6 ({hacking_p - 1}d6 + 1w): Cracking ({crack_sk}) + Hacking Spec (+2) + RES ({resonance}) + Focus (+{res_focus_r}) + Taz (+{taz_b}) + ECM Warrior II (+{ecm_b}) + Overclock (+{overclock_b}, 1w).",
-                    opp="Backdoor/Probe: [Willpower + Firewall](~selected|matrixresist_w_f) | [Firewall x2](~selected|matrixresist_f_f) / Spoof: [DP + Firewall](~selected|matrixresist_dp_f)",
-                ),
-                "```",
+                "### Yuriko's Active Roll20 Macros",
                 "",
-                f"### `Matrix-Electronic-Warfare` (`{cybercombat_p}d6 [1w]` / `{cybercombat_p - 2}d6 [1w]`: Hide | Snoop)",
-                "```text",
-                _r20_ability(
-                    base=f"Matrix Electronic Warfare ({cybercombat_p}d6 Snoop/Hide | {cybercombat_p - 2}d6 Defensive Hide)",
-                    pool_expr=ew_q,
-                    dice_count_expr=f"({ew_q})-1",
-                    wild_die=True,
-                    overclock=True,
-                    desc="(Illegal), CRB p.182, 184. Hide: Major/Minor evasive concealment. Snoop: Major, intercept comms (Net Hits min).",
-                    tip=f"Cracking ({crack_sk}) + RES ({resonance}) + Focus (+{res_focus_r}) + Taz (+{taz_b}) + Overclock (+{overclock_b}, 1w) = {cybercombat_p - 2}d6 (+2 ECM Warrior II = {cybercombat_p}d6).",
-                    opp="Hide: [Intuition + Data Processing](~selected|matrixresist_int_dp) | [DP + Sleaze](~selected|matrixresist_dp_s) / Snoop: [Willpower + Firewall](~selected|matrixresist_w_f)",
-                ),
-                "```",
-                "",
-                f"### `Matrix-Computer` (`{elec_base_p}d6 [1w]`: Matrix Perception | Threat Analysis)",
-                "```text",
-                _r20_ability(
-                    base="Matrix Computer: ?{Computer Action?|Matrix Perception|Threat Analysis}",
-                    pool_expr=f"{elec_base_p}",
-                    wild_die=True,
-                    overclock=True,
-                    desc="(Legal). Matrix Perception (Minor/Major): spot hidden icons/files, CRB p.182. Threat Analysis (H&S p.31, Major): allies with AR access on PAN (up to DP 7 users) gain hits as Defense bonus dice until next turn.",
-                    tip=f"Pool {elec_base_p}d6 ({elec_base_p - 1}d6 + 1w): Electronics ({elec_sk}) + RES ({resonance}) + Focus (+{res_focus_r}) + Taz (+{taz_b}) + Overclock (+{overclock_b}, 1w).",
-                    opp="Perception (Silent): [Willpower + Sleaze](~selected|matrixresist_w_s) | Threat Analysis: Unopposed",
-                ),
-                "```",
-                "",
-                f"### `Matrix-Hardware` (`{elec_base_p}d6 [1w]`: Squelch | Subvert Infrastructure)",
-                "```text",
-                _r20_ability(
-                    base="Matrix Hardware: ?{Hardware Action?|Squelch|Subvert Infrastructure}",
-                    pool_expr=f"{elec_base_p}",
-                    wild_die=True,
-                    overclock=True,
-                    desc="(Illegal, H&S p.31). Squelch (Minor, Outsider): prevents target device calls/transmissions for (Net Hits) min. Subvert Infrastructure (Major sustain, Admin): control 1 group of similar slaved simple devices per net hit (not an attack).",
-                    tip=f"Pool {elec_base_p}d6 ({elec_base_p - 1}d6 + 1w): Electronics ({elec_sk}) + RES ({resonance}) + Focus (+{res_focus_r}) + Taz (+{taz_b}) + Overclock (+{overclock_b}, 1w).",
-                    opp="Squelch: [Intuition + Sleaze](~selected|matrixresist_int_s) / [Sleaze x2](~selected|matrixresist_s_s) | Subvert: [Willpower + Firewall](~selected|matrixresist_w_f)",
-                ),
-                "```",
-                "",
-                f"### `Matrix-Attack` (`Data Spike {cybercombat_p}d6 [1w]` w/ Overclock & Fork | `Resonance Spike {res_spike_p}d6` | `Cyber Spike {cf_p}d6`)",
-                "```text",
-                _r20_ability(
-                    base=f"Matrix Attack (Data Spike {cybercombat_p}d6+1w | Resonance/Cyber Spike {atk_base_p}d6)",
-                    pool_expr=f"{atk_base_p}+{atk_delta}*{atk_q}",
-                    dice_count_expr=f"{atk_base_p}+{atk_q}",
-                    wild_die=f"{atk_q}+@{{wild_die}}",
-                    overclock=f"{atk_delta}*{atk_q}",
-                    desc="(Illegal), AR 16. Data Spike (CRB p.181, Fork up to 2 targets): Base DV 4 + net hits. | Resonance Spike (CF, Instant): Net hits = Matrix DV. | Cyber Spike (CF, Sustained, F2): Matrix damage vs target.",
-                    tip=f"Data Spike ({cybercombat_p}d6+1w) includes Overclock +2 (+1w) & ECM Warrior II (+2). Resonance Spike uses Cracking ({crack_sk}); Cyber Spike uses Electronics ({elec_sk}) + CF Spec (+2); both have no Overclock.",
-                    opp="Data Spike: [DP + Firewall](~selected|matrixresist_dp_f) | Resonance Spike: [Willpower + Firewall](~selected|matrixresist_w_f) | Cyber Spike: [Body + Essence](~selected|soak)",
-                ),
-                "```",
-                "",
-                f"### `Erase-Matrix-Signature` (`{software_p}d6 [1w]` Standalone Reminder)",
+                f"### `Erase-Matrix-Signature` (`{software_p}d6 [1w]`)",
                 "```text",
                 _r20_ability(
                     base="Erase Matrix Signature (Software Expertise)",
@@ -4426,49 +4509,106 @@ def generate_roll20_helper_guide(
                 ),
                 "```",
                 "",
-                f"### `Oracle-Search` (`{oracle_search_p}d6 [1w]` -> `{oracle_search_p - 1}d6 [1w]` 2-Major-Action / 1-Round Extended Search)",
+                f"### `Electronics-Computer` (`{elec_base_p}d6 [1w]`: Matrix Perception | Control Device | Threat Analysis | Trace Icon)",
                 "```text",
                 _r20_ability(
-                    base="Oracle Search — Major Action 1/2 (1 Combat Round)",
-                    pool_expr=f"{oracle_search_p}",
+                    base="Electronics-Computer: ?{Computer Action?|Matrix Perception|Control Device|Threat Analysis|Trace Icon}",
+                    pool_expr=f"{elec_base_p}",
                     wild_die=True,
                     overclock=True,
-                    desc="(Legal), Extended Search Interval 1 (10 min base; 1 Major Action w/ Oracle R4), CRB p.183.",
-                    tip=f"Pool {oracle_search_p}d6 ({oracle_search_p - 1}d6 + 1w): Elec ({elec_sk}) + RES ({resonance}) + Focus (+{res_focus_r}) + Taz (+{taz_b}) + Overclock (+{overclock_b}, 1w) + PA (+{pa_b}).",
-                    opp="Availability / Obscurity Threshold",
-                ),
-                _r20_ability(
-                    base="Oracle Search — Major Action 2/2 (-1d6 Decay)",
-                    pool_expr=f"{oracle_search_p - 1}",
-                    wild_die=True,
-                    overclock=True,
-                    desc="(Legal), Extended Search Interval 2 (completes 1 Combat Round / 2 Major Actions, -1d6 cumulative decay), CRB p.183.",
-                    opp="Availability / Obscurity Threshold",
+                    desc="(Legal/Mixed). Matrix Perception (Minor/Major, CRB p.182) | Control Device (Major/Minor, CRB p.180) | Threat Analysis (Major, H&S p.31: PAN allies gain hits as Defense bonus dice) | Trace Icon (Major, CRB p.184).",
+                    tip=f"Pool {elec_base_p}d6 ({elec_base_p - 1}d6 + 1w): Electronics ({elec_sk}) + RES ({resonance}) + Focus (+{res_focus_r}) + Taz (+{taz_b}) + Overclock (+{overclock_b}, 1w).",
+                    opp="Perception/Trace: [Willpower + Sleaze](~selected|matrixresist_w_s) | Control Device: [Willpower + Firewall](~selected|matrixresist_w_f)",
                 ),
                 "```",
                 "",
-                f"### `Sprite-Oracle-Search` (`{sprite_oracle_p}d6` -> `{sprite_oracle_p - 1}d6` 2-Major-Action / 1-Round Extended Search)",
+                f"### `Electronics-Hardware` (`{elec_base_p}d6 [1w]`: Squelch | Subvert Infrastructure | Jack Out)",
                 "```text",
                 _r20_ability(
-                    base="Sprite Oracle Search — Major Action 1/2 (1 Combat Round)",
-                    pool_expr=f"{sprite_oracle_p}",
-                    wild_die=False,
-                    overclock=False,
-                    include_toggles=False,
-                    desc="(Legal), Sprite Extended Search Interval 1 (10 min base; 1 Major Action w/ Oracle R4), CRB p.183.",
-                    tip=f"Sprite Level (8) x2 + Oracle (+4) + PA (+{pa_b}).",
-                    opp="Availability / Obscurity Threshold",
-                ),
-                _r20_ability(
-                    base="Sprite Oracle Search — Major Action 2/2 (-1d6 Decay)",
-                    pool_expr=f"{sprite_oracle_p - 1}",
-                    wild_die=False,
-                    overclock=False,
-                    include_toggles=False,
-                    desc="(Legal), Sprite Extended Search Interval 2 (completes 1 Combat Round / 2 Major Actions, -1d6 cumulative decay), CRB p.183.",
-                    opp="Availability / Obscurity Threshold",
+                    base="Electronics-Hardware: ?{Hardware Action?|Squelch|Subvert Infrastructure|Jack Out}",
+                    pool_expr=f"{elec_base_p}",
+                    wild_die=True,
+                    overclock=True,
+                    desc="(H&S p.31 / CRB p.182). Squelch (Minor, Outsider): blocks transmissions for Net Hits min | Subvert Infrastructure (Major sustain, Admin): control 1 group of similar slaved simple devices per net hit | Jack Out (Major vs Logic+Attack if link-locked).",
+                    tip=f"Pool {elec_base_p}d6 ({elec_base_p - 1}d6 + 1w): Electronics ({elec_sk}) + RES ({resonance}) + Focus (+{res_focus_r}) + Taz (+{taz_b}) + Overclock (+{overclock_b}, 1w).",
+                    opp="Squelch: [Intuition + Sleaze](~selected|matrixresist_int_s) / [Sleaze x2](~selected|matrixresist_s_s) | Subvert: [Willpower + Firewall](~selected|matrixresist_w_f)",
                 ),
                 "```",
+                "",
+                f"### `Electronics-Software` (`{software_p}d6 [1w]`: Edit File | Encrypt File | Hash Check | Format Device | Reboot Device | Disarm Data Bomb)",
+                "```text",
+                _r20_ability(
+                    base="Electronics-Software: ?{Software Action?|Edit File|Encrypt File|Hash Check|Format Device|Reboot Device|Disarm Data Bomb}",
+                    pool_expr=f"{software_p}",
+                    wild_die=True,
+                    overclock=True,
+                    desc="(CRB p.181-183 / H&S p.30). Edit File (+2 AR w/ Edit) | Encrypt File (+1 FW/Thresh) | Hash Check (Minor) | Format Device (Admin) | Reboot Device (Admin) | Disarm Data Bomb vs Rating x2.",
+                    tip=f"Pool {software_p}d6 ({software_p - 1}d6 + 1w): Electronics ({elec_sk}) + Software Expertise (+3) + RES ({resonance}) + Focus (+{res_focus_r}) + Taz (+{taz_b}) + Overclock (+{overclock_b}, 1w).",
+                    opp="Edit: [Intuition + Firewall](~selected|matrixresist_int_f) | Format/Reboot: [Willpower + Firewall](~selected|matrixresist_w_f)",
+                ),
+                "```",
+                "",
+                f"### `Cracking-ElecWar` (`{cybercombat_p}d6 [1w]` w/ ECM II / `{cybercombat_p - 2}d6 [1w]` Defensive: Snoop | Jam Signals | Hide | Check OS)",
+                "```text",
+                _r20_ability(
+                    base=f"Cracking-ElecWar ({cybercombat_p}d6 Snoop/Jam/Hide | {cybercombat_p - 2}d6 Defensive)",
+                    pool_expr=ew_q,
+                    dice_count_expr=f"({ew_q})-1",
+                    wild_die=True,
+                    overclock=True,
+                    desc="(CRB p.180-184). Snoop (Major, intercept comms) | Jam Signals (Major, area noise) | Hide (Minor, evasive concealment) | Check Overwatch Score (Minor, Legal).",
+                    tip=f"Cracking ({crack_sk}) + RES ({resonance}) + Focus (+{res_focus_r}) + Taz (+{taz_b}) + Overclock (+{overclock_b}, 1w) = {cybercombat_p - 2}d6 (+2 ECM Warrior II = {cybercombat_p}d6).",
+                    opp="Snoop: [Willpower + Firewall](~selected|matrixresist_w_f) | Hide: [Intuition + DP](~selected|matrixresist_int_dp) / [DP + Sleaze](~selected|matrixresist_dp_s)",
+                ),
+                "```",
+                "",
+                f"### `Cracking-Hacking` (`{hacking_p}d6 [1w]`: Backdoor Entry | Known Exploit Backdoor Entry | Probe | Brute Force | Crack File | Spoof Command)",
+                "```text",
+                _r20_ability(
+                    base="Cracking-Hacking: ?{Hacking Action?|Backdoor Entry|Known Exploit Backdoor Entry|Probe|Brute Force|Crack File|Spoof Command}",
+                    pool_expr=f"{hacking_p}",
+                    wild_die=True,
+                    overclock=True,
+                    desc="(Illegal), AR 16. Backdoor/Probe/Brute Force (Major/Extended, Admin/User access) | Known Exploit Backdoor (H&S p.30: no prior Probe, cannot gain/spend Edge, target +1 Edge) | Crack File | Spoof Command (Major vs DP+FW).",
+                    tip=f"Pool {hacking_p}d6 ({hacking_p - 1}d6 + 1w): Cracking ({crack_sk}) + Hacking Spec (+2) + RES ({resonance}) + Focus (+{res_focus_r}) + Taz (+{taz_b}) + ECM Warrior II (+{ecm_b}) + Overclock (+{overclock_b}, 1w).",
+                    opp="Backdoor/Probe/Brute: [Willpower + Firewall](~selected|matrixresist_w_f) | Spoof: [DP + Firewall](~selected|matrixresist_dp_f)",
+                ),
+                "```",
+                "",
+                f"### `Oracle` (Combined `Oracle-Search` [{oracle_search_p}d6 -> {oracle_search_p - 1}d6 w/ 1w] & `Oracle-Sprites` [{sprite_oracle_p}d6 -> {sprite_oracle_p - 1}d6])",
+                "```text",
+                (
+                    f"@{{gm_toggle}} &{{template:rolls-computed}}"
+                    f"{{{{header=@{{character_name}}}}}}"
+                    f"{{{{base=Oracle Search — Major Action 1/2 (1 Combat Round)}}}}"
+                    f"{{{{dicepool=[[{sprite_oracle_p}+{oracle_delta}*{oracle_q}+{oracle_q}*(@{{wounds_toggle}}+@{{modifiers_toggle}}+@{{edge_toggle}})]]}}}}"
+                    f"{{{{dice=[[({sprite_oracle_p}+{oracle_delta - 1}*{oracle_q}+{oracle_q}*(@{{wounds_toggle}}+@{{modifiers_toggle}}+@{{edge_toggle}}))d6>5@{{explode_toggle}}cs>5cf<[[(1+@{{bad_luck}})]]]]}}}}"
+                    f"{{{{mod=[[@{{modifiers_toggle}}]]}}}}{{{{wound=[[@{{wounds_toggle}}]]}}}}{{{{edge=[[@{{edge_toggle}}]]}}}}"
+                    f"{{{{wilddie=[[{oracle_q}*(1+@{{wild_die}})]]}}}}"
+                    f"{{{{wilddie_dice=[[1d6@{{explode_toggle}}cs>5cf<1]]}}}}"
+                    f"{{{{overclock=[[2*{oracle_q}]]}}}}"
+                    f"{{{{desc=(Legal), Extended Search Interval 1 (10 min base; 1 Major Action w/ Oracle R4), CRB p.183.}}}}"
+                    f"{{{{tip=Yuriko: {oracle_search_p}d6 ({oracle_search_p - 1}d6+1w = Elec {elec_sk}+RES {resonance}+Focus {res_focus_r}+Taz {taz_b}+Overclock {overclock_b}+PA {pa_b}) | Level 8 Sprite: {sprite_oracle_p}d6 (L8 x2 + Oracle 4 + PA {pa_b}).}}}}"
+                    f"{{{{opp=Availability / Obscurity Threshold}}}}"
+                ),
+                (
+                    f"@{{gm_toggle}} &{{template:rolls-computed}}"
+                    f"{{{{header=@{{character_name}}}}}}"
+                    f"{{{{base=Oracle Search — Major Action 2/2 (-1d6 Decay)}}}}"
+                    f"{{{{dicepool=[[{sprite_oracle_p - 1}+{oracle_delta}*{oracle_q}+{oracle_q}*(@{{wounds_toggle}}+@{{modifiers_toggle}}+@{{edge_toggle}})]]}}}}"
+                    f"{{{{dice=[[({sprite_oracle_p - 1}+{oracle_delta - 1}*{oracle_q}+{oracle_q}*(@{{wounds_toggle}}+@{{modifiers_toggle}}+@{{edge_toggle}}))d6>5@{{explode_toggle}}cs>5cf<[[(1+@{{bad_luck}})]]]]}}}}"
+                    f"{{{{mod=[[@{{modifiers_toggle}}]]}}}}{{{{wound=[[@{{wounds_toggle}}]]}}}}{{{{edge=[[@{{edge_toggle}}]]}}}}"
+                    f"{{{{wilddie=[[{oracle_q}*(1+@{{wild_die}})]]}}}}"
+                    f"{{{{wilddie_dice=[[1d6@{{explode_toggle}}cs>5cf<1]]}}}}"
+                    f"{{{{overclock=[[2*{oracle_q}]]}}}}"
+                    f"{{{{desc=(Legal), Extended Search Interval 2 (completes 1 Combat Round / 2 Major Actions, -1d6 cumulative decay), CRB p.183.}}}}"
+                    f"{{{{opp=Availability / Obscurity Threshold}}}}"
+                ),
+                "```",
+                "",
+                "---",
+                "",
+                "### Reference Abilities (Defense, Tasking, Drone & Weapons)",
                 "",
                 f"### `Compile-Register-Sprite` (`{compile_link_p}d6` Compiling w/ Resonance Link | `{register_p}d6` Registering)",
                 "```text",
@@ -4477,7 +4617,7 @@ def generate_roll20_helper_guide(
                     pool_expr=f"{compile_p}+{task_q}",
                     wild_die=False,
                     overclock=False,
-                    desc="Level ?{Level?|6} Sprite. Technoshamans: -2 Fade Value (+1 Service if Compiling >= 1 hit).",
+                    desc="Level ?{Level?|8} Sprite. Technoshamans: -2 Fade Value (+1 Service if Compiling >= 1 hit).",
                     tip=f"Tasking ({task_sk}) + Spec (+2) + RES ({resonance}) + Focus (+{res_focus_r}) = {compile_p}d6 (+2 Resonance Link when Compiling = {compile_link_p}d6). No ally sprite can learn or assist with Tasking.",
                     opp="Sprite Resistance (Level / Level x2)",
                 ),
@@ -4491,19 +4631,19 @@ def generate_roll20_helper_guide(
                     wild_die=False,
                     overclock=False,
                     include_wounds=False,
-                    desc="Fade Resistance ignores Wound modifiers. Technoshamans: -2 Fade Value on Compiling/Decompiling.",
-                    tip=f"Compiling/Registering = WIL ({wil}) + CHA ({cha}) + Sprite Conduit (+{sub_lvl}) + Focus (+{res_focus_r}) = {fade_compile_p}d6. Complex Form Threading = WIL ({wil}) + CHA ({cha}) = {fade_cf_p}d6.",
+                    desc="Fade Resistance ignores Wound modifiers (Resonance Focus does not apply). Technoshamans: -2 Fade Value on Compiling/Decompiling.",
+                    tip=f"Compiling/Registering = WIL ({wil}) + CHA ({cha}) + Sprite Conduit (+{sub_lvl}) = {fade_compile_p}d6. Complex Form Threading = WIL ({wil}) + CHA ({cha}) = {fade_cf_p}d6.",
                 ),
                 "```",
                 "",
-                f"### `Matrix-Defense` (`{allin_mdef_p}d6` All-In | `{base_mdef_p}d6` Base Full | `{std_mdef_p}d6` Standard | `11d6` Soak)",
+                f"### `Matrix-Defense` (`{std_mdef_p}d6` Standard w/ Syntax Error | `{allin_mdef_p}d6` Full Defense vs. Cybercombat & Res Spike | `11d6` Soak)",
                 "```text",
                 _r20_ability(
                     base="Matrix Defense Umbrella",
                     pool_expr=mdef_q,
                     wild_die=False,
                     overclock=False,
-                    desc=f"Standard ({std_mdef_p}d6 = 5 BH): FW 9 + RES {eff_res}. Base Full Defense ({base_mdef_p}d6 = 6 BH): +PA R6. All-In ({allin_mdef_p}d6 = 10 BH): +Syntax Error ({sub_lvl}) + Directional Shield DP (7). Soak: FW 9 + Armor 2 (+2 Biofeedback Filter).",
+                    desc=f"All Matrix Defenses ({std_mdef_p}d6 = 7 BH w/ Syntax Error +{sub_lvl}; {unaware_mdef_p}d6 unaware): FW 9 + RES {eff_res} + Syntax Error {sub_lvl}. Full Matrix Defense (ONLY vs. Cybercombat & Resonance Spike, SRMG p.32): {allin_mdef_p}d6 (10 BH) = +{pa_b} PA R6 + 7 Directional Shield DP ({base_mdef_p}d6 passive w/ PA R6). Soak: FW 9 + Armor 2 (+2 Biofeedback Filter).",
                 ),
                 "```",
                 "",
@@ -4533,15 +4673,15 @@ def generate_roll20_helper_guide(
                 ),
                 "```",
                 "",
-                f"### Drone Piloting / Maneuvering & Wrist-Shield Ram (`{plt_p}d6` — `-1` Threshold, `33/39` AR, `8P*` DV)",
+                f"### Drone Piloting / Maneuvering & `Drone Martial Arts` (`{plt_p}d6` — `-1` Threshold, `33/39` AR, `8P*` DV)",
                 "```text",
                 _r20_ability(
-                    base="Drone Piloting / Ramming (Maneuvering + Pilot/RES)",
+                    base="Drone Martial Arts / Piloting (Maneuvering + Pilot/RES)",
                     pool_expr=f"{plt_p}",
                     wild_die=False,
                     overclock=False,
                     gm_whisper=False,
-                    desc=f"-1 Threshold via Pilot Origins; Effective Handling 3. Ram Plate: AR 33 Passive / 39 Enlightened, DV 8P* (+1/Speed Interval), Halved Return Damage.",
+                    desc=f"CRB p.201 / DC p.144. Vehicle Ramming w/ Ram Plate (-1 Threshold; Effective Handling 3). AR 33 Passive / 39 Enlightened, Base DV 8P* (+1/Speed Interval). Ram Plate moves blowback damage to BOD/8 (vehicles) and BOD/16 (non-vehicles).",
                     tip=f"Maneuvering (7) + Pilot/RES ({maa_prof['inhabited_pilot']}) + Focus (+{res_focus_r}) + Taz Diagnosis (+3) + Pilot Origins (+1).",
                 ),
                 "```",
@@ -4572,41 +4712,41 @@ def generate_roll20_helper_guide(
                 ),
                 "```",
                 "",
-                f"### Crimson Wasp Array (2x Link-Fired) Attack (`{wasp_p}d6` Passive / `{wasp_p_enl}d6` Sustained — 1 Wild Die, 7P* SS / 8P* SA)",
+                f"### `Dual Eye Lasers` (`{wasp_p}d6` Passive / `{wasp_p_enl}d6` Sustained — 1 Wild Die, 7P* SS / 8P* SA)",
                 "```text",
                 _r20_ability(
-                    base="Crimson Wasp Array (2x Link-Fired)",
+                    base="Dual Eye Lasers",
                     pool_expr=f"{wasp_p}",
                     wild_die=True,
                     overclock=False,
                     gm_whisper=False,
-                    desc="Mode: SS/SA (Link-Fired), Damage: 7P* (SS) / 8P* (SA), AR: 22/20/17/12/- (SS) or 21/19/16/11/- (SA), Ammo: 30(c). 1 Wild Die; -2P at Medium range.",
+                    desc="FS 44 / DC 143. Dual Crimson Wasps (Crimson Wasp Array, 2x Link-Fired). Mode: SS/SA, Damage: 7P* (SS) / 8P* (SA), AR: 22/20/17/12/- (SS) or 21/19/16/11/- (SA), Ammo: 30(c). 1 Wild Die; -2P at Medium range.",
                     tip=f"FS 44 / DC 143 / SRMG 51. {wasp_p}d6 Passive ({wasp_p_enl}d6 w/ +{enl_delta} Enlighten Automaton): Targeting (7) + Sensor ({maa_prof['augmented_sensor']}/{maa_prof['enlightened_sensor']}) + Taz (+4) + Pilot Origins (+1) + Smartlink (+1).",
                 ),
                 "```",
                 "",
-                f"### Crimson Wasp Single Beam (`{wasp_p}d6` Passive / `{wasp_p_enl}d6` Sustained — 1 Wild Die, 5P* SS / 6P* SA)",
+                f"### `Eye Beam` (`{wasp_p}d6` Passive / `{wasp_p_enl}d6` Sustained — 1 Wild Die, 5P* SS / 6P* SA)",
                 "```text",
                 _r20_ability(
-                    base="Crimson Wasp (Single Beam)",
+                    base="Eye Beam",
                     pool_expr=f"{wasp_p}",
                     wild_die=True,
                     overclock=False,
                     gm_whisper=False,
-                    desc="Mode: SS/SA, Damage: 5P* (SS) / 6P* (SA), AR: 21/19/16/11/- (SS) or 20/18/15/10/- (SA), Ammo: 30(c). Independent Eye Mount; 1 Wild Die; -2P at Medium range.",
+                    desc="FS 44. Single Crimson Wasp (Eye Mount). Mode: SS/SA, Damage: 5P* (SS) / 6P* (SA), AR: 21/19/16/11/- (SS) or 20/18/15/10/- (SA), Ammo: 30(c). Independent Eye Mount; 1 Wild Die; -2P at Medium range.",
                     tip=f"FS 44 / SRMG 51. {wasp_p}d6 Passive ({wasp_p_enl}d6 w/ +{enl_delta} Enlighten Automaton): Targeting (7) + Sensor ({maa_prof['augmented_sensor']}/{maa_prof['enlightened_sensor']}) + Taz (+4) + Pilot Origins (+1) + Smartlink (+1).",
                 ),
                 "```",
                 "",
-                f"### Tesla Coil: Straight / Wobbly / Sweep (`{tesla_p}d6` Passive / `{tesla_p_enl}d6` Sustained)",
+                f"### `Lightning Breath` / `Mega Lightning Breath` / `Giga Lightning Breath` (`{tesla_p}d6` Passive / `{tesla_p_enl}d6` Sustained)",
                 "```text",
                 _r20_ability(
-                    base="Tesla Coil (?{Mode?|Straight Line (5S(e) AR 10/12)|Wobbly Cone (4S(e) AR 12/14)|Sweep Cone (2S(e) AR 14/16)})",
+                    base="?{Lightning Mode?|Lightning Breath — Straight (5S(e) AR 10/12)|Mega Lightning Breath — Wobbly Cone (4S(e) AR 12/14)|Giga Lightning Breath — Sweeping Cone (2S(e) AR 14/16)}",
                     pool_expr=f"{tesla_p}",
                     wild_die=False,
                     overclock=False,
                     gm_whisper=False,
-                    desc="BS 49 / SR6 117. Straight 20m line (REA+INT vs AR) or 20m cones (Wobbly 3m base 8.58° / Sweep 10m base 28.07°, may toggle Wild Die).",
+                    desc="BS 49 / SR6 117. Tesla Coil (Straight 20m line / Wobbly narrow cone 3m base 8.58° / Sweeping wide cone 10m base 28.07°, may toggle Wild Die).",
                     tip=f"{tesla_p}d6 Passive ({tesla_p_enl}d6 w/ +{enl_delta} Enlighten Automaton): Targeting (7) + Sensor ({maa_prof['augmented_sensor']}/{maa_prof['enlightened_sensor']}) + Taz (+4) + Pilot Origins (+1).",
                 ),
                 "```",

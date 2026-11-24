@@ -194,14 +194,14 @@ def test_velvet_roll20_export():
     # Run full Roll20 doImport simulation
     simulate_roll20_do_import(payload)
 
-    # Verify core identity and resources
+    # Verify core identity and resources (Post-SRM 2083-16)
     assert payload["streetName"] == "Velvet"
     assert payload["name"] == "Kim Jin-Young"
     assert payload["metaType"] == "Elf"
-    assert payload["karma"] == 74
-    assert payload["freeKarma"] == 2
-    assert payload["nuyen"] == 18265
-    assert payload["initiation"] == 5
+    assert payload["karma"] == 83
+    assert payload["freeKarma"] == 1
+    assert payload["nuyen"] == 28265
+    assert payload["initiation"] == 6
     assert payload["reputation"] == 10
 
     # Verify attributes (Charisma 10, Magic 6, Power Points 3, Willpower 5)
@@ -239,7 +239,7 @@ def test_velvet_roll20_export():
     assert len(payload["adeptPowers"]) == 5
     for ap in payload["adeptPowers"]:
         assert len(ap["description"]) > 40
-    assert len(payload["metamagic"]) == 5
+    assert len(payload["metamagic"]) == 6
     for mm in payload["metamagic"]:
         assert len(mm["description"]) > 40
 
@@ -282,7 +282,7 @@ def test_velvet_roll20_export():
 
     # Verify merged contacts (chargen + mission contacts) & favor points formatting
     contact_map = {c["name"]: c for c in payload["contacts"]}
-    assert len(contact_map) == 23
+    assert len(contact_map) >= 24
     assert "Ni Ni Xiaolu (1 FP)" in contact_map
     assert "Ms. Snow" in contact_map
     assert "Vincent Grisome" in contact_map
@@ -344,18 +344,39 @@ def test_reiko_roll20_export():
     assert "Network Benefits" in q_names
     assert "Matrix Defense Umbrella" in q_names
 
-    # 4. Ranged Weapons & Tesla Cone Angles Preserved
+    # 4. Ranged Weapons, Cute Headers, Actual Names After Book Ref, and Drone Martial Arts
     rw_map = {rw["name"]: rw for rw in payload["longRangeWeapons"]}
-    assert "Crimson Wasp Array (2x Link-Fired)" in rw_map
-    assert "Crimson Wasp (single beam)" in rw_map
-    assert "Tesla Coil (Straight)" in rw_map
-    assert "Tesla Coil (Wobbly)" in rw_map
-    assert "Tesla Coil (Sweep)" in rw_map
-    assert rw_map["Crimson Wasp Array (2x Link-Fired)"]["pool"] == 24
-    assert rw_map["Crimson Wasp (single beam)"]["pool"] == 24
-    assert rw_map["Tesla Coil (Straight)"]["pool"] == 23
-    assert "apex angle 8.58" in rw_map["Tesla Coil (Wobbly)"]["description"]
-    assert "apex angle 28.07" in rw_map["Tesla Coil (Sweep)"]["description"]
+    assert "Dual Eye Lasers" in rw_map
+    assert "Eye Beam" in rw_map
+    assert "Lightning Breath" in rw_map
+    assert "Mega Lightning Breath" in rw_map
+    assert "Giga Lightning Breath" in rw_map
+    assert rw_map["Dual Eye Lasers"]["pool"] == 24
+    assert rw_map["Eye Beam"]["pool"] == 24
+    assert rw_map["Lightning Breath"]["pool"] == 23
+    assert "Crimson Wasp Array" in rw_map["Dual Eye Lasers"]["description"]
+    assert "Single Crimson Wasp" in rw_map["Eye Beam"]["description"]
+    assert "Tesla Coil (single target / Straight)" in rw_map["Lightning Breath"]["description"]
+    assert "Tesla Coil (narrow cone / Wobbly)" in rw_map["Mega Lightning Breath"]["description"]
+    assert "Tesla Coil (wide cone / Sweeping)" in rw_map["Giga Lightning Breath"]["description"]
+    assert "apex angle 8.58" in rw_map["Mega Lightning Breath"]["description"]
+    assert "apex angle 28.07" in rw_map["Giga Lightning Breath"]["description"]
+
+    cw_map = {mw["name"]: mw for mw in payload["closeCombatWeapons"]}
+    assert "Amalgam Cestas" in cw_map
+    assert cw_map["Amalgam Cestas"]["pool"] == 21
+    assert cw_map["Amalgam Cestas"]["attackRating"] == "14/-/-/-/-"
+    assert "Unarmed Combat (Narcoslap)" in cw_map
+    assert cw_map["Unarmed Combat (Narcoslap)"]["pool"] == 21
+    assert cw_map["Unarmed Combat (Narcoslap)"]["attackRating"] == "12/-/-/-/-"
+    assert "Wrist Shield" in cw_map
+    assert cw_map["Wrist Shield"]["pool"] == 21
+    assert cw_map["Wrist Shield"]["damage"] == "2P/3S"
+    assert cw_map["Wrist Shield"]["attackRating"] == "9/-/-/-/-"
+    assert "Drone Martial Arts" in cw_map
+    assert cw_map["Drone Martial Arts"]["pool"] == 25
+    assert "CRB p.201 / DC p.144" in cw_map["Drone Martial Arts"]["page"]
+    assert "BOD/8 (vehicles) and BOD/16 (non-vehicles)" in cw_map["Drone Martial Arts"]["description"]
 
     # 5. Shiawase Man-at-Arms Drone Stats (Hardware Sensor 9, 11 Passive / 17 Enlightened)
     drone_map = {d["name"]: d for d in payload["drones"]}
@@ -409,12 +430,16 @@ def test_reiko_roll20_export():
     # 8. Complex Forms & Symbiosed Sprite Powers (Clean Descriptions, Dynamic 24d6 Pools in Influences)
     cf_map = {cf["name"]: cf for cf in payload["complexForms"]}
     assert "Cyber Spike" in cf_map
+    assert "Diffusion" in cf_map
     assert "Resonance Spike" in cf_map
     assert "Enlighten Automaton" in cf_map
     assert "Sprite Power: Death Mark" in cf_map
     assert "Sprite Power: Phantom" in cf_map
     assert "Sprite Power: Override" in cf_map
     assert "Sprite Power: Harmonize" in cf_map
+    assert "Dissonance Diffusion" in cf_map["Diffusion"]["description"]
+    assert "Dissonance Spike" in cf_map["Resonance Spike"]["description"]
+    assert "lethal biofeedback" in cf_map["Resonance Spike"]["description"]
     assert any("24d6" in inf for inf in cf_map["Cyber Spike"]["influences"])
     assert any("24d6" in inf for inf in cf_map["Resonance Spike"]["influences"])
     assert any("24d6" in inf for inf in cf_map["Sprite Power: Death Mark"]["influences"])
@@ -423,15 +448,16 @@ def test_reiko_roll20_export():
     assert "Total Pool:" not in cf_map["Sprite Power: Death Mark"]["description"]
     assert not cf_map["Resonance Spike"]["description"].startswith("Source:")
 
-    # 9. Augmentations (9 Structured Man-at-Arms Chassis Systems at 0.0 Essence)
+    # 9. Augmentations (10 Structured Man-at-Arms Chassis Systems at 0.0 Essence, Both 12-Cap Cyberarms)
     aug_names = {a["name"] for a in payload["augmentations"]}
-    assert len(payload["augmentations"]) >= 9
+    assert len(payload["augmentations"]) >= 10
     for expected_aug in (
         "Increased Structural Integrity",
         "Secondary Propulsion: Vector Thrust (LAV) & Thruster Tuning",
         "Chameleon Coating & Passive Stealth",
         "Realistic Features",
-        "Synthetic Cyberarm (Right) — 8 Capacity",
+        "Synthetic Cyberarm (Right) — 12 Capacity",
+        "Synthetic Cyberarm (Left) — 12 Capacity",
         "Enhanced Sensors Array",
         "Weapon Mount (Small) x2 & Ocular Pop-Out Concealment",
         "Ram Plate (Left Forearm Wrist-Shield)",
@@ -441,10 +467,13 @@ def test_reiko_roll20_export():
     for aug in payload["augmentations"]:
         assert aug["essence"] == 0.0
 
-    # 10. Items (Clean Gear List: Deduplicated Commlink Apps, Electronics, Supplies, Regalia)
+    # 10. Software Organization Across Knowledge Skills, Matrix Tab, and Gear Tab
     items_map = {i["name"]: i for i in payload["items"]}
-    assert "Commlink Software Library" in items_map
-    for app_dup in (
+    assert "Commlink Software Library" not in items_map
+    for sw_not_in_gear in (
+        "Mapsoft",
+        "Mapsoft: Burma / Rangoon & Irrawaddy Delta",
+        "Shopsoft",
         "Facial Scanner",
         "P-ICE Spines",
         "Personal Assistant (R6)",
@@ -452,7 +481,17 @@ def test_reiko_roll20_export():
         "Thermal Mood Reading",
         "Vocal Tension Detection",
     ):
-        assert app_dup not in items_map
+        assert sw_not_in_gear not in items_map
+    # R9 Autosofts live on the Gear tab (Software Emulator)
+    for expected_auto in ("Biotech (R9)", "Clearsight (R9)", "Close Combat (R9)", "Evasion (R9)", "Performance (R9)", "Targeting (1, R9)"):
+        assert expected_auto in items_map
+    # Knowledge Skills include Mapsofts, Shopsofts, and base Knowsoft/Linguasoft templates
+    know_names = {s["name"] for s in payload["skills"] if s["id"] in ("knowledge", "language")}
+    assert "Mapsoft x4" in know_names
+    assert "Shopsoft x6" in know_names
+    assert "Knowledge Autosoft (Base Template)" in know_names
+    assert "Language Autosoft (1, R5 — Base Template)" in know_names
+    assert "Performance (R9 Autosoft)" not in know_names
     assert items_map["Peak-Discharge Laser Battery Clips (Crimson Wasp)"]["count"] == 5
     assert items_map["Glitter Grenades"]["count"] == 10
     assert items_map["Laser Jack"]["count"] == 10
@@ -484,6 +523,13 @@ def test_reiko_roll20_export():
     assert "Oracle" in m_dev_map["The Holy Wild Sanctuary Host (~)"]["description"]
     assert m_dev_map["The Holy Wild Sanctuary Host (~)"]["accessories"] == []
 
+    prog_names_low = {p.get("name", "").lower() for p in lp.get("programs", [])}
+    assert "baby monitor" in prog_names_low
+    assert "overclock" in prog_names_low
+    assert "personal assistant (r6)" in prog_names_low
+    for excluded_prog in ("smartsoft", "swarm", "targeting (1, r9)", "clearsight (r9)", "japanese cultural etiquette"):
+        assert not any(excluded_prog in pn for pn in prog_names_low)
+
     prog_descs = "\n".join(p.get("description", "") for p in lp.get("programs", []))
     for false_pos in ("Browser's Den", "Levitate", "Traceless Walk", "Catalan"):
         assert false_pos not in prog_descs
@@ -491,6 +537,8 @@ def test_reiko_roll20_export():
     serialized = json.dumps(payload)
     assert "core p.CRB" not in serialized
     assert "double_clutch p.CRB" not in serialized
+    assert "sword of damocles" not in serialized.lower()
+    assert "dead pixel" not in serialized.lower()
 
     # 12. Armor (Man-At-Arms Base Armor is Primary)
     assert len(payload["armors"]) == 1
@@ -498,8 +546,8 @@ def test_reiko_roll20_export():
     assert payload["armors"][0]["primary"] is True
     assert payload["armors"][0]["rating"] == 8
 
-    # 11. Contacts (Full 70 Contacts Verified Including Kingston, JinJin, Laurig Heartwell, J. P. Chakraborty & Chargen Contacts)
-    assert len(payload["contacts"]) == 70
+    # 13. Contacts (Full 71 Contacts Verified Including McAllister, Kingston, JinJin, Laurig Heartwell, J. P. Chakraborty & Chargen Contacts)
+    assert len(payload["contacts"]) == 71
     contact_map = {c["name"]: c for c in payload["contacts"]}
     assert "Kingston" in contact_map
     assert contact_map["Kingston"]["loyalty"] == 2
@@ -560,22 +608,25 @@ def test_reiko_roll20_macro_guide_and_skill_cleanup():
     assert "{{rerolls=" not in guide_md
     assert "{{notes=" not in guide_md
 
-    # Requested grouped, combined attack, and standalone reminder macros
+    # Requested Yuriko active macros & reference abilities
     for expected_macro in (
-        "Matrix-Hacking",
-        "Matrix-Electronic-Warfare",
-        "Matrix-Computer",
-        "Matrix-Hardware",
-        "Matrix-Attack",
         "Erase-Matrix-Signature",
         "Cleaner",
-        "Oracle-Search",
-        "Sprite-Oracle-Search",
+        "Electronics-Computer",
+        "Electronics-Hardware",
+        "Electronics-Software",
+        "Cracking-ElecWar",
+        "Cracking-Hacking",
+        "Oracle",
         "Compile-Register-Sprite",
         "Fade-Resistance",
         "Matrix-Defense",
     ):
         assert expected_macro in guide_md
+
+    # Ensure Sword of Damocles / Dead Pixel are never in Roll20 guide
+    assert "sword of damocles" not in guide_md.lower()
+    assert "dead pixel" not in guide_md.lower()
 
     # Cleaner complex form verification: Permanent duration, hits reduce OS, autorolls Fade
     assert "Resist Fade: Cleaner (Fade 2)" in guide_md
@@ -583,11 +634,12 @@ def test_reiko_roll20_macro_guide_and_skill_cleanup():
     assert "{{fade=[[2]]}}" in guide_md
     assert "Net Hits vs Threshold" not in guide_md
 
-    # Oracle Search (+3 PA -> 27d6 -> 26d6) & Sprite Oracle Search (23d6 -> 22d6, no toggles/wild die)
-    assert "Elec (5) + RES (9) + Focus (+4) + Taz (+4) + Overclock (+2, 1w) + PA (+3)" in guide_md
-    assert "Sprite Level (8) x2 + Oracle (+4) + PA (+3)" in guide_md
-    assert "{{dicepool=[[(23)]]}}{{dice=[[(23)d6>5cs>5cf<1]]}}{{wilddie=[[0]]}}" in guide_md
-    assert "{{dicepool=[[(22)]]}}{{dice=[[(22)d6>5cs>5cf<1]]}}{{wilddie=[[0]]}}" in guide_md
+    # Combined Oracle macro handles both Yuriko (27d6 -> 26d6 w/ 1w) and Level 8 Sprite (23d6 -> 22d6)
+    assert "Yuriko (27d6 -> 26d6 + 1w),1|Level 8 Sprite (23d6 -> 22d6),0" in guide_md
+    assert "Elec 5+RES 9+Focus 4+Taz 4+Overclock 2+PA 3" in guide_md
+    assert "L8 x2 + Oracle 4 + PA 3" in guide_md
+    # Fade Resistance uses 19d6 (Compiling/Registering) / 10d6 (Complex Form) without Resonance Focus
+    assert "Resist Fade (Compiling 19d6 | Complex Form 10d6)" in guide_md
 
     # Verify skill influences deduplication & clamped teamwork ratings
     skill_map = {s["id"]: s for s in payload["skills"]}

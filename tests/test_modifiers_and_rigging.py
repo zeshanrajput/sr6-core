@@ -317,8 +317,8 @@ def test_matrix_protocols_summary():
     assert asdf["firewall"] == 9
 
     mdef = ModifierEngine.get_full_matrix_defense(SAMPLE_YURIKO)
-    assert mdef["pool"] == 24  # 8 RES + 9 FW + 3 PA (12/4 Hits) + 4 Focus = 24 (with RES 8)
-    assert mdef["all_in_pool"] == 31  # 24 Base + 7 DP = 31 (SAMPLE_YURIKO has no submersion grade)
+    assert mdef["pool"] == 21  # 8 RES + 9 FW + 4 Focus = 21 Standard (SAMPLE_YURIKO has submersion=0)
+    assert mdef["all_in_pool"] == 31  # 21 Standard + 3 PA R6 + 7 Directional Shield = 31 Full Defense vs Cybercombat/Res Spike
     assert mdef["effective_hits"] == 7
 
 
@@ -375,12 +375,15 @@ def test_weapon_attack_table_renderer():
     from sr6core.rules.engine import get_weapon_attack_table
     table_md = get_weapon_attack_table("reiko")
     assert "| Weapon Name | Mode (Rounds) | Final DV | Final Effective AR (C / N / M / F / E) | Notes & Constraints |" in table_md
-    assert "**Crimson Wasp Array (2x Link-Fired)**" in table_md
+    assert "**Dual Eye Lasers**" in table_md
+    assert "**Eye Beam**" in table_md
     assert "**22 / 20 / 17 / 12 / —**" in table_md
     assert "**21 / 19 / 16 / 11 / —**" in table_md
-    assert "**Tesla Coil (Straight)**" in table_md
-    assert "**Tesla Coil (Wobbly)**" in table_md
-    assert "**Tesla Coil (Sweeping)**" in table_md
+    assert "**Lightning Breath**" in table_md
+    assert "**Mega Lightning Breath**" in table_md
+    assert "**Giga Lightning Breath**" in table_md
+    assert "**Drone Martial Arts**" in table_md
+    assert "BOD/8 (vehicles) and BOD/16 (non-vehicles)" in table_md
     assert "8.58°" in table_md
     assert "28.07°" in table_md
     assert "**Amalgam Cestas" in table_md
@@ -481,7 +484,7 @@ def test_magic_and_social_action_pools_and_tables():
     assert magic_pools_enh["drain_resistance"].total_pool == 23  # WIL 9 + CHA 14 = 23d6 (5 Hits)
     assert magic_pools_enh["drain_resistance"].bought_hits == 5
     assert "channeling" in magic_pools_enh
-    assert magic_pools_enh["channeling"].total_pool == 20  # Conjuring 6 + MAG 6 + Focus 3 + Initiate Grade 5 = 20d6 (5 Hits)
+    assert magic_pools_enh["channeling"].total_pool == 21  # Conjuring 6 + MAG 6 + Focus 3 + Initiate Grade 6 = 21d6 (5 Hits)
     assert magic_pools_enh["channeling"].bought_hits == 5
 
     # Baseline mode
@@ -508,7 +511,7 @@ def test_magic_and_social_action_pools_and_tables():
     assert "**11d6**" in magic_table
     assert "**15d6**" in magic_table
     assert "Spirit Channeling" in magic_table
-    assert "**20d6**" in magic_table
+    assert "**21d6**" in magic_table
 
     social_table = get_social_action_table("velvet")
     assert "Social Negotiation" in social_table

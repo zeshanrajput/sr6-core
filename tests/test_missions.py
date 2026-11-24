@@ -92,12 +92,12 @@ def test_character_missions_audit():
     assert audit_reiko["srm_count"] >= 20
     assert audit_reiko["rent_payments"] >= 10
 
-    # Velvet has 5 SRMs and 2 rent payments -> passes rent cadence check
+    # Velvet has 6 SRMs and 3 rent payments -> passes rent cadence check
     audit_velvet = audit_character_missions("velvet")
     assert audit_velvet["valid"] is True
     assert len(audit_velvet["errors"]) == 0
-    assert audit_velvet["srm_count"] == 5
-    assert audit_velvet["rent_payments"] == 2
+    assert audit_velvet["srm_count"] == 6
+    assert audit_velvet["rent_payments"] == 3
 
 
 def test_search_missions_db():

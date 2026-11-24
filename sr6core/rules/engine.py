@@ -57,58 +57,58 @@ CANONICAL_SUPPLEMENT_WEAPONS: Dict[str, Dict[str, Any]] = {
     },
     "tesla_coil": {
         "id": "tesla_coil",
-        "name": "Tesla Coil (Straight)",
+        "name": "Lightning Breath",
         "category": "Cyberweapons",
         "dv": "5S(e)",
         "ar": [8, 10, None, None, None],
         "mode": "SS",
         "ammo": "5(c)",
         "source": "Body Shop p. 49 / SR6 Core p. 117",
-        "notes": "Straight spray attack. Max 20m. Direct stream (first valid target in line of fire)."
+        "notes": "Tesla Coil (single target / Straight). Straight spray attack. Max 20m. Direct stream (first valid target in line of fire)."
     },
     "tesla_coil_straight": {
         "id": "tesla_coil_straight",
-        "name": "Tesla Coil (Straight)",
+        "name": "Lightning Breath",
         "category": "Cyberweapons",
         "dv": "5S(e)",
         "ar": [8, 10, None, None, None],
         "mode": "SS",
         "ammo": "5(c)",
         "source": "Body Shop p. 49 / SR6 Core p. 117",
-        "notes": "Straight spray attack. Max 20m. Direct stream (first valid target in line of fire)."
+        "notes": "Tesla Coil (single target / Straight). Straight spray attack. Max 20m. Direct stream (first valid target in line of fire)."
     },
     "tesla_coil_wobbly": {
         "id": "tesla_coil_wobbly",
-        "name": "Tesla Coil (Wobbly)",
+        "name": "Mega Lightning Breath",
         "category": "Cyberweapons",
         "dv": "4S(e)",
         "ar": [10, 12, None, None, None],
         "mode": "SS",
         "ammo": "5(c)",
         "source": "Body Shop p. 49 / SR6 Core p. 117",
-        "notes": "Wobbly spray attack (+2 AR, -1 DV). 8.58° apex cone (3m wide @ 20m). Optional Wild Die."
+        "notes": "Tesla Coil (narrow cone / Wobbly). Wobbly spray attack (+2 AR, -1 DV). 8.58° apex cone (3m wide @ 20m). Optional Wild Die."
     },
     "tesla_coil_sweeping": {
         "id": "tesla_coil_sweeping",
-        "name": "Tesla Coil (Sweeping)",
+        "name": "Giga Lightning Breath",
         "category": "Cyberweapons",
         "dv": "2S(e)",
         "ar": [12, 14, None, None, None],
         "mode": "SS",
         "ammo": "5(c)",
         "source": "Body Shop p. 49 / SR6 Core p. 117",
-        "notes": "Sweeping spray attack (+4 AR, -3 DV). 28.07° apex cone (10m wide @ 20m). Optional Wild Die."
+        "notes": "Tesla Coil (wide cone / Sweeping). Sweeping spray attack (+4 AR, -3 DV). 28.07° apex cone (10m wide @ 20m). Optional Wild Die."
     },
     "drone_martial_arts": {
         "id": "drone_martial_arts",
-        "name": "Drone Martial Arts (Ramming)",
+        "name": "Drone Martial Arts",
         "category": "Melee",
         "dv": "8P",
         "ar": [33, None, None, None, None],
         "mode": "Melee",
         "ammo": "—",
         "source": "Core Rulebook p. 201 / Double Clutch p. 144",
-        "notes": "Drone ramming attack w/ Ram Plate. Attack roll: Piloting test (Maneuvering 7 + Pilot/RES vs. Defense). AR = Piloting (7) + Sensor (11 passive / 17 Enlightened) + Ram Plate Body (15) = 33 (39 sustained). Base DV = BOD/2 = 8P (+1/Speed Interval). Ram Plate halves return collision damage (DC p. 144)."
+        "notes": "Vehicle Ramming w/ Ram Plate (Shiawase Man-at-Arms). Attack roll: Piloting test (Maneuvering 7 + Pilot/RES vs. Defense). AR = Piloting (7) + Sensor (11 passive / 17 Enlightened) + Ram Plate Body (15) = 33 (39 sustained). Base DV = BOD/2 = 8P (+1/Speed Interval). Ram Plate moves blowback damage to BOD/8 (vehicles) and BOD/16 (non-vehicles)."
     }
 }
 
@@ -599,7 +599,11 @@ def get_weapon_attack_table(char_id: str) -> str:
             if isinstance(weapons_raw, dict)
             else (weapons_raw if isinstance(weapons_raw, list) else [])
         )
-        has_wasp = any("crimson wasp" in str(w.get("name", "")).lower() for w in all_w_list if isinstance(w, dict))
+        has_wasp = any(
+            k in str(w.get("name", "")).lower()
+            for w in all_w_list if isinstance(w, dict)
+            for k in ("crimson wasp", "dual eye lasers", "eye beam")
+        )
         has_fox = any("red fox" in str(w.get("name", "")).lower() for w in all_w_list if isinstance(w, dict))
 
         # 1. Eye-Mounted Laser Array (Crimson Wasp preferred; Red Fox fallback)
@@ -609,14 +613,14 @@ def get_weapon_attack_table(char_id: str) -> str:
             # Link-fired: Base + 1 link-fired (DC p. 143) + 2 smartlink (CRB p. 261 / SRMG v2.4 p. 51) + 1 M-TOC II (FS p. 90) + 2 mount (FS p. 112) = +6 AR, +2 DV (5+ DV weapon)
             wasp_link_ss_ar = format_ar(wasp_stat["ar"], ar_bonus=6, burst_pen=0)
             wasp_link_sa_ar = format_ar(wasp_stat["ar"], ar_bonus=6, burst_pen=1)
-            rows.append(f"| **Crimson Wasp Array (2x Link-Fired)** | **SS** (1/gun) | {wasp_base_dv + 2}P* | **{wasp_link_ss_ar}** | Link-fired 2x Crimson Wasps in Small Eye Mounts (Costs Minor Action; +2 DV, +1 AR). **1 round/gun** (2 rds total). 1 Wild Die. *Decreases by 2P (to {wasp_base_dv}P) at Medium. |")
-            rows.append(f"| | **SA** (2/gun) | {wasp_base_dv + 3}P* | **{wasp_link_sa_ar}** | Link-fired array (Drone mount halves SA penalty). **2 rounds/gun** (4 rds total). *Decreases by 2P (to {wasp_base_dv + 1}P) at Medium. |")
+            rows.append(f"| **Dual Eye Lasers** | **SS** (1/gun) | {wasp_base_dv + 2}P* | **{wasp_link_ss_ar}** | *FS p. 44 / DC p. 143.* Dual Crimson Wasps (Crimson Wasp Array, 2x Link-Fired in Small Eye Mounts; Costs Minor Action; +2 DV, +1 AR). **1 round/gun** (2 rds total). 1 Wild Die. *Decreases by 2P (to {wasp_base_dv}P) at Medium.* |")
+            rows.append(f"| | **SA** (2/gun) | {wasp_base_dv + 3}P* | **{wasp_link_sa_ar}** | Dual Crimson Wasps link-fired array (Drone mount halves SA penalty). **2 rounds/gun** (4 rds total). *Decreases by 2P (to {wasp_base_dv + 1}P) at Medium.* |")
 
             # 1b. Single Crimson Wasp (Independent - Eye Mount)
             wasp_single_ss_ar = format_ar(wasp_stat["ar"], ar_bonus=5, burst_pen=0)
             wasp_single_sa_ar = format_ar(wasp_stat["ar"], ar_bonus=5, burst_pen=1)
-            rows.append(f"| **Single Crimson Wasp (Independent)** | **SS** (1) | {wasp_base_dv}P* | **{wasp_single_ss_ar}** | Independent Small Eye Mount (NO Minor Action required). **1 round**. 1 Wild Die. *Decreases by 2P (to 3P) at Medium. |")
-            rows.append(f"| | **SA** (2) | {wasp_base_dv + 1}P* | **{wasp_single_sa_ar}** | Independent mount (Drone mount halves SA penalty). **2 rounds**. *Decreases by 2P (to 4P) at Medium. |")
+            rows.append(f"| **Eye Beam** | **SS** (1) | {wasp_base_dv}P* | **{wasp_single_ss_ar}** | *FS p. 44.* Single Crimson Wasp (Independent Small Eye Mount; NO Minor Action required). **1 round**. 1 Wild Die. *Decreases by 2P (to 3P) at Medium.* |")
+            rows.append(f"| | **SA** (2) | {wasp_base_dv + 1}P* | **{wasp_single_sa_ar}** | Single Crimson Wasp independent mount (Drone mount halves SA penalty). **2 rounds**. *Decreases by 2P (to 4P) at Medium.* |")
         else:
             fox_stat = get_weapon_stats("red_fox") or {"dv": "6P", "ar": [14, 16, 16, 9]}
             fox_base_dv = int(re.sub(r"[^\d]", "", fox_stat["dv"])) if re.search(r"\d", fox_stat["dv"]) else 6
@@ -637,12 +641,14 @@ def get_weapon_attack_table(char_id: str) -> str:
             rows.append(f"| | **BF** (4) | {fox_base_dv + 2}P* | **{fox_single_bf_ar}** | Independent mount (Drone mount halves BF penalty). **4 rounds**. *Decreases by 3P at Medium. |")
 
         # 2. Tesla Coil (Spray Attack Profiles - Flamethrower rules, SR6 Core p. 117)
-        rows.append("| **Tesla Coil (Straight)** | **SS** (1) | 5S(e) | **10 / 12 / — / — / —** | Direct stream attack (first valid target on 20m line). Cyberarm Mount (+2 AR). 5(c) capacitor bank. |")
-        rows.append("| **Tesla Coil (Wobbly)** | **SS** (1) | 4S(e) | **12 / 14 / — / — / —** | Wobbly spray (+2 AR, -1 DV). **8.58° apex cone** (3m wide @ 20m). Optional Wild Die. Cyberarm Mount (+2 AR). 5(c) cap. |")
-        rows.append("| **Tesla Coil (Sweeping)** | **SS** (1) | 2S(e) | **14 / 16 / — / — / —** | Sweeping spray (+4 AR, -3 DV). **28.07° apex cone** (10m wide @ 20m). Optional Wild Die. Cyberarm Mount (+2 AR). 5(c) cap. |")
+        rows.append("| **Lightning Breath** | **SS** (1) | 5S(e) | **10 / 12 / — / — / —** | *BS p. 49 / CRB p. 117.* Tesla Coil (single target / Straight). Direct stream attack (first valid target on 20m line). Cyberarm Mount (+2 AR). 5(c) capacitor bank. |")
+        rows.append("| **Mega Lightning Breath** | **SS** (1) | 4S(e) | **12 / 14 / — / — / —** | *BS p. 49 / CRB p. 117.* Tesla Coil (narrow cone / Wobbly). Wobbly spray (+2 AR, -1 DV). **8.58° apex cone** (3m wide @ 20m). Optional Wild Die. Cyberarm Mount (+2 AR). 5(c) cap. |")
+        rows.append("| **Giga Lightning Breath** | **SS** (1) | 2S(e) | **14 / 16 / — / — / —** | *BS p. 49 / CRB p. 117.* Tesla Coil (wide cone / Sweeping). Sweeping spray (+4 AR, -3 DV). **28.07° apex cone** (10m wide @ 20m). Optional Wild Die. Cyberarm Mount (+2 AR). 5(c) cap. |")
 
-        # 3. Amalgam Cestas
-        rows.append("| **Amalgam Cestas (Man-at-Arms - Phys)** | **Melee** | 3P | **12 / — / — / — / —** | Personalized Grip +2 AR. Overrides Immunity to Normal Weapons. 1 Wild Die. |")
+        # 3. Melee Weapons (Amalgam Cestas, Unarmed Combat / Narcoslap, Wrist Shield)
+        rows.append("| **Amalgam Cestas (Man-at-Arms - Phys)** | **Melee** | 3P | **14 / — / — / — / —** | STR (3) + REA/Sleaze (9) + Personalized Grip (+2 AR). 21d6 (Targeting 7 + Sensors 10 + Ally TW 4). Overrides ItNW. 1 Wild Die. |")
+        rows.append("| **Unarmed Combat (Narcoslap)** | **Melee** | 2S | **12 / — / — / — / —** | STR (3) + REA/Sleaze (9). 21d6 (Targeting 7 + Sensors 10 + Ally TW 4). Narcoject dermal delivery. |")
+        rows.append("| **Wrist Shield** | **Melee** | 2P/3S | **9 / — / — / — / —** | *Body Shop p. 49.* Base (6) + Cyberarm STR (3). 21d6 (Targeting 7 + Sensors 10 + Ally TW 4). +4 DR when deployed. |")
 
         # 4. Drone Martial Arts (Ramming)
         drones = data.get("drones", [])
@@ -670,9 +676,9 @@ def get_weapon_attack_table(char_id: str) -> str:
         ram_ar_str = f"{ram_ar_passive} ({ram_ar_sustained})" if enl_s > aug_s else str(ram_ar_passive)
         if has_ram_plate:
             ram_note = (
-                f"Ramming attack (CRB p. 201) w/ Ram Plate (DC p. 144). Attack roll: Piloting test (Maneuvering {maneuvering_val} + Pilot/RES vs. Defense). "
+                f"*CRB p. 201 / DC p. 144.* Vehicle Ramming w/ Ram Plate (Shiawase Man-at-Arms). Attack roll: Piloting test (Maneuvering {maneuvering_val} + Pilot/RES vs. Defense). "
                 f"AR = Piloting ({maneuvering_val}) + Sensor ({aug_s} passive / {enl_s} Enlightened) + Ram Plate Body ({maa_body}) = {ram_ar_passive} ({ram_ar_sustained} sustained). "
-                f"Base DV = MAA BOD ({maa_body})/2 = {ram_dv}P (+1/Speed Interval). Ram Plate halves return collision damage (½ Target BOD/2 [+1/Speed Int] vehicles, or ½ Target BOD/4 rounded up soft targets)."
+                f"Base DV = MAA BOD ({maa_body})/2 = {ram_dv}P (+1/Speed Interval). Ram Plate moves blowback damage to BOD/8 (vehicles) and BOD/16 (non-vehicles)."
             )
         else:
             ram_note = (
@@ -682,7 +688,7 @@ def get_weapon_attack_table(char_id: str) -> str:
                 f"Target BOD/2 (+1/Speed Interval) for vehicles, or Target BOD/4 (rounded up) for soft targets."
             )
         rows.append(
-            f"| **Drone Martial Arts (Ramming)** | **Melee** | {ram_dv}P* | **{ram_ar_str} / — / — / — / —** | {ram_note} |"
+            f"| **Drone Martial Arts** | **Melee** | {ram_dv}P* | **{ram_ar_str} / — / — / — / —** | {ram_note} |"
         )
         return "\n".join(rows)
 
@@ -1467,28 +1473,28 @@ def get_multi_modifier_interactions(char_id: str, threshold: int = 2) -> List[Di
                     "count": len(asdf_mods)
                 })
 
-            # Matrix Defense Umbrella (Standard 22d6 / Base Defense 25d6 / All-In 41d6)
+            # Matrix Defense Umbrella (Standard 31d6 w/ Syntax Error / Full Matrix Defense 41d6 vs Cybercombat & Resonance Spike only)
             sub_g = int(identity.get("submersion", 9))
             mdef_mods = [
                 {"source": "Firewall (Active Living Persona)", "value": str(act_f), "type": "attribute", "notes": f"Base Firewall {base_f} + Resonance {res_val} Split (+{fw_res_split}) = {act_f}", "rule_anchor": "rules/rules_and_downtime.html#matrix-operations"},
                 {"source": "Resonance (Natural Hacker Substitution)", "value": f"+{res_val}", "type": "attribute", "notes": "Natural Hacker (H&S p. 120) substitutes Resonance for Willpower/Intuition on Matrix defenses", "rule_anchor": "rules/rules_and_downtime.html#matrix-defense-umbrella"},
-                {"source": "Resonance Focus (Rating 4)", "value": "+4", "type": "focus", "notes": f"Adds +4 dice to Resonance component -> Standard Matrix Defense = {act_f + res_val + 4}d6 ({(act_f + res_val + 4) // 4} Bought Hits)", "rule_anchor": "rules/rules_and_downtime.html#matrix-defense-umbrella"},
-                {"source": "Personal Assistant App (R6 Bought Hits)", "value": "+3", "type": "software", "notes": "Rolls 12 dice (Rating 6 x 2) and buys 3 hits for Full Matrix Defense on behalf of the PAN, avoiding contentious double-Firewall stacking", "rule_anchor": "rules/rules_and_downtime.html#matrix-defense-umbrella"},
-                {"source": "Echo: Syntax Error", "value": f"+{sub_g}", "type": "echo", "notes": f"Minor Anytime Action when aware of incoming Matrix action adds Submersion Grade (+{sub_g})", "rule_anchor": "rules/rules_and_downtime.html#matrix-defense-umbrella"},
-                {"source": "Directional Shield (Active Data Processing)", "value": f"+{act_d}", "type": "software", "notes": f"Minor Anytime Action in Full Matrix Defense when aware of attacker adds Data Processing (+{act_d})", "rule_anchor": "rules/rules_and_downtime.html#matrix-defense-umbrella"}
+                {"source": "Resonance Focus (Rating 4)", "value": "+4", "type": "focus", "notes": f"Adds +4 dice to Resonance component -> Unaware Base = {act_f + res_val + 4}d6 ({(act_f + res_val + 4) // 4} Bought Hits)", "rule_anchor": "rules/rules_and_downtime.html#matrix-defense-umbrella"},
+                {"source": "Echo: Syntax Error (All Matrix Defenses)", "value": f"+{sub_g}", "type": "echo", "notes": f"Minor Anytime Action when aware of incoming Matrix action adds Submersion Grade (+{sub_g}) -> Standard Matrix Defense = {act_f + res_val + 4 + sub_g}d6 ({(act_f + res_val + 4 + sub_g) // 4} Bought Hits)", "rule_anchor": "rules/rules_and_downtime.html#matrix-defense-umbrella"},
+                {"source": "Personal Assistant App (R6 Bought Hits)", "value": "+3", "type": "software", "notes": "Rolls 12 dice (Rating 6 x 2) and buys 3 hits for Full Matrix Defense vs. Cybercombat & Resonance Spike ONLY (SRMG p. 32)", "rule_anchor": "rules/rules_and_downtime.html#matrix-defense-umbrella"},
+                {"source": "Directional Shield (Active Data Processing)", "value": f"+{act_d}", "type": "software", "notes": f"Minor Anytime Action in Full Matrix Defense vs. Cybercombat & Resonance Spike ONLY (SRMG p. 32) adds Data Processing (+{act_d})", "rule_anchor": "rules/rules_and_downtime.html#matrix-defense-umbrella"}
             ]
-            std_mdef = act_f + res_val + 4
-            base_mdef = std_mdef + 3
-            all_in_mdef = base_mdef + sub_g + act_d
+            unaware_mdef = act_f + res_val + 4
+            std_mdef = unaware_mdef + sub_g
+            all_in_mdef = std_mdef + 3 + act_d
             if len(mdef_mods) > threshold:
                 results.append({
                     "category": "Matrix Defense Umbrella",
                     "name": "Matrix Defense Umbrella",
-                    "total_pool": f"{base_mdef}d6 Base ({base_mdef // 4} Hits) / {all_in_mdef}d6 All-In ({all_in_mdef // 4} Hits)",
-                    "base_summary": f"FW {act_f} + RES {res_val} + Focus 4 + PA R6 (3) = {base_mdef}d6 Base | + Syntax Error ({sub_g}) + Directional Shield DP ({act_d}) = {all_in_mdef}d6 All-In",
+                    "total_pool": f"{std_mdef}d6 Standard ({std_mdef // 4} Hits) / {all_in_mdef}d6 Full Defense vs. Cybercombat & Res Spike ({all_in_mdef // 4} Hits)",
+                    "base_summary": f"FW {act_f} + RES {res_val} + Focus 4 + Syntax Error {sub_g} = {std_mdef}d6 Standard ({unaware_mdef}d6 unaware) | + PA R6 (3) + Directional Shield DP ({act_d}) = {all_in_mdef}d6 Full Defense (Cybercombat/Res Spike only)",
                     "modifiers": mdef_mods,
-                    "stacking_legality": f"Standard Matrix Defense pairs Firewall (9) with Resonance (9 + 4 Focus = 13) via Natural Hacker (22d6). Base Matrix Defense adds Personal Assistant R6 (+3 bought hits for Full Matrix Defense, totaling 25d6). When aware, Minor Anytime actions add Echo: Syntax Error (+{sub_g}) and Directional Shield (+{act_d}), reaching {all_in_mdef}d6 All-In across distinct legal categories.",
-                    "operational_constraints": "Personal Assistant R6 contributes 3 bought hits passively. Syntax Error and Directional Shield each require 1 Minor Anytime Action when aware of the incoming action/attacker. Designer Home Device grants +4 Device Rating (not Matrix DR).",
+                    "stacking_legality": f"Standard Matrix Defense pairs Firewall ({act_f}) + Resonance ({res_val} + 4 Focus = {res_val + 4}) via Natural Hacker + Syntax Error (+{sub_g} Submersion) = {std_mdef}d6 across all Matrix defense tests ({unaware_mdef}d6 if unaware). Full Matrix Defense, Personal Assistant R6 (+3 bought hits), and Directional Shield (+{act_d} Active DP) apply ONLY to Matrix Defense tests vs. Cybercombat and Resonance Spike (SRMG p. 32), reaching {all_in_mdef}d6.",
+                    "operational_constraints": "Syntax Error requires 1 Minor Anytime Action when aware (applies to all Matrix defenses). Full Matrix Defense, Personal Assistant R6, and Directional Shield apply only vs. Cybercombat & Resonance Spike (SRMG p. 32). Designer Home Device grants +4 Device Rating (not Matrix DR).",
                     "count": len(mdef_mods)
                 })
 

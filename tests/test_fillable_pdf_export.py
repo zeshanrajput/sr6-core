@@ -72,7 +72,7 @@ def test_fillable_pdf_template_repairs_and_reiko_fields(char_manager, tmp_path):
     assert "22/20/17/12" in values["Primary Ranged Stats"]
     assert "DV 3P" in values["Primary Melee Stats"]
     assert values["Armor"] != values["Vehicle Armor"]
-    assert values["Vehicle Armor"] == "8"
+    assert values["Vehicle Armor"] == "8(12)"
 
     # All 10 multi-row boxes must have PDF_TX_FIELD_IS_MULTILINE enabled
     for field_name in MULTILINE_FIELDS:
@@ -81,8 +81,8 @@ def test_fillable_pdf_template_repairs_and_reiko_fields(char_manager, tmp_path):
 
     # Reiko dossier accuracy
     assert values["MagicResonance"] == "9(13)"
-    assert values["Karma"] == "5"
-    assert values["Total Karma"] == "333"
+    assert values["Karma"] == "0"
+    assert values["Total Karma"] == "343"
     assert values["Vehicle"] == "Shiawase Man-at-Arms"
     assert values["Pilot"] == "2(10)"
     assert "Syntax Error" in values["Adept Powers or Other Abilities"]

@@ -824,18 +824,29 @@ class ModifierEngine:
         focus_bonus = 4 if res > 0 else 0
         sub_grade = int(identity.get("submersion", 0))
 
-        base_pool = res + fw + pa_bonus + focus_bonus
-        # All-in pool when aware: includes Syntax Error (+sub_grade) and Directional Shield (+dp_val)
-        all_in_pool = base_pool + sub_grade + dp_val
+        # Standard Matrix Defense (vs. ALL Matrix Actions, Complex Forms & Sprite Powers):
+        # Syntax Error (+Submersion Grade via Minor Anytime Action when aware, H&S p. 69) applies on any Matrix Defense test.
+        unaware_pool = res + fw + focus_bonus
+        standard_pool = unaware_pool + sub_grade
+        # Full Matrix Defense, Personal Assistant R6 (+3 Bought Hits), and Directional Shield (+DP)
+        # ONLY apply on Matrix Defense tests vs. Cybercombat and Resonance Spike (SRMG v2.4 p. 32).
+        cybercombat_passive_pool = standard_pool + pa_bonus
+        all_in_pool = cybercombat_passive_pool + dp_val
         effective_hits = all_in_pool // 4
-        breakdown = f"RES {res} + FW {fw} + Focus {focus_bonus} + PA R6 (3 Hits) = {base_pool}d6 | All-In (+Syntax Error {sub_grade}, +Directional Shield {dp_val}) = {all_in_pool}d6"
+        breakdown = (
+            f"All Matrix Defenses (w/ Syntax Error +{sub_grade}): RES {res} + FW {fw} + Focus {focus_bonus} + Syntax Error {sub_grade} = {standard_pool}d6 ({standard_pool // 4} Hits; {unaware_pool}d6 unaware) | "
+            f"Full Matrix Defense (vs. Cybercombat & Resonance Spike only, SRMG p. 32): +{pa_bonus} PA R6 (+{dp_val} Directional Shield DP) = {all_in_pool}d6 ({effective_hits} Hits)"
+        )
         return {
-            "pool": base_pool,
+            "pool": standard_pool,
+            "unaware_pool": unaware_pool,
+            "cybercombat_passive_pool": cybercombat_passive_pool,
             "all_in_pool": all_in_pool,
             "effective_hits": effective_hits,
             "breakdown": breakdown,
-            "base_persona_pool": res + fw,
-            "base_persona_hits": (res + fw) // 4,
+            "base_persona_pool": unaware_pool,
+            "base_persona_hits": unaware_pool // 4,
+            "standard_hits": standard_pool // 4,
             "full_persona_pool": all_in_pool,
             "full_persona_hits": effective_hits,
             "base_data_spike_pool": dp_val + fw,
@@ -1036,19 +1047,26 @@ class ModifierEngine:
         ])
         c_def_fw = PoolComponent("Firewall", fw, "attribute")
         sub_grade = int(identity.get("submersion", 0))
-        action_mods = [
-            PoolModifier("action:defense", "action", "Personal Assistant App R6 (3 Hits)", 3),
-            PoolModifier("action:defense", "action", "Directional Shield (Active DP)", dp)
-        ]
+        action_mods = []
         if sub_grade:
-            action_mods.append(PoolModifier("action:defense", "action", f"Syntax Error (Submersion {sub_grade})", sub_grade))
+            action_mods.append(PoolModifier("action:defense", "action", f"Syntax Error (All Matrix Def, Sub {sub_grade})", sub_grade))
+        action_mods.extend([
+            PoolModifier("action:defense", "action", "Personal Assistant R6 (Cybercombat/Res Spike)", 3),
+            PoolModifier("action:defense", "action", "Directional Shield (Active DP, Cybercombat/Res Spike)", dp)
+        ])
 
-        # Full Matrix Defense Optimization
+        unaware_mdef = res + fw + focus_bonus
+        standard_mdef = unaware_mdef + sub_grade
+        all_in_mdef = standard_mdef + 3 + dp
+        # Full Matrix Defense Optimization (Syntax Error applies to all Matrix Def; PA R6 & Directional Shield vs Cybercombat & Resonance Spike only per SRMG p. 32)
         mdef_opt = PoolOptimization(
             name="Matrix Defense Test",
             components=[c_def_res, c_def_fw],
             action_modifiers=action_mods,
-            notes=f"Standard {res + fw + focus_bonus}d6 | Passive w/ PA {res + fw + focus_bonus + 3}d6 | All-In {res + fw + focus_bonus + 3 + dp + sub_grade}d6"
+            notes=(
+                f"Standard w/ Syntax Error (All Matrix Defenses): {standard_mdef}d6 ({unaware_mdef}d6 unaware) | "
+                f"Full Matrix Defense (+PA R6 +3, +Directional Shield +{dp}, vs. Cybercombat & Resonance Spike ONLY per SRMG p. 32): {all_in_mdef}d6"
+            )
         )
 
         e_skill_soft = PoolComponent("Electronics", e_skill_val, "skill")
@@ -1159,10 +1177,11 @@ class ModifierEngine:
         Calculates downtime sprite compiling, registering, and fading pools.
         """
         attrs = char_data.get("attributes", {})
-        res = int(attrs.get("resonance", 8))
+        res = int(attrs.get("resonance", 9))
         wil = int(attrs.get("willpower", 6))
         cha = int(attrs.get("charisma", 4))
         log_val = int(attrs.get("logic", 4))
+        sub_grade = int(char_data.get("identity", {}).get("submersion", 9))
         focus_bonus = 4 if res > 0 else 0
 
         skills_map = {s["name"].lower(): s for s in char_data.get("skills", [])}
@@ -1186,8 +1205,8 @@ class ModifierEngine:
         net_compiling_hits = max(0, compiling_hits - sprite_def_hits)
         compiling_fade_fv = sprite_def_hits
 
-        # Fade Resistance: WIL + CHA + Submersion (assumed 7)
-        fade_res_pool = wil + cha + 7
+        # Fade Resistance: WIL + CHA + Submersion (via Sprite Conduit)
+        fade_res_pool = wil + cha + sub_grade
         fade_res_hits = fade_res_pool // 4
 
         # Registering: Tasking + Spec + RES + Focus

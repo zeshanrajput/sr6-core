@@ -787,9 +787,9 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
             loaded_ammo = w.get("loaded_ammo") or w.get("ammo_type")
             notes = w.get("notes", "")
 
-            # Check if melee / physical weapon (Sap, Stun Baton, Knives, Cestas, Unarmed)
+            # Check if melee / physical weapon (Sap, Stun Baton, Knives, Cestas, Unarmed, Drone Martial Arts)
             is_melee = category in ["melee", "unarmed", "exotic_melee", "close_combat", "club", "clubs", "blade", "blades"] or any(
-                x in w_name.lower() for x in ["cesta", "cestas", "whip", "dagger", "sword", "knife", "blade", "unarmed", "fist", "club", "staff", "sap", "baton", "stun baton"]
+                x in w_name.lower() for x in ["cesta", "cestas", "whip", "dagger", "sword", "knife", "blade", "unarmed", "fist", "club", "staff", "sap", "baton", "stun baton", "drone martial arts", "ramming"]
             )
 
             # Store base stats before modification engine
@@ -816,10 +816,11 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
                     pass
 
             raw_ar_val = ar if isinstance(ar, list) else ([int(x.strip()) if x.strip().isdigit() else 0 for x in str(ar).split("/")] if "/" in str(ar) else [10, 10, 8, 0, 0])
-            ar = raw_ar_val
+            has_parenthetical_ar = isinstance(ar, str) and "(" in ar
+            ar = ar if has_parenthetical_ar else raw_ar_val
 
             # Calculate modified weapon stats if available (unless precomputed_ar is set)
-            if not w.get("precomputed_ar"):
+            if not w.get("precomputed_ar") and not has_parenthetical_ar:
                 try:
                     from sr6core.character.model import WeaponStatBlock
                     from sr6core.vault.statblock_parser import calculate_modified_weapon
@@ -1372,7 +1373,9 @@ def export_mobile_json(char_data: Dict[str, Any], char_repo_path: Optional[str] 
         "matrix": {
             "asdf": asdf,
             "matrix_defense": mdef.get("pool", 0),
-            "matrix_defense_hits": mdef.get("effective_hits", 0),
+            "matrix_defense_hits": mdef.get("standard_hits", mdef.get("pool", 0) // 4),
+            "matrix_defense_full": mdef.get("all_in_pool", mdef.get("pool", 0)),
+            "matrix_defense_full_hits": mdef.get("effective_hits", 0),
             "matrix_defense_breakdown": mdef.get("breakdown", ""),
             "matrix_initiative": matrix_init
         },

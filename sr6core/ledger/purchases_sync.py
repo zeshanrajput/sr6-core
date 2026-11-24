@@ -526,7 +526,7 @@ class PurchasesSyncEngine:
                 data["matrix_devices"] = parsed_devices
                 changes.append(f"Updated Matrix Devices from purchases.qmd ({len(parsed_devices)} devices synced)")
 
-        # 7. Sync Combat Weapons & Battery Gear Labels (when eye-mounted laser arrays or Ram Plate change in ### Combat)
+        # 7. Sync Combat Weapons & Battery Gear Labels (when eye-mounted laser arrays, Tesla Coil, or Ram Plate change in ### Combat)
         combat_items = parsed.get("combat_items", [])
         combat_low = " ".join(combat_items).lower()
         weapons_block = data.get("weapons")
@@ -534,7 +534,7 @@ class PurchasesSyncEngine:
             ranged_list = weapons_block.get("ranged", [])
             wasp_templates = [
                 {
-                    "name": "Crimson Wasp Array (2x Link-Fired)",
+                    "name": "Dual Eye Lasers",
                     "damage": "7P*",
                     "attack_rating": "22/20/17/12/-",
                     "mode": "SA/SS",
@@ -549,10 +549,10 @@ class PurchasesSyncEngine:
                         "M-TOC II (+1 AR)",
                         "Link-Fired (2x Crimson Wasps, Minor Action)",
                     ],
-                    "notes": "Link-fired 2x Crimson Wasps in Small Eye Mounts (Costs Minor Action; +2 DV, +1 AR). 1 Wild Die. Decreases by 2P (to 5P*) at Medium range.",
+                    "notes": "FS p. 44 / DC p. 143. Dual Crimson Wasps (Crimson Wasp Array, 2x Link-Fired in Small Eye Mounts; Costs Minor Action; +2 DV, +1 AR). 1 Wild Die. Decreases by 2P (to 5P*) at Medium range.",
                 },
                 {
-                    "name": "Single Crimson Wasp (Eye Mount)",
+                    "name": "Eye Beam",
                     "damage": "5P*",
                     "attack_rating": "21/19/16/11/-",
                     "mode": "SA/SS",
@@ -566,26 +566,53 @@ class PurchasesSyncEngine:
                         "Drone Mount (+2 AR)",
                         "M-TOC II (+1 AR)",
                     ],
-                    "notes": "Independent Small Eye Mount (NO Minor Action required). 1 Wild Die. Decreases to 3P at Medium range.",
+                    "notes": "FS p. 44. Single Crimson Wasp (Eye Mount, Independent; NO Minor Action required). 1 Wild Die. Decreases to 3P at Medium range.",
+                },
+                {
+                    "name": "Lightning Breath",
+                    "category": "Cyberweapons",
+                    "damage": "5S(e)",
+                    "attack_rating": "10/12/-/-/-",
+                    "mode": "SS",
+                    "ammo": "5(c)",
+                    "max_range": "20m",
+                    "area_effect": "Straight Line (Flamethrower rules)",
+                    "is_vehicle_mounted": True,
+                    "accessories": ["MAA Cyberarm Mount (+2 AR)"],
+                    "notes": "BS p. 49 / CRB p. 117. Tesla Coil (single target / Straight). Direct stream spray attack (first valid target on 20m line). Cyberarm Mount (+2 AR). 5(c) capacitor bank.",
+                },
+                {
+                    "name": "Mega Lightning Breath",
+                    "category": "Cyberweapons",
+                    "damage": "4S(e)",
+                    "attack_rating": "12/14/-/-/-",
+                    "mode": "SS",
+                    "ammo": "5(c)",
+                    "max_range": "20m",
+                    "area_effect": "8.58° Cone (3m width at 20m)",
+                    "apex_angle": 8.58,
+                    "is_vehicle_mounted": True,
+                    "accessories": ["MAA Cyberarm Mount (+2 AR)"],
+                    "notes": "BS p. 49 / CRB p. 117. Tesla Coil (narrow cone / Wobbly). Wobbly spray attack (+2 AR, -1 DV). 8.58° apex cone (3m wide @ 20m). Optional Wild Die. Cyberarm Mount (+2 AR). 5(c) capacitor bank.",
+                },
+                {
+                    "name": "Giga Lightning Breath",
+                    "category": "Cyberweapons",
+                    "damage": "2S(e)",
+                    "attack_rating": "14/16/-/-/-",
+                    "mode": "SS",
+                    "ammo": "5(c)",
+                    "max_range": "20m",
+                    "area_effect": "28.07° Cone (10m width at 20m)",
+                    "apex_angle": 28.07,
+                    "is_vehicle_mounted": True,
+                    "accessories": ["MAA Cyberarm Mount (+2 AR)"],
+                    "notes": "BS p. 49 / CRB p. 117. Tesla Coil (wide cone / Sweeping). Sweeping spray attack (+4 AR, -3 DV). 28.07° apex cone (10m wide @ 20m). Optional Wild Die. Cyberarm Mount (+2 AR). 5(c) capacitor bank.",
                 },
             ]
-            if "crimson wasp" in combat_low and any(
-                "red fox" in str(w.get("name", "")).lower()
-                or ("crimson wasp" in str(w.get("name", "")).lower() and not w.get("precomputed_ar"))
-                for w in ranged_list if isinstance(w, dict)
-            ):
-                new_ranged = []
-                inserted_wasp = False
-                for w in ranged_list:
-                    w_name_low = str(w.get("name", "")).lower() if isinstance(w, dict) else ""
-                    if "red fox" in w_name_low or "crimson wasp" in w_name_low:
-                        if not inserted_wasp:
-                            new_ranged.extend(wasp_templates)
-                            inserted_wasp = True
-                    else:
-                        new_ranged.append(w)
-                weapons_block["ranged"] = new_ranged
-                changes.append("Synced eye-mounted Crimson Wasp weapons from purchases.qmd")
+            if ("crimson wasp" in combat_low or "dual eye lasers" in combat_low) and ranged_list != wasp_templates:
+                weapons_block["ranged"] = wasp_templates
+                changes.append("Synced Dual Eye Lasers / Eye Beam / Lightning Breath weapons from purchases.qmd")
 
             gear_list = data.get("gear", [])
             if "crimson wasp" in combat_low and isinstance(gear_list, list):
@@ -594,28 +621,107 @@ class PurchasesSyncEngine:
                         g["name"] = re.sub(r"\(Red Fox\)", "(Crimson Wasp)", g["name"], flags=re.IGNORECASE)
                         changes.append("Updated laser battery clip label to Crimson Wasp")
 
+            # Sync Rating 9 Autosofts to Gear (Software Emulator rules) and prune Mapsoft/Shopsoft/Commlink Apps from Gear
+            parsed_autosofts = parsed.get("autosofts", [])
+            if parsed_autosofts and isinstance(gear_list, list):
+                cleaned_gear = [
+                    g for g in gear_list
+                    if not (
+                        isinstance(g, dict)
+                        and (
+                            any(k in str(g.get("name", "")).lower() for k in (
+                                "mapsoft", "shopsoft", "facial scanner", "p-ice spines",
+                                "personal assistant", "social hud", "thermal mood", "vocal tension",
+                            ))
+                            or str(g.get("category", "")).lower() == "autosoft"
+                        )
+                    )
+                ]
+                for a_str in parsed_autosofts:
+                    if "r9" not in a_str.lower() and "rating 9" not in a_str.lower():
+                        continue
+                    is_emulated = any(
+                        em in a_str.lower()
+                        for em in ("clearsight", "close combat", "evasion", "maneuvering", "stealth", "targeting", "tracking")
+                    )
+                    cleaned_gear.append({
+                        "name": a_str,
+                        "rating": 9,
+                        "qty": 1,
+                        "category": "Autosoft",
+                        "notes": (
+                            "Rating 9 Autosoft (learned via Software Emulator Echo, 1 Karma; always slotted)."
+                            if is_emulated
+                            else "Rating 9 Autosoft (always slotted via Living Persona / Software Emulator)."
+                        ),
+                    })
+                if cleaned_gear != gear_list:
+                    data["gear"] = cleaned_gear
+                    changes.append("Synced R9 Autosofts to gear and pruned Mapsoft/Shopsoft/Commlink Apps from gear")
+
             close_list = weapons_block.get("close_combat", [])
             has_ram_plate_mod = any(
                 "ram plate" in str(m).lower()
                 for d in data.get("drones", []) if isinstance(d, dict)
                 for m in d.get("modifications", [])
             )
-            if has_ram_plate_mod and isinstance(close_list, list):
-                for cw in close_list:
-                    if isinstance(cw, dict) and "ramming" in str(cw.get("name", "")).lower():
-                        target_ar = "33 (39)/-/-/-/-"
-                        target_notes = (
-                            "Ramming attack using Shiawase Man-at-Arms chassis w/ Ram Plate (CRB p. 201; DC p. 144). "
-                            "Attack roll is a Piloting test (Maneuvering 7 + Pilot/RES vs. Defense). "
+            has_wrist_shield_mod = any(
+                "wrist shield" in str(m).lower()
+                for d in data.get("drones", []) if isinstance(d, dict)
+                for m in d.get("modifications", [])
+            )
+            if isinstance(close_list, list):
+                new_close = [
+                    {
+                        "name": "Amalgam Cestas",
+                        "damage": "3P",
+                        "attack_rating": "14/-/-/-/-",
+                        "category": "close_combat",
+                        "is_melee": True,
+                        "precomputed_ar": True,
+                        "personalized_grip": True,
+                        "accessories": ["Personalized Grip"],
+                        "notes": "Scotophobia p. 181. Amalgam Tech Cestas; 3P damage, overrides magical immunity to normal weapons (ItNW). AR = STR (3) + REA/Sleaze (9) + Personalized Grip (2) = 14. 1 Wild Die.",
+                    },
+                    {
+                        "name": "Unarmed Combat (Narcoslap)",
+                        "damage": "2S",
+                        "attack_rating": "12/-/-/-/-",
+                        "category": "close_combat",
+                        "is_melee": True,
+                        "precomputed_ar": True,
+                        "notes": "CRB p. 109. Unarmed strike / Narcoject dermal delivery (Man-at-Arms Cyberarm STR 3 + AI REA/Sleaze 9 = AR 12). Attack Pool: Targeting (DP, 7) + Sensors (10) + Ally TW (4) = 21d6.",
+                    },
+                ]
+                if has_wrist_shield_mod:
+                    new_close.append({
+                        "name": "Wrist Shield",
+                        "damage": "2P/3S",
+                        "attack_rating": "9/-/-/-/-",
+                        "category": "close_combat",
+                        "is_melee": True,
+                        "precomputed_ar": True,
+                        "notes": "Body Shop p. 49. Concealed 1m forearm disc (Left Synthetic Cyberarm); Minor Action deploy (+4 DR, hands-free). AR = Base (6) + Cyberarm STR (3) = 9. Damage: 2P (Blades) / 3S (Clubs).",
+                    })
+                if has_ram_plate_mod:
+                    new_close.append({
+                        "name": "Drone Martial Arts",
+                        "damage": "8P",
+                        "attack_rating": "33 (39)/-/-/-/-",
+                        "category": "close_combat",
+                        "is_melee": True,
+                        "skill": "piloting",
+                        "notes": (
+                            "CRB p. 201 / DC p. 144. Vehicle Ramming w/ Ram Plate (Shiawase Man-at-Arms). "
+                            "Attack roll is a Piloting test (Maneuvering 7 + Pilot/RES vs. Defense, -1 Threshold via Pilot Origins). "
                             "AR = Piloting (7) + Sensors (11 passive / 17 Enlightened) + Ram Plate Body (15) = 33 (39). "
                             "Base DV = BOD/2 rounded up (Body 15 / 2 = 8P) + 1 per Speed Interval. "
-                            "Ram Plate halves return collision damage (1/2 Target BOD/2 [+1/Speed Interval] for vehicles, "
-                            "or 1/2 Target BOD/4 rounded up for soft targets)."
-                        )
-                        if cw.get("attack_rating") != target_ar or cw.get("notes") != target_notes:
-                            cw["attack_rating"] = target_ar
-                            cw["notes"] = target_notes
-                            changes.append("Updated Drone Martial Arts (Ramming) AR and Ram Plate notes")
+                            "Ram Plate moves blowback damage to BOD/8 (vehicles) and BOD/16 (non-vehicles)."
+                        ),
+                    })
+                if close_list != new_close:
+                    weapons_block["close_combat"] = new_close
+                    changes.append("Synced Amalgam Cestas, Unarmed Combat (Narcoslap), Wrist Shield, and Drone Martial Arts")
 
         # Save back to YAML if changes occurred
         if changes:

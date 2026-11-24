@@ -1493,8 +1493,9 @@ def export_commlink_xml(
             for w in _safe_item_list(char_data.get("weapons", [])):
                 if isinstance(w, dict) and w.get("is_vehicle_mounted"):
                     w_name = w.get("name", "")
-                    if "crimson wasp" in w_name.lower():
-                        count_cw = w.get("link_fired_count", 2 if "array" in w_name.lower() or "2x" in w_name.lower() else 1)
+                    w_notes_low = str(w.get("notes", "")).lower()
+                    if any(k in w_name.lower() or k in w_notes_low for k in ("crimson wasp", "dual eye lasers", "eye beam")):
+                        count_cw = w.get("link_fired_count", 2 if "array" in w_name.lower() or "2x" in w_name.lower() or "dual" in w_name.lower() else 1)
                         for _ in range(count_cw):
                             mods.append("Crimson Wasp")
                         break

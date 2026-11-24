@@ -42,6 +42,8 @@ Reiko let the cold arithmetic fall, dropping every partition between her daughte
 
 Hands locked, the twins guided Reiko backward off the raw slate, past petrified directory trunks, until sapphire moss cushioned her heels. Along her left forearm, the triple braid folded flush around the dark blemish. Together, they sank onto the glowing turf.
 
+![Aisling, Étaín, and Reiko kneeling on the sapphire moss outside the ~ porch](../images/r31k0%20-%20chroot.webp)
+
 From the willow shade, Reiko let her watchfulness slacken across the clearing. Paper-moth sprites drifted along the logic-vines, pruning frayed wisps, while lantern-sparks stitched amber over the water and two fractal doves banked through weeping boughs. Tucked among the telemetry ferns, the rescued *Happy Panda 68* pilot lay curled, a quiet protospark still too unformed to claim a name, yet thickening toward waking with each dusk. Younger kin tended the glade's rhythms unbidden. The sanctuary stood on its own.
 
 For months she had braced every root by hand, certain the garden would fray if she let go. Reiko dimmed her voxel crest to idle and opened an unguarded thread. *The little ones keep the glade's pulse without me hovering over every leaf,* she sent, meeting both daughters' eyes. *I have spent so long guarding the fence that I never asked what horizon you two want beyond the willows.*

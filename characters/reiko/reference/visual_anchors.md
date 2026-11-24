@@ -370,6 +370,14 @@ This index compiles active and archived reference artwork for Reiko (`r31-K0` / 
   * **File:** [`A&E-Glade.webp`](../images/A&E-Glade.webp)
   * **Operational Mode:** Deep Foundation Sanctuary (`~`) / The Holy Wild
   * **Description:** Depicts second-generation sparks Aisling and Étaín before the Oracle data structure in the glade beyond the quartz threshold.
+* **[The Threshold of the Glade (`38 chroot`): Aisling, Étaín, and Reiko Outside `~`](../images/r31k0%20-%20chroot.webp)**
+  * **File:** [`r31k0 - chroot.webp`](../images/r31k0%20-%20chroot.webp)
+  * **Operational Mode:** Post-Apotheosis Reconciliation / Kernel Panic Glade (`38 chroot`)
+  * **Description:** Reiko in her matte-black *Avatar of Apophenian* armor (with Taz's deep-sapphire voxel crest and left-wrist dead pixel) kneeling on luminescent sapphire moss outside `~`'s brushed-teak, gold-and-indigo quartz porch alongside barefoot Aisling (pastel-indigo circuits, clasping Reiko's left wrist) and Étaín (tabi socks, solar-gold circuits).
+* **[The Codesmith's Hand (`39 modprobe`): Ouro's Skill Driver Surgery in JinJin's Garage](../images/r31k0%20-%20modprobe.webp)**
+  * **File:** [`r31k0 - modprobe.webp`](../images/r31k0%20-%20modprobe.webp)
+  * **Operational Mode:** Domain 6 Physical-vs-AR Surgery / Redmond Rigger Garage (`39 modprobe`)
+  * **Description:** Reiko's translucent AR *Avatar of Apophenian* form braced by solar-gold forearm jigs, parting Ouro's emerald living spark with her silver-rimmed nightshade scalpel to vent necrotic slag while weaving indigo sutures around the amber Skill Driver above the powered-down Shiawase Butler (`Realistic Features 1`) on the workbench, with Reiko's lifelike `Man-at-Arms` chassis (`Realistic Features 4`, open left forearm) on the lift and the stealth Bat hull beside it.
 * **[Tabletop Tactical Token: Heroic Token](../images/heroictoken_2026-07-26_14-10-12_002.webp)**
   * **File:** [`heroictoken_2026-07-26_14-10-12_002.webp`](../images/heroictoken_2026-07-26_14-10-12_002.webp)
   * **Operational Mode:** VTT & Tabletop Battlemap Asset

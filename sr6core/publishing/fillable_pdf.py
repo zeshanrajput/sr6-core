@@ -762,7 +762,10 @@ def build_pdf_field_map(
         devices_dr_str = f"MDef {bundle.get('matrix', {}).get('matrix_defense', 0)}d6"
 
     inv = bundle.get("inventory", {})
-    all_progs = list(inv.get("programs", []) or []) + list(inv.get("autosofts", []) or [])
+    all_progs = [
+        p for p in (inv.get("programs", []) or [])
+        if not any(k in str(p).lower() for k in ("knowsoft", "autosoft", "smartsoft", "swarm", "encryption (rigger)"))
+    ]
     prog_slots = _chunk_programs(all_progs, 4)
 
     ethnicity = raw_identity.get("ethnicity") or ("Emergent AI" if is_ai else raw_identity.get("heritage") or "-")

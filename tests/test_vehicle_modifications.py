@@ -234,12 +234,12 @@ def test_reiko_man_at_arms_complete_accounting():
     assert slots["hardpoints_remaining"] == 0
     assert prof["has_ram_plate"] is True
 
-    # Check Cyberlimbs & Tesla Coil
-    assert len(slots["cyberlimbs"]) == 1
-    cl = slots["cyberlimbs"][0]
-    assert cl["capacity"] == 8
-    assert cl["used_capacity"] == 8
-    assert cl["capacity"] - cl["used_capacity"] == 0
+    # Check Cyberlimbs (Right & Left 12-Cap Synthetic Cyberarms)
+    assert len(slots["cyberlimbs"]) == 2
+    for cl in slots["cyberlimbs"]:
+        assert cl["capacity"] == 12
+        assert cl["used_capacity"] == 12
+        assert cl["capacity"] - cl["used_capacity"] == 0
 
     # Check Vector Thrust (LAV) Propulsion
     assert "Vector Thrust (LAV): Han 4, Acc 41, SPD 50/480" in prof["mobility_str"]

@@ -207,7 +207,7 @@ def parse_vehicle_modifications(drone_dict: Dict[str, Any], char_data: Optional[
     aug_body = body + body_bonus
     # Inhabited / Override Pilot & Designer Quality (+1 Pilot, 2 Noise Reduction on Home Device)
     is_home_device = any(k in name.lower() for k in ["man-at-arms", "man_at_arms", "butler", "home device", "primary chassis"])
-    res = int(char_data.get("attributes", {}).get("resonance", 8)) if char_data else 8
+    res = int(char_data.get("attributes", {}).get("resonance", 9)) if char_data else 9
     pos_qualities = char_data.get("qualities", {}).get("positive", []) if char_data else []
     has_designer = any("designer" in str(q.get("name", q) if isinstance(q, dict) else q).lower() for q in pos_qualities)
     designer_pilot_bonus = 1 if has_designer else 0
@@ -366,15 +366,13 @@ def calculate_vehicle_mod_slots(
         if "rp purposes only" in m_low or "narrative/rp only" in m_low:
             continue
         if "cyberarm" in m_low or "cyberleg" in m_low or "cyberskull" in m_low or "cybertorso" in m_low:
+            is_synth = "synthetic" in m_low
+            base_cap = (8 if "arm" in m_low else (10 if "leg" in m_low else 2)) if is_synth else (15 if "arm" in m_low else (20 if "leg" in m_low else 4))
             cap_match = re.search(r"(\d+)\s+capacity", m_low)
-            if cap_match:
-                limb_cap = int(cap_match.group(1))
-            elif "synthetic" in m_low:
-                limb_cap = 8 if "arm" in m_low else (10 if "leg" in m_low else 2)
-            else:
-                limb_cap = 15 if "arm" in m_low else (20 if "leg" in m_low else 4)
+            limb_cap = int(cap_match.group(1)) if cap_match else base_cap
             cyberlimbs.append({
                 "name": m_str,
+                "base_capacity": base_cap,
                 "capacity": limb_cap,
                 "used_capacity": 0,
                 "items": []
@@ -509,11 +507,39 @@ def calculate_vehicle_mod_slots(
             })
             continue
 
-        # 5. Tesla Coil (Cyberlimb weapon)
+        # 5. Cyberlimb Capacity Modules (Bulk Mod, Tesla Coil, Sensor Dazzler, Wrist Shield, Utility Kit)
+        def _target_cyberlimb(side_hint: str) -> Optional[Dict[str, Any]]:
+            if not cyberlimbs:
+                return None
+            if side_hint:
+                for cl in cyberlimbs:
+                    if side_hint in cl["name"].lower():
+                        return cl
+            return cyberlimbs[-1] if side_hint == "left" and len(cyberlimbs) > 1 else cyberlimbs[0]
+
+        if "bulk modification" in m_low or "bulk mod" in m_low:
+            bulk_m = re.search(r"(?:bulk\s+mod(?:ification)?)\s*(?:r|rating\s*)?(\d+)", m_low)
+            b_val = int(bulk_m.group(1)) if bulk_m else 4
+            side = "left" if "left" in m_low else ("right" if "right" in m_low else "")
+            cl = _target_cyberlimb(side)
+            if cl is not None:
+                cl["capacity"] = max(cl["capacity"], cl.get("base_capacity", 8) + b_val)
+                cl["items"].append(f"Bulk Modification R{b_val} (+{b_val} Cap)")
+            categorized["accessory"].append({
+                "name": m_str,
+                "category": "accessory",
+                "rating": b_val,
+                "slots_cost": 0,
+                "notes": f"Installed in Cyberlimb: +{b_val} internal capacity (Body Shop p. 44)",
+                "rule_ref": "Body Shop p. 44"
+            })
+            continue
+
         if "tesla coil" in m_low:
-            if cyberlimbs:
-                cyberlimbs[0]["used_capacity"] += 8
-                cyberlimbs[0]["items"].append("Tesla Coil (8 Capacity, 5S(e) Spray 20m)")
+            cl = _target_cyberlimb("right")
+            if cl is not None:
+                cl["used_capacity"] += 8
+                cl["items"].append("Tesla Coil (8 Capacity, 5S(e) Spray 20m)")
                 categorized["accessory"].append({
                     "name": m_str,
                     "category": "accessory",
@@ -531,6 +557,51 @@ def calculate_vehicle_mod_slots(
                     "notes": "Cyber implant weapon (5S(e) Spray 20m)",
                     "rule_ref": "Body Shop p. 76"
                 })
+            continue
+
+        if "sensor dazzler" in m_low:
+            cl = _target_cyberlimb("right")
+            if cl is not None:
+                cl["used_capacity"] += 4
+                cl["items"].append("Sensor Dazzler (4 Capacity)")
+            categorized["accessory"].append({
+                "name": m_str,
+                "category": "accessory",
+                "rating": None,
+                "slots_cost": 0,
+                "notes": "Installed in Cyberarm: 4 Capacity [c] (Body Shop p. 35)",
+                "rule_ref": "Body Shop p. 35"
+            })
+            continue
+
+        if "wrist shield" in m_low:
+            cl = _target_cyberlimb("left")
+            if cl is not None:
+                cl["used_capacity"] += 10
+                cl["items"].append("Wrist Shield (10 Capacity, +4 DR)")
+            categorized["accessory"].append({
+                "name": m_str,
+                "category": "accessory",
+                "rating": None,
+                "slots_cost": 0,
+                "notes": "Installed in Cyberarm: 10 Capacity [c] (+4 DR, Body Shop p. 49)",
+                "rule_ref": "Body Shop p. 49"
+            })
+            continue
+
+        if "utility kit" in m_low:
+            cl = _target_cyberlimb("left")
+            if cl is not None:
+                cl["used_capacity"] += 2
+                cl["items"].append("Built-In Utility Kit (2 Capacity)")
+            categorized["accessory"].append({
+                "name": m_str,
+                "category": "accessory",
+                "rating": None,
+                "slots_cost": 0,
+                "notes": "Installed in Cyberarm: 2 Capacity [c] (Body Shop p. 49)",
+                "rule_ref": "Body Shop p. 49"
+            })
             continue
 
         # 6. Structural Integrity

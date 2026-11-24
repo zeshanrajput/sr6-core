@@ -16,15 +16,17 @@ assign("Lifetime_Nuyen", 90000)
 
 * Amalgam Cestas (obtained in SRM 2083-18)
   * Personalized Grip `{python} inc('Nuyen', -200)`
-* Crimson Wasp x2 `{python} inc('Nuyen', -1500 * 2)`
+* Dual Eye Lasers — Crimson Wasp Array (2x Link-Fired) `{python} inc('Nuyen', -1500 * 2)`
+  * Eye Beam — Single Crimson Wasp (Independent Eye Mount)
   * Smartgun System (Internal) `{python} inc('Nuyen', -500 * 2)` `{python} modifier('Smartlink (Wireless)', 'autosoft:targeting', 1, type='other', rule_anchor='rules_combat.html#tactical-weapon-arrays', notes='Wireless bonus: +1 dice pool to attack tests (SR6 p. 261)')`
   * Peak-Discharge Laser Battery Clips x5 `{python} inc('Nuyen', -500)`
+* Lightning Breath / Mega Lightning Breath / Giga Lightning Breath — Tesla Coil (Straight / Wobbly / Sweeping) *(housed in Right Synthetic Cyberarm)*
 * Glitter Grenades x10 `{python} inc('Nuyen', -1000)`
-* Drone Martial Arts (Ramming Attack - Shiawase Man-at-Arms)
+* Drone Martial Arts (Vehicle Ramming w/ Ram Plate - Shiawase Man-at-Arms)
   * *Attack Rating:* 33 passive / 39 sustained (Maneuvering 7 + Sensors 11 passive / 17 Enlighten Automaton + Ram Plate Body 15; Close Range 33 (39) / — / — / — / —)
   * *Damage:* 8P base (MAA Body 15 / 2 rounded up, +1 per current Speed Interval)
-  * *Test:* Piloting + Reaction vs. Defense (CRB p. 201)
-  * *Recoil / Self-Damage:* **Halved by Ram Plate** (DC p. 144): 1/2 [Target BOD/2 (+1/speed interval)] for vehicles, or 1/2 [Target BOD/4 (rounded up)] for soft metahuman targets (CRB p. 201)
+  * *Test:* Piloting + Reaction vs. Defense (CRB p. 201; -1 Threshold via Pilot Origins)
+  * *Recoil / Self-Damage:* **Reduced by Ram Plate** (DC p. 144; CRB p. 201): Moves blowback damage to **BOD/8 (vehicles)** and **BOD/16 (non-vehicles)**.
 
 ### Matrix
 
@@ -64,8 +66,8 @@ assign("Lifetime_Nuyen", 90000)
   * **Close Combat (R9)** `{python} inc_many(('Nuyen', -4500),('Karma', -1))`
   * Engineering (1, R9) `{python} inc('Nuyen', -4500)`
   * **Evasion (R9)** `{python} inc_many(('Nuyen', -4500),('Karma', -1))`
-  * Knowledge `{python} inc('Nuyen', -1500)`
-  * Language (1, R5) `{python} inc('Nuyen', -2500)`
+  * Knowledge `{python} inc('Nuyen', -1500)` `{python} knowledge_skill('Knowledge Autosoft (Base Template)', rating=3, notes='Base Knowledge Autosoft template (Double Clutch p. 145): used to program derivative Rating 3 knowsofts (8h, 1 Karma each)')`
+  * Language (1, R5) `{python} inc('Nuyen', -2500)` `{python} knowledge_skill('Language Autosoft (1, R5 — Base Template)', rating=5, notes='Base Language Autosoft template (Rating 5): used to program derivative Rating 5 linguasofts (8h, 1 Karma each)')`
   * **Maneuvering (1, R9)** `{python} inc_many(('Nuyen', -4500),('Karma', -1))`
   * Navigation (R9) `{python} inc('Nuyen', -4500)`
   * Performance (R9) `{python} inc('Nuyen', -4500)`
@@ -85,9 +87,9 @@ assign("Lifetime_Nuyen", 90000)
   * Thermal Mood Reading `{python} inc('Nuyen', -700)`
   * Vocal Tension Detection `{python} inc('Nuyen', -700)`
 * Other
-  * Mapsoft x4 `{python} inc('Nuyen', -400)`
-  * Shopsoft x6 `{python} inc('Nuyen',-900)`
-  * Mapsoft: Burma / Rangoon & Irrawaddy Delta *(Provided by Foreign Ministry, CMP 2083-07)*
+  * Mapsoft x4 `{python} inc('Nuyen', -400)` `{python} knowledge_skill('Mapsoft x4', notes='CRB p. 271: Geospatial & regional navigation databases (+1 dice pool to find directions)')`
+  * Shopsoft x6 `{python} inc('Nuyen',-900)` `{python} knowledge_skill('Shopsoft x6', notes='CRB p. 271: Technical catalog & market schematic databases (+1 dice pool to Matrix Search tests to buy/sell items)')`
+  * Mapsoft: Burma / Rangoon & Irrawaddy Delta *(Provided by Foreign Ministry, CMP 2083-07)* `{python} knowledge_skill('Mapsoft: Burma / Rangoon & Irrawaddy Delta', notes='CRB p. 271: Official regional navigation database provided by Burmese Foreign Ministry, CMP 2083-07')`
   * Linguasoft: Burmese (Rating 3) `{python} language('Burmese', rating=3, notes='Linguasoft: Provided by Burmese Foreign Ministry, CMP 2083-07')`
   * **Coding Facility** `{python} inc_many(('Nuyen',-5000),('Karma',-1))`
 * Data Structures & Resonance Constructs

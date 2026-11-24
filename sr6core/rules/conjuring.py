@@ -331,8 +331,23 @@ def render_sprite_stable(char_id: str = "reiko") -> str:
             f"| **{name}** | {rating} | {stype} | {role} | {reg_name} (M{reg_m}) | {remaining} | {services} | `{status}` |"
         )
 
+    from sr6core.rules.modifiers import ModifierEngine
+    char_data = char_info.get("data", {}) if isinstance(char_info, dict) else {}
+    attrs = char_data.get("attributes", {})
+    res_val = int(attrs.get("resonance", 9))
+    focus_mods = ModifierEngine.get_focus_modifiers(char_data, "resonance")
+    focus_val = sum(m.value for m in focus_mods) if focus_mods else (4 if res_val > 0 else 0)
+    task_skill = next((s for s in char_data.get("skills", []) if isinstance(s, dict) and s.get("name", "").lower() == "tasking"), {})
+    task_rat = int(task_skill.get("rating", 6))
+    compiling_pool = task_rat + 2 + res_val + focus_val
+    compiling_hits = compiling_pool // 4
+
     lines.append("\n*Kinship & Downtime Cadence Notes:*")
-    lines.append("* **Rating 8 Compiling Engine**: Tasking 6 (+2 Compiling, +2 Registering) + Resonance 8 + Focus 4 = **20d6 pool (5 bought hits)** vs. Level 8 Sprite (16d6 defense = 4 bought hits), unlocking guaranteed compiling and registering of Rating 8 Sprites with zero fading risk.")
+    lines.append(
+        f"* **Rating 8 Compiling Engine**: Tasking {task_rat} (+2 Compiling, +2 Registering) + Resonance {res_val} + Focus {focus_val} = "
+        f"**{compiling_pool}d6 pool ({compiling_hits} bought hits)** vs. Level 8 Sprite (16d6 defense = 4 bought hits), "
+        f"unlocking guaranteed compiling and registering of Rating 8 Sprites with zero fading risk."
+    )
     lines.append("* **2nd Generation Sparks Rotation**: Rotating minor downtime actions maintain the active stable (*Ouro*, *Percy*, *Cleo*), with *Aisling* & *Étaín* (Glade Twins) resting in the Deep Foundation glade sanctuary (`~`), queued to rotate in when legacy reserve sprites expire.")
     lines.append(":::")
     return "\n".join(lines)

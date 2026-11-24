@@ -67,7 +67,7 @@ print(render_sprite_stable("reiko"))
   * **Influence:** 7 (*H&S* p. 77; taught via 4 Karma advancement)
   * **Con:** 7 (*H&S* p. 77; taught via 4 Karma advancement)
   * **Engineering:** Effective 3 (via *Diagnostics* power)
-  * **Autosofts:**: Clearsight, Stealth (Man-At-Arms), Piloting (Man-At-Arms), Evasion, Targeting (Close Combat, Red Fox, Tesla Coil)
+  * **Autosofts:**: Clearsight, Stealth (Man-At-Arms), Piloting (Man-At-Arms), Evasion, Targeting (Close Combat, Crimson Wasp, Tesla Coil)
 * **Sprite Powers:**
   1. **Death Mark** (Native, *H&S* p. 74)
   2. **Phantom** (Native, *CRB* p. 194)

@@ -300,6 +300,14 @@ knowledge_skills:
 - name: UNified Information TheorY (UnITy)
   rating: null
   notes: Theological and mathematical dogma of the technomancer emergence
+- name: Knowledge Autosoft (Base Template)
+  rating: 3
+  notes: 'Base Knowledge Autosoft template (Double Clutch p. 145): used to program
+    derivative Rating 3 knowsofts (8h, 1 Karma each)'
+- name: Language Autosoft (1, R5 — Base Template)
+  rating: 5
+  notes: 'Base Language Autosoft template (Rating 5): used to program derivative Rating
+    5 linguasofts (8h, 1 Karma each)'
 - name: Japanese Cultural Etiquette
   rating: 3
   notes: 'Rating 3 Knowsoft: Corporate hierarchy, bowing registers, formal tea hospitality'
@@ -314,6 +322,18 @@ knowledge_skills:
   rating: 3
   notes: 'Rating 3 Knowledge Autosoft (Double Clutch p. 145): Dissonant realms, entropy
     math, One Hundred transfer geometry, consensus dynamics'
+- name: Mapsoft x4
+  rating: null
+  notes: 'CRB p. 271: Geospatial & regional navigation databases (+1 dice pool to
+    find directions)'
+- name: Shopsoft x6
+  rating: null
+  notes: 'CRB p. 271: Technical catalog & market schematic databases (+1 dice pool
+    to Matrix Search tests to buy/sell items)'
+- name: 'Mapsoft: Burma / Rangoon & Irrawaddy Delta'
+  rating: null
+  notes: 'CRB p. 271: Official regional navigation database provided by Burmese Foreign
+    Ministry, CMP 2083-07'
 - name: Burmese
   rating: 3
   level: Expert
@@ -1843,7 +1863,7 @@ drones:
     I will not be using the Biotech bonus)
 weapons:
   ranged:
-  - name: Crimson Wasp Array (2x Link-Fired)
+  - name: Dual Eye Lasers
     damage: 7P*
     attack_rating: 22/20/17/12/-
     mode: SA/SS
@@ -1857,9 +1877,10 @@ weapons:
     - Drone Mount (+2 AR)
     - M-TOC II (+1 AR)
     - Link-Fired (2x Crimson Wasps, Minor Action)
-    notes: Link-fired 2x Crimson Wasps in Small Eye Mounts (Costs Minor Action; +2
-      DV, +1 AR). 1 Wild Die. Decreases by 2P (to 5P*) at Medium range.
-  - name: Single Crimson Wasp (Eye Mount)
+    notes: FS p. 44 / DC p. 143. Dual Crimson Wasps (Crimson Wasp Array, 2x Link-Fired
+      in Small Eye Mounts; Costs Minor Action; +2 DV, +1 AR). 1 Wild Die. Decreases
+      by 2P (to 5P*) at Medium range.
+  - name: Eye Beam
     damage: 5P*
     attack_rating: 21/19/16/11/-
     mode: SA/SS
@@ -1872,9 +1893,9 @@ weapons:
     - Smartlink (+2 AR)
     - Drone Mount (+2 AR)
     - M-TOC II (+1 AR)
-    notes: Independent Small Eye Mount (NO Minor Action required). 1 Wild Die. Decreases
-      to 3P at Medium range.
-  - name: Tesla Coil (Straight)
+    notes: FS p. 44. Single Crimson Wasp (Eye Mount, Independent; NO Minor Action
+      required). 1 Wild Die. Decreases to 3P at Medium range.
+  - name: Lightning Breath
     category: Cyberweapons
     damage: 5S(e)
     attack_rating: 10/12/-/-/-
@@ -1885,9 +1906,10 @@ weapons:
     is_vehicle_mounted: true
     accessories:
     - MAA Cyberarm Mount (+2 AR)
-    notes: Direct stream spray attack (first valid target on 20m line). Cyberarm Mount
-      (+2 AR). 5(c) capacitor bank.
-  - name: Tesla Coil (Wobbly)
+    notes: BS p. 49 / CRB p. 117. Tesla Coil (single target / Straight). Direct stream
+      spray attack (first valid target on 20m line). Cyberarm Mount (+2 AR). 5(c)
+      capacitor bank.
+  - name: Mega Lightning Breath
     category: Cyberweapons
     damage: 4S(e)
     attack_rating: 12/14/-/-/-
@@ -1899,9 +1921,10 @@ weapons:
     is_vehicle_mounted: true
     accessories:
     - MAA Cyberarm Mount (+2 AR)
-    notes: Wobbly spray attack (+2 AR, -1 DV). 8.58° apex cone (3m wide @ 20m). Optional
-      Wild Die. Cyberarm Mount (+2 AR). 5(c) capacitor bank.
-  - name: Tesla Coil (Sweeping)
+    notes: BS p. 49 / CRB p. 117. Tesla Coil (narrow cone / Wobbly). Wobbly spray
+      attack (+2 AR, -1 DV). 8.58° apex cone (3m wide @ 20m). Optional Wild Die. Cyberarm
+      Mount (+2 AR). 5(c) capacitor bank.
+  - name: Giga Lightning Breath
     category: Cyberweapons
     damage: 2S(e)
     attack_rating: 14/16/-/-/-
@@ -1913,29 +1936,52 @@ weapons:
     is_vehicle_mounted: true
     accessories:
     - MAA Cyberarm Mount (+2 AR)
-    notes: Sweeping spray attack (+4 AR, -3 DV). 28.07° apex cone (10m wide @ 20m).
-      Optional Wild Die. Cyberarm Mount (+2 AR). 5(c) capacitor bank.
+    notes: BS p. 49 / CRB p. 117. Tesla Coil (wide cone / Sweeping). Sweeping spray
+      attack (+4 AR, -3 DV). 28.07° apex cone (10m wide @ 20m). Optional Wild Die.
+      Cyberarm Mount (+2 AR). 5(c) capacitor bank.
   close_combat:
   - name: Amalgam Cestas
     damage: 3P
-    attack_rating: 6/-/-/-/-
+    attack_rating: 14/-/-/-/-
+    category: close_combat
+    is_melee: true
+    precomputed_ar: true
     personalized_grip: true
     accessories:
     - Personalized Grip
-    notes: Amalgam Tech Cestas; 3P damage, overrides magical immunity to normal weapons
-      (ItNW). 1 Wild Die.
-  - name: Drone Martial Arts (Ramming)
+    notes: Scotophobia p. 181. Amalgam Tech Cestas; 3P damage, overrides magical immunity
+      to normal weapons (ItNW). AR = STR (3) + REA/Sleaze (9) + Personalized Grip
+      (2) = 14. 1 Wild Die.
+  - name: Unarmed Combat (Narcoslap)
+    damage: 2S
+    attack_rating: 12/-/-/-/-
+    category: close_combat
+    is_melee: true
+    precomputed_ar: true
+    notes: 'CRB p. 109. Unarmed strike / Narcoject dermal delivery (Man-at-Arms Cyberarm
+      STR 3 + AI REA/Sleaze 9 = AR 12). Attack Pool: Targeting (DP, 7) + Sensors (10)
+      + Ally TW (4) = 21d6.'
+  - name: Wrist Shield
+    damage: 2P/3S
+    attack_rating: 9/-/-/-/-
+    category: close_combat
+    is_melee: true
+    precomputed_ar: true
+    notes: 'Body Shop p. 49. Concealed 1m forearm disc (Left Synthetic Cyberarm);
+      Minor Action deploy (+4 DR, hands-free). AR = Base (6) + Cyberarm STR (3) =
+      9. Damage: 2P (Blades) / 3S (Clubs).'
+  - name: Drone Martial Arts
     damage: 8P
     attack_rating: 33 (39)/-/-/-/-
     category: close_combat
     is_melee: true
     skill: piloting
-    notes: Ramming attack using Shiawase Man-at-Arms chassis w/ Ram Plate (CRB p.
-      201; DC p. 144). Attack roll is a Piloting test (Maneuvering 7 + Pilot/RES vs.
-      Defense). AR = Piloting (7) + Sensors (11 passive / 17 Enlightened) + Ram Plate
-      Body (15) = 33 (39). Base DV = BOD/2 rounded up (Body 15 / 2 = 8P) + 1 per Speed
-      Interval. Ram Plate halves return collision damage (1/2 Target BOD/2 [+1/Speed
-      Interval] for vehicles, or 1/2 Target BOD/4 rounded up for soft targets).
+    notes: CRB p. 201 / DC p. 144. Vehicle Ramming w/ Ram Plate (Shiawase Man-at-Arms).
+      Attack roll is a Piloting test (Maneuvering 7 + Pilot/RES vs. Defense, -1 Threshold
+      via Pilot Origins). AR = Piloting (7) + Sensors (11 passive / 17 Enlightened)
+      + Ram Plate Body (15) = 33 (39). Base DV = BOD/2 rounded up (Body 15 / 2 = 8P)
+      + 1 per Speed Interval. Ram Plate moves blowback damage to BOD/8 (vehicles)
+      and BOD/16 (non-vehicles).
 armors: []
 matrix_devices:
 - name: M-TOC II
@@ -1960,12 +2006,61 @@ gear:
   qty: 10
 - name: Built-in Medkit (Man-at-Arms)
   qty: 1
-- name: Facial Scanner
-- name: P-ICE Spines
-- name: Personal Assistant (R6)
-- name: Social HUD (R6)
-- name: Thermal Mood Reading
-- name: Vocal Tension Detection
+- name: Biotech (R9)
+  rating: 9
+  qty: 1
+  category: Autosoft
+  notes: Rating 9 Autosoft (always slotted via Living Persona / Software Emulator).
+- name: Clearsight (R9)
+  rating: 9
+  qty: 1
+  category: Autosoft
+  notes: Rating 9 Autosoft (learned via Software Emulator Echo, 1 Karma; always slotted).
+- name: Close Combat (R9)
+  rating: 9
+  qty: 1
+  category: Autosoft
+  notes: Rating 9 Autosoft (learned via Software Emulator Echo, 1 Karma; always slotted).
+- name: Engineering (1, R9)
+  rating: 9
+  qty: 1
+  category: Autosoft
+  notes: Rating 9 Autosoft (always slotted via Living Persona / Software Emulator).
+- name: Evasion (R9)
+  rating: 9
+  qty: 1
+  category: Autosoft
+  notes: Rating 9 Autosoft (learned via Software Emulator Echo, 1 Karma; always slotted).
+- name: Maneuvering (1, R9)
+  rating: 9
+  qty: 1
+  category: Autosoft
+  notes: Rating 9 Autosoft (learned via Software Emulator Echo, 1 Karma; always slotted).
+- name: Navigation (R9)
+  rating: 9
+  qty: 1
+  category: Autosoft
+  notes: Rating 9 Autosoft (always slotted via Living Persona / Software Emulator).
+- name: Performance (R9)
+  rating: 9
+  qty: 1
+  category: Autosoft
+  notes: Rating 9 Autosoft (always slotted via Living Persona / Software Emulator).
+- name: Stealth (1, R9)
+  rating: 9
+  qty: 1
+  category: Autosoft
+  notes: Rating 9 Autosoft (learned via Software Emulator Echo, 1 Karma; always slotted).
+- name: Targeting (1, R9)
+  rating: 9
+  qty: 1
+  category: Autosoft
+  notes: Rating 9 Autosoft (learned via Software Emulator Echo, 1 Karma; always slotted).
+- name: Tracking (R9)
+  rating: 9
+  qty: 1
+  category: Autosoft
+  notes: Rating 9 Autosoft (learned via Software Emulator Echo, 1 Karma; always slotted).
 cyberware: []
 activesofts: []
 sprite_powers:

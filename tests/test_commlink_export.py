@@ -79,10 +79,10 @@ def test_export_velvet_commlink_xml():
     pp_attr = [a for a in root.findall(".//attributes/attributes") if a.get("id") == "POWER_POINTS"]
     assert len(pp_attr) == 1 and pp_attr[0].get("value") == "2", f"Expected POWER_POINTS='2', got {[a.attrib for a in pp_attr]}"
 
-    # Verify all 5 Initiations / Metamagics are in <metaEchoes>
+    # Verify all 6 Initiations / Metamagics are in <metaEchoes>
     metas = [m.get("ref") for m in root.findall(".//metaEchoes/metaEcho")]
-    assert len(metas) == 5, f"Expected 5 metamagics, got {metas}"
-    assert set(metas) == {"power_points", "channeling", "centering", "masking", "stealth_effect"}
+    assert len(metas) == 6, f"Expected 6 metamagics, got {metas}"
+    assert set(metas) == {"power_points", "channeling", "centering", "masking", "stealth_effect", "the_magician's_way"}
 
     # Verify Matrix Devices (Erika Elite equipped with apps, Renraku Sensei carried)
     items = root.findall(".//items/item")
@@ -379,7 +379,7 @@ def test_commlink_archetype_subsystem_segregation():
 
     assert v_root.find("datastructures") is None or len(v_root.find("datastructures")) == 0
     assert v_root.find("complexforms") is None or len(v_root.find("complexforms")) == 0
-    assert v_root.find("metaEchoes") is not None and len(v_root.find("metaEchoes")) == 5, "Initiate grade must be 5 with 5 metamagics"
+    assert v_root.find("metaEchoes") is not None and len(v_root.find("metaEchoes")) == 6, "Initiate grade must be 6 with 6 metamagics"
     assert v_root.find("spells") is not None and len(v_root.find("spells")) >= 2
     assert v_root.find("adeptPowers") is not None and len(v_root.find("adeptPowers")) >= 3
     assert v_root.find("foci") is not None and len(v_root.find("foci")) >= 1

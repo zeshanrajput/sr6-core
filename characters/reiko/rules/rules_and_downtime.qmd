@@ -49,11 +49,13 @@ ACTIVE_F = active_asdf.get("firewall", 9)
 MATRIX_AR = ACTIVE_A + ACTIVE_S
 MATRIX_DR = ACTIVE_D + ACTIVE_F
 
-std_def_pool = ACTIVE_F + RESONANCE + RESONANCE_FOCUS
-std_def_hits = std_def_pool // 4
+unaware_def_pool = ACTIVE_F + RESONANCE + RESONANCE_FOCUS
+unaware_def_hits = unaware_def_pool // 4
 full_def_obj = ModifierEngine.get_full_matrix_defense(_char)
-full_def_pool = full_def_obj.get("pool", 25)
-full_def_base_hits = full_def_pool // 4
+std_def_pool = full_def_obj.get("pool", unaware_def_pool + SUBMERSION_GRADE)
+std_def_hits = std_def_pool // 4
+full_def_passive = full_def_obj.get("cybercombat_passive_pool", std_def_pool + 3)
+full_def_passive_hits = full_def_passive // 4
 full_def_all_in = full_def_obj.get("all_in_pool", 41)
 full_def_hits = full_def_obj.get("effective_hits", full_def_all_in // 4)
 soak_hits = ACTIVE_F // 4
@@ -120,10 +122,9 @@ print(get_matrix_action_table("reiko"))
 ### Matrix Defense, Damage Soak & P-ICE Protocols{#matrix-defense-umbrella}
 
 * **Matrix Defense Rating**: $\text{Data Processing } (\text{`{python} ACTIVE_D`}) + \text{Firewall } (\text{`{python} ACTIVE_F`}) = \mathbf{\text{`{python} MATRIX_DR`}\;DR}$ (Active Living Persona Matrix AR **`{python} MATRIX_AR`** / DR **`{python} MATRIX_DR`**). Note that the *Designer* Home Device bonus increases physical **Device Rating** (`+4`), not Matrix Defense Rating.
-* **Three-Tier Matrix Defense Umbrella**:
-  * **Standard Defense (`{python} std_def_pool`d6 / `{python} std_def_hits` Hits)**: Firewall (`{python} ACTIVE_F`) + *Natural Hacker* Resonance (`{python} RESONANCE`) + Resonance Focus (`+{python} RESONANCE_FOCUS`).
-  * **Passive PAN Defense (`{python} full_def_pool`d6 / `{python} full_def_base_hits` Hits)**: Adds **Personal Assistant R6** (`+3` bought hits via `12d6 / 4`). *Table Ruling:* Although *Hack & Slash* describes a Personal Assistant as continuously performing Full Matrix Defense, we deliberately opt **not** to double-add Firewall (`+{python} ACTIVE_F`) into the dice pool, taking only its `3` bought hits.
-  * **All-In Reaction (`{python} full_def_all_in`d6 / `{python} full_def_hits` Hits)**: Spend 1 Minor Anytime Action each when aware to add **Echo: Syntax Error** (`+{python} SUBMERSION_GRADE` Submersion Grade, *Hack & Slash*, pp. 69–70) and **Directional Shield** (`+{python} ACTIVE_D` Active Data Processing, *Hack & Slash*, p. 58).
+* **Matrix Defense Umbrella (Standard vs. Cybercombat/Resonance Spike)**:
+  * **Standard Matrix Defense (`{python} std_def_pool`d6 / `{python} std_def_hits` Hits aware; `{python} unaware_def_pool`d6 / `{python} unaware_def_hits` Hits unaware)**: Firewall (`{python} ACTIVE_F`) + *Natural Hacker* Resonance (`{python} RESONANCE`) + Resonance Focus (`+{python} RESONANCE_FOCUS`) + **Echo: Syntax Error** (`+{python} SUBMERSION_GRADE` Submersion Grade via Minor Anytime Action when aware, *Hack & Slash*, pp. 69–70). Applies to **all** Matrix Defense tests (Hack on the Fly, Probe, Brute Force, Complex Forms, Sprite Powers, and Cybercombat).
+  * **Full Matrix Defense (`{python} full_def_all_in`d6 / `{python} full_def_hits` Hits — ONLY vs. Cybercombat & Resonance Spike, *SRMG v2.4*, p. 32)**: Per *SRMG v2.4* p. 32 (*"What can Full Matrix Defense be used on?"*), Full Matrix Defense, **Personal Assistant R6** (`+3` bought hits via `12d6 / 4`), and **Directional Shield** (`+{python} ACTIVE_D` Active Data Processing, Minor Anytime Action, *Hack & Slash*, p. 58) apply **only** on Matrix defense tests vs. **cybercombat and Resonance Spike** (`{python} full_def_passive`d6 / `{python} full_def_passive_hits` Hits passive w/ PA R6; `{python} full_def_all_in`d6 / `{python} full_def_hits` Hits all-in w/ Directional Shield). *Table Ruling:* We deliberately opt **not** to double-add Firewall (`+{python} ACTIVE_F`) from Personal Assistant into the dice pool, taking only its `3` bought hits.
 * **Matrix Damage Mitigation & Countermeasures**:
   * **Matrix Soak**: **`{python} ACTIVE_F`d6** (`{python} soak_hits` Bought Hits) via active Firewall.
   * **Sprite Link (*Hack & Slash*, p. 69)**: Spend 1 Minor Anytime Action and 1 sprite task to transfer unresisted **Fading damage** that Reiko would suffer to one of her registered sprites (`-1` Sprite Reputation). Note that Sprite Link transfers Fading damage only; it does not transfer Matrix or meatspace damage.
@@ -238,10 +239,13 @@ Under *Double Clutch* (p. 120), a vehicle or drone receives mod slots equal to i
 │    (⌊Body / 3⌋ = 3)    │ (100% Used)  │ (Floor B/3)  │ • Ram Plate (1 Std HP; +BOD Ram AR, ½ Return)  │
 │                       │              │              │ • Drone Rack (Small) - Sky Commander Bay       │
 ├───────────────────────┼──────────────┼──────────────┼──────────────────────────────────┤
-│ 5. Right Cyberarm     │ [8] Capacity │ [8] Capacity │ • Used Synthetic Cyberarm (Right; CRB 282, 289)│
-│    (Factory Replace)  │ (100% Used)  │              │ • Tesla Coil ([8] Cap; Body Shop p. 49)        │
+│ 5. Right Cyberarm     │ [12] Cap     │ [12] Cap     │ • Used Synthetic Cyberarm (Right; CRB 282, 289)│
+│    (Factory Replace)  │ (100% Used)  │ (+4 Bulk Mod)│ • Bulk Mod R4 (+4 Cap), Tesla Coil [8], Dazzler│
 ├───────────────────────┼──────────────┼──────────────┼──────────────────────────────────┤
-│ 6. Accessories & RP   │ 0 Slots      │ Unlimited    │ • Satellite Link, Laser Jack (DC p. 120)       │
+│ 6. Left Cyberarm      │ [12] Cap     │ [12] Cap     │ • Used Synthetic Cyberarm (Left; CRB 282, 289) │
+│    (Factory Replace)  │ (100% Used)  │ (+4 Bulk Mod)│ • Bulk Mod R4 (+4), Wrist Shield [10], Kit [2] │
+├───────────────────────┼──────────────┼──────────────┼──────────────────────────────────┤
+│ 7. Accessories & RP   │ 0 Slots      │ Unlimited    │ • Satellite Link, Laser Jack (DC p. 120)       │
 │    (0 Active Mod Slot)│ (DC p. 120)  │              │ • Sensor 9 Array Suite & Tactile Sensors       │
 │                       │              │              │ • Hydrocarbon Fuel Converter & Nitro Boost (RP)│
 └───────────────────────┴──────────────┴──────────────┴──────────────────────────────────┘
@@ -250,7 +254,7 @@ Under *Double Clutch* (p. 120), a vehicle or drone receives mod slots equal to i
 1. **Chassis (10/10 Slots)**: *Increased Structural Integrity 5* (*DC*, p. 125; `BOD 15`, 16 Physical boxes) + *Realistic Features 4* (*DC*, p. 131) + *Pop-Out Concealment - Small x2* (`0.5 × 2 = 1` slot, *DC*, pp. 143–144).
 2. **Powertrain (10/10 Slots)**: *Secondary Propulsion: Vector Thrust* (*DC*, pp. 136–137; `5` slots) together with its dedicated *Improved Acceleration 2* (`25 -> 41 m/round`, *DC*, p. 134; `2` slots) and *Top Speed Increase 3* (`300 -> 480 m/round`, *DC*, p. 138; `3` slots). Both *Hydrocarbon Fuel Converter* (*DC*, p. 135) and *Nitro Boost* (`BRYNNE` & `CEDAR` thigh cyberleg capacitors; *DC*, pp. 134–135) are retained physically for **narrative/RP purposes only** (`0` active Powertrain slots, `0¥`).
 3. **Electronics (10/10 Slots; 100% Used)**: *Enhanced Sensors 9* (`7` slots, replacing Base `2` $\rightarrow$ **`9`** per *DC*, pp. 120, 142 & Official SR6 FAQ) + *Chameleon Coating 4* (`2` slots, *DC*, p. 138) + *Passive Stealth Features* (`1` slot, *DC*, p. 139) = `10/10`, housing Camera (Image Link), Omni Mic (Sound Link), Ultrasound, Low-light Vision, Flare Compensation, Olfactory Sensor, and Oral Chemical Analyzer inside the Sensor 9 Array.
-4. **Hardpoints ($\lfloor 10 / 3 \rfloor = 3$) & Right Cyberarm (`[8]/[8]` Cap)**: `1` Standard Hardpoint split into `2×` Small Hardpoints (*Small Weapon Mounts x2* in eye sockets, *DC*, p. 124) + `1` Standard Hardpoint (*Ram Plate*, *DC*, p. 144) + `1` Standard Hardpoint (*Small Drone Rack* in abdomen housing Sky Commander); Used Synthetic Right Cyberarm (`8` Capacity, *CRB* pp. 282, 289; 0 drone slots per *DC* p. 131) houses the `[8]` Capacity *Tesla Coil* (*Body Shop*, p. 49).
+4. **Hardpoints ($\lfloor 10 / 3 \rfloor = 3$) & Twin Synthetic Cyberarms (`[12]/[12]` Cap Each)**: `1` Standard Hardpoint split into `2×` Small Hardpoints (*Small Weapon Mounts x2* in eye sockets, *DC*, p. 124) + `1` Standard Hardpoint (*Ram Plate*, *DC*, p. 144) + `1` Standard Hardpoint (*Small Drone Rack* in abdomen housing Sky Commander). Both Used Synthetic Cyberarms (*CRB* pp. 282, 289; 0 drone slots per *DC* p. 131) are expanded from `8` to `12` Capacity via *Bulk Modification R4* (*Body Shop*, p. 44): the Right Cyberarm houses the *Tesla Coil* (`8` Cap, *Body Shop* p. 49) and *Sensor Dazzler* (`4` Cap, *Body Shop* p. 35), while the Left Cyberarm houses the *Wrist Shield* (`10` Cap, `+4` DR, *Body Shop* p. 49) and *Built-In Utility Kit* (`2` Cap, *Body Shop* p. 49).
 
 ### Vector Thrust Flight Telemetry
 
@@ -284,7 +288,7 @@ Base Handling threshold is `4`, reduced to **Effective Threshold `{python} MAA_E
 print(get_weapon_attack_table("reiko"))
 ```
 
-1. **Crimson Wasp Lasers (Twin Small Eye-Mounts)** (*Firing Squad*, pp. 44, 112, 116; *Double Clutch*, pp. 124, 143; *SRMG v2.4*, p. 51): Compact micro-lasers housed in split Small Hardpoints (`0.5 × 2` Chassis via *Pop-Out Concealment - Small*). Integral ocular mounts grant **+2 AR** at all ranges (*FS*, p. 112); Smartlink grants **+2 AR** and **+1d6** (*SR6 Core*, p. 261 — drone pilot systems interface directly with mounted smartguns without needing a smartlink, *SRMG v2.4*, p. 51); M-TOC II coordination adds **+1 AR** (*FS*, p. 90). Link-firing both emitters adds **+2 DV** and **+1 AR** for 1 Major + 1 Minor action (*DC*, p. 143). Decreases by 2P at Medium (`5P` -> `3P`).
-2. **Wrist-Shield Ram Plate Reinforcement** (*Double Clutch*, p. 144; *SR6 Core*, p. 201): Mounted on the freed 3rd Standard Hardpoint as the left forearm/wrist shield impact assembly; adds **Body (`+15`) to Ramming AR** (**33 passive / 39 sustained**, rolled on Piloting **`25d6`**, `-1` Threshold via *Pilot Origins*) and **halves return collision damage** suffered by the Man-at-Arms.
-3. **Tesla Coil (Oropharyngeal Emitter)** (*Body Shop*, p. 49; *SR6 Core*, pp. 117–118): Housed in the `[8]`-Capacity right synthetic cyberarm with discharge aperture routed behind a hermetic ceramic/silicone oropharyngeal seal (no smartgun system: rolls **`23d6` passive / `29d6` sustained**). Straight Stream (`5S(e)`, `10/12*`), Wobbly Cone ($8.58^\circ$ / 3m at 20m; `+2 AR` -> `12/14*`, `-1 DV` -> `4S(e)`), Sweeping Arc ($28.07^\circ$ / 10m at 20m; `+4 AR` -> `14/16*`, `-3 DV` -> `2S(e)`), substituting 1 normal die for a **Wild Die** on spray cones (*SR6 Core*, p. 118).
+1. **Dual Eye Lasers & Eye Beam** (*Firing Squad*, pp. 44, 112, 116; *Double Clutch*, pp. 124, 143; *SRMG v2.4*, p. 51): Dual Crimson Wasps / Single Crimson Wasp compact micro-lasers housed in split Small Hardpoints (`0.5 × 2` Chassis via *Pop-Out Concealment - Small*). Integral ocular mounts grant **+2 AR** at all ranges (*FS*, p. 112); Smartlink grants **+2 AR** and **+1d6** (*SR6 Core*, p. 261 — drone pilot systems interface directly with mounted smartguns without needing a smartlink, *SRMG v2.4*, p. 51); M-TOC II coordination adds **+1 AR** (*FS*, p. 90). Link-firing both emitters adds **+2 DV** and **+1 AR** for 1 Major + 1 Minor action (*DC*, p. 143). Decreases by 2P at Medium (`5P` -> `3P`).
+2. **Drone Martial Arts (Vehicle Ramming w/ Ram Plate)** (*SR6 Core*, p. 201; *Double Clutch*, p. 144): Mounted on the freed 3rd Standard Hardpoint as the left forearm/wrist shield impact assembly; adds **Body (`+15`) to Ramming AR** (**33 passive / 39 sustained**, rolled on Piloting **`25d6`**, `-1` Threshold via *Pilot Origins*) and moves blowback damage to **`BOD/8` (vehicles)** and **`BOD/16` (non-vehicles)**.
+3. **Lightning Breath / Mega Lightning Breath / Giga Lightning Breath** (*Body Shop*, p. 49; *SR6 Core*, pp. 117–118): Tesla Coil (Straight / Wobbly / Sweeping) housed in the `[12]`-Capacity right synthetic cyberarm with discharge aperture routed behind a hermetic ceramic/silicone oropharyngeal seal (no smartgun system: rolls **`23d6` passive / `29d6` sustained**). Straight Stream (`5S(e)`, `10/12*`), Wobbly Cone ($8.58^\circ$ / 3m at 20m; `+2 AR` -> `12/14*`, `-1 DV` -> `4S(e)`), Sweeping Arc ($28.07^\circ$ / 10m at 20m; `+4 AR` -> `14/16*`, `-3 DV` -> `2S(e)`), substituting 1 normal die for a **Wild Die** on spray cones (*SR6 Core*, p. 118).
 4. **Amalgam Cestas (Anti-Spirit CQC)** (*Scotophobia*, p. 181): Against materialized spirits or critters with Immunity to Normal Weapons, treats Essence-based Hardened Armor as **normal armor** rather than hardened armor.

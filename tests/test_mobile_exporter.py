@@ -57,20 +57,24 @@ def test_mobile_json_export_reiko():
     assert cestas["modes_str"] == "Melee"
     assert cestas["ammo"] == "—"
 
-    # Verify Tesla Coil profiles (Straight, Wobbly, Sweeping)
-    tesla = next((w for w in res["weapons"] if "tesla" in w["name"].lower()), None)
+    # Verify Tesla Coil / Lightning Breath profiles (Straight, Wobbly, Sweeping)
+    tesla = next((w for w in res["weapons"] if "lightning breath" in w["name"].lower() or "tesla" in w["name"].lower()), None)
     assert tesla is not None
     assert tesla["attack_rating_str"] == "10 / 12 / — / — / —"
 
-    tesla_wobbly = next((w for w in res["weapons"] if "tesla" in w["name"].lower() and "wobbly" in w["name"].lower()), None)
+    tesla_wobbly = next((w for w in res["weapons"] if "mega lightning breath" in w["name"].lower() or ("tesla" in w["name"].lower() and "wobbly" in w["name"].lower())), None)
     assert tesla_wobbly is not None
     assert tesla_wobbly["attack_rating_str"] == "12 / 14 / — / — / —"
     assert tesla_wobbly["damage"] == "4S(e)"
 
-    tesla_sweeping = next((w for w in res["weapons"] if "tesla" in w["name"].lower() and "sweeping" in w["name"].lower()), None)
+    tesla_sweeping = next((w for w in res["weapons"] if "giga lightning breath" in w["name"].lower() or ("tesla" in w["name"].lower() and "sweeping" in w["name"].lower())), None)
     assert tesla_sweeping is not None
     assert tesla_sweeping["attack_rating_str"] == "14 / 16 / — / — / —"
     assert tesla_sweeping["damage"] == "2S(e)"
+
+    dma = next((w for w in res["weapons"] if "drone martial arts" in w["name"].lower()), None)
+    assert dma is not None
+    assert dma["is_melee"] is True
 
     # Verify Complex Forms link to rules_sprites.html#complex-forms
     cf = res["powers"]["complex_forms"]
@@ -93,7 +97,8 @@ def test_mobile_json_export_reiko():
     assert maa is not None
     assert maa["body"] == 15      # 10 base + 5 structural integrity (home device tuning moved to sensor)
     assert maa["pilot"] == 10     # Replaced by Reiko's RES 9 + 1 Designer
-    assert maa["armor"] == 8     # 8 base (armor increase stripped for legal nuyen balance)
+    assert maa["base_armor"] == 8
+    assert maa["armor"] == 12     # 8 base + 4 Wrist Shield (Left Cyberarm)
     assert maa["sensor"] == 11   # 9 hardware (base 2 + mod 7) + 1 sensor upgrade quality + 1 home device
     assert maa["enlightened_sensor"] == 17  # +6 from Enlighten Automaton sustained (6 bought hits, within 2x9=18 cap)
     assert "Vector Thrust (LAV)" in maa["mobility_str"]

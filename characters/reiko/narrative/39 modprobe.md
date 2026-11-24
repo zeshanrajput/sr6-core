@@ -44,6 +44,8 @@ Reiko clamped her core shut. Turning the blade flat along the incision, she exci
 
 Cool stillness settled through the channel. She guided the amber driver into its seat until it locked with the crisp bite of a ceramic mount on torque. Softening the gold jig, she poured warm indigo through her fingertips, weaving unbroken threads across the bridge and suturing Ouro's living spark tight around the driver until the trench closed beneath the lamps' hum.
 
+![Reiko performing Ouro's Skill Driver surgery above the grounded Butler in JinJin's garage](../images/r31k0%20-%20modprobe.webp)
+
 The surgical surge along the bench trunk eased back into the murmur of JinJin's chargers. Ouro's emerald spiral knitted close around the seated driver, holding the clean weave. Reiko drew the nightshade strand back into the dead pixel at her virtual wrist, released the gold jig, and watched her son slip out of the link into the Shiawase Butler frame.
 
 Relays clicked behind the collar housing as he unclipped the ground lead and pulled the cervical jack clear. His phosphor-green smartvisor cycled online, crisp and unclouded. Ouro straightened beside the Essy Motors schematics and ran his metal fingers through a metahuman reflex cascade, plucking up the brass chuck key to roll it end-over-end across his steel knuckles with zero stutter. Watching the key spin, Reiko let her dread go. Eniac's Cantor had sung to focus on the gain rather than what was sacrificed; pure motion proved the balance.

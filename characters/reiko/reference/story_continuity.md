@@ -104,10 +104,10 @@ All narrative outlines, intersession chapters, and character development arcs ad
 | [35 ptrace.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/35%20ptrace.md) | 35. ptrace | 2,129 | Verified |
 | [36 chown.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/36%20chown.md) | 36. chown | 2,090 | Verified |
 | [37 dev-null.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/37%20dev-null.md) | 37. /dev/null | 2,463 | Verified |
-| [38 chroot.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/38%20chroot.md) | 38. chroot | 1,979 | Verified |
-| [39 modprobe.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/39%20modprobe.md) | 39. modprobe | 1,840 | Verified |
+| [38 chroot.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/38%20chroot.md) | 38. chroot | 1,996 | Verified |
+| [39 modprobe.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/39%20modprobe.md) | 39. modprobe | 1,860 | Verified |
 
-**Total Anthology Word Count:** 74,950 words across 39 chapters.
+**Total Anthology Word Count:** 74,987 words across 39 chapters.
 
 ## Latest Story beats
 
