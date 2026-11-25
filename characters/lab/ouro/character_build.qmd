@@ -347,12 +347,12 @@ Technomancers purchase additional complex forms for 5 Karma each (*6WC*, p. 29) 
 
 ## 12. Equipment, Drone Chassis, and Software Budget (210,000¥ Baseline)
 
-* **Customization Karma-to-Nuyen Conversion** (*CRB*, p. 66): `{python} inc_many(('Karma', -4), ('Nuyen', 8000))` *(Converts all 4 remaining Karma into +8,000¥ [`218,000¥` total budget] to fund `Damage Mitigation Protocols`, the `Nurse MAID Troll` upgrade, and `Body 10` Wheeled propulsion cleanly at `0` Karma & `60¥` cash).*
+* **Customization Karma-to-Nuyen Conversion** (*CRB*, p. 66): **None (`0` Karma converted)** — deferring *Body 10 Secondary Propulsion (Wheeled)* (`10,000¥` chargen vs. **`5,000¥` DIY** after Mission 1) keeps all **4 customization Karma** banked to bond Ouro's **Level 1 Machine Ally Sprite** in the first hours of play and still covers all `6` starting R9 autosofts + full datasofts/knowledge suite with **`410¥`** cash left.
 
 ### 1. Drone & Chassis: Nurse MAID Troll Anthro Drone (Deadly Arts, p. 57, 177)
 
 * **Nurse Maid Troll Anthro Drone**: **62,500¥** `{python} inc('Nuyen', -62500)` *(Avail 5(I); customized/compacted to minimum ~2.0m Troll height for doorway & vehicle clearance)*
-  * *Handling*: 3/3 (3/3 Wheeled) | *Speed*: 15 (120 Wheeled) | *Accel*: 5 (10 Wheeled) | *Body*: 10 | *Armor*: 8 | *Pilot*: 4 | *Sensor*: 3
+  * *Handling*: 3/3 | *Speed*: 15 *(upgraded to 120 via post-M1 Wheeled DIY @ 5,000¥)* | *Accel*: 5 | *Body*: 10 | *Armor*: 8 | *Pilot*: 4 | *Sensor*: 3
   * *Factory Embedded Features (Stock Free Benefits)*:
     * **2x Anthroform Cyberarms with built-in Shock Limbs**: The "Thunder Slap" (Strength 5). Delivers 4S(e) electrical shock attacks.
     * **Stock Biotech Autosoft (Rating 6)**: Included free from Ares factory.
@@ -360,7 +360,7 @@ Technomancers purchase additional complex forms for 5 Karma each (*6WC*, p. 29) 
     * **Integrated Medkit (Rating 3)**: Included free.
     * **Realistic Features (Rating 4)**: High-end civilian aesthetic presentation (4 Chassis slots & 40k¥ retail saved!).
   * *Chargen Modifications & Tools (Double Clutch, pp. 120, 137, 139; CRB, p. 274)*:
-    * **Secondary Propulsion (Wheeled)**: **10,000¥** `{python} inc('Nuyen', -10000)` *(Avail 3, 2 Powertrain slots; Body 10 $\times$ 1,000¥; Accel 10, Speed Interval 15, Top Speed 120, 2 turns to deploy/retract).*
+    * *(Deferred to post-Mission 1 Tracker 3 `N2`: **Secondary Propulsion (Wheeled)** — costs **5,000¥ DIY** vs. `10,000¥` at chargen, saving `5,000¥` and keeping `4` Karma banked for Ouro's Ally Sprite).*
     * **Passive Stealth Features**: **1,000¥** `{python} inc('Nuyen', -1000)` *(Avail 3, 1 Electronics slot; +1 detection Threshold / -1 defender hit).*
     * **Engineering [Industrial Mechanic] Toolkit**: **500¥** `{python} inc('Nuyen', -500)` *(Avail 1; supports field repairs, 1-slot mod installation, and SRM downtime maintenance on 1 drone).*
 
@@ -380,16 +380,17 @@ Per *Hack & Slash* p. 55 (*Writing Code*), hackers can write software. Ouro code
   * Stealth Auto [Nurse Maid Troll] (Rating 9): 4,500¥
   * Close Combat (Rating 9; upgraded from Nurse MAID Troll stock R4 via Hack & Slash programming / rating-difference credit): 2,500¥
   * Soft Engineering [Industrial Mechanic] (Rating 9): 4,500¥
-  * *(Deferred to post-chargen: `Soft Navigation` and `Soft Tracking`, freeing 9,000¥ to fund Route A drone mods and toolkit).*
+  * *(Deferred to post-chargen: `Soft Navigation` and `Soft Tracking`, preserving `4` Karma for Ouro's Ally Sprite).*
 
-### 4. Datasofts, Knowledge & Language Autosofts (4,700¥)
+### 4. Datasofts, Knowledge & Language Autosofts (6,350¥)
 
 * Personal Assistant (Rating 6): **600¥** `{python} inc('Nuyen', -600)`
   * Commlink app utility (*CRB*, p. 185; $6 \times 100¥ = 600¥$).
 * Mapsoft (Atlanta & New Orleans): **100¥** `{python} inc('Nuyen', -100)`
+* Shopsoft (Drones, Weapons, Software): **150¥** `{python} inc('Nuyen', -150)`
+* Soft Knowledge (UnITy) (R3): **1,500¥** `{python} inc('Nuyen', -1500)`
 * Soft Knowledge (Dissonance: Theories and Application) (R3): **1,500¥** `{python} inc('Nuyen', -1500)` `{python} knowledge_skill('Dissonance: Theories and Application', rating=3, notes="Rating 3 Knowledge Autosoft (Double Clutch p. 145; slotted via Pilot Origins): Reiko's thesis")`
 * Soft Language: English (Rating 5): **2,500¥** `{python} inc('Nuyen', -2500)`
-* *(Deferred to post-Mission 1 alongside Navigation/Tracking autosofts: `Soft Knowledge (UnITy) R3` [`1,500¥`] & `Shopsoft` [`150¥`] to finish funding `Damage Mitigation Protocols` at chargen.)*
 
 ### 5. Cyberprograms (2,990¥ from XML)
 
@@ -460,15 +461,15 @@ Free Knowledge skills equal Logic (Logic 4 at chargen), plus one free Native Lan
 | **Submersion Grade** | **2** | Sprite Conduit, Sprite Symbiosis (MUG Loyalty 8) | **Verified** |
 | **Pilot Origins (Rigging)** | **Rating 3** | Control Rig R3 equivalent (Intuition + Piloting tests) | **Rules Legal** |
 | **Contact Points** | `{python} Contact_Points` | 0 Remaining (24 Spent; River People C7/L8 & Reiko C5/L4) | **Exact Match** |
-| **Customization Karma** | `{python} Karma` | 0 Remaining (`4K -> +8,000¥`) | **Rules Legal (<= 5)** |
-| **Starting Pocket Cash** | ¥`{python} f"{Nuyen:,}"` | $\le 5,000¥$ limit (60¥ remaining) | **Compliant** |
+| **Customization Karma** | `{python} Karma` | 4 Karma banked (`0` converted $\rightarrow$ funds Session-1 Machine Ally Sprite) | **Rules Legal (<= 5)** |
+| **Starting Pocket Cash** | ¥`{python} f"{Nuyen:,}"` | $\le 5,000¥$ limit (410¥ remaining) | **Compliant** |
 
 ## Starting Stats/Pools
 
 1. ASDF
   * Base: 1155
   * Attack/Sleaze Attribution with bought hits (14d6 = 3 bought hits): 3355
-  * Sprite Symbiosis *(online right after Mission 1 once Ouro binds his Level 1 Machine Ally Sprite)*: +0123 --> 3478
+  * Sprite Symbiosis *(online in the opening 1–2 hours of Session 1 once Ouro compiles & bonds his Level 1 Machine Ally Sprite with 4 banked Karma)*: +0123 --> 3478
   * Encryption / Toolbox: +0011 --> 3687
   * Resonance (5): +1112 --> 4799
 1. Matrix 
@@ -546,7 +547,7 @@ Under *SRM Guide v2.4* (pp. 17–20, 59–60), downtime actions between missions
 
 | Priority | Target Upgrade | Cost | Time / Downtime Action | Purpose & Operational Impact |
 | :---: | :--- | :---: | :--- | :--- |
-| **K1** | **Compile & Bond Level 1 Machine Ally Sprite** | **4 Karma** *(Mission 1 Karma)* | Downtime *(post-Mission 1)* | Uses Mission 1 Karma payout (`4K` total: `2K` permanent registration + `2K` ally bonding per *H&S* p. 78; *Override*, *Diagnostics*, and *Stability* are all native powers on Machine Sprites per *CRB* p. 193—zero extra power Karma!). Brings `Sprite Symbiosis` into full effect (+0/1/2/3 ASDF, +1 dice pool bonus, fade-free *Override*, and permanent companion) with **zero Major Downtime Actions spent**. |
+| **K1** | **Compile & Bond Level 1 Machine Ally Sprite** | **4 Karma** *(Banked Chargen Reserve)* | Opening 1–2 hours *(Session 1)* | Spends the 4 banked chargen Karma (`2K` permanent registration + `2K` ally bonding per *H&S* p. 78; *Override*, *Diagnostics*, and *Stability* are all native powers on Machine Sprites per *CRB* p. 193—zero extra power Karma!). Brings `Sprite Symbiosis` into full effect (+0/1/2/3 ASDF, +1 dice pool bonus, fade-free *Override*, and permanent companion) from Session 1 with **zero Major Downtime Actions spent**. |
 | **K2** | **Electronics Spec: Complex Forms** | **5 Karma** | Between runs *(post-SRM 1)* | Pushes Complex Forms threading from `14d6` to **`16d6` (4 bought hits cleanly)**, stabilizing *Attack Attribution*, *Sleaze Attribution*, and *Enlighten Automaton* with zero drain risk. |
 | **K3** | **Natural Resonance Scaling (`5 -> 6 -> 7 -> 8`)** | **30K / 35K / 40K** | Between runs *(CMP bank)* | **Apex Scaling Priority:** `RES +1` adds +1 to all Matrix pools, +1 to living persona ASDF, expands sprite task registration capacity, and directly unblocks Submersions 6+ in Tracker 1 ($\text{Grade} \le \text{Resonance}$). |
 | **K4** | **Quality: Candle in the Dark** | **10 Karma** | Between runs | *No Future* 161: Unlocked via *Honorbound*. All contacts gained at Loyalty 2. |
@@ -577,10 +578,10 @@ Complex Form Priority:
 | Priority | Hardware / Software Target | Cost (DIY / Retail) | Slots & Tactical Role |
 | :---: | :--- | :---: | :--- |
 | **N1** | **Immediate Street Identity & Legality:**<br>• Fake SIN (Rating 4)<br>• Registered Drone, Weapon & Matrix Licenses (R4) | **¥10,000**<br>**¥1,200** *(¥300 × 4)* | **Session 1–2 Priority:** Legal persona cover and registered equipment licenses for operating in Atlanta and traveling interstate. |
-| **N2** | **Engineering [Industrial Mechanic] Shop** | **¥5,000** *(retail, Avail 4)* | Upgrades from toolkit to full workshop facility; supports heavy chassis modifications and rapid post-mission structural repairs. |
+| **N2** | **Secondary Propulsion (Wheeled) [Body 10]** + **Engineering [Industrial Mechanic] Shop** | **¥5,000 DIY** *(vs. ¥10,000 chargen)*<br>+ **¥5,000** *(shop retail, Avail 4)* | Consumes **2 Powertrain slots** (*DC* p. 139: Accel 10, Speed 15/120; saves 5,000¥ via 50% DIY!) while upgrading from toolkit to full repair/mod shop. |
 | **N3** | **Chameleon Coating 4** *(Nurse Maid Troll Chassis)* | **¥9,000 DIY** *(¥18,000 retail)* | Consumes **2 Electronics slots** (*DC* p. 138, Avail 8(I)). Optical **Invisible (Improved) 4** while stationary / Speed Interval 1; enables stealth infiltration. |
 | **N4** | **Enhanced Sensors (R3 $\rightarrow$ R9)** | **¥2,500 DIY / rating** *(¥15,000 total DIY)* | Consumes `6` Electronics slots (`9/10` used alongside `PS + Cham 4`; `1` slot free). Uncaps *Sensor Upgrade* (`+1`), *Home Device* (`+1`), and *Enlighten Automaton* (up to `+9`). |
 | **N5** | **Increased Structural Integrity (R1 $\rightarrow$ R5, `Body 10 -> 15`)** | **¥2,500 DIY / rating** *(¥12,500 total DIY)* | Consumes `5/10` Chassis slots (`5` free alongside factory `RF 4`!). Pushes Soak to **15d6** (`23` Phys DR), Condition Monitor to **16 boxes**, and grants immunity to non-electrical Stun $\le 15$ DV. |
-| **N6** | **Deferred Autosofts & Knowledge Softs:**<br>• `Soft Navigation (Rating 9)`<br>• `Soft Tracking (Rating 9)`<br>• `Soft Knowledge (UnITy) (R3)` + `Shopsoft` | **¥10,650 total**<br>*(¥4,500 × 2 + ¥1,500 + ¥150)* | Offloaded from chargen to fund Day 1 `Damage Mitigation Protocols` and chassis mods; coding via *Hack & Slash* p. 55. |
+| **N6** | **Deferred Navigation & Tracking Autosofts:**<br>• `Soft Navigation (Rating 9)`<br>• `Soft Tracking (Rating 9)` | **¥9,000 total** *(¥4,500 each)* | Offloaded from chargen to preserve `4` Karma for Ouro's Ally Sprite; coded with Reiko's assistance per *Hack & Slash* p. 55. |
 | **N7** | **Activesofts for Synthetic Skill Driver:**<br>• `Activesoft: Influence (Rating 6)`<br>• `Activesoft: Con (Rating 6)` | **¥30,000 each** *(retail / DIY)* | **The Skill Driver's True Niche:** Autosofts cannot simulate metahuman social skills; the skill driver caps at R6 and cannot be overdriven, making `Influence R6` and `Con R6` the only skills mechanically worth running through it (`10d6` social pools). |
 | **N8** | **Hardpoints & Endgame Flight Suite (`Vector Thrust` + `Top 3` + `Accel 2` + `HFC 2`)** | **VT:** `45,000¥ DIY`<br>**Top 3:** `12,000¥ DIY`<br>**Accel 2:** `15,000¥ DIY`<br>**HFC 2:** `7,500¥ DIY`<br>**Rack + Wasps:** `7,000¥` *(1k+6k DIY)* | Shifts `4` of `5` free Chassis slots $\rightarrow$ `+2` Powertrain (`12/12` Pwr for `ACC 41 / TOP 480` + `HFC 2`), leaving `1` Chassis slot for `2× Small Pop-Outs` (`Crimson Wasps` on split Hardpoint #2) + `Small Drone Rack` (#1) + `1` Std Hardpoint (#3) free! |
