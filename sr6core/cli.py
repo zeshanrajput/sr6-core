@@ -155,6 +155,13 @@ def run_sync_all():
                         pass
         print(f"  [5/5] Shortcodes & Narration Audio : Processed {linter_count} chapters{audio_info} in {chap_dir}\n")
 
+    try:
+        from sr6core.creation.efficiency import generate_lab_scorecard_markdown
+        generate_lab_scorecard_markdown()
+        print("  [Lab Scorecard] Updated characters/lab/scorecard.md")
+    except Exception as e:
+        print(f"  [Lab Scorecard] Warning ({e})")
+
     print("============================================================")
     print("      SR6 ECOSYSTEM SYNC COMPLETED SUCCESSFULLY!")
     print("============================================================\n")
@@ -610,6 +617,12 @@ def main():
                         console.print(f"  • [{cid}] Roll20 JSON export error: {r20_err}")
                 except Exception as ex:
                     console.print(f"  • [{cid}] Export error: {ex}")
+        try:
+            from sr6core.creation.efficiency import generate_lab_scorecard_markdown
+            generate_lab_scorecard_markdown()
+            console.print("  • [Lab Scorecard] Updated characters/lab/scorecard.md")
+        except Exception as sc_err:
+            console.print(f"  • [Lab Scorecard] Warning: {sc_err}")
         console.print("\n[bold green][OK] Full SR6 Build Completed Successfully![/bold green]\n")
 
     elif args.command == "sync-all":

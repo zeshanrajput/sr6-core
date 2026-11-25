@@ -14,6 +14,17 @@ identity:
 
 # Character Creation (Point Buy)
 
+::: {.callout-note icon=false}
+## 🔬 Character Lab Prototype // Holding Book
+This build is incubating in the **[Character Lab](../index.qmd)** (Taxonomy: **Active Concept**). Metrics reflect chargen optimization and theoretical post-chargen trajectory rather than active table canon.
+:::
+
+::: {.callout-tip icon=false}
+## 🎲 At-the-Table Companion Tools
+* 📄 **Official Fillable PDF Sheet**: [Download PDF Sheet](output/pdf/ouro_sheet.pdf){.btn .btn-primary target="_blank"} *(Official Catalyst 2-page fillable character dossier)*
+* 🎲 **Roll20 Genesis JSON**: [Download Roll20 JSON](output/roll20/ouro_roll20.json){.btn .btn-outline-secondary target="_blank"} *(VTT import payload)*
+:::
+
 This page tracks the character creation process for **Takahashi Ouroboros ("Ouro")**, a 2nd generation Pilot AI Technomancer (Emerged Intelligence) built using the Point Buy system (*Sixth World Companion*, p. 28–30) and the Digital Intelligence and Codesmithing rules (*Hack & Slash*, p. 114–128).
 
 > **Lab Template Relationship:** Ouro is the **Utilitarian / Codemod Benchmark** fork of the [Takahashi Second-Generation Sparks Template](../sparks_template.md) (`Spark 5.01`, `Nurse MAID Troll` [~2.0m compact chassis], `Glitchy` + `Pilot Origins R3` quality trade-off).
@@ -464,26 +475,37 @@ Free Knowledge skills equal Logic (Logic 4 at chargen), plus one free Native Lan
 | **Customization Karma** | `{python} Karma` | 4 Karma banked (`0` converted $\rightarrow$ funds Session-1 Machine Ally Sprite) | **Rules Legal (<= 5)** |
 | **Starting Pocket Cash** | ¥`{python} f"{Nuyen:,}"` | $\le 5,000¥$ limit (410¥ remaining) | **Compliant** |
 
-## Starting Stats/Pools
+## Starting Operational Pools
 
-1. ASDF
-  * Base: 1155
-  * Attack/Sleaze Attribution with bought hits (14d6 = 3 bought hits): 3355
-  * Sprite Symbiosis *(online in the opening 1–2 hours of Session 1 once Ouro compiles & bonds his Level 1 Machine Ally Sprite with 4 banked Karma)*: +0123 --> 3478
-  * Encryption / Toolbox: +0011 --> 3687
-  * Resonance (5): +1112 --> 4799
-1. Matrix 
-  * Threading (Complex Forms): Electronics (5) + RES (5) + Focus (4) = **14d6 (3 bought hits; 16d6 after Mission 1 Complex Forms Spec)**
-  * Actions: Electronics/Cracking (5) + RES (5) + Focus (4) + Sprite Symbiosis (1): 15d6
-  * Defense: RES (5) + Focus (4) + Firewall (9) + Personal Assistant (3) + Directional Shield (minor action, adds DP:9): 30d6
-1. Drone Operations
-  * Piloting: Autosoft (9) + Intuition (7) + Control Rig (3) + Machine Merge (bought hits, 2): 21d6
-  * Targeting: Autosoft (9) + Logic (4) + Control Rig (3) + Machine Merge (bought hits, 2): 18d6
-1. Social Operations
-  * Con / Influence: Synthetic Skill Driver (6) + CHA (4): 10d6
-1. Tactical Scaffolding
-  * Initiative: 4d6 (Hot-Sim VR)
-  * Edge Engine: Resonance Edge accumulation & living persona banking
+* **Astral**: 0d6 (Mundane / Digital Intelligence)
+* **Matrix**: Threading (Electronics 5 + RES 5 + Focus 4) = **14d6** | Actions (Electronics/Cracking 5 + RES 5 + Focus 4 + Sprite Symbiosis 1) = **15d6** *(ASDF `4/7/9/9` w/ Session-1 Level 1 Machine Ally Sprite)*
+* **Physical**: Piloting (Autosoft 9 + INT 7 + Control Rig 3 + Machine Merge 2) = **21d6** | Targeting (Autosoft 9 + LOG 4 + Control Rig 3 + Machine Merge 2) = **18d6**
+* **Social**: Synthetic Skill Driver (6) + CHA (4) = **10d6** (Con / Influence)
+* **Defense**: RES (5) + Focus (4) + FW (9) + Personal Assistant (3) + Directional Shield (DP:9) = **30d6** Matrix Defense | Drone Body 10 / Armor 8 (`Damage Mitigation Protocols` -1 box)
+* **Initiative**: 4d6 (Hot-Sim VR, 2 Major Actions)
+* **Edge Engine**: Resonance Edge accumulation & living persona banking
+
+---
+
+## Session 4 Checkpoint (SRM Mulligan Gate: +28 Karma / +30,000¥)
+
+*Resources Available:* **`32 Karma`** (`4K` banked + `28K`) and **`¥30,410`** (`¥410` banked + `¥30,000`) across **4 Major + 4 Minor Downtime Actions**.
+
+* **Major Actions (2 of 4 used; 2 reserved):** Submersion Grade 3 (`Living Network`, `5K` @ L8) + Grade 4 (`Transcendent Network`, `6K` @ L8) *(Grade 5 `Overclocking` awaits `RES 5 -> 6`)*.
+* **Karma Queue (`30K` spent, `2K` left):** `4K` (**Level 1 Machine Ally Sprite**, Session 1) + `5K` (**Electronics Spec: Complex Forms**, `16d6` threading) + `11K` (`Living Network` + `Transcendent Network`) + `5K` (**Diffusion [Firewall]**) + `5K` (**Cleaner**).
+* **Nuyen / DIY Queue (`¥30,200` spent, `¥210` left):** **Secondary Propulsion: Wheeled** (`¥5,000 DIY`), **Chameleon Coating 4** (`¥9,000 DIY`), **Enhanced Sensors R3 $\rightarrow$ R9** (`¥15,000 DIY`), **Fake Licenses R4** (`¥1,200`).
+* **Session 4 Operational Pools:**
+  * **Astral**: 0d6 (Digital Intelligence)
+  * **Matrix**: 16d6 Threading (`4` bought hits, ASDF `5/8/9/9`), `Living + Transcendent Network` PAN
+  * **Physical**: Targeting **24d6** (Sensor 9+1) | Piloting **21d6** (`15/120` Wheeled + `Chameleon Coating 4`)
+  * **Social**: 10d6
+  * **Defense**: 30d6 Matrix / 18+ Soak (`Chameleon Coating 4` stealth)
+  * **Initiative**: 4d6 (Hot-Sim VR)
+  * **Edge Engine**: Resonance Edge + Transcendent Network shared Edge pool
+  * **Bonus TEK**: +250
+  * **Key Unlocks**: Level 1 Machine Ally Sprite, Electronics Spec (16d6), Living & Transcendent Network, Diffusion (FW) + Cleaner, Sensor 9 + Chameleon 4 + Wheeled DIY
+
+---
 
 ## Post-Chargen Progression: Three-Tracker Upgrade Protocol
 
@@ -531,11 +553,10 @@ Under *SRM Guide v2.4* (pp. 17–20, 59–60), downtime actions between missions
 | **4** | **Transcendent Network** | *H&S* 69 *(Prereq: Living Network)* | **6 Karma*** | **SRM #2** *(Month 1, L8)* | Unlocks shared Edge pooling and instantaneous encrypted thought relay across all network members. Cost $10+4-8=6\text{K}$ (**still at Loyalty 8!**). *(End of Month 1: Loyalty decays $8 \rightarrow 7$).* |
 | **5** | **Overclock** | *CRB* 195 | **8 Karma*** | **SRM #3** *(Month 2, L7)* | **Requires `RES 5 -> 6` (K3) first.** Adds +1 Minor Action and +1D6 Initiative Die in hot-sim VR, elevating initiative to **5D6 (2 Major Actions)**. Cost $10+5-7=8\text{K}$ at **Loyalty 7**. |
 | **6** | **New Sprite Type** | *H&S* 72 | **9 Karma*** | **SRM #4** *(Month 2, L7)* | Unlocks compilation and registration of new sprite types, specifically **Assassin Sprites** for electronic black-ops and offensive matrix assassination. Cost $10+6-7=9\text{K}$ (**still at Loyalty 7!**). *(End of Month 2: Loyalty decays $7 \rightarrow 6$).* |
-
-7: Software Emulator
-8: Sprite Link
-9: Syntax Error
-10+: Matrix Attribute Increase: DP, DP, FW, FW, Slz, Slz, Atk, Atk
+| **7** | **Software Emulator** | *H&S* 69 *(Prereq: Living Network)* | **11 Karma*** | **SRM #5** *(Month 3, L6)* | **Requires `RES 6 -> 7` first.** Passive emulation of key rigger/matrix programs without deck overhead. |
+| **8** | **Sprite Link** | *H&S* 69 | **12 Karma*** | **SRM #6** *(Month 3, L6)* | **Requires `RES 7 -> 8` first.** `+1` Minor Action for Sprite Teamwork and fading transfer to registered sprites. |
+| **9** | **Syntax Error** | *H&S* 69 | **14 Karma*** | **SRM #7** *(Month 4, L5)* | **Requires `RES 8 -> 9` first.** Anytime defense (`+Grade` dice) and unravels sustained CFs/powers. |
+| **10+** | **Matrix Attribute Increases** | *CRB* 195 | $10+\text{Grade}-4$ | **Loyalty 4 Floor** | Sequential scaling: `DP, DP, FW, FW, Sleaze, Sleaze, Attack, Attack`. |
 
 *\*Submersion costs reflect the SRM 2-missions-per-month cadence where degradation occurs every OTHER initiation: Grade 3 (SRM 1 @ L8: 5K), Grade 4 (SRM 2 @ L8: 6K), Grade 5 (SRM 3 @ L7: 8K), Grade 6 (SRM 4 @ L7: 9K), Grade 7 (SRM 5 @ L6: 11K), Grade 8 (SRM 6 @ L6: 12K). Subsequent submersions at Loyalty 4 floor cost $10 + \text{Grade} - 4$.*
 
@@ -551,19 +572,8 @@ Under *SRM Guide v2.4* (pp. 17–20, 59–60), downtime actions between missions
 | **K2** | **Electronics Spec: Complex Forms** | **5 Karma** | Between runs *(post-SRM 1)* | Pushes Complex Forms threading from `14d6` to **`16d6` (4 bought hits cleanly)**, stabilizing *Attack Attribution*, *Sleaze Attribution*, and *Enlighten Automaton* with zero drain risk. |
 | **K3** | **Natural Resonance Scaling (`5 -> 6 -> 7 -> 8`)** | **30K / 35K / 40K** | Between runs *(CMP bank)* | **Apex Scaling Priority:** `RES +1` adds +1 to all Matrix pools, +1 to living persona ASDF, expands sprite task registration capacity, and directly unblocks Submersions 6+ in Tracker 1 ($\text{Grade} \le \text{Resonance}$). |
 | **K4** | **Quality: Candle in the Dark** | **10 Karma** | Between runs | *No Future* 161: Unlocked via *Honorbound*. All contacts gained at Loyalty 2. |
-| **K5** | **Complex Forms Expansion** | **5 Karma each** | 1 Minor Action each *(Study)* |  |
+| **K5** | **Complex Forms Expansion** | **5 Karma each** | 1 Minor Action each *(Study)* | Priority queue: `Diffusion (FW)` $\rightarrow$ `Machine Mind` $\rightarrow$ `Cyber Spike` $\rightarrow$ `Resonance Spike` $\rightarrow$ `Technoregeneration` $\rightarrow$ `Cleaner` $\rightarrow$ `Infusions (FW, Atk, Slz, DP)`. |
 | **K6** | **Ally Sprite Progression (Level 1 $\rightarrow$ 2+)** | **Variable** *(H&S p. 78)* | Minor Downtime | Incrementally raises Ally Sprite Force/Level, adding diagnostic / matrix teamwork as campaign Karma permits. |
-
-
-Complex Form Priority: 
-
-* Diffusion (FW)
-* Machine Mind
-* Cyber Spike
-* Resonance Spike
-* Technoregeneration
-* Cleaner
-* Infusions: FW, Atk, Slz, DP
 
 #### Maintenance & Ongoing Downtime Tasks (Tracker 2 Minor Actions):
 * **Work for the People:** Spend 1 Minor Action (funded by Hooder R3 ¥3,000/mo donation) $\rightarrow$ **+1 Karma** per month.

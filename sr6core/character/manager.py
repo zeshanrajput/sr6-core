@@ -181,7 +181,7 @@ class CharacterManager:
         if cwd_parent not in search_roots and os.path.exists(cwd_parent):
             search_roots.append(cwd_parent)
 
-        alias_map = {"yuriko": "reiko", "union": "venn"}
+        alias_map = {"yuriko": "reiko", "union": "venn", "etain": "AshE", "ashe": "AshE"}
         ignored_repos = {"sr6-core", "sr6narrator", "sr6lglass"}
 
         for root in search_roots:
@@ -237,7 +237,10 @@ class CharacterManager:
         chars = self.discover_characters()
         if char_id in chars:
             return chars[char_id]
-        alias_map = {"yuriko": "reiko", "union": "venn"}
+        for k, v in chars.items():
+            if k.lower() == char_id.lower():
+                return v
+        alias_map = {"yuriko": "reiko", "union": "venn", "etain": "AshE", "ashe": "AshE"}
         if char_id.lower() in alias_map:
             return chars.get(alias_map[char_id.lower()])
         return None

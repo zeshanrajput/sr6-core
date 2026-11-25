@@ -6,7 +6,7 @@ This document defines the **shared Point Buy chassis ("Common Ancestor Commit")*
 * **Succession Trigger:** [mechanical_plan.md](file:///c:/GitHub/sr6-core/characters/reiko/reference/mechanical_plan.md#L43-L59) (Reiko's Composure Sword of Damocles)
 * **Compiled Lab Contenders:**
   * [`ouro`](ouro/character_build.qmd) — Utilitarian / Codemod Benchmark (`Spark 5.01`, `Nurse MAID Troll`)
-  * [`AshE`](AshE/character_build.qmd) — Spark Purist Twin Pair (`Spark 6.00`, `Étaín` PC + `Aisling` Ally Sprite target, twin `Shiawase Silverstar` chassis)
+  * [`AshE`](AshE/character_build.qmd) — Spark Purist Twin Pair (`AshE` combined ID/handle; `Spark 6.00`, `Étaín` PC + `Aisling` Ally Sprite target, twin `Shiawase Silverstar` chassis)
 
 ---
 
@@ -71,7 +71,7 @@ From `100 CP` and `50 Karma`, after locking the fixed core above:
 ### B. Étaín & Aisling ("AshE") — *Compiled Twin Build in [`characters/lab/AshE/`](AshE/character_build.qmd)*
 * **Divergence Philosophy:** Sides with Reiko to keep **Spark 6.00 whole** (zero codemods). Merged twin concept: **Étaín** is the playable technomancer (Resonance-first veil & cracking specialist) and **Aisling** is her post-chargen **Level 6 Music Ally Sprite** (`Harmonize`, `Captivate Audience`, plus added `Override` & `Diagnostics`), each inhabiting a matching **Shiawase Silverstar** anthroform drone body (`Avail 4`, `+0` Heat per *DC* p. 127; saves `89,000¥` DIY across both twin hulls at endgame while starting Day 1 with `RF 1`, `SEN 3`, `PLT 3`, and `Top Speed 30`).
 * **Quality Diff:** Uses the 6th slot on **`Jack Jockey` (-11K)** alongside `Natural Hacker` + `Sourceror` and all 3 base negatives (`Hooder R3`, `Honorbound`, `Sprite Bane: Primal`). Keeps `Pilot Origins` at free R1.
-* **Attribute / Skill Diff:** `Edge 6` (saves `55K` post-chargen), `Resonance 6` (unreduced!), `DP 7` (racial max $\rightarrow$ hits `DP 9` passively w/ `RES 6`), `WIL 5, LOG 4, INT 5, CHA 4` (`24` Contact Pts: `River People C7/L8` + `Reiko C5/L4`); `Electronics 6` (only 1 chargen-max skill), `Cracking 5`, `Tasking 5`. (`0 CP`, `4 Karma`, `¥1,660` remaining; uses `Scratch-Built Junk` RCC until `Living Network`.)
+* **Attribute / Skill Diff:** `Edge 6` (saves `55K` post-chargen), `Resonance 6` (unreduced!), `DP 7` (racial max $\rightarrow$ hits `DP 9` passively w/ `RES 6`), `WIL 5, LOG 4, INT 5, CHA 4` (`24` Contact Pts: `River People C7/L8` + `Reiko C5/L4`); `Electronics 6` (only 1 chargen-max skill), `Cracking 5`, `Tasking 5`. (`0 CP`, `2 Karma`, `¥1,160` remaining; uses `Scratch-Built Junk` RCC until `Living Network`.)
 * **Echoes & CFs:** Day-1 **`Resonance Power: Override`** + **`Overclocking`** (**20d6** Pilot, **5D6** VR Init, `Targeting + Sensor` from Session 1!); Day-1 `Attack Attribution`, `Sleaze Attribution`, `Hyperthreading`, `Resonance Wires`.
 * **Post-Chargen Gate (3-Tracker Priority: Submersions $\rightarrow$ Karma $\rightarrow$ Nuyen):**
   * *Submersions (1 Major/SRM):* `1–2` (`Resonance Power: Override`, `Overclocking` @ chargen) $\rightarrow$ `3` (`New Sprite Type`, `5K`) $\rightarrow$ `4` (`Sprite Conduit`, `6K`) $\rightarrow$ `5` (`Living Network`, `8K`) $\rightarrow$ `6` (`Transcendent Network`, `9K`) $\rightarrow$ `7` (`Software Emulator`, `11K`, requires `RES 7`) $\rightarrow$ `8` (`Sprite Link`, `12K`, requires `RES 8`) $\rightarrow$ `9` (`Syntax Error`, `14K`, requires `RES 9`).

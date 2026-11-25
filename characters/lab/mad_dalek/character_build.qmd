@@ -12,6 +12,17 @@ identity:
 
 # Character Creation (Life Path)
 
+::: {.callout-note icon=false}
+## 🔬 Character Lab Prototype // Holding Book
+This build is incubating in the **[Character Lab](../index.qmd)** (Taxonomy: **Mechanics Reference**). Metrics benchmark Life Path double-crucible attribute scaling, legal Force 4 Qi Foci stacking, and 4-plane coverage.
+:::
+
+::: {.callout-tip icon=false}
+## 🎲 At-the-Table Companion Tools
+* 📄 **Official Fillable PDF Sheet**: [Download PDF Sheet](output/pdf/mad_dalek_sheet.pdf){.btn .btn-primary target="_blank"} *(Official Catalyst 2-page fillable character dossier)*
+* 🎲 **Roll20 Genesis JSON**: [Download Roll20 JSON](output/roll20/mad_dalek_roll20.json){.btn .btn-outline-secondary target="_blank"} *(VTT import payload)*
+:::
+
 The character was created using the Life Path rules in Sixth World Companion (6WC p. 30–48).
 This build implements a Dalakitnon Mystic Adept equipped with an implanted cyberjack and skillwires system (Option B),
 combining full astral/magical mastery with formidable Matrix capabilities and hot-swappable skillwire flexibility.
@@ -469,7 +480,9 @@ Under *SRM Guide v2.4* (pp. 17–20, 47, 59–60), downtime actions between miss
 
 ---
 
-### 2. Master Unified Progression Queue
+### 2. Master Unified Progression Queue (Three-Tracker Priority)
+
+Progression runs across three parallel queues: **Tracker 1 (Major Actions: Initiations Grades 2–7 via Coven Decay)**, **Tracker 2 (Karma: Qi Foci, Item Attunement, Power Focus R3, Magic `5 -> 6 -> 7`, *Analytical Mind*)**, and **Tracker 3 (Nuyen: Force 4 Qi Foci `12k¥` each $\rightarrow$ Power Focus R3 `54k¥` $\rightarrow$ Deltaware Cyberjack R2 `162.5k¥`)**.
 
 Initiations are strictly time-gated by the Coven Loyalty decay schedule (Order of the Redhawk starting at Loyalty 8, decaying by 1 rating each month: Month 1 @ L8, Month 2 @ L7, Month 3 @ L6, Month 4 @ L5, Month 5+ @ L4 floor). Every month that elapses without initiating permanently forfeits a point of initiation discount. Early progression coordinates time-gated initiations (Grades 2–5 at Magic 5), early foci bonding (Qi Focus Sorcery R1, Power Focus Rating 3), Magic 5 $\rightarrow$ 6 to unlock Grade 6, and lets Grade 7+ land softly at the permanent Loyalty 4 floor.
 
@@ -573,10 +586,30 @@ Under *SR6 CRB* p. 154–155 and *City Edition: Seattle* p. 154–155 (`[SR6H-07
 
 ## Starting Operational Pools
 
-* **Astral / Spellcasting**: Spellcasting: Sorcery (3) + Spec: Spellcasting (2) + Improved Ability: Sorcery (3) + MAG (5) = 13d6 (16d6 w/ Power Focus, 17d6 w/ Qi Focus) | Conjuring: Skill (6) + Improved Ability: Conjuring (2 with Wise Warrior) + MAG (5) = 13d6 (18d6 w/ Foci) | Hermetic Drain: WIL (5) + LOG (12 via Increase Attribute) = 17d6 (4 bought hits)
-* **Matrix**: Cracking/Electronics (5) + LOG (12) + Brilliant Heuristics (2) + Cyberjack R1 = 19d6 (or 20d6 with wireless skillwire bonus)
-* **Physical**: Firearms/Stealth/Athletics: Skillwires Activesoft (5) + AGI (3) = 8d6
-* **Social**: Con/Influence: Skillwires Activesoft (5) + CHA (2) + 1 wireless = 8d6 (or natural Influence 4d6)
-* **Defense**: REA (2) + INT (7 via Increase Attribute) = 9d6
-* **Initiative**: 4d6 (Increase Reflexes, 2 Major Actions via Quickening)
-* **Edge Engine**: Brilliant Heuristics (calibrated Matrix tests) + Wise Warrior (+1 Edge discount on Combat spells and Influence tests) + Analytical Mind (planned post-initiations)
+* **Astral**: Spellcasting (Sorcery 3 + Spec 2 + Improved Ability 3 + MAG 5) = **13d6** | Conjuring (6 + Improved Ability 2 + MAG 5) = **13d6** | Hermetic Drain (WIL 5 + LOG 12 via Quickened *Increase Attribute*) = **17d6** (4 bought hits)
+* **Matrix**: Cracking / Electronics (5, Skillwires) + LOG (12) + Brilliant Heuristics (2) + Wireless (1) = **20d6**
+* **Physical**: Firearms / Stealth / Athletics (Skillwires 5) + AGI (3) = **8d6**
+* **Social**: Con / Influence (Skillwires 5) + CHA (2) + Wireless (1) = **8d6**
+* **Defense**: REA (2) + INT (7 via Quickened *Increase Attribute*) = **9d6**
+* **Initiative**: 4d6 (Quickened *Increase Reflexes*, 2 Major Actions)
+* **Edge Engine**: Brilliant Heuristics (Matrix) + Wise Warrior (-1 Edge cost on Combat spells & Influence)
+
+---
+
+## Session 4 Checkpoint (SRM Mulligan Gate: +28 Karma / +30,000¥)
+
+*Resources Available:* **`33 Karma`** (`5K` banked + `28K`) and **`¥33,575`** (`¥3,575` banked + `¥30,000`) across **4 Major + 4 Minor Downtime Actions**.
+
+* **Major Actions (All 4 used under Coven Decay L8 $\rightarrow$ L7):** Initiation Grade 2 (`Centering`, `4K` @ L8), Grade 3 (`Masking`, `5K` @ L8), Grade 4 (`Extended Masking`, `7K` @ L7), Grade 5 (`Adept Item Attunement: Cyberdeck`, `8K` @ L7).
+* **Karma Queue (`32K` spent, `1K` left):** `24K` (Initiations 2–5) + `8K` (**Qi Focus: Improved Sorcery R1**, Force 4, Avail 4L).
+* **Nuyen Queue (`¥12,000` spent, `¥21,575` banked toward Power Focus R3):** `¥12,000` (**Force 4 Sorcery Qi Focus**), preserving `¥21,575` toward the `¥54,000` Power Focus R3 milestone.
+* **Session 4 Operational Pools:**
+  * **Astral**: Spellcasting **14d6** (`+1` Qi Focus) | Conjuring **13d6** | Hermetic Drain **19d6** (`+2` Centering) | Aura Defense **9d6** (*Extended Masking*)
+  * **Matrix**: **20d6** *(ready for `+4` Cyberdeck Attunement in Session 5)*
+  * **Physical**: 8d6
+  * **Social**: 8d6
+  * **Defense**: 9d6
+  * **Initiative**: 4d6 (2 Major Actions)
+  * **Edge Engine**: Brilliant Heuristics + Wise Warrior
+  * **Bonus TEK**: +105
+  * **Key Unlocks**: Initiations 2–5 (`Centering`, `Masking`, `Extended Masking`, `Adept Item Attunement`), Force 4 Sorcery Qi Focus (14d6 Spellcasting / 19d6 Drain), ¥21.6k banked toward Power Focus R3

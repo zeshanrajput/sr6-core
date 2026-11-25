@@ -38,8 +38,6 @@ qualities:
     rating: 3
   - name: Sensor Upgrade
     ref: sensor_upgrade
-  - name: Photographic Memory
-    ref: photographic_memory
   negative:
   - name: Glitchy
     ref: glitchy
@@ -143,18 +141,26 @@ knowledge_skills:
 - name: Small Unit Tactics
   rating: null
   notes: Tactical protocols
-contacts: {}
+contacts:
+- name: River People
+  connection: 7
+  loyalty: 8
+  role: NOLA MUG / Technomancer Network
+- name: Reiko Takahashi
+  connection: 5
+  loyalty: 4
+  role: EI Mentor & Mother
 reputation: {}
 total_reputation: 0
 drones:
-- name: Nurse MAID Anthro Drone
-  ref: nurse_maid
+- name: Nurse MAID Troll Anthro Drone
+  ref: nurse_maid_troll
   handling: 3
-  handling_off_road: 4
+  handling_off_road: 3
   speed: 15
   accel: 5
-  body: 8
-  armor: 6
+  body: 10
+  armor: 8
   pilot: 4
   sensor: 3
 weapons: []

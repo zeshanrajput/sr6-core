@@ -1,8 +1,8 @@
 identity:
-  id: etain
-  name: Takahashi Étaín
+  id: AshE
+  name: AshE (Étaín & Aisling)
   handle: AshE
-  real_name: Takahashi Étaín
+  real_name: Takahashi Étaín & Aisling
   metatype: AI-Pilot AI
   stream: Sourcerors
   gender: FEMALE
@@ -148,26 +148,26 @@ contacts:
 reputation: {}
 total_reputation: 0
 drones:
-- name: Shiawase Man-at-Arms (Étaín)
-  ref: shiawase_BD_man_at_arms
+- name: Shiawase Silverstar (Étaín)
+  ref: shiawase_silverstar
   handling: 3
   handling_off_road: 3
   speed: 10
   accel: 5
-  body: 10
-  armor: 8
-  pilot: 2
-  sensor: 2
-- name: Shiawase Man-at-Arms (Aisling Twin)
-  ref: shiawase_BD_man_at_arms
+  body: 8
+  armor: 4
+  pilot: 3
+  sensor: 3
+- name: Shiawase Silverstar (Aisling Twin)
+  ref: shiawase_silverstar
   handling: 3
   handling_off_road: 3
   speed: 10
   accel: 5
-  body: 10
-  armor: 8
-  pilot: 2
-  sensor: 2
+  body: 8
+  armor: 4
+  pilot: 3
+  sensor: 3
 weapons: []
 armors: []
 matrix_devices:

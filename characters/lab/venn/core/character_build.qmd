@@ -306,9 +306,29 @@ Gain **6 * Charisma** contact points to spend:
 ## Starting Operational Pools
 
 * **Astral**: 0d6 (Mundane)
-* **Matrix**: 4d6 (Commlink firewall & Veronica PAN defense)
-* **Physical**: Firearms (7) + Cyberarm AGI (7) + Smartlink (2) = 16d6 | Close Combat (7) + Cyberarm STR (4) = 11d6 | Skillwires (7) across all physical skills = 10–14d6
-* **Social**: Skillwires (7) + CHA (2) = 9d6 (Con & Influence)
-* **Defense**: REA (5) + INT (4) = 9d6
-* **Initiative**: 1d6+9 (Deferred action economy; meat reflexes)
-* **Edge Engine**: Aptitude (Firearms 7) + Smartlink wireless + Math SPU
+* **Matrix**: Cracking (6 + 1 wireless) + LOG (6) + Neocortical Neural Amp (1) = **14d6** *(Monad Matrix Attributes ASDF `3/5/6/8`)*
+* **Physical**: Close Combat (6 + 1 wireless) + Cyberarm AGI (8, Redliner) + Neural Pattern Reinforcement (1) = **16d6** (`18d6` Overdriven) | Skillwires R6 across all physical skills = **15–16d6**
+* **Social**: Con / Influence (6 + 1 wireless) + CHA (3, Neurochemical Regulator) = **10d6**
+* **Defense**: REA (2) + INT (5) = 7d6 *(9d6 w/ Monad Boost; durability anchored by Body 5 + Bone Density 4 + SkinShield +2 + Monad Toughness [+3 CM, wound shift] + Rapid Cellular Healing)*
+* **Initiative**: 1D6+7 base (`2 Major Actions` via *Monad Physical Attribute Boost*: `13d6` w/ Edge $\rightarrow$ `+4` Minor Actions)
+* **Edge Engine**: Maximum Overdrive (+1 Edge when overdriving cyberware/nanohives) + Math SPU (-1/-2 Edge Boost cost on Logic tests)
+
+---
+
+## Session 4 Checkpoint (SRM Mulligan Gate: +28 Karma / +30,000¥)
+
+*Resources Available:* **`31 Karma`** (`3K` banked + `28K`) and **`¥30,570`** (`¥570` banked + `¥30,000`) across **4 Major + 4 Minor Downtime Actions**.
+
+* **Major Actions (Working for the Streetdoc, *SRMG v2.4* p. 18–20):** Converts **`15 Karma`** $\rightarrow$ **`+¥105,000`** augmentation capital (`¥135,570` total) and leverages SHC full-price cyberware trade-ins to upgrade **Used Cyberarms $\rightarrow$ Alphaware** (recovering `+0.54` Essence buffer!).
+* **Karma Queue (`27K` spent, `4K` left):** `15K` (*Streetdoc* conversion) + `7K` (**Tae Kwon Do** Martial Art) + `5K` (**Kick Attack** technique).
+* **Nuyen / Gear Queue:** **Firearms Activesoft (R6)** (`¥30,000`), **Fake SIN (R4)** (`¥10,000`), **Alphaware Cyberarm Refit** (`+¥12,000` net trade-in), **Reaction Enhancers R2 / Reflex Recorder** (`¥42,000`), **Armor Jacket + Silencer / Ammo Kit** (`¥3,000`).
+* **Session 4 Operational Pools:**
+  * **Astral**: 0d6 (Mundane)
+  * **Matrix**: 14d6
+  * **Physical**: Close Combat **17d6** (`19d6` Overdriven, +Kick Attack) | Firearms **16d6**
+  * **Social**: 10d6
+  * **Defense**: 9d6 (REA 4 + INT 5)
+  * **Initiative**: 1d6+9 (2 Major Actions via *Monad Physical Boost*)
+  * **Edge Engine**: Maximum Overdrive + Math SPU
+  * **Bonus TEK**: +165
+  * **Key Unlocks**: Streetdoc 1:7,000¥ conversion (+¥105k), Alphaware Cyberarm Essence recovery, Tae Kwon Do + Kick Attack, Firearms R6, Defense Floor 9d6, Fake SIN R4

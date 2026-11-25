@@ -48,7 +48,9 @@ KNOWN_CHAR_ALIASES = {
     "reiko": "reiko",
     "union": "venn",
     "venn": "venn",
-    "velvet": "velvet"
+    "velvet": "velvet",
+    "etain": "AshE",
+    "ashe": "AshE",
 }
 
 QUALITY_CHOICE_UUIDS = {

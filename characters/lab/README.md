@@ -1,21 +1,21 @@
-# The Character Lab (Pre-Play Incubation & Theorycrafting)
+# The Character Lab (Pre-Play Incubation & Holding Book)
 
 The **Character Lab** (`characters/lab/`) is the dedicated incubation and theorycrafting workshop for Shadowrun 6th Edition character builds, archetypes, and concept prototypes within `sr6-core`.
 
 ---
 
-## 1. The Core Philosophy: The Tabletop Canon Line
+## 1. The Core Philosophy: The Tabletop Canon Line & Holding Book
 
 In the `sr6-core` ecosystem, there is a strict boundary between **Active Play** and **The Lab**:
 
 ```text
        +-------------------------------------------------------------+
        |                     THE CHARACTER LAB                       |
-       |      (characters/lab/<slug>/) - Pre-Play Incubation         |
+       |    (characters/lab/) - Pre-Play Incubation & Holding Book   |
        |                                                             |
-       |  • Fluid mechanics: change attributes, swap ware, rebuild   |
-       |  • No table consequences: scratch karma/nuyen balances      |
-       |  • Prototypes, rule benchmarks, and living concepts         |
+       |  • Holding Book: Shared Quarto book for incubating builds   |
+       |  • Ready Prototype Book: Standalone book once lore matures  |
+       |  • Fluid mechanics, Session 4 Mulligan benchmarks, 0 drag   |
        +------------------------------+------------------------------+
                                       |
                      [GRADUATION GATE: ACTUAL TABLE PLAY]
@@ -34,348 +34,125 @@ In the `sr6-core` ecosystem, there is a strict boundary between **Active Play** 
        +-------------------------------------------------------------+
 ```
 
-* **Active Play (`characters/<char_id>/`)**: Reserved exclusively for characters that have stepped up to a physical or virtual table in an active campaign (e.g. `reiko`, `velvet`). Their chargen snapshot is locked, downtime expenditures are consequential, and their narrative is directly consecrated by table events.
-* **The Lab (`characters/lab/<slug>/`)**: For everything else. Until a character plays Session 1 at a live table, they remain in the Lab. You are free to radically overhaul attributes, tune cyberware grades, swap spells/complex forms, or rewrite backstories without guilt or fear of corrupting campaign history.
+* **The Holding Book (`characters/lab/_quarto.yml`)**: Incubating prototypes (`ouro`, `AshE`, `mad_dalek`) live inside this unified Character Lab Holding Book with shared navigation, companion PDF/Roll20 downloads, and standardized evaluation rubrics until they mature enough to warrant their own dedicated multi-chapter narrative book.
+* **Ready Prototype Book (`characters/lab/venn/`)**: Once a Lab character accumulates background chapters, twenty questions, and deep mechanics appendices, they graduate into their own standalone Lab Quarto Book (marked `<LAB>`) while awaiting Session 1 at a live table.
+* **Active Play (`characters/<char_id>/`)**: Reserved exclusively for characters that have stepped up to a physical or virtual table in an active campaign (e.g., `reiko`, `velvet`). Their chargen snapshot is locked and downtime expenditures are consecrated by table history.
 
 ---
 
-## 2. Lab Taxonomy
+## 2. Lab Taxonomy & Current Roster
 
-Every entry in the Lab belongs to one of three developmental stages:
-
-| Taxonomy | Definition | Typical Structure | Example |
-| :--- | :--- | :--- | :--- |
-| **Active Concept** | In-progress build exploring specific mechanics, archetypes, or rules subsystems. Highly fluid. | Single `character_build.qmd` + optional `notes.md` | `ouro` (Point Buy AI-Pilot Technomancer) |
-| **Mechanics Reference** | Preserved build study benchmarked to test specific rules edge-cases, life paths, or priority arrays. | Single `character_build.qmd` | `mad_dalek` (6WC Life Path double-crucible) |
-| **Ready Prototype** | Mechanically complete portfolio with lore, reference specs, and narrative, awaiting table launch. | Full portfolio (`core/`, `narrative/`, `reference/`, `_quarto.yml`) | `venn` (Monad Street Samurai / Operative) |
-
----
-
-## 3. Current Lab Roster
-
-| Codename / Slug | Archetype & Metatype | Chargen System | Taxonomy | Core Gimmick / Concept Notes | Status |
+| Codename / Slug | Archetype & Metatype | Chargen System | Taxonomy | Core Gimmick / Concept Notes | Build / Book |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **[`venn`](venn/)** | Monad (Human / AI Dual Entity)<br>Street Samurai / Operative | Point Buy 100 (*6WC*) | **Ready Prototype** | Used synthetic cyberlimbs (0.1 Essence), nanite swarm volume, hot-sim VR skillwires array. Pending SRM 2085 table kickoff. | Fully built; chapters 01–07; mutable |
-| **[`ouro`](ouro/)** | AI-Pilot AI (Emergent Intelligence)<br>Technomancer (Sourcerors) | Point Buy (*6WC* + *H&S*) | **Active Concept** | Utilitarian fork of [`sparks_template.md`](sparks_template.md): Nurse MAID Troll (~2.0m) drone rigger, Omega codemods (`Spark 5.01`), `Sprite Symbiosis` (Machine Sprite). Kin to Reiko. | Chargen complete (6-quality compliant); post-chargen mapped |
-| **[`AshE`](AshE/)** | AI-Pilot AI (Emergent Intelligence)<br>Technomancer (Sourcerors) | Point Buy (*6WC* + *H&S*) | **Active Concept** | Spark Purist twin fork of [`sparks_template.md`](sparks_template.md) (`AshE` street handle): `Spark 6.00` (0 codemods, `RES 6`), twin `Shiawase Silverstar` chassis, `Étaín` PC + `Aisling` Level 6 Music Ally Sprite target. | Chargen complete; post-chargen Aisling bonding mapped |
-| **[`mad_dalek`](mad_dalek/)** | Dalakitnon Elf<br>Mystic Adept | Life Path (*6WC*) | **Mechanics Reference** | Implanted cyberjack + skillwires (Option B), exercising the double-event crucible rule. Full astral + Matrix flexibility. | Complete reference build |
+| **Venn** (`venn`) | Monad (Human / AI Dual Entity)<br>Street Samurai / Decker | Point Buy 100 (*6WC*) | **Ready Prototype** | Used synthetic cyberlimbs (`AGI 8 / STR 4`, Redliner), Skillwires R6, Nanite Volume 6 (`Monad Matrix Attributes`, `Monad Physical Boost`). Pending SRM 2085 launch. | [Standalone `<LAB>` Book](../venn/index.html) |
+| **Ouro** (`ouro`) | AI-Pilot AI (Emergent Intelligence)<br>Technomancer (Sourcerors) | Point Buy (*6WC* + *H&S*) | **Active Concept** | Utilitarian fork of [Sparks Template](sparks_template.md): `Nurse MAID Troll` (~2.0m), 3 Omega codemods (`Spark 5.01`), `Pilot Origins R3`, `Sprite Symbiosis` (Session-1 Machine Ally Sprite). | [Ouro Build](ouro/character_build.qmd) |
+| **AshE** (`AshE`) | AI-Pilot AI (Emergent Intelligence)<br>Technomancer (Sourcerors) | Point Buy (*6WC* + *H&S*) | **Active Concept** | Combined handle of **Étaín & Aisling**: Spark Purist (`Spark 6.00`, 0 codemods, `RES 6`, `Edge 6`), twin `Shiawase Silverstar` chassis, Day-1 `Override` + `Overclocking` (**5D6**), Session-4 Music Ally Sprite bond. | [AshE Build](AshE/character_build.qmd) |
+| **MAD Dalek** (`mad_dalek`) | Dalakitnon Elf<br>Mystic Adept Decker | Life Path (*6WC*) | **Mechanics Reference** | Double-crucible Life Path (`You were overwhelmed` $\times 2`), Alphaware Cyberjack R1 + Used Skill Rig PACK B (R5), Quickened 4D6 Reflexes & LOG 12 Drain, modular Force 4 Qi Foci. | [MAD Dalek Build](mad_dalek/character_build.qmd) |
 
-> **Takahashi Second-Generation Family Blueprint:** See [`sparks_template.md`](sparks_template.md) for the shared Pilot-AI chassis and per-sibling diffs (`Ouro`, `Étaín & Aisling`, `Percy`, `Cleo`).
+> **Takahashi Second-Generation Family Blueprint:** See [Takahashi Second-Generation Sparks Template](sparks_template.md) for the shared Pilot-AI chassis and per-sibling diffs (`Ouro`, `AshE`, `Percy`, `Cleo`).
 
 ---
 
-## 4. Graduation Requirements (Moving Out of the Lab)
+## 3. Graduation Requirements (Moving Out of the Lab)
 
 To graduate a character from `characters/lab/<slug>/` into `characters/<char_id>/`, the build must satisfy all five gates:
 
-1. **Table Commitment & Schedule (The True Trigger)**:
-   * The character must have a committed seat in an actual live game: an upcoming convention slot, an SRM season kickoff, a home campaign session 1, or formal GM sanctioning.
-   * *If a character is finished but has no active game scheduled, they remain in the Lab as a Ready Prototype.*
-2. **Deterministic Rules Audit Pass**:
-   * Must pass `uv run sr6 characters audit <id>` with **0 hard errors**.
-   * Exact balance across Karma, Nuyen, Skill points, Quality balance, and Essence legality.
-3. **The Complete Markdown Trio Initialized**:
-   * `core/character_build.qmd`: Complete starting build.
-   * `core/character_purchases.qmd`: Starting gear, lifestyle, weapons, armor, vehicles, and bonded foci with exact costs.
-   * `core/character_log.qmd`: Initialized with Session 0 / Chargen credit and initial contact roster.
-4. **Living Specifications Initialized**:
-   * `reference/voice_spec.md`: Sensory matrix, POV integrity, and character-specific anti-slop rules.
-   * `reference/storyboard.md`: 6 thematic verticals (internal & external) and initial bespoke foils mapped.
-   * `reference/visual_anchors.md`: Physical appearance and sensory cues defined.
-5. **Ecosystem & Deployment Integration**:
-   * Updated in [`characters.yaml`](file:///c:/GitHub/sr6-core/characters.yaml) with `repo: "characters/<char_id>"` and `status: "active"`.
-   * Master YAML compiled cleanly via `uv run sr6 sync-all`.
-   * CommLink 6 XML export validated for physical table play (`uv run sr6 export <id> --format=xml`).
+1. **Table Commitment & Schedule (The True Trigger)**: Committed seat in a live campaign, convention slot, or SRM season kickoff.
+2. **Deterministic Rules Audit Pass**: `uv run sr6 characters audit <id>` passes with **0 hard errors** and exact balance across Karma, Nuyen, CP, Contact Points, and Essence/Spark.
+3. **Complete Markdown Trio Initialized**: `core/character_build.qmd`, `core/character_purchases.qmd`, and `core/character_log.qmd`.
+4. **Living Specifications Initialized**: `reference/voice_spec.md`, `reference/storyboard.md`, and `reference/visual_anchors.md`.
+5. **Ecosystem & Deployment Integration**: Updated in `characters.yaml` (`status: "active"`), compiled cleanly via `uv run sr6 sync-all`, and validated for CommLink 6 XML export.
 
 ---
 
-## 5. Starting a New Build in the Lab
+## 4. Character Design Doctrine
 
-To spin up a new idea:
+### A. Magical Characters (Mystic Adepts & Life Path)
 
-1. Create a new directory: `characters/lab/<slug>/`.
-2. Add a `character_build.qmd` containing the reactive Python math blocks:
+* **Mystic Adepts over Specialists:** Combining Sorcery, Conjuring, and Adept Powers (*Improved Ability* on Combat skills) unlocks unmatched multi-plane flexibility.
+* **Life Path over Point Buy:** Life Path grants extra free attribute increments on metatypes with maximums $> 6$ and yields more free spells/PP. **Dalakitnon Elf** (4 boosted maximums: `AGI 7, LOG 8, INT 7, CHA 8`) is our #1 choice; **Pixie** is second (gains flight, higher lifestyle overhead). Use Point Buy only when SRM Life Path restrictions block required metagenic qualities (e.g. Velvet's `CHA 10`).
+* **Skillwire Packages:** Almost always mount a Skill Rig (**PACK A Alpha** `318k¥ / 0.96 Ess / R6`, **PACK B Used** `125k¥ / 1.10 Ess / R5`, or **Used R4** `100k¥ / 0.88 Ess`) to cover all tertiary skills for a single point of Essence/Magic, upgradable post-chargen via the **Shadow Healthcare Community (SHC)**.
+* **The Coven Decay Protocol:** Join an SRM Coven or MUG at **Connection 7 / Loyalty 8** (15 Contact Pts, 6 Karma). Initiation/Submersion costs `10 + Grade - Loyalty`. Allowing Loyalty to decay naturally ($8 \rightarrow 7 \rightarrow 6 \rightarrow 5 \rightarrow 4$) across Months 1–4 liberates **4 Major Downtime Actions** and saves **¥4,800** in dues before locking permanently at the **Loyalty 4 floor** (1 Minor Action/mo, ¥350/mo dues, permanent `-4` Karma discount). Never hoard 35 Karma prematurely just to save 2 Karma on decay!
+* **Foci & Qi Stacking (*CRB* pp. 154–155; *City Edition* `[SR6H-0755]`; *SSW FAQ* `[SSWFAQ-0069]`):**
+  * Individual focus Force may never exceed Magic (`Force <= Magic`). Never plan Force 8 Qi Foci at Magic $\le 6$.
+  * Qi Foci stack (`[SSWFAQ-0069]`): bond modular **Force 4 Qi Foci** (`1.0 PP` Combat skills = `12,000¥`, `8 Karma`, `Avail 4L`) to reach `+4` max skill boosts cleanly. Total bonded Force cap is **Magic $\times 5$**.
+  * **Power Focus R3 (`54k¥ / 18K / Avail 9L`)** yields `+3` across all Magic tests vs. `120 Karma` for natural `Magic 6 -> 9`.
+* **Sustaining & Initiations:** **Quickening** (Initiate Grade 1) is the cheapest permanent sustaining engine (`Increase Reflexes` + `Increase Attribute`); **Focused Concentration** is flexible but Karma-expensive. Next initiation priorities: *Channeling*, *Centering*, *Masking*. Third tier to consider: Extended Masking, Flexible Signature, Invocation + Great Form Summoning
 
-   ```markdown
-   ---
-   title: "Character Creation (<Method>)"
-   identity:
-     id: <slug>
-     name: "<Full Name>"
-     handle: "<Handle>"
-     metatype: "<Metatype>"
-     system: shadowrun6e
-   ---
-   ```
+### B. Matrix & Emergent Characters (Pilot AI Technomancers)
 
-3. Register the new concept in the Roster table in this README.
+* **Emergent Intelligences (EI) — Pilot AI Origin:** Access to Resonance + `Pilot Origins` + unlimited physical drone hull upgrades with **zero Resonance loss**.
+* **Anthroform Drone Chassis Selection:** See the **[Anthrodrone Chassis Guide](../../reference/anthrodrone_chassis_guide.md)** as the single source of truth for chassis stats, slot math, Heat modifiers, and starter-to-endgame recommendations.
+* **Stream — Sourcerors:** `Hyperthreading` + `-2` Fade + free sustaining slots ($\lfloor \text{Grade}/2 \rfloor$).
+* **Compositional Day-1 Submersion Pairings:** Technomancers and EIs can submerge twice at chargen (`3K + 4K` under MUG Loyalty 8). Rather than prescribing a single template, the core rule is to pick **two Day-1 echoes that compound each other and your build's chassis/priorities**:
+  * *Session-1 Symbiont (`Sprite Conduit` + `Sprite Symbiosis` — e.g., `Ouro`):* Pair with `4` banked Karma to compile & bond a **Level 1 Ally Sprite** in Session 1 (`2K` Reg + `2K` Bond) for instant ASDF boosts and fade-free *Override*.
+  * *Active Resonance & Action Economy (`Resonance Power: Override` + `Overclocking` — e.g., `AshE`):* Unlocks Day-1 `20d6` Resonance piloting, `Targeting + Sensor`, and **5D6** VR Initiative (`2` Major Actions), clearing the runway to bond a **Level 3–6 Ally Sprite** by Session 4.
+  * *Team PAN & TacApp Anchor (`Living Network` + `Transcendent Network` — e.g., `Percy`):* Establishes the living persona as PAN master from Day 1 while unlocking TacApps and shared team Edge pooling.
+  * *Machinist / Fleet Rigger (`Living Network` + `Machine Mind` or `Software Emulator`):* Pairs PAN mastery with direct Control Rig neural interfacing (`Machine Mind` for meat technomancers) or program/autosoft emulation (`Software Emulator`) without spending Nuyen on an expensive RCC.
+* **Ally Sprite Cost Formula (*Hack & Slash*, pp. 77–78):** Source Code = `(Level × 2) + Added Powers (+1 ea) + Added Skills (+1 Tech/Knowledge, +2 Social/Combat) + Added CFs/Echoes (+1 ea)`, paid **twice** (Step 3 Permanent Registration + Step 4 Ally Bond).
+* **Key Complex Forms & Sustaining Prerequisite:** `Attack Attribution` & `Sleaze Attribution` allow dumping `ATK`/`SLZ` to `1` *only* when paired with a **zero-penalty sustaining strategy for 2 forms (or 1 hyperthreaded pair)**—e.g., `Sourceror` ($\text{Grade} \ge 2$, used by `Ouro` and `AshE`), handing sustaining off to registered/ally sprites, `Focused Concentration`, or another dedicated anchor. Other core forms: `Hyperthreading` (Sourceror only), `Resonance Wires` (pairs with `Jack Jockey`), `Diffusion (Firewall)`, `Machine Merge`, `Enlighten Automaton`, `Enhance Autosofts`, `Resonance Spike`, `Cleaner`, `Technoregeneration`.
 
----
+### C. Universal Negative Quality Portfolio (Max 6 Qualities / $\le +20$ Net)
 
-## 6. The Two-Pillar Character Evaluation Rubric
-
-Every build in the Lab is evaluated across two distinct, complementary axes: **Operational Strength** (how effectively the build performs at the table) and **Build Efficiency** (how effectively the build maximizes post-chargen Karma value).
-
----
-
-## Character Design Strategies
-
-### Magical Characters
-
-* We favor **Mystic Adepts** over Traditional Mages, Aspected Mages, or Adepts due to their versatility of having both spells and adept powers
-* We favor **Life Path** chargen system over Point Buy
-  * Mystic Adepts gain more spells and adept powers "for free" versus other chargen methods.
-    * Note: do not buy adept powers for karma in chargen. Qi Foci cost 1 less karma and 6000 nuyen post-chargen.
-  * Any character gains additional attribute points for any attribute that starts with a maximum greater than 6
-  * We favor **Dalakitnon** as they have the most (4) attributes that gain these additional points
-  * **Pixies** are a close second; versus Dalakitnon they gain flight but have increased lifestyle costs
-  * In SRM under Life Path a character cannot start with metagenetic qualities. If these are necessary to the build, we must then use another chargen method (Velvet is an example of this, where we needed metagenetic charisma to achieve the character design goal of Charisma 10 at creation)
-* We will almost always start with one of the following **Skillwire packages**, depending on resource availability:
-  * Skill Rig Pack A, alpha quality (318,000 nuyen, 0.96 Essence, rating 6)
-  * Skill Rig Pack B, alpha quality (265,000 nuyen, 0.8 Essence, rating 5)
-  * Skill Rig, used quality (100,000 nuyen, 0.88 Essence, rating 4)
-  * All of these are chosen to provide cost effective access to all skills with only a single point loss of Essence/Magic
-  * Choosing a higher rating rig at chargen is not imperative, as these can be upgraded post-chargen cost effectively by joining the Shadow Healthcare Community (SHC) (6 karma, see SRM Guide, can be done post-chargen)
-* Covens & The Coven Decay Protocol
-  * We will generally have mage characters join one of the covens in the SRM Guide.
-  * We will join either at Loyalty 4 or 8. This reduces the karma cost of all initiations by the loyalty rating:
-    $$\text{Cost} = 10 + \text{Initiate Grade} - \text{Coven Loyalty}$$
-    * **Loyalty 4:** Requires 1 minor downtime action per month and modest dues to maintain.
-    * **Loyalty 8 Decay Protocol:** We enter at Loyalty 8 and deliberately allow loyalty to decay by 1 per month ($8 \rightarrow 7 \rightarrow 6 \rightarrow 5 \rightarrow 4$). This liberates 4 Major Downtime Actions across Months 1–4 for initiations and saves ¥4,800 in dues.
-    * **The Loyalty 4 Floor:** Decay halts permanently at the Loyalty 4 floor (1 Minor action/mo, ¥350/mo dues for Connection 7), locking in a permanent **-4 Karma discount** on all subsequent initiations forever.
-    * **The "Hoard Magic" Fallacy vs. The 2-Karma Difference:** Delaying an initiation (like Grade 7) from Loyalty 6 to the Loyalty 4 floor costs only **2 Karma** ($10 + 7 - 4 = 13\text{K}$ vs $10 + 7 - 6 = 11\text{K}$). Freezing 35 Karma to raise Magic $6 \rightarrow 7$ prematurely purely to preserve coven discounts is a false economy: it starves the character of table performance for 4–5 missions to save a trivial 2 Karma!
-    * Note that per 6WC p 175 Group Contact ratings (Connection or Loyalty) are not limited by Charisma.
-* Foci Architecture & The Power Focus Arbitrage
-  * **The Power Focus vs. Natural Magic Arbitrage:**
-    * A Power Focus Rating 3 costs **54,000¥ and 18 Karma** (Availability 9L).
-    * It grants **+3 to effective Magic across ALL tests involving Magic** (Spellcasting, Counterspelling, Rituals, Conjuring, Banishing, Astral tests, and Drain Resistance).
-    * Achieving a +3 bonus through natural Magic advancement ($6 \rightarrow 7 \rightarrow 8 \rightarrow 9$) costs an astronomical **120 Karma**!
-    * Convention Mission Packs (CMPs) grant nuyen (~15,000¥–25,000¥) and 2 Minor Downtime Actions (no Major action), making them ideal for funding and bonding foci without burning initiation opportunities.
-  * **The Legal Qi Foci Stacking Architecture (*CRB* p. 154–155; *City Edition* p. 154–155 `[SR6H-0755]`; *SSW FAQ* `[SSWFAQ-0069]`):**
-    * *Individual Force Cap:* *"No focus Force may exceed your Magic attribute."* At Magic $\le 6$, Force 8 Qi Foci are **ILLEGAL** ($8 > \text{Magic}$). Never plan Force 8 foci for characters with Magic 5 or 6.
-    * *Modular Stacking:* Per `[SSWFAQ-0069]`, Qi Foci explicitly stack!
-      * For Combat skills (1.0 PP/rank per FAQ: Sorcery, Conjuring), use modular **Force 4 Qi Foci** (Rating 1 each, 1.0 PP, Avail 4L, 12,000¥, 8 Karma).
-      * To reach +2 on Conjuring at Magic $\le 6$, bond **two Force 4 Qi Foci** instead of one illegal Force 8 focus.
-      * Availability 4L is readily available through mid-tier fixers (Connection 4–5) without high-availability rolls or black clinic time.
-  * **Total Bonded Force Cap (*City Edition: Seattle* p. 154–155 `[SR6H-0755]`):**
-    * The total bonded Force limit is **Magic x 5** (NOT the pre-errata Magic x 3). At Magic 5, this allows up to **25 Force** across up to 5 foci; at Magic 6, **30 Force** across up to 6 foci.
-  * **Sustaining Focus Force Requirement:**
-    * A sustaining focus must equal or exceed the modified Drain Value of the spell (*CRB* p. 155).
-    * *Increase Attribute* at the max +4 bonus has a modified DV of 6 (Base 3 + 3 net hits), requiring a **Force 6 Sustaining Focus** (24,000¥, 12 Karma, Avail 6L).
-* Sustaining Strategy
-  * Quickening: Cheapest option by far. Spells cost karma to reapply if they are dropped
-  * Focused Concentration: Allows us to drop and change spells at will, far more expensive and limited slots
-  * Sustaining Foci: Relatively expensive, limited to one school, and same cost post-chargen
-* Initiations
-  * We can take one initiation at chargen
-  * Quickening is the highest priority if that is our sustaining strategy
-  * Channeling is the next highest priority for attribute bonuses, dual nature, and access to spirit powers
-* Spells
-  * Increase Attributes and Increase Reflexes are the highest priority
-* Adept Powers
-  * One of the few ways to gain bonuses to Sorcery
-  * Qi Foci are cost effective and are the same cost post-chargen (stacking Force 4 foci for Combat skills)
-
-### Matrix Characters
-
-* We favor **Emergent Intelligences (EI)**
-  * Emergent Intelligences have access to Resonance abilities versus other Artificial Intelligences
-  * Emergent Intelligences have access to 'Pilot Origins', a highly effective vehicle for most required skills (see skillwires/autosofts section below). We take this on every character, almost always through the Pilot AI origin.
-  * Emergent Intelligences can perform a nearly unlimited amount of modification to their drone physical bodies without diminishing their Resonance
-  * We will purchase an anthroform drone with realistic features in chargen to allow the character to function in normal society
-    * The Ares Nurse MAID (DA 176, 57500 nuyen; BOD 8, ARM 6, realistic features 4 without using mod slots)
-    * The Shiawase Butler (DC 117, 3000 nuyen, realistic features 1 but BOD 4, ARM 0)
-    * Shiawase Man-At-Arms (DC 118, 4500 nuyen, BOD 10, ARM 8, no realistic features; avoids *Tarnished Star* +1 Heat modifier)
-    * Nissan Samurai (CRB 300, 4500 nuyen, BOD 6, ARM 6. Strictly worse than the Man-At-Arms)
-    * Large Drones (Nurse MAID Troll, Nissan Oni): higher sensor max rating but less discreet
-* **Technomancers** are a close second.
-  * They cannot modify their bodies as much, but they can benefit from magical buffs
-  * We would take one of the **skillwire packages** discussed above for the same reasons
-* We favor the **Point Buy** system for Matrix Characters
-  * EIs cannot use the life path creation system
-  * Point Buy allows for more efficient access to nuyen versus the Priority or Sum-to-Ten systems
-  * A technomancer could consider Life Path as a Dalakitnon for the reasons in the magic section. Pixies do not get logic bonuses.
-* Matrix User Groups (MUGs) function like a coven for technomancers and EIs. We follow the same logic as we do for covens.
-* Stream: We favor **Sourcerors** for:
-  * Action Economy (hyperthreading allows us to thread two complex forms at once)
-  * Sustaining Economy (sustaining a hyperthreaded form allows us to sustain 2 or 4 complex forms as a single sustained form)
-  * Sustaining Slots (Free "Focused Concentration" for complex forms at Submersion grade / 2, rounded down)
-  * This can be taken post-chargen as the karma cost is the same.
-* Foci
-  * EIs can only use one at a time. We highly favor the Resonance Focus.
-  * Technomancers can add an Oracle and other foci as interested.
-  * Foci cost the same post-chargen, so they can be deferred.
-* Submersions
-  * TMs and EIs can submerge twice in chargen. Sourcerors want to do both to unlock their 1st sustaining slot.
-  * Options:
-    * Sprite Conduit and Sprite Symbiosis: Unlocks ally sprite symbiosis on day 1 for +6 matrix attributes and either Phantom (most likely) or Override
-    * Living Network and Transcendent Network: Unlocks TacApps and Edge Storage for the team
-    * Living Network and Software Emulator: There are other ways for EIs to run programs, but TMs might value more
-    * Overclocking: Eventually necessary for action economy
-* Complex Forms
-  * Cost the same post-chargen, so only prioritize attack and sleaze attribution in chargen if these stats are dumped
-  * Attack and Sleaze Attribution
-    * Replace these stats, allowing us to dump them in chargen
-    * For Sourcerors, this is a single sustaining slot for scenes where we are primary technical
-  * Diffusion (Firewall): Essential for tackling high firewall hosts, either alone or in a team
-  * Machine Merge, Enhance Autosoft, and Enlighten Automaton
-    * All three add different bonuses to operating our drones under pilot origins
-  * Resonance Wires
-    * Establishes a direct connection to any visible device
-    * Strong synergy with the 'Jack Jockey' quality (as a quality, this should be taken in chargen if desired)
-  * Resonance Spike: Not susceptible to P-ICE Spines
-  * Cyber Spike: devastating to enemy deckers and riggers
-  * Puppeteer: nice for taking a quick shortcut to control devices sometimes
-  * Editor: same for editing files, but less useful as you usually have to hack a network anyway to see the files
-  * Technoregeneration: Heal spell for drones. Damage can generally be avoided, but when you need it you need it
-  
-#### Negative Qualities
-
-Recall the max of 6 qualities and a 20 bonus karma net cap from qualities. We will generally take 2-4 negative qualities per character, and our positive qualities will generally be high cost/value (10+ karma).
-
-Favored for all characters:
-
-* Hooder (R3)
-  * 15 bonus karma
-  * costs 3000 nuyen per month, which counts towards 'working for the people'
-* Honorbound: Pirate's Code
-  * 10 bonus karma
-  * Enables access to 'Candle in the Darkness'
-  * No real tabletop impact
-* Spirit Bane (Guidance Spirits) or Sprite Bane (Primal Sprites)
-  * 12 bonus karma
-  * These spirits/sprites do not appear in missions and are rarely useful to summon
-* Cyberpsychosis: only for very low essence characters (such as Venn)
-
-Negative Qualities "with benefits":
-
-* Finesse (6WC 137)
-  * 7 bonus karma
-  * Lowers team heat modifier by -1
-
-If absolutely necessary:
-
-* Injury Prone (6WC 137): 15 bonus karma, taking damage can generally be avoided (caution in characters vulnerable to fading)
-* Glitchy (6WC 137): 12 bonus karma, glitches are very rare
+* **Hooder (R3, +15K):** ¥3,000/month tithing directly funds *Working for the People* (`+1` Karma/month).
+* **Honorbound: Pirate's Code (+10K):** Zero mechanical drag; unlocks *Candle in the Dark*.
+* **Sprite Bane (Primal) / Spirit Bane (Guardian) (+12K):** Virtually absent from SRM encounters and never summoned.
+* **Finesse (+7K):** Reduces team Heat modifier by `-1` for subtle operatives.
+* **Cyberpsychosis (R3, +24K):** Reserved for extreme low-Essence cyber-monads (`Edge 7` buffer).
+* **Glitchy (+12K) / Injury Prone (+15K):** Situational fallback slots when `Sprite Bane` or other slots are swapped.
 
 ---
 
-### Pillar 1: Operational Strength Rubric (Table Performance)
+## 5. The Three-Horizon Evaluation Methodology
 
-#### 1. The Pareto Principle of Buff Reliability
+Builds in the Lab are evaluated deterministically via `uv run sr6 calc eff <char_id>` (`sr6core/creation/efficiency.py`) across **three complementary pillars**—with zero hardcoded character hacks:
 
-When calculating expected dice pools, only **Sovereign, High-Uptime Buffs ($\approx 100\%$ availability)** are included:
+### Pillar 1: 20-Point Operational Breadth Score (OBS, 0–20 Scale)
 
-* **Included**: Bonded foci, ally sprite symbiosis, installed augmentations, active autosofts, sustained spells with dedicated sustaining anchors (*Focused Concentration*, Quickening, Sustaining Foci, or Spirits).
-* **Excluded**: Teamwork tests ($\le 20\%$ reliable), situational environmental Edge, or temporary tactical buffs.
-* **The Sustaining Penalty Rule**: If a build sustains a spell *without* dedicated sustaining mitigation, a **$-2$ penalty** must be deducted from all active operational pools.
+1. **Four Operational Planes (0–3 pts each = 12 pts max)** *(only Sovereign, ~100% uptime buffs counted; unanchored sustaining deducts `-2`)*:
+   * **3 pts (Primary Mastery):** Sovereign pool $\ge 14\text{d6}$
+   * **2 pts (Secondary Competence):** Sovereign pool `8–13d6`
+   * **1 pt (Tertiary Floor):** Sovereign pool `6–7d6`
+   * **0 pts (Inert / Blind):** $< 6\text{d6}$
+2. **Eight Tactical & Capability Scaffolding Dimensions (+1 pt each = 8 pts max):**
+   1. **Defense Floor (`+1`):** Active Defense $\ge 8\text{d6}$.
+   2. **Action Economy (`+1`):** Initiative $\ge 2\text{D6}$ or deterministic 2 Major Actions/turn (*Hot-Sim VR*, *Increase Reflexes*, *Overclocking*, *Monad Physical Boost*).
+   3. **Deterministic Edge Engine (`+1`):** Reliable Edge generation or cost reduction (*Brilliant Heuristics*, *Wise Warrior*, *Maximum Overdrive*, *Inspire Competence*, *Analytical Mind*, *Jack Jockey*).
+   4. **Durability & Soak / Mitigation (`+1`):** High survivability ($\ge 14$ Soak/DR, *Damage Mitigation Protocols*, *Monad Toughness + Rapid Cellular Healing*, *Bone Density*, or heavy/twin drone hulls).
+   5. **Sustain & Drain/Fade Economy (`+1`):** Dedicated sustaining & resistance architecture (*Sourceror Stream*, *Quickening*, *Focused Concentration*, or zero-drain augmentation).
+   6. **Autonomous Force Multiplication (`+1`):** Multi-body or companion bandwidth (Ally Sprite / *Sprite Symbiosis*, Twin Drone Chassis, *Conjuring* $\ge 6$, or Monad Dual Consciousness).
+   7. **Scene Permeability (`+1`):** Social & physical infiltration access (*Realistic Features*, *Chameleon Coating*, *Cosmetic Control*, *Resculpt*, *Gender Transmorphism*, *Masking*, *Phantom*, *Finesse*).
+   8. **Burst Ceiling (`+1`):** Peak Sovereign Primary pool reaches **$\ge 18\text{d6}$** (Veteran/Elite readiness).
 
-#### 2. Pool Benchmarks & Competence Floors
+### Pillar 2: Data-Driven Total Equivalent Karma (TEK & KER)
 
-| Pool Tier | Standard Difficulty | Veteran Difficulty | Elite / Prime Difficulty | Role in Play |
-| :--- | :---: | :---: | :---: | :--- |
-| **Primary** | **14+ Dice** | **20+ Dice** | **26+ Dice** | Core archetype specialty (Hacking, Sorcery, Face negotiation, Firearms) |
-| **Secondary** | **8+ Dice** | **14+ Dice** | **20+ Dice** | Secondary operational role (Rigging, Close combat, Astral defense) |
-| **Competence Floor** | **6+ Dice** | **12+ Dice** | **18+ Dice** | Universal survival baseline (Perception, Stealth, Con, Athletics) |
+Measures what the Day-1 build would cost if reverse-engineered into pure post-chargen Karma (`sr6core/creation/efficiency.py`):
 
-#### 3. The "Skillwires / Autosofts Mandate"
+* **Attributes & Augmentation Deltas:** Triangular `sum(r*5)` across physical or DI (`ASDF`) attributes + `Nanite_Volume`, plus top-bracket marginal deltas for Cyberlimbs (`Redliner`), `Cyber Singularity Seeker`, `Bio-Response Override`, and `Neurochemical Regulator`.
+* **Skillwires & Autosoft Dividends:** `Pilot Origins` Control Rig hardware delta (`R3 = +53K`, `R1 = +18K`) + 4 physical domains at actual Autosoft rating (`R9` or `R6`), deduplicated against `Synthetic Skill Driver` (Social Domain 5: `Con & Influence`) or meat `Skillwires` (5 universal domains at actual rating).
+* **Magic / Resonance / Monad Assets:** `Adept Powers` (`15.5K/PP`), `Spells`/`Complex Forms`/`Monad Abilities` (`5K` ea), `Initiation`/`Submersion` (`11K/23K`), bonded `Foci`, plus **Anchored Sustained Spells** (`Increase Reflexes`, `Increase Attribute`).
+* **Gear Capital & Quality Arbitrage:** Actual chargen Nuyen spent divided by `2,000¥`, plus `1×` Positive Quality cost saved vs. `2×` post-chargen purchase.
 
-Buying broad tertiary skills (Perception, Stealth, Athletics, Con, Piloting, Engineering) with raw Karma at chargen or in play is a massive Karma trap.
+### Pillar 3: The Session 4 SRM Mulligan Checkpoint (+28 Karma / +30,000¥)
 
-* **The Mandate**: Every Lab prototype should default to having **Skillwires (for meat)** or an **Autosoft array (for riggers/AIs)** to cover the Competence Floor at Rating 4–7 on demand. Omitting skillwires requires an explicit thematic justification.
-
-#### 4. The Three Tactical Bonuses
-
-* **Bonus A — Defensive Secondary**: Meeting the Secondary threshold on Defense (REA + INT). Tactical positioning, cover, and drone meat shields can protect a glass face or remote hacker, but having defense reach secondary status provides crucial insurance.
-* **Bonus B — Dedicated Edge Engine**: A deterministic mechanism for generating 1–2 Edge per turn without relying on fiddly AR/DR differentials (e.g. *Inspiring Confidence*, *Analytical Mind*, *Aptitude*, or stream/tradition mechanics).
-* **Bonus C — Action Economy**: Access to $\ge 2\text{D}6\text{–}3\text{D}6$ Initiative (allowing 4 Minor Actions to be traded for a 2nd Major Action). Can be deferred to post-chargen advancement.
-
-#### 5. The Operational Breadth Score (OBS, 0–15 Scale)
-
-To measure how effectively a character engages the game when scenes shift across Shadowrun's four operational planes (Astral, Matrix, Physical, Social), builds are evaluated on the **Operational Breadth Score (OBS)**:
-
-* **The Four Operational Theaters (0–3 pts each, max 12 pts)**:
-  * **3 pts (Primary Mastery)**: Sovereign pool $\ge 14\text{+ dice}$. Archetype lead.
-  * **2 pts (Secondary Competence)**: Sovereign pool $\ge 8\text{–}13\text{ dice}$. Backup / reliable operative.
-  * **1 pt (Tertiary Floor)**: Sovereign pool $\ge 6\text{–}7\text{ dice}$. Basic self-sufficiency floor.
-  * **0 pts (Inert / Blind)**: $< 6\text{ dice}$ or cannot interact (mundane in Astral; commlink-only in Matrix).
-* **The Three Tactical Scaffolding Bonuses (+1 pt each, max 3 pts)**:
-  * **Defense Floor (+1 pt)**: Defense pool $\ge 8\text{+ dice}$.
-  * **Dedicated Edge Engine (+1 pt)**: Deterministic generation (*Inspiring Confidence*, *Analytical Mind*, *Aptitude*).
-  * **Action Economy (+1 pt)**: Initiative $\ge 2\text{D}6\text{–}4\text{D}6$ (unlocking 2 Major Actions).
-
-##### The Declared Operational Pools Standard
-
-Rather than guessing complex multi-source stackings, every build declares its peak expected pools at the end of `character_build.qmd`:
-
-```markdown
-## Starting Operational Pools
-
-* **Astral**: Sorcery (3) + LOG (12) = 15d6 | Conjuring (6) + MAG (5) = 11d6
-* **Matrix**: Cracking/Electronics (5) + LOG (12) + Brilliant Heuristics (3) = 20d6
-* **Physical**: Firearms/Stealth: Skillwires (3) + AGI (3) = 8d6
-* **Social**: Influence (2) + CHA (2) + Command Voice (2) = 8d6
-* **Defense**: REA (2) + INT (7) = 9d6
-* **Initiative**: 4d6 (Increase Reflexes, 2 Major Actions)
-* **Edge Engine**: Analytical Mind (+1 free Edge on Logic tests)
-```
-
-*(Can alternatively be declared via python helper: `{python} operational_pools(astral=15, matrix=20, physical=8, social=8, defense=9, initiative_dice=4, edge_engine=True)`).*
+Because Shadowrun Missions permits free character rebuilds up through Session 4, every Lab build is benchmarked at **Session 4** assuming **+28 Karma**, **+30,000¥** (`60k¥` DIY / `7k¥:1K` *Shadow Healthcare* leverage), and **4 Major + 4 Minor Downtime Actions** (executing Months 1–2 of the Coven/MUG Decay Protocol at Loyalty 8 $\rightarrow$ 7). This prevents Day-0 static TEK from hiding high-velocity Purist builds (`AshE`, `MAD Dalek`) behind Day-1 codemod/ware spikes.
 
 ---
 
-### Pillar 2: Build Efficiency & Total Equivalent Karma (TEK)
-
-In addition to table performance, builds are evaluated on **economic efficiency**: what the completed character would cost if reverse-engineered into pure post-chargen Karma.
-
-* **Top-Bracket Augmentation Deltas**: Augmentations that boost attributes save the most expensive high-bracket marginal Karma tiers (e.g., pushing an attribute to 7–9 saves 35–45 Karma per point).
-* **The Skillwires / Autosoft Dividend**: Installing Skillwires or Drone Autosofts grants immediate access to multiple high-rating skills without paying separate triangular Karma for each, dramatically multiplying effective build value.
-* **Qi Focus Power Point Benchmark**: Adept Power Points are valued at their canonical in-game replacement cost via Force 4 Qi Foci (**15.5 Karma per PP**; 8 bonding Karma + 15,000¥ focus/formula).
-* **Sovereign Sustained Magical Augmentations (Anchored Spells Dividend)**: Sustained spells backed by dedicated sovereign sustaining anchors (*Focused Concentration*, *Quickening*, or *Sustaining Foci*) run 24/7 with zero drag, functioning identically to biological/magical cyberware. *Increase Attribute* is credited using the high-bracket marginal attribute delta (+250k for CHA 10 $\rightarrow$ 14, +150k for WIL 5 $\rightarrow$ 9, +210k for LOG 8 $\rightarrow$ 12); *Increase Reflexes* is credited at Reaction delta + Initiative action economy (+100k for +3 REA / 4D6).
-* **Deterministic Telemetry**: Evaluated automatically via the CLI:
-
-  ```powershell
-  uv run sr6 calc eff <char_id>
-  ```
-
-  *(See `sr6core/creation/efficiency.py` for the complete mathematical conversion ledger and derivations).*
-
----
-
-## 7. Unspent Resources & Completeness Gate
-
-A build is **only considered complete and rules-legal for play** when all chargen pools have been fully allocated under strict tabletop limits:
+## 6. Unspent Resources & Completeness Gate
 
 | Resource Type | Maximum Allowed Unspent | Failure Consequence |
 | :--- | :---: | :--- |
-| **Liquid Pocket Cash** | $\le \mathbf{5,000¥}$ | Excess cash is lost upon entering play (must be spent on gear/lifestyle). |
+| **Liquid Pocket Cash** | $\le \mathbf{5,000¥}$ | Excess cash is forfeit upon entering play. |
 | **Customization Karma** | $\le \mathbf{5\text{ Karma}}$ | Excess karma is forfeit or indicates an unfinished build. |
-| **Character Points (CP)** | **0 CP** | Incomplete chargen (must be converted to attributes, skills, or nuyen). |
-| **Contact Points** | **0 Points** | Unassigned contacts; must be allocated to fixers, docs, or informants. |
+| **Character Points (CP)** | **0 CP** | Incomplete chargen. |
+| **Contact Points** | **0 Points** | Unassigned contacts. |
 
 ---
 
-## 8. Benchmark Comparative Scorecard (Active Canon vs. Lab Builds)
+## 7. Benchmark Comparative Scorecard
 
-Evaluating the base starting builds of active campaign characters (`reiko`, `velvet`) against current Lab prototypes (`venn`, `ouro`, `dalakitnon_adept`):
+The live comparative scorecard (Day-1 vs. Session 4 Mulligan Checkpoint, 20-point OBS capability matrix, and data-driven TEK breakdown across all Lab and Active characters) is auto-generated from [characters.yaml](../../characters.yaml) and `sr6core/creation/efficiency.py` during every `uv run sr6 sync-all` and `uv run sr6 build`.
 
-| Character | Method / Metatype | Active Planes | OBS (0–15) | Base Attrs | Ware Delta | Natural Skills | Softs Dividend | Magic / Res | Sustained Spells | Gear | Net Quals | **TEK** | **KER** | Unspent Resource Audit |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
-| **Dalakitnon** | Life Path (6WC)<br>Elf Mystic Adept | **4 / 4** | **13 / 15** | 415 | — | 210 | **113** | 89 | **420** | 47 | 15 | **1,309** | **$13.09\times$** | <span style="color:green">**PASS**</span>: 0 CP, 0 Contacts, 3k Karma, 3,575¥ cash ($\le 5,000¥$). |
-| **Ouro** | Point Buy 100<br>AI-Pilot Technomancer | **3 / 4** | **11 / 15** | 435 | — | 255 | **1,124** | 43 | — | 87 | 15 | **1,959** | **$19.59\times$** | <span style="color:green">**PASS**</span>: 0 CP, 0 Contacts, 3k Karma, 2,160¥ cash ($\le 5,000¥$). |
-| **Velvet** *(Base)* | Point Buy 100<br>Elf Mystic Adept | **2 / 4** | **9 / 15** | 555 | — | 305 | — | 139 | **500** | 25 | 15 | **1,539** | **$15.39\times$** | <span style="color:green">**PASS**</span>: 0 CP, 0 Contacts, 0k Karma, 4,025¥ cash ($\le 5,000¥$). |
-| **Reiko** *(Base)* | Point Buy 100<br>AI-Pilot Technomancer | **2 / 4** | **8 / 15** | 345 | — | 265 | **467** | 83 | — | 45 | 15 | **1,220** | **$12.20\times$** | <span style="color:red">**FAIL: ¥90,000 unspent cash**</span> (exceeds 5k limit; unitemized gear). |
-| **Venn** | Point Buy 100<br>Monad Street Sam | **2 / 4** | **7 / 15** | 465 | 320 | 320 | **613** | — | — | 135 | 15 | **1,868** | **$18.68\times$** | <span style="color:green">**PASS**</span>: 0 CP, 0 Contacts (Parnell C4/L2, Dr. Ortiz C3/L3), 3k Karma, 570¥ cash ($\le 5,000¥$). |
-
-### Key Takeaways & The Two-Pillar Synergy
-
-1. **The Sovereign Magical Augmentation Breakthrough**: Crediting anchored sustained spells (*Focused Concentration*, *Quickening*) equally alongside cyberware elevates Velvet to **1,539 TEK** ($15.39\times$) and Dalakitnon to **1,309 TEK** ($13.09\times$). Velvet's combination of natural Charisma 10 $\rightarrow$ 14 (+250k), Willpower 5 $\rightarrow$ 9 (+150k), and 4D6 Initiative (+100k) matches the astronomical power of heavy cyberware while preserving full magical aura integrity.
-2. **The 3-Tier Power Scale**:
-   * **Tier 1 — Synthetic Singularity (1,800–2,000 TEK)**: Ouro (**1,959 TEK**) and Venn (**1,868 TEK**) sit at the absolute apex, combining top-bracket hardware deltas (Control Rig 3 / Cyberlimbs) with universal operational software (R9 autosofts / R7 skillwires across all 5 operational domains).
-   * **Tier 2 — Metahuman Arch-Mage (1,300–1,600 TEK)**: Velvet (**1,539 TEK**) and Dalakitnon (**1,309 TEK**) harness sovereign sustained metamagic and Qi foci to shatter natural attribute caps and match cybernetic initiative without Essence loss.
-   * **Tier 3 — Emergent Specialist (1,100–1,300 TEK)**: Reiko (**1,220 TEK**) leverages Pilot Origins and R6 autosofts for exceptional operational competence, but lacks high-bracket physical augmentations or anchored attribute spells.
-3. **The 5-Domain Deduplication Principle**: Ouro's valuation avoids double counting: physical/combat domains are handled by cheap autosofts, while the Synthetic Skill Driver receives dividend credit strictly for Domain 5 (Social Utility: Con & Influence).
-4. **Resolved Prototype Compliance**:
-   * **Venn**: Fully compliant (<span style="color:green">**PASS**</span>) after allocating the 12 Contact Points to Parnell (Fixer, C4/L2) and Dr. Caleb Ortiz (Streetdoc, C3/L3) from Chapter 7 (*The First Contract*).
-   * **MAD Dalek**: Fully compliant (<span style="color:green">**PASS**</span>) after purchasing 1 month of Low Lifestyle (2,000¥), reducing pocket cash to 3,575¥ ($\le 5,000¥$).
-   * **Reiko**: Note that her original base build retained ¥90,000 unallocated cash prior to session purchases.
+* **Live Scorecard:** **[Benchmark Comparative Scorecard](scorecard.md)**
+* **CLI Inspection:** Run `uv run sr6 calc eff <char_id>` for full per-character telemetry.

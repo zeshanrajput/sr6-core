@@ -20,7 +20,7 @@ In earlier narrative iterations (the deprecated `XX Fork.md`), Reiko attempted t
 ::: {.callout-note}
 The characters below are portrayed current state: as sprites that Reiko registers to function on the Matrix. Each section also outlines a future PC state for the Succession Arc (with the exception of Taz, who narratively never leaves Reiko's side).
 
-For the standardized **100 CP / 50 Karma Lab Master Template**, quality trade-offs, Spark Purist (`6.00`) vs. Codemod (`5.01`) split, and compiled Point Buy builds, see [`characters/lab/sparks_template.md`](../../../characters/lab/sparks_template.md), [`ouro`](../../../characters/lab/ouro/character_build.qmd), and [`etain`](../../../characters/lab/etain/character_build.qmd).
+For the standardized **100 CP / 50 Karma Lab Master Template**, quality trade-offs, Spark Purist (`6.00`) vs. Codemod (`5.01`) split, and compiled Point Buy builds, see [`characters/lab/sparks_template.md`](../../../characters/lab/sparks_template.md), [`ouro`](../../../characters/lab/ouro/character_build.qmd), and [`AshE`](../../../characters/lab/AshE/character_build.qmd).
 
 When created as a PC, all characters will have the following:
 
@@ -273,18 +273,18 @@ When created as a PC, all characters will have the following:
       * *Default Active Power:* **Phantom** (*CRB* p. 194). Veils the entire Glade and resting personas from Matrix searches. Opposed threshold to detect equals her net hits on `Electronics + RES`.
       * *Swappable Countermeasures:* When hostile intrusion threatens, Étaín avoids lethal violence, pivoting into **Suppression** (freezing host IC launch sequences for Level/2 rounds) or **Stability** (reinforcing structural node code).
 
-### Future State (Merged PC Twin Concept: Étaín + Aisling)
+### Future State (Merged PC Twin Concept: AshE — Étaín + Aisling)
 
-* **Merged Twin Architecture:** In play, **Étaín** is the playable Emergent Intelligence PC (keeping **Spark 6.00** whole—zero codemods—to preserve `Resonance 6` out of chargen), while **Aisling** is created post-chargen as Étaín's permanent **Level 6 Music Ally Sprite** (*Harmonize*, *Captivate Audience*, plus added *Override* and *Diagnostics*). Both twins inhabit matching **Shiawase Man-at-Arms** anthroform drone bodies.
+* **Merged Twin Architecture:** In play, **Étaín** is the playable Emergent Intelligence PC (keeping **Spark 6.00** whole—zero codemods—to preserve `Resonance 6` out of chargen), while **Aisling** is created post-chargen as Étaín's permanent **Level 6 Music Ally Sprite** (*Harmonize*, *Captivate Audience*, plus added *Override* and *Diagnostics*). Together they operate under the shared street handle **AshE**, inhabiting twin **Shiawase Silverstar** anthroform drone bodies (`Avail 4`, `+0` Heat per *DC* p. 127).
 * **Aisling (Ally Sprite Stat Targets):** Level 6 Music Sprite (`A 6, S 6, D 10, F 6, RES 7`, *Harmonize*, *Captivate Audience*, *Override* [Pilot 6 in twin chassis], *Diagnostics*, *Engineering*, full *Con 6*, *Influence 6* [Etiquette]).
-* **Étaín (PC Spec — [`characters/lab/etain/`](../../../characters/lab/etain/character_build.qmd)):**
+* **AshE / Étaín (PC Spec — [`characters/lab/AshE/`](../../../characters/lab/AshE/character_build.qmd)):**
   * **Spark Ethos**: Purist (`Spark 6.00`, zero codemods; sides with Reiko in keeping Sparks whole).
   * **Attributes**: `Willpower 5`, `Data Processing 7` (racial max $\rightarrow$ passive `DP 9` w/ `RES 6`), `Edge 6`, `Logic 4`, `Intuition 5`, `Charisma 4`, `Resonance 6`.
   * **Skills**: `Electronics 6` (only 1 chargen-max skill; adding `Complex Forms` and `Software` specs post-chargen), `Cracking 5`, `Tasking 5`.
   * **Positive Quality**: `Jack Jockey` (6th quality slot alongside `Natural Hacker` + `Sourceror Stream`).
   * **Starting Echoes**: `Resonance Power: Override`, `Overclocking` (active Day 1; `New Sprite Type` and `Sprite Conduit` at Grades 3–4 ahead of Aisling).
   * **Complex Forms**: `Attack Attribution`, `Sleaze Attribution`, `Hyperthreading`, `Resonance Wires` (adding `Diffusion (Firewall)` + `Cleaner` early, then `Enhance Autosofts`, `Enlighten Automaton`, `Resonance Spike`, and `Technoregeneration` for Veteran/Elite scaling; `Cyber Spike` deferred until Grade 8 `Sprite Link`).
-  * **Starting Equipment**: Twin `Shiawase Man-at-Arms` anthroform drones (`4,500¥ × 2`) w/ wheeled secondary propulsion & passive stealth, `Scratch-Built Junk` RCC, `Coding Shop` + `Engineering [Industrial Mechanic] Shop`, `Resonance Focus (R4)`, `R9` Cooperative Autosofts.
+  * **Starting Equipment**: Twin `Shiawase Silverstar` anthroform drones (`9,000¥ × 2` w/ `Realistic Features 1`, `BOD 8`, `ARM 4`) w/ wheeled secondary propulsion & passive stealth, `2× Armor Jacket`, `2× Ares Predator VI + Silencer`, `Scratch-Built Junk` RCC, `Coding Shop` + `Engineering [Industrial Mechanic] Shop`, `Resonance Focus (R4)`, `R9` Cooperative Autosofts (`2` Karma, `¥1,160` remaining).
 
 ---
 

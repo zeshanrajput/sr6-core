@@ -1,0 +1,46 @@
+project:
+  type: book
+  output-dir: _book
+  resources:
+    - ouro/output/pdf/
+    - ouro/output/roll20/
+    - AshE/output/pdf/
+    - AshE/output/roll20/
+    - mad_dalek/output/pdf/
+    - mad_dalek/output/roll20/
+
+book:
+  title: "SR6 CHARACTER LAB // Prototype Workshop & Holding Book"
+  subtitle: "Pre-Play Incubation, Evaluation Rubrics & Build Benchmarks"
+  date: "2026-11-25"
+  navbar:
+    left:
+      - text: "🏠 SR6 Main Portal"
+        href: ../../index.html
+      - text: "📖 Venn Book (<LAB>)"
+        href: venn/index.html
+      - text: "🤖 Anthrodrone Guide"
+        href: ../../reference/anthrodrone_chassis_guide.html
+  chapters:
+    - index.qmd
+    - scorecard.md
+    - part: "Shared Templates & Doctrine"
+      chapters:
+        - sparks_template.md
+    - part: "Incubating Builds (Holding Book)"
+      chapters:
+        - ouro/character_build.qmd
+        - AshE/character_build.qmd
+        - mad_dalek/character_build.qmd
+
+format:
+  html:
+    theme:
+      - cosmo
+      - theme.scss
+    toc: true
+    number-sections: false
+    code-copy: true
+
+execute:
+  engine: jupyter

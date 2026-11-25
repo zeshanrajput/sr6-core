@@ -1,10 +1,10 @@
 ---
 title: "Character Creation (Point Buy)"
 identity:
-  id: etain
-  name: Takahashi Étaín
+  id: AshE
+  name: AshE (Étaín & Aisling)
   handle: AshE
-  real_name: Takahashi Étaín
+  real_name: Takahashi Étaín & Aisling
   metatype: AI-Pilot AI
   stream: Sourcerors
   gender: FEMALE
@@ -14,7 +14,18 @@ identity:
 
 # Character Creation (Point Buy)
 
-This page tracks the character creation process for **Takahashi Étaín & Aisling** (operating under the joint street handle **"AshE"**)—with her twin **Aisling** modeled as Étaín's post-chargen **Level 6 Music Ally Sprite**—built using the Point Buy system (*Sixth World Companion*, pp. 28–30) and the Digital Intelligence and Codesmithing rules (*Hack & Slash*, pp. 114–128).
+::: {.callout-note icon=false}
+## 🔬 Character Lab Prototype // Holding Book
+This build is incubating in the **[Character Lab](../index.qmd)** (Taxonomy: **Active Concept**). Metrics reflect chargen optimization and Session 4 twin-pair trajectory rather than active table canon.
+:::
+
+::: {.callout-tip icon=false}
+## 🎲 At-the-Table Companion Tools
+* 📄 **Official Fillable PDF Sheet**: [Download PDF Sheet](output/pdf/AshE_sheet.pdf){.btn .btn-primary target="_blank"} *(Official Catalyst 2-page fillable character dossier)*
+* 🎲 **Roll20 Genesis JSON**: [Download Roll20 JSON](output/roll20/ashe_roll20.json){.btn .btn-outline-secondary target="_blank"} *(VTT import payload)*
+:::
+
+This page tracks the character creation process for **AshE** (**Takahashi Étaín & Aisling**)—with her twin **Aisling** modeled as Étaín's post-chargen **Music Ally Sprite**—built using the Point Buy system (*Sixth World Companion*, pp. 28–30) and the Digital Intelligence and Codesmithing rules (*Hack & Slash*, pp. 114–128).
 
 > **Lab Template Relationship:** Étaín (+ Aisling) is the **Spark Purist Twin Pair** fork of the [Takahashi Second-Generation Sparks Template](../sparks_template.md). Unlike Ouro, Étaín sides with Reiko in keeping her **Spark whole (6.00)**—forgoing all codemods to preserve **Resonance 6** on Day 1 and dedicating her resources to twin **Shiawase Silverstar** anthroform bodies for herself and Aisling (`Avail 4`, `+0` Heat per *DC* p. 127, saving `89,000¥` DIY across both hulls at endgame).
 
@@ -367,25 +378,35 @@ Total Contact Points Remaining: `{python} Contact_Points`
 | **Customization Karma** | `{python} Karma` | 2 Karma in reserve (`2K -> +4,000¥`) | **Rules Legal (<= 5)** |
 | **Starting Pocket Cash** | ¥`{python} f"{Nuyen:,}"` | $\le 5,000¥$ limit (1,160¥ remaining) | **Compliant** |
 
-## Starting Stats/Pools
+## Starting Operational Pools
 
-1. ASDF (Passive `DP 9` via `DP 7` + `RES 6`)
-  * Base: `1 / 1 / 7 / 5`
-  * Attack/Sleaze Attribution (16d6 Threading $\rightarrow$ 4 bought hits): `4 / 4 / 7 / 5`
-  * Encryption / Toolbox: `+0 / +0 / +1 / +1` $\rightarrow$ `4 / 4 / 8 / 6`
-  * Resonance (6): `+1 / +2 / +1 / +2` $\rightarrow$ `5 / 6 / 9 / 8` *(Reaches `DP 9` for R9 autosofts passively, keeping `FW 8` solid while reserving combat Sourceror slots for *Enlighten Automaton* + *Enhance Autosofts*.)*
-2. Matrix
-  * Threading (Complex Forms): `Electronics (6) + RES (6) + Focus (4)` = **16d6** (4 bought hits; **18d6** once *Complex Forms* Spec is added)
-  * Actions: `Cracking (5) / Electronics (6) + RES (6) + Focus (4)` = **15–16d6**
-  * Defense: `RES (6) + Focus (4) + FW (8) + Personal Assistant (3) + Directional Shield (DP:9)` = **30d6**
-3. Drone Operations (Twin Silverstar via Day-1 *Override*)
-  * Piloting (*Override*, *CRB* p. 194): `Autosoft (9) + Resonance (6) + Focus (4) + Pilot Origins (1)` = **20d6** *(16d6 without Focus)*
-  * Targeting (*Override*, *CRB* pp. 194, 201): `Autosoft (9) + Sensor (4 [3+1 Sensor Upgrade]) + Pilot Origins (1)` = **14d6** Day 1 (**17d6** @ *Sensor 6*, **20d6** w/ *Enhanced Sensors 9* in N4; **26–28d6** w/ *Enlighten Automaton*!)
-4. Social Operations
-  * Étaín Unaugmented: `CHA (4)` = **4d6** *(Aisling carries `Con 6`, `Influence [Etiquette] 6` on the twin Silverstar frame once bonded)*
-5. Tactical Scaffolding
-  * Initiative: **5D6** (Hot-Sim VR w/ Day-1 *Overclocking*; **2 Major Actions/turn** immediately, scaling to **4+ Major Actions/turn** once Aisling is bonded)
-  * Edge Engine: Resonance Edge accumulation & *Jack Jockey* Edge denial
+* **Astral**: 0d6 (Mundane / Digital Intelligence)
+* **Matrix**: Threading (Electronics 6 + RES 6 + Focus 4) = **16d6** (4 bought hits) | Actions (Cracking 5 / Electronics 6 + RES 6 + Focus 4) = **15–16d6** *(Passive `DP 9` via `DP 7 + RES 6`)*
+* **Physical**: Piloting (*Override*: Autosoft 9 + RES 6 + Focus 4 + Pilot Origins 1) = **20d6** | Targeting (*Override*: Autosoft 9 + Sensor 4 + Pilot Origins 1) = **14d6** *(across twin `Shiawase Silverstar` chassis)*
+* **Social**: Étaín Unaugmented: `CHA (4)` = **4d6** *(unlocked in Session 4 when Aisling bonds; `Aisling Con/Influence` scales to `10d6`+)*
+* **Defense**: RES (6) + Focus (4) + FW (8) + Personal Assistant (3) + Directional Shield (DP:9) = **30d6** Matrix Defense | Twin `Body 8 / Armor 4 + Armor Jackets`
+* **Initiative**: 5d6 (Hot-Sim VR w/ Day-1 *Overclocking*; **2 Major Actions/turn** immediately)
+* **Edge Engine**: Resonance Edge accumulation & *Jack Jockey* Edge denial
+
+---
+
+## Session 4 Checkpoint (SRM Mulligan Gate: +28 Karma / +30,000¥)
+
+*Resources Available:* **`30 Karma`** (`2K` banked + `28K`) and **`¥31,160`** (`¥1,160` banked + `¥30,000`) across **4 Major + 4 Minor Downtime Actions**.
+
+* **Major Actions (2 of 4 used; 2 reserved):** Submersion Grade 3 (`New Sprite Type: Music`, `5K` @ L8) + Grade 4 (`Sprite Conduit`, `6K` @ L8).
+* **Karma Queue (`27K` spent, `3K` left toward Level 5–6 upgrade):** `11K` (Submersions 3–4) + `16K` (**Aisling Stage 1 — Level 3 Music Ally Sprite** w/ `Override` + `Overclocking`: `8K` Permanent Reg + `8K` Ally Bond per *H&S* pp. 77–78). *(Aisling immediately enters play in her own Silverstar body with `Pilot 3`, `5D6` Init, `Harmonize`, `Captivate Audience`, `Con [Performance] 3 + RES 4 = 7d6` + `+1/+2/+3` Teamwork!)*
+* **Nuyen / DIY Queue (`¥30,000` spent, `¥1,160` left):** **2× Chameleon Coating 4** (`¥18,000 DIY` across both hulls), **2× Realistic Features R1 $\rightarrow$ R2** (`¥8,000 DIY`), **Street Kit** (`Stun Grenades`, `Electricity Resistance`, `Laser Jacks`, `Sat Links`: `¥4,000`).
+* **Session 4 Operational Pools:**
+  * **Astral**: 0d6 (Digital Intelligence)
+  * **Matrix**: **19d6** (`16d6 + +3d6 Aisling Teamwork`, **2×** independent Matrix actors)
+  * **Physical**: Piloting **23d6** (`+3d6` Teamwork) | Targeting **14d6** *(+ Aisling operating twin Silverstar independently at `5D6`!)*
+  * **Social**: **7d6** (`Aisling Con [Performance] 3 + RES 4` + `RF 2` disguise; scales to `10d6` at Aisling L6)
+  * **Defense**: 30d6 Matrix / `2× Body 8` twin chassis + `Chameleon Coating 4`
+  * **Initiative**: 5d6 Hot-Sim VR (**×2 twin bodies = 4 Major Actions/round across the pair!**)
+  * **Edge Engine**: Resonance Edge + *Jack Jockey* Edge denial
+  * **Bonus TEK**: +310
+  * **Key Unlocks**: Submersions 3–4 (`New Sprite Type`, `Sprite Conduit`), Permanent Ally Sprite Aisling (`Override` + `Overclocking` = 2nd autonomous 5D6 body!), Twin Chameleon Coating 4 + Realistic Features R2 DIY
 
 ---
 
