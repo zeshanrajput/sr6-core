@@ -218,9 +218,11 @@ def _evaluate_capability_scaffolding(
     init_dice: int,
     edge_engine: bool,
     declared: Optional[Dict[str, Any]] = None,
+    map_context: Optional[str] = None,
 ) -> Dict[str, Any]:
     """Evaluates the 8 Tactical & Capability Scaffolding Dimensions (+1 pt each, max 8)."""
     ctx = full_context.lower()
+    mctx = (map_context if map_context is not None else full_context).lower()
     dec = declared or {}
 
     def_met = bool(dec.get("defense_floor", def_pool >= 8))
@@ -246,14 +248,14 @@ def _evaluate_capability_scaffolding(
         has_zero_drain_ware = ("monad" in ctx or "cyberware" in ctx) and env.get("Magic", 0) == 0 and env.get("Resonance", 0) == 0
         sustain_drain_met = has_sourceror or has_quickening or has_fc or has_zero_drain_ware
 
-    # 6. Autonomous Force Multiplication (Ally Sprite, Twin Hulls, High Conjuring, Dual Monad)
+    # 6. Autonomous Force Multiplication (True Independent Map Actor: Materialized Spirit, 2nd Combat/Field Drone, Obsidian Cloud)
     force_mult_met = bool(dec.get("force_multiplication", False))
     if not force_mult_met:
-        has_ally_sprite = "ally sprite" in ctx or "sprite symbiosis" in ctx or "sprite conduit" in ctx
-        has_twin_hull = "twin" in ctx and ("silverstar" in ctx or "man-at-arms" in ctx or "drones" in ctx)
-        has_conjuring = env.get("Conjuring", 0) >= 6
-        has_monad_dual = "dual consciousness" in ctx or "monad" in ctx
-        force_mult_met = has_ally_sprite or has_twin_hull or has_conjuring or has_monad_dual
+        has_conjuring = env.get("Conjuring", 0) >= 4
+        has_twin_hull = "twin" in mctx and ("silverstar" in mctx or "man-at-arms" in mctx or "drones" in mctx)
+        has_secondary_drone = "hawker-siddley bat" in mctx or "crimson wasp" in mctx
+        has_obsidian_cloud = "obsidian cloud" in mctx
+        force_mult_met = has_conjuring or has_twin_hull or has_secondary_drone or has_obsidian_cloud
 
     # 7. Scene Permeability (Infiltration, Social Disguise, Aura/Matrix Stealth)
     permeability_met = bool(dec.get("scene_permeability", False))
@@ -374,11 +376,13 @@ def parse_operational_breadth(content: str, full_context: str, env: Dict[str, An
     phys_pts, phys_tier = score_theater_pool(phys_pool)
     social_pts, social_tier = score_theater_pool(social_pool)
 
+    chargen_only = re.split(r'\n##\s*(?:Post-Chargen|In-Play Advancement|Session\s*4\s*Checkpoint)', content, maxsplit=1, flags=re.IGNORECASE)[0]
     tactical = _evaluate_capability_scaffolding(
         full_context, env,
         astral_pool, matrix_pool, phys_pool, social_pool,
         def_pool, init_dice, edge_engine,
         declared=declared if is_declared else None,
+        map_context=chargen_only,
     )
 
     total_obs = astral_pts + matrix_pts + phys_pts + social_pts + tactical["scaffolding_points"]
@@ -417,6 +421,7 @@ def _evaluate_session4_checkpoint(
     s4_sec = _extract_section_text(full_context, r'Session\s*4\s*Checkpoint[^\n]*')
     ctx = full_context.lower()
 
+    chargen_plus_s4 = re.split(r'\n##\s*(?:Post-Chargen|In-Play Advancement)', content, maxsplit=1, flags=re.IGNORECASE)[0] + "\n" + s4_sec
     if isinstance(s4_dec, dict):
         astral = int(s4_dec.get("astral", day1_obs["theaters"]["astral"]["pool"]))
         matrix = int(s4_dec.get("matrix", day1_obs["theaters"]["matrix"]["pool"]))
@@ -431,6 +436,7 @@ def _evaluate_session4_checkpoint(
             full_context + "\n" + s4_sec, env,
             astral, matrix, physical, social, defense, init_dice, edge_eng,
             declared=s4_dec,
+            map_context=chargen_plus_s4,
         )
     elif s4_sec:
         parsed = _parse_pools_from_text(s4_sec)
@@ -444,6 +450,7 @@ def _evaluate_session4_checkpoint(
         s4_tactical = _evaluate_capability_scaffolding(
             full_context + "\n" + s4_sec, env,
             astral, matrix, physical, social, defense, init_dice, edge_eng,
+            map_context=chargen_plus_s4,
         )
         m_tek = re.search(r'(?:Bonus\s+TEK|S4\s+Bonus\s+TEK|Trajectory\s+Dividend)\*{0,2}\s*[:=]\s*\*{0,2}\+?(\d+)', s4_sec, re.IGNORECASE)
         bonus_tek = int(m_tek.group(1)) if m_tek else 43
@@ -461,6 +468,7 @@ def _evaluate_session4_checkpoint(
         s4_tactical = _evaluate_capability_scaffolding(
             full_context, env,
             astral, matrix, physical, social, defense, init_dice, edge_eng,
+            map_context=chargen_plus_s4,
         )
         # Base economic value of +28K + 30k¥ (15K base, 30K if DIY/Streetdoc)
         diy_mult = 2 if ("diy" in ctx or "working for the streetdoc" in ctx or "pilot origins" in ctx) else 1
@@ -713,7 +721,7 @@ def calculate_build_efficiency(target: str) -> Dict[str, Any]:
             base_skills_karma += k
             skills_breakdown[sname.lower()] = {"rating": int(r), "karma": k}
 
-    # 5. Augmentation & Quality Attribute Deltas (Data-Driven)
+    # 5. Augmentation & Quality Attribute Deltas (Data-Driven, Non-Duplicated Whole-Body Delta)
     ware_attr_delta_karma = 0
     ware_attr_details: List[str] = []
 
@@ -721,24 +729,21 @@ def calculate_build_efficiency(target: str) -> Dict[str, Any]:
         nat_agi = int(env.get("Agility", 1))
         nat_str = int(env.get("Strength", 1))
         redliner_bonus = 2 if "redliner" in ctx_low else 0
-        if "two full synthetic cyberarms" in ctx_low:
-            arm_agi_enh = 4 if "agility +4" in ctx_low or "agi+4" in ctx_low else 0
-            arm_agi = max(nat_agi, 2 + arm_agi_enh + redliner_bonus)
-            arm_str = max(nat_str, 2 + redliner_bonus)
-            da = calculate_attribute_delta_karma(nat_agi, arm_agi)
-            ds = calculate_attribute_delta_karma(nat_str, arm_str)
-            if da + ds > 0:
-                ware_attr_delta_karma += da + ds
-                ware_attr_details.append(f"Cyberarms AGI {arm_agi} (+{da}k), STR {arm_str} (+{ds}k)")
-        if "two full synthetic cyberlegs" in ctx_low:
-            leg_agi_enh = 4 if "agility +4" in ctx_low or "agi+4" in ctx_low else 0
-            leg_agi = max(nat_agi, 2 + leg_agi_enh + redliner_bonus)
-            leg_str = max(nat_str, 2 + redliner_bonus)
-            da = calculate_attribute_delta_karma(nat_agi, leg_agi)
-            ds = calculate_attribute_delta_karma(nat_str, leg_str)
-            if da + ds > 0:
-                ware_attr_delta_karma += da + ds
-                ware_attr_details.append(f"Cyberlegs AGI {leg_agi} (+{da}k), STR {leg_str} (+{ds}k)")
+        has_arms = "two full synthetic cyberarms" in ctx_low
+        has_legs = "two full synthetic cyberlegs" in ctx_low
+        arm_agi_enh = 4 if (has_arms and ("agility +4" in ctx_low or "agi+4" in ctx_low)) else 0
+        leg_agi_enh = 4 if (has_legs and ("agility +4" in ctx_low or "agi+4" in ctx_low)) else 0
+        suite_agi = max(
+            nat_agi,
+            2 + max(arm_agi_enh, leg_agi_enh) + redliner_bonus if (has_arms or has_legs) else nat_agi,
+        )
+        suite_str = max(nat_str, 2 + redliner_bonus if (has_arms or has_legs) else nat_str)
+        da = calculate_attribute_delta_karma(nat_agi, suite_agi)
+        ds = calculate_attribute_delta_karma(nat_str, suite_str)
+        if da + ds > 0:
+            ware_attr_delta_karma += da + ds
+            suite_label = "4-Limb Cyber-Suite" if (has_arms and has_legs) else "Cyberlimbs"
+            ware_attr_details.append(f"{suite_label} AGI {suite_agi} (+{da}k), STR {suite_str} (+{ds}k)")
 
     nat_wil = int(env.get("Willpower", 1))
     aug_wil = nat_wil
@@ -770,19 +775,29 @@ def calculate_build_efficiency(target: str) -> Dict[str, Any]:
         pilot_origins_dividend += rig_delta
         pilot_origins_details.append(f"Pilot Origins R{rig_r} / Control Rig {rig_r} Delta (+{rig_delta}k)")
 
-        # Parse peak Autosoft Rating (R9 vs R6) across build
+        # Parse peak Autosoft Rating (R9 vs R6) across build, clamped by Pilot Origins Data Processing cap
         auto_ratings = [
             int(r) for r in re.findall(r'(?:autosofts?|clearsight|maneuvering|targeting)[^.\n]{0,60}(?:rating\s*|@?\s*r)(9|8|7|6|5|4)', ctx_low)
         ] + [
             int(r) for r in re.findall(r'(?:rating\s*|r)(9|8|7|6|5|4)\s+autosofts?', ctx_low)
         ]
-        auto_rating = max(auto_ratings) if auto_ratings else 6
+        raw_auto_rating = max(auto_ratings) if auto_ratings else 6
+
+        base_dp = int(env.get("Data_Processing", 1))
+        toolbox_dp = 1 if "toolbox" in full_low else 0
+        symbiosis_dp = 3 if "sprite symbiosis" in ctx_low else 0
+        res_dp = 2 if (int(env.get("Resonance", 0)) >= 5 and symbiosis_dp == 0) else 0
+        infusion_dp = 4 if "infusion (data processing)" in full_low or "infusion (dp)" in full_low else 0
+        effective_dp = base_dp + toolbox_dp + symbiosis_dp + res_dp + infusion_dp
+        auto_rating = min(raw_auto_rating, effective_dp)
 
         gross_val = 4 * calculate_triangular_skill(auto_rating)
         soft_cost_k = (4 * auto_rating * 500) // NUYEN_PER_KARMA
         net_auto_dividend = gross_val - soft_cost_k
         pilot_origins_dividend += net_auto_dividend
-        pilot_origins_details.append(f"Autosofts R{auto_rating} [4 Domains: Combat, Sensory, Infiltration, Mobility] (+{net_auto_dividend}k)")
+        pilot_origins_details.append(
+            f"Autosofts R{auto_rating} (DP Cap {effective_dp}) [4 Domains: Combat, Sensory, Infiltration, Mobility] (+{net_auto_dividend}k)"
+        )
 
     # 7. Skillwires / Synthetic Skill Driver Virtual Dividend (Deduplicated against Autosofts)
     skillwires_dividend = 0
@@ -927,6 +942,32 @@ def calculate_build_efficiency(target: str) -> Dict[str, Any]:
                     sustained_spells_details.append(f"{abbrev} {aval}->{aval+4} (+{delta_k}k)")
                     available_slots -= 1
 
+    # 9b. Conjuring Spirit / Channeling Force Multiplier (Magic Symbiont & Map Ally Parity)
+    conj_rank = int(env.get("Conjuring", 0))
+    if conj_rank >= 6:
+        conj_div = conj_rank * 25
+        sustained_spells_dividend += conj_div
+        sustained_spells_details.append(f"Conjuring Spirit / Channeling Engine (+{conj_div}k)")
+
+    # 9c. Sourceror Anchored Complex Forms (Hyperthreading + Attack/Sleaze Attribution + -2 Fade)
+    if "sourceror" in ctx_low and "attack attribution" in ctx_low and "sleaze attribution" in ctx_low:
+        focus_r = 4 if "resonance focus" in ctx_low else 0
+        thread_pool = int(env.get("Electronics", 0)) + int(env.get("Resonance", 0)) + focus_r
+        bought_hits = max(1, thread_pool // 4)
+        base_atk = int(env.get("Attack", 1))
+        base_slz = int(env.get("Sleaze", 1))
+        atk_target = min(7, max(base_atk, 1 + bought_hits))
+        slz_target = min(6, max(base_slz, 1 + bought_hits))
+        atk_delta = calculate_attribute_delta_karma(base_atk, atk_target)
+        slz_delta = calculate_attribute_delta_karma(base_slz, slz_target)
+        sourceror_engine = 24 + 15  # 1x hyperthreaded Focused Concentration pair (24k) + -2 Fade Dissonant equiv (15k)
+        cf_div = atk_delta + slz_delta + sourceror_engine
+        sustained_spells_dividend += cf_div
+        sustained_spells_details.append(
+            f"Sourceror Hyperthreaded Attribution (ATK {base_atk}->{atk_target} +{atk_delta}k, "
+            f"SLZ {base_slz}->{slz_target} +{slz_delta}k, Sustain/Fade +{sourceror_engine}k)"
+        )
+
     # 10. Gear / Nuyen Capital Spent (Data-Driven: Total Chargen Nuyen - Remaining Cash) / 2,000¥
     remaining_cash = int(env.get("Nuyen", 0))
     total_nuyen_in = int(env.get("_nuyen_inflows", 0))
@@ -1068,7 +1109,7 @@ def format_efficiency_report(res: Dict[str, Any]) -> str:
         f"  • Pilot Origins & Drone Suite : {b['pilot_origins_dividend']} Karma ({', '.join(b['pilot_origins_details']) if b['pilot_origins_details'] else 'None'})",
         f"  • Skillwires Repertoire Suite : {b['skillwires_dividend']} Karma ({b['softs_detail']})",
         f"  • Magic / Resonance / Monad   : {b['magic_resonance']} Karma ({', '.join(b['magic_details']) if b['magic_details'] else 'None'})",
-        f"  • Sustained Spells Dividend   : {b['sustained_spells_dividend']} Karma ({', '.join(b['sustained_spells_details']) if b['sustained_spells_details'] else 'None'})",
+        f"  • Anchored Buffs & Symbionts  : {b['sustained_spells_dividend']} Karma ({', '.join(b['sustained_spells_details']) if b['sustained_spells_details'] else 'None'})",
         f"  • Gear Capital Spent (¥/2000) : {b['gear_karma']} Karma",
         f"  • Positive Quality Arbitrage  : {b['qualities_net']} Karma",
     ])
@@ -1207,7 +1248,7 @@ def generate_lab_scorecard_markdown(output_path: Optional[Path] = None) -> str:
         "",
         "## 3. Data-Driven TEK Karma Breakdown Ledger",
         "",
-        "| Character | Base Attrs | Ware Delta | Natural Skills | Pilot & Drones | Skillwires | Magic / Res / Monad | Anchored Spells | Gear Capital | Quality Arbitrage | **Day-1 TEK** |",
+        "| Character | Base Attrs | Ware Delta | Natural Skills | Pilot & Drones | Skillwires | Magic / Res / Monad | Anchored Buffs & Symbionts | Gear Capital | Quality Arbitrage | **Day-1 TEK** |",
         "| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |",
     ])
 

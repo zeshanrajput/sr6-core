@@ -81,9 +81,9 @@ To graduate a character from `characters/lab/<slug>/` into `characters/<char_id>
 
 ### B. Matrix & Emergent Characters (Pilot AI Technomancers)
 
-* **Emergent Intelligences (EI) — Pilot AI Origin:** Access to Resonance + `Pilot Origins` + unlimited physical drone hull upgrades with **zero Resonance loss**.
+* **Emergent Intelligences (EI) — Pilot AI Origin & The `DP 9` Mandate:** Access to Resonance + `Pilot Origins` + unlimited physical drone hull upgrades with **zero Resonance loss**. Because `Pilot Origins` caps autosofts at the AI's **Data Processing** attribute (*H&S* pp. 114–115), every Rating 9 autosoft build must maintain an explicit **Data Processing 9** strategy (`AshE`: `Base DP 7 + RES + Toolbox >= 9`; `Ouro`: `Base DP 5 + Toolbox 1 + Machine Ally Sprite Symbiosis 3 = 9`; or `Infusion [DP]`).
 * **Anthroform Drone Chassis Selection:** See the **[Anthrodrone Chassis Guide](../../reference/anthrodrone_chassis_guide.md)** as the single source of truth for chassis stats, slot math, Heat modifiers, and starter-to-endgame recommendations.
-* **Stream — Sourcerors:** `Hyperthreading` + `-2` Fade + free sustaining slots ($\lfloor \text{Grade}/2 \rfloor$).
+* **Stream — Sourcerors:** `Hyperthreading` + `-2` Fade + free sustaining slots ($\lfloor \text{Grade}/2 \rfloor$). Functions economically as free scaling `Focused Concentration` (doubled per slot via `Hyperthreading`) plus a `Dissonant Technomancer` Fade discount without Composure erosion.
 * **Compositional Day-1 Submersion Pairings:** Technomancers and EIs can submerge twice at chargen (`3K + 4K` under MUG Loyalty 8). Rather than prescribing a single template, the core rule is to pick **two Day-1 echoes that compound each other and your build's chassis/priorities**:
   * *Session-1 Symbiont (`Sprite Conduit` + `Sprite Symbiosis` — e.g., `Ouro`):* Pair with `4` banked Karma to compile & bond a **Level 1 Ally Sprite** in Session 1 (`2K` Reg + `2K` Bond) for instant ASDF boosts and fade-free *Override*.
   * *Active Resonance & Action Economy (`Resonance Power: Override` + `Overclocking` — e.g., `AshE`):* Unlocks Day-1 `20d6` Resonance piloting, `Targeting + Sensor`, and **5D6** VR Initiative (`2` Major Actions), clearing the runway to bond a **Level 3–6 Ally Sprite** by Session 4.
@@ -92,7 +92,22 @@ To graduate a character from `characters/lab/<slug>/` into `characters/<char_id>
 * **Ally Sprite Cost Formula (*Hack & Slash*, pp. 77–78):** Source Code = `(Level × 2) + Added Powers (+1 ea) + Added Skills (+1 Tech/Knowledge, +2 Social/Combat) + Added CFs/Echoes (+1 ea)`, paid **twice** (Step 3 Permanent Registration + Step 4 Ally Bond).
 * **Key Complex Forms & Sustaining Prerequisite:** `Attack Attribution` & `Sleaze Attribution` allow dumping `ATK`/`SLZ` to `1` *only* when paired with a **zero-penalty sustaining strategy for 2 forms (or 1 hyperthreaded pair)**—e.g., `Sourceror` ($\text{Grade} \ge 2$, used by `Ouro` and `AshE`), handing sustaining off to registered/ally sprites, `Focused Concentration`, or another dedicated anchor. Other core forms: `Hyperthreading` (Sourceror only), `Resonance Wires` (pairs with `Jack Jockey`), `Diffusion (Firewall)`, `Machine Merge`, `Enlighten Automaton`, `Enhance Autosofts`, `Resonance Spike`, `Cleaner`, `Technoregeneration`.
 
-### C. Universal Negative Quality Portfolio (Max 6 Qualities / $\le +20$ Net)
+### C. Magic vs. Technomancy Symmetry & Force Multiplication Doctrine
+
+* **The Symbiont Parallel (`Channeling` $\leftrightarrow$ `Sprite Symbiosis`) & Session 4 Milestone:** Mage *Channeling* and Technomancer *Sprite Symbiosis* are direct structural mirrors: both grant attribute boosts, access to spirit/sprite powers, and an ablative shield where the symbiont absorbs incoming damage first. While spirits offer broader physical/astral versatility, ally sprites provide massive `+Level/2` Teamwork dice. **Every Mage or EI should unlock their symbiont (`Channeling` or `Sprite Symbiosis` / Ally Sprite) by the Session 4 Mulligan Milestone.**
+* **Self-Buff Parity & The Mental Attribute Divide:** Mages rarely sustain buffs on other PCs long-term due to Quickening/sustaining Heat and action penalties. An EI buffing its drone body (*Enlighten Automaton*, *Machine Merge*, *Enhance Autosofts*) is roughly equivalent to a Mage self-buffing—except **Mages uniquely buff Mental Attributes (`+4 LOG/CHA/INT/WIL`)**, whereas EIs cannot without Spark-costly AI mental codemods (*Natural Hacker* substitutes RES on Matrix tests instead).
+* **Skill Scaling Parity (`Qi Foci` $\leftrightarrow$ `Sprite Symbiosis Teamwork`):** Modular `Force 4 Qi Foci` (*Improved Ability*) and `Sprite Symbiosis` Teamwork (`+Level/2` dice across shared skills) yield equivalent skill-cap scaling. The key asymmetry is that an adept can boost `Conjuring` by `+4`, whereas a sprite can **never learn `Tasking`**—offset by the fact that technomancers do not need to summon as high-level sprites as mages summon spirits.
+* **The Shadowrun Jan-Ken-Pon (Rock–Paper–Scissors):** Overall, Magic vs. Technomancy is a wash—each covers irreproducible tactical dimensions:
+  * **Technomancers beat Riggers** (*Override*, *Puppeteer*, *Resonance Wires + Jack Jockey*).
+  * **Riggers / EIs beat Mages** (sensor-locked kinetic/laser fire from drones and sprite-crewed platforms outside line-of-sight mana; a Machine Sprite using `Engineering [Gunnery]` fires drone weapons at `Level × 2` dice).
+  * **Mages beat Technomancers** (Direct Mana spells vs. low physical/mental stats, Mind Magic, Astral overwatch).
+  * *(Meat Street Samurai are collateral damage when caught outside their lane.)*
+* **True Map Force Multiplication (Putting a 2nd Body on the Map):** Internal dual-consciousness (`Venn` without *Obsidian Cloud*, or `Ouro` with an internal symbiont in 1 body) does **not** count as map force multiplication. True Force Multiplication requires fielding an independent tactical actor on the physical map:
+  * **Mages:** Summon materialized Spirits onto the map from Day 1 (`Conjuring >= 4`).
+  * **Twin-Hull EIs (`AshE`):** Field a 2nd `Shiawase Silverstar` from Day 1 using a compiled **Level 6 Machine Sprite** (`Override` + `Engineering/Gunnery 12d6`), transitioning to permanent Ally Sprite `Aisling` at Session 4.
+  * **Single-Hull EIs (`Ouro`):** Can add map force multiplication post-chargen for the cost of a **`Hawker-Siddley Bat`** (`~12.75k¥ DIY`, as pioneered by Reiko) piloted by a registered Machine Sprite (`Override` + `Engineering`).
+
+### D. Universal Negative Quality Portfolio (Max 6 Qualities / $\le +20$ Net)
 
 * **Hooder (R3, +15K):** ¥3,000/month tithing directly funds *Working for the People* (`+1` Karma/month).
 * **Honorbound: Pirate's Code (+10K):** Zero mechanical drag; unlocks *Candle in the Dark*.
@@ -120,7 +135,7 @@ Builds in the Lab are evaluated deterministically via `uv run sr6 calc eff <char
    3. **Deterministic Edge Engine (`+1`):** Reliable Edge generation or cost reduction (*Brilliant Heuristics*, *Wise Warrior*, *Maximum Overdrive*, *Inspire Competence*, *Analytical Mind*, *Jack Jockey*).
    4. **Durability & Soak / Mitigation (`+1`):** High survivability ($\ge 14$ Soak/DR, *Damage Mitigation Protocols*, *Monad Toughness + Rapid Cellular Healing*, *Bone Density*, or heavy/twin drone hulls).
    5. **Sustain & Drain/Fade Economy (`+1`):** Dedicated sustaining & resistance architecture (*Sourceror Stream*, *Quickening*, *Focused Concentration*, or zero-drain augmentation).
-   6. **Autonomous Force Multiplication (`+1`):** Multi-body or companion bandwidth (Ally Sprite / *Sprite Symbiosis*, Twin Drone Chassis, *Conjuring* $\ge 6$, or Monad Dual Consciousness).
+   6. **Autonomous Force Multiplication (`+1`):** Independent tactical actor on the physical map (Materialized Spirit via `Conjuring >= 4`, 2nd Drone Chassis crewed by a Sprite/Ally Sprite, or Monad `Obsidian Cloud`).
    7. **Scene Permeability (`+1`):** Social & physical infiltration access (*Realistic Features*, *Chameleon Coating*, *Cosmetic Control*, *Resculpt*, *Gender Transmorphism*, *Masking*, *Phantom*, *Finesse*).
    8. **Burst Ceiling (`+1`):** Peak Sovereign Primary pool reaches **$\ge 18\text{d6}$** (Veteran/Elite readiness).
 
@@ -128,9 +143,10 @@ Builds in the Lab are evaluated deterministically via `uv run sr6 calc eff <char
 
 Measures what the Day-1 build would cost if reverse-engineered into pure post-chargen Karma (`sr6core/creation/efficiency.py`):
 
-* **Attributes & Augmentation Deltas:** Triangular `sum(r*5)` across physical or DI (`ASDF`) attributes + `Nanite_Volume`, plus top-bracket marginal deltas for Cyberlimbs (`Redliner`), `Cyber Singularity Seeker`, `Bio-Response Override`, and `Neurochemical Regulator`.
-* **Skillwires & Autosoft Dividends:** `Pilot Origins` Control Rig hardware delta (`R3 = +53K`, `R1 = +18K`) + 4 physical domains at actual Autosoft rating (`R9` or `R6`), deduplicated against `Synthetic Skill Driver` (Social Domain 5: `Con & Influence`) or meat `Skillwires` (5 universal domains at actual rating).
-* **Magic / Resonance / Monad Assets:** `Adept Powers` (`15.5K/PP`), `Spells`/`Complex Forms`/`Monad Abilities` (`5K` ea), `Initiation`/`Submersion` (`11K/23K`), bonded `Foci`, plus **Anchored Sustained Spells** (`Increase Reflexes`, `Increase Attribute`).
+* **Attributes & Augmentation Deltas:** Triangular `sum(r*5)` across physical or DI (`ASDF`) attributes + `Nanite_Volume`, plus non-duplicated whole-body marginal deltas for Cyberlimbs (`Redliner`), `Cyber Singularity Seeker`, `Bio-Response Override`, and `Neurochemical Regulator`.
+* **Skillwires & Autosoft Dividends:** `Pilot Origins` Control Rig hardware delta (`R3 = +53K`, `R1 = +18K`) + 4 physical domains clamped by effective **Data Processing** (`min(Autosoft, Effective DP)`), deduplicated against `Synthetic Skill Driver` (Social Domain 5: `Con & Influence`) or meat `Skillwires` (5 universal domains at actual rating).
+* **Magic / Resonance / Monad Assets:** `Adept Powers` (`15.5K/PP`), `Spells`/`Complex Forms`/`Monad Abilities` (`5K` ea), `Initiation`/`Submersion` (`11K/23K`), bonded `Foci`.
+* **Anchored Buffs & Symbionts:** Sovereign `Increase Reflexes` / `Increase Attribute` (`Quickening` / `Focused Concentration`) + `Conjuring Spirit / Channeling` readiness for Mages, paired symmetrically against **Sourceror Hyperthreaded Attribution** (`ATK/SLZ` deltas + free hyperthreaded sustain slot + `-2 Fade`) for Technomancers/EIs.
 * **Gear Capital & Quality Arbitrage:** Actual chargen Nuyen spent divided by `2,000¥`, plus `1×` Positive Quality cost saved vs. `2×` post-chargen purchase.
 
 ### Pillar 3: The Session 4 SRM Mulligan Checkpoint (+28 Karma / +30,000¥)

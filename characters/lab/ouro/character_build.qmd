@@ -380,9 +380,9 @@ Technomancers purchase additional complex forms for 5 Karma each (*6WC*, p. 29) 
 * **Resonance Focus (Rating 4) Data Structure Hardware**: **20,000¥** `{python} inc('Nuyen', -20000)`
   * Per *Hack & Slash* p. 71, Data Structures' list price is **5,000¥ $\times$ Rating** ($5,000¥ \times 4 = 20,000¥$).
 
-### 3. Custom Autosofts (Rating 9 via Cooperative Coding)
+### 3. Custom Autosofts (Rating 9 via Cooperative Coding & `DP 9` Mandate)
 
-Per *Hack & Slash* p. 55 (*Writing Code*), hackers can write software. Ouro codes autosofts with cooperative assistance from **Reiko**, unlocking custom autosofts up to **Rating 9**:
+Per *Hack & Slash* p. 55 (*Writing Code*), hackers can write software. Ouro codes autosofts with cooperative assistance from **Reiko**, unlocking custom autosofts up to **Rating 9**—legally executed via `Pilot Origins` by reaching **Data Processing 9** (`Base DP 5` + `Toolbox +1` + `Machine Ally Sprite Symbiosis +3` = **DP 9** from Session 1!):
 
 * **6 Autosofts @ Rating 9 ($5 \times 4,500¥ + 2,500¥\text{ upgrade} = 25,000¥$)** `{python} inc('Nuyen', -25000)`:
   * Clearsight (Rating 9): 4,500¥
@@ -594,4 +594,4 @@ Under *SRM Guide v2.4* (pp. 17–20, 59–60), downtime actions between missions
 | **N5** | **Increased Structural Integrity (R1 $\rightarrow$ R5, `Body 10 -> 15`)** | **¥2,500 DIY / rating** *(¥12,500 total DIY)* | Consumes `5/10` Chassis slots (`5` free alongside factory `RF 4`!). Pushes Soak to **15d6** (`23` Phys DR), Condition Monitor to **16 boxes**, and grants immunity to non-electrical Stun $\le 15$ DV. |
 | **N6** | **Deferred Navigation & Tracking Autosofts:**<br>• `Soft Navigation (Rating 9)`<br>• `Soft Tracking (Rating 9)` | **¥9,000 total** *(¥4,500 each)* | Offloaded from chargen to preserve `4` Karma for Ouro's Ally Sprite; coded with Reiko's assistance per *Hack & Slash* p. 55. |
 | **N7** | **Activesofts for Synthetic Skill Driver:**<br>• `Activesoft: Influence (Rating 6)`<br>• `Activesoft: Con (Rating 6)` | **¥30,000 each** *(retail / DIY)* | **The Skill Driver's True Niche:** Autosofts cannot simulate metahuman social skills; the skill driver caps at R6 and cannot be overdriven, making `Influence R6` and `Con R6` the only skills mechanically worth running through it (`10d6` social pools). |
-| **N8** | **Hardpoints & Endgame Flight Suite (`Vector Thrust` + `Top 3` + `Accel 2` + `HFC 2`)** | **VT:** `45,000¥ DIY`<br>**Top 3:** `12,000¥ DIY`<br>**Accel 2:** `15,000¥ DIY`<br>**HFC 2:** `7,500¥ DIY`<br>**Rack + Wasps:** `7,000¥` *(1k+6k DIY)* | Shifts `4` of `5` free Chassis slots $\rightarrow$ `+2` Powertrain (`12/12` Pwr for `ACC 41 / TOP 480` + `HFC 2`), leaving `1` Chassis slot for `2× Small Pop-Outs` (`Crimson Wasps` on split Hardpoint #2) + `Small Drone Rack` (#1) + `1` Std Hardpoint (#3) free! |
+| **N8** | **Hardpoints & Endgame Flight Suite (`Vector Thrust` + `Top 3` + `Accel 2` + `HFC 2`)** | **VT:** `45,000¥ DIY`<br>**Top 3:** `12,000¥ DIY`<br>**Accel 2:** `15,000¥ DIY`<br>**HFC 2:** `7,500¥ DIY`<br>**Rack + Wasps:** `7,000¥` *(1k+6k DIY)* | Shifts `4` of `5` free Chassis slots $\rightarrow$ `+2` Powertrain (`12/12` Pwr for `ACC 41 / TOP 480` + `HFC 2`), leaving `1` Chassis slot for `2× Small Pop-Outs` (`Crimson Wasps` on split Hardpoint #2) + `Small Drone Rack` (#1) + `1` Std Hardpoint (#3) free! *(Optional Map Companion: a `Hawker-Siddley Bat` [`~12.75k¥ DIY`, Reiko's blueprint] piloted by a registered Machine Sprite via `Override` + `Engineering` unlocks 2nd-body map Force Multiplication whenever needed.)* |

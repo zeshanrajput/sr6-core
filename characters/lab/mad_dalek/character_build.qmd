@@ -490,12 +490,12 @@ Initiations are strictly time-gated by the Coven Loyalty decay schedule (Order o
 | :---: | :--- | :--- | :---: | :---: | :--- |
 | **01** | **Initiation Grade 2**<br>• *Centering* | Metamagic | 4 Karma* | 1 Major Action<br>*(SRM #1 / Month 1)* | *CRB* 164: Cost $10+2-8=4\text{K}$ at **Loyalty 8**. Adds Initiate Grade (+2) to Drain Resistance tests. Baseline drain resistance pool jumps to **18+ dice** with sustained attribute buffs (Willpower 5 + Logic 12 + Centering 2 = 19d, buying 4 hits). |
 | **02** | **Qi Focus: Improved Sorcery (R1)** | Qi Focus | 12,000¥<br>+8 Karma | 1 Minor Action<br>*(Avail 4L, between runs)* | *CRB* 155, 159: Force 4 (1.0 PP). Stacks with natural Improved Ability (R3) to reach **+4 max skill bonus**. Spellcasting rises from 13 to **14 dice**! Instant downtime buy. |
-| **03** | **Initiation Grade 3**<br>• *Masking* | Metamagic | 5 Karma* | 1 Major Action<br>*(SRM #2 / Month 1)* | *CRB* 165: Cost $10+3-8=5\text{K}$ (**still at Loyalty 8!**). Opposes Assensing with $\text{Magic (5)} + \text{Initiate Grade (3)} = \mathbf{8\text{ dice}}$. Disguises aura as mundane and masks quickened spells. *(End of Month 1: Loyalty decays $8 \rightarrow 7$).* |
-| **04** | **Initiation Grade 4**<br>• *Extended Masking* | Metamagic | 7 Karma* | 1 Major Action<br>*(SRM #3 / Month 2)* | *Street Wyrd* 119: Cost $10+4-7=7\text{K}$ at **Loyalty 7**. **Prerequisite: Masking**. Extends aura masking to cover all quickened spells and cyberware signatures. |
+| **03** | **Initiation Grade 3**<br>• *Channeling* | Metamagic | 5 Karma* | 1 Major Action<br>*(SRM #2 / Month 1)* | *Street Wyrd* 118: Cost $10+3-8=5\text{K}$ (**still at Loyalty 8!**). Unlocks the **Session 4 Symbiont Milestone**: lets summoned spirits inhabit MAD Dalek for `+Force/2` Physical Attributes, Hardened Armor, and spirit powers while keeping full spellcasting control. *(End of Month 1: Loyalty decays $8 \rightarrow 7$).* |
+| **04** | **Initiation Grade 4**<br>• *Masking* | Metamagic | 7 Karma* | 1 Major Action<br>*(SRM #3 / Month 2)* | *CRB* 165: Cost $10+4-7=7\text{K}$ at **Loyalty 7**. Opposes Assensing with $\text{Magic (5)} + \text{Initiate Grade (4)} = \mathbf{9\text{ dice}}$, disguising aura as mundane and masking foci. |
 | **05** | **Initiation Grade 5**<br>• *Adept Item Attunement*<br>*(Cyberdeck — Cracking)* | Metamagic | 8 Karma*<br>+10K Bond | 1 Major Action<br>*(SRM #4 / Month 2)* | *Street Wyrd* 84–85 / *SRMG* 46–47: Cost $10+5-7=8\text{K}$ at **Loyalty 7**. Attuning the cyberdeck costs $10\text{ Karma}$ and adds Initiate Grade (+4 max) to **all Cracking tests**. Eliminates need for Cracking Qi Focus (saving 12 Force!). *(End of Month 2: Loyalty decays $7 \rightarrow 6$).* |
 | **06** | **Power Focus (Rating 3)** | Power Focus | 54,000¥<br>+18 Karma | 1 Minor Action<br>*(Avail 9L, via CMP / runs)* | *CRB* 155: Force 3. **The Power Focus Arbitrage**. Adds **+3 to effective Magic** on all Magic tests: Spellcasting leaps to **17 dice**, Conjuring to **16 dice** (hits **4 bought hits** threshold deterministically!), Drain Resistance to **22+ dice**! |
 | **07** | **Attribute: Magic 5 $\rightarrow$ 6** | Attribute | 30 Karma | None (Between runs) | **Prioritized via CMP Banked Karma**. Unlocks Initiate Grade 6 ceiling ($\text{Grade} \le \text{Magic}$) and expands Focus Bonding Cap to **30 Force** (*City Edition*). |
-| **08** | **Initiation Grade 6**<br>• *Stealth Effect* | Metamagic | 10 Karma* | 1 Major Action<br>*(SRM #5 / Month 3)* | *Deadly Arts* 173: Cost $10+6-6=10\text{K}$ at **Loyalty 6**. Cast spells without sensory manifestation, completely imperceptible to mundane observers! (Wise Warrior mentor spirit already acquired at chargen). *(End of Month 3: Loyalty decays $6 \rightarrow 5$).* |
+| **08** | **Initiation Grade 6**<br>• *Extended Masking* | Metamagic | 10 Karma* | 1 Major Action<br>*(SRM #5 / Month 3)* | *Street Wyrd* 119: Cost $10+6-6=10\text{K}$ at **Loyalty 6** (**Prereq: Masking**). Extends aura masking to cover all quickened spells and cyberware signatures. *(End of Month 3: Loyalty decays $6 \rightarrow 5$).* |
 | **09** | **Qi Focus: Improved Conjuring (R1)** | Qi Focus | 12,000¥<br>+8 Karma | 1 Minor Action<br>*(Avail 4L, between runs)* | *CRB* 155, 159; *SSWFAQ-0069*: Force 4 (1.0 PP). Stacks with Adept R1 + Wise Warrior (+1) + Power Focus 3 for **17 dice** on Conjuring! Legal at Magic $\le 6$ (unlike illegal Force 8 foci). |
 | **10** | **Qi Focus: Improved Conjuring (R1 - Focus #2)** | Qi Focus | 12,000¥<br>+8 Karma | 1 Minor Action<br>*(Avail 4L, between runs)* | *CRB* 155, 159; *SSWFAQ-0069*: Force 4 (1.0 PP). Second Force 4 focus stacks to achieve the **+4 max augmented skill cap** $\rightarrow$ Conjuring jumps to **18 dice**! Total bonded Force = 15 / 30. |
 | **11** | **Quality: Analytical Mind** | Positive Quality | 6 Karma<br>*(2x 3K)* | None (Between runs) | *CRB* 70: Stacked alongside native **Analytics** adept power to provide redundant Edge generation across Logic tests without diverting critical early initiation Karma. |
@@ -600,16 +600,16 @@ Under *SR6 CRB* p. 154–155 and *City Edition: Seattle* p. 154–155 (`[SR6H-07
 
 *Resources Available:* **`33 Karma`** (`5K` banked + `28K`) and **`¥33,575`** (`¥3,575` banked + `¥30,000`) across **4 Major + 4 Minor Downtime Actions**.
 
-* **Major Actions (All 4 used under Coven Decay L8 $\rightarrow$ L7):** Initiation Grade 2 (`Centering`, `4K` @ L8), Grade 3 (`Masking`, `5K` @ L8), Grade 4 (`Extended Masking`, `7K` @ L7), Grade 5 (`Adept Item Attunement: Cyberdeck`, `8K` @ L7).
+* **Major Actions (All 4 used under Coven Decay L8 $\rightarrow$ L7):** Initiation Grade 2 (`Centering`, `4K` @ L8), Grade 3 (`Channeling`, `5K` @ L8), Grade 4 (`Masking`, `7K` @ L7), Grade 5 (`Adept Item Attunement: Cyberdeck`, `8K` @ L7).
 * **Karma Queue (`32K` spent, `1K` left):** `24K` (Initiations 2–5) + `8K` (**Qi Focus: Improved Sorcery R1**, Force 4, Avail 4L).
 * **Nuyen Queue (`¥12,000` spent, `¥21,575` banked toward Power Focus R3):** `¥12,000` (**Force 4 Sorcery Qi Focus**), preserving `¥21,575` toward the `¥54,000` Power Focus R3 milestone.
 * **Session 4 Operational Pools:**
-  * **Astral**: Spellcasting **14d6** (`+1` Qi Focus) | Conjuring **13d6** | Hermetic Drain **19d6** (`+2` Centering) | Aura Defense **9d6** (*Extended Masking*)
+  * **Astral**: Spellcasting **14d6** (`+1` Qi Focus) | Conjuring **13d6** | Hermetic Drain **19d6** (`+2` Centering) | Aura Defense **9d6** (*Masking*) | **Channeling Symbiont Active** (`+Force/2` Phys Attrs + Spirit Powers)
   * **Matrix**: **20d6** *(ready for `+4` Cyberdeck Attunement in Session 5)*
-  * **Physical**: 8d6
+  * **Physical**: 8d6 *(boosted to 11–12d6+ while Channeling)*
   * **Social**: 8d6
   * **Defense**: 9d6
   * **Initiative**: 4d6 (2 Major Actions)
   * **Edge Engine**: Brilliant Heuristics + Wise Warrior
   * **Bonus TEK**: +105
-  * **Key Unlocks**: Initiations 2–5 (`Centering`, `Masking`, `Extended Masking`, `Adept Item Attunement`), Force 4 Sorcery Qi Focus (14d6 Spellcasting / 19d6 Drain), ¥21.6k banked toward Power Focus R3
+  * **Key Unlocks**: Initiations 2–5 (`Centering`, `Channeling`, `Masking`, `Adept Item Attunement`), Force 4 Sorcery Qi Focus (14d6 Spellcasting / 19d6 Drain), ¥21.6k banked toward Power Focus R3

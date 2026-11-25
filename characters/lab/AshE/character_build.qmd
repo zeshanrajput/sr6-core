@@ -295,7 +295,7 @@ Because Complex Forms (`5K`), Specializations (`5K`), and Focus bonding (`4K`) c
 * **2× Shiawase Silverstar Medium Anthro Drones** (`9,000¥ × 2` = **18,000¥**): `{python} inc('Nuyen', -18000)`
   * *Handling*: 3/3 | *Accel*: 5 | *Speed*: 10/30 | *Body*: 8 | *Armor*: 4 | *Pilot*: 3 | *Sensor*: 3 | *Avail*: 4 *(`+0` Heat per *DC* p. 127 vehicle exemption)*
   * *Stock Features*: `Realistic Features 1` (passes social scenes Day 1!), `Autosoft (Knowledge: Law)`, `2×` Standard Hardpoints.
-  * One frame houses **Étaín**; the identical twin frame houses **Aisling** (initially slaved via RCC, then piloted directly by Aisling via *Override* once bonded as a Level 6 Ally Sprite!).
+  * One frame houses **Étaín**; the identical twin frame houses **Aisling**—piloted on **Day 1** by a compiled **Level 6 Machine Sprite** (`15d6` Tasking; `Override` Pilot 6, `Engineering/Gunnery 12d6`, `Diagnostics`, `Stability`) for immediate two-body map Force Multiplication, then piloted permanently by **Aisling** via *Override* once bonded as a Music Ally Sprite at Session 4!
 * **Essential Chargen Chassis Modifications (*Double Clutch*, pp. 137–139)**:
   * **2× Secondary Propulsion (Wheeled)** (`BOD 8 × 1,000¥ × 2` = **16,000¥**): `{python} inc('Nuyen', -16000)` *(Avail 3, 2 Powertrain slots each; Accel 10, Speed 15/120 — required at chargen for Round-1 combat mobility.)*
   * **2× Passive Stealth Features** (`1,000¥ × 2` = **2,000¥**): `{python} inc('Nuyen', -2000)` *(Avail 3, 1 Electronics slot each; +1 detection threshold).*
