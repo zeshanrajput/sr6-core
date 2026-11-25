@@ -8,9 +8,9 @@ identity:
   gender: MALE
   age: ~ 1
   system: shadowrun6e
-  karma: 4
+  karma: 0
   lifetime_karma: 0
-  nuyen: 2160
+  nuyen: 60
   lifetime_nuyen: 0
   heat: 0
   submersion: 2

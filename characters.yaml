@@ -55,7 +55,8 @@ characters:
 
   etain:
     name: "Étaín & Aisling"
-    repo: "characters/lab/etain"
+    handle: "AshE"
+    repo: "characters/lab/AshE"
     master_yaml: "etain_master.yaml"
     status: "prototype"
     role: "AI-Pilot Technomancer (Twin PC + Ally Sprite)"

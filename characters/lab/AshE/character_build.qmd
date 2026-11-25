@@ -3,7 +3,7 @@ title: "Character Creation (Point Buy)"
 identity:
   id: etain
   name: Takahashi Étaín
-  handle: Étaín
+  handle: AshE
   real_name: Takahashi Étaín
   metatype: AI-Pilot AI
   stream: Sourcerors
@@ -14,9 +14,9 @@ identity:
 
 # Character Creation (Point Buy)
 
-This page tracks the character creation process for **Takahashi Étaín ("Étaín")**—with her twin **Aisling** modeled as her post-chargen **Level 6 Music Ally Sprite**—built using the Point Buy system (*Sixth World Companion*, pp. 28–30) and the Digital Intelligence and Codesmithing rules (*Hack & Slash*, pp. 114–128).
+This page tracks the character creation process for **Takahashi Étaín & Aisling** (operating under the joint street handle **"AshE"**)—with her twin **Aisling** modeled as Étaín's post-chargen **Level 6 Music Ally Sprite**—built using the Point Buy system (*Sixth World Companion*, pp. 28–30) and the Digital Intelligence and Codesmithing rules (*Hack & Slash*, pp. 114–128).
 
-> **Lab Template Relationship:** Étaín (+ Aisling) is the **Spark Purist Twin Pair** fork of the [Takahashi Second-Generation Sparks Template](../sparks_template.md). Unlike Ouro, Étaín sides with Reiko in keeping her **Spark whole (6.00)**—forgoing all codemods to preserve **Resonance 6** on Day 1 and dedicating her resources to twin **Shiawase Man-at-Arms** anthroform bodies for herself and Aisling.
+> **Lab Template Relationship:** Étaín (+ Aisling) is the **Spark Purist Twin Pair** fork of the [Takahashi Second-Generation Sparks Template](../sparks_template.md). Unlike Ouro, Étaín sides with Reiko in keeping her **Spark whole (6.00)**—forgoing all codemods to preserve **Resonance 6** on Day 1 and dedicating her resources to twin **Shiawase Silverstar** anthroform bodies for herself and Aisling (`Avail 4`, `+0` Heat per *DC* p. 127, saving `89,000¥` DIY across both hulls at endgame).
 
 ```{python}
 #| echo: false
@@ -161,7 +161,7 @@ Total CP spent on Skills: **8 CP** (4 points $\times$ 2 CP).
 
 * All characters start with `{python} assign('Nuyen', 10000)` (10,000¥ free).
 * Purchase **6 CP of resources** at 20,000¥ per CP (*6WC*, p. 29):
-  * `{python} inc_many(('Nuyen', 120000), ('Character_Points', -6))` (130,000¥ budget covering twin Man-at-Arms drones w/ wheels, `2× Armor Jacket`, `2× Ares Predator VI + Silencer`, `Scratch-Built Junk` RCC, R4 Resonance Focus, shops, 8× R9 autosofts, datasofts/programs, Fake SIN R4, and 1 month Low Lifestyle).
+  * `{python} inc_many(('Nuyen', 120000), ('Character_Points', -6))` (130,000¥ resource budget + 4,000¥ from 2 customization Karma = 134,000¥ covering twin Silverstar drones w/ wheels, `2× Armor Jacket`, `2× Ares Predator VI + Silencer`, `Scratch-Built Junk` RCC, R4 Resonance Focus, shops, 8× R9 autosofts, datasofts/programs, Fake SIN R4, and 1 month Low Lifestyle).
 
 ---
 
@@ -178,7 +178,7 @@ Total CP spent on Skills: **8 CP** (4 points $\times$ 2 CP).
 
 ::: {.callout-tip title="Character Points Allocation Complete: 0 CP Remaining"}
 * **All `100 CP` allocated** (`Edge 6`, `Resonance 6`, `Data Processing 7`, `Electronics 6`, `¥130,000` Resources).
-* **Remaining Post-Step-6 Buffers:** **`4 Karma`** and **`¥2,160`** pocket cash.
+* **Remaining Post-Step-6 Buffers:** **`2 Karma`** and **`¥1,160`** pocket cash (after converting `2K -> +4,000¥` for twin Silverstars).
 :::
 
 ---
@@ -275,16 +275,18 @@ Because Complex Forms (`5K`), Specializations (`5K`), and Focus bonding (`4K`) c
 
 ---
 
-## 12. Equipment, Twin Drone Chassis, and Software (130,000¥ Budget)
+## 12. Equipment, Twin Drone Chassis, and Software (134,000¥ Budget)
 
-### 1. Twin Anthroform Chassis Pair: 2× Shiawase Man-at-Arms (*Double Clutch*, p. 117)
+* **Customization Karma-to-Nuyen Conversion** (*CRB*, p. 66): `{python} inc_many(('Karma', -2), ('Nuyen', 4000))` *(Converts 2 of 4 reserve Karma into +4,000¥ to fund the twin `Shiawase Silverstar` chassis upgrade while keeping `2` Karma and all 8 R9 autosofts intact).*
 
-* **2× Shiawase Man-at-Arms Medium Anthro Drones** (`4,500¥ × 2` = **9,000¥**): `{python} inc('Nuyen', -9000)`
-  * *Handling*: 3/3 | *Accel*: 5 | *Speed*: 5/10 | *Body*: 10 | *Armor*: 8 | *Pilot*: 2 | *Sensor*: 2 | *Avail*: 3L
-  * *Stock Features*: Anthroform cyberlimbs (Strength 3), Standard Weapon Mount.
+### 1. Twin Anthroform Chassis Pair: 2× Shiawase Silverstar (*Tarnished Star*, p. 158)
+
+* **2× Shiawase Silverstar Medium Anthro Drones** (`9,000¥ × 2` = **18,000¥**): `{python} inc('Nuyen', -18000)`
+  * *Handling*: 3/3 | *Accel*: 5 | *Speed*: 10/30 | *Body*: 8 | *Armor*: 4 | *Pilot*: 3 | *Sensor*: 3 | *Avail*: 4 *(`+0` Heat per *DC* p. 127 vehicle exemption)*
+  * *Stock Features*: `Realistic Features 1` (passes social scenes Day 1!), `Autosoft (Knowledge: Law)`, `2×` Standard Hardpoints.
   * One frame houses **Étaín**; the identical twin frame houses **Aisling** (initially slaved via RCC, then piloted directly by Aisling via *Override* once bonded as a Level 6 Ally Sprite!).
-* **Essential Chargen Chassis Modifications (*Double Clutch*, pp. 138–139)**:
-  * **2× Secondary Propulsion (Wheeled)** (`BOD 10 × 1,000¥ × 2` = **20,000¥**): `{python} inc('Nuyen', -20000)` *(Avail 3, 2 Powertrain slots each; Accel 10, Speed 15/120 — required at chargen because walking speed is too slow for combat.)*
+* **Essential Chargen Chassis Modifications (*Double Clutch*, pp. 137–139)**:
+  * **2× Secondary Propulsion (Wheeled)** (`BOD 8 × 1,000¥ × 2` = **16,000¥**): `{python} inc('Nuyen', -16000)` *(Avail 3, 2 Powertrain slots each; Accel 10, Speed 15/120 — required at chargen for Round-1 combat mobility.)*
   * **2× Passive Stealth Features** (`1,000¥ × 2` = **2,000¥**): `{python} inc('Nuyen', -2000)` *(Avail 3, 1 Electronics slot each; +1 detection threshold).*
 * **2× Armor Jackets** (`1,000¥ × 2` = **2,000¥**): `{python} inc('Nuyen', -2000)` *(0 drone slots; inconspicuous social outer layer).*
 * **2× Ares Predator VI + Silencers** (`(750¥ + 500¥) × 2` = **2,500¥**): `{python} inc('Nuyen', -2500)` *(Built-in smartgun, SA/BF, uses `Targeting [Handheld] R9`).*
@@ -302,7 +304,7 @@ Because Complex Forms (`5K`), Specializations (`5K`), and Focus bonding (`4K`) c
 ### 3. Cooperative Custom Autosofts (Rating 9 via Reiko)
 
 * **8 Autosofts @ Rating 9 ($8 \times 4,500¥ = 36,000¥$)** `{python} inc('Nuyen', -4500 * 8)`:
-  * `Clearsight (R9)`, `Evasion (R9)`, `Maneuvering [Shiawase Man-at-Arms] (R9)`, `Stealth [Shiawase Man-at-Arms] (R9)`, `Targeting [Close Combat / Handheld] (R9)`, `Soft Engineering [Industrial Mechanic] (R9)`, `Biotech (R9)`, `Soft Con / Performance (R9)`. *(Skipped `Soft Influence`: they can reference Reiko's copy when programming Aisling's source code.)*
+  * `Clearsight (R9)`, `Evasion (R9)`, `Maneuvering [Shiawase Silverstar] (R9)`, `Stealth [Shiawase Silverstar] (R9)`, `Targeting [Close Combat / Handheld] (R9)`, `Soft Engineering [Industrial Mechanic] (R9)`, `Biotech (R9)`, `Soft Con / Performance (R9)`. *(Skipped `Soft Influence`: they can reference Reiko's copy when programming Aisling's source code.)*
 
 ### 4. Datasofts, Utilities & Cyberprograms
 
@@ -362,8 +364,8 @@ Total Contact Points Remaining: `{python} Contact_Points`
 | **Spark (AI Essence)** | `{python} round(Spark, 2)` | 6.00 / 6.00 (Zero codemods) | **Purist Whole** |
 | **Submersion Grade** | **2** | *Resonance Power: Override*, *Overclocking* (MUG L8) | **Verified** |
 | **Contact Points** | `{python} Contact_Points` | 0 Remaining (24 Spent) | **Exact Match** |
-| **Customization Karma** | `{python} Karma` | 4 Karma in reserve | **Rules Legal (<= 5)** |
-| **Starting Pocket Cash** | ¥`{python} f"{Nuyen:,}"` | $\le 5,000¥$ limit (2,160¥ remaining) | **Compliant** |
+| **Customization Karma** | `{python} Karma` | 2 Karma in reserve (`2K -> +4,000¥`) | **Rules Legal (<= 5)** |
+| **Starting Pocket Cash** | ¥`{python} f"{Nuyen:,}"` | $\le 5,000¥$ limit (1,160¥ remaining) | **Compliant** |
 
 ## Starting Stats/Pools
 
@@ -376,11 +378,11 @@ Total Contact Points Remaining: `{python} Contact_Points`
   * Threading (Complex Forms): `Electronics (6) + RES (6) + Focus (4)` = **16d6** (4 bought hits; **18d6** once *Complex Forms* Spec is added)
   * Actions: `Cracking (5) / Electronics (6) + RES (6) + Focus (4)` = **15–16d6**
   * Defense: `RES (6) + Focus (4) + FW (8) + Personal Assistant (3) + Directional Shield (DP:9)` = **30d6**
-3. Drone Operations (Twin Man-at-Arms via Day-1 *Override*)
+3. Drone Operations (Twin Silverstar via Day-1 *Override*)
   * Piloting (*Override*, *CRB* p. 194): `Autosoft (9) + Resonance (6) + Focus (4) + Pilot Origins (1)` = **20d6** *(16d6 without Focus)*
-  * Targeting (*Override*, *CRB* pp. 194, 201): `Autosoft (9) + Sensor (3 [2+1 Sensor Upgrade]) + Pilot Origins (1)` = **13d6** Day 1 (**17d6** @ *Sensor 6*, **20d6** w/ *Enhanced Sensors 9* in N4; **26–28d6** w/ *Enlighten Automaton*!)
+  * Targeting (*Override*, *CRB* pp. 194, 201): `Autosoft (9) + Sensor (4 [3+1 Sensor Upgrade]) + Pilot Origins (1)` = **14d6** Day 1 (**17d6** @ *Sensor 6*, **20d6** w/ *Enhanced Sensors 9* in N4; **26–28d6** w/ *Enlighten Automaton*!)
 4. Social Operations
-  * Étaín Unaugmented: `CHA (4)` = **4d6** *(Aisling carries `Con 6`, `Influence [Etiquette] 6` on the twin Man-at-Arms frame once bonded)*
+  * Étaín Unaugmented: `CHA (4)` = **4d6** *(Aisling carries `Con 6`, `Influence [Etiquette] 6` on the twin Silverstar frame once bonded)*
 5. Tactical Scaffolding
   * Initiative: **5D6** (Hot-Sim VR w/ Day-1 *Overclocking*; **2 Major Actions/turn** immediately, scaling to **4+ Major Actions/turn** once Aisling is bonded)
   * Edge Engine: Resonance Edge accumulation & *Jack Jockey* Edge denial
@@ -402,7 +404,7 @@ Because post-chargen advancement is gated by **three independent finite resource
 | **1–2** | *Resonance Power: Override*, *Overclocking* | *H&S* p. 68 / *CRB* pp. 194–195 | `3K + 4K` | **Chargen** | **Online Day 1:** `Override` (`20d6` Pilot, `Targeting + Sensor`) & **5D6** Hot-Sim VR Initiative (2 Major Actions/turn). |
 | **3** | **New Sprite Type** | *H&S* p. 72 | **5K*** | **SRM #1** *(M1, L8)* | Unlocks compiling & registering **Music Sprites** (for Aisling). |
 | **4** | **Sprite Conduit** | *H&S* pp. 77–78 | **6K*** | **SRM #2** *(M1, L8)* | Unlocks Step 3 Permanent Registration & Step 4 Ally Sprite bonding—arrives right as Karma hits `24K` for Aisling! *(End M1: L8 $\rightarrow$ L7.)* |
-| **5** | **Living Network** | *CRB* p. 195 | **8K*** | **SRM #3** *(M2, L7)* | PAN master for twin Man-at-Arms; unlocks **2nd Sourceror slot** (`5/2=2`), sustaining hyperthreaded *Enlighten Automaton + Enhance Autosofts* on each twin in combat (swapping to *Attack/Sleaze Attribution* + *Diffusion [FW]* or *Resonance Wires* out of combat). |
+| **5** | **Living Network** | *CRB* p. 195 | **8K*** | **SRM #3** *(M2, L7)* | PAN master for twin Silverstars; unlocks **2nd Sourceror slot** (`5/2=2`), sustaining hyperthreaded *Enlighten Automaton + Enhance Autosofts* on each twin in combat (swapping to *Attack/Sleaze Attribution* + *Diffusion [FW]* or *Resonance Wires* out of combat). |
 | **6** | **Transcendent Network** | *H&S* p. 69 *(Prereq: Living Network)* | **9K*** | **SRM #4** *(M2, L7)* | Shared Edge pool (`= Grade`) + bonus Minor Action on *Send Message* (*SRMG* M-TOC rules). *(End M2: L7 $\rightarrow$ L6.)* |
 | **7** | **Software Emulator** | *H&S* p. 69 *(Prereq: Living Network)* | **11K*** | **SRM #5** *(M3, L6)* | **Requires `RES 6 -> 7` (`35K`) first.** Optional passive/rigger slots (`Personal Assistant`, `Directional Shield`, `Smartsoft`, `Swarm`—no need for a hacking program library; swap behind `Sprite Link` if unneeded). |
 | **8** | **Sprite Link** | *H&S* p. 69 | **12K*** | **SRM #6** *(M3, L6)* | **Requires `RES 7 -> 8` (`40K`) first.** `+1` bonus Minor Action when commanding sprite Teamwork; fading transfer. *(End M3: L6 $\rightarrow$ L5.)* |
@@ -416,7 +418,7 @@ Because post-chargen advancement is gated by **three independent finite resource
 
 | Priority | Target Upgrade | Cost | Time / Action | Purpose |
 | :---: | :--- | :---: | :--- | :--- |
-| **K1** | **Aisling Stage 1 (Level 5 Music Ally Sprite w/ `Override` + `Overclocking`)** | **24K** *(20K net after 4K reserve)* | Extended Downtime *(1h/lvl, Thresh 12)* | Ready immediately after **SRM #2 (`Sprite Conduit`)**! Comes online w/ `RES 6`, `Pilot 5` (`Override`), and `5D6` Init (`Overclocking`). |
+| **K1** | **Aisling Stage 1 (Level 5 Music Ally Sprite w/ `Override` + `Overclocking`)** | **24K** *(22K net after 2K reserve)* | Extended Downtime *(1h/lvl, Thresh 12)* | Ready immediately after **SRM #2 (`Sprite Conduit`)**! Comes online w/ `RES 6`, `Pilot 5` (`Override`), and `5D6` Init (`Overclocking`). |
 | **K2** | **Aisling Stage 2a (`Phantom`, `Cracking`, `Diagnostics`, `Engineering`)** | **8K** *(2K each)* | Extended Downtime *(H&S p. 78, Thresh 5)* | `2×` upgrade rate = exact same Karma as birth. **`Phantom`** veils twin drones/personas early (hits 5/5 powers at L5), while `Cracking`/`Diagnostics`/`Engineering` open full Matrix & tech teamwork. |
 | **K3** | **Everyday Matrix Utilities: `Diffusion (Firewall)` + `Cleaner`** | **10K** *(5K each)* | Minor Actions *(Study)* | Come up nearly every run: **`Diffusion (FW)`** (`Fade 2` w/ Sourceror) shreds host/target Firewalls *(no *Infusion [FW]* needed)*, while **`Cleaner`** scrubs Overwatch Score whenever Étaín or the team is hacking. |
 | **K4** | **Veteran/Elite Combat & Scaling Forms: `Enhance Autosofts`, `Enlighten Automaton`, `Resonance Spike`, `Technoregeneration`** | **5K each** | Minor Actions *(Study)* | **`Enhance Autosofts` + `Enlighten Automaton`** push the twins into Veteran/Elite pools (filling both combat slots at **Submersion 5** `Living Network`, swapping out of combat to *Attack/Sleaze Attribution*); **`Resonance Spike`** (`Fade 2`) bypasses *P-ICE: Spines*; **`Technoregeneration`** repairs twin chassis. *(`Puppeteer` skipped: `Resonance Wires + Jack Jockey` handles direct device takeovers; defer `Cyber Spike` until Submersion 8 `Sprite Link`.)* |
@@ -429,15 +431,15 @@ Because post-chargen advancement is gated by **three independent finite resource
 
 ### Tracker 3: Nuyen & DIY Hardware Queue (Minor Actions)
 
-*Every hull mod doubles across the twin Man-at-Arms (`10 Chassis / 10 Powertrain / 10 Electronics` base slots + `1` Standard Hardpoint each; `Wheeled` uses `2` Powertrain slots, `Passive Stealth` uses `1` Electronics slot). Drone modifications use **50% DIY workshop pricing** (*Double Clutch*, p. 120), install incrementally by paying rating differences, and fit up to 3 drones per Minor Action. **Why `Body` crushes `Standard Armor`:** drones share **one Condition Monitor** (no Stun overflow buffer), soak with `Body`, ignore non-electrical Stun `<= Body` (*CRB* p. 197), and lose `10` Top Speed per `+1` `Standard Armor` (*DC* pp. 132–133—`+12` would freeze a Man-at-Arms at `0` Top Speed!).*
+*Every hull mod doubles across the twin Silverstars (`8 Chassis / 8 Powertrain / 8 Electronics` base slots + `2` Standard Hardpoints each; `Wheeled` uses `2` Powertrain slots, `Passive Stealth` uses `1` Electronics slot). Drone modifications use **50% DIY workshop pricing** (*Double Clutch*, p. 120), install incrementally by paying rating differences, and fit up to 3 drones per Minor Action. **Why `Body` crushes `Standard Armor`:** drones share **one Condition Monitor** (no Stun overflow buffer), soak with `Body`, ignore non-electrical Stun `<= Body` (*CRB* p. 197), and lose `10` Top Speed per `+1` `Standard Armor` (*DC* pp. 132–133).*
 
 | Priority | Hardware / Software Target | Cost (DIY / Retail) | Slots & Tactical Role |
 | :---: | :--- | :---: | :--- |
-| **N1** | **Immediate Street Kit:** Explosive / Self-Defense / Gel ammo in smart-select variable mags for the `Predator VIs`, `Stun Grenades ×6–10` (`100¥` each), `Electricity Resistance` on `Armor Jackets` *(plus `Actioneer` for high-society scenes)*, `4× Laser Jacks`, `2× Satellite Links` | **~¥2,000–¥3,500 total** *(uses ¥2,160 starting cash)* | **Session 1–2 buy:** `Stun Grenades` (`10S GZ / 8S Close / 6S Near`) are already ignored Day 1 at `Body 10`; **0-slot worn Armor Jackets** stay socially inconspicuous & add *Electricity Resistance*. |
-| **N2** | **`Realistic Features` (R0 $\rightarrow$ R3/R4)** | **4,000¥ DIY / rating / hull** *(12k–16k¥ DIY/hull)* | `1` Chassis slot/rating (`3–4` slots from R0). **Scene-access priority #1:** Lets both twins pass as ordinary metahumans in social, public, and corporate scenes so you can participate at the table everywhere. |
+| **N1** | **Immediate Street Kit:** Explosive / Self-Defense / Gel ammo in smart-select variable mags for the `Predator VIs`, `Stun Grenades ×6–10` (`100¥` each), `Electricity Resistance` on `Armor Jackets` *(plus `Actioneer` for high-society scenes)*, `4× Laser Jacks`, `2× Satellite Links` | **~¥1,000–¥2,000 total** *(uses ¥1,160 starting cash + Run 1 payout)* | **Session 1–2 buy:** **0-slot worn Armor Jackets** lift Defense Rating well past `Armor 4` while staying socially inconspicuous & adding *Electricity Resistance*. |
+| **N2** | **`Realistic Features` (R1 $\rightarrow$ R4)** | **4,000¥ DIY / rating / hull** *(12k¥ DIY/hull)* | `1` Chassis slot/rating (`3/8` slots from stock `RF 1`). **Scene-access priority #1:** Already starts at `RF 1` Day 1; upgrading to `RF 4` maximizes social disguise. |
 | **N3** | **`Chameleon Coating 4`** (Both Hulls) | **9,000¥ DIY / hull** *(18,000¥ both)* | `2` E-slots (*DC* p. 138, `Avail 8(I)`). **Scene-access priority #2:** Optical **Invisible (Imp.) 4** while stationary / Speed Int 1, letting the twins join every stealth and B&E scene. |
-| **N4** | **`Enhanced Sensors` (R2 $\rightarrow$ R6 $\rightarrow$ R9)** + Sensor Array *(Camera, Mic, Ultrasound, Low-light, Flare Comp, Audio Damper, Olfactory)* | **2,500¥ DIY / rating / hull** *(10k¥ to R6; 17.5k¥/hull to R9)* | `1` E-slot/rating (`7` slots at R9; fits cleanly inside `10` Electronics slots alongside `Chameleon + Passive Stealth` [`10/10` E-slots]!). Outranks `Body` because Sensors start at `2` and drive **`Override` Targeting (`13d6 -> 17d6 -> 20d6`)**, Device Rating, and Stun-synergy Array slots. |
-| **N5** | **`Increased Structural Integrity` (R1 $\rightarrow$ R4, `Body 10 -> 14`)** *(incremental steps)* | **2,500¥ DIY / rating / hull** *(5k¥ to R2; 10k¥/hull max)* | `1` Chassis slot/rating (`4/10` max; fits w/ `RF 3–4` for `7–8/10` Chassis). **`R4` (`Body 14`)** pushes `+4` Soak (`14d6`), **`15` CM boxes**, and `DV 14` Stun immunity w/ zero speed penalty. |
+| **N4** | **`Enhanced Sensors` (R3 $\rightarrow$ R6 $\rightarrow$ R9)** + Sensor Array *(Camera, Mic, Ultrasound, Low-light, Flare Comp, Audio Damper, Olfactory)* | **2,500¥ DIY / rating / hull** *(7.5k¥ to R6; 15k¥/hull to R9)* | `1` E-slot/rating (`6` slots at R9; shifts `2` Powertrain $\rightarrow$ `+1` Electronics for `9/9` E-slots alongside `PS + Chameleon 4`!). Drives **`Override` Targeting (`14d6 -> 17d6 -> 20d6`)**, Device Rating, and Stun-synergy Array slots. |
+| **N5** | **`Increased Structural Integrity` (R1 $\rightarrow$ R4, `Body 8 -> 12`)** *(incremental steps)* | **2,500¥ DIY / rating / hull** *(5k¥ to R2; 10k¥/hull max)* | `1` Chassis slot/rating (`4/8` max; fits w/ `RF 4` + `2× Small Pop-Outs` [`1` slot] for `8/8` Chassis!). **`R4` (`Body 12`)** pushes `+4` Soak (`12d6`), **`14` CM boxes**, and `DV 12` Stun immunity (`10S` Stun Grenade immune!) w/ zero speed penalty. |
 | **N6** | **`Oracle (Rating 4)` Data Structure** *(No Software Library)* | **20,000¥** *(+4K bond)* | Matrix Perception/Search focus (`~` swap w/ GM/Reiko approval). No hacking software library needed. |
-| **N7** | **Optional Late Cybernetics** *(Skippable)*:<br>• **1× `Synthetic Limb (Used)`** + **`Sensor Dazzler`** *(single twin covers both within 2m!)*<br>• **Limb `Wrist Shields`** (`Synthetic Arm [Used]` + `Bulk Mod R2` + `Wrist Shield`, `+4` DR) | **¥15,000** *(1 Dazzler arm)*<br>**¥11,500/arm** *(¥10k + ¥500 DIY + ¥1k)* | **0 drone slots** (*DC* p. 131); strictly optional late luxury (likely skipped altogether). *Sensor Dazzler* grants **Invisible (Imp.) 4** vs scanners within `2m` (*BS* p. 35); *Wrist Shield* adds `+4` DR hands-free without bulky overt armor. |
-| **N8** | **`Vector Thrust`** *(Late Flight Capstone)* & **Chassis `Standard Armor`** *(Bottom)* | **`Vector Thrust`: 45,000¥ DIY/hull**;<br>**`Standard Armor`: 800¥ × R/hull** | **Very bottom:** `Vector Thrust` (`6` Powertrain slots, swaps Wheeled) unlocks full flight (`50/480`). **Skip `Full Body Armor`** (only `+1` over `Armor Jacket`, massive social baggage, and hinders flight); keep any `Standard Armor` strictly optional & capped so speed stays intact. |
+| **N7** | **Hardpoints (`Small Drone Rack` + Twin Split `Crimson Wasps`)** & Optional Cybernetics:<br>• **1× `Small Drone Rack`** + **`2× Small Mounts + 2× Small Pop-Outs + 2× Crimson Wasps`**<br>• **1× `Synthetic Limb (Used)` + `Sensor Dazzler`** *(single twin covers both within 2m!)* | **7,000¥ DIY/hull** *(Rack 1k + Wasps/Pop/Mounts 6k)*<br>**¥15,000** *(1 Dazzler arm)* | Consumes both `2/2` Std Hardpoints (`1` Rack, `1` split $\rightarrow$ `2× Small`) + `1` Cha slot (`Small Pop-Out ×2`). *Sensor Dazzler* grants **Invisible (Imp.) 4** vs scanners within `2m` (*BS* p. 35). |
+| **N8** | **`Vector Thrust`** *(Late Flight Capstone)* & **Chassis `Standard Armor`** *(Bottom)* | **`Vector Thrust`: 36,000¥ DIY/hull**;<br>**`Standard Armor`: 800¥ × R/hull** | **Very bottom:** `Vector Thrust` (`5/6` Powertrain slots, swaps Wheeled, `1` Pwr slot spare) unlocks aerial flight (`50/300`), finishing both twins at **`98,500¥` DIY each** (`89,000¥` DIY saved vs twin `Man-at-Arms`!). **Skip `Full Body Armor`**. |

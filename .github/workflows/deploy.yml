@@ -83,15 +83,19 @@ jobs:
           (cd characters/lab/venn && quarto render)
           (cd characters/lab && quarto render README.md --to html -M theme:darkly -M embed-resources:true -M toc:true --output index.html)
           (cd characters/lab && quarto render sparks_template.md --to html -M theme:darkly -M embed-resources:true -M toc:true)
+          (cd characters/lab/ouro && quarto render character_build.qmd --to html -M theme:darkly -M embed-resources:true -M toc:true --output index.html)
+          (cd characters/lab/AshE && quarto render character_build.qmd --to html -M theme:darkly -M embed-resources:true -M toc:true --output index.html)
           (cd reference && quarto render anthrodrone_chassis_guide.md --to html -M theme:darkly -M embed-resources:true -M toc:true)
 
       - name: Assemble Static Distribution
         run: |
-          mkdir -p _site/characters/reiko _site/characters/velvet _site/characters/venn _site/characters/lab _site/reference
+          mkdir -p _site/characters/reiko _site/characters/velvet _site/characters/venn _site/characters/lab _site/characters/lab/ouro _site/characters/lab/AshE _site/reference
           # Copy Hub / Landing Portal to Web Root
           cp index.html _site/
           # Copy rendered lab overview & reference pages
           cp characters/lab/index.html characters/lab/sparks_template.html characters/lab/README.md characters/lab/sparks_template.md _site/characters/lab/
+          cp characters/lab/ouro/index.html _site/characters/lab/ouro/
+          cp characters/lab/AshE/index.html _site/characters/lab/AshE/
           cp reference/anthrodrone_chassis_guide.html reference/anthrodrone_chassis_guide.md _site/reference/
           # Copy rendered character books
           cp -r characters/reiko/_book/* _site/characters/reiko/
@@ -108,6 +112,12 @@ jobs:
             mkdir -p "_site/characters/venn/output"
             cp -r "characters/lab/venn/output"/* "_site/characters/venn/output/" 2>/dev/null || true
           fi
+          for c in ouro AshE; do
+            if [ -d "characters/lab/$c/output" ]; then
+              mkdir -p "_site/characters/lab/$c/output"
+              cp -r "characters/lab/$c/output"/* "_site/characters/lab/$c/output/" 2>/dev/null || true
+            fi
+          done
           # Copy audio assets if present locally
           for char in reiko velvet; do
             if [ -d "characters/$char/narrative/audio" ]; then
