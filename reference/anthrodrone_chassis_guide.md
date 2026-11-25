@@ -1,6 +1,6 @@
 # Shadowrun 6e Anthroform Drone Chassis & Endgame Build Guide
 
-> **Scope:** Comprehensive evaluation of **Medium** and **Large** anthroform drones across *SR6 Core (Seattle)*, *Double Clutch*, *Deadly Arts*, *Tarnished Star*, *Firing Squad*, *Hack & Slash*, and *SRM Guide v2.4*. Designed for Emergent/Pilot-AI riggers ([`sparks_template.md`](file:///c:/GitHub/sr6-core/characters/lab/sparks_template.md), [`ouro`](file:///c:/GitHub/sr6-core/characters/lab/ouro/character_build.qmd), [`reiko`](file:///c:/GitHub/sr6-core/characters/reiko/rules/rules_and_downtime.qmd)), excluding cyberarm replacements so factory limbs/attachments remain intact. Also relevant to most technomancers (a machine sprite can inhabit these drones), regular riggers, and any player (by just increasing the pilot rating of the device). Double Clutch notes that at high levels of pilot devices approach basic AI, so I would RP them as allies at that point.
+> **Scope:** Comprehensive evaluation of **Medium** and **Large** anthroform drones across *SR6 Core (Seattle)*, *Double Clutch*, *Deadly Arts*, *Tarnished Star*, *Firing Squad*, *Hack & Slash*, and *SRM Guide v2.4*. Designed for Emergent and Pilot-AI riggers, excluding cyberarm replacements so factory limbs and attachments remain intact. Also relevant to technomancers (a machine sprite can inhabit these drones), conventional riggers, and general players (via upgraded Pilot ratings—note *Double Clutch* treats high-rating pilots as approaching basic AI, making them strong ally RP hooks).
 
 ---
 
@@ -32,12 +32,9 @@ In-category priorities are ordered **before** invoking any `2:1` cross-category 
 ### A. Mod Slots, Shifting & Hardpoints (*Double Clutch*, pp. 120, 123–124)
 
 * **Base Slots:** Unmodified `Body` slots in **each** of Chassis, Powertrain, and Electronics (`3 × Body` total).
-* **Upgrading Stock Ratings:** Matching higher-rating mods pay only the **difference** in slots and nuyen (*DC*, p. 120. While this only explicitly says Mod slots, SRM generally offers this for cyberware, etc. so we use the same for nuyen costs as well.).
+* **Upgrading Stock Ratings:** Matching higher-rating mods pay only the **difference** in slots and nuyen (*DC*, p. 120; SRM cyberware upgrade convention applied to nuyen cost).
 * **Cross-Category Shifting (`2:1`):** Two unused slots in one category permanently buy `+1` slot in another. Because every shift loses 50% efficiency, match native category capacity before shifting.
-* **Hardpoints:** `floor(Unmodified Body / 3)` free Standard Hardpoints (`Body 3` gets `1` Small; `Body 4–5` gets `1` Std; `Body 6–8` gets `2` Std; `Body 9–11` gets `3` Std).
-  * `1` Standard Hardpoint splits cleanly into **`2` Small Hardpoints** (*DC*, p. 124).
-  * Adding a `Standard Hardpoint` costs `1` Chassis slot and `1,500¥` (Avail `2`).
-* **DIY Pricing:** Book listed availability and costs are for shop install. We assume the character is capable of doing work themselves (has access to a facility, sufficient engineering skill/autosoft, etc.) As a result, this analysis may skew towards a cheaper initial (chargen) build as parts become 50% cheaper post-chargen when you can do the work yourself. Note that this does incur a cost of a minor downtime action, but as a rigger we assume you'll take this often enough.
+* **Hardpoints:** `floor(Unmodified Body / 3)` free Standard Hardpoints (`Body 3` gets `1` Small; `Body 4–5` gets `1` Std; `Body 6–8` gets `2` Std; `Body 9–11` gets `3` Std). `1` Standard Hardpoint splits into **`2` Small Hardpoints** (*DC*, p. 124); adding a `Standard Hardpoint` costs `1` Chassis slot and `1,500¥` (Avail `2`).
 
 ### B. Why Base Sensor `9` Uncaps Endgame Scaling
 
@@ -59,11 +56,10 @@ For hardpoint and pop-out concealment efficiency, so far I haven't found a bette
 * **Hardpoint Split (0¥) + Weapon Mounts:** Split **`1` free stock Standard Hardpoint** into **`2` Small Hardpoints** (**`0¥`, `0` slots**; *DC*, p. 124). Onto those two free hardpoints, install `2× Small Weapon Mounts` (`1,500¥ × 2` retail / `750¥ × 2` DIY, `0` slots, `3I`; *DC*, p. 142) + `2× Pop-Out Concealment (Small)` (**`0.5` Chassis slots × 2 = `1` slot total**, `1,500¥ × 2` retail / `750¥ × 2` DIY, `2I`; *DC*, p. 144). *(Note: Hardpoints are free structural sockets; Weapon Mounts are the powered gimbals/ammo feeds bolted onto them).*
 * **Link-Firing Payload (*DC*, p. 143):** Because `Crimson Wasp` base DV is `5P >= 5`, Link-Firing both (`1` Minor Action) adds **`+2 DV` (`7P`)** and **`+1 AR`**, stacking with Weapon Mount **`+2 AR`** (*DC*, p. 142) and Smartlink **`+2 AR`** (*CRB*, p. 260, if smartgun-equipped) for **`7P`, AR `21/19/16/11/-`**—all concealed inside **`1` free split Standard Hardpoint** (`0¥`) and **`1` Chassis slot** (`0.5 × 2`) for **`9,000¥` retail** (`3,000¥` mounts + `3,000¥` Pop-Outs + `3,000¥` guns) or **`6,000¥` DIY** (`1,500¥` for `2× Small Mounts` + `1,500¥` for `2× Small Pop-Outs` + `3,000¥` guns).
 
-### E. Chargen CP vs. Downtime DIY Reality
+### E. Chargen Availability Cap & Downtime DIY Assumptions
 
-* **Chargen Availability Cap (*CRB*, p. 66):** Max Avail `6` blocks **`Chameleon Coating 4` (`8I`)**, **`Enhanced Sensors 7–9`**, **`Vector Thrust` (`7L`)**, and **`Realistic Features 4` (`8`)** at chargen. Buy `Wheeled` (`8,000¥`, Avail `3`), `Passive Stealth` (`1,000¥`, Avail `3`), and an **`Engineering [Industrial Mechanic] Toolkit` (`500¥`, Avail `1`)** upfront.
-* **Downtime DIY Tooling (*DC*, p. 120; *SRMG v2.4*, pp. 19–22):**
-  * Mods `>= 2` slots require an **`Engineering Shop` (`5,000¥`, Avail `4`, `+1` dice pool)** and **50% cost**; *SRMG* mandates **buying hits** (`pool / 4`) on `Engineering + Logic [(slots × 8), (slots × hours)]` as a Minor Downtime Action.
+* **Chargen Availability Cap (*CRB*, p. 66):** Max Avail `6` blocks **`Chameleon Coating 4` (`8I`)**, **`Enhanced Sensors 7–9`**, **`Vector Thrust` (`7L`)**, and **`Realistic Features 4` (`8`)** at chargen. Buy `Wheeled` (Avail `3`), `Passive Stealth` (`1,000¥`, Avail `3`), and an **`Engineering [Industrial Mechanic] Toolkit` (`500¥`, Avail `1`)** upfront.
+* **Post-Chargen 50% DIY & Tooling (*DC*, p. 120; *SRMG v2.4*, pp. 19–22):** Book prices cover retail shop installs. We assume the character performs upgrades themselves post-chargen (using a Minor Downtime Action and buying hits on `Engineering + Logic [(slots × 8), (slots × hours)]`), halving mod costs (`50%` off; **not** base drone hulls or weapons). Mods `< 2` slots need a `Toolkit` (`500¥`); mods `2–5` slots require an **`Engineering Shop` (`5,000¥`, Avail `4`, `+1` dice pool)**—which favors cheaper base hulls like `Man-at-Arms` over `Nurse MAID` long term.
 
 ### F. *Tarnished Star* Heat Exemption (`Shiawase Silverstar`)
 
@@ -75,7 +71,7 @@ For hardpoint and pop-out concealment efficiency, so far I haven't found a bette
 
 ## 3. Master Anthroform Drone Catalog
 
-### Table 1: True Medium Anthroform Drones (`Reiko`, `Cleo`, `Étaín`, `Aisling`)
+### Table 1: True Medium Anthroform Drones
 
 | Chassis (Source) | Cost / Avail | `BOD / ARM / PLT / SEN` | Stock Notable Gear | Base Slots (`C/P/E`) | Hardpoints (`Std`) | Strengths & Weaknesses | Endgame `SEN 9` Verdict |
 | :--- | :---: | :---: | :--- | :---: | :---: | :--- | :--- |
@@ -92,7 +88,7 @@ For hardpoint and pop-out concealment efficiency, so far I haven't found a bette
 
 ---
 
-### Table 2: Large Anthroform Drones (`Ouro`, `Percy` / Heavy Platforms)
+### Table 2: Large Anthroform Drones
 
 | Chassis (Source) | Cost / Avail | `BOD / ARM / PLT / SEN` | Stock Notable Gear | Base Slots (`C/P/E`) | Hardpoints (`Std`) | Strengths & Weaknesses | Endgame `SEN 9` Verdict |
 | :--- | :---: | :---: | :--- | :---: | :---: | :--- | :--- |
@@ -103,70 +99,63 @@ For hardpoint and pop-out concealment efficiency, so far I haven't found a bette
 
 ---
 
-## 4. Endgame Slot & Nuyen Math (`Base Sensor 9` + `Vector Thrust` + `ISI Max` + `RF 4`)
+## 4. All Viable Endgame Builds
 
-All builds below include **`Small Drone Rack` (`2,000¥`, `1` Std Hardpoint)** + **split `1` Std Hardpoint $\rightarrow$ `2× Small Mounts` (`3,000¥`) + `2× Small Pop-Outs` (`3,000¥`, `1` Cha slot) + `2× Crimson Wasps` (`3,000¥`)**.
+### Methodology & Minimum Viable `Body`
 
-| Metric | **`Man-at-Arms`** *(Medium)* | **`Nurse MAID`** *(Medium)* | **`Silverstar`** *(Medium)* | **`Nurse MAID Troll`** *(Large)* | **`Nissan Oni`** *(Large)* |
+* **Minimum Endgame Baseline:** `Increased Structural Integrity (½ Body)` + `Realistic Features 4` + `Secondary Propulsion: Vector Thrust` (`5` Pwr) + `Enhanced Sensors 9` (`9 - stock_SEN` Elec) + `Passive Stealth Features` (`1` Elec) + `Chameleon Coating 4` (`2` Elec) + `Small Drone Rack` (`1` Std Hardpoint).
+* **Printed `Body` Floor (`Body 8`):** Under `2:1` shifting (whole pairs per donating category), **`Body 7`** is the theoretical minimum with stock `RF 4`, **`Body 8`** with `RF 0–1, SEN 3` (`Silverstar`, `Combat MAID`), and **`Body 9`** with `RF 0–1, SEN 2` (`Nissan Oni`). Since no `Body 7` frame exists in print, **`Body 8` is the hard floor** (`Body <= 6` fails mathematically).
+* **Table Conventions:** Every build adds a **`Small Drone Rack`** + **split `1` Std Hardpoint $\rightarrow$ `2× Small Mounts` + `2× Small Pop-Outs` (`1` Cha) + `2× Crimson Wasps`** (`9,000¥` retail / `6,000¥` DIY), then allocates leftover slots to Powertrain speed/fuel mods. Stats show `Vector Thrust` active (*DC*, p. 137) and base `PLT / SEN 9` prior to AI scaling; Session-1 Viable assumes `Wheeled + RF 1+ + Passive Stealth + Toolkit`.
+
+| Metric | **1. `Man-at-Arms`** | **2. `Nurse MAID`** | **3. `Silverstar`** | **4. `Nurse MAID Troll`** | **5. `Nissan Oni`** |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| **Endgame `BOD / ARM` (DR)** | `15 / 8` (`23`) | `12 / 6` (`18`) | `12 / 4` (`16`) | `15 / 8` (`23`) | `13 / 10` (`23`) |
+| **Size Class** | Medium | Medium | Medium | Large | Large |
+| **Base Chassis** | `4,500¥` (`3L`) | `57,500¥` (`4I`) | `9,000¥` (`4`) | `62,500¥` (`5I`) | `6,700¥` (`2`) |
+| **Session-1 Viable (Ret / DIY)** | `26,000¥` / `15,500¥` | `67,000¥` / `62,500¥` | `18,500¥` / `14,000¥` | `74,000¥` / `68,500¥` | `26,200¥` / `16,700¥` |
+| **Core Required (Ret / DIY)** | `215.5k¥` / `110.0k¥` | `200.5k¥` / `129.0k¥` | `176.0k¥` / `92.5k¥` | `228.5k¥` / `145.5k¥` | `199.7k¥` / `103.2k¥` |
+| **All-In Endgame (Ret / DIY)** | **`278,500¥` / `143,000¥`** | **`233,500¥` / `147,000¥`** | **`185,000¥` / `98,500¥`** | **`306,500¥` / `186,000¥`** | **`235,700¥` / `122,700¥`** |
+| **Final `BOD / ARM` (`DR`)** | `15 / 8` (`23`) | `12 / 6` (`18`) | `12 / 4` (`16`) | `15 / 8` (`23`) | `13 / 10` (`23`) |
+| **Final `HAN / ACC / SPD / TOP`** | `4/4` / `41` / `50` / `480` | `4/4` / `25` / `50` / `480` | `4/4` / `25` / `50` / `300` | `4/4` / `41` / `50` / `480` | `4/4` / `41` / `50` / `300` |
+| **Final `PLT / SEN` (Base)** | `2` / `9` | `4` / `9` | `3` / `9` | `4` / `9` | `3` / `9` |
 | **Chassis (`Base -> Final`)** | `10 -> 10` (`ISI 5 + RF 4 + Pop 1`) | `8 -> 6` (`ISI 4 + RF 0 + Pop 1`, `1` free) | `8 -> 8` (`ISI 4 + RF 3 + Pop 1`) | `10 -> 6` (`ISI 5 + RF 0 + Pop 1`) | `9 -> 9` (`ISI 4 + RF 4 + Pop 1`) |
-| **Electronics (`Base -> Final`)** | `10 -> 10` (`SEN 7 + PS 1 + Cham 2`) | `8 -> 9` *(+1 from Cha)* (`SEN 6 + PS 1 + Cham 2`) | `8 -> 9` *(+1 from Pwr)* (`SEN 6 + PS 1 + Cham 2`) | `10 -> 10` (`SEN 6 + PS 1 + Cham 2`, `1` free) | `9 -> 10` *(+1 from Pwr)* (`SEN 7 + PS 1 + Cham 2`) |
-| **Powertrain (`Final`)** | **`10`** (`VT 5 + Top 3 + Accel 2`) | **`8`** (`VT 5 + Top 3`)* | **`6`** (`VT 5 + 1` free) | **`12`** *(+2 from Cha)* (`VT 5 + Top 3 + Accel 2 + HFC 2`) | **`7`** (`VT 5 + Accel 2` or `HFC 2`) |
-| **Free Std Hardpoints Left** | **`1`** *(after Rack + Wasps)* | **`0`** | **`0`** | **`1`** | **`0`** *(2 arms + Rack)* |
-| **Core Endgame (Retail / DIY)** | `215.5k¥` / `110.0k¥` | `200.5k¥` / `129.0k¥` | `176.0k¥` / `92.5k¥` | `228.5k¥` / `145.5k¥` | `199.7k¥` / `103.2k¥` |
-| **Full Listed Build (Retail / DIY)** | **`278.5k¥`** / **`143.0k¥`** | **`233.5k¥`** / **`147.0k¥`** | **`185.0k¥`** / **`98.5k¥`** | **`306.5k¥`** / **`186.0k¥`** | **`235.7k¥`** / **`122.7k¥`** *(w/ Accel 2 + Pop-Out)* |
+| **Electronics (`Base -> Final`)** | `10 -> 10` (`SEN 7 + PS 1 + Cham 2`) | `8 -> 9` *(+1 Cha)* (`SEN 6 + PS 1 + Cham 2`) | `8 -> 9` *(+1 Pwr)* (`SEN 6 + PS 1 + Cham 2`) | `10 -> 10` (`SEN 6 + PS 1 + Cham 2`, `1` free) | `9 -> 10` *(+1 Pwr)* (`SEN 7 + PS 1 + Cham 2`) |
+| **Powertrain (`Final`)** | `10` (`VT 5 + Top 3 + Accel 2`) | `8` (`VT 5 + Top 3`)* | `6` (`VT 5 + 1` free) | `12` *(+2 Cha)* (`VT 5 + Top 3 + Accel 2 + HFC 2`) | `7` (`VT 5 + Accel 2` or `HFC 2`) |
+| **Hardpoints** | `Rack + 2× Wasps + 1 Std Free` | `Rack + 2× Wasps` (`0` free) | `Rack + 2× Wasps` (`0` free) | `Rack + 2× Wasps + 1 Std Free` | `Rack + 2× Arm Std Mounts` (`0` free) |
+| **Key Differences** | Medium DIY apex | Best Session-1 Medium | Cheapest Medium DIY | Uncompromised Heavy | Budget Armor 10 tank |
 
-*\*`Nurse MAID` note:* Dropping `Pop-Out Small x2` in favor of `Blow-Away Panels` (`0` slots) frees `2` Chassis slots to shift `2:1 -> +1` Powertrain (`9` Powertrain: `VT 5 + Top Speed 3 + Imp. Accel 1` or `VT 5 + Accel 2 + HFC 2`), and keeping `1` Chassis can still buy an Extra Hardpoint (`1,500¥`).
-*DIY math note:* 50% DIY applies to *Double Clutch* vehicle modifications only (per *DC*, p. 120), **not** the base drone hull or the `2× Crimson Wasps` (`3,000¥`). That is why **`Man-at-Arms` (`4.5k¥` base) actually beats `Nurse MAID` (`57.5k¥` base) by `4,000¥` in full DIY endgame spending (`143k¥` vs `147k¥`) while packing higher `Body`, `Armor`, `Accel 2`, and a `3rd` Hardpoint**—whereas `Nurse MAID` wins in retail cash (`45k¥` cheaper) and Session-1 readiness.
+*\*`Nurse MAID` option:* Swapping `Pop-Out` (`1` Cha) for `Blow-Away Panels` (`0` slots) frees `2` Chassis slots to shift `2:1 -> +1` Powertrain (`9` Pwr: `VT 5 + Top 3 + Accel 1`, or `VT 5 + Accel 2 + HFC 2`), and keeping `1` Chassis can buy an Extra Hardpoint (`1,500¥`).
 
----
+### Build 1: `Shiawase Man-at-Arms` — *Medium DIY Apex (`140 cm`)*
 
-## 5. Recommended Reference Builds
+* Best all-around Medium endgame chassis at 1.4 to 1.5m tall.
+* Avoids any `2:1` slot-shift tax and beats `Nurse MAID` in full-DIY endgame spending because 50% DIY discounts apply to its heavy `RF 4` and `ISI 5` mods rather than a costly base frame.
+* **Progression:** Start with `Wheeled`, `Passive Stealth`, `RF 1`, and an `Engineering Toolkit` (plus a handheld gun), buy an `Engineering Shop` early to DIY `Chameleon 4` and step `RF 1->4` and `ISI 1–5`, then drop `Wheeled` once `Vector Thrust` lands. Keep the stock `Standard Weapon Mount` free for a heavy rifle/grenade launcher, or swap it to a `Ram Plate` (`+15` Ram AR, half return damage).
 
-### Build 1: The Street-to-Apex Workhorse — `Shiawase Man-at-Arms` *(Medium)*
+### Build 2: `Ares Nurse MAID` — *Session-1 Medium Benchmark*
 
-*Best overall Medium endgame frame (`Reiko`, `Étaín`, `Aisling`, `Cleo`) and cheapest 50%-DIY apex chassis.*
+* Best out-of-the-box Medium platform: factory `RF 4`, `Shock Limbs`, `Medkit 4`, and `Biotech 6` cover social scenes and medical support from Session 1 while costing noticeably less in retail shop pricing than `Man-at-Arms`.
+* **Progression & Trade-Offs:** Starts cleanly out of the box (`Wheeled + Passive Stealth + Toolkit`), then adds an `Engineering Shop` for `Chameleon 4` and stepped `ISI`. At endgame it shifts saved Chassis slots to cover `SEN 9`, retaining `Top Speed 3` and `Pop-Out Wasps` at the cost of `Imp. Accel 2` and a `3rd` hardpoint.
 
-* **Phase 1 (Chargen / Session 1 — `~13.5k¥` + Toolkit):** Base `Man-at-Arms` (`4,500¥`) + `Wheeled` (`10,000¥`, Avail `3`, `2` Pwr) + `Passive Stealth` (`1,000¥`, Avail `3`, `1` Elec) + `Engineering [Ind. Mech.] Toolkit` (`500¥`) + `RF 1` (`10,000¥`, `1` Cha, Avail `2`) + worn metahuman armor + handheld weapon.
-* **Phase 2 (Early Downtime — Shop + Disguise):** Buy `Engineering [Ind. Mech.] Shop` (`5,000¥`), DIY `Chameleon Coating 4` (`9,000¥`, `2` Elec), step `RF 1->4` (`15,000¥` DIY, `3` Cha) and `ISI 1–5` (`12,500¥` DIY, `5` Cha -> `Body 15`, immune to point-blank `10S` Stun Grenades).
-* **Phase 3 (Endgame Loadout — `143,000¥` DIY total):**
-  * `Chassis (10/10)`: `ISI 5` (`5`), `RF 4` (`4`), `Pop-Out Concealment (Small) x2` (`1`)
-  * `Powertrain (10/10)`: `Vector Thrust` (`5`), `Top Speed 3` (`3`), `Imp. Accel 2` (`2`) *(drop `Wheeled` once `VT` is installed)*
-  * `Electronics (10/10)`: `Enhanced Sensors 2->9` (`7`), `Passive Stealth` (`1`), `Chameleon Coating 4` (`2`)
-  * `Hardpoints (3/3)`: `Small Drone Rack` (`1`), Split Std -> `2× Small Mounts` w/ `Crimson Wasps` (`1`), plus the `1×` factory `Standard Weapon Mount` free for a heavy rifle/grenade launcher (or swapped for a `Ram Plate` @ `2,500¥`).
+### Build 3: `Shiawase Silverstar` — *Cheapest Medium Endgame Floor*
 
-### Build 2: The Covert Medic / Slot-Efficient Starter — `Ares Nurse MAID` *(Medium)*
+* Lowest nuyen floor for a legal Medium endgame drone (`+0` Heat under *DC* p. 127's vehicle exemption) and the cheapest Session-1 starter (`RF 1`, `SEN 3`, `PLT 3`, and `Top Speed 30` out of the box with no license required).
+* **Progression & Trade-Offs:** Upgrades smoothly from `Wheeled + Passive Stealth + Toolkit` to `Chameleon 4`, `RF 1->4`, and `ISI`. However, spending Chassis slots on `RF 4` forces its `SEN 9` shift out of Powertrain, leaving only `1` spare Powertrain slot (`Improved Handling 1` or `Suncell`, with no room for `Top Speed 3` or `Imp. Accel 2`) alongside lighter armor. *(If `RF 4` is ever dropped, `Top Speed 3` fits immediately.)*
 
-*Best out-of-the-box Session-1 Medium platform (`Ouro`'s active build in [`character_build.qmd`](file:///c:/GitHub/sr6-core/characters/lab/ouro/character_build.qmd)), saving `45,000¥` retail (`4` Chassis slots) via stock `RF 4`.*
+### Build 4: `Ares Nurse MAID Troll` — *Uncompromised Heavy Ceiling*
 
-* **Phase 1 (Chargen Route A — `67,000¥`):** `Nurse MAID` (`57,500¥`, stock `RF 4`, `SEN 3`, `Shock Limbs`, `Medkit 4`) + `Wheeled` (`8,000¥`) + `Passive Stealth` (`1,000¥`) + `Engineering [Ind. Mech.] Toolkit` (`500¥`).
-* **Phase 2 (Early Downtime):** Buy `Engineering Shop` (`5,000¥`), DIY `Chameleon Coating 4` (`9,000¥`), step `ISI 1–4` (`10,000¥` DIY -> `Body 12`).
-* **Phase 3 (Endgame Loadout — `147,000¥` DIY total):**
-  * `Chassis (6/8 -> +1 Elec)`: `ISI 4` (`4`), `Pop-Out (Small) x2` (`1`), shift `2` Chassis -> `+1` Electronics (`1` Chassis spare).
-  * `Powertrain (8/8)`: `Vector Thrust` (`5`), `Top Speed 3` (`3`). *(Trade `Pop-Out` for `Blow-Away Panels` to shift `2` Cha -> `9` Pwr if prioritizing `Accel 1` or `HFC 2`).*
-  * `Electronics (9/9)`: `Enhanced Sensors 3->9` (`6`), `Passive Stealth` (`1`), `Chameleon Coating 4` (`2`).
-  * `Hardpoints (2/2)`: `Small Drone Rack` (`1`), Split Std -> `2× Small Mounts` w/ `Crimson Wasps` (`1`).
+Note: Average Troll height is 2.5m (8'2") with a range from 2.1m (7'0") to 2.9m (9'6").
 
-### Build 3: The Uncompromised Heavy Frame — `Ares Nurse MAID Troll` *(Large)*
+* Top pick for characters accepting a Large chassis: pairs Troll-scale slot capacity with factory `RF 4` and `SEN 3`, eliminating the Electronics shift and freeing enough Chassis slots to add `HFC 2` on top.
+* **Trade-Offs:** Retains `Shock Limbs`, `Medkit 3`, a `3rd` Hardpoint (`Ram Plate` or extra mount), and `1` spare Electronics slot—trading only its Troll-sized footprint and higher upfront hull price.
 
-*Best absolute endgame ceiling for characters who accept a **Large** (Troll-sized) chassis (`Ouro`, `Percy`), fitting **`HFC` + `Top Speed 3` + `Imp. Accel 2` + `SEN 9` + `Pop-Out` + `3` Hardpoints**.*
+### Build 5: `Nissan Oni` — *Budget Armored Tank (Optional)*
 
-* **Endgame Loadout (`186,000¥` DIY / `306,500¥` retail):**
-  * `Chassis (6/10 -> +2 Pwr)`: `ISI 5` (`5`), `RF 4` (`0` stock!), `Pop-Out (Small) x2` (`1`), shift `4` Chassis `2:1 -> +2` Powertrain.
-  * `Powertrain (12/12)`: `Vector Thrust` (`5`), `Top Speed 3` (`3`), `Imp. Accel 2` (`2`), `Hydrocarbon Fuel Converter` (`2`).
-  * `Electronics (9/10)`: `Enhanced Sensors 3->9` (`6`), `Passive Stealth` (`1`), `Chameleon Coating 4` (`2`) (`1` slot spare!).
-  * `Hardpoints (3/3)`: `Small Drone Rack` (`1`), Split Std -> `2× Small Mounts` w/ `Crimson Wasps` (`1`), `Ram Plate` (`2,500¥` / `1`).
+* Lowest all-in DIY price while hitting heavy `Armor 10` and supplying twin factory `Standard` cyberarm weapon mounts (`0` capacity, though 4-limb mode disables weapons).
+* **Trade-Offs:** Shifting Powertrain slots to cover `SEN 9` caps Powertrain at `Imp. Accel 2` (or `HFC 2`) without `Top Speed 3`, leaves `1` Chassis slot for `Pop-Out`, and consumes its `3rd` Hardpoint on the `Small Drone Rack`.
 
-### Build 4: The Budget Armored Tank — `Nissan Oni` *(Large, Optional)*
+## 5. Your Drone Rack
 
-*Lowest nuyen floor (`122,700¥` DIY w/ `Accel 2 + Pop-Out + 2× Wasps`) for `Armor 10` (`23` Phys DR) and `2×` factory Standard arm mounts (`6,700¥` base), ideal if speed mods (`Top Speed 3`) are secondary to armor and melee/gun arms.*
-
-* **Endgame Loadout (`9/9/9` shifted to `9/7/10`):** `ISI 4` (`4`) + `RF 4` (`4`) + `Pop-Out` (`1`); `SEN 2->9` (`7`) + `PS` (`1`) + `Cham 4` (`2`); `Vector Thrust` (`5`) + `Imp. Accel 2` (`2`, or `HFC 2`); `2×` factory Standard arm mounts + `Small Drone Rack` (`3/3` Hardpoints).
-
-## Your Drone Rack
-
-This is a small drone rack and comes with its own pop-out concealment. Some strong contenders:
+This uses a `Small Drone Rack` (`2,000¥`, `1` Std Hardpoint) enclosed behind a factory hatch (no Pop-Out concealment needed). Strong contenders:
 
 1. Federated Boeing Sky Commander: Comes with a satellite link and retrans relay, so fantastic for establishing overwatch over the theater. Can fit a micro/mini drone rack, so store gnats and hornets for your full sensor net. In combat you can use the focused jammer or have it establish target locks.
 2. Hawker-Siddley Bats: These can take 3 crimson wasps themselves and some sensor upgrades, unlocking swarm tactics or ally sprite/agent vehicles.
