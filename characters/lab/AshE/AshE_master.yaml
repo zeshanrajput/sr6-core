@@ -8,9 +8,9 @@ identity:
   gender: FEMALE
   age: ~ 1
   system: shadowrun6e
-  karma: 2
+  karma: 4
   lifetime_karma: 50
-  nuyen: 1160
+  nuyen: 17860
   lifetime_nuyen: 130000
   heat: 0
   submersion: 2
@@ -108,10 +108,6 @@ meta_echoes: &id001
   notes: ''
 echoes: *id001
 knowledge_skills:
-- name: 'Dissonance: Theories and Application'
-  rating: 3
-  notes: 'Rating 3 Knowledge Autosoft (Double Clutch p. 145; slotted via Pilot Origins):
-    Reiko''s thesis'
 - name: Mindspeech
   rating: 4
   level: Native
@@ -130,12 +126,12 @@ knowledge_skills:
 - name: Garmonbozia
   rating: null
   notes: E-Nation nodes, sanctuaries, and DI culture
-- name: Seattle Host Architecture
+- name: UnITy
   rating: null
-  notes: Corporate grid topologies, ICE launch sequences, and dark trunks
-- name: Irish Myth & Poetic Tradition
+  notes: UnITy protocols, factions, and digital consciousness ethics
+- name: 'Dissonance: Theories and Application'
   rating: null
-  notes: Shared twin heritage of Étaín and Aisling
+  notes: Reiko's thesis on Dissonance theory and containment
 contacts:
 - name: River People
   connection: 7

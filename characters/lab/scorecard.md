@@ -11,7 +11,7 @@ See [Lab Overview & Evaluation Rubrics](index.qmd) for the full 20-point OBS, Da
 | Character | Status & Archetype | Planes<br>(D1 → S4) | OBS (0–20)<br>(D1 → S4) | Day-1 TEK (KER) | Session-4 TEK (KER) | Session-4 Mulligan Gate Highlights (+28K / +30,000¥) | Resource Audit |
 | :--- | :--- | :---: | :---: | :---: | :---: | :--- | :---: |
 | **Takahashi Ouroboros** (`ouro`) | `<LAB>` AI-Pilot Technomancer | **3/4 → 3/4** | **15 → 15** | **2,282** (22.82x) | **2,532** (25.32x, +250k) | Level 1 Machine Ally Sprite, Electronics Spec (16d6), Living & Transcendent Network, Diffusion (FW) + Cleaner, Sensor 9 + Chameleon 4 + Wheeled DIY | **PASS** (`4K`, `¥410`) |
-| **AshE (Étaín & Aisling)** (`AshE`) | `<LAB>` AI-Pilot Technomancer (Twin PC + Ally Sprite) | **2/4 → 3/4** | **14 → 15** | **2,153** (21.53x) | **2,463** (24.63x, +310k) | Submersions 3–4 (`New Sprite Type`, `Sprite Conduit`), Permanent Ally Sprite Aisling (`Override` + `Overclocking` = 2nd autonomous 5D6 body!), Twin Chameleon Coating 4 + Realistic Features R2 DIY | **PASS** (`2K`, `¥1,160`) |
+| **AshE (Étaín & Aisling)** (`AshE`) | `<LAB>` AI-Pilot Technomancer (Twin PC + Ally Sprite) | **3/4 → 3/4** | **16 → 15** | **2,143** (21.43x) | **2,453** (24.53x, +310k) | Submersions 3–4 (`New Sprite Type`, `Sprite Conduit`), Permanent Ally Sprite Aisling (`Override` + `Overclocking` = 2nd autonomous 5D6 body!), Twin Chameleon Coating 4 + Realistic Features R2 DIY | **FAIL** (`4K`, `¥17,860`) |
 | **Venn (Nathan & Veronica)** (`venn`) | `<LAB>` Monad Street Samurai / Operative | **3/4 → 3/4** | **14 → 14** | **1,960** (19.6x) | **2,125** (21.25x, +165k) | Streetdoc 1:7,000¥ conversion (+¥105k), Alphaware Cyberarm Essence recovery, Tae Kwon Do + Kick Attack, Firearms R6, Defense Floor 9d6, Fake SIN R4 | **PASS** (`3K`, `¥570`) |
 | **MAD Dalek** (`mad_dalek`) | `<LAB>` Mystic Adept Decker | **4/4 → 4/4** | **17 → 17** | **1,756** (17.56x) | **1,861** (18.61x, +105k) | Initiations 2–5 (`Centering`, `Channeling`, `Masking`, `Adept Item Attunement`), Force 4 Sorcery Qi Focus (14d6 Spellcasting / 19d6 Drain), ¥21.6k banked toward Power Focus R3 | **PASS** (`5K`, `¥3,575`) |
 | **Velvet** (`velvet`) | `ACTIVE` Mystic Adept Face / Shaman | **2/4 → 2/4** | **13 → 13** | **1,653** (16.53x) | **1,698** (16.98x, +45k) | Baseline +28 Karma / +30,000¥ advancement projection | **PASS** (`0K`, `¥4,025`) |
@@ -24,7 +24,7 @@ See [Lab Overview & Evaluation Rubrics](index.qmd) for the full 20-point OBS, Da
 | Character | Astral | Matrix | Physical | Social | Def | Act | Edge | Soak | Sustain | Force | Perm | Burst | **OBS** |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | **Takahashi Ouroboros** | 0d6 (0) | 15d6 (3) | 21d6 (3) | 10d6 (2) | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | ✅ | **15 / 20** |
-| **AshE (Étaín & Aisling)** | 0d6 (0) | 16d6 (3) | 20d6 (3) | 4d6 (0) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | **14 / 20** |
+| **AshE (Étaín & Aisling)** | 0d6 (0) | 16d6 (3) | 20d6 (3) | 13d6 (2) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | **16 / 20** |
 | **Venn (Nathan & Veronica)** | 0d6 (0) | 14d6 (3) | 16d6 (3) | 10d6 (2) | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | **14 / 20** |
 | **MAD Dalek** | 17d6 (3) | 20d6 (3) | 8d6 (2) | 8d6 (2) | ✅ | ✅ | ✅ | — | ✅ | ✅ | ✅ | ✅ | **17 / 20** |
 | **Velvet** | 15d6 (3) | 0d6 (0) | 4d6 (0) | 24d6 (3) | ✅ | ✅ | ✅ | — | ✅ | ✅ | ✅ | ✅ | **13 / 20** |
@@ -37,7 +37,7 @@ See [Lab Overview & Evaluation Rubrics](index.qmd) for the full 20-point OBS, Da
 | Character | Base Attrs | Ware Delta | Natural Skills | Pilot & Drones | Skillwires | Magic / Res / Monad | Anchored Buffs & Symbionts | Gear Capital | Quality Arbitrage | **Day-1 TEK** |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | **Takahashi Ouroboros** | 550 | 0 | 255 | 944 | 180 | 68 | 129 | 105 | 51 | **2,282** |
-| **AshE (Étaín & Aisling)** | 635 | 0 | 255 | 909 | 0 | 63 | 179 | 66 | 46 | **2,153** |
+| **AshE (Étaín & Aisling)** | 635 | 0 | 255 | 909 | 0 | 63 | 179 | 56 | 46 | **2,143** |
 | **Venn (Nathan & Veronica)** | 565 | 340 | 320 | 0 | 450 | 30 | 0 | 208 | 47 | **1,960** |
 | **MAD Dalek** | 415 | 0 | 210 | 0 | 313 | 99 | 570 | 123 | 26 | **1,756** |
 | **Velvet** | 555 | 0 | 305 | 0 | 0 | 46 | 650 | 23 | 74 | **1,653** |
