@@ -117,6 +117,10 @@ Software with karma costs have been learned via the **Software Emulator** echo.
   * Weapon Mount - Small x3 (stock Standard Hardpoint split into 2x Small + 1 free Small Hardpoint from BOD 4; 0 Chassis slots, DC pp. 124, 142-143, DIY 50%) `{python} inc('Nuyen', -750 * 3)`
   * Crimson Wasp x3 (1 with Internal Smartgun; link-fired laser array) `{python} inc('Nuyen', -1500 * 3 - 500)`
 
+* Hawker-Siddley Bat #2 *(CMP 2083-08 Advancement)* `{python} inc('Nuyen', -5500)`
+  * Weapon Mount - Small x3 (stock Standard Hardpoint split into 2x Small + 1 free Small Hardpoint from BOD 4; 0 Chassis slots, DC pp. 124, 142-143, DIY 50%) `{python} inc('Nuyen', -750 * 3)`
+  * Crimson Wasp x3 (1 with Internal Smartgun; link-fired laser array) `{python} inc('Nuyen', -1500 * 3 - 500)`
+
 * Shiawase Man-At-Arms `{python} inc('Nuyen', -4500*.9)`
   * Weapon Mount - Small x2 (splits stock Standard Hardpoint into 2 Small Hardpoints per DC p. 124) `{python} inc('Nuyen', -1500 * 2 / 2)`
   * Pop-Out Concealment - Small x2 (ocular mounts; 0.5 Chassis slots each, DC p. 143-144) `{python} inc('Nuyen', -1500 * 2 / 2)`

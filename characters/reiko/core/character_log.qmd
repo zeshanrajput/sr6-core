@@ -780,3 +780,26 @@ Submersion_Grade = state["Submersion_Grade"]
     * Unlocks the *Dead Pixel Erosion* Composure clock (Gear 1, active).
 * **Session Recording & Transcript:**
   * Full CUDA timestamped transcript archived in `characters/reiko/sessions/SRM_2081-04/transcript.md` (source `.mp4` verified and deleted).
+
+---
+
+`{python} mission("CMP.2083.08", date="2026-11-25", karma=8, nuyen=12000, gm="JaGator", difficulty="Veteran")`
+
+* **GM:** JaGator
+* **Team:** Buddy (MedTec), Ninja (ArrogantNinja), La Lupa (Connor), Imugi (Inirlan), Calico (Kira Capalu), Yuriko Star (WarDoctor)
+* **Summary:** Hired in Rangoon by Ares Mr. Johnson **Morgan Cox** (with an Ares-supplied Jeep Trailblazer and exfiltration guarantee) to investigate a human-trafficking pipeline shipping metahumans north, the team traveled to Naypyidaw and navigated its clandestine black market without open violence. Tracing the largest buyer of metahuman labor to **Sanda** (former politician Aye Chesa) in the eastern jungle outside the Karenni Enclave, the runners infiltrated her compound with minimal conflict and drove out her Invae-scout security chief **Daivika**—with Yuriko leaving Cleo on Sanda's commlink to help organize her operations while Percy ran Matrix searches on the Karenni Enclave. Following Sanda's lead down an overgrown road to an abandoned Khouang Combine mine, the team descended into the flooded depths to confront **Chewa**, a former mine guard turned mosquito-spirit insect shaman. Fighting through the Invae swarm,the team killed Chewa, set demolition charges to collapse the mine entrance, and called in Morgan Cox for an Ares Firewatch missile strike. Extracting through an Ares Bugstomper astral-scan cordon as the jungle burned under white phosphorus, the team yielded full operational credit to Ares, securing the Veteran payout (12,000¥, 8 Karma), zero lingering Heat, and both **Morgan Cox** and **Sanda** as contacts.
+* **Contacts:**
+  * `{python} contact("Morgan Cox", connection=6, loyalty=1, fp=1, type_name="Ares Mr. Johnson", region="Southeast Asia", notes="CMP 2083-08 Darkest Jungle")`
+  * `{python} contact("Sanda", connection=4, loyalty=1, fp=1, type_name="Karenni Exporter / Former Politician", region="Southeast Asia", notes="CMP 2083-08 Darkest Jungle")`
+* **Downtime Actions (2 Minors Total — CMP Event):**
+  * *Minor Action 1 (Working for the People):* `{python} work_for_the_people()`
+    * 2,000¥ donated toward sustaining her sanctuary and children in Kernel Panic / Glade (Hooder), converting to +1 Karma.
+  * *Minor Action 2 (Drone Upgrades — Hawker-Siddley Bat #2 & Post-Jungle Maintenance):*
+    * **Hawker-Siddley Bat #2 (Drone #3):** Purchased hull (`-5,500¥`), installed **3× Small Weapon Mounts** (`-2,250¥` DIY, 0 Chassis slots), and mounted **3× Crimson Wasps** (`-4,500¥`) with **1× Internal Smartgun** (`-500¥`) (`-12,750¥` total; logged in `character_purchases.qmd`).
+    * **Shiawase Man-at-Arms & Bat #1:** Post-jungle decontamination and structural checks (up to 3 drones covered by 1 Minor Action).
+* **In-Session Downtime (3 Nights — Zero Downtime Action Cost):**
+  * *Night 1 (Fill Slot 8/9 — Percy [Thread B]):* `{python} add_sprite("Defender", 8, name="Percy (Thread B)", details="The Shield (Parallel Thread) / Override, Shield, Stability", tasks=3)`
+  * *Night 2 (Fill Slot 9/9 — Aisling [Thread B]):* `{python} add_sprite("Music", 8, name="Aisling (Thread B)", details="The Radiant Hearth (Parallel Thread) / Harmonize, Captivate Audience, Shield", tasks=3)`
+  * *Night 3 (Re-register Oldest — Ouro):* `{python} deregister_sprite("Ouro", reason="In-session downtime refresh")` | `{python} add_sprite("Machine", 8, name="Ouro", details="The Logic / Diagnostics, Override, Clearsight, Evasion", tasks=3)`
+* **Dead Pixel Erosion (Composure Clock):**
+  * Rolled a `1` on the matte-black Wild Die during a Composure erosion test (Gear 1), incurring a permanent cumulative **-1** penalty to future Composure erosion tests (active pool **10d6 → 9d6**; Gear 1, 1/2 sessions).

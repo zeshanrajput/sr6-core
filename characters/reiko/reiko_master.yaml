@@ -8,10 +8,10 @@ identity:
   gender: DIVERSE
   age: ~ 10
   system: shadowrun6e
-  karma: 0
-  lifetime_karma: 343
-  nuyen: 3025.0
-  lifetime_nuyen: 517400
+  karma: 9
+  lifetime_karma: 352
+  nuyen: 275.0
+  lifetime_nuyen: 529400
   heat: 0
   submersion: 9
 attributes:
@@ -1700,6 +1700,38 @@ contacts:
     notes: SRM 2081-04 Trailblazers
     history:
     - 'SRM 2081-04 Trailblazers (Met: C5 L1, +1 FP)'
+  Morgan Cox:
+    name: Morgan Cox
+    canonical_name: Morgan Cox
+    is_canonical: false
+    connection: 6
+    loyalty: 1
+    favors: 1
+    type: Ares Mr. Johnson
+    region: Southeast Asia
+    types:
+    - Corporate
+    types_str: Corporate
+    description: CMP 2083-08 Darkest Jungle
+    notes: CMP 2083-08 Darkest Jungle
+    history:
+    - 'CMP 2083-08 Darkest Jungle (Met: C6 L1, +1 FP)'
+  Sanda:
+    name: Sanda
+    canonical_name: Sanda
+    is_canonical: false
+    connection: 4
+    loyalty: 1
+    favors: 1
+    type: Karenni Exporter / Former Politician
+    region: Southeast Asia
+    types:
+    - Street
+    types_str: Street
+    description: CMP 2083-08 Darkest Jungle
+    notes: CMP 2083-08 Darkest Jungle
+    history:
+    - 'CMP 2083-08 Darkest Jungle (Met: C4 L1, +1 FP)'
 reputation:
   Vory: 2
   Seattle: 7
