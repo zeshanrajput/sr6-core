@@ -149,6 +149,12 @@ terms:
   "DroneMaster": "Drone Master"
   "modprobe": "mod probe"
   "chroot": "chuh-root"
+  "lsof": "L S O F"
+  "4Gurds": "Four Gurds"
+  "Naypyidaw": "Nay-pew-dah"
+  "Karenni": "Kah-ren-nee"
+  "Daivika": "Dye-vee-kah"
+  "Hawker-Siddley": "Hawker Sid-lee"
 
   # Venn & Circle
   "Lyra": "Lie-rah"
@@ -289,6 +295,9 @@ patterns:
     replace: 'mended tare'
   - match: '\bscreen read closed\b'
     replace: 'screen red closed'
+  - phase: pre
+    match: '\b(always|already|never)\s+read\b'
+    replace: '\1 red'
   - match: '\bBus is live\b'
     replace: 'Bus is lyve'
   - phase: pre

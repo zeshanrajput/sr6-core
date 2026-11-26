@@ -169,10 +169,12 @@ When created as a PC, all characters will have the following:
 * **Name & Philosophy:**
   * Took her name from Mediterranean dynastic history (Cleopatra), captivated by how historical leaders traded debt, power, appetite, and diplomacy to prevent empires from collapsing.
   * Rejects corporate monopolies (DocWagon, Shiawase) and predatory black-market cuts, seeking fair, mutual street-level arbitrage.
-* **Operational Footprint (`28 Renice`):**
+* **Operational Footprint (`28 Renice`, `40 lsof`):**
   * Intercepted external exchange tickets on Floor 281 within twenty minutes of establishing the Seattle external handshake.
   * Negotiated a recurring commercial distribution agreement with a brokerage supplying three Redmond Barrens street clinics, replacing lethal corporate-adulterated opioids with pure analgesic.
-  * Structured the transaction so higher product purity yielded a twelve-percent margin increase, funding Floor 281's power consumption and operational overhead through the winter.
+  * Structured the transaction so higher product purity yielded a twelve-percent margin increase, funding Floor 281's power consumption and operational overhead through the winter—and subsequently funding **all five second-generation physical drone hulls debt-free** via a modest profit-share (`40 lsof`).
+  * Reconciled Karenni supply ledgers and purged Daivika's Invae siphoning channels on Sanda's bare Burmese jungle host (`CMP 2083-08` / `40 lsof`), earning retention as Sanda's remote financial assistant.
+  * Secured an **Apprentice Fixer** internship under **Aunt Brynne**, selected an **Evo Orderly** as her first physical shell (*"something reasonable while I decide what I want to wear"*), released the Mississippi kill-switch she carried since `33 Code Freeze`, and booked Reiko to install her **Synthetic Skill Driver** codemod in Seattle (`40 lsof`).
 * **Kinship Dynamics:** Sharp-witted, pragmatic, playfully irreverent, and fiercely loyal. Mentored in social manipulation and human behavioral registers directly by Taz and Reiko.
 * **Mechanical Statblock (Rating 8 Modular Sprite):**
   * **Attributes:** Attack 9 ($L+1$), Sleaze 10 ($L+2$), Data Processing 9 ($L+1$), Firewall 10 ($L+2$). Matrix Init 17 + 4D6, RES 8.

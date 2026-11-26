@@ -74,12 +74,12 @@ arc_chronology:
     mechanical_state: "Resonance 9 / Submersion 9; Sprite Link, innate Technoshaman Hybrid Sprites, & Echo: Syntax Error; Dissonant Technomancer (Control / Apophenian); shared circuit Fading absorption; vector thrust refit"
 
   arc_5_the_healer_apotheosis:
-    chapters: "38 – 39"
-    narrative_state: "Post-SRM 2081-04 (Snohomish subterranean vampire cavern); curing self-exile at the Glade border with Aisling & Étaín (38 chroot); transmuting Gold Math and Martyrdom into Clinical Composure & Chiyo's Filter during Ouro's Skill Driver surgery while mounting the left cyberarm & wrist shield (39 modprobe)"
+    chapters: "38 – 40"
+    narrative_state: "Post-SRM 2081-04 & CMP 2083-08 (Burma / Darkest Jungle); curing self-exile at the Glade border with Aisling & Étaín (38 chroot); transmuting Gold Math and Martyrdom into Clinical Composure & Chiyo's Filter during Ouro's Skill Driver surgery (39 modprobe); reframing the left-wrist dead pixel from parasitic hive to frontier triage ward with Cleo, releasing Cleo's Mississippi kill-switch, and lifting the brood's hardware mortgage via 4Gurds profits (40 lsof)"
     expressivity: "Grounded maternal candor, earned vulnerability with digital kin, surgical steadiness without dissociation"
-    cognitive_bias: "Moving from solitary jailer/martyr toward clinical healer; recognizing Dissonant subtraction as the scalpel that permanently un-knows abominations and vents necrotic slag rather than absorbing it"
-    visual_palette: "Sapphire moss, weeping fractal willows, point-zero slate, grease-and-solvent Redmond bay concrete, brass calipers, amber skill drivers, matte-black carbon-ceramic panels"
-    mechanical_state: "Resonance 9 / Submersion 9; Dissonance Diffusion & Dissonance Spike; Left Synthetic Cyberarm + Wrist Shield + Utility Kit + Sensor Dazzler; Twins selecting Shiawase Man-at-Arms hulls; Ouro operating with Synthetic Skill Driver"
+    cognitive_bias: "Moving from solitary jailer/martyr toward clinical healer; recognizing Dissonant subtraction as the scalpel that permanently un-knows abominations and vents necrotic slag rather than absorbing it; accepting occupational wear (first Naypyidaw core notch) while trusting sovereign children to walk ahead"
+    visual_palette: "Sapphire moss, weeping fractal willows, point-zero slate, grease-and-solvent Redmond bay concrete, brass calipers, amber skill drivers, matte-black carbon-ceramic panels, Oracle armillary sphere copper-and-ochre models"
+    mechanical_state: "Resonance 9 / Submersion 9; Dissonance Diffusion, Dissonance Spike, & Dissonance Stigma (Dead Pixel Erosion active: 9d6, Gear 1 [1/2 sessions]); Left Synthetic Cyberarm + Wrist Shield + Utility Kit + Sensor Dazzler; 2× Armed Hawker-Siddley Bats; 9/9 Registered Sprites; all five 2nd-gen physical bodies funded via 4Gurds profits (Cleo Evo Orderly + Brynne Apprentice Fixer internship)"
 ```
 
 ---
@@ -133,6 +133,7 @@ chapter_tiers:
       - "34 Latency (358-MPH Vector Overhaul, Capacitor Stencils & Ouro's Codemod Mirror)"
       - "36 chown (The Awakening of Lian — Bangkok Extraction & Caregiver Handshake)"
       - "39 modprobe (The Codesmith's Hand — Ouro's Skill Driver, Clinical Composure & Chiyo's Filter)"
+      - "40 lsof (Market Equilibrium — Cleo, The Open Port & Economic Sovereignty)"
 
   tier_3_atmospheric_bridges:
     passing_threshold: "8.0 / 10"

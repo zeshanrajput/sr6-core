@@ -378,6 +378,10 @@ This index compiles active and archived reference artwork for Reiko (`r31-K0` / 
   * **File:** [`r31k0 - modprobe.webp`](../images/r31k0%20-%20modprobe.webp)
   * **Operational Mode:** Domain 6 Physical-vs-AR Surgery / Redmond Rigger Garage (`39 modprobe`)
   * **Description:** Reiko's translucent AR *Avatar of Apophenian* form braced by solar-gold forearm jigs, parting Ouro's emerald living spark with her silver-rimmed nightshade scalpel to vent necrotic slag while weaving indigo sutures around the amber Skill Driver above the powered-down Shiawase Butler (`Realistic Features 1`) on the workbench, with Reiko's lifelike `Man-at-Arms` chassis (`Realistic Features 4`, open left forearm) on the lift and the stealth Bat hull beside it.
+* **[Twin Hawker-Siddley Bat Overwatch Squadron (`SRM 2081-04` / `CMP 2083-08`)](../images/r31k0%20-%20hawker%20siddley%20bat.webp)**
+  * **File:** [`r31k0 - hawker siddley bat.webp`](../images/r31k0%20-%20hawker%20siddley%20bat.webp)
+  * **Operational Mode:** Aerial Overwatch / Link-Fired Laser Array (`2×` Armed Hawker-Siddley Bats)
+  * **Description:** Reiko's armed stealth Hawker-Siddley Bat surveillance drone configured with `3×` Small Weapon Mounts and `3×` link-fired Crimson Wasp lasers (primary smartlinked); twin squadron completed post-CMP 2083-08 (`40 lsof`).
 * **[Tabletop Tactical Token: Heroic Token](../images/heroictoken_2026-07-26_14-10-12_002.webp)**
   * **File:** [`heroictoken_2026-07-26_14-10-12_002.webp`](../images/heroictoken_2026-07-26_14-10-12_002.webp)
   * **Operational Mode:** VTT & Tabletop Battlemap Asset

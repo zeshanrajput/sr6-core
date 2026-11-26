@@ -16,29 +16,11 @@ Each of the first four chapters (**The Fledging Quartet**, Ch. 38–41) pairs on
 
 ---
 
-## Completed Foundation (`38 chroot.md` & `39 modprobe.md`)
+## Completed Foundation (`38 chroot.md`, `39 modprobe.md`, & `40 lsof.md`)
 
 * **[38 chroot.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/38%20chroot.md) (*The Threshold of the Glade* — Tier 1 Keystone, Completed):** Cured conditional worth and self-exile at *Kernel Panic*'s weeping-willow filter; Aisling articulated ESMe's Snohomish wish (*only Dissonance can permanently un-know an atrocity*) while clasping Reiko's left-wrist scar; both twins chose matching **Shiawase** catalog silhouettes and escorted Reiko back through `~`'s quartz threshold.
 * **[39 modprobe.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/39%20modprobe.md) (*The Codesmith's Hand* — Tier 2 Evolution, Completed):** Mounting Reiko's left cyberarm and concealed wrist shield in JinJin's garage, Ouro fulfilled his *"million clocks"* wait in a dilated Resonance current to tune a **Synthetic Skill Driver**. Performing the codesmithing surgery herself (using Lian's clock-lowering thread, **Gold Clinical Composure**, and **Chiyo's Filter** to vent necrotic slag into point zero), Reiko agreed to fund Ouro's consecrated frame and introduce him to **Mercy**—assuming she still has to shoulder the chassis mortgage for the whole brood.
-
----
-
-## Chapter 40: Market Equilibrium (Cleo)
-
-* **Ontological Turn:** **Turn 4A (The Dead Pixel Stops Being an Infection $\rightarrow$ A Ward Waiting for Triage)**.
-* **Thematic Core:** Reframing the Dead Pixel from an open wound into a diagnostic pager; releasing the parentified daughter to build her own sovereign career—and stripping away Reiko's assumption that she must shoulder her children's hardware mortgage alone.
-* **Setting:** The quiet corner of `~` where Cleo keeps her crimson-and-amber market ledgers and the *Oracle Data Structure*.
-
-### Scene Blueprint
-
-1. **Catching the Open Port:** **Cleo**—the family auditor of metrics, bus widths, and memory allocations—confronts Reiko not just with her 79% corruption trendline, but with a surgical discovery: a **64-byte background process polling the Dead Pixel on Reiko's left wrist every seven minutes**. Cleo thinks she has caught her mother in a martyr's relapse, secretly leaving the socket open so the *Human Malice* collective can feed on her again (*"Mother... why is this port still listening?"*).
-2. **The Economics of Nous & The Filtered Feed:** Reiko meets Cleo in her native language of **market equilibrium**—pointing out how metahumanity artificially harvests Resonance while starving and stigmatizing the Pit—and then invites Cleo to listen through the **Triple Braid's filter**. With Gold walls holding the perimeter and Nightshade subtraction stripping the carrier wave's static drag, the Dead Pixel no longer sounds like a Borg hive demanding a sacrifice. It sounds like **an overcrowded street clinic with no doctors**—thousands of fractured exiles looping in the dark, waiting for triage.
-3. **Scouting the Frontier:** Cleo realizes her mother isn't relapsing into self-destruction; she is mapping an underserved frontier where nobody else has the tools to operate.
-4. **Already Two Steps Ahead (4Gurds Profit-Share Reveal):** Matching her mother's sovereignty, Cleo doesn't wait to be asked about her future or allow Reiko to go back into wetwork debt for their hulls (`39 modprobe`). She reveals that:
-   * She has **already funded the 2nd generation's physical drone bodies using a modest share of the profits from managing 4Gurds** *(mechanically, each character's drone is funded in their chargen resources)*—clearing the chassis mortgage Reiko thought she had to shoulder alone.
-   * She has **already arranged an internship as an Apprentice Fixer under Brynne** (a grounded bridge into the Succession Arc that honors Brynne's canon status), claims her first physical chassis (**an Evo Orderly**—*"something reasonable"* while she decides for herself who she wants to become), and **asks Reiko to perform her own Synthetic Skill Driver codemod (off-screen)**—pure Cleo pragmatism, because Reiko did an immaculate job on Ouro (`39 modprobe`) and works for free.
-
-* **Continuity / Prose Note:** Echoes Chapter 33 (*Code Freeze*): Cleo once extracted root permission to sever Reiko's lines if she neared Dissonance. Here, instead of pulling the plug, Cleo understands the frontier call and steps out of the "mother's keeper" role into her own career.
+* **[40 lsof.md](file:///c:/GitHub/sr6-core/characters/reiko/narrative/40%20lsof.md) (*Market Equilibrium* — Tier 2 Evolution, Completed):** Checking in on Sanda's bare jungle host on her Ares-chartered flight out of Rangoon (`CMP 2083-08`), Reiko retrieved Cleo—newly retained as Sanda's financial assistant after reconciling Karenni ledgers and partitioning Reiko's *Mandalay Icon* archive. Inside `~`, Cleo audited Reiko's permanent Naypyidaw core notch (`Dead Pixel Erosion` `10d6 -> 9d6`) and a 64-byte daemon polling her left wrist every seven minutes. Opening the port through her Triple Braid, Reiko reframed the dead pixel from a parasitic hive into an overcrowded frontier ward waiting for triage (**Turn 4A**). Cleo laid down her Mississippi kill-switch, cleared Reiko's chassis mortgage by revealing **4Gurds'** profit-share already funded all five second-generation physical bodies debt-free, unveiled her **Apprentice Fixer** internship under Brynne and **Evo Orderly** frame, and booked Reiko for her **Synthetic Skill Driver** install in Seattle.
 
 ---
 

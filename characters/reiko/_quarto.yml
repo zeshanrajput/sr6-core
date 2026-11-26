@@ -69,6 +69,7 @@ book:
         - narrative/37 dev-null.md
         - narrative/38 chroot.md
         - narrative/39 modprobe.md
+        - narrative/40 lsof.md
     - part: "Inter-Session Interludes"
       chapters:
         - narrative/I01.md
