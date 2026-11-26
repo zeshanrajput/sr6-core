@@ -1210,7 +1210,7 @@ contacts:
     is_canonical: false
     connection: 3
     loyalty: 2
-    favors: 0
+    favors: 1
     type: Rookie Journalist
     region: HK
     types:
@@ -1223,6 +1223,7 @@ contacts:
     - 'CMP.2083.05 (Met: C3 L0, +3 FP)'
     - Auto-Promoted to Loyalty 1 (-1 FP)
     - Auto-Promoted to Loyalty 2 (-2 FP)
+    - CMP.2083.08 (+1 FP)
   Aloysius Springinsguth:
     name: Aloysius Springinsguth
     canonical_name: Aloysius Springinsguth
@@ -1741,13 +1742,13 @@ reputation:
   Mercenary: 3
   NOLA: 11
   UNL: 2
-  Southeast Asia: 2
+  Southeast Asia: 4
   DW: 2
   Kozlowski Family: 2
   SEA: 7
   Aurelian: 1
   Epoch: -1
-total_reputation: 44
+total_reputation: 46
 drones:
 - name: MCT Gnat
   ref: mctgnat

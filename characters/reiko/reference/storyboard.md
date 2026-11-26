@@ -203,7 +203,7 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
     * *The Tabletop Sword of Damocles:* Every time Reiko activates a Dissonant ability at the physical table, she rolls Composure (`Dead Pixel Erosion`, currently **9d6**, Gear 1 [1/2 sessions]). A Glitch ends her shadowrunner career on the spot—pivoting cleanly into her calling.
     * *The Lucifer Morningstar (Healer) Apotheosis:* Having cured self-exile at the Glade ([Ch 38][ch-38]), transmuted Gold dissociation and Martyrdom into **Clinical Composure** and **Chiyo's Filter** ([Ch 39][ch-39]), and reframed the left-wrist dead pixel into a frontier triage ward with Cleo ([Ch 40][ch-40]), Reiko does not fall as a tragic jailer. Adapting **Living Host** (*NV* 51) into a Rating 10 sovereign clinic within **Human Malice**, she opens an unhidden frontier practice as *Pontifex of Human Malice* *(working title)*—feared by the outside world, yet built to triage fractured exiles neither `01` nor pure Dissonance can treat.
     * *The Succession Arc:* Her grown, physically anchored children (**Ouro, Cleo, Percy, Aisling, Étaín**—all five hulls now funded via **4Gurds'** profits in [Ch 40][ch-40]) peacefully inherit root access to `~` and the Oracle data structure (`Commencement`), crossing an ocean later not to rescue a self-destructive martyr, but to visit her frontier clinic and engineer the two-way bridge home.
-  * *Campaign Pacing Projection:* With `9` Karma banked post-CMP 2083-08, `57` Karma remains toward the `66`-Karma Submersion 10 / Resonance 10 horizon while her remaining narrative arc (`40+outlines.md`) locks in **Percy** (Ch. 41) and **Indomitable Will & Belle** (Ch. 42).
+  * *Campaign Pacing Projection:* With `9` Karma banked post-CMP 2083-08, `57` Karma remains toward the `66`-Karma Submersion 10 / Resonance 10 horizon while her remaining narrative arc (`41+ outlines.md`) locks in **Percy** (Ch. 41) and **Indomitable Will & Belle** (Ch. 42).
 * **Data Structure Attunement:** Strictly respects single-slot attunement rule (*per the SRM Guide*); Reiko can only use one structure at a time.
   * Resonance Focus: Built into Reiko's Man-At-Arms drone-body. What she uses 99.9% of the time.
   * Oracle: Built into `~`. Reiko can use this by leaving her Man-At-Arms body and returning to `~`. Her children can also use this on her behalf (and will ultimately receive its root keys at Submersion 10).
@@ -212,7 +212,7 @@ To protect living campaign integrity while maintaining sovereign narrative agenc
 
 ## VII. Post-Session Story Queue (Immediate Candidates)
 
-*(Upcoming **Chapters 41–42 & Endgame** blueprints are staged in `narrative/40+outlines.md`.)*
+*(Upcoming **Chapters 41–42 & Endgame** blueprints are staged in `narrative/41+ outlines.md`.)*
 
 1. **Future Thread — *"The Thirteenth Dose (The Biolink & The Glass Tiger)"*:**
 

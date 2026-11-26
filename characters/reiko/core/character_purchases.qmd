@@ -92,6 +92,7 @@ assign("Lifetime_Nuyen", 90000)
   * Mapsoft: Burma / Rangoon & Irrawaddy Delta *(Provided by Foreign Ministry, CMP 2083-07)* `{python} knowledge_skill('Mapsoft: Burma / Rangoon & Irrawaddy Delta', notes='CRB p. 271: Official regional navigation database provided by Burmese Foreign Ministry, CMP 2083-07')`
   * Linguasoft: Burmese (Rating 3) `{python} language('Burmese', rating=3, notes='Linguasoft: Provided by Burmese Foreign Ministry, CMP 2083-07')`
   * **Coding Facility** `{python} inc_many(('Nuyen',-5000),('Karma',-1))`
+  * **Leviathan Executive Data Terminal (DR 5)** *(CMP 2083-08 Mission Loot: Device Rating 5, D/F 3/2, Programs 2, Security 2; Hack & Slash p. 52)*
 * Data Structures & Resonance Constructs
   * **Oracle (Rating 4)** `{python} inc_many(('Nuyen', -20000), ('Karma', -4))` `{python} modifier("Data Structure: Oracle (Rating 4)", "matrix_search", 4, type="focus", enabled=False, rule_anchor="rules_matrix.html#data-structures", notes="Dormant in Host (~) while Resonance Focus R4 is active (per SRM single Data Structure limit for EIs). Grants +4 dice on Matrix Perception and Matrix Search tests when active.")`
     * *Integration:* Incorporated into the physical optical cluster substrate and foundation brick of Reiko's home host, `~` (aboard the Federated-Boeing Sky Commander). Under *SRMG v2.4*, an Emergent Intelligence residing in the host device can actively bond and use one data structure as a focus.
